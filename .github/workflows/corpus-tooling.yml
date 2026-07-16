@@ -19,3 +19,5 @@ jobs:
       - run: cargo test --workspace
       - name: Prologue association and compact-output fixtures
         run: cargo test -p slatec-tools prologues::tests
+      - name: Full-corpus audit fixtures
+        run: cargo test -p slatec-tools full_corpus::tests

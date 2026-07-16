@@ -6,6 +6,7 @@ pub mod diagnostics;
 pub mod error;
 pub mod extract;
 pub mod fixed_form;
+pub mod full_corpus;
 pub mod hash;
 pub mod manifest;
 pub mod policy;

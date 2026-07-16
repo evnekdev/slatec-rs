@@ -17,6 +17,17 @@ The primary `slatec-rs` source baseline is the exact maintained Netlib archive r
 
 This is a checksum-pinned **maintained Netlib snapshot**, not an assertion that the bytes are the untouched July 1993 Version 4.1 release. Its `changes` member records post-4.1 corrections in 1994, 1999, and 2023. The checksum and retrieval record therefore define the baseline more precisely than the historical version label.
 
+## Scope correction: `main-src` is not the complete library
+
+The selected 735 `src/*.f` files are the reproducible **`main-src` subset**
+under this policy. They are not a claim that the subset constitutes every
+historical SLATEC routine. The separate full-corpus completeness audit records
+the live relocated SLATEC directories, catalogue comparisons, and provider
+relationships without changing this policy's archive hash, snapshot identity,
+or selected providers. A future complete selected collection requires an
+explicit provider-resolution policy; standalone upstream packages remain
+comparison-only.
+
 ## Corpus layers
 
 The project must keep five physically and logically separate layers.

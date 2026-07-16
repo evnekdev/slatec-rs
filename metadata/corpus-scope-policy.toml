@@ -1,0 +1,30 @@
+schema_version = 1
+policy_version = 1
+
+[[scope]]
+id = "main-src"
+selection = "checksum-pinned slatec_src.tgz src/*.f"
+provider_state = "reproducible-subset"
+selection_authority = "canonical-corpus-policy-v1"
+notes = "735 selected source files and program units. This is not asserted to be the complete SLATEC collection."
+
+[[scope]]
+id = "relocated-slatec-subsets"
+selection = "live slatec/src, slatec/lin, slatec/fishfft, slatec/fnlib, and slatec/pchip"
+provider_state = "comparison-and-completeness-evidence"
+selection_authority = "full-corpus-audit-policy-v1"
+notes = "Fetched and compared only by an explicit audit. These locations do not replace main-src providers."
+
+[[scope]]
+id = "complete-selected-slatec-collection"
+selection = "explicit future provider-resolution profile over audited SLATEC-hosted sources"
+provider_state = "not-yet-selected"
+selection_authority = "future policy update required"
+notes = "Must retain relationship classifications and unresolved conflicts."
+
+[[scope]]
+id = "independent-upstream-comparison-packages"
+selection = "standalone BLAS, LINPACK, EISPACK, FFTPACK, FISHPACK, FN, PCHIP, and SLAP"
+provider_state = "comparison-only"
+selection_authority = "separate acquisition decision"
+notes = "Never substituted automatically for SLATEC-hosted copies."

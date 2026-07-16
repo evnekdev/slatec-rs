@@ -39,7 +39,7 @@ ambiguities = "No change history."
 
 [[artifacts]]
 id = "slatec-source-archive"
-title = "Complete SLATEC source archive"
+title = "Pinned SLATEC source archive (main-src candidate)"
 url = "https://www.netlib.org/slatec/slatec_src.tgz"
 host = "Netlib / SLATEC"
 artifact_type = "source-archive"

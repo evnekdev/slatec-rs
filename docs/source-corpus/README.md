@@ -7,6 +7,8 @@ This directory contains the E01 candidate-artifact inventory for the source-corp
 - [`candidate-artifacts.md`](candidate-artifacts.md) — human-readable artifact register.
 - [`artifact-relationships.md`](artifact-relationships.md) — provisional duplicate, relocation, upstream, documentation, generated and machine-specific relationships.
 - [`retrieval-backlog.md`](retrieval-backlog.md) — explicit acquisition, checksum and reconciliation work for later tasks.
+- [`corpus-completeness-audit-policy.md`](corpus-completeness-audit-policy.md) — scope boundary between the reproducible `main-src` subset and a future complete selected collection.
+- [`full-corpus-audit-results.md`](full-corpus-audit-results.md) — compact measured explanation of the 735-unit `main-src` subset versus the 1,491-identity SLATEC-hosted union.
 - [`../../metadata/candidate-artifacts.toml`](../../metadata/candidate-artifacts.toml) — valid TOML representation using stable project IDs.
 
 ## Status semantics

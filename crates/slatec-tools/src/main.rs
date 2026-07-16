@@ -2,6 +2,7 @@ use slatec_tools::acquire;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::error::{CorpusError, Result};
 use slatec_tools::extract;
+use slatec_tools::full_corpus;
 use slatec_tools::manifest;
 use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
@@ -42,6 +43,11 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/prologues-analysis");
+    }
+    if options.command == "audit-full-corpus"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/full-corpus");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -160,8 +166,22 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "audit-full-corpus" => {
+            let result = full_corpus::audit(
+                &options.evidence_dir,
+                &options.manifest_dir,
+                &options.program_unit_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, or analyze-prologues",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, or audit-full-corpus",
             options.command
         ))),
     }
@@ -222,5 +242,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--output-dir PATH] [--offline]"
 }
