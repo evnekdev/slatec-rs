@@ -1,115 +1,64 @@
 # Source reconciliation method
 
 **Task:** E02 — archive, live-tree and relocated-subset reconciliation  
-**Investigation date:** 2026-07-16  
+**Evidence run:** 2026-07-16  
 **Canonical corpus selected:** no
 
 ## Evidence boundary
 
-This task compares all overlapping source sets registered by E01. It does not select a duplicate provider. Netlib's live indexes and selected individual source files were inspectable, but binary archive retrieval was unavailable in the execution container because `www.netlib.org` could not be resolved there. Consequently, no archive checksum, byte-identity claim, archive-member inventory, or archive-to-live diff is reported.
+This revision replaces the earlier archive-unavailable E02 report. The four Netlib archives supplied by the repository owner were inspected locally as unmodified inputs. Their bytes were hashed before extraction. Live Netlib directory bytes and standalone upstream package archives were not supplied, so archive-to-live and archive-to-upstream identity remains unresolved except where direct archive evidence narrows the relationship.
 
-Relationship statuses have the following meaning:
+## Inputs and measured identities
 
-- `verified-identical`: raw bytes were compared and matched. No relationship reached this status in this pass.
-- `verified-different`: inspected primary evidence proves that two artifacts differ in relevant content or role.
-- `likely-identical`: strong direct evidence suggests identity, but raw bytes were not compared.
-- `possible-duplicate`: names or distribution descriptions overlap, but identity is not established.
-- `alternate-implementation`: artifacts intentionally provide site-, platform-, precision-, or package-specific alternatives.
-- `unresolved`: evidence is insufficient for a narrower classification.
+| Artifact ID | File | Bytes | SHA-256 | Regular files |
+|---|---|---:|---|---:|
+| `slatec-source-archive` | `slatec_src.tgz` | 1,768,291 | `4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc` | 741 |
+| `slatec-linux-archive` | `slatec4linux.tgz` | 27,754 | `eef9234f8fcb49e7f4905a11eda8f453ec2ca314029a9ce303fdbc99cff42bf3` | 8 |
+| `slatec-quick-check-archive` | `slatec_chk.tgz` | 324,049 | `a095f74665e165fa1a4bd3f9ab6a4573135e21b1d002c05607eb9394e1c0f2ca` | 406 |
+| `slatec-browser-archive` | `slatecm.tgz` | 26,014 | `1bcaf724d92b50ea2a88604f714e61b1117e007fffc8b6476720aad3132d2b1c` | 16 |
 
-## Required reproducible local procedure
+The source archive's measured compressed size differs from the size previously transcribed from the mutable Netlib index. This is recorded as evidence that the download endpoint is not safely characterized by the 1993 release label alone; the archive contains a `changes` file with corrections dated 1994, 1999, and 2023.
 
-### 1. Acquisition
+## Reproducible procedure
 
-For each immutable download, save:
+1. Compute SHA-256 over each original archive before extraction.
+2. List members with `tar -tzf` and reject absolute paths, `..` traversal, escaping links, devices, or other unsafe members.
+3. Extract each archive into a separate source-set-qualified directory.
+4. For every regular file calculate raw SHA-256, line-ending-normalized SHA-256, and fixed-form-normalized SHA-256.
+5. For fixed-form Fortran, identify `PROGRAM`, `SUBROUTINE`, typed or untyped `FUNCTION`, `BLOCK DATA`, and `ENTRY` declarations. Record every unit with file and line.
+6. Compare candidates by exact path, case-folded path, primary program-unit name, and manually reviewed rename evidence.
+7. Classify differences as raw-identical, line-ending/whitespace-only, comment/prologue-only, declaration-only, machine configuration, error adaptation, precision conversion, executable-code change, split/combined/renamed unit, or unrelated.
+8. Preserve every provider. Never overwrite a same-named unit merely because one source set appears newer.
 
-- requested and final URL;
-- UTC retrieval timestamp;
-- HTTP status, redirects, content type and byte length;
-- unmodified response bytes;
-- SHA-256 checksum.
+## Parser and validation scope
 
-Primary downloads are `slatec_src.tgz`, `slatec_chk.tgz`, `slatec4linux.tgz`, `slatecm.tgz`, SLAP archives, and any upstream package archives used for comparison.
+The inventory run used a deterministic fixed-form declaration scanner over columns 7–72. It is sufficient to count ordinary one-unit-per-file SLATEC sources and detect duplicate declared names in these archives. It is not yet a full Fortran parser and must not be used to prove semantic equivalence, resolve preprocessor branches, or classify comment-only differences without review.
 
-For live Netlib directories, preserve the index response and retrieve every advertised file. Record per-file SHA-256 and the index retrieval timestamp.
+Measured source-archive results:
 
-### 2. Safe extraction and path normalization
+- 741 regular files under `src/`;
+- 735 `.f` files;
+- 735 detected program-unit occurrences and 735 unique program-unit names;
+- no duplicate declared unit names within this archive;
+- no case-folded filename collisions;
+- no detected multi-unit `.f` files;
+- six non-`.f` members: `.depend`, `MD5`, `changes`, `index`, `index.html`, and `sgeir.f.0`.
 
-Reject archive members with absolute paths, `..` traversal, device files or links escaping the extraction root. Preserve original member names. Create a comparison key by replacing backslashes with `/`, removing a leading `./`, and applying ASCII lowercase only in a separate `casefold_path` field.
+Measured quick-check results:
 
-### 3. File-level hashes
+- 406 regular files, all fixed-form `.f`;
+- 54 numbered drivers, `test01.f` through `test54.f`;
+- 406 detected program units with no duplicate declared names within the archive.
 
-For every regular file calculate:
+## Status vocabulary
 
-1. raw SHA-256;
-2. text-normalized SHA-256 after CRLF/CR to LF only;
-3. fixed-form Fortran normalized SHA-256 after line-ending normalization and removal of trailing horizontal whitespace;
-4. executable-token SHA-256 after parsing Fortran and excluding comments and prologue text.
+- `verified-identical`: compared bytes matched.
+- `verified-different`: compared bytes or inspected content differed.
+- `likely-identical`: strong direct evidence, but bytes were not compared.
+- `possible-duplicate`: provider/name overlap without identity proof.
+- `alternate-implementation`: intentional platform, machine, precision, or provider alternative.
+- `unresolved`: insufficient evidence.
 
-Do not use normalization hashes as substitutes for preserving raw bytes.
+## Remaining evidence limitations
 
-### 4. Program-unit extraction
-
-Parse fixed-form Fortran into program units and record:
-
-- kind: `PROGRAM`, `SUBROUTINE`, `FUNCTION`, `BLOCK DATA`, or alternate `ENTRY`;
-- declared name and casefolded name;
-- file, starting and ending line;
-- argument list;
-- all additional program units in the same file;
-- revision-history markers and `*DECK`/prologue identity;
-- `COMMON`, `SAVE`, `DATA`, `EXTERNAL`, and `ENTRY` declarations.
-
-A file-name match is not sufficient evidence of program-unit identity.
-
-### 5. Difference classification
-
-Classify each non-identical pair in this order:
-
-- line-ending or trailing-whitespace only;
-- comments only;
-- prologue/documentation only;
-- declaration-only;
-- machine-constant selection;
-- error-system adaptation;
-- precision conversion;
-- executable-code change;
-- renamed or split/combined program units;
-- unrelated same-name file.
-
-Store a unified diff and a machine-readable summary. Never collapse conflicting providers by last-write-wins.
-
-### 6. Pairing strategy
-
-Pair in descending confidence:
-
-1. identical relative path;
-2. case-insensitive path match;
-3. same primary program-unit name;
-4. matching `*DECK` name;
-5. same routine name advertised by Netlib indexes;
-6. manually reviewed suspected rename.
-
-### 7. Minimum validation commands
-
-A local implementation should produce deterministic output equivalent to:
-
-```text
-sha256sum <download>
-tar -tzf <archive>
-tar -xzf <archive> --directory <safe-root>
-```
-
-The comparison tool must record its version and configuration. A Fortran-aware parser is required before making comment-only or executable-code-only claims.
-
-## Evidence obtained in this pass
-
-The Netlib root index directly states that `lin`, `fishfft`, `fnlib`, and `pchip` were removed from `slatec/src`; this verifies relocation as a distribution-organization fact, not byte identity. It also states that `/fn` is another version and that Netlib did not know which copy was newer or more correct.
-
-The root index identifies five machine-specific program units in the source distribution: `D1MACH`, `I1MACH`, `R1MACH`, `FDUMP`, and `XERHLT`. The first three require site-specific constant selection; the latter two are site-replaceable error/traceback hooks. These are alternate implementations or configurations by design.
-
-Selected source inspection confirmed SLATEC-specific prologue and error-system integration in `slatec/pchip/pchim.f` and `slatec/fnlib/besi0.f`, including `*DECK`, `C***LIBRARY SLATEC`, revision histories, and calls to `XERMSG`. This is evidence that comparisons with upstream copies must distinguish prologue/error adaptation from numerical executable changes.
-
-## Limitations
-
-No archive bytes were obtained, so all archive relationships remain `unresolved` or `possible-duplicate`. No raw, normalized, or executable-token checksum is reported. Selected source observations are examples and do not establish family-wide identity or difference.
+No complete live-directory snapshot was available for `src`, `lin`, `fishfft`, `fnlib`, `pchip`, `chk`, or `err`. No standalone upstream package archive was available. Therefore no source-archive member is claimed byte-identical to a live or upstream file in this revision.

@@ -1,46 +1,52 @@
 # Main archive versus live Netlib trees
 
-## Result
+## Measured archive inventory
 
-The main archive-to-live comparison remains **unresolved** because `slatec_src.tgz` could not be downloaded in the execution container. The Netlib index advertises the archive as the complete SLATEC source and separately says that individual routines can be retrieved from `src/`. The same index states that four subsets were removed from `src/` to `lin/`, `fishfft/`, `fnlib/`, and `pchip/`.
+`slatec_src.tgz` was successfully downloaded and inspected.
 
-This proves that the present live `src/` directory is not, by itself, the full browsable distribution surface. It does not prove whether the archive contains byte-identical copies of every relocated file.
+- SHA-256: `4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc`
+- compressed bytes: 1,768,291
+- archive members: 742
+- regular files: 741
+- top-level directory: `src/`
+- Fortran files: 735
+- detected unique program-unit names: 735
+- duplicate declared names within the archive: none detected
 
-## Recorded relationships
+The archive is not a frozen untouched 1993 payload. Its `changes` member records:
 
-| Left artifact | Right artifact | Status | Evidence | Required local comparison |
+- an `rd.f` comment correction dated 16 July 1994;
+- an executable conditional correction to `sgeir.f` dated 18 November 1999, with `sgeir.f.0` retained as another member;
+- coefficient corrections to `dqk15w.f` and `qk15w.f` dated 14 November 2023.
+
+This directly establishes that the current download is a maintained Netlib snapshot containing post-4.1 corrections. It must be identified by checksum and retrieval date rather than by “Version 4.1” alone.
+
+## Archive versus live directory
+
+| Left | Right | Status | Evidence | Missing comparison |
 |---|---|---|---|---|
-| `slatec-source-archive` | `slatec-source-directory` | `unresolved` | Both are advertised as source distribution forms; live `src/` excludes relocated groups. | Archive member inventory against all live `src/` files by raw and normalized hashes. |
-| `slatec-source-archive` | `slatec-lin-directory` | `possible-duplicate` | `lin/` is explicitly a subset removed from `src/`; archive is advertised as complete. | Match archive paths/program units to every `lin/` file. |
-| `slatec-source-archive` | `slatec-fishfft-directory` | `possible-duplicate` | Same distribution statement. | Match all FISHPACK/FFTPACK files and support units. |
-| `slatec-source-archive` | `slatec-fnlib-directory` | `possible-duplicate` | Same distribution statement. | Match all FNLIB files; include `spfun` and `/fn` comparisons separately. |
-| `slatec-source-archive` | `slatec-pchip-directory` | `possible-duplicate` | Same distribution statement. | Match all PCHIP files and program units. |
-| `slatec-quick-check-archive` | `slatec-quick-check-directory` | `possible-duplicate` | Archive and directory are both advertised as quick checks; directory is described as 54 drivers. | Compare archive members with `test01.f` through `test54.f` and support files. |
-| `slatec-linux-archive` | `slatec-source-archive` | `alternate-implementation` | Root index separately advertises “SLATEC for linux”. Contents were not obtained. | Full archive diff classified as build, machine constants, error hooks, source patches, tests, or docs. |
-| `slatec-browser-archive` | numerical source artifacts | `verified-different` | Root index describes it as an experimental browser for libraries using SLATEC prologues. | No numerical-provider comparison; inspect only for parser/tooling evidence. |
+| `slatec-source-archive` | `slatec-source-directory` | `unresolved` | Archive bytes and complete member inventory now exist; Netlib describes `src/` as the live per-file surface. | Download every live file and compare raw and normalized hashes. |
+| `slatec-source-archive` | `slatec-lin-directory` | `possible-duplicate` | Archive contains many BLAS, LINPACK, EISPACK, and SLAP-named units; Netlib says the subset was relocated from `src/`. | Complete `lin/` snapshot and unit pairing. |
+| `slatec-source-archive` | `slatec-fishfft-directory` | `possible-duplicate` | Archive contains FISHPACK/FFTPACK-named units; distribution relocation is documented. | Complete `fishfft/` snapshot and hashes. |
+| `slatec-source-archive` | `slatec-fnlib-directory` | `possible-duplicate` | Archive contains FNLIB-style special-function units and post-release changes. | Complete `fnlib/` snapshot, `/fn` snapshot, and semantic diff. |
+| `slatec-source-archive` | `slatec-pchip-directory` | `possible-duplicate` | Archive contains PCHIP single- and double-precision units. | Complete `pchip/` and standalone `/pchip` snapshots. |
 
-## Live-tree observations
+## Quick-check archive versus live checks
 
-The current `src/` index exposes individual fixed-form Fortran files and Netlib plus-dependencies links. It contains source families outside the four relocated groups, including Amos-associated special functions, interpolation, differential-equation, optimization, and other routines. Presence in this directory records distribution placement only and must not be converted into package ownership.
+`slatec_chk.tgz` is now verified to contain 406 Fortran files, including exactly 54 numbered drivers from `test01.f` through `test54.f`. Its SHA-256 is `a095f74665e165fa1a4bd3f9ab6a4573135e21b1d002c05607eb9394e1c0f2ca`.
 
-The root index identifies these machine-specific units within the source distribution:
+The relationship with the live `chk/` directory remains `possible-duplicate`: the archive side is fully inventoried, but live files were not downloaded and compared.
 
-| Program unit | Role | Reconciliation status |
-|---|---|---|
-| `D1MACH` | double-precision machine constants | `alternate-implementation` |
-| `I1MACH` | integer machine constants | `alternate-implementation` |
-| `R1MACH` | single-precision machine constants | `alternate-implementation` |
-| `FDUMP` | site traceback hook | `alternate-implementation` |
-| `XERHLT` | fatal-error termination hook | `alternate-implementation` |
+## Linux adaptation
 
-These must be represented as explicit provider/configuration choices. A build must not silently select a commented machine block or replace a site hook.
+`slatec4linux.tgz` is not a full source distribution. Its own readme instructs the user to obtain and extract `slatec_src.tgz` first, then overlay the Linux archive. It contains eight regular files: three replacement machine-constant sources, three makefiles, `makedoc.sed`, and a readme.
 
-## Unresolved archive questions
+All three overlapping Fortran files are `verified-different` from the source archive:
 
-1. Does `slatec_src.tgz` include all four relocated subsets?
-2. Are archive copies byte-identical to current live copies?
-3. Are files absent from both current `src/` and relocated indexes present in the archive?
-4. Does the archive preserve original directory structure or flatten files?
-5. Are multiple program units packed into any archive members that do not correspond one-to-one with live files?
-6. Does the Linux archive contain later fixes or only portability edits?
-7. Does `slatec_chk.tgz` contain exactly the 54 advertised drivers plus support files?
+| Unit | Source archive SHA-256 | Linux SHA-256 | Classification |
+|---|---|---|---|
+| `D1MACH` | `8ef737d5f74cb1bf083d6ee4506429b6d18edb7067c804386f1eec21a3a5d8db` | `3aeb2c0576006564efd462bd0408bde91bebbb9060a7667746538964d8234794` | executable machine-constant adaptation; calls external `DLAMCH` and caches results |
+| `I1MACH` | `f63ea5c0dc7324a3a576ae3640e8a2801e1ba7d2fdad669892ad0f97795f3fba` | `7a9e027ddb98a3a484b980fb9e3f5878684bb36b7723b8475740e016ff4281f6` | executable machine-selection change; IBM-PC constants uncommented |
+| `R1MACH` | `b22dd08760e1c3166805469f1652e42588898872117b3fa6ec7279e6b3cb3478` | `08e611a0a1e238e67acc1eca0eadb310a6a1dc61a4584487448aa927bee2df70` | executable machine-constant adaptation; calls external `SLAMCH` and caches results |
+
+The Linux readme states that linking additionally requires LAPACK because of `SLAMCH`/`DLAMCH`. Therefore this archive changes both source providers and external dependency requirements; it cannot be treated as a harmless build-script wrapper.
