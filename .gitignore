@@ -6,3 +6,6 @@ Cargo.lock
 *.so
 *.dylib
 *.mod
+/evidence/downloads/
+/evidence/extracted/
+/evidence/work/

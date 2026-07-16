@@ -1,0 +1,336 @@
+schema_version = 1
+programme_task = "E02"
+investigation_date = "2026-07-16"
+canonical_selected = false
+
+[status_definitions]
+verified-identical = "Raw bytes were compared and matched."
+verified-different = "Primary evidence proves a relevant difference in content, role, or relationship."
+likely-identical = "Strong evidence suggests identity, but raw bytes were not compared."
+possible-duplicate = "Artifacts overlap by name or distribution description; identity is unproved."
+alternate-implementation = "Artifacts intentionally provide platform, site, precision, or package alternatives."
+unresolved = "Evidence is insufficient for a narrower classification."
+
+[method]
+archive_download_completed = false
+archive_download_failure = "Execution container could not resolve www.netlib.org; no archive bytes were obtained."
+raw_checksums_calculated = false
+normalized_checksums_calculated = false
+program_unit_parser_run = false
+web_indexes_inspected = true
+selected_source_files_inspected = true
+
+[[relationships]]
+id = "REL-001"
+left = "slatec-source-archive"
+right = "slatec-source-directory"
+relationship = "possible-duplicate"
+status = "unresolved"
+evidence = "Netlib advertises the archive as complete source and src as individual routines; current src excludes separately relocated subsets."
+required_action = "Compare archive members with live src plus relocated subsets."
+
+[[relationships]]
+id = "REL-002"
+left = "slatec-source-archive"
+right = "slatec-lin-directory"
+relationship = "possible-duplicate"
+status = "possible-duplicate"
+evidence = "Netlib says lin is a BLAS/LINPACK/EISPACK/SLAP subset removed from src; archive is advertised as complete."
+required_action = "Compare every file and program unit."
+
+[[relationships]]
+id = "REL-003"
+left = "slatec-source-archive"
+right = "slatec-fishfft-directory"
+relationship = "possible-duplicate"
+status = "possible-duplicate"
+evidence = "Netlib says fishfft is a FISHPACK/FFTPACK subset removed from src."
+required_action = "Compare every file and program unit."
+
+[[relationships]]
+id = "REL-004"
+left = "slatec-source-archive"
+right = "slatec-fnlib-directory"
+relationship = "possible-duplicate"
+status = "possible-duplicate"
+evidence = "Netlib says fnlib was removed from src."
+required_action = "Compare archive, fnlib, /fn and spfun."
+
+[[relationships]]
+id = "REL-005"
+left = "slatec-source-archive"
+right = "slatec-pchip-directory"
+relationship = "possible-duplicate"
+status = "possible-duplicate"
+evidence = "Netlib says pchip was removed from src."
+required_action = "Compare archive, relocated pchip and standalone /pchip."
+
+[[relationships]]
+id = "REL-006"
+left = "slatec-lin-directory"
+right = "slatec-source-directory"
+relationship = "relocated-copy"
+status = "verified-different"
+evidence = "Netlib explicitly states that the subset was removed from src; this verifies distribution relocation, not byte difference."
+required_action = "Establish archive paths and byte identity."
+
+[[relationships]]
+id = "REL-007"
+left = "slatec-fishfft-directory"
+right = "slatec-source-directory"
+relationship = "relocated-copy"
+status = "verified-different"
+evidence = "Netlib explicitly states that the subset was removed from src; this verifies distribution relocation, not byte difference."
+required_action = "Establish archive paths and byte identity."
+
+[[relationships]]
+id = "REL-008"
+left = "slatec-fnlib-directory"
+right = "slatec-source-directory"
+relationship = "relocated-copy"
+status = "verified-different"
+evidence = "Netlib explicitly states that the subset was removed from src; this verifies distribution relocation, not byte difference."
+required_action = "Establish archive paths and byte identity."
+
+[[relationships]]
+id = "REL-009"
+left = "slatec-pchip-directory"
+right = "slatec-source-directory"
+relationship = "relocated-copy"
+status = "verified-different"
+evidence = "Netlib explicitly states that the subset was removed from src; this verifies distribution relocation, not byte difference."
+required_action = "Establish archive paths and byte identity."
+
+[[relationships]]
+id = "REL-010"
+left = "slatec-quick-check-archive"
+right = "slatec-quick-check-directory"
+relationship = "possible-duplicate"
+status = "possible-duplicate"
+evidence = "Both are advertised as SLATEC quick checks; live directory is described as 54 drivers."
+required_action = "Compare archive member list and live files."
+
+[[relationships]]
+id = "REL-011"
+left = "slatec-linux-archive"
+right = "slatec-source-archive"
+relationship = "machine-specific-alternative"
+status = "alternate-implementation"
+evidence = "Netlib separately advertises a Linux SLATEC archive."
+required_action = "Classify all archive differences."
+
+[[relationships]]
+id = "REL-012"
+left = "slatec-machine-constants"
+right = "slatec-source-directory"
+relationship = "machine-specific-alternative"
+status = "alternate-implementation"
+evidence = "Netlib identifies D1MACH, I1MACH and R1MACH as machine-specific and requiring target selection."
+required_action = "Inventory all target blocks and selected provider policy."
+
+[[relationships]]
+id = "REL-013"
+left = "slatec-machine-error-hooks"
+right = "slatec-source-directory"
+relationship = "machine-specific-alternative"
+status = "alternate-implementation"
+evidence = "Netlib identifies FDUMP and XERHLT as site-dependent error-handler routines."
+required_action = "Inventory replacements and object symbols."
+
+[[relationships]]
+id = "REL-014"
+left = "slatec-error-legacy-directory"
+right = "slatec-source-directory"
+relationship = "possible-duplicate"
+status = "possible-duplicate"
+evidence = "Netlib describes err as error handling from an old SLATEC version used by other packages."
+required_action = "Compare error symbols, COMMON state and behavior."
+
+[[relationships]]
+id = "REL-015"
+left = "slatec-lin-directory"
+right = "upstream-blas"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names BLAS in lin and points to /blas."
+required_action = "Unit-level source and revision comparison."
+
+[[relationships]]
+id = "REL-016"
+left = "slatec-lin-directory"
+right = "upstream-linpack"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names LINPACK in lin and points to /linpack."
+required_action = "Unit-level source and revision comparison."
+
+[[relationships]]
+id = "REL-017"
+left = "slatec-lin-directory"
+right = "upstream-eispack"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names EISPACK in lin and points to /eispack."
+required_action = "Unit-level source and revision comparison."
+
+[[relationships]]
+id = "REL-018"
+left = "slatec-lin-directory"
+right = "upstream-slap-single"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names SLAP in lin; standalone package advertises a Version 2.0 single-precision archive."
+required_action = "Extract and compare program units."
+
+[[relationships]]
+id = "REL-019"
+left = "slatec-lin-directory"
+right = "upstream-slap-double"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names SLAP in lin; standalone package advertises a Version 2.0 double-precision archive."
+required_action = "Extract and compare program units."
+
+[[relationships]]
+id = "REL-020"
+left = "slatec-fishfft-directory"
+right = "upstream-fishpack"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names FISHPACK and points to /fishpack."
+required_action = "Compare source, support units and changes records."
+
+[[relationships]]
+id = "REL-021"
+left = "slatec-fishfft-directory"
+right = "upstream-fftpack"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib names FFTPACK and points to /fftpack."
+required_action = "Compare original Fortran units and revision markers."
+
+[[relationships]]
+id = "REL-022"
+left = "slatec-fishfft-directory"
+right = "upstream-fftpack-double-clone"
+relationship = "independent-alternative"
+status = "alternate-implementation"
+evidence = "Double-precision clone is separately advertised and is not established as the SLATEC copy."
+required_action = "Preserve as separate precision/provider candidate."
+
+[[relationships]]
+id = "REL-023"
+left = "slatec-fnlib-directory"
+right = "upstream-fn"
+relationship = "unknown"
+status = "unresolved"
+evidence = "Netlib explicitly states that it did not know which version was newer or more bug-free."
+required_action = "Exhaustive file and numerical-coefficient comparison."
+
+[[relationships]]
+id = "REL-024"
+left = "slatec-spfun"
+right = "slatec-fnlib-directory"
+relationship = "unknown"
+status = "unresolved"
+evidence = "Both concern elementary/special functions; contents were not reconciled."
+required_action = "Parse bundled program units and compare names/bodies."
+
+[[relationships]]
+id = "REL-025"
+left = "slatec-spfun"
+right = "upstream-fn"
+relationship = "unknown"
+status = "unresolved"
+evidence = "Potential overlap is uninspected."
+required_action = "Parse and compare all program units."
+
+[[relationships]]
+id = "REL-026"
+left = "slatec-pchip-directory"
+right = "upstream-pchip"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "Netlib says see also /pchip; inspected SLATEC PCHIM shows SLATEC-specific prologue and error integration."
+required_action = "Compare every S/D source and revision history."
+
+[[relationships]]
+id = "REL-027"
+left = "upstream-quadpack"
+right = "slatec-source-archive"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "QUADPACK is a known relevant standalone family; exact SLATEC revision is unresolved."
+required_action = "Map and compare all matching program units."
+
+[[relationships]]
+id = "REL-028"
+left = "upstream-minpack"
+right = "slatec-source-archive"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "MINPACK is a relevant standalone family; SLATEC copies may be adapted."
+required_action = "Map and compare routines, callbacks and support."
+
+[[relationships]]
+id = "REL-029"
+left = "upstream-dassl"
+right = "slatec-source-archive"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "DASSL is a candidate upstream family for SLATEC DAE routines."
+required_action = "Establish exact routine lineage and revision."
+
+[[relationships]]
+id = "REL-030"
+left = "upstream-odepack"
+right = "slatec-source-archive"
+relationship = "related-upstream-family"
+status = "unresolved"
+evidence = "ODE-domain relation is known, but direct incorporation is not established."
+required_action = "Use source and historical evidence, not domain similarity alone."
+
+[[relationships]]
+id = "REL-031"
+left = "upstream-amos"
+right = "slatec-source-directory"
+relationship = "independent-upstream-package"
+status = "possible-duplicate"
+evidence = "The live src index attributes many Bessel/Airy routines to D. E. Amos."
+required_action = "Compare the complete AMOS package to matching SLATEC units."
+
+[[relationships]]
+id = "REL-032"
+left = "slatec-tree1"
+right = "slatec-source-archive"
+relationship = "generated-dependency-product"
+status = "unresolved"
+evidence = "Netlib describes tree1 as directly referenced routines; generator and source snapshot are unknown."
+required_action = "Retrieve, checksum, parse and compare with source calls."
+
+[[relationships]]
+id = "REL-033"
+left = "slatec-tree"
+right = "slatec-tree1"
+relationship = "generated-dependency-product"
+status = "verified-different"
+evidence = "Netlib describes tree1 as direct references and tree as direct or indirect references; their scopes differ."
+required_action = "Preserve both and infer generation rules."
+
+[[relationships]]
+id = "REL-034"
+left = "netlib-plus-dependencies"
+right = "slatec-tree1"
+relationship = "generated-dependency-product"
+status = "unresolved"
+evidence = "Both expose dependency evidence, but CGI snapshot and closure rules are unknown."
+required_action = "Save representative CGI responses and reconcile edge-by-edge."
+
+[[relationships]]
+id = "REL-035"
+left = "slatec-browser-archive"
+right = "slatec-source-archive"
+relationship = "documentation-tooling"
+status = "verified-different"
+evidence = "Netlib describes slatecm.tgz as an experimental browser for libraries using SLATEC prologues."
+required_action = "Inspect only for parser/tooling evidence; do not treat as numerical provider."
