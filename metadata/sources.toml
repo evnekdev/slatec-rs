@@ -1,0 +1,367 @@
+schema_version = 1
+generated_for = "slatec-rs"
+retrieval_date = "2026-07-16"
+
+[authority_tiers]
+"1" = "Canonical distribution, exact source, original project manual, or original publication"
+"2" = "Authoritative institutional context or preservation record"
+"3" = "Reputable secondary orientation"
+
+[[sources]]
+id = "netlib-slatec-index"
+title = "Netlib index for SLATEC"
+organization = "Netlib"
+url = "https://www.netlib.org/slatec/"
+source_type = "distribution-index"
+authority_tier = 1
+coverage = ["release-identity", "distribution-structure", "archives", "subpackages", "documentation", "dependency-resources"]
+expected_use = ["root-discovery", "distribution-citation", "source-inventory-seeding"]
+limitations = ["mixes original distribution notes with later Netlib reorganization", "no explicit blanket licence verified"]
+rights_status = "unknown-per-artifact"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-slatec-readme"
+title = "SLATEC readme"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/readme"
+source_type = "release-summary"
+authority_tier = 1
+coverage = ["name", "version", "release-date", "language", "scope"]
+expected_use = ["release-identity"]
+limitations = ["very brief", "no changelog", "no licence statement"]
+rights_status = "unknown"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-guide"
+title = "Guide to the SLATEC Common Mathematical Library"
+authors = ["Kirby W. Fong", "Thomas H. Jefferson", "Tokihiko Suyehiro", "Lee Walton"]
+organization = "SLATEC Common Mathematical Library Subcommittee"
+url = "https://www.netlib.org/slatec/guide"
+source_type = "guide"
+authority_tier = 1
+publication_date = "1993-07"
+coverage = ["history", "governance", "submission-policy", "coding-guidelines", "prologue-format", "quick-checks", "GAMS", "machine-constants", "error-handling", "distribution-structure"]
+expected_use = ["historical-policy", "format-specification", "terminology"]
+limitations = ["historical machine and institutional assumptions", "no later guide verified"]
+rights_status = "no-explicit-modern-licence-verified"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-toc"
+title = "SLATEC Common Mathematical Library Version 4.1 Table of Contents"
+organization = "SLATEC CML maintainers / Netlib"
+url = "https://www.netlib.org/slatec/toc"
+source_type = "routine-catalogue"
+authority_tier = 1
+version = "4.1"
+coverage = ["user-callable-routines", "subsidiary-routines", "GAMS-mappings", "precision-families", "purposes"]
+expected_use = ["routine-inventory", "taxonomy-seeding", "family-detection"]
+limitations = ["human-oriented fixed-width text", "not a substitute for source prologues"]
+rights_status = "metadata-distillation-only-until-reviewed"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-gams-map"
+title = "SLATEC GAMS classification file"
+organization = "SLATEC CML maintainers / Netlib"
+url = "https://www.netlib.org/slatec/gams"
+source_type = "classification-map"
+authority_tier = 1
+coverage = ["routine-to-GAMS-mapping"]
+expected_use = ["taxonomy-cross-check", "automated-ingestion"]
+limitations = ["linked from canonical index but content not rendered during this pass"]
+rights_status = "unknown"
+retrieval_status = "linked-unverified-content"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-source-tree"
+title = "SLATEC main source directory"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/src/"
+source_type = "source-tree"
+authority_tier = 1
+coverage = ["Fortran-source", "routine-prologues", "index-metadata"]
+expected_use = ["signature-authority", "routine-provenance", "revision-history", "call-graph-extraction"]
+limitations = ["some package subsets moved to separate Netlib sublibraries", "prologues may contain historical inconsistencies"]
+rights_status = "review-per-file-and-package"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-source-archive"
+title = "Complete SLATEC source archive"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/slatec_src.tgz"
+source_type = "source-archive"
+authority_tier = 1
+coverage = ["bulk-source-snapshot"]
+expected_use = ["reproducible-inventory", "bulk-parsing", "checksum-baseline"]
+limitations = ["inventory must be compared with reorganized sublibraries"]
+rights_status = "review-before-redistribution"
+retrieval_status = "index-link-verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-routine-list"
+title = "List of SLATEC subprograms"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/list"
+source_type = "routine-index"
+authority_tier = 1
+coverage = ["routine-names"]
+expected_use = ["completeness-check", "inventory-reconciliation"]
+limitations = ["content not rendered during this pass"]
+rights_status = "unknown"
+retrieval_status = "linked-unverified-content"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-dependency-direct"
+title = "SLATEC direct-reference tree"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/tree1"
+source_type = "dependency-index"
+authority_tier = 1
+coverage = ["direct-routine-references"]
+expected_use = ["call-graph-validation"]
+limitations = ["content not rendered during this pass", "static historical model may omit external or dynamic relationships"]
+rights_status = "metadata"
+retrieval_status = "linked-unverified-content"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-dependency-transitive"
+title = "SLATEC direct-or-indirect reference tree"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/tree"
+source_type = "dependency-index"
+authority_tier = 1
+coverage = ["transitive-routine-references"]
+expected_use = ["closure-validation", "package-extraction-planning"]
+limitations = ["content not rendered during this pass", "source snapshot must be established"]
+rights_status = "metadata"
+retrieval_status = "linked-unverified-content"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-plus-dependencies"
+title = "Netlib plus-dependencies retrieval mechanism"
+organization = "Netlib"
+url = "https://www.netlib.org/cgi-bin/netlibfiles.pl"
+source_type = "generated-source-bundle"
+authority_tier = 1
+coverage = ["root-routine", "indexed-dependency-closure"]
+expected_use = ["dependency-cross-check", "upstream-retrieval"]
+limitations = ["CGI URL and generated result may change", "not proof of platform-complete linkage"]
+rights_status = "review-every-bundled-file"
+retrieval_status = "verified-through-package-index-links"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-quick-checks"
+title = "SLATEC quick-check archive"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/slatec_chk.tgz"
+source_type = "test-archive"
+authority_tier = 1
+coverage = ["historical-test-drivers"]
+expected_use = ["conformance-test-planning", "routine-test-mapping"]
+limitations = ["failures may reflect environment or tests", "not exhaustive modern tests"]
+rights_status = "review-before-redistribution"
+retrieval_status = "index-link-verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "slatec-install-note"
+title = "SLATEC installation note"
+organization = "Netlib / SLATEC CML maintainers"
+url = "https://www.netlib.org/slatec/install"
+source_type = "installation-note"
+authority_tier = 1
+coverage = ["historical-installation", "machine-configuration"]
+expected_use = ["historical-build-context"]
+limitations = ["platform assumptions are largely obsolete"]
+rights_status = "unknown"
+retrieval_status = "index-link-verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "gams-classification"
+title = "Guide to Available Mathematical Software classification system"
+organization = "National Institute of Standards and Technology"
+url = "https://gams.nist.gov/"
+source_type = "taxonomy"
+authority_tier = 1
+coverage = ["GAMS-hierarchy", "mathematical-software-classification"]
+expected_use = ["taxonomy-normalization", "classification-explanation"]
+limitations = ["live service may differ from the historical 1993 scheme"]
+rights_status = "refer-to-NIST-site-terms"
+retrieval_status = "verified-url"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-master-index"
+title = "Netlib Master Index"
+organization = "Netlib"
+url = "https://www.netlib.org/master/"
+source_type = "repository-catalogue"
+authority_tier = 1
+coverage = ["package-identities", "maintainers", "descriptions", "references"]
+expected_use = ["package-discovery", "provenance-cross-check"]
+limitations = ["entries vary in date and may contain outdated status or contacts"]
+rights_status = "no-common-Netlib-licence-assumed"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-blas"
+title = "BLAS (Basic Linear Algebra Subprograms)"
+organization = "Reference BLAS / Netlib"
+url = "https://www.netlib.org/blas/"
+source_type = "package-index"
+authority_tier = 1
+coverage = ["BLAS-levels", "reference-source", "documentation", "licensing-statement"]
+expected_use = ["BLAS-provenance", "routine-family-reference", "rights-evidence"]
+limitations = ["current page reflects later BLAS/LAPACK stewardship", "historical version matching requires source comparison"]
+rights_status = "page-states-freely-available-with-credit-and-modification-requests"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "blas-quick-reference"
+title = "BLAS Quick Reference Guide"
+organization = "Netlib / LAPACK project"
+url = "https://www.netlib.org/blas/blasqr.pdf"
+source_type = "reference-guide"
+authority_tier = 1
+coverage = ["BLAS-operations", "routine-families", "calling-reference"]
+expected_use = ["terminology", "modern-cross-reference"]
+limitations = ["may describe broader or newer BLAS than SLATEC 4.1"]
+rights_status = "link-and-cite; redistribution-not-reviewed"
+retrieval_status = "linked-from-verified-index"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-linpack"
+title = "LINPACK"
+authors = ["J. J. Dongarra", "C. B. Moler", "J. R. Bunch", "G. W. Stewart"]
+organization = "Netlib"
+url = "https://www.netlib.org/linpack/"
+source_type = "package-index"
+authority_tier = 1
+coverage = ["source", "routine-metadata", "GAMS", "precision-variants", "tests", "plus-dependencies"]
+expected_use = ["LINPACK-provenance", "source-comparison", "dependency-cross-check"]
+limitations = ["specifications organized around single-precision real routines", "exact SLATEC revision requires comparison"]
+rights_status = "no-blanket-licence-verified"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "linpack-users-guide"
+title = "LINPACK Users' Guide"
+authors = ["J. J. Dongarra", "C. B. Moler", "J. R. Bunch", "G. W. Stewart"]
+url = "https://www.netlib.org/utk/people/JackDongarra/etemplates/node146.html"
+source_type = "original-manual-record"
+authority_tier = 1
+publication_year = 1979
+coverage = ["LINPACK-design", "storage", "usage", "routine-families"]
+expected_use = ["conceptual-reference", "bibliography"]
+limitations = ["complete open edition not verified during this pass"]
+rights_status = "copyrighted; cite-and-paraphrase"
+retrieval_status = "bibliographic-identity-verified; content-coverage-unverified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-eispack"
+title = "EISPACK"
+organization = "NATS Project at Argonne National Laboratory / Netlib"
+url = "https://www.netlib.org/eispack/"
+source_type = "package-index"
+authority_tier = 1
+coverage = ["source", "matrix-classes", "GAMS", "tests", "plus-dependencies"]
+expected_use = ["EISPACK-provenance", "routine-grouping", "source-comparison"]
+limitations = ["largely superseded by LAPACK", "exact SLATEC revision requires comparison"]
+rights_status = "no-blanket-licence-verified"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "eispack-guide-record"
+title = "Matrix Eigensystem Routines — EISPACK Guide and Guide Extension"
+authors = ["B. T. Smith", "J. M. Boyle", "J. J. Dongarra", "B. S. Garbow", "Y. Ikebe", "V. C. Klema", "C. B. Moler"]
+url = "https://www.netlib.org/eispack/"
+source_type = "original-manual-bibliography"
+authority_tier = 1
+coverage = ["EISPACK-algorithms", "workflows", "bibliography"]
+expected_use = ["canonical-bibliographic-reference"]
+limitations = ["full open text not verified"]
+rights_status = "copyrighted; cite-and-paraphrase"
+retrieval_status = "reference-verified-in-Netlib-index"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-fftpack"
+title = "FFTPACK"
+authors = ["Paul N. Swarztrauber"]
+organization = "National Center for Atmospheric Research / Netlib"
+url = "https://www.netlib.org/fftpack/"
+source_type = "package-index"
+authority_tier = 1
+coverage = ["source", "developer", "GAMS", "documentation", "plus-dependencies"]
+expected_use = ["FFTPACK-provenance", "routine-family-inventory", "source-comparison"]
+limitations = ["contains later translations and clones", "exact SLATEC revision requires comparison"]
+rights_status = "no-blanket-licence-verified"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "fftpack-user-guide"
+title = "FFTPACK user guide"
+authors = ["Paul N. Swarztrauber"]
+organization = "National Center for Atmospheric Research / Netlib"
+url = "https://www.netlib.org/fftpack/doc"
+source_type = "user-guide"
+authority_tier = 1
+coverage = ["calling-conventions", "normalization", "workspace", "initialization", "transform-definitions"]
+expected_use = ["primary-explanation", "routine-documentation"]
+limitations = ["historical plain text", "may not cover later variants or SLATEC edits"]
+rights_status = "quote-sparingly; redistribution-not-reviewed"
+retrieval_status = "linked-from-verified-index"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "netlib-quadpack"
+title = "QUADPACK"
+authors = ["R. Piessens", "E. de Doncker-Kapenga", "C. W. Überhuber", "D. K. Kahaner"]
+organization = "Netlib"
+url = "https://www.netlib.org/quadpack/"
+source_type = "package-index"
+authority_tier = 1
+coverage = ["source", "precision", "GAMS", "purposes", "plus-dependencies"]
+expected_use = ["QUADPACK-provenance", "routine-family-inventory", "source-comparison"]
+limitations = ["does not replace the original book", "exact SLATEC revision requires comparison"]
+rights_status = "no-blanket-licence-verified"
+retrieval_status = "verified"
+retrieved = "2026-07-16"
+
+[[sources]]
+id = "quadpack-manual"
+title = "QUADPACK: A Subroutine Package for Automatic Integration"
+authors = ["R. Piessens", "E. de Doncker-Kapenga", "C. W. Überhuber", "D. K. Kahaner"]
+url = "https://doi.org/10.1007/978-3-642-61786-7"
+source_type = "original-monograph"
+authority_tier = 1
+publication_year = 1983
+coverage = ["algorithms", "routine-selection", "usage", "design-history"]
+expected_use = ["conceptual-reference", "bibliography"]
+limitations = ["open full text not verified during this pass"]
+rights_status = "copyrighted; cite-and-paraphrase"
+retrieval_status = "stable-record-verified; full-text-unverified"
+retrieved = "2026-07-16"
