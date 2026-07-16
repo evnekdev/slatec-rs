@@ -1,0 +1,47 @@
+{
+  "configuration_semantic_hash": "aaa46d305a0b5000de084f06d2fa174d14516e56e0372a4b5990141367a26cea",
+  "coverage_status": "complete_verified",
+  "created_at": "1970-01-01T00:00:00Z",
+  "created_by": "slatec-corpus 0.1.0",
+  "diagnostic_count": 0,
+  "evidence_output_file_hashes": {
+    "logical-statements.json": "524afb9c3ecc48d7127781200b5ff542a6f21e12248cd37fe5ace75c9143de32",
+    "physical-lines.json": "1810dac73061ef1f42e4bfb2072bf1f3d0a881d89a2114649940724f9ceb14b7"
+  },
+  "evidence_output_relative_dir": "scans/slatec-corpus-695f28f400f2a4fac333",
+  "id": "program-unit-scan-c5e891f64a348181",
+  "output_file_hashes": {
+    "diagnostics.json": "5776130145f428c67788d0bcdd4fb128f4925f3cc9a37b56be5df24f822a5ecb",
+    "duplicate-providers.json": "031014c1255e2d5860d33fc776b7815b8c6ad0f37ee33bc45c01abe9096ac7c1",
+    "entry-points.json": "bcd348055700ccac48311047427c75ee27a72e14419d423cc998bd66122cccd0",
+    "program-units.json": "8f3310f90a5ce45008153e5418485b4f6f4ecf191b76faf4fb9b3e861612f100",
+    "source-scan-index.json": "928987d6206b1e29af96e2f55d2589789f768b83936f07ebb723745648427c5e"
+  },
+  "output_semantic_hash": "39e77575ffb340e69704c9f7190d0e0e3e3bff04966c82ff4c1a211e5675f681",
+  "review_state": "machine_checked",
+  "scanner_semantic_version": "1",
+  "schema_id": "slatec-rs/program-unit-scan",
+  "schema_version": "1.0.0",
+  "selected_provider_manifest_hash": "b5bb3ced64b5c3639d5e525febd73fdae6ed0f97562c5e24f65743fe297925d7",
+  "snapshot_id": "slatec-corpus-695f28f400f2a4fac333",
+  "source_manifest_semantic_hash": "51684a513c729df508f4e18ab80017818630e0d2d8f1da092d5af4f2c70eaeb4",
+  "source_record_ids": [
+    "artifact-slatec-source-archive"
+  ],
+  "stage_status": "success",
+  "summary": {
+    "block_data_count": 0,
+    "duplicate_normalized_identifiers": 0,
+    "entry_count": 0,
+    "files_attempted": 735,
+    "files_fully_scanned": 735,
+    "files_with_multiple_program_units": 0,
+    "files_with_review_items": 0,
+    "files_with_zero_program_units": 0,
+    "logical_statement_count": 68961,
+    "physical_line_count": 168216,
+    "top_level_program_unit_count": 735,
+    "unsupported_or_ambiguous_constructs": 0
+  },
+  "unsupported_case_count": 0
+}

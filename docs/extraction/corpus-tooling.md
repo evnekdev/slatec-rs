@@ -62,6 +62,8 @@ Run `prepare --offline` twice against the same archive and policy; the generated
 
 Later parser stages consume `archive-members.json` and `source-files.json` as raw, source-qualified inputs. They must create separate parser views and retain the raw artifact/member hashes and snapshot ID. They may not rewrite the extracted files in place.
 
+The next lexical stage is documented in [the fixed-form program-unit scanner](program-unit-scanner.md). It verifies the extracted-file hashes again before creating a structural inventory; its detailed physical-line and logical-statement records remain in ignored local evidence rather than committed generated data.
+
 ## Rights warning
 
 Successful preparation proves reproducibility against the pinned archive only. It does not prove that the archive is the historically original Version 4.1 source, the latest source for every imported package, or redistributable. It also does not prove ABI safety, complete dependency metadata, or valid native crate splitting. See the [rights register](../source-corpus/rights-register.md) and [redistribution-risk assessment](../source-corpus/redistribution-risk.md) before distributing any upstream-derived material.

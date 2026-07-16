@@ -9,5 +9,6 @@ Cargo.lock
 /evidence/downloads/
 /evidence/extracted/
 /evidence/work/
+/evidence/scans/
 /evidence/acquisition/
 /.evidence/

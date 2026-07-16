@@ -4,6 +4,7 @@ use slatec_tools::error::{CorpusError, Result};
 use slatec_tools::extract;
 use slatec_tools::manifest;
 use slatec_tools::policy::Policy;
+use slatec_tools::program_units;
 use std::path::PathBuf;
 
 #[derive(Debug)]
@@ -11,6 +12,7 @@ struct Options {
     command: String,
     artifact_path: PathBuf,
     evidence_dir: PathBuf,
+    manifest_dir: PathBuf,
     output_dir: PathBuf,
     offline: bool,
 }
@@ -23,7 +25,12 @@ fn main() {
 }
 
 fn run() -> Result<()> {
-    let options = parse_options()?;
+    let mut options = parse_options()?;
+    if options.command == "scan-program-units"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/program-units");
+    }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
         "acquire" => acquire::acquire(
@@ -89,8 +96,27 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "scan-program-units" => {
+            let result = program_units::scan(
+                &options.evidence_dir,
+                &options.manifest_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            if result.status == "failed" {
+                return Err(CorpusError::Verification(
+                    "program-unit provider validation failed; see duplicate-providers.json"
+                        .to_owned(),
+                ));
+            }
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, or prepare",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, or scan-program-units",
             options.command
         ))),
     }
@@ -109,6 +135,7 @@ fn parse_options() -> Result<Options> {
         command,
         artifact_path: PathBuf::from("evidence/downloads/slatec_src.tgz"),
         evidence_dir: PathBuf::from("evidence"),
+        manifest_dir: PathBuf::from("generated/corpus"),
         output_dir: PathBuf::from("generated/corpus"),
         offline: false,
     };
@@ -119,6 +146,9 @@ fn parse_options() -> Result<Options> {
             }
             "--evidence-dir" => {
                 options.evidence_dir = PathBuf::from(required_value(&mut args, "--evidence-dir")?)
+            }
+            "--manifest-dir" => {
+                options.manifest_dir = PathBuf::from(required_value(&mut args, "--manifest-dir")?)
             }
             "--output-dir" => {
                 options.output_dir = PathBuf::from(required_value(&mut args, "--output-dir")?)
@@ -142,5 +172,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare> [--artifact-path PATH] [--evidence-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--output-dir PATH] [--offline]"
 }
