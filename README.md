@@ -14,3 +14,5 @@ No Rust implementation has been added yet.
 ## Canonical corpus preparation
 
 `slatec-tools` provides the `slatec-corpus` command for acquiring and inventorying the policy-v1 SLATEC archive without adding its source bytes to Git. See [`docs/extraction/corpus-tooling.md`](docs/extraction/corpus-tooling.md) for the offline workflow, evidence layout, and rights boundary.
+
+Follow-on extraction stages currently include the fixed-form program-unit scanner and the SLATEC prologue parser. Both consume verified local evidence, write compact generated indexes, and keep detailed source-derived text in ignored evidence directories.

@@ -5,6 +5,7 @@ use slatec_tools::extract;
 use slatec_tools::manifest;
 use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
+use slatec_tools::prologues;
 use std::path::PathBuf;
 
 #[derive(Debug)]
@@ -13,6 +14,7 @@ struct Options {
     artifact_path: PathBuf,
     evidence_dir: PathBuf,
     manifest_dir: PathBuf,
+    program_unit_dir: PathBuf,
     output_dir: PathBuf,
     offline: bool,
 }
@@ -30,6 +32,11 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/program-units");
+    }
+    if options.command == "scan-prologues"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/prologues");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -115,8 +122,28 @@ fn run() -> Result<()> {
             }
             Ok(())
         }
+        "scan-prologues" => {
+            let result = prologues::scan(
+                &options.evidence_dir,
+                &options.manifest_dir,
+                &options.program_unit_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            if result.status == "failed" {
+                return Err(CorpusError::Verification(
+                    "prologue extraction failed; see generated/prologues/diagnostics.json"
+                        .to_owned(),
+                ));
+            }
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, or scan-program-units",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, or scan-prologues",
             options.command
         ))),
     }
@@ -136,6 +163,7 @@ fn parse_options() -> Result<Options> {
         artifact_path: PathBuf::from("evidence/downloads/slatec_src.tgz"),
         evidence_dir: PathBuf::from("evidence"),
         manifest_dir: PathBuf::from("generated/corpus"),
+        program_unit_dir: PathBuf::from("generated/program-units"),
         output_dir: PathBuf::from("generated/corpus"),
         offline: false,
     };
@@ -149,6 +177,10 @@ fn parse_options() -> Result<Options> {
             }
             "--manifest-dir" => {
                 options.manifest_dir = PathBuf::from(required_value(&mut args, "--manifest-dir")?)
+            }
+            "--program-unit-dir" => {
+                options.program_unit_dir =
+                    PathBuf::from(required_value(&mut args, "--program-unit-dir")?)
             }
             "--output-dir" => {
                 options.output_dir = PathBuf::from(required_value(&mut args, "--output-dir")?)
@@ -172,5 +204,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--output-dir PATH] [--offline]"
 }

@@ -64,6 +64,8 @@ Later parser stages consume `archive-members.json` and `source-files.json` as ra
 
 The next lexical stage is documented in [the fixed-form program-unit scanner](program-unit-scanner.md). It verifies the extracted-file hashes again before creating a structural inventory; its detailed physical-line and logical-statement records remain in ignored local evidence rather than committed generated data.
 
+The following documentary stage is documented in [the SLATEC prologue parser](prologue-parser.md). It associates comment prologues with verified program units, extracts raw field boundaries and compact indexes, and keeps raw prologue text in ignored local evidence.
+
 ## Rights warning
 
 Successful preparation proves reproducibility against the pinned archive only. It does not prove that the archive is the historically original Version 4.1 source, the latest source for every imported package, or redistributable. It also does not prove ABI safety, complete dependency metadata, or valid native crate splitting. See the [rights register](../source-corpus/rights-register.md) and [redistribution-risk assessment](../source-corpus/redistribution-risk.md) before distributing any upstream-derived material.
