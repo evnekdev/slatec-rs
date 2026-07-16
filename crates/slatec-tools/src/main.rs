@@ -38,6 +38,11 @@ fn run() -> Result<()> {
     {
         options.output_dir = PathBuf::from("generated/prologues");
     }
+    if options.command == "analyze-prologues"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/prologues-analysis");
+    }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
         "acquire" => acquire::acquire(
@@ -142,8 +147,21 @@ fn run() -> Result<()> {
             }
             Ok(())
         }
+        "analyze-prologues" => {
+            let result = prologues::analyze_baseline(
+                &options.evidence_dir,
+                &PathBuf::from("generated/prologues"),
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "success: baseline prologue analysis for snapshot {} ({})",
+                result.snapshot_id, result.semantic_hash
+            );
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, or scan-prologues",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, or analyze-prologues",
             options.command
         ))),
     }
@@ -204,5 +222,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--output-dir PATH] [--offline]"
 }
