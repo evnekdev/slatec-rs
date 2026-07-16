@@ -1,0 +1,36 @@
+{
+  "configuration_hash": "656a305a1e182f77b50ebcda020f44c0c1df0fe56cf7473cd078bdbbed82af17",
+  "created_at": "1970-01-01T00:00:00Z",
+  "created_by": "slatec-corpus 0.1.0",
+  "deterministic_ordering": "sorted stable identifiers and raw archive paths",
+  "id": "run-slatec-corpus-695f28f400f2a4fac333",
+  "input_artifact_hash": "4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc",
+  "input_member_manifest_hash": "5cdd17ae377cd35f4fecec3432a9ec49561f222227e793bce28ba30b024345dc",
+  "output_file_hashes": {
+    "archive-members.json": "e2a31af10ed88d377b42181ef9c0124d049fe1009b9a2a68960fc9bc2424be9d",
+    "artifact-manifest.json": "e9d0341f4a538ed4e49ecf464914d7b3ec6d733f16a666f47c5548208730f66e",
+    "diagnostics.json": "a59be1185bd404576ae5c232696d0eb8d0e7aae0b8e31e5e18f816cbce20e6d1",
+    "selected-providers.json": "af9972b233c8c4c72a93ac446c21a6d2d1ea6ef169ec1125d9bd3869b24aedf4",
+    "source-files.json": "ed9b21bd77a573acba4921c075f386c943c148ffcb8c878d687eceb6ac7891f5"
+  },
+  "output_semantic_hash": "5326e330c729b14ccc0f287dddc7f1d7e6a6da86eb47a8e0de4d22ba1e9b2b69",
+  "parser_semantic_version": "not-implemented",
+  "policy_semantic_hash": "656a305a1e182f77b50ebcda020f44c0c1df0fe56cf7473cd078bdbbed82af17",
+  "policy_version": 1,
+  "review_state": "machine_checked",
+  "schema_id": "slatec-rs/corpus-run",
+  "schema_version": "1.0.0",
+  "snapshot_id": "slatec-corpus-695f28f400f2a4fac333",
+  "source_record_ids": [
+    "slatec-source-archive"
+  ],
+  "stage_status": "success_with_review_items",
+  "tool_semantic_version": "1",
+  "tool_version": "0.1.0",
+  "unparsed_or_unsupported_material": [
+    "Fortran lexical and semantic parsing is outside this tooling layer"
+  ],
+  "warnings": [
+    "program-unit uniqueness is deferred; no Fortran parser was run"
+  ]
+}
