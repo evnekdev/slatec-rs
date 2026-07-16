@@ -66,6 +66,18 @@ The next lexical stage is documented in [the fixed-form program-unit scanner](pr
 
 The following documentary stage is documented in [the SLATEC prologue parser](prologue-parser.md). It associates comment prologues with verified program units, extracts raw field boundaries and compact indexes, and keeps raw prologue text in ignored local evidence.
 
+For association and dialect refinements, first record the compact baseline
+analysis and then regenerate offline:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- analyze-prologues --offline
+cargo run -p slatec-tools --bin slatec-corpus -- scan-prologues --offline
+```
+
+`generated/prologues-analysis/` contains only counts, classification labels,
+marker names, and hashes. Raw candidate material remains only in ignored
+`evidence/prologues/`.
+
 ## Rights warning
 
 Successful preparation proves reproducibility against the pinned archive only. It does not prove that the archive is the historically original Version 4.1 source, the latest source for every imported package, or redistributable. It also does not prove ABI safety, complete dependency metadata, or valid native crate splitting. See the [rights register](../source-corpus/rights-register.md) and [redistribution-risk assessment](../source-corpus/redistribution-risk.md) before distributing any upstream-derived material.

@@ -1,0 +1,38 @@
+snapshot_id = "slatec-corpus-695f28f400f2a4fac333"
+review_scope = "stratified structural review; no raw prologue text"
+
+[[expectation]]
+program_unit_id = "program-unit-509a1dcb8ff65eb4"
+package_family = "core-slatec"
+expected_dialect = "slatec-final"
+expected_association_status = "exact-structural-match"
+expected_field_ids = ["purpose", "library", "category", "type", "keywords", "author", "description", "references", "routines_called", "revision_history"]
+expected_ambiguous = false
+reviewer_note = "Final sentinel format; selected as a core structural reference."
+
+[[expectation]]
+program_unit_id = "program-unit-dab56b7868aa6bf4"
+package_family = "amos-special-functions"
+expected_dialect = "slatec-final"
+expected_association_status = "exact-structural-match"
+expected_field_ids = ["purpose", "library", "category", "type", "keywords", "author", "description", "references", "routines_called", "revision_history"]
+expected_ambiguous = false
+reviewer_note = "Final sentinel format with package markers embedded in documentary content."
+
+[[expectation]]
+program_unit_id = "program-unit-82ec003a6d8ba2e6"
+package_family = "quadpack"
+expected_dialect = "absent"
+expected_association_status = "no-candidate"
+expected_field_ids = []
+expected_ambiguous = false
+reviewer_note = "A pre-declaration DECK header alone is not sufficient prologue structure."
+
+[[expectation]]
+program_unit_id = "program-unit-a60dace8da53c96b"
+package_family = "dassl-ode"
+expected_dialect = "absent"
+expected_association_status = "no-candidate"
+expected_field_ids = []
+expected_ambiguous = false
+reviewer_note = "A DECK/DASSL header alone is retained as rejected evidence, not documentation fields."

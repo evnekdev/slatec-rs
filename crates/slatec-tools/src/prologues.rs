@@ -9,9 +9,13 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const PROLOGUE_SEMANTIC_VERSION: &str = "1";
+// Bump whenever association, dialect, or heading semantics change.  The
+// canonical corpus snapshot remains the same; this identifies the parser
+// behaviour used to derive the documentary indexes.
+const PROLOGUE_SEMANTIC_VERSION: &str = "2";
 const CREATED_AT: &str = "1970-01-01T00:00:00Z";
 const COMMITTED_SIZE_LIMIT: u64 = 4_000_000;
+const ANALYSIS_REPORT_SIZE_LIMIT: usize = 250_000;
 
 const COLLECTION_FIELDS: &[&str] = &[
     "keywords",
@@ -97,6 +101,13 @@ pub struct PrologueSummary {
     pub diagnostics_by_rule: BTreeMap<String, usize>,
 }
 
+#[derive(Clone, Debug, Serialize)]
+pub struct PrologueAnalysisResult {
+    pub snapshot_id: String,
+    pub semantic_hash: String,
+    pub output_dir: PathBuf,
+}
+
 #[derive(Clone)]
 struct SourceContext {
     source: SourceFile,
@@ -117,6 +128,8 @@ struct Candidate {
     end_index: usize,
     method: String,
     confidence: String,
+    plausible: bool,
+    rejection_reason: Option<String>,
 }
 
 #[derive(Clone)]
@@ -136,6 +149,8 @@ struct PrologueRecord {
     fields: Vec<FieldRecord>,
     diagnostics: Vec<PrologueDiagnostic>,
     alternate_candidate_count: usize,
+    rejected_candidate_reasons: Vec<String>,
+    rejected_candidates: Vec<Candidate>,
     collection_states: BTreeMap<String, String>,
 }
 
@@ -271,6 +286,7 @@ pub fn scan(
         diagnostics.extend(record.diagnostics.clone());
         records.push(record);
     }
+    validate_reviewed_expectations(&snapshot, &records)?;
     let mut seen_record_ids = BTreeSet::new();
     let mut seen_field_ids = BTreeSet::new();
     for record in &records {
@@ -327,7 +343,7 @@ pub fn scan(
         .count();
     let ambiguous_associations = records
         .iter()
-        .filter(|record| record.association_status == "ambiguous")
+        .filter(|record| record.association_status == "multiple-plausible-candidates")
         .count();
     let summary = PrologueSummary {
         program_units_processed: records.len(),
@@ -422,7 +438,9 @@ pub fn scan(
                 "diagnostic_ids",
                 "raw_evidence_hash",
                 "collection_states",
-                "alternate_candidate_count"
+                "alternate_candidate_count",
+                "rejected_candidate_count",
+                "rejected_candidate_reasons"
             ],
             "records": prologue_values
         }))?,
@@ -540,6 +558,393 @@ pub fn scan(
     })
 }
 
+/// Produce a compact, source-text-free analysis of a previous prologue scan.
+/// The detailed raw text remains in ignored evidence; the committed reports use
+/// only classification labels, hashes, and counts.
+pub fn analyze_baseline(
+    evidence_dir: &Path,
+    prologue_dir: &Path,
+    output_dir: &Path,
+    offline: bool,
+) -> Result<PrologueAnalysisResult> {
+    if !offline {
+        return Err(CorpusError::Policy(
+            "analyze-prologues is evidence-only and requires --offline".to_owned(),
+        ));
+    }
+    let manifest: Value = read_json(&prologue_dir.join("manifest.json"))?;
+    let snapshot = manifest["snapshot_id"]
+        .as_str()
+        .ok_or_else(|| {
+            CorpusError::Verification("prologue manifest has no snapshot id".to_owned())
+        })?
+        .to_owned();
+    let prior_version = manifest["prologue_parser_semantic_version"]
+        .as_str()
+        .unwrap_or("unknown")
+        .to_owned();
+    let prior_semantic_hash = manifest["output_semantic_hash"]
+        .as_str()
+        .unwrap_or("unknown")
+        .to_owned();
+    let prologues: Value = read_json(&prologue_dir.join("prologue-index.json"))?;
+    let fields: Value = read_json(&prologue_dir.join("field-index.json"))?;
+    let diagnostics: Value = read_json(&prologue_dir.join("diagnostics.json"))?;
+    let prologue_columns = column_indexes(&prologues)?;
+    let field_columns = column_indexes(&fields)?;
+    let mut ambiguity_causes = BTreeMap::new();
+    for record in columnar_records(&prologues)? {
+        let status = column_string(record, &prologue_columns, "association_status");
+        if status != Some("ambiguous") {
+            continue;
+        }
+        let method = column_string(record, &prologue_columns, "association_method");
+        let cause = match method {
+            Some("post_declaration_sentinel") => "adjacent-block-plus-file-header",
+            Some("pre_declaration_comment_block") => "two-adjacent-comment-blocks",
+            _ => "unknown",
+        };
+        *ambiguity_causes.entry(cause.to_owned()).or_insert(0_usize) += 1;
+    }
+    let mut unknown_headings = BTreeMap::new();
+    let mut field_diagnostic_ids = BTreeMap::new();
+    for record in columnar_records(&fields)? {
+        let field_id = column_string(record, &field_columns, "field_id")
+            .ok_or_else(|| CorpusError::Verification("field record has no id".to_owned()))?;
+        let canonical = column_string(record, &field_columns, "canonical_name").unwrap_or("");
+        let original = column_string(record, &field_columns, "original_heading").unwrap_or("");
+        if canonical == "unrecognized" {
+            let normalized = normalize_heading_text(original);
+            let key = format!(
+                "{}:{}",
+                heading_category(&normalized),
+                &hash::bytes(normalized.as_bytes())[..16]
+            );
+            *unknown_headings.entry(key).or_insert(0_usize) += 1;
+        }
+        let diagnostic_ids = column_value(record, &field_columns, "diagnostic_ids")
+            .and_then(Value::as_array)
+            .cloned()
+            .unwrap_or_default();
+        field_diagnostic_ids.insert(
+            field_id.to_owned(),
+            (
+                canonical.to_owned(),
+                original.to_owned(),
+                diagnostic_ids
+                    .iter()
+                    .filter_map(Value::as_str)
+                    .map(ToOwned::to_owned)
+                    .collect::<Vec<_>>(),
+            ),
+        );
+    }
+    let duplicate_ids: BTreeSet<_> = diagnostics["records"]
+        .as_array()
+        .into_iter()
+        .flatten()
+        .filter(|record| record["rule_id"].as_str() == Some("PR-DUPLICATE-FIELD"))
+        .filter_map(|record| record["id"].as_str())
+        .map(ToOwned::to_owned)
+        .collect();
+    let mut duplicate_patterns = BTreeMap::new();
+    for (canonical, original, ids) in field_diagnostic_ids.values() {
+        if !ids.iter().any(|id| duplicate_ids.contains(id)) {
+            continue;
+        }
+        let pattern = duplicate_pattern(canonical, original);
+        *duplicate_patterns
+            .entry((canonical.clone(), pattern.to_owned()))
+            .or_insert(0_usize) += 1;
+    }
+    let raw_evidence: Value = read_json(
+        &evidence_dir
+            .join("prologues")
+            .join(&snapshot)
+            .join("raw-prologues.json"),
+    )?;
+    let mut unrecognized_patterns = BTreeMap::new();
+    for record in raw_evidence["records"].as_array().into_iter().flatten() {
+        if record["dialect"].as_str() != Some("unrecognized") {
+            continue;
+        }
+        let text = record["raw_text"]
+            .as_str()
+            .unwrap_or("")
+            .to_ascii_uppercase();
+        let markers = [
+            "DECK", "DASSL", "ODEPACK", "QUADPACK", "BLAS", "LINPACK", "EISPACK", "MINPACK",
+            "FFTPACK", "FISHPACK", "FNLIB", "MACHINE", "ERROR",
+        ]
+        .iter()
+        .filter(|marker| text.contains(**marker))
+        .copied()
+        .collect::<Vec<_>>();
+        let key = if markers.is_empty() {
+            "no-known-markers".to_owned()
+        } else {
+            markers.join("+")
+        };
+        *unrecognized_patterns.entry(key).or_insert(0_usize) += 1;
+    }
+    let metadata = json!({
+        "schema_version": SCHEMA_VERSION,
+        "snapshot_id": snapshot,
+        "created_by": format!("{TOOL_NAME} {TOOL_VERSION}"),
+        "created_at": CREATED_AT,
+        "analysis_of_prologue_parser_semantic_version": prior_version,
+        "review_state": "machine_checked"
+    });
+    let ambiguity_count = ambiguity_causes.values().sum::<usize>();
+    let unknown_heading_group_count = unknown_headings.len();
+    let unrecognized_pattern_count = unrecognized_patterns.len();
+    let mut files = BTreeMap::new();
+    files.insert(
+        "ambiguity-causes.json",
+        compact(&json!({
+            "schema_id": "slatec-rs/prologue-ambiguity-analysis",
+            "metadata": metadata.clone(),
+            "records": &ambiguity_causes
+        }))?,
+    );
+    files.insert(
+        "unknown-heading-frequency.json",
+        compact(&json!({
+            "schema_id": "slatec-rs/prologue-unknown-heading-analysis",
+            "metadata": metadata.clone(),
+            "encoding": "[heading_category_and_hash, count]",
+            "records": &unknown_headings
+        }))?,
+    );
+    files.insert(
+        "unrecognized-dialect-patterns.json",
+        compact(&json!({
+            "schema_id": "slatec-rs/prologue-dialect-pattern-analysis",
+            "metadata": metadata.clone(),
+            "records": &unrecognized_patterns
+        }))?,
+    );
+    let duplicate_records: Vec<_> = duplicate_patterns
+        .into_iter()
+        .map(|((canonical, pattern), count)| json!([canonical, pattern, count]))
+        .collect();
+    files.insert(
+        "duplicate-field-patterns.json",
+        compact(&json!({
+            "schema_id": "slatec-rs/prologue-duplicate-field-analysis",
+            "metadata": metadata,
+            "columns": ["canonical_field", "pattern", "count"],
+            "records": &duplicate_records
+        }))?,
+    );
+    let semantic_inputs: BTreeMap<_, _> = files
+        .iter()
+        .map(|(name, bytes)| ((*name).to_owned(), bytes.clone()))
+        .collect();
+    let semantic_hash = semantic_hash(&semantic_inputs);
+    let report_file_hashes: BTreeMap<_, _> = files
+        .iter()
+        .map(|(name, bytes)| ((*name).to_owned(), hash::bytes(bytes)))
+        .collect();
+    let report_total_bytes: usize = files.values().map(Vec::len).sum();
+    if report_total_bytes > ANALYSIS_REPORT_SIZE_LIMIT {
+        return Err(CorpusError::Verification(format!(
+            "prologue analysis report would be {report_total_bytes} bytes; redesign the compact analysis"
+        )));
+    }
+    files.insert(
+        "analysis-manifest.json",
+        compact(&json!({
+            "id": stable_id("prologue-baseline-analysis", &[&snapshot, &prior_semantic_hash]),
+            "schema_id": "slatec-rs/prologue-baseline-analysis",
+            "schema_version": SCHEMA_VERSION,
+            "snapshot_id": snapshot,
+            "created_by": format!("{TOOL_NAME} {TOOL_VERSION}"),
+            "created_at": CREATED_AT,
+            "source_record_ids": ["artifact-slatec-source-archive"],
+            "review_state": "machine_checked",
+            "input_prologue_parser_semantic_version": prior_version,
+            "input_prologue_output_semantic_hash": prior_semantic_hash,
+            "configuration_semantic_hash": hash::bytes(b"prologue-baseline-analysis-v1"),
+            "output_semantic_hash": semantic_hash,
+            "report_file_hashes": report_file_hashes,
+            "report_total_bytes": report_total_bytes
+        }))?,
+    );
+    files.insert(
+        "analysis-summary.md",
+        format!(
+            "# Prologue baseline analysis\n\n- Semantic hash: `{semantic_hash}`\n- Baseline parser semantic version: `{prior_version}`\n- Ambiguities classified: {}\n- Unknown-heading groups (hashes only): {}\n- Unrecognized-dialect marker groups: {}\n- Duplicate-field pattern groups: {}\n- Report bytes: {report_total_bytes}\n\nThe report excludes raw source and prologue text; raw details remain in ignored evidence.\n",
+            ambiguity_count,
+            unknown_heading_group_count,
+            unrecognized_pattern_count,
+            duplicate_records.len(),
+        )
+        .into_bytes(),
+    );
+    promote(output_dir, &snapshot, &files)?;
+    Ok(PrologueAnalysisResult {
+        snapshot_id: snapshot,
+        semantic_hash,
+        output_dir: output_dir.to_owned(),
+    })
+}
+
+fn column_indexes(value: &Value) -> Result<BTreeMap<String, usize>> {
+    let columns = value["columns"]
+        .as_array()
+        .ok_or_else(|| CorpusError::Verification("expected columnar generated index".to_owned()))?;
+    let mut indexes = BTreeMap::new();
+    for (index, column) in columns.iter().enumerate() {
+        let column = column.as_str().ok_or_else(|| {
+            CorpusError::Verification("generated index column was not a string".to_owned())
+        })?;
+        indexes.insert(column.to_owned(), index);
+    }
+    Ok(indexes)
+}
+
+fn columnar_records(value: &Value) -> Result<&Vec<Value>> {
+    value["records"]
+        .as_array()
+        .ok_or_else(|| CorpusError::Verification("expected generated index records".to_owned()))
+}
+
+fn column_value<'a>(
+    record: &'a Value,
+    columns: &BTreeMap<String, usize>,
+    name: &str,
+) -> Option<&'a Value> {
+    record.as_array()?.get(*columns.get(name)?)
+}
+
+fn column_string<'a>(
+    record: &'a Value,
+    columns: &BTreeMap<String, usize>,
+    name: &str,
+) -> Option<&'a str> {
+    column_value(record, columns, name)?.as_str()
+}
+
+fn heading_category(normalized: &str) -> &'static str {
+    if normalized
+        .chars()
+        .all(|character| character.is_ascii_digit())
+    {
+        "numeric"
+    } else if normalized.split_whitespace().count() == 1 {
+        "identifier"
+    } else if normalized.chars().all(|character| {
+        character.is_ascii_uppercase() || character.is_ascii_digit() || character == ' '
+    }) {
+        "upper-phrase"
+    } else {
+        "mixed-phrase"
+    }
+}
+
+fn duplicate_pattern(canonical: &str, original: &str) -> &'static str {
+    let normalized = normalize_heading_text(original);
+    if canonical == "revision_history" {
+        "repeated-revision-entry"
+    } else if matches!(
+        canonical,
+        "arguments" | "argument_definitions" | "parameters"
+    ) {
+        "repeated-argument-subheading"
+    } else if normalized.starts_with("DESCRIPTION OF")
+        || normalized.starts_with("DESCRIPTION FOR")
+        || normalized.starts_with("DESCRIPTION")
+    {
+        "heading-alias-collision"
+    } else if canonical == "references" {
+        "multiple-reference-entry"
+    } else {
+        "true-repeated-heading"
+    }
+}
+
+fn validate_reviewed_expectations(snapshot: &str, records: &[PrologueRecord]) -> Result<()> {
+    let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/data/prologue-expectations.toml");
+    let value: toml::Value = toml::from_str(&fs::read_to_string(path)?)?;
+    if value.get("snapshot_id").and_then(toml::Value::as_str) != Some(snapshot) {
+        return Ok(());
+    }
+    let by_unit: BTreeMap<_, _> = records
+        .iter()
+        .map(|record| (record.program_unit_id.as_str(), record))
+        .collect();
+    for expectation in value
+        .get("expectation")
+        .and_then(toml::Value::as_array)
+        .ok_or_else(|| {
+            CorpusError::Verification("reviewed expectation file has no entries".to_owned())
+        })?
+    {
+        let table = expectation.as_table().ok_or_else(|| {
+            CorpusError::Verification("reviewed expectation was not a table".to_owned())
+        })?;
+        let id = table
+            .get("program_unit_id")
+            .and_then(toml::Value::as_str)
+            .ok_or_else(|| {
+                CorpusError::Verification("reviewed expectation has no program-unit id".to_owned())
+            })?;
+        let record = by_unit.get(id).ok_or_else(|| {
+            CorpusError::Verification(format!("reviewed expectation program unit missing: {id}"))
+        })?;
+        let expected_dialect = table
+            .get("expected_dialect")
+            .and_then(toml::Value::as_str)
+            .ok_or_else(|| {
+                CorpusError::Verification(format!("reviewed expectation has no dialect: {id}"))
+            })?;
+        let expected_association = table
+            .get("expected_association_status")
+            .and_then(toml::Value::as_str)
+            .ok_or_else(|| {
+                CorpusError::Verification(format!("reviewed expectation has no association: {id}"))
+            })?;
+        let expected_ambiguous = table
+            .get("expected_ambiguous")
+            .and_then(toml::Value::as_bool)
+            .ok_or_else(|| {
+                CorpusError::Verification(format!(
+                    "reviewed expectation has no ambiguity state: {id}"
+                ))
+            })?;
+        if record.dialect != expected_dialect
+            || record.association_status != expected_association
+            || (record.association_status == "multiple-plausible-candidates") != expected_ambiguous
+        {
+            return Err(CorpusError::Verification(format!(
+                "reviewed expectation regressed for {id}"
+            )));
+        }
+        for field in table
+            .get("expected_field_ids")
+            .and_then(toml::Value::as_array)
+            .ok_or_else(|| {
+                CorpusError::Verification(format!("reviewed expectation has no fields: {id}"))
+            })?
+        {
+            let field = field.as_str().ok_or_else(|| {
+                CorpusError::Verification(format!("reviewed expectation field was not text: {id}"))
+            })?;
+            if !record
+                .fields
+                .iter()
+                .any(|actual| actual.canonical_name == field)
+            {
+                return Err(CorpusError::Verification(format!(
+                    "reviewed expectation field missing for {id}: {field}"
+                )));
+            }
+        }
+    }
+    Ok(())
+}
+
 fn validate_unit_locator(unit: &ProgramUnit, snapshot: &str) -> Result<()> {
     if unit.snapshot_id != snapshot {
         return Err(CorpusError::Verification(format!(
@@ -563,74 +968,88 @@ fn validate_unit_locator(unit: &ProgramUnit, snapshot: &str) -> Result<()> {
 fn extract_for_unit(unit: &ProgramUnit, context: &SourceContext) -> PrologueRecord {
     let declaration_line = first_line(&unit.declaration_locator.span.lines);
     let declaration_index = declaration_line.saturating_sub(1) as usize;
-    let candidates = candidates_for_unit(context, declaration_index);
+    let selection = select_candidates(context, declaration_index);
     let mut diagnostics = Vec::new();
-    let primary = select_primary_candidate(&candidates);
-    let alternate_candidate_count = candidates.len().saturating_sub(1);
-    let (dialect, fields, line_start, line_end, raw_hash) = if let Some(candidate) = primary {
-        let raw_hash = candidate_hash(context, candidate);
-        let dialect = classify_dialect(context, candidate);
-        let mut fields = extract_fields(context, unit, candidate, &dialect, &mut diagnostics);
-        if dialect == "unrecognized"
-            && !context.lines[candidate.start_index..=candidate.end_index]
-                .iter()
-                .all(|line| line.kind == LineKind::Blank)
-        {
+    let alternate_candidate_count = selection.alternates.len();
+    let (dialect, fields, line_start, line_end, raw_hash) =
+        if let Some(candidate) = selection.primary.as_ref() {
+            let raw_hash = candidate_hash(context, candidate);
+            let dialect = classify_dialect(context, candidate);
+            let mut fields = extract_fields(context, unit, candidate, &dialect, &mut diagnostics);
+            if dialect == "unrecognized"
+                && !context.lines[candidate.start_index..=candidate.end_index]
+                    .iter()
+                    .all(|line| line.kind == LineKind::Blank)
+            {
+                diagnostics.push(custom_diag(
+                    context,
+                    unit,
+                    "PR-UNRECOGNIZED-DIALECT",
+                    "warning",
+                    "comment block associated but dialect was not recognized",
+                    &context.lines[candidate.start_index].span,
+                ));
+            }
+            if dialect == "ambiguous" {
+                diagnostics.push(custom_diag(
+                    context,
+                    unit,
+                    "PR-MIXED-DIALECT",
+                    "warning",
+                    "multiple legacy dialect marker sets were found in one candidate",
+                    &context.lines[candidate.start_index].span,
+                ));
+            }
+            (
+                dialect,
+                {
+                    fields.sort_by(|left, right| {
+                        (left.line_start, &left.canonical_name, &left.id).cmp(&(
+                            right.line_start,
+                            &right.canonical_name,
+                            &right.id,
+                        ))
+                    });
+                    fields
+                },
+                Some(context.lines[candidate.start_index].span.line),
+                Some(context.lines[candidate.end_index].span.line),
+                Some(raw_hash),
+            )
+        } else {
             diagnostics.push(custom_diag(
                 context,
                 unit,
-                "PR-UNRECOGNIZED-DIALECT",
+                "PR-NO-PROLOGUE",
                 "warning",
-                "comment block associated but dialect was not recognized",
-                &context.lines[candidate.start_index].span,
+                "no structurally plausible comment prologue found",
+                &context.lines[declaration_index.min(context.lines.len().saturating_sub(1))].span,
             ));
-        }
-        (
-            dialect,
-            {
-                fields.sort_by(|left, right| {
-                    (left.line_start, &left.canonical_name, &left.id).cmp(&(
-                        right.line_start,
-                        &right.canonical_name,
-                        &right.id,
-                    ))
-                });
-                fields
-            },
-            Some(context.lines[candidate.start_index].span.line),
-            Some(context.lines[candidate.end_index].span.line),
-            Some(raw_hash),
-        )
-    } else {
-        diagnostics.push(custom_diag(
-            context,
-            unit,
-            "PR-NO-PROLOGUE",
-            "warning",
-            "no associated comment prologue found",
-            &context.lines[declaration_index.min(context.lines.len().saturating_sub(1))].span,
-        ));
-        ("absent".to_owned(), Vec::new(), None, None, None)
-    };
-    if candidates.len() > 1 {
+            ("absent".to_owned(), Vec::new(), None, None, None)
+        };
+    if !selection.alternates.is_empty() {
         diagnostics.push(custom_diag(
             context,
             unit,
             "PR-AMBIGUOUS-ASSOCIATION",
             "warning",
-            "multiple nearby candidate prologue blocks were found",
-            &context.lines[candidates[0].start_index].span,
+            "multiple independently plausible prologue candidates were found",
+            &context.lines[selection
+                .primary
+                .as_ref()
+                .expect("alternate has primary")
+                .start_index]
+                .span,
         ));
     }
-    let association_status = if primary.is_none() {
-        "absent"
-    } else if candidates.len() > 1 {
-        "ambiguous"
-    } else {
-        "associated"
-    }
-    .to_owned();
-    let (association_method, association_confidence) = primary
+    let association_status = match selection.primary.as_ref() {
+        None => "no-candidate".to_owned(),
+        Some(_) if !selection.alternates.is_empty() => "multiple-plausible-candidates".to_owned(),
+        Some(primary) => primary.confidence.clone(),
+    };
+    let (association_method, association_confidence) = selection
+        .primary
+        .as_ref()
         .map(|candidate| (candidate.method.clone(), candidate.confidence.clone()))
         .unwrap_or_else(|| ("none".to_owned(), "none".to_owned()));
     let mut collection_states = BTreeMap::new();
@@ -669,6 +1088,12 @@ fn extract_for_unit(unit: &ProgramUnit, context: &SourceContext) -> PrologueReco
         fields,
         diagnostics,
         alternate_candidate_count,
+        rejected_candidate_reasons: selection
+            .rejected
+            .iter()
+            .filter_map(|candidate| candidate.rejection_reason.clone())
+            .collect(),
+        rejected_candidates: selection.rejected,
         collection_states,
     }
 }
@@ -689,68 +1114,152 @@ fn raw_lines(bytes: &[u8]) -> Vec<RawLine> {
         .collect()
 }
 
-fn candidates_for_unit(context: &SourceContext, declaration_index: usize) -> Vec<Candidate> {
-    let mut candidates = Vec::new();
-    if declaration_index + 1 < context.lines.len() {
-        if let Some(candidate) = forward_candidate(context, declaration_index + 1) {
-            candidates.push(candidate);
-        }
-    }
-    if declaration_index > 0 {
-        if let Some(candidate) = backward_candidate(context, declaration_index - 1) {
-            candidates.push(candidate);
-        }
-    }
-    candidates.sort_by(|left, right| {
-        let left_score = candidate_score(context, left);
-        let right_score = candidate_score(context, right);
-        right_score
-            .cmp(&left_score)
-            .then(left.start_index.cmp(&right.start_index))
-    });
-    candidates
+struct CandidateSelection {
+    primary: Option<Candidate>,
+    alternates: Vec<Candidate>,
+    rejected: Vec<Candidate>,
 }
 
-fn forward_candidate(context: &SourceContext, mut index: usize) -> Option<Candidate> {
+fn select_candidates(context: &SourceContext, declaration_index: usize) -> CandidateSelection {
+    let mut observations = Vec::new();
+    if let Some(candidate) = post_declaration_candidate(context, declaration_index) {
+        observations.push(candidate);
+    }
+    if let Some(candidate) = pre_declaration_candidate(context, declaration_index) {
+        observations.push(candidate);
+    }
+    let mut plausible: Vec<_> = observations
+        .iter()
+        .filter(|candidate| candidate.plausible)
+        .cloned()
+        .collect();
+    plausible.sort_by(|left, right| {
+        candidate_score(context, right)
+            .cmp(&candidate_score(context, left))
+            .then(left.start_index.cmp(&right.start_index))
+            .then(left.end_index.cmp(&right.end_index))
+    });
+    CandidateSelection {
+        primary: plausible.first().cloned(),
+        alternates: plausible.into_iter().skip(1).collect(),
+        rejected: observations
+            .into_iter()
+            .filter(|candidate| !candidate.plausible)
+            .collect(),
+    }
+}
+
+fn post_declaration_candidate(
+    context: &SourceContext,
+    declaration_index: usize,
+) -> Option<Candidate> {
+    let (start, end) = comment_block_after(context, declaration_index)?;
+    let markers = candidate_markers(context, start, end);
+    if markers.contains("BEGIN PROLOGUE") && markers.contains("END PROLOGUE") {
+        return Some(plausible_candidate(
+            start,
+            end,
+            "post_declaration_final_sentinel",
+            "exact-structural-match",
+        ));
+    }
+    if legacy_structure(&markers, context, start, end) {
+        return Some(plausible_candidate(
+            start,
+            end,
+            "post_declaration_legacy_structure",
+            "dialect-specific-post-declaration",
+        ));
+    }
+    Some(rejected_candidate(
+        start,
+        end,
+        "post_declaration_comment_block",
+        "post-declaration-unstructured",
+    ))
+}
+
+fn pre_declaration_candidate(
+    context: &SourceContext,
+    declaration_index: usize,
+) -> Option<Candidate> {
+    let (start, end) = comment_block_before(context, declaration_index)?;
+    let markers = candidate_markers(context, start, end);
+    if separator_only(context, start, end) {
+        return Some(rejected_candidate(
+            start,
+            end,
+            "pre_declaration_comment_block",
+            "separator-only-block",
+        ));
+    }
+    if markers.contains("DECK") && !legacy_structure(&markers, context, start, end) {
+        return Some(rejected_candidate(
+            start,
+            end,
+            "pre_declaration_deck_header",
+            "file-header-deck-only",
+        ));
+    }
+    if markers.contains("BEGIN PROLOGUE") && markers.contains("END PROLOGUE") {
+        return Some(plausible_candidate(
+            start,
+            end,
+            "pre_declaration_final_structure",
+            "strong-adjacent-match",
+        ));
+    }
+    if legacy_structure(&markers, context, start, end) {
+        return Some(plausible_candidate(
+            start,
+            end,
+            "pre_declaration_legacy_structure",
+            "strong-adjacent-match",
+        ));
+    }
+    Some(rejected_candidate(
+        start,
+        end,
+        "pre_declaration_comment_block",
+        "pre-declaration-insufficient-markers",
+    ))
+}
+
+fn comment_block_after(
+    context: &SourceContext,
+    declaration_index: usize,
+) -> Option<(usize, usize)> {
+    let mut index = declaration_index.saturating_add(1);
     while index < context.lines.len() && context.lines[index].kind == LineKind::Blank {
         index += 1;
     }
-    if index >= context.lines.len() || context.lines[index].kind != LineKind::Comment {
+    if context.lines.get(index)?.kind != LineKind::Comment {
         return None;
     }
     let start = index;
     let mut end = index;
-    let mut saw_end_marker = false;
-    while index < context.lines.len() {
-        match context.lines[index].kind {
-            LineKind::Comment | LineKind::Blank => {
-                end = index;
-                let text = comment_text(&context.lines[index]);
-                if normalize_heading_text(&text).contains("END PROLOGUE") {
-                    saw_end_marker = true;
-                    break;
-                }
-                index += 1;
-            }
-            LineKind::Statement => break,
+    while index < context.lines.len()
+        && matches!(
+            context.lines[index].kind,
+            LineKind::Comment | LineKind::Blank
+        )
+    {
+        end = index;
+        if normalize_heading_text(&comment_text(&context.lines[index])).contains("END PROLOGUE") {
+            break;
         }
+        index += 1;
     }
-    Some(Candidate {
-        start_index: start,
-        end_index: end,
-        method: if saw_end_marker {
-            "post_declaration_sentinel"
-        } else {
-            "post_declaration_comment_block"
-        }
-        .to_owned(),
-        confidence: if saw_end_marker { "high" } else { "medium" }.to_owned(),
-    })
+    Some((start, end))
 }
 
-fn backward_candidate(context: &SourceContext, mut index: usize) -> Option<Candidate> {
-    while index > 0 && context.lines[index].kind == LineKind::Blank {
-        index -= 1;
+fn comment_block_before(
+    context: &SourceContext,
+    declaration_index: usize,
+) -> Option<(usize, usize)> {
+    let mut index = declaration_index.checked_sub(1)?;
+    while context.lines[index].kind == LineKind::Blank {
+        index = index.checked_sub(1)?;
     }
     if context.lines[index].kind != LineKind::Comment {
         return None;
@@ -764,64 +1273,158 @@ fn backward_candidate(context: &SourceContext, mut index: usize) -> Option<Candi
     {
         index -= 1;
     }
-    Some(Candidate {
-        start_index: index,
-        end_index: end,
-        method: "pre_declaration_comment_block".to_owned(),
-        confidence: "medium".to_owned(),
-    })
+    Some((index, end))
 }
 
-fn select_primary_candidate(candidates: &[Candidate]) -> Option<&Candidate> {
-    candidates.first()
+fn plausible_candidate(start: usize, end: usize, method: &str, confidence: &str) -> Candidate {
+    Candidate {
+        start_index: start,
+        end_index: end,
+        method: method.to_owned(),
+        confidence: confidence.to_owned(),
+        plausible: true,
+        rejection_reason: None,
+    }
+}
+
+fn rejected_candidate(start: usize, end: usize, method: &str, reason: &str) -> Candidate {
+    Candidate {
+        start_index: start,
+        end_index: end,
+        method: method.to_owned(),
+        confidence: "rejected".to_owned(),
+        plausible: false,
+        rejection_reason: Some(reason.to_owned()),
+    }
+}
+
+fn candidate_markers(context: &SourceContext, start: usize, end: usize) -> BTreeSet<String> {
+    const MARKERS: &[&str] = &[
+        "BEGIN PROLOGUE",
+        "END PROLOGUE",
+        "DECK",
+        "DATE WRITTEN",
+        "REVISION DATE",
+        "CATEGORY NO",
+        "QUADPACK",
+        "BLAS",
+        "LINPACK",
+        "EISPACK",
+        "MINPACK",
+        "PCHIP",
+        "FISHPACK",
+        "FFTPACK",
+        "FNLIB",
+        "ODEPACK",
+        "DASSL",
+        "AMOS",
+        "SLAP",
+    ];
+    let joined = candidate_text(context, start, end);
+    MARKERS
+        .iter()
+        .filter(|marker| joined.contains(**marker))
+        .map(|marker| (*marker).to_owned())
+        .collect()
+}
+
+fn candidate_text(context: &SourceContext, start: usize, end: usize) -> String {
+    context.lines[start..=end]
+        .iter()
+        .map(comment_text)
+        .map(|text| normalize_heading_text(&text))
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
+fn legacy_structure(
+    markers: &BTreeSet<String>,
+    context: &SourceContext,
+    start: usize,
+    end: usize,
+) -> bool {
+    let legacy_marker_count = ["DATE WRITTEN", "REVISION DATE", "CATEGORY NO"]
+        .iter()
+        .filter(|marker| markers.contains(**marker))
+        .count();
+    let package_marker = [
+        "QUADPACK", "BLAS", "LINPACK", "EISPACK", "MINPACK", "PCHIP", "FISHPACK", "FFTPACK",
+        "FNLIB", "ODEPACK", "DASSL", "AMOS", "SLAP",
+    ]
+    .iter()
+    .any(|marker| markers.contains(*marker));
+    let known_heading_count = context.lines[start..=end]
+        .iter()
+        .filter(|line| line.kind == LineKind::Comment)
+        .filter(|line| alias_for(&normalize_heading_text(&comment_text(line))).is_some())
+        .count();
+    (legacy_marker_count >= 2 && known_heading_count >= 1)
+        || (package_marker && legacy_marker_count >= 1 && known_heading_count >= 1)
+}
+
+fn separator_only(context: &SourceContext, start: usize, end: usize) -> bool {
+    context.lines[start..=end]
+        .iter()
+        .filter(|line| line.kind == LineKind::Comment)
+        .flat_map(|line| comment_text(line).chars().collect::<Vec<_>>())
+        .all(|character| !character.is_ascii_alphanumeric())
 }
 
 fn candidate_score(context: &SourceContext, candidate: &Candidate) -> u8 {
-    let dialect = classify_dialect(context, candidate);
-    match dialect.as_str() {
-        "slatec-final" => 5,
-        "quadpack" | "slatec-legacy" | "package-legacy" => 4,
-        "unrecognized" => 1,
-        _ => 0,
+    match candidate.method.as_str() {
+        "post_declaration_final_sentinel" => 100,
+        "pre_declaration_legacy_structure" => 90,
+        "pre_declaration_final_structure" => 85,
+        "post_declaration_legacy_structure" => 80,
+        _ => match classify_dialect(context, candidate).as_str() {
+            "slatec-final" => 70,
+            _ => 0,
+        },
     }
 }
 
 fn classify_dialect(context: &SourceContext, candidate: &Candidate) -> String {
-    let mut joined = String::new();
-    for line in &context.lines[candidate.start_index..=candidate.end_index] {
-        joined.push_str(&normalize_heading_text(&comment_text(line)));
-        joined.push('\n');
+    let markers = candidate_markers(context, candidate.start_index, candidate.end_index);
+    // A final-format sentinel is conclusive and takes precedence over package
+    // names embedded in the documentary text.
+    if markers.contains("BEGIN PROLOGUE") && markers.contains("END PROLOGUE") {
+        return "slatec-final".to_owned();
     }
-    let final_begin = joined.contains("BEGIN PROLOGUE");
-    let final_end = joined.contains("END PROLOGUE");
-    let legacy = joined.contains("DATE WRITTEN")
-        || joined.contains("REVISION DATE")
-        || joined.contains("CATEGORY NO");
-    let quadpack = joined.contains("QUADPACK") || joined.contains("INTEGRATION");
-    let package = joined.contains("BLAS")
-        || joined.contains("LINPACK")
-        || joined.contains("EISPACK")
-        || joined.contains("FFTPACK")
-        || joined.contains("FISHPACK")
-        || joined.contains("PCHIP");
-    let mut hits = Vec::new();
-    if final_begin || final_end {
-        hits.push("slatec-final");
+    let legacy = ["DATE WRITTEN", "REVISION DATE", "CATEGORY NO"]
+        .iter()
+        .any(|marker| markers.contains(*marker));
+    if legacy && markers.contains("QUADPACK") {
+        return "quadpack".to_owned();
     }
-    if legacy && quadpack {
-        hits.push("quadpack");
-    } else if legacy {
-        hits.push("slatec-legacy");
+    let mut package_dialects = BTreeSet::new();
+    for (marker, dialect) in [
+        ("BLAS", "blas-legacy"),
+        ("LINPACK", "linpack-legacy"),
+        ("EISPACK", "eispack-legacy"),
+        ("MINPACK", "minpack-legacy"),
+        ("FISHPACK", "fishpack-legacy"),
+        ("FFTPACK", "fftpack-legacy"),
+        ("FNLIB", "fnlib-legacy"),
+        ("PCHIP", "package-legacy"),
+        ("ODEPACK", "odepack-or-depac-legacy"),
+        ("DASSL", "odepack-or-depac-legacy"),
+        ("AMOS", "package-legacy"),
+        ("SLAP", "package-legacy"),
+    ] {
+        if markers.contains(marker) && legacy {
+            package_dialects.insert(dialect);
+        }
     }
-    if package {
-        hits.push("package-legacy");
+    if package_dialects.len() > 1 {
+        return "ambiguous".to_owned();
     }
-    hits.sort_unstable();
-    hits.dedup();
-    if hits.len() > 1 && !hits.contains(&"slatec-final") {
-        "ambiguous".to_owned()
+    if let Some(dialect) = package_dialects.into_iter().next() {
+        return dialect.to_owned();
+    }
+    if legacy {
+        "slatec-legacy".to_owned()
     } else {
-        hits.first().copied().unwrap_or("unrecognized").to_owned()
+        "unrecognized".to_owned()
     }
 }
 
@@ -829,7 +1432,7 @@ fn extract_fields(
     context: &SourceContext,
     unit: &ProgramUnit,
     candidate: &Candidate,
-    _dialect: &str,
+    dialect: &str,
     diagnostics: &mut Vec<PrologueDiagnostic>,
 ) -> Vec<FieldRecord> {
     let mut fields = Vec::new();
@@ -843,7 +1446,7 @@ fn extract_fields(
             continue;
         }
         let comment = comment_text(line);
-        if let Some(heading) = detect_heading(&comment) {
+        if let Some(heading) = detect_heading(&comment, dialect) {
             if let Some(open) = current.take() {
                 fields.push(close_field(context, unit, open));
             }
@@ -862,7 +1465,9 @@ fn extract_fields(
                 );
                 diagnostic_ids.push(diagnostic.id.clone());
                 diagnostics.push(diagnostic);
-            } else if !seen.insert(heading.canonical.clone()) {
+            } else if !seen.insert(heading.canonical.clone())
+                && !repeatable_field(&heading.canonical)
+            {
                 let diagnostic = custom_diag(
                     context,
                     unit,
@@ -884,8 +1489,7 @@ fn extract_fields(
             open.lines.push(line.clone());
         } else if !comment.trim().is_empty()
             && looks_like_heading(&normalize_heading_text(&comment))
-            && !normalize_heading_text(&comment).contains("BEGIN PROLOGUE")
-            && !normalize_heading_text(&comment).contains("END PROLOGUE")
+            && has_explicit_unknown_heading_marker(&comment, dialect)
         {
             let diagnostic = custom_diag(
                 context,
@@ -929,8 +1533,9 @@ struct Heading {
     original: String,
 }
 
-fn detect_heading(comment: &str) -> Option<Heading> {
-    let mut text = comment.trim();
+fn detect_heading(comment: &str, dialect: &str) -> Option<Heading> {
+    let raw = comment.trim();
+    let mut text = raw;
     if text.starts_with("***") {
         text = text.trim_start_matches('*').trim_start();
     }
@@ -944,13 +1549,13 @@ fn detect_heading(comment: &str) -> Option<Heading> {
             original: text.to_owned(),
         });
     }
-    if let Some(canonical) = alias_for(&normalized) {
+    if let Some(canonical) = alias_for_heading(text) {
         return Some(Heading {
             canonical: canonical.to_owned(),
             original: heading_prefix(text),
         });
     }
-    if looks_like_heading(&normalized) && has_heading_marker(text) {
+    if looks_like_heading(&normalized) && has_explicit_unknown_heading_marker(raw, dialect) {
         return Some(Heading {
             canonical: "unrecognized".to_owned(),
             original: heading_prefix(text),
@@ -995,6 +1600,7 @@ fn alias_for(normalized: &str) -> Option<&'static str> {
             "required_routines",
             &["REQUIRED ROUTINES", "AUXILIARY ROUTINES"],
         ),
+        ("common_blocks", &["COMMON BLOCKS", "COMMON BLOCK"]),
         ("subsidiary", &["SUBSIDIARY"]),
     ] {
         if aliases
@@ -1005,6 +1611,74 @@ fn alias_for(normalized: &str) -> Option<&'static str> {
         }
     }
     None
+}
+
+fn alias_for_heading(text: &str) -> Option<&'static str> {
+    let normalized = normalize_heading_text(text);
+    for (canonical, aliases) in [
+        ("purpose", &["PURPOSE"][..]),
+        ("library", &["LIBRARY"]),
+        ("category", &["CATEGORY", "CATEGORY NO", "CATEGORY NO."]),
+        ("type", &["TYPE"]),
+        ("keywords", &["KEYWORDS", "KEY WORDS"]),
+        ("author", &["AUTHOR", "AUTHORS"]),
+        ("description", &["DESCRIPTION", "METHOD"]),
+        ("usage", &["USAGE", "CALLING SEQUENCE"]),
+        ("arguments", &["ARGUMENTS", "ARGUMENT"]),
+        (
+            "argument_definitions",
+            &[
+                "ARGUMENT DEFINITIONS",
+                "ARGUMENT DEFINITION",
+                "PARAMETER DESCRIPTION",
+            ],
+        ),
+        ("parameters", &["PARAMETERS", "PARAMETER"]),
+        (
+            "routines_called",
+            &["ROUTINES CALLED", "SUBROUTINES CALLED"],
+        ),
+        (
+            "revision_history",
+            &["REVISION HISTORY", "REVISION DATE", "DATE WRITTEN"],
+        ),
+        ("references", &["REFERENCES", "REFERENCE"]),
+        ("see_also", &["SEE ALSO", "SEE-ALSO"]),
+        ("error_messages", &["ERROR MESSAGES", "ERROR MESSAGE"]),
+        ("precision", &["PRECISION"]),
+        (
+            "required_routines",
+            &["REQUIRED ROUTINES", "AUXILIARY ROUTINES"],
+        ),
+        ("common_blocks", &["COMMON BLOCKS", "COMMON BLOCK"]),
+        ("subsidiary", &["SUBSIDIARY"]),
+    ] {
+        if aliases
+            .iter()
+            .any(|alias| normalized == *alias || heading_has_explicit_value(text, alias))
+        {
+            return Some(canonical);
+        }
+    }
+    None
+}
+
+fn heading_has_explicit_value(text: &str, alias: &str) -> bool {
+    let upper = text.trim().to_ascii_uppercase();
+    let Some(rest) = upper.strip_prefix(alias) else {
+        return false;
+    };
+    let mut characters = rest.chars();
+    match characters.next() {
+        Some(':' | '-' | '.') => true,
+        Some(character) if character.is_ascii_whitespace() => {
+            let whitespace_count = 1 + characters
+                .take_while(|value| value.is_ascii_whitespace())
+                .count();
+            whitespace_count >= 2
+        }
+        _ => false,
+    }
 }
 
 fn heading_matches(normalized: &str, alias: &str) -> bool {
@@ -1043,12 +1717,44 @@ fn looks_like_heading(normalized: &str) -> bool {
         })
 }
 
-fn has_heading_marker(text: &str) -> bool {
+fn has_explicit_unknown_heading_marker(text: &str, dialect: &str) -> bool {
     let trimmed = text.trim();
-    trimmed.starts_with("***")
-        || trimmed.ends_with(':')
-        || trimmed.chars().any(|ch| ch.is_ascii_uppercase())
-            && !trimmed.chars().any(|ch| ch.is_ascii_lowercase())
+    let Some(after_stars) = trimmed.strip_prefix("***") else {
+        return dialect != "slatec-final"
+            && trimmed.ends_with(':')
+            && trimmed
+                .chars()
+                .any(|character| character.is_ascii_uppercase())
+            && !trimmed
+                .chars()
+                .any(|character| character.is_ascii_lowercase());
+    };
+    let after_stars = after_stars.trim_end();
+    // Final SLATEC field headings begin immediately after C***.  Continuation
+    // lines are indented, and argument prose frequently starts with a one
+    // letter identifier, so neither is an unknown heading.
+    after_stars
+        .chars()
+        .next()
+        .is_some_and(|character| !character.is_ascii_whitespace())
+        && after_stars
+            .chars()
+            .any(|character| character.is_ascii_alphabetic())
+        && (!after_stars.chars().any(char::is_whitespace) || after_stars.ends_with(':'))
+}
+
+fn repeatable_field(canonical: &str) -> bool {
+    matches!(
+        canonical,
+        "arguments"
+            | "argument_definitions"
+            | "parameters"
+            | "references"
+            | "revision_history"
+            | "routines_called"
+            | "see_also"
+            | "error_messages"
+    )
 }
 
 fn close_field(_context: &SourceContext, unit: &ProgramUnit, open: OpenField) -> FieldRecord {
@@ -1172,6 +1878,18 @@ fn detail_value(
         "line_end": record.line_end,
         "raw_evidence_hash": record.raw_hash,
         "raw_text": raw_text,
+        "rejected_candidates": record.rejected_candidates.iter().map(|candidate| {
+            let start = context.lines[candidate.start_index].span.start as usize;
+            let end = context.lines[candidate.end_index].span.end as usize;
+            json!({
+                "method": candidate.method,
+                "rejection_reason": candidate.rejection_reason,
+                "line_start": context.lines[candidate.start_index].span.line,
+                "line_end": context.lines[candidate.end_index].span.line,
+                "raw_evidence_hash": hash::bytes(&context.bytes[start..end]),
+                "raw_text": String::from_utf8_lossy(&context.bytes[start..end])
+            })
+        }).collect::<Vec<_>>(),
         "fields": record.fields.iter().map(|field| json!({
             "id": field.id,
             "canonical_name": field.canonical_name,
@@ -1215,7 +1933,9 @@ fn prologue_index_value(record: &PrologueRecord) -> Value {
             .collect::<Vec<_>>(),
         record.raw_hash,
         record.collection_states,
-        record.alternate_candidate_count
+        record.alternate_candidate_count,
+        record.rejected_candidates.len(),
+        record.rejected_candidate_reasons
     ])
 }
 
@@ -1334,15 +2054,32 @@ fn promote(output_dir: &Path, snapshot: &str, files: &BTreeMap<&str, Vec<u8>>) -
         fs::write(staging.join(name), bytes)?;
     }
     if output_dir.exists() {
-        for (name, bytes) in files {
-            if fs::read(output_dir.join(name)).ok().as_deref() != Some(bytes.as_slice()) {
-                return Err(CorpusError::Verification(format!(
-                    "existing prologue output differs: {}",
-                    output_dir.display()
-                )));
-            }
+        let identical = files.iter().all(|(name, bytes)| {
+            fs::read(output_dir.join(name)).ok().as_deref() == Some(bytes.as_slice())
+        });
+        if identical {
+            fs::remove_dir_all(staging)?;
+            return Ok(());
         }
-        fs::remove_dir_all(staging)?;
+        // Parser semantic changes must be able to regenerate both committed
+        // indexes and ignored evidence.  Keep a deterministic backup until
+        // the replacement directory has been promoted successfully.
+        let backup = parent.join(format!(
+            "{}.previous-{snapshot}",
+            output_dir.file_name().unwrap_or_default().to_string_lossy()
+        ));
+        if backup.exists() {
+            return Err(CorpusError::Verification(format!(
+                "prologue output backup exists: {}",
+                backup.display()
+            )));
+        }
+        fs::rename(output_dir, &backup)?;
+        if let Err(error) = fs::rename(&staging, output_dir) {
+            let _ = fs::rename(&backup, output_dir);
+            return Err(CorpusError::from(error));
+        }
+        fs::remove_dir_all(backup)?;
     } else {
         fs::rename(staging, output_dir)?;
     }
@@ -1376,7 +2113,7 @@ mod tests {
         let temp = tempfile::tempdir().unwrap();
         write_fixture(
             temp.path(),
-            "C***BEGIN PROLOGUE  ALPHA\nC***PURPOSE  Demo purpose.\nC***ROUTINES CALLED  (NONE)\nC***UNKNOWN THING\nC   preserved\nC***END PROLOGUE  ALPHA\n      SUBROUTINE ALPHA\n      END\n",
+            "C***BEGIN PROLOGUE  ALPHA\nC***PURPOSE  Demo purpose.\nC***ROUTINES CALLED  (NONE)\nC***UNKNOWN THING:\nC   preserved\nC***END PROLOGUE  ALPHA\n      SUBROUTINE ALPHA\n      END\n",
         );
         let result = scan(
             &temp.path().join("evidence"),
@@ -1438,6 +2175,131 @@ mod tests {
             result.summary.dialect_counts.get("slatec-final").copied(),
             Some(1)
         );
+    }
+
+    #[test]
+    fn association_precedence_rejects_deck_headers_and_separator_blocks() {
+        let temp = tempfile::tempdir().unwrap();
+        write_fixture(
+            temp.path(),
+            "C***DECK HEADER\nC-----\n      SUBROUTINE HEADER\nC***BEGIN PROLOGUE  HEADER\nC***PURPOSE  documented\nC***END PROLOGUE  HEADER\n      END\n",
+        );
+        let result = scan(
+            &temp.path().join("evidence"),
+            &temp.path().join("corpus"),
+            &temp.path().join("program-units"),
+            &temp.path().join("out"),
+            true,
+        )
+        .unwrap();
+        assert_eq!(result.summary.ambiguous_associations, 0);
+        let index = fs::read_to_string(temp.path().join("out/prologue-index.json")).unwrap();
+        assert!(index.contains("exact-structural-match"));
+        assert!(index.contains("file-header-deck-only"));
+    }
+
+    #[test]
+    fn final_dialect_precedes_embedded_package_markers() {
+        let temp = tempfile::tempdir().unwrap();
+        write_fixture(
+            temp.path(),
+            "      SUBROUTINE DIALECT\nC***BEGIN PROLOGUE  DIALECT\nC***LIBRARY  BLAS\nC***DATE WRITTEN  1980\nC***END PROLOGUE  DIALECT\n      END\n",
+        );
+        let result = scan(
+            &temp.path().join("evidence"),
+            &temp.path().join("corpus"),
+            &temp.path().join("program-units"),
+            &temp.path().join("out"),
+            true,
+        )
+        .unwrap();
+        assert_eq!(
+            result.summary.dialect_counts.get("slatec-final").copied(),
+            Some(1)
+        );
+    }
+
+    #[test]
+    fn mixed_legacy_package_markers_are_diagnosed_without_overriding_final_format() {
+        let temp = tempfile::tempdir().unwrap();
+        write_fixture(
+            temp.path(),
+            "C DATE WRITTEN  1980\nC REVISION DATE  1981\nC BLAS\nC LINPACK\nC PURPOSE  legacy\n      SUBROUTINE MIXED\n      END\n",
+        );
+        let result = scan(
+            &temp.path().join("evidence"),
+            &temp.path().join("corpus"),
+            &temp.path().join("program-units"),
+            &temp.path().join("out"),
+            true,
+        )
+        .unwrap();
+        assert_eq!(
+            result.summary.dialect_counts.get("ambiguous").copied(),
+            Some(1)
+        );
+        assert!(
+            result
+                .summary
+                .diagnostics_by_rule
+                .contains_key("PR-MIXED-DIALECT")
+        );
+    }
+
+    #[test]
+    fn heading_detection_does_not_promote_uppercase_prose() {
+        assert!(detect_heading("***DESCRIPTION OF ARGUMENTS", "slatec-final").is_none());
+        assert!(detect_heading("***PURPOSE  documented", "slatec-final").is_some());
+        assert_eq!(
+            detect_heading("***FUTURE FIELD:", "slatec-final")
+                .unwrap()
+                .canonical,
+            "unrecognized"
+        );
+    }
+
+    #[test]
+    fn repeated_collection_sections_do_not_emit_duplicate_diagnostics() {
+        let temp = tempfile::tempdir().unwrap();
+        write_fixture(
+            temp.path(),
+            "C***BEGIN PROLOGUE  REPEAT\nC***REVISION HISTORY  FIRST\nC***REVISION HISTORY  SECOND\nC***END PROLOGUE  REPEAT\n      SUBROUTINE REPEAT\n      END\n",
+        );
+        let result = scan(
+            &temp.path().join("evidence"),
+            &temp.path().join("corpus"),
+            &temp.path().join("program-units"),
+            &temp.path().join("out"),
+            true,
+        )
+        .unwrap();
+        assert!(
+            !result
+                .summary
+                .diagnostics_by_rule
+                .contains_key("PR-DUPLICATE-FIELD")
+        );
+    }
+
+    #[test]
+    fn reviewed_expectations_are_compact_and_schema_checked() {
+        let path =
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/data/prologue-expectations.toml");
+        let content = fs::read_to_string(path).unwrap();
+        let value: toml::Value = toml::from_str(&content).unwrap();
+        let entries = value
+            .get("expectation")
+            .and_then(toml::Value::as_array)
+            .unwrap();
+        assert!(entries.len() >= 4);
+        assert!(!content.contains("raw_text"));
+        for entry in entries {
+            let table = entry.as_table().unwrap();
+            assert!(table.contains_key("program_unit_id"));
+            assert!(table.contains_key("expected_dialect"));
+            assert!(table.contains_key("expected_association_status"));
+            assert!(table.contains_key("expected_field_ids"));
+        }
     }
 
     #[test]

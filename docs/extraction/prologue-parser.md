@@ -10,9 +10,20 @@ cargo run -p slatec-tools --bin slatec-corpus -- scan-prologues --offline
 
 The command accepts `--evidence-dir`, `--manifest-dir`, `--program-unit-dir`, `--output-dir`, and `--offline`. `--manifest-dir` points to the corpus manifests, defaulting to `generated/corpus`; `--program-unit-dir` defaults to `generated/program-units`; and committed output defaults to `generated/prologues`.
 
+Before changing association rules, a pinned baseline can be measured without
+copying source text into the repository:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- analyze-prologues --offline
+```
+
+This writes `generated/prologues-analysis/`. Its reports contain only counts,
+classification labels, marker names, and hashes; detailed candidates remain in
+ignored evidence.
+
 ## Evidence Boundary
 
-The parser verifies snapshot IDs, program-unit locators, source-member paths, and raw source hashes before reading a file. It associates nearby comment blocks with each program unit, classifies the detected prologue dialect, extracts recognized headings, preserves unknown headings, and records diagnostics for ambiguous or incomplete cases.
+The parser verifies snapshot IDs, program-unit locators, source-member paths, and raw source hashes before reading a file. It applies structural precedence: an explicit final-format post-declaration sentinel is an `exact-structural-match`; otherwise an immediately adjacent, independently structured legacy block may be associated. File `DECK` headers, separator-only blocks, and unstructured trailing comments are retained as rejected evidence but do not create ambiguity. Only two independently plausible candidates produce `multiple-plausible-candidates` and its diagnostic.
 
 Raw prologue text is written only to ignored local evidence:
 
@@ -45,7 +56,18 @@ Dialect IDs include:
 - `absent`
 - `ambiguous`
 
-Unknown or malformed headings are preserved as structural records with review diagnostics rather than discarded.
+Final SLATEC sentinels take precedence over package names or legacy dates that
+occur inside their documentary content. Additional package-specific dialects
+are recognized only when the block has both package and legacy structural
+markers; a package name alone is not a dialect decision.
+
+Known headings require an explicit heading boundary (for example a delimiter
+or the final-format marker position). All-uppercase prose and argument labels
+therefore stay within the active field instead of being promoted to fields.
+Genuinely unknown, structurally marked headings remain structural records with
+review diagnostics rather than being discarded. Repeated collection sections
+are retained in source order; duplicate diagnostics are reserved for repeated
+non-collection headings that remain semantically ambiguous.
 
 ## Evidence Semantics
 
