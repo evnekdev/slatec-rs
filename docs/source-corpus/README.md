@@ -1,0 +1,21 @@
+# SLATEC source-corpus evidence
+
+This directory contains the E01 candidate-artifact inventory for the source-corpus freezing programme. It is intentionally broader than the eventual canonical corpus.
+
+## Files
+
+- [`candidate-artifacts.md`](candidate-artifacts.md) — human-readable artifact register.
+- [`artifact-relationships.md`](artifact-relationships.md) — provisional duplicate, relocation, upstream, documentation, generated and machine-specific relationships.
+- [`retrieval-backlog.md`](retrieval-backlog.md) — explicit acquisition, checksum and reconciliation work for later tasks.
+- [`../../metadata/candidate-artifacts.toml`](../../metadata/candidate-artifacts.toml) — valid TOML representation using stable project IDs.
+
+## Status semantics
+
+- `opened-index`: the authoritative index page was inspected; linked files were not necessarily opened.
+- `link-verified`: an authoritative index advertises the artifact.
+- `content-not-inspected` or `not-downloaded`: no content-level or archive-member claim is made.
+- `pending-download`: no checksum was calculated.
+
+## Programme boundary
+
+E01 registers candidates only. It does not select a canonical baseline, infer package ownership from directory placement, or treat dependency products as executable linkage truth. E02 should acquire bytes and reconcile archives, live directories and relocated subsets.
