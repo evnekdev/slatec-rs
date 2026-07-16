@@ -21,6 +21,8 @@ const SEMANTIC_VERSION: &str = "1";
 const CREATED_AT: &str = "1970-01-01T00:00:00Z";
 const COMMITTED_SIZE_LIMIT: u64 = 4_000_000;
 const FORTRAN_FLAGS: &[&str] = &["-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c"];
+const PROFILE_TARGET: &str = "x86_64-w64-mingw32";
+const PROFILE_OVERRIDE_NAMES: &[&str] = &["D1MACH", "I1MACH", "R1MACH", "XERHLT"];
 
 #[derive(Clone, Deserialize)]
 struct Provider {
@@ -119,6 +121,19 @@ struct CompileRecord {
     object_path: Option<PathBuf>,
     object_id: Option<String>,
     diagnostic_log_id: String,
+    symbols: Vec<Symbol>,
+}
+
+#[derive(Clone)]
+struct ProfileOverride {
+    normalized_name: String,
+    original_provider_id: String,
+    original_source_id: String,
+    original_raw_sha256: String,
+    relative_path: String,
+    raw_sha256: String,
+    object_path: PathBuf,
+    object_id: String,
     symbols: Vec<Symbol>,
 }
 
@@ -240,7 +255,8 @@ pub fn generate(
         )?);
     }
     compilation.sort_by(|left, right| left.source_id.cmp(&right.source_id));
-    let archive = archive_objects(&workspace, &compilation)?;
+    let overrides = compile_profile_overrides(&compiler, &workspace, &compilation)?;
+    let archive = archive_objects(&workspace, &compilation, &overrides)?;
     let abi = run_abi_validation(&compiler, &workspace, archive.as_deref())?;
 
     let symbols = compilation
@@ -276,6 +292,7 @@ pub fn generate(
         &interfaces,
         &abi,
         &summary,
+        &overrides,
     )?;
     let semantic_hash = semantic_hash(&outputs);
     let status = if summary.failed_source_files == 0
@@ -523,6 +540,11 @@ fn compiler_profile() -> Result<CompilerProfile> {
             "only the explicitly supported GNU Fortran profile is supported, found {version}"
         )));
     }
+    if target != PROFILE_TARGET {
+        return Err(CorpusError::Verification(format!(
+            "runtime profile requires GNU Fortran target {PROFILE_TARGET}, found {target}"
+        )));
+    }
     let identity = "gnu-fortran".to_owned();
     let profile_id = stable_id(
         "native-profile",
@@ -534,6 +556,114 @@ fn compiler_profile() -> Result<CompilerProfile> {
         target,
         profile_id,
     })
+}
+
+fn profile_source_path(name: &str) -> PathBuf {
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
+        .join("native/profile/gnu-mingw-x86_64")
+        .join(format!("{}.f", name.to_ascii_lowercase()))
+}
+
+fn compile_profile_overrides(
+    compiler: &CompilerProfile,
+    workspace: &Path,
+    compilation: &[CompileRecord],
+) -> Result<Vec<ProfileOverride>> {
+    let compiler_path = compiler_path();
+    let mut overrides = Vec::new();
+    for name in PROFILE_OVERRIDE_NAMES {
+        let owners = compilation
+            .iter()
+            .filter(|record| {
+                record
+                    .group
+                    .providers
+                    .iter()
+                    .any(|provider| provider.normalized_name == *name)
+            })
+            .collect::<Vec<_>>();
+        if owners.len() != 1 {
+            return Err(CorpusError::Verification(format!(
+                "profile override {name} requires exactly one selected source owner, found {}",
+                owners.len()
+            )));
+        }
+        let owner = owners[0];
+        let provider = owner
+            .group
+            .providers
+            .iter()
+            .find(|provider| provider.normalized_name == *name)
+            .expect("owner was selected by provider name");
+        let source = profile_source_path(name);
+        let bytes = fs::read(&source).map_err(|error| {
+            CorpusError::Verification(format!(
+                "missing profile compatibility provider {}: {error}",
+                source.display()
+            ))
+        })?;
+        let raw_sha256 = hash::bytes(&bytes);
+        let relative_path = format!(
+            "native/profile/gnu-mingw-x86_64/{}.f",
+            name.to_ascii_lowercase()
+        );
+        let object_id = stable_id(
+            "native-profile-object",
+            &[&compiler.profile_id, name, &raw_sha256],
+        );
+        let object = workspace.join("objects").join(format!("{object_id}.o"));
+        let log = workspace
+            .join("logs")
+            .join(format!("{object_id}.compile.log"));
+        let result = Command::new(&compiler_path)
+            .args(FORTRAN_FLAGS)
+            .arg(&source)
+            .arg("-o")
+            .arg(&object)
+            .output()
+            .map_err(|error| {
+                CorpusError::Verification(format!(
+                    "could not compile profile override {name}: {error}"
+                ))
+            })?;
+        fs::write(&log, [&result.stdout[..], &result.stderr[..]].concat())?;
+        if !result.status.success() || !object.is_file() {
+            return Err(CorpusError::Verification(format!(
+                "profile override {name} did not compile; see {}",
+                log.display()
+            )));
+        }
+        let symbols = inspect_symbols(
+            &compiler_path,
+            &object,
+            &owner.source_id,
+            workspace,
+            &object_id,
+        )?;
+        let owned_symbols = symbols
+            .iter()
+            .filter(|symbol| symbol.normalized == *name)
+            .count();
+        if owned_symbols != 1 {
+            return Err(CorpusError::Verification(format!(
+                "profile override {name} defines {owned_symbols} matching symbols, expected one"
+            )));
+        }
+        overrides.push(ProfileOverride {
+            normalized_name: (*name).to_owned(),
+            original_provider_id: provider.program_unit_id.clone(),
+            original_source_id: owner.source_id.clone(),
+            original_raw_sha256: owner.group.raw_sha256.clone(),
+            relative_path,
+            raw_sha256,
+            object_path: object,
+            object_id,
+            symbols,
+        });
+    }
+    overrides.sort_by(|left, right| left.normalized_name.cmp(&right.normalized_name));
+    Ok(overrides)
 }
 
 fn compiler_path() -> PathBuf {
@@ -764,17 +894,45 @@ fn normalize_symbol(raw: &str) -> String {
         .to_ascii_uppercase()
 }
 
-fn archive_objects(workspace: &Path, compilation: &[CompileRecord]) -> Result<Option<PathBuf>> {
-    let objects = compilation
+fn archive_objects(
+    workspace: &Path,
+    compilation: &[CompileRecord],
+    overrides: &[ProfileOverride],
+) -> Result<Option<PathBuf>> {
+    let original_objects = compilation
         .iter()
         .filter_map(|record| record.object_path.as_ref())
         .collect::<Vec<_>>();
-    if objects.is_empty() {
+    if original_objects.is_empty() {
         return Ok(None);
     }
+    write_archive(
+        workspace,
+        "libslatec_selected_original.a",
+        &original_objects,
+    )?;
+    let replaced = overrides
+        .iter()
+        .map(|record| record.original_source_id.as_str())
+        .collect::<BTreeSet<_>>();
+    let mut profile_objects = compilation
+        .iter()
+        .filter(|record| !replaced.contains(record.source_id.as_str()))
+        .filter_map(|record| record.object_path.as_ref())
+        .collect::<Vec<_>>();
+    profile_objects.extend(overrides.iter().map(|record| &record.object_path));
+    let archive = write_archive(workspace, "libslatec_selected.a", &profile_objects)?;
+    validate_override_symbol_ownership(&archive, overrides)?;
+    Ok(Some(archive))
+}
+
+fn write_archive(workspace: &Path, name: &str, objects: &[&PathBuf]) -> Result<PathBuf> {
     let compiler_path = compiler_path();
     let ar = compiler_tool(&compiler_path, "ar")?;
-    let archive = workspace.join("libslatec_selected.a");
+    let archive = workspace.join(name);
+    if archive.exists() {
+        fs::remove_file(&archive)?;
+    }
     for (index, chunk) in objects.chunks(96).enumerate() {
         let mode = if index == 0 { "rcsD" } else { "rD" };
         let output = Command::new(&ar)
@@ -786,14 +944,66 @@ fn archive_objects(workspace: &Path, compilation: &[CompileRecord]) -> Result<Op
                 CorpusError::Verification(format!("could not start archiver: {error}"))
             })?;
         fs::write(
-            workspace.join("logs").join(format!("archive-{index}.log")),
+            workspace
+                .join("logs")
+                .join(format!("{}-{index}.log", name.trim_end_matches(".a"))),
             [&output.stdout[..], &output.stderr[..]].concat(),
         )?;
         if !output.status.success() {
-            return Ok(None);
+            return Err(CorpusError::Verification(format!(
+                "archiver failed while creating {name}"
+            )));
         }
     }
-    Ok(archive.is_file().then_some(archive))
+    if !archive.is_file() {
+        return Err(CorpusError::Verification(format!(
+            "archiver did not create {name}"
+        )));
+    }
+    Ok(archive)
+}
+
+fn validate_override_symbol_ownership(archive: &Path, overrides: &[ProfileOverride]) -> Result<()> {
+    let nm = compiler_tool(&compiler_path(), "nm")?;
+    let output = Command::new(nm)
+        .args(["-g", "--defined-only"])
+        .arg(archive)
+        .output()
+        .map_err(|error| {
+            CorpusError::Verification(format!(
+                "could not inspect profile archive symbols: {error}"
+            ))
+        })?;
+    if !output.status.success() {
+        return Err(CorpusError::Verification(
+            "profile archive symbol inspection failed".to_owned(),
+        ));
+    }
+    let mut counts = BTreeMap::<String, usize>::new();
+    for line in String::from_utf8_lossy(&output.stdout).lines() {
+        if let Some(raw) = line.split_whitespace().last() {
+            *counts.entry(normalize_symbol(raw)).or_default() += 1;
+        }
+    }
+    ensure_single_override_counts(
+        &counts,
+        &overrides
+            .iter()
+            .map(|record| record.normalized_name.as_str())
+            .collect::<Vec<_>>(),
+    )
+}
+
+fn ensure_single_override_counts(counts: &BTreeMap<String, usize>, names: &[&str]) -> Result<()> {
+    for name in names {
+        let count = counts.get(*name).copied().unwrap_or(0);
+        if count != 1 {
+            return Err(CorpusError::Verification(format!(
+                "profile archive contains {count} definitions of {name}, expected exactly one"
+            )));
+        }
+    }
+    Ok(())
 }
 
 fn compilation_by_provider(records: &[CompileRecord]) -> BTreeMap<String, bool> {
@@ -1109,6 +1319,7 @@ fn summarize(
     summary
 }
 
+#[allow(clippy::too_many_arguments)]
 fn outputs(
     snapshot: &str,
     compiler: &CompilerProfile,
@@ -1117,6 +1328,7 @@ fn outputs(
     interfaces: &[InterfaceRecord],
     abi: &AbiValidation,
     summary: &RawFfiSummary,
+    overrides: &[ProfileOverride],
 ) -> Result<BTreeMap<&'static str, Vec<u8>>> {
     let mut outputs = BTreeMap::new();
     let mut source_rows = compilation
@@ -1162,6 +1374,38 @@ fn outputs(
     outputs.insert(
         "compilation-results.json",
         compact(&json!({"schema_id":"slatec-rs/raw-ffi-compilation","schema_version":SCHEMA_VERSION,"snapshot_id":snapshot,"compiler_profile":{"id":compiler.profile_id,"identity":compiler.identity,"version":compiler.version,"target":compiler.target,"flags":FORTRAN_FLAGS,"default_integer_and_logical":"validated by ignored ABI probe when abi_validation.status is passed","symbol_mangling":"raw spellings are observed by nm; generated declarations use those exact spellings","object_format":"compiler-target dependent; preserved in ignored build evidence"},"columns":["source_id","source_subset","source_path","status","exit_code","failure_rule","object_id","diagnostic_log_id","defined_symbol_count"],"records":compilation_rows}))?,
+    );
+    let override_rows = overrides
+        .iter()
+        .map(|record| {
+            json!([
+                record.normalized_name,
+                record.original_provider_id,
+                record.original_source_id,
+                record.original_raw_sha256,
+                record.relative_path,
+                record.raw_sha256,
+                record.object_id,
+                record
+                    .symbols
+                    .iter()
+                    .map(|symbol| symbol.raw.clone())
+                    .collect::<Vec<_>>(),
+                "profile_contract_from_fortran_intrinsics_or_site_hook",
+                "validated_single_symbol_owner",
+            ])
+        })
+        .collect::<Vec<_>>();
+    outputs.insert(
+        "profile-overrides.json",
+        compact(&json!({
+            "schema_id":"slatec-rs/raw-ffi-profile-overrides",
+            "schema_version":SCHEMA_VERSION,
+            "snapshot_id":snapshot,
+            "compiler_profile_id":compiler.profile_id,
+            "columns":["normalized_name","original_provider_id","original_source_id","original_raw_sha256","override_path","override_raw_sha256","object_id","defined_symbols","selection_rule","validation_result"],
+            "records":override_rows
+        }))?,
     );
     let mut symbol_rows = symbols
         .iter()
@@ -1248,7 +1492,7 @@ fn outputs(
     );
     outputs.insert(
         "confidence-summary.json",
-        compact(&json!({"schema_id":"slatec-rs/raw-ffi-confidence-summary","schema_version":SCHEMA_VERSION,"snapshot_id":snapshot,"summary":summary,"abi_validation":{"status":abi.status,"integer_real_double":abi.integer_real_double,"logical":abi.logical,"complex":abi.complex,"character":abi.character,"callback":abi.callback,"selected_numeric_rust":abi.selected_numeric_rust,"selected_complex_rust":abi.selected_complex_rust,"selected_machine_error":abi.selected_machine_error,"selected_machine_error_scope":"invokes I1MACH and XERMSG; it does not establish that historical machine constants represent the host"},"confidence_classes":{"generated_standard":"numeric subroutine with observed symbol and validated basic GNU Fortran ABI","generated_abi_sensitive":"observed symbol and validated profile; module identifies the ABI-sensitive category","manual_review_required":"callback, unsupported return ABI, unresolved interface, or symbol ambiguity","unsupported":"selected source did not compile under this explicit profile","non_callable_infrastructure":"selected infrastructure unit, retained as corpus evidence but not emitted as a callable raw binding"}}))?,
+        compact(&json!({"schema_id":"slatec-rs/raw-ffi-confidence-summary","schema_version":SCHEMA_VERSION,"snapshot_id":snapshot,"summary":summary,"profile_validation":{"abi_validated":abi.status,"machine_constants_validated":"validated_by_generated_runtime_profile_outputs","legacy_error_behavior_validated":"validated_by_generated_runtime_profile_outputs","fnlib_initialization_validated":"validated_by_generated_runtime_profile_outputs"},"abi_validation":{"status":abi.status,"integer_real_double":abi.integer_real_double,"logical":abi.logical,"complex":abi.complex,"character":abi.character,"callback":abi.callback,"selected_numeric_rust":abi.selected_numeric_rust,"selected_complex_rust":abi.selected_complex_rust,"selected_machine_error":abi.selected_machine_error,"selected_machine_error_scope":"ABI smoke only; numerical machine constants and legacy error levels are validated separately under generated/runtime-profile"},"confidence_classes":{"generated_standard":"numeric subroutine with observed symbol and validated basic GNU Fortran ABI","generated_abi_sensitive":"observed symbol and validated profile; module identifies the ABI-sensitive category","manual_review_required":"callback, unsupported return ABI, unresolved interface, or symbol ambiguity","unsupported":"selected source did not compile under this explicit profile","non_callable_infrastructure":"selected infrastructure unit, retained as corpus evidence but not emitted as a callable raw binding"}}))?,
     );
     outputs.insert(
         "generation-summary.md",
@@ -1932,5 +2176,25 @@ mod tests {
         assert!(text.contains("#[link_name = \"test_\"]"));
         assert!(text.contains("r#type: *mut c_char"));
         assert!(text.contains("character_length_1: FortranCharacterLength"));
+    }
+
+    #[test]
+    fn profile_override_set_is_explicit_and_unique() {
+        let names = PROFILE_OVERRIDE_NAMES
+            .iter()
+            .copied()
+            .collect::<BTreeSet<_>>();
+        assert_eq!(names.len(), PROFILE_OVERRIDE_NAMES.len());
+        for name in PROFILE_OVERRIDE_NAMES {
+            assert!(profile_source_path(name).is_file(), "{name}");
+        }
+    }
+
+    #[test]
+    fn duplicate_override_symbol_owners_are_rejected() {
+        let valid = BTreeMap::from([("I1MACH".to_owned(), 1)]);
+        assert!(ensure_single_override_counts(&valid, &["I1MACH"]).is_ok());
+        let duplicate = BTreeMap::from([("I1MACH".to_owned(), 2)]);
+        assert!(ensure_single_override_counts(&duplicate, &["I1MACH"]).is_err());
     }
 }

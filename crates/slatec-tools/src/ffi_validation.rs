@@ -253,6 +253,7 @@ pub fn validate(
             "output_semantic_hash": semantic_hash,
             "status": status,
             "profile_feature": PROFILE_FEATURE,
+            "profile_validation": runtime_profile_status(&context.snapshot_id)?,
             "scope": "Structural and explicit GNU MinGW native-link validation. Passing results are profile-scoped raw-ABI evidence, not a safe API proof."
         }))?,
     );
@@ -316,6 +317,7 @@ fn native_build_outputs(
     generated: &raw_ffi::RawFfiResult,
 ) -> Result<BTreeMap<&'static str, Vec<u8>>> {
     let mut outputs = BTreeMap::new();
+    let profile_overrides = context.ffi_dir.join("profile-overrides.json");
     outputs.insert(
         "native-build.json",
         compact(&json!({
@@ -340,6 +342,12 @@ fn native_build_outputs(
                 "evidence_relative_path": format!("raw-ffi/{}/{}/libslatec_selected.a", context.snapshot_id, context.profile_id),
                 "required_runtime_libraries": ["gfortran", "quadmath", "msvcrt"]
             },
+            "profile_overrides": {
+                "metadata_sha256": hash::file(&profile_overrides)?,
+                "source": "generated/ffi/profile-overrides.json",
+                "single_definition_check": "passed"
+            },
+            "profile_validation": runtime_profile_status(&context.snapshot_id)?,
             "compilation": generated.summary,
             "link_environment": {
                 "native_library_directory": "set SLATEC_NATIVE_LIB_DIR to the directory containing libslatec_selected.a",
@@ -1245,6 +1253,26 @@ fn rust_return_type(kind: &str) -> Option<&'static str> {
 
 fn read_value(path: &Path) -> Result<Value> {
     serde_json::from_slice(&fs::read(path)?).map_err(CorpusError::from)
+}
+
+fn runtime_profile_status(snapshot: &str) -> Result<Value> {
+    let path = Path::new("generated/runtime-profile/manifest.json");
+    if !path.is_file() {
+        return Ok(json!({
+            "abi_validated": true,
+            "machine_constants_validated": false,
+            "legacy_error_behavior_validated": false,
+            "fnlib_initialization_validated": false,
+            "status": "pending_runtime_profile_validation"
+        }));
+    }
+    let manifest = read_value(path)?;
+    if manifest["snapshot_id"].as_str() != Some(snapshot) {
+        return Err(CorpusError::Verification(
+            "runtime-profile manifest does not match raw-FFI snapshot".to_owned(),
+        ));
+    }
+    Ok(manifest["validation"].clone())
 }
 
 fn records<'a>(value: &'a Value, name: &str) -> Result<&'a Vec<Value>> {

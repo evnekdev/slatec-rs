@@ -72,6 +72,18 @@ This is a build-configuration responsibility. A successful compilation of unconf
 - How should non-IEEE targets or extended-precision compiler modes be handled?
 - Are there source copies of these routines in multiple Netlib sublibraries that would create duplicate symbols?
 
+## Validated GNU MinGW profile
+
+The `ffi-profile-gnu-mingw-x86_64` build does not use an uncommented historical
+table. The selected archive templates remain immutable evidence, while explicit
+profile compatibility providers derive the documented contracts from compiler
+inquiry intrinsics. All valid selectors are compared with an independent
+authored Fortran inquiry program. See the
+[runtime-profile validation](../extraction/runtime-profile-validation.md) for
+the provider decision, selector classifications, and FNLIB reprobes. This
+resolution applies only to the supported GNU MinGW x86_64 profile; the broader
+cross-platform questions remain open.
+
 ## Sources
 
 - [`slatec-guide`](https://www.netlib.org/slatec/guide)
