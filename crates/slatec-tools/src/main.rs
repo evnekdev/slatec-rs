@@ -1,5 +1,6 @@
 use slatec_tools::acquire;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
+use slatec_tools::complete_corpus;
 use slatec_tools::error::{CorpusError, Result};
 use slatec_tools::extract;
 use slatec_tools::full_corpus;
@@ -16,6 +17,7 @@ struct Options {
     evidence_dir: PathBuf,
     manifest_dir: PathBuf,
     program_unit_dir: PathBuf,
+    full_corpus_dir: PathBuf,
     output_dir: PathBuf,
     offline: bool,
 }
@@ -48,6 +50,11 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/full-corpus");
+    }
+    if options.command == "select-full-corpus"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/selected-corpus");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -180,8 +187,28 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "select-full-corpus" => {
+            let result = complete_corpus::select(
+                &options.evidence_dir,
+                &options.manifest_dir,
+                &options.full_corpus_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            if result.status == "failed" {
+                return Err(CorpusError::Verification(
+                    "complete-corpus provider selection failed; see generated/selected-corpus/unresolved-providers.json"
+                        .to_owned(),
+                ));
+            }
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, or audit-full-corpus",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, or select-full-corpus",
             options.command
         ))),
     }
@@ -202,6 +229,7 @@ fn parse_options() -> Result<Options> {
         evidence_dir: PathBuf::from("evidence"),
         manifest_dir: PathBuf::from("generated/corpus"),
         program_unit_dir: PathBuf::from("generated/program-units"),
+        full_corpus_dir: PathBuf::from("generated/full-corpus"),
         output_dir: PathBuf::from("generated/corpus"),
         offline: false,
     };
@@ -219,6 +247,10 @@ fn parse_options() -> Result<Options> {
             "--program-unit-dir" => {
                 options.program_unit_dir =
                     PathBuf::from(required_value(&mut args, "--program-unit-dir")?)
+            }
+            "--full-corpus-dir" => {
+                options.full_corpus_dir =
+                    PathBuf::from(required_value(&mut args, "--full-corpus-dir")?)
             }
             "--output-dir" => {
                 options.output_dir = PathBuf::from(required_value(&mut args, "--output-dir")?)
@@ -242,5 +274,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--output-dir PATH] [--offline]"
 }

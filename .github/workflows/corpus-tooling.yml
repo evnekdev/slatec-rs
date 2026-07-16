@@ -21,3 +21,5 @@ jobs:
         run: cargo test -p slatec-tools prologues::tests
       - name: Full-corpus audit fixtures
         run: cargo test -p slatec-tools full_corpus::tests
+      - name: Complete-corpus selection fixtures
+        run: cargo test -p slatec-tools complete_corpus::tests

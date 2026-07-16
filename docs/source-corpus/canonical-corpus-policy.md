@@ -24,9 +24,9 @@ under this policy. They are not a claim that the subset constitutes every
 historical SLATEC routine. The separate full-corpus completeness audit records
 the live relocated SLATEC directories, catalogue comparisons, and provider
 relationships without changing this policy's archive hash, snapshot identity,
-or selected providers. A future complete selected collection requires an
-explicit provider-resolution policy; standalone upstream packages remain
-comparison-only.
+or selected providers. The derived complete selected collection is governed by
+the separate [complete selected-corpus policy](complete-selected-corpus-policy.md);
+standalone upstream packages remain comparison-only.
 
 ## Corpus layers
 

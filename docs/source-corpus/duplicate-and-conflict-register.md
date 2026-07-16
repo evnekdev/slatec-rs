@@ -4,7 +4,7 @@ No provider is selected by this register.
 
 | ID | Program unit or set | Providers/candidates | Status | Measured or required evidence |
 |---|---|---|---|---|
-| `DUP-001` | pinned `main-src` subset versus live SLATEC-hosted trees | `4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc` archive; live `src/` plus relocated subsets | `unresolved` | The 735-unit archive subset is inventoried; live and relocated bytes remain required for a complete-library audit. |
+| `DUP-001` | pinned `main-src` subset versus live SLATEC-hosted trees | `4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc` archive; live `src/` plus relocated subsets | `resolved-for-complete-hosted-profile` | The complete selected-corpus policy retains `main-src` where present and selects relocated hosted providers only for absent identities; standalone comparisons remain unresolved. |
 | `DUP-002` | source archive internal declarations | 735 `.f` files | `verified-identical` as uniqueness result, not provider identity | Deterministic scanner found 735 unique names and zero duplicate declared names within this archive. |
 | `DUP-003` | linear algebra providers | archive; `slatec/lin`; BLAS; LINPACK; EISPACK; SLAP | `possible-duplicate` | External provider bytes not compared. |
 | `DUP-004` | FISHPACK/FFTPACK providers | archive; relocated subset; standalone packages | `possible-duplicate` | External provider bytes not compared. |
@@ -15,7 +15,7 @@ No provider is selected by this register.
 | `DUP-009` | `D1MACH` provider | source archive; Linux `DLAMCH`-based overlay | `alternate-implementation` | Linux version adds LAPACK dependency and cached runtime inquiry. |
 | `DUP-010` | `R1MACH` provider | source archive; Linux `SLAMCH`-based overlay | `alternate-implementation` | Linux version adds LAPACK dependency and cached runtime inquiry. |
 | `DUP-011` | `I1MACH` provider | source archive selectable blocks; Linux IBM-PC selection | `alternate-implementation` | Linux overlay activates one constant block. |
-| `DUP-012` | `SGEIR` history | `sgeir.f`; retained `sgeir.f.0` | `verified-different` | Archive `changes` records an executable conditional correction in 1999. Parse the `.0` provider before any historical build. |
+| `DUP-012` | `SGEIR` history | `sgeir.f`; retained `sgeir.f.0` | `resolved-current-provider` | The variants differ in one executable physical line. The complete hosted profile selects current immutable `main-src` `sgeir.f` and preserves `.0` as excluded historical evidence. |
 | `DUP-013` | quadrature constants | corrected `qk15w.f`, `dqk15w.f`; earlier copies elsewhere | `possible-duplicate` | Archive `changes` records coefficient corrections dated 2023. Locate prior providers for exact pairwise diff. |
 | `DUP-014` | `RD` documentation history | current `rd.f`; earlier copy | `possible-duplicate` | Archive `changes` records a 1994 comment correction. |
 | `DUP-015` | old error package | `slatec/err`; main error subsystem | `possible-duplicate` | Live `err/` bytes and state/symbol comparison required. |

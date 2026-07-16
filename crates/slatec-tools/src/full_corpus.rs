@@ -15,7 +15,7 @@ use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const AUDIT_SEMANTIC_VERSION: &str = "1";
+const AUDIT_SEMANTIC_VERSION: &str = "2";
 const CREATED_AT: &str = "1970-01-01T00:00:00Z";
 const COMMITTED_SIZE_LIMIT: u64 = 4_000_000;
 
@@ -113,11 +113,15 @@ struct FileInventory {
     scan_diagnostics: Vec<String>,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct CatalogueEntry {
     in_list: bool,
     in_toc: bool,
     toc_classification: String,
+    raw_toc_classification: String,
+    classification_basis: String,
+    list_lines: BTreeSet<usize>,
+    toc_lines: BTreeSet<usize>,
 }
 
 #[derive(Clone, Debug, serde::Serialize)]
@@ -363,6 +367,19 @@ fn audit_with_config(
             "record_encoding": "columnar",
             "columns": ["normalized_name", "in_list", "in_toc", "toc_classification", "source_provider_count", "comparison_state"],
             "records": catalogue_comparison_values(&providers, &catalogue),
+        }))?,
+    );
+    outputs.insert(
+        "catalogue-reconciliation.json",
+        compact(&json!({
+            "schema_id": "slatec-rs/full-corpus-catalogue-reconciliation",
+            "schema_version": SCHEMA_VERSION,
+            "main_src_snapshot_id": snapshot,
+            "created_by": format!("{TOOL_NAME} {TOOL_VERSION}"),
+            "created_at": CREATED_AT,
+            "record_encoding": "columnar",
+            "columns": ["normalized_name", "in_current_list", "in_version_4_1_toc", "classification", "raw_toc_classification", "classification_basis", "list_line_numbers", "toc_line_numbers", "source_provider_count", "comparison_state"],
+            "records": catalogue_reconciliation_values(&providers, &catalogue),
         }))?,
     );
     outputs.insert(
@@ -835,13 +852,13 @@ fn catalogue_entries(
     toc: &[u8],
     diagnostics: &mut Vec<Value>,
 ) -> BTreeMap<String, CatalogueEntry> {
-    let list_names = catalogue_tokens(list, false);
-    let toc_names = catalogue_tokens(toc, true);
+    let list_names = parse_list_catalogue(list);
+    let toc_names = parse_toc_catalogue(toc);
     if list_names.is_empty() {
         diagnostics.push(compact_diagnostic(
             "warning",
             "FULL-CORPUS-LIST-PARSE-EMPTY",
-            "official list artifact did not match the conservative catalogue grammar",
+            "official list artifact did not match the numbered catalogue grammar",
             "catalogue",
             "list",
         ));
@@ -856,141 +873,228 @@ fn catalogue_entries(
         ));
     }
     let mut output = BTreeMap::new();
-    for (name, classification) in list_names {
-        output
-            .entry(name.clone())
-            .or_insert(CatalogueEntry {
-                in_list: false,
-                in_toc: false,
-                toc_classification: "not_determined".to_owned(),
-            })
-            .in_list = true;
-        let _ = classification;
+    for (name, lines) in list_names {
+        let entry = output.entry(name).or_insert_with(empty_catalogue_entry);
+        entry.in_list = true;
+        entry.list_lines.extend(lines);
     }
-    for (name, classification) in toc_names {
-        let entry = output.entry(name.clone()).or_insert(CatalogueEntry {
-            in_list: false,
-            in_toc: false,
-            toc_classification: "not_determined".to_owned(),
-        });
+    for (name, observation) in toc_names {
+        let entry = output.entry(name).or_insert_with(empty_catalogue_entry);
         entry.in_toc = true;
-        if classification == "user_callable" || entry.toc_classification == "not_determined" {
-            entry.toc_classification = classification;
+        entry.toc_lines.extend(observation.lines);
+        entry.raw_toc_classification = observation.classification;
+    }
+    for entry in output.values_mut() {
+        entry.toc_classification = if entry.raw_toc_classification == "subsidiary" {
+            "subsidiary".to_owned()
+        } else if entry.raw_toc_classification == "user_candidate" && entry.in_list {
+            "user_callable".to_owned()
+        } else if entry.raw_toc_classification == "user_candidate" {
+            "historical_or_obsolete".to_owned()
+        } else {
+            "unknown".to_owned()
+        };
+        entry.classification_basis = match entry.toc_classification.as_str() {
+            "user_callable" => "current-list-plus-toc-section-i-or-iii".to_owned(),
+            "subsidiary" => "toc-section-ii-or-starred-section-iii".to_owned(),
+            "historical_or_obsolete" => "toc-user-candidate-absent-from-current-list".to_owned(),
+            _ => "insufficient-catalogue-structure".to_owned(),
+        };
+    }
+    let valid_names: BTreeSet<_> = output.keys().cloned().collect();
+    for (name, lines) in legacy_toc_false_candidates(toc) {
+        if valid_names.contains(&name) {
+            continue;
+        }
+        output.insert(
+            name,
+            CatalogueEntry {
+                in_list: false,
+                in_toc: true,
+                toc_classification: "catalogue_heading".to_owned(),
+                raw_toc_classification: "legacy_generic_false_positive".to_owned(),
+                classification_basis: "rejected-by-fixed-column-section-iii-grammar".to_owned(),
+                list_lines: BTreeSet::new(),
+                toc_lines: lines,
+            },
+        );
+    }
+    output
+}
+
+fn empty_catalogue_entry() -> CatalogueEntry {
+    CatalogueEntry {
+        in_list: false,
+        in_toc: false,
+        toc_classification: "unknown".to_owned(),
+        raw_toc_classification: "not_observed".to_owned(),
+        classification_basis: "not_observed".to_owned(),
+        list_lines: BTreeSet::new(),
+        toc_lines: BTreeSet::new(),
+    }
+}
+
+#[derive(Default)]
+struct TocObservation {
+    classification: String,
+    lines: BTreeSet<usize>,
+}
+
+fn parse_list_catalogue(bytes: &[u8]) -> BTreeMap<String, BTreeSet<usize>> {
+    let text = String::from_utf8_lossy(bytes).to_ascii_uppercase();
+    let mut output = BTreeMap::new();
+    for (index, line) in text.lines().enumerate() {
+        let Some((ordinal, remainder)) = line.trim_start().split_once('.') else {
+            continue;
+        };
+        if ordinal.trim().parse::<usize>().is_err() {
+            continue;
+        }
+        let Some((name, tail)) = take_catalogue_identifier(remainder.trim_start()) else {
+            continue;
+        };
+        let tail = tail.trim_start();
+        if is_catalogue_name(name) && (tail == "HAS" || tail.starts_with("HAS ")) {
+            output
+                .entry(name.to_owned())
+                .or_insert_with(BTreeSet::new)
+                .insert(index + 1);
         }
     }
     output
 }
 
-fn catalogue_tokens(bytes: &[u8], typed: bool) -> BTreeMap<String, String> {
+fn parse_toc_catalogue(bytes: &[u8]) -> BTreeMap<String, TocObservation> {
     let text = String::from_utf8_lossy(bytes).to_ascii_uppercase();
-    let mut output = BTreeMap::new();
-    if !typed {
-        // Netlib's official `list` is a numbered inventory: each record
-        // begins with a decimal ordinal, then a routine name, then `has`.
-        // Keep the grammar deliberately narrow so prose cannot become a
-        // catalogue identity.
-        for line in text.lines() {
-            let Some((ordinal, remainder)) = line.trim_start().split_once('.') else {
-                continue;
-            };
-            if ordinal.trim().parse::<usize>().is_err() {
-                continue;
-            }
-            let Some((name, tail)) = take_catalogue_identifier(remainder.trim_start()) else {
-                continue;
-            };
-            if is_catalogue_name(name) && tail.trim_start().starts_with("HAS ") {
-                output.insert(name.to_owned(), "not_determined".to_owned());
+    let lines = text.lines().collect::<Vec<_>>();
+    let section_two = lines
+        .iter()
+        .position(|line| line.contains("SECTION II. SUBSIDIARY ROUTINES"));
+    let section_three = lines
+        .iter()
+        .position(|line| line.contains("SECTION III. ALPHABETIC LIST OF ROUTINES"));
+    let mut output = BTreeMap::<String, TocObservation>::new();
+
+    if let Some(section_two_start) = section_two {
+        for (index, line) in lines[..section_two_start].iter().enumerate() {
+            for token in line.split_whitespace() {
+                let token = trim_catalogue_token(token);
+                let Some((name, type_marker)) = token.rsplit_once('-') else {
+                    continue;
+                };
+                if is_catalogue_name(name) && is_toc_type_marker(type_marker) {
+                    add_toc_observation(&mut output, name, "user_candidate", index + 1);
+                }
             }
         }
     }
-    if typed {
-        // In the Version 4.1 TOC, Section II is an alphabetical listing with
-        // the heading `Subsidiary Routines`; those entries do not carry the
-        // Section I type suffix.  Parse only its explicit line grammar.
-        let section_two = text
-            .find("SECTION II. SUBSIDIARY ROUTINES")
-            .map(|offset| &text[offset..])
-            .unwrap_or("");
-        let section_two = section_two
-            .split("SECTION III.")
-            .next()
-            .unwrap_or(section_two);
-        for line in section_two.lines() {
+
+    if let (Some(section_two_start), Some(section_three_start)) = (section_two, section_three) {
+        for (index, line) in lines[section_two_start..section_three_start]
+            .iter()
+            .enumerate()
+        {
             let Some((name, tail)) = take_catalogue_identifier(line.trim_start()) else {
                 continue;
             };
             if is_catalogue_name(name) && tail.trim_start().starts_with("SUBSIDIARY") {
-                output.insert(name.to_owned(), "subsidiary".to_owned());
+                add_toc_observation(
+                    &mut output,
+                    name,
+                    "subsidiary",
+                    section_two_start + index + 1,
+                );
             }
         }
-        // Section III is the TOC's complete alphabetic index.  Its entries
-        // are columns of `NAME CATEGORY`, while a starred name has no
-        // category because it is subsidiary.  The narrow category check
-        // avoids promoting the explanatory prose above the table.
-        let section_three = text
-            .find("SECTION III. ALPHABETIC LIST OF ROUTINES")
-            .map(|offset| &text[offset..])
-            .unwrap_or("");
-        for line in section_three.lines() {
-            let tokens = line.split_whitespace().collect::<Vec<_>>();
-            for (index, token) in tokens.iter().enumerate() {
-                let (subsidiary, name) = token
+    }
+
+    if let Some(section_three_start) = section_three {
+        for (index, line) in lines[section_three_start..].iter().enumerate() {
+            let line_number = section_three_start + index + 1;
+            for column_start in [0_usize, 39] {
+                let name = fixed_column(line, column_start, column_start + 12).trim();
+                let category = fixed_column(line, column_start + 12, column_start + 31)
+                    .split_whitespace()
+                    .next()
+                    .unwrap_or("");
+                let (subsidiary, name) = name
                     .strip_prefix('*')
-                    .map_or((false, *token), |name| (true, name));
-                let followed_by_category = tokens
-                    .get(index + 1)
-                    .is_some_and(|category| is_toc_category(category));
-                if is_catalogue_name(name) && (subsidiary || followed_by_category) {
-                    let classification = if subsidiary {
-                        "subsidiary"
-                    } else {
-                        "user_callable"
-                    };
-                    output
-                        .entry(name.to_owned())
-                        .and_modify(|existing| {
-                            if classification == "user_callable" {
-                                *existing = classification.to_owned();
-                            }
-                        })
-                        .or_insert_with(|| classification.to_owned());
+                    .map_or((false, name), |value| (true, value));
+                if is_catalogue_name(name) && (subsidiary || is_toc_category(category)) {
+                    add_toc_observation(
+                        &mut output,
+                        name,
+                        if subsidiary {
+                            "subsidiary"
+                        } else {
+                            "user_candidate"
+                        },
+                        line_number,
+                    );
                 }
             }
         }
     }
-    for token in text.split_whitespace() {
-        let token = token.trim_matches(|character: char| {
-            matches!(
-                character,
-                ',' | '.' | ':' | ';' | '(' | ')' | '[' | ']' | '"' | '\''
-            )
-        });
-        let (starred, token) = token
-            .strip_prefix('*')
-            .map_or((false, token), |value| (true, value));
-        let Some((name, type_marker)) = token.rsplit_once('-') else {
-            continue;
-        };
-        if !is_catalogue_name(name)
-            || (typed && !matches!(type_marker, "S" | "D" | "C" | "I" | "H" | "L" | "A"))
-            || (!typed && type_marker.len() > 2)
-        {
-            continue;
+    output
+}
+
+fn add_toc_observation(
+    output: &mut BTreeMap<String, TocObservation>,
+    name: &str,
+    classification: &str,
+    line: usize,
+) {
+    let entry = output.entry(name.to_owned()).or_default();
+    if classification == "subsidiary" || entry.classification.is_empty() {
+        entry.classification = classification.to_owned();
+    }
+    entry.lines.insert(line);
+}
+
+fn fixed_column(line: &str, start: usize, end: usize) -> &str {
+    line.get(start..line.len().min(end)).unwrap_or("")
+}
+
+fn trim_catalogue_token(token: &str) -> &str {
+    token.trim_matches(|character: char| {
+        matches!(
+            character,
+            ',' | '.' | ':' | ';' | '(' | ')' | '[' | ']' | '"' | '\''
+        )
+    })
+}
+
+fn is_toc_type_marker(value: &str) -> bool {
+    matches!(value, "S" | "D" | "C" | "I" | "H" | "L" | "A")
+}
+
+fn legacy_toc_false_candidates(bytes: &[u8]) -> BTreeMap<String, BTreeSet<usize>> {
+    let text = String::from_utf8_lossy(bytes).to_ascii_uppercase();
+    let lines = text.lines().collect::<Vec<_>>();
+    let Some(section_three_start) = lines
+        .iter()
+        .position(|line| line.contains("SECTION III. ALPHABETIC LIST OF ROUTINES"))
+    else {
+        return BTreeMap::new();
+    };
+    let mut output = BTreeMap::new();
+    for (index, line) in lines[section_three_start..].iter().enumerate() {
+        let tokens = line.split_whitespace().collect::<Vec<_>>();
+        for (token_index, token) in tokens.iter().enumerate() {
+            let (_, name) = token
+                .strip_prefix('*')
+                .map_or((false, *token), |value| (true, value));
+            if is_catalogue_name(name)
+                && tokens
+                    .get(token_index + 1)
+                    .is_some_and(|category| is_toc_category(category))
+            {
+                output
+                    .entry(name.to_owned())
+                    .or_insert_with(BTreeSet::new)
+                    .insert(section_three_start + index + 1);
+            }
         }
-        let classification = if starred {
-            "subsidiary"
-        } else {
-            "user_callable"
-        };
-        output
-            .entry(name.to_owned())
-            .and_modify(|existing| {
-                if classification == "user_callable" {
-                    *existing = classification.to_owned();
-                }
-            })
-            .or_insert_with(|| classification.to_owned());
     }
     output
 }
@@ -1293,6 +1397,41 @@ fn catalogue_comparison_values(
                 entry.map_or("not_determined", |entry| entry.toc_classification.as_str()),
                 providers,
                 state,
+            ])
+        })
+        .collect()
+}
+
+fn catalogue_reconciliation_values(
+    providers: &[Provider],
+    catalogue: &BTreeMap<String, CatalogueEntry>,
+) -> Vec<Value> {
+    let mut counts = BTreeMap::new();
+    for provider in providers {
+        *counts
+            .entry(provider.normalized_name.clone())
+            .or_insert(0_usize) += 1;
+    }
+    catalogue
+        .iter()
+        .map(|(name, entry)| {
+            let providers = counts.get(name).copied().unwrap_or(0);
+            let comparison_state = if providers == 0 {
+                "catalogue_only"
+            } else {
+                "both"
+            };
+            json!([
+                name,
+                entry.in_list,
+                entry.in_toc,
+                entry.toc_classification,
+                entry.raw_toc_classification,
+                entry.classification_basis,
+                entry.list_lines.iter().collect::<Vec<_>>(),
+                entry.toc_lines.iter().collect::<Vec<_>>(),
+                providers,
+                comparison_state,
             ])
         })
         .collect()
@@ -1610,11 +1749,42 @@ mod tests {
 
     #[test]
     fn catalogue_parser_tracks_user_callable_and_subsidiary_markers() {
-        let toc = b"ALPHA-S *BETA-D GAMMA-A";
+        let toc = b"SECTION I. USER ROUTINES\nALPHA-S\nSECTION II. SUBSIDIARY ROUTINES\nBETA SUBSIDIARY\nSECTION III. ALPHABETIC LIST OF ROUTINES\n ALPHA       A1\n*BETA\n";
         let entries = catalogue_entries(b"     1.  ALPHA   has 2 records\n", toc, &mut Vec::new());
         assert_eq!(entries["ALPHA"].toc_classification, "user_callable");
         assert_eq!(entries["BETA"].toc_classification, "subsidiary");
         assert!(entries["ALPHA"].in_list);
+    }
+
+    #[test]
+    fn catalogue_parser_rejects_category_cells_and_prose_as_names() {
+        let columns = format!(
+            "{:<12}{:<19}{:<12}{:<19}\n",
+            "ALPHA", "A6B", "D9UPAK", "A6B"
+        );
+        let toc = format!(
+            "SECTION I. USER ROUTINES\nALPHA-S D9UPAK-D\nSECTION II. SUBSIDIARY ROUTINES\nBETA SUBSIDIARY\nSECTION III. ALPHABETIC LIST OF ROUTINES\n{:13}preceeding a routine name indicates a subsidiary routine.\n{columns}",
+            ""
+        );
+        let entries = catalogue_entries(
+            b"  1. ALPHA has records\n  2. D9UPAK has records\n  3. BETA has records\n",
+            toc.as_bytes(),
+            &mut Vec::new(),
+        );
+        assert_eq!(entries["ALPHA"].toc_classification, "user_callable");
+        assert_eq!(entries["BETA"].toc_classification, "subsidiary");
+        assert_eq!(entries["A6B"].toc_classification, "catalogue_heading");
+        assert_eq!(
+            entries["PRECEEDING"].toc_classification,
+            "catalogue_heading"
+        );
+        assert_eq!(
+            parse_list_catalogue(
+                b"  1. ALPHA has\n      wrapped records\n  2. ALPHA has records\n"
+            )["ALPHA"]
+                .len(),
+            2
+        );
     }
 
     #[test]
@@ -1678,6 +1848,7 @@ mod tests {
             "program-unit-union.json",
             "provider-relationships.json",
             "catalogue-comparison.json",
+            "catalogue-reconciliation.json",
             "diagnostics.json",
             "manifest.json",
             "audit-summary.md",
