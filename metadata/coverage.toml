@@ -1,0 +1,164 @@
+schema_version = 1
+generated_for = "slatec-rs"
+audit_date = "2026-07-16"
+audit_snapshot = "default branch observed at commit 632ebec4d498d50274b9743002da23050c51d7d6"
+status = "collection-stage-complete-with-conditions"
+advance_to_bulk_extraction = true
+ready_for_production_ffi = false
+
+[inventory]
+pre_audit_markdown_expected = 63
+pre_audit_toml_expected = 6
+pre_audit_total_expected = 69
+pilot_routine_records = 20
+inventory_method = "prompt manifests plus repository code-search review"
+inventory_requires_ci_regeneration = true
+
+[completion]
+primary_sources_registered = "met"
+architecture_documented = "met"
+domains_mapped = "met-preliminary"
+packages_mapped = "met-preliminary"
+routine_pilot_coherent = "met-with-provisional-records"
+dependency_extraction_specified = "met"
+rust_mapping_labelled_proposal = "met"
+unresolved_issues_recorded = "met"
+
+[[areas]]
+id = "sources"
+status = "strong"
+confidence = "high"
+complete_for_collection_stage = true
+remaining = ["retrieve and checksum all linked artifacts", "complete rights review"]
+
+[[areas]]
+id = "history"
+status = "broad"
+confidence = "medium"
+complete_for_collection_stage = true
+remaining = ["primary-locator verification for all dates", "post-4.1 corrections research"]
+
+[[areas]]
+id = "architecture"
+status = "strong"
+confidence = "high"
+complete_for_collection_stage = true
+remaining = ["source-wide common/SAVE/BLOCK DATA inventory"]
+
+[[areas]]
+id = "taxonomy"
+status = "broad-preliminary"
+confidence = "medium-high"
+complete_for_collection_stage = true
+remaining = ["routine-level GAMS ingestion", "historical GAMS version reconciliation"]
+
+[[areas]]
+id = "packages"
+status = "candidate-mapping"
+confidence = "medium"
+complete_for_collection_stage = true
+remaining = ["exact revision comparison", "routine membership diffs", "rights by package"]
+
+[[areas]]
+id = "domains"
+status = "representative-surveys"
+confidence = "medium-high"
+complete_for_collection_stage = true
+remaining = ["generate exhaustive routine membership", "resolve domain overlaps"]
+
+[[areas]]
+id = "routine-catalogue"
+status = "pilot-only"
+confidence = "medium"
+complete_for_collection_stage = true
+remaining = ["bulk extraction", "production parser regeneration", "front-matter parity validation"]
+
+[[areas]]
+id = "dependency-graph"
+status = "specification-only"
+confidence = "high-for-schema-low-for-coverage"
+complete_for_collection_stage = true
+remaining = ["source extraction", "Netlib graph ingestion", "object/link validation"]
+
+[[areas]]
+id = "rust-architecture"
+status = "detailed-proposal"
+confidence = "medium"
+complete_for_collection_stage = true
+remaining = ["Cargo prototype", "ABI tests", "native component validation"]
+
+[[quality_checks]]
+id = "toml-parse"
+status = "partially-performed-during-generation"
+priority = "P1"
+next_action = "parse every TOML file in CI"
+
+[[quality_checks]]
+id = "markdown-links"
+status = "manual-preliminary"
+priority = "P1"
+next_action = "run repository-local Markdown link and fragment checker"
+
+[[quality_checks]]
+id = "source-id-references"
+status = "manual-preliminary"
+priority = "P1"
+next_action = "lint every referenced source ID against metadata/sources.toml"
+
+[[quality_checks]]
+id = "yaml-toml-parity"
+status = "not-automated"
+priority = "P1"
+next_action = "compare pilot page front matter with routines-pilot.toml"
+
+[[quality_checks]]
+id = "claim-locators"
+status = "incomplete"
+priority = "P2"
+next_action = "add source hashes and field/line locators during bulk generation"
+
+[[blockers]]
+id = "P0-1"
+priority = "P0"
+summary = "Pin canonical source corpus and checksums."
+
+[[blockers]]
+id = "P0-2"
+priority = "P0"
+summary = "Generate complete repository and source manifests."
+
+[[blockers]]
+id = "P0-3"
+priority = "P0"
+summary = "Implement deterministic parser and machine-readable schema validation."
+
+[[blockers]]
+id = "P0-4"
+priority = "P0"
+summary = "Resolve overlapping source and duplicate-provider policy."
+
+[[blockers]]
+id = "P1-1"
+priority = "P1"
+summary = "Extract and validate complete dependency graph, SCCs and unresolved references."
+
+[[blockers]]
+id = "P1-2"
+priority = "P1"
+summary = "Compile objects and reconcile predicted dependencies with linker symbols."
+
+[[blockers]]
+id = "P1-3"
+priority = "P1"
+summary = "Verify ABI, machine constants, error state, common blocks and block data."
+
+[[blockers]]
+id = "P1-4"
+priority = "P1"
+summary = "Run full Markdown-link, source-ID and metadata-parity audits."
+
+[recommendation]
+next_phase = "complete-source-and-metadata-baseline"
+preferred_execution = "Codex High with deterministic scripts and CI"
+chatgpt_role = ["architecture review", "source interpretation", "discrepancy analysis", "documentation synthesis"]
+codex_role = ["bulk parsing", "metadata generation", "graph computation", "source comparison", "build and symbol validation", "CI automation"]
