@@ -1,0 +1,219 @@
+schema_version = 1
+snapshot_id = "slatec-4.1-netlib-example"
+generated_at = "2026-07-16T00:00:00Z"
+generator = "manual-prompt-08-example"
+source_manifest_sha256 = "EXAMPLE-NOT-A-REAL-CHECKSUM"
+sorted = true
+
+[[nodes]]
+id = "callback:f64_to_f64"
+kind = "callback_interface"
+name = "DOUBLE PRECISION FUNCTION F(X)"
+selected = true
+evidence_status = "verified"
+
+[[nodes]]
+id = "routine:d1mach"
+kind = "program_unit"
+name = "D1MACH"
+source_file = "upstream/slatec/src/d1mach.f"
+package_id = "slatec-machine-constants"
+domain_ids = ["runtime-support"]
+selected = true
+evidence_status = "verified"
+
+[[nodes]]
+id = "routine:dqag"
+kind = "program_unit"
+name = "DQAG"
+source_file = "upstream/quadpack/dqag.f"
+package_id = "quadpack"
+domain_ids = ["quadrature"]
+selected = true
+evidence_status = "verified"
+
+[[nodes]]
+id = "routine:dqage"
+kind = "program_unit"
+name = "DQAGE"
+source_file = "upstream/quadpack/dqage.f"
+package_id = "quadpack"
+domain_ids = ["quadrature"]
+selected = true
+evidence_status = "unverified"
+
+[[nodes]]
+id = "routine:dqk15"
+kind = "program_unit"
+name = "DQK15"
+source_file = "upstream/quadpack/dqk15.f"
+package_id = "quadpack"
+domain_ids = ["quadrature"]
+selected = true
+evidence_status = "verified"
+
+[[nodes]]
+id = "routine:xerror"
+kind = "program_unit"
+name = "XERROR"
+source_file = "upstream/slatec/err/xerror.f"
+package_id = "slatec-error"
+domain_ids = ["runtime-support"]
+selected = true
+evidence_status = "verified"
+
+[[nodes]]
+id = "source:quadpack/dqag.f"
+kind = "source_file"
+name = "dqag.f"
+source_file = "upstream/quadpack/dqag.f"
+selected = true
+evidence_status = "verified"
+
+[[edges]]
+id = "edge:dqag-calls-dqage"
+from = "routine:dqag"
+to = "routine:dqage"
+kind = "calls"
+link_relevant = true
+closure_relevant = true
+evidence_status = "verified"
+
+[[edges.evidence]]
+kind = "source_text"
+source_id = "netlib-quadpack"
+artifact = "https://www.netlib.org/quadpack/dqag.f"
+locator = "executable CALL DQAGE"
+snapshot_id = "slatec-4.1-netlib-example"
+detail = "DQAG forwards callback and partitioned work arrays to DQAGE."
+
+[[edges]]
+id = "edge:dqag-calls-xerror"
+from = "routine:dqag"
+to = "routine:xerror"
+kind = "calls"
+condition = "IER != 0"
+link_relevant = true
+closure_relevant = true
+evidence_status = "verified"
+
+[[edges.evidence]]
+kind = "source_text"
+source_id = "netlib-quadpack"
+artifact = "https://www.netlib.org/quadpack/dqag.f"
+locator = "CALL XERROR"
+snapshot_id = "slatec-4.1-netlib-example"
+detail = "Error handler is called after abnormal return."
+
+[[edges]]
+id = "edge:dqag-requires-callback"
+from = "routine:dqag"
+to = "callback:f64_to_f64"
+kind = "requires_callback"
+link_relevant = false
+closure_relevant = false
+evidence_status = "verified"
+
+[[edges.evidence]]
+kind = "prologue"
+source_id = "netlib-quadpack"
+artifact = "https://www.netlib.org/quadpack/dqag.f"
+locator = "parameter F and EXTERNAL F"
+snapshot_id = "slatec-4.1-netlib-example"
+detail = "F is supplied by the application."
+
+[[edges]]
+id = "edge:dqk15-calls-d1mach"
+from = "routine:dqk15"
+to = "routine:d1mach"
+kind = "references_function"
+link_relevant = true
+closure_relevant = true
+evidence_status = "verified"
+
+[[edges.evidence]]
+kind = "source_text"
+source_id = "netlib-quadpack"
+artifact = "https://www.netlib.org/quadpack/dqk15.f"
+locator = "D1MACH(4) and D1MACH(1)"
+snapshot_id = "slatec-4.1-netlib-example"
+detail = "Local rule obtains machine epsilon and underflow threshold."
+
+[[edges]]
+id = "edge:dqag-defined-in-source"
+from = "routine:dqag"
+to = "source:quadpack/dqag.f"
+kind = "defined_in"
+link_relevant = false
+closure_relevant = false
+evidence_status = "verified"
+
+[[closures]]
+root = "routine:dqag"
+edge_kinds = ["calls", "passes_external", "references_function"]
+reachable = ["routine:dqage", "routine:xerror"]
+max_depth = 1
+status = "derived"
+direct_graph_sha256 = "EXAMPLE-NOT-A-REAL-CHECKSUM"
+comparison_status = "incomplete-pending-dqage-parse"
+
+[[unresolved]]
+from = "routine:dqage"
+name = "outgoing dependencies"
+normalized_symbol = ""
+reference_kind = "source-not-yet-parsed"
+classification = "missing-source-analysis"
+candidate_targets = ["routine:dqk15", "routine:dqpsrt"]
+required_for_link = true
+resolution = "pending"
+evidence_status = "unverified"
+notes = "Candidates must not become verified edges until DQAGE source or object symbols are inspected."
+
+[[sccs]]
+id = "scc:dqag-singleton"
+members = ["routine:dqag"]
+source_files = ["upstream/quadpack/dqag.f"]
+incoming = []
+outgoing = ["scc:dqage-singleton", "scc:xerror-singleton"]
+package_ids = ["quadpack"]
+domain_ids = ["quadrature"]
+common_state_nodes = []
+native_atomicity = "not-required-by-cycle"
+graph_sha256 = "EXAMPLE-NOT-A-REAL-CHECKSUM"
+
+[[ownership]]
+node = "routine:dqag"
+native_component = "native:quadpack"
+raw_crate = "slatec-quadpack-sys"
+safe_crates = ["slatec-quadrature"]
+reason_codes = ["package-provenance", "functional-domain"]
+confidence = "high"
+feature = "quadpack"
+
+[[ownership]]
+node = "routine:d1mach"
+native_component = "native:runtime-support"
+raw_crate = "slatec-native-sys"
+safe_crates = []
+reason_codes = ["shared-support", "avoid-duplicate-symbol"]
+confidence = "medium"
+feature = "runtime-support"
+
+[[builds]]
+fingerprint = "example-gfortran-linux-x86_64-quadpack"
+compiler = "gfortran"
+compiler_version = "UNRECORDED-EXAMPLE"
+target = "x86_64-unknown-linux-gnu"
+flags = ["-O2"]
+features = ["quadpack", "runtime-support"]
+providers = ["bundled-quadpack", "bundled-runtime"]
+component_manifests = ["native:quadpack", "native:runtime-support"]
+object_symbol_inventory_sha256 = "EXAMPLE-NOT-A-REAL-CHECKSUM"
+validation_status = "not-run-example"
+
+[[builds.link_tests]]
+root = "routine:dqag"
+components = ["native:quadpack", "native:runtime-support"]
+result = "not-run"
+diagnostics_sha256 = "EXAMPLE-NOT-A-REAL-CHECKSUM"
+observed_unresolved = []
