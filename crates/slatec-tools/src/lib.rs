@@ -5,9 +5,11 @@ pub mod archive;
 pub mod diagnostics;
 pub mod error;
 pub mod extract;
+pub mod fixed_form;
 pub mod hash;
 pub mod manifest;
 pub mod policy;
+pub mod program_units;
 
 pub const TOOL_NAME: &str = "slatec-corpus";
 pub const TOOL_VERSION: &str = env!("CARGO_PKG_VERSION");

@@ -1,0 +1,13 @@
+{
+  "created_at": "1970-01-01T00:00:00Z",
+  "created_by": "slatec-corpus 0.1.0",
+  "records": [],
+  "review_state": "machine_checked",
+  "scanner_semantic_version": "1",
+  "schema_id": "slatec-rs/entry-point-set",
+  "schema_version": "1.0.0",
+  "snapshot_id": "slatec-corpus-695f28f400f2a4fac333",
+  "source_record_ids": [
+    "artifact-slatec-source-archive"
+  ]
+}
