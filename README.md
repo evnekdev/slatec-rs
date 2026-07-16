@@ -27,3 +27,5 @@ an explicit corpus-wide GNU Fortran compilation and raw-binding generator. It
 uses the original selected Fortran without translating numerical algorithms;
 ABI-sensitive and unresolved interfaces remain gated for review. See
 [`docs/extraction/ffi-interface-inventory.md`](docs/extraction/ffi-interface-inventory.md).
+Native archive construction and raw-binding validation are explicit, local
+operations; ordinary Cargo builds and CI never compile or download Fortran.

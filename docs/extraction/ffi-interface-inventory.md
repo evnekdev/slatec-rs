@@ -120,3 +120,54 @@ to be installed locally. No source download occurs in either command.
 The corpus-wide generator uses the same compiler default. Set
 `SLATEC_FORTRAN_COMPILER` only to a GNU Fortran executable that will be
 independently validated; no source download occurs.
+
+## Explicit native archive and batch validation
+
+`slatec-corpus build-native-ffi --offline` rebuilds the selected static archive
+only after `generate-raw-ffi` has re-verified every selected source hash. The
+archive, compiler logs, objects, authored ABI fixtures, and executable drivers
+remain ignored below `evidence/raw-ffi/`; the compact build profile is recorded
+in `generated/ffi-validation/native-build.json`.
+
+`slatec-corpus validate-raw-ffi --offline` repeats that explicit verification,
+then audits every emitted declaration against the generated interface inventory
+and observed symbols. It also compiles and runs independently selectable
+native-link batches. Use repeated `--batch` values to limit a local run, for
+example:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline
+cargo run -p slatec-tools --bin slatec-corpus -- validate-raw-ffi --offline --batch batch_numeric_array_subroutines
+```
+
+The generated profile is explicitly `ffi-profile-gnu-mingw-x86_64`, for GNU
+Fortran targeting `x86_64-w64-mingw32`. It is not portable ABI metadata. The
+raw type aliases are available only with that profile feature. For an explicit
+Cargo native-link test, set:
+
+```text
+SLATEC_NATIVE_LIB_DIR=<directory-containing-libslatec_selected.a>
+SLATEC_GFORTRAN_RUNTIME_DIR=<optional-directory-containing-GNU-runtime-libraries>
+```
+
+and use the matching `x86_64-pc-windows-gnu` Rust target. When
+`SLATEC_NATIVE_LIB_DIR` is set, `slatec-sys/build.rs` verifies both the feature
+and target before emitting link directives; it never compiles Fortran. The
+profile uses `i32` for `FortranInteger` and `FortranLogical`, `usize` for
+trailing character lengths, observed GNU `nm` symbol spellings, and requires
+the GNU `gfortran`, `quadmath`, and Windows C runtimes at link/runtime.
+
+Feature groups are deliberately confidence-scoped:
+
+- `raw-ffi-basic`: numeric scalar and numeric-array subroutines plus supported
+  scalar functions;
+- `raw-ffi-abi-sensitive`: complex arguments, logical values, and character
+  arguments, after profile-specific validation;
+- `raw-ffi-all-validated` (and the compatibility alias `raw-ffi`): both groups.
+
+Callbacks, complex-returning functions, character-returning functions,
+unresolved/conflicting interfaces, and selected infrastructure remain outside
+every validated aggregate. Passing a batch is evidence for the exact GNU
+MinGW profile only; it does not establish a safe wrapper, callback signature,
+complex return convention, character result convention, thread safety, or
+general ABI portability.
