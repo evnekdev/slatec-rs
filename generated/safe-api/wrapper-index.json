@@ -1,0 +1,27 @@
+{
+  "id": "safe-api-wrapper-index-blas-level1-v1",
+  "schema_id": "slatec.safe-api.wrapper-index",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "created_by": "handwritten-safe-api-inventory",
+  "wrappers": [
+    {"safe_path":"slatec::blas::level1::scopy","raw_symbol":"scopy_","precision":"f32","family":"copy","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::sswap","raw_symbol":"sswap_","precision":"f32","family":"swap","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::sscal","raw_symbol":"sscal_","precision":"f32","family":"scale","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::saxpy","raw_symbol":"saxpy_","precision":"f32","family":"axpy","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::sdot","raw_symbol":"sdot_","precision":"f32","family":"dot","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::snrm2","raw_symbol":"snrm2_","precision":"f32","family":"norm","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::sasum","raw_symbol":"sasum_","precision":"f32","family":"absolute_sum","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::isamax","raw_symbol":"isamax_","precision":"f32","family":"index_maximum","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::srot","raw_symbol":"srot_","precision":"f32","family":"rotation","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::dcopy","raw_symbol":"dcopy_","precision":"f64","family":"copy","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::dswap","raw_symbol":"dswap_","precision":"f64","family":"swap","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::dscal","raw_symbol":"dscal_","precision":"f64","family":"scale","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::daxpy","raw_symbol":"daxpy_","precision":"f64","family":"axpy","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::ddot","raw_symbol":"ddot_","precision":"f64","family":"dot","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::dnrm2","raw_symbol":"dnrm2_","precision":"f64","family":"norm","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::dasum","raw_symbol":"dasum_","precision":"f64","family":"absolute_sum","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::idamax","raw_symbol":"idamax_","precision":"f64","family":"index_maximum","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"},
+    {"safe_path":"slatec::blas::level1::drot","raw_symbol":"drot_","precision":"f64","family":"rotation","strided":true,"native_test_status":"pending_local_native_environment","differential_test_status":"pending_local_native_environment","review_state":"implemented"}
+  ]
+}

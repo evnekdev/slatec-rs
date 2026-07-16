@@ -18,7 +18,11 @@ jobs:
       - run: cargo clippy --workspace --all-targets -- -D warnings
       - name: Compile raw binding modules without native linking
         run: cargo check -p slatec-sys --all-features
+      - name: Compile the safe BLAS facade without native linking
+        run: cargo check -p slatec --all-features
       - run: cargo test --workspace
+      - name: Safe BLAS validation without native linking
+        run: cargo test -p slatec --features blas-level1-validation
       - name: Prologue association and compact-output fixtures
         run: cargo test -p slatec-tools prologues::tests
       - name: Full-corpus audit fixtures
