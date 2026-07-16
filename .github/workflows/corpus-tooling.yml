@@ -1,0 +1,19 @@
+name: Corpus tooling
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  corpus-tooling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.85.0
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt -p slatec-tools -- --check
+      - run: cargo clippy -p slatec-tools --all-targets -- -D warnings
+      - run: cargo test -p slatec-tools

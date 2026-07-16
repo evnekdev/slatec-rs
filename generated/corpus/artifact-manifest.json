@@ -1,0 +1,42 @@
+{
+  "archive_member_inventory_hash": "5cdd17ae377cd35f4fecec3432a9ec49561f222227e793bce28ba30b024345dc",
+  "artifact_id": "slatec-source-archive",
+  "compressed_size": 1768291,
+  "configuration_hash": "656a305a1e182f77b50ebcda020f44c0c1df0fe56cf7473cd078bdbbed82af17",
+  "created_at": "1970-01-01T00:00:00Z",
+  "created_by": "slatec-corpus 0.1.0",
+  "deterministic_ordering": "raw archive path bytewise lexical order",
+  "expected_regular_members": 741,
+  "expected_selected_fortran_members": 735,
+  "filename": "slatec_src.tgz",
+  "id": "artifact-slatec-source-archive",
+  "input_artifact_hash": "4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc",
+  "policy_semantic_hash": "656a305a1e182f77b50ebcda020f44c0c1df0fe56cf7473cd078bdbbed82af17",
+  "policy_version": 1,
+  "review_state": "machine_checked",
+  "schema_id": "slatec-rs/artifact-manifest",
+  "schema_version": "1.0.0",
+  "sha256": "4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc",
+  "snapshot_id": "slatec-corpus-695f28f400f2a4fac333",
+  "source_record_ids": [
+    "slatec-source-archive"
+  ],
+  "source_url": "https://www.netlib.org/slatec/slatec_src.tgz",
+  "stage_status": "success_with_review_items",
+  "tool_semantic_version": "1",
+  "tool_version": "0.1.0",
+  "unparsed_or_unsupported_material": [],
+  "warnings": [
+    {
+      "arguments": [
+        "program-unit uniqueness is pending a future fixed-form source scanner"
+      ],
+      "id": "diag-e83fed9fc40ae161",
+      "message_template_id": "CORPUS-PROVIDER-IDENTITY-PENDING",
+      "review_impact": "review",
+      "rule_id": "CORPUS-PROVIDER-IDENTITY-PENDING",
+      "severity": "warning",
+      "stage": "manifest"
+    }
+  ]
+}

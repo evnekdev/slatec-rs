@@ -1,0 +1,23 @@
+{
+  "records": [
+    {
+      "arguments": [
+        "program-unit uniqueness is pending a future fixed-form source scanner"
+      ],
+      "created_at": "1970-01-01T00:00:00Z",
+      "created_by": "slatec-corpus 0.1.0",
+      "id": "diag-e83fed9fc40ae161",
+      "message_template_id": "CORPUS-PROVIDER-IDENTITY-PENDING",
+      "review_impact": "review",
+      "review_state": "review_requested",
+      "rule_id": "CORPUS-PROVIDER-IDENTITY-PENDING",
+      "schema_id": "slatec-rs/diagnostic",
+      "schema_version": "1.0.0",
+      "severity": "warning",
+      "snapshot_id": "slatec-corpus-695f28f400f2a4fac333",
+      "source_record_ids": [],
+      "stage": "manifest"
+    }
+  ],
+  "stage_status": "success_with_review_items"
+}
