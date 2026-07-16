@@ -13,20 +13,25 @@ description = "Raw FFI bindings to selected SLATEC routines"
 
 [features]
 default = []
-raw-ffi = [
+ffi-profile-gnu-mingw-x86_64 = []
+raw-ffi = ["raw-ffi-all-validated"]
+raw-ffi-basic = [
     "raw-ffi-numeric-scalar-subroutines",
     "raw-ffi-numeric-array-subroutines",
     "raw-ffi-scalar-functions",
+]
+raw-ffi-abi-sensitive = [
     "raw-ffi-complex-arguments",
     "raw-ffi-logical",
     "raw-ffi-character",
 ]
-raw-ffi-numeric-scalar-subroutines = []
-raw-ffi-numeric-array-subroutines = []
-raw-ffi-scalar-functions = []
-raw-ffi-complex-arguments = []
-raw-ffi-logical = []
-raw-ffi-character = []
+raw-ffi-all-validated = ["raw-ffi-basic", "raw-ffi-abi-sensitive"]
+raw-ffi-numeric-scalar-subroutines = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-numeric-array-subroutines = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-scalar-functions = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-complex-arguments = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-logical = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-character = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-callbacks = []
 raw-ffi-infrastructure = []
 

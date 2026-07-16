@@ -31,3 +31,5 @@ jobs:
         run: cargo test -p slatec-tools native_probe::tests
       - name: Raw FFI classifier and binding fixtures
         run: cargo test -p slatec-tools raw_ffi::tests
+      - name: Raw FFI validation fixtures
+        run: cargo test -p slatec-tools ffi_validation::tests

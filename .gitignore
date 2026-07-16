@@ -14,6 +14,10 @@ Cargo.lock
 /evidence/ffi-inventory/
 /evidence/native-probe*/
 /evidence/raw-ffi/
+/evidence/ffi-validation/
+/evidence/native-build/
+/evidence/native-link-tests/
+/evidence/fortran-drivers/
 /evidence/full-corpus/
 /evidence/acquisition/
 /.evidence/
