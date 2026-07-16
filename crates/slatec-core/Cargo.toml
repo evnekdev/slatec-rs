@@ -1,0 +1,11 @@
+[package]
+name = "slatec-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Shared safe infrastructure for slatec-rs"
+
+[dependencies]
+slatec-sys.workspace = true

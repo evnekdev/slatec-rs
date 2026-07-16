@@ -1,0 +1,19 @@
+[package]
+name = "slatec"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Safe Rust interface to selected SLATEC numerical routines"
+
+[features]
+default = []
+integrate = []
+interpolate = []
+optimize = []
+special = []
+full = ["integrate", "interpolate", "optimize", "special"]
+
+[dependencies]
+slatec-core.workspace = true
