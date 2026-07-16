@@ -37,3 +37,5 @@ jobs:
         run: cargo test -p slatec-tools raw_ffi::tests
       - name: Raw FFI validation fixtures
         run: cargo test -p slatec-tools ffi_validation::tests
+      - name: Runtime-profile classification fixtures
+        run: cargo test -p slatec-tools runtime_profile::tests

@@ -35,3 +35,16 @@ ABI-sensitive and unresolved interfaces remain gated for review. See
 [`docs/extraction/ffi-interface-inventory.md`](docs/extraction/ffi-interface-inventory.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
+Historical machine templates are not treated as validated representations of a
+modern host. The separate
+[`GNU MinGW runtime-profile validation`](docs/extraction/runtime-profile-validation.md)
+configures machine constants, characterizes legacy error levels in child
+processes, and verifies representative FNLIB initialization paths before any
+broad safe special-function API is attempted.
+
+With the complete selected evidence and GNU MinGW compiler available, run:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline
+cargo run -p slatec-tools --bin slatec-corpus -- validate-runtime-profile --offline
+```

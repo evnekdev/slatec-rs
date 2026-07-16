@@ -12,6 +12,7 @@ use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
 use slatec_tools::prologues;
 use slatec_tools::raw_ffi;
+use slatec_tools::runtime_profile;
 use std::path::PathBuf;
 
 #[derive(Debug)]
@@ -85,6 +86,11 @@ fn run() -> Result<()> {
     ) && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/ffi-validation");
+    }
+    if options.command == "validate-runtime-profile"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/runtime-profile");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -314,8 +320,26 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "validate-runtime-profile" => {
+            let result = runtime_profile::validate(
+                &options.evidence_dir,
+                &options.selected_corpus_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({}); machine discrepancies {} -> {}; recovered probes {}",
+                result.status,
+                result.snapshot_id,
+                result.semantic_hash,
+                result.machine_discrepancies_before,
+                result.machine_discrepancies_after,
+                result.recovered_fnlib_probes
+            );
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, or validate-raw-ffi",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, or validate-runtime-profile",
             options.command
         ))),
     }
@@ -397,5 +421,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
 }

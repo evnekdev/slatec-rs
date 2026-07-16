@@ -20,6 +20,7 @@ Cargo.lock
 /evidence/fortran-drivers/
 /evidence/blas-level1/
 /evidence/blas-level23/
+/evidence/runtime-profile/
 /evidence/full-corpus/
 /evidence/acquisition/
 /.evidence/

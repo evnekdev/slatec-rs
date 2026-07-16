@@ -73,6 +73,15 @@ Netlib preserves an `err` sublibrary described as `xersav and other error handli
 - Which error flags represent warnings with usable results versus complete failure?
 - Are output-unit setters and control setters thread-local on any compiler, or always global?
 
+## Validated GNU MinGW profile behavior
+
+For `ffi-profile-gnu-mingw-x86_64`, authored child-process probes confirm that
+levels `-1` and `0` return, level `1` follows `XSETF` recovery control, and
+level `2` terminates. The profile supplies the documented site hook `XERHLT`
+with a deterministic nonzero status while preserving fatal semantics. Saved
+control and last-error state are process-global and must be serialized. See the
+[runtime-profile validation](../extraction/runtime-profile-validation.md).
+
 ## Sources
 
 - [`slatec-guide`](https://www.netlib.org/slatec/guide)
