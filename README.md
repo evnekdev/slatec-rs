@@ -15,6 +15,8 @@ original selected SLATEC Fortran through validated raw FFI; no numerical
 implementation is translated into Rust. See
 [`docs/api/safe-blas-level1.md`](docs/api/safe-blas-level1.md) for the
 supported GNU MinGW profile, explicit native-link setup, and API boundary.
+Selected real BLAS Level 2 and 3 slice APIs build on those conventions; see
+[`docs/api/safe-blas-level2-level3.md`](docs/api/safe-blas-level2-level3.md).
 
 ## Canonical corpus preparation
 

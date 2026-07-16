@@ -1,5 +1,7 @@
 use core::fmt;
 
+use super::selectors::Transpose;
+
 /// Validation failure for a safe BLAS Level 1 operation.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum BlasError {
@@ -15,6 +17,33 @@ pub enum BlasError {
         argument: &'static str,
         required: usize,
         actual: usize,
+    },
+    /// A matrix leading dimension is smaller than its BLAS minimum.
+    InvalidLeadingDimension {
+        argument: &'static str,
+        provided: usize,
+        minimum: usize,
+    },
+    /// A matrix slice cannot cover the declared column-major storage.
+    InsufficientMatrixStorage {
+        argument: &'static str,
+        required: usize,
+        actual: usize,
+    },
+    /// Explicit dimensions do not describe a valid BLAS operation.
+    MatrixDimensionMismatch {
+        operation: &'static str,
+        detail: &'static str,
+    },
+    /// A band width is invalid for the requested operation.
+    InvalidBandWidth {
+        argument: &'static str,
+        value: usize,
+    },
+    /// A selector has no safe representation for the requested real routine.
+    UnsupportedTranspose {
+        operation: &'static str,
+        transpose: Transpose,
     },
     /// A count cannot be represented by the selected Fortran `INTEGER`.
     IntegerOverflow {
@@ -56,6 +85,35 @@ impl fmt::Display for BlasError {
                 formatter,
                 "{argument} needs {required} elements for its logical vector, but has {actual}"
             ),
+            Self::InvalidLeadingDimension {
+                argument,
+                provided,
+                minimum,
+            } => write!(
+                formatter,
+                "{argument} leading dimension {provided} is smaller than {minimum}"
+            ),
+            Self::InsufficientMatrixStorage {
+                argument,
+                required,
+                actual,
+            } => write!(
+                formatter,
+                "{argument} needs {required} column-major elements, but has {actual}"
+            ),
+            Self::MatrixDimensionMismatch { operation, detail } => {
+                write!(
+                    formatter,
+                    "{operation} has incompatible dimensions: {detail}"
+                )
+            }
+            Self::InvalidBandWidth { argument, value } => {
+                write!(formatter, "{argument} band width {value} is invalid")
+            }
+            Self::UnsupportedTranspose {
+                operation,
+                transpose,
+            } => write!(formatter, "{operation} does not support {transpose:?}"),
             Self::IntegerOverflow { argument, value } => {
                 write!(
                     formatter,

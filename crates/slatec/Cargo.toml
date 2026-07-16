@@ -23,6 +23,13 @@ blas-level1 = [
     "slatec-sys/raw-ffi-basic",
 ]
 blas-level1-native-tests = ["blas-level1"]
+blas-level2 = [
+    "blas-level1-validation",
+    "slatec-sys/raw-ffi-character",
+    "slatec-sys/raw-ffi-numeric-array-subroutines",
+]
+blas-level3 = ["blas-level1-validation", "slatec-sys/raw-ffi-character"]
+blas-level23-native-tests = ["blas-level2", "blas-level3"]
 
 [dependencies]
 slatec-core.workspace = true
