@@ -10,7 +10,11 @@ Workspace skeleton for Rust bindings and safe wrappers around selected SLATEC nu
 - `slatec`: safe public API grouped by numerical domain.
 - `slatec-tools`: development utilities such as metadata and dependency-graph generation.
 
-No Rust implementation has been added yet.
+The first safe Rust facade is an opt-in BLAS Level 1 subset. It calls the
+original selected SLATEC Fortran through validated raw FFI; no numerical
+implementation is translated into Rust. See
+[`docs/api/safe-blas-level1.md`](docs/api/safe-blas-level1.md) for the
+supported GNU MinGW profile, explicit native-link setup, and API boundary.
 
 ## Canonical corpus preparation
 

@@ -14,6 +14,16 @@ interpolate = []
 optimize = []
 special = []
 full = ["integrate", "interpolate", "optimize", "special"]
+blas-level1-validation = [
+    "slatec-core/ffi-profile-gnu-mingw-x86_64",
+    "slatec-sys/ffi-profile-gnu-mingw-x86_64",
+]
+blas-level1 = [
+    "blas-level1-validation",
+    "slatec-sys/raw-ffi-basic",
+]
+blas-level1-native-tests = ["blas-level1"]
 
 [dependencies]
 slatec-core.workspace = true
+slatec-sys.workspace = true

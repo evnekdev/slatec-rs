@@ -9,3 +9,7 @@ description = "Shared safe infrastructure for slatec-rs"
 
 [dependencies]
 slatec-sys.workspace = true
+
+[features]
+default = []
+ffi-profile-gnu-mingw-x86_64 = ["slatec-sys/ffi-profile-gnu-mingw-x86_64"]

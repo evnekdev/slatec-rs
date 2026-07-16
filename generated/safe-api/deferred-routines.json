@@ -1,0 +1,17 @@
+{
+  "id": "safe-api-deferred-routines-blas-level1-v1",
+  "schema_id": "slatec.safe-api.deferred-routines",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "created_by": "handwritten-safe-api-inventory",
+  "deferred": [
+    {"family":"complex_copy_swap_axpy","reason":"safe complex representation and conversion policy deferred"},
+    {"family":"complex_scale","reason":"safe complex representation and conversion policy deferred"},
+    {"family":"complex_norm_absolute_sum_index","reason":"ABI-sensitive complex argument profile is not in the initial safe facade"},
+    {"family":"complex_dot","reason":"complex function return remains gated"},
+    {"family":"sdsdot_dsdot","reason":"mixed-precision result policy deferred"},
+    {"family":"csscal_zdscal","reason":"mixed real/complex scale policy deferred"},
+    {"family":"rotation_generators_and_modified_rotation","reason":"contract complexity deferred"},
+    {"family":"callbacks_and_unresolved_interfaces","reason":"manual review queue remains gated"}
+  ]
+}

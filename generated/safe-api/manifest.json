@@ -1,0 +1,14 @@
+{
+  "id": "safe-api-manifest-blas-level1-v1",
+  "schema_id": "slatec.safe-api.manifest",
+  "schema_version": "1.0.0",
+  "complete_corpus_snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "safe_api_semantic_version": "1.0.0",
+  "raw_ffi_profile": "ffi-profile-gnu-mingw-x86_64",
+  "raw_ffi_feature": "raw-ffi-basic",
+  "wrapper_count": 18,
+  "deferred_routine_count": 18,
+  "detailed_evidence_location": "evidence/blas-level1/",
+  "created_by": "handwritten-safe-api-inventory",
+  "review_state": "native_validation_pending_local_evidence"
+}
