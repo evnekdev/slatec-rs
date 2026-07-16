@@ -13,6 +13,9 @@ This directory contains the E01 candidate-artifact inventory for the source-corp
 
 ## Status semantics
 
+See [complete selected-corpus policy](complete-selected-corpus-policy.md) for
+the derived hosted-provider selection that follows the completeness audit.
+
 - `opened-index`: the authoritative index page was inspected; linked files were not necessarily opened.
 - `link-verified`: an authoritative index advertises the artifact.
 - `content-not-inspected` or `not-downloaded`: no content-level or archive-member claim is made.

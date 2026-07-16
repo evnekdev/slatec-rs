@@ -1,0 +1,20 @@
+schema_version = 1
+policy_version = 1
+semantic_version = 1
+scope = "complete-slatec-hosted-selected-corpus"
+
+# This profile is derived from, and never rewrites, the immutable main-src
+# archive snapshot.  The selected supplemental source is explicit because its
+# FNLIB prologues provide evidence that it is numerical source even though it
+# is absent from the current list and Version 4.1 TOC.
+selected_relocated_subsets = ["lin", "fishfft", "fnlib", "pchip"]
+selected_supplemental_numerical_subsets = ["spfun"]
+excluded_tool_subsets = ["subsid", "slprep", "sladoc"]
+comparison_only_subsets = ["src", "err", "main-src-historical"]
+
+# These are selected infrastructure providers, not numerical routine APIs.
+infrastructure_program_units = [
+  "D1MACH", "I1MACH", "R1MACH", "FDUMP", "J4SAVE", "XERBLA", "XERCLR",
+  "XERCNT", "XERDMP", "XERHLT", "XERMAX", "XERMSG", "XERPRN", "XERSVE",
+  "XGETF", "XGETUA", "XGETUN", "XSET", "XSETF", "XSETUA", "XSETUN",
+]

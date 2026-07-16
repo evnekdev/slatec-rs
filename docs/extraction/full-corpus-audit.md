@@ -19,6 +19,14 @@ cargo run -p slatec-tools --bin slatec-corpus -- audit-full-corpus --offline \
   --output-dir generated/full-corpus-recheck
 ```
 
+Then derive the deterministic complete hosted-provider profile from cached
+evidence:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- select-full-corpus --offline \
+  --output-dir generated/selected-corpus
+```
+
 The audit retrieves and hashes the official `list` and Version 4.1 `toc`, then
 retrieves the SLATEC-hosted live `src`, `lin`, `fishfft`, `fnlib`, and `pchip`
 directories. It also investigates the legacy `err` directory and the `spfun`
@@ -33,6 +41,8 @@ Committed output is limited to compact indexes:
 - `provider-relationships.json` classifies duplicate, relocation, historical,
   and alternate providers without selecting one;
 - `catalogue-comparison.json` records only factual identity/count relationships;
+- `catalogue-reconciliation.json` records fixed-column TOC classifications and
+  rejected category/header false positives without copying catalogue text;
 - `diagnostics.json`, `manifest.json`, and `audit-summary.md` record coverage,
   hashes, and unresolved review work.
 
@@ -50,5 +60,6 @@ The Netlib distribution index describes Version 4.1 as containing more than
 1,400 routines and identifies the relocated subset directories. The audit
 compares its source union with those catalogues and with the documented 902
 user-callable-routine figure; any unmatched identities remain visible as
-catalogue-only or source-only records. It does not prove historical originality,
+catalogue-only or source-only records. The selection stage records explicit
+dispositions and one selected provider per approved hosted identity. It does not prove historical originality,
 rights, ABI safety, dependency completeness, or build suitability.

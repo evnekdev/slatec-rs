@@ -29,22 +29,25 @@ identities**. This is the direct measured reason that the 735-unit `main-src`
 subset cannot be described as the complete SLATEC collection.
 
 The compact provider classification has 1,490 `unique_provider` identities and
-one `historical_variant` (`sgeir.f.0`). No live relocated copy was silently
-selected or substituted. The zero count of modified/duplicate relocated groups
-describes this exact retrieval, not any standalone upstream package.
+one `historical_variant` (`sgeir.f.0`). The complete hosted profile selects the
+current immutable `main-src` `SGEIR` provider; the historical variant differs
+in one executable physical line and remains excluded evidence. No standalone
+upstream package was selected or substituted.
 
 ## Catalogue comparison
 
-The official numbered `list` has **1,441** identities. The parsed Version 4.1
-`toc` has **1,471** identities: 932 classified user-callable and 539 classified
-subsidiary from explicit TOC structure. The user-callable count does not match
-the separately documented 902 target, so the audit records a review diagnostic
-instead of forcing reconciliation.
+The official numbered `list` has **1,441** identities. Fixed-column parsing of
+the Version 4.1 `toc` reconciles **902** current user-callable identities and
+**539** subsidiary identities. The previous 932 count included 26 historical
+or removed TOC names plus four category/header false positives.
 
-There are 30 catalogue identities without a discovered SLATEC-hosted source
-provider and 50 source identities without a catalogue entry. These are compact
-`catalogue_only` and `source_only` comparison records, not provider-selection
-decisions.
+All 30 prior catalogue-only records now have dispositions: 26 are historical
+or removed names and four are parser false positives. Of the 50 source-only
+identities, 35 are separately selected FNLIB sources in `spfun`; 15 are
+excluded documentation/tool sources in `subsid`, `slprep`, and `sladoc`.
+The deterministic complete hosted profile therefore selects **1,476** program
+units: 1,455 numerical units and 21 infrastructure units, with zero unresolved
+selected providers.
 
 ## Boundaries
 
@@ -52,4 +55,5 @@ All retrieval bytes, directory indexes, and source text are ignored local
 evidence. The committed generated inventory contains only paths, hashes,
 declared identities, classifications, counts, and diagnostics. It does not
 establish historical originality, redistribution rights, ABI safety,
-dependency completeness, or a complete selected build profile.
+dependency completeness, or a complete selected build profile beyond the
+explicit hosted-provider policy.

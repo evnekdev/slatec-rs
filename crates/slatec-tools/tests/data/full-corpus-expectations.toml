@@ -1,0 +1,23 @@
+schema_version = 1
+
+[[expectations]]
+normalized_name = "SGEIR"
+expected_selected_subset = "main-src"
+expected_catalogue_classification = "user_callable"
+
+[[expectations]]
+normalized_name = "ACOS"
+expected_selected_subset = "spfun"
+expected_catalogue_classification = "source_only"
+
+[[expectations]]
+normalized_name = "CSBMV"
+expected_catalogue_classification = "historical_or_obsolete"
+
+[[expectations]]
+normalized_name = "A6B"
+expected_catalogue_classification = "catalogue_heading"
+
+[[expectations]]
+normalized_name = "SLADOC"
+expected_catalogue_classification = "source_only"

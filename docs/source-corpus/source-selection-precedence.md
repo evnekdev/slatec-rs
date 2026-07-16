@@ -2,6 +2,16 @@
 
 This precedence defines deterministic provider selection. It is not a general claim of historical authority.
 
+## Complete SLATEC-hosted profile
+
+The `complete-selected-slatec-collection` profile is derived separately from
+the immutable `main-src` profile. It keeps `main-src` first, fills only absent
+identities from explicitly inventoried SLATEC-hosted relocated subsets, and
+uses the separately reviewed `spfun` FNLIB source records. It excludes
+standalone upstream packages, `src` retrieval copies, legacy `err` copies,
+documentation tools, tests, and historical variants. See
+[complete selected-corpus policy](complete-selected-corpus-policy.md).
+
 ## Default numerical provider precedence
 
 For a program unit requested by the default corpus profile, apply the first matching rule:
