@@ -1,0 +1,1570 @@
+schema_version = 1
+generated_for = "slatec-rs"
+pilot_size = 20
+retrieval_date = "2026-07-16"
+
+[[routines]]
+id = "xermsg"
+name = "XERMSG"
+source_file = "slatec/src/xermsg.f"
+source_url = "https://www.netlib.org/slatec/src/xermsg.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "all"
+purpose = "Process error messages for SLATEC and other libraries."
+gams_codes = ["R3C"]
+user_callable = true
+origin_package = "slatec-error"
+call_sequence = "CALL XERMSG (LIBRAR, SUBROU, MESSG, NERR, LEVEL)"
+candidate_domain = "runtime-support"
+callbacks = []
+work_arrays = []
+documented_errors = ["Invalid NERR or LEVEL is treated as a fatal error inside XERMSG."]
+direct_dependencies = ["FDUMP", "J4SAVE", "XERCNT", "XERHLT", "XERPRN", "XERSVE"]
+related_routines = ["XSETF", "NUMXER", "XERCLR"]
+authors = ["Kirby Fong"]
+revision_summary = "Written 1988; Version 4.0 prologue conversion 1989; revisions through 1992."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/xermsg.f"]
+abi_questions = ["Fortran CHARACTER arguments may carry compiler-specific hidden lengths.", "Uses shared error-package state through J4SAVE/XERSVE; thread safety is unverified."]
+
+[[routines.arguments]]
+name = "LIBRAR"
+fortran_type = "character"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "SUBROU"
+fortran_type = "character"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MESSG"
+fortran_type = "character"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NERR"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LEVEL"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines]]
+id = "d1mach"
+name = "D1MACH"
+source_file = "slatec/src/d1mach.f"
+source_url = "https://www.netlib.org/slatec/src/d1mach.f"
+source_access = "verified"
+kind = "function"
+precision = "double"
+purpose = "Return double-precision floating-point machine-dependent constants."
+gams_codes = ["R1"]
+user_callable = true
+origin_package = "slatec-machine-constants"
+call_sequence = "D = D1MACH(I)"
+candidate_domain = "runtime-support"
+callbacks = []
+work_arrays = []
+documented_errors = ["Calls XERMSG for an invalid selector."]
+direct_dependencies = ["XERMSG"]
+related_routines = ["R1MACH", "I1MACH"]
+authors = ["P. A. Fox", "A. D. Hall", "N. L. Schryer"]
+revision_summary = "Written 1975; platform tables updated through 1993."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/d1mach.f"]
+abi_questions = ["Historical source selects machine tables through DATA statements; active target configuration must be verified."]
+
+[[routines.arguments]]
+name = "I"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines]]
+id = "i1mach"
+name = "I1MACH"
+source_file = "slatec/src/i1mach.f"
+source_url = "https://www.netlib.org/slatec/src/i1mach.f"
+source_access = "verified"
+kind = "function"
+precision = "integer"
+purpose = "Return integer machine-dependent constants describing I/O units and numeric representation."
+gams_codes = ["R1"]
+user_callable = true
+origin_package = "slatec-machine-constants"
+call_sequence = "I = I1MACH(J)"
+candidate_domain = "runtime-support"
+callbacks = []
+work_arrays = []
+documented_errors = ["Invalid selector behavior is source-defined and requires target verification."]
+direct_dependencies = ["XERMSG"]
+related_routines = ["R1MACH", "D1MACH"]
+authors = []
+revision_summary = "Historical machine-table routine; exact revision history retained in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/i1mach.f"]
+abi_questions = ["Fortran default INTEGER width and active machine table must match the compiled library."]
+
+[[routines.arguments]]
+name = "J"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines]]
+id = "daxpy"
+name = "DAXPY"
+source_file = "slatec/lin/daxpy.f"
+source_url = "https://www.netlib.org/slatec/lin/daxpy.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "double"
+purpose = "Compute DY := DA*DX + DY with arbitrary vector increments."
+gams_codes = ["D1A7"]
+user_callable = true
+origin_package = "blas"
+call_sequence = "CALL DAXPY(N, DA, DX, INCX, DY, INCY)"
+candidate_domain = "linear-algebra-kernels"
+callbacks = []
+work_arrays = []
+documented_errors = []
+direct_dependencies = []
+related_routines = ["SAXPY", "CAXPY"]
+authors = ["J. J. Dongarra"]
+revision_summary = "BLAS routine; exact SLATEC-copy revision requires source comparison."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/lin/daxpy.f"]
+abi_questions = ["Negative and non-unit increments require checked starting-offset calculations."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "DA"
+fortran_type = "double"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "DX"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "INCX"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "DY"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "INCY"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines]]
+id = "dgefa"
+name = "DGEFA"
+source_file = "slatec/lin/dgefa.f"
+source_url = "https://www.netlib.org/slatec/lin/dgefa.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "double"
+purpose = "Factor a general double-precision matrix by Gaussian elimination with partial pivoting."
+gams_codes = ["D2A1"]
+user_callable = true
+origin_package = "linpack"
+call_sequence = "CALL DGEFA(A, LDA, N, IPVT, INFO)"
+candidate_domain = "dense-linear-algebra"
+callbacks = []
+work_arrays = []
+documented_errors = ["INFO identifies a zero pivot; factorization may still be usable for some operations."]
+direct_dependencies = ["DAXPY", "DSCAL", "IDAMAX"]
+related_routines = ["DGESL", "DGECO", "DGEDI"]
+authors = ["Cleve Moler"]
+revision_summary = "LINPACK routine; exact incorporated revision requires source diff."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/lin/dgefa.f"]
+abi_questions = ["Column-major leading dimension and one-based pivot indices must be preserved.", "A is overwritten by LU factors."]
+
+[[routines.arguments]]
+name = "A"
+fortran_type = "double[LDA,*]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "LDA"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "IPVT"
+fortran_type = "integer[]"
+intent = "out"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "INFO"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "inferred"
+
+[[routines]]
+id = "dqag"
+name = "DQAG"
+source_file = "quadpack/dqag.f"
+source_url = "https://www.netlib.org/quadpack/dqag.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Integrate a user function over a finite interval using globally adaptive Gauss-Kronrod quadrature."
+gams_codes = ["H2A1A1"]
+user_callable = true
+origin_package = "quadpack"
+call_sequence = "CALL DQAG(F,A,B,EPSABS,EPSREL,KEY,RESULT,ABSERR,NEVAL,IER,LIMIT,LENW,LAST,IWORK,WORK)"
+candidate_domain = "quadrature"
+callbacks = ["DOUBLE PRECISION FUNCTION F(X); DOUBLE PRECISION X"]
+work_arrays = ["IWORK length at least LIMIT.", "WORK length at least 4*LIMIT; partitions hold interval endpoints, results, and errors."]
+documented_errors = ["IER reports invalid input, subdivision exhaustion, roundoff, bad integrand behavior, or nonconvergence."]
+direct_dependencies = ["DQAGE", "XERROR"]
+related_routines = ["DQAGS", "DQAGP", "DQAGI"]
+authors = ["R. Piessens", "E. de Doncker"]
+revision_summary = "QUADPACK legacy prologue; exact SLATEC revision requires archive comparison."
+references = ["Official Netlib source/prologue: https://www.netlib.org/quadpack/dqag.f"]
+abi_questions = ["Callback has no explicit user-data parameter or portable error channel.", "Workspace arithmetic must be checked before allocation."]
+
+[[routines.arguments]]
+name = "F"
+fortran_type = "external function"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "A"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "B"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "EPSABS"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "EPSREL"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "KEY"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "RESULT"
+fortran_type = "double"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ABSERR"
+fortran_type = "double"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NEVAL"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IER"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LIMIT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LENW"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LAST"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IWORK"
+fortran_type = "integer[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WORK"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines]]
+id = "dpchim"
+name = "DPCHIM"
+source_file = "slatec/pchip/dpchim.f"
+source_url = "https://www.netlib.org/slatec/pchip/dpchim.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Set derivatives for a monotone piecewise cubic Hermite interpolant."
+gams_codes = ["E1A"]
+user_callable = true
+origin_package = "pchip"
+call_sequence = "CALL DPCHIM(N, X, F, D, INCFD, IERR)"
+candidate_domain = "interpolation"
+callbacks = []
+work_arrays = []
+documented_errors = ["IERR reports invalid dimensions or non-increasing X; positive values may count monotonicity switches."]
+direct_dependencies = ["DPCHST", "XERMSG"]
+related_routines = ["DPCHIC", "DPCHFE", "DPCHFD"]
+authors = ["Fred N. Fritsch"]
+revision_summary = "PCHIP routine with Version 4 prologue and later maintenance revisions."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/pchip/dpchim.f"]
+abi_questions = ["Strided F/D arrays use INCFD and are not ordinary contiguous Rust slices."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "F"
+fortran_type = "double[INCFD,*]"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "D"
+fortran_type = "double[INCFD,*]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "INCFD"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IERR"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines]]
+id = "dpchfe"
+name = "DPCHFE"
+source_file = "slatec/pchip/dpchfe.f"
+source_url = "https://www.netlib.org/slatec/pchip/dpchfe.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "double"
+purpose = "Evaluate a piecewise cubic Hermite function at an array of points."
+gams_codes = ["E3"]
+user_callable = true
+origin_package = "pchip"
+call_sequence = "CALL DPCHFE(N,X,F,D,INCFD,SKIP,NE,XE,FE,IERR)"
+candidate_domain = "interpolation"
+callbacks = []
+work_arrays = []
+documented_errors = ["IERR reports invalid data or extrapolation counts according to the source prologue."]
+direct_dependencies = ["DCHFEV", "XERMSG"]
+related_routines = ["DPCHIM", "DPCHFD"]
+authors = ["Fred N. Fritsch"]
+revision_summary = "PCHIP evaluation routine; exact history is in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/pchip/dpchfe.f"]
+abi_questions = ["Fortran LOGICAL representation is compiler-specific.", "SKIP is mutable protocol state."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "F"
+fortran_type = "double[INCFD,*]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "D"
+fortran_type = "double[INCFD,*]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "INCFD"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "SKIP"
+fortran_type = "logical"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "NE"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "XE"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "FE"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "IERR"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "inferred"
+
+[[routines]]
+id = "dfzero"
+name = "DFZERO"
+source_file = "slatec/src/dfzero.f"
+source_url = "https://www.netlib.org/slatec/src/dfzero.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Find a zero of a scalar function in an interval using bisection and secant interpolation."
+gams_codes = ["F1A"]
+user_callable = true
+origin_package = "individual"
+call_sequence = "CALL DFZERO(F, B, C, R, RE, AE, IFLAG)"
+candidate_domain = "nonlinear-equations"
+callbacks = ["DOUBLE PRECISION FUNCTION F(X); DOUBLE PRECISION X"]
+work_arrays = []
+documented_errors = ["IFLAG distinguishes successful contraction, endpoint roots, possible singularity, no sign change, and excessive evaluations."]
+direct_dependencies = ["D1MACH"]
+related_routines = ["FZERO"]
+authors = ["L. F. Shampine", "H. A. Watts"]
+revision_summary = "Sandia zero-finder; revision history retained in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/dfzero.f"]
+abi_questions = ["Callback has no user-data argument.", "B and C are both inputs and outputs."]
+
+[[routines.arguments]]
+name = "F"
+fortran_type = "external function"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "B"
+fortran_type = "double"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "C"
+fortran_type = "double"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "R"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "RE"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "AE"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IFLAG"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines]]
+id = "dnsq"
+name = "DNSQ"
+source_file = "slatec/src/dnsq.f"
+source_url = "https://www.netlib.org/slatec/src/dnsq.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Solve a system of nonlinear equations by a Powell hybrid method."
+gams_codes = ["F2A"]
+user_callable = true
+origin_package = "minpack-derived"
+call_sequence = "CALL DNSQ(FCN,JAC,IOPT,N,X,FVEC,FJAC,LDFJAC,XTOL,MAXFEV,ML,MU,EPSFCN,DIAG,MODE,FACTOR,NPRINT,INFO,NFEV,NJEV,R,LR,QTF,WA1,WA2,WA3,WA4)"
+candidate_domain = "nonlinear-equations"
+callbacks = ["FCN evaluates F(X) and uses a mutable IFLAG control/status argument.", "JAC evaluates a dense Jacobian and uses leading dimension LDFJAC."]
+work_arrays = ["R stores a packed upper-triangular factor; LR must satisfy N*(N+1)/2.", "WA1..WA4 each require length N."]
+documented_errors = ["INFO reports convergence, limits, poor progress, or improper input; negative callback flags request termination."]
+direct_dependencies = ["DDOGLG", "DENORM", "DFDJC1", "DQFORM", "DQRFAC", "DR1MPYQ", "DR1UPDT", "XERMSG"]
+related_routines = ["DNSQE", "DNLS1", "DCKDER"]
+authors = ["Jorge J. More", "Burton S. Garbow", "Kenneth E. Hillstrom"]
+revision_summary = "Combines MINPACK HYBRD and HYBRDJ; SLATEC adaptation history in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/dnsq.f"]
+abi_questions = ["Two callback signatures and mutable control flags require dedicated trampolines.", "Packed R length can overflow integer arithmetic."]
+
+[[routines.arguments]]
+name = "FCN"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "JAC"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IOPT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FVEC"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FJAC"
+fortran_type = "double[LDFJAC,*]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LDFJAC"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "XTOL"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MAXFEV"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ML"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MU"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "EPSFCN"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "DIAG"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MODE"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FACTOR"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NPRINT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "INFO"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NFEV"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NJEV"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "R"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LR"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "QTF"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA1"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA2"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA3"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA4"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines]]
+id = "dnls1"
+name = "DNLS1"
+source_file = "slatec/src/dnls1.f"
+source_url = "https://www.netlib.org/slatec/src/dnls1.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Minimize a sum of squares by a modified Levenberg-Marquardt algorithm."
+gams_codes = ["K1B1A"]
+user_callable = true
+origin_package = "minpack-derived"
+call_sequence = "CALL DNLS1(FCN,IOPT,M,N,X,FVEC,FJAC,LDFJAC,FTOL,XTOL,GTOL,MAXFEV,EPSFCN,DIAG,MODE,FACTOR,NPRINT,INFO,NFEV,NJEV,IPVT,QTF,WA1,WA2,WA3,WA4)"
+candidate_domain = "optimization"
+callbacks = ["FCN evaluates residuals and, depending on IOPT/IFLAG, may also supply Jacobian columns or matrix entries."]
+work_arrays = ["WA1..WA3 length N; WA4 length M."]
+documented_errors = ["INFO reports several convergence tests, evaluation limit, tolerance limits, poor progress, or improper input."]
+direct_dependencies = ["DCKDER", "DENORM", "DFDJC3", "DLMPAR", "DQRFAC", "DQRSOLV", "XERMSG"]
+related_routines = ["DNLS1E", "DNSQ", "DCOV"]
+authors = ["Jorge J. More", "Burton S. Garbow", "Kenneth E. Hillstrom"]
+revision_summary = "Combines MINPACK LMDER and LMDIF; SLATEC adaptation history in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/dnls1.f"]
+abi_questions = ["Callback behavior changes with IOPT and IFLAG.", "FJAC and work arrays have mode-dependent output validity."]
+
+[[routines.arguments]]
+name = "FCN"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IOPT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "M"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FVEC"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FJAC"
+fortran_type = "double[LDFJAC,*]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LDFJAC"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FTOL"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "XTOL"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "GTOL"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MAXFEV"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "EPSFCN"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "DIAG"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MODE"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FACTOR"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NPRINT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "INFO"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NFEV"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NJEV"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IPVT"
+fortran_type = "integer[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "QTF"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA1"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA2"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA3"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WA4"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines]]
+id = "ddassl"
+name = "DDASSL"
+source_file = "slatec/src/ddassl.f"
+source_url = "https://www.netlib.org/slatec/src/ddassl.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Solve implicit differential-algebraic systems G(t,y,yprime)=0 with variable-step BDF methods."
+gams_codes = ["I1A2"]
+user_callable = true
+origin_package = "dassl"
+call_sequence = "CALL DDASSL(RES,NEQ,T,Y,YPRIME,TOUT,INFO,RTOL,ATOL,IDID,RWORK,LRW,IWORK,LIW,RPAR,IPAR,JAC)"
+candidate_domain = "ode-dae"
+callbacks = ["RES computes residual DELTA for G(T,Y,YPRIME).", "JAC supplies dense or banded iteration matrix information when selected."]
+work_arrays = ["RWORK and IWORK preserve solver state between continuation calls; minimum lengths depend on dense/banded options and NEQ."]
+documented_errors = ["IDID reports successful steps/interpolation and many negative failure/interrupt conditions."]
+direct_dependencies = ["DDAINI", "DDAJAC", "DDASTP", "DDATRP", "DDAWTS", "XERMSG"]
+related_routines = ["SDASSL"]
+authors = ["Linda R. Petzold"]
+revision_summary = "DASSL lineage and SLATEC revisions documented in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/ddassl.f"]
+abi_questions = ["Long-lived mutable work arrays are solver state.", "Callbacks carry user parameter arrays but still require panic-safe trampolines."]
+
+[[routines.arguments]]
+name = "RES"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NEQ"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "T"
+fortran_type = "double"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "Y"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "YPRIME"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "TOUT"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "INFO"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "RTOL"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ATOL"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IDID"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "RWORK"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LRW"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IWORK"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LIW"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "RPAR"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IPAR"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "JAC"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines]]
+id = "dgamma"
+name = "DGAMMA"
+source_file = "slatec/fnlib/dgamma.f"
+source_url = "https://www.netlib.org/slatec/fnlib/dgamma.f"
+source_access = "verified"
+kind = "function"
+precision = "double"
+purpose = "Compute the complete gamma function."
+gams_codes = ["C7A"]
+user_callable = true
+origin_package = "fnlib"
+call_sequence = "Y = DGAMMA(X)"
+candidate_domain = "special-functions"
+callbacks = []
+work_arrays = []
+documented_errors = ["Domain and overflow conditions are reported through the SLATEC error subsystem."]
+direct_dependencies = ["D9LGMC", "D9LGIT", "D9LGIC", "DINT", "DLNGAM", "XERMSG"]
+related_routines = ["GAMMA", "CGAMMA", "DGAMR", "DLNGAM"]
+authors = ["Wayne Fullerton"]
+revision_summary = "FNLIB routine; source prologue records revisions."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/fnlib/dgamma.f"]
+abi_questions = ["Exceptional behavior may involve global error policy instead of a return status."]
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines]]
+id = "zbesj"
+name = "ZBESJ"
+source_file = "slatec/src/zbesj.f"
+source_url = "https://www.netlib.org/slatec/src/zbesj.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "complex-double-pair"
+purpose = "Compute a sequence of complex Bessel J values for a complex argument and nonnegative order."
+gams_codes = ["C10A3"]
+user_callable = true
+origin_package = "amos-special-functions"
+call_sequence = "CALL ZBESJ(ZR,ZI,FNU,KODE,N,CYR,CYI,NZ,IERR)"
+candidate_domain = "special-functions"
+callbacks = []
+work_arrays = []
+documented_errors = ["IERR reports input, overflow/range, significance, or algorithm failures; NZ counts underflowed components."]
+direct_dependencies = ["ZBINU", "ZBIRY", "ZMLRI", "ZRATI", "ZS1S2", "ZUCHK"]
+related_routines = ["ZBESY", "ZBESI", "ZBESK", "CBESJ"]
+authors = ["Donald E. Amos"]
+revision_summary = "Amos sequence routine; source prologue contains algorithm revisions."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/src/zbesj.f"]
+abi_questions = ["Complex values are represented as separate real/imaginary arrays, avoiding native complex ABI but requiring paired-length validation."]
+
+[[routines.arguments]]
+name = "ZR"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ZI"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "FNU"
+fortran_type = "double"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "KODE"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "CYR"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "CYI"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NZ"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IERR"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines]]
+id = "cfftf"
+name = "CFFTF"
+source_file = "slatec/fishfft/cfftf.f"
+source_url = "https://www.netlib.org/slatec/fishfft/cfftf.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "complex-single-storage"
+purpose = "Compute a forward complex discrete Fourier transform using an initialized FFTPACK work array."
+gams_codes = ["J1A2"]
+user_callable = true
+origin_package = "fftpack"
+call_sequence = "CALL CFFTF(N, C, WSAVE)"
+candidate_domain = "transforms"
+callbacks = []
+work_arrays = ["WSAVE must previously be initialized by CFFTI for the same N."]
+documented_errors = []
+direct_dependencies = ["CFFTF1"]
+related_routines = ["CFFTI", "CFFTB"]
+authors = ["Paul N. Swarztrauber"]
+revision_summary = "FFTPACK routine; exact SLATEC-copy revision requires source comparison."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/fishfft/cfftf.f"]
+abi_questions = ["Complex data are stored in a real array using FFTPACK conventions.", "Whether WSAVE is mutated during execution requires verification."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "C"
+fortran_type = "real[]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "WSAVE"
+fortran_type = "real[]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines]]
+id = "rfftf"
+name = "RFFTF"
+source_file = "slatec/fishfft/rfftf.f"
+source_url = "https://www.netlib.org/slatec/fishfft/rfftf.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "single"
+purpose = "Compute a forward transform of a real periodic sequence in FFTPACK packed form."
+gams_codes = ["J1A1"]
+user_callable = true
+origin_package = "fftpack"
+call_sequence = "CALL RFFTF(N, R, WSAVE)"
+candidate_domain = "transforms"
+callbacks = []
+work_arrays = ["WSAVE must be initialized by RFFTI for the same N."]
+documented_errors = []
+direct_dependencies = ["RFFTF1"]
+related_routines = ["RFFTI", "RFFTB", "EZFFTF"]
+authors = ["Paul N. Swarztrauber"]
+revision_summary = "FFTPACK routine; exact source history is in the package."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/fishfft/rfftf.f"]
+abi_questions = ["Output uses a package-specific packed real-frequency layout."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "R"
+fortran_type = "real[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "WSAVE"
+fortran_type = "real[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines]]
+id = "dgmres"
+name = "DGMRES"
+source_file = "slatec/lin/dgmres.f"
+source_url = "https://www.netlib.org/slatec/lin/dgmres.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Solve a sparse linear system using preconditioned restarted GMRES."
+gams_codes = ["D2A4"]
+user_callable = true
+origin_package = "slap"
+call_sequence = "CALL DGMRES(N,B,X,NELT,IA,JA,A,ISYM,MATVEC,MSOLVE,ITOL,TOL,ITMAX,ITER,ERR,IERR,IUNIT,SB,SX,RGWK,LRGW,IWGK,LIW)"
+candidate_domain = "sparse-linear-algebra"
+callbacks = ["MATVEC computes A*x or a documented operator action.", "MSOLVE applies the preconditioner/approximate solve."]
+work_arrays = ["RGWK and IWGK lengths depend on restart and problem options; source checks minimum sizes."]
+documented_errors = ["IERR reports convergence, iteration/workspace/input failures, and callback-related conditions."]
+direct_dependencies = ["D1MACH", "DCOPY", "DNRM2", "DPIGMR", "DSCAL", "XERMSG"]
+related_routines = ["DSDGMR", "DSLUGM", "DBCG"]
+authors = ["Mark K. Seager"]
+revision_summary = "SLAP GMRES driver; source prologue records package revisions."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/lin/dgmres.f"]
+abi_questions = ["Sparse arrays may be reordered or converted in place.", "Two callbacks and Fortran logical-unit diagnostics complicate reentrancy."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "B"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "NELT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IA"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "JA"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "A"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ISYM"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MATVEC"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "MSOLVE"
+fortran_type = "external subroutine"
+intent = "ext"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ITOL"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "TOL"
+fortran_type = "double"
+intent = "inout"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ITMAX"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ITER"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "ERR"
+fortran_type = "double"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IERR"
+fortran_type = "integer"
+intent = "out"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IUNIT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "SB"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "SX"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "RGWK"
+fortran_type = "double[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LRGW"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "IWGK"
+fortran_type = "integer[]"
+intent = "work"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "LIW"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "verified"
+
+[[routines]]
+id = "dsmv"
+name = "DSMV"
+source_file = "slatec/lin/dsmv.f"
+source_url = "https://www.netlib.org/slatec/lin/dsmv.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "double"
+purpose = "Multiply a sparse matrix in SLAP Column format by a vector."
+gams_codes = ["D1B8"]
+user_callable = true
+origin_package = "slap"
+call_sequence = "CALL DSMV(N, X, Y, NELT, IA, JA, A, ISYM)"
+candidate_domain = "sparse-linear-algebra"
+callbacks = []
+work_arrays = []
+documented_errors = []
+direct_dependencies = []
+related_routines = ["DSMTV", "DS2Y"]
+authors = []
+revision_summary = "SLAP sparse kernel; exact history in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/lin/dsmv.f"]
+abi_questions = ["SLAP Column indexing, diagonal placement, and symmetry conventions require exact validation."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "Y"
+fortran_type = "double[]"
+intent = "out"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "NELT"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "IA"
+fortran_type = "integer[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "JA"
+fortran_type = "integer[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "A"
+fortran_type = "double[]"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "ISYM"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines]]
+id = "ds2y"
+name = "DS2Y"
+source_file = "slatec/lin/ds2y.f"
+source_url = "https://www.netlib.org/slatec/lin/ds2y.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "double"
+purpose = "Convert sparse matrix data from SLAP Triad format to SLAP Column format."
+gams_codes = ["D1B9"]
+user_callable = true
+origin_package = "slap"
+call_sequence = "CALL DS2Y(N, NELT, IA, JA, A, ISYM)"
+candidate_domain = "sparse-linear-algebra"
+callbacks = []
+work_arrays = []
+documented_errors = ["Invalid sparse structure may be reported through the SLATEC error subsystem."]
+direct_dependencies = ["QS2I1", "XERMSG"]
+related_routines = ["DSMV", "DSMTV"]
+authors = []
+revision_summary = "SLAP storage conversion routine; exact history in source."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/lin/ds2y.f"]
+abi_questions = ["Conversion reorders arrays in place and uses one-based indices.", "Duplicate-entry semantics require source verification."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "NELT"
+fortran_type = "integer"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "IA"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "JA"
+fortran_type = "integer[]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "A"
+fortran_type = "double[]"
+intent = "inout"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "ISYM"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines]]
+id = "xerbla"
+name = "XERBLA"
+source_file = "slatec/lin/xerbla.f"
+source_url = "https://www.netlib.org/slatec/lin/xerbla.f"
+source_access = "linked-unrendered"
+kind = "subroutine"
+precision = "all"
+purpose = "Report an illegal argument detected by a BLAS-style routine."
+gams_codes = ["R3C"]
+user_callable = false
+origin_package = "blas"
+call_sequence = "CALL XERBLA(SRNAME, INFO)"
+candidate_domain = "runtime-support"
+callbacks = []
+work_arrays = []
+documented_errors = ["This routine is itself the BLAS illegal-argument reporting hook."]
+direct_dependencies = []
+related_routines = ["XERMSG"]
+authors = []
+revision_summary = "Reference BLAS support routine; exact SLATEC adaptation requires source inspection."
+references = ["Official Netlib source/prologue: https://www.netlib.org/slatec/lin/xerbla.f"]
+abi_questions = ["Character hidden-length ABI and termination/printing behavior must be tested."]
+
+[[routines.arguments]]
+name = "SRNAME"
+fortran_type = "character"
+intent = "in"
+evidence_status = "inferred"
+
+[[routines.arguments]]
+name = "INFO"
+fortran_type = "integer"
+intent = "in"
+evidence_status = "inferred"

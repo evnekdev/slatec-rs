@@ -1,0 +1,37 @@
+schema_version = 1
+
+[[routines]]
+id = "example"
+name = "EXAMPLE"
+source_file = "slatec/src/example.f"
+source_url = "https://www.netlib.org/slatec/src/example.f"
+source_access = "verified"
+kind = "subroutine"
+precision = "double"
+purpose = "Concise paraphrase of the official PURPOSE field."
+gams_codes = ["X0"]
+user_callable = true
+origin_package = "unknown"
+call_sequence = "CALL EXAMPLE(N, X, WORK, IERR)"
+candidate_domain = "uncategorized"
+callbacks = []
+work_arrays = ["WORK has documented minimum length N."]
+documented_errors = ["IERR=1 means ..."]
+direct_dependencies = ["XERMSG"]
+related_routines = []
+authors = []
+revision_summary = "Unknown until source history is inspected."
+references = ["Official source prologue."]
+abi_questions = ["Default Fortran INTEGER width is unverified."]
+
+[[routines.arguments]]
+name = "N"
+fortran_type = "INTEGER"
+intent = "in"
+evidence_status = "verified"
+
+[[routines.arguments]]
+name = "X"
+fortran_type = "DOUBLE PRECISION array"
+intent = "inout"
+evidence_status = "verified"
