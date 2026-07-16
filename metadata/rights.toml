@@ -1,0 +1,194 @@
+schema_version = 1
+programme_task = "E04"
+evidence_date = "2026-07-16"
+legal_advice = false
+blanket_netlib_license_assumed = false
+
+[policy]
+unknown_is_permissive = false
+public_access_is_license = false
+government_sponsorship_is_public_domain = false
+spdx_by_analogy_allowed = false
+release_with_unresolved_rights = false
+
+[[records]]
+id = "RIGHT-001"
+artifact_ids = ["slatec-source-archive"]
+family = "selected-slatec-numerical-source"
+status = "no-explicit-license-found"
+sha256 = "4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc"
+notice_locators = ["src/aaaaaa.f: SLATEC notice and warranty/liability disclaimer"]
+copyright_notice = "not-found-in-archive-wide-keyword-scan"
+public_domain_statement = "not-found"
+government_work_statement = "not-found"
+government_sponsorship_statement = "present"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+attribution_requirement = "historical authorship and institutional provenance should be preserved; legal requirement unresolved"
+warranty_disclaimer = "present"
+third_party_material = true
+packaging_decision = "do-not-redistribute-upstream-by-default"
+review_notes = "AAAAAA states government sponsorship but does not establish public-domain status or copying permission for the heterogeneous archive."
+
+[[records]]
+id = "RIGHT-002"
+artifact_ids = ["slatec-quick-check-archive"]
+family = "slatec-quick-checks"
+status = "no-explicit-license-found"
+sha256 = "a095f74665e165fa1a4bd3f9ab6a4573135e21b1d002c05607eb9394e1c0f2ca"
+notice_locators = []
+copyright_notice = "not-found-in-archive-wide-keyword-scan"
+public_domain_statement = "not-found"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+packaging_decision = "do-not-redistribute-upstream-by-default"
+review_notes = "Absence finding is not proof of permission."
+
+[[records]]
+id = "RIGHT-003"
+artifact_ids = ["slatec-linux-archive"]
+family = "linux-overlay"
+status = "conflicting"
+sha256 = "eef9234f8fcb49e7f4905a11eda8f453ec2ca314029a9ce303fdbc99cff42bf3"
+notice_locators = ["readme: License section"]
+copyright_notice = "not-explicit"
+licence_identifier = "unknown-gpl-version"
+redistribution_permission = "claimed-but-scope-unverified"
+modification_permission = "claimed-but-scope-unverified"
+commercial_use_permission = "unknown"
+attribution_requirement = "overlay author should be credited; exact legal requirement unresolved"
+packaging_decision = "exclude-by-default"
+review_notes = "Readme asserts GPL and 'freely distributable' without licence text or authority to license upstream SLATEC material."
+
+[[records]]
+id = "RIGHT-004"
+artifact_ids = ["slatec-browser-archive"]
+family = "slatec-browser-tooling"
+status = "requires-review"
+sha256 = "1bcaf724d92b50ea2a88604f714e61b1117e007fffc8b6476720aad3132d2b1c"
+notice_locators = ["slatecm/COPYRIGHT", "repeated headers in C source files"]
+copyright_notice = "Copyright (C) 1994 by the Regents of the University of Michigan"
+licence_identifier = "LicenseRef-UMich-SLATECM-1994"
+redistribution_permission = "stated"
+modification_permission = "commercial-derivative-work-prohibited-without-written-authorization"
+commercial_use_permission = "restricted"
+attribution_requirement = "copyright notice must be reproduced on all copies"
+notice_preservation_requirement = "required"
+warranty_disclaimer = "present"
+packaging_decision = "exclude-from-open-source-and-commercial-packages-pending-review"
+review_notes = "Artifact-specific terms must not be generalized to numerical SLATEC source."
+
+[[records]]
+id = "RIGHT-005"
+artifact_ids = ["upstream-blas"]
+family = "reference-blas"
+status = "redistribution-permitted"
+notice_locators = ["https://www.netlib.org/blas/: Licensing section"]
+copyright_notice = "official page states software is copyrighted"
+redistribution_permission = "commercial-inclusion-stated"
+modification_permission = "stated-with-request-to-rename-and-document-changes"
+commercial_use_permission = "stated"
+attribution_requirement = "proper credit requested"
+packaging_decision = "eligible-only-after-exact-file-and-revision-match"
+review_notes = "Do not apply to all linear algebra files or unrelated historical packages."
+
+[[records]]
+id = "RIGHT-006"
+artifact_ids = ["upstream-linpack", "upstream-eispack", "upstream-slap-single", "upstream-slap-double"]
+family = "linear-algebra-upstream-families-excluding-blas"
+status = "no-explicit-license-found"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+third_party_material = true
+packaging_decision = "requires-file-level-review"
+review_notes = "Package identity and public access do not establish a shared licence. Manuals have separate publication rights."
+
+[[records]]
+id = "RIGHT-007"
+artifact_ids = ["upstream-fishpack", "upstream-fftpack"]
+family = "fishpack-fftpack"
+status = "no-explicit-license-found"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+attribution_requirement = "preserve package author and institutional provenance"
+packaging_decision = "requires-file-level-review"
+
+[[records]]
+id = "RIGHT-008"
+artifact_ids = ["slatec-fnlib-directory", "upstream-fn", "slatec-spfun"]
+family = "fnlib-fn-special-functions"
+status = "requires-review"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+conflict = "provider lineage and relative revision unresolved"
+packaging_decision = "no-provider-may-be-redistributed-until-selected-and-reviewed"
+
+[[records]]
+id = "RIGHT-009"
+artifact_ids = ["slatec-pchip-directory", "upstream-pchip"]
+family = "pchip"
+status = "no-explicit-license-found"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+packaging_decision = "requires-file-level-review"
+
+[[records]]
+id = "RIGHT-010"
+artifact_ids = ["upstream-quadpack"]
+family = "quadpack"
+status = "requires-review"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+manual_rights = "copyrighted-monograph-separate-from-source"
+packaging_decision = "requires-file-level-review-and-manual-separation"
+
+[[records]]
+id = "RIGHT-011"
+artifact_ids = ["upstream-minpack", "upstream-dassl", "upstream-odepack", "upstream-amos"]
+family = "other-imported-numerical-packages"
+status = "requires-review"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+third_party_material = true
+packaging_decision = "resolve-provider-and-file-notices-before-distribution"
+
+[[records]]
+id = "RIGHT-012"
+artifact_ids = ["slatec-guide", "slatec-toc", "slatec-routine-list", "slatec-tree1", "slatec-tree"]
+family = "documentation-and-generated-evidence"
+status = "no-explicit-license-found"
+redistribution_permission = "unknown"
+modification_permission = "unknown"
+commercial_use_permission = "unknown"
+packaging_decision = "link-cite-and-distil-do-not-reproduce-wholesale"
+
+[[records]]
+id = "RIGHT-013"
+artifact_ids = ["project-metadata", "project-tools", "project-patches"]
+family = "slatec-rs-project-authored-material"
+status = "requires-review"
+redistribution_permission = "project-controlled-subject-to-contributor-and-employer-rights"
+modification_permission = "project-licence-not-yet-recorded-here"
+commercial_use_permission = "project-licence-not-yet-recorded-here"
+attribution_requirement = "preserve contributor and patch authorship"
+packaging_decision = "declare-project-licence-before-public-release"
+review_notes = "Project licence cannot relicense upstream SLATEC material."
+
+[release_gate]
+blocked_statuses = ["no-explicit-license-found", "conflicting", "requires-review"]
+required_outputs = [
+  "release-specific file-to-rights map",
+  "notice bundle",
+  "attribution report",
+  "provider manifest",
+  "patch manifest",
+  "legal or institutional approval record"
+]
