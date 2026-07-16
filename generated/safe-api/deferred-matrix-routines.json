@@ -1,0 +1,13 @@
+{
+  "id": "safe-api-deferred-matrix-routines-v1",
+  "schema_id": "slatec.safe-api.deferred-matrix-routines",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "created_by": "handwritten-safe-api-inventory",
+  "deferred": [
+    {"families":["cgemv","zgemv","cgemm","zgemm","complex_symmetric_and_hermitian"],"reason":"Level 1 established no safe complex representation or conversion policy"},
+    {"families":["sgbmv","dgbmv","cgbmv","zgbmv"],"reason":"banded storage API deferred from the focused initial subset; validation helper is present"},
+    {"families":["ssymm","dsymm","syr2k","hemm","herk","her2k"],"reason":"additional contracts deferred pending completed native matrix test environment"},
+    {"families":["packed_and_banded_triangular"],"reason":"storage layouts intentionally not exposed without dedicated documentation and tests"}
+  ]
+}
