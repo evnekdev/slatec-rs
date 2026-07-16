@@ -1,0 +1,234 @@
+schema_version = 1
+policy_version = 1
+programme_task = "E03"
+decision_date = "2026-07-16"
+policy_status = "conditional-operational"
+canonical_selected = true
+
+[baseline]
+source_id = "slatec-source-archive"
+artifact_name = "slatec_src.tgz"
+url = "https://www.netlib.org/slatec/slatec_src.tgz"
+sha256 = "4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc"
+compressed_bytes = 1768291
+regular_members = 741
+fortran_members = 735
+identity = "checksum-pinned-maintained-netlib-snapshot"
+immutable = true
+historical_version_label = "SLATEC 4.1-era"
+selection_reason = "Only complete numerical source artifact with acquired bytes, verified checksum, full member inventory, and internally unique detected program-unit providers."
+qualification = "Archive changes record corrections after July 1993; checksum and retrieval record define the exact baseline."
+
+[selected_source]
+profile = "default"
+include_globs = ["src/*.f"]
+selected_source_ids = ["slatec-source-archive"]
+expected_selected_files = 735
+provider_key = "program-unit-kind-and-ascii-casefolded-name"
+duplicate_policy = "fail-without-explicit-resolution"
+default_patch_set = []
+
+[[exclusions]]
+id = "EXC-001"
+source_id = "slatec-source-archive"
+path = "src/sgeir.f.0"
+reason = "retained historical pre-1999 provider; current src/sgeir.f is selected"
+preserved = true
+
+[[exclusions]]
+id = "EXC-002"
+source_id = "slatec-source-archive"
+path_globs = ["src/changes", "src/MD5", "src/.depend", "src/index", "src/index.html"]
+reason = "distribution evidence and metadata, not production Fortran compilation units"
+preserved = true
+
+[[exclusions]]
+id = "EXC-003"
+source_id = "slatec-linux-archive"
+path_globs = ["**"]
+reason = "optional Linux overlay with verified executable machine-provider changes and added LAPACK dependency"
+preserved = true
+
+[[exclusions]]
+id = "EXC-004"
+source_id = "slatec-quick-check-archive"
+path_globs = ["**"]
+reason = "separate historical test corpus, not numerical production provider set"
+preserved = true
+
+[[exclusions]]
+id = "EXC-005"
+source_id = "slatec-browser-archive"
+path_globs = ["**"]
+reason = "browser/documentation tooling with separate rights notice, not numerical source"
+preserved = true
+
+[[exclusions]]
+id = "EXC-006"
+source_id = "live-and-upstream-candidates"
+path_globs = ["**"]
+reason = "unverified duplicate or alternate providers; excluded until explicit comparison and resolution"
+preserved = true
+
+[[override_rules]]
+id = "OVR-001"
+priority = 10
+kind = "approved-project-patch"
+condition = "patch enabled by active policy/profile and preimage hash matches"
+action = "use verified patch postimage"
+
+[[override_rules]]
+id = "OVR-002"
+priority = 20
+kind = "canonical-baseline"
+condition = "program unit present in selected pinned archive provider"
+action = "select archive provider"
+
+[[override_rules]]
+id = "OVR-003"
+priority = 30
+kind = "explicit-machine-provider-profile"
+condition = "named profile is enabled and provider validation record is approved"
+action = "replace only named program units"
+implicit_activation = false
+
+[[override_rules]]
+id = "OVR-004"
+priority = 40
+kind = "explicit-historical-profile"
+condition = "named historical reproduction profile is enabled"
+action = "replace only named program units"
+implicit_activation = false
+
+[[override_rules]]
+id = "OVR-005"
+priority = 50
+kind = "unresolved-or-duplicate"
+condition = "zero or multiple selected providers remain"
+action = "fail"
+
+[relocated_subsets]
+source_ids = ["slatec-source-directory", "slatec-lin-directory", "slatec-fishfft-directory", "slatec-fnlib-directory", "slatec-pchip-directory"]
+default_action = "comparison-only"
+override_baseline = false
+supplement_baseline = false
+byte_identical_action = "record-alternate-location-only"
+different_file_action = "require-policy-update-patch-or-explicit-provider-resolution"
+
+[corrections]
+corrections_in_pinned_baseline_selected = true
+historical_variants_preserved = true
+future_corrections_action = "new-baseline-version-or-approved-upstream-correction-patch"
+silent_update_allowed = false
+known_baseline_corrections = ["rd-comment-1994", "sgeir-executable-1999", "qk15w-coefficients-2023", "dqk15w-coefficients-2023"]
+
+[machine_specific]
+default_provider_source_id = "slatec-source-archive"
+program_units = ["D1MACH", "I1MACH", "R1MACH", "FDUMP", "XERHLT"]
+linux_overlay_source_id = "slatec-linux-archive"
+linux_overlay_default_enabled = false
+selection_mode = "explicit-profile-only"
+validation_required = ["target-identity", "source-sha256", "external-dependencies", "compiler-linker", "numerical-tests", "runtime-state"]
+
+[original_preservation]
+preserve_archive_bytes = true
+modify_preserved_archive = false
+preserve_acquisition_metadata = true
+preserve_all_archive_members = true
+content_addressed_storage_recommended = true
+
+[normalization]
+separate_output_root = true
+policy_version = 1
+permitted = ["safe-path-metadata-normalization", "CRLF-or-CR-to-LF", "ASCII-casefolded-comparison-keys", "derived-hashes-and-token-streams"]
+prohibited = ["trim-leading-whitespace", "tab-expansion", "fixed-form-reflow", "case-change", "numeric-literal-rewrite", "routine-rename", "free-form-conversion", "formatter", "machine-block-selection", "error-handler-replacement"]
+compile_input_modes = ["canonical-bytes", "LF-normalized"]
+record_mode_in_build_manifest = true
+
+[patch_policy]
+patches_separate_from_original = true
+ordered_patch_list_required = true
+verify_preimage_sha256 = true
+verify_postimage_sha256 = true
+fuzzy_application_allowed = false
+partial_application_allowed = false
+required_fields = ["id", "purpose", "source_id", "source_path", "baseline_sha256", "preimage_sha256", "patch_sha256", "postimage_sha256", "classification", "provenance", "rights_notes", "review", "tests", "behavior_change"]
+
+[checksum_requirements]
+algorithm = "SHA-256"
+baseline_required = true
+artifact_required = true
+selected_file_required = true
+normalized_file_required = true
+patch_required = true
+post_patch_required = true
+mismatch_action = "fail"
+
+[reproducibility]
+safe_extraction_required = true
+sorted_manifests_required = true
+record_tool_versions = true
+record_configuration = true
+record_active_profile = true
+record_patch_order = true
+reject_directory_order_selection = true
+reject_last_write_wins = true
+clean_rerun_must_match = true
+
+[test_corpus]
+source_id = "slatec-quick-check-archive"
+artifact_name = "slatec_chk.tgz"
+sha256 = "a095f74665e165fa1a4bd3f9ab6a4573135e21b1d002c05607eb9394e1c0f2ca"
+fortran_files = 406
+numbered_drivers = 54
+part_of_numerical_provider_set = false
+
+[[evidence_artifacts]]
+source_id = "slatec-linux-archive"
+artifact_name = "slatec4linux.tgz"
+sha256 = "eef9234f8fcb49e7f4905a11eda8f453ec2ca314029a9ce303fdbc99cff42bf3"
+role = "optional-machine-overlay-evidence"
+
+[[evidence_artifacts]]
+source_id = "slatec-browser-archive"
+artifact_name = "slatecm.tgz"
+sha256 = "1bcaf724d92b50ea2a88604f714e61b1117e007fffc8b6476720aad3132d2b1c"
+role = "documentation-tooling-evidence"
+
+[[unresolved_selections]]
+id = "UNRES-001"
+subject = "archive-versus-live-src"
+blocking_default_profile = false
+required_evidence = "complete live src snapshot and raw/normalized comparison"
+
+[[unresolved_selections]]
+id = "UNRES-002"
+subject = "archive-versus-relocated-subsets"
+blocking_default_profile = false
+required_evidence = "complete lin/fishfft/fnlib/pchip snapshots and program-unit comparisons"
+
+[[unresolved_selections]]
+id = "UNRES-003"
+subject = "standalone-upstream-package-revisions"
+blocking_default_profile = false
+required_evidence = "checksum-pinned upstream source sets and classified diffs"
+
+[[unresolved_selections]]
+id = "UNRES-004"
+subject = "fnlib-versus-fn-relative-correctness"
+blocking_default_profile = false
+required_evidence = "complete source and numerical comparison with correction chronology"
+
+[[unresolved_selections]]
+id = "UNRES-005"
+subject = "machine-provider-runtime-validity"
+blocking_default_profile = true
+blocking_scope = "target-specific production builds using historical machine constants"
+required_evidence = "compiler/target validation and approved machine-provider profile"
+
+[[unresolved_selections]]
+id = "UNRES-006"
+subject = "numerical-source-and-test-rights"
+blocking_default_profile = false
+blocking_scope = "redistribution and public packaging"
+required_evidence = "artifact/file-level rights review"
