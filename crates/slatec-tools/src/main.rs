@@ -10,6 +10,7 @@ use slatec_tools::native_probe;
 use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
 use slatec_tools::prologues;
+use slatec_tools::raw_ffi;
 use std::path::PathBuf;
 
 #[derive(Debug)]
@@ -21,6 +22,8 @@ struct Options {
     program_unit_dir: PathBuf,
     full_corpus_dir: PathBuf,
     selected_corpus_dir: PathBuf,
+    ffi_inventory_dir: PathBuf,
+    bindings_dir: PathBuf,
     output_dir: PathBuf,
     offline: bool,
 }
@@ -68,6 +71,11 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/native-feasibility");
+    }
+    if options.command == "generate-raw-ffi"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/ffi");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -247,8 +255,23 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "generate-raw-ffi" => {
+            let result = raw_ffi::generate(
+                &options.evidence_dir,
+                &options.selected_corpus_dir,
+                &options.ffi_inventory_dir,
+                &options.output_dir,
+                &options.bindings_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, or probe-native-ffi",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, or generate-raw-ffi",
             options.command
         ))),
     }
@@ -271,6 +294,8 @@ fn parse_options() -> Result<Options> {
         program_unit_dir: PathBuf::from("generated/program-units"),
         full_corpus_dir: PathBuf::from("generated/full-corpus"),
         selected_corpus_dir: PathBuf::from("generated/selected-corpus"),
+        ffi_inventory_dir: PathBuf::from("generated/ffi-inventory"),
+        bindings_dir: PathBuf::from("crates/slatec-sys/src/generated"),
         output_dir: PathBuf::from("generated/corpus"),
         offline: false,
     };
@@ -297,6 +322,13 @@ fn parse_options() -> Result<Options> {
                 options.selected_corpus_dir =
                     PathBuf::from(required_value(&mut args, "--selected-corpus-dir")?)
             }
+            "--ffi-inventory-dir" => {
+                options.ffi_inventory_dir =
+                    PathBuf::from(required_value(&mut args, "--ffi-inventory-dir")?)
+            }
+            "--bindings-dir" => {
+                options.bindings_dir = PathBuf::from(required_value(&mut args, "--bindings-dir")?)
+            }
             "--output-dir" => {
                 options.output_dir = PathBuf::from(required_value(&mut args, "--output-dir")?)
             }
@@ -319,5 +351,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--offline]"
 }

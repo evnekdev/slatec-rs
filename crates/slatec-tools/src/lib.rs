@@ -15,6 +15,7 @@ pub mod native_probe;
 pub mod policy;
 pub mod program_units;
 pub mod prologues;
+pub mod raw_ffi;
 
 pub const TOOL_NAME: &str = "slatec-corpus";
 pub const TOOL_VERSION: &str = env!("CARGO_PKG_VERSION");

@@ -4,7 +4,8 @@ Workspace skeleton for Rust bindings and safe wrappers around selected SLATEC nu
 
 ## Intended layers
 
-- `slatec-sys`: raw, unsafe FFI declarations and native build integration.
+- `slatec-sys`: raw, unsafe FFI declarations. It never implicitly downloads or
+  compiles Fortran during a Cargo build.
 - `slatec-core`: shared safe types, errors, and workspace abstractions.
 - `slatec`: safe public API grouped by numerical domain.
 - `slatec-tools`: development utilities such as metadata and dependency-graph generation.
@@ -22,6 +23,7 @@ separate complete SLATEC-hosted provider profile. It does not alter the
 Follow-on extraction stages currently include the fixed-form program-unit scanner and the SLATEC prologue parser. Both consume verified local evidence, write compact generated indexes, and keep detailed source-derived text in ignored evidence directories.
 
 The FFI preparation stage is a conservative executable-interface inventory and
-separate native feasibility pilot. It inventories selected original Fortran
-without translating numerical algorithms; see
+an explicit corpus-wide GNU Fortran compilation and raw-binding generator. It
+uses the original selected Fortran without translating numerical algorithms;
+ABI-sensitive and unresolved interfaces remain gated for review. See
 [`docs/extraction/ffi-interface-inventory.md`](docs/extraction/ffi-interface-inventory.md).

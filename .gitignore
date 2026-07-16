@@ -13,6 +13,7 @@ Cargo.lock
 /evidence/prologues/
 /evidence/ffi-inventory/
 /evidence/native-probe*/
+/evidence/raw-ffi/
 /evidence/full-corpus/
 /evidence/acquisition/
 /.evidence/
