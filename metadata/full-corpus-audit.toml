@@ -1,0 +1,57 @@
+schema_version = 1
+policy_version = 1
+scope = "comparison-and-completeness-audit"
+
+[catalogues]
+list = "https://www.netlib.org/slatec/list"
+toc = "https://www.netlib.org/slatec/toc"
+
+[[source_sets]]
+id = "src"
+url = "https://www.netlib.org/slatec/src/"
+relationship = "live-main-source"
+
+[[source_sets]]
+id = "lin"
+url = "https://www.netlib.org/slatec/lin/"
+relationship = "relocated-subset"
+
+[[source_sets]]
+id = "fishfft"
+url = "https://www.netlib.org/slatec/fishfft/"
+relationship = "relocated-subset"
+
+[[source_sets]]
+id = "fnlib"
+url = "https://www.netlib.org/slatec/fnlib/"
+relationship = "relocated-subset"
+
+[[source_sets]]
+id = "pchip"
+url = "https://www.netlib.org/slatec/pchip/"
+relationship = "relocated-subset"
+
+[[supplemental_sets]]
+id = "err"
+url = "https://www.netlib.org/slatec/err/"
+relationship = "legacy-error-directory"
+
+[[supplemental_files]]
+id = "spfun"
+url = "https://www.netlib.org/slatec/spfun"
+relationship = "special-function-documentation-or-source-candidate"
+
+[[supplemental_files]]
+id = "subsid"
+url = "https://www.netlib.org/slatec/subsid"
+relationship = "documentation-support-source-candidate"
+
+[[supplemental_files]]
+id = "slprep"
+url = "https://www.netlib.org/slatec/slprep"
+relationship = "documentation-support-source-candidate"
+
+[[supplemental_files]]
+id = "sladoc"
+url = "https://www.netlib.org/slatec/sladoc"
+relationship = "documentation-support-source-candidate"

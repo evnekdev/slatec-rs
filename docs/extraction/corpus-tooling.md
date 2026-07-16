@@ -66,6 +66,12 @@ The next lexical stage is documented in [the fixed-form program-unit scanner](pr
 
 The following documentary stage is documented in [the SLATEC prologue parser](prologue-parser.md). It associates comment prologues with verified program units, extracts raw field boundaries and compact indexes, and keeps raw prologue text in ignored local evidence.
 
+The pinned archive's 735 selected files are a named `main-src` subset, not a
+complete-library claim. The separate [full-corpus completeness audit](full-corpus-audit.md)
+retrieves the SLATEC-hosted relocated directories and catalogues into ignored
+evidence, then emits a compact union inventory without changing the `main-src`
+snapshot or selecting live providers.
+
 For association and dialect refinements, first record the compact baseline
 analysis and then regenerate offline:
 

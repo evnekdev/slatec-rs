@@ -23,6 +23,13 @@ This directly establishes that the current download is a maintained Netlib snaps
 
 ## Archive versus live directory
 
+The subsequent full-corpus audit has now captured and hashed the configured
+live `src`, `lin`, `fishfft`, `fnlib`, and `pchip` files as ignored evidence.
+Its compact generated union has 1,491 normalized top-level identities; see
+[`full-corpus-audit-results.md`](full-corpus-audit-results.md). This completes
+the retrieval/inventory portion of the comparisons below, but does not select
+live providers or resolve rights and historical-version questions.
+
 | Left | Right | Status | Evidence | Missing comparison |
 |---|---|---|---|---|
 | `slatec-source-archive` | `slatec-source-directory` | `unresolved` | Archive bytes and complete member inventory now exist; Netlib describes `src/` as the live per-file surface. | Download every live file and compare raw and normalized hashes. |

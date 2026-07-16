@@ -4,7 +4,7 @@ No provider is selected by this register.
 
 | ID | Program unit or set | Providers/candidates | Status | Measured or required evidence |
 |---|---|---|---|---|
-| `DUP-001` | complete SLATEC source | `4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc` archive; live `src/` plus relocated subsets | `unresolved` | Archive is inventoried; live bytes still required. |
+| `DUP-001` | pinned `main-src` subset versus live SLATEC-hosted trees | `4c8c02fee905325ee4906bf8f7ece5593d895da3e5f208322f8aacea6d0eb9dc` archive; live `src/` plus relocated subsets | `unresolved` | The 735-unit archive subset is inventoried; live and relocated bytes remain required for a complete-library audit. |
 | `DUP-002` | source archive internal declarations | 735 `.f` files | `verified-identical` as uniqueness result, not provider identity | Deterministic scanner found 735 unique names and zero duplicate declared names within this archive. |
 | `DUP-003` | linear algebra providers | archive; `slatec/lin`; BLAS; LINPACK; EISPACK; SLAP | `possible-duplicate` | External provider bytes not compared. |
 | `DUP-004` | FISHPACK/FFTPACK providers | archive; relocated subset; standalone packages | `possible-duplicate` | External provider bytes not compared. |

@@ -2,6 +2,12 @@
 
 ## Distribution relationship
 
+The full-corpus audit now has a checksum-recorded, live-file inventory for the
+four relocated directories. Its exact counts and remaining catalogue/provider
+review work are in [`full-corpus-audit-results.md`](full-corpus-audit-results.md).
+The audit is comparison evidence only: no relocated file becomes a selected
+provider under canonical-corpus policy v1.
+
 Netlib's root index explicitly describes `lin/`, `fishfft/`, `fnlib/`, and `pchip/` as source groups removed from the live `slatec/src/` directory. This verifies relocation as a distribution-layout fact. It does not prove that current live subset files are byte-identical to the corresponding members of the supplied source archive.
 
 ## Evidence available from the source archive
