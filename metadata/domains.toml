@@ -1,0 +1,179 @@
+schema_version = 1
+generated_for = "slatec-rs"
+retrieval_date = "2026-07-16"
+status = "preliminary-project-taxonomy"
+
+[[domains]]
+id = "runtime-support"
+name = "Runtime and portability support"
+description = "Error handling, machine constants, diagnostic hooks and other cross-cutting runtime services."
+gams_roots = ["R"]
+tentative_layer = 0
+confidence = "high"
+notes = ["Functional boundary is clear; exact source and stateful dependency closure remains to be generated."]
+
+[[domains]]
+id = "data-utilities"
+name = "Data handling utilities"
+description = "Searching, sorting, indexing, representation and low-level data manipulation."
+gams_roots = ["N"]
+tentative_layer = 0
+confidence = "medium"
+notes = ["Some utilities may be better colocated with consumers after dependency analysis."]
+
+[[domains]]
+id = "numeric-support"
+name = "Numerical scalar support"
+description = "Extended-range arithmetic, error analysis, representation conversion and scalar numerical helpers."
+gams_roots = ["A"]
+tentative_layer = 1
+confidence = "medium"
+notes = ["May contain support routines used heavily by special functions."]
+
+[[domains]]
+id = "linear-algebra-kernels"
+name = "Linear algebra kernels"
+description = "BLAS-like vector and matrix operations and closely related low-level kernels."
+gams_roots = ["D1"]
+tentative_layer = 1
+confidence = "high"
+notes = ["Dense and sparse kernels must be distinguished at routine level."]
+
+[[domains]]
+id = "dense-linear-algebra"
+name = "Dense linear algebra"
+description = "Dense and banded factorizations, solves, condition estimation, eigenproblems, least squares, SVD and updates."
+gams_roots = ["D"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "linear-algebra-kernels"]
+notes = ["Excludes routines proven to belong primarily to sparse methods."]
+
+[[domains]]
+id = "sparse-linear-algebra"
+name = "Sparse linear algebra"
+description = "Sparse storage, matrix-vector kernels, iterative and direct sparse system methods."
+gams_roots = ["D"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "linear-algebra-kernels", "data-utilities"]
+notes = ["SLAP is a major package, but not necessarily the complete domain."]
+
+[[domains]]
+id = "special-functions"
+name = "Elementary and special functions"
+description = "Elementary transcendental functions and higher special-function families."
+gams_roots = ["C"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "numeric-support"]
+notes = ["Contains multiple provenance families; it must not be equated with FNLIB."]
+
+[[domains]]
+id = "interpolation"
+name = "Interpolation and splines"
+description = "Polynomial, spline, Hermite, smoothing and multidimensional interpolation."
+gams_roots = ["E"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "numeric-support"]
+notes = ["PCHIP is one package subset within this domain."]
+
+[[domains]]
+id = "approximation"
+name = "Approximation and fitting"
+description = "Approximation, fitting and related representation methods."
+gams_roots = ["K"]
+tentative_layer = 2
+confidence = "medium"
+depends_on = ["runtime-support", "linear-algebra-kernels"]
+notes = ["Overlaps interpolation, least squares and optimization."]
+
+[[domains]]
+id = "nonlinear-equations"
+name = "Nonlinear equations"
+description = "Scalar roots and systems of nonlinear equations."
+gams_roots = ["F"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "dense-linear-algebra"]
+notes = ["Some nonlinear least-squares routines overlap optimization."]
+
+[[domains]]
+id = "optimization"
+name = "Optimization"
+description = "Unconstrained, constrained and least-squares optimization."
+gams_roots = ["G"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "dense-linear-algebra", "nonlinear-equations"]
+notes = ["Dependency direction is provisional and may contain cycles at routine level."]
+
+[[domains]]
+id = "quadrature"
+name = "Differentiation and quadrature"
+description = "Numerical differentiation and one- or multidimensional numerical integration."
+gams_roots = ["H"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "numeric-support"]
+notes = ["Numerical differentiation may later be split into its own domain."]
+
+[[domains]]
+id = "transforms"
+name = "Integral transforms"
+description = "Fourier, sine, cosine and related transforms."
+gams_roots = ["J"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "numeric-support"]
+notes = ["FFTPACK is a major provenance package in this domain."]
+
+[[domains]]
+id = "probability-statistics"
+name = "Probability and statistics"
+description = "Probability distributions, statistical calculations and random-number-related routines."
+gams_roots = ["L"]
+tentative_layer = 2
+confidence = "high"
+depends_on = ["runtime-support", "special-functions"]
+notes = ["May later split probability distributions from general statistics."]
+
+[[domains]]
+id = "ode-dae"
+name = "Ordinary differential and differential-algebraic equations"
+description = "Initial-value ODE and DAE solvers and their support routines."
+gams_roots = ["I"]
+tentative_layer = 3
+confidence = "medium"
+depends_on = ["runtime-support", "dense-linear-algebra", "nonlinear-equations"]
+notes = ["Exact GAMS leaves and package families require routine-level extraction."]
+
+[[domains]]
+id = "boundary-value-problems"
+name = "Boundary-value problems"
+description = "Boundary-value solvers for differential equations."
+gams_roots = ["I"]
+tentative_layer = 3
+confidence = "medium"
+depends_on = ["runtime-support", "dense-linear-algebra", "ode-dae"]
+notes = ["May include multiple historically independent solver families."]
+
+[[domains]]
+id = "pde-integral-equations"
+name = "PDE and integral-equation methods"
+description = "Separable elliptic PDE solvers and other PDE- or integral-equation-related methods."
+gams_roots = ["I"]
+tentative_layer = 3
+confidence = "medium"
+depends_on = ["runtime-support", "dense-linear-algebra", "transforms"]
+notes = ["FISHPACK is a major package; complete domain boundaries remain provisional."]
+
+[[domains]]
+id = "uncategorized"
+name = "Unresolved or other"
+description = "Temporary home for GAMS Z routines or routines whose project domain is unresolved."
+gams_roots = ["Z"]
+tentative_layer = 2
+confidence = "low"
+notes = ["Every assignment should retain its original GAMS codes and uncertainty."]

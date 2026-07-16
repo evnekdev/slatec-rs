@@ -1,0 +1,164 @@
+schema_version = 1
+generated_for = "slatec-rs"
+retrieval_date = "2026-07-16"
+status = "preliminary-provenance-register"
+
+[[packages]]
+id = "blas"
+name = "Basic Linear Algebra Subprograms"
+provenance_kind = "package"
+functional_domains = ["linear-algebra-kernels"]
+slatec_location = ["slatec/lin"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "netlib-blas", "slatec-toc"]
+verified_families = ["AXPY", "COPY", "DOT", "NRM2", "SCAL", "SWAP", "GEMV", "GEMM", "triangular operations"]
+notes = ["Exact BLAS level/version and SLATEC-local variants require source comparison."]
+
+[[packages]]
+id = "linpack"
+name = "LINPACK"
+provenance_kind = "package"
+functional_domains = ["dense-linear-algebra"]
+slatec_location = ["slatec/lin"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "netlib-linpack", "slatec-toc"]
+verified_families = ["GEFA/GESL", "POFA/POSL", "QRDC/QRSL", "SVDC"]
+notes = ["Family examples are verified by indexes; complete membership and revision are not yet established."]
+
+[[packages]]
+id = "eispack"
+name = "EISPACK"
+provenance_kind = "package"
+functional_domains = ["dense-linear-algebra"]
+slatec_location = ["slatec/lin"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "netlib-eispack", "slatec-toc"]
+verified_families = ["balancing", "matrix reductions", "eigenvalue iteration", "eigenvector back-transformation"]
+notes = ["Exact pipeline inventory and source revision require archive comparison."]
+
+[[packages]]
+id = "slap"
+name = "SLATEC Linear Algebra Package"
+provenance_kind = "package"
+functional_domains = ["sparse-linear-algebra"]
+slatec_location = ["slatec/lin"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "slatec-toc"]
+verified_families = ["sparse storage conversion", "sparse matrix-vector products", "iterative Krylov solvers"]
+notes = ["Boundary with generic sparse utilities and kernel routines is not exact."]
+
+[[packages]]
+id = "fftpack"
+name = "FFTPACK"
+provenance_kind = "package"
+functional_domains = ["transforms"]
+slatec_location = ["slatec/fishfft"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "netlib-fftpack", "fftpack-user-guide"]
+verified_families = ["complex FFT", "real FFT", "sine transforms", "cosine transforms"]
+notes = ["Exact incorporated revision requires source comparison."]
+
+[[packages]]
+id = "fishpack"
+name = "FISHPACK"
+provenance_kind = "package"
+functional_domains = ["pde-integral-equations"]
+slatec_location = ["slatec/fishfft"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "slatec-toc"]
+verified_families = ["separable elliptic PDE solvers"]
+notes = ["Shares a relocated directory with FFTPACK but is a separate functional package."]
+
+[[packages]]
+id = "quadpack"
+name = "QUADPACK"
+provenance_kind = "package"
+functional_domains = ["quadrature"]
+confidence = "high"
+authoritative_source_ids = ["netlib-quadpack", "quadpack-manual", "slatec-toc"]
+verified_families = ["general adaptive quadrature", "improper integrals", "weighted quadrature", "oscillatory quadrature"]
+notes = ["Exact SLATEC routine set and revision must be compared with canonical QUADPACK."]
+
+[[packages]]
+id = "fnlib"
+name = "FNLIB"
+provenance_kind = "collection"
+functional_domains = ["special-functions", "numeric-support"]
+slatec_location = ["slatec/fnlib"]
+confidence = "verified"
+authoritative_source_ids = ["netlib-slatec-index", "slatec-toc"]
+verified_families = ["elementary functions", "Chebyshev-series support", "selected special functions"]
+notes = ["Netlib explicitly states that the chronology and bug status relative to /fn are unknown."]
+
+[[packages]]
+id = "pchip"
+name = "Piecewise Cubic Hermite Interpolation Package"
+provenance_kind = "package"
+functional_domains = ["interpolation"]
+slatec_location = ["slatec/pchip"]
+confidence = "verified"
+authoritative_source_ids = ["netlib-slatec-index", "slatec-toc"]
+verified_families = ["piecewise cubic Hermite interpolation"]
+notes = ["Not all SLATEC interpolation or spline routines belong to PCHIP."]
+
+[[packages]]
+id = "slatec-error"
+name = "SLATEC error-handling subsystem"
+provenance_kind = "support"
+functional_domains = ["runtime-support"]
+slatec_location = ["slatec/src", "slatec/err"]
+confidence = "high"
+authoritative_source_ids = ["netlib-slatec-index", "slatec-guide"]
+verified_families = ["XERROR compatibility", "XERMSG infrastructure", "diagnostic and control routines"]
+notes = ["Old and Version 4.1 subsystem boundaries and duplicate symbols require verification."]
+
+[[packages]]
+id = "slatec-machine-constants"
+name = "SLATEC machine-constant subsystem"
+provenance_kind = "support"
+functional_domains = ["runtime-support"]
+slatec_location = ["slatec/src"]
+confidence = "verified"
+authoritative_source_ids = ["netlib-slatec-index", "slatec-guide"]
+verified_families = ["I1MACH", "R1MACH", "D1MACH", "FDUMP", "XERHLT"]
+notes = ["FDUMP and XERHLT are machine/site hooks rather than numeric constants."]
+
+[[packages]]
+id = "amos-special-functions"
+name = "Amos complex Bessel and Airy routine family"
+provenance_kind = "family"
+functional_domains = ["special-functions"]
+confidence = "medium"
+authoritative_source_ids = ["slatec-toc", "slatec-source-tree"]
+verified_families = ["complex Bessel sequences", "complex Airy functions"]
+notes = ["Exact standalone package identity and routine inventory require prologue and publication review."]
+
+[[packages]]
+id = "ode-dae-families"
+name = "ODE and DAE solver families"
+provenance_kind = "multiple-families"
+functional_domains = ["ode-dae"]
+confidence = "low"
+authoritative_source_ids = ["slatec-toc", "slatec-source-tree"]
+verified_families = []
+notes = ["Placeholder grouping only; do not use as an assertion of common package ownership."]
+
+[[packages]]
+id = "bvp-families"
+name = "Boundary-value solver families"
+provenance_kind = "multiple-families"
+functional_domains = ["boundary-value-problems"]
+confidence = "low"
+authoritative_source_ids = ["slatec-toc", "slatec-source-tree"]
+verified_families = []
+notes = ["Routine-level package identities remain to be researched."]
+
+[[packages]]
+id = "optimization-families"
+name = "Optimization and nonlinear least-squares families"
+provenance_kind = "multiple-families"
+functional_domains = ["optimization", "nonlinear-equations"]
+confidence = "low"
+authoritative_source_ids = ["slatec-toc", "slatec-source-tree"]
+verified_families = []
+notes = ["Functional grouping only; not a historical package claim."]
