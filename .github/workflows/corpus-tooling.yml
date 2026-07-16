@@ -23,3 +23,7 @@ jobs:
         run: cargo test -p slatec-tools full_corpus::tests
       - name: Complete-corpus selection fixtures
         run: cargo test -p slatec-tools complete_corpus::tests
+      - name: Conservative FFI inventory fixtures
+        run: cargo test -p slatec-tools ffi_inventory::tests
+      - name: Native-pilot metadata fixtures
+        run: cargo test -p slatec-tools native_probe::tests

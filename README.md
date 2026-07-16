@@ -20,3 +20,8 @@ separate complete SLATEC-hosted provider profile. It does not alter the
 `main-src` snapshot or make a redistribution conclusion.
 
 Follow-on extraction stages currently include the fixed-form program-unit scanner and the SLATEC prologue parser. Both consume verified local evidence, write compact generated indexes, and keep detailed source-derived text in ignored evidence directories.
+
+The FFI preparation stage is a conservative executable-interface inventory and
+separate native feasibility pilot. It inventories selected original Fortran
+without translating numerical algorithms; see
+[`docs/extraction/ffi-interface-inventory.md`](docs/extraction/ffi-interface-inventory.md).

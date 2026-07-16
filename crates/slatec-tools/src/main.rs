@@ -3,8 +3,10 @@ use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::complete_corpus;
 use slatec_tools::error::{CorpusError, Result};
 use slatec_tools::extract;
+use slatec_tools::ffi_inventory;
 use slatec_tools::full_corpus;
 use slatec_tools::manifest;
+use slatec_tools::native_probe;
 use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
 use slatec_tools::prologues;
@@ -18,6 +20,7 @@ struct Options {
     manifest_dir: PathBuf,
     program_unit_dir: PathBuf,
     full_corpus_dir: PathBuf,
+    selected_corpus_dir: PathBuf,
     output_dir: PathBuf,
     offline: bool,
 }
@@ -55,6 +58,16 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/selected-corpus");
+    }
+    if options.command == "scan-ffi-inventory"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/ffi-inventory");
+    }
+    if options.command == "probe-native-ffi"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/native-feasibility");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -207,8 +220,35 @@ fn run() -> Result<()> {
             }
             Ok(())
         }
+        "scan-ffi-inventory" => {
+            let result = ffi_inventory::scan(
+                &options.evidence_dir,
+                &options.selected_corpus_dir,
+                &options.program_unit_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            Ok(())
+        }
+        "probe-native-ffi" => {
+            let result = native_probe::probe(
+                &options.evidence_dir,
+                &options.selected_corpus_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "{}: snapshot {} ({})",
+                result.status, result.snapshot_id, result.semantic_hash
+            );
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, or select-full-corpus",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, or probe-native-ffi",
             options.command
         ))),
     }
@@ -230,6 +270,7 @@ fn parse_options() -> Result<Options> {
         manifest_dir: PathBuf::from("generated/corpus"),
         program_unit_dir: PathBuf::from("generated/program-units"),
         full_corpus_dir: PathBuf::from("generated/full-corpus"),
+        selected_corpus_dir: PathBuf::from("generated/selected-corpus"),
         output_dir: PathBuf::from("generated/corpus"),
         offline: false,
     };
@@ -251,6 +292,10 @@ fn parse_options() -> Result<Options> {
             "--full-corpus-dir" => {
                 options.full_corpus_dir =
                     PathBuf::from(required_value(&mut args, "--full-corpus-dir")?)
+            }
+            "--selected-corpus-dir" => {
+                options.selected_corpus_dir =
+                    PathBuf::from(required_value(&mut args, "--selected-corpus-dir")?)
             }
             "--output-dir" => {
                 options.output_dir = PathBuf::from(required_value(&mut args, "--output-dir")?)
@@ -274,5 +319,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--output-dir PATH] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--output-dir PATH] [--offline]"
 }
