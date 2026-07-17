@@ -162,7 +162,9 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         }
         if matches!(
             family.as_str(),
-            "least-squares-nonlinear-easy" | "least-squares-nonlinear-expert"
+            "least-squares-nonlinear-easy"
+                | "least-squares-nonlinear-expert"
+                | "least-squares-covariance"
         ) {
             // The SLATEC least-squares drivers report valid INFO=4..8
             // numerical termination via a
@@ -265,6 +267,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         ("dckder_", "DCKDER"),
         ("dnls1_", "DNLS1"),
         ("dnls1e_", "DNLS1E"),
+        ("dcov_", "DCOV"),
     ]
     .into_iter()
     .map(|(symbol, name)| {
@@ -294,8 +297,14 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     let expert_least_squares_retention = expert_least_squares
         .map(|record| record["retention_checks"].clone())
         .unwrap_or(Value::Null);
+    let covariance = examples
+        .iter()
+        .find(|record| record["example"] == "link_least_squares_covariance");
+    let covariance_retention = covariance
+        .map(|record| record["retention_checks"].clone())
+        .unwrap_or(Value::Null);
     let report = json!({"schema_id":"slatec-rs/family-link-report","schema_version":"1.1.0","snapshot_id":SNAPSHOT,"provider_mode":"source-build","target":"x86_64-pc-windows-gnu","families":closure_rows,"examples":examples,"archive_policy":"separate object per physical selected source; no whole-archive"});
-    let retention = json!({"schema_id":"slatec-rs/symbol-retention-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows,"single_gamma":gamma_retention,"least_squares_easy":least_squares_retention,"least_squares_expert":expert_least_squares_retention,"rule":"only referenced static-archive members and their compiler-observed dependency closure are retained"});
+    let retention = json!({"schema_id":"slatec-rs/symbol-retention-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows,"single_gamma":gamma_retention,"least_squares_easy":least_squares_retention,"least_squares_expert":expert_least_squares_retention,"least_squares_covariance":covariance_retention,"rule":"only referenced static-archive members and their compiler-observed dependency closure are retained"});
     let raw_map = json!({"schema_id":"slatec-rs/family-to-raw-symbols","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows});
     let source_map = json!({"schema_id":"slatec-rs/family-to-source-closure","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_rows});
     let closure_audit_report = json!({"schema_id":"slatec-rs/family-closure-audit","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_audit});
@@ -304,7 +313,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         .filter(|record| record["status"] == "passed")
         .count();
     let summary = format!(
-        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/{}.\n- Single-gamma unrelated-domain retention check: {}.\n- Least-squares narrow-link check: {}. `DNLS1E` intentionally retains `DNLS1`, its direct original implementation; `DCKDER` remains in that object because its optional native checking branch cannot be extracted separately.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
+        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/{}.\n- Single-gamma unrelated-domain retention check: {}.\n- Least-squares narrow-link check: {}. `DNLS1E` intentionally retains `DNLS1`, its direct original implementation; `DCKDER` remains in that object because its optional native checking branch cannot be extracted separately.\n- Covariance narrow-link check: {}.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
         family_sources.len(),
         selected_ids.len(),
         examples.len(),
@@ -314,6 +323,11 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
             "not run"
         },
         if least_squares_retention["passed"].as_bool() == Some(true) {
+            "passed"
+        } else {
+            "not run"
+        },
+        if covariance_retention["passed"].as_bool() == Some(true) {
             "passed"
         } else {
             "not run"
@@ -410,6 +424,11 @@ fn family_for(path: &str, routine: &str) -> String {
             return "quadrature-nonadaptive".to_owned();
         }
         return "quadrature-basic".to_owned();
+    }
+    if path.contains("::least_squares::estimate_covariance")
+        || path.contains("::least_squares::covariance_from_expert_fit")
+    {
+        return "least-squares-covariance".to_owned();
     }
     if path.contains("::least_squares::least_squares_expert")
         || path.contains("::least_squares::least_squares_with_jacobian")
@@ -549,6 +568,11 @@ fn inspect_examples(
             "least-squares-nonlinear-expert",
             "dnls1_",
         ),
+        (
+            "link_least_squares_covariance",
+            "least-squares-covariance",
+            "dcov_",
+        ),
         ("link_nonlinear_expert", "nonlinear-expert", "dnsq_"),
         ("link_nonlinear_analytic", "nonlinear-expert", "dnsq_"),
         (
@@ -560,7 +584,7 @@ fn inspect_examples(
     ];
     let family_roots = [
         "dlnrel_", "dgamma_", "dai_", "dbesj0_", "ddot_", "dgemm_", "dqag_", "dqawo_", "dfzero_",
-        "dnsqe_", "dnsq_", "dckder_", "dnls1_", "dnls1e_",
+        "dnsqe_", "dnsq_", "dckder_", "dnls1_", "dnls1e_", "dcov_",
     ];
     let mut output = Vec::new();
     for (example, feature, required) in specifications {
@@ -760,7 +784,7 @@ mod tests {
         )
         .expect("valid closure audit");
         let records = report["records"].as_array().expect("audit records");
-        assert_eq!(records.len(), 24);
+        assert_eq!(records.len(), 25);
         assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }

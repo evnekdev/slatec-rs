@@ -342,6 +342,27 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/covariance-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            let path = column(row, columns, "safe_path")?;
+            let feature = if path.contains("from_expert_fit") {
+                "least-squares-covariance + least-squares-nonlinear-expert"
+            } else {
+                "least-squares-covariance"
+            };
+            Ok(record(
+                path,
+                column(row, columns, "raw_routine")?,
+                "least squares",
+                column(row, columns, "precision")?,
+                "nonlinear least-squares covariance estimation",
+                "std",
+                feature,
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -434,6 +455,15 @@ fn record(
         }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
+        "least squares" if path.contains("covariance") && path.contains("rank") => {
+            "examples/least_squares/covariance_rank_deficient.rs".to_owned()
+        }
+        "least squares" if path.contains("covariance") && path.contains("finite_difference") => {
+            "examples/least_squares/covariance_linear_fit.rs".to_owned()
+        }
+        "least squares" if path.contains("covariance") => {
+            "examples/least_squares/covariance_nonlinear_fit.rs".to_owned()
+        }
         "least squares" if path.contains("with_jacobian") && precision == "f32" => {
             "examples/least_squares/expert_analytic_jacobian_f32.rs".to_owned()
         }
@@ -766,6 +796,12 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::least_squares::least_squares_expert_f32"
             | "slatec::least_squares::least_squares_with_jacobian"
             | "slatec::least_squares::least_squares_with_jacobian_f32"
+            | "slatec::least_squares::estimate_covariance"
+            | "slatec::least_squares::estimate_covariance_f32"
+            | "slatec::least_squares::estimate_covariance_finite_difference"
+            | "slatec::least_squares::estimate_covariance_finite_difference_f32"
+            | "slatec::least_squares::covariance_from_expert_fit"
+            | "slatec::least_squares::covariance_from_expert_fit_f32"
     )
 }
 
@@ -815,6 +851,9 @@ fn purpose(family: &str) -> &'static str {
         }
         "expert analytic-Jacobian nonlinear least squares" => {
             "expert analytic-Jacobian nonlinear least-squares fitting"
+        }
+        "nonlinear least-squares covariance estimation" => {
+            "nonlinear least-squares covariance estimation"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",

@@ -47,13 +47,14 @@ nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check"]
 nonlinear-easy = []
 nonlinear-expert = []
 nonlinear-jacobian-check = []
-least-squares = ["least-squares-nonlinear"]
+least-squares = ["least-squares-nonlinear", "least-squares-covariance"]
 least-squares-nonlinear = [
     "least-squares-nonlinear-easy",
     "least-squares-nonlinear-expert",
 ]
 least-squares-nonlinear-easy = []
 least-squares-nonlinear-expert = []
+least-squares-covariance = []
 
 [dependencies]
 

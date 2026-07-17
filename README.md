@@ -3,7 +3,7 @@
 Safe APIs are selected by coherent family features such as `blas-level1`,
 `special-gamma`, `quadrature-basic`, `roots-scalar`, `nonlinear-easy`,
 `nonlinear-expert`, `least-squares-nonlinear-easy`, and
-`least-squares-nonlinear-expert`. Numerical families
+`least-squares-nonlinear-expert`, and `least-squares-covariance`. Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
 historical source rights remain unresolved. `source-build` is offline-only and
@@ -81,10 +81,12 @@ Levenberg--Marquardt wrappers over `SNLS1E` and `DNLS1E` for problems with
 `M >= N`. `least-squares-nonlinear-expert` adds reviewed `SNLS1`/`DNLS1`
 finite-difference and dense analytic-Jacobian modes with checked expert
 controls, scaling, exact workspace, and native evaluation counts; covariance
-estimation remains deferred. See the [easy-driver guide](docs/api/safe-nonlinear-easy-drivers.md),
+estimation is a separate `least-squares-covariance` feature over reviewed
+`SCOV`/`DCOV`. See the [easy-driver guide](docs/api/safe-nonlinear-easy-drivers.md),
 [expert nonlinear guide](docs/api/safe-nonlinear-expert.md), and
 [least-squares guides](docs/api/safe-least-squares-easy-drivers.md) and
-[expert least-squares guide](docs/api/safe-least-squares-expert.md).
+[expert least-squares guide](docs/api/safe-least-squares-expert.md), plus the
+[covariance guide](docs/api/safe-least-squares-covariance.md).
 
 With the complete selected evidence and GNU MinGW compiler available, run:
 

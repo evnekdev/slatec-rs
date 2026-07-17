@@ -99,14 +99,16 @@ pub mod nonlinear;
 /// Hand-reviewed declarations for nonlinear least-squares easy and expert
 /// drivers.
 ///
-/// This narrow module contains `SNLS1E`, `DNLS1E`, `SNLS1`, and `DNLS1`.
+/// This narrow module contains `SNLS1E`, `DNLS1E`, `SNLS1`, `DNLS1`, `SCOV`,
+/// and `DCOV`.
 /// It remains separate from the broad callback batch: safe callers must still
 /// uphold callback lifetime, rectangular Jacobian, workspace, and process-wide
 /// runtime invariants.
 #[cfg(any(
     feature = "raw-ffi-least-squares",
     feature = "raw-family-least-squares-nonlinear-easy",
-    feature = "raw-family-least-squares-nonlinear-expert"
+    feature = "raw-family-least-squares-nonlinear-expert",
+    feature = "raw-family-least-squares-covariance"
 ))]
 pub mod least_squares;
 
@@ -119,6 +121,7 @@ pub mod least_squares;
 /// preserving and restoring the process-global control flag.
 #[cfg(any(
     feature = "raw-family-least-squares-nonlinear-easy",
-    feature = "raw-family-least-squares-nonlinear-expert"
+    feature = "raw-family-least-squares-nonlinear-expert",
+    feature = "raw-family-least-squares-covariance"
 ))]
 pub mod legacy_error;

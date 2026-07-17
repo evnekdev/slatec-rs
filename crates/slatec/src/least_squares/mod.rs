@@ -2,19 +2,33 @@
 //!
 //! This module wraps the original SLATEC Levenberg--Marquardt easy drivers
 //! `SNLS1E` and `DNLS1E` in their finite-difference mode, plus the opt-in
-//! expert `SNLS1` and `DNLS1` finite-difference and dense-Jacobian modes. It solves
+//! expert `SNLS1` and `DNLS1` finite-difference and dense-Jacobian modes, plus
+//! the opt-in `SCOV`/`DCOV` covariance helpers. It solves
 //! `minimize 1/2 * sum_i r_i(x)^2` for `M` residuals and `N` parameters, with
 //! the native precondition `M >= N`. Calls require `std`, allocate the exact
 //! documented work arrays internally, and serialize access to the validated
 //! GNU Fortran `x86_64-w64-mingw32` runtime. A callback cannot invoke another
 //! callback-bearing SLATEC facade.
 
+#[cfg(feature = "least-squares-covariance")]
+mod covariance;
 mod error;
 #[cfg(feature = "least-squares-nonlinear-expert")]
 mod expert;
 #[cfg(feature = "least-squares-nonlinear-easy")]
 mod solver;
 
+#[cfg(feature = "least-squares-covariance")]
+pub use covariance::{
+    CovarianceEligibility, CovarianceError, CovarianceOptions, CovarianceResult, CovarianceScaling,
+    CovarianceStatus, estimate_covariance, estimate_covariance_f32,
+    estimate_covariance_finite_difference, estimate_covariance_finite_difference_f32,
+};
+#[cfg(all(
+    feature = "least-squares-covariance",
+    feature = "least-squares-nonlinear-expert"
+))]
+pub use covariance::{covariance_from_expert_fit, covariance_from_expert_fit_f32};
 pub use error::LeastSquaresError;
 #[cfg(feature = "least-squares-nonlinear-expert")]
 pub use expert::{

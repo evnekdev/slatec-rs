@@ -24,6 +24,8 @@ compile_error!("the `nonlinear-expert` safe API requires the `std` feature");
 compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-nonlinear-expert", not(feature = "std")))]
 compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std` feature");
+#[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
+compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -73,7 +75,8 @@ pub mod polynomials;
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "least-squares-nonlinear-easy",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 pub(crate) mod runtime;
 
@@ -88,7 +91,8 @@ pub(crate) mod runtime;
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "least-squares-nonlinear-easy",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 mod callback_runtime;
 
@@ -113,7 +117,8 @@ pub mod roots;
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "nonlinear-jacobian-check",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 pub mod nonlinear;
 
@@ -127,6 +132,7 @@ pub mod nonlinear;
 /// Jacobian closures. It is not a nonlinear equation-solver API.
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 pub mod least_squares;

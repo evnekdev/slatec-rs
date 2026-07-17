@@ -585,6 +585,66 @@
     },
     {
       "doctest_present": true,
+      "example_case": "nonlinear least-squares covariance estimation",
+      "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
+      "fortran_routine": "DCOV",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::covariance_from_expert_fit",
+      "validation_case": "covariance_from_expert_fit",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "nonlinear least-squares covariance estimation",
+      "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
+      "fortran_routine": "SCOV",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::covariance_from_expert_fit_f32",
+      "validation_case": "covariance_from_expert_fit_f32",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "nonlinear least-squares covariance estimation",
+      "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
+      "fortran_routine": "DCOV",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::estimate_covariance",
+      "validation_case": "estimate_covariance",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "nonlinear least-squares covariance estimation",
+      "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
+      "fortran_routine": "SCOV",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::estimate_covariance_f32",
+      "validation_case": "estimate_covariance_f32",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "nonlinear least-squares covariance estimation",
+      "example_file": "examples/least_squares/covariance_linear_fit.rs",
+      "fortran_routine": "DCOV",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::estimate_covariance_finite_difference",
+      "validation_case": "estimate_covariance_finite_difference",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "nonlinear least-squares covariance estimation",
+      "example_file": "examples/least_squares/covariance_linear_fit.rs",
+      "fortran_routine": "SCOV",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::estimate_covariance_finite_difference_f32",
+      "validation_case": "estimate_covariance_finite_difference_f32",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "finite-difference nonlinear least squares",
       "example_file": "examples/least_squares/linear_fit.rs",
       "fortran_routine": "DNLS1E",

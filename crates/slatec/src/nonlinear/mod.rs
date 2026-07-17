@@ -21,7 +21,8 @@ mod expert;
 #[cfg(any(
     feature = "nonlinear-expert",
     feature = "nonlinear-jacobian-check",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 mod jacobian;
 #[cfg(feature = "nonlinear-easy")]
@@ -39,7 +40,8 @@ pub use expert::{
 #[cfg(any(
     feature = "nonlinear-expert",
     feature = "nonlinear-jacobian-check",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 pub use jacobian::{JacobianIndexError, JacobianMut};
 #[cfg(feature = "nonlinear-easy")]

@@ -110,7 +110,7 @@ nonlinear-jacobian-check = [
 ]
 nonlinear-native-tests = ["nonlinear", "quadrature", "roots-scalar"]
 
-least-squares = ["least-squares-nonlinear"]
+least-squares = ["least-squares-nonlinear", "least-squares-covariance"]
 least-squares-nonlinear = [
     "least-squares-nonlinear-easy",
     "least-squares-nonlinear-expert",
@@ -127,6 +127,13 @@ least-squares-nonlinear-expert = [
     "slatec-sys/raw-family-least-squares-nonlinear-expert",
     "slatec-src/least-squares-nonlinear-expert",
 ]
+least-squares-covariance = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-least-squares-covariance",
+    "slatec-src/least-squares-covariance",
+]
+least-squares-covariance-native-tests = ["least-squares-covariance"]
 least-squares-native-tests = [
     "least-squares-nonlinear-easy",
     "least-squares-nonlinear-expert",
@@ -134,6 +141,7 @@ least-squares-native-tests = [
     "roots-scalar",
     "nonlinear-easy",
     "nonlinear-expert",
+    "least-squares-covariance-native-tests",
 ]
 
 # Compatibility names retained for downstream manifests from earlier releases.
@@ -217,3 +225,7 @@ required-features = ["least-squares-nonlinear-easy"]
 [[example]]
 name = "link_least_squares_nonlinear_expert"
 required-features = ["least-squares-nonlinear-expert"]
+
+[[example]]
+name = "link_least_squares_covariance"
+required-features = ["least-squares-covariance"]

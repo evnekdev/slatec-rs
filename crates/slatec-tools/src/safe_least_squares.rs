@@ -67,19 +67,19 @@ const CANDIDATES: &[Candidate] = &[
         name: "DCOV",
         precision: "f64",
         role: "covariance_helper",
-        callback: "residual_and_optional_analytic_Jacobian",
-        workspace: "expert_caller_workspace",
-        disposition: "deferred",
-        reason: "covariance_estimation_requires_separate_statistical_contract_review",
+        callback: "FCN(IFLAG,M,N,X,FVEC,R,LDR); IOPT=1_forward_difference_or_IOPT=2_dense_analytic_Jacobian",
+        workspace: "R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]",
+        disposition: "included",
+        reason: "reviewed_raw_abi_native_contract_and_covariance_scaling_validation",
     },
     Candidate {
         name: "SCOV",
         precision: "f32",
         role: "covariance_helper",
-        callback: "residual_and_optional_analytic_Jacobian",
-        workspace: "expert_caller_workspace",
-        disposition: "deferred",
-        reason: "covariance_estimation_requires_separate_statistical_contract_review",
+        callback: "FCN(IFLAG,M,N,X,FVEC,R,LDR); IOPT=1_forward_difference_or_IOPT=2_dense_analytic_Jacobian",
+        workspace: "R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]",
+        disposition: "included",
+        reason: "reviewed_raw_abi_native_contract_and_covariance_scaling_validation",
     },
     Candidate {
         name: "DFDJC3",
@@ -258,6 +258,7 @@ pub fn generate(
 
     let mut candidates = Vec::new();
     let mut wrappers = Vec::new();
+    let mut covariance_wrappers = Vec::new();
     let mut deferred = Vec::new();
     let mut seen = BTreeSet::new();
     for candidate in CANDIDATES {
@@ -315,7 +316,7 @@ pub fn generate(
                     "analytic_and_noisy_overdetermined_fits",
                     "included"
                 ]));
-            } else {
+            } else if candidate.role == "expert_driver" {
                 let (finite_difference_path, analytic_path) = if candidate.precision == "f64" {
                     (
                         "slatec::least_squares::least_squares_expert",
@@ -348,6 +349,57 @@ pub fn generate(
                         "included"
                     ]));
                 }
+            } else if candidate.role == "covariance_helper" {
+                let (finite_difference_path, analytic_path, fit_path) =
+                    if candidate.precision == "f64" {
+                        (
+                            "slatec::least_squares::estimate_covariance_finite_difference",
+                            "slatec::least_squares::estimate_covariance",
+                            "slatec::least_squares::covariance_from_expert_fit",
+                        )
+                    } else {
+                        (
+                            "slatec::least_squares::estimate_covariance_finite_difference_f32",
+                            "slatec::least_squares::estimate_covariance_f32",
+                            "slatec::least_squares::covariance_from_expert_fit_f32",
+                        )
+                    };
+                for (safe_path, jacobian_policy, fit_policy) in [
+                    (
+                        finite_difference_path,
+                        "IOPT=1_forward_difference",
+                        "parameters_only",
+                    ),
+                    (
+                        analytic_path,
+                        "IOPT=2_dense_analytic_Jacobian",
+                        "parameters_only",
+                    ),
+                    (
+                        fit_path,
+                        "IOPT=2_dense_analytic_Jacobian",
+                        "expert_fit_status_eligibility",
+                    ),
+                ] {
+                    covariance_wrappers.push(json!([
+                        safe_path,
+                        candidate.name,
+                        symbol,
+                        id,
+                        candidate.precision,
+                        jacobian_policy,
+                        "M_residuals_N_parameters_LDR=M",
+                        "R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]",
+                        "native_RSS_over_M_minus_N_when_M_gt_N; unscaled_when_M_eq_N; explicit_residual_variance_requires_M_gt_N",
+                        "unpivoted_QR; successful_result_rank=N_identity_permutation; INFO=2_is_rank_deficient_non_result; no_native_rank_tolerance",
+                        fit_policy,
+                        "shared_scoped_thread_local_expert_least_squares_slot",
+                        "serialized_process_native_lock_with_scoped_XGETF_XSETF_level_one_recovery",
+                        "native_execution_passed",
+                        "analytic_JtJ_inverse_reference_and_rank_deficiency_cases",
+                        "included"
+                    ]));
+                }
             }
         } else if candidate.disposition == "deferred" {
             deferred.push(json!([
@@ -361,6 +413,7 @@ pub fn generate(
     }
     candidates.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
     wrappers.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
+    covariance_wrappers.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
     deferred.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
     let easy_wrappers = wrappers
         .iter()
@@ -381,7 +434,7 @@ pub fn generate(
         .filter(|row| {
             row[0]
                 .as_str()
-                .is_some_and(|name| !matches!(name, "DNLS1E" | "SNLS1E"))
+                .is_some_and(|name| !matches!(name, "DNLS1E" | "SNLS1E" | "DCOV" | "SCOV"))
         })
         .cloned()
         .collect::<Vec<_>>();
@@ -390,7 +443,7 @@ pub fn generate(
         .filter(|row| {
             row[0]
                 .as_str()
-                .is_some_and(|name| matches!(name, "DCOV" | "SCOV"))
+                .is_some_and(|name| matches!(name, "SCOV/DCOV policy"))
         })
         .cloned()
         .collect::<Vec<_>>();
@@ -417,10 +470,10 @@ pub fn generate(
             "deferred"
         ]),
         json!([
-            "SCOV/DCOV policy",
+            "SCOV/DCOV known_variance_and_pseudoinverse",
             "",
-            "covariance_interpretation",
-            "normalization_rank_deficiency_and_confidence_interval_contracts_need_separate_review",
+            "unsupported_covariance_policy",
+            "native_routines_do_not_expose_a_rank_tolerance_or_unscaled_inverse_when_RSS_is_zero",
             "deferred"
         ]),
     ]);
@@ -501,14 +554,71 @@ pub fn generate(
         "schema_id":"slatec.safe-least-squares.expert-deferred", "schema_version":"1.0.0", "snapshot_id":snapshot,
         "columns":["raw_routine","raw_symbol","role","reason","review_state"], "records":expert_deferred,
     }))?);
+    let covariance_candidates = candidates
+        .iter()
+        .filter(|row| {
+            row[0]
+                .as_str()
+                .is_some_and(|name| matches!(name, "DCOV" | "SCOV"))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    outputs.insert("covariance-candidate-index.json", compact(&json!({
+        "schema_id":"slatec.safe-covariance.candidate-index", "schema_version":"1.0.0", "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
+        "columns":["raw_routine","program_unit_id","raw_symbol","source_subset","source_path","precision","role","callback_signature","workspace_policy","disposition","reason"], "records":covariance_candidates,
+    }))?);
+    outputs.insert("covariance-wrapper-index.json", compact(&json!({
+        "schema_id":"slatec.safe-covariance.wrapper-index", "schema_version":"1.0.0", "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
+        "columns":["safe_path","raw_routine","raw_symbol","program_unit_id","precision","jacobian_policy","dimensions","workspace_formula","scaling_policy","rank_policy","fit_state_policy","callback_policy","runtime_serialization","native_test_status","numerical_reference_type","review_state"], "records":covariance_wrappers,
+    }))?);
+    outputs.insert("covariance-scaling-policy.json", compact(&json!({
+        "schema_id":"slatec.safe-covariance.scaling-policy", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["safe_scaling","M_relation","native_matrix","variance_scale","policy"], "records":[
+            ["Native","M>N","RSS/(M-N) * inverse(J_transpose*J)","RSS/(M-N)","returned directly"],
+            ["Native","M=N","inverse(J_transpose*J)","1","returned directly; no residual degrees of freedom"],
+            ["ResidualVariance","M>N","RSS/(M-N) * inverse(J_transpose*J)","RSS/(M-N)","explicit statistical scaling"],
+            ["ResidualVariance","M=N","not_called","not_applicable","Rust validation returns NonPositiveDegreesOfFreedom"],
+            ["KnownVariance","all","not_exposed","not_applicable","native output loses the unscaled inverse when RSS is zero"]
+        ],
+    }))?);
+    outputs.insert("covariance-rank-policy.json", compact(&json!({
+        "schema_id":"slatec.safe-covariance.rank-policy", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["native_condition","safe_outcome","rank","permutation","threshold"], "records":[
+            ["all_unpivoted_QR_diagonals_nonzero","CovarianceStatus::FullRank","N","identity_zero_based","no_native_tolerance"],
+            ["any_unpivoted_QR_diagonal_exactly_zero","CovarianceError::RankDeficient","not_reported_by_native","not_applicable","no_native_tolerance"]
+        ],
+    }))?);
+    outputs.insert("covariance-workspace.json", compact(&json!({
+        "schema_id":"slatec.safe-covariance.workspace", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["raw_routine","iopt","leading_dimension","floating_workspace","checked_arithmetic","ownership"], "records":[
+            ["SCOV",1,"LDR=M","R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"],
+            ["SCOV",2,"LDR=M","R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"],
+            ["DCOV",1,"LDR=M","R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"],
+            ["DCOV",2,"LDR=M","R[M*N]; FVEC[M]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"]
+        ],
+    }))?);
+    outputs.insert("covariance-deferred.json", compact(&json!({
+        "schema_id":"slatec.safe-covariance.deferred", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["item","reason","review_state"], "records":[
+            ["known_variance_scaling","SCOV/DCOV do not retain an unscaled inverse after zero-RSS residual scaling","deferred"],
+            ["pseudoinverse_and_effective_rank","native routines only identify exact zero diagonal singularity and return no rank","deferred"],
+            ["confidence_and_prediction_intervals","statistical interpretation exceeds covariance computation","deferred"],
+            ["robust_weighted_sparse_and_constrained_covariance","no reviewed compatible native contract","deferred"],
+            ["persistent_factorization","SCOV/DCOV recompute residuals and Jacobian rather than consuming solver QR state","not_required"]
+        ],
+    }))?);
     let semantic_hash = semantic_hash(&outputs);
     outputs.insert("least-squares-validation-summary.md", format!(
-        "# Safe nonlinear least-squares easy-driver validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Classified public and subsidiary records: {}\n- Easy safe wrappers: {} (`SNLS1E`, `DNLS1E`)\n- Expert safe wrappers: {} (`SNLS1`, `DNLS1`, finite-difference and dense analytic Jacobian modes)\n- Deferred public routines: {} (`SCOV`, `DCOV`)\n- Dimensions: native `M >= N` is prevalidated; residual and parameter dimensions remain distinct\n- Expert workspace: checked `FJAC[M*N]`, `IPVT[N]`, `DIAG[N]`, `QTF[N]`, `WA1..WA3[N]`, and `WA4[M]` allocations\n- Legacy errors: scoped `XGETF`/`XSETF(0)` lets documented level-one numerical completion statuses return, then restores the prior process-global control\n- State: callback calls serialize; nested callback-based families are rejected\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
-        CANDIDATES.len(), easy_wrappers.len(), expert_wrappers.len(), deferred.len()
+        "# Safe nonlinear least-squares validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Classified public and subsidiary records: {}\n- Easy safe wrappers: {} (`SNLS1E`, `DNLS1E`)\n- Expert safe wrappers: {} (`SNLS1`, `DNLS1`, finite-difference and dense analytic Jacobian modes)\n- Covariance safe wrappers: {} (`SCOV`, `DCOV`, finite-difference and dense analytic Jacobian modes)\n- Deferred public routines: {}\n- Dimensions: native `M >= N` is prevalidated; residual and parameter dimensions remain distinct\n- Legacy errors: scoped `XGETF`/`XSETF(0)` lets documented level-one numerical completion statuses return, then restores the prior process-global control\n- State: callback calls serialize; nested callback-based families are rejected\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
+        CANDIDATES.len(), easy_wrappers.len(), expert_wrappers.len(), covariance_wrappers.len(), deferred.len()
     ).into_bytes());
     outputs.insert("least-squares-expert-validation-summary.md", format!(
-        "# Safe expert nonlinear least-squares validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Expert candidate and subsidiary records: {}\n- Expert safe wrappers: {} (`SNLS1`, `DNLS1`; `IOPT = 1` finite differences and `IOPT = 2` dense analytic Jacobians)\n- Deferred records: {} (`SCOV`/`DCOV`, `IOPT = 3`, observer callbacks, cancellation, and covariance policy)\n- Dimensions: `M >= N`, `LDFJAC = M`, and all `M*N` storage arithmetic are checked\n- Controls: checked `FTOL`, `XTOL`, `GTOL`, `MAXFEV`, `EPSFCN`, `MODE`/`DIAG`, and `FACTOR`; `NPRINT = 0`\n- Counts: native `NFEV` and `NJEV` are retained and checked against contained callback counts\n- State: native calls serialize; panic, non-finite output, and nested callback entry are contained; scoped `XGETF`/`XSETF(0)` is restored on every Rust return path\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
+        "# Safe expert nonlinear least-squares validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Expert candidate and subsidiary records: {}\n- Expert safe wrappers: {} (`SNLS1`, `DNLS1`; `IOPT = 1` finite differences and `IOPT = 2` dense analytic Jacobians)\n- Deferred records: {} (`IOPT = 3`, observer callbacks, cancellation, and covariance policies beyond the separate `SCOV`/`DCOV` facade)\n- Dimensions: `M >= N`, `LDFJAC = M`, and all `M*N` storage arithmetic are checked\n- Controls: checked `FTOL`, `XTOL`, `GTOL`, `MAXFEV`, `EPSFCN`, `MODE`/`DIAG`, and `FACTOR`; `NPRINT = 0`\n- Counts: native `NFEV` and `NJEV` are retained and checked against contained callback counts\n- State: native calls serialize; panic, non-finite output, and nested callback entry are contained; scoped `XGETF`/`XSETF(0)` is restored on every Rust return path\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
         expert_candidates.len(), expert_wrappers.len(), expert_deferred.len()
+    ).into_bytes());
+    outputs.insert("covariance-validation-summary.md", format!(
+        "# Safe nonlinear least-squares covariance validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Public safe wrappers: {} (`SCOV`, `DCOV`, forward-difference and dense analytic Jacobians)\n- Native mathematical result: `RSS/(M-N) * inverse(J^T J)` for `M > N`; unscaled `inverse(J^T J)` for `M = N`\n- Matrix layout: upper native triangle is expanded deterministically to a full symmetric column-major `N x N` matrix\n- Rank: unpivoted QR, no native threshold or permutation; singular `INFO=2` returns `RankDeficient` rather than a generalized inverse\n- State: no solver factorization is consumed; callbacks evaluate a fresh residual/Jacobian at final parameters\n- Scaling: `ResidualVariance` requires `M > N`; known variance and pseudoinverse policies are deferred\n- Legacy errors: `XGETF`/`XSETF(0)` is scoped across success and singular return paths then restored\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
+        covariance_wrappers.len()
     ).into_bytes());
     let total = outputs.values().map(Vec::len).sum::<usize>();
     if total > MAX_TOTAL_BYTES {
@@ -521,7 +631,7 @@ pub fn generate(
         snapshot_id: snapshot,
         semantic_hash,
         candidate_count: CANDIDATES.len(),
-        wrapper_count: wrappers.len(),
+        wrapper_count: wrappers.len() + covariance_wrappers.len(),
         deferred_count: deferred.len(),
     })
 }
@@ -589,20 +699,20 @@ mod tests {
     use super::CANDIDATES;
 
     #[test]
-    fn easy_and_expert_drivers_are_the_only_public_inclusions() {
+    fn easy_expert_and_covariance_drivers_are_reviewed_public_inclusions() {
         assert_eq!(
             CANDIDATES
                 .iter()
                 .filter(|candidate| candidate.disposition == "included")
                 .count(),
-            4
+            6
         );
         assert_eq!(
             CANDIDATES
                 .iter()
                 .filter(|candidate| candidate.disposition == "deferred")
                 .count(),
-            2
+            0
         );
     }
 }

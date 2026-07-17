@@ -37,6 +37,55 @@ pub type LeastSquaresFnF32 = unsafe extern "C" fn(
 );
 
 unsafe extern "C" {
+    /// Original double-precision SLATEC covariance helper `DCOV`.
+    ///
+    /// The reviewed `FCN` ABI is [`LeastSquaresFnF64`]. `DCOV` recomputes
+    /// `FVEC` and either a forward-difference (`IOPT=1`) or dense analytic
+    /// (`IOPT=2`) Jacobian at `X`; it does not consume `DNLS1` factorization
+    /// arrays. In forward-difference mode a subsidiary temporarily mutates
+    /// `X`, then restores it before return. `R` has `LDR * N` elements and
+    /// receives an upper triangular
+    /// covariance result on successful return. The declaration is unsafe
+    /// because callers own the callback, all workspace, and XERROR state.
+    #[link_name = "dcov_"]
+    pub fn dcov(
+        function: LeastSquaresFnF64,
+        iopt: *mut FortranInteger,
+        residual_count: *mut FortranInteger,
+        parameter_count: *mut FortranInteger,
+        parameters: *mut f64,
+        residuals: *mut f64,
+        covariance_workspace: *mut f64,
+        leading_dimension: *mut FortranInteger,
+        info: *mut FortranInteger,
+        workspace_one: *mut f64,
+        workspace_two: *mut f64,
+        workspace_three: *mut f64,
+        workspace_four: *mut f64,
+    );
+
+    /// Original single-precision SLATEC covariance helper `SCOV`.
+    ///
+    /// This is the f32 counterpart of [`dcov`], using the reviewed
+    /// [`LeastSquaresFnF32`] callback ABI and the same temporary-`X`, `IOPT`,
+    /// `R`, `LDR`, and workspace contract.
+    #[link_name = "scov_"]
+    pub fn scov(
+        function: LeastSquaresFnF32,
+        iopt: *mut FortranInteger,
+        residual_count: *mut FortranInteger,
+        parameter_count: *mut FortranInteger,
+        parameters: *mut f32,
+        residuals: *mut f32,
+        covariance_workspace: *mut f32,
+        leading_dimension: *mut FortranInteger,
+        info: *mut FortranInteger,
+        workspace_one: *mut f32,
+        workspace_two: *mut f32,
+        workspace_three: *mut f32,
+        workspace_four: *mut f32,
+    );
+
     /// Original double-precision SLATEC expert driver `DNLS1`.
     ///
     /// The reviewed `FCN` ABI is [`LeastSquaresFnF64`]. Safe code selects
