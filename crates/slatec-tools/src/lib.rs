@@ -31,6 +31,7 @@ pub mod safe_linear_least_squares;
 pub mod safe_linear_programming_deferred;
 pub mod safe_nonlinear;
 pub mod safe_nonlinear_expert;
+pub mod safe_ode_sdrive;
 pub mod safe_quadrature;
 pub mod safe_roots;
 pub mod safe_special;

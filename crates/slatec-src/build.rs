@@ -31,6 +31,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("NONLINEAR_EASY", "nonlinear-easy"),
     ("NONLINEAR_EXPERT", "nonlinear-expert"),
     ("NONLINEAR_JACOBIAN_CHECK", "nonlinear-jacobian-check"),
+    ("ODE_SDRIVE_EXPERT", "ode-sdrive-expert"),
     (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
@@ -73,6 +74,14 @@ struct Source {
     sha256: String,
 }
 
+#[derive(Deserialize)]
+struct FamilyOverlay {
+    family: String,
+    source_ids: Vec<String>,
+    sources: Vec<Source>,
+    profile_override: bool,
+}
+
 fn main() {
     for name in [
         "SLATEC_SOURCE_CACHE",
@@ -84,6 +93,7 @@ fn main() {
         println!("cargo:rerun-if-env-changed={name}");
     }
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/ode-sdrive-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
     let families = enabled_families();
@@ -172,10 +182,15 @@ fn build_sources(families: &BTreeSet<String>) {
     });
     let manifest_path =
         PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("metadata/family-source-closure.json");
-    let manifest: Manifest = serde_json::from_slice(
+    let mut manifest: Manifest = serde_json::from_slice(
         &fs::read(&manifest_path).expect("read family source closure manifest"),
     )
     .expect("parse family source closure manifest");
+    if families.contains("ode-sdrive-expert")
+        && !manifest.families.contains_key("ode-sdrive-expert")
+    {
+        apply_ode_sdrive_overlay(&mut manifest);
+    }
     let by_id = manifest
         .sources
         .into_iter()
@@ -234,6 +249,40 @@ fn build_sources(families: &BTreeSet<String>) {
     println!("cargo:rustc-link-search=native={}", out.display());
     println!("cargo:rustc-link-lib=static=slatec_family");
     emit_runtime_links(&compiler);
+}
+
+fn apply_ode_sdrive_overlay(manifest: &mut Manifest) {
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("metadata/ode-sdrive-source-closure.json");
+    let overlay: FamilyOverlay =
+        serde_json::from_slice(&fs::read(&path).expect("read SDRIVE source closure overlay"))
+            .expect("parse SDRIVE source closure overlay");
+    if overlay.family != "ode-sdrive-expert" {
+        panic!("SDRIVE source closure overlay has an unexpected family name");
+    }
+    let known = manifest
+        .sources
+        .iter()
+        .map(|source| source.id.as_str())
+        .collect::<BTreeSet<_>>();
+    if overlay
+        .sources
+        .iter()
+        .any(|source| known.contains(source.id.as_str()))
+    {
+        panic!("SDRIVE source closure overlay duplicates a base source id");
+    }
+    manifest.sources.extend(overlay.sources);
+    if manifest
+        .families
+        .insert(overlay.family.clone(), overlay.source_ids)
+        .is_some()
+    {
+        panic!("base source closure unexpectedly already defines SDRIVE");
+    }
+    if overlay.profile_override {
+        manifest.profile_override_families.insert(overlay.family);
+    }
 }
 
 fn compiler() -> PathBuf {

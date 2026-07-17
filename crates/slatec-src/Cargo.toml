@@ -47,6 +47,8 @@ nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check"]
 nonlinear-easy = []
 nonlinear-expert = []
 nonlinear-jacobian-check = []
+ode = ["ode-sdrive-expert"]
+ode-sdrive-expert = []
 least-squares = ["least-squares-nonlinear", "least-squares-covariance", "least-squares-linear"]
 least-squares-nonlinear = [
     "least-squares-nonlinear-easy",

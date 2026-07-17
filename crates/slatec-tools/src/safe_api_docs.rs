@@ -31,7 +31,8 @@ struct FunctionRecord {
 struct ArgumentMap {
     rust: Option<String>,
     fortran: String,
-    transformation: String,
+    /// A key in the top-level `transformation_codes` legend.
+    transformation: &'static str,
 }
 
 #[derive(Clone, Debug, Serialize)]
@@ -48,6 +49,16 @@ struct IndexFile<T> {
     schema_version: &'static str,
     semantic_version: &'static str,
     records: Vec<T>,
+}
+
+#[derive(Debug, Serialize)]
+struct FortranArgumentIndex {
+    schema_id: &'static str,
+    schema_version: &'static str,
+    semantic_version: &'static str,
+    /// Stable, compact codes used by every argument record.
+    transformation_codes: BTreeMap<&'static str, &'static str>,
+    records: Vec<MappingRecord>,
 }
 
 #[derive(Debug)]
@@ -91,10 +102,32 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
     )?;
     let mapping_bytes = write_json(
         &output_dir.join("fortran-argument-map.json"),
-        &IndexFile {
+        &FortranArgumentIndex {
             schema_id: "slatec.safe-api.fortran-argument-map",
-            schema_version: "1.0.0",
+            schema_version: "1.1.0",
             semantic_version: "1",
+            transformation_codes: BTreeMap::from([
+                (
+                    "callback",
+                    "Rust closure invoked through a contained callback trampoline",
+                ),
+                (
+                    "inferred",
+                    "inferred by a tightly packed convenience wrapper",
+                ),
+                (
+                    "internal",
+                    "allocated, initialized, or validated inside the safe wrapper",
+                ),
+                (
+                    "owned",
+                    "validated and copied, derived, or reconstructed in owned native storage",
+                ),
+                (
+                    "pass",
+                    "validated value or caller-owned slice passed through the reviewed raw ABI",
+                ),
+            ]),
             records: mappings,
         },
     )?;
@@ -423,6 +456,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/ode-sdrive-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "ordinary differential equations",
+                column(row, columns, "precision")?,
+                "explicit real initial-value problem y'=f(t,y)",
+                "std",
+                "ode-sdrive-expert",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -566,6 +614,10 @@ fn record(
             "examples/least_squares/linear_fit.rs".to_owned()
         }
         "least squares" => "examples/least_squares/exponential_fit.rs".to_owned(),
+        "ordinary differential equations" if precision == "f32" => {
+            "examples/ode/harmonic_oscillator.rs".to_owned()
+        }
+        "ordinary differential equations" => "examples/ode/exponential_decay.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };
@@ -575,7 +627,11 @@ fn record(
         module: module.to_owned(),
         domain: domain.to_owned(),
         precision: precision.to_owned(),
-        purpose: purpose(family).to_owned(),
+        purpose: if domain == "ordinary differential equations" {
+            family.to_owned()
+        } else {
+            purpose(family).to_owned()
+        },
         capability: capability.to_owned(),
         feature: feature.to_owned(),
         native_profile: PROFILE.to_owned(),
@@ -826,15 +882,15 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         rust,
         fortran: upper,
         transformation: if inferred {
-            "inferred by the tightly packed convenience wrapper".to_owned()
+            "inferred"
         } else if internal_argument {
-            "allocated, initialized, or validated internally".to_owned()
+            "internal"
         } else if callback_argument {
-            "Rust closure through the contained callback trampoline".to_owned()
+            "callback"
         } else if function.domain == "linear least squares" {
-            "validated and copied, derived, or reconstructed in owned native storage".to_owned()
+            "owned"
         } else {
-            "validated value or caller-owned slice passed through the reviewed raw ABI".to_owned()
+            "pass"
         },
     }
 }
@@ -880,6 +936,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "nonlinear",
         "least squares",
         "linear least squares",
+        "ordinary differential equations",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -962,6 +1019,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/constrained_least_squares_native.rs"
         }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
+        "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }

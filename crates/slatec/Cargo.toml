@@ -110,6 +110,15 @@ nonlinear-jacobian-check = [
 ]
 nonlinear-native-tests = ["nonlinear", "quadrature", "roots-scalar"]
 
+ode = ["ode-sdrive-expert"]
+ode-sdrive-expert = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-ode-sdrive-expert",
+    "slatec-src/ode-sdrive-expert",
+]
+ode-sdrive-expert-native-tests = ["ode-sdrive-expert"]
+
 least-squares = ["least-squares-nonlinear", "least-squares-covariance", "least-squares-linear"]
 least-squares-nonlinear = [
     "least-squares-nonlinear-easy",
@@ -190,7 +199,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = []
 optimize = []
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -287,3 +296,7 @@ required-features = ["least-squares-linear-constrained"]
 [[example]]
 name = "link_least_squares_linear_bounded_constrained"
 required-features = ["least-squares-linear-bounded-constrained"]
+
+[[example]]
+name = "link_ode_sdrive"
+required-features = ["ode-sdrive-expert"]

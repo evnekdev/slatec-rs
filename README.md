@@ -102,6 +102,10 @@ adds dense equality and lower-sided inequality constraints through `LSEI` and
 `least-squares-linear-bounded-constrained` separately wraps `SBOCLS`/`DBOCLS`
 for bounds on both variables and linear constraint expressions; see the
 [bounded constrained guide](docs/api/safe-bounded-constrained-linear-least-squares.md).
+The opt-in `ode-sdrive-expert` feature adds owned, panic-contained real
+explicit-IVP sessions over `SDRIV3`/`DDRIV3`; it is deliberately limited to an
+RHS callback and caller-controlled continuation. See the
+[SDRIVE session guide](docs/api/safe-ode-sdrive-expert.md).
 
 With the complete selected evidence and GNU MinGW compiler available, run:
 

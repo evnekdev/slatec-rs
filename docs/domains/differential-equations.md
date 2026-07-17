@@ -4,8 +4,11 @@
 
 This domain includes ordinary differential equations (ODEs), differential-algebraic equations (DAEs), boundary-value problems (BVPs), and selected elliptic PDE/integral-equation support. The SLATEC table of contents places these under GAMS `I` and distinguishes initial-value, boundary-value and PDE-related problem classes ([`slatec-toc`](https://www.netlib.org/slatec/toc)).
 
-No public ODE API is currently exposed. The reviewed family selection and
-deferrals are recorded in the [ODE-family audit](ode-audit.md).
+The opt-in `ode-sdrive-expert` feature exposes an owned real `f32`/`f64`
+session over `SDRIV3`/`DDRIV3` for explicit initial-value problems only,
+`y'(t) = f(t, y)`. It is documented in the [safe SDRIVE session guide]
+(../api/safe-ode-sdrive-expert.md). The reviewed broader family selection and
+deferrals remain recorded in the [ODE-family audit](ode-audit.md).
 
 ## Principal families
 

@@ -24,6 +24,8 @@ compile_error!("the `nonlinear-expert` safe API requires the `std` feature");
 compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-nonlinear-expert", not(feature = "std")))]
 compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std` feature");
+#[cfg(all(feature = "ode-sdrive-expert", not(feature = "std")))]
+compile_error!("the `ode-sdrive-expert` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -93,7 +95,8 @@ pub mod polynomials;
     feature = "least-squares-linear-nonnegative",
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
-    feature = "least-squares-linear-bounded-constrained"
+    feature = "least-squares-linear-bounded-constrained",
+    feature = "ode-sdrive-expert"
 ))]
 pub(crate) mod runtime;
 
@@ -178,3 +181,8 @@ pub mod constrained_least_squares;
 /// SLATEC `SBOCLS` and `DBOCLS` implementations.
 #[cfg(feature = "least-squares-linear-bounded-constrained")]
 pub mod bounded_constrained_least_squares;
+
+/// Safe owned sessions for restricted explicit ODE initial-value problems over
+/// the original SLATEC `SDRIV3` and `DDRIV3` drivers.
+#[cfg(feature = "ode-sdrive-expert")]
+pub mod ode;

@@ -104,7 +104,8 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
     feature = "least-squares-covariance",
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
-    feature = "least-squares-linear-bounded-constrained"
+    feature = "least-squares-linear-bounded-constrained",
+    feature = "ode-sdrive-expert"
 ))]
 pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorScope {
     let mut previous = 0;
@@ -118,6 +119,12 @@ pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorSco
     RecoverableErrorScope { previous }
 }
 
+/// Temporarily permits the reviewed recoverable SDRIVE completion messages.
+#[cfg(feature = "ode-sdrive-expert")]
+pub(crate) fn permit_recoverable_ode_statuses() -> RecoverableErrorScope {
+    permit_recoverable_least_squares_statuses()
+}
+
 /// Restores the prior XERROR control flag after a scoped least-squares call.
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
@@ -125,7 +132,8 @@ pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorSco
     feature = "least-squares-covariance",
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
-    feature = "least-squares-linear-bounded-constrained"
+    feature = "least-squares-linear-bounded-constrained",
+    feature = "ode-sdrive-expert"
 ))]
 pub(crate) struct RecoverableErrorScope {
     previous: slatec_sys::FortranInteger,
@@ -137,7 +145,8 @@ pub(crate) struct RecoverableErrorScope {
     feature = "least-squares-covariance",
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
-    feature = "least-squares-linear-bounded-constrained"
+    feature = "least-squares-linear-bounded-constrained",
+    feature = "ode-sdrive-expert"
 ))]
 impl Drop for RecoverableErrorScope {
     fn drop(&mut self) {

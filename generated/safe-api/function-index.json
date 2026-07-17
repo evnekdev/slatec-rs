@@ -1294,6 +1294,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::ode::OdeSession::<f32, F, E>::integrate_to",
+      "fortran_routine": "SDRIV3",
+      "module": "slatec::ode::OdeSession::<f32, F, E>",
+      "domain": "ordinary differential equations",
+      "precision": "f32",
+      "purpose": "explicit real initial-value problem y'=f(t,y)",
+      "capability": "std",
+      "feature": "ode-sdrive-expert",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/ode/OdeSession/<f32, F, E>/fn.integrate_to.html",
+      "example_file": "examples/ode/harmonic_oscillator.rs",
+      "example_case": "explicit real initial-value problem y'=f(t,y)",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::ode::OdeSession::<f64, F, E>::integrate_to",
+      "fortran_routine": "DDRIV3",
+      "module": "slatec::ode::OdeSession::<f64, F, E>",
+      "domain": "ordinary differential equations",
+      "precision": "f64",
+      "purpose": "explicit real initial-value problem y'=f(t,y)",
+      "capability": "std",
+      "feature": "ode-sdrive-expert",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/ode/OdeSession/<f64, F, E>/fn.integrate_to.html",
+      "example_file": "examples/ode/exponential_decay.rs",
+      "example_case": "explicit real initial-value problem y'=f(t,y)",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::polynomials::chebyshev::chebyshev_series",
       "fortran_routine": "DCSEVL",
       "module": "slatec::polynomials::chebyshev",
