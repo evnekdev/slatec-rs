@@ -18,6 +18,9 @@ struct Wrapper {
     safe_path: &'static str,
     precision: &'static str,
     interval: &'static str,
+    workspace_formula: &'static str,
+    options_type: &'static str,
+    reference_type: &'static str,
 }
 
 const WRAPPERS: &[Wrapper] = &[
@@ -26,48 +29,180 @@ const WRAPPERS: &[Wrapper] = &[
         safe_path: "slatec::quadrature::integrate",
         precision: "f64",
         interval: "finite",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "QAG",
         safe_path: "slatec::quadrature::integrate_f32",
         precision: "f32",
         interval: "finite",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "DQAGS",
         safe_path: "slatec::quadrature::integrate_singular",
         precision: "f64",
         interval: "finite_endpoint_singularity",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "QAGS",
         safe_path: "slatec::quadrature::integrate_singular_f32",
         precision: "f32",
         interval: "finite_endpoint_singularity",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "DQAGI",
         safe_path: "slatec::quadrature::integrate_infinite",
         precision: "f64",
         interval: "infinite",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "QAGI",
         safe_path: "slatec::quadrature::integrate_infinite_f32",
         precision: "f32",
         interval: "infinite",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "DQAWC",
         safe_path: "slatec::quadrature::integrate_principal_value",
         precision: "f64",
         interval: "cauchy_principal_value",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
     },
     Wrapper {
         source: "QAWC",
         safe_path: "slatec::quadrature::integrate_principal_value_f32",
         precision: "f32",
         interval: "cauchy_principal_value",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "DQAGP",
+        safe_path: "slatec::quadrature::integrate_with_breakpoints",
+        precision: "f64",
+        interval: "finite_breakpoints",
+        workspace_formula: "npts2=breakpoints+2; leniw=2*limit+npts2; lenw=2*leniw-npts2",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "QAGP",
+        safe_path: "slatec::quadrature::integrate_with_breakpoints_f32",
+        precision: "f32",
+        interval: "finite_breakpoints",
+        workspace_formula: "npts2=breakpoints+2; leniw=2*limit+npts2; lenw=2*leniw-npts2",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "DQAWS",
+        safe_path: "slatec::quadrature::integrate_weighted_endpoints",
+        precision: "f64",
+        interval: "finite_endpoint_weight",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "QAWS",
+        safe_path: "slatec::quadrature::integrate_weighted_endpoints_f32",
+        precision: "f32",
+        interval: "finite_endpoint_weight",
+        workspace_formula: "iwork=limit; work=4*limit",
+        options_type: "IntegrationOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "DQAWO",
+        safe_path: "slatec::quadrature::integrate_oscillatory",
+        precision: "f64",
+        interval: "finite_oscillatory",
+        workspace_formula: "leniw=2*limit; lenw=2*leniw+25*maximum_moments",
+        options_type: "OscillatoryOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "QAWO",
+        safe_path: "slatec::quadrature::integrate_oscillatory_f32",
+        precision: "f32",
+        interval: "finite_oscillatory",
+        workspace_formula: "leniw=2*limit; lenw=2*leniw+25*maximum_moments",
+        options_type: "OscillatoryOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "DQAWF",
+        safe_path: "slatec::quadrature::integrate_fourier_tail",
+        precision: "f64",
+        interval: "infinite_fourier_tail",
+        workspace_formula: "leniw=cycle_limit+2*limit; lenw=2*leniw+25*maximum_moments",
+        options_type: "FourierOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "QAWF",
+        safe_path: "slatec::quadrature::integrate_fourier_tail_f32",
+        precision: "f32",
+        interval: "infinite_fourier_tail",
+        workspace_formula: "leniw=cycle_limit+2*limit; lenw=2*leniw+25*maximum_moments",
+        options_type: "FourierOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "DQNG",
+        safe_path: "slatec::quadrature::integrate_non_adaptive",
+        precision: "f64",
+        interval: "finite_non_adaptive",
+        workspace_formula: "no caller workspace",
+        options_type: "NonAdaptiveOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "QNG",
+        safe_path: "slatec::quadrature::integrate_non_adaptive_f32",
+        precision: "f32",
+        interval: "finite_non_adaptive",
+        workspace_formula: "no caller workspace",
+        options_type: "NonAdaptiveOptions",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "DQNC79",
+        safe_path: "slatec::quadrature::integrate_nc79",
+        precision: "f64",
+        interval: "finite_nc79",
+        workspace_formula: "no caller workspace",
+        options_type: "Nc79Options",
+        reference_type: "analytic_integral",
+    },
+    Wrapper {
+        source: "QNC79",
+        safe_path: "slatec::quadrature::integrate_nc79_f32",
+        precision: "f32",
+        interval: "finite_nc79",
+        workspace_formula: "no caller workspace",
+        options_type: "Nc79Options",
+        reference_type: "analytic_integral",
     },
 ];
 
@@ -161,9 +296,13 @@ pub fn generate(
                 spec.precision,
                 spec.interval,
                 "thread_local_scoped_trampoline",
-                "internal_limit_and_4x_work_arrays",
+                spec.workspace_formula,
+                spec.options_type,
                 "serialized_process_native_lock",
                 "native_reference_passed",
+                spec.reference_type,
+                "panic_non_finite_nested_parallel_passed",
+                "reviewed",
             ]));
         } else {
             deferred.push(json!([
@@ -192,7 +331,7 @@ pub fn generate(
     outputs.insert("quadrature-wrapper-index.json", compact(&json!({
         "schema_id":"slatec.safe-quadrature.wrapper-index", "schema_version":"1.0.0",
         "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
-        "columns":["safe_path","raw_routine","raw_symbol","program_unit_id","precision","interval_type","callback_policy","workspace_policy","concurrency_policy","native_test_status"],
+            "columns":["safe_path","raw_routine","raw_symbol","program_unit_id","precision","quadrature_family","callback_policy","workspace_formula","options_type","concurrency_policy","native_test_status","numerical_reference_type","containment_test_status","review_state"],
         "records":wrappers
     }))?);
     outputs.insert(
@@ -200,15 +339,23 @@ pub fn generate(
         compact(&json!({
             "schema_id":"slatec.safe-quadrature.status-map", "schema_version":"1.0.0",
             "snapshot_id":snapshot,
-            "columns":["native_status","rust_error","meaning"],
+            "columns":["raw_family","native_status","rust_error","meaning"],
             "records":[
-                [0,"success","requested accuracy reached"],
-                [1,"MaximumSubdivisions","subdivision limit reached"],
-                [2,"RoundoffDetected","roundoff prevents requested accuracy"],
-                [3,"BadIntegrandBehavior","bad local integrand behavior"],
-                [4,"NonConvergence","extrapolation did not converge"],
-                [5,"DivergentOrSlowlyConvergent","probable divergence or slow convergence"],
-                [6,"NativeContractViolation","invalid native input; prevented by safe validation"]
+                ["adaptive",0,"success","requested accuracy reached"],
+                ["adaptive",1,"MaximumSubdivisions","subdivision limit reached"],
+                ["adaptive",2,"RoundoffDetected","roundoff prevents requested accuracy"],
+                ["adaptive",3,"BadIntegrandBehavior","bad local integrand behavior"],
+                ["adaptive",4,"NonConvergence","extrapolation did not converge"],
+                ["adaptive",5,"DivergentOrSlowlyConvergent","probable divergence or slow convergence"],
+                ["adaptive",6,"NativeContractViolation","invalid native input; prevented by safe validation"],
+                ["fourier_tail",1,"MaximumCyclesReached","cycle limit reached"],
+                ["fourier_tail",4,"NonConvergence","extrapolation did not converge"],
+                ["fourier_tail",7,"BadCycleBehavior","one or more cycles reported bad behavior"],
+                ["non_adaptive",1,"NonAdaptiveAccuracyNotReached","nested rule progression exhausted"],
+                ["non_adaptive",6,"NativeContractViolation","invalid native input; prevented by safe validation"],
+                ["nc79",1,"success","requested accuracy reached"],
+                ["nc79",2,"NonAdaptiveAccuracyNotReached","requested relative accuracy was not reached"],
+                ["nc79",-1,"DegenerateInterval","degenerate or nearly equal bounds; prevented when exact"]
             ]
         }))?,
     );
@@ -314,7 +461,7 @@ fn semantic_hash(outputs: &BTreeMap<&str, Vec<u8>>) -> String {
 
 fn summary(snapshot: &str, wrappers: usize, deferred: usize, hash: &str) -> String {
     format!(
-        "# Safe adaptive quadrature validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Reviewed safe wrappers: {wrappers}\n- Deferred quadrature interfaces: {deferred}\n- Callback policy: scoped thread-local trampoline; panics and non-finite values are contained\n- Concurrency policy: native calls serialize; nested callback integration is rejected\n- Workspace policy: safe API allocates `LIMIT` integers and `4 * LIMIT` numeric values\n- Semantic hash: `{hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation. Native execution evidence is profile-specific; detailed binaries and logs remain ignored.\n"
+        "# Safe adaptive quadrature validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Reviewed safe wrappers: {wrappers}\n- Deferred quadrature interfaces: {deferred}\n- Callback policy: scoped thread-local trampoline; panics and non-finite values are contained\n- Concurrency policy: native calls serialize; nested callback integration is rejected\n- Workspace policy: each public family records its exact checked driver formula in the compact index\n- Semantic hash: `{hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation. Native execution evidence is profile-specific; detailed binaries and logs remain ignored.\n"
     )
 }
 
@@ -341,12 +488,14 @@ mod tests {
         assert!(is_quadrature("DQAG"));
         assert!(is_quadrature("QAWSE"));
         assert!(!is_quadrature("DGAMMA"));
+        assert_eq!(WRAPPERS.len(), 20);
+        assert!(WRAPPERS.iter().any(|entry| entry.source == "DQNC79"));
         assert_eq!(
             deferred_reason("DQAGPE"),
             "caller_supplied_breakpoint_array"
         );
         assert_eq!(
-            deferred_reason("QAWO"),
+            deferred_reason("QAWOE"),
             "oscillatory_weighted_workspace_interface"
         );
     }

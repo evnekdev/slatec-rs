@@ -48,8 +48,9 @@ where legacy saved/error state is process-global. See
 [`docs/api/safe-special-functions.md`](docs/api/safe-special-functions.md) for
 the supported families, native setup, and domain/error boundary.
 
-The first callback-bearing safe API covers focused adaptive quadrature through
-`QAG`, `QAGS`, `QAGI`, and `QAWC` in both precisions. See
+The callback-bearing safe API covers focused QUADPACK integration through
+`QAG`, `QAGS`, `QAGI`, `QAWC`, `QAGP`, `QAWS`, `QAWO`, `QAWF`, `QNG`, and
+`QNC79` in both precisions. See
 [`docs/api/safe-quadrature.md`](docs/api/safe-quadrature.md) for workspace,
 panic-containment, concurrency, tolerance, and native-profile rules.
 
