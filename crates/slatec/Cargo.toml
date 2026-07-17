@@ -111,15 +111,25 @@ nonlinear-jacobian-check = [
 nonlinear-native-tests = ["nonlinear", "quadrature", "roots-scalar"]
 
 least-squares = ["least-squares-nonlinear"]
-least-squares-nonlinear = ["least-squares-nonlinear-easy"]
+least-squares-nonlinear = [
+    "least-squares-nonlinear-easy",
+    "least-squares-nonlinear-expert",
+]
 least-squares-nonlinear-easy = [
     "std",
     "blas-level1-validation",
     "slatec-sys/raw-family-least-squares-nonlinear-easy",
     "slatec-src/least-squares-nonlinear-easy",
 ]
+least-squares-nonlinear-expert = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-least-squares-nonlinear-expert",
+    "slatec-src/least-squares-nonlinear-expert",
+]
 least-squares-native-tests = [
     "least-squares-nonlinear-easy",
+    "least-squares-nonlinear-expert",
     "quadrature",
     "roots-scalar",
     "nonlinear-easy",
@@ -203,3 +213,7 @@ required-features = ["nonlinear-jacobian-check"]
 [[example]]
 name = "link_least_squares_nonlinear_easy"
 required-features = ["least-squares-nonlinear-easy"]
+
+[[example]]
+name = "link_least_squares_nonlinear_expert"
+required-features = ["least-squares-nonlinear-expert"]

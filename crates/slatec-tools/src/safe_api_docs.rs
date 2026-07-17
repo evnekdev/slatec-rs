@@ -322,6 +322,26 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/least-squares-expert-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            let mode = column(row, columns, "jacobian_policy")?;
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "least squares",
+                column(row, columns, "precision")?,
+                if mode == "IOPT=1_forward_difference" {
+                    "expert finite-difference nonlinear least squares"
+                } else {
+                    "expert analytic-Jacobian nonlinear least squares"
+                },
+                "std",
+                "least-squares-nonlinear-expert",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -414,6 +434,15 @@ fn record(
         }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
+        "least squares" if path.contains("with_jacobian") && precision == "f32" => {
+            "examples/least_squares/expert_analytic_jacobian_f32.rs".to_owned()
+        }
+        "least squares" if path.contains("with_jacobian") => {
+            "examples/least_squares/expert_analytic_jacobian.rs".to_owned()
+        }
+        "least squares" if path.contains("expert") => {
+            "examples/least_squares/expert_finite_difference.rs".to_owned()
+        }
         "least squares" if precision == "f32" => {
             "examples/least_squares/linear_fit_f32.rs".to_owned()
         }
@@ -502,7 +531,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
-        "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "ERR",
+        "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "IPVT", "ERR",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
@@ -535,6 +564,27 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "ERR" if jacobian_check => "result.scores".to_owned(),
             "TOL" if matches!(function.domain.as_str(), "nonlinear" | "least squares") => {
                 "options.tolerance".to_owned()
+            }
+            "FTOL" if function.domain == "least squares" => "options.function_tolerance".to_owned(),
+            "XTOL" if function.domain == "least squares" => {
+                "options.parameter_tolerance".to_owned()
+            }
+            "GTOL" if function.domain == "least squares" => "options.gradient_tolerance".to_owned(),
+            "MAXFEV" if function.domain == "least squares" => {
+                "options.maximum_function_evaluations".to_owned()
+            }
+            "EPSFCN" if function.domain == "least squares" => {
+                "options.finite_difference_step".to_owned()
+            }
+            "DIAG" if function.domain == "least squares" => "options.scaling".to_owned(),
+            "FACTOR" if function.domain == "least squares" => {
+                "options.step_bound_factor".to_owned()
+            }
+            "NFEV" if function.domain == "least squares" => {
+                "result.function_evaluations".to_owned()
+            }
+            "NJEV" if function.domain == "least squares" => {
+                "result.jacobian_evaluations".to_owned()
             }
             "XTOL" if function.domain == "nonlinear" => "options.tolerance".to_owned(),
             "MAXFEV" if function.domain == "nonlinear" => {
@@ -712,6 +762,10 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::nonlinear::check_jacobian_f32"
             | "slatec::least_squares::least_squares"
             | "slatec::least_squares::least_squares_f32"
+            | "slatec::least_squares::least_squares_expert"
+            | "slatec::least_squares::least_squares_expert_f32"
+            | "slatec::least_squares::least_squares_with_jacobian"
+            | "slatec::least_squares::least_squares_with_jacobian_f32"
     )
 }
 
@@ -755,6 +809,12 @@ fn purpose(family: &str) -> &'static str {
         "Jacobian consistency checking" => "componentwise Jacobian consistency checking",
         "finite-difference nonlinear least squares" => {
             "finite-difference nonlinear least-squares fitting"
+        }
+        "expert finite-difference nonlinear least squares" => {
+            "expert finite-difference nonlinear least-squares fitting"
+        }
+        "expert analytic-Jacobian nonlinear least squares" => {
+            "expert analytic-Jacobian nonlinear least-squares fitting"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",

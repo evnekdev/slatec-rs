@@ -8,9 +8,10 @@ The wrapper selects the documented `IOPT = 1` forward-difference mode and
 `NPRINT = 0`. It validates `M >= N`, contains Rust callback panics and
 non-finite residuals, allocates `IW[N]` and `WA[N*(M+5)+M]`, and serializes
 calls because the validated GNU Fortran runtime is process-global. Negative
-callback flags, observer modes, analytic Jacobians, scaling controls,
-covariance estimation, and the expert `SNLS1`/`DNLS1` interfaces remain
-deferred.
+callback flags, observer modes, analytic Jacobians, scaling controls, and
+covariance estimation remain deferred from this easy-driver feature. The
+separate `least-squares-nonlinear-expert` feature exposes reviewed
+`SNLS1`/`DNLS1` controls and dense analytic Jacobians.
 
 The internal wrapper snapshots the legacy `XGETF` control, temporarily selects
 the documented nonfatal level-one policy while the driver returns a numerical

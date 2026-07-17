@@ -2447,6 +2447,280 @@
       ]
     },
     {
+      "rust_path": "slatec::least_squares::least_squares_expert",
+      "fortran_routine": "DNLS1",
+      "program_unit_id": "full-provider-4979665b2612c7a5",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "residual_count",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residuals",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "FJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LDFJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.function_tolerance",
+          "fortran": "FTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.parameter_tolerance",
+          "fortran": "XTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.gradient_tolerance",
+          "fortran": "GTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.maximum_function_evaluations",
+          "fortran": "MAXFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.finite_difference_step",
+          "fortran": "EPSFCN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.scaling",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "MODE",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.step_bound_factor",
+          "fortran": "FACTOR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.function_evaluations",
+          "fortran": "NFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.jacobian_evaluations",
+          "fortran": "NJEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "QTF",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA1",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA2",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA3",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA4",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_expert_f32",
+      "fortran_routine": "SNLS1",
+      "program_unit_id": "full-provider-1bc9b1b8bd3f36ef",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "residual_count",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residuals",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "FJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LDFJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.function_tolerance",
+          "fortran": "FTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.parameter_tolerance",
+          "fortran": "XTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.gradient_tolerance",
+          "fortran": "GTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.maximum_function_evaluations",
+          "fortran": "MAXFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.finite_difference_step",
+          "fortran": "EPSFCN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.scaling",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "MODE",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.step_bound_factor",
+          "fortran": "FACTOR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.function_evaluations",
+          "fortran": "NFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.jacobian_evaluations",
+          "fortran": "NJEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "QTF",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA1",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA2",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA3",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA4",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::least_squares::least_squares_f32",
       "fortran_routine": "SNLS1E",
       "program_unit_id": "full-provider-670bd5e970d85013",
@@ -2509,6 +2783,280 @@
         {
           "rust": null,
           "fortran": "LWA",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_with_jacobian",
+      "fortran_routine": "DNLS1",
+      "program_unit_id": "full-provider-4979665b2612c7a5",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "residual_count",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residuals",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "FJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LDFJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.function_tolerance",
+          "fortran": "FTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.parameter_tolerance",
+          "fortran": "XTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.gradient_tolerance",
+          "fortran": "GTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.maximum_function_evaluations",
+          "fortran": "MAXFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.finite_difference_step",
+          "fortran": "EPSFCN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.scaling",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "MODE",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.step_bound_factor",
+          "fortran": "FACTOR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.function_evaluations",
+          "fortran": "NFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.jacobian_evaluations",
+          "fortran": "NJEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "QTF",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA1",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA2",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA3",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA4",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_with_jacobian_f32",
+      "fortran_routine": "SNLS1",
+      "program_unit_id": "full-provider-1bc9b1b8bd3f36ef",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "residual_count",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residuals",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "FJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LDFJAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.function_tolerance",
+          "fortran": "FTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.parameter_tolerance",
+          "fortran": "XTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.gradient_tolerance",
+          "fortran": "GTOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.maximum_function_evaluations",
+          "fortran": "MAXFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.finite_difference_step",
+          "fortran": "EPSFCN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.scaling",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "MODE",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.step_bound_factor",
+          "fortran": "FACTOR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.function_evaluations",
+          "fortran": "NFEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.jacobian_evaluations",
+          "fortran": "NJEV",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "QTF",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA1",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA2",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA3",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WA4",
           "transformation": "allocated, initialized, or validated internally"
         }
       ]

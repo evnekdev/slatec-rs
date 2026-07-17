@@ -22,6 +22,8 @@ compile_error!("the `nonlinear-easy` safe API requires the `std` feature");
 compile_error!("the `nonlinear-expert` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-nonlinear-easy", not(feature = "std")))]
 compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` feature");
+#[cfg(all(feature = "least-squares-nonlinear-expert", not(feature = "std")))]
+compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std` feature");
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -70,7 +72,8 @@ pub mod polynomials;
     feature = "roots-scalar",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
-    feature = "least-squares-nonlinear-easy"
+    feature = "least-squares-nonlinear-easy",
+    feature = "least-squares-nonlinear-expert"
 ))]
 pub(crate) mod runtime;
 
@@ -84,7 +87,8 @@ pub(crate) mod runtime;
     feature = "roots-scalar",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
-    feature = "least-squares-nonlinear-easy"
+    feature = "least-squares-nonlinear-easy",
+    feature = "least-squares-nonlinear-expert"
 ))]
 mod callback_runtime;
 
@@ -108,15 +112,21 @@ pub mod roots;
 #[cfg(any(
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
-    feature = "nonlinear-jacobian-check"
+    feature = "nonlinear-jacobian-check",
+    feature = "least-squares-nonlinear-expert"
 ))]
 pub mod nonlinear;
 
-/// Safe nonlinear least-squares easy drivers over the original SLATEC
-/// `SNLS1E` and `DNLS1E` implementations.
+/// Safe nonlinear least-squares drivers over the original SLATEC
+/// `SNLS1E`, `DNLS1E`, `SNLS1`, and `DNLS1` implementations.
 ///
-/// This hosted, allocating module accepts residual-only closures and asks the
-/// original driver to form finite-difference Jacobians. It is not a nonlinear
-/// equation-solver API: it minimizes one half of the residual sum of squares.
-#[cfg(feature = "least-squares-nonlinear-easy")]
+/// This hosted, allocating module minimizes one half of the residual sum of
+/// squares. The easy feature accepts residual-only closures and asks the
+/// original driver to form finite-difference Jacobians; the separate expert
+/// feature also exposes checked controls, scaling, and dense analytic
+/// Jacobian closures. It is not a nonlinear equation-solver API.
+#[cfg(any(
+    feature = "least-squares-nonlinear-easy",
+    feature = "least-squares-nonlinear-expert"
+))]
 pub mod least_squares;

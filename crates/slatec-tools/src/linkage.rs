@@ -160,8 +160,12 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
                 })?;
             queue.push_back(source.clone());
         }
-        if family == "least-squares-nonlinear-easy" {
-            // DNLS1/SNLS1 report valid INFO=4..8 numerical termination via a
+        if matches!(
+            family.as_str(),
+            "least-squares-nonlinear-easy" | "least-squares-nonlinear-expert"
+        ) {
+            // The SLATEC least-squares drivers report valid INFO=4..8
+            // numerical termination via a
             // level-one XERMSG. The safe façade snapshots XGETF, selects the
             // documented nonfatal XSETF control while the native lock is held,
             // then restores it, so these support objects are part of the
@@ -284,8 +288,14 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     let least_squares_retention = least_squares
         .map(|record| record["retention_checks"].clone())
         .unwrap_or(Value::Null);
+    let expert_least_squares = examples
+        .iter()
+        .find(|record| record["example"] == "link_least_squares_nonlinear_expert");
+    let expert_least_squares_retention = expert_least_squares
+        .map(|record| record["retention_checks"].clone())
+        .unwrap_or(Value::Null);
     let report = json!({"schema_id":"slatec-rs/family-link-report","schema_version":"1.1.0","snapshot_id":SNAPSHOT,"provider_mode":"source-build","target":"x86_64-pc-windows-gnu","families":closure_rows,"examples":examples,"archive_policy":"separate object per physical selected source; no whole-archive"});
-    let retention = json!({"schema_id":"slatec-rs/symbol-retention-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows,"single_gamma":gamma_retention,"rule":"only referenced static-archive members and their compiler-observed dependency closure are retained"});
+    let retention = json!({"schema_id":"slatec-rs/symbol-retention-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows,"single_gamma":gamma_retention,"least_squares_easy":least_squares_retention,"least_squares_expert":expert_least_squares_retention,"rule":"only referenced static-archive members and their compiler-observed dependency closure are retained"});
     let raw_map = json!({"schema_id":"slatec-rs/family-to-raw-symbols","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows});
     let source_map = json!({"schema_id":"slatec-rs/family-to-source-closure","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_rows});
     let closure_audit_report = json!({"schema_id":"slatec-rs/family-closure-audit","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_audit});
@@ -400,6 +410,11 @@ fn family_for(path: &str, routine: &str) -> String {
             return "quadrature-nonadaptive".to_owned();
         }
         return "quadrature-basic".to_owned();
+    }
+    if path.contains("::least_squares::least_squares_expert")
+        || path.contains("::least_squares::least_squares_with_jacobian")
+    {
+        return "least-squares-nonlinear-expert".to_owned();
     }
     if path.contains("::least_squares::") {
         return "least-squares-nonlinear-easy".to_owned();
@@ -528,6 +543,11 @@ fn inspect_examples(
             "link_least_squares_nonlinear_easy",
             "least-squares-nonlinear-easy",
             "dnls1e_",
+        ),
+        (
+            "link_least_squares_nonlinear_expert",
+            "least-squares-nonlinear-expert",
+            "dnls1_",
         ),
         ("link_nonlinear_expert", "nonlinear-expert", "dnsq_"),
         ("link_nonlinear_analytic", "nonlinear-expert", "dnsq_"),
@@ -722,6 +742,13 @@ mod tests {
             family_for("slatec::least_squares::least_squares", "DNLS1E"),
             "least-squares-nonlinear-easy"
         );
+        assert_eq!(
+            family_for(
+                "slatec::least_squares::least_squares_with_jacobian",
+                "DNLS1"
+            ),
+            "least-squares-nonlinear-expert"
+        );
     }
 
     #[test]
@@ -733,7 +760,7 @@ mod tests {
         )
         .expect("valid closure audit");
         let records = report["records"].as_array().expect("audit records");
-        assert_eq!(records.len(), 23);
+        assert_eq!(records.len(), 24);
         assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }
