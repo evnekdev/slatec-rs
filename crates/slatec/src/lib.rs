@@ -17,3 +17,10 @@ pub mod special;
 /// validated before the raw call.
 #[cfg(feature = "special-functions-polynomials")]
 pub mod polynomials;
+
+#[cfg(any(feature = "special-functions", feature = "quadrature"))]
+pub(crate) mod runtime;
+
+/// Panic-contained closure adapters for the reviewed SLATEC QUADPACK drivers.
+#[cfg(feature = "quadrature")]
+pub mod quadrature;
