@@ -4,6 +4,9 @@
 
 This domain includes ordinary differential equations (ODEs), differential-algebraic equations (DAEs), boundary-value problems (BVPs), and selected elliptic PDE/integral-equation support. The SLATEC table of contents places these under GAMS `I` and distinguishes initial-value, boundary-value and PDE-related problem classes ([`slatec-toc`](https://www.netlib.org/slatec/toc)).
 
+No public ODE API is currently exposed. The reviewed family selection and
+deferrals are recorded in the [ODE-family audit](ode-audit.md).
+
 ## Principal families
 
 | Family | Representative routines | Method/problem | Precision |
