@@ -39,3 +39,5 @@ jobs:
         run: cargo test -p slatec-tools ffi_validation::tests
       - name: Runtime-profile classification fixtures
         run: cargo test -p slatec-tools runtime_profile::tests
+      - name: Runtime-gated safe-special metadata and determinism fixtures
+        run: cargo test -p slatec-tools safe_special::tests

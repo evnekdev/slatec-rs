@@ -42,6 +42,12 @@ configures machine constants, characterizes legacy error levels in child
 processes, and verifies representative FNLIB initialization paths before any
 broad safe special-function API is attempted.
 
+The resulting scalar special-function facade is separately opt-in, remains
+limited to that validated GNU MinGW profile, and serializes its FNLIB calls
+where legacy saved/error state is process-global. See
+[`docs/api/safe-special-functions.md`](docs/api/safe-special-functions.md) for
+the supported families, native setup, and domain/error boundary.
+
 With the complete selected evidence and GNU MinGW compiler available, run:
 
 ```text

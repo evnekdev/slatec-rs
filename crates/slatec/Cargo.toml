@@ -30,6 +30,16 @@ blas-level2 = [
 ]
 blas-level3 = ["blas-level1-validation", "slatec-sys/raw-ffi-character"]
 blas-level23-native-tests = ["blas-level2", "blas-level3"]
+special-functions = [
+    "blas-level1-validation",
+    "slatec-sys/raw-ffi-scalar-functions",
+]
+special-functions-f32 = ["special-functions"]
+special-functions-polynomials = ["special-functions"]
+special-functions-native-tests = [
+    "special-functions-f32",
+    "special-functions-polynomials",
+]
 
 [dependencies]
 slatec-core.workspace = true

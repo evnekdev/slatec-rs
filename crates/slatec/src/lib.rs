@@ -7,3 +7,13 @@
 
 #[cfg(feature = "blas-level1-validation")]
 pub mod blas;
+
+/// Runtime-validated scalar façades over selected original SLATEC FNLIB
+/// routines for the GNU MinGW x86_64 profile.
+#[cfg(feature = "special-functions")]
+pub mod special;
+
+/// Scalar polynomial helpers whose storage contracts are independently
+/// validated before the raw call.
+#[cfg(feature = "special-functions-polynomials")]
+pub mod polynomials;
