@@ -17,6 +17,13 @@ fn safe_api_metadata_is_compact_and_contains_no_source_text() {
         "matrix-wrapper-index.json",
         "deferred-matrix-routines.json",
         "matrix-validation-summary.md",
+        "special-function-candidates.json",
+        "special-function-wrapper-index.json",
+        "special-function-family-summary.json",
+        "special-function-runtime-state.json",
+        "special-function-deferred.json",
+        "special-function-validation-summary.md",
+        "special-function-manifest.json",
     ] {
         let contents = std::fs::read(metadata_path(name)).expect("committed safe API metadata");
         assert!(contents.len() < 64 * 1024, "{name} must remain compact");

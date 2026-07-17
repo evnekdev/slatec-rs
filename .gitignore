@@ -21,6 +21,7 @@ Cargo.lock
 /evidence/blas-level1/
 /evidence/blas-level23/
 /evidence/runtime-profile/
+/evidence/safe-special-*/
 /evidence/full-corpus/
 /evidence/acquisition/
 /.evidence/
