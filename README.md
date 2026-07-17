@@ -48,6 +48,11 @@ where legacy saved/error state is process-global. See
 [`docs/api/safe-special-functions.md`](docs/api/safe-special-functions.md) for
 the supported families, native setup, and domain/error boundary.
 
+The first callback-bearing safe API covers focused adaptive quadrature through
+`QAG`, `QAGS`, `QAGI`, and `QAWC` in both precisions. See
+[`docs/api/safe-quadrature.md`](docs/api/safe-quadrature.md) for workspace,
+panic-containment, concurrency, tolerance, and native-profile rules.
+
 With the complete selected evidence and GNU MinGW compiler available, run:
 
 ```text

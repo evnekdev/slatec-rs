@@ -9,7 +9,7 @@ description = "Safe Rust interface to selected SLATEC numerical routines"
 
 [features]
 default = []
-integrate = []
+integrate = ["quadrature"]
 interpolate = []
 optimize = []
 special = []
@@ -40,6 +40,11 @@ special-functions-native-tests = [
     "special-functions-f32",
     "special-functions-polynomials",
 ]
+quadrature = [
+    "blas-level1-validation",
+    "slatec-sys/raw-ffi-quadrature",
+]
+quadrature-native-tests = ["quadrature"]
 
 [dependencies]
 slatec-core.workspace = true

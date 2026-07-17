@@ -41,3 +41,11 @@ pub struct Complex64 {
 }
 
 pub mod generated;
+
+/// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
+///
+/// These declarations remain separate from the broadly gated callback batch:
+/// only the eight routines whose callback and workspace contracts are tested
+/// by `slatec::quadrature` are available here.
+#[cfg(feature = "raw-ffi-quadrature")]
+pub mod quadrature;

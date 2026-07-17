@@ -32,6 +32,7 @@ raw-ffi-scalar-functions = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-complex-arguments = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-logical = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-character = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-quadrature = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-callbacks = []
 raw-ffi-infrastructure = []
 
