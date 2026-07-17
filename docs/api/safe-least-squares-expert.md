@@ -29,7 +29,9 @@ and restores the previous setting on every normal Rust return path.
 Only the validated GNU Fortran `x86_64-w64-mingw32`
 `ffi-profile-gnu-mingw-x86_64` backend is supported. This hosted `std` and
 `alloc` API is not a bare-metal support claim. `SCOV` and `DCOV`, covariance
-normalization, rank-deficiency policy, bounds, robust loss functions,
+estimation are available separately through `least-squares-covariance`; they
+recompute the residual and Jacobian at the supplied parameters rather than
+consuming this driver's QR buffers. Bounds, robust loss functions,
 cancellation, observer callbacks, and sparse Jacobians remain deferred.
 
 See the generated [function index](function-index.md) and the maintained

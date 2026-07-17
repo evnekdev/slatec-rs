@@ -100,7 +100,8 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
 /// the prior `XSETF` control value before returning to Rust.
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorScope {
     let mut previous = 0;
@@ -117,7 +118,8 @@ pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorSco
 /// Restores the prior XERROR control flag after a scoped least-squares call.
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 pub(crate) struct RecoverableErrorScope {
     previous: slatec_sys::FortranInteger,
@@ -125,7 +127,8 @@ pub(crate) struct RecoverableErrorScope {
 
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
-    feature = "least-squares-nonlinear-expert"
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
 ))]
 impl Drop for RecoverableErrorScope {
     fn drop(&mut self) {

@@ -16,9 +16,13 @@ use std::sync::{Arc, Barrier};
 use std::thread;
 
 use slatec::least_squares::{
+    CovarianceEligibility, CovarianceError, CovarianceOptions, CovarianceScaling,
     ExpertLeastSquaresOptions, LeastSquaresError, LeastSquaresOptions, LeastSquaresScaling,
-    LeastSquaresStatus, least_squares, least_squares_expert, least_squares_expert_f32,
-    least_squares_f32, least_squares_with_jacobian, least_squares_with_jacobian_f32,
+    LeastSquaresStatus, covariance_from_expert_fit, covariance_from_expert_fit_f32,
+    estimate_covariance, estimate_covariance_f32, estimate_covariance_finite_difference,
+    estimate_covariance_finite_difference_f32, least_squares, least_squares_expert,
+    least_squares_expert_f32, least_squares_f32, least_squares_with_jacobian,
+    least_squares_with_jacobian_f32,
 };
 use slatec::nonlinear::{
     ExpertNonlinearOptions, NonlinearOptions, solve_system, solve_system_expert,
@@ -524,6 +528,52 @@ fn nested_callback_families_are_rejected_without_deadlock() {
     );
     assert!(nested_expert_least_squares.is_ok());
 
+    let nested_covariance = estimate_covariance(
+        &[0.0],
+        2,
+        |_, residuals| {
+            assert!(matches!(
+                least_squares(
+                    &[0.0],
+                    1,
+                    |_, inner_residuals| inner_residuals[0] = 0.0,
+                    LeastSquaresOptions::default(),
+                ),
+                Err(LeastSquaresError::NestedNativeCallback)
+            ));
+            residuals.fill(0.0);
+        },
+        |_, _, mut jacobian| {
+            jacobian.set(0, 0, 1.0).unwrap();
+            jacobian.set(1, 0, 1.0).unwrap();
+        },
+        CovarianceOptions::default(),
+    );
+    assert!(nested_covariance.is_ok());
+
+    let nested_covariance_from_easy = least_squares(
+        &[0.0],
+        1,
+        |_, residuals| {
+            assert!(matches!(
+                estimate_covariance(
+                    &[0.0],
+                    2,
+                    |_, inner_residuals| inner_residuals.fill(0.0),
+                    |_, _, mut jacobian| {
+                        jacobian.set(0, 0, 1.0).unwrap();
+                        jacobian.set(1, 0, 1.0).unwrap();
+                    },
+                    CovarianceOptions::default(),
+                ),
+                Err(CovarianceError::NestedNativeCallback)
+            ));
+            residuals[0] = 0.0;
+        },
+        LeastSquaresOptions::default(),
+    );
+    assert!(nested_covariance_from_easy.is_ok());
+
     let nested_root = least_squares(
         &[0.0],
         1,
@@ -735,4 +785,356 @@ fn parallel_least_squares_calls_share_native_serialization() {
     for worker in workers {
         close(worker.join().unwrap(), 2.0, 2.0e-9);
     }
+}
+
+#[test]
+fn parallel_covariance_calls_share_native_serialization() {
+    let barrier = Arc::new(Barrier::new(3));
+    let mut workers = Vec::new();
+    for _ in 0..2 {
+        let barrier = Arc::clone(&barrier);
+        workers.push(thread::spawn(move || {
+            barrier.wait();
+            estimate_covariance_finite_difference(
+                &[1.1, 1.96],
+                5,
+                |parameters, residuals| {
+                    for (row, residual) in residuals.iter_mut().enumerate() {
+                        *residual = parameters[0] + parameters[1] * row as f64
+                            - [1.1, 2.9, 5.2, 7.1, 8.8][row];
+                    }
+                },
+                CovarianceOptions::default(),
+            )
+            .unwrap()
+            .variance_scale
+        }));
+    }
+    barrier.wait();
+    for worker in workers {
+        close(worker.join().unwrap(), 0.092 / 3.0, 2.0e-12);
+    }
+}
+
+#[test]
+fn covariance_matches_the_linear_jtj_inverse_in_both_jacobian_modes_and_precisions() {
+    let xs = [0.0, 1.0, 2.0, 3.0, 4.0];
+    let ys = [1.1, 2.9, 5.2, 7.1, 8.8];
+    let expected = [
+        0.0184,
+        -0.006_133_333_333_333_333,
+        -0.006_133_333_333_333_333,
+        0.003_066_666_666_666_667,
+    ];
+    let analytic = estimate_covariance(
+        &[1.1, 1.96],
+        xs.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in xs.iter().zip(ys.iter()).zip(residuals) {
+                *residual = parameters[0] + parameters[1] * x - y;
+            }
+        },
+        |_, _, mut jacobian| {
+            for (row, &x) in xs.iter().enumerate() {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, x).unwrap();
+            }
+        },
+        CovarianceOptions::default(),
+    )
+    .unwrap();
+    assert_eq!(analytic.rank, 2);
+    assert_eq!(analytic.permutation, vec![0, 1]);
+    assert_eq!(analytic.get(0, 1), analytic.get(1, 0));
+    close(analytic.residual_sum_of_squares, 0.092, 2.0e-14);
+    close(analytic.variance_scale, 0.092 / 3.0, 2.0e-14);
+    for (&actual, &reference) in analytic.covariance.iter().zip(expected.iter()) {
+        close(actual, reference, 3.0e-11);
+    }
+    let standard_errors = analytic.standard_errors().unwrap();
+    close(standard_errors[0], expected[0].sqrt(), 3.0e-12);
+    let correlation = analytic.correlation_matrix().unwrap();
+    close(correlation[0], 1.0, 2.0e-12);
+    close(correlation[3], 1.0, 2.0e-12);
+
+    let finite_difference = estimate_covariance_finite_difference(
+        &[1.1, 1.96],
+        xs.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in xs.iter().zip(ys.iter()).zip(residuals) {
+                *residual = parameters[0] + parameters[1] * x - y;
+            }
+        },
+        CovarianceOptions::default(),
+    )
+    .unwrap();
+    for (&actual, &reference) in finite_difference.covariance.iter().zip(expected.iter()) {
+        close(actual, reference, 2.0e-8);
+    }
+
+    let single = estimate_covariance_f32(
+        &[1.1_f32, 1.96],
+        xs.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in xs.iter().zip(ys.iter()).zip(residuals) {
+                *residual = parameters[0] + parameters[1] * x as f32 - y as f32;
+            }
+        },
+        |_, _, mut jacobian| {
+            for (row, &x) in xs.iter().enumerate() {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, x as f32).unwrap();
+            }
+        },
+        CovarianceOptions::default(),
+    )
+    .unwrap();
+    for (&actual, &reference) in single.covariance.iter().zip(expected.iter()) {
+        close(f64::from(actual), reference, 2.0e-5);
+    }
+    let single_fd = estimate_covariance_finite_difference_f32(
+        &[1.1_f32, 1.96],
+        xs.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in xs.iter().zip(ys.iter()).zip(residuals) {
+                *residual = parameters[0] + parameters[1] * x as f32 - y as f32;
+            }
+        },
+        CovarianceOptions::default(),
+    )
+    .unwrap();
+    assert_eq!(single_fd.rank, 2);
+}
+
+#[test]
+fn covariance_handles_zero_residuals_square_scaling_and_rank_deficiency() {
+    let exact = estimate_covariance(
+        &[1.0, 2.0],
+        3,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[
+                parameters[0] - 1.0,
+                parameters[0] + parameters[1] - 3.0,
+                parameters[0] + 2.0 * parameters[1] - 5.0,
+            ]);
+        },
+        |_, _, mut jacobian| {
+            for row in 0..3 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, row as f64).unwrap();
+            }
+        },
+        CovarianceOptions::default(),
+    )
+    .unwrap();
+    assert_eq!(exact.residual_sum_of_squares, 0.0);
+    assert!(exact.covariance.iter().all(|value| *value == 0.0));
+    assert!(matches!(
+        exact.correlation_matrix(),
+        Err(CovarianceError::ZeroVarianceDiagonal { .. })
+    ));
+
+    assert!(matches!(
+        estimate_covariance(
+            &[1.0, 2.0],
+            2,
+            |parameters, residuals| residuals
+                .copy_from_slice(&[parameters[0] - 1.0, parameters[0] + parameters[1] - 3.0]),
+            |_, _, mut jacobian| {
+                jacobian.set(0, 0, 1.0).unwrap();
+                jacobian.set(0, 1, 0.0).unwrap();
+                jacobian.set(1, 0, 1.0).unwrap();
+                jacobian.set(1, 1, 1.0).unwrap();
+            },
+            CovarianceOptions::default(),
+        ),
+        Err(CovarianceError::NonPositiveDegreesOfFreedom { .. })
+    ));
+    let square_native = estimate_covariance(
+        &[1.0, 2.0],
+        2,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[parameters[0] - 1.0, parameters[0] + parameters[1] - 3.0])
+        },
+        |_, _, mut jacobian| {
+            jacobian.set(0, 0, 1.0).unwrap();
+            jacobian.set(0, 1, 0.0).unwrap();
+            jacobian.set(1, 0, 1.0).unwrap();
+            jacobian.set(1, 1, 1.0).unwrap();
+        },
+        CovarianceOptions {
+            scaling: CovarianceScaling::Native,
+        },
+    )
+    .unwrap();
+    assert_eq!(square_native.variance_scale, 1.0);
+    close(square_native.covariance[0], 1.0, 2.0e-12);
+    close(square_native.covariance[1], -1.0, 2.0e-12);
+    close(square_native.covariance[3], 2.0, 2.0e-12);
+
+    let mut before = 0;
+    // SAFETY: this serialized native test reads the reviewed process-global
+    // XERROR control before a singular covariance call.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut before) };
+    let singular = estimate_covariance(
+        &[1.0, 1.0],
+        3,
+        |parameters, residuals| {
+            for (row, residual) in residuals.iter_mut().enumerate() {
+                *residual = parameters[0] + parameters[1] - (row as f64 + 1.0);
+            }
+        },
+        |_, _, mut jacobian| {
+            for row in 0..3 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, 1.0).unwrap();
+            }
+        },
+        CovarianceOptions::default(),
+    );
+    assert!(matches!(
+        singular,
+        Err(CovarianceError::RankDeficient { parameter_count: 2 })
+    ));
+    let mut after = 0;
+    // SAFETY: DCOV's scoped XERROR policy must restore this value on INFO=2.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut after) };
+    assert_eq!(after, before);
+}
+
+#[test]
+fn covariance_callbacks_and_fit_adapter_are_contained_and_recover() {
+    assert!(matches!(
+        estimate_covariance(
+            &[1.0],
+            2,
+            |_, _| panic!("contained covariance residual panic"),
+            |_, _, mut jacobian| {
+                jacobian.set(0, 0, 1.0).unwrap();
+                jacobian.set(1, 0, 1.0).unwrap();
+            },
+            CovarianceOptions::default(),
+        ),
+        Err(CovarianceError::CallbackPanicked)
+    ));
+    assert!(matches!(
+        estimate_covariance_finite_difference(
+            &[1.0],
+            2,
+            |_, residuals| {
+                residuals[0] = f64::NAN;
+                residuals[1] = 0.0;
+            },
+            CovarianceOptions::default(),
+        ),
+        Err(CovarianceError::CallbackReturnedNonFinite { index: 0 })
+    ));
+    assert!(matches!(
+        estimate_covariance(
+            &[1.0],
+            2,
+            |parameters, residuals| {
+                residuals[0] = parameters[0];
+                residuals[1] = parameters[0];
+            },
+            |_, _, mut jacobian| {
+                jacobian.set(0, 0, f64::NAN).unwrap();
+                jacobian.set(1, 0, 1.0).unwrap();
+            },
+            CovarianceOptions::default(),
+        ),
+        Err(CovarianceError::JacobianReturnedNonFinite { row: 0, column: 0 })
+    ));
+    let fit = least_squares_with_jacobian(
+        &[0.0, 0.0],
+        3,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[
+                parameters[0] - 1.0,
+                parameters[0] + parameters[1] - 3.0,
+                parameters[0] + 2.0 * parameters[1] - 5.0,
+            ])
+        },
+        |_, _, mut jacobian| {
+            for row in 0..3 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, row as f64).unwrap();
+            }
+        },
+        ExpertLeastSquaresOptions::default(),
+    )
+    .unwrap();
+    let from_fit = covariance_from_expert_fit(
+        &fit,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[
+                parameters[0] - 1.0,
+                parameters[0] + parameters[1] - 3.0,
+                parameters[0] + 2.0 * parameters[1] - 5.0,
+            ])
+        },
+        |_, _, mut jacobian| {
+            for row in 0..3 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, row as f64).unwrap();
+            }
+        },
+        CovarianceOptions::default(),
+        CovarianceEligibility::ConvergedOnly,
+    )
+    .unwrap();
+    assert_eq!(from_fit.rank, 2);
+    let fit_f32 = least_squares_with_jacobian_f32(
+        &[0.0, 0.0],
+        3,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[
+                parameters[0] - 1.0,
+                parameters[0] + parameters[1] - 3.0,
+                parameters[0] + 2.0 * parameters[1] - 5.0,
+            ])
+        },
+        |_, _, mut jacobian| {
+            for row in 0..3 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, row as f32).unwrap();
+            }
+        },
+        ExpertLeastSquaresOptions::single_precision(),
+    )
+    .unwrap();
+    let from_fit_f32 = covariance_from_expert_fit_f32(
+        &fit_f32,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[
+                parameters[0] - 1.0,
+                parameters[0] + parameters[1] - 3.0,
+                parameters[0] + 2.0 * parameters[1] - 5.0,
+            ])
+        },
+        |_, _, mut jacobian| {
+            for row in 0..3 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, row as f32).unwrap();
+            }
+        },
+        CovarianceOptions::default(),
+        CovarianceEligibility::ConvergedOnly,
+    )
+    .unwrap();
+    assert_eq!(from_fit_f32.rank, 2);
+    assert!(
+        estimate_covariance_finite_difference(
+            &[1.1, 1.96],
+            5,
+            |parameters, residuals| {
+                for (row, residual) in residuals.iter_mut().enumerate() {
+                    *residual =
+                        parameters[0] + parameters[1] * row as f64 - [1.1, 2.9, 5.2, 7.1, 8.8][row];
+                }
+            },
+            CovarianceOptions::default(),
+        )
+        .is_ok()
+    );
 }

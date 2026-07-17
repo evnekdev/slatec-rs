@@ -64,6 +64,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
+| `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
+| `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
+| `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
+| `slatec::least_squares::estimate_covariance_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
+| `slatec::least_squares::estimate_covariance_finite_difference` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_linear_fit.rs) |
+| `slatec::least_squares::estimate_covariance_finite_difference_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_linear_fit.rs) |
 | `slatec::least_squares::least_squares` | `DNLS1E` | least squares | f64 | finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-easy` | [finite-difference nonlinear least squares](../../examples/least_squares/linear_fit.rs) |
 | `slatec::least_squares::least_squares_expert` | `DNLS1` | least squares | f64 | expert finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert finite-difference nonlinear least squares](../../examples/least_squares/expert_finite_difference.rs) |
 | `slatec::least_squares::least_squares_expert_f32` | `SNLS1` | least squares | f32 | expert finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert finite-difference nonlinear least squares](../../examples/least_squares/expert_finite_difference.rs) |
@@ -236,6 +242,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DCOPY` -> `slatec::blas::level1::dcopy`
 - `DCOPY` -> `slatec::blas::level1::dcopy_strided`
 - `DCOSDG` -> `slatec::special::elementary::cos_degrees`
+- `DCOV` -> `slatec::least_squares::covariance_from_expert_fit`
+- `DCOV` -> `slatec::least_squares::estimate_covariance`
+- `DCOV` -> `slatec::least_squares::estimate_covariance_finite_difference`
 - `DCSEVL` -> `slatec::polynomials::chebyshev::chebyshev_series`
 - `DDAWS` -> `slatec::special::elementary::dawson`
 - `DDOT` -> `slatec::blas::level1::ddot`
@@ -325,6 +334,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SAXPY` -> `slatec::blas::level1::saxpy_strided`
 - `SCOPY` -> `slatec::blas::level1::scopy`
 - `SCOPY` -> `slatec::blas::level1::scopy_strided`
+- `SCOV` -> `slatec::least_squares::covariance_from_expert_fit_f32`
+- `SCOV` -> `slatec::least_squares::estimate_covariance_f32`
+- `SCOV` -> `slatec::least_squares::estimate_covariance_finite_difference_f32`
 - `SDOT` -> `slatec::blas::level1::sdot`
 - `SDOT` -> `slatec::blas::level1::sdot_strided`
 - `SGEMM` -> `slatec::blas::level3::sgemm`
@@ -542,6 +554,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### least squares
 
+- `slatec::least_squares::covariance_from_expert_fit` — nonlinear least-squares covariance estimation
+- `slatec::least_squares::covariance_from_expert_fit_f32` — nonlinear least-squares covariance estimation
+- `slatec::least_squares::estimate_covariance` — nonlinear least-squares covariance estimation
+- `slatec::least_squares::estimate_covariance_f32` — nonlinear least-squares covariance estimation
+- `slatec::least_squares::estimate_covariance_finite_difference` — nonlinear least-squares covariance estimation
+- `slatec::least_squares::estimate_covariance_finite_difference_f32` — nonlinear least-squares covariance estimation
 - `slatec::least_squares::least_squares` — finite-difference nonlinear least-squares fitting
 - `slatec::least_squares::least_squares_expert` — expert finite-difference nonlinear least-squares fitting
 - `slatec::least_squares::least_squares_expert_f32` — expert finite-difference nonlinear least-squares fitting
@@ -619,6 +637,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### Requires `std`
 
+- `slatec::least_squares::covariance_from_expert_fit`
+- `slatec::least_squares::covariance_from_expert_fit_f32`
+- `slatec::least_squares::estimate_covariance`
+- `slatec::least_squares::estimate_covariance_f32`
+- `slatec::least_squares::estimate_covariance_finite_difference`
+- `slatec::least_squares::estimate_covariance_finite_difference_f32`
 - `slatec::least_squares::least_squares`
 - `slatec::least_squares::least_squares_expert`
 - `slatec::least_squares::least_squares_expert_f32`

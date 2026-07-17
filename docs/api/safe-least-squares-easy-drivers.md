@@ -9,8 +9,8 @@ The wrapper selects the documented `IOPT = 1` forward-difference mode and
 non-finite residuals, allocates `IW[N]` and `WA[N*(M+5)+M]`, and serializes
 calls because the validated GNU Fortran runtime is process-global. Negative
 callback flags, observer modes, analytic Jacobians, scaling controls, and
-covariance estimation remain deferred from this easy-driver feature. The
-separate `least-squares-nonlinear-expert` feature exposes reviewed
+covariance estimation is not part of this easy-driver feature. The separate
+`least-squares-nonlinear-expert` feature exposes reviewed
 `SNLS1`/`DNLS1` controls and dense analytic Jacobians.
 
 The internal wrapper snapshots the legacy `XGETF` control, temporarily selects
