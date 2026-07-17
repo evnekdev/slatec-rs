@@ -7,55 +7,118 @@ license.workspace = true
 repository.workspace = true
 description = "Safe Rust interface to selected SLATEC numerical routines"
 
+[package.metadata.docs.rs]
+default-features = false
+features = ["std", "external-backend", "full"]
+targets = ["x86_64-pc-windows-gnu"]
+
 [features]
-default = ["std"]
-alloc = []
+default = ["std", "bundled"]
+alloc = ["slatec-core/alloc"]
 std = ["alloc", "slatec-core/std"]
-integrate = ["quadrature"]
-roots = [
-    "std",
-    "blas-level1-validation",
-    "slatec-sys/raw-ffi-roots",
-]
-roots-native-tests = ["roots", "quadrature"]
-interpolate = []
-optimize = []
-special = []
-full = ["integrate", "roots", "interpolate", "optimize", "special"]
+
+# Implementation providers are orthogonal to API capability. Exactly one is
+# required when a native family is selected; the provider crate enforces this.
+bundled = ["slatec-src/bundled"]
+source-build = ["slatec-src/source-build"]
+system = ["slatec-src/system"]
+external-backend = ["slatec-src/external-backend"]
+
+blas = ["blas-level1", "blas-level2", "blas-level3"]
 blas-level1-validation = [
     "slatec-core/ffi-profile-gnu-mingw-x86_64",
     "slatec-sys/ffi-profile-gnu-mingw-x86_64",
 ]
 blas-level1 = [
     "blas-level1-validation",
-    "slatec-sys/raw-ffi-basic",
+    "slatec-sys/raw-family-blas-level1",
+    "slatec-src/blas-level1",
 ]
 blas-level1-native-tests = ["blas-level1"]
 blas-level2 = [
     "blas-level1-validation",
-    "slatec-sys/raw-ffi-character",
-    "slatec-sys/raw-ffi-numeric-array-subroutines",
+    "slatec-sys/raw-family-blas-level2",
+    "slatec-src/blas-level2",
 ]
-blas-level3 = ["blas-level1-validation", "slatec-sys/raw-ffi-character"]
+blas-level3 = [
+    "blas-level1-validation",
+    "slatec-sys/raw-family-blas-level3",
+    "slatec-src/blas-level3",
+]
 blas-level23-native-tests = ["blas-level2", "blas-level3"]
-special-functions = [
+
+special = [
+    "special-elementary", "special-gamma", "special-beta", "special-error",
+    "special-airy", "special-bessel", "special-integrals", "special-polynomials",
+]
+special-common = ["std", "blas-level1-validation"]
+special-f32 = []
+special-elementary = ["special-common", "special-f32", "slatec-sys/raw-family-special-elementary", "slatec-src/special-elementary"]
+special-gamma = ["special-common", "special-f32", "slatec-sys/raw-family-special-gamma", "slatec-src/special-gamma"]
+special-beta = ["special-common", "special-f32", "slatec-sys/raw-family-special-beta", "slatec-src/special-beta"]
+special-error = ["special-common", "special-f32", "slatec-sys/raw-family-special-error", "slatec-src/special-error"]
+special-airy = ["special-common", "special-f32", "slatec-sys/raw-family-special-airy", "slatec-src/special-airy"]
+special-bessel = ["special-common", "special-f32", "slatec-sys/raw-family-special-bessel", "slatec-src/special-bessel"]
+special-integrals = ["special-common", "special-f32", "slatec-sys/raw-family-special-integrals", "slatec-src/special-integrals"]
+special-polynomials = ["special-common", "special-f32", "slatec-sys/raw-family-special-polynomials", "slatec-src/special-polynomials"]
+
+quadrature = [
+    "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
+    "quadrature-oscillatory", "quadrature-fourier", "quadrature-nonadaptive",
+]
+quadrature-common = ["std", "blas-level1-validation"]
+quadrature-basic = ["quadrature-common", "slatec-sys/raw-family-quadrature-basic", "slatec-src/quadrature-basic"]
+quadrature-breakpoints = ["quadrature-common", "slatec-sys/raw-family-quadrature-breakpoints", "slatec-src/quadrature-breakpoints"]
+quadrature-weighted = ["quadrature-common", "slatec-sys/raw-family-quadrature-weighted", "slatec-src/quadrature-weighted"]
+quadrature-oscillatory = ["quadrature-common", "slatec-sys/raw-family-quadrature-oscillatory", "slatec-src/quadrature-oscillatory"]
+quadrature-fourier = ["quadrature-common", "slatec-sys/raw-family-quadrature-fourier", "slatec-src/quadrature-fourier"]
+quadrature-nonadaptive = ["quadrature-common", "slatec-sys/raw-family-quadrature-nonadaptive", "slatec-src/quadrature-nonadaptive"]
+quadrature-native-tests = ["quadrature"]
+
+roots = ["roots-scalar", "roots-polynomial"]
+roots-scalar = [
     "std",
     "blas-level1-validation",
-    "slatec-sys/raw-ffi-scalar-functions",
+    "slatec-sys/raw-family-roots-scalar",
+    "slatec-src/roots-scalar",
 ]
-special-functions-f32 = ["special-functions"]
-special-functions-polynomials = ["special-functions"]
+roots-native-tests = ["roots", "quadrature"]
+roots-polynomial = ["alloc", "slatec-src/roots-polynomial"]
+
+# Compatibility names retained for downstream manifests from earlier releases.
+integrate = ["quadrature"]
+interpolate = []
+optimize = []
+full = ["blas", "quadrature", "roots", "interpolate", "optimize", "special"]
+special-functions = ["special"]
+special-functions-f32 = ["special"]
+special-functions-polynomials = ["special-polynomials"]
 special-functions-native-tests = [
     "special-functions-f32",
     "special-functions-polynomials",
 ]
-quadrature = [
-    "std",
-    "blas-level1-validation",
-    "slatec-sys/raw-ffi-quadrature",
-]
-quadrature-native-tests = ["quadrature"]
 
 [dependencies]
 slatec-core.workspace = true
 slatec-sys.workspace = true
+slatec-src.workspace = true
+
+[[example]]
+name = "link_gamma"
+required-features = ["special-gamma"]
+
+[[example]]
+name = "link_airy"
+required-features = ["special-airy"]
+
+[[example]]
+name = "link_blas_level1"
+required-features = ["blas-level1"]
+
+[[example]]
+name = "link_quadrature_basic"
+required-features = ["quadrature-basic"]
+
+[[example]]
+name = "link_complete_safe_api"
+required-features = ["full"]

@@ -5,8 +5,7 @@
 
 use core::ffi::c_char;
 
-use slatec_sys::generated::character;
-use slatec_sys::generated::numeric_array_subroutines as arrays;
+use slatec_sys::families::blas_level2 as raw;
 
 use super::validation::{
     count, gemv_logical_lengths, increment, input_pointer, output_pointer, validate_matrix,
@@ -65,7 +64,7 @@ macro_rules! impl_real_level2 {
             // were checked; `y` is uniquely borrowed; selector and trailing
             // length use the validated GNU MinGW character ABI.
             unsafe {
-                character::$gemv(
+                raw::$gemv(
                     &mut transpose,
                     &mut rows_fortran,
                     &mut cols_fortran,
@@ -151,7 +150,7 @@ macro_rules! impl_real_level2 {
             // Safety: matrix and vectors have checked BLAS spans, `a` is a
             // unique mutable borrow, and all integer arguments fit the ABI.
             unsafe {
-                arrays::$ger(
+                raw::$ger(
                     &mut m_fortran,
                     &mut n_fortran,
                     &mut alpha,
@@ -203,7 +202,7 @@ macro_rules! impl_real_level2 {
             // Safety: the selected triangle, matrix storage, vector spans,
             // character length, and unique output vector were checked.
             unsafe {
-                character::$symv(
+                raw::$symv(
                     &mut triangle,
                     &mut n_fortran,
                     &mut alpha,
@@ -246,7 +245,7 @@ macro_rules! impl_real_level2 {
                 lda,
                 x,
                 incx,
-                character::$trmv,
+                raw::$trmv,
             )
         }
 
@@ -276,7 +275,7 @@ macro_rules! impl_real_level2 {
                 lda,
                 x,
                 incx,
-                character::$trsv,
+                raw::$trsv,
             )
         }
     };

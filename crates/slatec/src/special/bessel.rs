@@ -1,6 +1,6 @@
 //! Scalar real Bessel functions with explicit scaled and unscaled names.
 
-use slatec_sys::generated::scalar_functions as raw;
+use slatec_sys::families::special_bessel as raw;
 
 use super::{SpecialFunctionError, runtime};
 
@@ -104,22 +104,22 @@ fn positive_or_negative(function: &'static str, x: f64) -> Result<(), SpecialFun
     runtime::bounded(function, "x", x, 20.0)
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 fn oscillatory_f32(function: &'static str, x: f32) -> Result<(), SpecialFunctionError> {
     runtime::bounded_f32(function, "x", x, 1.0e3)
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 fn positive_f32(function: &'static str, x: f32) -> Result<(), SpecialFunctionError> {
     runtime::bounded_positive_f32(function, "x", x, 20.0)
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 fn positive_or_negative_f32(function: &'static str, x: f32) -> Result<(), SpecialFunctionError> {
     runtime::bounded_f32(function, "x", x, 20.0)
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 macro_rules! unary_f32 {
     ($name:ident, $raw:ident, $doc:literal, $validate:ident) => {
         #[doc = $doc]
@@ -134,84 +134,84 @@ macro_rules! unary_f32 {
     };
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_j0_f32,
     besj0,
     "Single-precision Bessel J0 using `BESJ0`.",
     oscillatory_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_j1_f32,
     besj1,
     "Single-precision Bessel J1 using `BESJ1`.",
     oscillatory_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_y0_f32,
     besy0,
     "Single-precision Bessel Y0 for positive x, using `BESY0`.",
     positive_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_y1_f32,
     besy1,
     "Single-precision Bessel Y1 for positive x, using `BESY1`.",
     positive_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_i0_f32,
     besi0,
     "Single-precision modified Bessel I0 using `BESI0`.",
     positive_or_negative_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_i1_f32,
     besi1,
     "Single-precision modified Bessel I1 using `BESI1`.",
     positive_or_negative_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_i0_scaled_f32,
     besi0e,
     "Scaled single-precision modified Bessel I0 using `BESI0E`.",
     positive_or_negative_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_i1_scaled_f32,
     besi1e,
     "Scaled single-precision modified Bessel I1 using `BESI1E`.",
     positive_or_negative_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_k0_f32,
     besk0,
     "Single-precision modified Bessel K0 for positive x using `BESK0`.",
     positive_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_k1_f32,
     besk1,
     "Single-precision modified Bessel K1 for positive x using `BESK1`.",
     positive_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_k0_scaled_f32,
     besk0e,
     "Scaled single-precision modified Bessel K0 using `BESK0E`.",
     positive_f32
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 unary_f32!(
     bessel_k1_scaled_f32,
     besk1e,

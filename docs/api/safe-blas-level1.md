@@ -12,18 +12,16 @@ slatec = { version = "0.1", features = ["blas-level1"] }
 ```
 
 The supported profile is GNU Fortran on `x86_64-w64-mingw32`, linked from Rust
-with target `x86_64-pc-windows-gnu`. Before native tests or an application link,
-explicitly configure the verified local archive and GNU runtime directories:
+with target `x86_64-pc-windows-gnu`. The default `bundled` provider downloads
+checksum-pinned source files and builds the selected family automatically:
 
 ```text
-$env:SLATEC_NATIVE_LIB_DIR = "<directory-containing-libslatec_selected.a>"
-$env:SLATEC_GFORTRAN_RUNTIME_DIR = "<directory-containing-GNU-runtime-libraries>"
 cargo test -p slatec --features blas-level1-native-tests --target x86_64-pc-windows-gnu
 ```
 
-Neither this crate nor `slatec-sys/build.rs` downloads source or compiles
-Fortran implicitly. Applications that need a raw declaration can depend on
-`slatec-sys` directly; the safe facade deliberately does not duplicate it.
+`source-build`, `system`, and `external-backend` provide explicit alternatives.
+Applications that need a raw declaration can depend on `slatec-sys` directly;
+the safe facade deliberately does not duplicate it.
 
 ## Supported routines
 

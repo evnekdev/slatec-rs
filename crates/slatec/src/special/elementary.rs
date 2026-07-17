@@ -1,7 +1,7 @@
 //! Stable elementary helpers whose SLATEC implementations differ from a
 //! direct portable intrinsic in their intended small-argument behavior.
 
-use slatec_sys::generated::scalar_functions as raw;
+use slatec_sys::families::special_elementary as raw;
 
 use super::{SpecialFunctionError, runtime};
 
@@ -67,7 +67,7 @@ pub fn dawson(x: f64) -> Result<f64, SpecialFunctionError> {
     Ok(unsafe { raw::ddaws(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Accurate `ln(1 + x)` for finite `x > -1` using SLATEC `ALNREL`.
 pub fn log1p_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     if !(x.is_finite() && x > -1.0) {
@@ -83,7 +83,7 @@ pub fn log1p_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     Ok(unsafe { raw::alnrel(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Accurate `(exp(x) - 1) / x`, including its limiting value, using `EXPREL`.
 pub fn exprel_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::finite_f32("exprel_f32", "x", x)?;
@@ -93,7 +93,7 @@ pub fn exprel_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     Ok(unsafe { raw::exprel(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Real cube root for a finite value using SLATEC `CBRT`.
 pub fn cbrt_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::finite_f32("cbrt_f32", "x", x)?;
@@ -103,7 +103,7 @@ pub fn cbrt_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     Ok(unsafe { raw::cbrt(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Sine of a finite degree-valued angle using SLATEC `SINDG`.
 pub fn sin_degrees_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::finite_f32("sin_degrees_f32", "degrees", x)?;
@@ -113,7 +113,7 @@ pub fn sin_degrees_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     Ok(unsafe { raw::sindg(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Cosine of a finite degree-valued angle using SLATEC `COSDG`.
 pub fn cos_degrees_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::finite_f32("cos_degrees_f32", "degrees", x)?;
@@ -123,7 +123,7 @@ pub fn cos_degrees_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     Ok(unsafe { raw::cosdg(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Dawson's integral for a conservative finite range using SLATEC `DAWS`.
 pub fn dawson_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::bounded_f32("dawson_f32", "x", x, 1.0e3)?;

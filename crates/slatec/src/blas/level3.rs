@@ -2,7 +2,7 @@
 //!
 //! Every matrix is a column-major slice with explicit leading dimension.
 
-use slatec_sys::generated::character;
+use slatec_sys::families::blas_level3 as raw;
 
 use super::validation::{
     count, gemm_stored_shapes, input_pointer, output_pointer, triangular_order, validate_matrix,
@@ -64,7 +64,7 @@ macro_rules! impl_real_level3 {
             // ranges are checked; `c` is uniquely borrowed; selectors and
             // trailing lengths follow the validated GNU MinGW ABI profile.
             unsafe {
-                character::$gemm(
+                raw::$gemm(
                     &mut trans_a,
                     &mut trans_b,
                     &mut m_fortran,
@@ -156,7 +156,7 @@ macro_rules! impl_real_level3 {
                 lda,
                 b,
                 ldb,
-                character::$trmm,
+                raw::$trmm,
             )
         }
 
@@ -192,7 +192,7 @@ macro_rules! impl_real_level3 {
                 lda,
                 b,
                 ldb,
-                character::$trsm,
+                raw::$trsm,
             )
         }
 
@@ -237,7 +237,7 @@ macro_rules! impl_real_level3 {
             // Safety: both stored matrix layouts and the output triangle are
             // checked; `c` is uniquely borrowed; selector lengths are one.
             unsafe {
-                character::$syrk(
+                raw::$syrk(
                     &mut triangle,
                     &mut transpose,
                     &mut n_fortran,

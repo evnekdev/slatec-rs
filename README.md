@@ -1,5 +1,19 @@
 # slatec-rs
 
+Safe APIs are selected by coherent family features such as `blas-level1`,
+`special-gamma`, `quadrature-basic`, and `roots-scalar`. Hosted builds use the
+`bundled` provider by default: Cargo retrieves only checksum-pinned reviewed
+sources, compiles the enabled families' dependency closure as separate objects,
+and links a static archive without requiring `SLATEC_NATIVE_LIB_DIR` or a
+SLATEC DLL. Historical source rights remain unresolved, so source and native
+bytes stay in Cargo's cache/build directories and are not redistributed in the
+crate.
+
+The safe Rust layer is `no_std`. `alloc` is an independent capability and does
+not require `std`; `std` enables `alloc`. The current GNU MinGW native backend
+is hosted and runtime-validated, not a bare-metal backend. See
+[`docs/api/family-features-and-backends.md`](docs/api/family-features-and-backends.md).
+
 Workspace skeleton for Rust bindings and safe wrappers around selected SLATEC numerical routines.
 
 ## Intended layers

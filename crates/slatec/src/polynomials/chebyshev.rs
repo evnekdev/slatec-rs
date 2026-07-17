@@ -1,6 +1,6 @@
 //! Checked Chebyshev-series evaluation over the SLATEC `[-1, 1]` contract.
 
-use slatec_sys::generated::scalar_functions as raw;
+use slatec_sys::families::special_polynomials as raw;
 
 use crate::special::{SpecialFunctionError, runtime};
 
@@ -49,7 +49,7 @@ pub fn chebyshev_series(x: f64, coefficients: &[f64]) -> Result<f64, SpecialFunc
     Ok(unsafe { raw::dcsevl(&mut x, coefficients.as_ptr().cast_mut(), &mut n) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Evaluates a single-precision Chebyshev series on `[-1, 1]` using `CSEVL`.
 pub fn chebyshev_series_f32(x: f32, coefficients: &[f32]) -> Result<f32, SpecialFunctionError> {
     validate("chebyshev_series_f32", f64::from(x), coefficients.len())?;

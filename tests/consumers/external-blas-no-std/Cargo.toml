@@ -1,0 +1,10 @@
+[package]
+name = "slatec-consumer-external-blas-no-std"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+slatec = { path = "../../../crates/slatec", default-features = false, features = ["external-backend", "blas-level1"] }

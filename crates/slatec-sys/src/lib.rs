@@ -2,11 +2,10 @@
 
 //! Raw declarations generated from the selected, compiler-observed SLATEC corpus.
 //!
-//! The crate deliberately performs no download, native compilation, linking, or
-//! safe conversion in `build.rs`. Enable a raw-FFI feature only with the
-//! explicit `ffi-profile-gnu-mingw-x86_64` profile and after native validation.
-//! Set `SLATEC_NATIVE_LIB_DIR` only for an explicit GNU MinGW native-link test;
-//! ordinary Cargo builds never compile or download Fortran.
+//! The crate deliberately performs no download, native compilation, linking,
+//! or safe conversion in `build.rs`. Native provider selection and automatic
+//! hosted linking belong to `slatec-src`; an external-backend consumer can use
+//! these declarations without any hidden native build directive.
 
 /// GNU Fortran default `INTEGER` after the supported profile probe.
 #[cfg(feature = "ffi-profile-gnu-mingw-x86_64")]
@@ -44,16 +43,41 @@ pub struct Complex64 {
 
 pub mod generated;
 
+/// Generated raw declarations grouped by safe public family rather than ABI
+/// shape. These modules are the preferred dependency of narrow safe features.
+#[cfg(any(
+    feature = "raw-family-blas-level1",
+    feature = "raw-family-blas-level2",
+    feature = "raw-family-blas-level3",
+    feature = "raw-family-special-elementary",
+    feature = "raw-family-special-gamma",
+    feature = "raw-family-special-beta",
+    feature = "raw-family-special-error",
+    feature = "raw-family-special-airy",
+    feature = "raw-family-special-bessel",
+    feature = "raw-family-special-integrals",
+    feature = "raw-family-special-polynomials"
+))]
+pub mod families;
+
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///
 /// These declarations remain separate from the broadly gated callback batch:
 /// only the eight routines whose callback and workspace contracts are tested
 /// by `slatec::quadrature` are available here.
-#[cfg(feature = "raw-ffi-quadrature")]
+#[cfg(any(
+    feature = "raw-ffi-quadrature",
+    feature = "raw-family-quadrature-basic",
+    feature = "raw-family-quadrature-breakpoints",
+    feature = "raw-family-quadrature-weighted",
+    feature = "raw-family-quadrature-oscillatory",
+    feature = "raw-family-quadrature-fourier",
+    feature = "raw-family-quadrature-nonadaptive"
+))]
 pub mod quadrature;
 
 /// Hand-reviewed scalar callback declarations for the focused FZERO family.
 ///
 /// This narrow module remains separate from the general callback batch.
-#[cfg(feature = "raw-ffi-roots")]
+#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 pub mod roots;

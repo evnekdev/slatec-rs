@@ -12,5 +12,6 @@ slatec-sys.workspace = true
 
 [features]
 default = ["std"]
-std = []
+alloc = []
+std = ["alloc"]
 ffi-profile-gnu-mingw-x86_64 = ["slatec-sys/ffi-profile-gnu-mingw-x86_64"]

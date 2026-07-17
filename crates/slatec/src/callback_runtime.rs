@@ -6,6 +6,8 @@
 //! scalar-root adapters so callback-bearing families cannot nest into each
 //! other accidentally.
 
+#![allow(dead_code)] // Callback families use different halves of this bridge.
+
 use alloc::boxed::Box;
 use std::cell::Cell;
 use std::panic::{AssertUnwindSafe, catch_unwind};

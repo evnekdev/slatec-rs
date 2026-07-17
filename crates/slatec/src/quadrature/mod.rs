@@ -6,24 +6,39 @@
 //! panics and non-finite results are contained in the trampoline and reported
 //! after Fortran returns.
 
+#[cfg(feature = "quadrature-basic")]
 mod adaptive;
 mod callback;
 mod error;
+#[cfg(any(
+    feature = "quadrature-breakpoints",
+    feature = "quadrature-weighted",
+    feature = "quadrature-oscillatory",
+    feature = "quadrature-fourier",
+    feature = "quadrature-nonadaptive"
+))]
 mod extended;
 mod validation;
 
+#[cfg(feature = "quadrature-basic")]
 pub use adaptive::{
     integrate, integrate_f32, integrate_infinite, integrate_infinite_f32,
     integrate_principal_value, integrate_principal_value_f32, integrate_singular,
     integrate_singular_f32,
 };
 pub use error::IntegrationError;
+#[cfg(feature = "quadrature-fourier")]
+pub use extended::{integrate_fourier_tail, integrate_fourier_tail_f32};
+#[cfg(feature = "quadrature-nonadaptive")]
 pub use extended::{
-    integrate_fourier_tail, integrate_fourier_tail_f32, integrate_nc79, integrate_nc79_f32,
-    integrate_non_adaptive, integrate_non_adaptive_f32, integrate_oscillatory,
-    integrate_oscillatory_f32, integrate_weighted_endpoints, integrate_weighted_endpoints_f32,
-    integrate_with_breakpoints, integrate_with_breakpoints_f32,
+    integrate_nc79, integrate_nc79_f32, integrate_non_adaptive, integrate_non_adaptive_f32,
 };
+#[cfg(feature = "quadrature-oscillatory")]
+pub use extended::{integrate_oscillatory, integrate_oscillatory_f32};
+#[cfg(feature = "quadrature-weighted")]
+pub use extended::{integrate_weighted_endpoints, integrate_weighted_endpoints_f32};
+#[cfg(feature = "quadrature-breakpoints")]
+pub use extended::{integrate_with_breakpoints, integrate_with_breakpoints_f32};
 
 /// Gauss-Kronrod rule used by QAG/DQAG finite-interval integration.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -42,6 +57,7 @@ pub enum IntegrationRule {
     Points61,
 }
 
+#[cfg(feature = "quadrature-basic")]
 impl IntegrationRule {
     pub(crate) const fn key(self) -> i32 {
         match self {
@@ -118,6 +134,7 @@ pub enum EndpointWeight {
     AlgebraicLogBoth,
 }
 
+#[cfg(feature = "quadrature-weighted")]
 impl EndpointWeight {
     pub(crate) const fn native_selector(self) -> i32 {
         match self {
@@ -138,6 +155,7 @@ pub enum OscillatoryWeight {
     Sine,
 }
 
+#[cfg(any(feature = "quadrature-oscillatory", feature = "quadrature-fourier"))]
 impl OscillatoryWeight {
     pub(crate) const fn native_selector(self) -> i32 {
         match self {
@@ -308,6 +326,7 @@ pub enum InfiniteInterval<T = f64> {
     WholeLine,
 }
 
+#[cfg(feature = "quadrature-basic")]
 impl InfiniteInterval<f64> {
     pub(crate) fn native_parameters(self) -> Result<(f64, i32), IntegrationError> {
         match self {
@@ -319,6 +338,7 @@ impl InfiniteInterval<f64> {
     }
 }
 
+#[cfg(feature = "quadrature-basic")]
 impl InfiniteInterval<f32> {
     pub(crate) fn native_parameters(self) -> Result<(f32, i32), IntegrationError> {
         match self {

@@ -64,106 +64,106 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
-| `slatec::polynomials::chebyshev::chebyshev_series` | `DCSEVL` | polynomials | f64 | validated scalar numerical function | `std` | `special-functions-polynomials` | [polynomials](../../examples/special/functions.rs) |
-| `slatec::polynomials::chebyshev::chebyshev_series_f32` | `CSEVL` | polynomials | f32 | validated scalar numerical function | `std` | `special-functions-polynomials` | [polynomials](../../examples/special/functions.rs) |
-| `slatec::quadrature::integrate` | `DQAG` | quadrature | f64 | adaptive finite-interval integration | `std` | `quadrature` | [finite](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_f32` | `QAG` | quadrature | f32 | adaptive finite-interval integration | `std` | `quadrature` | [finite](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_fourier_tail` | `DQAWF` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [infinite_fourier_tail](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_fourier_tail_f32` | `QAWF` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [infinite_fourier_tail](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_infinite` | `DQAGI` | quadrature | f64 | adaptive infinite-interval integration | `std` | `quadrature` | [infinite](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_infinite_f32` | `QAGI` | quadrature | f32 | adaptive infinite-interval integration | `std` | `quadrature` | [infinite](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_nc79` | `DQNC79` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [finite_nc79](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_nc79_f32` | `QNC79` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [finite_nc79](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_non_adaptive` | `DQNG` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [finite_non_adaptive](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_non_adaptive_f32` | `QNG` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [finite_non_adaptive](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_oscillatory` | `DQAWO` | quadrature | f64 | finite oscillatory integration | `std` | `quadrature` | [finite_oscillatory](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_oscillatory_f32` | `QAWO` | quadrature | f32 | finite oscillatory integration | `std` | `quadrature` | [finite_oscillatory](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_principal_value` | `DQAWC` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_principal_value_f32` | `QAWC` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_singular` | `DQAGS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_singular_f32` | `QAGS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_weighted_endpoints` | `DQAWS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_weighted_endpoints_f32` | `QAWS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_with_breakpoints` | `DQAGP` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature` | [finite_breakpoints](../../examples/quadrature/families.rs) |
-| `slatec::quadrature::integrate_with_breakpoints_f32` | `QAGP` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature` | [finite_breakpoints](../../examples/quadrature/families.rs) |
-| `slatec::roots::find_root` | `DFZERO` | roots | f64 | bracketed scalar root finding | `std` | `roots` | [bracketed scalar root](../../examples/roots/scalar.rs) |
-| `slatec::roots::find_root_f32` | `FZERO` | roots | f32 | bracketed scalar root finding | `std` | `roots` | [bracketed scalar root](../../examples/roots/scalar.rs) |
-| `slatec::special::airy::airy_ai` | `DAI` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_ai_f32` | `AI` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_ai_scaled` | `DAIE` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_ai_scaled_f32` | `AIE` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_bi` | `DBI` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_bi_f32` | `BI` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_bi_scaled` | `DBIE` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::airy::airy_bi_scaled_f32` | `BIE` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [airy](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i0` | `DBESI0` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i0_f32` | `BESI0` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i0_scaled` | `DBSI0E` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i0_scaled_f32` | `BESI0E` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i1` | `DBESI1` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i1_f32` | `BESI1` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i1_scaled` | `DBSI1E` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_i1_scaled_f32` | `BESI1E` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_j0` | `DBESJ0` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_j0_f32` | `BESJ0` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_j1` | `DBESJ1` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_j1_f32` | `BESJ1` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k0` | `DBESK0` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k0_f32` | `BESK0` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k0_scaled` | `DBSK0E` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k0_scaled_f32` | `BESK0E` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k1` | `DBESK1` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k1_f32` | `BESK1` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k1_scaled` | `DBSK1E` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_k1_scaled_f32` | `BESK1E` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_y0` | `DBESY0` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_y0_f32` | `BESY0` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_y1` | `DBESY1` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::bessel::bessel_y1_f32` | `BESY1` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [bessel](../../examples/special/functions.rs) |
-| `slatec::special::elementary::cbrt` | `DCBRT` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::cbrt_f32` | `CBRT` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::cos_degrees` | `DCOSDG` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::cos_degrees_f32` | `COSDG` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::dawson` | `DDAWS` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::dawson_f32` | `DAWS` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::exprel` | `DEXPRL` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::exprel_f32` | `EXPREL` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::log1p` | `DLNREL` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::log1p_f32` | `ALNREL` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::sin_degrees` | `DSINDG` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::elementary::sin_degrees_f32` | `SINDG` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::error_functions::erf` | `DERF` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [error_functions](../../examples/special/functions.rs) |
-| `slatec::special::error_functions::erf_f32` | `ERF` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [error_functions](../../examples/special/functions.rs) |
-| `slatec::special::error_functions::erfc` | `DERFC` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [error_functions](../../examples/special/functions.rs) |
-| `slatec::special::error_functions::erfc_f32` | `ERFC` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [error_functions](../../examples/special/functions.rs) |
-| `slatec::special::gamma::beta` | `DBETA` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::beta_f32` | `BETA` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::binomial_coefficient` | `DBINOM` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::gamma::binomial_coefficient_f32` | `BINOM` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::gamma::digamma` | `DPSI` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::digamma_f32` | `PSI` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::factorial` | `DFAC` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::gamma::factorial_f32` | `FAC` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::gamma::gamma` | `DGAMMA` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::gamma_f32` | `GAMMA` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::incomplete_gamma_lower` | `DGAMI` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::incomplete_gamma_lower_f32` | `GAMI` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::incomplete_gamma_upper` | `DGAMIC` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::incomplete_gamma_upper_f32` | `GAMIC` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::log_beta` | `DLBETA` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::log_beta_f32` | `ALBETA` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::log_gamma` | `DLNGAM` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::log_gamma_f32` | `ALNGAM` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::reciprocal_gamma` | `DGAMR` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::reciprocal_gamma_f32` | `GAMR` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::regularized_beta` | `DBETAI` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [probability](../../examples/special/functions.rs) |
-| `slatec::special::gamma::regularized_beta_f32` | `BETAI` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [probability](../../examples/special/functions.rs) |
-| `slatec::special::gamma::tricomi_incomplete_gamma` | `DGAMIT` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::tricomi_incomplete_gamma_f32` | `GAMIT` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::integrals::exponential_integral_e1` | `DE1` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [integrals](../../examples/special/functions.rs) |
-| `slatec::special::integrals::exponential_integral_e1_f32` | `E1` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [integrals](../../examples/special/functions.rs) |
-| `slatec::special::integrals::exponential_integral_ei` | `DEI` | special functions | f64 | validated scalar numerical function | `std` | `special-functions` | [integrals](../../examples/special/functions.rs) |
-| `slatec::special::integrals::exponential_integral_ei_f32` | `EI` | special functions | f32 | validated scalar numerical function | `std` | `special-functions` | [integrals](../../examples/special/functions.rs) |
+| `slatec::polynomials::chebyshev::chebyshev_series` | `DCSEVL` | polynomials | f64 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
+| `slatec::polynomials::chebyshev::chebyshev_series_f32` | `CSEVL` | polynomials | f32 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
+| `slatec::quadrature::integrate` | `DQAG` | quadrature | f64 | adaptive finite-interval integration | `std` | `quadrature-basic` | [finite](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_f32` | `QAG` | quadrature | f32 | adaptive finite-interval integration | `std` | `quadrature-basic` | [finite](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_fourier_tail` | `DQAWF` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-fourier` | [infinite_fourier_tail](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_fourier_tail_f32` | `QAWF` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-fourier` | [infinite_fourier_tail](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_infinite` | `DQAGI` | quadrature | f64 | adaptive infinite-interval integration | `std` | `quadrature-basic` | [infinite](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_infinite_f32` | `QAGI` | quadrature | f32 | adaptive infinite-interval integration | `std` | `quadrature-basic` | [infinite](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_nc79` | `DQNC79` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-nonadaptive` | [finite_nc79](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_nc79_f32` | `QNC79` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-nonadaptive` | [finite_nc79](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_non_adaptive` | `DQNG` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-nonadaptive` | [finite_non_adaptive](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_non_adaptive_f32` | `QNG` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-nonadaptive` | [finite_non_adaptive](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_oscillatory` | `DQAWO` | quadrature | f64 | finite oscillatory integration | `std` | `quadrature-oscillatory` | [finite_oscillatory](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_oscillatory_f32` | `QAWO` | quadrature | f32 | finite oscillatory integration | `std` | `quadrature-oscillatory` | [finite_oscillatory](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_principal_value` | `DQAWC` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_principal_value_f32` | `QAWC` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_singular` | `DQAGS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_singular_f32` | `QAGS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_weighted_endpoints` | `DQAWS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_weighted_endpoints_f32` | `QAWS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_with_breakpoints` | `DQAGP` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_with_breakpoints_f32` | `QAGP` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
+| `slatec::roots::find_root` | `DFZERO` | roots | f64 | bracketed scalar root finding | `std` | `roots-scalar` | [bracketed scalar root](../../examples/roots/scalar.rs) |
+| `slatec::roots::find_root_f32` | `FZERO` | roots | f32 | bracketed scalar root finding | `std` | `roots-scalar` | [bracketed scalar root](../../examples/roots/scalar.rs) |
+| `slatec::special::airy::airy_ai` | `DAI` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_ai_f32` | `AI` | special functions | f32 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_ai_scaled` | `DAIE` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_ai_scaled_f32` | `AIE` | special functions | f32 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_bi` | `DBI` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_bi_f32` | `BI` | special functions | f32 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_bi_scaled` | `DBIE` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::airy::airy_bi_scaled_f32` | `BIE` | special functions | f32 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i0` | `DBESI0` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i0_f32` | `BESI0` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i0_scaled` | `DBSI0E` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i0_scaled_f32` | `BESI0E` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i1` | `DBESI1` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i1_f32` | `BESI1` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i1_scaled` | `DBSI1E` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_i1_scaled_f32` | `BESI1E` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_j0` | `DBESJ0` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_j0_f32` | `BESJ0` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_j1` | `DBESJ1` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_j1_f32` | `BESJ1` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k0` | `DBESK0` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k0_f32` | `BESK0` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k0_scaled` | `DBSK0E` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k0_scaled_f32` | `BESK0E` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k1` | `DBESK1` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k1_f32` | `BESK1` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k1_scaled` | `DBSK1E` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_k1_scaled_f32` | `BESK1E` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_y0` | `DBESY0` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_y0_f32` | `BESY0` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_y1` | `DBESY1` | special functions | f64 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::bessel::bessel_y1_f32` | `BESY1` | special functions | f32 | validated scalar numerical function | `std` | `special-bessel` | [bessel](../../examples/special/functions.rs) |
+| `slatec::special::elementary::cbrt` | `DCBRT` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::cbrt_f32` | `CBRT` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::cos_degrees` | `DCOSDG` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::cos_degrees_f32` | `COSDG` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::dawson` | `DDAWS` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::dawson_f32` | `DAWS` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::exprel` | `DEXPRL` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::exprel_f32` | `EXPREL` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::log1p` | `DLNREL` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::log1p_f32` | `ALNREL` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::sin_degrees` | `DSINDG` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::elementary::sin_degrees_f32` | `SINDG` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::error_functions::erf` | `DERF` | special functions | f64 | validated scalar numerical function | `std` | `special-error` | [error_functions](../../examples/special/functions.rs) |
+| `slatec::special::error_functions::erf_f32` | `ERF` | special functions | f32 | validated scalar numerical function | `std` | `special-error` | [error_functions](../../examples/special/functions.rs) |
+| `slatec::special::error_functions::erfc` | `DERFC` | special functions | f64 | validated scalar numerical function | `std` | `special-error` | [error_functions](../../examples/special/functions.rs) |
+| `slatec::special::error_functions::erfc_f32` | `ERFC` | special functions | f32 | validated scalar numerical function | `std` | `special-error` | [error_functions](../../examples/special/functions.rs) |
+| `slatec::special::gamma::beta` | `DBETA` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::beta_f32` | `BETA` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::binomial_coefficient` | `DBINOM` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::gamma::binomial_coefficient_f32` | `BINOM` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::gamma::digamma` | `DPSI` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::digamma_f32` | `PSI` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::factorial` | `DFAC` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::gamma::factorial_f32` | `FAC` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::gamma::gamma` | `DGAMMA` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::gamma_f32` | `GAMMA` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::incomplete_gamma_lower` | `DGAMI` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::incomplete_gamma_lower_f32` | `GAMI` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::incomplete_gamma_upper` | `DGAMIC` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::incomplete_gamma_upper_f32` | `GAMIC` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::log_beta` | `DLBETA` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::log_beta_f32` | `ALBETA` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::log_gamma` | `DLNGAM` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::log_gamma_f32` | `ALNGAM` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::reciprocal_gamma` | `DGAMR` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::reciprocal_gamma_f32` | `GAMR` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::regularized_beta` | `DBETAI` | special functions | f64 | validated scalar numerical function | `std` | `special` | [probability](../../examples/special/functions.rs) |
+| `slatec::special::gamma::regularized_beta_f32` | `BETAI` | special functions | f32 | validated scalar numerical function | `std` | `special` | [probability](../../examples/special/functions.rs) |
+| `slatec::special::gamma::tricomi_incomplete_gamma` | `DGAMIT` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::gamma::tricomi_incomplete_gamma_f32` | `GAMIT` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
+| `slatec::special::integrals::exponential_integral_e1` | `DE1` | special functions | f64 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
+| `slatec::special::integrals::exponential_integral_e1_f32` | `E1` | special functions | f32 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
+| `slatec::special::integrals::exponential_integral_ei` | `DEI` | special functions | f64 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
+| `slatec::special::integrals::exponential_integral_ei_f32` | `EI` | special functions | f32 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
 
 ## Original Fortran routine index
 

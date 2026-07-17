@@ -207,25 +207,22 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         "generated/safe-api/special-function-wrapper-index.json",
         &mut output,
         |row, columns| {
+            let family = column(row, columns, "family")?;
             Ok(record(
                 column(row, columns, "safe_path")?,
                 column(row, columns, "raw_symbol")?
                     .trim_end_matches('_')
                     .to_ascii_uppercase()
                     .as_str(),
-                if column(row, columns, "family")? == "polynomials" {
+                if family == "polynomials" {
                     "polynomials"
                 } else {
                     "special functions"
                 },
                 column(row, columns, "precision")?,
-                column(row, columns, "family")?,
+                family,
                 "std",
-                if column(row, columns, "family")? == "polynomials" {
-                    "special-functions-polynomials"
-                } else {
-                    "special-functions"
-                },
+                special_feature(family),
             ))
         },
     )?;
@@ -233,14 +230,15 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         "generated/safe-api/quadrature-wrapper-index.json",
         &mut output,
         |row, columns| {
+            let path = column(row, columns, "safe_path")?;
             Ok(record(
-                column(row, columns, "safe_path")?,
+                path,
                 column(row, columns, "raw_routine")?,
                 "quadrature",
                 column(row, columns, "precision")?,
                 column(row, columns, "quadrature_family")?,
                 "std",
-                "quadrature",
+                quadrature_feature(path),
             ))
         },
     )?;
@@ -255,11 +253,41 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
                 column(row, columns, "precision")?,
                 "bracketed scalar root",
                 "std",
-                "roots",
+                "roots-scalar",
             ))
         },
     )?;
     Ok(output)
+}
+
+fn special_feature(family: &str) -> &'static str {
+    match family {
+        "elementary" => "special-elementary",
+        "gamma" => "special-gamma",
+        "beta" => "special-beta",
+        "error_functions" => "special-error",
+        "airy" => "special-airy",
+        "bessel" => "special-bessel",
+        "integrals" => "special-integrals",
+        "polynomials" => "special-polynomials",
+        _ => "special",
+    }
+}
+
+fn quadrature_feature(path: &str) -> &'static str {
+    if path.contains("breakpoint") {
+        "quadrature-breakpoints"
+    } else if path.contains("weighted_endpoint") {
+        "quadrature-weighted"
+    } else if path.contains("oscillatory") {
+        "quadrature-oscillatory"
+    } else if path.contains("fourier") {
+        "quadrature-fourier"
+    } else if path.contains("non_adaptive") || path.contains("nc79") {
+        "quadrature-nonadaptive"
+    } else {
+        "quadrature-basic"
+    }
 }
 
 fn collect_columnar(

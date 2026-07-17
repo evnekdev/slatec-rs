@@ -6,6 +6,7 @@ use slatec_tools::extract;
 use slatec_tools::ffi_inventory;
 use slatec_tools::ffi_validation;
 use slatec_tools::full_corpus;
+use slatec_tools::linkage;
 use slatec_tools::manifest;
 use slatec_tools::native_probe;
 use slatec_tools::policy::Policy;
@@ -110,6 +111,11 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-linkage-metadata"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/linkage");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -416,8 +422,20 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "generate-linkage-metadata" => {
+            let result = linkage::generate(
+                &PathBuf::from("."),
+                &options.output_dir,
+                &PathBuf::from("crates/slatec-src/metadata/family-source-closure.json"),
+            )?;
+            println!(
+                "success: snapshot {} families {} ({})",
+                result.snapshot_id, result.family_count, result.semantic_hash
+            );
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, or generate-safe-api-docs",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-api-docs, or generate-linkage-metadata",
             options.command
         ))),
     }

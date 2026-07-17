@@ -5,8 +5,7 @@
 //! position from the base address; this module validates that position before
 //! making the call and deliberately passes the base pointer to Fortran.
 
-use slatec_sys::generated::numeric_array_subroutines as arrays;
-use slatec_sys::generated::scalar_functions as functions;
+use slatec_sys::families::blas_level1 as raw;
 
 use super::{BlasError, validation};
 use validation::{count, increment, input_pointer, matching_lengths, output_pointer};
@@ -35,7 +34,7 @@ pub fn dcopy_strided(
     }
     // Safety: vectors were storage-checked for the logical BLAS access;
     // `y` is uniquely borrowed; all scalar arguments use the validated ABI.
-    unsafe { arrays::dcopy(&mut n, x, &mut incx, y, &mut incy) };
+    unsafe { raw::dcopy(&mut n, x, &mut incx, y, &mut incy) };
     Ok(())
 }
 
@@ -63,7 +62,7 @@ pub fn dswap_strided(
     }
     // Safety: both vectors were storage-checked and are distinct mutable
     // borrows; all values match the validated GNU MinGW raw ABI.
-    unsafe { arrays::dswap(&mut n, x, &mut incx, y, &mut incy) };
+    unsafe { raw::dswap(&mut n, x, &mut incx, y, &mut incy) };
     Ok(())
 }
 
@@ -83,7 +82,7 @@ pub fn dscal_strided(n: usize, alpha: f64, x: &mut [f64], incx: isize) -> Result
     }
     // Safety: `x` is a unique, storage-checked vector and the local scalar
     // values satisfy the validated raw ABI.
-    unsafe { arrays::dscal(&mut n, &mut alpha, x, &mut incx) };
+    unsafe { raw::dscal(&mut n, &mut alpha, x, &mut incx) };
     Ok(())
 }
 
@@ -123,7 +122,7 @@ pub fn daxpy_strided(
     }
     // Safety: `x` is read only, `y` is uniquely borrowed, both vectors were
     // storage-checked, and all arguments use the validated raw ABI.
-    unsafe { arrays::daxpy(&mut n, &mut alpha, x, &mut incx, y, &mut incy) };
+    unsafe { raw::daxpy(&mut n, &mut alpha, x, &mut incx, y, &mut incy) };
     Ok(())
 }
 
@@ -151,7 +150,7 @@ pub fn ddot_strided(
     }
     // Safety: both vectors are read-only, storage-checked backing stores for
     // the selected routine and all scalar arguments fit its ABI.
-    Ok(unsafe { functions::ddot(&mut n, x, &mut incx, y, &mut incy) })
+    Ok(unsafe { raw::ddot(&mut n, x, &mut incx, y, &mut incy) })
 }
 
 /// Returns the Euclidean norm of `x` using unit stride.
@@ -169,7 +168,7 @@ pub fn dnrm2_strided(n: usize, x: &[f64], incx: isize) -> Result<f64, BlasError>
     }
     // Safety: `x` is read-only and storage-checked, and the raw arguments
     // conform to the validated ABI profile.
-    Ok(unsafe { functions::dnrm2(&mut n, x, &mut incx) })
+    Ok(unsafe { raw::dnrm2(&mut n, x, &mut incx) })
 }
 
 /// Returns the sum of absolute values of `x` using unit stride.
@@ -187,7 +186,7 @@ pub fn dasum_strided(n: usize, x: &[f64], incx: isize) -> Result<f64, BlasError>
     }
     // Safety: `x` is read-only and storage-checked, and the raw arguments
     // conform to the validated ABI profile.
-    Ok(unsafe { functions::dasum(&mut n, x, &mut incx) })
+    Ok(unsafe { raw::dasum(&mut n, x, &mut incx) })
 }
 
 /// Returns the zero-based index of the first maximum-magnitude value.
@@ -205,7 +204,7 @@ pub fn idamax_strided(n: usize, x: &[f64], incx: isize) -> Result<Option<usize>,
     }
     // Safety: `x` is read-only and storage-checked, and the raw arguments
     // conform to the validated ABI profile.
-    let one_based = unsafe { functions::idamax(&mut n_fortran, x, &mut incx) };
+    let one_based = unsafe { raw::idamax(&mut n_fortran, x, &mut incx) };
     let one_based = usize::try_from(one_based).map_err(|_| BlasError::NativeContractViolation {
         routine: "IDAMAX",
         detail: "returned a negative index",
@@ -247,7 +246,7 @@ pub fn drot_strided(
     }
     // Safety: both vector arguments are distinct mutable, storage-checked
     // borrows; scalar arguments and symbols use the validated raw ABI.
-    unsafe { arrays::drot(&mut n, x, &mut incx, y, &mut incy, &mut c, &mut s) };
+    unsafe { raw::drot(&mut n, x, &mut incx, y, &mut incy, &mut c, &mut s) };
     Ok(())
 }
 
@@ -275,7 +274,7 @@ pub fn scopy_strided(
     }
     // Safety: vectors were storage-checked for the logical BLAS access;
     // `y` is uniquely borrowed; all scalar arguments use the validated ABI.
-    unsafe { arrays::scopy(&mut n, x, &mut incx, y, &mut incy) };
+    unsafe { raw::scopy(&mut n, x, &mut incx, y, &mut incy) };
     Ok(())
 }
 
@@ -303,7 +302,7 @@ pub fn sswap_strided(
     }
     // Safety: both vectors were storage-checked and are distinct mutable
     // borrows; all values match the validated GNU MinGW raw ABI.
-    unsafe { arrays::sswap(&mut n, x, &mut incx, y, &mut incy) };
+    unsafe { raw::sswap(&mut n, x, &mut incx, y, &mut incy) };
     Ok(())
 }
 
@@ -323,7 +322,7 @@ pub fn sscal_strided(n: usize, alpha: f32, x: &mut [f32], incx: isize) -> Result
     }
     // Safety: `x` is a unique, storage-checked vector and the local scalar
     // values satisfy the validated raw ABI.
-    unsafe { arrays::sscal(&mut n, &mut alpha, x, &mut incx) };
+    unsafe { raw::sscal(&mut n, &mut alpha, x, &mut incx) };
     Ok(())
 }
 
@@ -353,7 +352,7 @@ pub fn saxpy_strided(
     }
     // Safety: `x` is read only, `y` is uniquely borrowed, both vectors were
     // storage-checked, and all arguments use the validated raw ABI.
-    unsafe { arrays::saxpy(&mut n, &mut alpha, x, &mut incx, y, &mut incy) };
+    unsafe { raw::saxpy(&mut n, &mut alpha, x, &mut incx, y, &mut incy) };
     Ok(())
 }
 
@@ -381,7 +380,7 @@ pub fn sdot_strided(
     }
     // Safety: both vectors are read-only, storage-checked backing stores for
     // the selected routine and all scalar arguments fit its ABI.
-    Ok(unsafe { functions::sdot(&mut n, x, &mut incx, y, &mut incy) })
+    Ok(unsafe { raw::sdot(&mut n, x, &mut incx, y, &mut incy) })
 }
 
 /// Returns the Euclidean norm of `x` using unit stride.
@@ -399,7 +398,7 @@ pub fn snrm2_strided(n: usize, x: &[f32], incx: isize) -> Result<f32, BlasError>
     }
     // Safety: `x` is read-only and storage-checked, and the raw arguments
     // conform to the validated ABI profile.
-    Ok(unsafe { functions::snrm2(&mut n, x, &mut incx) })
+    Ok(unsafe { raw::snrm2(&mut n, x, &mut incx) })
 }
 
 /// Returns the sum of absolute values of `x` using unit stride.
@@ -417,7 +416,7 @@ pub fn sasum_strided(n: usize, x: &[f32], incx: isize) -> Result<f32, BlasError>
     }
     // Safety: `x` is read-only and storage-checked, and the raw arguments
     // conform to the validated ABI profile.
-    Ok(unsafe { functions::sasum(&mut n, x, &mut incx) })
+    Ok(unsafe { raw::sasum(&mut n, x, &mut incx) })
 }
 
 /// Returns the zero-based index of the first maximum-magnitude value.
@@ -435,7 +434,7 @@ pub fn isamax_strided(n: usize, x: &[f32], incx: isize) -> Result<Option<usize>,
     }
     // Safety: `x` is read-only and storage-checked, and the raw arguments
     // conform to the validated ABI profile.
-    let one_based = unsafe { functions::isamax(&mut n_fortran, x, &mut incx) };
+    let one_based = unsafe { raw::isamax(&mut n_fortran, x, &mut incx) };
     let one_based = usize::try_from(one_based).map_err(|_| BlasError::NativeContractViolation {
         routine: "ISAMAX",
         detail: "returned a negative index",
@@ -477,7 +476,7 @@ pub fn srot_strided(
     }
     // Safety: both vector arguments are distinct mutable, storage-checked
     // borrows; scalar arguments and symbols use the validated raw ABI.
-    unsafe { arrays::srot(&mut n, x, &mut incx, y, &mut incy, &mut c, &mut s) };
+    unsafe { raw::srot(&mut n, x, &mut incx, y, &mut incy, &mut c, &mut s) };
     Ok(())
 }
 

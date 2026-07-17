@@ -1,0 +1,50 @@
+[package]
+name = "slatec-src"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+links = "slatec_src"
+build = "build.rs"
+description = "Implementation-provider selection and native linking for slatec-rs"
+include = ["src/**", "metadata/**", "native/**", "build.rs", "Cargo.toml"]
+
+[features]
+default = []
+bundled = []
+source-build = []
+system = []
+external-backend = []
+
+blas = ["blas-level1", "blas-level2", "blas-level3"]
+blas-level1 = []
+blas-level2 = []
+blas-level3 = []
+special = ["special-elementary", "special-gamma", "special-beta", "special-error", "special-airy", "special-bessel", "special-integrals", "special-polynomials"]
+special-elementary = []
+special-gamma = []
+special-beta = []
+special-error = []
+special-airy = []
+special-bessel = []
+special-integrals = []
+special-polynomials = []
+quadrature = ["quadrature-basic", "quadrature-breakpoints", "quadrature-weighted", "quadrature-oscillatory", "quadrature-fourier", "quadrature-nonadaptive"]
+quadrature-basic = []
+quadrature-breakpoints = []
+quadrature-weighted = []
+quadrature-oscillatory = []
+quadrature-fourier = []
+quadrature-nonadaptive = []
+roots = ["roots-scalar", "roots-polynomial"]
+roots-scalar = []
+roots-polynomial = []
+
+[dependencies]
+
+[build-dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+sha2.workspace = true
+ureq.workspace = true

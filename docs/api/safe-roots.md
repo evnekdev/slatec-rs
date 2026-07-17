@@ -71,12 +71,9 @@ callbacks nor their dense work arrays.
 ## Native setup
 
 ```text
-cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline
-$env:SLATEC_NATIVE_LIB_DIR = "<ignored native archive directory>"
-$env:SLATEC_GFORTRAN_RUNTIME_DIR = "<GNU Fortran runtime directory>"
 cargo test -p slatec --features roots-native-tests --target x86_64-pc-windows-gnu --test roots_native -- --test-threads=1
 ```
 
-Source-only builds and validation tests do not require a Fortran compiler or
-native archive. Objects, archives, executables, and detailed native evidence
-remain ignored.
+The default `bundled` provider supplies the verified native family closure.
+Source-only checks can instead select `external-backend`. Objects, archives,
+executables, and detailed native evidence remain ignored.
