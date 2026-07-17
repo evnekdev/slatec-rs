@@ -24,6 +24,11 @@ macro_rules! impl_real_level2 {
         $trmv:ident,
         $trsv:ident
     ) => {
+        #[doc = concat!(
+            "Computes `y = alpha * op(A) * x + beta * y` with the original SLATEC routine `",
+            stringify!($gemv),
+            "`.\n\nMatrices use column-major storage; `rows` and `cols` describe stored `A`, `lda` is its leading dimension, and `incx`/`incy` describe logical vector strides. The wrapper checks all counts, strides, and backing slices and returns [`BlasError`] without calling Fortran on invalid input.\n\nSee `examples/blas/level2.rs` for a complete, numerically checked example."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $gemv(
             transpose: Transpose,
@@ -78,6 +83,13 @@ macro_rules! impl_real_level2 {
             Ok(())
         }
 
+        #[doc = concat!(
+            "Tightly packed, unit-stride convenience wrapper for [`",
+            stringify!($gemv),
+            "`]. It infers only `lda = max(1, rows)` and unit vector increments. Original SLATEC routine: `",
+            stringify!($gemv),
+            "`. See `examples/blas/level2.rs` for a checked matrix-vector example."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $gemv_contiguous(
             transpose: Transpose,
@@ -104,6 +116,11 @@ macro_rules! impl_real_level2 {
             )
         }
 
+        #[doc = concat!(
+            "Performs the rank-one update `A = alpha * x * y^T + A` with original SLATEC routine `",
+            stringify!($ger),
+            "`. `A` is an `m` by `n` column-major matrix with leading dimension `lda`; the vectors use `incx` and `incy`. Storage and integer conversions are checked before FFI. See `examples/blas/level2.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $ger(
             m: usize,
@@ -149,6 +166,11 @@ macro_rules! impl_real_level2 {
             Ok(())
         }
 
+        #[doc = concat!(
+            "Computes `y = alpha * A * x + beta * y` for a symmetric matrix using original SLATEC routine `",
+            stringify!($symv),
+            "`. `triangle` selects the stored half of the `n` by `n` column-major matrix; `lda`, vector increments, and slice lengths are validated. See `examples/blas/level2.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $symv(
             triangle: Triangle,
@@ -198,6 +220,11 @@ macro_rules! impl_real_level2 {
             Ok(())
         }
 
+        #[doc = concat!(
+            "Replaces `x` with `op(A) * x` for a triangular matrix using original SLATEC routine `",
+            stringify!($trmv),
+            "`. The selectors define the stored triangle, transpose, and diagonal; `A` is column-major and `x` is a checked strided mutable slice. See `examples/blas/level2.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $trmv(
             triangle: Triangle,
@@ -223,6 +250,11 @@ macro_rules! impl_real_level2 {
             )
         }
 
+        #[doc = concat!(
+            "Solves `op(A) * x = b` in place for triangular `A` using original SLATEC routine `",
+            stringify!($trsv),
+            "`. On success `x` contains the solution; selectors, column-major storage, stride, and integer bounds are checked. Singular diagonals are a numerical precondition of the original BLAS routine. See `examples/blas/level2.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $trsv(
             triangle: Triangle,

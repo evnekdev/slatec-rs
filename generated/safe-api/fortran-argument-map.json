@@ -1,0 +1,5043 @@
+{
+  "schema_id": "slatec.safe-api.fortran-argument-map",
+  "schema_version": "1.0.0",
+  "semantic_version": "1",
+  "records": [
+    {
+      "rust_path": "slatec::blas::level1::dasum",
+      "fortran_routine": "DASUM",
+      "program_unit_id": "full-provider-8fd6283cb1142d44",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dasum_strided",
+      "fortran_routine": "DASUM",
+      "program_unit_id": "full-provider-8fd6283cb1142d44",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::daxpy",
+      "fortran_routine": "DAXPY",
+      "program_unit_id": "full-provider-f31ee65504b5a1da",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "da",
+          "fortran": "DA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::daxpy_strided",
+      "fortran_routine": "DAXPY",
+      "program_unit_id": "full-provider-f31ee65504b5a1da",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "da",
+          "fortran": "DA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dcopy",
+      "fortran_routine": "DCOPY",
+      "program_unit_id": "full-provider-11066d5d32da9d80",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dcopy_strided",
+      "fortran_routine": "DCOPY",
+      "program_unit_id": "full-provider-11066d5d32da9d80",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::ddot",
+      "fortran_routine": "DDOT",
+      "program_unit_id": "full-provider-844cb3a9fca9c8fd",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::ddot_strided",
+      "fortran_routine": "DDOT",
+      "program_unit_id": "full-provider-844cb3a9fca9c8fd",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dnrm2",
+      "fortran_routine": "DNRM2",
+      "program_unit_id": "full-provider-010420d14360a2c6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dnrm2_strided",
+      "fortran_routine": "DNRM2",
+      "program_unit_id": "full-provider-010420d14360a2c6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::drot",
+      "fortran_routine": "DROT",
+      "program_unit_id": "full-provider-e03fe1d3ee149237",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dc",
+          "fortran": "DC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ds",
+          "fortran": "DS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::drot_strided",
+      "fortran_routine": "DROT",
+      "program_unit_id": "full-provider-e03fe1d3ee149237",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dc",
+          "fortran": "DC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ds",
+          "fortran": "DS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dscal",
+      "fortran_routine": "DSCAL",
+      "program_unit_id": "full-provider-a9ae7eaae41546ca",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "da",
+          "fortran": "DA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dscal_strided",
+      "fortran_routine": "DSCAL",
+      "program_unit_id": "full-provider-a9ae7eaae41546ca",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "da",
+          "fortran": "DA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dswap",
+      "fortran_routine": "DSWAP",
+      "program_unit_id": "full-provider-4093a09ebc087c32",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::dswap_strided",
+      "fortran_routine": "DSWAP",
+      "program_unit_id": "full-provider-4093a09ebc087c32",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dy",
+          "fortran": "DY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::idamax",
+      "fortran_routine": "IDAMAX",
+      "program_unit_id": "full-provider-03dd7cd6ab981b5d",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::idamax_strided",
+      "fortran_routine": "IDAMAX",
+      "program_unit_id": "full-provider-03dd7cd6ab981b5d",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "dx",
+          "fortran": "DX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::isamax",
+      "fortran_routine": "ISAMAX",
+      "program_unit_id": "full-provider-1d3cb7d5594f5db1",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::isamax_strided",
+      "fortran_routine": "ISAMAX",
+      "program_unit_id": "full-provider-1d3cb7d5594f5db1",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sasum",
+      "fortran_routine": "SASUM",
+      "program_unit_id": "full-provider-014398e8138837ef",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sasum_strided",
+      "fortran_routine": "SASUM",
+      "program_unit_id": "full-provider-014398e8138837ef",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::saxpy",
+      "fortran_routine": "SAXPY",
+      "program_unit_id": "full-provider-d106ad3804c20e5d",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sa",
+          "fortran": "SA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::saxpy_strided",
+      "fortran_routine": "SAXPY",
+      "program_unit_id": "full-provider-d106ad3804c20e5d",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sa",
+          "fortran": "SA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::scopy",
+      "fortran_routine": "SCOPY",
+      "program_unit_id": "full-provider-ce5228372c90647f",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::scopy_strided",
+      "fortran_routine": "SCOPY",
+      "program_unit_id": "full-provider-ce5228372c90647f",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sdot",
+      "fortran_routine": "SDOT",
+      "program_unit_id": "full-provider-35f2e5e233709c3e",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sdot_strided",
+      "fortran_routine": "SDOT",
+      "program_unit_id": "full-provider-35f2e5e233709c3e",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::snrm2",
+      "fortran_routine": "SNRM2",
+      "program_unit_id": "full-provider-f3a1afce36b35827",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::snrm2_strided",
+      "fortran_routine": "SNRM2",
+      "program_unit_id": "full-provider-f3a1afce36b35827",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::srot",
+      "fortran_routine": "SROT",
+      "program_unit_id": "full-provider-f2f32b7a6a41f5db",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sc",
+          "fortran": "SC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ss",
+          "fortran": "SS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::srot_strided",
+      "fortran_routine": "SROT",
+      "program_unit_id": "full-provider-f2f32b7a6a41f5db",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sc",
+          "fortran": "SC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ss",
+          "fortran": "SS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sscal",
+      "fortran_routine": "SSCAL",
+      "program_unit_id": "full-provider-09099ab5635b8fa3",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sa",
+          "fortran": "SA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sscal_strided",
+      "fortran_routine": "SSCAL",
+      "program_unit_id": "full-provider-09099ab5635b8fa3",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sa",
+          "fortran": "SA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sswap",
+      "fortran_routine": "SSWAP",
+      "program_unit_id": "full-provider-f52692fc8ca0bce9",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level1::sswap_strided",
+      "fortran_routine": "SSWAP",
+      "program_unit_id": "full-provider-f52692fc8ca0bce9",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sx",
+          "fortran": "SX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "sy",
+          "fortran": "SY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::dgemv",
+      "fortran_routine": "DGEMV",
+      "program_unit_id": "full-provider-892b90618050293c",
+      "arguments": [
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::dgemv_contiguous",
+      "fortran_routine": "DGEMV",
+      "program_unit_id": "full-provider-892b90618050293c",
+      "arguments": [
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDA",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "INCX",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "INCY",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::dger",
+      "fortran_routine": "DGER",
+      "program_unit_id": "full-provider-9159dc7c314e7342",
+      "arguments": [
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::dsymv",
+      "fortran_routine": "DSYMV",
+      "program_unit_id": "full-provider-537811ea4507de9d",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::dtrmv",
+      "fortran_routine": "DTRMV",
+      "program_unit_id": "full-provider-8affef5b867e516b",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::dtrsv",
+      "fortran_routine": "DTRSV",
+      "program_unit_id": "full-provider-2cf8628c34f7bbf7",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::sgemv",
+      "fortran_routine": "SGEMV",
+      "program_unit_id": "full-provider-c0f8341783facdb3",
+      "arguments": [
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::sgemv_contiguous",
+      "fortran_routine": "SGEMV",
+      "program_unit_id": "full-provider-c0f8341783facdb3",
+      "arguments": [
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDA",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "INCX",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "INCY",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::sger",
+      "fortran_routine": "SGER",
+      "program_unit_id": "full-provider-3a9e0b8565c6df78",
+      "arguments": [
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::ssymv",
+      "fortran_routine": "SSYMV",
+      "program_unit_id": "full-provider-cfda14a30ad21354",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incy",
+          "fortran": "INCY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::strmv",
+      "fortran_routine": "STRMV",
+      "program_unit_id": "full-provider-ecd3c21d1e5ef169",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level2::strsv",
+      "fortran_routine": "STRSV",
+      "program_unit_id": "full-provider-43b388fe1db47164",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "incx",
+          "fortran": "INCX",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::dgemm",
+      "fortran_routine": "DGEMM",
+      "program_unit_id": "full-provider-8304816992104475",
+      "arguments": [
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transb",
+          "fortran": "TRANSB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldb",
+          "fortran": "LDB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::dgemm_contiguous",
+      "fortran_routine": "DGEMM",
+      "program_unit_id": "full-provider-8304816992104475",
+      "arguments": [
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transb",
+          "fortran": "TRANSB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDA",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDB",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDC",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::dsyrk",
+      "fortran_routine": "DSYRK",
+      "program_unit_id": "full-provider-49015c300ceadad3",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::dtrmm",
+      "fortran_routine": "DTRMM",
+      "program_unit_id": "full-provider-e30eb52568bab4c2",
+      "arguments": [
+        {
+          "rust": "side",
+          "fortran": "SIDE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldb",
+          "fortran": "LDB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::dtrsm",
+      "fortran_routine": "DTRSM",
+      "program_unit_id": "full-provider-db08cd690ac8d4b3",
+      "arguments": [
+        {
+          "rust": "side",
+          "fortran": "SIDE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldb",
+          "fortran": "LDB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::sgemm",
+      "fortran_routine": "SGEMM",
+      "program_unit_id": "full-provider-a5a00e614f86f82e",
+      "arguments": [
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transb",
+          "fortran": "TRANSB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldb",
+          "fortran": "LDB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::sgemm_contiguous",
+      "fortran_routine": "SGEMM",
+      "program_unit_id": "full-provider-a5a00e614f86f82e",
+      "arguments": [
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transb",
+          "fortran": "TRANSB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDA",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDB",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LDC",
+          "transformation": "inferred by the tightly packed convenience wrapper"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::ssyrk",
+      "fortran_routine": "SSYRK",
+      "program_unit_id": "full-provider-7cc78c1abbf810dd",
+      "arguments": [
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "trans",
+          "fortran": "TRANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::strmm",
+      "fortran_routine": "STRMM",
+      "program_unit_id": "full-provider-bb823d3f343bc012",
+      "arguments": [
+        {
+          "rust": "side",
+          "fortran": "SIDE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldb",
+          "fortran": "LDB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::blas::level3::strsm",
+      "fortran_routine": "STRSM",
+      "program_unit_id": "full-provider-b1c48855a1ea9bc8",
+      "arguments": [
+        {
+          "rust": "side",
+          "fortran": "SIDE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "uplo",
+          "fortran": "UPLO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "transa",
+          "fortran": "TRANSA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "diag",
+          "fortran": "DIAG",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alpha",
+          "fortran": "ALPHA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lda",
+          "fortran": "LDA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ldb",
+          "fortran": "LDB",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::polynomials::chebyshev::chebyshev_series",
+      "fortran_routine": "DCSEVL",
+      "program_unit_id": "full-provider-b31575014b5cbefd",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "coefficients",
+          "fortran": "CS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::polynomials::chebyshev::chebyshev_series_f32",
+      "fortran_routine": "CSEVL",
+      "program_unit_id": "full-provider-dbf50cd71ad48c1f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "coefficients",
+          "fortran": "CS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate",
+      "fortran_routine": "DQAG",
+      "program_unit_id": "full-provider-bb00e82d370ce4a5",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "key",
+          "fortran": "KEY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_f32",
+      "fortran_routine": "QAG",
+      "program_unit_id": "full-provider-778eb646a2ea45de",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "key",
+          "fortran": "KEY",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_fourier_tail",
+      "fortran_routine": "DQAWF",
+      "program_unit_id": "full-provider-ae96ffe73b014795",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "omega",
+          "fortran": "OMEGA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "integr",
+          "fortran": "INTEGR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "limlst",
+          "fortran": "LIMLST",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lst",
+          "fortran": "LST",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "maxp1",
+          "fortran": "MAXP1",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_fourier_tail_f32",
+      "fortran_routine": "QAWF",
+      "program_unit_id": "full-provider-cf420411ec9fab98",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "omega",
+          "fortran": "OMEGA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "integr",
+          "fortran": "INTEGR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "limlst",
+          "fortran": "LIMLST",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "lst",
+          "fortran": "LST",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "maxp1",
+          "fortran": "MAXP1",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_infinite",
+      "fortran_routine": "DQAGI",
+      "program_unit_id": "full-provider-00476038a2ba13aa",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "bound",
+          "fortran": "BOUND",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "inf",
+          "fortran": "INF",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_infinite_f32",
+      "fortran_routine": "QAGI",
+      "program_unit_id": "full-provider-0186fd93f19c0ca2",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "bound",
+          "fortran": "BOUND",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "inf",
+          "fortran": "INF",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_nc79",
+      "fortran_routine": "DQNC79",
+      "program_unit_id": "full-provider-65bcc3da641624ce",
+      "arguments": [
+        {
+          "rust": "fun",
+          "fortran": "FUN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "err",
+          "fortran": "ERR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ans",
+          "fortran": "ANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_nc79_f32",
+      "fortran_routine": "QNC79",
+      "program_unit_id": "full-provider-93674e8c878cbf33",
+      "arguments": [
+        {
+          "rust": "fun",
+          "fortran": "FUN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "err",
+          "fortran": "ERR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ans",
+          "fortran": "ANS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_non_adaptive",
+      "fortran_routine": "DQNG",
+      "program_unit_id": "full-provider-644be9029552bc1e",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_non_adaptive_f32",
+      "fortran_routine": "QNG",
+      "program_unit_id": "full-provider-aa32f4d7fb48d2d0",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_oscillatory",
+      "fortran_routine": "DQAWO",
+      "program_unit_id": "full-provider-c6cd31e4272e104d",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "omega",
+          "fortran": "OMEGA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "integr",
+          "fortran": "INTEGR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "maxp1",
+          "fortran": "MAXP1",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_oscillatory_f32",
+      "fortran_routine": "QAWO",
+      "program_unit_id": "full-provider-188e5c4b5b5bb375",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "omega",
+          "fortran": "OMEGA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "integr",
+          "fortran": "INTEGR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "maxp1",
+          "fortran": "MAXP1",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_principal_value",
+      "fortran_routine": "DQAWC",
+      "program_unit_id": "full-provider-66c69d5929af3cb2",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_principal_value_f32",
+      "fortran_routine": "QAWC",
+      "program_unit_id": "full-provider-14b421ee32c587ff",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_singular",
+      "fortran_routine": "DQAGS",
+      "program_unit_id": "full-provider-fe673f43662d7268",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_singular_f32",
+      "fortran_routine": "QAGS",
+      "program_unit_id": "full-provider-b206aefffc756c9b",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_weighted_endpoints",
+      "fortran_routine": "DQAWS",
+      "program_unit_id": "full-provider-3d8f7bf15ce6af77",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alfa",
+          "fortran": "ALFA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "integr",
+          "fortran": "INTEGR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_weighted_endpoints_f32",
+      "fortran_routine": "QAWS",
+      "program_unit_id": "full-provider-4393b9d70eefad09",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "alfa",
+          "fortran": "ALFA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "beta",
+          "fortran": "BETA",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "integr",
+          "fortran": "INTEGR",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "options.limit",
+          "fortran": "LIMIT",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_with_breakpoints",
+      "fortran_routine": "DQAGP",
+      "program_unit_id": "full-provider-cdc3af219bc31730",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "npts2",
+          "fortran": "NPTS2",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "points",
+          "fortran": "POINTS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_with_breakpoints_f32",
+      "fortran_routine": "QAGP",
+      "program_unit_id": "full-provider-f41b46c628bad538",
+      "arguments": [
+        {
+          "rust": "f",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "npts2",
+          "fortran": "NPTS2",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "points",
+          "fortran": "POINTS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "EPSABS",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "EPSREL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "RESULT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "ABSERR",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "NEVAL",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LAST",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::find_root",
+      "fortran_routine": "DFZERO",
+      "program_unit_id": "full-provider-e60d6e16ae2266be",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "bracket.lower",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "bracket.upper",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.initial_guess",
+          "fortran": "R",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "RE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "AE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "IFLAG",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::find_root_f32",
+      "fortran_routine": "FZERO",
+      "program_unit_id": "full-provider-f1b50f705bb2a633",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": "bracket.lower",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "bracket.upper",
+          "fortran": "C",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.initial_guess",
+          "fortran": "R",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.relative_tolerance",
+          "fortran": "RE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.absolute_tolerance",
+          "fortran": "AE",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "IFLAG",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_ai",
+      "fortran_routine": "DAI",
+      "program_unit_id": "full-provider-ae0fc8344c988f89",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_ai_f32",
+      "fortran_routine": "AI",
+      "program_unit_id": "full-provider-c70e2a1f4c42951f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_ai_scaled",
+      "fortran_routine": "DAIE",
+      "program_unit_id": "full-provider-c599169a8f7e8e11",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_ai_scaled_f32",
+      "fortran_routine": "AIE",
+      "program_unit_id": "full-provider-d879e285d4a9dea9",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_bi",
+      "fortran_routine": "DBI",
+      "program_unit_id": "full-provider-15a5a34d05239dcc",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_bi_f32",
+      "fortran_routine": "BI",
+      "program_unit_id": "full-provider-69fc1b8a6fdbbe85",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_bi_scaled",
+      "fortran_routine": "DBIE",
+      "program_unit_id": "full-provider-3b7c3a2e59d914d7",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::airy::airy_bi_scaled_f32",
+      "fortran_routine": "BIE",
+      "program_unit_id": "full-provider-207c5e6b0575db12",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i0",
+      "fortran_routine": "DBESI0",
+      "program_unit_id": "full-provider-4509a29f69da1662",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i0_f32",
+      "fortran_routine": "BESI0",
+      "program_unit_id": "full-provider-473cc32c8ba0c868",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i0_scaled",
+      "fortran_routine": "DBSI0E",
+      "program_unit_id": "full-provider-1805cb4a827e554b",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i0_scaled_f32",
+      "fortran_routine": "BESI0E",
+      "program_unit_id": "full-provider-562b58183550bc5b",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i1",
+      "fortran_routine": "DBESI1",
+      "program_unit_id": "full-provider-47ce6a252a77cf73",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i1_f32",
+      "fortran_routine": "BESI1",
+      "program_unit_id": "full-provider-5b4587ab66573d9c",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i1_scaled",
+      "fortran_routine": "DBSI1E",
+      "program_unit_id": "full-provider-9ec5f27e781af19f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_i1_scaled_f32",
+      "fortran_routine": "BESI1E",
+      "program_unit_id": "full-provider-9f02ce26e09978a3",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_j0",
+      "fortran_routine": "DBESJ0",
+      "program_unit_id": "full-provider-3fb42585fbfa1d76",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_j0_f32",
+      "fortran_routine": "BESJ0",
+      "program_unit_id": "full-provider-11ffb926b1d6077d",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_j1",
+      "fortran_routine": "DBESJ1",
+      "program_unit_id": "full-provider-17fd432d04761142",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_j1_f32",
+      "fortran_routine": "BESJ1",
+      "program_unit_id": "full-provider-4ff2886c1797d787",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k0",
+      "fortran_routine": "DBESK0",
+      "program_unit_id": "full-provider-00f26165d74c48fc",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k0_f32",
+      "fortran_routine": "BESK0",
+      "program_unit_id": "full-provider-33919cddd927e93f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k0_scaled",
+      "fortran_routine": "DBSK0E",
+      "program_unit_id": "full-provider-23dcd2afd1e43f82",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k0_scaled_f32",
+      "fortran_routine": "BESK0E",
+      "program_unit_id": "full-provider-dfbf11da03852e28",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k1",
+      "fortran_routine": "DBESK1",
+      "program_unit_id": "full-provider-191c81c0ee3e401d",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k1_f32",
+      "fortran_routine": "BESK1",
+      "program_unit_id": "full-provider-e0c705feacbb3403",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k1_scaled",
+      "fortran_routine": "DBSK1E",
+      "program_unit_id": "full-provider-80621881362a81ed",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_k1_scaled_f32",
+      "fortran_routine": "BESK1E",
+      "program_unit_id": "full-provider-a104a4cdb9d80fb0",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_y0",
+      "fortran_routine": "DBESY0",
+      "program_unit_id": "full-provider-7429854b4e5ca26b",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_y0_f32",
+      "fortran_routine": "BESY0",
+      "program_unit_id": "full-provider-19f50687065b9fef",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_y1",
+      "fortran_routine": "DBESY1",
+      "program_unit_id": "full-provider-b382827367a482bc",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::bessel::bessel_y1_f32",
+      "fortran_routine": "BESY1",
+      "program_unit_id": "full-provider-9d4a2e3167891cd6",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::cbrt",
+      "fortran_routine": "DCBRT",
+      "program_unit_id": "full-provider-5a4730fc04f83be8",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::cbrt_f32",
+      "fortran_routine": "CBRT",
+      "program_unit_id": "full-provider-1533f97ac6fe4af0",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::cos_degrees",
+      "fortran_routine": "DCOSDG",
+      "program_unit_id": "full-provider-03079b5f6ef2df31",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::cos_degrees_f32",
+      "fortran_routine": "COSDG",
+      "program_unit_id": "full-provider-83eee5b10e647302",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::dawson",
+      "fortran_routine": "DDAWS",
+      "program_unit_id": "full-provider-6b1c0a77e9609e2e",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::dawson_f32",
+      "fortran_routine": "DAWS",
+      "program_unit_id": "full-provider-d910a32a69a9b3ef",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::exprel",
+      "fortran_routine": "DEXPRL",
+      "program_unit_id": "full-provider-528bf34b2aa77472",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::exprel_f32",
+      "fortran_routine": "EXPREL",
+      "program_unit_id": "full-provider-31cd8d541d1bfb0d",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::log1p",
+      "fortran_routine": "DLNREL",
+      "program_unit_id": "full-provider-e558c4161d7ec74f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::log1p_f32",
+      "fortran_routine": "ALNREL",
+      "program_unit_id": "full-provider-7b8a94d5a46444f3",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::sin_degrees",
+      "fortran_routine": "DSINDG",
+      "program_unit_id": "full-provider-7eea1cc313807214",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::elementary::sin_degrees_f32",
+      "fortran_routine": "SINDG",
+      "program_unit_id": "full-provider-8592a526281289c2",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::error_functions::erf",
+      "fortran_routine": "DERF",
+      "program_unit_id": "full-provider-3b43b57f60c467f6",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::error_functions::erf_f32",
+      "fortran_routine": "ERF",
+      "program_unit_id": "full-provider-c05a5f4e5d168e9c",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::error_functions::erfc",
+      "fortran_routine": "DERFC",
+      "program_unit_id": "full-provider-28532b1495f3bac2",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::error_functions::erfc_f32",
+      "fortran_routine": "ERFC",
+      "program_unit_id": "full-provider-580e6562bfdb75d0",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::beta",
+      "fortran_routine": "DBETA",
+      "program_unit_id": "full-provider-c2218e356ca37d3f",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::beta_f32",
+      "fortran_routine": "BETA",
+      "program_unit_id": "full-provider-e4144753752f8572",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::binomial_coefficient",
+      "fortran_routine": "DBINOM",
+      "program_unit_id": "full-provider-b1848abc902b2451",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::binomial_coefficient_f32",
+      "fortran_routine": "BINOM",
+      "program_unit_id": "full-provider-1c9778aa4f113fe6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "m",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::digamma",
+      "fortran_routine": "DPSI",
+      "program_unit_id": "full-provider-d7f4380fe713f6a0",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::digamma_f32",
+      "fortran_routine": "PSI",
+      "program_unit_id": "full-provider-ab67ae42814fb036",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::factorial",
+      "fortran_routine": "DFAC",
+      "program_unit_id": "full-provider-2d8169aa57e4f3a6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::factorial_f32",
+      "fortran_routine": "FAC",
+      "program_unit_id": "full-provider-5a5153512db1c25b",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::gamma",
+      "fortran_routine": "DGAMMA",
+      "program_unit_id": "full-provider-fba63d75b3e077b9",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::gamma_f32",
+      "fortran_routine": "GAMMA",
+      "program_unit_id": "full-provider-08296fb977fddf71",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::incomplete_gamma_lower",
+      "fortran_routine": "DGAMI",
+      "program_unit_id": "full-provider-6dcf9270d002626b",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::incomplete_gamma_lower_f32",
+      "fortran_routine": "GAMI",
+      "program_unit_id": "full-provider-17ee5a4415667186",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::incomplete_gamma_upper",
+      "fortran_routine": "DGAMIC",
+      "program_unit_id": "full-provider-418c630a1935a331",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::incomplete_gamma_upper_f32",
+      "fortran_routine": "GAMIC",
+      "program_unit_id": "full-provider-0e43010ee0036089",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::log_beta",
+      "fortran_routine": "DLBETA",
+      "program_unit_id": "full-provider-1ee90cb746883a0f",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::log_beta_f32",
+      "fortran_routine": "ALBETA",
+      "program_unit_id": "full-provider-28d2b9a40c3d9a3e",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::log_gamma",
+      "fortran_routine": "DLNGAM",
+      "program_unit_id": "full-provider-dae73c5ac3d5f638",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::log_gamma_f32",
+      "fortran_routine": "ALNGAM",
+      "program_unit_id": "full-provider-83754f0e154167cd",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::reciprocal_gamma",
+      "fortran_routine": "DGAMR",
+      "program_unit_id": "full-provider-8e5b160bb1bc03a8",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::reciprocal_gamma_f32",
+      "fortran_routine": "GAMR",
+      "program_unit_id": "full-provider-20a262a4b8f10698",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::regularized_beta",
+      "fortran_routine": "DBETAI",
+      "program_unit_id": "full-provider-676c1bb951f8354f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "pin",
+          "fortran": "PIN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "qin",
+          "fortran": "QIN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::regularized_beta_f32",
+      "fortran_routine": "BETAI",
+      "program_unit_id": "full-provider-338f4cc19b51c0a6",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "pin",
+          "fortran": "PIN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "qin",
+          "fortran": "QIN",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::tricomi_incomplete_gamma",
+      "fortran_routine": "DGAMIT",
+      "program_unit_id": "full-provider-ef0b5f035cb82912",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::gamma::tricomi_incomplete_gamma_f32",
+      "fortran_routine": "GAMIT",
+      "program_unit_id": "full-provider-ef6b55c5116aaeb2",
+      "arguments": [
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::integrals::exponential_integral_e1",
+      "fortran_routine": "DE1",
+      "program_unit_id": "full-provider-3beb0ebb52963067",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::integrals::exponential_integral_e1_f32",
+      "fortran_routine": "E1",
+      "program_unit_id": "full-provider-f891c033e2741310",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::integrals::exponential_integral_ei",
+      "fortran_routine": "DEI",
+      "program_unit_id": "full-provider-3d13ddfe2d9abf52",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::integrals::exponential_integral_ei_f32",
+      "fortran_routine": "EI",
+      "program_unit_id": "full-provider-4e80629a0f2ad72e",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        }
+      ]
+    }
+  ]
+}

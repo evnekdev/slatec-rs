@@ -3,16 +3,35 @@ use core::fmt;
 /// Failure before or during a safe bracketed scalar-root call.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum RootError {
+    /// The endpoints are equal, so they do not define a bracket.
     InvalidBracket,
-    NonFiniteEndpoint { argument: &'static str },
-    InvalidTolerance { argument: &'static str },
+    /// A bracket endpoint is NaN or infinite.
+    NonFiniteEndpoint {
+        /// Rust endpoint argument name.
+        argument: &'static str,
+    },
+    /// A tolerance is negative or non-finite.
+    InvalidTolerance {
+        /// Rust tolerance argument name.
+        argument: &'static str,
+    },
+    /// The initial suggestion is non-finite or outside the open bracket.
     InvalidInitialGuess,
+    /// Endpoint values have the same nonzero sign.
     NoSignChange,
+    /// The Rust callback panicked; the panic was contained before FFI.
     CallbackPanicked,
+    /// The callback returned NaN or infinity.
     CallbackReturnedNonFinite,
+    /// A callback attempted another callback-bearing SLATEC call.
     NestedNativeCallback,
+    /// FZERO returned an undocumented status value.
     NativeStatus(i32),
-    NativeContractViolation { detail: &'static str },
+    /// Native outputs violated a checked wrapper invariant.
+    NativeContractViolation {
+        /// Stable explanation of the violated postcondition.
+        detail: &'static str,
+    },
 }
 
 impl fmt::Display for RootError {

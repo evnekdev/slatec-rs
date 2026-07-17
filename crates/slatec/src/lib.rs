@@ -1,14 +1,23 @@
-//! Safe, opt-in Rust façades over original SLATEC Fortran implementations.
+#![no_std]
+#![deny(missing_docs)]
+
+//! Safe, opt-in Rust facades over original SLATEC Fortran implementations.
 //!
 //! The `blas-level1` feature targets the validated
 //! `ffi-profile-gnu-mingw-x86_64` raw ABI. It does not download or compile
 //! Fortran. Native use requires the explicit link environment documented in
-//! [`blas`].
+//! the feature-gated `blas` module.
+
+#[cfg(feature = "alloc")]
+extern crate alloc;
+
+#[cfg(feature = "std")]
+extern crate std;
 
 #[cfg(feature = "blas-level1-validation")]
 pub mod blas;
 
-/// Runtime-validated scalar façades over selected original SLATEC FNLIB
+/// Runtime-validated scalar facades over selected original SLATEC FNLIB
 /// routines for the GNU MinGW x86_64 profile.
 #[cfg(feature = "special-functions")]
 pub mod special;

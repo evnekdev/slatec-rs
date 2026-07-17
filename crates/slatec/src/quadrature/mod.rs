@@ -28,11 +28,17 @@ pub use extended::{
 /// Gauss-Kronrod rule used by QAG/DQAG finite-interval integration.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum IntegrationRule {
+    /// 15-point Gauss-Kronrod pair.
     Points15,
+    /// 21-point Gauss-Kronrod pair.
     Points21,
+    /// 31-point Gauss-Kronrod pair.
     Points31,
+    /// 41-point Gauss-Kronrod pair.
     Points41,
+    /// 51-point Gauss-Kronrod pair.
     Points51,
+    /// 61-point Gauss-Kronrod pair.
     Points61,
 }
 
@@ -52,8 +58,11 @@ impl IntegrationRule {
 /// Resource and accuracy controls for the adaptive drivers.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct IntegrationOptions {
+    /// Requested absolute error bound (`EPSABS`).
     pub absolute_tolerance: f64,
+    /// Requested relative error bound (`EPSREL`).
     pub relative_tolerance: f64,
+    /// Maximum number of adaptive subintervals (`LIMIT`).
     pub limit: usize,
     /// Used by `integrate`/`integrate_f32`; extrapolating and weighted drivers
     /// select their own local rules.
@@ -86,18 +95,26 @@ impl Default for IntegrationOptions {
 /// A completed quadrature estimate and its native diagnostics.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct IntegrationResult<T = f64> {
+    /// Approximation to the integral (`RESULT`).
     pub value: T,
+    /// Native absolute-error estimate (`ABSERR`).
     pub estimated_error: T,
+    /// Number of integrand evaluations (`NEVAL`).
     pub evaluations: usize,
+    /// Number of subintervals retained (`LAST`).
     pub intervals: usize,
 }
 
 /// Meaning of the endpoint weight applied by QAWS/DQAWS.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum EndpointWeight {
+    /// `(x-a)^alpha * (b-x)^beta`.
     Algebraic,
+    /// Algebraic weight multiplied by `log(x-a)`.
     AlgebraicLogLower,
+    /// Algebraic weight multiplied by `log(b-x)`.
     AlgebraicLogUpper,
+    /// Algebraic weight multiplied by both endpoint logarithms.
     AlgebraicLogBoth,
 }
 
@@ -115,7 +132,9 @@ impl EndpointWeight {
 /// Trigonometric weight applied by QAWO/DQAWO and QAWF/DQAWF.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum OscillatoryWeight {
+    /// Cosine weight (`INTEGR = 1`).
     Cosine,
+    /// Sine weight (`INTEGR = 2`).
     Sine,
 }
 
@@ -131,8 +150,11 @@ impl OscillatoryWeight {
 /// Resource and accuracy controls for finite oscillatory integration.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct OscillatoryOptions {
+    /// Requested absolute error bound (`EPSABS`).
     pub absolute_tolerance: f64,
+    /// Requested relative error bound (`EPSREL`).
     pub relative_tolerance: f64,
+    /// Maximum adaptive subinterval count (`LIMIT`).
     pub subdivision_limit: usize,
     /// Upper bound on stored Chebyshev-moment levels. The safe API discards
     /// these moments after the call.
@@ -140,6 +162,7 @@ pub struct OscillatoryOptions {
 }
 
 impl OscillatoryOptions {
+    /// Returns practical defaults for the single-precision QAWO driver.
     pub const fn single_precision() -> Self {
         Self {
             absolute_tolerance: 0.0,
@@ -164,13 +187,18 @@ impl Default for OscillatoryOptions {
 /// Resource and accuracy controls for infinite Fourier-tail integration.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct FourierOptions {
+    /// Requested absolute error bound (`EPSABS`).
     pub absolute_tolerance: f64,
+    /// Subinterval limit used within each Fourier cycle (`LIMIT`).
     pub subdivision_limit: usize,
+    /// Maximum number of Fourier cycles (`LIMLST`).
     pub cycle_limit: usize,
+    /// Maximum Chebyshev-moment levels (`MAXP1`).
     pub maximum_moments: usize,
 }
 
 impl FourierOptions {
+    /// Returns practical defaults for the single-precision QAWF driver.
     pub const fn single_precision() -> Self {
         Self {
             absolute_tolerance: 1.0e-5,
@@ -195,11 +223,14 @@ impl Default for FourierOptions {
 /// Accuracy controls for QNG/DQNG's fixed nested-rule progression.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NonAdaptiveOptions {
+    /// Requested absolute error bound (`EPSABS`).
     pub absolute_tolerance: f64,
+    /// Requested relative error bound (`EPSREL`).
     pub relative_tolerance: f64,
 }
 
 impl NonAdaptiveOptions {
+    /// Returns practical defaults for the single-precision QNG driver.
     pub const fn single_precision() -> Self {
         Self {
             absolute_tolerance: 0.0,
@@ -220,10 +251,12 @@ impl Default for NonAdaptiveOptions {
 /// Relative accuracy request used by the historical Newton-Cotes QNC79 pair.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Nc79Options {
+    /// Requested relative accuracy (`ERR`).
     pub relative_tolerance: f64,
 }
 
 impl Nc79Options {
+    /// Returns practical defaults for the single-precision QNC79 driver.
     pub const fn single_precision() -> Self {
         Self {
             relative_tolerance: 1.0e-5,
@@ -242,9 +275,13 @@ impl Default for Nc79Options {
 /// Summary returned by QAWF/DQAWF.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct FourierIntegrationResult<T = f64> {
+    /// Approximation to the Fourier-tail integral.
     pub value: T,
+    /// Native absolute-error estimate.
     pub estimated_error: T,
+    /// Total integrand evaluations.
     pub evaluations: usize,
+    /// Fourier cycles used.
     pub cycles: usize,
 }
 
@@ -254,15 +291,20 @@ pub struct FourierIntegrationResult<T = f64> {
 /// not manufacture one.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Nc79IntegrationResult<T = f64> {
+    /// Approximation to the integral.
     pub value: T,
+    /// Number of integrand evaluations.
     pub evaluations: usize,
 }
 
 /// Infinite range accepted by QAGI/DQAGI without passing infinities as bounds.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum InfiniteInterval<T = f64> {
+    /// Integrate from the finite bound to positive infinity.
     Above(T),
+    /// Integrate from negative infinity to the finite bound.
     Below(T),
+    /// Integrate over the whole real line.
     WholeLine,
 }
 

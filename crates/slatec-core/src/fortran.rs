@@ -9,9 +9,15 @@ use slatec_sys::FortranInteger;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum IntegerRangeError {
     /// A Rust slice length or count is too large for a Fortran `INTEGER`.
-    Unsigned { value: usize },
+    Unsigned {
+        /// The non-negative Rust value that did not fit.
+        value: usize,
+    },
     /// A signed stride is too large for a Fortran `INTEGER`.
-    Signed { value: isize },
+    Signed {
+        /// The signed Rust value that did not fit.
+        value: isize,
+    },
 }
 
 impl fmt::Display for IntegerRangeError {
@@ -23,6 +29,7 @@ impl fmt::Display for IntegerRangeError {
     }
 }
 
+#[cfg(feature = "std")]
 impl std::error::Error for IntegerRangeError {}
 
 /// Converts a non-negative Rust count to the selected profile's Fortran

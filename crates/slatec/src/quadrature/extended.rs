@@ -4,6 +4,9 @@
 //! selected SLATEC sources. Expert `*E` drivers and their raw workspace views
 //! deliberately remain unavailable.
 
+use alloc::vec;
+use alloc::vec::Vec;
+
 use super::callback;
 use super::validation::{
     allocated_workspace, checked_add, checked_mul, finite_bounds, output_count,

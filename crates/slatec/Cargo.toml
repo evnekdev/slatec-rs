@@ -8,9 +8,12 @@ repository.workspace = true
 description = "Safe Rust interface to selected SLATEC numerical routines"
 
 [features]
-default = []
+default = ["std"]
+alloc = []
+std = ["alloc", "slatec-core/std"]
 integrate = ["quadrature"]
 roots = [
+    "std",
     "blas-level1-validation",
     "slatec-sys/raw-ffi-roots",
 ]
@@ -36,6 +39,7 @@ blas-level2 = [
 blas-level3 = ["blas-level1-validation", "slatec-sys/raw-ffi-character"]
 blas-level23-native-tests = ["blas-level2", "blas-level3"]
 special-functions = [
+    "std",
     "blas-level1-validation",
     "slatec-sys/raw-ffi-scalar-functions",
 ]
@@ -46,6 +50,7 @@ special-functions-native-tests = [
     "special-functions-polynomials",
 ]
 quadrature = [
+    "std",
     "blas-level1-validation",
     "slatec-sys/raw-ffi-quadrature",
 ]

@@ -13,7 +13,9 @@ pub use scalar::{find_root, find_root_f32};
 /// A caller-supplied bracket. Reversed endpoints are accepted.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RootBracket<T = f64> {
+    /// First endpoint passed as Fortran argument `B`.
     pub lower: T,
+    /// Second endpoint passed as Fortran argument `C`.
     pub upper: T,
 }
 
@@ -24,8 +26,11 @@ pub struct RootBracket<T = f64> {
 /// interior suggestion is available.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RootOptions<T = f64> {
+    /// Relative bracket-width tolerance (`RE`).
     pub relative_tolerance: T,
+    /// Absolute bracket-width tolerance (`AE`).
     pub absolute_tolerance: T,
+    /// Optional native suggestion (`R`); `None` uses the upper endpoint.
     pub initial_guess: Option<T>,
 }
 
@@ -73,9 +78,12 @@ pub enum RootStatus {
 /// Result from a completed FZERO call.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RootResult<T = f64> {
+    /// Best root estimate returned by FZERO.
     pub estimate: T,
+    /// Final pair of native bracket endpoints.
     pub bracket: RootBracket<T>,
     /// Counted callback invocations, including safe endpoint validation.
     pub evaluations: usize,
+    /// Interpreted native `IFLAG` completion status.
     pub status: RootStatus,
 }

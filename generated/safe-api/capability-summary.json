@@ -1,0 +1,16 @@
+{
+  "alloc_free_api_available": true,
+  "api_no_std_compatible": true,
+  "bare_metal_execution_validated": false,
+  "capabilities": {
+    "core": 58,
+    "std": 100
+  },
+  "function_count": 158,
+  "native_backend_available": true,
+  "native_profile": "ffi-profile-gnu-mingw-x86_64",
+  "native_runtime_validated": true,
+  "schema_id": "slatec.safe-api.capability-summary",
+  "schema_version": "1.0.0",
+  "semantic_version": "1"
+}

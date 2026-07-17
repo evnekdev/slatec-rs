@@ -5,28 +5,41 @@ use core::fmt;
 /// Failure to meet a validated SLATEC special-function contract.
 #[derive(Clone, Debug, PartialEq)]
 pub enum SpecialFunctionError {
-    /// An input is outside the conservative domain validated by this façade.
+    /// An input is outside the conservative domain validated by this facade.
     Domain {
+        /// Safe Rust function name.
         function: &'static str,
+        /// Rust argument name.
         argument: &'static str,
+        /// Rejected value, widened to `f64` for diagnostics.
         value: f64,
     },
     /// An integer input cannot be represented by the selected Fortran ABI.
     IntegerOverflow {
+        /// Safe Rust function name.
         function: &'static str,
+        /// Rust argument name.
         argument: &'static str,
     },
     /// The underlying routine reported its documented integer error state.
     NativeError {
+        /// Safe Rust function name.
         function: &'static str,
+        /// SLATEC error number.
         error_number: i32,
+        /// SLATEC legacy error level.
         level: i32,
     },
     /// The process-global SLATEC runtime state could not be used safely.
-    RuntimeStateUnavailable { function: &'static str },
+    RuntimeStateUnavailable {
+        /// Safe Rust function name.
+        function: &'static str,
+    },
     /// A native result violated a checked wrapper invariant.
     NativeContractViolation {
+        /// Safe Rust function name.
         function: &'static str,
+        /// Stable explanation of the violated postcondition.
         detail: &'static str,
     },
 }

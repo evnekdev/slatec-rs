@@ -65,3 +65,8 @@ With the complete selected evidence and GNU MinGW compiler available, run:
 cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline
 cargo run -p slatec-tools --bin slatec-corpus -- validate-runtime-profile --offline
 ```
+## Safe API capability layers
+
+The safe crates are `no_std` by architecture. Allocation and hosted runtime services are explicit Cargo capabilities: `alloc` uses Rust's standalone allocation crate without enabling `std`, while `std` implies `alloc`. Slice-based BLAS wrappers remain allocation-free; the current special-function runtime and callback-bearing quadrature/root APIs require `std` because the validated Fortran profile uses process-global state, TLS, and panic containment.
+
+This does **not** claim bare-metal support. The only validated native backend is GNU Fortran for `x86_64-w64-mingw32`. See [safe API capability and native support](docs/api/no-std-and-native-support.md) and the [complete safe function index](docs/api/function-index.md).

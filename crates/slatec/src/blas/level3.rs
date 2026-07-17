@@ -18,6 +18,11 @@ macro_rules! impl_real_level3 {
         $trsm:ident,
         $syrk:ident
     ) => {
+        #[doc = concat!(
+            "Computes `C = alpha * op(A) * op(B) + beta * C` with original SLATEC routine `",
+            stringify!($gemm),
+            "`. Matrices are column-major slices; `m`, `n`, and `k` describe effective shapes while `lda`, `ldb`, and `ldc` describe physical leading dimensions. All shapes and storage are checked. See `examples/blas/level3.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $gemm(
             trans_a: Transpose,
@@ -80,6 +85,13 @@ macro_rules! impl_real_level3 {
             Ok(())
         }
 
+        #[doc = concat!(
+            "Tightly packed column-major convenience wrapper for [`",
+            stringify!($gemm),
+            "`]. It infers only leading dimensions from the stored transpose-dependent shapes. Original SLATEC routine: `",
+            stringify!($gemm),
+            "`. See `examples/blas/level3.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $gemm_contiguous(
             trans_a: Transpose,
@@ -112,6 +124,11 @@ macro_rules! impl_real_level3 {
             )
         }
 
+        #[doc = concat!(
+            "Overwrites `B` with a triangular matrix product using original SLATEC routine `",
+            stringify!($trmm),
+            "`. `side` determines the order of `A`; selectors, leading dimensions, and column-major slices are checked. See `examples/blas/level3.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $trmm(
             side: Side,
@@ -143,6 +160,11 @@ macro_rules! impl_real_level3 {
             )
         }
 
+        #[doc = concat!(
+            "Overwrites `B` with the solution of a triangular matrix equation using original SLATEC routine `",
+            stringify!($trsm),
+            "`. `side` selects left or right solve; the wrapper validates selectors, dimensions, and storage but the caller must provide a nonsingular non-unit diagonal. See `examples/blas/level3.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $trsm(
             side: Side,
@@ -174,6 +196,11 @@ macro_rules! impl_real_level3 {
             )
         }
 
+        #[doc = concat!(
+            "Performs the symmetric rank-k update `C = alpha * op(A) * op(A)^T + beta * C` with original SLATEC routine `",
+            stringify!($syrk),
+            "`. Only the selected triangle of column-major `C` is updated; transpose-dependent storage and leading dimensions are checked. See `examples/blas/level3.rs`."
+        )]
         #[allow(clippy::too_many_arguments)]
         pub fn $syrk(
             triangle: Triangle,

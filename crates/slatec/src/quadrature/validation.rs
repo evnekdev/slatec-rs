@@ -1,3 +1,5 @@
+use alloc::vec::Vec;
+
 use slatec_core::to_fortran_integer;
 use slatec_sys::FortranInteger;
 

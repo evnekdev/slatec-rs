@@ -1,0 +1,1587 @@
+{
+  "schema_id": "slatec.safe-api.example-coverage",
+  "schema_version": "1.0.0",
+  "semantic_version": "1",
+  "records": [
+    {
+      "doctest_present": false,
+      "example_case": "absolute_sum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DASUM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dasum",
+      "validation_case": "dasum",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "absolute_sum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DASUM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dasum_strided",
+      "validation_case": "dasum_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "axpy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DAXPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::daxpy",
+      "validation_case": "daxpy",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "axpy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DAXPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::daxpy_strided",
+      "validation_case": "daxpy_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "copy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DCOPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dcopy",
+      "validation_case": "dcopy",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "copy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DCOPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dcopy_strided",
+      "validation_case": "dcopy_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "dot",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DDOT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::ddot",
+      "validation_case": "ddot",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "dot",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DDOT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::ddot_strided",
+      "validation_case": "ddot_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "norm",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DNRM2",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dnrm2",
+      "validation_case": "dnrm2",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "norm",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DNRM2",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dnrm2_strided",
+      "validation_case": "dnrm2_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "rotation",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DROT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::drot",
+      "validation_case": "drot",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "rotation",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DROT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::drot_strided",
+      "validation_case": "drot_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scale",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DSCAL",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dscal",
+      "validation_case": "dscal",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scale",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DSCAL",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dscal_strided",
+      "validation_case": "dscal_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "swap",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DSWAP",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dswap",
+      "validation_case": "dswap",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "swap",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "DSWAP",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::dswap_strided",
+      "validation_case": "dswap_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "index_maximum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "IDAMAX",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::idamax",
+      "validation_case": "idamax",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "index_maximum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "IDAMAX",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::idamax_strided",
+      "validation_case": "idamax_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "index_maximum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "ISAMAX",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::isamax",
+      "validation_case": "isamax",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "index_maximum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "ISAMAX",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::isamax_strided",
+      "validation_case": "isamax_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "absolute_sum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SASUM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sasum",
+      "validation_case": "sasum",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "absolute_sum",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SASUM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sasum_strided",
+      "validation_case": "sasum_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "axpy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SAXPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::saxpy",
+      "validation_case": "saxpy",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "axpy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SAXPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::saxpy_strided",
+      "validation_case": "saxpy_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "copy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SCOPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::scopy",
+      "validation_case": "scopy",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "copy",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SCOPY",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::scopy_strided",
+      "validation_case": "scopy_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "dot",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SDOT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sdot",
+      "validation_case": "sdot",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "dot",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SDOT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sdot_strided",
+      "validation_case": "sdot_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "norm",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SNRM2",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::snrm2",
+      "validation_case": "snrm2",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "norm",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SNRM2",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::snrm2_strided",
+      "validation_case": "snrm2_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "rotation",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SROT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::srot",
+      "validation_case": "srot",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "rotation",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SROT",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::srot_strided",
+      "validation_case": "srot_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scale",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SSCAL",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sscal",
+      "validation_case": "sscal",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scale",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SSCAL",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sscal_strided",
+      "validation_case": "sscal_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "swap",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SSWAP",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sswap",
+      "validation_case": "sswap",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "swap",
+      "example_file": "examples/blas/level1.rs",
+      "fortran_routine": "SSWAP",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level1::sswap_strided",
+      "validation_case": "sswap_strided",
+      "validation_file": "crates/slatec/tests/blas_level1_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemv",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "DGEMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::dgemv",
+      "validation_case": "dgemv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemv",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "DGEMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::dgemv_contiguous",
+      "validation_case": "dgemv_contiguous",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "rank_one_update",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "DGER",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::dger",
+      "validation_case": "dger",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "symmetric_matrix_vector",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "DSYMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::dsymv",
+      "validation_case": "dsymv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_matrix_vector",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "DTRMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::dtrmv",
+      "validation_case": "dtrmv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_solve",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "DTRSV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::dtrsv",
+      "validation_case": "dtrsv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemv",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "SGEMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::sgemv",
+      "validation_case": "sgemv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemv",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "SGEMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::sgemv_contiguous",
+      "validation_case": "sgemv_contiguous",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "rank_one_update",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "SGER",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::sger",
+      "validation_case": "sger",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "symmetric_matrix_vector",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "SSYMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::ssymv",
+      "validation_case": "ssymv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_matrix_vector",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "STRMV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::strmv",
+      "validation_case": "strmv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_solve",
+      "example_file": "examples/blas/level2.rs",
+      "fortran_routine": "STRSV",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level2::strsv",
+      "validation_case": "strsv",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemm",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "DGEMM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::dgemm",
+      "validation_case": "dgemm",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemm",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "DGEMM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::dgemm_contiguous",
+      "validation_case": "dgemm_contiguous",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "symmetric_rank_k",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "DSYRK",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::dsyrk",
+      "validation_case": "dsyrk",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_matrix_multiply",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "DTRMM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::dtrmm",
+      "validation_case": "dtrmm",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_matrix_solve",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "DTRSM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::dtrsm",
+      "validation_case": "dtrsm",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemm",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "SGEMM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::sgemm",
+      "validation_case": "sgemm",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gemm",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "SGEMM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::sgemm_contiguous",
+      "validation_case": "sgemm_contiguous",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "symmetric_rank_k",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "SSYRK",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::ssyrk",
+      "validation_case": "ssyrk",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_matrix_multiply",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "STRMM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::strmm",
+      "validation_case": "strmm",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "triangular_matrix_solve",
+      "example_file": "examples/blas/level3.rs",
+      "fortran_routine": "STRSM",
+      "native_execution_status": "validated_by_native_batch",
+      "rust_path": "slatec::blas::level3::strsm",
+      "validation_case": "strsm",
+      "validation_file": "crates/slatec/tests/blas_level23_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "polynomials",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DCSEVL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::polynomials::chebyshev::chebyshev_series",
+      "validation_case": "chebyshev_series",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "polynomials",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "CSEVL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::polynomials::chebyshev::chebyshev_series_f32",
+      "validation_case": "chebyshev_series_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate",
+      "validation_case": "integrate",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_f32",
+      "validation_case": "integrate_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "infinite_fourier_tail",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAWF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_fourier_tail",
+      "validation_case": "integrate_fourier_tail",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "infinite_fourier_tail",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAWF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_fourier_tail_f32",
+      "validation_case": "integrate_fourier_tail_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "infinite",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAGI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_infinite",
+      "validation_case": "integrate_infinite",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "infinite",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAGI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_infinite_f32",
+      "validation_case": "integrate_infinite_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_nc79",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQNC79",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_nc79",
+      "validation_case": "integrate_nc79",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_nc79",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QNC79",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_nc79_f32",
+      "validation_case": "integrate_nc79_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_non_adaptive",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQNG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_non_adaptive",
+      "validation_case": "integrate_non_adaptive",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_non_adaptive",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QNG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_non_adaptive_f32",
+      "validation_case": "integrate_non_adaptive_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_oscillatory",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAWO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_oscillatory",
+      "validation_case": "integrate_oscillatory",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_oscillatory",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAWO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_oscillatory_f32",
+      "validation_case": "integrate_oscillatory_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "cauchy_principal_value",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAWC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_principal_value",
+      "validation_case": "integrate_principal_value",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "cauchy_principal_value",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAWC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_principal_value_f32",
+      "validation_case": "integrate_principal_value_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_endpoint_singularity",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAGS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_singular",
+      "validation_case": "integrate_singular",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_endpoint_singularity",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAGS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_singular_f32",
+      "validation_case": "integrate_singular_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_endpoint_weight",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAWS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_weighted_endpoints",
+      "validation_case": "integrate_weighted_endpoints",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_endpoint_weight",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAWS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_weighted_endpoints_f32",
+      "validation_case": "integrate_weighted_endpoints_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_breakpoints",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "DQAGP",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_with_breakpoints",
+      "validation_case": "integrate_with_breakpoints",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "finite_breakpoints",
+      "example_file": "examples/quadrature/families.rs",
+      "fortran_routine": "QAGP",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_with_breakpoints_f32",
+      "validation_case": "integrate_with_breakpoints_f32",
+      "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bracketed scalar root",
+      "example_file": "examples/roots/scalar.rs",
+      "fortran_routine": "DFZERO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::find_root",
+      "validation_case": "find_root",
+      "validation_file": "crates/slatec/tests/roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bracketed scalar root",
+      "example_file": "examples/roots/scalar.rs",
+      "fortran_routine": "FZERO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::find_root_f32",
+      "validation_case": "find_root_f32",
+      "validation_file": "crates/slatec/tests/roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DAI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_ai",
+      "validation_case": "airy_ai",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "AI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_ai_f32",
+      "validation_case": "airy_ai_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DAIE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_ai_scaled",
+      "validation_case": "airy_ai_scaled",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "AIE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_ai_scaled_f32",
+      "validation_case": "airy_ai_scaled_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_bi",
+      "validation_case": "airy_bi",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_bi_f32",
+      "validation_case": "airy_bi_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBIE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_bi_scaled",
+      "validation_case": "airy_bi_scaled",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "airy",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BIE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::airy::airy_bi_scaled_f32",
+      "validation_case": "airy_bi_scaled_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESI0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i0",
+      "validation_case": "bessel_i0",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESI0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i0_f32",
+      "validation_case": "bessel_i0_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBSI0E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i0_scaled",
+      "validation_case": "bessel_i0_scaled",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESI0E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i0_scaled_f32",
+      "validation_case": "bessel_i0_scaled_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESI1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i1",
+      "validation_case": "bessel_i1",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESI1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i1_f32",
+      "validation_case": "bessel_i1_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBSI1E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i1_scaled",
+      "validation_case": "bessel_i1_scaled",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESI1E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_i1_scaled_f32",
+      "validation_case": "bessel_i1_scaled_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESJ0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_j0",
+      "validation_case": "bessel_j0",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESJ0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_j0_f32",
+      "validation_case": "bessel_j0_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESJ1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_j1",
+      "validation_case": "bessel_j1",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESJ1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_j1_f32",
+      "validation_case": "bessel_j1_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESK0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k0",
+      "validation_case": "bessel_k0",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESK0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k0_f32",
+      "validation_case": "bessel_k0_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBSK0E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k0_scaled",
+      "validation_case": "bessel_k0_scaled",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESK0E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k0_scaled_f32",
+      "validation_case": "bessel_k0_scaled_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESK1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k1",
+      "validation_case": "bessel_k1",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESK1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k1_f32",
+      "validation_case": "bessel_k1_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBSK1E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k1_scaled",
+      "validation_case": "bessel_k1_scaled",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESK1E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_k1_scaled_f32",
+      "validation_case": "bessel_k1_scaled_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESY0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_y0",
+      "validation_case": "bessel_y0",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESY0",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_y0_f32",
+      "validation_case": "bessel_y0_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBESY1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_y1",
+      "validation_case": "bessel_y1",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "bessel",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BESY1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::bessel::bessel_y1_f32",
+      "validation_case": "bessel_y1_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DCBRT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::cbrt",
+      "validation_case": "cbrt",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "CBRT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::cbrt_f32",
+      "validation_case": "cbrt_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DCOSDG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::cos_degrees",
+      "validation_case": "cos_degrees",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "COSDG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::cos_degrees_f32",
+      "validation_case": "cos_degrees_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DDAWS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::dawson",
+      "validation_case": "dawson",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DAWS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::dawson_f32",
+      "validation_case": "dawson_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DEXPRL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::exprel",
+      "validation_case": "exprel",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "EXPREL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::exprel_f32",
+      "validation_case": "exprel_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DLNREL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::log1p",
+      "validation_case": "log1p",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "ALNREL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::log1p_f32",
+      "validation_case": "log1p_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DSINDG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::sin_degrees",
+      "validation_case": "sin_degrees",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "SINDG",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::elementary::sin_degrees_f32",
+      "validation_case": "sin_degrees_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "error_functions",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DERF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::error_functions::erf",
+      "validation_case": "erf",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "error_functions",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "ERF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::error_functions::erf_f32",
+      "validation_case": "erf_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "error_functions",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DERFC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::error_functions::erfc",
+      "validation_case": "erfc",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "error_functions",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "ERFC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::error_functions::erfc_f32",
+      "validation_case": "erfc_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBETA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::beta",
+      "validation_case": "beta",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BETA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::beta_f32",
+      "validation_case": "beta_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBINOM",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::binomial_coefficient",
+      "validation_case": "binomial_coefficient",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BINOM",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::binomial_coefficient_f32",
+      "validation_case": "binomial_coefficient_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DPSI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::digamma",
+      "validation_case": "digamma",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "PSI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::digamma_f32",
+      "validation_case": "digamma_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DFAC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::factorial",
+      "validation_case": "factorial",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elementary",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "FAC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::factorial_f32",
+      "validation_case": "factorial_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DGAMMA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::gamma",
+      "validation_case": "gamma",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "GAMMA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::gamma_f32",
+      "validation_case": "gamma_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DGAMI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::incomplete_gamma_lower",
+      "validation_case": "incomplete_gamma_lower",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "GAMI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::incomplete_gamma_lower_f32",
+      "validation_case": "incomplete_gamma_lower_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DGAMIC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::incomplete_gamma_upper",
+      "validation_case": "incomplete_gamma_upper",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "GAMIC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::incomplete_gamma_upper_f32",
+      "validation_case": "incomplete_gamma_upper_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DLBETA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::log_beta",
+      "validation_case": "log_beta",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "ALBETA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::log_beta_f32",
+      "validation_case": "log_beta_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DLNGAM",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::log_gamma",
+      "validation_case": "log_gamma",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "ALNGAM",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::log_gamma_f32",
+      "validation_case": "log_gamma_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DGAMR",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::reciprocal_gamma",
+      "validation_case": "reciprocal_gamma",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "GAMR",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::reciprocal_gamma_f32",
+      "validation_case": "reciprocal_gamma_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "probability",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DBETAI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::regularized_beta",
+      "validation_case": "regularized_beta",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "probability",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "BETAI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::regularized_beta_f32",
+      "validation_case": "regularized_beta_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DGAMIT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::tricomi_incomplete_gamma",
+      "validation_case": "tricomi_incomplete_gamma",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "gamma_beta",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "GAMIT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::gamma::tricomi_incomplete_gamma_f32",
+      "validation_case": "tricomi_incomplete_gamma_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrals",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DE1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::integrals::exponential_integral_e1",
+      "validation_case": "exponential_integral_e1",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrals",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "E1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::integrals::exponential_integral_e1_f32",
+      "validation_case": "exponential_integral_e1_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrals",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "DEI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::integrals::exponential_integral_ei",
+      "validation_case": "exponential_integral_ei",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrals",
+      "example_file": "examples/special/functions.rs",
+      "fortran_routine": "EI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::integrals::exponential_integral_ei_f32",
+      "validation_case": "exponential_integral_ei_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    }
+  ]
+}
