@@ -3,10 +3,11 @@
   "api_no_std_compatible": true,
   "bare_metal_execution_validated": false,
   "capabilities": {
+    "alloc": 2,
     "core": 58,
-    "std": 102
+    "std": 106
   },
-  "function_count": 160,
+  "function_count": 166,
   "native_backend_available": true,
   "native_profile": "ffi-profile-gnu-mingw-x86_64",
   "native_runtime_validated": true,

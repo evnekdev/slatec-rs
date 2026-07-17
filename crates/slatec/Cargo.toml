@@ -89,14 +89,26 @@ roots-scalar = [
 roots-native-tests = ["roots", "quadrature"]
 roots-polynomial = ["alloc", "slatec-src/roots-polynomial"]
 
-nonlinear = ["nonlinear-easy"]
+nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check"]
 nonlinear-easy = [
     "std",
     "blas-level1-validation",
     "slatec-sys/raw-family-nonlinear-easy",
     "slatec-src/nonlinear-easy",
 ]
-nonlinear-native-tests = ["nonlinear-easy", "quadrature", "roots-scalar"]
+nonlinear-expert = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-nonlinear-expert",
+    "slatec-src/nonlinear-expert",
+]
+nonlinear-jacobian-check = [
+    "alloc",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-nonlinear-jacobian-check",
+    "slatec-src/nonlinear-jacobian-check",
+]
+nonlinear-native-tests = ["nonlinear", "quadrature", "roots-scalar"]
 
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
@@ -159,3 +171,15 @@ required-features = ["roots-scalar"]
 [[example]]
 name = "link_nonlinear_easy"
 required-features = ["nonlinear-easy"]
+
+[[example]]
+name = "link_nonlinear_expert"
+required-features = ["nonlinear-expert"]
+
+[[example]]
+name = "link_nonlinear_analytic"
+required-features = ["nonlinear-expert"]
+
+[[example]]
+name = "link_nonlinear_jacobian_check"
+required-features = ["nonlinear-jacobian-check"]

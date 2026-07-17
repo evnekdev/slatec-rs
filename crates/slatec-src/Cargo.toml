@@ -43,8 +43,10 @@ quadrature-nonadaptive = []
 roots = ["roots-scalar", "roots-polynomial"]
 roots-scalar = []
 roots-polynomial = []
-nonlinear = ["nonlinear-easy"]
+nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check"]
 nonlinear-easy = []
+nonlinear-expert = []
+nonlinear-jacobian-check = []
 
 [dependencies]
 

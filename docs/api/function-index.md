@@ -64,8 +64,14 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
+| `slatec::nonlinear::check_jacobian` | `DCKDER` | nonlinear | f64 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
+| `slatec::nonlinear::check_jacobian_f32` | `CHKDER` | nonlinear | f32 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
+| `slatec::nonlinear::solve_system_expert` | `DNSQ` | nonlinear | f64 | expert finite-difference nonlinear-system solving | `std` | `nonlinear-expert` | [expert finite-difference nonlinear system](../../examples/nonlinear/solve_system_expert.rs) |
+| `slatec::nonlinear::solve_system_expert_f32` | `SNSQ` | nonlinear | f32 | expert finite-difference nonlinear-system solving | `std` | `nonlinear-expert` | [expert finite-difference nonlinear system](../../examples/nonlinear/solve_system_expert.rs) |
 | `slatec::nonlinear::solve_system_f32` | `SNSQE` | nonlinear | f32 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system_f32.rs) |
+| `slatec::nonlinear::solve_system_with_jacobian` | `DNSQ` | nonlinear | f64 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
+| `slatec::nonlinear::solve_system_with_jacobian_f32` | `SNSQ` | nonlinear | f32 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series` | `DCSEVL` | polynomials | f64 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series_f32` | `CSEVL` | polynomials | f32 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::quadrature::integrate` | `DQAG` | quadrature | f64 | adaptive finite-interval integration | `std` | `quadrature-basic` | [finite](../../examples/quadrature/families.rs) |
@@ -192,6 +198,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BIE` -> `slatec::special::airy::airy_bi_scaled_f32`
 - `BINOM` -> `slatec::special::gamma::binomial_coefficient_f32`
 - `CBRT` -> `slatec::special::elementary::cbrt_f32`
+- `CHKDER` -> `slatec::nonlinear::check_jacobian_f32`
 - `COSDG` -> `slatec::special::elementary::cos_degrees_f32`
 - `CSEVL` -> `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `DAI` -> `slatec::special::airy::airy_ai`
@@ -219,6 +226,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DBSK0E` -> `slatec::special::bessel::bessel_k0_scaled`
 - `DBSK1E` -> `slatec::special::bessel::bessel_k1_scaled`
 - `DCBRT` -> `slatec::special::elementary::cbrt`
+- `DCKDER` -> `slatec::nonlinear::check_jacobian`
 - `DCOPY` -> `slatec::blas::level1::dcopy`
 - `DCOPY` -> `slatec::blas::level1::dcopy_strided`
 - `DCOSDG` -> `slatec::special::elementary::cos_degrees`
@@ -248,6 +256,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DLNREL` -> `slatec::special::elementary::log1p`
 - `DNRM2` -> `slatec::blas::level1::dnrm2`
 - `DNRM2` -> `slatec::blas::level1::dnrm2_strided`
+- `DNSQ` -> `slatec::nonlinear::solve_system_expert`
+- `DNSQ` -> `slatec::nonlinear::solve_system_with_jacobian`
 - `DNSQE` -> `slatec::nonlinear::solve_system`
 - `DPSI` -> `slatec::special::gamma::digamma`
 - `DQAG` -> `slatec::quadrature::integrate`
@@ -316,6 +326,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SINDG` -> `slatec::special::elementary::sin_degrees_f32`
 - `SNRM2` -> `slatec::blas::level1::snrm2`
 - `SNRM2` -> `slatec::blas::level1::snrm2_strided`
+- `SNSQ` -> `slatec::nonlinear::solve_system_expert_f32`
+- `SNSQ` -> `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `SNSQE` -> `slatec::nonlinear::solve_system_f32`
 - `SROT` -> `slatec::blas::level1::srot`
 - `SROT` -> `slatec::blas::level1::srot_strided`
@@ -507,8 +519,14 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### nonlinear
 
+- `slatec::nonlinear::check_jacobian` — componentwise Jacobian consistency checking
+- `slatec::nonlinear::check_jacobian_f32` — componentwise Jacobian consistency checking
 - `slatec::nonlinear::solve_system` — finite-difference nonlinear-system solving
+- `slatec::nonlinear::solve_system_expert` — expert finite-difference nonlinear-system solving
+- `slatec::nonlinear::solve_system_expert_f32` — expert finite-difference nonlinear-system solving
 - `slatec::nonlinear::solve_system_f32` — finite-difference nonlinear-system solving
+- `slatec::nonlinear::solve_system_with_jacobian` — expert analytic-Jacobian nonlinear-system solving
+- `slatec::nonlinear::solve_system_with_jacobian_f32` — expert analytic-Jacobian nonlinear-system solving
 
 ## Capability index
 
@@ -575,12 +593,17 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### Requires `alloc`
 
-No current public function requires `alloc` without also requiring `std`. The feature is an explicit capability layer for future caller-independent allocation APIs.
+- `slatec::nonlinear::check_jacobian`
+- `slatec::nonlinear::check_jacobian_f32`
 
 ### Requires `std`
 
 - `slatec::nonlinear::solve_system`
+- `slatec::nonlinear::solve_system_expert`
+- `slatec::nonlinear::solve_system_expert_f32`
 - `slatec::nonlinear::solve_system_f32`
+- `slatec::nonlinear::solve_system_with_jacobian`
+- `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `slatec::polynomials::chebyshev::chebyshev_series`
 - `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `slatec::quadrature::integrate`
