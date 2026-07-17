@@ -14,5 +14,9 @@ The distinct `least-squares-linear-nonnegative` feature wraps `WNNLS` and
 `DWNNLS` for equality-constrained linear least squares with selected
 nonnegative variables; it also requires `std`, an explicit backend, and the
 validated GNU MinGW profile.
+The separate `least-squares-linear-bounded` feature wraps `SBOLS` and `DBOLS`
+for dense linear least squares with typed closed per-variable bounds under the
+same hosted-profile requirement; it does not provide general equalities,
+inequalities, or linear programming.
 
 Native implementations are selected explicitly with `prebuilt`, `source-build`, `system`, or `external-backend`. No redistributable prebuilt provider is currently available because historical source rights remain unresolved.

@@ -4,7 +4,7 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `special-gamma`, `quadrature-basic`, `roots-scalar`, `nonlinear-easy`,
 `nonlinear-expert`, `least-squares-nonlinear-easy`, and
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
-`least-squares-linear-nonnegative`. Numerical families
+`least-squares-linear-nonnegative`, and `least-squares-linear-bounded`. Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
 historical source rights remain unresolved. `source-build` is offline-only and
@@ -91,7 +91,11 @@ estimation is a separate `least-squares-covariance` feature over reviewed
 `least-squares-linear-nonnegative` feature wraps `WNNLS`/`DWNNLS` for linear
 least squares with an optional equality block and per-variable free or
 nonnegative constraints; it is neither nonlinear fitting nor linear
-programming. See [the WNNLS guide](docs/api/safe-weighted-nonnegative-least-squares.md).
+programming. The separate `least-squares-linear-bounded` feature wraps
+`SBOLS`/`DBOLS` for dense residual minimization with closed per-variable
+lower/upper bounds. It does not add general linear constraints or linear
+programming. See [the WNNLS guide](docs/api/safe-weighted-nonnegative-least-squares.md)
+and [bounded-driver guide](docs/api/safe-bounded-linear-least-squares.md).
 
 With the complete selected evidence and GNU MinGW compiler available, run:
 

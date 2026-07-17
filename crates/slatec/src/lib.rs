@@ -28,6 +28,8 @@ compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std`
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
 compile_error!("the `least-squares-linear-nonnegative` safe API requires the `std` feature");
+#[cfg(all(feature = "least-squares-linear-bounded", not(feature = "std")))]
+compile_error!("the `least-squares-linear-bounded` safe API requires the `std` feature");
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -79,7 +81,8 @@ pub mod polynomials;
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
     feature = "least-squares-covariance",
-    feature = "least-squares-linear-nonnegative"
+    feature = "least-squares-linear-nonnegative",
+    feature = "least-squares-linear-bounded"
 ))]
 pub(crate) mod runtime;
 
@@ -142,5 +145,13 @@ pub mod least_squares;
 
 /// Safe constrained linear least-squares facades over original SLATEC
 /// `WNNLS` and `DWNNLS` implementations.
-#[cfg(feature = "least-squares-linear-nonnegative")]
+#[cfg(any(
+    feature = "least-squares-linear-nonnegative",
+    feature = "least-squares-linear-bounded"
+))]
 pub mod linear_least_squares;
+
+/// Safe dense bounded linear least-squares facades over original SLATEC
+/// `SBOLS` and `DBOLS` implementations.
+#[cfg(feature = "least-squares-linear-bounded")]
+pub mod bounded_least_squares;

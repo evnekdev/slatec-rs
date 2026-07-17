@@ -378,6 +378,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/bounded-least-squares-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "linear least squares",
+                column(row, columns, "precision")?,
+                "bounded linear least squares",
+                "std",
+                "least-squares-linear-bounded",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -470,6 +485,12 @@ fn record(
         }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
+        "linear least squares" if path.contains("bounded_least_squares") && precision == "f32" => {
+            "examples/least_squares/mixed_bounds.rs".to_owned()
+        }
+        "linear least squares" if path.contains("bounded_least_squares") => {
+            "examples/least_squares/bounded_fit.rs".to_owned()
+        }
         "linear least squares" if precision == "f32" => {
             "examples/least_squares/mixed_nonnegative_fit.rs".to_owned()
         }
@@ -580,7 +601,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
-        "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "IPVT", "ERR",
+        "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "IPVT", "ERR", "RW", "IW",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
@@ -662,6 +683,15 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "MDW" if function.domain == "linear least squares" => {
                 "internal augmented leading dimension".to_owned()
             }
+            "MROWS" if function.rust_path.contains("bounded_least_squares") => {
+                "problem.matrix.rows".to_owned()
+            }
+            "NCOLS" if function.rust_path.contains("bounded_least_squares") => {
+                "problem.bounds.len".to_owned()
+            }
+            "BL" | "BU" | "IND" if function.rust_path.contains("bounded_least_squares") => {
+                "problem.bounds (typed closed-bound encoding)".to_owned()
+            }
             "ME" if function.domain == "linear least squares" => {
                 "problem.equality_matrix.rows".to_owned()
             }
@@ -679,7 +709,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             }
             "X" if function.domain == "linear least squares" => "result.solution".to_owned(),
             "RNORM" if function.domain == "linear least squares" => {
-                "result.native_residual_norm".to_owned()
+                "result.residual_norm".to_owned()
             }
             "MODE" if function.domain == "linear least squares" => "result.status".to_owned(),
             "EPSABS" => "options.absolute_tolerance".to_owned(),
@@ -823,6 +853,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         }
         "nonlinear" => "crates/slatec/tests/nonlinear_native.rs",
         "least squares" => "crates/slatec/tests/least_squares_native.rs",
+        "linear least squares" if function.rust_path.contains("bounded_least_squares") => {
+            "crates/slatec/tests/bounded_least_squares_native.rs"
+        }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
@@ -855,6 +888,8 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::least_squares::covariance_from_expert_fit_f32"
             | "slatec::linear_least_squares::solve_nonnegative_least_squares"
             | "slatec::linear_least_squares::solve_nonnegative_least_squares_f32"
+            | "slatec::bounded_least_squares::solve_bounded_least_squares"
+            | "slatec::bounded_least_squares::solve_bounded_least_squares_f32"
     )
 }
 
@@ -916,6 +951,7 @@ fn purpose(family: &str) -> &'static str {
         "equality-constrained nonnegative linear least squares" => {
             "equality-constrained nonnegative linear least-squares fitting"
         }
+        "bounded linear least squares" => "dense bounded linear least-squares fitting",
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",
