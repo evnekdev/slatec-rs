@@ -2524,6 +2524,150 @@
       ]
     },
     {
+      "rust_path": "slatec::constrained_least_squares::solve_constrained_least_squares",
+      "fortran_routine": "DLSEI",
+      "program_unit_id": "full-provider-aece4aaa4b499013",
+      "arguments": [
+        {
+          "rust": "problem matrices and right-hand sides copied into owned augmented storage",
+          "fortran": "W",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal augmented leading dimension",
+          "fortran": "MDW",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.equalities matrix row count",
+          "fortran": "ME",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.objective_matrix.rows",
+          "fortran": "MA",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.inequalities row count",
+          "fortran": "MG",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.objective_matrix.cols",
+          "fortran": "N",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "options.rank_tolerance encoded in internal PRGOPT list",
+          "fortran": "PRGOPT",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.solution",
+          "fortran": "X",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.equality_residual_norm",
+          "fortran": "RNORME",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.objective_residual_norm",
+          "fortran": "RNORML",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "MODE",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "WS",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IP",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::constrained_least_squares::solve_constrained_least_squares_f32",
+      "fortran_routine": "LSEI",
+      "program_unit_id": "full-provider-c8307a32bbfb7885",
+      "arguments": [
+        {
+          "rust": "problem matrices and right-hand sides copied into owned augmented storage",
+          "fortran": "W",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal augmented leading dimension",
+          "fortran": "MDW",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.equalities matrix row count",
+          "fortran": "ME",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.objective_matrix.rows",
+          "fortran": "MA",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.inequalities row count",
+          "fortran": "MG",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.objective_matrix.cols",
+          "fortran": "N",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "options.rank_tolerance encoded in internal PRGOPT list",
+          "fortran": "PRGOPT",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.solution",
+          "fortran": "X",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.equality_residual_norm",
+          "fortran": "RNORME",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.objective_residual_norm",
+          "fortran": "RNORML",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "MODE",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "WS",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IP",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::least_squares::covariance_from_expert_fit",
       "fortran_routine": "DCOV",
       "program_unit_id": "full-provider-ac51f11e9b483b2c",

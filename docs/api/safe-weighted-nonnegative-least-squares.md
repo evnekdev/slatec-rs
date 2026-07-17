@@ -46,7 +46,7 @@ API for `x86_64-w64-mingw32`, not a bare-metal support claim.
 
 `SBOLS`/`DBOLS` are exposed separately through the bounded linear
 least-squares feature; they have a different per-variable bound model.
-`SBOCLS`/`DBOCLS`, `LSEI`/`DLSEI`, and `SPLP`/`DSPLP` remain deferred because
+`SBOCLS`/`DBOCLS` and `SPLP`/`DSPLP` remain deferred because
 their broader equality, inequality, workspace, or linear-program contracts
 are not implied by this narrow `WNNLS`/`DWNNLS` facade.
 

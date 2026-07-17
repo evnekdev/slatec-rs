@@ -66,6 +66,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
 | `slatec::bounded_least_squares::solve_bounded_least_squares` | `DBOLS` | linear least squares | f64 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/bounded_fit.rs) |
 | `slatec::bounded_least_squares::solve_bounded_least_squares_f32` | `SBOLS` | linear least squares | f32 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/mixed_bounds.rs) |
+| `slatec::constrained_least_squares::solve_constrained_least_squares` | `DLSEI` | linear least squares | f64 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/equality_constrained_fit.rs) |
+| `slatec::constrained_least_squares::solve_constrained_least_squares_f32` | `LSEI` | linear least squares | f32 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/inequality_constrained_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -274,6 +276,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DLBETA` -> `slatec::special::gamma::log_beta`
 - `DLNGAM` -> `slatec::special::gamma::log_gamma`
 - `DLNREL` -> `slatec::special::elementary::log1p`
+- `DLSEI` -> `slatec::constrained_least_squares::solve_constrained_least_squares`
 - `DNLS1` -> `slatec::least_squares::least_squares_expert`
 - `DNLS1` -> `slatec::least_squares::least_squares_with_jacobian`
 - `DNLS1E` -> `slatec::least_squares::least_squares`
@@ -323,6 +326,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `IDAMAX` -> `slatec::blas::level1::idamax_strided`
 - `ISAMAX` -> `slatec::blas::level1::isamax`
 - `ISAMAX` -> `slatec::blas::level1::isamax_strided`
+- `LSEI` -> `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
 - `PSI` -> `slatec::special::gamma::digamma_f32`
 - `QAG` -> `slatec::quadrature::integrate_f32`
 - `QAGI` -> `slatec::quadrature::integrate_infinite_f32`
@@ -579,6 +583,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 - `slatec::bounded_least_squares::solve_bounded_least_squares` — dense bounded linear least-squares fitting
 - `slatec::bounded_least_squares::solve_bounded_least_squares_f32` — dense bounded linear least-squares fitting
+- `slatec::constrained_least_squares::solve_constrained_least_squares` — dense equality and inequality constrained linear least-squares fitting
+- `slatec::constrained_least_squares::solve_constrained_least_squares_f32` — dense equality and inequality constrained linear least-squares fitting
 - `slatec::linear_least_squares::solve_nonnegative_least_squares` — equality-constrained nonnegative linear least-squares fitting
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` — equality-constrained nonnegative linear least-squares fitting
 
@@ -654,6 +660,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 - `slatec::bounded_least_squares::solve_bounded_least_squares`
 - `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
+- `slatec::constrained_least_squares::solve_constrained_least_squares`
+- `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`

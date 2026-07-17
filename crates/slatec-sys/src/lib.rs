@@ -114,13 +114,15 @@ pub mod least_squares;
 
 /// Hand-reviewed declarations for constrained linear least squares.
 ///
-/// This narrow module exposes `WNNLS`/`DWNNLS` and `SBOLS`/`DBOLS`. The
+/// This narrow module exposes `WNNLS`/`DWNNLS`, `SBOLS`/`DBOLS`, and
+/// `LSEI`/`DLSEI`. The
 /// routines mutate their augmented matrix and work arrays, so the declarations
 /// remain unsafe.
 #[cfg(any(
     feature = "raw-ffi-linear-least-squares",
     feature = "raw-family-least-squares-linear-nonnegative",
-    feature = "raw-family-least-squares-linear-bounded"
+    feature = "raw-family-least-squares-linear-bounded",
+    feature = "raw-family-least-squares-linear-constrained"
 ))]
 pub mod linear_least_squares;
 
@@ -135,6 +137,7 @@ pub mod linear_least_squares;
     feature = "raw-family-least-squares-nonlinear-easy",
     feature = "raw-family-least-squares-nonlinear-expert",
     feature = "raw-family-least-squares-covariance",
-    feature = "raw-family-least-squares-linear-bounded"
+    feature = "raw-family-least-squares-linear-bounded",
+    feature = "raw-family-least-squares-linear-constrained"
 ))]
 pub mod legacy_error;

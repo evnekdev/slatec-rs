@@ -70,6 +70,7 @@ raw-family-least-squares-nonlinear-expert = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-covariance = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-linear-nonnegative = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-linear-bounded = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-least-squares-linear-constrained = ["ffi-profile-gnu-mingw-x86_64"]
 
 # Public family aliases mirror slatec and slatec-src. They remain narrow: the
 # reviewed least-squares declarations do not enable the broad callback batch.
@@ -81,8 +82,9 @@ least-squares-nonlinear = [
 least-squares-nonlinear-easy = ["raw-family-least-squares-nonlinear-easy"]
 least-squares-nonlinear-expert = ["raw-family-least-squares-nonlinear-expert"]
 least-squares-covariance = ["raw-family-least-squares-covariance"]
-least-squares-linear = ["least-squares-linear-nonnegative", "least-squares-linear-bounded"]
+least-squares-linear = ["least-squares-linear-nonnegative", "least-squares-linear-bounded", "least-squares-linear-constrained"]
 least-squares-linear-nonnegative = ["raw-family-least-squares-linear-nonnegative"]
 least-squares-linear-bounded = ["raw-family-least-squares-linear-bounded"]
+least-squares-linear-constrained = ["raw-family-least-squares-linear-constrained"]
 
 [build-dependencies]

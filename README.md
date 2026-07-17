@@ -93,9 +93,11 @@ least squares with an optional equality block and per-variable free or
 nonnegative constraints; it is neither nonlinear fitting nor linear
 programming. The separate `least-squares-linear-bounded` feature wraps
 `SBOLS`/`DBOLS` for dense residual minimization with closed per-variable
-lower/upper bounds. It does not add general linear constraints or linear
-programming. See [the WNNLS guide](docs/api/safe-weighted-nonnegative-least-squares.md)
-and [bounded-driver guide](docs/api/safe-bounded-linear-least-squares.md).
+lower/upper bounds. The `least-squares-linear-constrained` family additionally
+adds dense equality and lower-sided inequality constraints through `LSEI` and
+`DLSEI`; it does not add linear programming. See [the WNNLS guide](docs/api/safe-weighted-nonnegative-least-squares.md),
+[bounded-driver guide](docs/api/safe-bounded-linear-least-squares.md), and
+[general-constraint guide](docs/api/safe-linear-constraint-least-squares.md).
 
 With the complete selected evidence and GNU MinGW compiler available, run:
 
