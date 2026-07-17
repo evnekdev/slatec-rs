@@ -44,9 +44,11 @@ API for `x86_64-w64-mingw32`, not a bare-metal support claim.
 
 ## Deferred drivers
 
-`SBOLS`/`DBOLS`, `SBOCLS`/`DBOCLS`, `LSEI`/`DLSEI`, and `SPLP`/`DSPLP` remain
-deferred. They have broader bound, inequality, workspace, or linear-program
-contracts that this narrow `WNNLS`/`DWNNLS` facade does not imply.
+`SBOLS`/`DBOLS` are exposed separately through the bounded linear
+least-squares feature; they have a different per-variable bound model.
+`SBOCLS`/`DBOCLS`, `LSEI`/`DLSEI`, and `SPLP`/`DSPLP` remain deferred because
+their broader equality, inequality, workspace, or linear-program contracts
+are not implied by this narrow `WNNLS`/`DWNNLS` facade.
 
 See the generated [function index](function-index.md), compact argument map,
 and the `examples/least_squares/` examples for exact Rust-to-Fortran mapping.

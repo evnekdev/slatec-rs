@@ -64,6 +64,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
+| `slatec::bounded_least_squares::solve_bounded_least_squares` | `DBOLS` | linear least squares | f64 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/bounded_fit.rs) |
+| `slatec::bounded_least_squares::solve_bounded_least_squares_f32` | `SBOLS` | linear least squares | f32 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/mixed_bounds.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -235,6 +237,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DBI` -> `slatec::special::airy::airy_bi`
 - `DBIE` -> `slatec::special::airy::airy_bi_scaled`
 - `DBINOM` -> `slatec::special::gamma::binomial_coefficient`
+- `DBOLS` -> `slatec::bounded_least_squares::solve_bounded_least_squares`
 - `DBSI0E` -> `slatec::special::bessel::bessel_i0_scaled`
 - `DBSI1E` -> `slatec::special::bessel::bessel_i1_scaled`
 - `DBSK0E` -> `slatec::special::bessel::bessel_k0_scaled`
@@ -335,6 +338,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SASUM` -> `slatec::blas::level1::sasum_strided`
 - `SAXPY` -> `slatec::blas::level1::saxpy`
 - `SAXPY` -> `slatec::blas::level1::saxpy_strided`
+- `SBOLS` -> `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
 - `SCOPY` -> `slatec::blas::level1::scopy`
 - `SCOPY` -> `slatec::blas::level1::scopy_strided`
 - `SCOV` -> `slatec::least_squares::covariance_from_expert_fit_f32`
@@ -573,6 +577,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### linear least squares
 
+- `slatec::bounded_least_squares::solve_bounded_least_squares` — dense bounded linear least-squares fitting
+- `slatec::bounded_least_squares::solve_bounded_least_squares_f32` — dense bounded linear least-squares fitting
 - `slatec::linear_least_squares::solve_nonnegative_least_squares` — equality-constrained nonnegative linear least-squares fitting
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` — equality-constrained nonnegative linear least-squares fitting
 
@@ -646,6 +652,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### Requires `std`
 
+- `slatec::bounded_least_squares::solve_bounded_least_squares`
+- `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`

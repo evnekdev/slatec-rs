@@ -146,18 +146,6 @@ pub fn generate(
     wrappers.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
     let deferred = vec![
         json!([
-            "SBOLS",
-            "bounded_linear_least_squares",
-            "general_bound_model_and_workspace_contract_out_of_scope",
-            "deferred"
-        ]),
-        json!([
-            "DBOLS",
-            "bounded_linear_least_squares",
-            "general_bound_model_and_workspace_contract_out_of_scope",
-            "deferred"
-        ]),
-        json!([
             "SBOCLS",
             "combined_constrained_least_squares",
             "broader_equality_bound_contract_out_of_scope",
@@ -228,7 +216,7 @@ pub fn generate(
         bytes.extend_from_slice(&encoded);
     }
     let summary = format!(
-        "# Safe weighted nonnegative linear least squares\n\n- Snapshot: `{snapshot}`\n- Reviewed public wrappers: 2 (`DWNNLS`, `WNNLS`).\n- Contract: exact equality block `E x = f`, least-squares block `min ||A x-b||₂`, with a native free/nonnegative variable partition.\n- Program options: safe wrapper supplies `PRGOPT(1)=1`; WNNLS historical weighting is internal equality handling, not a public user-weight API.\n- Storage: immutable caller matrices are copied to owned column-major `W(MDW,N+1)` before native mutation.\n- Runtime: calls serialize saved machine-constant and legacy-error support for `ffi-profile-gnu-mingw-x86_64`.\n- Deferred: bounded, broader constrained, and linear-programming drivers remain out of scope.\n"
+        "# Safe weighted nonnegative linear least squares\n\n- Snapshot: `{snapshot}`\n- Reviewed public wrappers: 2 (`DWNNLS`, `WNNLS`).\n- Contract: exact equality block `E x = f`, least-squares block `min ||A x-b||₂`, with a native free/nonnegative variable partition.\n- Program options: safe wrapper supplies `PRGOPT(1)=1`; WNNLS historical weighting is internal equality handling, not a public user-weight API.\n- Storage: immutable caller matrices are copied to owned column-major `W(MDW,N+1)` before native mutation.\n- Runtime: calls serialize saved machine-constant and legacy-error support for `ffi-profile-gnu-mingw-x86_64`.\n- Bounded `SBOLS`/`DBOLS` wrappers are tracked by the dedicated bounded linear least-squares inventory.\n- Deferred: broader constrained and linear-programming drivers remain out of scope.\n"
     );
     fs::write(
         output_dir.join("nonnegative-least-squares-validation-summary.md"),

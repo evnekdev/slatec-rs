@@ -101,7 +101,8 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "least-squares-linear-bounded"
 ))]
 pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorScope {
     let mut previous = 0;
@@ -119,7 +120,8 @@ pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorSco
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "least-squares-linear-bounded"
 ))]
 pub(crate) struct RecoverableErrorScope {
     previous: slatec_sys::FortranInteger,
@@ -128,7 +130,8 @@ pub(crate) struct RecoverableErrorScope {
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "least-squares-linear-bounded"
 ))]
 impl Drop for RecoverableErrorScope {
     fn drop(&mut self) {

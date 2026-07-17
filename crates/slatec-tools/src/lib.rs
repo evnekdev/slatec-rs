@@ -21,6 +21,7 @@ pub mod provider;
 pub mod raw_ffi;
 pub mod runtime_profile;
 pub mod safe_api_docs;
+pub mod safe_bounded_linear_least_squares;
 pub mod safe_least_squares;
 pub mod safe_linear_least_squares;
 pub mod safe_nonlinear;

@@ -585,6 +585,26 @@
     },
     {
       "doctest_present": true,
+      "example_case": "bounded linear least squares",
+      "example_file": "examples/least_squares/bounded_fit.rs",
+      "fortran_routine": "DBOLS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::bounded_least_squares::solve_bounded_least_squares",
+      "validation_case": "solve_bounded_least_squares",
+      "validation_file": "crates/slatec/tests/bounded_least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "bounded linear least squares",
+      "example_file": "examples/least_squares/mixed_bounds.rs",
+      "fortran_routine": "SBOLS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::bounded_least_squares::solve_bounded_least_squares_f32",
+      "validation_case": "solve_bounded_least_squares_f32",
+      "validation_file": "crates/slatec/tests/bounded_least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "nonlinear least-squares covariance estimation",
       "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
       "fortran_routine": "DCOV",

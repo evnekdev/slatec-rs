@@ -133,14 +133,24 @@ least-squares-covariance = [
     "slatec-sys/raw-family-least-squares-covariance",
     "slatec-src/least-squares-covariance",
 ]
-least-squares-linear = ["least-squares-linear-nonnegative"]
+least-squares-linear = [
+    "least-squares-linear-nonnegative",
+    "least-squares-linear-bounded",
+]
 least-squares-linear-nonnegative = [
     "std",
     "blas-level1-validation",
     "slatec-sys/raw-family-least-squares-linear-nonnegative",
     "slatec-src/least-squares-linear-nonnegative",
 ]
+least-squares-linear-bounded = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-least-squares-linear-bounded",
+    "slatec-src/least-squares-linear-bounded",
+]
 least-squares-linear-nonnegative-native-tests = ["least-squares-linear-nonnegative"]
+least-squares-linear-bounded-native-tests = ["least-squares-linear-bounded"]
 least-squares-covariance-native-tests = ["least-squares-covariance"]
 least-squares-native-tests = [
     "least-squares-nonlinear-easy",
@@ -151,6 +161,7 @@ least-squares-native-tests = [
     "nonlinear-expert",
     "least-squares-covariance-native-tests",
     "least-squares-linear-nonnegative-native-tests",
+    "least-squares-linear-bounded-native-tests",
 ]
 
 # Compatibility names retained for downstream manifests from earlier releases.
@@ -242,3 +253,7 @@ required-features = ["least-squares-covariance"]
 [[example]]
 name = "link_least_squares_linear_nonnegative"
 required-features = ["least-squares-linear-nonnegative"]
+
+[[example]]
+name = "link_least_squares_linear_bounded"
+required-features = ["least-squares-linear-bounded"]

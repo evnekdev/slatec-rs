@@ -1,4 +1,5 @@
-//! Safe weighted nonnegative linear least-squares fitting.
+//! Shared dense matrix views and safe weighted nonnegative linear
+//! least-squares fitting.
 //!
 //! This module wraps SLATEC `DWNNLS` and `WNNLS`. Despite their historical
 //! name, the routines do **not** accept caller-supplied statistical weights.
@@ -8,10 +9,13 @@
 //! constrained variables; this facade applies a private stable permutation and
 //! restores the caller's variable order in its result.
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 use alloc::{vec, vec::Vec};
 use core::fmt;
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 use slatec_core::to_fortran_integer;
+#[cfg(feature = "least-squares-linear-nonnegative")]
 use slatec_sys::FortranInteger;
 
 /// Storage order accepted by [`MatrixRef`].
@@ -132,6 +136,7 @@ impl<'a, T> MatrixRef<'a, T> {
 }
 
 /// Constraint applied to one model variable.
+#[cfg(feature = "least-squares-linear-nonnegative")]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum VariableConstraint {
     /// The variable is unrestricted in sign.
@@ -148,6 +153,7 @@ pub enum VariableConstraint {
 /// equations `E x = f`. All matrices use [`MatrixRef`] column-major storage.
 /// `variable_constraints` has exactly one entry per column/variable.
 #[derive(Clone, Copy, Debug)]
+#[cfg(feature = "least-squares-linear-nonnegative")]
 pub struct NonnegativeLeastSquaresProblem<'a, T> {
     /// Coefficient matrix `A` for the least-squares rows.
     pub least_squares_matrix: MatrixRef<'a, T>,
@@ -163,6 +169,7 @@ pub struct NonnegativeLeastSquaresProblem<'a, T> {
 }
 
 /// Reviewed native completion state from `WNNLS` or `DWNNLS`.
+#[cfg(feature = "least-squares-linear-nonnegative")]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum NonnegativeLeastSquaresStatus {
     /// The native active-set iteration completed normally (`MODE = 0`).
@@ -178,6 +185,7 @@ pub enum NonnegativeLeastSquaresStatus {
 /// are recomputed against the immutable caller inputs; `native_residual_norm`
 /// is the original SLATEC `RNORM` output and can include the equality block.
 #[derive(Clone, Debug, PartialEq)]
+#[cfg(feature = "least-squares-linear-nonnegative")]
 pub struct NonnegativeLeastSquaresResult<T> {
     /// Estimated variables in the caller's original order.
     pub solution: Vec<T>,
@@ -316,6 +324,7 @@ impl std::error::Error for LinearLeastSquaresError {}
 /// # Ok::<(), slatec::linear_least_squares::LinearLeastSquaresError>(())
 /// # }
 /// ```
+#[cfg(feature = "least-squares-linear-nonnegative")]
 pub fn solve_nonnegative_least_squares(
     problem: NonnegativeLeastSquaresProblem<'_, f64>,
 ) -> Result<NonnegativeLeastSquaresResult<f64>, LinearLeastSquaresError> {
@@ -352,6 +361,7 @@ pub fn solve_nonnegative_least_squares(
 /// # Ok::<(), slatec::linear_least_squares::LinearLeastSquaresError>(())
 /// # }
 /// ```
+#[cfg(feature = "least-squares-linear-nonnegative")]
 pub fn solve_nonnegative_least_squares_f32(
     problem: NonnegativeLeastSquaresProblem<'_, f32>,
 ) -> Result<NonnegativeLeastSquaresResult<f32>, LinearLeastSquaresError> {
@@ -359,6 +369,7 @@ pub fn solve_nonnegative_least_squares_f32(
     run_f32(prepared)
 }
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 struct PreparedF64<'a> {
     problem: NonnegativeLeastSquaresProblem<'a, f64>,
     native_to_user: Vec<usize>,
@@ -370,6 +381,7 @@ struct PreparedF64<'a> {
     work: usize,
     iwork: usize,
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 struct PreparedF32<'a> {
     problem: NonnegativeLeastSquaresProblem<'a, f32>,
     native_to_user: Vec<usize>,
@@ -382,6 +394,7 @@ struct PreparedF32<'a> {
     iwork: usize,
 }
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 macro_rules! impl_prepared {
     ($name:ident, $scalar:ty) => {
         impl<'a> $name<'a> {
@@ -451,9 +464,12 @@ macro_rules! impl_prepared {
         }
     };
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 impl_prepared!(PreparedF64, f64);
+#[cfg(feature = "least-squares-linear-nonnegative")]
 impl_prepared!(PreparedF32, f32);
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn validate_problem<T: Copy + Finite>(
     problem: &NonnegativeLeastSquaresProblem<'_, T>,
 ) -> Result<(usize, usize, usize), LinearLeastSquaresError> {
@@ -512,19 +528,23 @@ fn validate_problem<T: Copy + Finite>(
     Ok((me, ma, n))
 }
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 trait Finite {
     fn finite(self) -> bool;
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 impl Finite for f64 {
     fn finite(self) -> bool {
         self.is_finite()
     }
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 impl Finite for f32 {
     fn finite(self) -> bool {
         self.is_finite()
     }
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn finite_slice<T: Copy + Finite>(
     data: &[T],
     argument: &'static str,
@@ -537,6 +557,7 @@ fn finite_slice<T: Copy + Finite>(
             Err(LinearLeastSquaresError::NonFiniteInput { argument, index })
         })
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn native_to_user(constraints: &[VariableConstraint]) -> Vec<usize> {
     constraints
         .iter()
@@ -554,6 +575,7 @@ fn native_to_user(constraints: &[VariableConstraint]) -> Vec<usize> {
         )
         .collect()
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn fill_augmented<T: Copy + Default>(
     problem: &NonnegativeLeastSquaresProblem<'_, T>,
     native_to_user: &[usize],
@@ -586,6 +608,7 @@ fn fill_augmented<T: Copy + Default>(
     }
 }
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn run_f64(
     mut prepared: PreparedF64<'_>,
 ) -> Result<NonnegativeLeastSquaresResult<f64>, LinearLeastSquaresError> {
@@ -642,6 +665,7 @@ fn run_f64(
         mode,
     )
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn run_f32(
     mut prepared: PreparedF32<'_>,
 ) -> Result<NonnegativeLeastSquaresResult<f32>, LinearLeastSquaresError> {
@@ -699,6 +723,7 @@ fn run_f32(
     )
 }
 
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn status(mode: FortranInteger) -> Result<NonnegativeLeastSquaresStatus, LinearLeastSquaresError> {
     match mode {
         0 => Ok(NonnegativeLeastSquaresStatus::Converged),
@@ -709,6 +734,7 @@ fn status(mode: FortranInteger) -> Result<NonnegativeLeastSquaresStatus, LinearL
         value => Err(LinearLeastSquaresError::NativeStatus { status: value }),
     }
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn finish_f64(
     problem: NonnegativeLeastSquaresProblem<'_, f64>,
     native_to_user: Vec<usize>,
@@ -726,6 +752,7 @@ fn finish_f64(
         status: status(mode)?,
     })
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn finish_f32(
     problem: NonnegativeLeastSquaresProblem<'_, f32>,
     native_to_user: Vec<usize>,
@@ -743,6 +770,7 @@ fn finish_f32(
         status: status(mode)?,
     })
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn restore<T: Default + Copy>(native_to_user: Vec<usize>, native: Vec<T>) -> Vec<T> {
     let mut solution = vec![T::default(); native.len()];
     for (native_index, user_index) in native_to_user.into_iter().enumerate() {
@@ -750,6 +778,7 @@ fn restore<T: Default + Copy>(native_to_user: Vec<usize>, native: Vec<T>) -> Vec
     }
     solution
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn norms_f64(problem: NonnegativeLeastSquaresProblem<'_, f64>, solution: &[f64]) -> (f64, f64) {
     let least = norm_f64(
         problem.least_squares_matrix,
@@ -762,6 +791,7 @@ fn norms_f64(problem: NonnegativeLeastSquaresProblem<'_, f64>, solution: &[f64])
     };
     (least, equality)
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn norms_f32(problem: NonnegativeLeastSquaresProblem<'_, f32>, solution: &[f32]) -> (f32, f32) {
     let least = norm_f32(
         problem.least_squares_matrix,
@@ -774,6 +804,7 @@ fn norms_f32(problem: NonnegativeLeastSquaresProblem<'_, f32>, solution: &[f32])
     };
     (least, equality)
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn norm_f64(matrix: MatrixRef<'_, f64>, rhs: &[f64], solution: &[f64]) -> f64 {
     let mut sum = 0.0;
     for row in 0..matrix.rows() {
@@ -785,6 +816,7 @@ fn norm_f64(matrix: MatrixRef<'_, f64>, rhs: &[f64], solution: &[f64]) -> f64 {
     }
     sum.sqrt()
 }
+#[cfg(feature = "least-squares-linear-nonnegative")]
 fn norm_f32(matrix: MatrixRef<'_, f32>, rhs: &[f32], solution: &[f32]) -> f32 {
     let mut sum = 0.0_f32;
     for row in 0..matrix.rows() {
@@ -808,6 +840,7 @@ mod tests {
         ));
     }
     #[test]
+    #[cfg(feature = "least-squares-linear-nonnegative")]
     fn transform_orders_equality_then_least_squares_and_permuted_columns() {
         let a = MatrixRef::column_major(&[1.0_f64, 3.0, 2.0, 4.0], 2, 2, 2).unwrap();
         let e = MatrixRef::column_major(&[5.0_f64, 6.0], 1, 2, 1).unwrap();
@@ -822,10 +855,11 @@ mod tests {
         assert_eq!(prepared.native_to_user, vec![1, 0]);
         assert_eq!(
             prepared.augmented,
-            vec![6.0, 2.0, 4.0, 9.0, 5.0, 1.0, 3.0, 7.0, 8.0]
+            vec![6.0, 2.0, 4.0, 5.0, 1.0, 3.0, 9.0, 7.0, 8.0]
         );
     }
     #[test]
+    #[cfg(feature = "least-squares-linear-nonnegative")]
     fn invalid_constraint_count_is_prechecked() {
         let a = MatrixRef::column_major(&[1.0_f64], 1, 1, 1).unwrap();
         assert!(matches!(

@@ -6,7 +6,7 @@ The `slatec` and `slatec-core` crates are `#![no_std]`. Their Cargo features des
 | --- | --- | --- |
 | Core only | `--no-default-features` plus a BLAS feature | Checked integer conversion and slice-based BLAS Levels 1–3 |
 | Allocation available | `--no-default-features --features alloc` | Capability layer only; no current public function requires allocation without `std` |
-| Hosted runtime | default `std`, plus a numerical-family feature | Runtime-serialized special functions; allocation- and callback-managed quadrature, roots, nonlinear systems, nonlinear least squares, covariance estimation, and WNNLS/DWNNLS constrained linear least squares |
+| Hosted runtime | default `std`, plus a numerical-family feature | Runtime-serialized special functions; allocation- and callback-managed quadrature, roots, nonlinear systems, nonlinear least squares, covariance estimation, WNNLS/DWNNLS, and SBOLS/DBOLS constrained linear least squares |
 
 The `alloc` feature links Rust's standalone `alloc` crate and does **not** enable or require `std`; a downstream `no_std` target supplies its allocator. The `std` feature depends on `alloc` in the other direction. Callback-bearing APIs require `std` because they use panic containment, thread-local callback state, and a process-wide native runtime lock. Special functions also require `std` because the validated FNLIB and legacy error state are process-global. Those requirements are explicit in the feature graph.
 

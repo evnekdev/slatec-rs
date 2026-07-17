@@ -6,4 +6,5 @@
 - Program options: safe wrapper supplies `PRGOPT(1)=1`; WNNLS historical weighting is internal equality handling, not a public user-weight API.
 - Storage: immutable caller matrices are copied to owned column-major `W(MDW,N+1)` before native mutation.
 - Runtime: calls serialize saved machine-constant and legacy-error support for `ffi-profile-gnu-mingw-x86_64`.
-- Deferred: bounded, broader constrained, and linear-programming drivers remain out of scope.
+- Bounded `SBOLS`/`DBOLS` wrappers are tracked by the dedicated bounded linear least-squares inventory.
+- Deferred: broader constrained and linear-programming drivers remain out of scope.

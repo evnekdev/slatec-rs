@@ -5,9 +5,9 @@
   "capabilities": {
     "alloc": 2,
     "core": 58,
-    "std": 120
+    "std": 122
   },
-  "function_count": 180,
+  "function_count": 182,
   "native_backend_available": true,
   "native_profile": "ffi-profile-gnu-mingw-x86_64",
   "native_runtime_validated": true,
