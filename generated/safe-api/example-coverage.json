@@ -585,6 +585,26 @@
     },
     {
       "doctest_present": true,
+      "example_case": "bounded linear least squares with bounded constraint expressions",
+      "example_file": "examples/least_squares/bounded_constrained_fit.rs",
+      "fortran_routine": "DBOCLS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares",
+      "validation_case": "solve_bounded_constrained_least_squares",
+      "validation_file": "crates/slatec/tests/bounded_constrained_least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "bounded linear least squares with bounded constraint expressions",
+      "example_file": "examples/least_squares/active_bound_and_constraint.rs",
+      "fortran_routine": "SBOCLS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32",
+      "validation_case": "solve_bounded_constrained_least_squares_f32",
+      "validation_file": "crates/slatec/tests/bounded_constrained_least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "bounded linear least squares",
       "example_file": "examples/least_squares/bounded_fit.rs",
       "fortran_routine": "DBOLS",

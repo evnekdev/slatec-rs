@@ -16,30 +16,9 @@ use crate::linear_least_squares::MatrixRef;
 
 /// Closed bounds for one least-squares variable.
 ///
-/// The variants map directly to the four reviewed `IND` codes accepted by
-/// `SBOLS` and `DBOLS`. Rust infinities are deliberately not passed to the
-/// native routines: [`Self::Unbounded`] represents an absent bound.
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub enum VariableBounds<T> {
-    /// No lower or upper bound (`IND = 4`).
-    Unbounded,
-    /// A closed lower bound `x >= lower` (`IND = 1`).
-    Lower(T),
-    /// A closed upper bound `x <= upper` (`IND = 2`).
-    Upper(T),
-    /// Closed two-sided bounds `lower <= x <= upper` (`IND = 3`).
-    Between {
-        /// Closed lower endpoint.
-        lower: T,
-        /// Closed upper endpoint.
-        upper: T,
-    },
-    /// A fixed variable, encoded as equal closed two-sided bounds (`IND = 3`).
-    ///
-    /// The reviewed source rejects only `lower > upper`, so equal endpoints
-    /// are a supported native representation.
-    Fixed(T),
-}
+/// This is the shared [`crate::linear_least_squares::VariableBounds`] type,
+/// re-exported at its original path for API compatibility.
+pub use crate::linear_least_squares::VariableBounds;
 
 /// Column-scaling policy exposed from the reviewed `SBOLS`/`DBOLS` option
 /// array.

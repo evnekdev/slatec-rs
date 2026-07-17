@@ -394,6 +394,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         },
     )?;
     collect_columnar(
+        "generated/safe-api/bounded-constrained-least-squares-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "linear least squares",
+                column(row, columns, "precision")?,
+                "bounded linear least squares with bounded constraint expressions",
+                "std",
+                "least-squares-linear-bounded-constrained",
+            ))
+        },
+    )?;
+    collect_columnar(
         "generated/safe-api/constrained-least-squares-wrapper-index.json",
         &mut output,
         |row, columns| {
@@ -500,6 +515,14 @@ fn record(
         }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
+        "linear least squares"
+            if path.contains("bounded_constrained_least_squares") && precision == "f32" =>
+        {
+            "examples/least_squares/active_bound_and_constraint.rs".to_owned()
+        }
+        "linear least squares" if path.contains("bounded_constrained_least_squares") => {
+            "examples/least_squares/bounded_constrained_fit.rs".to_owned()
+        }
         "linear least squares" if path.contains("bounded_least_squares") && precision == "f32" => {
             "examples/least_squares/mixed_bounds.rs".to_owned()
         }
@@ -707,6 +730,29 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "MDW" if function.domain == "linear least squares" => {
                 "internal augmented leading dimension".to_owned()
             }
+            "MCON" if function.rust_path.contains("bounded_constrained_least_squares") => {
+                "problem.constraints.matrix.rows".to_owned()
+            }
+            "MROWS" if function.rust_path.contains("bounded_constrained_least_squares") => {
+                "problem.objective_matrix.rows".to_owned()
+            }
+            "NCOLS" if function.rust_path.contains("bounded_constrained_least_squares") => {
+                "problem.variable_bounds.len".to_owned()
+            }
+            "BL" | "BU" | "IND"
+                if function.rust_path.contains("bounded_constrained_least_squares") =>
+            {
+                "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)".to_owned()
+            }
+            "IOPT" if function.rust_path.contains("bounded_constrained_least_squares") => {
+                "BoundedConstrainedLeastSquaresOptions encoded as the reviewed default native filter".to_owned()
+            }
+            "RNORMC" if function.rust_path.contains("bounded_constrained_least_squares") => {
+                "result.constraint_residual_norm and result.constraint_feasibility".to_owned()
+            }
+            "RNORM" if function.rust_path.contains("bounded_constrained_least_squares") => {
+                "result.objective_residual_norm".to_owned()
+            }
             "MROWS" if function.rust_path.contains("bounded_least_squares") => {
                 "problem.matrix.rows".to_owned()
             }
@@ -902,6 +948,13 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         }
         "nonlinear" => "crates/slatec/tests/nonlinear_native.rs",
         "least squares" => "crates/slatec/tests/least_squares_native.rs",
+        "linear least squares"
+            if function
+                .rust_path
+                .contains("bounded_constrained_least_squares") =>
+        {
+            "crates/slatec/tests/bounded_constrained_least_squares_native.rs"
+        }
         "linear least squares" if function.rust_path.contains("bounded_least_squares") => {
             "crates/slatec/tests/bounded_least_squares_native.rs"
         }
@@ -942,6 +995,8 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::linear_least_squares::solve_nonnegative_least_squares_f32"
             | "slatec::bounded_least_squares::solve_bounded_least_squares"
             | "slatec::bounded_least_squares::solve_bounded_least_squares_f32"
+            | "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares"
+            | "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32"
             | "slatec::constrained_least_squares::solve_constrained_least_squares"
             | "slatec::constrained_least_squares::solve_constrained_least_squares_f32"
     )
@@ -1006,6 +1061,9 @@ fn purpose(family: &str) -> &'static str {
             "equality-constrained nonnegative linear least-squares fitting"
         }
         "bounded linear least squares" => "dense bounded linear least-squares fitting",
+        "bounded linear least squares with bounded constraint expressions" => {
+            "bounded constrained linear least-squares fitting"
+        }
         "equality and inequality constrained linear least squares" => {
             "dense equality and inequality constrained linear least-squares fitting"
         }

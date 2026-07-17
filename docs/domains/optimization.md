@@ -59,6 +59,7 @@ The `E` driver reduces configuration but does not erase the underlying local-con
 `SBOLS/DBOLS`, `SBOCLS/DBOCLS`, `LSEI/DLSEI` and `WNNLS/DWNNLS` overlap mathematically but impose different constraint models:
 
 - variable bounds;
+- bounds on linear expressions `C x` (the `SBOCLS`/`DBOCLS` model);
 - linear equality constraints;
 - linear inequality constraints;
 - nonnegativity on selected variables;

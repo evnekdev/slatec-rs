@@ -137,6 +137,7 @@ least-squares-linear = [
     "least-squares-linear-nonnegative",
     "least-squares-linear-bounded",
     "least-squares-linear-constrained",
+    "least-squares-linear-bounded-constrained",
 ]
 least-squares-linear-nonnegative = [
     "std",
@@ -156,9 +157,20 @@ least-squares-linear-constrained = [
     "slatec-sys/raw-family-least-squares-linear-constrained",
     "slatec-src/least-squares-linear-constrained",
 ]
+least-squares-linear-bounded-constrained = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-least-squares-linear-bounded-constrained",
+    "slatec-src/least-squares-linear-bounded-constrained",
+]
 least-squares-linear-nonnegative-native-tests = ["least-squares-linear-nonnegative"]
 least-squares-linear-bounded-native-tests = ["least-squares-linear-bounded"]
 least-squares-linear-constrained-native-tests = ["least-squares-linear-constrained"]
+least-squares-linear-bounded-constrained-native-tests = [
+    "least-squares-linear-bounded-constrained",
+    "least-squares-linear-bounded",
+    "least-squares-linear-constrained",
+]
 least-squares-covariance-native-tests = ["least-squares-covariance"]
 least-squares-native-tests = [
     "least-squares-nonlinear-easy",
@@ -171,6 +183,7 @@ least-squares-native-tests = [
     "least-squares-linear-nonnegative-native-tests",
     "least-squares-linear-bounded-native-tests",
     "least-squares-linear-constrained-native-tests",
+    "least-squares-linear-bounded-constrained-native-tests",
 ]
 
 # Compatibility names retained for downstream manifests from earlier releases.
@@ -270,3 +283,7 @@ required-features = ["least-squares-linear-bounded"]
 [[example]]
 name = "link_least_squares_linear_constrained"
 required-features = ["least-squares-linear-constrained"]
+
+[[example]]
+name = "link_least_squares_linear_bounded_constrained"
+required-features = ["least-squares-linear-bounded-constrained"]

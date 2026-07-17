@@ -32,6 +32,13 @@ compile_error!("the `least-squares-linear-nonnegative` safe API requires the `st
 compile_error!("the `least-squares-linear-bounded` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-constrained", not(feature = "std")))]
 compile_error!("the `least-squares-linear-constrained` safe API requires the `std` feature");
+#[cfg(all(
+    feature = "least-squares-linear-bounded-constrained",
+    not(feature = "std")
+))]
+compile_error!(
+    "the `least-squares-linear-bounded-constrained` safe API requires the `std` feature"
+);
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -85,7 +92,8 @@ pub mod polynomials;
     feature = "least-squares-covariance",
     feature = "least-squares-linear-nonnegative",
     feature = "least-squares-linear-bounded",
-    feature = "least-squares-linear-constrained"
+    feature = "least-squares-linear-constrained",
+    feature = "least-squares-linear-bounded-constrained"
 ))]
 pub(crate) mod runtime;
 
@@ -151,7 +159,8 @@ pub mod least_squares;
 #[cfg(any(
     feature = "least-squares-linear-nonnegative",
     feature = "least-squares-linear-bounded",
-    feature = "least-squares-linear-constrained"
+    feature = "least-squares-linear-constrained",
+    feature = "least-squares-linear-bounded-constrained"
 ))]
 pub mod linear_least_squares;
 
@@ -164,3 +173,8 @@ pub mod bounded_least_squares;
 /// over original SLATEC `LSEI` and `DLSEI` implementations.
 #[cfg(feature = "least-squares-linear-constrained")]
 pub mod constrained_least_squares;
+
+/// Safe dense bounded constrained linear least-squares facades over original
+/// SLATEC `SBOCLS` and `DBOCLS` implementations.
+#[cfg(feature = "least-squares-linear-bounded-constrained")]
+pub mod bounded_constrained_least_squares;

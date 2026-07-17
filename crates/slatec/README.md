@@ -18,5 +18,9 @@ The separate `least-squares-linear-bounded` feature wraps `SBOLS` and `DBOLS`
 for dense linear least squares with typed closed per-variable bounds under the
 same hosted-profile requirement; it does not provide general equalities,
 inequalities, or linear programming.
+`least-squares-linear-bounded-constrained` separately wraps `SBOCLS` and
+`DBOCLS`: it bounds original variables and the constraint expressions `C x`,
+and therefore is neither a generic combination of the other drivers nor a
+linear-programming interface.
 
 Native implementations are selected explicitly with `prebuilt`, `source-build`, `system`, or `external-backend`. No redistributable prebuilt provider is currently available because historical source rights remain unresolved.

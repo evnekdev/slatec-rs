@@ -2380,6 +2380,170 @@
       ]
     },
     {
+      "rust_path": "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares",
+      "fortran_routine": "DBOCLS",
+      "program_unit_id": "full-provider-76619d8b2dc29cf2",
+      "arguments": [
+        {
+          "rust": "problem matrices and right-hand sides copied into owned augmented storage",
+          "fortran": "W",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal augmented leading dimension",
+          "fortran": "MDW",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.constraints.matrix.rows",
+          "fortran": "MCON",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.objective_matrix.rows",
+          "fortran": "MROWS",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds.len",
+          "fortran": "NCOLS",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)",
+          "fortran": "BL",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)",
+          "fortran": "BU",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)",
+          "fortran": "IND",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.solution",
+          "fortran": "X",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.constraint_residual_norm and result.constraint_feasibility",
+          "fortran": "RNORMC",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.objective_residual_norm",
+          "fortran": "RNORM",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "MODE",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "RW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IW",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32",
+      "fortran_routine": "SBOCLS",
+      "program_unit_id": "full-provider-115ec3b6d3c86751",
+      "arguments": [
+        {
+          "rust": "problem matrices and right-hand sides copied into owned augmented storage",
+          "fortran": "W",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal augmented leading dimension",
+          "fortran": "MDW",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.constraints.matrix.rows",
+          "fortran": "MCON",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.objective_matrix.rows",
+          "fortran": "MROWS",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds.len",
+          "fortran": "NCOLS",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)",
+          "fortran": "BL",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)",
+          "fortran": "BU",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_bounds and problem.constraints.bounds (typed closed-bound encoding)",
+          "fortran": "IND",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.solution",
+          "fortran": "X",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.constraint_residual_norm and result.constraint_feasibility",
+          "fortran": "RNORMC",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.objective_residual_norm",
+          "fortran": "RNORM",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "MODE",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "RW",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IW",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::bounded_least_squares::solve_bounded_least_squares",
       "fortran_routine": "DBOLS",
       "program_unit_id": "full-provider-58cd36b6f547f01c",
