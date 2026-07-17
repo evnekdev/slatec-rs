@@ -54,6 +54,11 @@ The callback-bearing safe API covers focused QUADPACK integration through
 [`docs/api/safe-quadrature.md`](docs/api/safe-quadrature.md) for workspace,
 panic-containment, concurrency, tolerance, and native-profile rules.
 
+The opt-in `roots` feature provides bracketed scalar root finding through the
+original `FZERO` and `DFZERO` routines. It shares the contained callback
+runtime with quadrature; polynomial and nonlinear-system routines remain
+deferred. See [`docs/api/safe-roots.md`](docs/api/safe-roots.md).
+
 With the complete selected evidence and GNU MinGW compiler available, run:
 
 ```text

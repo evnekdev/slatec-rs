@@ -19,6 +19,7 @@ pub mod prologues;
 pub mod raw_ffi;
 pub mod runtime_profile;
 pub mod safe_quadrature;
+pub mod safe_roots;
 pub mod safe_special;
 
 pub const TOOL_NAME: &str = "slatec-corpus";

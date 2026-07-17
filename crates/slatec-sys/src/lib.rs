@@ -49,3 +49,9 @@ pub mod generated;
 /// by `slatec::quadrature` are available here.
 #[cfg(feature = "raw-ffi-quadrature")]
 pub mod quadrature;
+
+/// Hand-reviewed scalar callback declarations for the focused FZERO family.
+///
+/// This narrow module remains separate from the general callback batch.
+#[cfg(feature = "raw-ffi-roots")]
+pub mod roots;

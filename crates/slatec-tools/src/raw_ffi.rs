@@ -1132,6 +1132,18 @@ fn classify(
             vec!["RAW-FFI-UNRESOLVED-INTERFACE".to_owned()],
         );
     }
+    // FZERO and DFZERO take typed Fortran function pointers. The conservative
+    // corpus-wide generator has no callback-signature model, so its generic
+    // `*mut REAL` declaration would be incorrect. They are deliberately
+    // withheld here and exposed only through the separately reviewed
+    // `raw-ffi-roots` module.
+    if matches!(provider.normalized_name.as_str(), "FZERO" | "DFZERO") {
+        return (
+            "manual_review_required".to_owned(),
+            Some("batch_callbacks".to_owned()),
+            vec!["RAW-FFI-REVIEWED-ROOT-CALLBACK".to_owned()],
+        );
+    }
     if facts
         .arguments
         .iter()
@@ -2133,6 +2145,23 @@ mod tests {
             &validated(),
         );
         assert_eq!(missing.0, "manual_review_required");
+    }
+
+    #[test]
+    fn withholds_fzero_callbacks_for_the_reviewed_root_module() {
+        let mut root = provider("subroutine", "selected_numerical_program_unit");
+        root.normalized_name = "DFZERO".to_owned();
+        let classification = classify(
+            &root,
+            &facts("subroutine", Some("DOUBLE PRECISION")),
+            true,
+            Some("dfzero_"),
+            1,
+            &validated(),
+        );
+        assert_eq!(classification.0, "manual_review_required");
+        assert_eq!(classification.1.as_deref(), Some("batch_callbacks"));
+        assert_eq!(classification.2, vec!["RAW-FFI-REVIEWED-ROOT-CALLBACK"]);
     }
 
     #[test]

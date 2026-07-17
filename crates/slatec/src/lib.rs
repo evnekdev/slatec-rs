@@ -18,9 +18,20 @@ pub mod special;
 #[cfg(feature = "special-functions-polynomials")]
 pub mod polynomials;
 
-#[cfg(any(feature = "special-functions", feature = "quadrature"))]
+#[cfg(any(
+    feature = "special-functions",
+    feature = "quadrature",
+    feature = "roots"
+))]
 pub(crate) mod runtime;
+
+#[cfg(any(feature = "quadrature", feature = "roots"))]
+mod callback_runtime;
 
 /// Panic-contained closure adapters for the reviewed SLATEC QUADPACK drivers.
 #[cfg(feature = "quadrature")]
 pub mod quadrature;
+
+/// Safe bracketed scalar-root adapters over the original FZERO routines.
+#[cfg(feature = "roots")]
+pub mod roots;
