@@ -17,6 +17,7 @@ pub mod native_probe;
 pub mod policy;
 pub mod program_units;
 pub mod prologues;
+pub mod provider;
 pub mod raw_ffi;
 pub mod runtime_profile;
 pub mod safe_api_docs;

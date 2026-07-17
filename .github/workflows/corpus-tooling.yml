@@ -27,12 +27,24 @@ jobs:
           cargo check -p slatec --no-default-features --features external-backend,blas-level1,blas-level2,blas-level3
       - name: Reject incompatible native providers
         run: |
-          if cargo check -p slatec --no-default-features --features bundled,system,blas-level1; then
+          if cargo check -p slatec --no-default-features --features prebuilt,system,blas-level1; then
             echo "incompatible provider features unexpectedly succeeded"
+            exit 1
+          fi
+          if cargo check -p slatec --no-default-features --features prebuilt,special-gamma; then
+            echo "rights-blocked prebuilt provider unexpectedly succeeded"
             exit 1
           fi
       - name: Published-style external no_std consumer
         run: cargo check --manifest-path tests/consumers/external-blas-no-std/Cargo.toml
+      - name: Additive family feature unification
+        run: cargo check --manifest-path tests/consumers/feature-unification/Cargo.toml
+      - name: Reject unified conflicting backends
+        run: |
+          if cargo check --manifest-path tests/consumers/backend-conflict/Cargo.toml; then
+            echo "unified conflicting backends unexpectedly succeeded"
+            exit 1
+          fi
       - run: cargo test --workspace
       - name: Safe BLAS validation without native linking
         run: cargo test -p slatec --features blas-level1-validation
@@ -66,6 +78,10 @@ jobs:
         run: cargo test -p slatec-tools safe_api_docs::tests
       - name: Family closure and linkage metadata fixtures
         run: cargo test -p slatec-tools linkage::tests
+      - name: Provider cache and publication metadata fixtures
+        run: cargo test -p slatec-tools provider::tests
+      - name: Package assembly contents
+        run: cargo package --workspace --exclude slatec-tools --allow-dirty --no-verify
       - name: Documentation with warnings denied
         env:
           RUSTDOCFLAGS: -D warnings

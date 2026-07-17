@@ -3,10 +3,11 @@
 
 //! Safe, opt-in Rust facades over original SLATEC Fortran implementations.
 //!
-//! Numerical families target the validated GNU MinGW x86_64 ABI. The default
-//! `bundled` provider acquires checksum-pinned Netlib sources, compiles only
-//! the selected family closure, and links it statically. `source-build`,
-//! `system`, and `external-backend` provide explicit alternatives; see
+//! Numerical families target the validated GNU MinGW x86_64 ABI and require an
+//! explicit backend. `source-build` consumes a separately acquired verified
+//! cache; `system` and `external-backend` provide integration escape hatches.
+//! `prebuilt` is unavailable while historical redistribution rights remain
+//! unresolved; see
 //! [`docs/api/family-features-and-backends.md`](https://github.com/evnekdev/slatec-rs/blob/master/docs/api/family-features-and-backends.md).
 
 #[cfg(feature = "alloc")]

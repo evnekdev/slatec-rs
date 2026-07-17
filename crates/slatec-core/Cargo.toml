@@ -6,6 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Shared safe infrastructure for slatec-rs"
+readme = "README.md"
 
 [dependencies]
 slatec-sys.workspace = true

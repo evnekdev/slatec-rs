@@ -6,6 +6,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 description = "Safe Rust interface to selected SLATEC numerical routines"
+readme = "README.md"
 
 [package.metadata.docs.rs]
 default-features = false
@@ -13,16 +14,19 @@ features = ["std", "external-backend", "full"]
 targets = ["x86_64-pc-windows-gnu"]
 
 [features]
-default = ["std", "bundled"]
+default = ["std"]
 alloc = ["slatec-core/alloc"]
 std = ["alloc", "slatec-core/std"]
 
 # Implementation providers are orthogonal to API capability. Exactly one is
 # required when a native family is selected; the provider crate enforces this.
-bundled = ["slatec-src/bundled"]
+prebuilt = ["slatec-src/prebuilt"]
 source-build = ["slatec-src/source-build"]
 system = ["slatec-src/system"]
 external-backend = ["slatec-src/external-backend"]
+# Deprecated compatibility alias with one precise meaning: offline
+# `source-build`. It never performs network acquisition.
+bundled = ["source-build", "slatec-src/bundled"]
 
 blas = ["blas-level1", "blas-level2", "blas-level3"]
 blas-level1-validation = [
@@ -122,3 +126,23 @@ required-features = ["quadrature-basic"]
 [[example]]
 name = "link_complete_safe_api"
 required-features = ["full"]
+
+[[example]]
+name = "link_elementary"
+required-features = ["special-elementary"]
+
+[[example]]
+name = "link_bessel"
+required-features = ["special-bessel"]
+
+[[example]]
+name = "link_blas_level3"
+required-features = ["blas-level3"]
+
+[[example]]
+name = "link_quadrature_oscillatory"
+required-features = ["quadrature-oscillatory"]
+
+[[example]]
+name = "link_roots_scalar"
+required-features = ["roots-scalar"]

@@ -1,11 +1,32 @@
-/target
+# Cargo and consumer-project build directories
+/target/
+**/target/
 Cargo.lock
+
+# Native compiler, archiver, linker, and packaging artifacts
+*.o
+*.obj
 *.a
 *.lib
 *.dll
 *.so
 *.dylib
 *.mod
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.rlib
+*.rmeta
+*.crate
+*.log
+
+# Explicit provider acquisition/build caches
+/evidence/provider-sources/
+/evidence/provider-cache/
+/evidence/package-staging/
+/.slatec-cache/
+**/.slatec-cache/
 /evidence/downloads/
 /evidence/extracted/
 /evidence/work/

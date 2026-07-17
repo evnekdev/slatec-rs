@@ -12,6 +12,7 @@ use slatec_tools::native_probe;
 use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
 use slatec_tools::prologues;
+use slatec_tools::provider;
 use slatec_tools::raw_ffi;
 use slatec_tools::runtime_profile;
 use slatec_tools::safe_api_docs;
@@ -116,6 +117,11 @@ fn run() -> Result<()> {
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/linkage");
+    }
+    if options.command == "acquire-provider-sources"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("evidence/provider-sources");
     }
     let policy = Policy::load(&PathBuf::from("metadata/canonical-corpus.toml"))?;
     match options.command.as_str() {
@@ -434,8 +440,25 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "acquire-provider-sources" => {
+            let result = provider::acquire(
+                &PathBuf::from("crates/slatec-src/metadata/family-source-closure.json"),
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "success: provider cache {} sources (downloaded {}, existing {})",
+                result.total, result.downloaded, result.verified_existing
+            );
+            Ok(())
+        }
+        "generate-provider-metadata" => {
+            let semantic_hash = provider::generate_metadata(&PathBuf::from("."))?;
+            println!("success: provider metadata ({semantic_hash})");
+            Ok(())
+        }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-api-docs, or generate-linkage-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-api-docs, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }
@@ -517,5 +540,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-api-docs> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-api-docs|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
 }

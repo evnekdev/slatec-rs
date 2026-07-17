@@ -7,6 +7,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const TARGET: &str = "x86_64-pc-windows-gnu";
+const ACQUIRE_COMMAND: &str = "cargo run -p slatec-tools --bin slatec-corpus -- acquire-provider-sources --output-dir <SLATEC_SOURCE_CACHE>";
 const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("BLAS_LEVEL1", "blas-level1"),
     ("BLAS_LEVEL2", "blas-level2"),
@@ -31,9 +32,9 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
 
 #[derive(Deserialize)]
 struct Manifest {
-    snapshot_id: String,
     sources: Vec<Source>,
     families: BTreeMap<String, Vec<String>>,
+    profile_override_families: BTreeSet<String>,
 }
 
 #[derive(Clone, Deserialize)]
@@ -42,14 +43,18 @@ struct Source {
     subset: String,
     path: String,
     sha256: String,
-    url: String,
 }
 
 fn main() {
-    println!("cargo:rerun-if-env-changed=SLATEC_SOURCE_CACHE");
-    println!("cargo:rerun-if-env-changed=SLATEC_SYSTEM_LIB_DIR");
-    println!("cargo:rerun-if-env-changed=SLATEC_SYSTEM_LIB_NAME");
-    println!("cargo:rerun-if-env-changed=SLATEC_GFORTRAN");
+    for name in [
+        "SLATEC_SOURCE_CACHE",
+        "SLATEC_SYSTEM_LIB_DIR",
+        "SLATEC_SYSTEM_LIB_NAME",
+        "SLATEC_SYSTEM_RUNTIME_LIB_DIR",
+        "SLATEC_GFORTRAN",
+    ] {
+        println!("cargo:rerun-if-env-changed={name}");
+    }
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
@@ -57,20 +62,22 @@ fn main() {
     if families.is_empty() {
         return;
     }
-    let backends = ["BUNDLED", "SOURCE_BUILD", "SYSTEM", "EXTERNAL_BACKEND"]
+    let backends = ["PREBUILT", "SOURCE_BUILD", "SYSTEM", "EXTERNAL_BACKEND"]
         .into_iter()
         .filter(|name| feature(name))
         .collect::<Vec<_>>();
     if backends.len() != 1 {
         panic!(
-            "native SLATEC families require exactly one backend feature: bundled, source-build, system, or external-backend; enabled {backends:?}"
+            "native SLATEC families require exactly one backend feature: prebuilt, source-build, system, or external-backend; enabled {backends:?}. Backend selection should be made by the top-level application"
         );
     }
     match backends[0] {
-        "EXTERNAL_BACKEND" => (),
+        "PREBUILT" => panic!(
+            "the prebuilt backend is unavailable: redistribution rights for the selected historical SLATEC sources and compiled archive remain unresolved. Select source-build, system, or external-backend"
+        ),
+        "SOURCE_BUILD" => build_sources(&families),
         "SYSTEM" => link_system(),
-        "BUNDLED" => build_sources(&families, true),
-        "SOURCE_BUILD" => build_sources(&families, false),
+        "EXTERNAL_BACKEND" => (),
         _ => unreachable!(),
     }
 }
@@ -88,69 +95,106 @@ fn enabled_families() -> BTreeSet<String> {
 }
 
 fn link_system() {
-    if let Some(dir) = env::var_os("SLATEC_SYSTEM_LIB_DIR") {
-        println!(
-            "cargo:rustc-link-search=native={}",
-            PathBuf::from(dir).display()
+    let dir = env::var_os("SLATEC_SYSTEM_LIB_DIR").map(PathBuf::from).unwrap_or_else(|| {
+        panic!("system backend requires SLATEC_SYSTEM_LIB_DIR containing the validated static SLATEC archive")
+    });
+    let name = env::var("SLATEC_SYSTEM_LIB_NAME").unwrap_or_else(|_| "slatec".to_owned());
+    let candidates = [
+        dir.join(format!("lib{name}.a")),
+        dir.join(format!("{name}.lib")),
+    ];
+    if !candidates.iter().any(|path| path.is_file()) {
+        panic!(
+            "system backend did not find lib{name}.a or {name}.lib in {}",
+            dir.display()
         );
     }
-    let name = env::var("SLATEC_SYSTEM_LIB_NAME").unwrap_or_else(|_| "slatec".to_owned());
+    println!("cargo:rustc-link-search=native={}", dir.display());
     println!("cargo:rustc-link-lib=static={name}");
+    let runtime = env::var_os("SLATEC_SYSTEM_RUNTIME_LIB_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| {
+            panic!(
+                "system backend requires SLATEC_SYSTEM_RUNTIME_LIB_DIR containing static libgfortran.a and libquadmath.a"
+            )
+        });
+    for (file, name) in [("libgfortran.a", "gfortran"), ("libquadmath.a", "quadmath")] {
+        if !runtime.join(file).is_file() {
+            panic!(
+                "system backend did not find {file} in {}",
+                runtime.display()
+            );
+        }
+        println!("cargo:rustc-link-search=native={}", runtime.display());
+        println!("cargo:rustc-link-lib=static={name}");
+    }
 }
 
-fn build_sources(families: &BTreeSet<String>, acquire: bool) {
+fn build_sources(families: &BTreeSet<String>) {
     let target = env::var("TARGET").unwrap_or_default();
     if target != TARGET {
         panic!(
-            "automatic SLATEC source builds currently support only {TARGET}; found {target}. Select system or external-backend for another target"
+            "source-build currently supports only {TARGET}; found {target}. Select system or external-backend for another target"
         );
     }
+    let cache = env::var_os("SLATEC_SOURCE_CACHE").map(PathBuf::from).unwrap_or_else(|| {
+        panic!(
+            "source-build is offline-only and requires SLATEC_SOURCE_CACHE. Populate it explicitly with: {ACQUIRE_COMMAND}"
+        )
+    });
     let manifest_path =
         PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("metadata/family-source-closure.json");
     let manifest: Manifest = serde_json::from_slice(
         &fs::read(&manifest_path).expect("read family source closure manifest"),
     )
     .expect("parse family source closure manifest");
-    let _snapshot = &manifest.snapshot_id;
     let by_id = manifest
         .sources
         .into_iter()
-        .map(|s| (s.id.clone(), s))
+        .map(|source| (source.id.clone(), source))
         .collect::<BTreeMap<_, _>>();
     let mut selected = BTreeSet::new();
     for family in families {
-        let ids = manifest
-            .families
-            .get(family)
-            .unwrap_or_else(|| panic!("family {family} has no reviewed source closure"));
-        selected.extend(ids.iter().cloned());
+        selected.extend(
+            manifest
+                .families
+                .get(family)
+                .unwrap_or_else(|| panic!("family {family} has no reviewed source closure"))
+                .iter()
+                .cloned(),
+        );
     }
     if selected.is_empty() {
         return;
     }
+
     let out = PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR"));
-    let cache = env::var_os("SLATEC_SOURCE_CACHE")
-        .map(PathBuf::from)
-        .unwrap_or_else(|| out.join("source-cache"));
     let objects = out.join("objects");
-    fs::create_dir_all(&cache).expect("create SLATEC source cache");
     fs::create_dir_all(&objects).expect("create SLATEC object directory");
+    let verified_sources = selected
+        .iter()
+        .map(|id| {
+            let source = by_id
+                .get(id)
+                .unwrap_or_else(|| panic!("unknown source id {id}"));
+            (source.id.clone(), verified_cached_source(&cache, source))
+        })
+        .collect::<Vec<_>>();
     let compiler = compiler();
     verify_compiler(&compiler);
     let mut object_paths = Vec::new();
-    for id in selected {
-        let source = by_id
-            .get(&id)
-            .unwrap_or_else(|| panic!("unknown source id {id}"));
-        let path = cached_source(&cache, source, acquire);
-        let object = objects.join(format!("{}.o", source.id));
+    for (id, path) in verified_sources {
+        let object = objects.join(format!("{id}.o"));
         compile_one(&compiler, &path, &object);
         object_paths.push(object);
     }
-    for name in ["i1mach", "r1mach", "d1mach"] {
-        let source = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-            .join(format!("native/gnu-mingw-x86_64/{name}.f"));
-        if source.is_file() {
+    if families
+        .iter()
+        .any(|family| manifest.profile_override_families.contains(family))
+    {
+        for name in ["i1mach", "r1mach", "d1mach"] {
+            let source = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+                .join(format!("native/gnu-mingw-x86_64/{name}.f"));
             let object = objects.join(format!("profile-{name}.o"));
             compile_one(&compiler, &source, &object);
             object_paths.push(object);
@@ -174,39 +218,33 @@ fn verify_compiler(compiler: &Path) {
     let target = output(compiler, &["-dumpmachine"]);
     if target.trim() != "x86_64-w64-mingw32" {
         panic!(
-            "bundled profile requires GNU Fortran target x86_64-w64-mingw32; found {}",
+            "source-build requires GNU Fortran target x86_64-w64-mingw32; found {}",
             target.trim()
         );
     }
 }
 
-fn cached_source(cache: &Path, source: &Source, acquire: bool) -> PathBuf {
+fn verified_cached_source(cache: &Path, source: &Source) -> PathBuf {
     let relative = if source.subset == "main-src" {
         source.path.clone()
     } else {
         format!("{}/{}", source.subset, source.path)
     };
     let path = cache.join(relative.replace('/', std::path::MAIN_SEPARATOR_STR));
-    if path.is_file() && file_sha256(&path) == source.sha256 {
-        return path;
-    }
-    if !acquire {
+    if !path.is_file() {
         panic!(
-            "source-build requires verified source {} in SLATEC_SOURCE_CACHE ({})",
+            "source-build cache is missing {} at {}. Populate the cache with: {ACQUIRE_COMMAND}",
             source.id,
             path.display()
         );
     }
-    let bytes = download_with_retries(&source.url);
-    let actual = hex_sha256(&bytes);
+    let actual = file_sha256(&path);
     if actual != source.sha256 {
         panic!(
-            "checksum mismatch for {}: expected {}, found {actual}",
-            source.url, source.sha256
+            "source-build cache hash mismatch for {}: expected {}, found {actual}. Reacquire with: {ACQUIRE_COMMAND}",
+            source.id, source.sha256
         );
     }
-    fs::create_dir_all(path.parent().expect("source parent")).expect("create source parent");
-    fs::write(&path, bytes).expect("write verified source");
     path
 }
 
@@ -217,7 +255,7 @@ fn compile_one(compiler: &Path, source: &Path, object: &Path) {
         .arg("-o")
         .arg(object)
         .status()
-        .unwrap_or_else(|e| panic!("start {}: {e}", compiler.display()));
+        .unwrap_or_else(|error| panic!("start {}: {error}", compiler.display()));
     if !status.success() {
         panic!("GNU Fortran failed for {}", source.display());
     }
@@ -227,64 +265,49 @@ fn archive_objects(compiler: &Path, archive: &Path, objects: &[PathBuf]) {
     let ar = sibling_tool(compiler, "ar");
     let _ = fs::remove_file(archive);
     for (index, chunk) in objects.chunks(40).enumerate() {
-        let mut command = Command::new(&ar);
-        command
+        let status = Command::new(&ar)
             .arg(if index == 0 { "cr" } else { "q" })
             .arg(archive)
-            .args(chunk);
-        let status = command.status().expect("start GNU ar");
+            .args(chunk)
+            .status()
+            .expect("start GNU ar");
         if !status.success() {
             panic!("GNU ar failed creating {}", archive.display());
         }
     }
-    let status = Command::new(ar)
+    if !Command::new(ar)
         .arg("s")
         .arg(archive)
         .status()
-        .expect("index GNU archive");
-    if !status.success() {
+        .expect("index GNU archive")
+        .success()
+    {
         panic!("GNU ar failed indexing {}", archive.display());
     }
 }
 
-fn download_with_retries(url: &str) -> Vec<u8> {
-    let mut last_error = String::new();
-    for attempt in 1..=3 {
-        match ureq::get(url).call() {
-            Ok(response) => {
-                let mut body = response.into_body();
-                return body
-                    .read_to_vec()
-                    .unwrap_or_else(|error| panic!("read {url}: {error}"));
-            }
-            Err(error) => {
-                last_error = error.to_string();
-                if attempt < 3 {
-                    std::thread::sleep(std::time::Duration::from_millis(250 * attempt));
-                }
-            }
-        }
-    }
-    panic!("download {url} after three attempts: {last_error}")
-}
-
 fn emit_runtime_links(compiler: &Path) {
-    for library in ["libgfortran.a", "libquadmath.a"] {
-        let path =
-            PathBuf::from(output(compiler, &[&format!("-print-file-name={library}")]).trim());
-        if let Some(parent) = path.parent() {
-            println!("cargo:rustc-link-search=native={}", parent.display());
+    for (file, name) in [("libgfortran.a", "gfortran"), ("libquadmath.a", "quadmath")] {
+        let path = PathBuf::from(output(compiler, &[&format!("-print-file-name={file}")]).trim());
+        if !path.is_file() {
+            panic!(
+                "source-build requires the static GNU runtime {file}; compiler reported {}",
+                path.display()
+            );
         }
+        println!(
+            "cargo:rustc-link-search=native={}",
+            path.parent().expect("runtime parent").display()
+        );
+        println!("cargo:rustc-link-lib=static={name}");
     }
-    println!("cargo:rustc-link-lib=static=gfortran");
-    println!("cargo:rustc-link-lib=static=quadmath");
 }
 
 fn sibling_tool(compiler: &Path, name: &str) -> PathBuf {
     compiler
         .parent()
-        .map(|p| p.join(format!("{name}.exe")))
-        .filter(|p| p.is_file())
+        .map(|parent| parent.join(format!("{name}.exe")))
+        .filter(|path| path.is_file())
         .unwrap_or_else(|| PathBuf::from(name))
 }
 
@@ -292,16 +315,16 @@ fn output(program: &Path, args: &[&str]) -> String {
     let value = Command::new(program)
         .args(args)
         .output()
-        .unwrap_or_else(|e| panic!("start {}: {e}", program.display()));
+        .unwrap_or_else(|error| panic!("start {}: {error}", program.display()));
     if !value.status.success() {
-        panic!("{} {:?} failed", program.display(), args);
+        panic!("{} {args:?} failed", program.display());
     }
     String::from_utf8(value.stdout).expect("tool output is UTF-8")
 }
 
 fn file_sha256(path: &Path) -> String {
-    hex_sha256(&fs::read(path).expect("read cached source"))
-}
-fn hex_sha256(bytes: &[u8]) -> String {
-    format!("{:x}", Sha256::digest(bytes))
+    format!(
+        "{:x}",
+        Sha256::digest(fs::read(path).expect("read cached source"))
+    )
 }

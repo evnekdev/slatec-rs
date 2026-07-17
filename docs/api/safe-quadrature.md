@@ -7,8 +7,8 @@ integration algorithm is implemented in Rust.
 This API is available only for the validated `ffi-profile-gnu-mingw-x86_64`
 profile: GNU Fortran targeting `x86_64-w64-mingw32`. The runtime-profile
 machine constants, legacy errors, and FNLIB initialization must match the
-selected-corpus snapshot. The default `bundled` provider acquires verified
-sources and builds the selected family closure automatically.
+selected-corpus snapshot. The offline `source-build` provider uses an explicit
+verified cache; ordinary Cargo builds do not acquire source.
 
 ## API families
 

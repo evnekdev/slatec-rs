@@ -74,6 +74,7 @@ callbacks nor their dense work arrays.
 cargo test -p slatec --features roots-native-tests --target x86_64-pc-windows-gnu --test roots_native -- --test-threads=1
 ```
 
-The default `bundled` provider supplies the verified native family closure.
-Source-only checks can instead select `external-backend`. Objects, archives,
-executables, and detailed native evidence remain ignored.
+The offline `source-build` provider supplies the verified native family closure
+after explicit cache acquisition. Source-only checks can select
+`external-backend`. Objects, archives, executables, and detailed native evidence
+remain ignored.

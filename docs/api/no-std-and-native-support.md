@@ -37,12 +37,12 @@ cargo check -p slatec --no-default-features --features external-backend,blas-lev
 ```
 
 Hosted callback and FNLIB APIs remain opt-in through narrow `quadrature-*`,
-`roots-*`, and `special-*` features. The default `bundled` provider now
-checksum-verifies and compiles the corresponding source closure automatically;
-ordinary consumers do not configure `SLATEC_NATIVE_LIB_DIR` or copy a SLATEC
-DLL. `source-build`, `system`, and inert `external-backend` remain explicit
-escape hatches. This automatic hosted backend does not change the API's
-`no_std` layering or establish bare-metal support.
+`roots-*`, and `special-*` features. Applications select a backend explicitly.
+`source-build` consumes a separately acquired verified cache without network
+access; `system` and inert `external-backend` remain escape hatches. Prebuilt
+publication is blocked pending historical rights clearance. These hosted
+backends do not change the API's `no_std` layering or establish bare-metal
+support.
 
 ## Documentation authority
 
