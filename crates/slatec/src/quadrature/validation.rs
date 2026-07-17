@@ -1,3 +1,5 @@
+#![allow(dead_code)] // Narrow quadrature features intentionally prune helpers.
+
 use alloc::vec::Vec;
 
 use slatec_core::to_fortran_integer;

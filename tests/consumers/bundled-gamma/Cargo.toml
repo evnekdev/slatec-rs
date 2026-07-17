@@ -1,0 +1,10 @@
+[package]
+name = "slatec-consumer-bundled-gamma"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+slatec = { path = "../../../crates/slatec", features = ["special-gamma"] }

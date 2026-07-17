@@ -1,6 +1,6 @@
 //! Exponential integrals with fatal singular inputs prechecked in Rust.
 
-use slatec_sys::generated::scalar_functions as raw;
+use slatec_sys::families::special_integrals as raw;
 
 use super::{SpecialFunctionError, runtime};
 
@@ -36,7 +36,7 @@ pub fn exponential_integral_ei(x: f64) -> Result<f64, SpecialFunctionError> {
     Ok(unsafe { raw::dei(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 fn finite_nonzero_f32(function: &'static str, x: f32) -> Result<(), SpecialFunctionError> {
     if x.is_finite() && x != 0.0 && x.abs() <= 20.0 {
         Ok(())
@@ -49,7 +49,7 @@ fn finite_nonzero_f32(function: &'static str, x: f32) -> Result<(), SpecialFunct
     }
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Single-precision E1 on a conservative nonzero finite domain using `E1`.
 pub fn exponential_integral_e1_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     finite_nonzero_f32("exponential_integral_e1_f32", x)?;
@@ -59,7 +59,7 @@ pub fn exponential_integral_e1_f32(x: f32) -> Result<f32, SpecialFunctionError> 
     Ok(unsafe { raw::e1(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Single-precision Ei on a conservative nonzero finite domain using `EI`.
 pub fn exponential_integral_ei_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     finite_nonzero_f32("exponential_integral_ei_f32", x)?;

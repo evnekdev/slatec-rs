@@ -1,6 +1,6 @@
 //! Real Airy functions with a conservative overflow-safe input envelope.
 
-use slatec_sys::generated::scalar_functions as raw;
+use slatec_sys::families::special_airy as raw;
 
 use super::{SpecialFunctionError, runtime};
 
@@ -40,7 +40,7 @@ airy_f64!(
     "Exponentially scaled Airy Bi for `-20 <= x <= 20`, using `DBIE`."
 );
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 macro_rules! airy_f32 {
     ($name:ident, $raw:ident, $doc:literal) => {
         #[doc = $doc]
@@ -55,25 +55,25 @@ macro_rules! airy_f32 {
     };
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 airy_f32!(
     airy_ai_f32,
     ai,
     "Single-precision Airy Ai on the safe envelope, using `AI`."
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 airy_f32!(
     airy_ai_scaled_f32,
     aie,
     "Scaled single-precision Airy Ai using `AIE`."
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 airy_f32!(
     airy_bi_f32,
     bi,
     "Single-precision Airy Bi on the safe envelope, using `BI`."
 );
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 airy_f32!(
     airy_bi_scaled_f32,
     bie,

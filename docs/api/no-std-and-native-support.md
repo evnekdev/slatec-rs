@@ -33,10 +33,16 @@ cargo check -p slatec --no-default-features
 Allocation-free BLAS validation and wrappers:
 
 ```text
-cargo check -p slatec --no-default-features --features blas-level1
+cargo check -p slatec --no-default-features --features external-backend,blas-level1
 ```
 
-Hosted callback and FNLIB APIs remain opt-in through `quadrature`, `roots`, and `special-functions`. Cargo does not download or compile Fortran. Native linking continues to use the explicitly prepared archive and the `SLATEC_NATIVE_LIB_DIR` and `SLATEC_GFORTRAN_RUNTIME_DIR` environment variables.
+Hosted callback and FNLIB APIs remain opt-in through narrow `quadrature-*`,
+`roots-*`, and `special-*` features. The default `bundled` provider now
+checksum-verifies and compiles the corresponding source closure automatically;
+ordinary consumers do not configure `SLATEC_NATIVE_LIB_DIR` or copy a SLATEC
+DLL. `source-build`, `system`, and inert `external-backend` remain explicit
+escape hatches. This automatic hosted backend does not change the API's
+`no_std` layering or establish bare-metal support.
 
 ## Documentation authority
 

@@ -37,4 +37,26 @@ raw-ffi-roots = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-callbacks = []
 raw-ffi-infrastructure = []
 
+# Reviewed API-family gates. Scalar and BLAS declarations are emitted into
+# family modules; callback families use their existing hand-reviewed modules.
+# None of these gates enables the broad callback or ABI-shape batches.
+raw-family-blas-level1 = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-blas-level2 = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-blas-level3 = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-elementary = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-gamma = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-beta = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-error = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-airy = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-bessel = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-integrals = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-special-polynomials = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-quadrature-basic = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-quadrature-breakpoints = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-quadrature-weighted = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-quadrature-oscillatory = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-quadrature-fourier = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-quadrature-nonadaptive = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-roots-scalar = ["ffi-profile-gnu-mingw-x86_64"]
+
 [build-dependencies]

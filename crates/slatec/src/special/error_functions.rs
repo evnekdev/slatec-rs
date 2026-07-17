@@ -1,6 +1,6 @@
 //! Error functions from the validated SLATEC FNLIB runtime.
 
-use slatec_sys::generated::scalar_functions as raw;
+use slatec_sys::families::special_error as raw;
 
 use super::{SpecialFunctionError, runtime};
 
@@ -22,7 +22,7 @@ pub fn erfc(x: f64) -> Result<f64, SpecialFunctionError> {
     Ok(unsafe { raw::derfc(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Single-precision error function for a finite argument using SLATEC `ERF`.
 pub fn erf_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::finite_f32("erf_f32", "x", x)?;
@@ -32,7 +32,7 @@ pub fn erf_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     Ok(unsafe { raw::erf(&mut x) })
 }
 
-#[cfg(feature = "special-functions-f32")]
+#[cfg(feature = "special-f32")]
 /// Single-precision complementary error function using SLATEC `ERFC`.
 pub fn erfc_f32(x: f32) -> Result<f32, SpecialFunctionError> {
     runtime::finite_f32("erfc_f32", "x", x)?;

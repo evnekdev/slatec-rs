@@ -4,6 +4,8 @@
 //! selected SLATEC sources. Expert `*E` drivers and their raw workspace views
 //! deliberately remain unavailable.
 
+#![allow(dead_code, unused_imports)] // One source module serves narrow families.
+
 use alloc::vec;
 use alloc::vec::Vec;
 
@@ -86,6 +88,7 @@ fn finish_standard_f32(
     })
 }
 
+#[cfg(feature = "quadrature-breakpoints")]
 fn sorted_breakpoints<T: Into<f64> + Copy>(
     lower: T,
     upper: T,
@@ -119,6 +122,7 @@ fn sorted_breakpoints<T: Into<f64> + Copy>(
     Ok(points)
 }
 
+#[cfg(feature = "quadrature-breakpoints")]
 fn breakpoint_lengths(
     limit: usize,
     count: usize,
@@ -142,6 +146,7 @@ fn breakpoint_lengths(
 /// Breakpoints may be given in any order. They are copied, sorted, and never
 /// passed through from the caller because QAGP/DQAGP may reorder its local
 /// points buffer. Each value must be finite, unique, and strictly interior.
+#[cfg(feature = "quadrature-breakpoints")]
 pub fn integrate_with_breakpoints<F>(
     f: F,
     lower: f64,
@@ -200,6 +205,7 @@ where
 }
 
 /// Single-precision counterpart of [`integrate_with_breakpoints`].
+#[cfg(feature = "quadrature-breakpoints")]
 pub fn integrate_with_breakpoints_f32<F>(
     f: F,
     lower: f32,
@@ -256,6 +262,7 @@ where
     finish_standard_f32(output, options.limit)
 }
 
+#[cfg(feature = "quadrature-weighted")]
 fn weighted_bounds<T: Into<f64> + Copy>(
     lower: T,
     upper: T,
@@ -281,6 +288,7 @@ fn weighted_bounds<T: Into<f64> + Copy>(
 ///
 /// QAWS/DQAWS require `lower < upper` and both exponents strictly greater than
 /// `-1`; those native preconditions are checked before entering Fortran.
+#[cfg(feature = "quadrature-weighted")]
 pub fn integrate_weighted_endpoints<F>(
     f: F,
     lower: f64,
@@ -330,6 +338,7 @@ where
 }
 
 /// Single-precision counterpart of [`integrate_weighted_endpoints`].
+#[cfg(feature = "quadrature-weighted")]
 pub fn integrate_weighted_endpoints_f32<F>(
     f: F,
     lower: f32,
@@ -385,6 +394,7 @@ struct OscillatoryWorkspace<T> {
     work: Vec<T>,
 }
 
+#[cfg(feature = "quadrature-oscillatory")]
 fn oscillatory_workspace<T: Default + Clone>(
     limit: usize,
     maximum_moments: usize,
@@ -406,6 +416,7 @@ fn oscillatory_workspace<T: Default + Clone>(
     })
 }
 
+#[cfg(feature = "quadrature-oscillatory")]
 fn oscillatory_input<T: Into<f64> + Copy>(
     lower: T,
     upper: T,
@@ -425,6 +436,7 @@ fn oscillatory_input<T: Into<f64> + Copy>(
 /// The moment table is allocated from QAWO's documented formula and discarded
 /// after the call. A zero frequency is forwarded: cosine becomes the unweighted
 /// integral and sine produces the native zero-weight result.
+#[cfg(feature = "quadrature-oscillatory")]
 pub fn integrate_oscillatory<F>(
     f: F,
     lower: f64,
@@ -474,6 +486,7 @@ where
 }
 
 /// Single-precision counterpart of [`integrate_oscillatory`].
+#[cfg(feature = "quadrature-oscillatory")]
 pub fn integrate_oscillatory_f32<F>(
     f: F,
     lower: f32,
@@ -530,6 +543,7 @@ struct FourierWorkspace<T> {
     work: Vec<T>,
 }
 
+#[cfg(feature = "quadrature-fourier")]
 fn fourier_workspace<T: Default + Clone>(
     options: FourierOptions,
 ) -> Result<FourierWorkspace<T>, IntegrationError> {
@@ -555,6 +569,7 @@ fn fourier_workspace<T: Default + Clone>(
     })
 }
 
+#[cfg(feature = "quadrature-fourier")]
 fn fourier_status(status_code: FortranInteger) -> Result<(), IntegrationError> {
     match status_code {
         0 => Ok(()),
@@ -566,6 +581,7 @@ fn fourier_status(status_code: FortranInteger) -> Result<(), IntegrationError> {
     }
 }
 
+#[cfg(feature = "quadrature-fourier")]
 fn finish_fourier_f64(
     value: f64,
     error: f64,
@@ -584,6 +600,7 @@ fn finish_fourier_f64(
     })
 }
 
+#[cfg(feature = "quadrature-fourier")]
 fn finish_fourier_f32(
     value: f32,
     error: f32,
@@ -607,6 +624,7 @@ fn finish_fourier_f32(
 /// QAWF/DQAWF require a positive absolute tolerance and at least three cycles.
 /// For a zero sine frequency, the integral is exactly zero and no callback is
 /// invoked. Zero-frequency cosine uses the driver's documented QAGI path.
+#[cfg(feature = "quadrature-fourier")]
 pub fn integrate_fourier_tail<F>(
     f: F,
     lower_bound: f64,
@@ -679,6 +697,7 @@ where
 }
 
 /// Single-precision counterpart of [`integrate_fourier_tail`].
+#[cfg(feature = "quadrature-fourier")]
 pub fn integrate_fourier_tail_f32<F>(
     f: F,
     lower_bound: f32,
@@ -751,6 +770,7 @@ where
     finish_fourier_f32(value, error, evaluations, cycles, options.cycle_limit)
 }
 
+#[cfg(feature = "quadrature-nonadaptive")]
 fn non_adaptive_status(status_code: FortranInteger) -> Result<(), IntegrationError> {
     match status_code {
         0 => Ok(()),
@@ -764,6 +784,7 @@ fn non_adaptive_status(status_code: FortranInteger) -> Result<(), IntegrationErr
 ///
 /// The `intervals` field in the returned result is zero because QNG does not
 /// create an adaptive subdivision partition.
+#[cfg(feature = "quadrature-nonadaptive")]
 pub fn integrate_non_adaptive<F>(
     f: F,
     lower: f64,
@@ -808,6 +829,7 @@ where
 }
 
 /// Single-precision counterpart of [`integrate_non_adaptive`].
+#[cfg(feature = "quadrature-nonadaptive")]
 pub fn integrate_non_adaptive_f32<F>(
     f: F,
     lower: f32,
@@ -851,6 +873,7 @@ where
     })
 }
 
+#[cfg(feature = "quadrature-nonadaptive")]
 fn nc79_tolerance_f64(value: f64) -> Result<f64, IntegrationError> {
     if value.is_finite() && value >= 0.0 {
         Ok(value)
@@ -859,6 +882,7 @@ fn nc79_tolerance_f64(value: f64) -> Result<f64, IntegrationError> {
     }
 }
 
+#[cfg(feature = "quadrature-nonadaptive")]
 fn nc79_tolerance_f32(value: f64) -> Result<f32, IntegrationError> {
     let value = nc79_tolerance_f64(value)?;
     if value > f64::from(f32::MAX) {
@@ -867,6 +891,7 @@ fn nc79_tolerance_f32(value: f64) -> Result<f32, IntegrationError> {
     Ok(value as f32)
 }
 
+#[cfg(feature = "quadrature-nonadaptive")]
 fn nc79_status(status_code: FortranInteger) -> Result<(), IntegrationError> {
     match status_code {
         1 => Ok(()),
@@ -880,6 +905,7 @@ fn nc79_status(status_code: FortranInteger) -> Result<(), IntegrationError> {
 ///
 /// QNC79 has no workspace or independent error-estimate output. Its result
 /// therefore reports only the value and number of callback evaluations.
+#[cfg(feature = "quadrature-nonadaptive")]
 pub fn integrate_nc79<F>(
     f: F,
     lower: f64,
@@ -925,6 +951,7 @@ where
 }
 
 /// Single-precision counterpart of [`integrate_nc79`].
+#[cfg(feature = "quadrature-nonadaptive")]
 pub fn integrate_nc79_f32<F>(
     f: F,
     lower: f32,

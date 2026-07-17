@@ -3,10 +3,11 @@
 
 //! Safe, opt-in Rust facades over original SLATEC Fortran implementations.
 //!
-//! The `blas-level1` feature targets the validated
-//! `ffi-profile-gnu-mingw-x86_64` raw ABI. It does not download or compile
-//! Fortran. Native use requires the explicit link environment documented in
-//! the feature-gated `blas` module.
+//! Numerical families target the validated GNU MinGW x86_64 ABI. The default
+//! `bundled` provider acquires checksum-pinned Netlib sources, compiles only
+//! the selected family closure, and links it statically. `source-build`,
+//! `system`, and `external-backend` provide explicit alternatives; see
+//! [`docs/api/family-features-and-backends.md`](https://github.com/evnekdev/slatec-rs/blob/master/docs/api/family-features-and-backends.md).
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
@@ -14,33 +15,76 @@ extern crate alloc;
 #[cfg(feature = "std")]
 extern crate std;
 
-#[cfg(feature = "blas-level1-validation")]
+// Keep the selected provider crate, and therefore its native link directives,
+// in final artifacts without exposing provider mechanics in the safe API.
+#[used]
+static SLATEC_IMPLEMENTATION_PROVIDER: fn() = slatec_src::ensure_linked;
+
+#[cfg(any(
+    feature = "blas-level1",
+    feature = "blas-level2",
+    feature = "blas-level3"
+))]
 pub mod blas;
 
 /// Runtime-validated scalar facades over selected original SLATEC FNLIB
 /// routines for the GNU MinGW x86_64 profile.
-#[cfg(feature = "special-functions")]
+#[cfg(any(
+    feature = "special-elementary",
+    feature = "special-gamma",
+    feature = "special-beta",
+    feature = "special-error",
+    feature = "special-airy",
+    feature = "special-bessel",
+    feature = "special-integrals"
+))]
 pub mod special;
 
 /// Scalar polynomial helpers whose storage contracts are independently
 /// validated before the raw call.
-#[cfg(feature = "special-functions-polynomials")]
+#[cfg(feature = "special-polynomials")]
 pub mod polynomials;
 
 #[cfg(any(
-    feature = "special-functions",
-    feature = "quadrature",
-    feature = "roots"
+    feature = "special-elementary",
+    feature = "special-gamma",
+    feature = "special-beta",
+    feature = "special-error",
+    feature = "special-airy",
+    feature = "special-bessel",
+    feature = "special-integrals",
+    feature = "quadrature-basic",
+    feature = "quadrature-breakpoints",
+    feature = "quadrature-weighted",
+    feature = "quadrature-oscillatory",
+    feature = "quadrature-fourier",
+    feature = "quadrature-nonadaptive",
+    feature = "roots-scalar"
 ))]
 pub(crate) mod runtime;
 
-#[cfg(any(feature = "quadrature", feature = "roots"))]
+#[cfg(any(
+    feature = "quadrature-basic",
+    feature = "quadrature-breakpoints",
+    feature = "quadrature-weighted",
+    feature = "quadrature-oscillatory",
+    feature = "quadrature-fourier",
+    feature = "quadrature-nonadaptive",
+    feature = "roots-scalar"
+))]
 mod callback_runtime;
 
 /// Panic-contained closure adapters for the reviewed SLATEC QUADPACK drivers.
-#[cfg(feature = "quadrature")]
+#[cfg(any(
+    feature = "quadrature-basic",
+    feature = "quadrature-breakpoints",
+    feature = "quadrature-weighted",
+    feature = "quadrature-oscillatory",
+    feature = "quadrature-fourier",
+    feature = "quadrature-nonadaptive"
+))]
 pub mod quadrature;
 
 /// Safe bracketed scalar-root adapters over the original FZERO routines.
-#[cfg(feature = "roots")]
+#[cfg(feature = "roots-scalar")]
 pub mod roots;

@@ -3,8 +3,9 @@
 `slatec::blas::level2` and `slatec::blas::level3` are explicit, slice-based
 facades over the selected original SLATEC BLAS routines. They require the
 `blas-level2` or `blas-level3` feature and the existing
-`ffi-profile-gnu-mingw-x86_64` native profile. Native linking remains explicit:
-set `SLATEC_NATIVE_LIB_DIR` and, when needed, `SLATEC_GFORTRAN_RUNTIME_DIR`.
+`ffi-profile-gnu-mingw-x86_64` native profile. The default `bundled` provider
+performs verified source acquisition, compilation, and static linking;
+`source-build`, `system`, and `external-backend` are explicit alternatives.
 
 Matrices are ordinary column-major backing slices. The element at `row`, `col`
 is `a[row + col * lda]`. Dimensions and leading dimensions are explicit in the

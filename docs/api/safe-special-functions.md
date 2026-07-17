@@ -18,15 +18,14 @@ Enable the family features deliberately:
 slatec = { version = "0.1", features = ["special-functions", "special-functions-f32", "special-functions-polynomials"] }
 ```
 
-Native applications and native tests must first build the local selected
-archive and validate its runtime profile. Neither Cargo nor `build.rs`
-downloads or compiles Fortran automatically.
+Native applications use the default `bundled` provider, which acquires
+checksum-pinned sources, applies the validated profile support, and builds the
+selected family closure automatically. Maintainers can still validate the
+complete runtime profile explicitly:
 
 ```text
 cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline
 cargo run -p slatec-tools --bin slatec-corpus -- validate-runtime-profile --offline
-$env:SLATEC_NATIVE_LIB_DIR = "<directory-containing-libslatec_selected.a>"
-$env:SLATEC_GFORTRAN_RUNTIME_DIR = "<directory-containing-GNU-runtime-libraries>"
 cargo test -p slatec --features special-functions-native-tests --target x86_64-pc-windows-gnu
 ```
 

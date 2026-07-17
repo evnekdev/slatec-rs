@@ -2,6 +2,7 @@
 resolver = "3"
 members = [
     "crates/slatec-sys",
+    "crates/slatec-src",
     "crates/slatec-core",
     "crates/slatec",
     "crates/slatec-tools",
@@ -17,6 +18,7 @@ authors = ["Your Name"]
 
 [workspace.dependencies]
 slatec-sys = { path = "crates/slatec-sys" }
+slatec-src = { path = "crates/slatec-src", default-features = false }
 slatec-core = { path = "crates/slatec-core" }
 flate2 = "1.1"
 serde = { version = "1", features = ["derive"] }

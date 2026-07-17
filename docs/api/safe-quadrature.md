@@ -7,7 +7,8 @@ integration algorithm is implemented in Rust.
 This API is available only for the validated `ffi-profile-gnu-mingw-x86_64`
 profile: GNU Fortran targeting `x86_64-w64-mingw32`. The runtime-profile
 machine constants, legacy errors, and FNLIB initialization must match the
-selected-corpus snapshot. Cargo does not download or compile Fortran.
+selected-corpus snapshot. The default `bundled` provider acquires verified
+sources and builds the selected family closure automatically.
 
 ## API families
 
@@ -142,14 +143,13 @@ machine-precision rule.
 
 ## Native setup
 
-Build the selected archive explicitly, then run native tests for the GNU target:
+The default provider builds and links the selected family closure when the
+native tests run for the GNU target:
 
 ```text
-cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline
-$env:SLATEC_NATIVE_LIB_DIR = "<ignored native archive directory>"
-$env:SLATEC_GFORTRAN_RUNTIME_DIR = "<GNU Fortran runtime directory>"
 cargo test -p slatec --features quadrature-native-tests --target x86_64-pc-windows-gnu --test quadrature_native
 ```
 
-Source-only builds and tests require neither a Fortran compiler nor a native
-archive. Objects, archives, executables, and detailed logs remain ignored.
+Source-only builds and tests can select `external-backend` and require neither
+a Fortran compiler nor a native archive. Objects, archives, executables, and
+detailed logs remain ignored.

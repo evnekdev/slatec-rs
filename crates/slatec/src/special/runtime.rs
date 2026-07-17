@@ -6,6 +6,8 @@
 //! a runtime-validated special function reentrantly without deadlocking. It is
 //! not a blanket lock around the raw FFI or the BLAS APIs.
 
+#![allow(dead_code)] // Individual family features intentionally select subsets.
+
 use slatec_sys::FortranInteger;
 
 use super::SpecialFunctionError;

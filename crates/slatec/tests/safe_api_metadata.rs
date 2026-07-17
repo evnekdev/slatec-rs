@@ -7,6 +7,13 @@ fn metadata_path(name: &str) -> PathBuf {
         .join(name)
 }
 
+fn linkage_path(name: &str) -> PathBuf {
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
+        .join("generated/linkage")
+        .join(name)
+}
+
 #[test]
 fn safe_api_metadata_is_compact_and_contains_no_source_text() {
     for name in [
@@ -47,6 +54,31 @@ fn safe_api_metadata_is_compact_and_contains_no_source_text() {
             contents.len() < 256 * 1024,
             "{name} must remain a compact structural index"
         );
+        assert!(
+            !contents
+                .windows(17)
+                .any(|window| window == b"      SUBROUTINE "),
+            "{name} must not contain copied fixed-form source"
+        );
+    }
+}
+
+#[test]
+fn family_linkage_metadata_is_compact_and_contains_no_native_bytes() {
+    for name in [
+        "family-link-report.json",
+        "family-to-raw-symbols.json",
+        "family-to-source-closure.json",
+        "symbol-retention-report.json",
+        "validation-summary.md",
+    ] {
+        let contents = std::fs::read(linkage_path(name)).expect("committed linkage metadata");
+        assert!(contents.len() < 128 * 1024, "{name} must remain compact");
+        assert!(
+            !contents.starts_with(b"!<arch>\n"),
+            "{name} is not an archive"
+        );
+        assert!(!contents.starts_with(b"MZ"), "{name} is not an executable");
         assert!(
             !contents
                 .windows(17)

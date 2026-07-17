@@ -14,6 +14,10 @@ pub type IntegrandF64 = unsafe extern "C" fn(*const f64) -> f64;
 pub type IntegrandF32 = unsafe extern "C" fn(*const f32) -> f32;
 
 unsafe extern "C" {
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-breakpoints"
+    ))]
     #[link_name = "dqagp_"]
     pub fn dqagp(
         f: IntegrandF64,
@@ -34,6 +38,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-breakpoints"
+    ))]
     #[link_name = "qagp_"]
     pub fn qagp(
         f: IntegrandF32,
@@ -54,6 +62,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-weighted"
+    ))]
     #[link_name = "dqaws_"]
     pub fn dqaws(
         f: IntegrandF64,
@@ -75,6 +87,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-weighted"
+    ))]
     #[link_name = "qaws_"]
     pub fn qaws(
         f: IntegrandF32,
@@ -96,6 +112,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-oscillatory"
+    ))]
     #[link_name = "dqawo_"]
     pub fn dqawo(
         f: IntegrandF64,
@@ -117,6 +137,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-oscillatory"
+    ))]
     #[link_name = "qawo_"]
     pub fn qawo(
         f: IntegrandF32,
@@ -138,6 +162,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-fourier"
+    ))]
     #[link_name = "dqawf_"]
     pub fn dqawf(
         f: IntegrandF64,
@@ -158,6 +186,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-fourier"
+    ))]
     #[link_name = "qawf_"]
     pub fn qawf(
         f: IntegrandF32,
@@ -178,6 +210,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-nonadaptive"
+    ))]
     #[link_name = "dqng_"]
     pub fn dqng(
         f: IntegrandF64,
@@ -191,6 +227,10 @@ unsafe extern "C" {
         ier: *mut FortranInteger,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-nonadaptive"
+    ))]
     #[link_name = "qng_"]
     pub fn qng(
         f: IntegrandF32,
@@ -204,6 +244,10 @@ unsafe extern "C" {
         ier: *mut FortranInteger,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-nonadaptive"
+    ))]
     #[link_name = "dqnc79_"]
     pub fn dqnc79(
         f: IntegrandF64,
@@ -215,6 +259,10 @@ unsafe extern "C" {
         evaluations: *mut FortranInteger,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-nonadaptive"
+    ))]
     #[link_name = "qnc79_"]
     pub fn qnc79(
         f: IntegrandF32,
@@ -226,6 +274,10 @@ unsafe extern "C" {
         evaluations: *mut FortranInteger,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "dqag_"]
     pub fn dqag(
         f: IntegrandF64,
@@ -245,6 +297,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "qag_"]
     pub fn qag(
         f: IntegrandF32,
@@ -264,6 +320,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "dqags_"]
     pub fn dqags(
         f: IntegrandF64,
@@ -282,6 +342,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "qags_"]
     pub fn qags(
         f: IntegrandF32,
@@ -300,6 +364,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "dqagi_"]
     pub fn dqagi(
         f: IntegrandF64,
@@ -318,6 +386,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "qagi_"]
     pub fn qagi(
         f: IntegrandF32,
@@ -336,6 +408,10 @@ unsafe extern "C" {
         work: *mut f32,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "dqawc_"]
     pub fn dqawc(
         f: IntegrandF64,
@@ -355,6 +431,10 @@ unsafe extern "C" {
         work: *mut f64,
     );
 
+    #[cfg(any(
+        feature = "raw-ffi-quadrature",
+        feature = "raw-family-quadrature-basic"
+    ))]
     #[link_name = "qawc_"]
     pub fn qawc(
         f: IntegrandF32,
