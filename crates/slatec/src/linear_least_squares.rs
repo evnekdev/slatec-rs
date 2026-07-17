@@ -135,6 +135,38 @@ impl<'a, T> MatrixRef<'a, T> {
     }
 }
 
+/// Closed bounds for one linear least-squares variable or constraint value.
+///
+/// The variants map directly to the four reviewed `IND` codes accepted by
+/// SLATEC `SBOLS`/`DBOLS` and `SBOCLS`/`DBOCLS`. Rust infinities are never
+/// passed to the native routines: [`Self::Unbounded`] represents an absent
+/// lower and upper bound.
+#[cfg(any(
+    feature = "least-squares-linear-bounded",
+    feature = "least-squares-linear-bounded-constrained"
+))]
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum VariableBounds<T> {
+    /// No lower or upper bound (`IND = 4`).
+    Unbounded,
+    /// A closed lower bound `value >= lower` (`IND = 1`).
+    Lower(T),
+    /// A closed upper bound `value <= upper` (`IND = 2`).
+    Upper(T),
+    /// Closed two-sided bounds `lower <= value <= upper` (`IND = 3`).
+    Between {
+        /// Closed lower endpoint.
+        lower: T,
+        /// Closed upper endpoint.
+        upper: T,
+    },
+    /// A fixed value, encoded as equal closed two-sided bounds (`IND = 3`).
+    ///
+    /// The reviewed source rejects only `lower > upper`, so equal endpoints
+    /// are a supported native representation.
+    Fixed(T),
+}
+
 /// Constraint applied to one model variable.
 #[cfg(feature = "least-squares-linear-nonnegative")]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

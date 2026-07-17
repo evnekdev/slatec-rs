@@ -874,6 +874,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares",
+      "fortran_routine": "DBOCLS",
+      "module": "slatec::bounded_constrained_least_squares",
+      "domain": "linear least squares",
+      "precision": "f64",
+      "purpose": "bounded constrained linear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-linear-bounded-constrained",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/bounded_constrained_least_squares/fn.solve_bounded_constrained_least_squares.html",
+      "example_file": "examples/least_squares/bounded_constrained_fit.rs",
+      "example_case": "bounded linear least squares with bounded constraint expressions",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32",
+      "fortran_routine": "SBOCLS",
+      "module": "slatec::bounded_constrained_least_squares",
+      "domain": "linear least squares",
+      "precision": "f32",
+      "purpose": "bounded constrained linear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-linear-bounded-constrained",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/bounded_constrained_least_squares/fn.solve_bounded_constrained_least_squares_f32.html",
+      "example_file": "examples/least_squares/active_bound_and_constraint.rs",
+      "example_case": "bounded linear least squares with bounded constraint expressions",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::bounded_least_squares::solve_bounded_least_squares",
       "fortran_routine": "DBOLS",
       "module": "slatec::bounded_least_squares",

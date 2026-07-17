@@ -4,7 +4,8 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `special-gamma`, `quadrature-basic`, `roots-scalar`, `nonlinear-easy`,
 `nonlinear-expert`, `least-squares-nonlinear-easy`, and
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
-`least-squares-linear-nonnegative`, and `least-squares-linear-bounded`. Numerical families
+`least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
+`least-squares-linear-bounded-constrained`. Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
 historical source rights remain unresolved. `source-build` is offline-only and
@@ -98,6 +99,9 @@ adds dense equality and lower-sided inequality constraints through `LSEI` and
 `DLSEI`; it does not add linear programming. See [the WNNLS guide](docs/api/safe-weighted-nonnegative-least-squares.md),
 [bounded-driver guide](docs/api/safe-bounded-linear-least-squares.md), and
 [general-constraint guide](docs/api/safe-linear-constraint-least-squares.md).
+`least-squares-linear-bounded-constrained` separately wraps `SBOCLS`/`DBOCLS`
+for bounds on both variables and linear constraint expressions; see the
+[bounded constrained guide](docs/api/safe-bounded-constrained-linear-least-squares.md).
 
 With the complete selected evidence and GNU MinGW compiler available, run:
 

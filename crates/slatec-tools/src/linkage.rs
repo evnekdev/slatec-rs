@@ -166,6 +166,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
                 | "least-squares-nonlinear-expert"
                 | "least-squares-covariance"
                 | "least-squares-linear-bounded"
+                | "least-squares-linear-bounded-constrained"
                 | "least-squares-linear-constrained"
         ) {
             // The nonlinear drivers report valid INFO=4..8 and bounded
@@ -455,6 +456,9 @@ fn family_for(path: &str, routine: &str) -> String {
         }
         return "quadrature-basic".to_owned();
     }
+    if path.contains("::bounded_constrained_least_squares::") {
+        return "least-squares-linear-bounded-constrained".to_owned();
+    }
     if path.contains("::bounded_least_squares::") {
         return "least-squares-linear-bounded".to_owned();
     }
@@ -623,6 +627,11 @@ fn inspect_examples(
             "dbols_",
         ),
         (
+            "link_least_squares_linear_bounded_constrained",
+            "least-squares-linear-bounded-constrained",
+            "dbocls_",
+        ),
+        (
             "link_least_squares_linear_constrained",
             "least-squares-linear-constrained",
             "dlsei_",
@@ -638,7 +647,8 @@ fn inspect_examples(
     ];
     let family_roots = [
         "dlnrel_", "dgamma_", "dai_", "dbesj0_", "ddot_", "dgemm_", "dqag_", "dqawo_", "dfzero_",
-        "dnsqe_", "dnsq_", "dckder_", "dnls1_", "dnls1e_", "dcov_", "dwnnls_", "dbols_", "dlsei_",
+        "dnsqe_", "dnsq_", "dckder_", "dnls1_", "dnls1e_", "dcov_", "dwnnls_", "dbols_", "dbocls_",
+        "dlsei_",
     ];
     let mut output = Vec::new();
     for (example, feature, required) in specifications {
@@ -843,6 +853,13 @@ mod tests {
         );
         assert_eq!(
             family_for(
+                "slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares",
+                "DBOCLS"
+            ),
+            "least-squares-linear-bounded-constrained"
+        );
+        assert_eq!(
+            family_for(
                 "slatec::constrained_least_squares::solve_constrained_least_squares",
                 "DLSEI"
             ),
@@ -859,7 +876,7 @@ mod tests {
         )
         .expect("valid closure audit");
         let records = report["records"].as_array().expect("audit records");
-        assert_eq!(records.len(), 28);
+        assert_eq!(records.len(), 29);
         assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }

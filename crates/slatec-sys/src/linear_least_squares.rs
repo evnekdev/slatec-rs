@@ -137,4 +137,56 @@ unsafe extern "C" {
         workspace: *mut f32,
         integer_workspace: *mut FortranInteger,
     );
+
+    /// Original double-precision SLATEC bounded constrained least-squares
+    /// driver `DBOCLS`.
+    ///
+    /// `augmented_matrix` is mutable column-major
+    /// `W(MDW, NCOLS + MCON + 1)`. Its leading `MCON` rows contain the
+    /// constraint matrix `C`; the following `MROWS` rows contain the
+    /// objective augmented matrix `[E : F]`. Bounds apply first to `X` and
+    /// then to the auxiliary constraint values `Y = C X`. All arrays are
+    /// mutable native storage and must follow the reviewed workspace contract.
+    #[link_name = "dbocls_"]
+    pub fn dbocls(
+        augmented_matrix: *mut f64,
+        leading_dimension: *mut FortranInteger,
+        constraint_rows: *mut FortranInteger,
+        objective_rows: *mut FortranInteger,
+        variable_count: *mut FortranInteger,
+        lower_bounds: *mut f64,
+        upper_bounds: *mut f64,
+        bound_types: *mut FortranInteger,
+        options: *mut FortranInteger,
+        solution_and_auxiliary: *mut f64,
+        constraint_residual_norm: *mut f64,
+        objective_residual_norm: *mut f64,
+        mode: *mut FortranInteger,
+        real_workspace: *mut f64,
+        integer_workspace: *mut FortranInteger,
+    );
+
+    /// Original single-precision SLATEC bounded constrained least-squares
+    /// driver `SBOCLS`.
+    ///
+    /// This has the same reviewed ABI and mutation rules as [`dbocls`], using
+    /// `REAL` arrays in place of `DOUBLE PRECISION` arrays.
+    #[link_name = "sbocls_"]
+    pub fn sbocls(
+        augmented_matrix: *mut f32,
+        leading_dimension: *mut FortranInteger,
+        constraint_rows: *mut FortranInteger,
+        objective_rows: *mut FortranInteger,
+        variable_count: *mut FortranInteger,
+        lower_bounds: *mut f32,
+        upper_bounds: *mut f32,
+        bound_types: *mut FortranInteger,
+        options: *mut FortranInteger,
+        solution_and_auxiliary: *mut f32,
+        constraint_residual_norm: *mut f32,
+        objective_residual_norm: *mut f32,
+        mode: *mut FortranInteger,
+        real_workspace: *mut f32,
+        integer_workspace: *mut FortranInteger,
+    );
 }

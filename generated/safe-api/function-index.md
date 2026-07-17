@@ -64,6 +64,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
+| `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares` | `DBOCLS` | linear least squares | f64 | bounded constrained linear least-squares fitting | `std` | `least-squares-linear-bounded-constrained` | [bounded linear least squares with bounded constraint expressions](../../examples/least_squares/bounded_constrained_fit.rs) |
+| `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32` | `SBOCLS` | linear least squares | f32 | bounded constrained linear least-squares fitting | `std` | `least-squares-linear-bounded-constrained` | [bounded linear least squares with bounded constraint expressions](../../examples/least_squares/active_bound_and_constraint.rs) |
 | `slatec::bounded_least_squares::solve_bounded_least_squares` | `DBOLS` | linear least squares | f64 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/bounded_fit.rs) |
 | `slatec::bounded_least_squares::solve_bounded_least_squares_f32` | `SBOLS` | linear least squares | f32 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/mixed_bounds.rs) |
 | `slatec::constrained_least_squares::solve_constrained_least_squares` | `DLSEI` | linear least squares | f64 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/equality_constrained_fit.rs) |
@@ -239,6 +241,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DBI` -> `slatec::special::airy::airy_bi`
 - `DBIE` -> `slatec::special::airy::airy_bi_scaled`
 - `DBINOM` -> `slatec::special::gamma::binomial_coefficient`
+- `DBOCLS` -> `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares`
 - `DBOLS` -> `slatec::bounded_least_squares::solve_bounded_least_squares`
 - `DBSI0E` -> `slatec::special::bessel::bessel_i0_scaled`
 - `DBSI1E` -> `slatec::special::bessel::bessel_i1_scaled`
@@ -342,6 +345,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SASUM` -> `slatec::blas::level1::sasum_strided`
 - `SAXPY` -> `slatec::blas::level1::saxpy`
 - `SAXPY` -> `slatec::blas::level1::saxpy_strided`
+- `SBOCLS` -> `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32`
 - `SBOLS` -> `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
 - `SCOPY` -> `slatec::blas::level1::scopy`
 - `SCOPY` -> `slatec::blas::level1::scopy_strided`
@@ -581,6 +585,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### linear least squares
 
+- `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares` — bounded constrained linear least-squares fitting
+- `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32` — bounded constrained linear least-squares fitting
 - `slatec::bounded_least_squares::solve_bounded_least_squares` — dense bounded linear least-squares fitting
 - `slatec::bounded_least_squares::solve_bounded_least_squares_f32` — dense bounded linear least-squares fitting
 - `slatec::constrained_least_squares::solve_constrained_least_squares` — dense equality and inequality constrained linear least-squares fitting
@@ -658,6 +664,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### Requires `std`
 
+- `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares`
+- `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32`
 - `slatec::bounded_least_squares::solve_bounded_least_squares`
 - `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
 - `slatec::constrained_least_squares::solve_constrained_least_squares`

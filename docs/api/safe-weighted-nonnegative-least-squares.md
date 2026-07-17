@@ -46,9 +46,11 @@ API for `x86_64-w64-mingw32`, not a bare-metal support claim.
 
 `SBOLS`/`DBOLS` are exposed separately through the bounded linear
 least-squares feature; they have a different per-variable bound model.
-`SBOCLS`/`DBOCLS` and `SPLP`/`DSPLP` remain deferred because
-their broader equality, inequality, workspace, or linear-program contracts
-are not implied by this narrow `WNNLS`/`DWNNLS` facade.
+`SBOCLS`/`DBOCLS` are exposed separately through the bounded constrained
+linear least-squares feature, whose distinct model bounds the expressions
+`C x` as well as variables. `SPLP`/`DSPLP` remain deferred because their
+linear-program contracts are not implied by this narrow `WNNLS`/`DWNNLS`
+facade.
 
 See the generated [function index](function-index.md), compact argument map,
 and the `examples/least_squares/` examples for exact Rust-to-Fortran mapping.

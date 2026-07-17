@@ -51,10 +51,11 @@ bare-metal native-runtime claim.
 
 ## Deferred scope
 
-`SBOCLS`/`DBOCLS` and `SPLP`/`DSPLP` remain deferred, along
-with arbitrary general equalities or inequalities, sparse storage, warm starts,
-dual values, sensitivity analysis, quadratic programming, and linear
-programming.
+`SPLP`/`DSPLP` remain deferred, along with arbitrary general inequalities,
+sparse storage, warm starts, dual values, sensitivity analysis, quadratic
+programming, and linear programming. Combined bounds on variables and bounds
+on linear expressions are available separately through
+`least-squares-linear-bounded-constrained`.
 
 See [`examples/least_squares/bounded_fit.rs`](../../examples/least_squares/bounded_fit.rs),
 [`mixed_bounds.rs`](../../examples/least_squares/mixed_bounds.rs), and
