@@ -1,3 +1,5 @@
+#![no_std]
+
 //! Raw declarations generated from the selected, compiler-observed SLATEC corpus.
 //!
 //! The crate deliberately performs no download, native compilation, linking, or

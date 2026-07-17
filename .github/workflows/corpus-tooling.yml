@@ -20,6 +20,11 @@ jobs:
         run: cargo check -p slatec-sys --all-features
       - name: Compile the safe BLAS facade without native linking
         run: cargo check -p slatec --all-features
+      - name: Check no_std capability layers
+        run: |
+          cargo check -p slatec --no-default-features
+          cargo check -p slatec --no-default-features --features alloc
+          cargo check -p slatec --no-default-features --features blas-level1,blas-level2,blas-level3
       - run: cargo test --workspace
       - name: Safe BLAS validation without native linking
         run: cargo test -p slatec --features blas-level1-validation
@@ -49,3 +54,13 @@ jobs:
         run: cargo test -p slatec --features roots --lib
       - name: Runtime-gated safe-root metadata and determinism fixtures
         run: cargo test -p slatec-tools safe_roots::tests
+      - name: Safe API documentation inventory and determinism
+        run: cargo test -p slatec-tools safe_api_docs::tests
+      - name: Documentation with warnings denied
+        env:
+          RUSTDOCFLAGS: -D warnings
+        run: |
+          cargo doc --workspace --all-features --no-deps
+          cargo test --doc --workspace --all-features
+          cargo doc -p slatec --no-default-features --no-deps
+          cargo doc -p slatec --no-default-features --features alloc --no-deps

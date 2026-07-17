@@ -34,4 +34,24 @@ fn safe_api_metadata_is_compact_and_contains_no_source_text() {
         let contents = std::fs::read(metadata_path(name)).expect("committed safe API metadata");
         assert!(contents.len() < 64 * 1024, "{name} must remain compact");
     }
+
+    for name in [
+        "function-index.json",
+        "fortran-argument-map.json",
+        "example-coverage.json",
+        "capability-summary.json",
+        "function-index.md",
+    ] {
+        let contents = std::fs::read(metadata_path(name)).expect("safe API documentation metadata");
+        assert!(
+            contents.len() < 256 * 1024,
+            "{name} must remain a compact structural index"
+        );
+        assert!(
+            !contents
+                .windows(17)
+                .any(|window| window == b"      SUBROUTINE "),
+            "{name} must not contain copied fixed-form source"
+        );
+    }
 }

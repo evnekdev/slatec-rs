@@ -3,28 +3,69 @@ use core::fmt;
 /// Failure reported by a safe adaptive-quadrature call.
 #[derive(Clone, Debug, PartialEq)]
 pub enum IntegrationError {
+    /// Interval bounds or a principal-value pole are invalid.
     InvalidBounds,
+    /// Absolute or relative tolerances violate the driver's contract.
     InvalidTolerance,
-    InvalidBreakpoint { index: usize, value: f64 },
-    DuplicateBreakpoint { first: usize, second: usize },
-    InvalidWeightParameter { argument: &'static str, value: f64 },
-    InvalidFrequency { value: f64 },
+    /// A breakpoint is non-finite, outside the open interval, or at an endpoint.
+    InvalidBreakpoint {
+        /// Position in the caller's breakpoint slice.
+        index: usize,
+        /// Rejected breakpoint value.
+        value: f64,
+    },
+    /// Two caller breakpoint positions contain the same value.
+    DuplicateBreakpoint {
+        /// First duplicate position.
+        first: usize,
+        /// Second duplicate position.
+        second: usize,
+    },
+    /// An endpoint-weight exponent is outside the native contract.
+    InvalidWeightParameter {
+        /// Rust argument name.
+        argument: &'static str,
+        /// Rejected value.
+        value: f64,
+    },
+    /// An oscillatory frequency is non-finite or otherwise unsupported.
+    InvalidFrequency {
+        /// Rejected frequency.
+        value: f64,
+    },
+    /// Checked allocation-size arithmetic exceeded supported limits.
     WorkspaceTooLarge,
+    /// The requested Chebyshev-moment table is too large.
     MomentWorkspaceTooLarge,
+    /// A count cannot be represented by the selected Fortran `INTEGER`.
     IntegerOverflow,
+    /// The adaptive driver exhausted its subdivision limit.
     MaximumSubdivisions,
+    /// Fourier-tail integration exhausted its cycle limit.
     MaximumCyclesReached,
+    /// Native roundoff detection prevented the requested accuracy.
     RoundoffDetected,
+    /// QUADPACK detected difficult local integrand behavior.
     BadIntegrandBehavior,
+    /// A Fourier cycle reported difficult local behavior.
     BadCycleBehavior,
+    /// QNG's fixed rule progression did not reach the requested accuracy.
     NonAdaptiveAccuracyNotReached,
+    /// QNC79 rejected a zero-width interval.
     DegenerateInterval,
+    /// The native driver could not converge.
     NonConvergence,
+    /// The integral appears divergent or too slowly convergent.
     DivergentOrSlowlyConvergent,
+    /// The Rust integrand panicked; the panic was contained before FFI.
     CallbackPanicked,
+    /// The Rust integrand returned NaN or infinity.
     CallbackFailed,
+    /// A callback attempted another callback-bearing SLATEC operation.
     NestedIntegration,
+    /// A driver returned an undocumented native status value.
     NativeStatus(i32),
+    /// Native outputs violated a checked wrapper invariant.
     NativeContractViolation,
 }
 

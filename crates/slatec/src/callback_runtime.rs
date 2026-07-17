@@ -6,8 +6,10 @@
 //! scalar-root adapters so callback-bearing families cannot nest into each
 //! other accidentally.
 
+use alloc::boxed::Box;
 use std::cell::Cell;
 use std::panic::{AssertUnwindSafe, catch_unwind};
+use std::thread_local;
 
 /// Reviewed GNU Fortran callback shape for a double-precision scalar value.
 pub(crate) type ScalarFnF64 = unsafe extern "C" fn(*const f64) -> f64;

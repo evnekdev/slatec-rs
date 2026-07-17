@@ -90,11 +90,12 @@ pub fn dscal_strided(n: usize, alpha: f64, x: &mut [f64], incx: isize) -> Result
 /// Performs `y = alpha * x + y` using unit stride.
 ///
 /// ```no_run
-/// # #[cfg(feature = "blas-level1")] {
+/// # fn main() -> Result<(), slatec::blas::BlasError> {
 /// use slatec::blas::level1::daxpy;
 /// let mut y = [4.0, 5.0, 6.0];
 /// daxpy(2.0, &[1.0, 2.0, 3.0], &mut y)?;
-/// # Ok::<(), slatec::blas::BlasError>(())?;
+/// assert_eq!(y, [6.0, 9.0, 12.0]);
+/// # Ok(())
 /// # }
 /// ```
 pub fn daxpy(alpha: f64, x: &[f64], y: &mut [f64]) -> Result<(), BlasError> {
