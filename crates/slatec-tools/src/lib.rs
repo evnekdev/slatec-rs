@@ -26,6 +26,7 @@ pub mod safe_bounded_linear_least_squares;
 pub mod safe_constrained_linear_least_squares;
 pub mod safe_least_squares;
 pub mod safe_linear_least_squares;
+pub mod safe_linear_programming_deferred;
 pub mod safe_nonlinear;
 pub mod safe_nonlinear_expert;
 pub mod safe_quadrature;
