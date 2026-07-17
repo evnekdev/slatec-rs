@@ -26,6 +26,8 @@ compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` f
 compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
+#[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
+compile_error!("the `least-squares-linear-nonnegative` safe API requires the `std` feature");
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -76,7 +78,8 @@ pub mod polynomials;
     feature = "nonlinear-expert",
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "least-squares-linear-nonnegative"
 ))]
 pub(crate) mod runtime;
 
@@ -136,3 +139,8 @@ pub mod nonlinear;
     feature = "least-squares-covariance"
 ))]
 pub mod least_squares;
+
+/// Safe constrained linear least-squares facades over original SLATEC
+/// `WNNLS` and `DWNNLS` implementations.
+#[cfg(feature = "least-squares-linear-nonnegative")]
+pub mod linear_least_squares;

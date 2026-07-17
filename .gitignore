@@ -46,6 +46,7 @@ Cargo.lock
 /evidence/safe-quadrature-*/
 /evidence/safe-roots-*/
 /evidence/safe-nonlinear-*/
+/evidence/safe-linear-least-squares-*/
 /evidence/quadrature/
 /evidence/full-corpus/
 /evidence/acquisition/

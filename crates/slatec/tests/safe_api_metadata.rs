@@ -37,6 +37,13 @@ fn safe_api_metadata_is_compact_and_contains_no_source_text() {
         "root-callback-policy.json",
         "root-deferred.json",
         "root-validation-summary.md",
+        "linear-least-squares-candidate-index.json",
+        "nonnegative-least-squares-wrapper-index.json",
+        "nonnegative-least-squares-status-map.json",
+        "nonnegative-least-squares-matrix-layout.json",
+        "nonnegative-least-squares-workspace.json",
+        "nonnegative-least-squares-deferred.json",
+        "nonnegative-least-squares-validation-summary.md",
     ] {
         let contents = std::fs::read(metadata_path(name)).expect("committed safe API metadata");
         assert!(contents.len() < 64 * 1024, "{name} must remain compact");

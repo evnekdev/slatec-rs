@@ -3494,6 +3494,140 @@
       ]
     },
     {
+      "rust_path": "slatec::linear_least_squares::solve_nonnegative_least_squares",
+      "fortran_routine": "DWNNLS",
+      "program_unit_id": "full-provider-b016458ce44e45a0",
+      "arguments": [
+        {
+          "rust": "problem matrices and right-hand sides copied into owned augmented storage",
+          "fortran": "W",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal augmented leading dimension",
+          "fortran": "MDW",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.equality_matrix.rows",
+          "fortran": "ME",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.least_squares_matrix.rows",
+          "fortran": "MA",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_constraints.len",
+          "fortran": "N",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internally permuted free-variable count",
+          "fortran": "L",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal nominal option sentinel",
+          "fortran": "PRGOPT",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.solution",
+          "fortran": "X",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.native_residual_norm",
+          "fortran": "RNORM",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "MODE",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::linear_least_squares::solve_nonnegative_least_squares_f32",
+      "fortran_routine": "WNNLS",
+      "program_unit_id": "full-provider-213f149fde9d9f22",
+      "arguments": [
+        {
+          "rust": "problem matrices and right-hand sides copied into owned augmented storage",
+          "fortran": "W",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal augmented leading dimension",
+          "fortran": "MDW",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.equality_matrix.rows",
+          "fortran": "ME",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.least_squares_matrix.rows",
+          "fortran": "MA",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "problem.variable_constraints.len",
+          "fortran": "N",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internally permuted free-variable count",
+          "fortran": "L",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "internal nominal option sentinel",
+          "fortran": "PRGOPT",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.solution",
+          "fortran": "X",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.native_residual_norm",
+          "fortran": "RNORM",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "MODE",
+          "transformation": "validated and copied, derived, or reconstructed in owned native storage"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::nonlinear::check_jacobian",
       "fortran_routine": "DCKDER",
       "program_unit_id": "full-provider-c352a88d029c63fa",

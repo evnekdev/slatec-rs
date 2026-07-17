@@ -363,6 +363,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/nonnegative-least-squares-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "linear least squares",
+                column(row, columns, "precision")?,
+                "equality-constrained nonnegative linear least squares",
+                "std",
+                "least-squares-linear-nonnegative",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -455,6 +470,10 @@ fn record(
         }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
+        "linear least squares" if precision == "f32" => {
+            "examples/least_squares/mixed_nonnegative_fit.rs".to_owned()
+        }
+        "linear least squares" => "examples/least_squares/nonnegative_fit.rs".to_owned(),
         "least squares" if path.contains("covariance") && path.contains("rank") => {
             "examples/least_squares/covariance_rank_deficient.rs".to_owned()
         }
@@ -570,6 +589,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let internal_argument = (internal.contains(&upper.as_str())
         || (jacobian_check && upper == "FVEC"))
         && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
+        && !(function.domain == "linear least squares" && upper == "MODE")
         && !(analytic_jacobian && upper == "JAC")
         && !(jacobian_check && matches!(upper.as_str(), "FJAC" | "ERR"));
     let rust = if internal_argument || inferred {
@@ -635,6 +655,33 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "NJEV" if function.domain == "nonlinear" => "result.jacobian_evaluations".to_owned(),
             "INFO" if function.domain == "nonlinear" => "result.status".to_owned(),
             "INFO" if function.domain == "least squares" => "result.status".to_owned(),
+            "W" if function.domain == "linear least squares" => {
+                "problem matrices and right-hand sides copied into owned augmented storage"
+                    .to_owned()
+            }
+            "MDW" if function.domain == "linear least squares" => {
+                "internal augmented leading dimension".to_owned()
+            }
+            "ME" if function.domain == "linear least squares" => {
+                "problem.equality_matrix.rows".to_owned()
+            }
+            "MA" if function.domain == "linear least squares" => {
+                "problem.least_squares_matrix.rows".to_owned()
+            }
+            "N" if function.domain == "linear least squares" => {
+                "problem.variable_constraints.len".to_owned()
+            }
+            "L" if function.domain == "linear least squares" => {
+                "internally permuted free-variable count".to_owned()
+            }
+            "PRGOPT" if function.domain == "linear least squares" => {
+                "internal nominal option sentinel".to_owned()
+            }
+            "X" if function.domain == "linear least squares" => "result.solution".to_owned(),
+            "RNORM" if function.domain == "linear least squares" => {
+                "result.native_residual_norm".to_owned()
+            }
+            "MODE" if function.domain == "linear least squares" => "result.status".to_owned(),
             "EPSABS" => "options.absolute_tolerance".to_owned(),
             "EPSREL" | "RE" => "options.relative_tolerance".to_owned(),
             "AE" => "options.absolute_tolerance".to_owned(),
@@ -659,6 +706,8 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "allocated, initialized, or validated internally".to_owned()
         } else if callback_argument {
             "Rust closure through the contained callback trampoline".to_owned()
+        } else if function.domain == "linear least squares" {
+            "validated and copied, derived, or reconstructed in owned native storage".to_owned()
         } else {
             "validated value or caller-owned slice passed through the reviewed raw ABI".to_owned()
         },
@@ -705,6 +754,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "roots",
         "nonlinear",
         "least squares",
+        "linear least squares",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -773,6 +823,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         }
         "nonlinear" => "crates/slatec/tests/nonlinear_native.rs",
         "least squares" => "crates/slatec/tests/least_squares_native.rs",
+        "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -802,13 +853,20 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::least_squares::estimate_covariance_finite_difference_f32"
             | "slatec::least_squares::covariance_from_expert_fit"
             | "slatec::least_squares::covariance_from_expert_fit_f32"
+            | "slatec::linear_least_squares::solve_nonnegative_least_squares"
+            | "slatec::linear_least_squares::solve_nonnegative_least_squares_f32"
     )
 }
 
 fn native_status(domain: &str) -> &'static str {
     match domain {
         "BLAS" => "validated_by_native_batch",
-        "quadrature" | "roots" | "nonlinear" | "least squares" | "special functions"
+        "quadrature"
+        | "roots"
+        | "nonlinear"
+        | "least squares"
+        | "linear least squares"
+        | "special functions"
         | "polynomials" => "native_execution_passed",
         _ => "unknown",
     }
@@ -854,6 +912,9 @@ fn purpose(family: &str) -> &'static str {
         }
         "nonlinear least-squares covariance estimation" => {
             "nonlinear least-squares covariance estimation"
+        }
+        "equality-constrained nonnegative linear least squares" => {
+            "equality-constrained nonnegative linear least-squares fitting"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",
