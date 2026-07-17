@@ -8,6 +8,7 @@ repository.workspace = true
 links = "slatec"
 build = "build.rs"
 description = "Raw FFI bindings to selected SLATEC routines"
+readme = "README.md"
 
 [dependencies]
 

@@ -1,0 +1,10 @@
+[package]
+name = "slatec-consumer-source-build-gamma"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+slatec = { path = "../../../crates/slatec", default-features = false, features = ["std", "source-build", "special-gamma"] }

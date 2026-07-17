@@ -1,0 +1,7 @@
+[package]
+name = "gamma-client"
+version = "0.0.0"
+edition = "2024"
+
+[dependencies]
+slatec = { path = "../../../../crates/slatec", default-features = false, features = ["std", "external-backend", "special-gamma"] }

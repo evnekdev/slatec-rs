@@ -18,10 +18,11 @@ Enable the family features deliberately:
 slatec = { version = "0.1", features = ["special-functions", "special-functions-f32", "special-functions-polynomials"] }
 ```
 
-Native applications use the default `bundled` provider, which acquires
-checksum-pinned sources, applies the validated profile support, and builds the
-selected family closure automatically. Maintainers can still validate the
-complete runtime profile explicitly:
+Native applications explicitly select `source-build`, `system`, or
+`external-backend`. `source-build` uses a separately acquired checksum-pinned
+cache, applies the validated profile support, and builds the selected family
+closure without network access. Maintainers can validate the complete runtime
+profile explicitly:
 
 ```text
 cargo run -p slatec-tools --bin slatec-corpus -- build-native-ffi --offline

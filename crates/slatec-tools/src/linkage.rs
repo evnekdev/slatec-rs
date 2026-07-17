@@ -106,7 +106,18 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     let mut symbol_owner = BTreeMap::new();
     for row in array_records(&symbols, "symbol inventory")? {
         let row = row.as_array().ok_or_else(|| bad("symbol row"))?;
-        symbol_owner.insert(row_string(row, 1)?, row_string(row, 0)?);
+        let symbol = row_string(row, 1)?;
+        let owner = row_string(row, 0)?;
+        if symbol.starts_with(".refptr.") || row.get(2).and_then(Value::as_str) == Some("C") {
+            continue;
+        }
+        if let Some(previous) = symbol_owner.insert(symbol.clone(), owner.clone()) {
+            if previous != owner {
+                return Err(CorpusError::Verification(format!(
+                    "duplicate compiled symbol owner for {symbol}: {previous} and {owner}"
+                )));
+            }
+        }
     }
 
     let object_root = root
@@ -135,15 +146,19 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         .and_then(|unit| unit_to_source.get(unit))
         .cloned();
     let mut family_sources = BTreeMap::<String, BTreeSet<String>>::new();
+    let mut profile_override_families = BTreeSet::new();
     for (family, seeds) in &family_symbols {
         let mut queue = VecDeque::new();
         for name in seeds {
-            if let Some(source) = name_to_unit
+            let source = name_to_unit
                 .get(name)
                 .and_then(|unit| unit_to_source.get(unit))
-            {
-                queue.push_back(source.clone());
-            }
+                .ok_or_else(|| {
+                    CorpusError::Verification(format!(
+                        "safe symbol {name} in {family} has no selected source owner"
+                    ))
+                })?;
+            queue.push_back(source.clone());
         }
         let mut closure = BTreeSet::new();
         while let Some(source) = queue.pop_front() {
@@ -155,6 +170,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
                 .iter()
                 .any(|name| MACHINE_CONSTANTS.contains(&name.as_str()))
             {
+                profile_override_families.insert(family.clone());
                 if let Some(xer) = &xermsg_source {
                     queue.push_back(xer.clone());
                 }
@@ -187,6 +203,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         "schema_id":"slatec-rs/family-source-closure", "schema_version":"1.0.0",
         "snapshot_id":SNAPSHOT, "compiler_profile_id":PROFILE,
         "profile_overrides":["I1MACH","R1MACH","D1MACH"],
+        "profile_override_families":profile_override_families,
         "sources":source_rows, "families":family_rows
     });
     render_family_bindings(root, &family_symbols)?;
@@ -196,23 +213,59 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         .map(|(family, names)| json!({"family":family,"raw_symbols":names}))
         .collect::<Vec<_>>();
     let closure_rows = family_sources.iter().map(|(family, sources)| json!({"family":family,"source_count":sources.len(),"source_ids":sources})).collect::<Vec<_>>();
-    let examples = inspect_examples(root, &nm)?;
+    let closure_audit = family_sources
+        .iter()
+        .map(|(family, sources)| {
+            json!({
+                "family":family,
+                "safe_symbol_count":family_symbols.get(family).map(BTreeSet::len).unwrap_or(0),
+                "source_count":sources.len(),
+                "safe_symbol_owner_resolution":"passed",
+                "selected_dependency_resolution":"passed",
+                "duplicate_symbol_owners":0,
+                "profile_overrides_required":profile_override_families.contains(family),
+                "status":"passed"
+            })
+        })
+        .collect::<Vec<_>>();
+    let family_root_owners = [
+        ("dlnrel_", "DLNREL"),
+        ("dgamma_", "DGAMMA"),
+        ("dai_", "DAI"),
+        ("dbesj0_", "DBESJ0"),
+        ("ddot_", "DDOT"),
+        ("dgemm_", "DGEMM"),
+        ("dqag_", "DQAG"),
+        ("dqawo_", "DQAWO"),
+        ("dfzero_", "DFZERO"),
+    ]
+    .into_iter()
+    .map(|(symbol, name)| {
+        let source = name_to_unit
+            .get(name)
+            .and_then(|unit| unit_to_source.get(unit))
+            .ok_or_else(|| bad("link-retention root source owner"))?;
+        Ok((symbol, source.clone()))
+    })
+    .collect::<Result<BTreeMap<_, _>>>()?;
+    let examples = inspect_examples(root, &nm, &family_sources, &family_root_owners)?;
     let gamma = examples
         .iter()
         .find(|record| record["example"] == "link_gamma");
     let gamma_retention = gamma
         .map(|record| record["retention_checks"].clone())
         .unwrap_or(Value::Null);
-    let report = json!({"schema_id":"slatec-rs/family-link-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"families":closure_rows,"examples":examples,"archive_policy":"separate object per physical selected source; no whole-archive"});
+    let report = json!({"schema_id":"slatec-rs/family-link-report","schema_version":"1.1.0","snapshot_id":SNAPSHOT,"provider_mode":"source-build","target":"x86_64-pc-windows-gnu","families":closure_rows,"examples":examples,"archive_policy":"separate object per physical selected source; no whole-archive"});
     let retention = json!({"schema_id":"slatec-rs/symbol-retention-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows,"single_gamma":gamma_retention,"rule":"only referenced static-archive members and their compiler-observed dependency closure are retained"});
     let raw_map = json!({"schema_id":"slatec-rs/family-to-raw-symbols","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows});
     let source_map = json!({"schema_id":"slatec-rs/family-to-source-closure","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_rows});
+    let closure_audit_report = json!({"schema_id":"slatec-rs/family-closure-audit","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_audit});
     let validated_examples = examples
         .iter()
         .filter(|record| record["status"] == "passed")
         .count();
     let summary = format!(
-        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/5.\n- Single-gamma unrelated-domain retention check: {}.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: checksum-pinned automatic source acquisition for `bundled`; verified local cache for `source-build`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
+        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/10.\n- Single-gamma unrelated-domain retention check: {}.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
         family_sources.len(),
         selected_ids.len(),
         if gamma_retention["passed"].as_bool() == Some(true) {
@@ -225,6 +278,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         ("family-link-report.json", bytes(&report)?),
         ("family-to-raw-symbols.json", bytes(&raw_map)?),
         ("family-to-source-closure.json", bytes(&source_map)?),
+        ("family-closure-audit.json", bytes(&closure_audit_report)?),
         ("symbol-retention-report.json", bytes(&retention)?),
         ("validation-summary.md", summary.into_bytes()),
     ];
@@ -402,15 +456,31 @@ fn render_family_bindings(
     Ok(())
 }
 
-fn inspect_examples(root: &Path, nm: &Path) -> Result<Vec<Value>> {
+fn inspect_examples(
+    root: &Path,
+    nm: &Path,
+    family_sources: &BTreeMap<String, BTreeSet<String>>,
+    family_root_owners: &BTreeMap<&str, String>,
+) -> Result<Vec<Value>> {
     let specifications = [
+        ("link_elementary", "special-elementary", "dlnrel_"),
         ("link_gamma", "special-gamma", "dgamma_"),
         ("link_airy", "special-airy", "dai_"),
+        ("link_bessel", "special-bessel", "dbesj0_"),
         ("link_blas_level1", "blas-level1", "ddot_"),
+        ("link_blas_level3", "blas-level3", "dgemm_"),
         ("link_quadrature_basic", "quadrature-basic", "dqag_"),
+        (
+            "link_quadrature_oscillatory",
+            "quadrature-oscillatory",
+            "dqawo_",
+        ),
+        ("link_roots_scalar", "roots-scalar", "dfzero_"),
         ("link_complete_safe_api", "full", "dgamma_"),
     ];
-    let forbidden = ["dai_", "dbesj0_", "dqag_", "dfzero_", "ddot_"];
+    let family_roots = [
+        "dlnrel_", "dgamma_", "dai_", "dbesj0_", "ddot_", "dgemm_", "dqag_", "dqawo_", "dfzero_",
+    ];
     let mut output = Vec::new();
     for (example, feature, required) in specifications {
         let path = root
@@ -422,10 +492,19 @@ fn inspect_examples(root: &Path, nm: &Path) -> Result<Vec<Value>> {
         }
         let symbols = defined_symbols(nm, &path)?;
         let required_present = symbols.contains(required);
-        let unrelated = if example == "link_gamma" {
-            forbidden
+        let allowed_sources = family_sources.get(feature);
+        let unrelated = if example != "link_complete_safe_api" {
+            family_roots
                 .iter()
-                .filter(|symbol| **symbol != required && symbols.contains(**symbol))
+                .filter(|symbol| {
+                    **symbol != required
+                        && symbols.contains(**symbol)
+                        && !allowed_sources.is_some_and(|sources| {
+                            family_root_owners
+                                .get(**symbol)
+                                .is_some_and(|owner| sources.contains(owner))
+                        })
+                })
                 .copied()
                 .collect::<Vec<_>>()
         } else {
@@ -434,6 +513,9 @@ fn inspect_examples(root: &Path, nm: &Path) -> Result<Vec<Value>> {
         output.push(json!({
             "example":example,"feature":feature,"status":if required_present && unrelated.is_empty(){"passed"}else{"failed"},
             "binary_bytes":fs::metadata(&path)?.len(),"required_symbol":required,"required_symbol_present":required_present,
+            "retained_defined_symbol_count":symbols.len(),
+            "retained_family_roots":family_roots.iter().filter(|symbol| symbols.contains(**symbol)).copied().collect::<Vec<_>>(),
+            "runtime_symbols":{"gfortran":symbols.iter().filter(|symbol| symbol.contains("gfortran")).count(),"quadmath":symbols.iter().filter(|symbol| symbol.contains("quadmath") || symbol.contains("flt128")).count()},
             "retention_checks":{"unrelated_entry_points":unrelated,"passed":required_present && unrelated.is_empty()}
         }));
     }
@@ -542,6 +624,8 @@ fn bytes(value: &Value) -> Result<Vec<u8>> {
 #[cfg(test)]
 mod tests {
     use super::family_for;
+    use serde_json::Value;
+    use std::{fs, path::PathBuf};
 
     #[test]
     fn classifies_public_families_without_raw_name_guessing() {
@@ -561,5 +645,18 @@ mod tests {
             family_for("slatec::blas::level1::ddot", "DDOT"),
             "blas-level1"
         );
+    }
+
+    #[test]
+    fn every_narrow_family_has_a_passing_closure_audit() {
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let report: Value = serde_json::from_slice(
+            &fs::read(root.join("generated/linkage/family-closure-audit.json"))
+                .expect("closure audit"),
+        )
+        .expect("valid closure audit");
+        let records = report["records"].as_array().expect("audit records");
+        assert_eq!(records.len(), 19);
+        assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }

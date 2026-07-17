@@ -1,10 +1,9 @@
 //! Safe scalar special functions backed by the selected original SLATEC FNLIB.
 //!
 //! This module is deliberately limited to the explicitly validated GNU
-//! Fortran `x86_64-w64-mingw32` profile. The default `bundled` provider
-//! checksum-verifies, compiles, and statically links the selected family
-//! closure; explicit source, system, and externally managed backends remain
-//! available.
+//! Fortran `x86_64-w64-mingw32` profile. Native execution requires one explicit
+//! provider. The offline `source-build` mode verifies and compiles the selected
+//! family closure; system and externally managed backends remain available.
 //!
 //! Calls that enter FNLIB are serialized because its `SAVE`d initialisation
 //! and legacy error state are process-global.  The wrappers reject the

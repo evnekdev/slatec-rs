@@ -8,18 +8,21 @@ Enable it only with the compiler and target profile that was validated for the
 raw bindings:
 
 ```toml
-slatec = { version = "0.1", features = ["blas-level1"] }
+slatec = { version = "0.1", default-features = false, features = ["std", "source-build", "blas-level1"] }
 ```
 
 The supported profile is GNU Fortran on `x86_64-w64-mingw32`, linked from Rust
-with target `x86_64-pc-windows-gnu`. The default `bundled` provider downloads
-checksum-pinned source files and builds the selected family automatically:
+with target `x86_64-pc-windows-gnu`. Acquire the verified cache explicitly,
+then select the offline `source-build` provider:
 
 ```text
+cargo run -p slatec-tools --bin slatec-corpus -- acquire-provider-sources --output-dir evidence/provider-sources
+$env:SLATEC_SOURCE_CACHE = "evidence/provider-sources"
 cargo test -p slatec --features blas-level1-native-tests --target x86_64-pc-windows-gnu
 ```
 
-`source-build`, `system`, and `external-backend` provide explicit alternatives.
+`prebuilt` is blocked pending rights clearance; `system` and
+`external-backend` provide explicit alternatives.
 Applications that need a raw declaration can depend on `slatec-sys` directly;
 the safe facade deliberately does not duplicate it.
 

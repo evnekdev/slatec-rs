@@ -8,14 +8,17 @@ repository.workspace = true
 links = "slatec_src"
 build = "build.rs"
 description = "Implementation-provider selection and native linking for slatec-rs"
-include = ["src/**", "metadata/**", "native/**", "build.rs", "Cargo.toml"]
+readme = "README.md"
+include = ["src/**", "metadata/**", "native/**", "build.rs", "Cargo.toml", "README.md", "LICENSE-*"]
 
 [features]
 default = []
-bundled = []
+prebuilt = []
 source-build = []
 system = []
 external-backend = []
+# Deprecated compatibility alias for the offline source-build backend.
+bundled = ["source-build"]
 
 blas = ["blas-level1", "blas-level2", "blas-level3"]
 blas-level1 = []
@@ -47,4 +50,3 @@ roots-polynomial = []
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
-ureq.workspace = true
