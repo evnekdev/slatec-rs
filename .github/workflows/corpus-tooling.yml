@@ -45,3 +45,7 @@ jobs:
         run: cargo test -p slatec --features quadrature --lib
       - name: Runtime-gated safe-quadrature metadata and determinism fixtures
         run: cargo test -p slatec-tools safe_quadrature::tests
+      - name: Safe scalar-root callback and validation tests without native linking
+        run: cargo test -p slatec --features roots --lib
+      - name: Runtime-gated safe-root metadata and determinism fixtures
+        run: cargo test -p slatec-tools safe_roots::tests

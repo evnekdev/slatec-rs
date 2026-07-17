@@ -36,16 +36,6 @@ unsafe extern "C" {
     pub fn d9upak(x: *mut f64, y: *mut f64, n: *mut FortranInteger);
     #[link_name = "dbkisr_"]
     pub fn dbkisr(x: *mut f64, n: *mut FortranInteger, sum: *mut f64, ierr: *mut FortranInteger);
-    #[link_name = "dfzero_"]
-    pub fn dfzero(
-        f: *mut f64,
-        b: *mut f64,
-        c: *mut f64,
-        r: *mut f64,
-        re: *mut f64,
-        ae: *mut f64,
-        iflag: *mut FortranInteger,
-    );
     #[link_name = "dgamlm_"]
     pub fn dgamlm(xmin: *mut f64, xmax: *mut f64);
     #[link_name = "dgaus8_"]
@@ -116,16 +106,6 @@ unsafe extern "C" {
     pub fn fftdoc();
     #[link_name = "fundoc_"]
     pub fn fundoc();
-    #[link_name = "fzero_"]
-    pub fn fzero(
-        f: *mut f32,
-        b: *mut f32,
-        c: *mut f32,
-        r: *mut f32,
-        re: *mut f32,
-        ae: *mut f32,
-        iflag: *mut FortranInteger,
-    );
     #[link_name = "gamlim_"]
     pub fn gamlim(xmin: *mut f32, xmax: *mut f32);
     #[link_name = "gaus8_"]
