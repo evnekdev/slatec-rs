@@ -10,5 +10,9 @@ finite-difference nonlinear least-squares fitting through the original
 `std`, an explicit native backend, and the validated GNU MinGW profile;
 the independent `least-squares-covariance` feature provides reviewed `SCOV`
 and `DCOV` covariance estimation under the same hosted-profile requirement.
+The distinct `least-squares-linear-nonnegative` feature wraps `WNNLS` and
+`DWNNLS` for equality-constrained linear least squares with selected
+nonnegative variables; it also requires `std`, an explicit backend, and the
+validated GNU MinGW profile.
 
 Native implementations are selected explicitly with `prebuilt`, `source-build`, `system`, or `external-backend`. No redistributable prebuilt provider is currently available because historical source rights remain unresolved.

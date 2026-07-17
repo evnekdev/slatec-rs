@@ -40,6 +40,10 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
         "least-squares-nonlinear-expert",
     ),
     ("LEAST_SQUARES_COVARIANCE", "least-squares-covariance"),
+    (
+        "LEAST_SQUARES_LINEAR_NONNEGATIVE",
+        "least-squares-linear-nonnegative",
+    ),
 ];
 
 #[derive(Deserialize)]

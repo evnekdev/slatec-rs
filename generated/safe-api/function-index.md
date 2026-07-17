@@ -76,6 +76,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::least_squares::least_squares_f32` | `SNLS1E` | least squares | f32 | finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-easy` | [finite-difference nonlinear least squares](../../examples/least_squares/linear_fit_f32.rs) |
 | `slatec::least_squares::least_squares_with_jacobian` | `DNLS1` | least squares | f64 | expert analytic-Jacobian nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert analytic-Jacobian nonlinear least squares](../../examples/least_squares/expert_analytic_jacobian.rs) |
 | `slatec::least_squares::least_squares_with_jacobian_f32` | `SNLS1` | least squares | f32 | expert analytic-Jacobian nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert analytic-Jacobian nonlinear least squares](../../examples/least_squares/expert_analytic_jacobian_f32.rs) |
+| `slatec::linear_least_squares::solve_nonnegative_least_squares` | `DWNNLS` | linear least squares | f64 | equality-constrained nonnegative linear least-squares fitting | `std` | `least-squares-linear-nonnegative` | [equality-constrained nonnegative linear least squares](../../examples/least_squares/nonnegative_fit.rs) |
+| `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` | `WNNLS` | linear least squares | f32 | equality-constrained nonnegative linear least-squares fitting | `std` | `least-squares-linear-nonnegative` | [equality-constrained nonnegative linear least squares](../../examples/least_squares/mixed_nonnegative_fit.rs) |
 | `slatec::nonlinear::check_jacobian` | `DCKDER` | nonlinear | f64 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::check_jacobian_f32` | `CHKDER` | nonlinear | f32 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
@@ -301,6 +303,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DTRMV` -> `slatec::blas::level2::dtrmv`
 - `DTRSM` -> `slatec::blas::level3::dtrsm`
 - `DTRSV` -> `slatec::blas::level2::dtrsv`
+- `DWNNLS` -> `slatec::linear_least_squares::solve_nonnegative_least_squares`
 - `E1` -> `slatec::special::integrals::exponential_integral_e1_f32`
 - `EI` -> `slatec::special::integrals::exponential_integral_ei_f32`
 - `ERF` -> `slatec::special::error_functions::erf_f32`
@@ -365,6 +368,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `STRMV` -> `slatec::blas::level2::strmv`
 - `STRSM` -> `slatec::blas::level3::strsm`
 - `STRSV` -> `slatec::blas::level2::strsv`
+- `WNNLS` -> `slatec::linear_least_squares::solve_nonnegative_least_squares_f32`
 
 ## Domain index
 
@@ -567,6 +571,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::least_squares::least_squares_with_jacobian` — expert analytic-Jacobian nonlinear least-squares fitting
 - `slatec::least_squares::least_squares_with_jacobian_f32` — expert analytic-Jacobian nonlinear least-squares fitting
 
+### linear least squares
+
+- `slatec::linear_least_squares::solve_nonnegative_least_squares` — equality-constrained nonnegative linear least-squares fitting
+- `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` — equality-constrained nonnegative linear least-squares fitting
+
 ## Capability index
 
 ### Core only
@@ -649,6 +658,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::least_squares::least_squares_f32`
 - `slatec::least_squares::least_squares_with_jacobian`
 - `slatec::least_squares::least_squares_with_jacobian_f32`
+- `slatec::linear_least_squares::solve_nonnegative_least_squares`
+- `slatec::linear_least_squares::solve_nonnegative_least_squares_f32`
 - `slatec::nonlinear::solve_system`
 - `slatec::nonlinear::solve_system_expert`
 - `slatec::nonlinear::solve_system_expert_f32`

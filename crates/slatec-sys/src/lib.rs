@@ -112,6 +112,16 @@ pub mod nonlinear;
 ))]
 pub mod least_squares;
 
+/// Hand-reviewed declarations for weighted nonnegative linear least squares.
+///
+/// This narrow module exposes only `WNNLS` and `DWNNLS`. The routines mutate
+/// their augmented matrix and work arrays, so the declarations remain unsafe.
+#[cfg(any(
+    feature = "raw-ffi-linear-least-squares",
+    feature = "raw-family-least-squares-linear-nonnegative"
+))]
+pub mod linear_least_squares;
+
 /// Minimal internal-facing legacy-error controls required by the reviewed
 /// nonlinear least-squares easy drivers.
 ///
