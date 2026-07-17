@@ -15,6 +15,7 @@ routine.
 | `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials` |
 | `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
+| `nonlinear` | `nonlinear-easy` |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.
@@ -80,7 +81,7 @@ GPL/GCC Runtime Library Exception notices. See `generated/licensing/`.
 Every physical selected source is compiled to a separate object and archived
 without whole-archive linking. The platform linker therefore extracts only
 objects referenced by the program and their transitive support closure. The
-compiler-observed closure and ten native binary checks are recorded under
+compiler-observed closure and eleven native binary checks are recorded under
 `generated/linkage/`. Narrow examples check their own family roots and reject
 unrelated public family roots while permitting required support symbols.
 

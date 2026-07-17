@@ -89,11 +89,20 @@ roots-scalar = [
 roots-native-tests = ["roots", "quadrature"]
 roots-polynomial = ["alloc", "slatec-src/roots-polynomial"]
 
+nonlinear = ["nonlinear-easy"]
+nonlinear-easy = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-nonlinear-easy",
+    "slatec-src/nonlinear-easy",
+]
+nonlinear-native-tests = ["nonlinear-easy", "quadrature", "roots-scalar"]
+
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
 interpolate = []
 optimize = []
-full = ["blas", "quadrature", "roots", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -146,3 +155,7 @@ required-features = ["quadrature-oscillatory"]
 [[example]]
 name = "link_roots_scalar"
 required-features = ["roots-scalar"]
+
+[[example]]
+name = "link_nonlinear_easy"
+required-features = ["nonlinear-easy"]

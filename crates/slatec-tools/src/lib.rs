@@ -21,6 +21,7 @@ pub mod provider;
 pub mod raw_ffi;
 pub mod runtime_profile;
 pub mod safe_api_docs;
+pub mod safe_nonlinear;
 pub mod safe_quadrature;
 pub mod safe_roots;
 pub mod safe_special;

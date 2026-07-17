@@ -64,6 +64,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
+| `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
+| `slatec::nonlinear::solve_system_f32` | `SNSQE` | nonlinear | f32 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system_f32.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series` | `DCSEVL` | polynomials | f64 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series_f32` | `CSEVL` | polynomials | f32 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::quadrature::integrate` | `DQAG` | quadrature | f64 | adaptive finite-interval integration | `std` | `quadrature-basic` | [finite](../../examples/quadrature/families.rs) |
@@ -246,6 +248,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DLNREL` -> `slatec::special::elementary::log1p`
 - `DNRM2` -> `slatec::blas::level1::dnrm2`
 - `DNRM2` -> `slatec::blas::level1::dnrm2_strided`
+- `DNSQE` -> `slatec::nonlinear::solve_system`
 - `DPSI` -> `slatec::special::gamma::digamma`
 - `DQAG` -> `slatec::quadrature::integrate`
 - `DQAGI` -> `slatec::quadrature::integrate_infinite`
@@ -313,6 +316,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SINDG` -> `slatec::special::elementary::sin_degrees_f32`
 - `SNRM2` -> `slatec::blas::level1::snrm2`
 - `SNRM2` -> `slatec::blas::level1::snrm2_strided`
+- `SNSQE` -> `slatec::nonlinear::solve_system_f32`
 - `SROT` -> `slatec::blas::level1::srot`
 - `SROT` -> `slatec::blas::level1::srot_strided`
 - `SSCAL` -> `slatec::blas::level1::sscal`
@@ -501,6 +505,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::roots::find_root` — bracketed scalar root finding
 - `slatec::roots::find_root_f32` — bracketed scalar root finding
 
+### nonlinear
+
+- `slatec::nonlinear::solve_system` — finite-difference nonlinear-system solving
+- `slatec::nonlinear::solve_system_f32` — finite-difference nonlinear-system solving
+
 ## Capability index
 
 ### Core only
@@ -570,6 +579,8 @@ No current public function requires `alloc` without also requiring `std`. The fe
 
 ### Requires `std`
 
+- `slatec::nonlinear::solve_system`
+- `slatec::nonlinear::solve_system_f32`
 - `slatec::polynomials::chebyshev::chebyshev_series`
 - `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `slatec::quadrature::integrate`

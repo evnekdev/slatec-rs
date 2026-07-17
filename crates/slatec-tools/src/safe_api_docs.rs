@@ -257,6 +257,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/nonlinear-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "nonlinear",
+                column(row, columns, "precision")?,
+                "finite-difference nonlinear system",
+                "std",
+                "nonlinear-easy",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -338,6 +353,8 @@ fn record(
         ),
         "quadrature" => "examples/quadrature/families.rs".to_owned(),
         "roots" => "examples/roots/scalar.rs".to_owned(),
+        "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
+        "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };
@@ -418,21 +435,22 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let upper = name.to_ascii_uppercase();
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
-        "BLIST", "RLIST", "ELIST",
+        "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
-    let rust = if internal.contains(&upper.as_str()) || inferred {
+    let internal_argument =
+        internal.contains(&upper.as_str()) && !(function.domain == "nonlinear" && upper == "INFO");
+    let rust = if internal_argument || inferred {
         None
     } else {
         Some(match upper.as_str() {
-            "F" => {
-                if function.domain == "roots" {
-                    "function".to_owned()
-                } else {
-                    "f".to_owned()
-                }
-            }
+            "F" | "FCN" => "function".to_owned(),
+            "N" if function.domain == "nonlinear" => "initial.len".to_owned(),
+            "X" if function.domain == "nonlinear" => "initial".to_owned(),
+            "FVEC" if function.domain == "nonlinear" => "result.residual".to_owned(),
+            "TOL" if function.domain == "nonlinear" => "options.tolerance".to_owned(),
+            "INFO" if function.domain == "nonlinear" => "result.status".to_owned(),
             "EPSABS" => "options.absolute_tolerance".to_owned(),
             "EPSREL" | "RE" => "options.relative_tolerance".to_owned(),
             "AE" => "options.absolute_tolerance".to_owned(),
@@ -444,8 +462,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             _ => name.to_ascii_lowercase(),
         })
     };
-    let internal_argument = internal.contains(&upper.as_str());
-    let callback_argument = upper == "F";
+    let callback_argument = upper == "F" || (function.domain == "nonlinear" && upper == "FCN");
     ArgumentMap {
         rust,
         fortran: upper,
@@ -499,6 +516,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "polynomials",
         "quadrature",
         "roots",
+        "nonlinear",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -558,19 +576,27 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "BLAS" => "crates/slatec/tests/blas_level23_native.rs",
         "quadrature" => "crates/slatec/tests/quadrature_native.rs",
         "roots" => "crates/slatec/tests/roots_native.rs",
+        "nonlinear" => "crates/slatec/tests/nonlinear_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
 }
 
 fn source_has_doctest(path: &str) -> bool {
-    path == "slatec::blas::level1::daxpy"
+    matches!(
+        path,
+        "slatec::blas::level1::daxpy"
+            | "slatec::nonlinear::solve_system"
+            | "slatec::nonlinear::solve_system_f32"
+    )
 }
 
 fn native_status(domain: &str) -> &'static str {
     match domain {
         "BLAS" => "validated_by_native_batch",
-        "quadrature" | "roots" | "special functions" | "polynomials" => "native_execution_passed",
+        "quadrature" | "roots" | "nonlinear" | "special functions" | "polynomials" => {
+            "native_execution_passed"
+        }
         _ => "unknown",
     }
 }
@@ -596,6 +622,7 @@ fn purpose(family: &str) -> &'static str {
         "trsm" => "triangular matrix solve",
         "syrk" => "symmetric rank-k update",
         "bracketed scalar root" => "bracketed scalar root finding",
+        "finite-difference nonlinear system" => "finite-difference nonlinear-system solving",
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",

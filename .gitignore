@@ -45,6 +45,7 @@ Cargo.lock
 /evidence/safe-special-*/
 /evidence/safe-quadrature-*/
 /evidence/safe-roots-*/
+/evidence/safe-nonlinear-*/
 /evidence/quadrature/
 /evidence/full-corpus/
 /evidence/acquisition/

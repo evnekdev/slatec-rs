@@ -4,9 +4,9 @@
   "bare_metal_execution_validated": false,
   "capabilities": {
     "core": 58,
-    "std": 100
+    "std": 102
   },
-  "function_count": 158,
+  "function_count": 160,
   "native_backend_available": true,
   "native_profile": "ffi-profile-gnu-mingw-x86_64",
   "native_runtime_validated": true,

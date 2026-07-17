@@ -238,6 +238,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         ("dqag_", "DQAG"),
         ("dqawo_", "DQAWO"),
         ("dfzero_", "DFZERO"),
+        ("dnsqe_", "DNSQE"),
     ]
     .into_iter()
     .map(|(symbol, name)| {
@@ -265,9 +266,10 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         .filter(|record| record["status"] == "passed")
         .count();
     let summary = format!(
-        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/10.\n- Single-gamma unrelated-domain retention check: {}.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
+        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/{}.\n- Single-gamma unrelated-domain retention check: {}.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
         family_sources.len(),
         selected_ids.len(),
+        examples.len(),
         if gamma_retention["passed"].as_bool() == Some(true) {
             "passed"
         } else {
@@ -365,6 +367,9 @@ fn family_for(path: &str, routine: &str) -> String {
             return "quadrature-nonadaptive".to_owned();
         }
         return "quadrature-basic".to_owned();
+    }
+    if path.contains("::nonlinear::") {
+        return "nonlinear-easy".to_owned();
     }
     if path.contains("::roots::") {
         return "roots-scalar".to_owned();
@@ -476,10 +481,12 @@ fn inspect_examples(
             "dqawo_",
         ),
         ("link_roots_scalar", "roots-scalar", "dfzero_"),
+        ("link_nonlinear_easy", "nonlinear-easy", "dnsqe_"),
         ("link_complete_safe_api", "full", "dgamma_"),
     ];
     let family_roots = [
         "dlnrel_", "dgamma_", "dai_", "dbesj0_", "ddot_", "dgemm_", "dqag_", "dqawo_", "dfzero_",
+        "dnsqe_",
     ];
     let mut output = Vec::new();
     for (example, feature, required) in specifications {
@@ -645,6 +652,10 @@ mod tests {
             family_for("slatec::blas::level1::ddot", "DDOT"),
             "blas-level1"
         );
+        assert_eq!(
+            family_for("slatec::nonlinear::solve_system", "DNSQE"),
+            "nonlinear-easy"
+        );
     }
 
     #[test]
@@ -656,7 +667,7 @@ mod tests {
         )
         .expect("valid closure audit");
         let records = report["records"].as_array().expect("audit records");
-        assert_eq!(records.len(), 19);
+        assert_eq!(records.len(), 20);
         assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }
