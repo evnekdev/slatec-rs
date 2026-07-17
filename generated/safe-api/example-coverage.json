@@ -585,6 +585,26 @@
     },
     {
       "doctest_present": true,
+      "example_case": "finite-difference nonlinear least squares",
+      "example_file": "examples/least_squares/linear_fit.rs",
+      "fortran_routine": "DNLS1E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::least_squares",
+      "validation_case": "least_squares",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "finite-difference nonlinear least squares",
+      "example_file": "examples/least_squares/linear_fit_f32.rs",
+      "fortran_routine": "SNLS1E",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::least_squares_f32",
+      "validation_case": "least_squares_f32",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "Jacobian consistency checking",
       "example_file": "examples/nonlinear/check_jacobian.rs",
       "fortran_routine": "DCKDER",

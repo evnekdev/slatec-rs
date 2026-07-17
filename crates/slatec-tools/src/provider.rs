@@ -283,7 +283,7 @@ mod tests {
             .find(|record| record["mode"] == "prebuilt")
             .expect("prebuilt record");
         assert_eq!(prebuilt["status"], "blocked");
-        assert_eq!(providers["family_count"], 19);
+        assert_eq!(providers["family_count"], 23);
 
         for name in ["slatec", "slatec-core", "slatec-sys", "slatec-src"] {
             let crate_root = root.join("crates").join(name);

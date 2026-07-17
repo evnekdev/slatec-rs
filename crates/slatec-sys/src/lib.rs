@@ -95,3 +95,26 @@ pub mod roots;
     feature = "raw-family-nonlinear-jacobian-check"
 ))]
 pub mod nonlinear;
+
+/// Hand-reviewed residual-only declarations for the nonlinear least-squares
+/// easy drivers.
+///
+/// This module contains only `SNLS1E` and `DNLS1E`. It is deliberately kept
+/// separate from the broad callback batch and from the expert `SNLS1`/`DNLS1`
+/// interfaces, whose Jacobian, scaling, and workspace contracts need a later
+/// review.
+#[cfg(any(
+    feature = "raw-ffi-least-squares",
+    feature = "raw-family-least-squares-nonlinear-easy"
+))]
+pub mod least_squares;
+
+/// Minimal internal-facing legacy-error controls required by the reviewed
+/// nonlinear least-squares easy drivers.
+///
+/// `DNLS1` and `SNLS1` report several meaningful completion states through
+/// level-one `XERMSG` calls. Safe wrappers use these declarations privately to
+/// make those documented recoverable messages return as `INFO` statuses while
+/// preserving and restoring the process-global control flag.
+#[cfg(feature = "raw-family-least-squares-nonlinear-easy")]
+pub mod legacy_error;

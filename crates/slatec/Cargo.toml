@@ -110,11 +110,27 @@ nonlinear-jacobian-check = [
 ]
 nonlinear-native-tests = ["nonlinear", "quadrature", "roots-scalar"]
 
+least-squares = ["least-squares-nonlinear"]
+least-squares-nonlinear = ["least-squares-nonlinear-easy"]
+least-squares-nonlinear-easy = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-least-squares-nonlinear-easy",
+    "slatec-src/least-squares-nonlinear-easy",
+]
+least-squares-native-tests = [
+    "least-squares-nonlinear-easy",
+    "quadrature",
+    "roots-scalar",
+    "nonlinear-easy",
+    "nonlinear-expert",
+]
+
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
 interpolate = []
 optimize = []
-full = ["blas", "quadrature", "roots", "nonlinear", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -183,3 +199,7 @@ required-features = ["nonlinear-expert"]
 [[example]]
 name = "link_nonlinear_jacobian_check"
 required-features = ["nonlinear-jacobian-check"]
+
+[[example]]
+name = "link_least_squares_nonlinear_easy"
+required-features = ["least-squares-nonlinear-easy"]

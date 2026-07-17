@@ -307,6 +307,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/least-squares-easy-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "least squares",
+                column(row, columns, "precision")?,
+                "finite-difference nonlinear least squares",
+                "std",
+                "least-squares-nonlinear-easy",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -399,6 +414,13 @@ fn record(
         }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
+        "least squares" if precision == "f32" => {
+            "examples/least_squares/linear_fit_f32.rs".to_owned()
+        }
+        "least squares" if path.ends_with("least_squares") => {
+            "examples/least_squares/linear_fit.rs".to_owned()
+        }
+        "least squares" => "examples/least_squares/exponential_fit.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };
@@ -488,7 +510,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let jacobian_check = function.rust_path.contains("check_jacobian");
     let internal_argument = (internal.contains(&upper.as_str())
         || (jacobian_check && upper == "FVEC"))
-        && !(function.domain == "nonlinear" && upper == "INFO")
+        && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
         && !(analytic_jacobian && upper == "JAC")
         && !(jacobian_check && matches!(upper.as_str(), "FJAC" | "ERR"));
     let rust = if internal_argument || inferred {
@@ -498,14 +520,22 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "F" | "FCN" => "function".to_owned(),
             "M" if jacobian_check => "point.len".to_owned(),
             "N" if jacobian_check => "point.len".to_owned(),
-            "N" if function.domain == "nonlinear" => "initial.len".to_owned(),
+            "M" if function.domain == "least squares" => "residual_count".to_owned(),
+            "N" if matches!(function.domain.as_str(), "nonlinear" | "least squares") => {
+                "initial.len".to_owned()
+            }
             "X" if jacobian_check => "point".to_owned(),
-            "X" if function.domain == "nonlinear" => "initial".to_owned(),
+            "X" if matches!(function.domain.as_str(), "nonlinear" | "least squares") => {
+                "initial".to_owned()
+            }
             "FVEC" if function.domain == "nonlinear" => "result.residual".to_owned(),
+            "FVEC" if function.domain == "least squares" => "result.residuals".to_owned(),
             "JAC" if analytic_jacobian => "jacobian".to_owned(),
             "FJAC" if jacobian_check => "jacobian".to_owned(),
             "ERR" if jacobian_check => "result.scores".to_owned(),
-            "TOL" if function.domain == "nonlinear" => "options.tolerance".to_owned(),
+            "TOL" if matches!(function.domain.as_str(), "nonlinear" | "least squares") => {
+                "options.tolerance".to_owned()
+            }
             "XTOL" if function.domain == "nonlinear" => "options.tolerance".to_owned(),
             "MAXFEV" if function.domain == "nonlinear" => {
                 "options.maximum_function_evaluations".to_owned()
@@ -524,6 +554,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "NFEV" if function.domain == "nonlinear" => "result.function_evaluations".to_owned(),
             "NJEV" if function.domain == "nonlinear" => "result.jacobian_evaluations".to_owned(),
             "INFO" if function.domain == "nonlinear" => "result.status".to_owned(),
+            "INFO" if function.domain == "least squares" => "result.status".to_owned(),
             "EPSABS" => "options.absolute_tolerance".to_owned(),
             "EPSREL" | "RE" => "options.relative_tolerance".to_owned(),
             "AE" => "options.absolute_tolerance".to_owned(),
@@ -536,7 +567,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         })
     };
     let callback_argument = upper == "F"
-        || (function.domain == "nonlinear" && upper == "FCN")
+        || (matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "FCN")
         || (analytic_jacobian && upper == "JAC")
         || (jacobian_check && upper == "FJAC");
     ArgumentMap {
@@ -593,6 +624,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "quadrature",
         "roots",
         "nonlinear",
+        "least squares",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -660,6 +692,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/nonlinear_expert_native.rs"
         }
         "nonlinear" => "crates/slatec/tests/nonlinear_native.rs",
+        "least squares" => "crates/slatec/tests/least_squares_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -677,15 +710,16 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::nonlinear::solve_system_with_jacobian_f32"
             | "slatec::nonlinear::check_jacobian"
             | "slatec::nonlinear::check_jacobian_f32"
+            | "slatec::least_squares::least_squares"
+            | "slatec::least_squares::least_squares_f32"
     )
 }
 
 fn native_status(domain: &str) -> &'static str {
     match domain {
         "BLAS" => "validated_by_native_batch",
-        "quadrature" | "roots" | "nonlinear" | "special functions" | "polynomials" => {
-            "native_execution_passed"
-        }
+        "quadrature" | "roots" | "nonlinear" | "least squares" | "special functions"
+        | "polynomials" => "native_execution_passed",
         _ => "unknown",
     }
 }
@@ -719,6 +753,9 @@ fn purpose(family: &str) -> &'static str {
             "expert analytic-Jacobian nonlinear-system solving"
         }
         "Jacobian consistency checking" => "componentwise Jacobian consistency checking",
+        "finite-difference nonlinear least squares" => {
+            "finite-difference nonlinear least-squares fitting"
+        }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",

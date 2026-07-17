@@ -64,6 +64,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::blas::level3::ssyrk` | `SSYRK` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [symmetric_rank_k](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strmm` | `STRMM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_multiply](../../examples/blas/level3.rs) |
 | `slatec::blas::level3::strsm` | `STRSM` | BLAS | f32 | validated scalar numerical function | `core` | `blas-level3` | [triangular_matrix_solve](../../examples/blas/level3.rs) |
+| `slatec::least_squares::least_squares` | `DNLS1E` | least squares | f64 | finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-easy` | [finite-difference nonlinear least squares](../../examples/least_squares/linear_fit.rs) |
+| `slatec::least_squares::least_squares_f32` | `SNLS1E` | least squares | f32 | finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-easy` | [finite-difference nonlinear least squares](../../examples/least_squares/linear_fit_f32.rs) |
 | `slatec::nonlinear::check_jacobian` | `DCKDER` | nonlinear | f64 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::check_jacobian_f32` | `CHKDER` | nonlinear | f32 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
@@ -254,6 +256,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DLBETA` -> `slatec::special::gamma::log_beta`
 - `DLNGAM` -> `slatec::special::gamma::log_gamma`
 - `DLNREL` -> `slatec::special::elementary::log1p`
+- `DNLS1E` -> `slatec::least_squares::least_squares`
 - `DNRM2` -> `slatec::blas::level1::dnrm2`
 - `DNRM2` -> `slatec::blas::level1::dnrm2_strided`
 - `DNSQ` -> `slatec::nonlinear::solve_system_expert`
@@ -324,6 +327,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SGEMV` -> `slatec::blas::level2::sgemv_contiguous`
 - `SGER` -> `slatec::blas::level2::sger`
 - `SINDG` -> `slatec::special::elementary::sin_degrees_f32`
+- `SNLS1E` -> `slatec::least_squares::least_squares_f32`
 - `SNRM2` -> `slatec::blas::level1::snrm2`
 - `SNRM2` -> `slatec::blas::level1::snrm2_strided`
 - `SNSQ` -> `slatec::nonlinear::solve_system_expert_f32`
@@ -528,6 +532,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::nonlinear::solve_system_with_jacobian` — expert analytic-Jacobian nonlinear-system solving
 - `slatec::nonlinear::solve_system_with_jacobian_f32` — expert analytic-Jacobian nonlinear-system solving
 
+### least squares
+
+- `slatec::least_squares::least_squares` — finite-difference nonlinear least-squares fitting
+- `slatec::least_squares::least_squares_f32` — finite-difference nonlinear least-squares fitting
+
 ## Capability index
 
 ### Core only
@@ -598,6 +607,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### Requires `std`
 
+- `slatec::least_squares::least_squares`
+- `slatec::least_squares::least_squares_f32`
 - `slatec::nonlinear::solve_system`
 - `slatec::nonlinear::solve_system_expert`
 - `slatec::nonlinear::solve_system_expert_f32`
