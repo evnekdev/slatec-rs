@@ -18,7 +18,11 @@ mod checker;
 mod error;
 #[cfg(feature = "nonlinear-expert")]
 mod expert;
-#[cfg(any(feature = "nonlinear-expert", feature = "nonlinear-jacobian-check"))]
+#[cfg(any(
+    feature = "nonlinear-expert",
+    feature = "nonlinear-jacobian-check",
+    feature = "least-squares-nonlinear-expert"
+))]
 mod jacobian;
 #[cfg(feature = "nonlinear-easy")]
 mod solver;
@@ -32,7 +36,11 @@ pub use expert::{
     solve_system_expert, solve_system_expert_f32, solve_system_with_jacobian,
     solve_system_with_jacobian_f32,
 };
-#[cfg(any(feature = "nonlinear-expert", feature = "nonlinear-jacobian-check"))]
+#[cfg(any(
+    feature = "nonlinear-expert",
+    feature = "nonlinear-jacobian-check",
+    feature = "least-squares-nonlinear-expert"
+))]
 pub use jacobian::{JacobianIndexError, JacobianMut};
 #[cfg(feature = "nonlinear-easy")]
 pub use solver::{solve_system, solve_system_f32};

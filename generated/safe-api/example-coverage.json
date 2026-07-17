@@ -595,12 +595,52 @@
     },
     {
       "doctest_present": true,
+      "example_case": "expert finite-difference nonlinear least squares",
+      "example_file": "examples/least_squares/expert_finite_difference.rs",
+      "fortran_routine": "DNLS1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::least_squares_expert",
+      "validation_case": "least_squares_expert",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "expert finite-difference nonlinear least squares",
+      "example_file": "examples/least_squares/expert_finite_difference.rs",
+      "fortran_routine": "SNLS1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::least_squares_expert_f32",
+      "validation_case": "least_squares_expert_f32",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "finite-difference nonlinear least squares",
       "example_file": "examples/least_squares/linear_fit_f32.rs",
       "fortran_routine": "SNLS1E",
       "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::least_squares::least_squares_f32",
       "validation_case": "least_squares_f32",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "expert analytic-Jacobian nonlinear least squares",
+      "example_file": "examples/least_squares/expert_analytic_jacobian.rs",
+      "fortran_routine": "DNLS1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::least_squares_with_jacobian",
+      "validation_case": "least_squares_with_jacobian",
+      "validation_file": "crates/slatec/tests/least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "expert analytic-Jacobian nonlinear least squares",
+      "example_file": "examples/least_squares/expert_analytic_jacobian_f32.rs",
+      "fortran_routine": "SNLS1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::least_squares::least_squares_with_jacobian_f32",
+      "validation_case": "least_squares_with_jacobian_f32",
       "validation_file": "crates/slatec/tests/least_squares_native.rs"
     },
     {

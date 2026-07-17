@@ -3,13 +3,13 @@
 - Snapshot: `complete-slatec-05078ebcb649b50e4435`
 - Profile: `ffi-profile-gnu-mingw-x86_64`
 - Classified public and subsidiary records: 18
-- Safe wrappers: 2 (`SNLS1E`, `DNLS1E`)
-- Deferred public routines: 4 (`SNLS1`, `DNLS1`, `SCOV`, `DCOV`)
+- Easy safe wrappers: 2 (`SNLS1E`, `DNLS1E`)
+- Expert safe wrappers: 4 (`SNLS1`, `DNLS1`, finite-difference and dense analytic Jacobian modes)
+- Deferred public routines: 2 (`SCOV`, `DCOV`)
 - Dimensions: native `M >= N` is prevalidated; residual and parameter dimensions remain distinct
-- Finite differences: `IOPT = 1`; no analytic Jacobian, cancellation, or observer callback is exposed
-- Workspace: checked `IW[N]` and `WA[N*(M+5)+M]` allocations
+- Expert workspace: checked `FJAC[M*N]`, `IPVT[N]`, `DIAG[N]`, `QTF[N]`, `WA1..WA3[N]`, and `WA4[M]` allocations
 - Legacy errors: scoped `XGETF`/`XSETF(0)` lets documented level-one numerical completion statuses return, then restores the prior process-global control
 - State: callback calls serialize; nested callback-based families are rejected
-- Semantic hash: `f15dc7fb6c2817bfb480af6dd3b19c46f8e160218eaff2482bce89458b773834`
+- Semantic hash: `21bbc4a397dd1edd29029bded99dabd0f2347af0d821addf518f0d5eb6900b09`
 
 The original SLATEC Fortran routines remain the numerical implementation.

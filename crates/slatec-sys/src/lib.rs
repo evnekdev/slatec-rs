@@ -96,16 +96,17 @@ pub mod roots;
 ))]
 pub mod nonlinear;
 
-/// Hand-reviewed residual-only declarations for the nonlinear least-squares
-/// easy drivers.
+/// Hand-reviewed declarations for nonlinear least-squares easy and expert
+/// drivers.
 ///
-/// This module contains only `SNLS1E` and `DNLS1E`. It is deliberately kept
-/// separate from the broad callback batch and from the expert `SNLS1`/`DNLS1`
-/// interfaces, whose Jacobian, scaling, and workspace contracts need a later
-/// review.
+/// This narrow module contains `SNLS1E`, `DNLS1E`, `SNLS1`, and `DNLS1`.
+/// It remains separate from the broad callback batch: safe callers must still
+/// uphold callback lifetime, rectangular Jacobian, workspace, and process-wide
+/// runtime invariants.
 #[cfg(any(
     feature = "raw-ffi-least-squares",
-    feature = "raw-family-least-squares-nonlinear-easy"
+    feature = "raw-family-least-squares-nonlinear-easy",
+    feature = "raw-family-least-squares-nonlinear-expert"
 ))]
 pub mod least_squares;
 
@@ -116,5 +117,8 @@ pub mod least_squares;
 /// level-one `XERMSG` calls. Safe wrappers use these declarations privately to
 /// make those documented recoverable messages return as `INFO` statuses while
 /// preserving and restoring the process-global control flag.
-#[cfg(feature = "raw-family-least-squares-nonlinear-easy")]
+#[cfg(any(
+    feature = "raw-family-least-squares-nonlinear-easy",
+    feature = "raw-family-least-squares-nonlinear-expert"
+))]
 pub mod legacy_error;

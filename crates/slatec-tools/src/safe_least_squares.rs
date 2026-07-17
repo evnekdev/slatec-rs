@@ -49,19 +49,19 @@ const CANDIDATES: &[Candidate] = &[
         name: "DNLS1",
         precision: "f64",
         role: "expert_driver",
-        callback: "residual_and_optional_analytic_Jacobian",
-        workspace: "expert_caller_controls_and_workspace",
-        disposition: "deferred",
-        reason: "analytic_jacobian_scaling_and_expert_controls_out_of_scope",
+        callback: "FCN(IFLAG,M,N,X,FVEC,FJAC,LDFJAC); IOPT=1_residual_or_IOPT=2_dense_analytic_Jacobian",
+        workspace: "FJAC[M*N]; IPVT[N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]",
+        disposition: "included",
+        reason: "reviewed_raw_abi_runtime_profile_native_expert_fit_validation",
     },
     Candidate {
         name: "SNLS1",
         precision: "f32",
         role: "expert_driver",
-        callback: "residual_and_optional_analytic_Jacobian",
-        workspace: "expert_caller_controls_and_workspace",
-        disposition: "deferred",
-        reason: "analytic_jacobian_scaling_and_expert_controls_out_of_scope",
+        callback: "FCN(IFLAG,M,N,X,FVEC,FJAC,LDFJAC); IOPT=1_residual_or_IOPT=2_dense_analytic_Jacobian",
+        workspace: "FJAC[M*N]; IPVT[N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]",
+        disposition: "included",
+        reason: "reviewed_raw_abi_runtime_profile_native_expert_fit_validation",
     },
     Candidate {
         name: "DCOV",
@@ -293,27 +293,62 @@ pub fn generate(
             candidate.reason
         ]));
         if candidate.disposition == "included" {
-            let safe_path = if candidate.precision == "f64" {
-                "slatec::least_squares::least_squares"
+            if candidate.role == "public_easy_driver" {
+                let safe_path = if candidate.precision == "f64" {
+                    "slatec::least_squares::least_squares"
+                } else {
+                    "slatec::least_squares::least_squares_f32"
+                };
+                wrappers.push(json!([
+                    safe_path,
+                    candidate.name,
+                    symbol,
+                    id,
+                    candidate.precision,
+                    "M_residuals_N_parameters_residual_only_callback",
+                    "IOPT=1_forward_difference",
+                    "TOL_to_FTOL_and_XTOL; GTOL=0; native_MAXFEV=200*(N+1)",
+                    "IW[N]; WA[N*(M+5)+M]",
+                    "shared_scoped_thread_local_least_squares_slot",
+                    "serialized_process_native_lock",
+                    "native_execution_passed",
+                    "analytic_and_noisy_overdetermined_fits",
+                    "included"
+                ]));
             } else {
-                "slatec::least_squares::least_squares_f32"
-            };
-            wrappers.push(json!([
-                safe_path,
-                candidate.name,
-                symbol,
-                id,
-                candidate.precision,
-                "M_residuals_N_parameters_residual_only_callback",
-                "IOPT=1_forward_difference",
-                "TOL_to_FTOL_and_XTOL; GTOL=0; native_MAXFEV=200*(N+1)",
-                "IW[N]; WA[N*(M+5)+M]",
-                "shared_scoped_thread_local_least_squares_slot",
-                "serialized_process_native_lock",
-                "native_execution_passed",
-                "analytic_and_noisy_overdetermined_fits",
-                "included"
-            ]));
+                let (finite_difference_path, analytic_path) = if candidate.precision == "f64" {
+                    (
+                        "slatec::least_squares::least_squares_expert",
+                        "slatec::least_squares::least_squares_with_jacobian",
+                    )
+                } else {
+                    (
+                        "slatec::least_squares::least_squares_expert_f32",
+                        "slatec::least_squares::least_squares_with_jacobian_f32",
+                    )
+                };
+                for (safe_path, jacobian_policy) in [
+                    (finite_difference_path, "IOPT=1_forward_difference"),
+                    (analytic_path, "IOPT=2_dense_analytic_Jacobian"),
+                ] {
+                    wrappers.push(json!([
+                        safe_path,
+                        candidate.name,
+                        symbol,
+                        id,
+                        candidate.precision,
+                        "M_residuals_N_parameters_LDFJAC=M",
+                        jacobian_policy,
+                        "FTOL_XTOL_GTOL_MAXFEV_EPSFCN_MODE_DIAG_FACTOR_are_checked",
+                        "FJAC[M*N]; IPVT[N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]",
+                        "shared_scoped_thread_local_expert_least_squares_slot",
+                        "serialized_process_native_lock_with_scoped_XGETF_XSETF_level_one_recovery",
+                        "native_execution_passed",
+                        "overdetermined_linear_and_exponential_fits",
+                        "included"
+                    ]));
+                }
+            }
         } else if candidate.disposition == "deferred" {
             deferred.push(json!([
                 candidate.name,
@@ -327,6 +362,69 @@ pub fn generate(
     candidates.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
     wrappers.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
     deferred.sort_by(|a, b| a[0].as_str().cmp(&b[0].as_str()));
+    let easy_wrappers = wrappers
+        .iter()
+        .filter(|row| row[1].as_str().is_some_and(|name| name.ends_with('E')))
+        .cloned()
+        .collect::<Vec<_>>();
+    let expert_wrappers = wrappers
+        .iter()
+        .filter(|row| {
+            row[1]
+                .as_str()
+                .is_some_and(|name| matches!(name, "DNLS1" | "SNLS1"))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let expert_candidates = candidates
+        .iter()
+        .filter(|row| {
+            row[0]
+                .as_str()
+                .is_some_and(|name| !matches!(name, "DNLS1E" | "SNLS1E"))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let mut expert_deferred = deferred
+        .iter()
+        .filter(|row| {
+            row[0]
+                .as_str()
+                .is_some_and(|name| matches!(name, "DCOV" | "SCOV"))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    expert_deferred.extend([
+        json!([
+            "DNLS1/SNLS1 IOPT=3",
+            "",
+            "row_oriented_analytic_Jacobian_mode",
+            "requires_a_distinct_callback_contract_and_callback_order_review",
+            "deferred"
+        ]),
+        json!([
+            "DNLS1/SNLS1 NPRINT",
+            "",
+            "legacy_observer_callback",
+            "print_callback_uses_the_mutable_IFLAG_channel_and_needs_a_separate_reentrancy_design",
+            "deferred"
+        ]),
+        json!([
+            "DNLS1/SNLS1 negative_IFLAG",
+            "",
+            "callback_cancellation",
+            "contained_profile_probes_show_the_legacy_fatal_error_path_rather_than_a_safe_return",
+            "deferred"
+        ]),
+        json!([
+            "SCOV/DCOV policy",
+            "",
+            "covariance_interpretation",
+            "normalization_rank_deficiency_and_confidence_interval_contracts_need_separate_review",
+            "deferred"
+        ]),
+    ]);
+    expert_deferred.sort_by(|left, right| left[0].as_str().cmp(&right[0].as_str()));
     let mut outputs = BTreeMap::new();
     outputs.insert("least-squares-candidate-index.json", compact(&json!({
         "schema_id":"slatec.safe-least-squares.candidate-index", "schema_version":"1.0.0", "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
@@ -334,7 +432,7 @@ pub fn generate(
     }))?);
     outputs.insert("least-squares-easy-wrapper-index.json", compact(&json!({
         "schema_id":"slatec.safe-least-squares.easy-wrapper-index", "schema_version":"1.0.0", "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
-        "columns":["safe_path","raw_routine","raw_symbol","program_unit_id","precision","dimensions","jacobian_policy","tolerance_policy","workspace_formula","callback_policy","runtime_serialization","native_test_status","numerical_reference_type","review_state"], "records":wrappers,
+        "columns":["safe_path","raw_routine","raw_symbol","program_unit_id","precision","dimensions","jacobian_policy","tolerance_policy","workspace_formula","callback_policy","runtime_serialization","native_test_status","numerical_reference_type","review_state"], "records":easy_wrappers,
     }))?);
     outputs.insert("least-squares-status-map.json", compact(&json!({
         "schema_id":"slatec.safe-least-squares.status-map", "schema_version":"1.0.0", "snapshot_id":snapshot,
@@ -363,10 +461,54 @@ pub fn generate(
         "schema_id":"slatec.safe-least-squares.deferred", "schema_version":"1.0.0", "snapshot_id":snapshot,
         "columns":["raw_routine","raw_symbol","role","reason","review_state"], "records":deferred,
     }))?);
+    outputs.insert("least-squares-expert-candidate-index.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-candidate-index", "schema_version":"1.0.0", "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
+        "columns":["raw_routine","program_unit_id","raw_symbol","source_subset","source_path","precision","role","callback_signature","workspace_policy","disposition","reason"], "records":expert_candidates,
+    }))?);
+    outputs.insert("least-squares-expert-wrapper-index.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-wrapper-index", "schema_version":"1.0.0", "snapshot_id":snapshot, "raw_ffi_profile":PROFILE,
+        "columns":["safe_path","raw_routine","raw_symbol","program_unit_id","precision","dimensions","jacobian_policy","tolerance_policy","workspace_formula","callback_policy","runtime_serialization","native_test_status","numerical_reference_type","review_state"], "records":expert_wrappers,
+    }))?);
+    outputs.insert("least-squares-expert-status-map.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-status-map", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["info","safe_status","meaning","result_policy"], "records":[
+            [1,"ConvergedResidual","actual and predicted residual reductions satisfy FTOL","ok"],
+            [2,"ConvergedParameters","relative parameter change satisfies XTOL","ok"],
+            [3,"ConvergedResidualAndParameters","both FTOL and XTOL tests passed","ok"],
+            [4,"ConvergedOrthogonality","residual is orthogonal to Jacobian columns according to GTOL","ok"],
+            [5,"MaximumEvaluations","MAXFEV residual-callback budget reached","ok_with_status"],
+            [6,"ResidualToleranceTooSmall","FTOL cannot improve at working precision","ok_with_status"],
+            [7,"ParameterToleranceTooSmall","XTOL cannot improve at working precision","ok_with_status"],
+            [8,"GradientToleranceTooSmall","GTOL cannot improve at working precision","ok_with_status"]
+        ],
+    }))?);
+    outputs.insert("least-squares-expert-callback-policy.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-callback-policy", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["family","callback_context","roles","pointer_policy","panic_policy","non_finite_policy","cancellation_policy","nested_policy","concurrency_policy"],
+        "records":[["nonlinear_least_squares_expert","shared_scoped_thread_local_expert_least_squares_slot","IOPT=1_residual; IOPT=2_dense_analytic_Jacobian","M_N_LDFJAC_and_disjoint_parameter_residual_Jacobian_ranges_checked_before_slice_construction","caught_before_fortran_unwind; finite_zero_output_sentinel","first_non_finite_residual_or_Jacobian_index_recorded; finite_zero_output_sentinel","not_exposed_negative_IFLAG_reaches_legacy_fatal_path","cross_family_rejected","serialized_process_native_lock_with_scoped_XGETF_XSETF_level_one_recovery"]],
+    }))?);
+    outputs.insert("least-squares-expert-workspace.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-workspace", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["raw_routine","iopt","ldfjac","integer_workspace","floating_workspace","checked_arithmetic","ownership"],
+        "records":[["SNLS1",1,"M","IPVT[N]","FJAC[M*N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"],["SNLS1",2,"M","IPVT[N]","FJAC[M*N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"],["DNLS1",1,"M","IPVT[N]","FJAC[M*N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"],["DNLS1",2,"M","IPVT[N]","FJAC[M*N]; DIAG[N]; QTF[N]; WA1[N]; WA2[N]; WA3[N]; WA4[M]","checked_add_and_checked_mul","allocated internally"]],
+    }))?);
+    outputs.insert("least-squares-expert-scaling.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-scaling", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["safe_scaling","mode","diag_policy","validation","native_effect"],
+        "records":[["Automatic",1,"DIAG[N] initialized to one and may be updated by native scaling","none","native internal scaling"],["User(&[T])",2,"caller values copied into DIAG[N]","length=N; finite; strictly_positive","fixed user variable scaling"]],
+    }))?);
+    outputs.insert("least-squares-expert-deferred.json", compact(&json!({
+        "schema_id":"slatec.safe-least-squares.expert-deferred", "schema_version":"1.0.0", "snapshot_id":snapshot,
+        "columns":["raw_routine","raw_symbol","role","reason","review_state"], "records":expert_deferred,
+    }))?);
     let semantic_hash = semantic_hash(&outputs);
     outputs.insert("least-squares-validation-summary.md", format!(
-        "# Safe nonlinear least-squares easy-driver validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Classified public and subsidiary records: {}\n- Safe wrappers: {} (`SNLS1E`, `DNLS1E`)\n- Deferred public routines: {} (`SNLS1`, `DNLS1`, `SCOV`, `DCOV`)\n- Dimensions: native `M >= N` is prevalidated; residual and parameter dimensions remain distinct\n- Finite differences: `IOPT = 1`; no analytic Jacobian, cancellation, or observer callback is exposed\n- Workspace: checked `IW[N]` and `WA[N*(M+5)+M]` allocations\n- Legacy errors: scoped `XGETF`/`XSETF(0)` lets documented level-one numerical completion statuses return, then restores the prior process-global control\n- State: callback calls serialize; nested callback-based families are rejected\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
-        CANDIDATES.len(), wrappers.len(), deferred.len()
+        "# Safe nonlinear least-squares easy-driver validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Classified public and subsidiary records: {}\n- Easy safe wrappers: {} (`SNLS1E`, `DNLS1E`)\n- Expert safe wrappers: {} (`SNLS1`, `DNLS1`, finite-difference and dense analytic Jacobian modes)\n- Deferred public routines: {} (`SCOV`, `DCOV`)\n- Dimensions: native `M >= N` is prevalidated; residual and parameter dimensions remain distinct\n- Expert workspace: checked `FJAC[M*N]`, `IPVT[N]`, `DIAG[N]`, `QTF[N]`, `WA1..WA3[N]`, and `WA4[M]` allocations\n- Legacy errors: scoped `XGETF`/`XSETF(0)` lets documented level-one numerical completion statuses return, then restores the prior process-global control\n- State: callback calls serialize; nested callback-based families are rejected\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
+        CANDIDATES.len(), easy_wrappers.len(), expert_wrappers.len(), deferred.len()
+    ).into_bytes());
+    outputs.insert("least-squares-expert-validation-summary.md", format!(
+        "# Safe expert nonlinear least-squares validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Expert candidate and subsidiary records: {}\n- Expert safe wrappers: {} (`SNLS1`, `DNLS1`; `IOPT = 1` finite differences and `IOPT = 2` dense analytic Jacobians)\n- Deferred records: {} (`SCOV`/`DCOV`, `IOPT = 3`, observer callbacks, cancellation, and covariance policy)\n- Dimensions: `M >= N`, `LDFJAC = M`, and all `M*N` storage arithmetic are checked\n- Controls: checked `FTOL`, `XTOL`, `GTOL`, `MAXFEV`, `EPSFCN`, `MODE`/`DIAG`, and `FACTOR`; `NPRINT = 0`\n- Counts: native `NFEV` and `NJEV` are retained and checked against contained callback counts\n- State: native calls serialize; panic, non-finite output, and nested callback entry are contained; scoped `XGETF`/`XSETF(0)` is restored on every Rust return path\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation.\n",
+        expert_candidates.len(), expert_wrappers.len(), expert_deferred.len()
     ).into_bytes());
     let total = outputs.values().map(Vec::len).sum::<usize>();
     if total > MAX_TOTAL_BYTES {
@@ -447,20 +589,20 @@ mod tests {
     use super::CANDIDATES;
 
     #[test]
-    fn easy_drivers_are_the_only_public_inclusions() {
+    fn easy_and_expert_drivers_are_the_only_public_inclusions() {
         assert_eq!(
             CANDIDATES
                 .iter()
                 .filter(|candidate| candidate.disposition == "included")
                 .count(),
-            2
+            4
         );
         assert_eq!(
             CANDIDATES
                 .iter()
                 .filter(|candidate| candidate.disposition == "deferred")
                 .count(),
-            4
+            2
         );
     }
 }

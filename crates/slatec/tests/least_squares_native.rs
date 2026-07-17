@@ -5,7 +5,8 @@
     target_os = "windows"
 ))]
 
-//! Native validation for the reviewed GNU MinGW SNLS1E/DNLS1E profile.
+//! Native validation for reviewed GNU MinGW `SNLS1E`/`DNLS1E` and
+//! `SNLS1`/`DNLS1` profiles.
 //!
 //! This is intentionally separate from source-only CI: it executes the
 //! original Fortran easy drivers, their finite-difference subsidiaries, and
@@ -15,7 +16,9 @@ use std::sync::{Arc, Barrier};
 use std::thread;
 
 use slatec::least_squares::{
-    LeastSquaresError, LeastSquaresOptions, LeastSquaresStatus, least_squares, least_squares_f32,
+    ExpertLeastSquaresOptions, LeastSquaresError, LeastSquaresOptions, LeastSquaresScaling,
+    LeastSquaresStatus, least_squares, least_squares_expert, least_squares_expert_f32,
+    least_squares_f32, least_squares_with_jacobian, least_squares_with_jacobian_f32,
 };
 use slatec::nonlinear::{
     ExpertNonlinearOptions, NonlinearOptions, solve_system, solve_system_expert,
@@ -172,6 +175,266 @@ fn a_noisy_overdetermined_fit_has_nonzero_cost() {
 }
 
 #[test]
+fn expert_drivers_fit_rectangular_models_with_and_without_jacobians() {
+    let xs = [0.0, 1.0, 2.0, 3.0, 4.0];
+    let ys = [1.0, 3.1, 4.8, 7.2, 8.9];
+    let options = ExpertLeastSquaresOptions::default();
+    let finite_difference = least_squares_expert(
+        &[0.0, 0.0],
+        xs.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in xs.iter().zip(ys.iter()).zip(residuals) {
+                *residual = parameters[0] + parameters[1] * x - y;
+            }
+        },
+        options,
+    )
+    .unwrap();
+    let analytic = least_squares_with_jacobian(
+        &[0.0, 0.0],
+        xs.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in xs.iter().zip(ys.iter()).zip(residuals) {
+                *residual = parameters[0] + parameters[1] * x - y;
+            }
+        },
+        |_, _, mut jacobian| {
+            for (row, &x) in xs.iter().enumerate() {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, x).unwrap();
+            }
+        },
+        options,
+    )
+    .unwrap();
+    close(
+        finite_difference.parameters[0],
+        analytic.parameters[0],
+        2.0e-8,
+    );
+    close(
+        finite_difference.parameters[1],
+        analytic.parameters[1],
+        2.0e-8,
+    );
+    close(finite_difference.cost, analytic.cost, 2.0e-12);
+    assert!(analytic.cost > 0.0);
+    assert_eq!(finite_difference.jacobian_evaluations, 0);
+    assert!(analytic.jacobian_evaluations > 0);
+    assert!(analytic.function_evaluations > 0);
+
+    let exponential_x = [0.0, 0.5, 1.0, 1.5, 2.0];
+    let exponential_y = [1.5, 2.121_320_343_6, 3.0, 4.242_640_687_1, 6.0];
+    let exponential = least_squares_with_jacobian(
+        &[1.0, 0.5],
+        exponential_x.len(),
+        |parameters, residuals| {
+            for ((&x, &y), residual) in exponential_x
+                .iter()
+                .zip(exponential_y.iter())
+                .zip(residuals)
+            {
+                *residual = parameters[0] * (parameters[1] * x).exp() - y;
+            }
+        },
+        |parameters, _, mut jacobian| {
+            for (row, &x) in exponential_x.iter().enumerate() {
+                let exponential = (parameters[1] * x).exp();
+                jacobian.set(row, 0, exponential).unwrap();
+                jacobian
+                    .set(row, 1, parameters[0] * x * exponential)
+                    .unwrap();
+            }
+        },
+        ExpertLeastSquaresOptions::default(),
+    )
+    .unwrap();
+    close(exponential.parameters[0], 1.5, 3.0e-8);
+    close(exponential.parameters[1], core::f64::consts::LN_2, 3.0e-8);
+
+    let scale = [1_000.0, 0.001];
+    let scaled = least_squares_expert(
+        &[900.0, 0.01],
+        4,
+        |parameters, residuals| {
+            for (index, residual) in residuals.iter_mut().enumerate() {
+                let x = index as f64 * 1_000.0;
+                *residual = parameters[0] + parameters[1] * x - (1_000.0 + index as f64);
+            }
+        },
+        ExpertLeastSquaresOptions {
+            scaling: LeastSquaresScaling::User(&scale),
+            ..ExpertLeastSquaresOptions::default()
+        },
+    )
+    .unwrap();
+    close(scaled.parameters[0], 1_000.0, 3.0e-7);
+    close(scaled.parameters[1], 0.001, 3.0e-10);
+
+    let single = least_squares_with_jacobian_f32(
+        &[0.0_f32, 0.0],
+        4,
+        |parameters, residuals| {
+            residuals.copy_from_slice(&[
+                parameters[0] - 1.0,
+                parameters[0] + parameters[1] - 3.0,
+                parameters[0] + 2.0 * parameters[1] - 5.0,
+                parameters[0] + 3.0 * parameters[1] - 7.0,
+            ])
+        },
+        |_, _, mut jacobian| {
+            for row in 0..4 {
+                jacobian.set(row, 0, 1.0).unwrap();
+                jacobian.set(row, 1, row as f32).unwrap();
+            }
+        },
+        ExpertLeastSquaresOptions::single_precision(),
+    )
+    .unwrap();
+    close(f64::from(single.parameters[0]), 1.0, 2.0e-3);
+    close(f64::from(single.parameters[1]), 2.0, 2.0e-3);
+    assert!(single.jacobian_evaluations > 0);
+
+    let single_fd = least_squares_expert_f32(
+        &[0.0_f32],
+        1,
+        |parameters, residuals| residuals[0] = parameters[0] - 1.0,
+        ExpertLeastSquaresOptions::single_precision(),
+    )
+    .unwrap();
+    close(f64::from(single_fd.parameters[0]), 1.0, 2.0e-3);
+    assert_eq!(single_fd.jacobian_evaluations, 0);
+}
+
+#[test]
+fn expert_validation_callback_failures_and_level_one_statuses_recover() {
+    let default_options = ExpertLeastSquaresOptions::default();
+    assert!(matches!(
+        least_squares_expert(&[1.0, 2.0], 1, |_, _| {}, default_options),
+        Err(LeastSquaresError::Underdetermined { .. })
+    ));
+    assert_eq!(
+        least_squares_expert(
+            &[1.0],
+            1,
+            |_, _| {},
+            ExpertLeastSquaresOptions {
+                maximum_function_evaluations: Some(0),
+                ..default_options
+            }
+        ),
+        Err(LeastSquaresError::InvalidMaximumFunctionEvaluations)
+    );
+    assert_eq!(
+        least_squares_expert(
+            &[1.0],
+            1,
+            |_, _| {},
+            ExpertLeastSquaresOptions {
+                finite_difference_step: Some(-1.0),
+                ..default_options
+            }
+        ),
+        Err(LeastSquaresError::InvalidFiniteDifferenceStep)
+    );
+    assert_eq!(
+        least_squares_expert(
+            &[1.0],
+            1,
+            |_, _| {},
+            ExpertLeastSquaresOptions {
+                step_bound_factor: 0.0,
+                ..default_options
+            }
+        ),
+        Err(LeastSquaresError::InvalidStepBoundFactor)
+    );
+    assert!(matches!(
+        least_squares_expert(
+            &[1.0],
+            1,
+            |_, _| panic!("contained expert residual panic"),
+            default_options
+        ),
+        Err(LeastSquaresError::CallbackPanicked)
+    ));
+    assert!(matches!(
+        least_squares_with_jacobian(
+            &[1.0],
+            1,
+            |x, r| r[0] = x[0] - 1.0,
+            |_, _, _| panic!("contained expert Jacobian panic"),
+            default_options
+        ),
+        Err(LeastSquaresError::JacobianPanicked)
+    ));
+    assert!(matches!(
+        least_squares_with_jacobian(
+            &[1.0],
+            1,
+            |x, r| r[0] = x[0] - 1.0,
+            |_, _, mut j| j.set(0, 0, f64::NAN).unwrap(),
+            default_options
+        ),
+        Err(LeastSquaresError::JacobianReturnedNonFinite { row: 0, column: 0 })
+    ));
+    let limited = least_squares_expert(
+        &[0.0],
+        1,
+        |x, r| r[0] = x[0] * x[0] - 2.0,
+        ExpertLeastSquaresOptions {
+            maximum_function_evaluations: Some(1),
+            ..default_options
+        },
+    )
+    .unwrap();
+    assert_eq!(limited.status, LeastSquaresStatus::MaximumEvaluations);
+    assert!(linear_fit().is_ok());
+}
+
+#[test]
+fn expert_calls_restore_the_legacy_level_one_control() {
+    let mut before = 0;
+    // SAFETY: the reviewed XGETF ABI writes one valid INTEGER while this
+    // serialized native test owns the process-global Fortran runtime.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut before) };
+
+    let limited = least_squares_expert(
+        &[0.0],
+        1,
+        |x, residuals| residuals[0] = x[0] * x[0] - 2.0,
+        ExpertLeastSquaresOptions {
+            maximum_function_evaluations: Some(1),
+            ..ExpertLeastSquaresOptions::default()
+        },
+    );
+    assert!(matches!(
+        limited,
+        Ok(result) if result.status == LeastSquaresStatus::MaximumEvaluations
+    ));
+
+    let mut after_completion = 0;
+    // SAFETY: see the pre-call XGETF safety rationale above.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut after_completion) };
+    assert_eq!(after_completion, before);
+
+    assert!(matches!(
+        least_squares_with_jacobian(
+            &[1.0],
+            1,
+            |x, residuals| residuals[0] = x[0] - 1.0,
+            |_, _, _| panic!("contained Jacobian panic must restore XERROR"),
+            ExpertLeastSquaresOptions::default(),
+        ),
+        Err(LeastSquaresError::JacobianPanicked)
+    ));
+    let mut after_failure = 0;
+    // SAFETY: see the pre-call XGETF safety rationale above.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut after_failure) };
+    assert_eq!(after_failure, before);
+}
+
+#[test]
 fn validation_and_callback_failures_are_contained_and_recover() {
     assert_eq!(
         least_squares(&[], 1, |_, _| {}, LeastSquaresOptions::default()),
@@ -242,6 +505,25 @@ fn nested_callback_families_are_rejected_without_deadlock() {
     );
     assert!(nested_least_squares.is_ok());
 
+    let nested_expert_least_squares = least_squares_expert(
+        &[0.0],
+        1,
+        |_, residuals| {
+            assert!(matches!(
+                least_squares_expert(
+                    &[0.0],
+                    1,
+                    |_, inner_residuals| inner_residuals[0] = 0.0,
+                    ExpertLeastSquaresOptions::default(),
+                ),
+                Err(LeastSquaresError::NestedNativeCallback)
+            ));
+            residuals[0] = 0.0;
+        },
+        ExpertLeastSquaresOptions::default(),
+    );
+    assert!(nested_expert_least_squares.is_ok());
+
     let nested_root = least_squares(
         &[0.0],
         1,
@@ -311,6 +593,27 @@ fn nested_callback_families_are_rejected_without_deadlock() {
     );
     assert!(root.is_ok());
 
+    let expert_root = find_root(
+        |x| {
+            assert!(matches!(
+                least_squares_expert(
+                    &[0.0],
+                    1,
+                    |_, residuals| residuals[0] = 0.0,
+                    ExpertLeastSquaresOptions::default(),
+                ),
+                Err(LeastSquaresError::NestedNativeCallback)
+            ));
+            x - 0.5
+        },
+        RootBracket {
+            lower: 0.0,
+            upper: 1.0,
+        },
+        RootOptions::default(),
+    );
+    assert!(expert_root.is_ok());
+
     let quadrature = integrate(
         |x| {
             assert!(matches!(
@@ -329,6 +632,25 @@ fn nested_callback_families_are_rejected_without_deadlock() {
         IntegrationOptions::default(),
     );
     assert!(quadrature.is_ok());
+
+    let expert_quadrature = integrate(
+        |x| {
+            assert!(matches!(
+                least_squares_expert(
+                    &[0.0],
+                    1,
+                    |_, residuals| residuals[0] = 0.0,
+                    ExpertLeastSquaresOptions::default(),
+                ),
+                Err(LeastSquaresError::NestedNativeCallback)
+            ));
+            x
+        },
+        0.0,
+        1.0,
+        IntegrationOptions::default(),
+    );
+    assert!(expert_quadrature.is_ok());
 
     let easy = solve_system(
         &[1.0],
@@ -365,6 +687,24 @@ fn nested_callback_families_are_rejected_without_deadlock() {
         ExpertNonlinearOptions::default(),
     );
     assert!(expert.is_ok());
+
+    let expert_system = solve_system_expert(
+        &[1.0],
+        |x, residuals| {
+            assert!(matches!(
+                least_squares_expert(
+                    &[0.0],
+                    1,
+                    |_, inner_residuals| inner_residuals[0] = 0.0,
+                    ExpertLeastSquaresOptions::default(),
+                ),
+                Err(LeastSquaresError::NestedNativeCallback)
+            ));
+            residuals[0] = x[0] - 1.0;
+        },
+        ExpertNonlinearOptions::default(),
+    );
+    assert!(expert_system.is_ok());
 }
 
 #[test]
@@ -375,7 +715,20 @@ fn parallel_least_squares_calls_share_native_serialization() {
         let barrier = Arc::clone(&barrier);
         workers.push(thread::spawn(move || {
             barrier.wait();
-            linear_fit().unwrap().parameters[1]
+            least_squares_expert(
+                &[0.0, 0.0],
+                3,
+                |parameters, residuals| {
+                    residuals.copy_from_slice(&[
+                        parameters[0] - 1.0,
+                        parameters[0] + parameters[1] - 3.0,
+                        parameters[0] + 2.0 * parameters[1] - 5.0,
+                    ]);
+                },
+                ExpertLeastSquaresOptions::default(),
+            )
+            .unwrap()
+            .parameters[1]
         }));
     }
     barrier.wait();

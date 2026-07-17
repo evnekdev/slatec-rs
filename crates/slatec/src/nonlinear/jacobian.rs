@@ -69,6 +69,15 @@ impl<'a, T> JacobianMut<'a, T> {
         self.columns
     }
 
+    /// Returns the logical column count.
+    ///
+    /// This is a short alias for [`Self::columns`]. A nonlinear least-squares
+    /// Jacobian has `M` residual rows and `N` parameter columns, so it is
+    /// generally rectangular.
+    pub const fn cols(&self) -> usize {
+        self.columns
+    }
+
     /// Returns the physical column stride corresponding to Fortran `LDFJAC`.
     pub const fn leading_dimension(&self) -> usize {
         self.leading_dimension

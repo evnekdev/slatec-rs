@@ -1,7 +1,8 @@
-//! Safe residual-only nonlinear least-squares drivers.
+//! Safe nonlinear least-squares drivers.
 //!
 //! This module wraps the original SLATEC Levenberg--Marquardt easy drivers
-//! `SNLS1E` and `DNLS1E` in their finite-difference mode. It solves
+//! `SNLS1E` and `DNLS1E` in their finite-difference mode, plus the opt-in
+//! expert `SNLS1` and `DNLS1` finite-difference and dense-Jacobian modes. It solves
 //! `minimize 1/2 * sum_i r_i(x)^2` for `M` residuals and `N` parameters, with
 //! the native precondition `M >= N`. Calls require `std`, allocate the exact
 //! documented work arrays internally, and serialize access to the validated
@@ -9,9 +10,48 @@
 //! callback-bearing SLATEC facade.
 
 mod error;
+#[cfg(feature = "least-squares-nonlinear-expert")]
+mod expert;
+#[cfg(feature = "least-squares-nonlinear-easy")]
 mod solver;
 
 pub use error::LeastSquaresError;
-pub use solver::{
-    LeastSquaresOptions, LeastSquaresResult, LeastSquaresStatus, least_squares, least_squares_f32,
+#[cfg(feature = "least-squares-nonlinear-expert")]
+pub use expert::{
+    ExpertLeastSquaresOptions, ExpertLeastSquaresResult, LeastSquaresScaling, least_squares_expert,
+    least_squares_expert_f32, least_squares_with_jacobian, least_squares_with_jacobian_f32,
 };
+#[cfg(feature = "least-squares-nonlinear-easy")]
+pub use solver::{LeastSquaresOptions, LeastSquaresResult, least_squares, least_squares_f32};
+
+/// Meaningful `INFO` completion states from reviewed SLATEC nonlinear
+/// least-squares drivers.
+///
+/// All variants retain final parameters and residuals in the corresponding
+/// result. The tolerance-limit states describe a native numerical completion,
+/// not a Rust callback or ABI failure.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LeastSquaresStatus {
+    /// Both actual and predicted reductions in the residual sum of squares are
+    /// small relative to `FTOL` (or easy-driver `TOL`).
+    ConvergedResidual,
+    /// The relative change in the parameter vector is small relative to
+    /// `XTOL` (or easy-driver `TOL`).
+    ConvergedParameters,
+    /// Both residual-reduction and parameter-change convergence tests passed.
+    ConvergedResidualAndParameters,
+    /// The residual is orthogonal to the Jacobian columns at `GTOL`.
+    ConvergedOrthogonality,
+    /// The configured native residual-callback budget was exhausted.
+    MaximumEvaluations,
+    /// Further reduction in the residual sum of squares is limited by working
+    /// precision at the requested `FTOL`.
+    ResidualToleranceTooSmall,
+    /// Further parameter improvement is limited by working precision at the
+    /// requested `XTOL`.
+    ParameterToleranceTooSmall,
+    /// Further gradient-orthogonality improvement is limited by working
+    /// precision at the requested `GTOL`; only expert `SNLS1`/`DNLS1` return
+    /// this `INFO = 8` status.
+    GradientToleranceTooSmall,
+}

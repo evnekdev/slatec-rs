@@ -889,6 +889,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::least_squares::least_squares_expert",
+      "fortran_routine": "DNLS1",
+      "module": "slatec::least_squares",
+      "domain": "least squares",
+      "precision": "f64",
+      "purpose": "expert finite-difference nonlinear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-nonlinear-expert",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/least_squares/fn.least_squares_expert.html",
+      "example_file": "examples/least_squares/expert_finite_difference.rs",
+      "example_case": "expert finite-difference nonlinear least squares",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_expert_f32",
+      "fortran_routine": "SNLS1",
+      "module": "slatec::least_squares",
+      "domain": "least squares",
+      "precision": "f32",
+      "purpose": "expert finite-difference nonlinear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-nonlinear-expert",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/least_squares/fn.least_squares_expert_f32.html",
+      "example_file": "examples/least_squares/expert_finite_difference.rs",
+      "example_case": "expert finite-difference nonlinear least squares",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::least_squares::least_squares_f32",
       "fortran_routine": "SNLS1E",
       "module": "slatec::least_squares",
@@ -901,6 +931,36 @@
       "documentation": "https://docs.rs/slatec/latest/slatec/least_squares/fn.least_squares_f32.html",
       "example_file": "examples/least_squares/linear_fit_f32.rs",
       "example_case": "finite-difference nonlinear least squares",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_with_jacobian",
+      "fortran_routine": "DNLS1",
+      "module": "slatec::least_squares",
+      "domain": "least squares",
+      "precision": "f64",
+      "purpose": "expert analytic-Jacobian nonlinear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-nonlinear-expert",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/least_squares/fn.least_squares_with_jacobian.html",
+      "example_file": "examples/least_squares/expert_analytic_jacobian.rs",
+      "example_case": "expert analytic-Jacobian nonlinear least squares",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_with_jacobian_f32",
+      "fortran_routine": "SNLS1",
+      "module": "slatec::least_squares",
+      "domain": "least squares",
+      "precision": "f32",
+      "purpose": "expert analytic-Jacobian nonlinear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-nonlinear-expert",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/least_squares/fn.least_squares_with_jacobian_f32.html",
+      "example_file": "examples/least_squares/expert_analytic_jacobian_f32.rs",
+      "example_case": "expert analytic-Jacobian nonlinear least squares",
       "inclusion_status": "safe_api_available"
     },
     {

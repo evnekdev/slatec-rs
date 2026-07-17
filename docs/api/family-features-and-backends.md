@@ -16,7 +16,7 @@ routine.
 | `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
 | `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check` |
-| `least-squares` | `least-squares-nonlinear-easy` |
+| `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert` |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.

@@ -35,6 +35,10 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
     ),
+    (
+        "LEAST_SQUARES_NONLINEAR_EXPERT",
+        "least-squares-nonlinear-expert",
+    ),
 ];
 
 #[derive(Deserialize)]

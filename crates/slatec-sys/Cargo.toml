@@ -65,11 +65,16 @@ raw-family-nonlinear-easy = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-nonlinear-expert = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-nonlinear-jacobian-check = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-nonlinear-easy = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-least-squares-nonlinear-expert = ["ffi-profile-gnu-mingw-x86_64"]
 
 # Public family aliases mirror slatec and slatec-src. They remain narrow: the
 # reviewed least-squares declarations do not enable the broad callback batch.
 least-squares = ["least-squares-nonlinear"]
-least-squares-nonlinear = ["least-squares-nonlinear-easy"]
+least-squares-nonlinear = [
+    "least-squares-nonlinear-easy",
+    "least-squares-nonlinear-expert",
+]
 least-squares-nonlinear-easy = ["raw-family-least-squares-nonlinear-easy"]
+least-squares-nonlinear-expert = ["raw-family-least-squares-nonlinear-expert"]
 
 [build-dependencies]

@@ -129,6 +129,24 @@ pub(crate) enum LeastSquaresCallbackFailure {
     UnexpectedFlag,
 }
 
+/// A contained failure from the expert `SNLS1` or `DNLS1` callback.
+///
+/// The expert driver uses one `FCN` entry point for residual (`IFLAG=1`) and
+/// dense Jacobian (`IFLAG=2`) work. Keeping this state distinct from the easy
+/// driver prevents a rectangular Jacobian callback from being mistaken for a
+/// residual-only callback.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum ExpertLeastSquaresCallbackFailure {
+    ResidualPanicked,
+    JacobianPanicked,
+    ResidualNonFinite { index: usize },
+    JacobianNonFinite { row: usize, column: usize },
+    InvalidPointer,
+    DimensionMismatch,
+    InvalidLeadingDimension,
+    UnexpectedFlag,
+}
+
 pub(crate) struct CallbackInvocation<R> {
     pub(crate) value: R,
     pub(crate) failure: Option<CallbackFailure>,
@@ -156,6 +174,14 @@ pub(crate) struct LeastSquaresCallbackInvocation<R> {
     pub(crate) failure: Option<LeastSquaresCallbackFailure>,
     /// Number of residual callback invocations.
     pub(crate) evaluations: usize,
+}
+
+/// Result of one scoped expert nonlinear least-squares callback registration.
+pub(crate) struct ExpertLeastSquaresCallbackInvocation<R> {
+    pub(crate) value: R,
+    pub(crate) failure: Option<ExpertLeastSquaresCallbackFailure>,
+    pub(crate) residual_evaluations: usize,
+    pub(crate) jacobian_evaluations: usize,
 }
 
 #[derive(Clone, Copy)]
@@ -266,6 +292,36 @@ struct LeastSquaresSlotF32 {
     ),
 }
 
+#[derive(Clone, Copy)]
+struct ExpertLeastSquaresSlotF64 {
+    data: *mut (),
+    invoke: unsafe fn(
+        *mut (),
+        *mut slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const f64,
+        *mut f64,
+        *mut f64,
+        *const slatec_sys::FortranInteger,
+    ),
+}
+
+#[derive(Clone, Copy)]
+struct ExpertLeastSquaresSlotF32 {
+    data: *mut (),
+    invoke: unsafe fn(
+        *mut (),
+        *mut slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const f32,
+        *mut f32,
+        *mut f32,
+        *const slatec_sys::FortranInteger,
+    ),
+}
+
 thread_local! {
     static ACTIVE_F64: Cell<Option<SlotF64>> = const { Cell::new(None) };
     static ACTIVE_F32: Cell<Option<SlotF32>> = const { Cell::new(None) };
@@ -275,6 +331,8 @@ thread_local! {
     static ACTIVE_EXPERT_F32: Cell<Option<ExpertSlotF32>> = const { Cell::new(None) };
     static ACTIVE_LEAST_SQUARES_F64: Cell<Option<LeastSquaresSlotF64>> = const { Cell::new(None) };
     static ACTIVE_LEAST_SQUARES_F32: Cell<Option<LeastSquaresSlotF32>> = const { Cell::new(None) };
+    static ACTIVE_EXPERT_LEAST_SQUARES_F64: Cell<Option<ExpertLeastSquaresSlotF64>> = const { Cell::new(None) };
+    static ACTIVE_EXPERT_LEAST_SQUARES_F32: Cell<Option<ExpertLeastSquaresSlotF32>> = const { Cell::new(None) };
 }
 
 struct CallbackState<F> {
@@ -307,6 +365,17 @@ struct LeastSquaresCallbackState<F> {
     evaluations: usize,
 }
 
+struct ExpertLeastSquaresCallbackState<F, J> {
+    residual: F,
+    jacobian: J,
+    residual_count: usize,
+    parameter_count: usize,
+    analytic: bool,
+    failure: Option<ExpertLeastSquaresCallbackFailure>,
+    residual_evaluations: usize,
+    jacobian_evaluations: usize,
+}
+
 struct SlotGuard {
     kind: CallbackKind,
 }
@@ -320,6 +389,8 @@ enum CallbackKind {
     ExpertF64,
     LeastSquaresF32,
     LeastSquaresF64,
+    ExpertLeastSquaresF32,
+    ExpertLeastSquaresF64,
 }
 
 impl Drop for SlotGuard {
@@ -333,6 +404,12 @@ impl Drop for SlotGuard {
             CallbackKind::ExpertF64 => ACTIVE_EXPERT_F64.with(|slot| slot.set(None)),
             CallbackKind::LeastSquaresF32 => ACTIVE_LEAST_SQUARES_F32.with(|slot| slot.set(None)),
             CallbackKind::LeastSquaresF64 => ACTIVE_LEAST_SQUARES_F64.with(|slot| slot.set(None)),
+            CallbackKind::ExpertLeastSquaresF32 => {
+                ACTIVE_EXPERT_LEAST_SQUARES_F32.with(|slot| slot.set(None))
+            }
+            CallbackKind::ExpertLeastSquaresF64 => {
+                ACTIVE_EXPERT_LEAST_SQUARES_F64.with(|slot| slot.set(None))
+            }
         }
     }
 }
@@ -347,6 +424,8 @@ pub(crate) fn is_active() -> bool {
         || ACTIVE_EXPERT_F32.with(|slot| slot.get().is_some())
         || ACTIVE_LEAST_SQUARES_F64.with(|slot| slot.get().is_some())
         || ACTIVE_LEAST_SQUARES_F32.with(|slot| slot.get().is_some())
+        || ACTIVE_EXPERT_LEAST_SQUARES_F64.with(|slot| slot.get().is_some())
+        || ACTIVE_EXPERT_LEAST_SQUARES_F32.with(|slot| slot.get().is_some())
 }
 
 unsafe fn invoke_f64<F>(data: *mut (), value: Option<f64>) -> f64
@@ -606,6 +685,7 @@ unsafe fn invoke_vector_f32<F>(
     }
 }
 
+#[allow(clippy::too_many_arguments)] // Mirrors the fixed reviewed Fortran FCN ABI.
 unsafe fn invoke_least_squares_f64<F>(
     data: *mut (),
     iflag: *mut slatec_sys::FortranInteger,
@@ -694,6 +774,7 @@ unsafe fn invoke_least_squares_f64<F>(
     }
 }
 
+#[allow(clippy::too_many_arguments)] // Mirrors the fixed reviewed Fortran FCN ABI.
 unsafe fn invoke_least_squares_f32<F>(
     data: *mut (),
     iflag: *mut slatec_sys::FortranInteger,
@@ -775,6 +856,284 @@ unsafe fn invoke_least_squares_f32<F>(
             state.failure = Some(LeastSquaresCallbackFailure::Panicked);
             output.fill(0.0);
         }
+    }
+}
+
+#[allow(clippy::too_many_arguments)] // Mirrors the fixed reviewed Fortran FCN ABI.
+unsafe fn invoke_expert_least_squares_f64<F, J>(
+    data: *mut (),
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *mut f64,
+    fjac: *mut f64,
+    ldfjac: *const slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f64], &mut [f64]),
+    J: FnMut(&[f64], &[f64], &mut [f64], usize),
+{
+    // Safety: installed only by with_expert_least_squares_f64 and removed
+    // before the boxed context is dropped.
+    let state = unsafe { &mut *data.cast::<ExpertLeastSquaresCallbackState<F, J>>() };
+    let native_m = unsafe { m.as_ref() }
+        .copied()
+        .and_then(|value| usize::try_from(value).ok());
+    if state.failure.is_some() {
+        if native_m == Some(state.residual_count) && !fvec.is_null() {
+            // Safety: the checked native extent equals the registered FVEC
+            // extent and this callback supplied a non-null output pointer.
+            unsafe { core::slice::from_raw_parts_mut(fvec, state.residual_count) }.fill(0.0);
+        }
+        return;
+    }
+    let (Some(flag), Some(native_m), Some(native_n)) = (
+        (unsafe { iflag.as_ref() }).copied(),
+        native_m,
+        (unsafe { n.as_ref() })
+            .copied()
+            .and_then(|value| usize::try_from(value).ok()),
+    ) else {
+        state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    };
+    if native_m != state.residual_count
+        || native_n != state.parameter_count
+        || native_m == 0
+        || native_n == 0
+    {
+        state.failure = Some(ExpertLeastSquaresCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if x.is_null()
+        || fvec.is_null()
+        || ranges_overlap_with_lengths(x, native_n, fvec.cast_const(), native_m)
+    {
+        state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    }
+    // Safety: input/output extents match the registered rectangular context
+    // and were checked non-null/non-overlapping above.
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    // Safety: see input; FVEC is native-owned mutable storage for M values.
+    let residuals = unsafe { core::slice::from_raw_parts_mut(fvec, native_m) };
+    match flag {
+        1 => {
+            state.residual_evaluations += 1;
+            match catch_unwind(AssertUnwindSafe(|| (state.residual)(input, residuals))) {
+                Ok(()) => {
+                    if let Some((index, _)) = residuals
+                        .iter()
+                        .enumerate()
+                        .find(|(_, value)| !value.is_finite())
+                    {
+                        state.failure =
+                            Some(ExpertLeastSquaresCallbackFailure::ResidualNonFinite { index });
+                        residuals.fill(0.0);
+                    }
+                }
+                Err(_) => {
+                    state.failure = Some(ExpertLeastSquaresCallbackFailure::ResidualPanicked);
+                    residuals.fill(0.0);
+                }
+            }
+        }
+        2 if state.analytic => {
+            let Some(native_ldfjac) = (unsafe { ldfjac.as_ref() })
+                .copied()
+                .and_then(|value| usize::try_from(value).ok())
+            else {
+                state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidPointer);
+                return;
+            };
+            let Some(matrix_len) = native_ldfjac.checked_mul(native_n) else {
+                state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidLeadingDimension);
+                return;
+            };
+            if native_ldfjac < native_m
+                || fjac.is_null()
+                || ranges_overlap_with_lengths(x, native_n, fjac.cast_const(), matrix_len)
+                || ranges_overlap_with_lengths(
+                    fvec.cast_const(),
+                    native_m,
+                    fjac.cast_const(),
+                    matrix_len,
+                )
+            {
+                state.failure = Some(if native_ldfjac < native_m {
+                    ExpertLeastSquaresCallbackFailure::InvalidLeadingDimension
+                } else {
+                    ExpertLeastSquaresCallbackFailure::InvalidPointer
+                });
+                return;
+            }
+            // Safety: the exact physical FJAC length was checked, and it is
+            // disjoint from the registered X and FVEC regions.
+            let matrix = unsafe { core::slice::from_raw_parts_mut(fjac, matrix_len) };
+            matrix.fill(f64::NAN);
+            state.jacobian_evaluations += 1;
+            match catch_unwind(AssertUnwindSafe(|| {
+                (state.jacobian)(input, residuals, matrix, native_ldfjac)
+            })) {
+                Ok(()) => {
+                    for column in 0..native_n {
+                        for row in 0..native_m {
+                            if !matrix[row + column * native_ldfjac].is_finite() {
+                                state.failure =
+                                    Some(ExpertLeastSquaresCallbackFailure::JacobianNonFinite {
+                                        row,
+                                        column,
+                                    });
+                                matrix.fill(0.0);
+                                return;
+                            }
+                        }
+                    }
+                }
+                Err(_) => {
+                    state.failure = Some(ExpertLeastSquaresCallbackFailure::JacobianPanicked);
+                    matrix.fill(0.0);
+                }
+            }
+        }
+        _ => state.failure = Some(ExpertLeastSquaresCallbackFailure::UnexpectedFlag),
+    }
+}
+
+#[allow(clippy::too_many_arguments)] // Mirrors the fixed reviewed Fortran FCN ABI.
+unsafe fn invoke_expert_least_squares_f32<F, J>(
+    data: *mut (),
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *mut f32,
+    fjac: *mut f32,
+    ldfjac: *const slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f32], &mut [f32]),
+    J: FnMut(&[f32], &[f32], &mut [f32], usize),
+{
+    // Safety: single-precision equivalent of the f64 expert dispatcher.
+    let state = unsafe { &mut *data.cast::<ExpertLeastSquaresCallbackState<F, J>>() };
+    let native_m = unsafe { m.as_ref() }
+        .copied()
+        .and_then(|value| usize::try_from(value).ok());
+    if state.failure.is_some() {
+        if native_m == Some(state.residual_count) && !fvec.is_null() {
+            // Safety: checked registered M extent; see f64 dispatcher.
+            unsafe { core::slice::from_raw_parts_mut(fvec, state.residual_count) }.fill(0.0);
+        }
+        return;
+    }
+    let (Some(flag), Some(native_m), Some(native_n)) = (
+        (unsafe { iflag.as_ref() }).copied(),
+        native_m,
+        (unsafe { n.as_ref() })
+            .copied()
+            .and_then(|value| usize::try_from(value).ok()),
+    ) else {
+        state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    };
+    if native_m != state.residual_count
+        || native_n != state.parameter_count
+        || native_m == 0
+        || native_n == 0
+    {
+        state.failure = Some(ExpertLeastSquaresCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if x.is_null()
+        || fvec.is_null()
+        || ranges_overlap_with_lengths(x, native_n, fvec.cast_const(), native_m)
+    {
+        state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    }
+    // Safety: f32 regions were checked just as in the f64 dispatcher.
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    // Safety: FVEC is native-owned output for the exact registered M extent.
+    let residuals = unsafe { core::slice::from_raw_parts_mut(fvec, native_m) };
+    match flag {
+        1 => {
+            state.residual_evaluations += 1;
+            match catch_unwind(AssertUnwindSafe(|| (state.residual)(input, residuals))) {
+                Ok(()) => {
+                    if let Some((index, _)) = residuals
+                        .iter()
+                        .enumerate()
+                        .find(|(_, value)| !value.is_finite())
+                    {
+                        state.failure =
+                            Some(ExpertLeastSquaresCallbackFailure::ResidualNonFinite { index });
+                        residuals.fill(0.0);
+                    }
+                }
+                Err(_) => {
+                    state.failure = Some(ExpertLeastSquaresCallbackFailure::ResidualPanicked);
+                    residuals.fill(0.0);
+                }
+            }
+        }
+        2 if state.analytic => {
+            let Some(native_ldfjac) = (unsafe { ldfjac.as_ref() })
+                .copied()
+                .and_then(|value| usize::try_from(value).ok())
+            else {
+                state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidPointer);
+                return;
+            };
+            let Some(matrix_len) = native_ldfjac.checked_mul(native_n) else {
+                state.failure = Some(ExpertLeastSquaresCallbackFailure::InvalidLeadingDimension);
+                return;
+            };
+            if native_ldfjac < native_m
+                || fjac.is_null()
+                || ranges_overlap_with_lengths(x, native_n, fjac.cast_const(), matrix_len)
+                || ranges_overlap_with_lengths(
+                    fvec.cast_const(),
+                    native_m,
+                    fjac.cast_const(),
+                    matrix_len,
+                )
+            {
+                state.failure = Some(if native_ldfjac < native_m {
+                    ExpertLeastSquaresCallbackFailure::InvalidLeadingDimension
+                } else {
+                    ExpertLeastSquaresCallbackFailure::InvalidPointer
+                });
+                return;
+            }
+            // Safety: f32 FJAC storage is the checked LDFJAC*N extent.
+            let matrix = unsafe { core::slice::from_raw_parts_mut(fjac, matrix_len) };
+            matrix.fill(f32::NAN);
+            state.jacobian_evaluations += 1;
+            match catch_unwind(AssertUnwindSafe(|| {
+                (state.jacobian)(input, residuals, matrix, native_ldfjac)
+            })) {
+                Ok(()) => {
+                    for column in 0..native_n {
+                        for row in 0..native_m {
+                            if !matrix[row + column * native_ldfjac].is_finite() {
+                                state.failure =
+                                    Some(ExpertLeastSquaresCallbackFailure::JacobianNonFinite {
+                                        row,
+                                        column,
+                                    });
+                                matrix.fill(0.0);
+                                return;
+                            }
+                        }
+                    }
+                }
+                Err(_) => {
+                    state.failure = Some(ExpertLeastSquaresCallbackFailure::JacobianPanicked);
+                    matrix.fill(0.0);
+                }
+            }
+        }
+        _ => state.failure = Some(ExpertLeastSquaresCallbackFailure::UnexpectedFlag),
     }
 }
 
@@ -1139,6 +1498,41 @@ unsafe extern "C" fn trampoline_least_squares_f32(
     });
 }
 
+unsafe extern "C" fn trampoline_expert_least_squares_f64(
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *mut f64,
+    fjac: *mut f64,
+    ldfjac: *const slatec_sys::FortranInteger,
+) {
+    ACTIVE_EXPERT_LEAST_SQUARES_F64.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: the expert least-squares slot has the exact lexical
+            // lifetime of the native DNLS1 call that owns this callback.
+            unsafe { (slot.invoke)(slot.data, iflag, m, n, x, fvec, fjac, ldfjac) };
+        }
+    });
+}
+
+unsafe extern "C" fn trampoline_expert_least_squares_f32(
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *mut f32,
+    fjac: *mut f32,
+    ldfjac: *const slatec_sys::FortranInteger,
+) {
+    ACTIVE_EXPERT_LEAST_SQUARES_F32.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: see the f64 expert least-squares trampoline.
+            unsafe { (slot.invoke)(slot.data, iflag, m, n, x, fvec, fjac, ldfjac) };
+        }
+    });
+}
+
 unsafe extern "C" fn trampoline_expert_residual_f64(
     n: *const slatec_sys::FortranInteger,
     x: *const f64,
@@ -1290,6 +1684,30 @@ pub(crate) struct LeastSquaresF32Callback {
 }
 
 impl LeastSquaresF32Callback {
+    pub(crate) const fn ffi(self) -> LeastSquaresFnF32 {
+        self.callback
+    }
+}
+
+/// Scoped callback handle for the reviewed expert `DNLS1` ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct ExpertLeastSquaresF64Callback {
+    callback: LeastSquaresFnF64,
+}
+
+impl ExpertLeastSquaresF64Callback {
+    pub(crate) const fn ffi(self) -> LeastSquaresFnF64 {
+        self.callback
+    }
+}
+
+/// Scoped callback handle for the reviewed expert `SNLS1` ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct ExpertLeastSquaresF32Callback {
+    callback: LeastSquaresFnF32,
+}
+
+impl ExpertLeastSquaresF32Callback {
     pub(crate) const fn ffi(self) -> LeastSquaresFnF32 {
         self.callback
     }
@@ -1564,6 +1982,102 @@ where
         value,
         failure: state.failure,
         evaluations: state.evaluations,
+    })
+}
+
+pub(crate) fn with_expert_least_squares_f64<F, J, R>(
+    parameter_count: usize,
+    residual_count: usize,
+    analytic: bool,
+    residual: F,
+    jacobian: J,
+    native_call: impl FnOnce(ExpertLeastSquaresF64Callback) -> R,
+) -> Result<ExpertLeastSquaresCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f64], &mut [f64]),
+    J: FnMut(&[f64], &[f64], &mut [f64], usize),
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(ExpertLeastSquaresCallbackState {
+        residual,
+        jacobian,
+        residual_count,
+        parameter_count,
+        analytic,
+        failure: None,
+        residual_evaluations: 0,
+        jacobian_evaluations: 0,
+    });
+    let data = (&mut *state as *mut ExpertLeastSquaresCallbackState<F, J>).cast();
+    ACTIVE_EXPERT_LEAST_SQUARES_F64.with(|slot| {
+        slot.set(Some(ExpertLeastSquaresSlotF64 {
+            data,
+            invoke: invoke_expert_least_squares_f64::<F, J>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::ExpertLeastSquaresF64,
+    };
+    let value = native_call(ExpertLeastSquaresF64Callback {
+        callback: trampoline_expert_least_squares_f64,
+    });
+    drop(slot_guard);
+    Ok(ExpertLeastSquaresCallbackInvocation {
+        value,
+        failure: state.failure,
+        residual_evaluations: state.residual_evaluations,
+        jacobian_evaluations: state.jacobian_evaluations,
+    })
+}
+
+pub(crate) fn with_expert_least_squares_f32<F, J, R>(
+    parameter_count: usize,
+    residual_count: usize,
+    analytic: bool,
+    residual: F,
+    jacobian: J,
+    native_call: impl FnOnce(ExpertLeastSquaresF32Callback) -> R,
+) -> Result<ExpertLeastSquaresCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f32], &mut [f32]),
+    J: FnMut(&[f32], &[f32], &mut [f32], usize),
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(ExpertLeastSquaresCallbackState {
+        residual,
+        jacobian,
+        residual_count,
+        parameter_count,
+        analytic,
+        failure: None,
+        residual_evaluations: 0,
+        jacobian_evaluations: 0,
+    });
+    let data = (&mut *state as *mut ExpertLeastSquaresCallbackState<F, J>).cast();
+    ACTIVE_EXPERT_LEAST_SQUARES_F32.with(|slot| {
+        slot.set(Some(ExpertLeastSquaresSlotF32 {
+            data,
+            invoke: invoke_expert_least_squares_f32::<F, J>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::ExpertLeastSquaresF32,
+    };
+    let value = native_call(ExpertLeastSquaresF32Callback {
+        callback: trampoline_expert_least_squares_f32,
+    });
+    drop(slot_guard);
+    Ok(ExpertLeastSquaresCallbackInvocation {
+        value,
+        failure: state.failure,
+        residual_evaluations: state.residual_evaluations,
+        jacobian_evaluations: state.jacobian_evaluations,
     })
 }
 

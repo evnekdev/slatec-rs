@@ -7,7 +7,7 @@ use crate::callback_runtime::{
 use slatec_core::to_fortran_integer;
 use slatec_sys::FortranInteger;
 
-use super::LeastSquaresError;
+use super::{LeastSquaresError, LeastSquaresStatus};
 
 /// Controls accepted by the residual-only nonlinear least-squares easy drivers.
 ///
@@ -33,32 +33,6 @@ impl LeastSquaresOptions<f32> {
     pub const fn single_precision() -> Self {
         Self { tolerance: 1.0e-5 }
     }
-}
-
-/// Meaningful `INFO` completion states from `SNLS1E` and `DNLS1E`.
-///
-/// All variants retain the native final parameters and residuals in
-/// [`LeastSquaresResult`]. The final three states describe a driver that could
-/// not improve one convergence criterion at the requested tolerance; they are
-/// not Rust ABI or callback failures.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum LeastSquaresStatus {
-    /// Both actual and predicted reductions in the residual sum of squares are
-    /// small relative to `tolerance`.
-    ConvergedResidual,
-    /// The relative change in the parameter vector is small.
-    ConvergedParameters,
-    /// Both residual-reduction and parameter-change convergence tests passed.
-    ConvergedResidualAndParameters,
-    /// The residual is orthogonal to the Jacobian columns to working precision.
-    ConvergedOrthogonality,
-    /// The easy driver's fixed residual-callback budget was exhausted.
-    MaximumEvaluations,
-    /// Further reduction in the residual sum of squares is limited by working
-    /// precision at the requested tolerance.
-    ResidualToleranceTooSmall,
-    /// Further improvement in the parameters is limited by working precision.
-    ParameterToleranceTooSmall,
 }
 
 /// Result returned by a nonlinear least-squares easy driver.
