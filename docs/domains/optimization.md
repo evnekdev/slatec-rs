@@ -19,7 +19,7 @@ This survey covers SLATEC’s constrained optimization, linear programming, boun
 
 | Family | Representative routines | Mathematical role | Provenance/confidence | Precision |
 |---|---|---|---|---|
-| sparse linear programming | `SPLP/DSPLP` | linear objectives and sparse constraint matrices | SLATEC-incorporated family; exact external lineage needs review | S/D |
+| sparse linear programming (deferred) | `SPLP/DSPLP` | linear objectives and sparse constraint matrices | SLATEC-incorporated family; mandatory paging I/O is unsuitable for a safe wrapper | S/D |
 | bounded/constrained least squares | `SBOLS/DBOLS`, `SBOCLS/DBOCLS` | bounds and linear equality constraints around least squares | Lawson–Hanson-related incorporated family | S/D |
 | equality/inequality least squares | `LSEI/DLSEI` | constrained linear least squares, optional covariance | incorporated least-squares family | S/D |
 | nonnegative/equality constrained | `WNNLS/DWNNLS` | weighted/nonnegative constrained least squares | Lawson–Hanson family | S/D |
@@ -52,7 +52,7 @@ The `E` driver reduces configuration but does not erase the underlying local-con
 
 `DSPLP` is described as solving linear programming problems with up to a few thousand constraints and variables while taking advantage of sparse constraint storage. Its interface includes user matrix-handling callbacks and extensive integer/real workspaces, and its subsidiary list contains many `SPLP`-specific routines ([`slatec-toc`](https://www.netlib.org/slatec/toc); [`DSPLP source`](https://www.netlib.org/slatec/src/dsplp.f)).
 
-**Modern interpretation:** this is not a thin function suitable for a single `&[f64]` wrapper. It is a stateful solver protocol with sparse input conventions, work arrays, scaling/control options and diagnostic outputs. A safe API requires a dedicated problem builder and verified storage conversion.
+This pair is **deferred**, not an API candidate. Its mandatory paging route opens a process-global direct-access external file and retains it with `STATUS='KEEP'`; serializing native calls cannot provide Rust-owned filename policy, reliable failure recovery, or deterministic cleanup. See [the optimization-family audit](optimization-audit.md) for the verified model and callback protocol.
 
 ## Constrained linear least squares
 
@@ -110,7 +110,7 @@ Current high-level optimization libraries commonly provide a unified result obje
 | Risk | Example | Proposed mitigation |
 |---|---|---|
 | residual/Jacobian callbacks | `DNLS1` callback mode and mutable flags | panic-safe trampolines and explicit callback contracts |
-| sparse matrix callbacks | `DSPLP` user matrix access protocol | build a tested adapter around owned sparse storage |
+| sparse matrix callbacks and mandatory paging I/O | `DSPLP` user matrix access protocol | deferred: no safe adapter can repair retained external-file ownership |
 | overwritten matrices | constrained least-squares drivers may transform input | ownership-taking builders or documented mutable views |
 | mixed work arrays | real and integer workspace formulas | internal checked allocation |
 | leading dimensions | Jacobian and constraint matrices | validated column-major views |
@@ -153,7 +153,7 @@ A facade may later unify shared result fields, but it should not erase method-sp
 
 ### Linear programming
 
-A dedicated sparse-LP builder should own converted storage and callbacks. It should expose solver status, objective, primal variables and available diagnostics without inventing unsupported dual data.
+No sparse-LP wrapper is planned from this corpus: `SPLP`/`DSPLP` remain deferred pending a source contract that removes mandatory retained external-file paging.
 
 ## Candidate crate boundaries
 
@@ -161,12 +161,10 @@ A dedicated sparse-LP builder should own converted storage and callbacks. It sho
 
 - `slatec-minpack-sys` for verified MINPACK-derived nonlinear least-squares and nonlinear-system sources;
 - `slatec-lsq-sys` for Lawson–Hanson-style linear least-squares families if provenance/dependency analysis supports it;
-- `slatec-splp-sys` for the sparse LP closure.
 
 **Safe, tentative:**
 
 - `slatec-least-squares`;
-- `slatec-optimization`;
 - or modules inside a broader `slatec-opt` crate.
 
 A separate safe nonlinear-equations crate may share an internal callback-support crate, but public cyclic dependencies should be avoided.
@@ -175,8 +173,7 @@ A separate safe nonlinear-equations crate may share an internal callback-support
 
 - What exact MINPACK version and modifications are present in `NLS1`?
 - Which constrained least-squares routines are directly derived from Lawson and Hanson distributions?
-- What sparse storage and callback invariants does `SPLP` require?
-- Can `SPLP` safely support concurrent solves?
+- The `SPLP` sparse callback and paging contract is now audited; a new source contract would be required before revisiting it.
 - Which inputs are overwritten and which outputs remain valid on partial failure?
 - How should rank-deficiency and covariance warnings map to Rust enums?
 - Can common callback infrastructure serve both `DNSQ` and `DNLS1` without global state?
