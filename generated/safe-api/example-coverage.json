@@ -605,6 +605,26 @@
     },
     {
       "doctest_present": true,
+      "example_case": "equality and inequality constrained linear least squares",
+      "example_file": "examples/least_squares/equality_constrained_fit.rs",
+      "fortran_routine": "DLSEI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::constrained_least_squares::solve_constrained_least_squares",
+      "validation_case": "solve_constrained_least_squares",
+      "validation_file": "crates/slatec/tests/constrained_least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "equality and inequality constrained linear least squares",
+      "example_file": "examples/least_squares/inequality_constrained_fit.rs",
+      "fortran_routine": "LSEI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::constrained_least_squares::solve_constrained_least_squares_f32",
+      "validation_case": "solve_constrained_least_squares_f32",
+      "validation_file": "crates/slatec/tests/constrained_least_squares_native.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "nonlinear least-squares covariance estimation",
       "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
       "fortran_routine": "DCOV",

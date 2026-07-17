@@ -48,6 +48,10 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
         "LEAST_SQUARES_LINEAR_BOUNDED",
         "least-squares-linear-bounded",
     ),
+    (
+        "LEAST_SQUARES_LINEAR_CONSTRAINED",
+        "least-squares-linear-constrained",
+    ),
 ];
 
 #[derive(Deserialize)]

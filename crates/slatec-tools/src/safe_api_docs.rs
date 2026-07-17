@@ -393,6 +393,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/constrained-least-squares-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "linear least squares",
+                column(row, columns, "precision")?,
+                "equality and inequality constrained linear least squares",
+                "std",
+                "least-squares-linear-constrained",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -490,6 +505,14 @@ fn record(
         }
         "linear least squares" if path.contains("bounded_least_squares") => {
             "examples/least_squares/bounded_fit.rs".to_owned()
+        }
+        "linear least squares"
+            if path.contains("constrained_least_squares") && precision == "f32" =>
+        {
+            "examples/least_squares/inequality_constrained_fit.rs".to_owned()
+        }
+        "linear least squares" if path.contains("constrained_least_squares") => {
+            "examples/least_squares/equality_constrained_fit.rs".to_owned()
         }
         "linear least squares" if precision == "f32" => {
             "examples/least_squares/mixed_nonnegative_fit.rs".to_owned()
@@ -602,6 +625,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
         "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "IPVT", "ERR", "RW", "IW",
+        "WS", "IP",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
@@ -693,23 +717,48 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "problem.bounds (typed closed-bound encoding)".to_owned()
             }
             "ME" if function.domain == "linear least squares" => {
-                "problem.equality_matrix.rows".to_owned()
+                if function.rust_path.contains("constrained_least_squares") {
+                    "problem.equalities matrix row count".to_owned()
+                } else {
+                    "problem.equality_matrix.rows".to_owned()
+                }
             }
             "MA" if function.domain == "linear least squares" => {
-                "problem.least_squares_matrix.rows".to_owned()
+                if function.rust_path.contains("constrained_least_squares") {
+                    "problem.objective_matrix.rows".to_owned()
+                } else {
+                    "problem.least_squares_matrix.rows".to_owned()
+                }
+            }
+            "MG" if function.rust_path.contains("constrained_least_squares") => {
+                "problem.inequalities row count".to_owned()
             }
             "N" if function.domain == "linear least squares" => {
-                "problem.variable_constraints.len".to_owned()
+                if function.rust_path.contains("constrained_least_squares") {
+                    "problem.objective_matrix.cols".to_owned()
+                } else {
+                    "problem.variable_constraints.len".to_owned()
+                }
             }
             "L" if function.domain == "linear least squares" => {
                 "internally permuted free-variable count".to_owned()
             }
             "PRGOPT" if function.domain == "linear least squares" => {
-                "internal nominal option sentinel".to_owned()
+                if function.rust_path.contains("constrained_least_squares") {
+                    "options.rank_tolerance encoded in internal PRGOPT list".to_owned()
+                } else {
+                    "internal nominal option sentinel".to_owned()
+                }
             }
             "X" if function.domain == "linear least squares" => "result.solution".to_owned(),
             "RNORM" if function.domain == "linear least squares" => {
                 "result.residual_norm".to_owned()
+            }
+            "RNORME" if function.rust_path.contains("constrained_least_squares") => {
+                "result.equality_residual_norm".to_owned()
+            }
+            "RNORML" if function.rust_path.contains("constrained_least_squares") => {
+                "result.objective_residual_norm".to_owned()
             }
             "MODE" if function.domain == "linear least squares" => "result.status".to_owned(),
             "EPSABS" => "options.absolute_tolerance".to_owned(),
@@ -856,6 +905,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "linear least squares" if function.rust_path.contains("bounded_least_squares") => {
             "crates/slatec/tests/bounded_least_squares_native.rs"
         }
+        "linear least squares" if function.rust_path.contains("constrained_least_squares") => {
+            "crates/slatec/tests/constrained_least_squares_native.rs"
+        }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
@@ -890,6 +942,8 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::linear_least_squares::solve_nonnegative_least_squares_f32"
             | "slatec::bounded_least_squares::solve_bounded_least_squares"
             | "slatec::bounded_least_squares::solve_bounded_least_squares_f32"
+            | "slatec::constrained_least_squares::solve_constrained_least_squares"
+            | "slatec::constrained_least_squares::solve_constrained_least_squares_f32"
     )
 }
 
@@ -952,6 +1006,9 @@ fn purpose(family: &str) -> &'static str {
             "equality-constrained nonnegative linear least-squares fitting"
         }
         "bounded linear least squares" => "dense bounded linear least-squares fitting",
+        "equality and inequality constrained linear least squares" => {
+            "dense equality and inequality constrained linear least-squares fitting"
+        }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",

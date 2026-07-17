@@ -51,7 +51,7 @@ bare-metal native-runtime claim.
 
 ## Deferred scope
 
-`SBOCLS`/`DBOCLS`, `LSEI`/`DLSEI`, and `SPLP`/`DSPLP` remain deferred, along
+`SBOCLS`/`DBOCLS` and `SPLP`/`DSPLP` remain deferred, along
 with arbitrary general equalities or inequalities, sparse storage, warm starts,
 dual values, sensitivity analysis, quadratic programming, and linear
 programming.

@@ -91,4 +91,50 @@ unsafe extern "C" {
         real_workspace: *mut f32,
         integer_workspace: *mut FortranInteger,
     );
+
+    /// Original double-precision SLATEC equality/inequality constrained
+    /// least-squares driver `DLSEI`.
+    ///
+    /// `augmented_matrix` is mutable column-major `W(MDW, N + 1)`, with rows
+    /// ordered equality `E,F`, objective `A,B`, then inequality `G,H`. The
+    /// routine enforces `Gx >= H`, overwrites `W`, `X`, `WS`, and `IP`, and
+    /// returns equality/objective residual norms plus `MODE`.
+    #[link_name = "dlsei_"]
+    pub fn dlsei(
+        augmented_matrix: *mut f64,
+        leading_dimension: *mut FortranInteger,
+        equality_rows: *mut FortranInteger,
+        objective_rows: *mut FortranInteger,
+        inequality_rows: *mut FortranInteger,
+        variable_count: *mut FortranInteger,
+        program_options: *mut f64,
+        solution: *mut f64,
+        equality_residual_norm: *mut f64,
+        objective_residual_norm: *mut f64,
+        mode: *mut FortranInteger,
+        workspace: *mut f64,
+        integer_workspace: *mut FortranInteger,
+    );
+
+    /// Original single-precision SLATEC equality/inequality constrained
+    /// least-squares driver `LSEI`.
+    ///
+    /// This has the same reviewed ABI and mutation rules as [`dlsei`], using
+    /// `REAL` arrays in place of `DOUBLE PRECISION` arrays.
+    #[link_name = "lsei_"]
+    pub fn lsei(
+        augmented_matrix: *mut f32,
+        leading_dimension: *mut FortranInteger,
+        equality_rows: *mut FortranInteger,
+        objective_rows: *mut FortranInteger,
+        inequality_rows: *mut FortranInteger,
+        variable_count: *mut FortranInteger,
+        program_options: *mut f32,
+        solution: *mut f32,
+        equality_residual_norm: *mut f32,
+        objective_residual_norm: *mut f32,
+        mode: *mut FortranInteger,
+        workspace: *mut f32,
+        integer_workspace: *mut FortranInteger,
+    );
 }

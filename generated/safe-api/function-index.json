@@ -904,6 +904,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::constrained_least_squares::solve_constrained_least_squares",
+      "fortran_routine": "DLSEI",
+      "module": "slatec::constrained_least_squares",
+      "domain": "linear least squares",
+      "precision": "f64",
+      "purpose": "dense equality and inequality constrained linear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-linear-constrained",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/constrained_least_squares/fn.solve_constrained_least_squares.html",
+      "example_file": "examples/least_squares/equality_constrained_fit.rs",
+      "example_case": "equality and inequality constrained linear least squares",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::constrained_least_squares::solve_constrained_least_squares_f32",
+      "fortran_routine": "LSEI",
+      "module": "slatec::constrained_least_squares",
+      "domain": "linear least squares",
+      "precision": "f32",
+      "purpose": "dense equality and inequality constrained linear least-squares fitting",
+      "capability": "std",
+      "feature": "least-squares-linear-constrained",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/constrained_least_squares/fn.solve_constrained_least_squares_f32.html",
+      "example_file": "examples/least_squares/inequality_constrained_fit.rs",
+      "example_case": "equality and inequality constrained linear least squares",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::least_squares::covariance_from_expert_fit",
       "fortran_routine": "DCOV",
       "module": "slatec::least_squares",
