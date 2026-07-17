@@ -57,6 +57,57 @@ fn validate_tolerances(
     }
 }
 
+pub(crate) fn standard_tolerances_f64(
+    absolute: f64,
+    relative: f64,
+) -> Result<(f64, f64), IntegrationError> {
+    validate_tolerances(absolute, relative, (50.0 * f64::EPSILON).max(0.5e-28))?;
+    Ok((absolute, relative))
+}
+
+pub(crate) fn standard_tolerances_f32(
+    absolute: f64,
+    relative: f64,
+) -> Result<(f32, f32), IntegrationError> {
+    validate_tolerances(
+        absolute,
+        relative,
+        (50.0 * f64::from(f32::EPSILON)).max(0.5e-28),
+    )?;
+    if absolute > f64::from(f32::MAX) || relative > f64::from(f32::MAX) {
+        return Err(IntegrationError::InvalidTolerance);
+    }
+    let absolute = absolute as f32;
+    let relative = relative as f32;
+    validate_tolerances(
+        f64::from(absolute),
+        f64::from(relative),
+        (50.0 * f64::from(f32::EPSILON)).max(0.5e-28),
+    )?;
+    Ok((absolute, relative))
+}
+
+pub(crate) fn positive_tolerance_f64(value: f64) -> Result<f64, IntegrationError> {
+    if value.is_finite() && value > 0.0 {
+        Ok(value)
+    } else {
+        Err(IntegrationError::InvalidTolerance)
+    }
+}
+
+pub(crate) fn positive_tolerance_f32(value: f64) -> Result<f32, IntegrationError> {
+    let value = positive_tolerance_f64(value)?;
+    if value > f64::from(f32::MAX) {
+        return Err(IntegrationError::InvalidTolerance);
+    }
+    let value = value as f32;
+    if value.is_finite() && value > 0.0 {
+        Ok(value)
+    } else {
+        Err(IntegrationError::InvalidTolerance)
+    }
+}
+
 pub(crate) fn workspace_f64(
     options: IntegrationOptions,
 ) -> Result<(Workspace<f64>, f64, f64), IntegrationError> {
@@ -95,6 +146,41 @@ pub(crate) fn workspace_f32(
     Ok((workspace(options.limit)?, absolute, relative))
 }
 
+pub(crate) fn allocated_workspace<T: Default + Clone>(
+    integer_count: usize,
+    work_count: usize,
+    moment_workspace: bool,
+) -> Result<(Vec<FortranInteger>, Vec<T>), IntegrationError> {
+    let error = if moment_workspace {
+        IntegrationError::MomentWorkspaceTooLarge
+    } else {
+        IntegrationError::WorkspaceTooLarge
+    };
+    let mut iwork = Vec::new();
+    iwork
+        .try_reserve_exact(integer_count)
+        .map_err(|_| error.clone())?;
+    iwork.resize(integer_count, 0);
+    let mut work = Vec::new();
+    work.try_reserve_exact(work_count)
+        .map_err(|_| error.clone())?;
+    work.resize(work_count, T::default());
+    Ok((iwork, work))
+}
+
+pub(crate) fn to_fortran(
+    value: usize,
+    moment_workspace: bool,
+) -> Result<FortranInteger, IntegrationError> {
+    to_fortran_integer(value).map_err(|_| {
+        if moment_workspace {
+            IntegrationError::MomentWorkspaceTooLarge
+        } else {
+            IntegrationError::IntegerOverflow
+        }
+    })
+}
+
 fn workspace<T: Default + Clone>(limit: usize) -> Result<Workspace<T>, IntegrationError> {
     if limit == 0 {
         return Err(IntegrationError::WorkspaceTooLarge);
@@ -119,6 +205,30 @@ fn workspace<T: Default + Clone>(limit: usize) -> Result<Workspace<T>, Integrati
         lenw: lenw_integer,
         iwork,
         work,
+    })
+}
+
+pub(crate) fn checked_add(
+    left: usize,
+    right: usize,
+    moment_workspace: bool,
+) -> Result<usize, IntegrationError> {
+    left.checked_add(right).ok_or(if moment_workspace {
+        IntegrationError::MomentWorkspaceTooLarge
+    } else {
+        IntegrationError::WorkspaceTooLarge
+    })
+}
+
+pub(crate) fn checked_mul(
+    left: usize,
+    right: usize,
+    moment_workspace: bool,
+) -> Result<usize, IntegrationError> {
+    left.checked_mul(right).ok_or(if moment_workspace {
+        IntegrationError::MomentWorkspaceTooLarge
+    } else {
+        IntegrationError::WorkspaceTooLarge
     })
 }
 

@@ -14,6 +14,218 @@ pub type IntegrandF64 = unsafe extern "C" fn(*const f64) -> f64;
 pub type IntegrandF32 = unsafe extern "C" fn(*const f32) -> f32;
 
 unsafe extern "C" {
+    #[link_name = "dqagp_"]
+    pub fn dqagp(
+        f: IntegrandF64,
+        a: *mut f64,
+        b: *mut f64,
+        npts2: *mut FortranInteger,
+        points: *mut f64,
+        epsabs: *mut f64,
+        epsrel: *mut f64,
+        result: *mut f64,
+        abserr: *mut f64,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        leniw: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        last: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f64,
+    );
+
+    #[link_name = "qagp_"]
+    pub fn qagp(
+        f: IntegrandF32,
+        a: *mut f32,
+        b: *mut f32,
+        npts2: *mut FortranInteger,
+        points: *mut f32,
+        epsabs: *mut f32,
+        epsrel: *mut f32,
+        result: *mut f32,
+        abserr: *mut f32,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        leniw: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        last: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f32,
+    );
+
+    #[link_name = "dqaws_"]
+    pub fn dqaws(
+        f: IntegrandF64,
+        a: *mut f64,
+        b: *mut f64,
+        alfa: *mut f64,
+        beta: *mut f64,
+        integr: *mut FortranInteger,
+        epsabs: *mut f64,
+        epsrel: *mut f64,
+        result: *mut f64,
+        abserr: *mut f64,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        limit: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        last: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f64,
+    );
+
+    #[link_name = "qaws_"]
+    pub fn qaws(
+        f: IntegrandF32,
+        a: *mut f32,
+        b: *mut f32,
+        alfa: *mut f32,
+        beta: *mut f32,
+        integr: *mut FortranInteger,
+        epsabs: *mut f32,
+        epsrel: *mut f32,
+        result: *mut f32,
+        abserr: *mut f32,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        limit: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        last: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f32,
+    );
+
+    #[link_name = "dqawo_"]
+    pub fn dqawo(
+        f: IntegrandF64,
+        a: *mut f64,
+        b: *mut f64,
+        omega: *mut f64,
+        integr: *mut FortranInteger,
+        epsabs: *mut f64,
+        epsrel: *mut f64,
+        result: *mut f64,
+        abserr: *mut f64,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        leniw: *mut FortranInteger,
+        maxp1: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        last: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f64,
+    );
+
+    #[link_name = "qawo_"]
+    pub fn qawo(
+        f: IntegrandF32,
+        a: *mut f32,
+        b: *mut f32,
+        omega: *mut f32,
+        integr: *mut FortranInteger,
+        epsabs: *mut f32,
+        epsrel: *mut f32,
+        result: *mut f32,
+        abserr: *mut f32,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        leniw: *mut FortranInteger,
+        maxp1: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        last: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f32,
+    );
+
+    #[link_name = "dqawf_"]
+    pub fn dqawf(
+        f: IntegrandF64,
+        a: *mut f64,
+        omega: *mut f64,
+        integr: *mut FortranInteger,
+        epsabs: *mut f64,
+        result: *mut f64,
+        abserr: *mut f64,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        limlst: *mut FortranInteger,
+        lst: *mut FortranInteger,
+        leniw: *mut FortranInteger,
+        maxp1: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f64,
+    );
+
+    #[link_name = "qawf_"]
+    pub fn qawf(
+        f: IntegrandF32,
+        a: *mut f32,
+        omega: *mut f32,
+        integr: *mut FortranInteger,
+        epsabs: *mut f32,
+        result: *mut f32,
+        abserr: *mut f32,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+        limlst: *mut FortranInteger,
+        lst: *mut FortranInteger,
+        leniw: *mut FortranInteger,
+        maxp1: *mut FortranInteger,
+        lenw: *mut FortranInteger,
+        iwork: *mut FortranInteger,
+        work: *mut f32,
+    );
+
+    #[link_name = "dqng_"]
+    pub fn dqng(
+        f: IntegrandF64,
+        a: *mut f64,
+        b: *mut f64,
+        epsabs: *mut f64,
+        epsrel: *mut f64,
+        result: *mut f64,
+        abserr: *mut f64,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+    );
+
+    #[link_name = "qng_"]
+    pub fn qng(
+        f: IntegrandF32,
+        a: *mut f32,
+        b: *mut f32,
+        epsabs: *mut f32,
+        epsrel: *mut f32,
+        result: *mut f32,
+        abserr: *mut f32,
+        neval: *mut FortranInteger,
+        ier: *mut FortranInteger,
+    );
+
+    #[link_name = "dqnc79_"]
+    pub fn dqnc79(
+        f: IntegrandF64,
+        a: *mut f64,
+        b: *mut f64,
+        err: *mut f64,
+        ans: *mut f64,
+        ierr: *mut FortranInteger,
+        evaluations: *mut FortranInteger,
+    );
+
+    #[link_name = "qnc79_"]
+    pub fn qnc79(
+        f: IntegrandF32,
+        a: *mut f32,
+        b: *mut f32,
+        err: *mut f32,
+        ans: *mut f32,
+        ierr: *mut FortranInteger,
+        evaluations: *mut FortranInteger,
+    );
+
     #[link_name = "dqag_"]
     pub fn dqag(
         f: IntegrandF64,
