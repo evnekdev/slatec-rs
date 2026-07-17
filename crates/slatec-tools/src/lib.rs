@@ -14,6 +14,7 @@ pub mod hash;
 pub mod linkage;
 pub mod manifest;
 pub mod native_probe;
+pub mod optimization_audit;
 pub mod policy;
 pub mod program_units;
 pub mod prologues;
