@@ -1,19 +1,40 @@
-//! Safe finite-difference nonlinear-system drivers over original SLATEC code.
+//! Safe nonlinear-system drivers and Jacobian checks over original SLATEC code.
 //!
-//! This module wraps `SNSQE` and `DNSQE`, the simple drivers for the SLATEC
-//! Powell-hybrid nonlinear-system solver. It fixes their `IOPT` argument to
-//! finite-difference Jacobian mode, allocates the documented workspace, and
-//! contains a Rust residual callback behind the shared native-runtime guard.
+//! The `nonlinear-easy` feature wraps `SNSQE` and `DNSQE`. The
+//! `nonlinear-expert` feature wraps `SNSQ` and `DNSQ` with checked
+//! finite-difference and dense user-Jacobian modes. The alloc-only
+//! `nonlinear-jacobian-check` feature wraps the two-stage `CHKDER` and `DCKDER`
+//! consistency checks. Observer callbacks and callback cancellation remain
+//! deliberately unavailable.
 //!
-//! The API requires `std`, `alloc`, the `nonlinear-easy` feature, and the
-//! validated GNU Fortran x86_64 MinGW native profile. Calls are serialized
-//! because the selected SLATEC runtime contains process-global state. A
-//! callback cannot begin another callback-based SLATEC operation.
+//! Solver APIs require `std` and the validated GNU Fortran x86_64 MinGW native
+//! profile. Calls are serialized because the selected SLATEC runtime contains
+//! process-global state, and a callback cannot begin another callback-based
+//! SLATEC operation. Jacobian checking uses `alloc` but does not require the
+//! hosted callback runtime.
 
+#[cfg(feature = "nonlinear-jacobian-check")]
+mod checker;
 mod error;
+#[cfg(feature = "nonlinear-expert")]
+mod expert;
+#[cfg(any(feature = "nonlinear-expert", feature = "nonlinear-jacobian-check"))]
+mod jacobian;
+#[cfg(feature = "nonlinear-easy")]
 mod solver;
 
+#[cfg(feature = "nonlinear-jacobian-check")]
+pub use checker::{JacobianCheckError, JacobianCheckResult, check_jacobian, check_jacobian_f32};
 pub use error::NonlinearError;
+#[cfg(feature = "nonlinear-expert")]
+pub use expert::{
+    ExpertNonlinearOptions, ExpertNonlinearResult, JacobianStructure, VariableScaling,
+    solve_system_expert, solve_system_expert_f32, solve_system_with_jacobian,
+    solve_system_with_jacobian_f32,
+};
+#[cfg(any(feature = "nonlinear-expert", feature = "nonlinear-jacobian-check"))]
+pub use jacobian::{JacobianIndexError, JacobianMut};
+#[cfg(feature = "nonlinear-easy")]
 pub use solver::{solve_system, solve_system_f32};
 
 /// Easy-driver controls accepted by `SNSQE` and `DNSQE`.
@@ -51,6 +72,10 @@ pub enum NonlinearStatus {
     ToleranceTooSmall,
     /// Native progress stalled over the driver's recent Jacobian evaluations.
     SlowProgress,
+    /// Progress stalled across five consecutive Jacobian evaluations.
+    SlowProgressJacobianEvaluations,
+    /// Progress stalled across ten consecutive solver iterations.
+    SlowProgressIterations,
 }
 
 /// Result of a completed nonlinear easy-driver call.

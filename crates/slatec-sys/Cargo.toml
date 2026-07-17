@@ -61,5 +61,7 @@ raw-family-quadrature-fourier = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-quadrature-nonadaptive = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-roots-scalar = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-nonlinear-easy = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-nonlinear-expert = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-nonlinear-jacobian-check = ["ffi-profile-gnu-mingw-x86_64"]
 
 [build-dependencies]

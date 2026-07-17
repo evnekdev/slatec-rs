@@ -55,8 +55,8 @@ const CANDIDATES: &[Candidate] = &[
         callback_signature: "residual_and_optional_jacobian_callbacks",
         mutation: "scaling, state, callbacks, work arrays, diagnostics",
         workspace: "caller-managed expert workspace",
-        disposition: "deferred",
-        reason: "expert_scaling_jacobian_and_workspace_controls_not_in_easy_driver_scope",
+        disposition: "covered_by_nonlinear_expert",
+        reason: "reviewed_by_dedicated_expert_nonlinear_inventory",
     },
     Candidate {
         source: "DNSQ",
@@ -65,8 +65,8 @@ const CANDIDATES: &[Candidate] = &[
         callback_signature: "residual_and_optional_jacobian_callbacks",
         mutation: "scaling, state, callbacks, work arrays, diagnostics",
         workspace: "caller-managed expert workspace",
-        disposition: "deferred",
-        reason: "expert_scaling_jacobian_and_workspace_controls_not_in_easy_driver_scope",
+        disposition: "covered_by_nonlinear_expert",
+        reason: "reviewed_by_dedicated_expert_nonlinear_inventory",
     },
     Candidate {
         source: "SOS",
@@ -95,8 +95,8 @@ const CANDIDATES: &[Candidate] = &[
         callback_signature: "none",
         mutation: "vectors and dense Jacobian arrays",
         workspace: "caller arrays",
-        disposition: "deferred",
-        reason: "derivative_checker_contract_not_part_of_easy_driver_api",
+        disposition: "covered_by_nonlinear_jacobian_check",
+        reason: "reviewed_by_dedicated_expert_nonlinear_inventory",
     },
     Candidate {
         source: "DCKDER",
@@ -105,8 +105,8 @@ const CANDIDATES: &[Candidate] = &[
         callback_signature: "none",
         mutation: "vectors and dense Jacobian arrays",
         workspace: "caller arrays",
-        disposition: "deferred",
-        reason: "derivative_checker_contract_not_part_of_easy_driver_api",
+        disposition: "covered_by_nonlinear_jacobian_check",
+        reason: "reviewed_by_dedicated_expert_nonlinear_inventory",
     },
 ];
 
@@ -232,7 +232,7 @@ pub fn generate(
                 "analytic_system_reference",
                 "included",
             ]));
-        } else {
+        } else if candidate.disposition == "deferred" {
             deferred.push(json!([
                 candidate.source,
                 symbol,
@@ -380,11 +380,8 @@ mod tests {
                 .count(),
             2
         );
-        assert!(
-            CANDIDATES
-                .iter()
-                .any(|candidate| candidate.source == "DNSQ" && candidate.disposition == "deferred")
-        );
+        assert!(CANDIDATES.iter().any(|candidate| candidate.source == "DNSQ"
+            && candidate.disposition == "covered_by_nonlinear_expert"));
     }
 
     #[test]

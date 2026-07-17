@@ -36,6 +36,26 @@ pub(crate) type VectorFnF32 = unsafe extern "C" fn(
     *mut slatec_sys::FortranInteger,
 );
 
+/// Reviewed GNU Fortran Jacobian callback shape used by `DNSQ`.
+pub(crate) type JacobianFnF64 = unsafe extern "C" fn(
+    *const slatec_sys::FortranInteger,
+    *const f64,
+    *const f64,
+    *mut f64,
+    *const slatec_sys::FortranInteger,
+    *mut slatec_sys::FortranInteger,
+);
+
+/// Reviewed GNU Fortran Jacobian callback shape used by `SNSQ`.
+pub(crate) type JacobianFnF32 = unsafe extern "C" fn(
+    *const slatec_sys::FortranInteger,
+    *const f32,
+    *const f32,
+    *mut f32,
+    *const slatec_sys::FortranInteger,
+    *mut slatec_sys::FortranInteger,
+);
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum CallbackFailure {
     Panicked,
@@ -57,6 +77,18 @@ pub(crate) enum VectorCallbackFailure {
     DimensionMismatch,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum ExpertCallbackFailure {
+    ResidualPanicked,
+    JacobianPanicked,
+    ResidualNonFinite { index: usize },
+    JacobianNonFinite { row: usize, column: usize },
+    InvalidPointer,
+    DimensionMismatch,
+    InvalidLeadingDimension,
+    UnexpectedFlag,
+}
+
 pub(crate) struct CallbackInvocation<R> {
     pub(crate) value: R,
     pub(crate) failure: Option<CallbackFailure>,
@@ -67,6 +99,13 @@ pub(crate) struct VectorCallbackInvocation<R> {
     pub(crate) value: R,
     pub(crate) failure: Option<VectorCallbackFailure>,
     pub(crate) evaluations: usize,
+}
+
+pub(crate) struct ExpertCallbackInvocation<R> {
+    pub(crate) value: R,
+    pub(crate) failure: Option<ExpertCallbackFailure>,
+    pub(crate) residual_evaluations: usize,
+    pub(crate) jacobian_evaluations: usize,
 }
 
 #[derive(Clone, Copy)]
@@ -105,11 +144,55 @@ struct VectorSlotF32 {
     ),
 }
 
+#[derive(Clone, Copy)]
+struct ExpertSlotF64 {
+    data: *mut (),
+    residual: unsafe fn(
+        *mut (),
+        *const slatec_sys::FortranInteger,
+        *const f64,
+        *mut f64,
+        *mut slatec_sys::FortranInteger,
+    ),
+    jacobian: unsafe fn(
+        *mut (),
+        *const slatec_sys::FortranInteger,
+        *const f64,
+        *const f64,
+        *mut f64,
+        *const slatec_sys::FortranInteger,
+        *mut slatec_sys::FortranInteger,
+    ),
+}
+
+#[derive(Clone, Copy)]
+struct ExpertSlotF32 {
+    data: *mut (),
+    residual: unsafe fn(
+        *mut (),
+        *const slatec_sys::FortranInteger,
+        *const f32,
+        *mut f32,
+        *mut slatec_sys::FortranInteger,
+    ),
+    jacobian: unsafe fn(
+        *mut (),
+        *const slatec_sys::FortranInteger,
+        *const f32,
+        *const f32,
+        *mut f32,
+        *const slatec_sys::FortranInteger,
+        *mut slatec_sys::FortranInteger,
+    ),
+}
+
 thread_local! {
     static ACTIVE_F64: Cell<Option<SlotF64>> = const { Cell::new(None) };
     static ACTIVE_F32: Cell<Option<SlotF32>> = const { Cell::new(None) };
     static ACTIVE_VECTOR_F64: Cell<Option<VectorSlotF64>> = const { Cell::new(None) };
     static ACTIVE_VECTOR_F32: Cell<Option<VectorSlotF32>> = const { Cell::new(None) };
+    static ACTIVE_EXPERT_F64: Cell<Option<ExpertSlotF64>> = const { Cell::new(None) };
+    static ACTIVE_EXPERT_F32: Cell<Option<ExpertSlotF32>> = const { Cell::new(None) };
 }
 
 struct CallbackState<F> {
@@ -125,6 +208,15 @@ struct VectorCallbackState<F> {
     evaluations: usize,
 }
 
+struct ExpertCallbackState<F, J> {
+    residual: F,
+    jacobian: J,
+    dimension: usize,
+    failure: Option<ExpertCallbackFailure>,
+    residual_evaluations: usize,
+    jacobian_evaluations: usize,
+}
+
 struct SlotGuard {
     kind: CallbackKind,
 }
@@ -134,6 +226,8 @@ enum CallbackKind {
     F64,
     VectorF32,
     VectorF64,
+    ExpertF32,
+    ExpertF64,
 }
 
 impl Drop for SlotGuard {
@@ -143,6 +237,8 @@ impl Drop for SlotGuard {
             CallbackKind::F64 => ACTIVE_F64.with(|slot| slot.set(None)),
             CallbackKind::VectorF32 => ACTIVE_VECTOR_F32.with(|slot| slot.set(None)),
             CallbackKind::VectorF64 => ACTIVE_VECTOR_F64.with(|slot| slot.set(None)),
+            CallbackKind::ExpertF32 => ACTIVE_EXPERT_F32.with(|slot| slot.set(None)),
+            CallbackKind::ExpertF64 => ACTIVE_EXPERT_F64.with(|slot| slot.set(None)),
         }
     }
 }
@@ -153,6 +249,8 @@ pub(crate) fn is_active() -> bool {
         || ACTIVE_F32.with(|slot| slot.get().is_some())
         || ACTIVE_VECTOR_F64.with(|slot| slot.get().is_some())
         || ACTIVE_VECTOR_F32.with(|slot| slot.get().is_some())
+        || ACTIVE_EXPERT_F64.with(|slot| slot.get().is_some())
+        || ACTIVE_EXPERT_F32.with(|slot| slot.get().is_some())
 }
 
 unsafe fn invoke_f64<F>(data: *mut (), value: Option<f64>) -> f64
@@ -257,6 +355,27 @@ fn ranges_overlap<T>(left: *const T, right: *const T, len: usize) -> bool {
         return true;
     };
     let Some(right_end) = (right as usize).checked_add(bytes) else {
+        return true;
+    };
+    (left as usize) < right_end && (right as usize) < left_end
+}
+
+fn ranges_overlap_with_lengths<T>(
+    left: *const T,
+    left_len: usize,
+    right: *const T,
+    right_len: usize,
+) -> bool {
+    let Some(left_bytes) = left_len.checked_mul(size_of::<T>()) else {
+        return true;
+    };
+    let Some(right_bytes) = right_len.checked_mul(size_of::<T>()) else {
+        return true;
+    };
+    let Some(left_end) = (left as usize).checked_add(left_bytes) else {
+        return true;
+    };
+    let Some(right_end) = (right as usize).checked_add(right_bytes) else {
         return true;
     };
     (left as usize) < right_end && (right as usize) < left_end
@@ -391,6 +510,303 @@ unsafe fn invoke_vector_f32<F>(
     }
 }
 
+unsafe fn invoke_expert_residual_f64<F, J>(
+    data: *mut (),
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *mut f64,
+    iflag: *mut slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f64], &mut [f64]),
+    J: FnMut(&[f64], &[f64], &mut [f64], usize),
+{
+    // Safety: the scoped installer owns this exact state until the native call
+    // returns and clears the matching thread-local slot before dropping it.
+    let state = unsafe { &mut *data.cast::<ExpertCallbackState<F, J>>() };
+    if state.failure.is_some() {
+        return;
+    }
+    let (Some(native_n), Some(flag)) = (
+        (unsafe { n.as_ref() }).copied(),
+        (unsafe { iflag.as_ref() }).copied(),
+    ) else {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    };
+    let Ok(native_n) = usize::try_from(native_n) else {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    };
+    if native_n != state.dimension || native_n == 0 {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if x.is_null() || fvec.is_null() || ranges_overlap(x, fvec.cast_const(), native_n) {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    }
+    if !matches!(flag, 1 | 2) {
+        state.failure = Some(ExpertCallbackFailure::UnexpectedFlag);
+        return;
+    }
+    // Safety: the checked native dimension matches the registered dimension;
+    // both regions are non-null and do not overlap.
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    let output = unsafe { core::slice::from_raw_parts_mut(fvec, native_n) };
+    state.residual_evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| (state.residual)(input, output))) {
+        Ok(()) => {
+            if let Some((index, _)) = output
+                .iter()
+                .enumerate()
+                .find(|(_, value)| !value.is_finite())
+            {
+                state.failure = Some(ExpertCallbackFailure::ResidualNonFinite { index });
+                output.fill(0.0);
+            }
+        }
+        Err(_) => {
+            state.failure = Some(ExpertCallbackFailure::ResidualPanicked);
+            output.fill(0.0);
+        }
+    }
+}
+
+unsafe fn invoke_expert_jacobian_f64<F, J>(
+    data: *mut (),
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *const f64,
+    fjac: *mut f64,
+    ldfjac: *const slatec_sys::FortranInteger,
+    iflag: *mut slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f64], &mut [f64]),
+    J: FnMut(&[f64], &[f64], &mut [f64], usize),
+{
+    // Safety: see invoke_expert_residual_f64.
+    let state = unsafe { &mut *data.cast::<ExpertCallbackState<F, J>>() };
+    if state.failure.is_some() {
+        return;
+    }
+    let (Some(native_n), Some(native_ld), Some(flag)) = (
+        (unsafe { n.as_ref() }).copied(),
+        (unsafe { ldfjac.as_ref() }).copied(),
+        (unsafe { iflag.as_ref() }).copied(),
+    ) else {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    };
+    let (Ok(native_n), Ok(native_ld)) = (usize::try_from(native_n), usize::try_from(native_ld))
+    else {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    };
+    if native_n != state.dimension || native_n == 0 {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if native_ld < native_n {
+        state.failure = Some(ExpertCallbackFailure::InvalidLeadingDimension);
+        return;
+    }
+    if flag <= 0 {
+        state.failure = Some(ExpertCallbackFailure::UnexpectedFlag);
+        return;
+    }
+    let Some(matrix_len) = native_ld.checked_mul(native_n) else {
+        state.failure = Some(ExpertCallbackFailure::InvalidLeadingDimension);
+        return;
+    };
+    if x.is_null()
+        || fvec.is_null()
+        || fjac.is_null()
+        || ranges_overlap(x, fvec, native_n)
+        || ranges_overlap_with_lengths(x, native_n, fjac.cast_const(), matrix_len)
+        || ranges_overlap_with_lengths(fvec, native_n, fjac.cast_const(), matrix_len)
+    {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    }
+    // Safety: dimensions, physical lengths, pointer non-nullness, and pairwise
+    // non-overlap have been checked above.
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    let residual = unsafe { core::slice::from_raw_parts(fvec, native_n) };
+    let matrix = unsafe { core::slice::from_raw_parts_mut(fjac, matrix_len) };
+    for column in 0..native_n {
+        for row in 0..native_n {
+            matrix[row + column * native_ld] = f64::NAN;
+        }
+    }
+    state.jacobian_evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| {
+        (state.jacobian)(input, residual, matrix, native_ld);
+    })) {
+        Ok(()) => {
+            for column in 0..native_n {
+                for row in 0..native_n {
+                    if !matrix[row + column * native_ld].is_finite() {
+                        state.failure =
+                            Some(ExpertCallbackFailure::JacobianNonFinite { row, column });
+                        matrix.fill(0.0);
+                        return;
+                    }
+                }
+            }
+        }
+        Err(_) => {
+            state.failure = Some(ExpertCallbackFailure::JacobianPanicked);
+            matrix.fill(0.0);
+        }
+    }
+}
+
+unsafe fn invoke_expert_residual_f32<F, J>(
+    data: *mut (),
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *mut f32,
+    iflag: *mut slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f32], &mut [f32]),
+    J: FnMut(&[f32], &[f32], &mut [f32], usize),
+{
+    // Safety: equivalent to invoke_expert_residual_f64 for f32 storage.
+    let state = unsafe { &mut *data.cast::<ExpertCallbackState<F, J>>() };
+    if state.failure.is_some() {
+        return;
+    }
+    let (Some(native_n), Some(flag)) = (
+        (unsafe { n.as_ref() }).copied(),
+        (unsafe { iflag.as_ref() }).copied(),
+    ) else {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    };
+    let Ok(native_n) = usize::try_from(native_n) else {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    };
+    if native_n != state.dimension || native_n == 0 {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if x.is_null() || fvec.is_null() || ranges_overlap(x, fvec.cast_const(), native_n) {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    }
+    if !matches!(flag, 1 | 2) {
+        state.failure = Some(ExpertCallbackFailure::UnexpectedFlag);
+        return;
+    }
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    let output = unsafe { core::slice::from_raw_parts_mut(fvec, native_n) };
+    state.residual_evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| (state.residual)(input, output))) {
+        Ok(()) => {
+            if let Some((index, _)) = output
+                .iter()
+                .enumerate()
+                .find(|(_, value)| !value.is_finite())
+            {
+                state.failure = Some(ExpertCallbackFailure::ResidualNonFinite { index });
+                output.fill(0.0);
+            }
+        }
+        Err(_) => {
+            state.failure = Some(ExpertCallbackFailure::ResidualPanicked);
+            output.fill(0.0);
+        }
+    }
+}
+
+unsafe fn invoke_expert_jacobian_f32<F, J>(
+    data: *mut (),
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *const f32,
+    fjac: *mut f32,
+    ldfjac: *const slatec_sys::FortranInteger,
+    iflag: *mut slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f32], &mut [f32]),
+    J: FnMut(&[f32], &[f32], &mut [f32], usize),
+{
+    // Safety: equivalent to invoke_expert_jacobian_f64 for f32 storage.
+    let state = unsafe { &mut *data.cast::<ExpertCallbackState<F, J>>() };
+    if state.failure.is_some() {
+        return;
+    }
+    let (Some(native_n), Some(native_ld), Some(flag)) = (
+        (unsafe { n.as_ref() }).copied(),
+        (unsafe { ldfjac.as_ref() }).copied(),
+        (unsafe { iflag.as_ref() }).copied(),
+    ) else {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    };
+    let (Ok(native_n), Ok(native_ld)) = (usize::try_from(native_n), usize::try_from(native_ld))
+    else {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    };
+    if native_n != state.dimension || native_n == 0 {
+        state.failure = Some(ExpertCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if native_ld < native_n {
+        state.failure = Some(ExpertCallbackFailure::InvalidLeadingDimension);
+        return;
+    }
+    if flag <= 0 {
+        state.failure = Some(ExpertCallbackFailure::UnexpectedFlag);
+        return;
+    }
+    let Some(matrix_len) = native_ld.checked_mul(native_n) else {
+        state.failure = Some(ExpertCallbackFailure::InvalidLeadingDimension);
+        return;
+    };
+    if x.is_null()
+        || fvec.is_null()
+        || fjac.is_null()
+        || ranges_overlap(x, fvec, native_n)
+        || ranges_overlap_with_lengths(x, native_n, fjac.cast_const(), matrix_len)
+        || ranges_overlap_with_lengths(fvec, native_n, fjac.cast_const(), matrix_len)
+    {
+        state.failure = Some(ExpertCallbackFailure::InvalidPointer);
+        return;
+    }
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    let residual = unsafe { core::slice::from_raw_parts(fvec, native_n) };
+    let matrix = unsafe { core::slice::from_raw_parts_mut(fjac, matrix_len) };
+    for column in 0..native_n {
+        for row in 0..native_n {
+            matrix[row + column * native_ld] = f32::NAN;
+        }
+    }
+    state.jacobian_evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| {
+        (state.jacobian)(input, residual, matrix, native_ld);
+    })) {
+        Ok(()) => {
+            for column in 0..native_n {
+                for row in 0..native_n {
+                    if !matrix[row + column * native_ld].is_finite() {
+                        state.failure =
+                            Some(ExpertCallbackFailure::JacobianNonFinite { row, column });
+                        matrix.fill(0.0);
+                        return;
+                    }
+                }
+            }
+        }
+        Err(_) => {
+            state.failure = Some(ExpertCallbackFailure::JacobianPanicked);
+            matrix.fill(0.0);
+        }
+    }
+}
+
 unsafe extern "C" fn trampoline_vector_f64(
     n: *const slatec_sys::FortranInteger,
     x: *const f64,
@@ -416,6 +832,67 @@ unsafe extern "C" fn trampoline_vector_f32(
         if let Some(slot) = slot.get() {
             // Safety: see trampoline_vector_f64.
             unsafe { (slot.invoke)(slot.data, n, x, fvec, iflag) };
+        }
+    });
+}
+
+unsafe extern "C" fn trampoline_expert_residual_f64(
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *mut f64,
+    iflag: *mut slatec_sys::FortranInteger,
+) {
+    ACTIVE_EXPERT_F64.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: the matching expert slot is installed only for the
+            // lexical native call that owns its state.
+            unsafe { (slot.residual)(slot.data, n, x, fvec, iflag) };
+        }
+    });
+}
+
+unsafe extern "C" fn trampoline_expert_jacobian_f64(
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *const f64,
+    fjac: *mut f64,
+    ldfjac: *const slatec_sys::FortranInteger,
+    iflag: *mut slatec_sys::FortranInteger,
+) {
+    ACTIVE_EXPERT_F64.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: see trampoline_expert_residual_f64.
+            unsafe { (slot.jacobian)(slot.data, n, x, fvec, fjac, ldfjac, iflag) };
+        }
+    });
+}
+
+unsafe extern "C" fn trampoline_expert_residual_f32(
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *mut f32,
+    iflag: *mut slatec_sys::FortranInteger,
+) {
+    ACTIVE_EXPERT_F32.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: equivalent to the f64 expert trampoline.
+            unsafe { (slot.residual)(slot.data, n, x, fvec, iflag) };
+        }
+    });
+}
+
+unsafe extern "C" fn trampoline_expert_jacobian_f32(
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *const f32,
+    fjac: *mut f32,
+    ldfjac: *const slatec_sys::FortranInteger,
+    iflag: *mut slatec_sys::FortranInteger,
+) {
+    ACTIVE_EXPERT_F32.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: equivalent to the f64 expert trampoline.
+            unsafe { (slot.jacobian)(slot.data, n, x, fvec, fjac, ldfjac, iflag) };
         }
     });
 }
@@ -488,6 +965,40 @@ pub(crate) struct VectorF32Callback {
 impl VectorF32Callback {
     pub(crate) const fn ffi(self) -> VectorFnF32 {
         self.callback
+    }
+}
+
+/// Scoped callback pair for the reviewed double-precision `DNSQ` ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct ExpertF64Callbacks {
+    residual: VectorFnF64,
+    jacobian: JacobianFnF64,
+}
+
+impl ExpertF64Callbacks {
+    pub(crate) const fn residual(self) -> VectorFnF64 {
+        self.residual
+    }
+
+    pub(crate) const fn jacobian(self) -> JacobianFnF64 {
+        self.jacobian
+    }
+}
+
+/// Scoped callback pair for the reviewed single-precision `SNSQ` ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct ExpertF32Callbacks {
+    residual: VectorFnF32,
+    jacobian: JacobianFnF32,
+}
+
+impl ExpertF32Callbacks {
+    pub(crate) const fn residual(self) -> VectorFnF32 {
+        self.residual
+    }
+
+    pub(crate) const fn jacobian(self) -> JacobianFnF32 {
+        self.jacobian
     }
 }
 
@@ -647,11 +1158,103 @@ where
     })
 }
 
+pub(crate) fn with_expert_f64<F, J, R>(
+    dimension: usize,
+    residual: F,
+    jacobian: J,
+    native_call: impl FnOnce(ExpertF64Callbacks) -> R,
+) -> Result<ExpertCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f64], &mut [f64]),
+    J: FnMut(&[f64], &[f64], &mut [f64], usize),
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(ExpertCallbackState {
+        residual,
+        jacobian,
+        dimension,
+        failure: None,
+        residual_evaluations: 0,
+        jacobian_evaluations: 0,
+    });
+    let data = (&mut *state as *mut ExpertCallbackState<F, J>).cast();
+    ACTIVE_EXPERT_F64.with(|slot| {
+        slot.set(Some(ExpertSlotF64 {
+            data,
+            residual: invoke_expert_residual_f64::<F, J>,
+            jacobian: invoke_expert_jacobian_f64::<F, J>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::ExpertF64,
+    };
+    let value = native_call(ExpertF64Callbacks {
+        residual: trampoline_expert_residual_f64,
+        jacobian: trampoline_expert_jacobian_f64,
+    });
+    drop(slot_guard);
+    Ok(ExpertCallbackInvocation {
+        value,
+        failure: state.failure,
+        residual_evaluations: state.residual_evaluations,
+        jacobian_evaluations: state.jacobian_evaluations,
+    })
+}
+
+pub(crate) fn with_expert_f32<F, J, R>(
+    dimension: usize,
+    residual: F,
+    jacobian: J,
+    native_call: impl FnOnce(ExpertF32Callbacks) -> R,
+) -> Result<ExpertCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f32], &mut [f32]),
+    J: FnMut(&[f32], &[f32], &mut [f32], usize),
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(ExpertCallbackState {
+        residual,
+        jacobian,
+        dimension,
+        failure: None,
+        residual_evaluations: 0,
+        jacobian_evaluations: 0,
+    });
+    let data = (&mut *state as *mut ExpertCallbackState<F, J>).cast();
+    ACTIVE_EXPERT_F32.with(|slot| {
+        slot.set(Some(ExpertSlotF32 {
+            data,
+            residual: invoke_expert_residual_f32::<F, J>,
+            jacobian: invoke_expert_jacobian_f32::<F, J>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::ExpertF32,
+    };
+    let value = native_call(ExpertF32Callbacks {
+        residual: trampoline_expert_residual_f32,
+        jacobian: trampoline_expert_jacobian_f32,
+    });
+    drop(slot_guard);
+    Ok(ExpertCallbackInvocation {
+        value,
+        failure: state.failure,
+        residual_evaluations: state.residual_evaluations,
+        jacobian_evaluations: state.jacobian_evaluations,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::{
-        CallbackFailure, CallbackRuntimeError, VectorCallbackFailure, with_f32, with_f64,
-        with_vector_f64,
+        CallbackFailure, CallbackRuntimeError, ExpertCallbackFailure, VectorCallbackFailure,
+        with_expert_f64, with_f32, with_f64, with_vector_f64,
     };
 
     #[test]
@@ -776,5 +1379,54 @@ mod tests {
             },
         )
         .unwrap();
+    }
+
+    #[test]
+    fn expert_callback_roles_validate_dimensions_and_leading_dimensions() {
+        let invocation = with_expert_f64(
+            1,
+            |_, residual| residual[0] = 0.0,
+            |_, _, matrix, _| matrix[0] = 1.0,
+            |callbacks| unsafe {
+                let n = 2;
+                let x = [1.0, 2.0];
+                let mut residual = [0.0, 0.0];
+                let mut iflag = 1;
+                (callbacks.residual())(&n, x.as_ptr(), residual.as_mut_ptr(), &mut iflag);
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            invocation.failure,
+            Some(ExpertCallbackFailure::DimensionMismatch)
+        );
+
+        let invocation = with_expert_f64(
+            1,
+            |_, residual| residual[0] = 0.0,
+            |_, _, matrix, _| matrix[0] = 1.0,
+            |callbacks| unsafe {
+                let n = 1;
+                let ldfjac = 0;
+                let x = [1.0];
+                let residual = [0.0];
+                let mut matrix = [0.0];
+                let mut iflag = 1;
+                (callbacks.jacobian())(
+                    &n,
+                    x.as_ptr(),
+                    residual.as_ptr(),
+                    matrix.as_mut_ptr(),
+                    &ldfjac,
+                    &mut iflag,
+                );
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            invocation.failure,
+            Some(ExpertCallbackFailure::InvalidLeadingDimension)
+        );
+        assert!(!super::is_active());
     }
 }

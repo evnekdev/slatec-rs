@@ -239,6 +239,8 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         ("dqawo_", "DQAWO"),
         ("dfzero_", "DFZERO"),
         ("dnsqe_", "DNSQE"),
+        ("dnsq_", "DNSQ"),
+        ("dckder_", "DCKDER"),
     ]
     .into_iter()
     .map(|(symbol, name)| {
@@ -369,6 +371,12 @@ fn family_for(path: &str, routine: &str) -> String {
         return "quadrature-basic".to_owned();
     }
     if path.contains("::nonlinear::") {
+        if path.contains("check_jacobian") {
+            return "nonlinear-jacobian-check".to_owned();
+        }
+        if path.contains("solve_system_expert") || path.contains("solve_system_with_jacobian") {
+            return "nonlinear-expert".to_owned();
+        }
         return "nonlinear-easy".to_owned();
     }
     if path.contains("::roots::") {
@@ -482,11 +490,18 @@ fn inspect_examples(
         ),
         ("link_roots_scalar", "roots-scalar", "dfzero_"),
         ("link_nonlinear_easy", "nonlinear-easy", "dnsqe_"),
+        ("link_nonlinear_expert", "nonlinear-expert", "dnsq_"),
+        ("link_nonlinear_analytic", "nonlinear-expert", "dnsq_"),
+        (
+            "link_nonlinear_jacobian_check",
+            "nonlinear-jacobian-check",
+            "dckder_",
+        ),
         ("link_complete_safe_api", "full", "dgamma_"),
     ];
     let family_roots = [
         "dlnrel_", "dgamma_", "dai_", "dbesj0_", "ddot_", "dgemm_", "dqag_", "dqawo_", "dfzero_",
-        "dnsqe_",
+        "dnsqe_", "dnsq_", "dckder_",
     ];
     let mut output = Vec::new();
     for (example, feature, required) in specifications {
@@ -656,6 +671,14 @@ mod tests {
             family_for("slatec::nonlinear::solve_system", "DNSQE"),
             "nonlinear-easy"
         );
+        assert_eq!(
+            family_for("slatec::nonlinear::solve_system_expert", "DNSQ"),
+            "nonlinear-expert"
+        );
+        assert_eq!(
+            family_for("slatec::nonlinear::check_jacobian", "DCKDER"),
+            "nonlinear-jacobian-check"
+        );
     }
 
     #[test]
@@ -667,7 +690,7 @@ mod tests {
         )
         .expect("valid closure audit");
         let records = report["records"].as_array().expect("audit records");
-        assert_eq!(records.len(), 20);
+        assert_eq!(records.len(), 22);
         assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }

@@ -29,6 +29,8 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("ROOTS_SCALAR", "roots-scalar"),
     ("ROOTS_POLYNOMIAL", "roots-polynomial"),
     ("NONLINEAR_EASY", "nonlinear-easy"),
+    ("NONLINEAR_EXPERT", "nonlinear-expert"),
+    ("NONLINEAR_JACOBIAN_CHECK", "nonlinear-jacobian-check"),
 ];
 
 #[derive(Deserialize)]

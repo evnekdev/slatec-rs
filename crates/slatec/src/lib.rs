@@ -18,6 +18,8 @@ extern crate std;
 
 #[cfg(all(feature = "nonlinear-easy", not(feature = "std")))]
 compile_error!("the `nonlinear-easy` safe API requires the `std` feature");
+#[cfg(all(feature = "nonlinear-expert", not(feature = "std")))]
+compile_error!("the `nonlinear-expert` safe API requires the `std` feature");
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -64,7 +66,8 @@ pub mod polynomials;
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
     feature = "roots-scalar",
-    feature = "nonlinear-easy"
+    feature = "nonlinear-easy",
+    feature = "nonlinear-expert"
 ))]
 pub(crate) mod runtime;
 
@@ -76,7 +79,8 @@ pub(crate) mod runtime;
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
     feature = "roots-scalar",
-    feature = "nonlinear-easy"
+    feature = "nonlinear-easy",
+    feature = "nonlinear-expert"
 ))]
 mod callback_runtime;
 
@@ -95,7 +99,11 @@ pub mod quadrature;
 #[cfg(feature = "roots-scalar")]
 pub mod roots;
 
-/// Safe finite-difference nonlinear-system drivers over original SLATEC
-/// `SNSQE` and `DNSQE` implementations.
-#[cfg(feature = "nonlinear-easy")]
+/// Safe nonlinear-system solvers and Jacobian checks over original SLATEC
+/// `SNSQE`, `DNSQE`, `SNSQ`, `DNSQ`, `CHKDER`, and `DCKDER` implementations.
+#[cfg(any(
+    feature = "nonlinear-easy",
+    feature = "nonlinear-expert",
+    feature = "nonlinear-jacobian-check"
+))]
 pub mod nonlinear;

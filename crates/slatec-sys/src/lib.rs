@@ -82,11 +82,16 @@ pub mod quadrature;
 #[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 pub mod roots;
 
-/// Hand-reviewed vector-callback declarations for the finite-difference
-/// SLATEC nonlinear easy drivers.
+/// Hand-reviewed nonlinear callback and Jacobian-check declarations.
 ///
-/// Only `SNSQE` and `DNSQE` are exposed here. They are specific to the
-/// validated GNU MinGW ABI profile and remain unsafe because the caller owns
-/// callback lifetime, vector storage, workspace, and runtime serialization.
-#[cfg(any(feature = "raw-ffi-nonlinear", feature = "raw-family-nonlinear-easy"))]
+/// This narrow module exposes `SNSQE`, `DNSQE`, `SNSQ`, `DNSQ`, `CHKDER`, and
+/// `DCKDER` for the validated GNU MinGW ABI profile. The declarations remain
+/// unsafe because the caller owns callback lifetime, vector and matrix
+/// storage, workspace, and runtime serialization.
+#[cfg(any(
+    feature = "raw-ffi-nonlinear",
+    feature = "raw-family-nonlinear-easy",
+    feature = "raw-family-nonlinear-expert",
+    feature = "raw-family-nonlinear-jacobian-check"
+))]
 pub mod nonlinear;

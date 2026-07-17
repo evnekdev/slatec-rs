@@ -272,6 +272,41 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/nonlinear-expert-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            let mode = column(row, columns, "jacobian_policy")?;
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "nonlinear",
+                column(row, columns, "precision")?,
+                if mode == "finite_difference" {
+                    "expert finite-difference nonlinear system"
+                } else {
+                    "expert analytic-Jacobian nonlinear system"
+                },
+                "std",
+                "nonlinear-expert",
+            ))
+        },
+    )?;
+    collect_columnar(
+        "generated/safe-api/nonlinear-jacobian-check-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "nonlinear",
+                column(row, columns, "precision")?,
+                "Jacobian consistency checking",
+                "alloc",
+                "nonlinear-jacobian-check",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -353,6 +388,15 @@ fn record(
         ),
         "quadrature" => "examples/quadrature/families.rs".to_owned(),
         "roots" => "examples/roots/scalar.rs".to_owned(),
+        "nonlinear" if path.contains("check_jacobian") => {
+            "examples/nonlinear/check_jacobian.rs".to_owned()
+        }
+        "nonlinear" if path.contains("with_jacobian") => {
+            "examples/nonlinear/solve_system_with_jacobian.rs".to_owned()
+        }
+        "nonlinear" if path.contains("solve_system_expert") => {
+            "examples/nonlinear/solve_system_expert.rs".to_owned()
+        }
         "nonlinear" if precision == "f32" => "examples/nonlinear/solve_system_f32.rs".to_owned(),
         "nonlinear" => "examples/nonlinear/solve_system.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
@@ -435,21 +479,50 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let upper = name.to_ascii_uppercase();
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
-        "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA",
+        "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
+        "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "ERR",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
-    let internal_argument =
-        internal.contains(&upper.as_str()) && !(function.domain == "nonlinear" && upper == "INFO");
+    let analytic_jacobian = function.rust_path.contains("with_jacobian");
+    let jacobian_check = function.rust_path.contains("check_jacobian");
+    let internal_argument = (internal.contains(&upper.as_str())
+        || (jacobian_check && upper == "FVEC"))
+        && !(function.domain == "nonlinear" && upper == "INFO")
+        && !(analytic_jacobian && upper == "JAC")
+        && !(jacobian_check && matches!(upper.as_str(), "FJAC" | "ERR"));
     let rust = if internal_argument || inferred {
         None
     } else {
         Some(match upper.as_str() {
             "F" | "FCN" => "function".to_owned(),
+            "M" if jacobian_check => "point.len".to_owned(),
+            "N" if jacobian_check => "point.len".to_owned(),
             "N" if function.domain == "nonlinear" => "initial.len".to_owned(),
+            "X" if jacobian_check => "point".to_owned(),
             "X" if function.domain == "nonlinear" => "initial".to_owned(),
             "FVEC" if function.domain == "nonlinear" => "result.residual".to_owned(),
+            "JAC" if analytic_jacobian => "jacobian".to_owned(),
+            "FJAC" if jacobian_check => "jacobian".to_owned(),
+            "ERR" if jacobian_check => "result.scores".to_owned(),
             "TOL" if function.domain == "nonlinear" => "options.tolerance".to_owned(),
+            "XTOL" if function.domain == "nonlinear" => "options.tolerance".to_owned(),
+            "MAXFEV" if function.domain == "nonlinear" => {
+                "options.maximum_function_evaluations".to_owned()
+            }
+            "ML" if function.domain == "nonlinear" => {
+                "options.jacobian_structure.lower_bandwidth".to_owned()
+            }
+            "MU" if function.domain == "nonlinear" => {
+                "options.jacobian_structure.upper_bandwidth".to_owned()
+            }
+            "EPSFCN" if function.domain == "nonlinear" => {
+                "options.finite_difference_step".to_owned()
+            }
+            "DIAG" if function.domain == "nonlinear" => "options.scaling".to_owned(),
+            "FACTOR" if function.domain == "nonlinear" => "options.step_bound_factor".to_owned(),
+            "NFEV" if function.domain == "nonlinear" => "result.function_evaluations".to_owned(),
+            "NJEV" if function.domain == "nonlinear" => "result.jacobian_evaluations".to_owned(),
             "INFO" if function.domain == "nonlinear" => "result.status".to_owned(),
             "EPSABS" => "options.absolute_tolerance".to_owned(),
             "EPSREL" | "RE" => "options.relative_tolerance".to_owned(),
@@ -462,7 +535,10 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             _ => name.to_ascii_lowercase(),
         })
     };
-    let callback_argument = upper == "F" || (function.domain == "nonlinear" && upper == "FCN");
+    let callback_argument = upper == "F"
+        || (function.domain == "nonlinear" && upper == "FCN")
+        || (analytic_jacobian && upper == "JAC")
+        || (jacobian_check && upper == "FJAC");
     ArgumentMap {
         rust,
         fortran: upper,
@@ -527,7 +603,11 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
     for item in functions.iter().filter(|item| item.capability == "core") {
         text.push_str(&format!("- `{}`\n", item.rust_path));
     }
-    text.push_str("\n### Requires `alloc`\n\nNo current public function requires `alloc` without also requiring `std`. The feature is an explicit capability layer for future caller-independent allocation APIs.\n\n### Requires `std`\n\n");
+    text.push_str("\n### Requires `alloc`\n\n");
+    for item in functions.iter().filter(|item| item.capability == "alloc") {
+        text.push_str(&format!("- `{}`\n", item.rust_path));
+    }
+    text.push_str("\n### Requires `std`\n\n");
     for item in functions.iter().filter(|item| item.capability == "std") {
         text.push_str(&format!("- `{}`\n", item.rust_path));
     }
@@ -576,6 +656,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "BLAS" => "crates/slatec/tests/blas_level23_native.rs",
         "quadrature" => "crates/slatec/tests/quadrature_native.rs",
         "roots" => "crates/slatec/tests/roots_native.rs",
+        "nonlinear" if function.feature != "nonlinear-easy" => {
+            "crates/slatec/tests/nonlinear_expert_native.rs"
+        }
         "nonlinear" => "crates/slatec/tests/nonlinear_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
@@ -588,6 +671,12 @@ fn source_has_doctest(path: &str) -> bool {
         "slatec::blas::level1::daxpy"
             | "slatec::nonlinear::solve_system"
             | "slatec::nonlinear::solve_system_f32"
+            | "slatec::nonlinear::solve_system_expert"
+            | "slatec::nonlinear::solve_system_expert_f32"
+            | "slatec::nonlinear::solve_system_with_jacobian"
+            | "slatec::nonlinear::solve_system_with_jacobian_f32"
+            | "slatec::nonlinear::check_jacobian"
+            | "slatec::nonlinear::check_jacobian_f32"
     )
 }
 
@@ -623,6 +712,13 @@ fn purpose(family: &str) -> &'static str {
         "syrk" => "symmetric rank-k update",
         "bracketed scalar root" => "bracketed scalar root finding",
         "finite-difference nonlinear system" => "finite-difference nonlinear-system solving",
+        "expert finite-difference nonlinear system" => {
+            "expert finite-difference nonlinear-system solving"
+        }
+        "expert analytic-Jacobian nonlinear system" => {
+            "expert analytic-Jacobian nonlinear-system solving"
+        }
+        "Jacobian consistency checking" => "componentwise Jacobian consistency checking",
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",
