@@ -38,6 +38,7 @@ raw-ffi-roots = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-nonlinear = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-least-squares = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-linear-least-squares = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-ode = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-callbacks = []
 raw-ffi-infrastructure = []
 
@@ -72,6 +73,7 @@ raw-family-least-squares-linear-nonnegative = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-linear-bounded = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-linear-constrained = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-least-squares-linear-bounded-constrained = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-ode-sdrive-expert = ["ffi-profile-gnu-mingw-x86_64"]
 
 # Public family aliases mirror slatec and slatec-src. They remain narrow: the
 # reviewed least-squares declarations do not enable the broad callback batch.
@@ -88,5 +90,7 @@ least-squares-linear-nonnegative = ["raw-family-least-squares-linear-nonnegative
 least-squares-linear-bounded = ["raw-family-least-squares-linear-bounded"]
 least-squares-linear-constrained = ["raw-family-least-squares-linear-constrained"]
 least-squares-linear-bounded-constrained = ["raw-family-least-squares-linear-bounded-constrained"]
+ode = ["ode-sdrive-expert"]
+ode-sdrive-expert = ["raw-family-ode-sdrive-expert"]
 
 [build-dependencies]

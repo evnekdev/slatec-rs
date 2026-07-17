@@ -92,6 +92,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::nonlinear::solve_system_f32` | `SNSQE` | nonlinear | f32 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system_f32.rs) |
 | `slatec::nonlinear::solve_system_with_jacobian` | `DNSQ` | nonlinear | f64 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
 | `slatec::nonlinear::solve_system_with_jacobian_f32` | `SNSQ` | nonlinear | f32 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
+| `slatec::ode::OdeSession::<f32, F, E>::integrate_to` | `SDRIV3` | ordinary differential equations | f32 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/harmonic_oscillator.rs) |
+| `slatec::ode::OdeSession::<f64, F, E>::integrate_to` | `DDRIV3` | ordinary differential equations | f64 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/exponential_decay.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series` | `DCSEVL` | polynomials | f64 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series_f32` | `CSEVL` | polynomials | f32 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::quadrature::integrate` | `DQAG` | quadrature | f64 | adaptive finite-interval integration | `std` | `quadrature-basic` | [finite](../../examples/quadrature/families.rs) |
@@ -259,6 +261,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DDAWS` -> `slatec::special::elementary::dawson`
 - `DDOT` -> `slatec::blas::level1::ddot`
 - `DDOT` -> `slatec::blas::level1::ddot_strided`
+- `DDRIV3` -> `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
 - `DE1` -> `slatec::special::integrals::exponential_integral_e1`
 - `DEI` -> `slatec::special::integrals::exponential_integral_ei`
 - `DERF` -> `slatec::special::error_functions::erf`
@@ -354,6 +357,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SCOV` -> `slatec::least_squares::estimate_covariance_finite_difference_f32`
 - `SDOT` -> `slatec::blas::level1::sdot`
 - `SDOT` -> `slatec::blas::level1::sdot_strided`
+- `SDRIV3` -> `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
 - `SGEMM` -> `slatec::blas::level3::sgemm`
 - `SGEMM` -> `slatec::blas::level3::sgemm_contiguous`
 - `SGEMV` -> `slatec::blas::level2::sgemv`
@@ -594,6 +598,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::linear_least_squares::solve_nonnegative_least_squares` — equality-constrained nonnegative linear least-squares fitting
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` — equality-constrained nonnegative linear least-squares fitting
 
+### ordinary differential equations
+
+- `slatec::ode::OdeSession::<f32, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
+- `slatec::ode::OdeSession::<f64, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
+
 ## Capability index
 
 ### Core only
@@ -690,6 +699,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::nonlinear::solve_system_f32`
 - `slatec::nonlinear::solve_system_with_jacobian`
 - `slatec::nonlinear::solve_system_with_jacobian_f32`
+- `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
+- `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
 - `slatec::polynomials::chebyshev::chebyshev_series`
 - `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `slatec::quadrature::integrate`

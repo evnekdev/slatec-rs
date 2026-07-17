@@ -96,6 +96,11 @@ pub mod roots;
 ))]
 pub mod nonlinear;
 
+/// Hand-reviewed `SDRIV3`/`DDRIV3` declarations for the safe RHS-only ODE
+/// session feature.
+#[cfg(any(feature = "raw-ffi-ode", feature = "raw-family-ode-sdrive-expert"))]
+pub mod ode;
+
 /// Hand-reviewed declarations for nonlinear least-squares easy and expert
 /// drivers.
 ///
@@ -127,19 +132,20 @@ pub mod least_squares;
 ))]
 pub mod linear_least_squares;
 
-/// Minimal internal-facing legacy-error controls required by the reviewed
-/// nonlinear least-squares easy drivers.
+/// Minimal internal-facing legacy-error controls required by reviewed native
+/// families with recoverable status messages.
 ///
-/// `DNLS1` and `SNLS1` report several meaningful completion states through
-/// level-one `XERMSG` calls. Safe wrappers use these declarations privately to
-/// make those documented recoverable messages return as `INFO` statuses while
-/// preserving and restoring the process-global control flag.
+/// `DNLS1`/`SNLS1` and `SDRIV3`/`DDRIV3` report selected meaningful completion
+/// states through `XERMSG`. Safe wrappers use these declarations privately to
+/// make documented recoverable messages return through their native status
+/// values while preserving and restoring the process-global control flag.
 #[cfg(any(
     feature = "raw-family-least-squares-nonlinear-easy",
     feature = "raw-family-least-squares-nonlinear-expert",
     feature = "raw-family-least-squares-covariance",
     feature = "raw-family-least-squares-linear-bounded",
     feature = "raw-family-least-squares-linear-constrained",
-    feature = "raw-family-least-squares-linear-bounded-constrained"
+    feature = "raw-family-least-squares-linear-bounded-constrained",
+    feature = "raw-family-ode-sdrive-expert"
 ))]
 pub mod legacy_error;

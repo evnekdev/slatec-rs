@@ -1,0 +1,1 @@
+{"columns":["rust_input","native_control","weight"],"records":[["relative","EPS","scalar_relative_accuracy"],["OdeTolerance::Scalar","IERROR=3; EWT(1)","max(abs(Y(i)),EWT(1))"],["OdeTolerance::Vector","IERROR=4; EWT(i)","max(abs(Y(i)),EWT(i))"]],"schema_id":"slatec.safe-ode-sdrive.tolerance-map","schema_version":"1.0.0","snapshot_id":"complete-slatec-05078ebcb649b50e4435"}

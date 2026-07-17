@@ -23,4 +23,9 @@ inequalities, or linear programming.
 and therefore is neither a generic combination of the other drivers nor a
 linear-programming interface.
 
+The hosted `ode-sdrive-expert` feature provides owned real explicit-IVP
+sessions over original `SDRIV3`/`DDRIV3`. Its first scope has only a
+panic-contained RHS callback and same-direction continuation; event roots,
+Jacobians, mass matrices, DAEs, and interpolation are deliberately deferred.
+
 Native implementations are selected explicitly with `prebuilt`, `source-build`, `system`, or `external-backend`. No redistributable prebuilt provider is currently available because historical source rights remain unresolved.

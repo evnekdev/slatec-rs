@@ -865,6 +865,26 @@
     },
     {
       "doctest_present": false,
+      "example_case": "explicit real initial-value problem y'=f(t,y)",
+      "example_file": "examples/ode/harmonic_oscillator.rs",
+      "fortran_routine": "SDRIV3",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::ode::OdeSession::<f32, F, E>::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/ode_sdrive_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "explicit real initial-value problem y'=f(t,y)",
+      "example_file": "examples/ode/exponential_decay.rs",
+      "fortran_routine": "DDRIV3",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::ode::OdeSession::<f64, F, E>::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/ode_sdrive_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "polynomials",
       "example_file": "examples/special/functions.rs",
       "fortran_routine": "DCSEVL",
