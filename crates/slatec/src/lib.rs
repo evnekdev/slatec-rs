@@ -16,6 +16,9 @@ extern crate alloc;
 #[cfg(feature = "std")]
 extern crate std;
 
+#[cfg(all(feature = "nonlinear-easy", not(feature = "std")))]
+compile_error!("the `nonlinear-easy` safe API requires the `std` feature");
+
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
 #[used]
@@ -60,7 +63,8 @@ pub mod polynomials;
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
-    feature = "roots-scalar"
+    feature = "roots-scalar",
+    feature = "nonlinear-easy"
 ))]
 pub(crate) mod runtime;
 
@@ -71,7 +75,8 @@ pub(crate) mod runtime;
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
-    feature = "roots-scalar"
+    feature = "roots-scalar",
+    feature = "nonlinear-easy"
 ))]
 mod callback_runtime;
 
@@ -89,3 +94,8 @@ pub mod quadrature;
 /// Safe bracketed scalar-root adapters over the original FZERO routines.
 #[cfg(feature = "roots-scalar")]
 pub mod roots;
+
+/// Safe finite-difference nonlinear-system drivers over original SLATEC
+/// `SNSQE` and `DNSQE` implementations.
+#[cfg(feature = "nonlinear-easy")]
+pub mod nonlinear;

@@ -28,6 +28,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("QUADRATURE_NONADAPTIVE", "quadrature-nonadaptive"),
     ("ROOTS_SCALAR", "roots-scalar"),
     ("ROOTS_POLYNOMIAL", "roots-polynomial"),
+    ("NONLINEAR_EASY", "nonlinear-easy"),
 ];
 
 #[derive(Deserialize)]

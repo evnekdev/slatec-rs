@@ -2380,6 +2380,130 @@
       ]
     },
     {
+      "rust_path": "slatec::nonlinear::solve_system",
+      "fortran_routine": "DNSQE",
+      "program_unit_id": "full-provider-8bc6c085f4ef6b2e",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "JAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residual",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.tolerance",
+          "fortran": "TOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LWA",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::nonlinear::solve_system_f32",
+      "fortran_routine": "SNSQE",
+      "program_unit_id": "full-provider-d0c1c0ccc14378e0",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "JAC",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residual",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.tolerance",
+          "fortran": "TOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LWA",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::polynomials::chebyshev::chebyshev_series",
       "fortran_routine": "DCSEVL",
       "program_unit_id": "full-provider-b31575014b5cbefd",
@@ -2429,7 +2553,7 @@
       "program_unit_id": "full-provider-bb00e82d370ce4a5",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -2511,7 +2635,7 @@
       "program_unit_id": "full-provider-778eb646a2ea45de",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -2593,7 +2717,7 @@
       "program_unit_id": "full-provider-ae96ffe73b014795",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -2680,7 +2804,7 @@
       "program_unit_id": "full-provider-cf420411ec9fab98",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -2767,7 +2891,7 @@
       "program_unit_id": "full-provider-00476038a2ba13aa",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -2844,7 +2968,7 @@
       "program_unit_id": "full-provider-0186fd93f19c0ca2",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3005,7 +3129,7 @@
       "program_unit_id": "full-provider-644be9029552bc1e",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3057,7 +3181,7 @@
       "program_unit_id": "full-provider-aa32f4d7fb48d2d0",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3109,7 +3233,7 @@
       "program_unit_id": "full-provider-c6cd31e4272e104d",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3201,7 +3325,7 @@
       "program_unit_id": "full-provider-188e5c4b5b5bb375",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3293,7 +3417,7 @@
       "program_unit_id": "full-provider-66c69d5929af3cb2",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3375,7 +3499,7 @@
       "program_unit_id": "full-provider-14b421ee32c587ff",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3457,7 +3581,7 @@
       "program_unit_id": "full-provider-fe673f43662d7268",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3534,7 +3658,7 @@
       "program_unit_id": "full-provider-b206aefffc756c9b",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3611,7 +3735,7 @@
       "program_unit_id": "full-provider-3d8f7bf15ce6af77",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3703,7 +3827,7 @@
       "program_unit_id": "full-provider-4393b9d70eefad09",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3795,7 +3919,7 @@
       "program_unit_id": "full-provider-cdc3af219bc31730",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },
@@ -3882,7 +4006,7 @@
       "program_unit_id": "full-provider-f41b46c628bad538",
       "arguments": [
         {
-          "rust": "f",
+          "rust": "function",
           "fortran": "F",
           "transformation": "Rust closure through the contained callback trampoline"
         },

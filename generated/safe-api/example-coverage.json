@@ -584,6 +584,26 @@
       "validation_file": "crates/slatec/tests/blas_level23_native.rs"
     },
     {
+      "doctest_present": true,
+      "example_case": "finite-difference nonlinear system",
+      "example_file": "examples/nonlinear/solve_system.rs",
+      "fortran_routine": "DNSQE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::nonlinear::solve_system",
+      "validation_case": "solve_system",
+      "validation_file": "crates/slatec/tests/nonlinear_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "finite-difference nonlinear system",
+      "example_file": "examples/nonlinear/solve_system_f32.rs",
+      "fortran_routine": "SNSQE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::nonlinear::solve_system_f32",
+      "validation_case": "solve_system_f32",
+      "validation_file": "crates/slatec/tests/nonlinear_native.rs"
+    },
+    {
       "doctest_present": false,
       "example_case": "polynomials",
       "example_file": "examples/special/functions.rs",

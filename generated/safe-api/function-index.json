@@ -874,6 +874,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::nonlinear::solve_system",
+      "fortran_routine": "DNSQE",
+      "module": "slatec::nonlinear",
+      "domain": "nonlinear",
+      "precision": "f64",
+      "purpose": "finite-difference nonlinear-system solving",
+      "capability": "std",
+      "feature": "nonlinear-easy",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/nonlinear/fn.solve_system.html",
+      "example_file": "examples/nonlinear/solve_system.rs",
+      "example_case": "finite-difference nonlinear system",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::nonlinear::solve_system_f32",
+      "fortran_routine": "SNSQE",
+      "module": "slatec::nonlinear",
+      "domain": "nonlinear",
+      "precision": "f32",
+      "purpose": "finite-difference nonlinear-system solving",
+      "capability": "std",
+      "feature": "nonlinear-easy",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/nonlinear/fn.solve_system_f32.html",
+      "example_file": "examples/nonlinear/solve_system_f32.rs",
+      "example_case": "finite-difference nonlinear system",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::polynomials::chebyshev::chebyshev_series",
       "fortran_routine": "DCSEVL",
       "module": "slatec::polynomials::chebyshev",

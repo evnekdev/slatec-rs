@@ -1,7 +1,7 @@
 # slatec-rs
 
 Safe APIs are selected by coherent family features such as `blas-level1`,
-`special-gamma`, `quadrature-basic`, and `roots-scalar`. Numerical families
+`special-gamma`, `quadrature-basic`, `roots-scalar`, and `nonlinear-easy`. Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
 historical source rights remain unresolved. `source-build` is offline-only and
@@ -69,8 +69,11 @@ panic-containment, concurrency, tolerance, and native-profile rules.
 
 The opt-in `roots` feature provides bracketed scalar root finding through the
 original `FZERO` and `DFZERO` routines. It shares the contained callback
-runtime with quadrature; polynomial and nonlinear-system routines remain
-deferred. See [`docs/api/safe-roots.md`](docs/api/safe-roots.md).
+runtime with quadrature; polynomial roots remain deferred. The opt-in
+`nonlinear-easy` feature adds finite-difference easy drivers over original
+`SNSQE` and `DNSQE` only; expert system solvers, user Jacobians, and nonlinear
+least squares remain deferred. See
+[`docs/api/safe-nonlinear-easy-drivers.md`](docs/api/safe-nonlinear-easy-drivers.md).
 
 With the complete selected evidence and GNU MinGW compiler available, run:
 
@@ -80,6 +83,6 @@ cargo run -p slatec-tools --bin slatec-corpus -- validate-runtime-profile --offl
 ```
 ## Safe API capability layers
 
-The safe crates are `no_std` by architecture. Allocation and hosted runtime services are explicit Cargo capabilities: `alloc` uses Rust's standalone allocation crate without enabling `std`, while `std` implies `alloc`. Slice-based BLAS wrappers remain allocation-free; the current special-function runtime and callback-bearing quadrature/root APIs require `std` because the validated Fortran profile uses process-global state, TLS, and panic containment.
+The safe crates are `no_std` by architecture. Allocation and hosted runtime services are explicit Cargo capabilities: `alloc` uses Rust's standalone allocation crate without enabling `std`, while `std` implies `alloc`. Slice-based BLAS wrappers remain allocation-free; the current special-function runtime and callback-bearing quadrature, root, and nonlinear easy-driver APIs require `std` because the validated Fortran profile uses process-global state, TLS, panic containment, and—in nonlinear solving—internally allocated workspace.
 
 This does **not** claim bare-metal support. The only validated native backend is GNU Fortran for `x86_64-w64-mingw32`. See [safe API capability and native support](docs/api/no-std-and-native-support.md) and the [complete safe function index](docs/api/function-index.md).
