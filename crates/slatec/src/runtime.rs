@@ -90,6 +90,42 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
     NATIVE_RUNTIME_LOCK.lock()
 }
 
+/// Temporarily makes the reviewed legacy level-one completion messages return.
+///
+/// The `DNLS1`/`SNLS1` implementation reports its INFO values 4 through 8
+/// through level-one `XERMSG` after it has written a final iterate. The easy
+/// drivers translate 8 to 4 before returning. The validated profile's default
+/// error policy terminates at level one, so least-squares wrappers apply this
+/// scope only while the process-global native runtime lock is held and restore
+/// the prior `XSETF` control value before returning to Rust.
+#[cfg(feature = "least-squares-nonlinear-easy")]
+pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorScope {
+    let mut previous = 0;
+    // SAFETY: these reviewed XERROR controls take one valid INTEGER pointer.
+    // The caller holds the shared process-global native runtime lock.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut previous) };
+    let mut nonfatal = 0;
+    // SAFETY: zero is a documented XSETF control value that suppresses the
+    // fatal branch for level-one recoverable messages; restoration is RAII.
+    unsafe { slatec_sys::legacy_error::xsetf(&mut nonfatal) };
+    RecoverableErrorScope { previous }
+}
+
+/// Restores the prior XERROR control flag after a scoped least-squares call.
+#[cfg(feature = "least-squares-nonlinear-easy")]
+pub(crate) struct RecoverableErrorScope {
+    previous: slatec_sys::FortranInteger,
+}
+
+#[cfg(feature = "least-squares-nonlinear-easy")]
+impl Drop for RecoverableErrorScope {
+    fn drop(&mut self) {
+        // SAFETY: previous came directly from XGETF while the native lock was
+        // held; XSETF accepts this documented control range by construction.
+        unsafe { slatec_sys::legacy_error::xsetf(&mut self.previous) };
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::sync::mpsc;

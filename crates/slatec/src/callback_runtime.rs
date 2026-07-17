@@ -56,6 +56,28 @@ pub(crate) type JacobianFnF32 = unsafe extern "C" fn(
     *mut slatec_sys::FortranInteger,
 );
 
+/// Reviewed GNU Fortran residual callback shape used by `DNLS1E`.
+pub(crate) type LeastSquaresFnF64 = unsafe extern "C" fn(
+    *mut slatec_sys::FortranInteger,
+    *const slatec_sys::FortranInteger,
+    *const slatec_sys::FortranInteger,
+    *const f64,
+    *mut f64,
+    *mut f64,
+    *const slatec_sys::FortranInteger,
+);
+
+/// Reviewed GNU Fortran residual callback shape used by `SNLS1E`.
+pub(crate) type LeastSquaresFnF32 = unsafe extern "C" fn(
+    *mut slatec_sys::FortranInteger,
+    *const slatec_sys::FortranInteger,
+    *const slatec_sys::FortranInteger,
+    *const f32,
+    *mut f32,
+    *mut f32,
+    *const slatec_sys::FortranInteger,
+);
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum CallbackFailure {
     Panicked,
@@ -89,6 +111,24 @@ pub(crate) enum ExpertCallbackFailure {
     UnexpectedFlag,
 }
 
+/// A contained failure from an `SNLS1E` or `DNLS1E` residual callback.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum LeastSquaresCallbackFailure {
+    /// The Rust residual closure panicked.
+    Panicked,
+    /// A residual component was NaN or infinite.
+    NonFinite {
+        /// Zero-based residual index.
+        index: usize,
+    },
+    /// A required native pointer was null or input/output regions overlap.
+    InvalidPointer,
+    /// Native `M` or `N` did not match the registered callback dimensions.
+    DimensionMismatch,
+    /// The easy-driver callback was invoked with an unsupported `IFLAG`.
+    UnexpectedFlag,
+}
+
 pub(crate) struct CallbackInvocation<R> {
     pub(crate) value: R,
     pub(crate) failure: Option<CallbackFailure>,
@@ -106,6 +146,16 @@ pub(crate) struct ExpertCallbackInvocation<R> {
     pub(crate) failure: Option<ExpertCallbackFailure>,
     pub(crate) residual_evaluations: usize,
     pub(crate) jacobian_evaluations: usize,
+}
+
+/// Result of one scoped nonlinear least-squares callback registration.
+pub(crate) struct LeastSquaresCallbackInvocation<R> {
+    /// Native-call return value.
+    pub(crate) value: R,
+    /// First contained callback failure, if any.
+    pub(crate) failure: Option<LeastSquaresCallbackFailure>,
+    /// Number of residual callback invocations.
+    pub(crate) evaluations: usize,
 }
 
 #[derive(Clone, Copy)]
@@ -186,6 +236,36 @@ struct ExpertSlotF32 {
     ),
 }
 
+#[derive(Clone, Copy)]
+struct LeastSquaresSlotF64 {
+    data: *mut (),
+    invoke: unsafe fn(
+        *mut (),
+        *mut slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const f64,
+        *mut f64,
+        *mut f64,
+        *const slatec_sys::FortranInteger,
+    ),
+}
+
+#[derive(Clone, Copy)]
+struct LeastSquaresSlotF32 {
+    data: *mut (),
+    invoke: unsafe fn(
+        *mut (),
+        *mut slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const slatec_sys::FortranInteger,
+        *const f32,
+        *mut f32,
+        *mut f32,
+        *const slatec_sys::FortranInteger,
+    ),
+}
+
 thread_local! {
     static ACTIVE_F64: Cell<Option<SlotF64>> = const { Cell::new(None) };
     static ACTIVE_F32: Cell<Option<SlotF32>> = const { Cell::new(None) };
@@ -193,6 +273,8 @@ thread_local! {
     static ACTIVE_VECTOR_F32: Cell<Option<VectorSlotF32>> = const { Cell::new(None) };
     static ACTIVE_EXPERT_F64: Cell<Option<ExpertSlotF64>> = const { Cell::new(None) };
     static ACTIVE_EXPERT_F32: Cell<Option<ExpertSlotF32>> = const { Cell::new(None) };
+    static ACTIVE_LEAST_SQUARES_F64: Cell<Option<LeastSquaresSlotF64>> = const { Cell::new(None) };
+    static ACTIVE_LEAST_SQUARES_F32: Cell<Option<LeastSquaresSlotF32>> = const { Cell::new(None) };
 }
 
 struct CallbackState<F> {
@@ -217,6 +299,14 @@ struct ExpertCallbackState<F, J> {
     jacobian_evaluations: usize,
 }
 
+struct LeastSquaresCallbackState<F> {
+    callback: F,
+    residual_count: usize,
+    parameter_count: usize,
+    failure: Option<LeastSquaresCallbackFailure>,
+    evaluations: usize,
+}
+
 struct SlotGuard {
     kind: CallbackKind,
 }
@@ -228,6 +318,8 @@ enum CallbackKind {
     VectorF64,
     ExpertF32,
     ExpertF64,
+    LeastSquaresF32,
+    LeastSquaresF64,
 }
 
 impl Drop for SlotGuard {
@@ -239,6 +331,8 @@ impl Drop for SlotGuard {
             CallbackKind::VectorF64 => ACTIVE_VECTOR_F64.with(|slot| slot.set(None)),
             CallbackKind::ExpertF32 => ACTIVE_EXPERT_F32.with(|slot| slot.set(None)),
             CallbackKind::ExpertF64 => ACTIVE_EXPERT_F64.with(|slot| slot.set(None)),
+            CallbackKind::LeastSquaresF32 => ACTIVE_LEAST_SQUARES_F32.with(|slot| slot.set(None)),
+            CallbackKind::LeastSquaresF64 => ACTIVE_LEAST_SQUARES_F64.with(|slot| slot.set(None)),
         }
     }
 }
@@ -251,6 +345,8 @@ pub(crate) fn is_active() -> bool {
         || ACTIVE_VECTOR_F32.with(|slot| slot.get().is_some())
         || ACTIVE_EXPERT_F64.with(|slot| slot.get().is_some())
         || ACTIVE_EXPERT_F32.with(|slot| slot.get().is_some())
+        || ACTIVE_LEAST_SQUARES_F64.with(|slot| slot.get().is_some())
+        || ACTIVE_LEAST_SQUARES_F32.with(|slot| slot.get().is_some())
 }
 
 unsafe fn invoke_f64<F>(data: *mut (), value: Option<f64>) -> f64
@@ -505,6 +601,178 @@ unsafe fn invoke_vector_f32<F>(
         }
         Err(_) => {
             state.failure = Some(VectorCallbackFailure::Panicked);
+            output.fill(0.0);
+        }
+    }
+}
+
+unsafe fn invoke_least_squares_f64<F>(
+    data: *mut (),
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *mut f64,
+    _fjac: *mut f64,
+    _ldfjac: *const slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f64], &mut [f64]),
+{
+    // Safety: this dispatcher is installed only by with_least_squares_f64 and
+    // the matching slot is cleared before the boxed state is dropped.
+    let state = unsafe { &mut *data.cast::<LeastSquaresCallbackState<F>>() };
+    if state.failure.is_some() {
+        // Do not invoke Rust again after a contained failure. When the native
+        // callback supplies the already-registered residual extent, preserve
+        // a finite sentinel for a finite-difference workspace callback too.
+        // An invalid pointer or dimension is never dereferenced here.
+        if let Some(length) = unsafe { m.as_ref() }
+            .copied()
+            .and_then(|value| usize::try_from(value).ok())
+            .filter(|length| *length == state.residual_count)
+        {
+            if !fvec.is_null() {
+                // SAFETY: `length` equals the registered residual count and
+                // the native callback supplied a non-null output pointer.
+                unsafe { core::slice::from_raw_parts_mut(fvec, length) }.fill(0.0);
+            }
+        }
+        return;
+    }
+    let (Some(flag), Some(native_m), Some(native_n)) = (
+        (unsafe { iflag.as_ref() }).copied(),
+        (unsafe { m.as_ref() }).copied(),
+        (unsafe { n.as_ref() }).copied(),
+    ) else {
+        state.failure = Some(LeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    };
+    let (Ok(native_m), Ok(native_n)) = (usize::try_from(native_m), usize::try_from(native_n))
+    else {
+        state.failure = Some(LeastSquaresCallbackFailure::DimensionMismatch);
+        return;
+    };
+    if flag != 1 {
+        state.failure = Some(LeastSquaresCallbackFailure::UnexpectedFlag);
+        return;
+    }
+    if native_m != state.residual_count
+        || native_n != state.parameter_count
+        || native_m == 0
+        || native_n == 0
+    {
+        state.failure = Some(LeastSquaresCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if x.is_null()
+        || fvec.is_null()
+        || ranges_overlap_with_lengths(x, native_n, fvec.cast_const(), native_m)
+    {
+        state.failure = Some(LeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    }
+    // Safety: dimensions match the registered context, both ranges are
+    // non-null, and the input and mutable residual regions do not overlap.
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    let output = unsafe { core::slice::from_raw_parts_mut(fvec, native_m) };
+    state.evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| (state.callback)(input, output))) {
+        Ok(()) => {
+            if let Some((index, _)) = output
+                .iter()
+                .enumerate()
+                .find(|(_, value)| !value.is_finite())
+            {
+                state.failure = Some(LeastSquaresCallbackFailure::NonFinite { index });
+                output.fill(0.0);
+            }
+        }
+        Err(_) => {
+            state.failure = Some(LeastSquaresCallbackFailure::Panicked);
+            output.fill(0.0);
+        }
+    }
+}
+
+unsafe fn invoke_least_squares_f32<F>(
+    data: *mut (),
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *mut f32,
+    _fjac: *mut f32,
+    _ldfjac: *const slatec_sys::FortranInteger,
+) where
+    F: FnMut(&[f32], &mut [f32]),
+{
+    // Safety: equivalent to invoke_least_squares_f64 for f32 storage.
+    let state = unsafe { &mut *data.cast::<LeastSquaresCallbackState<F>>() };
+    if state.failure.is_some() {
+        // See invoke_least_squares_f64: preserve a finite sentinel without
+        // re-entering Rust when a finite-difference workspace is requested.
+        if let Some(length) = unsafe { m.as_ref() }
+            .copied()
+            .and_then(|value| usize::try_from(value).ok())
+            .filter(|length| *length == state.residual_count)
+        {
+            if !fvec.is_null() {
+                // SAFETY: checked registered residual extent and non-null
+                // Fortran output pointer; see the f64 dispatcher.
+                unsafe { core::slice::from_raw_parts_mut(fvec, length) }.fill(0.0);
+            }
+        }
+        return;
+    }
+    let (Some(flag), Some(native_m), Some(native_n)) = (
+        (unsafe { iflag.as_ref() }).copied(),
+        (unsafe { m.as_ref() }).copied(),
+        (unsafe { n.as_ref() }).copied(),
+    ) else {
+        state.failure = Some(LeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    };
+    let (Ok(native_m), Ok(native_n)) = (usize::try_from(native_m), usize::try_from(native_n))
+    else {
+        state.failure = Some(LeastSquaresCallbackFailure::DimensionMismatch);
+        return;
+    };
+    if flag != 1 {
+        state.failure = Some(LeastSquaresCallbackFailure::UnexpectedFlag);
+        return;
+    }
+    if native_m != state.residual_count
+        || native_n != state.parameter_count
+        || native_m == 0
+        || native_n == 0
+    {
+        state.failure = Some(LeastSquaresCallbackFailure::DimensionMismatch);
+        return;
+    }
+    if x.is_null()
+        || fvec.is_null()
+        || ranges_overlap_with_lengths(x, native_n, fvec.cast_const(), native_m)
+    {
+        state.failure = Some(LeastSquaresCallbackFailure::InvalidPointer);
+        return;
+    }
+    // Safety: see invoke_least_squares_f64.
+    let input = unsafe { core::slice::from_raw_parts(x, native_n) };
+    let output = unsafe { core::slice::from_raw_parts_mut(fvec, native_m) };
+    state.evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| (state.callback)(input, output))) {
+        Ok(()) => {
+            if let Some((index, _)) = output
+                .iter()
+                .enumerate()
+                .find(|(_, value)| !value.is_finite())
+            {
+                state.failure = Some(LeastSquaresCallbackFailure::NonFinite { index });
+                output.fill(0.0);
+            }
+        }
+        Err(_) => {
+            state.failure = Some(LeastSquaresCallbackFailure::Panicked);
             output.fill(0.0);
         }
     }
@@ -836,6 +1104,41 @@ unsafe extern "C" fn trampoline_vector_f32(
     });
 }
 
+unsafe extern "C" fn trampoline_least_squares_f64(
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f64,
+    fvec: *mut f64,
+    fjac: *mut f64,
+    ldfjac: *const slatec_sys::FortranInteger,
+) {
+    ACTIVE_LEAST_SQUARES_F64.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: the scoped least-squares slot owns the matching state
+            // throughout this native callback invocation.
+            unsafe { (slot.invoke)(slot.data, iflag, m, n, x, fvec, fjac, ldfjac) };
+        }
+    });
+}
+
+unsafe extern "C" fn trampoline_least_squares_f32(
+    iflag: *mut slatec_sys::FortranInteger,
+    m: *const slatec_sys::FortranInteger,
+    n: *const slatec_sys::FortranInteger,
+    x: *const f32,
+    fvec: *mut f32,
+    fjac: *mut f32,
+    ldfjac: *const slatec_sys::FortranInteger,
+) {
+    ACTIVE_LEAST_SQUARES_F32.with(|slot| {
+        if let Some(slot) = slot.get() {
+            // Safety: equivalent to the f64 least-squares trampoline.
+            unsafe { (slot.invoke)(slot.data, iflag, m, n, x, fvec, fjac, ldfjac) };
+        }
+    });
+}
+
 unsafe extern "C" fn trampoline_expert_residual_f64(
     n: *const slatec_sys::FortranInteger,
     x: *const f64,
@@ -964,6 +1267,30 @@ pub(crate) struct VectorF32Callback {
 
 impl VectorF32Callback {
     pub(crate) const fn ffi(self) -> VectorFnF32 {
+        self.callback
+    }
+}
+
+/// Scoped callback handle for the reviewed `DNLS1E` residual ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct LeastSquaresF64Callback {
+    callback: LeastSquaresFnF64,
+}
+
+impl LeastSquaresF64Callback {
+    pub(crate) const fn ffi(self) -> LeastSquaresFnF64 {
+        self.callback
+    }
+}
+
+/// Scoped callback handle for the reviewed `SNLS1E` residual ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct LeastSquaresF32Callback {
+    callback: LeastSquaresFnF32,
+}
+
+impl LeastSquaresF32Callback {
+    pub(crate) const fn ffi(self) -> LeastSquaresFnF32 {
         self.callback
     }
 }
@@ -1158,6 +1485,88 @@ where
     })
 }
 
+pub(crate) fn with_least_squares_f64<F, R>(
+    parameter_count: usize,
+    residual_count: usize,
+    callback: F,
+    native_call: impl FnOnce(LeastSquaresF64Callback) -> R,
+) -> Result<LeastSquaresCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f64], &mut [f64]),
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(LeastSquaresCallbackState {
+        callback,
+        residual_count,
+        parameter_count,
+        failure: None,
+        evaluations: 0,
+    });
+    let data = (&mut *state as *mut LeastSquaresCallbackState<F>).cast();
+    ACTIVE_LEAST_SQUARES_F64.with(|slot| {
+        slot.set(Some(LeastSquaresSlotF64 {
+            data,
+            invoke: invoke_least_squares_f64::<F>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::LeastSquaresF64,
+    };
+    let value = native_call(LeastSquaresF64Callback {
+        callback: trampoline_least_squares_f64,
+    });
+    drop(slot_guard);
+    Ok(LeastSquaresCallbackInvocation {
+        value,
+        failure: state.failure,
+        evaluations: state.evaluations,
+    })
+}
+
+pub(crate) fn with_least_squares_f32<F, R>(
+    parameter_count: usize,
+    residual_count: usize,
+    callback: F,
+    native_call: impl FnOnce(LeastSquaresF32Callback) -> R,
+) -> Result<LeastSquaresCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f32], &mut [f32]),
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(LeastSquaresCallbackState {
+        callback,
+        residual_count,
+        parameter_count,
+        failure: None,
+        evaluations: 0,
+    });
+    let data = (&mut *state as *mut LeastSquaresCallbackState<F>).cast();
+    ACTIVE_LEAST_SQUARES_F32.with(|slot| {
+        slot.set(Some(LeastSquaresSlotF32 {
+            data,
+            invoke: invoke_least_squares_f32::<F>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::LeastSquaresF32,
+    };
+    let value = native_call(LeastSquaresF32Callback {
+        callback: trampoline_least_squares_f32,
+    });
+    drop(slot_guard);
+    Ok(LeastSquaresCallbackInvocation {
+        value,
+        failure: state.failure,
+        evaluations: state.evaluations,
+    })
+}
+
 pub(crate) fn with_expert_f64<F, J, R>(
     dimension: usize,
     residual: F,
@@ -1253,8 +1662,9 @@ where
 #[cfg(test)]
 mod tests {
     use super::{
-        CallbackFailure, CallbackRuntimeError, ExpertCallbackFailure, VectorCallbackFailure,
-        with_expert_f64, with_f32, with_f64, with_vector_f64,
+        CallbackFailure, CallbackRuntimeError, ExpertCallbackFailure, LeastSquaresCallbackFailure,
+        VectorCallbackFailure, with_expert_f64, with_f32, with_f64, with_least_squares_f64,
+        with_vector_f64,
     };
 
     #[test]
@@ -1339,6 +1749,72 @@ mod tests {
             Some(VectorCallbackFailure::NonFinite { index: 0 })
         );
         assert_eq!(invocation.value, 1);
+        assert!(!super::is_active());
+    }
+
+    #[test]
+    fn least_squares_context_keeps_rectangular_dimensions_and_flags_distinct() {
+        let x = [1.0_f64];
+        let mut residual = [0.0_f64; 2];
+        let m = 2;
+        let n = 1;
+        let mut iflag = 1;
+        let mut fjac = 0.0_f64;
+        let ldfjac = 1;
+        let invocation = with_least_squares_f64(
+            1,
+            2,
+            |input, output| {
+                assert_eq!(input, &[1.0]);
+                output.copy_from_slice(&[1.0, -1.0]);
+            },
+            |callback| {
+                // SAFETY: all values point to valid storage of the reviewed
+                // callback's registered M and N dimensions.
+                unsafe {
+                    (callback.ffi())(
+                        &mut iflag,
+                        &m,
+                        &n,
+                        x.as_ptr(),
+                        residual.as_mut_ptr(),
+                        &mut fjac,
+                        &ldfjac,
+                    );
+                }
+            },
+        )
+        .unwrap();
+        assert_eq!(invocation.failure, None);
+        assert_eq!(invocation.evaluations, 1);
+        assert_eq!(residual, [1.0, -1.0]);
+
+        iflag = 2;
+        let unexpected = with_least_squares_f64(
+            1,
+            2,
+            |_, _| unreachable!("unexpected flag must not reach Rust"),
+            |callback| {
+                // SAFETY: this direct fixture has valid storage and exercises
+                // only the contained unexpected-IFLAG guard.
+                unsafe {
+                    (callback.ffi())(
+                        &mut iflag,
+                        &m,
+                        &n,
+                        x.as_ptr(),
+                        residual.as_mut_ptr(),
+                        &mut fjac,
+                        &ldfjac,
+                    );
+                }
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            unexpected.failure,
+            Some(LeastSquaresCallbackFailure::UnexpectedFlag)
+        );
         assert!(!super::is_active());
     }
 

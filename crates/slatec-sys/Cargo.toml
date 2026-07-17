@@ -36,6 +36,7 @@ raw-ffi-character = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-quadrature = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-roots = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-nonlinear = ["ffi-profile-gnu-mingw-x86_64"]
+raw-ffi-least-squares = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-callbacks = []
 raw-ffi-infrastructure = []
 
@@ -63,5 +64,12 @@ raw-family-roots-scalar = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-nonlinear-easy = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-nonlinear-expert = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-nonlinear-jacobian-check = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-least-squares-nonlinear-easy = ["ffi-profile-gnu-mingw-x86_64"]
+
+# Public family aliases mirror slatec and slatec-src. They remain narrow: the
+# reviewed least-squares declarations do not enable the broad callback batch.
+least-squares = ["least-squares-nonlinear"]
+least-squares-nonlinear = ["least-squares-nonlinear-easy"]
+least-squares-nonlinear-easy = ["raw-family-least-squares-nonlinear-easy"]
 
 [build-dependencies]

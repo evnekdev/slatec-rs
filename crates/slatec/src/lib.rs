@@ -20,6 +20,8 @@ extern crate std;
 compile_error!("the `nonlinear-easy` safe API requires the `std` feature");
 #[cfg(all(feature = "nonlinear-expert", not(feature = "std")))]
 compile_error!("the `nonlinear-expert` safe API requires the `std` feature");
+#[cfg(all(feature = "least-squares-nonlinear-easy", not(feature = "std")))]
+compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` feature");
 
 // Keep the selected provider crate, and therefore its native link directives,
 // in final artifacts without exposing provider mechanics in the safe API.
@@ -67,7 +69,8 @@ pub mod polynomials;
     feature = "quadrature-nonadaptive",
     feature = "roots-scalar",
     feature = "nonlinear-easy",
-    feature = "nonlinear-expert"
+    feature = "nonlinear-expert",
+    feature = "least-squares-nonlinear-easy"
 ))]
 pub(crate) mod runtime;
 
@@ -80,7 +83,8 @@ pub(crate) mod runtime;
     feature = "quadrature-nonadaptive",
     feature = "roots-scalar",
     feature = "nonlinear-easy",
-    feature = "nonlinear-expert"
+    feature = "nonlinear-expert",
+    feature = "least-squares-nonlinear-easy"
 ))]
 mod callback_runtime;
 
@@ -107,3 +111,12 @@ pub mod roots;
     feature = "nonlinear-jacobian-check"
 ))]
 pub mod nonlinear;
+
+/// Safe nonlinear least-squares easy drivers over the original SLATEC
+/// `SNLS1E` and `DNLS1E` implementations.
+///
+/// This hosted, allocating module accepts residual-only closures and asks the
+/// original driver to form finite-difference Jacobians. It is not a nonlinear
+/// equation-solver API: it minimizes one half of the residual sum of squares.
+#[cfg(feature = "least-squares-nonlinear-easy")]
+pub mod least_squares;

@@ -2380,6 +2380,140 @@
       ]
     },
     {
+      "rust_path": "slatec::least_squares::least_squares",
+      "fortran_routine": "DNLS1E",
+      "program_unit_id": "full-provider-cffa1ad0589ca1b0",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "residual_count",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residuals",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.tolerance",
+          "fortran": "TOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "iw",
+          "fortran": "IW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LWA",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::least_squares::least_squares_f32",
+      "fortran_routine": "SNLS1E",
+      "program_unit_id": "full-provider-670bd5e970d85013",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "FCN",
+          "transformation": "Rust closure through the contained callback trampoline"
+        },
+        {
+          "rust": null,
+          "fortran": "IOPT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "residual_count",
+          "fortran": "M",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial.len",
+          "fortran": "N",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "result.residuals",
+          "fortran": "FVEC",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "options.tolerance",
+          "fortran": "TOL",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "NPRINT",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": "iw",
+          "fortran": "IW",
+          "transformation": "validated value or caller-owned slice passed through the reviewed raw ABI"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "allocated, initialized, or validated internally"
+        },
+        {
+          "rust": null,
+          "fortran": "LWA",
+          "transformation": "allocated, initialized, or validated internally"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::nonlinear::check_jacobian",
       "fortran_routine": "DCKDER",
       "program_unit_id": "full-provider-c352a88d029c63fa",

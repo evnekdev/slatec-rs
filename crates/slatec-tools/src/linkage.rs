@@ -160,6 +160,24 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
                 })?;
             queue.push_back(source.clone());
         }
+        if family == "least-squares-nonlinear-easy" {
+            // DNLS1/SNLS1 report valid INFO=4..8 numerical termination via a
+            // level-one XERMSG. The safe façade snapshots XGETF, selects the
+            // documented nonfatal XSETF control while the native lock is held,
+            // then restores it, so these support objects are part of the
+            // reviewed narrow closure rather than an ambient dependency.
+            for name in ["XGETF", "XSETF"] {
+                let source = name_to_unit
+                    .get(name)
+                    .and_then(|unit| unit_to_source.get(unit))
+                    .ok_or_else(|| {
+                        CorpusError::Verification(format!(
+                            "least-squares runtime support {name} has no selected source owner"
+                        ))
+                    })?;
+                queue.push_back(source.clone());
+            }
+        }
         let mut closure = BTreeSet::new();
         while let Some(source) = queue.pop_front() {
             if closure.contains(&source) {
@@ -241,6 +259,8 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         ("dnsqe_", "DNSQE"),
         ("dnsq_", "DNSQ"),
         ("dckder_", "DCKDER"),
+        ("dnls1_", "DNLS1"),
+        ("dnls1e_", "DNLS1E"),
     ]
     .into_iter()
     .map(|(symbol, name)| {
@@ -258,6 +278,12 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     let gamma_retention = gamma
         .map(|record| record["retention_checks"].clone())
         .unwrap_or(Value::Null);
+    let least_squares = examples
+        .iter()
+        .find(|record| record["example"] == "link_least_squares_nonlinear_easy");
+    let least_squares_retention = least_squares
+        .map(|record| record["retention_checks"].clone())
+        .unwrap_or(Value::Null);
     let report = json!({"schema_id":"slatec-rs/family-link-report","schema_version":"1.1.0","snapshot_id":SNAPSHOT,"provider_mode":"source-build","target":"x86_64-pc-windows-gnu","families":closure_rows,"examples":examples,"archive_policy":"separate object per physical selected source; no whole-archive"});
     let retention = json!({"schema_id":"slatec-rs/symbol-retention-report","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows,"single_gamma":gamma_retention,"rule":"only referenced static-archive members and their compiler-observed dependency closure are retained"});
     let raw_map = json!({"schema_id":"slatec-rs/family-to-raw-symbols","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows});
@@ -268,7 +294,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         .filter(|record| record["status"] == "passed")
         .count();
     let summary = format!(
-        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/{}.\n- Single-gamma unrelated-domain retention check: {}.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
+        "# Family linkage validation\n\n- Snapshot: `{SNAPSHOT}`\n- Families: {}\n- Reviewed physical sources in the union: {}\n- Native example binaries validated: {validated_examples}/{}.\n- Single-gamma unrelated-domain retention check: {}.\n- Least-squares narrow-link check: {}. `DNLS1E` intentionally retains `DNLS1`, its direct original implementation; `DCKDER` remains in that object because its optional native checking branch cannot be extracted separately.\n- Object policy: one object per selected physical source; no whole-archive linking.\n- Provider policy: offline cache-only `source-build`; blocked `prebuilt`; explicit `system` and inert `external-backend` escape hatches.\n- Rights boundary: source and native bytes remain outside Git and crate packages.\n",
         family_sources.len(),
         selected_ids.len(),
         examples.len(),
@@ -276,7 +302,12 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
             "passed"
         } else {
             "not run"
-        }
+        },
+        if least_squares_retention["passed"].as_bool() == Some(true) {
+            "passed"
+        } else {
+            "not run"
+        },
     );
     let files = [
         ("family-link-report.json", bytes(&report)?),
@@ -369,6 +400,9 @@ fn family_for(path: &str, routine: &str) -> String {
             return "quadrature-nonadaptive".to_owned();
         }
         return "quadrature-basic".to_owned();
+    }
+    if path.contains("::least_squares::") {
+        return "least-squares-nonlinear-easy".to_owned();
     }
     if path.contains("::nonlinear::") {
         if path.contains("check_jacobian") {
@@ -490,6 +524,11 @@ fn inspect_examples(
         ),
         ("link_roots_scalar", "roots-scalar", "dfzero_"),
         ("link_nonlinear_easy", "nonlinear-easy", "dnsqe_"),
+        (
+            "link_least_squares_nonlinear_easy",
+            "least-squares-nonlinear-easy",
+            "dnls1e_",
+        ),
         ("link_nonlinear_expert", "nonlinear-expert", "dnsq_"),
         ("link_nonlinear_analytic", "nonlinear-expert", "dnsq_"),
         (
@@ -501,7 +540,7 @@ fn inspect_examples(
     ];
     let family_roots = [
         "dlnrel_", "dgamma_", "dai_", "dbesj0_", "ddot_", "dgemm_", "dqag_", "dqawo_", "dfzero_",
-        "dnsqe_", "dnsq_", "dckder_",
+        "dnsqe_", "dnsq_", "dckder_", "dnls1_", "dnls1e_",
     ];
     let mut output = Vec::new();
     for (example, feature, required) in specifications {
@@ -679,6 +718,10 @@ mod tests {
             family_for("slatec::nonlinear::check_jacobian", "DCKDER"),
             "nonlinear-jacobian-check"
         );
+        assert_eq!(
+            family_for("slatec::least_squares::least_squares", "DNLS1E"),
+            "least-squares-nonlinear-easy"
+        );
     }
 
     #[test]
@@ -690,7 +733,7 @@ mod tests {
         )
         .expect("valid closure audit");
         let records = report["records"].as_array().expect("audit records");
-        assert_eq!(records.len(), 22);
+        assert_eq!(records.len(), 23);
         assert!(records.iter().all(|record| record["status"] == "passed"));
     }
 }
