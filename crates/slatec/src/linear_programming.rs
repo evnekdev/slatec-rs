@@ -6,11 +6,12 @@
 //! sequence. Native paging, save/restore, and printing are disabled; a problem
 //! whose requested matrix capacity is too small is rejected before FFI.
 
+use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::cell::Cell;
 use core::ffi::c_void;
 use core::marker::PhantomData;
-use core::ops::{Add, Mul, Sub};
+use core::ops::{Add, Div, Mul, Sub};
 use std::cell::Cell as ThreadCell;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use std::thread_local;
@@ -140,13 +141,82 @@ impl<T> LinearProgram<T> {
     }
 }
 
-/// Controls that do not expose the native option-array language.
+/// Pricing rule used when selecting a native simplex entering variable.
+///
+/// This is the reviewed subset of SLATEC option 64. It changes numerical work
+/// but neither the mathematical problem nor the in-memory-only paging policy.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
-pub struct LpOptions {
-    /// Optional maximum number of matrix coefficients kept in native
-    /// high-speed storage. `None` allocates the exact required capacity.
-    /// A value below the matrix nonzero count returns [`LpError::PagingRequired`].
-    pub maximum_matrix_entries: Option<usize>,
+pub enum LpPricingStrategy {
+    /// Use SLATEC's steepest-edge pricing rule.
+    #[default]
+    SteepestEdge,
+    /// Use the minimum-reduced-cost pricing rule.
+    MinimumReducedCost,
+}
+
+/// Policy for independently checking a native optimal solution.
+///
+/// Both variants always recompute the primal objective, row activities, and
+/// diagnostics. [`LpValidation::CheckOptimality`] additionally turns a
+/// residual above its tolerance into [`LpError::OptimalityCheckFailed`].
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum LpValidation<T> {
+    /// Return reviewed native results and diagnostics without rejecting a
+    /// numerically nonzero KKT residual.
+    NativeOnly,
+    /// Check primal feasibility, stationarity, dual feasibility,
+    /// complementarity, and objective consistency.
+    CheckOptimality {
+        /// Optional absolute residual tolerance.
+        absolute_tolerance: Option<T>,
+        /// Optional scale-relative residual tolerance.
+        relative_tolerance: Option<T>,
+    },
+}
+
+/// Controls that do not expose the native option-array language.
+///
+/// Paging, save/restore, legacy printing, unit selection, user basis state,
+/// and raw option words remain unavailable. The resident-nonzero limit is a
+/// Rust-side admission limit; it never requests a smaller native `LAMAT`
+/// region or enables paging.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct LpOptions<T> {
+    /// Optional maximum number of input nonzeros admitted for an in-memory
+    /// solve. `None` admits the matrix and allocates the exact native `LAMAT`
+    /// capacity. A smaller value returns [`LpError::PagingRequired`] before
+    /// FFI.
+    pub maximum_resident_nonzeros: Option<usize>,
+    /// Optional maximum number of SLATEC LP iterations (option 58).
+    ///
+    /// `None` retains the native default of `3 * (rows + columns)`. A
+    /// non-optimal iteration-limit return has an explicitly labelled
+    /// [`LpProgress`] value when the native output is finite and decodable.
+    pub maximum_iterations: Option<usize>,
+    /// Optional native relative feasibility tolerance (option 63).
+    pub feasibility_tolerance: Option<T>,
+    /// Optional native absolute feasibility tolerance (option 69).
+    pub absolute_feasibility_tolerance: Option<T>,
+    /// Native pricing rule (option 64).
+    pub pricing_strategy: LpPricingStrategy,
+    /// Rust-side primal-dual validation policy.
+    pub validation: LpValidation<T>,
+}
+
+impl<T> Default for LpOptions<T> {
+    fn default() -> Self {
+        Self {
+            maximum_resident_nonzeros: None,
+            maximum_iterations: None,
+            feasibility_tolerance: None,
+            absolute_feasibility_tolerance: None,
+            pricing_strategy: LpPricingStrategy::SteepestEdge,
+            validation: LpValidation::CheckOptimality {
+                absolute_tolerance: None,
+                relative_tolerance: None,
+            },
+        }
+    }
 }
 
 /// Rust-side validation failure detected before native execution.
@@ -193,6 +263,10 @@ pub enum LpInputError {
     VariableBoundLength,
     /// A dimension, option word, or native loop expression cannot fit the ABI.
     DimensionOverflow,
+    /// A native numerical control was non-finite or negative.
+    InvalidControl,
+    /// The requested maximum iteration count was zero or did not fit the ABI.
+    InvalidMaximumIterations,
 }
 
 /// Reviewed native failure groups for documented `INFO=-4..-29` returns.
@@ -221,16 +295,19 @@ pub enum LpNativeFailure {
 }
 
 /// Failure from validation, callback containment, workspace, or native code.
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub enum LpError {
+#[derive(Clone, Debug, PartialEq)]
+pub enum LpError<T = f64> {
     /// Invalid Rust input rejected before FFI.
     InvalidInput(LpInputError),
     /// The requested high-speed matrix capacity would activate native paging.
     PagingRequired {
-        /// Matrix coefficients that must remain resident.
-        required_matrix_storage: usize,
-        /// Caller-selected resident coefficient capacity.
-        available_matrix_storage: usize,
+        /// Input nonzeros that must be admitted by the Rust-side policy.
+        required_nonzeros: usize,
+        /// Exact native high-speed `LAMAT` capacity required to prevent
+        /// paging: `max(columns + 7, columns + nonzeros + 6)`.
+        required_lamat: usize,
+        /// Caller-selected maximum resident input-nonzero count.
+        maximum_resident_nonzeros: usize,
     },
     /// An internal allocation failed without entering native code.
     AllocationFailed,
@@ -253,18 +330,24 @@ pub enum LpError {
     NativeFailure(LpNativeFailure),
     /// Native output violated the reviewed contract.
     NativeContractViolation,
+    /// A requested independent optimality check exceeded its tolerance.
+    OptimalityCheckFailed {
+        /// Independently computed residuals and objective consistency values.
+        diagnostics: Box<LpOptimalityDiagnostics<T>>,
+    },
 }
 
-impl core::fmt::Display for LpError {
+impl<T> core::fmt::Display for LpError<T> {
     fn fmt(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         match self {
             Self::InvalidInput(error) => write!(formatter, "invalid linear program: {error:?}"),
             Self::PagingRequired {
-                required_matrix_storage,
-                available_matrix_storage,
+                required_nonzeros,
+                required_lamat,
+                maximum_resident_nonzeros,
             } => write!(
                 formatter,
-                "linear program needs {required_matrix_storage} resident matrix entries but only {available_matrix_storage} were allowed"
+                "linear program needs {required_nonzeros} resident nonzeros and LAMAT={required_lamat}, but the resident limit is {maximum_resident_nonzeros}"
             ),
             Self::AllocationFailed => formatter.write_str("linear-programming allocation failed"),
             Self::CallbackPanicked => formatter.write_str("sparse matrix callback panicked"),
@@ -281,11 +364,14 @@ impl core::fmt::Display for LpError {
             Self::NativeContractViolation => {
                 formatter.write_str("native SPLP/DSPLP output violated its reviewed contract")
             }
+            Self::OptimalityCheckFailed { .. } => {
+                formatter.write_str("independent LP optimality validation exceeded its tolerance")
+            }
         }
     }
 }
 
-impl std::error::Error for LpError {}
+impl<T: core::fmt::Debug> std::error::Error for LpError<T> {}
 
 /// Legitimate optimization termination status from `SPLP` or `DSPLP`.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -311,6 +397,128 @@ pub struct LpSolution<T> {
     pub row_activities: Vec<T>,
     /// Independently recomputed objective `c^T x`.
     pub objective_value: T,
+    /// Native row multipliers and variable reduced costs decoded with the
+    /// documented minimization sign convention.
+    pub dual: LpDualSolution<T>,
+    /// Checked native basis membership and bound positions.
+    pub basis: LpBasis,
+    /// Independently recomputed primal-dual optimality residuals.
+    pub diagnostics: LpOptimalityDiagnostics<T>,
+}
+
+/// Dual information returned by an optimal `SPLP`/`DSPLP` solve.
+///
+/// With the native minimization convention, `row_multipliers` is `y` and
+/// `reduced_costs` is `c - A^T y`. Equivalently, the native Lagrangian is
+/// `c^T x - y^T(Ax-w)`. Separate lower and upper multipliers are not exposed
+/// because the driver returns only this combined reduced-cost representation.
+#[derive(Clone, Debug, PartialEq)]
+pub struct LpDualSolution<T> {
+    /// One multiplier `y_i` per row activity `w_i`.
+    pub row_multipliers: Vec<T>,
+    /// One combined reduced cost `c_j - (A^T y)_j` per decision variable.
+    pub reduced_costs: Vec<T>,
+}
+
+/// A basic entity in the native simplex basis.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LpBasisVariable {
+    /// Decision variable `x_j`, using a zero-based Rust index.
+    DecisionVariable(usize),
+    /// Row activity `w_i`, using a zero-based Rust index.
+    RowActivity(usize),
+}
+
+/// Bound position of a nonbasic entity.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LpNonbasicPosition {
+    /// The entity is at its lower bound.
+    LowerBound,
+    /// The entity is at its upper bound.
+    UpperBound,
+    /// The entity is free; its reduced cost must be zero to numerical
+    /// tolerance.
+    Free,
+    /// The entity is fixed at equal lower and upper endpoints.
+    Fixed,
+}
+
+/// Checked simplex position of an entity.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum LpBasisPosition {
+    /// The entity is basic.
+    Basic,
+    /// The entity is nonbasic at the stated bound category.
+    Nonbasic(LpNonbasicPosition),
+}
+
+/// Checked native basis state from an optimal solve.
+///
+/// The basic list has one entry per row and uses Rust indices. The position
+/// vectors are ordered like the input variable and row-bound vectors.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct LpBasis {
+    /// Basic entities, decoded from the first `rows` native `IBASIS` entries.
+    pub basic: Vec<LpBasisVariable>,
+    /// Basis position of every decision variable.
+    pub variable_positions: Vec<LpBasisPosition>,
+    /// Basis position of every row activity.
+    pub row_positions: Vec<LpBasisPosition>,
+}
+
+/// Independently recomputed primal-dual diagnostics for an optimal solve.
+///
+/// Absolute residuals are reported directly. Scaled values divide by
+/// `absolute_tolerance + relative_tolerance * scale`, where `scale` includes
+/// coefficient, activity, bound, objective, and dimension magnitudes.
+#[derive(Clone, Debug, PartialEq)]
+pub struct LpOptimalityDiagnostics<T> {
+    /// Largest decision-variable bound violation.
+    pub maximum_variable_bound_violation: T,
+    /// Largest row-activity bound violation.
+    pub maximum_row_bound_violation: T,
+    /// Largest difference between recomputed `A x` and returned row activity.
+    pub maximum_row_activity_residual: T,
+    /// Largest difference between native and independently recomputed
+    /// `c - A^T y`.
+    pub maximum_reduced_cost_residual: T,
+    /// Largest violation of a reduced-cost sign requirement at a non-fixed
+    /// bound.
+    pub maximum_dual_feasibility_violation: T,
+    /// Largest reduced-cost-times-distance-to-active-bound residual.
+    pub maximum_complementary_slackness_residual: T,
+    /// Independently recomputed primal objective `c^T x`.
+    pub primal_objective: T,
+    /// Dual bound-infimum objective, when all free-entity reduced costs are
+    /// numerically zero.
+    pub dual_objective: Option<T>,
+    /// Absolute primal-dual objective gap when a finite dual objective exists.
+    pub primal_dual_objective_gap: Option<T>,
+    /// Objective gap divided by a scale at least one, when derivable.
+    pub relative_objective_gap: Option<T>,
+    /// Absolute tolerance used to scale and, when requested, check residuals.
+    pub absolute_tolerance: T,
+    /// Relative tolerance used to scale and, when requested, check residuals.
+    pub relative_tolerance: T,
+    /// Maximum primal residual divided by its precision-aware scale.
+    pub scaled_primal_residual: T,
+    /// Maximum stationarity residual divided by its precision-aware scale.
+    pub scaled_stationarity_residual: T,
+}
+
+/// Finite native iterate returned after an iteration-limit termination.
+///
+/// This is not an optimal solution and has no dual or basis interpretation.
+/// It is present only for `INFO=-25`, whose source path rescales and returns
+/// the current primal vector before exiting.
+#[derive(Clone, Debug, PartialEq)]
+pub struct LpProgress<T> {
+    /// Current decision-variable values.
+    pub variables: Vec<T>,
+    /// Independently recomputed current row activities.
+    pub row_activities: Vec<T>,
+    /// Independently recomputed current objective value.
+    pub objective_value: T,
 }
 
 /// One optimization termination, with a solution only when status is optimal.
@@ -320,6 +528,9 @@ pub struct LpResult<T> {
     pub status: LpStatus,
     /// Meaningful optimum data, present only for [`LpStatus::Optimal`].
     pub solution: Option<LpSolution<T>>,
+    /// Labelled non-optimal native iterate, present only for
+    /// [`LpStatus::IterationLimit`] when it is finite and decodable.
+    pub progress: Option<LpProgress<T>>,
 }
 
 trait Scalar:
@@ -329,6 +540,7 @@ trait Scalar:
     + Add<Output = Self>
     + Sub<Output = Self>
     + Mul<Output = Self>
+    + Div<Output = Self>
     + core::fmt::Debug
     + 'static
 {
@@ -435,7 +647,7 @@ macro_rules! impl_public_precision {
                 column_offsets: Vec<usize>,
                 row_indices: Vec<usize>,
                 values: Vec<$scalar>,
-            ) -> Result<Self, LpError> {
+            ) -> Result<Self, LpError<$scalar>> {
                 validate_sparse(rows, columns, &column_offsets, &row_indices, &values)?;
                 Ok(Self {
                     rows,
@@ -454,7 +666,7 @@ macro_rules! impl_public_precision {
                 matrix: SparseColumns<$scalar>,
                 row_bounds: Vec<LpBound<$scalar>>,
                 variable_bounds: Vec<LpBound<$scalar>>,
-            ) -> Result<Self, LpError> {
+            ) -> Result<Self, LpError<$scalar>> {
                 validate_problem(&objective, &matrix, &row_bounds, &variable_bounds)?;
                 Ok(Self {
                     objective,
@@ -469,7 +681,7 @@ macro_rules! impl_public_precision {
             /// Requires `std`, an explicit native backend, and
             /// `optimization-linear-programming-in-memory`. Calls are process-serialized,
             /// XERROR state is restored, and no paging file is opened.
-            pub fn solve(&self) -> Result<LpResult<$scalar>, LpError> {
+            pub fn solve(&self) -> Result<LpResult<$scalar>, LpError<$scalar>> {
                 solve_impl(self, LpOptions::default())
             }
 
@@ -479,8 +691,8 @@ macro_rules! impl_public_precision {
             /// native option key 54 and every save/file option remain unavailable.
             pub fn solve_with_options(
                 &self,
-                options: LpOptions,
-            ) -> Result<LpResult<$scalar>, LpError> {
+                options: LpOptions<$scalar>,
+            ) -> Result<LpResult<$scalar>, LpError<$scalar>> {
                 solve_impl(self, options)
             }
         }
@@ -496,7 +708,7 @@ fn validate_sparse<T: Scalar>(
     offsets: &[usize],
     indices: &[usize],
     values: &[T],
-) -> Result<(), LpError> {
+) -> Result<(), LpError<T>> {
     if rows == 0 || columns == 0 {
         return Err(LpError::InvalidInput(LpInputError::EmptyDimension));
     }
@@ -555,7 +767,7 @@ fn validate_problem<T: Scalar>(
     matrix: &SparseColumns<T>,
     row_bounds: &[LpBound<T>],
     variable_bounds: &[LpBound<T>],
-) -> Result<(), LpError> {
+) -> Result<(), LpError<T>> {
     if objective.len() != matrix.columns {
         return Err(LpError::InvalidInput(LpInputError::ObjectiveLength));
     }
@@ -574,7 +786,7 @@ fn validate_problem<T: Scalar>(
     Ok(())
 }
 
-fn validate_bound<T: Scalar>(bound: LpBound<T>) -> Result<(), LpError> {
+fn validate_bound<T: Scalar>(bound: LpBound<T>) -> Result<(), LpError<T>> {
     match bound {
         LpBound::Free => Ok(()),
         LpBound::Lower(value) | LpBound::Upper(value) | LpBound::Fixed(value) => {
@@ -634,7 +846,7 @@ struct CallbackContext<'a, T> {
 struct ContextGuard;
 
 impl ContextGuard {
-    fn install(pointer: *mut c_void) -> Result<Self, LpError> {
+    fn install<T>(pointer: *mut c_void) -> Result<Self, LpError<T>> {
         ACTIVE_CONTEXT.with(|slot| {
             if slot.get().is_null() {
                 slot.set(pointer);
@@ -816,25 +1028,23 @@ fn finish_callback(
 
 fn solve_impl<T: Scalar>(
     problem: &LinearProgram<T>,
-    options: LpOptions,
-) -> Result<LpResult<T>, LpError> {
+    options: LpOptions<T>,
+) -> Result<LpResult<T>, LpError<T>> {
+    validate_options(&options)?;
     let rows = problem.matrix.rows;
     let columns = problem.matrix.columns;
     let nonzeros = problem.matrix.values.len();
-    let available = options.maximum_matrix_entries.unwrap_or(nonzeros);
+    let available = options.maximum_resident_nonzeros.unwrap_or(nonzeros);
+    let matrix_words = required_lamat(columns, nonzeros)?;
     if available < nonzeros {
         return Err(LpError::PagingRequired {
-            required_matrix_storage: nonzeros,
-            available_matrix_storage: available,
+            required_nonzeros: nonzeros,
+            required_lamat: matrix_words,
+            maximum_resident_nonzeros: available,
         });
     }
     let rows_native = native_integer(rows)?;
     let columns_native = native_integer(columns)?;
-    let matrix_words = columns
-        .checked_add(nonzeros)
-        .and_then(|value| value.checked_add(6))
-        .map(|value| value.max(columns + 7))
-        .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?;
     let basis_words = rows
         .checked_mul(8)
         .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?;
@@ -846,7 +1056,7 @@ fn solve_impl<T: Scalar>(
         .and_then(|value| value.checked_add(1))
         .and_then(|value| FortranInteger::try_from(value).ok())
         .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?;
-    let _default_iteration_guard = rows
+    let default_iterations = rows
         .checked_add(columns)
         .and_then(|value| value.checked_mul(3))
         .and_then(|value| FortranInteger::try_from(value).ok())
@@ -892,28 +1102,13 @@ fn solve_impl<T: Scalar>(
             &mut bound_kinds[index],
         );
     }
-    let options = vec_from_slice(&[
-        T::option_integer(4).unwrap(),
-        T::option_integer(51).unwrap(),
-        T::ZERO,
-        T::option_integer(9).unwrap(),
-        T::option_integer(53).unwrap(),
-        T::ONE,
-        matrix_option,
-        basis_option,
-        T::option_integer(12).unwrap(),
-        T::option_integer(55).unwrap(),
-        T::ZERO,
-        T::option_integer(15).unwrap(),
-        T::option_integer(57).unwrap(),
-        T::ZERO,
-        T::ONE,
-    ])?;
+    let native_options =
+        build_native_options(&options, matrix_option, basis_option, default_iterations)?;
     let mut call = NativeCall {
         rows: rows_native,
         columns: columns_native,
         costs: vec_from_slice(&problem.objective)?,
-        options,
+        options: native_options,
         callback_data: try_zeroed(1, T::ZERO)?,
         lower,
         upper,
@@ -941,7 +1136,7 @@ fn solve_impl<T: Scalar>(
     slatec_src::reset_lp_forbidden_io_entries();
     let _xerror = permit_lp_native_statuses();
     let _context_guard =
-        ContextGuard::install((&mut context as *mut CallbackContext<'_, T>).cast())?;
+        ContextGuard::install::<T>((&mut context as *mut CallbackContext<'_, T>).cast())?;
     // SAFETY: all arguments, callback lifetime, workspace formulas, option
     // words, and process-global scopes were established above.
     unsafe { T::call_native(&mut call) };
@@ -959,15 +1154,141 @@ fn solve_impl<T: Scalar>(
     if context.fault.is_some() || context.cursor != nonzeros {
         return Err(LpError::CallbackProtocolViolation);
     }
-    map_result(problem, call.info, &call.primal)
+    map_result(
+        problem,
+        options.validation,
+        NativeOutputs {
+            info: call.info,
+            primal: &call.primal,
+            duals: &call.duals,
+            basis: &call.basis,
+            integer_workspace: &call.integer_workspace,
+            matrix_words,
+        },
+    )
 }
 
-fn native_integer(value: usize) -> Result<FortranInteger, LpError> {
+fn required_lamat<T>(columns: usize, nonzeros: usize) -> Result<usize, LpError<T>> {
+    let matrix_storage = columns
+        .checked_add(nonzeros)
+        .and_then(|value| value.checked_add(6))
+        .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?;
+    let minimum = columns
+        .checked_add(7)
+        .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?;
+    Ok(matrix_storage.max(minimum))
+}
+
+fn validate_options<T: Scalar>(options: &LpOptions<T>) -> Result<(), LpError<T>> {
+    for control in [
+        options.feasibility_tolerance,
+        options.absolute_feasibility_tolerance,
+    ] {
+        if control.is_some_and(|value| !value.is_finite() || value < T::ZERO) {
+            return Err(LpError::InvalidInput(LpInputError::InvalidControl));
+        }
+    }
+    if let LpValidation::CheckOptimality {
+        absolute_tolerance,
+        relative_tolerance,
+    } = options.validation
+    {
+        for control in [absolute_tolerance, relative_tolerance] {
+            if control.is_some_and(|value| !value.is_finite() || value < T::ZERO) {
+                return Err(LpError::InvalidInput(LpInputError::InvalidControl));
+            }
+        }
+    }
+    if options.maximum_iterations.is_some_and(|value| value == 0) {
+        return Err(LpError::InvalidInput(
+            LpInputError::InvalidMaximumIterations,
+        ));
+    }
+    Ok(())
+}
+
+fn build_native_options<T: Scalar>(
+    options: &LpOptions<T>,
+    matrix_option: T,
+    basis_option: T,
+    default_iterations: FortranInteger,
+) -> Result<Vec<T>, LpError<T>> {
+    let mut output = Vec::new();
+    let mut previous = None;
+    append_native_option(&mut output, &mut previous, 51, T::ZERO, &[])?;
+    append_native_option(
+        &mut output,
+        &mut previous,
+        53,
+        T::ONE,
+        &[matrix_option, basis_option],
+    )?;
+    append_native_option(&mut output, &mut previous, 55, T::ZERO, &[])?;
+    append_native_option(&mut output, &mut previous, 57, T::ZERO, &[])?;
+    if let Some(limit) = options.maximum_iterations {
+        let limit = FortranInteger::try_from(limit)
+            .ok()
+            .and_then(T::option_integer)
+            .ok_or(LpError::InvalidInput(
+                LpInputError::InvalidMaximumIterations,
+            ))?;
+        append_native_option(&mut output, &mut previous, 58, T::ONE, &[limit])?;
+    } else {
+        let _ = default_iterations;
+    }
+    if let Some(tolerance) = options.feasibility_tolerance {
+        append_native_option(&mut output, &mut previous, 63, T::ONE, &[tolerance])?;
+    }
+    let pricing = match options.pricing_strategy {
+        LpPricingStrategy::SteepestEdge => T::ZERO,
+        LpPricingStrategy::MinimumReducedCost => T::ONE,
+    };
+    append_native_option(&mut output, &mut previous, 64, pricing, &[])?;
+    if let Some(tolerance) = options.absolute_feasibility_tolerance {
+        append_native_option(&mut output, &mut previous, 69, T::ONE, &[tolerance])?;
+    }
+    Ok(output)
+}
+
+fn append_native_option<T: Scalar>(
+    output: &mut Vec<T>,
+    previous: &mut Option<usize>,
+    key: FortranInteger,
+    switch: T,
+    data: &[T],
+) -> Result<(), LpError<T>> {
+    let start = output.len();
+    if let Some(previous) = *previous {
+        let link = start
+            .checked_add(1)
+            .and_then(|value| FortranInteger::try_from(value).ok())
+            .and_then(T::option_integer)
+            .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?;
+        output[previous] = link;
+    }
+    output
+        .try_reserve_exact(
+            data.len()
+                .checked_add(3)
+                .ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?,
+        )
+        .map_err(|_| LpError::AllocationFailed)?;
+    output.push(T::ONE);
+    output.push(
+        T::option_integer(key).ok_or(LpError::InvalidInput(LpInputError::DimensionOverflow))?,
+    );
+    output.push(switch);
+    output.extend_from_slice(data);
+    *previous = Some(start);
+    Ok(())
+}
+
+fn native_integer<T>(value: usize) -> Result<FortranInteger, LpError<T>> {
     FortranInteger::try_from(value)
         .map_err(|_| LpError::InvalidInput(LpInputError::DimensionOverflow))
 }
 
-fn try_zeroed<T: Copy>(length: usize, value: T) -> Result<Vec<T>, LpError> {
+fn try_zeroed<T: Copy, E>(length: usize, value: T) -> Result<Vec<T>, LpError<E>> {
     let mut output = Vec::new();
     output
         .try_reserve_exact(length)
@@ -976,7 +1297,7 @@ fn try_zeroed<T: Copy>(length: usize, value: T) -> Result<Vec<T>, LpError> {
     Ok(output)
 }
 
-fn vec_from_slice<T: Copy>(input: &[T]) -> Result<Vec<T>, LpError> {
+fn vec_from_slice<T: Copy, E>(input: &[T]) -> Result<Vec<T>, LpError<E>> {
     let mut output = Vec::new();
     output
         .try_reserve_exact(input.len())
@@ -1017,12 +1338,38 @@ fn encode_bound<T: Scalar>(
     }
 }
 
+struct NativeOutputs<'a, T> {
+    info: FortranInteger,
+    primal: &'a [T],
+    duals: &'a [T],
+    basis: &'a [FortranInteger],
+    integer_workspace: &'a [FortranInteger],
+    matrix_words: usize,
+}
+
+struct DecodedPrimal<'a, T> {
+    variables: Vec<T>,
+    activities: Vec<T>,
+    native_activities: &'a [T],
+    objective_value: T,
+}
+
+struct DiagnosticInputs<'a, T> {
+    variables: &'a [T],
+    activities: &'a [T],
+    native_activities: &'a [T],
+    row_multipliers: &'a [T],
+    native_reduced_costs: &'a [T],
+    reduced_costs: &'a [T],
+    objective_value: T,
+}
+
 fn map_result<T: Scalar>(
     problem: &LinearProgram<T>,
-    info: FortranInteger,
-    primal: &[T],
-) -> Result<LpResult<T>, LpError> {
-    let status = match info {
+    validation: LpValidation<T>,
+    output: NativeOutputs<'_, T>,
+) -> Result<LpResult<T>, LpError<T>> {
+    let status = match output.info {
         1 => LpStatus::Optimal,
         -1 => LpStatus::Infeasible,
         -2 => LpStatus::NoFiniteSolution,
@@ -1048,12 +1395,94 @@ fn map_result<T: Scalar>(
         -29 => return Err(LpError::NativeFailure(LpNativeFailure::DenseMatrixOption)),
         _ => return Err(LpError::NativeContractViolation),
     };
+    if status == LpStatus::IterationLimit {
+        return Ok(LpResult {
+            status,
+            solution: None,
+            progress: decode_progress(problem, output.primal)?,
+        });
+    }
     if status != LpStatus::Optimal {
         return Ok(LpResult {
             status,
             solution: None,
+            progress: None,
         });
     }
+    let primal = decode_primal(problem, output.primal)?;
+    let rows = problem.matrix.rows;
+    let columns = problem.matrix.columns;
+    let row_multipliers = vec_from_slice(
+        output
+            .duals
+            .get(..rows)
+            .ok_or(LpError::NativeContractViolation)?,
+    )?;
+    let native_reduced_costs = output
+        .duals
+        .get(rows..rows + columns)
+        .ok_or(LpError::NativeContractViolation)?;
+    if row_multipliers
+        .iter()
+        .chain(native_reduced_costs)
+        .any(|value| !value.is_finite())
+    {
+        return Err(LpError::NativeContractViolation);
+    }
+    let reduced_costs = recompute_reduced_costs(problem, &row_multipliers)?;
+    let basis_state = output
+        .integer_workspace
+        .get(output.matrix_words..output.matrix_words + rows + columns)
+        .ok_or(LpError::NativeContractViolation)?;
+    let decoded_basis = decode_basis(
+        columns,
+        rows,
+        &problem.variable_bounds,
+        &problem.row_bounds,
+        output.basis,
+        basis_state,
+    )?;
+    let diagnostics = compute_diagnostics(
+        problem,
+        validation,
+        DiagnosticInputs {
+            variables: &primal.variables,
+            activities: &primal.activities,
+            native_activities: primal.native_activities,
+            row_multipliers: &row_multipliers,
+            native_reduced_costs,
+            reduced_costs: &reduced_costs,
+            objective_value: primal.objective_value,
+        },
+    )?;
+    if let LpValidation::CheckOptimality { .. } = validation {
+        if diagnostics_exceed_tolerance(&diagnostics) {
+            return Err(LpError::OptimalityCheckFailed {
+                diagnostics: Box::new(diagnostics),
+            });
+        }
+    }
+    Ok(LpResult {
+        status,
+        solution: Some(LpSolution {
+            variables: primal.variables,
+            row_activities: primal.activities,
+            objective_value: primal.objective_value,
+            dual: LpDualSolution {
+                row_multipliers,
+                reduced_costs,
+            },
+            basis: decoded_basis,
+            diagnostics,
+        }),
+        progress: None,
+    })
+}
+
+fn decode_primal<'a, T: Scalar>(
+    problem: &LinearProgram<T>,
+    primal: &'a [T],
+) -> Result<DecodedPrimal<'a, T>, LpError<T>> {
     let columns = problem.matrix.columns;
     let variables = vec_from_slice(
         primal
@@ -1063,37 +1492,11 @@ fn map_result<T: Scalar>(
     if variables.iter().any(|value| !value.is_finite()) {
         return Err(LpError::NativeContractViolation);
     }
-    let mut activities = try_zeroed(problem.matrix.rows, T::ZERO)?;
-    for (column, &variable) in variables.iter().enumerate().take(columns) {
-        for index in
-            problem.matrix.column_offsets[column]..problem.matrix.column_offsets[column + 1]
-        {
-            let row = problem.matrix.row_indices[index];
-            activities[row] = activities[row] + problem.matrix.values[index] * variable;
-        }
-    }
-    if activities.iter().any(|value| !value.is_finite()) {
-        return Err(LpError::NativeContractViolation);
-    }
+    let activities = recompute_activities(problem, &variables)?;
     let native_activities = primal
         .get(columns..columns + problem.matrix.rows)
         .ok_or(LpError::NativeContractViolation)?;
-    if activities
-        .iter()
-        .zip(native_activities)
-        .any(|(&left, &right)| !approximately_equal(left, right))
-    {
-        return Err(LpError::NativeContractViolation);
-    }
-    if variables
-        .iter()
-        .zip(&problem.variable_bounds)
-        .any(|(&value, &bound)| !bound_contains(bound, value))
-        || activities
-            .iter()
-            .zip(&problem.row_bounds)
-            .any(|(&value, &bound)| !bound_contains(bound, value))
-    {
+    if native_activities.iter().any(|value| !value.is_finite()) {
         return Err(LpError::NativeContractViolation);
     }
     let objective_value = problem
@@ -1104,31 +1507,444 @@ fn map_result<T: Scalar>(
     if !objective_value.is_finite() {
         return Err(LpError::NativeContractViolation);
     }
-    Ok(LpResult {
-        status,
-        solution: Some(LpSolution {
-            variables,
-            row_activities: activities,
-            objective_value,
-        }),
+    Ok(DecodedPrimal {
+        variables,
+        activities,
+        native_activities,
+        objective_value,
     })
 }
 
-fn approximately_equal<T: Scalar>(left: T, right: T) -> bool {
-    let factor = T::option_integer(4096).unwrap();
-    let tolerance = T::epsilon() * factor * (T::ONE + left.abs() + right.abs());
-    (left - right).abs() <= tolerance
+fn decode_progress<T: Scalar>(
+    problem: &LinearProgram<T>,
+    primal: &[T],
+) -> Result<Option<LpProgress<T>>, LpError<T>> {
+    let primal = decode_primal(problem, primal)?;
+    Ok(Some(LpProgress {
+        variables: primal.variables,
+        row_activities: primal.activities,
+        objective_value: primal.objective_value,
+    }))
 }
 
-fn bound_contains<T: Scalar>(bound: LpBound<T>, value: T) -> bool {
-    let factor = T::option_integer(4096).unwrap();
-    let tolerance = T::epsilon() * factor * (T::ONE + value.abs());
+fn recompute_activities<T: Scalar>(
+    problem: &LinearProgram<T>,
+    variables: &[T],
+) -> Result<Vec<T>, LpError<T>> {
+    let mut activities = try_zeroed(problem.matrix.rows, T::ZERO)?;
+    for (column, &variable) in variables.iter().enumerate() {
+        for index in
+            problem.matrix.column_offsets[column]..problem.matrix.column_offsets[column + 1]
+        {
+            let row = problem.matrix.row_indices[index];
+            activities[row] = activities[row] + problem.matrix.values[index] * variable;
+        }
+    }
+    if activities.iter().any(|value| !value.is_finite()) {
+        return Err(LpError::NativeContractViolation);
+    }
+    Ok(activities)
+}
+
+fn recompute_reduced_costs<T: Scalar>(
+    problem: &LinearProgram<T>,
+    row_multipliers: &[T],
+) -> Result<Vec<T>, LpError<T>> {
+    let mut reduced_costs = vec_from_slice(&problem.objective)?;
+    for (column, reduced_cost) in reduced_costs.iter_mut().enumerate() {
+        for index in
+            problem.matrix.column_offsets[column]..problem.matrix.column_offsets[column + 1]
+        {
+            let row = problem.matrix.row_indices[index];
+            *reduced_cost = *reduced_cost - problem.matrix.values[index] * row_multipliers[row];
+        }
+    }
+    if reduced_costs.iter().any(|value| !value.is_finite()) {
+        return Err(LpError::NativeContractViolation);
+    }
+    Ok(reduced_costs)
+}
+
+fn decode_basis<T: Scalar>(
+    columns: usize,
+    rows: usize,
+    variable_bounds: &[LpBound<T>],
+    row_bounds: &[LpBound<T>],
+    basis: &[FortranInteger],
+    indicators: &[FortranInteger],
+) -> Result<LpBasis, LpError<T>> {
+    let total = columns
+        .checked_add(rows)
+        .ok_or(LpError::NativeContractViolation)?;
+    if basis.len() < total || indicators.len() != total {
+        return Err(LpError::NativeContractViolation);
+    }
+    let mut basic_mask = try_zeroed(total, false)?;
+    let mut basic = Vec::new();
+    basic
+        .try_reserve_exact(rows)
+        .map_err(|_| LpError::AllocationFailed)?;
+    for &native in &basis[..rows] {
+        let native = usize::try_from(native).map_err(|_| LpError::NativeContractViolation)?;
+        if native == 0 || native > total || basic_mask[native - 1] {
+            return Err(LpError::NativeContractViolation);
+        }
+        basic_mask[native - 1] = true;
+        basic.push(if native <= columns {
+            LpBasisVariable::DecisionVariable(native - 1)
+        } else {
+            LpBasisVariable::RowActivity(native - columns - 1)
+        });
+    }
+    let mut variable_positions = Vec::new();
+    variable_positions
+        .try_reserve_exact(columns)
+        .map_err(|_| LpError::AllocationFailed)?;
+    let mut row_positions = Vec::new();
+    row_positions
+        .try_reserve_exact(rows)
+        .map_err(|_| LpError::AllocationFailed)?;
+    for index in 0..total {
+        let bound = if index < columns {
+            variable_bounds[index]
+        } else {
+            row_bounds[index - columns]
+        };
+        let position = decode_basis_position(basic_mask[index], indicators[index], bound)?;
+        if index < columns {
+            variable_positions.push(position);
+        } else {
+            row_positions.push(position);
+        }
+    }
+    Ok(LpBasis {
+        basic,
+        variable_positions,
+        row_positions,
+    })
+}
+
+fn decode_basis_position<T: Scalar>(
+    basic: bool,
+    indicator: FortranInteger,
+    bound: LpBound<T>,
+) -> Result<LpBasisPosition, LpError<T>> {
+    if basic {
+        if indicator >= 0 {
+            return Err(LpError::NativeContractViolation);
+        }
+        return Ok(LpBasisPosition::Basic);
+    }
+    if indicator <= 0 {
+        return Err(LpError::NativeContractViolation);
+    }
+    let position = match bound {
+        LpBound::Free => LpNonbasicPosition::Free,
+        LpBound::Lower(_) => LpNonbasicPosition::LowerBound,
+        LpBound::Upper(_) => LpNonbasicPosition::UpperBound,
+        LpBound::Fixed(_) => LpNonbasicPosition::Fixed,
+        LpBound::Range { .. } => {
+            if indicator % 2 == 0 {
+                LpNonbasicPosition::UpperBound
+            } else {
+                LpNonbasicPosition::LowerBound
+            }
+        }
+    };
+    Ok(LpBasisPosition::Nonbasic(position))
+}
+
+#[derive(Clone, Copy)]
+struct ValidationTolerances<T> {
+    absolute: T,
+    relative: T,
+}
+
+fn validation_tolerances<T: Scalar>(
+    problem: &LinearProgram<T>,
+    validation: LpValidation<T>,
+) -> ValidationTolerances<T> {
+    let dimension = problem.matrix.rows.saturating_add(problem.matrix.columns);
+    let dimension = FortranInteger::try_from(dimension)
+        .ok()
+        .and_then(T::option_integer)
+        .unwrap_or_else(|| T::option_integer(16_777_216).unwrap());
+    let factor = T::option_integer(8192).unwrap();
+    let defaults = ValidationTolerances {
+        absolute: T::epsilon() * factor,
+        relative: T::epsilon() * factor * max_value(T::ONE, dimension),
+    };
+    match validation {
+        LpValidation::NativeOnly => defaults,
+        LpValidation::CheckOptimality {
+            absolute_tolerance,
+            relative_tolerance,
+        } => ValidationTolerances {
+            absolute: absolute_tolerance.unwrap_or(defaults.absolute),
+            relative: relative_tolerance.unwrap_or(defaults.relative),
+        },
+    }
+}
+
+fn compute_diagnostics<T: Scalar>(
+    problem: &LinearProgram<T>,
+    validation: LpValidation<T>,
+    input: DiagnosticInputs<'_, T>,
+) -> Result<LpOptimalityDiagnostics<T>, LpError<T>> {
+    let DiagnosticInputs {
+        variables,
+        activities,
+        native_activities,
+        row_multipliers,
+        native_reduced_costs,
+        reduced_costs,
+        objective_value,
+    } = input;
+    let tolerances = validation_tolerances(problem, validation);
+    let state_scale = max_value(
+        maximum_slice_magnitude(variables),
+        max_value(
+            maximum_slice_magnitude(activities),
+            max_value(
+                maximum_bound_magnitude(&problem.variable_bounds),
+                maximum_bound_magnitude(&problem.row_bounds),
+            ),
+        ),
+    );
+    let matrix_scale = maximum_slice_magnitude(&problem.matrix.values);
+    let dimension = max_value(
+        T::ONE,
+        FortranInteger::try_from(problem.matrix.rows.saturating_add(problem.matrix.columns))
+            .ok()
+            .and_then(T::option_integer)
+            .unwrap_or_else(|| T::option_integer(16_777_216).unwrap()),
+    );
+    let scale = max_value(
+        T::ONE,
+        max_value(matrix_scale, max_value(state_scale, dimension)),
+    );
+    let residual_tolerance = tolerances.absolute + tolerances.relative * scale;
+    let stationarity_tolerance = tolerances.absolute
+        + tolerances.relative * max_value(scale, maximum_slice_magnitude(reduced_costs));
+    let mut variable_violation = T::ZERO;
+    let mut row_violation = T::ZERO;
+    let mut activity_residual = T::ZERO;
+    let mut reduced_cost_residual = T::ZERO;
+    let mut dual_violation = T::ZERO;
+    let mut complementarity = T::ZERO;
+    for ((&value, &bound), &reduced_cost) in variables
+        .iter()
+        .zip(&problem.variable_bounds)
+        .zip(reduced_costs)
+    {
+        variable_violation = max_value(variable_violation, bound_violation(bound, value));
+        dual_violation = max_value(
+            dual_violation,
+            dual_feasibility_violation(bound, value, reduced_cost, residual_tolerance),
+        );
+        complementarity = max_value(
+            complementarity,
+            complementarity_residual(bound, value, reduced_cost),
+        );
+    }
+    for (((&activity, &native_activity), &bound), &multiplier) in activities
+        .iter()
+        .zip(native_activities)
+        .zip(&problem.row_bounds)
+        .zip(row_multipliers)
+    {
+        row_violation = max_value(row_violation, bound_violation(bound, activity));
+        activity_residual = max_value(activity_residual, (activity - native_activity).abs());
+        dual_violation = max_value(
+            dual_violation,
+            dual_feasibility_violation(bound, activity, multiplier, residual_tolerance),
+        );
+        complementarity = max_value(
+            complementarity,
+            complementarity_residual(bound, activity, multiplier),
+        );
+    }
+    for (&native, &recomputed) in native_reduced_costs.iter().zip(reduced_costs) {
+        reduced_cost_residual = max_value(reduced_cost_residual, (native - recomputed).abs());
+    }
+    let dual_objective = dual_objective(
+        &problem.variable_bounds,
+        reduced_costs,
+        &problem.row_bounds,
+        row_multipliers,
+        stationarity_tolerance,
+    )?;
+    let (primal_dual_objective_gap, relative_objective_gap) =
+        dual_objective.map_or((None, None), |dual| {
+            let gap = (objective_value - dual).abs();
+            let relative = gap / max_value(T::ONE, max_value(objective_value.abs(), dual.abs()));
+            (Some(gap), Some(relative))
+        });
+    let primal_residual = max_value(
+        variable_violation,
+        max_value(row_violation, activity_residual),
+    );
+    Ok(LpOptimalityDiagnostics {
+        maximum_variable_bound_violation: variable_violation,
+        maximum_row_bound_violation: row_violation,
+        maximum_row_activity_residual: activity_residual,
+        maximum_reduced_cost_residual: reduced_cost_residual,
+        maximum_dual_feasibility_violation: dual_violation,
+        maximum_complementary_slackness_residual: complementarity,
+        primal_objective: objective_value,
+        dual_objective,
+        primal_dual_objective_gap,
+        relative_objective_gap,
+        absolute_tolerance: tolerances.absolute,
+        relative_tolerance: tolerances.relative,
+        scaled_primal_residual: scaled_residual(primal_residual, residual_tolerance),
+        scaled_stationarity_residual: scaled_residual(
+            max_value(reduced_cost_residual, dual_violation),
+            stationarity_tolerance,
+        ),
+    })
+}
+
+fn diagnostics_exceed_tolerance<T: Scalar>(diagnostics: &LpOptimalityDiagnostics<T>) -> bool {
+    diagnostics.scaled_primal_residual > T::ONE
+        || diagnostics.scaled_stationarity_residual > T::ONE
+        || scaled_residual(
+            diagnostics.maximum_complementary_slackness_residual,
+            diagnostics.absolute_tolerance
+                + diagnostics.relative_tolerance
+                    * max_value(T::ONE, diagnostics.primal_objective.abs()),
+        ) > T::ONE
+        || diagnostics.primal_dual_objective_gap.is_some_and(|gap| {
+            gap > diagnostics.absolute_tolerance
+                + diagnostics.relative_tolerance
+                    * max_value(T::ONE, diagnostics.primal_objective.abs())
+        })
+}
+
+fn dual_objective<T: Scalar>(
+    variable_bounds: &[LpBound<T>],
+    reduced_costs: &[T],
+    row_bounds: &[LpBound<T>],
+    row_multipliers: &[T],
+    tolerance: T,
+) -> Result<Option<T>, LpError<T>> {
+    let mut total = T::ZERO;
+    for (&bound, &reduced_cost) in variable_bounds.iter().zip(reduced_costs) {
+        let Some(value) = bound_infimum(bound, reduced_cost, tolerance) else {
+            return Ok(None);
+        };
+        total = total + value;
+    }
+    for (&bound, &multiplier) in row_bounds.iter().zip(row_multipliers) {
+        let Some(value) = bound_infimum(bound, multiplier, tolerance) else {
+            return Ok(None);
+        };
+        total = total + value;
+    }
+    if total.is_finite() {
+        Ok(Some(total))
+    } else {
+        Err(LpError::NativeContractViolation)
+    }
+}
+
+fn bound_infimum<T: Scalar>(bound: LpBound<T>, coefficient: T, tolerance: T) -> Option<T> {
     match bound {
-        LpBound::Free => true,
-        LpBound::Lower(lower) => value + tolerance >= lower,
-        LpBound::Upper(upper) => value - tolerance <= upper,
-        LpBound::Range { lower, upper } => value + tolerance >= lower && value - tolerance <= upper,
-        LpBound::Fixed(fixed) => (value - fixed).abs() <= tolerance * (T::ONE + fixed.abs()),
+        LpBound::Free => (coefficient.abs() <= tolerance).then_some(T::ZERO),
+        LpBound::Lower(lower) => (coefficient >= T::ZERO).then_some(coefficient * lower),
+        LpBound::Upper(upper) => (coefficient <= T::ZERO).then_some(coefficient * upper),
+        LpBound::Range { lower, upper } => {
+            if coefficient >= T::ZERO {
+                Some(coefficient * lower)
+            } else {
+                Some(coefficient * upper)
+            }
+        }
+        LpBound::Fixed(value) => Some(coefficient * value),
+    }
+}
+
+fn bound_violation<T: Scalar>(bound: LpBound<T>, value: T) -> T {
+    match bound {
+        LpBound::Free => T::ZERO,
+        LpBound::Lower(lower) => positive_part(lower - value),
+        LpBound::Upper(upper) => positive_part(value - upper),
+        LpBound::Range { lower, upper } => {
+            max_value(positive_part(lower - value), positive_part(value - upper))
+        }
+        LpBound::Fixed(fixed) => (value - fixed).abs(),
+    }
+}
+
+fn dual_feasibility_violation<T: Scalar>(
+    bound: LpBound<T>,
+    value: T,
+    reduced_cost: T,
+    tolerance: T,
+) -> T {
+    match bound {
+        LpBound::Free => reduced_cost.abs(),
+        LpBound::Lower(_) => positive_part(T::ZERO - reduced_cost),
+        LpBound::Upper(_) => positive_part(reduced_cost),
+        LpBound::Fixed(_) => T::ZERO,
+        LpBound::Range { lower, upper } => {
+            if (value - lower).abs() <= tolerance {
+                positive_part(T::ZERO - reduced_cost)
+            } else if (value - upper).abs() <= tolerance {
+                positive_part(reduced_cost)
+            } else {
+                reduced_cost.abs()
+            }
+        }
+    }
+}
+
+fn complementarity_residual<T: Scalar>(bound: LpBound<T>, value: T, reduced_cost: T) -> T {
+    match bound {
+        LpBound::Free => reduced_cost.abs(),
+        LpBound::Lower(lower) => reduced_cost.abs() * (value - lower).abs(),
+        LpBound::Upper(upper) => reduced_cost.abs() * (upper - value).abs(),
+        LpBound::Range { lower, upper } => min_value(
+            reduced_cost.abs() * (value - lower).abs(),
+            reduced_cost.abs() * (upper - value).abs(),
+        ),
+        LpBound::Fixed(_) => T::ZERO,
+    }
+}
+
+fn maximum_slice_magnitude<T: Scalar>(values: &[T]) -> T {
+    values
+        .iter()
+        .fold(T::ZERO, |maximum, value| max_value(maximum, value.abs()))
+}
+
+fn maximum_bound_magnitude<T: Scalar>(bounds: &[LpBound<T>]) -> T {
+    bounds.iter().fold(T::ZERO, |maximum, bound| match *bound {
+        LpBound::Free => maximum,
+        LpBound::Lower(value) | LpBound::Upper(value) | LpBound::Fixed(value) => {
+            max_value(maximum, value.abs())
+        }
+        LpBound::Range { lower, upper } => max_value(maximum, max_value(lower.abs(), upper.abs())),
+    })
+}
+
+fn max_value<T: Scalar>(left: T, right: T) -> T {
+    if right > left { right } else { left }
+}
+
+fn min_value<T: Scalar>(left: T, right: T) -> T {
+    if right < left { right } else { left }
+}
+
+fn positive_part<T: Scalar>(value: T) -> T {
+    max_value(T::ZERO, value)
+}
+
+fn scaled_residual<T: Scalar>(residual: T, tolerance: T) -> T {
+    if tolerance == T::ZERO {
+        if residual == T::ZERO { T::ZERO } else { T::ONE }
+    } else {
+        residual / tolerance
     }
 }
 
@@ -1197,7 +2013,7 @@ mod tests {
             Err(LpError::InvalidInput(LpInputError::ObjectiveLength))
         ));
         assert!(matches!(
-            native_integer(usize::MAX),
+            native_integer::<f64>(usize::MAX),
             Err(LpError::InvalidInput(LpInputError::DimensionOverflow))
         ));
     }
@@ -1214,13 +2030,56 @@ mod tests {
         .unwrap();
         assert_eq!(
             problem.solve_with_options(LpOptions {
-                maximum_matrix_entries: Some(0)
+                maximum_resident_nonzeros: Some(0),
+                ..LpOptions::default()
             }),
             Err(LpError::PagingRequired {
-                required_matrix_storage: 1,
-                available_matrix_storage: 0
+                required_nonzeros: 1,
+                required_lamat: 8,
+                maximum_resident_nonzeros: 0
             })
         );
+    }
+
+    #[test]
+    fn malformed_native_basis_is_rejected_before_public_decoding() {
+        let variables = [LpBound::Lower(0.0_f64)];
+        let rows = [LpBound::Lower(0.0_f64)];
+        assert!(matches!(
+            decode_basis(1, 1, &variables, &rows, &[0, 2], &[-1, 1]),
+            Err(LpError::NativeContractViolation)
+        ));
+        assert!(matches!(
+            decode_basis(1, 1, &variables, &rows, &[1, 2], &[-1, -1]),
+            Err(LpError::NativeContractViolation)
+        ));
+
+        let matrix = SparseColumns::<f64>::new(1, 1, vec![0, 1], vec![0], vec![1.0]).unwrap();
+        let problem = LinearProgram::<f64>::new(
+            vec![1.0],
+            matrix,
+            vec![LpBound::Lower(1.0)],
+            vec![LpBound::Lower(1.0)],
+        )
+        .unwrap();
+        let mut integer_workspace = vec![0; 10];
+        integer_workspace[8] = -1;
+        integer_workspace[9] = 1;
+        assert!(matches!(
+            map_result(
+                &problem,
+                LpValidation::NativeOnly,
+                NativeOutputs {
+                    info: 1,
+                    primal: &[1.0, 1.0],
+                    duals: &[1.0, 0.0],
+                    basis: &[0, 2],
+                    integer_workspace: &integer_workspace,
+                    matrix_words: 8,
+                },
+            ),
+            Err(LpError::NativeContractViolation)
+        ));
     }
 
     #[test]
@@ -1235,7 +2094,8 @@ mod tests {
             panic_on_entry: false,
         };
         let _guard =
-            ContextGuard::install((&mut context as *mut CallbackContext<'_, f64>).cast()).unwrap();
+            ContextGuard::install::<f64>((&mut context as *mut CallbackContext<'_, f64>).cast())
+                .unwrap();
         let (mut row, mut column, mut value, mut category, mut option, mut data, mut flag) =
             (0, 0, 0.0, 0, 0.0, 0.0, 99);
         // SAFETY: every callback scalar pointer remains valid for the call.
@@ -1266,7 +2126,8 @@ mod tests {
             panic_on_entry: true,
         };
         let _guard =
-            ContextGuard::install((&mut context as *mut CallbackContext<'_, f64>).cast()).unwrap();
+            ContextGuard::install::<f64>((&mut context as *mut CallbackContext<'_, f64>).cast())
+                .unwrap();
         let (mut row, mut column, mut value, mut category, mut option, mut data, mut flag) =
             (0, 0, 0.0, 0, 0.0, 0.0, 1);
         // SAFETY: every callback scalar pointer remains valid for the call.

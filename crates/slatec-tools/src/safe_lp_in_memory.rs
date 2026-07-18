@@ -72,15 +72,19 @@ pub fn generate(
         ]),
         json!([
             -3,
-            "InfeasibleOrNoFiniteSolution",
-            "native_contract_does_not_distinguish_no_solution_returned"
+            "InfeasibleAndNoFiniteSolution",
+            "native_reports_both_diagnoses_no_solution_returned"
         ]),
         json!([
             -25,
             "IterationLimit",
-            "legitimate_termination_no_solution_returned"
+            "legitimate_termination_no_optimal_solution; finite_LpProgress_when_decodable"
         ]),
-        json!([-28, "LpNativeFailure::InsufficientBasisWorkspace", "error"]),
+        json!([
+            -28,
+            "LpNativeFailure::InsufficientBasisWorkspace",
+            "data_dependent_basis_fill_failure; nominal_LBM_preflight_cannot_fully_prevent"
+        ]),
         json!(["other_documented_negative_INFO", "LpNativeFailure", "error"]),
         json!([
             "unexpected_INFO",
@@ -88,14 +92,181 @@ pub fn generate(
             "error"
         ]),
     ];
+    let output_contract = vec![
+        json!([
+            "PRIMAL(1:N)",
+            "variables",
+            "optimal_and_INFO_minus_25_progress",
+            "native_decision_vector; independently_checked_finite"
+        ]),
+        json!([
+            "PRIMAL(N+1:N+M)",
+            "native_row_activities",
+            "optimal",
+            "compared_to_independently_recomputed_Ax"
+        ]),
+        json!([
+            "DUALS(1:M)",
+            "row_multipliers",
+            "optimal",
+            "y_in_L_equals_cTx_minus_yT_Ax_minus_w"
+        ]),
+        json!([
+            "DUALS(M+1:M+N)",
+            "reduced_costs",
+            "optimal",
+            "c_minus_A_transpose_y; independently_recomputed"
+        ]),
+        json!([
+            "IBASIS(1:M)",
+            "basis.basic",
+            "optimal",
+            "one_based_basic_decision_or_row_activity_identifiers"
+        ]),
+        json!([
+            "IWORK(LAMAT+1:LAMAT+N+M)",
+            "basis.positions",
+            "optimal",
+            "IBB_basic_nonbasic_and_range_endpoint_state"
+        ]),
+        json!([
+            "INFO=-25_PRIMAL",
+            "progress",
+            "iteration_limit_only",
+            "rescaled_current_primal_iterate; never_dual_or_basis"
+        ]),
+        json!([
+            "ITLP_NREDC_factorization_counts",
+            "not_exposed",
+            "printed_only",
+            "not_a_documented_stable_output"
+        ]),
+    ];
+    let option_audit = vec![
+        json!([
+            "50",
+            "objective_sense",
+            "deferred",
+            "public_API_is_reviewed_native_minimization_only"
+        ]),
+        json!(["51", "legacy_printing", "prohibited_fixed_off", "KPRINT=0"]),
+        json!([
+            "52",
+            "printing_format",
+            "prohibited",
+            "legacy_printing_is_disabled"
+        ]),
+        json!([
+            "53",
+            "LAMAT_LBM",
+            "internal_fixed",
+            "exact_checked_in_memory_workspace"
+        ]),
+        json!([
+            "54",
+            "paging_unit",
+            "prohibited",
+            "no_Fortran_units_or_filesystem"
+        ]),
+        json!([
+            "55",
+            "continuation",
+            "prohibited_fixed_off",
+            "no_persistent_file_state"
+        ]),
+        json!([
+            "56",
+            "save_unit",
+            "prohibited",
+            "no_Fortran_units_or_filesystem"
+        ]),
+        json!([
+            "57",
+            "save_restore",
+            "prohibited_fixed_off",
+            "no_external_state"
+        ]),
+        json!([
+            "58",
+            "maximum_iterations",
+            "public",
+            "Option_usize_checked_against_native_INTEGER_and_REAL"
+        ]),
+        json!([
+            "59",
+            "user_basis",
+            "deferred",
+            "input_basis_lifecycle_not_public"
+        ]),
+        json!([
+            "60",
+            "user_column_scaling",
+            "deferred",
+            "requires_reviewed_scaling_vector_contract"
+        ]),
+        json!([
+            "61",
+            "user_cost_scaling",
+            "deferred",
+            "requires_reviewed_scaling_contract"
+        ]),
+        json!([
+            "62",
+            "matrix_size_check",
+            "deferred",
+            "safe_but_not_needed_for_initial_controls"
+        ]),
+        json!([
+            "63",
+            "relative_feasibility_tolerance",
+            "public",
+            "finite_nonnegative_typed_scalar"
+        ]),
+        json!([
+            "64",
+            "pricing",
+            "public",
+            "typed_SteepestEdge_or_MinimumReducedCost"
+        ]),
+        json!([
+            "65",
+            "recalculation_interval",
+            "deferred",
+            "insufficient_user_value_for_initial_surface"
+        ]),
+        json!([
+            "66",
+            "partial_pricing_count",
+            "deferred",
+            "insufficient_user_value_for_initial_surface"
+        ]),
+        json!([
+            "67",
+            "native_error_tuning",
+            "deferred",
+            "poor_stable_semantics"
+        ]),
+        json!([
+            "68",
+            "dense_callback",
+            "prohibited",
+            "only_reviewed_sparse_CSC_callback_is_public"
+        ]),
+        json!([
+            "69",
+            "absolute_feasibility_tolerance",
+            "public",
+            "finite_nonnegative_typed_scalar"
+        ]),
+    ];
     let files = [
         (
             "lp-wrapper-index.json",
-            json!({"schema_id":"slatec.safe-lp-in-memory.wrapper-index","schema_version":"1.0.0","snapshot_id":snapshot,"raw_ffi_profile":PROFILE,"columns":["safe_path","raw_routine","raw_symbol","precision","mathematical_model","runtime_policy","review_state"],"records":wrappers}),
+            json!({"schema_id":"slatec.safe-lp-in-memory.wrapper-index","schema_version":"1.1.0","snapshot_id":snapshot,"raw_ffi_profile":PROFILE,"columns":["safe_path","raw_routine","raw_symbol","precision","mathematical_model","runtime_policy","review_state"],"records":wrappers}),
         ),
         (
             "lp-in-memory-contract.json",
-            json!({"schema_id":"slatec.safe-lp-in-memory.contract","schema_version":"1.0.0","snapshot_id":snapshot,"model":"minimize c^T x subject to A x = w","columns":["property","value","enforcement"],"records":[["matrix","owned_CSC; strictly_increasing_zero_based_row_indices_per_column; no_duplicates; no_explicit_zeroes","validated_before_FFI"],["variable_bounds","IND_1_lower; IND_2_upper; IND_3_range_or_fixed; IND_4_free","typed_LpBound"],["row_activity_bounds","same_native_IND_categories_as_variables","typed_LpBound"],["printing","KPRINT=0","fixed_internal_option"],["continuation","CONTIN=false","fixed_internal_option"],["save_restore","SAVEDT=false","fixed_internal_option"],["paging_unit_key_54","not_emitted_and_not_public","fixed"],["paging","forbidden","preflight_capacity_check_plus_no_IO_traps_and_postcall_counter"]]}),
+            json!({"schema_id":"slatec.safe-lp-in-memory.contract","schema_version":"1.1.0","snapshot_id":snapshot,"model":"minimize c^T x subject to A x = w","columns":["property","value","enforcement"],"records":[["matrix","owned_CSC; strictly_increasing_zero_based_row_indices_per_column; no_duplicates; no_explicit_zeroes","validated_before_FFI"],["variable_bounds","IND_1_lower; IND_2_upper; IND_3_range_or_fixed; IND_4_free","typed_LpBound"],["row_activity_bounds","same_native_IND_categories_as_variables","typed_LpBound"],["resident_memory_limit","maximum_resident_nonzeros_admits_input_NNZ; LAMAT_is_internal_exact_capacity","PagingRequired_reports_NNZ_and_LAMAT_before_FFI"],["printing","KPRINT=0","fixed_internal_option"],["continuation","CONTIN=false","fixed_internal_option"],["save_restore","SAVEDT=false","fixed_internal_option"],["paging_unit_key_54","not_emitted_and_not_public","fixed"],["paging","forbidden","preflight_capacity_check_plus_no_IO_traps_and_postcall_counter"],["optimality","primal_dual_KKT_diagnostics","recomputed_without_densification"]]}),
         ),
         (
             "lp-workspace.json",
@@ -107,7 +278,27 @@ pub fn generate(
         ),
         (
             "lp-status-map.json",
-            json!({"schema_id":"slatec.safe-lp-in-memory.status-map","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["native_INFO","safe_mapping","output_policy"],"records":status_records}),
+            json!({"schema_id":"slatec.safe-lp-in-memory.status-map","schema_version":"1.1.0","snapshot_id":snapshot,"columns":["native_INFO","safe_mapping","output_policy"],"records":status_records}),
+        ),
+        (
+            "lp-output-contract.json",
+            json!({"schema_id":"slatec.safe-lp-in-memory.output-contract","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["native_storage","safe_output","meaningful_status","contract"],"records":output_contract}),
+        ),
+        (
+            "lp-dual-sign-convention.json",
+            json!({"schema_id":"slatec.safe-lp-in-memory.dual-sign-convention","schema_version":"1.0.0","snapshot_id":snapshot,"model":"minimize c^T x subject to A x = w","lagrangian":"c^T x - y^T(Ax-w)","columns":["quantity","formula","bound_rule"],"records":[["row_multiplier","y","lower_w_implies_y_ge_0; upper_w_implies_y_le_0; free_w_implies_y_zero"],["variable_reduced_cost","c-A^T*y","lower_x_implies_r_ge_0; upper_x_implies_r_le_0; free_x_implies_r_zero"],["ranged_entity","combined_reduced_cost","lower_active_positive; upper_active_negative; interior_zero"],["fixed_entity","combined_reaction","sign_unrestricted; separate_bound_multipliers_not_available"],["dual_objective","sum_infimum_over_x_and_w_of_reduced_cost_times_bound_domain","only_finite_when_free_entity_reduced_cost_is_zero"]]}),
+        ),
+        (
+            "lp-basis-contract.json",
+            json!({"schema_id":"slatec.safe-lp-in-memory.basis-contract","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["native_storage","native_encoding","safe_decoding","validation"],"records":[["IBASIS(1:M)","one_based_identifiers_1_to_N_plus_M; first_M_basic","LpBasis.basic","nonzero_in_range_unique_exactly_M"],["IBB(1:N+M)","negative_basic; positive_nonbasic; parity_selects_range_endpoint","LpBasisPosition","sign_matches_IBASIS_membership; no_zero_indicator_on_optimal_return"],["variable_identifier","1_to_N","DecisionVariable(zero_based)","checked_subtraction"],["row_identifier","N_plus_1_to_N_plus_M","RowActivity(zero_based)","checked_subtraction"]]}),
+        ),
+        (
+            "lp-optimality-validation.json",
+            json!({"schema_id":"slatec.safe-lp-in-memory.optimality-validation","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["check","source","policy"],"records":[["row_activities","sparse_CSC_Ax","always_recomputed"],["objective","original_c_dot_x","always_recomputed"],["primal_bounds","typed_x_and_w_bounds","reported_and_checked_when_requested"],["stationarity","native_reduced_cost_minus_c_minus_A_transpose_y","reported_and_checked_when_requested"],["dual_feasibility","bound_specific_reduced_cost_sign","reported_and_checked_when_requested"],["complementarity","reduced_cost_times_distance_to_active_bound","reported_and_checked_when_requested"],["objective_gap","primal_minus_dual_bound_infimum","reported_when_free_entity_stationarity_makes_dual_finite"],["scaling","precision_epsilon_coefficient_state_bound_objective_and_dimension_magnitudes","default_conservative_or_user_typed_tolerances"]]}),
+        ),
+        (
+            "lp-option-audit.json",
+            json!({"schema_id":"slatec.safe-lp-in-memory.option-audit","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["key","native_control","classification","safe_policy"],"records":option_audit}),
         ),
         (
             "lp-concurrency.json",
@@ -123,7 +314,7 @@ pub fn generate(
         ),
         (
             "linear-programming-deferred.json",
-            json!({"schema_id":"slatec.safe-lp-in-memory.deferred","schema_version":"2.0.0","snapshot_id":snapshot,"columns":["item","reason"],"records":[["external_paging","Fortran_unit_lifecycle_filename_ownership_cleanup_and_IO_failure_recovery_are_unresolved"],["option_key_54","unit_selection_is_not_part_of_the_in_memory_API"],["save_restore","could_activate_persistent_native_state_and_paging"],["warm_starts_and_user_basis","basis_protocol_not_exposed_in_initial_safe_API"],["mixed_integer_quadratic_and_nonlinear_programming","different_mathematical_families"],["sensitivity_and_post_optimality_ranges","not_reliably_supplied_by_the_selected_driver_contract"],["persistent_solver_objects","callback_and_native_history_lifecycle_deferred"],["parallel_LP_solves","native_closure_remains_SerializedGlobal"],["matrix_ecosystem_adapters","core_API_uses_owned_CSC_slices_without_dependencies"]]}),
+            json!({"schema_id":"slatec.safe-lp-in-memory.deferred","schema_version":"2.1.0","snapshot_id":snapshot,"columns":["item","reason"],"records":[["external_paging","Fortran_unit_lifecycle_filename_ownership_cleanup_and_IO_failure_recovery_are_unresolved"],["option_key_54","unit_selection_is_not_part_of_the_in_memory_API"],["save_restore","could_activate_persistent_native_state_and_paging"],["warm_starts_and_user_basis","output_basis_is_checked_but_user_supplied_basis_lifecycle_is_not_public"],["separate_lower_upper_multipliers","native_driver_returns_only_combined_reduced_costs"],["mixed_integer_quadratic_and_nonlinear_programming","different_mathematical_families"],["sensitivity_and_post_optimality_ranges","not_reliably_supplied_by_the_selected_driver_contract"],["persistent_solver_objects","callback_and_native_history_lifecycle_deferred"],["parallel_LP_solves","native_closure_remains_SerializedGlobal"],["matrix_ecosystem_adapters","core_API_uses_owned_CSC_slices_without_dependencies"]]}),
         ),
     ];
 
@@ -135,7 +326,7 @@ pub fn generate(
         bytes.extend_from_slice(&encoded);
     }
     let summary = format!(
-        "# Safe in-memory SLATEC linear programming\n\n- Snapshot: `{snapshot}`.\n- Wrappers: `SPLP` (`f32`) and `DSPLP` (`f64`).\n- Model: minimize `c^T x` subject to `A x = w`, with typed lower, upper, ranged/fixed, or free bounds on both variables and row activities.\n- Sparse protocol: owned validated CSC is delivered through the one-based `USRMAT`/`DUSRMT` callback protocol without densification or reordering.\n- In-memory contract: printing, continuation, save/restore, and option key 54 are disabled; capacity is checked before FFI. The source profile contains no paging or file-I/O implementation. ABI-compatible project traps do no I/O and turn any unexpected paging entry into a contract violation.\n- Workspace: `LAMAT=max(N+7,N+NNZ+6)`, `LBM=8*M`, `WORK=LAMAT+LBM+4*N+8*M`, and `IWORK=LAMAT+2*LBM+N+11*M`, all calculated with checked arithmetic.\n- Runtime: the complete callback/XERROR/native/status scope is process serialized. XERROR control flag and output units are restored. Avoiding paging does not make LP reentrant.\n- Validation: both precisions cover optimal, equality/fixed-bound, infeasible, and no-finite-solution cases; malformed sparse inputs, capacity rejection, callback protocol errors, and callback panic containment are covered. No native or source artifact is committed.\n"
+        "# Safe in-memory SLATEC linear programming\n\n- Snapshot: `{snapshot}`.\n- Wrappers: `SPLP` (`f32`) and `DSPLP` (`f64`).\n- Model: minimize `c^T x` subject to `A x = w`, with typed lower, upper, ranged/fixed, or free bounds on both variables and row activities.\n- Sparse protocol: owned validated CSC is delivered through the one-based `USRMAT`/`DUSRMT` callback protocol without densification or reordering.\n- In-memory contract: printing, continuation, save/restore, and option key 54 are disabled; capacity is checked before FFI. The source profile contains no paging or file-I/O implementation. ABI-compatible project traps do no I/O and turn any unexpected paging entry into a contract violation.\n- Workspace: `LAMAT=max(N+7,N+NNZ+6)`, `LBM=8*M`, `WORK=LAMAT+LBM+4*N+8*M`, and `IWORK=LAMAT+2*LBM+N+11*M`, all calculated with checked arithmetic.\n- Outputs: optimal returns decode checked `IBASIS`/`IBB` basis state, row multipliers `y`, and reduced costs `c-A^T y`; lower and upper multipliers are not fabricated. `INFO=-25` can carry labelled finite primal progress but never an optimal dual/basis result.\n- Controls: only typed iteration limit, feasibility tolerances, and pricing are emitted. Raw options, paging, save/restore, printing, dense callbacks, and user basis input remain unavailable.\n- Runtime: the complete callback/XERROR/native/status scope is process serialized. XERROR control flag and output units are restored. Avoiding paging does not make LP reentrant.\n- Validation: both precisions cover primal-dual KKT conditions, basis decoding, iteration limit, equality/fixed-bound, infeasible, no-finite-solution, callback containment, capacity rejection, and no-file paging traps. No native or source artifact is committed.\n"
     );
     fs::write(
         output_dir.join("lp-validation-summary.md"),
@@ -170,6 +361,11 @@ mod tests {
             "lp-workspace.json",
             "lp-callback-contract.json",
             "lp-status-map.json",
+            "lp-output-contract.json",
+            "lp-dual-sign-convention.json",
+            "lp-basis-contract.json",
+            "lp-optimality-validation.json",
+            "lp-option-audit.json",
             "lp-concurrency.json",
             "lp-source-closure.json",
             "lp-paging-policy.json",

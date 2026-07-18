@@ -1,8 +1,9 @@
 # Optimization-family audit
 
-This is an audit record, not a public optimization API.  It inventories the
-optimization-adjacent program units in the selected SLATEC corpus and records
-why no new `optimization` Cargo feature is introduced by this milestone.
+This is a historical audit record, not the current public API reference. It
+inventories optimization-adjacent program units in the selected SLATEC corpus.
+The later in-memory-only `SPLP`/`DSPLP` feature is documented separately in
+the [safe linear-programming guide](../api/safe-linear-programming-in-memory.md).
 
 The deterministic machine-readable records are in
 `generated/safe-api/optimization-*.{json,md}`.  They cross-check the selected
@@ -25,7 +26,7 @@ general nonlinear-programming driver is present in the selected corpus.  The
 audit therefore does not reinterpret nonlinear equation solving or
 least-squares fitting as a new optimization family.
 
-## SPLP and DSPLP remain deferred
+## Original SPLP and DSPLP paging audit
 
 `SPLP` and `DSPLP` are the only remaining public general optimization drivers.
 Their mathematical form is
@@ -48,9 +49,10 @@ reliable I/O-failure propagation.
 
 The existing native runtime lock can serialize calls, but it cannot make an
 activated unit recoverable after a callback failure, native error, or panic,
-and cannot meet the repository's cleanup guarantees. The audit consequently
-selects **no optimization family yet**.  It does not add a native I/O shim,
-raw declaration, provider feature, source closure, wrapper, or example.
+and cannot meet the repository's cleanup guarantees. The current wrapper
+therefore admits only resident problems, disables these options, and installs
+forbidden-entry traps. It still does not add a native I/O shim or any out-of-
+core paging feature.
 
 ## Future-wrapper policy
 

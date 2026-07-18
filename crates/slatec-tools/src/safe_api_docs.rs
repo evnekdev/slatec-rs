@@ -732,7 +732,8 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         && !(function.domain == "linear least squares" && upper == "MODE")
         && !(analytic_jacobian && upper == "JAC")
         && !(jacobian_check && matches!(upper.as_str(), "FJAC" | "ERR"))
-        && !(function.domain == "linear programming" && upper == "INFO");
+        && !(function.domain == "linear programming"
+            && matches!(upper.as_str(), "INFO" | "DUALS" | "IBASIS" | "IWORK"));
     let rust = if internal_argument || inferred {
         None
     } else {
@@ -751,7 +752,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "problem.objective".to_owned()
             }
             "PRGOPT" if function.domain == "linear programming" => {
-                "internal fixed option list: printing, continuation, and save/restore disabled; key 54 absent; LAMAT and LBM supplied"
+                "internal reviewed option list: printing, continuation, save/restore, dense callback, and key 54 disabled; exact LAMAT/LBM plus typed iteration/tolerance/pricing controls"
                     .to_owned()
             }
             "BL" | "BU" | "IND" if function.domain == "linear programming" => {
@@ -760,7 +761,19 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             }
             "INFO" if function.domain == "linear programming" => "result.status".to_owned(),
             "PRIMAL" if function.domain == "linear programming" => {
-                "optimal result.solution followed by independently recomputed row activities"
+                "optimal result.solution variables plus independently recomputed row activities; labelled progress only for INFO=-25"
+                    .to_owned()
+            }
+            "DUALS" if function.domain == "linear programming" => {
+                "optimal result.solution.dual: row multipliers y then reduced costs c-A^T*y"
+                    .to_owned()
+            }
+            "IBASIS" if function.domain == "linear programming" => {
+                "optimal result.solution.basis.basic, validated one-based native identifiers"
+                    .to_owned()
+            }
+            "IWORK" if function.domain == "linear programming" => {
+                "private checked workspace; optimal IBB segment decodes typed basis positions"
                     .to_owned()
             }
             "F" | "FCN" => "function".to_owned(),

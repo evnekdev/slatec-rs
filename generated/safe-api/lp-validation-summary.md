@@ -6,5 +6,7 @@
 - Sparse protocol: owned validated CSC is delivered through the one-based `USRMAT`/`DUSRMT` callback protocol without densification or reordering.
 - In-memory contract: printing, continuation, save/restore, and option key 54 are disabled; capacity is checked before FFI. The source profile contains no paging or file-I/O implementation. ABI-compatible project traps do no I/O and turn any unexpected paging entry into a contract violation.
 - Workspace: `LAMAT=max(N+7,N+NNZ+6)`, `LBM=8*M`, `WORK=LAMAT+LBM+4*N+8*M`, and `IWORK=LAMAT+2*LBM+N+11*M`, all calculated with checked arithmetic.
+- Outputs: optimal returns decode checked `IBASIS`/`IBB` basis state, row multipliers `y`, and reduced costs `c-A^T y`; lower and upper multipliers are not fabricated. `INFO=-25` can carry labelled finite primal progress but never an optimal dual/basis result.
+- Controls: only typed iteration limit, feasibility tolerances, and pricing are emitted. Raw options, paging, save/restore, printing, dense callbacks, and user basis input remain unavailable.
 - Runtime: the complete callback/XERROR/native/status scope is process serialized. XERROR control flag and output units are restored. Avoiding paging does not make LP reentrant.
-- Validation: both precisions cover optimal, equality/fixed-bound, infeasible, and no-finite-solution cases; malformed sparse inputs, capacity rejection, callback protocol errors, and callback panic containment are covered. No native or source artifact is committed.
+- Validation: both precisions cover primal-dual KKT conditions, basis decoding, iteration limit, equality/fixed-bound, infeasible, no-finite-solution, callback containment, capacity rejection, and no-file paging traps. No native or source artifact is committed.

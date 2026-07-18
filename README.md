@@ -110,8 +110,11 @@ RHS callback and caller-controlled continuation. See the
 The opt-in `optimization-linear-programming-in-memory` feature wraps original
 `SPLP`/`DSPLP` for sparse linear programs that fit entirely in native resident
 workspace. Paging, Fortran units, save/restore, and legacy printing are never
-enabled; insufficient resident capacity is rejected before FFI. See the
-[in-memory LP guide](docs/api/safe-linear-programming-in-memory.md).
+enabled; insufficient resident capacity is rejected before FFI. Optimal
+results expose checked typed basis data, source-audited row multipliers and
+reduced costs, and independently computed primal-dual KKT diagnostics. The
+reviewed controls cover iteration limit, feasibility tolerances, and pricing
+only. See the [in-memory LP guide](docs/api/safe-linear-programming-in-memory.md).
 
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS

@@ -68,9 +68,11 @@ native-runtime claim.
 
 ## Deferred scope
 
-`SPLP`/`DSPLP` linear programming, dual multipliers, active-set state,
-sensitivity analysis, constrained covariance, sparse matrices, warm starts,
-and arbitrary user-defined objectives remain deferred.
+`SPLP`/`DSPLP` linear programming is separately available only for its
+resident-memory LP contract; it is not this constrained least-squares API.
+Least-squares dual multipliers, active-set state, sensitivity analysis,
+constrained covariance, sparse matrices, warm starts, and arbitrary
+user-defined objectives remain deferred here.
 
 See [`bounded_constrained_fit.rs`](../../examples/least_squares/bounded_constrained_fit.rs),
 [`active_bound_and_constraint.rs`](../../examples/least_squares/active_bound_and_constraint.rs),
