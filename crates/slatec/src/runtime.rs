@@ -275,6 +275,7 @@ pub(crate) fn max_ode_native_calls() -> usize {
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
     feature = "ode-sdrive-expert",
+    feature = "dassl",
     feature = "pchip"
 ))]
 pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
@@ -298,6 +299,7 @@ pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
     feature = "ode-sdrive-expert",
+    feature = "dassl",
     feature = "pchip"
 ))]
 pub(crate) struct RecoverableErrorScope {
@@ -312,6 +314,7 @@ pub(crate) struct RecoverableErrorScope {
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
     feature = "ode-sdrive-expert",
+    feature = "dassl",
     feature = "pchip"
 ))]
 impl Drop for RecoverableErrorScope {

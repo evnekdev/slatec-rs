@@ -26,6 +26,8 @@ compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` f
 compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std` feature");
 #[cfg(all(feature = "ode-sdrive-expert", not(feature = "std")))]
 compile_error!("the `ode-sdrive-expert` safe API requires the `std` feature");
+#[cfg(all(feature = "dassl", not(feature = "std")))]
+compile_error!("the `dassl` safe API requires the `std` feature");
 #[cfg(all(
     feature = "optimization-linear-programming-in-memory",
     not(feature = "std")
@@ -108,6 +110,7 @@ pub mod polynomials;
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
     feature = "ode-sdrive-expert",
+    feature = "dassl",
     feature = "optimization-linear-programming-in-memory",
     feature = "fftpack-real",
     feature = "pchip"
@@ -121,6 +124,10 @@ pub mod fftpack;
 /// Safe piecewise-cubic Hermite interpolation backed by SLATEC PCHIP.
 #[cfg(feature = "pchip")]
 pub mod pchip;
+
+/// Safe residual-only sessions for the reviewed real SLATEC DASSL drivers.
+#[cfg(feature = "dassl")]
+pub mod dassl;
 
 /// Test-only observations of the hosted process-wide native runtime lock.
 ///

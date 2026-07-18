@@ -70,6 +70,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::bounded_least_squares::solve_bounded_least_squares_f32` | `SBOLS` | linear least squares | f32 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/mixed_bounds.rs) |
 | `slatec::constrained_least_squares::solve_constrained_least_squares` | `DLSEI` | linear least squares | f64 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/equality_constrained_fit.rs) |
 | `slatec::constrained_least_squares::solve_constrained_least_squares_f32` | `LSEI` | linear least squares | f32 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/inequality_constrained_fit.rs) |
+| `slatec::dassl::DaeSession::<f32, F>::advance_to` | `SDASSL` | differential-algebraic equations | f32 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/algebraic_variable.rs) |
+| `slatec::dassl::DaeSession::<f64, F>::advance_to` | `DDASSL` | differential-algebraic equations | f64 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/index1_constraint.rs) |
 | `slatec::fftpack::CosineTransformPlan::new` | `COSTI` | real FFTPACK | f32 | initialize a full cosine-transform plan | `std` | `fftpack-real` | [full cosine transform plan initialization](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::CosineTransformPlan::transform` | `COST` | real FFTPACK | f32 | compute the full FFTPACK cosine transform | `std` | `fftpack-real` | [full cosine transform](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::EasyRealFftPlan::backward` | `EZFFTB` | real FFTPACK | f32 | synthesize a real sequence from Fourier-series coefficients | `std` | `fftpack-real` | [easy real Fourier synthesis](../../examples/fftpack/real_fft.rs) |
@@ -287,6 +289,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DCOV` -> `slatec::least_squares::estimate_covariance`
 - `DCOV` -> `slatec::least_squares::estimate_covariance_finite_difference`
 - `DCSEVL` -> `slatec::polynomials::chebyshev::chebyshev_series`
+- `DDASSL` -> `slatec::dassl::DaeSession::<f64, F>::advance_to`
 - `DDAWS` -> `slatec::special::elementary::dawson`
 - `DDOT` -> `slatec::blas::level1::ddot`
 - `DDOT` -> `slatec::blas::level1::ddot_strided`
@@ -397,6 +400,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SCOV` -> `slatec::least_squares::covariance_from_expert_fit_f32`
 - `SCOV` -> `slatec::least_squares::estimate_covariance_f32`
 - `SCOV` -> `slatec::least_squares::estimate_covariance_finite_difference_f32`
+- `SDASSL` -> `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - `SDOT` -> `slatec::blas::level1::sdot`
 - `SDOT` -> `slatec::blas::level1::sdot_strided`
 - `SDRIV3` -> `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
@@ -760,6 +764,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
 - `slatec::constrained_least_squares::solve_constrained_least_squares`
 - `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
+- `slatec::dassl::DaeSession::<f32, F>::advance_to`
+- `slatec::dassl::DaeSession::<f64, F>::advance_to`
 - `slatec::fftpack::CosineTransformPlan::new`
 - `slatec::fftpack::CosineTransformPlan::transform`
 - `slatec::fftpack::EasyRealFftPlan::backward`

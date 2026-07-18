@@ -123,6 +123,13 @@ ode-sdrive-expert = [
     "slatec-src/ode-sdrive-expert",
 ]
 ode-sdrive-expert-native-tests = ["ode-sdrive-expert"]
+dassl = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-dassl",
+    "slatec-src/dassl",
+]
+dassl-native-tests = ["dassl"]
 
 optimization = ["optimization-linear-programming-in-memory"]
 optimization-linear-programming-in-memory = [
@@ -154,6 +161,7 @@ native-serialization-tests = [
     "optimization-linear-programming-in-memory-native-tests",
     "fftpack-real-native-tests",
     "pchip-native-tests",
+    "dassl-native-tests",
     "ode-sdrive-expert-native-tests",
     "quadrature-native-tests",
     "roots-native-tests",
@@ -242,7 +250,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = []
 optimize = ["optimization"]
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "optimization", "fftpack-real", "pchip", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -343,6 +351,10 @@ required-features = ["least-squares-linear-bounded-constrained"]
 [[example]]
 name = "link_ode_sdrive"
 required-features = ["ode-sdrive-expert"]
+
+[[example]]
+name = "link_dassl"
+required-features = ["dassl"]
 
 [[example]]
 name = "link_linear_programming_in_memory"

@@ -32,6 +32,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("NONLINEAR_EXPERT", "nonlinear-expert"),
     ("NONLINEAR_JACOBIAN_CHECK", "nonlinear-jacobian-check"),
     ("ODE_SDRIVE_EXPERT", "ode-sdrive-expert"),
+    ("DASSL", "dassl"),
     (
         "OPTIMIZATION_LINEAR_PROGRAMMING_IN_MEMORY",
         "optimization-linear-programming-in-memory",
@@ -100,6 +101,7 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/ode-sdrive-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/dassl-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/pchip-source-closure.json");
@@ -197,6 +199,7 @@ fn build_sources(families: &BTreeSet<String>) {
     .expect("parse family source closure manifest");
     for (family, file) in [
         ("ode-sdrive-expert", "ode-sdrive-source-closure.json"),
+        ("dassl", "dassl-source-closure.json"),
         (
             "optimization-linear-programming-in-memory",
             "lp-in-memory-source-closure.json",
@@ -278,19 +281,25 @@ fn apply_family_overlay(manifest: &mut Manifest, family: &str, file: &str) {
     if overlay.family != family {
         panic!("source closure overlay has an unexpected family name");
     }
-    let known = manifest
-        .sources
-        .iter()
-        .map(|source| source.id.as_str())
-        .collect::<BTreeSet<_>>();
-    if overlay
-        .sources
-        .iter()
-        .any(|source| known.contains(source.id.as_str()))
-    {
-        panic!("source closure overlay duplicates a base source id");
+    for source in overlay.sources {
+        if let Some(existing) = manifest
+            .sources
+            .iter()
+            .find(|existing| existing.id == source.id)
+        {
+            if existing.subset != source.subset
+                || existing.path != source.path
+                || existing.sha256 != source.sha256
+            {
+                panic!(
+                    "source closure overlays disagree about source {}",
+                    source.id
+                );
+            }
+        } else {
+            manifest.sources.push(source);
+        }
     }
-    manifest.sources.extend(overlay.sources);
     if manifest
         .families
         .insert(overlay.family.clone(), overlay.source_ids)

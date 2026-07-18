@@ -270,6 +270,7 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         .collect::<std::collections::BTreeSet<_>>();
     for file in [
         "ode-sdrive-source-closure.json",
+        "dassl-source-closure.json",
         "lp-in-memory-source-closure.json",
         "fftpack-real-source-closure.json",
         "pchip-source-closure.json",
@@ -280,11 +281,24 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         }
         let overlay: FamilyOverlay = serde_json::from_slice(&fs::read(&overlay_path)?)?;
         for source in overlay.sources {
+            let existing = manifest.sources.iter().find(|known| known.id == source.id);
+            if let Some(existing) = existing {
+                if existing.subset == source.subset
+                    && existing.path == source.path
+                    && existing.sha256 == source.sha256
+                {
+                    continue;
+                }
+                return Err(CorpusError::Verification(format!(
+                    "{file} disagrees about provider source {} ({}/{})",
+                    source.id, source.subset, source.path
+                )));
+            }
             if !ids.insert(source.id.clone())
                 || !paths.insert((source.subset.clone(), source.path.clone()))
             {
                 return Err(CorpusError::Verification(format!(
-                    "{file} duplicates provider source {} ({}/{})",
+                    "{file} duplicates provider path {} ({}/{})",
                     source.id, source.subset, source.path
                 )));
             }
@@ -465,7 +479,7 @@ mod tests {
             .find(|record| record["mode"] == "prebuilt")
             .expect("prebuilt record");
         assert_eq!(prebuilt["status"], "blocked");
-        assert_eq!(providers["family_count"], 30);
+        assert_eq!(providers["family_count"], 34);
 
         for name in ["slatec", "slatec-core", "slatec-sys", "slatec-src"] {
             let crate_root = root.join("crates").join(name);

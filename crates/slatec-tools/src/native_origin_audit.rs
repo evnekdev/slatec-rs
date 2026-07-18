@@ -22,6 +22,7 @@ const TARGET: &str = "x86_64-w64-mingw32";
 const FLAGS: &[&str] = &["-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c"];
 const OVERLAY_FILES: &[&str] = &[
     "ode-sdrive-source-closure.json",
+    "dassl-source-closure.json",
     "lp-in-memory-source-closure.json",
     "fftpack-real-source-closure.json",
     "pchip-source-closure.json",
@@ -400,11 +401,20 @@ fn manifest_with_overlays(manifest_path: &Path) -> Result<Manifest> {
             ));
         }
         for source in overlay.sources {
-            if !ids.insert(source.id.clone()) {
-                return Err(policy("source overlay duplicates a source id"));
+            let url = canonical_url(&source.subset, &source.path)?;
+            if let Some(existing) = manifest.sources.iter().find(|item| item.id == source.id) {
+                if existing.url != url
+                    || existing.subset != source.subset
+                    || existing.path != source.path
+                    || existing.sha256 != source.sha256
+                {
+                    return Err(policy("source overlays disagree about a shared source id"));
+                }
+                continue;
             }
+            ids.insert(source.id.clone());
             manifest.sources.push(ManifestSource {
-                url: canonical_url(&source.subset, &source.path)?,
+                url,
                 id: source.id,
                 subset: source.subset,
                 path: source.path,

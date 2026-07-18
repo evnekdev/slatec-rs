@@ -964,6 +964,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::dassl::DaeSession::<f32, F>::advance_to",
+      "fortran_routine": "SDASSL",
+      "module": "slatec::dassl::DaeSession::<f32, F>",
+      "domain": "differential-algebraic equations",
+      "precision": "f32",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "dassl",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/dassl/DaeSession/<f32, F>/fn.advance_to.html",
+      "example_file": "examples/dassl/algebraic_variable.rs",
+      "example_case": "real implicit index-1 initial-value problem G(t,y,y_prime)=0",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::dassl::DaeSession::<f64, F>::advance_to",
+      "fortran_routine": "DDASSL",
+      "module": "slatec::dassl::DaeSession::<f64, F>",
+      "domain": "differential-algebraic equations",
+      "precision": "f64",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "dassl",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/dassl/DaeSession/<f64, F>/fn.advance_to.html",
+      "example_file": "examples/dassl/index1_constraint.rs",
+      "example_case": "real implicit index-1 initial-value problem G(t,y,y_prime)=0",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::fftpack::CosineTransformPlan::new",
       "fortran_routine": "COSTI",
       "module": "slatec::fftpack::CosineTransformPlan",

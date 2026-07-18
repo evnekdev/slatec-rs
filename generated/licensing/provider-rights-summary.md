@@ -1,7 +1,7 @@
 # Provider rights summary
 
 - Snapshot: `complete-slatec-05078ebcb649b50e4435`.
-- Reviewed provider-source origins: main-src (174), fnlib (104), lin (52).
+- Reviewed provider-source origins: main-src (232), fnlib (104), lin (52).
 - Netlib says most packages have no restrictions but recommends checking authors; it is not a package-specific grant.
 - No common explicit redistribution grant has been verified for all selected historical sources.
 - Prebuilt source and archive publication is therefore **blocked**.
