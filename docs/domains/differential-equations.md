@@ -13,11 +13,11 @@ deferrals remain recorded in the [ODE-family audit](ode-audit.md).
 `SDRIV3`/`DDRIV3` calls are process-serialized. The source review found
 initialized local `IER` storage in the transitive `SDSTP`/`DDSTP` step routines,
 in addition to the scoped callback context and process-global XERROR control.
-The sessions therefore make no parallel-native-execution claim. A complete
-offline source closure was not available for this validation pass, so native
-rebuild, binary symbol inspection, and concurrent native test results remain
-pending; this is not treated as evidence that the closure has no other mutable
-static state. See the [runtime concurrency and storage policy]
+The reviewed GNU MinGW objects expose each `IER` as a writable local-linkage
+`.bss` symbol. The sessions therefore make no parallel-native-execution claim.
+The complete 330-source offline cache (including `DDCOR` and `DGBFA`) has been
+hash-verified, compiled, and symbol-inspected; the native stress test proves
+global serialization rather than reentrancy. See the [runtime concurrency and storage policy]
 (../architecture/runtime-concurrency-and-storage-policy.md).
 
 ## Principal families

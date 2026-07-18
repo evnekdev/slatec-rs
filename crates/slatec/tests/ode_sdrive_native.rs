@@ -5,7 +5,8 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 
 use slatec::ode::{
     OdeError, OdeInputError, OdeMethod, OdeOptions, OdeSession, OdeStatus, OdeTolerance,
-    OdeTolerances,
+    OdeTolerances, max_native_call_concurrency_for_test, reset_native_call_concurrency_for_test,
+    with_native_runtime_lock_for_test,
 };
 
 fn scalar_tolerances<T>(relative: T, absolute: T) -> OdeTolerances<T> {
@@ -204,28 +205,30 @@ fn callback_panic_and_nonfinite_derivative_are_contained() {
 
 #[test]
 fn callback_failure_restores_xerror_and_allows_fresh_session() {
-    let mut before = 0;
-    // SAFETY: the reviewed XGETF ABI writes one valid native INTEGER.
-    unsafe { slatec_sys::legacy_error::xgetf(&mut before) };
-    let mut failing = OdeSession::new(
-        0.0_f64,
-        vec![1.0],
-        |_time, _state, _derivative| -> Result<(), ()> { Err(()) },
-        scalar_tolerances(1.0e-8, 1.0e-10),
-        OdeOptions::default(),
-    )
-    .unwrap();
-    assert!(matches!(
-        failing.integrate_to(1.0),
-        Err(OdeError::Callback(()))
-    ));
-    let mut after = 0;
-    // SAFETY: the reviewed XGETF ABI writes one valid native INTEGER.
-    unsafe { slatec_sys::legacy_error::xgetf(&mut after) };
-    assert_eq!(
-        after, before,
-        "SDRIV3 callback termination must restore XERROR"
-    );
+    with_native_runtime_lock_for_test(|| {
+        let mut before = 0;
+        // SAFETY: the reviewed XGETF ABI writes one valid native INTEGER.
+        unsafe { slatec_sys::legacy_error::xgetf(&mut before) };
+        let mut failing = OdeSession::new(
+            0.0_f64,
+            vec![1.0],
+            |_time, _state, _derivative| -> Result<(), ()> { Err(()) },
+            scalar_tolerances(1.0e-8, 1.0e-10),
+            OdeOptions::default(),
+        )
+        .unwrap();
+        assert!(matches!(
+            failing.integrate_to(1.0),
+            Err(OdeError::Callback(()))
+        ));
+        let mut after = 0;
+        // SAFETY: the reviewed XGETF ABI writes one valid native INTEGER.
+        unsafe { slatec_sys::legacy_error::xgetf(&mut after) };
+        assert_eq!(
+            after, before,
+            "SDRIV3 callback termination must restore XERROR"
+        );
+    });
 
     let mut fresh = OdeSession::new(
         0.0_f64,
@@ -274,6 +277,7 @@ fn rejects_invalid_input_before_native_entry() {
 
 #[test]
 fn independent_sessions_are_serialized_without_context_cross_talk() {
+    reset_native_call_concurrency_for_test();
     let handles = (0..4)
         .map(|_| {
             std::thread::spawn(|| {
@@ -296,4 +300,177 @@ fn independent_sessions_are_serialized_without_context_cross_talk() {
     for handle in handles {
         assert!((handle.join().unwrap() - 1.0).abs() < 1.0e-6);
     }
+    assert_eq!(max_native_call_concurrency_for_test(), 1);
+}
+
+#[test]
+fn nested_session_use_from_rhs_is_rejected_before_native_reentry() {
+    let rejected = Arc::new(AtomicUsize::new(0));
+    let rejected_in_rhs = Arc::clone(&rejected);
+    let mut outer = OdeSession::new(
+        0.0_f64,
+        vec![1.0],
+        move |_time, state, derivative| -> Result<(), ()> {
+            let mut nested = OdeSession::new(
+                0.0_f64,
+                vec![0.0],
+                |_time, _state, output| -> Result<(), ()> {
+                    output[0] = 1.0;
+                    Ok(())
+                },
+                scalar_tolerances(1.0e-8, 1.0e-10),
+                OdeOptions::default(),
+            )
+            .unwrap();
+            if matches!(nested.integrate_to(1.0), Err(OdeError::ReentrantCall)) {
+                rejected_in_rhs.fetch_add(1, Ordering::SeqCst);
+            }
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    outer.integrate_to(0.25).unwrap();
+    assert!(rejected.load(Ordering::SeqCst) > 0);
+}
+
+#[test]
+fn excess_work_status_preserves_a_session_for_continuation() {
+    let mut session = OdeSession::new(
+        0.0_f64,
+        vec![0.0],
+        |_time, _state, derivative| -> Result<(), ()> {
+            derivative[0] = 1.0;
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions {
+            maximum_steps: Some(1),
+            maximum_step: Some(0.05),
+            ..OdeOptions::default()
+        },
+    )
+    .unwrap();
+    assert_eq!(
+        session.integrate_to(0.5).unwrap().status,
+        OdeStatus::ExcessWork
+    );
+    for _ in 0..32 {
+        if session.integrate_to(0.5).unwrap().status == OdeStatus::ReachedTarget {
+            break;
+        }
+    }
+    assert!((session.time() - 0.5).abs() < 1.0e-12);
+    assert!((session.state()[0] - 0.5).abs() < 1.0e-6);
+}
+
+#[test]
+fn tolerance_adjustment_is_recoverable() {
+    let mut session = OdeSession::new(
+        0.0_f64,
+        vec![1.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-30, 1.0e-30),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    assert_eq!(
+        session.integrate_to(0.1).unwrap().status,
+        OdeStatus::ToleranceAdjusted
+    );
+    assert_eq!(
+        session.integrate_to(0.1).unwrap().status,
+        OdeStatus::ReachedTarget
+    );
+    assert!((session.state()[0] - (-0.1_f64).exp()).abs() < 1.0e-10);
+}
+
+fn failed_then_clean_f64() -> f64 {
+    let mut failed = OdeSession::new(
+        0.0_f64,
+        vec![1.0],
+        |_time, _state, _derivative| -> Result<(), ()> { Err(()) },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    assert!(matches!(
+        failed.integrate_to(0.25),
+        Err(OdeError::Callback(()))
+    ));
+    let mut clean = OdeSession::new(
+        0.0_f64,
+        vec![1.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    clean.integrate_to(0.25).unwrap();
+    clean.state()[0]
+}
+
+fn failed_then_clean_f32() -> f32 {
+    let mut failed = OdeSession::new(
+        0.0_f32,
+        vec![1.0],
+        |_time, _state, _derivative| -> Result<(), ()> { Err(()) },
+        scalar_tolerances(1.0e-5, 1.0e-7),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    assert!(matches!(
+        failed.integrate_to(0.25),
+        Err(OdeError::Callback(()))
+    ));
+    let mut clean = OdeSession::new(
+        0.0_f32,
+        vec![1.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-5, 1.0e-7),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    clean.integrate_to(0.25).unwrap();
+    clean.state()[0]
+}
+
+#[test]
+fn saved_ier_does_not_contaminate_new_sdrive_sessions_under_the_lock() {
+    let failed_then_clean = failed_then_clean_f64();
+    let mut clean_then_failed = OdeSession::new(
+        0.0_f64,
+        vec![1.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions::default(),
+    )
+    .unwrap();
+    clean_then_failed.integrate_to(0.25).unwrap();
+    let clean_then_failed = clean_then_failed.state()[0];
+    let failed_then_clean_thread = std::thread::spawn(failed_then_clean_f64).join().unwrap();
+    let expected = (-0.25_f64).exp();
+    assert!((failed_then_clean - expected).abs() < 2.0e-6);
+    assert!((clean_then_failed - expected).abs() < 2.0e-6);
+    assert!((failed_then_clean_thread - expected).abs() < 2.0e-6);
+
+    let single_after_failure = failed_then_clean_f32();
+    let single_after_failure_thread = std::thread::spawn(failed_then_clean_f32).join().unwrap();
+    let single_expected = (-0.25_f32).exp();
+    assert!((single_after_failure - single_expected).abs() < 3.0e-3);
+    assert!((single_after_failure_thread - single_expected).abs() < 3.0e-3);
 }

@@ -3,7 +3,7 @@
 use slatec::ode::{OdeOptions, OdeSession, OdeTolerance, OdeTolerances};
 
 fn main() {
-    let _session = OdeSession::new(
+    let mut session = OdeSession::new(
         0.0_f64,
         vec![1.0],
         |_time, state, derivative| -> Result<(), ()> {
@@ -17,4 +17,7 @@ fn main() {
         OdeOptions::default(),
     )
     .unwrap();
+    // Force the reviewed `DDRIV3` foreign-call path into this narrow link
+    // probe; construction alone would not monomorphize the native dispatch.
+    let _step = session.integrate_to(1.0).unwrap();
 }

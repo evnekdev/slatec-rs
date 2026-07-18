@@ -22,8 +22,9 @@ Each record links to the corresponding findings in
 | `BackendDependent` | The API preserves an existing `no_std` or `alloc` capability and therefore cannot acquire the hosted lock. It makes no Rust thread-safety claim; provider source provenance and parallel stress tests are required before narrowing the classification. |
 
 There is currently no `ParallelSafe` safe wrapper. A future relaxation needs a
-complete transitive source audit, a reviewed XERROR/error path, object-symbol
-inspection when applicable, and targeted concurrent stress tests. Successful
+complete transitive source audit, compiler-local-storage evidence, a reviewed
+XERROR/error path, writable-object-symbol inspection, COMMON ownership,
+provider/runtime evidence, and targeted concurrent stress tests. Successful
 tests alone do not override an identified mutable global.
 
 The lock is reentrant only on its owning Rust thread. This lets a non-callback
@@ -35,22 +36,43 @@ thread-local callback context would otherwise be ambiguous.
 
 The audit treats `COMMON`, `SAVE`, `DATA`, initialized locals, `BLOCK DATA`,
 `EQUIVALENCE`, compiler/runtime state, XERROR, connected Fortran units, and
-linked-provider state as potentially relevant. It also records explicit
-unknowns; absence of a `SAVE` statement is not evidence that storage is
-automatic.
+linked-provider state as potentially relevant. `DATA` initialization gives a
+local saved lifetime; an explicit `SAVE` does too. The absence of `SAVE` is not
+proof that ordinary locals are automatic: compiler flags can change that
+storage model. This build records the exact GNU MinGW 14.2.0 command and its
+storage probe in
+[`fortran-storage-model.json`](../../generated/safe-api/fortran-storage-model.json).
+With `-x f77 -std=legacy -ffixed-line-length-none -c`, ordinary probe locals
+are automatic, while `DATA` locals emit writable static `.bss` storage.
 
 Two concrete SDRIVE findings are `DATA IER /.FALSE./` in `SDSTP` and `DDSTP`.
-`IER` is subsequently passed to routines that can modify it, so the initialized
-local is treated as potentially persistent until GNU object-symbol inspection
-proves otherwise. The ODE sessions consequently remain `SerializedGlobal`.
-Their Rust callback context is also scoped thread-local mutable state, and
-XERROR control is process-global mutable state restored by RAII.
+Each object emits a local-linkage writable `ier.0` in `.bss`; local linkage is
+still one shared instance in the loaded process, not thread-local storage.
+`SDNTL`/`DDNTL` reset the value and set it on callback, factorization,
+singular-diagonal, and related failures; `SDPST`/`DDPST` also reset and set it
+on their factorization or user-solver failure paths. Resetting normal paths
+does not make this saved mutable state reentrant. The sessions consequently
+remain `SerializedGlobal`. Their Rust callback context is also scoped
+thread-local mutable state, while XERROR uses saved `J4SAVE` and `XERSVE`
+process state restored by RAII.
 
-The available local offline cache is not a complete selected closure: it is
-missing `src/ddcor.f`, and a composed temporary cache also lacks `lin/dgbfa.f`.
-No native archive, object file, or binary inspection was produced for this
-milestone. The generated state index marks the remaining selected source units
-as unresolved rather than claiming an absence of mutable static storage.
+The reviewed acquisition process now hash-verifies all 330 selected provider
+sources, including `src/ddcor.f` and `lin/dgbfa.f`, from their canonical
+Netlib origins. It also compiles and inspects every selected object plus the
+three project machine-constant profile objects. The resulting source,
+writable-symbol, COMMON, and XERROR records are in
+[`native-source-mutable-state-index.json`](../../generated/safe-api/native-source-mutable-state-index.json),
+[`native-writable-symbol-index.json`](../../generated/safe-api/native-writable-symbol-index.json),
+[`common-block-index.json`](../../generated/safe-api/common-block-index.json),
+and [`xerror-state-index.json`](../../generated/safe-api/xerror-state-index.json).
+Object inspection supplements source analysis; it does not prove reentrancy.
+
+A global lock prevents races in the safe wrapper, but does not make the native
+algorithm reentrant. Similarly, a session being `Send` when its callback and
+error are `Send` does not permit simultaneous native execution. No current
+wrapper is advertised as natively parallel-safe; external BLAS and other
+provider/runtime implementations remain `BackendDependent` unless their own
+state and threading contracts are proven.
 
 ## Storage and interoperability
 

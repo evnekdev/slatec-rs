@@ -5,6 +5,9 @@ use std::rc::Rc;
 use std::sync::{Condvar, Mutex};
 use std::thread::ThreadId;
 
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 struct LockState {
     owner: Option<ThreadId>,
     depth: usize,
@@ -88,6 +91,63 @@ impl Drop for NativeRuntimeGuard {
 
 pub(crate) fn lock_native() -> NativeRuntimeGuard {
     NATIVE_RUNTIME_LOCK.lock()
+}
+
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+static ACTIVE_ODE_NATIVE_CALLS: AtomicUsize = AtomicUsize::new(0);
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+static MAX_ACTIVE_ODE_NATIVE_CALLS: AtomicUsize = AtomicUsize::new(0);
+
+/// Test-only scope that measures actual SDRIVE foreign-call overlap.
+///
+/// The scope is created only after the process-wide native lock is held and
+/// surrounds the `SDRIV3` or `DDRIV3` ABI call, rather than merely measuring
+/// Rust thread activity around a session.
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+pub(crate) struct OdeNativeCallAudit;
+
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+impl OdeNativeCallAudit {
+    pub(crate) fn enter() -> Self {
+        let active = ACTIVE_ODE_NATIVE_CALLS.fetch_add(1, Ordering::SeqCst) + 1;
+        let mut observed = MAX_ACTIVE_ODE_NATIVE_CALLS.load(Ordering::SeqCst);
+        while active > observed {
+            match MAX_ACTIVE_ODE_NATIVE_CALLS.compare_exchange(
+                observed,
+                active,
+                Ordering::SeqCst,
+                Ordering::SeqCst,
+            ) {
+                Ok(_) => break,
+                Err(next) => observed = next,
+            }
+        }
+        Self
+    }
+}
+
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+impl Drop for OdeNativeCallAudit {
+    fn drop(&mut self) {
+        let result =
+            ACTIVE_ODE_NATIVE_CALLS.fetch_update(Ordering::SeqCst, Ordering::SeqCst, |active| {
+                active.checked_sub(1)
+            });
+        debug_assert!(result.is_ok(), "ODE native-call audit scope underflowed");
+    }
+}
+
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+pub(crate) fn reset_ode_native_call_audit() {
+    let _runtime = lock_native();
+    debug_assert_eq!(ACTIVE_ODE_NATIVE_CALLS.load(Ordering::SeqCst), 0);
+    ACTIVE_ODE_NATIVE_CALLS.store(0, Ordering::SeqCst);
+    MAX_ACTIVE_ODE_NATIVE_CALLS.store(0, Ordering::SeqCst);
+}
+
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+pub(crate) fn max_ode_native_calls() -> usize {
+    MAX_ACTIVE_ODE_NATIVE_CALLS.load(Ordering::SeqCst)
 }
 
 /// Temporarily makes reviewed legacy level-one completion messages return.

@@ -8,6 +8,7 @@ use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 const SNAPSHOT: &str = "complete-slatec-05078ebcb649b50e4435";
 const PROFILE: &str = "native-profile-7e29d91c176d0c60";
@@ -18,13 +19,48 @@ struct SourceManifest {
     families: BTreeMap<String, Vec<String>>,
 }
 
-#[derive(Deserialize, Serialize)]
+#[derive(Clone, Deserialize, Serialize)]
 struct ProviderSource {
     id: String,
     subset: String,
     path: String,
     sha256: String,
     url: String,
+}
+
+#[derive(Deserialize)]
+struct FamilyOverlay {
+    family: String,
+    source_ids: Vec<String>,
+    sources: Vec<OverlaySource>,
+}
+
+#[derive(Deserialize)]
+struct OverlaySource {
+    id: String,
+    subset: String,
+    path: String,
+    sha256: String,
+}
+
+#[derive(Serialize)]
+struct CacheReceipt<'a> {
+    schema_id: &'static str,
+    schema_version: &'static str,
+    snapshot_id: &'static str,
+    checked_unix_seconds: u64,
+    sources: Vec<CacheReceiptSource<'a>>,
+}
+
+#[derive(Serialize)]
+struct CacheReceiptSource<'a> {
+    id: &'a str,
+    subset: &'a str,
+    origin: &'static str,
+    path: &'a str,
+    canonical_upstream_url: &'a str,
+    sha256: &'a str,
+    cache_status: &'static str,
 }
 
 /// Concise acquisition result.
@@ -40,13 +76,15 @@ pub struct AcquisitionResult {
 
 /// Acquires or offline-verifies all reviewed provider sources.
 pub fn acquire(manifest_path: &Path, cache: &Path, offline: bool) -> Result<AcquisitionResult> {
-    let manifest: SourceManifest = serde_json::from_slice(&fs::read(manifest_path)?)?;
+    let manifest = provider_manifest(manifest_path)?;
     let mut downloaded = 0;
     let mut verified_existing = 0;
+    let mut receipt_sources = Vec::with_capacity(manifest.sources.len());
     for source in &manifest.sources {
         let path = cached_path(cache, source);
         if path.is_file() && file_sha256(&path)? == source.sha256 {
             verified_existing += 1;
+            receipt_sources.push(receipt_source(source, "verified_existing"));
             continue;
         }
         if offline {
@@ -67,6 +105,24 @@ pub fn acquire(manifest_path: &Path, cache: &Path, offline: bool) -> Result<Acqu
         fs::create_dir_all(path.parent().expect("provider cache parent"))?;
         fs::write(path, bytes)?;
         downloaded += 1;
+        receipt_sources.push(receipt_source(source, "downloaded_and_hash_verified"));
+    }
+    if !offline {
+        let receipt = CacheReceipt {
+            schema_id: "slatec-rs/provider-source-cache-receipt",
+            schema_version: "1.0.0",
+            snapshot_id: SNAPSHOT,
+            checked_unix_seconds: SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .map_err(|error| {
+                    CorpusError::Verification(format!("system time before Unix epoch: {error}"))
+                })?
+                .as_secs(),
+            sources: receipt_sources,
+        };
+        let mut bytes = serde_json::to_vec(&receipt)?;
+        bytes.push(b'\n');
+        fs::write(cache.join(".slatec-rs-acquisition.json"), bytes)?;
     }
     Ok(AcquisitionResult {
         downloaded,
@@ -78,7 +134,7 @@ pub fn acquire(manifest_path: &Path, cache: &Path, offline: bool) -> Result<Acqu
 /// Generates compact source-rights and provider-publication records.
 pub fn generate_metadata(root: &Path) -> Result<String> {
     let manifest_path = root.join("crates/slatec-src/metadata/family-source-closure.json");
-    let manifest: SourceManifest = serde_json::from_slice(&fs::read(&manifest_path)?)?;
+    let manifest = provider_manifest(&manifest_path)?;
     let mut subset_counts = BTreeMap::<String, usize>::new();
     for source in &manifest.sources {
         *subset_counts.entry(source.subset.clone()).or_default() += 1;
@@ -200,6 +256,90 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     )?))
 }
 
+fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
+    let mut manifest: SourceManifest = serde_json::from_slice(&fs::read(manifest_path)?)?;
+    let overlay_path = manifest_path.with_file_name("ode-sdrive-source-closure.json");
+    if !overlay_path.is_file() {
+        return Ok(manifest);
+    }
+    let overlay: FamilyOverlay = serde_json::from_slice(&fs::read(&overlay_path)?)?;
+    let mut ids = manifest
+        .sources
+        .iter()
+        .map(|source| source.id.clone())
+        .collect::<std::collections::BTreeSet<_>>();
+    let mut paths = manifest
+        .sources
+        .iter()
+        .map(|source| (source.subset.clone(), source.path.clone()))
+        .collect::<std::collections::BTreeSet<_>>();
+    for source in overlay.sources {
+        if !ids.insert(source.id.clone())
+            || !paths.insert((source.subset.clone(), source.path.clone()))
+        {
+            return Err(CorpusError::Verification(format!(
+                "SDRIVE overlay duplicates provider source {} ({}/{})",
+                source.id, source.subset, source.path
+            )));
+        }
+        manifest.sources.push(ProviderSource {
+            url: canonical_source_url(&source.subset, &source.path)?,
+            id: source.id,
+            subset: source.subset,
+            path: source.path,
+            sha256: source.sha256,
+        });
+    }
+    if manifest
+        .families
+        .insert(overlay.family.clone(), overlay.source_ids)
+        .is_some()
+    {
+        return Err(CorpusError::Verification(format!(
+            "SDRIVE overlay duplicates family {}",
+            overlay.family
+        )));
+    }
+    manifest
+        .sources
+        .sort_by(|left, right| left.id.cmp(&right.id));
+    Ok(manifest)
+}
+
+fn canonical_source_url(subset: &str, path: &str) -> Result<String> {
+    let prefix = match subset {
+        "main-src" => "https://www.netlib.org/slatec/",
+        "fnlib" => "https://www.netlib.org/slatec/fnlib/",
+        "lin" => "https://www.netlib.org/slatec/lin/",
+        _ => {
+            return Err(CorpusError::Verification(format!(
+                "no reviewed canonical provider origin for subset {subset}"
+            )));
+        }
+    };
+    Ok(format!("{prefix}{path}"))
+}
+
+fn receipt_source<'a>(
+    source: &'a ProviderSource,
+    cache_status: &'static str,
+) -> CacheReceiptSource<'a> {
+    CacheReceiptSource {
+        id: &source.id,
+        subset: &source.subset,
+        origin: match source.subset.as_str() {
+            "main-src" => "SLATEC main source archive",
+            "fnlib" => "SLATEC-hosted FNLIB",
+            "lin" => "SLATEC-hosted LINPACK/BLAS/support directory",
+            _ => "unreviewed provider subset",
+        },
+        path: &source.path,
+        canonical_upstream_url: &source.url,
+        sha256: &source.sha256,
+        cache_status,
+    }
+}
+
 fn cached_path(cache: &Path, source: &ProviderSource) -> PathBuf {
     let relative = if source.subset == "main-src" {
         source.path.clone()
@@ -210,7 +350,13 @@ fn cached_path(cache: &Path, source: &ProviderSource) -> PathBuf {
 }
 
 fn download(url: &str) -> Result<Vec<u8>> {
-    let response = ureq::get(url)
+    let config = ureq::Agent::config_builder()
+        .timeout_connect(Some(Duration::from_secs(15)))
+        .timeout_global(Some(Duration::from_secs(30)))
+        .build();
+    let agent: ureq::Agent = config.into();
+    let response = agent
+        .get(url)
         .call()
         .map_err(|error| CorpusError::Verification(format!("download {url}: {error}")))?;
     response
@@ -270,6 +416,32 @@ mod tests {
     }
 
     #[test]
+    fn sdrive_overlay_sources_use_reviewed_netlib_origins() {
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let manifest =
+            provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
+                .expect("provider manifest");
+        assert!(manifest.families.contains_key("ode-sdrive-expert"));
+        for (id, expected) in [
+            (
+                "ode-source-ddcor",
+                "https://www.netlib.org/slatec/src/ddcor.f",
+            ),
+            (
+                "ode-source-dgbfa",
+                "https://www.netlib.org/slatec/lin/dgbfa.f",
+            ),
+        ] {
+            let source = manifest
+                .sources
+                .iter()
+                .find(|source| source.id == id)
+                .expect("overlay source");
+            assert_eq!(source.url, expected);
+        }
+    }
+
+    #[test]
     fn committed_publication_policy_blocks_unlicensed_prebuilt_artifacts() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let providers: Value = serde_json::from_slice(
@@ -283,7 +455,7 @@ mod tests {
             .find(|record| record["mode"] == "prebuilt")
             .expect("prebuilt record");
         assert_eq!(prebuilt["status"], "blocked");
-        assert_eq!(providers["family_count"], 23);
+        assert_eq!(providers["family_count"], 30);
 
         for name in ["slatec", "slatec-core", "slatec-sys", "slatec-src"] {
             let crate_root = root.join("crates").join(name);
