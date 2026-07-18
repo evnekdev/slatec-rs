@@ -1,0 +1,1 @@
+{"columns":["safe_mode","INFO(2)","native_storage","error_weight"],"records":[["Scalar",0,"RTOL(1),ATOL(1)","RTOL*abs(Y(i))+ATOL"],["Vector",1,"RTOL(i),ATOL(i)","RTOL(i)*abs(Y(i))+ATOL(i)"]],"schema_id":"slatec.safe-dassl.tolerance-contract","schema_version":"1.0.0","snapshot_id":"complete-slatec-05078ebcb649b50e4435"}

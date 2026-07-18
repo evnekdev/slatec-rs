@@ -2839,6 +2839,190 @@
       ]
     },
     {
+      "rust_path": "slatec::dassl::DaeSession::<f32, F>::advance_to",
+      "fortran_routine": "SDASSL",
+      "program_unit_id": "full-provider-fe8e334d8edf7592",
+      "arguments": [
+        {
+          "rust": "res",
+          "fortran": "RES",
+          "transformation": "pass"
+        },
+        {
+          "rust": "neq",
+          "fortran": "NEQ",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "yprime",
+          "fortran": "YPRIME",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "info",
+          "fortran": "INFO",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rtol",
+          "fortran": "RTOL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "atol",
+          "fortran": "ATOL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "idid",
+          "fortran": "IDID",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rwork",
+          "fortran": "RWORK",
+          "transformation": "pass"
+        },
+        {
+          "rust": "lrw",
+          "fortran": "LRW",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "rpar",
+          "fortran": "RPAR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ipar",
+          "fortran": "IPAR",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "JAC",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::dassl::DaeSession::<f64, F>::advance_to",
+      "fortran_routine": "DDASSL",
+      "program_unit_id": "full-provider-e4d4813ebed05cf8",
+      "arguments": [
+        {
+          "rust": "res",
+          "fortran": "RES",
+          "transformation": "pass"
+        },
+        {
+          "rust": "neq",
+          "fortran": "NEQ",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "yprime",
+          "fortran": "YPRIME",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "info",
+          "fortran": "INFO",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rtol",
+          "fortran": "RTOL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "atol",
+          "fortran": "ATOL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "idid",
+          "fortran": "IDID",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rwork",
+          "fortran": "RWORK",
+          "transformation": "pass"
+        },
+        {
+          "rust": "lrw",
+          "fortran": "LRW",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "rpar",
+          "fortran": "RPAR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ipar",
+          "fortran": "IPAR",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "JAC",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::fftpack::CosineTransformPlan::new",
       "fortran_routine": "COSTI",
       "program_unit_id": "full-provider-7fbd2bfcc8728813",

@@ -472,6 +472,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         },
     )?;
     collect_columnar(
+        "generated/safe-api/dassl-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "differential-algebraic equations",
+                column(row, columns, "precision")?,
+                "real implicit index-1 initial-value problem G(t,y,y_prime)=0",
+                "std",
+                "dassl",
+            ))
+        },
+    )?;
+    collect_columnar(
         "generated/safe-api/lp-wrapper-index.json",
         &mut output,
         |row, columns| {
@@ -767,6 +782,10 @@ fn record(
             "examples/ode/harmonic_oscillator.rs".to_owned()
         }
         "ordinary differential equations" => "examples/ode/exponential_decay.rs".to_owned(),
+        "differential-algebraic equations" if path.contains("f32") => {
+            "examples/dassl/algebraic_variable.rs".to_owned()
+        }
+        "differential-algebraic equations" => "examples/dassl/index1_constraint.rs".to_owned(),
         "linear programming" => "examples/linear_programming/basic.rs".to_owned(),
         "real FFTPACK" if path.contains("SineTransform") => {
             "examples/fftpack/sine_transform.rs".to_owned()
@@ -1248,6 +1267,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
         "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
+        "differential-algebraic equations" => "crates/slatec/tests/dassl_native.rs",
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
         "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",

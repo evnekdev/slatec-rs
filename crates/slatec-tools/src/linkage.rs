@@ -498,6 +498,9 @@ fn family_for(path: &str, routine: &str) -> String {
     if path.contains("::ode::") {
         return "ode-sdrive-expert".to_owned();
     }
+    if path.contains("::dassl::") {
+        return "dassl".to_owned();
+    }
     if path.contains("::fftpack::") {
         return "fftpack-real".to_owned();
     }

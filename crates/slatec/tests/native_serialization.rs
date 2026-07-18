@@ -11,6 +11,7 @@ use slatec::bounded_least_squares::{
     BoundedLeastSquaresOptions, BoundedLeastSquaresProblem, VariableBounds,
     solve_bounded_least_squares,
 };
+use slatec::dassl::{DaeOptions, DaeSession, DaeTolerance, ResidualAction};
 use slatec::fftpack::RealFftPlan;
 use slatec::linear_least_squares::{
     MatrixRef, NonnegativeLeastSquaresProblem, VariableConstraint, solve_nonnegative_least_squares,
@@ -38,6 +39,26 @@ fn run_ode() {
     )
     .unwrap();
     session.integrate_to(0.2).unwrap();
+}
+
+fn run_dassl() {
+    let residual = |_: f64, y: &[f64], y_prime: &[f64], output: &mut [f64]| {
+        output[0] = y_prime[0] + y[0];
+        Ok::<_, core::convert::Infallible>(ResidualAction::Continue)
+    };
+    let mut session = DaeSession::new(
+        0.0,
+        vec![1.0],
+        vec![-1.0],
+        residual,
+        DaeTolerance::Scalar {
+            relative: 1.0e-6,
+            absolute: 1.0e-8,
+        },
+        DaeOptions::default(),
+    )
+    .unwrap();
+    session.advance_to(0.2).unwrap();
 }
 
 fn run_bounded() {
@@ -139,6 +160,10 @@ fn concurrent_pair(left: fn(), right: fn()) {
 fn different_hosted_families_never_overlap_native_lock_scopes() {
     reset();
     concurrent_pair(run_ode, run_bounded);
+    concurrent_pair(run_dassl, run_ode);
+    concurrent_pair(run_dassl, run_linear_programming);
+    concurrent_pair(run_dassl, run_pchip);
+    concurrent_pair(run_dassl, run_real_fftpack);
     concurrent_pair(run_bounded, run_nonnegative);
     concurrent_pair(run_root, run_quadrature);
     concurrent_pair(run_linear_programming, run_ode);

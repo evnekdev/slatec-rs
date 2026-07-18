@@ -645,6 +645,26 @@
     },
     {
       "doctest_present": false,
+      "example_case": "real implicit index-1 initial-value problem G(t,y,y_prime)=0",
+      "example_file": "examples/dassl/algebraic_variable.rs",
+      "fortran_routine": "SDASSL",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::dassl::DaeSession::<f32, F>::advance_to",
+      "validation_case": "advance_to",
+      "validation_file": "crates/slatec/tests/dassl_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "real implicit index-1 initial-value problem G(t,y,y_prime)=0",
+      "example_file": "examples/dassl/index1_constraint.rs",
+      "fortran_routine": "DDASSL",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::dassl::DaeSession::<f64, F>::advance_to",
+      "validation_case": "advance_to",
+      "validation_file": "crates/slatec/tests/dassl_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "full cosine transform plan initialization",
       "example_file": "examples/fftpack/cosine_transform.rs",
       "fortran_routine": "COSTI",

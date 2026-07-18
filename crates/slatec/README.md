@@ -28,6 +28,14 @@ sessions over original `SDRIV3`/`DDRIV3`. Its first scope has only a
 panic-contained RHS callback and same-direction continuation; event roots,
 Jacobians, mass matrices, DAEs, and interpolation are deliberately deferred.
 
+The hosted `dassl` feature separately provides owned real residual-only DAE
+sessions over `SDASSL`/`DDASSL` for index-1 `G(t, y, y') = 0` problems. It
+requires caller-supplied sufficiently consistent `(y, y')`, uses internal
+dense finite differences, contains residual errors and panics, and keeps all
+native calls process-serialized. User Jacobians, banded/sparse storage,
+events, and automatic initial-condition calculation remain deferred; see the
+[DASSL guide](../../docs/api/safe-dassl.md).
+
 The hosted `optimization-linear-programming-in-memory` feature provides typed
 owned sparse-column LPs over original `SPLP`/`DSPLP`. It rejects problems that
 would require paging and never exposes Fortran-unit, save/restore, or printing

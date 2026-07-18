@@ -5,7 +5,7 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `nonlinear-expert`, `least-squares-nonlinear-easy`, and
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
-`least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, and
+`least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
 `optimization-linear-programming-in-memory`. Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
@@ -107,6 +107,13 @@ The opt-in `ode-sdrive-expert` feature adds owned, panic-contained real
 explicit-IVP sessions over `SDRIV3`/`DDRIV3`; it is deliberately limited to an
 RHS callback and caller-controlled continuation. See the
 [SDRIVE session guide](docs/api/safe-ode-sdrive-expert.md).
+The separate hosted `dassl` feature adds real residual-only index-1 DAE
+sessions over `SDASSL`/`DDASSL` for `G(t, y, y') = 0`. It owns all continuation
+workspace, requires caller-supplied sufficiently consistent initial `y` and
+`y'`, contains callback errors and panics, and uses only DASSL's internally
+differenced dense iteration matrix. User Jacobians, banded storage, event
+handling, and automatic consistency calculation remain deferred. See the
+[DASSL guide](docs/api/safe-dassl.md).
 The opt-in `optimization-linear-programming-in-memory` feature wraps original
 `SPLP`/`DSPLP` for sparse linear programs that fit entirely in native resident
 workspace. Paging, Fortran units, save/restore, and legacy printing are never

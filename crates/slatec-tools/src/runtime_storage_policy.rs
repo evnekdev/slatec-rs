@@ -46,6 +46,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     // prior broad provider audit.  Merge those conservative projections here
     // so the global policy cannot accidentally omit a newly safe public API.
     projections.extend(crate::safe_pchip::native_state_projections()?);
+    projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.sort_by(|left, right| {
         left["safe_function"]
             .as_str()
@@ -159,6 +160,8 @@ fn concurrency_records(
         let backend_dependent =
             feature.starts_with("blas-") || feature == "nonlinear-jacobian-check";
         let ode = feature == "ode-sdrive-expert";
+        let dassl = feature == "dassl";
+        let session_callback = ode || dassl;
         let lp = feature == "optimization-linear-programming-in-memory";
         let fftpack = feature == "fftpack-real";
         let pchip = feature == "pchip";
@@ -180,7 +183,7 @@ fn concurrency_records(
         };
         let xerror = if lp {
             "scoped_XGETF_XSETF_and_XGETUA_XSETUA_restore"
-        } else if matches!(feature, "ode-sdrive-expert") || pchip {
+        } else if session_callback || pchip {
             "scoped_XGETF_XSETF_restore"
         } else if feature.starts_with("least-squares") {
             "scoped_XGETF_XSETF_restore_where_reviewed"
@@ -197,6 +200,8 @@ fn concurrency_records(
             "source_level_reentrancy_not_proven; safe_wrapper_exposes_no_global_dispatch"
         } else if ode {
             "saved_IER_XERROR_and_callback_context; complete_native_stress_validation_confirms_serialized_execution"
+        } else if dassl {
+            "saved_DASSL_DATA_state_XERROR_and_callback_context; serialized"
         } else if fftpack {
             "RFFTI1_and_EZFFT1_NTRYH_are_SAVE_DATA_tables_emitted_as_writable_local_data; no_source_writer_was_found_but_calls_remain_serialized_conservatively"
         } else if pchip {
@@ -210,6 +215,8 @@ fn concurrency_records(
             "paging_and_open_close_implementations_excluded; no_IO_forbidden_entry_symbols; valid_calls_preflight_resident_capacity"
         } else if ode {
             "no_mandatory_file_protocol_in_reviewed_SDRIV3_DDRIV3_scope"
+        } else if dassl {
+            "no_OPEN_CLOSE_or_retained_external_file_protocol_in_reviewed_DASSL_scope"
         } else if fftpack {
             "none_in_exact_real_FFTPACK_closure"
         } else if pchip {
@@ -223,6 +230,8 @@ fn concurrency_records(
             "require_provider_source_provenance_and_parallel_stress_test_before_threadsafe_claim"
         } else if ode {
             "not_candidate_for_ParallelSafe: saved_IER_XERROR_callback_context_and_provider_runtime evidence require process serialization"
+        } else if dassl {
+            "not_candidate_for_ParallelSafe: DASSL_SAVE_DATA_XERROR_callback_context_and_provider_runtime evidence require process serialization"
         } else if fftpack {
             "not_candidate_mutable_native_state: RFFTI1_and_EZFFT1_NTRYH_are_SAVEd_DATA_tables_with_writable_object_symbols; no_parallel_native_stress_evidence"
         } else if pchip {
@@ -234,6 +243,7 @@ fn concurrency_records(
             feature,
             domain,
             ode,
+            dassl,
             backend_dependent,
             fftpack,
             routine_sources.get(routine),
@@ -249,19 +259,21 @@ fn concurrency_records(
             lock_scope,
             dispatch,
             callback,
-            nested_policy(callback, ode),
+            nested_policy(callback, session_callback),
             xerror,
             global,
             state_ids,
             external_io,
-            if ode {
+            if dassl {
+                "Send_if_residual_is_Send"
+            } else if ode {
                 "Send_if_callback_and_error_are_Send; otherwise_not_Send"
             } else if lp {
                 "owned_problem_values_may_be_Send; solve_remains_process_serialized"
             } else {
                 "not_part_of_function_contract"
             },
-            if ode {
+            if session_callback {
                 "not_Sync"
             } else if lp {
                 "immutable_problem_may_be_Sync; native_entries_remain_serialized"
@@ -383,6 +395,7 @@ fn mutable_state_ids(
     feature: &str,
     domain: &str,
     ode: bool,
+    dassl: bool,
     backend_dependent: bool,
     fftpack: bool,
     routine_source: Option<&String>,
@@ -394,7 +407,7 @@ fn mutable_state_ids(
         "native-origin-common-block-audit".to_owned(),
         "xerror-global-state-audit".to_owned(),
     ];
-    ids.push(if ode {
+    ids.push(if ode || dassl {
         "native-ode-serialization-validation".to_owned()
     } else {
         "native-non-ode-stress-status".to_owned()
@@ -408,6 +421,12 @@ fn mutable_state_ids(
             "sdriv3-ddriv3-callback-context".to_owned(),
             "ddstp-data-ier".to_owned(),
             "sdstp-data-ier".to_owned(),
+        ]);
+    } else if dassl {
+        ids.extend([
+            "dassl-xerror-control".to_owned(),
+            "dassl-callback-context".to_owned(),
+            "dassl-data-saved-state".to_owned(),
         ]);
     } else if !backend_dependent
         && matches!(
@@ -535,6 +554,27 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             // units have saved DATA values and every exposed error path can
             // reach XERROR, so no individual PCHIP entry can be a parallel
             // candidate even when its own object has no named writable symbol.
+            mutable: true,
+            status: "complete_mutable_state_found".to_owned(),
+        });
+    }
+    // The broad native-origin retry is recorded separately.  Until it emits a
+    // completed archive report containing DASSL, retain focused closure
+    // evidence instead of allowing a missing record to imply reentrancy.
+    let dassl_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/dassl-source-closure.json",
+    ))?;
+    let dassl_sources = dassl_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("DASSL closure lacks source records"))?;
+    for source in dassl_sources {
+        let id = string(source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(source, "path")?.to_owned(),
+            storage: format!(
+                "focused_dassl_source_and_object_audit:{}:DASSL_closure_inspected",
+                string(source, "path")?
+            ),
             mutable: true,
             status: "complete_mutable_state_found".to_owned(),
         });
@@ -707,6 +747,55 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
             ]
         ]),
         json!([
+            "dassl-xerror-control",
+            "SDASSL_DDASSL_transitive_XERROR",
+            "XGETF_XSETF_control_flag",
+            "RUNTIME",
+            true,
+            "explicit",
+            "process",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
+            [
+                "crates/slatec/src/dassl.rs: scoped permit_recoverable_native_statuses guard",
+                "SDASSL/DDASSL source and the reviewed closure reach XERMSG on invalid-contract paths"
+            ]
+        ]),
+        json!([
+            "dassl-callback-context",
+            "SDASSL_DDASSL_safe_trampoline",
+            "ACTIVE_DASSL_CONTEXT thread-local slot",
+            "OTHER",
+            true,
+            "explicit",
+            "family",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
+            [
+                "crates/slatec/src/dassl.rs: per-call residual context is installed only while the process runtime lock is held",
+                "the installer rejects nested callback-based native DASSL invocation and clears every exit path"
+            ]
+        ]),
+        json!([
+            "dassl-data-saved-state",
+            "SDAINI_DDAINI_SDASTP_DDASTP",
+            "MAXIT_MJAC_DAMP_XRATE",
+            "DATA",
+            true,
+            "compile_time",
+            "process",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
+            [
+                "src/sdaini.f and src/ddaini.f: DATA MAXIT/10/,MJAC/5/,DAMP/.75/",
+                "src/sdastp.f and src/ddastp.f: DATA MAXIT/4/,XRATE/.25/",
+                "initialized DATA locals have saved process-image lifetime under the reviewed GNU MinGW storage model; serialization does not establish reentrancy"
+            ]
+        ]),
+        json!([
             "ddstp-data-ier",
             "DDSTP",
             "IER",
@@ -856,6 +945,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/pchip-source-closure.json",
     ))?;
     closures["families"]["pchip"] = pchip_closure["source_ids"].clone();
+    let dassl_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/dassl-source-closure.json",
+    ))?;
+    closures["families"]["dassl"] = dassl_closure["source_ids"].clone();
     let interface = read_value(repo_path("generated/ffi/interface-inventory.json"))?;
     let source_paths = selected_source_paths(&source_files)?;
     let source_by_routine = routine_source_ids(&interface, &source_paths)?;
@@ -1022,7 +1115,7 @@ fn routine_source_ids(
 }
 
 fn callback_dispatch(domain: &str, feature: &str) -> &'static str {
-    if feature == "ode-sdrive-expert" {
+    if matches!(feature, "ode-sdrive-expert" | "dassl") {
         "session_scoped_thread_local_context"
     } else if feature == "nonlinear-jacobian-check" {
         "rust_callbacks_only; no_native_callback"
@@ -1038,8 +1131,8 @@ fn callback_dispatch(domain: &str, feature: &str) -> &'static str {
     }
 }
 
-fn nested_policy(callback: &str, ode: bool) -> &'static str {
-    if ode {
+fn nested_policy(callback: &str, session_callback: bool) -> &'static str {
+    if session_callback {
         "reject_same_session_reentry; global_lock_is_reentrant_only_for_non_callback_calls"
     } else if callback != "none" && callback != "rust_callbacks_only; no_native_callback" {
         "reject_nested_callback_based_native_operation"

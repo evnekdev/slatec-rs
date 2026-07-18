@@ -111,6 +111,11 @@ pub mod nonlinear;
 #[cfg(any(feature = "raw-ffi-ode", feature = "raw-family-ode-sdrive-expert"))]
 pub mod ode;
 
+/// Hand-reviewed `SDASSL`/`DDASSL` declarations for the restricted safe
+/// residual-only DAE session feature.
+#[cfg(feature = "raw-family-dassl")]
+pub mod dassl;
+
 /// Hand-reviewed `SPLP`/`DSPLP` declarations for the in-memory-only safe
 /// linear-programming feature.
 #[cfg(feature = "raw-family-optimization-linear-programming-in-memory")]
@@ -162,6 +167,7 @@ pub mod linear_least_squares;
     feature = "raw-family-least-squares-linear-constrained",
     feature = "raw-family-least-squares-linear-bounded-constrained",
     feature = "raw-family-ode-sdrive-expert",
+    feature = "raw-family-dassl",
     feature = "raw-family-optimization-linear-programming-in-memory",
     feature = "raw-family-pchip"
 ))]
