@@ -13,6 +13,7 @@ pub mod full_corpus;
 pub mod hash;
 pub mod linkage;
 pub mod manifest;
+pub mod native_origin_audit;
 pub mod native_probe;
 pub mod ode_audit;
 pub mod optimization_audit;

@@ -323,6 +323,40 @@ pub struct OdeSession<T: OdeScalar, F, E> {
     _error: PhantomData<fn() -> E>,
 }
 
+/// Resets the test-only count of simultaneously active SDRIVE native calls.
+///
+/// This diagnostic is available only with
+/// `ode-sdrive-expert-native-tests`. It does not alter solver state or relax
+/// the process-wide native runtime lock.
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+#[doc(hidden)]
+pub fn reset_native_call_concurrency_for_test() {
+    crate::runtime::reset_ode_native_call_audit();
+}
+
+/// Returns the test-only maximum number of overlapping SDRIVE native calls.
+///
+/// This diagnostic is available only with
+/// `ode-sdrive-expert-native-tests`; a correct serialized run reports one.
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+#[doc(hidden)]
+pub fn max_native_call_concurrency_for_test() -> usize {
+    crate::runtime::max_ode_native_calls()
+}
+
+/// Executes a test-only observation while holding the native runtime lock.
+///
+/// The native XERROR controls are process-global. Integration tests that read
+/// them directly use this helper so their before/after observation cannot race
+/// another independently executing native test. The lock is reentrant on the
+/// current thread, so a safe session call made by `operation` remains covered.
+#[cfg(feature = "ode-sdrive-expert-native-tests")]
+#[doc(hidden)]
+pub fn with_native_runtime_lock_for_test<R>(operation: impl FnOnce() -> R) -> R {
+    let _runtime = crate::runtime::lock_native();
+    operation()
+}
+
 impl<T: OdeScalar, F, E> OdeSession<T, F, E>
 where
     F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
@@ -869,6 +903,8 @@ where
     let mut equation_count = 0;
     let mut error_flag = 0;
     let _xerror = permit_recoverable_native_statuses();
+    #[cfg(feature = "ode-sdrive-expert-native-tests")]
+    let _native_call_audit = crate::runtime::OdeNativeCallAudit::enter();
     // SAFETY: every pointer points to session-owned storage for the documented
     // SDRIV3 RHS-only mode, and all ABI callback signatures are reviewed.
     unsafe {
@@ -926,6 +962,8 @@ where
     let mut equation_count = 0;
     let mut error_flag = 0;
     let _xerror = permit_recoverable_native_statuses();
+    #[cfg(feature = "ode-sdrive-expert-native-tests")]
+    let _native_call_audit = crate::runtime::OdeNativeCallAudit::enter();
     // SAFETY: every pointer points to session-owned storage for the documented
     // DDRIV3 RHS-only mode, and all ABI callback signatures are reviewed.
     unsafe {

@@ -37,7 +37,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         .ok_or_else(|| policy("selected corpus lacks snapshot_id"))?;
 
     let arguments = argument_lookup(&argument_index)?;
-    let mutable_state = mutable_global_state_records()?;
+    let mutable_state = mutable_global_state_records(&functions)?;
     let concurrency = concurrency_records(&functions, &mutable_state.routine_sources)?;
     let storage = storage_records(&mappings, &arguments)?;
     let concurrency_summary = concurrency_summary(&concurrency);
@@ -64,7 +64,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
                 "schema_id":"slatec.runtime.mutable-global-state-index",
                 "schema_version":"1.0.0",
                 "snapshot_id":snapshot,
-                "coverage":"all_current_safe_records_reference_at_least_one_finding_or_an_explicit_incomplete_closure_result; the available offline source cache is incomplete, so no closure is marked free_of_mutable_static_storage",
+                "coverage":"all_current_safe_records_reference_complete_hash_verified_source_closure_compiler_storage_object_symbol_COMMON_XERROR_and_provider-runtime evidence; no record is promoted to ParallelSafe",
                 "columns":["id","routine","symbol_or_storage","origin","mutable","initialization","scope","access","synchronization","reentrancy_effect","evidence"],
                 "records":mutable_state.records,
             }),
@@ -144,7 +144,7 @@ fn concurrency_records(
         let global = if backend_dependent {
             "source_level_reentrancy_not_proven; safe_wrapper_exposes_no_global_dispatch"
         } else if ode {
-            "SDRIVE_callback_context_and_XERROR; serialized_pending_complete_native_stress_validation"
+            "saved_IER_XERROR_and_callback_context; complete_native_stress_validation_confirms_serialized_execution"
         } else if callback != "none" {
             "thread_local_callback_registration_and_legacy_runtime; serialized"
         } else {
@@ -158,7 +158,7 @@ fn concurrency_records(
         let relaxation = if backend_dependent {
             "require_provider_source_provenance_and_parallel_stress_test_before_threadsafe_claim"
         } else if ode {
-            "not_candidate_until_complete_source_closure_build_callback_reentry_and_parallel_stress_tests_pass"
+            "not_candidate_for_ParallelSafe: saved_IER_XERROR_callback_context_and_provider_runtime evidence require process serialization"
         } else {
             "require_complete_source_closure_audit_XERROR_audit_and_parallel_stress_test"
         };
@@ -207,7 +207,18 @@ fn mutable_state_ids(
     backend_dependent: bool,
     routine_source: Option<&String>,
 ) -> Vec<String> {
-    let mut ids = vec!["closure-incomplete-selected-provider".to_owned()];
+    let mut ids = vec![
+        "native-origin-source-closure-complete".to_owned(),
+        "native-origin-compiler-storage-model".to_owned(),
+        "native-origin-writable-symbol-inspection".to_owned(),
+        "native-origin-common-block-audit".to_owned(),
+        "xerror-global-state-audit".to_owned(),
+    ];
+    ids.push(if ode {
+        "native-ode-serialization-validation".to_owned()
+    } else {
+        "native-non-ode-stress-status".to_owned()
+    });
     if backend_dependent && feature.starts_with("blas-") {
         ids.push("provider-blas-runtime-unresolved".to_owned());
     }
@@ -218,14 +229,13 @@ fn mutable_state_ids(
             "ddstp-data-ier".to_owned(),
             "sdstp-data-ier".to_owned(),
         ]);
-    } else if !backend_dependent {
-        ids.push("legacy-xerror-process-state".to_owned());
-        if matches!(
+    } else if !backend_dependent
+        && matches!(
             domain,
             "quadrature" | "roots" | "nonlinear" | "least squares"
-        ) {
-            ids.push("rust-callback-thread-local-registry".to_owned());
-        }
+        )
+    {
+        ids.push("rust-callback-thread-local-registry".to_owned());
     }
     if let Some(routine_source) = routine_source {
         // Direct routine source records are evidence for the entry point;
@@ -240,25 +250,184 @@ struct MutableStateAudit {
     routine_sources: BTreeMap<String, String>,
 }
 
-fn mutable_global_state_records() -> Result<MutableStateAudit> {
+struct NativeSourceStatus {
+    source_file: String,
+    storage: String,
+    mutable: bool,
+    status: String,
+}
+
+fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus>> {
+    let status = read_value(repo_path(
+        "generated/safe-api/native-origin-audit-status.json",
+    ))?;
+    for field in [
+        "source_closure",
+        "object_inspection",
+        "compiler_storage_model",
+    ] {
+        if status[field].as_str() != Some("complete_mutable_state_found") {
+            return Err(policy("native-origin audit evidence is incomplete"));
+        }
+    }
+    if status["common_blocks"].as_str().is_none() || status["xerror"].as_str().is_none() {
+        return Err(policy(
+            "native-origin audit lacks COMMON or XERROR evidence",
+        ));
+    }
+    let index = read_value(repo_path(
+        "generated/safe-api/native-source-scan-index.json",
+    ))?;
+    let columns = index["columns"]
+        .as_array()
+        .ok_or_else(|| policy("native source scan lacks columns"))?;
+    let position = |name: &str| {
+        columns
+            .iter()
+            .position(|column| column.as_str() == Some(name))
+            .ok_or_else(|| policy("native source scan lacks expected column"))
+    };
+    let id = position("id")?;
+    let source_file = position("source_file")?;
+    let state = position("status")?;
+    let findings = position("finding_count")?;
+    let mut output = BTreeMap::new();
+    for row in index["records"]
+        .as_array()
+        .ok_or_else(|| policy("native source scan lacks records"))?
+    {
+        let row = row
+            .as_array()
+            .ok_or_else(|| policy("native source scan record is not an array"))?;
+        let audit_status = value_string(row, state, "native source scan status")?;
+        if !matches!(
+            audit_status.as_str(),
+            "complete_no_mutable_state_found" | "complete_mutable_state_found"
+        ) {
+            return Err(policy("native source scan record is incomplete"));
+        }
+        let finding_count = row
+            .get(findings)
+            .and_then(Value::as_u64)
+            .ok_or_else(|| policy("native source scan finding count is not unsigned"))?;
+        output.insert(
+            value_string(row, id, "native source scan id")?,
+            NativeSourceStatus {
+                source_file: value_string(row, source_file, "native source scan path")?,
+                storage: format!(
+                    "complete_source_and_object_scan:{}:{}",
+                    value_string(row, source_file, "native source scan path")?,
+                    finding_count
+                ),
+                mutable: audit_status == "complete_mutable_state_found",
+                status: audit_status,
+            },
+        );
+    }
+    Ok(output)
+}
+
+fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit> {
+    let native_sources = native_origin_source_statuses()?;
     let mut records = vec![
         json!([
-            "closure-incomplete-selected-provider",
+            "native-origin-source-closure-complete",
             "all_selected_native_closures",
-            "complete_transitive_source_and_binary_state_scan",
+            "hash_verified_transitive_source_closure",
             "PROVIDER",
             true,
-            "unknown",
+            "explicit",
             "process",
-            "unknown",
-            "unknown",
-            "unknown",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
             [
-                "The locally available verified cache lacks src/ddcor.f; an attempted composed cache then lacked lin/dgbfa.f. No complete selected closure was compiled or symbol-inspected."
+                "generated/safe-api/native-origin-audit-status.json: complete_mutable_state_found",
+                "generated/safe-api/native-source-origin-index.json: all 330 provider sources are hash verified through the reviewed acquisition receipt; three project machine-constant sources are compiled separately"
             ]
         ]),
         json!([
-            "legacy-xerror-process-state",
+            "native-origin-compiler-storage-model",
+            "GNU_Fortran_14_2_0_x86_64_w64_mingw32",
+            "ordinary_locals_automatic_DATA_and_SAVE_locals_persistent",
+            "COMPILER",
+            true,
+            "compile_time",
+            "process",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
+            [
+                "generated/safe-api/fortran-storage-model.json",
+                "exact flags -x f77 -std=legacy -ffixed-line-length-none -c; no -fno-automatic or -frecursive",
+                "storage probe: ordinary local has no writable symbol; DATA local has local writable .bss symbol"
+            ]
+        ]),
+        json!([
+            "native-origin-writable-symbol-inspection",
+            "all_selected_native_objects",
+            "COFF_data_and_bss_symbols",
+            "OBJECT",
+            true,
+            "compile_time",
+            "process",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
+            [
+                "generated/safe-api/native-writable-symbol-index.json",
+                "every selected source and project profile object is compiled and inspected; unknown writable symbols remain conservative"
+            ]
+        ]),
+        json!([
+            "native-origin-common-block-audit",
+            "all_selected_native_closures",
+            "COMMON_block_ownership_and_layout",
+            "COMMON",
+            false,
+            "explicit",
+            "process",
+            "read_only",
+            "wrapper_lock",
+            "complete_no_mutable_state_found",
+            [
+                "generated/safe-api/common-block-index.json: complete_no_mutable_state_found for the current selected source closure"
+            ]
+        ]),
+        json!([
+            "native-ode-serialization-validation",
+            "SDRIV3_DDRIV3",
+            "native_entry_active_counter",
+            "OTHER",
+            true,
+            "explicit",
+            "process",
+            "read_write",
+            "wrapper_lock",
+            "unsafe",
+            [
+                "crates/slatec/tests/ode_sdrive_native.rs: native concurrency test records a maximum of one active native entry under multiple Rust threads",
+                "global serialization is a race-prevention policy, not reentrancy proof"
+            ]
+        ]),
+        json!([
+            "native-non-ode-stress-status",
+            "non_ODE_safe_wrappers",
+            "routine_specific_parallel_native_stress_status",
+            "OTHER",
+            false,
+            "explicit",
+            "process",
+            "read_only",
+            "unknown",
+            "provider_unknown",
+            [
+                "This milestone executes instrumented native concurrency stress only for SDRIV3/DDRIV3.",
+                "No non-ODE routine is promoted to ParallelSafe; hosted calls remain SerializedGlobal and no_std provider calls remain BackendDependent."
+            ]
+        ]),
+        json!([
+            "xerror-global-state-audit",
             "XGETF/XSETF/XERMSG_runtime",
             "legacy_error_control_flag_and_message_runtime",
             "RUNTIME",
@@ -270,7 +439,8 @@ fn mutable_global_state_records() -> Result<MutableStateAudit> {
             "unsafe",
             [
                 "crates/slatec/src/runtime.rs: permit_recoverable_native_statuses must execute under lock_native",
-                "reviewed SLATEC drivers use XERMSG"
+                "generated/safe-api/xerror-state-index.json: J4SAVE IPARAM and XERSVE tables are saved process-global state",
+                "reviewed selected closures use XERMSG; hosted wrappers that scope XERROR hold lock_native for the full restoration interval"
             ]
         ]),
         json!([
@@ -328,14 +498,14 @@ fn mutable_global_state_records() -> Result<MutableStateAudit> {
             "DATA",
             true,
             "compile_time",
-            "routine",
+            "process",
             "read_write",
             "wrapper_lock",
-            "initialization_race",
+            "unsafe",
             [
                 "src/ddstp.f:89 DATA IER /.FALSE./",
-                "src/ddstp.f:101 and 127 pass IER to DDNTL/DDPST; initialized local storage is conservatively treated as persistent until compiler/object inspection proves otherwise",
-                "generated/providers/provider-index.json: the selected GNU Fortran build uses -std=legacy -ffixed-line-length-none -c and contains no automatic-storage proof"
+                "DDNTL resets IER false and sets it true on callback, factorization, singular-diagonal, and related failure paths; DDPST resets and sets it on factorization or USERS failure",
+                "generated/safe-api/native-writable-symbol-index.json: ddstp object emits local writable ier.0 in .bss; local linkage is one shared process-image instance"
             ]
         ]),
         json!([
@@ -345,14 +515,14 @@ fn mutable_global_state_records() -> Result<MutableStateAudit> {
             "DATA",
             true,
             "compile_time",
-            "routine",
+            "process",
             "read_write",
             "wrapper_lock",
-            "initialization_race",
+            "unsafe",
             [
                 "src/sdstp.f:88 DATA IER /.FALSE./",
-                "src/sdstp.f:100 and 126 pass IER to SDNTL/SDPST; initialized local storage is conservatively treated as persistent until compiler/object inspection proves otherwise",
-                "generated/providers/provider-index.json: the selected GNU Fortran build uses -std=legacy -ffixed-line-length-none -c and contains no automatic-storage proof"
+                "SDNTL resets IER false and sets it true on callback, factorization, singular-diagonal, and related failure paths; SDPST resets and sets it on factorization or USERS failure",
+                "generated/safe-api/native-writable-symbol-index.json: sdstp object emits local writable ier.0 in .bss; local linkage is one shared process-image instance"
             ]
         ]),
         json!([
@@ -426,7 +596,32 @@ fn mutable_global_state_records() -> Result<MutableStateAudit> {
     ))?;
     let interface = read_value(repo_path("generated/ffi/interface-inventory.json"))?;
     let source_paths = selected_source_paths(&source_files)?;
-    let routine_sources = routine_source_ids(&interface, &source_paths)?;
+    let source_by_routine = routine_source_ids(&interface, &source_paths)?;
+    let safe_routines = functions
+        .iter()
+        .map(|function| string(function, "fortran_routine").map(str::to_owned))
+        .collect::<Result<std::collections::BTreeSet<_>>>()?;
+    let mut routine_sources = BTreeMap::new();
+    for (routine, source_id) in source_by_routine {
+        if !safe_routines.contains(&routine) {
+            continue;
+        }
+        let source_path = source_paths
+            .get(&source_id)
+            .ok_or_else(|| policy("safe routine source lacks a selected source path"))?;
+        let reviewed_id = if native_sources.contains_key(&source_id) {
+            source_id
+        } else {
+            native_sources
+                .iter()
+                .find(|(_, status)| status.source_file == source_path.as_str())
+                .map(|(id, _)| id.clone())
+                .ok_or_else(|| {
+                    policy("safe routine source is absent from the native-origin source closure")
+                })?
+        };
+        routine_sources.insert(routine, reviewed_id);
+    }
     let mut included = closures["families"]
         .as_object()
         .ok_or_else(|| policy("family source closure lacks families"))?
@@ -441,22 +636,54 @@ fn mutable_global_state_records() -> Result<MutableStateAudit> {
     included.extend(routine_sources.values().cloned());
     for source_id in &included {
         let Some(path) = source_paths.get(source_id) else {
-            return Err(policy(
-                "family source closure references unknown selected source",
-            ));
+            if let Some(audited) = native_sources.get(source_id) {
+                records.push(json!([
+                    format!("source-static-scan-{source_id}"),
+                    audited.source_file,
+                    audited.storage,
+                    "OTHER",
+                    audited.mutable,
+                    "explicit",
+                    "process",
+                    if audited.mutable { "read_write" } else { "read_only" },
+                    "wrapper_lock",
+                    audited.status,
+                    [format!("selected overlay source id {source_id}"), format!("generated/safe-api/native-source-scan-index.json: {}", audited.status), "complete source and object evidence is required by the native-origin audit gate"]
+                ]));
+                continue;
+            }
+            return Err(policy(&format!(
+                "family source closure references unknown selected source {source_id}"
+            )));
         };
+        let audited = native_sources.get(source_id).ok_or_else(|| {
+            policy(&format!(
+                "selected safe source {source_id} is absent from the complete native-origin scan"
+            ))
+        })?;
         records.push(json!([
             format!("source-static-scan-{source_id}"),
             path,
-            "explicit_static_storage_scan_not_completed_from_retained_complete_source_text",
+            audited.storage,
             "OTHER",
-            true,
-            "unknown",
+            audited.mutable,
+            "explicit",
             "process",
-            "unknown",
-            "unknown",
-            "unknown",
-            [format!("selected source id {source_id}; path {path}"), "This deterministic policy audit retains no complete text-and-object scan result for this source. It is deliberately not classified as free of COMMON/SAVE/DATA/BLOCK_DATA/EQUIVALENCE or compiler-generated static storage."]
+            if audited.mutable {
+                "read_write"
+            } else {
+                "read_only"
+            },
+            "wrapper_lock",
+            audited.status,
+            [
+                format!("selected source id {source_id}; path {path}"),
+                format!(
+                    "generated/safe-api/native-source-scan-index.json: {}",
+                    audited.status
+                ),
+                "complete source and object evidence is required by the native-origin audit gate"
+            ]
         ]));
     }
     records.sort_by(|left, right| left[0].as_str().cmp(&right[0].as_str()));
@@ -852,7 +1079,7 @@ fn concurrency_summary(records: &[Value]) -> String {
         .collect::<Vec<_>>()
         .join(", ");
     format!(
-        "# Runtime concurrency audit\n\n- Classified safe functions: {} ({rendered}).\n- `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.\n- `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.\n- `SDRIV3`/`DDRIV3` sessions remain `SerializedGlobal`: the session callback context and scoped XERROR state make a per-family or lock-free claim premature.\n- The complete SDRIVE source closure could not be rebuilt from the available offline cache: `DDCOR` was missing first, and the composed local cache also lacked LINPACK `DGBFA`. No source was downloaded, copied into the repository, or treated as a successful native validation.\n",
+        "# Runtime concurrency audit\n\n- Classified safe functions: {} ({rendered}).\n- `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.\n- `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.\n- The origin audit hash-verifies and scans 330 provider sources, compiles and inspects their objects plus three profile objects, records no selected-closure COMMON block, and records XERROR saved state separately.\n- `SDRIV3`/`DDRIV3` sessions remain `SerializedGlobal`: `SDSTP`/`DDSTP` emit saved writable `IER` storage, XERROR is process-global, callback dispatch is scoped, and provider/runtime reentrancy is not a public guarantee. Native stress tests observe at most one active SDRIVE foreign call.\n",
         records.len()
     )
 }
@@ -992,10 +1219,14 @@ mod tests {
         let state = records(temp.path().join("mutable-global-state-index.json")).unwrap();
         let by_id = |id: &str| state.iter().find(|record| record[0].as_str() == Some(id));
         for id in [
-            "closure-incomplete-selected-provider",
+            "native-origin-source-closure-complete",
+            "native-origin-compiler-storage-model",
+            "native-origin-writable-symbol-inspection",
+            "native-origin-common-block-audit",
+            "xerror-global-state-audit",
+            "native-ode-serialization-validation",
             "ddstp-data-ier",
             "sdstp-data-ier",
-            "legacy-xerror-process-state",
             "rust-callback-thread-local-registry",
         ] {
             assert!(by_id(id).is_some(), "missing state finding {id}");
