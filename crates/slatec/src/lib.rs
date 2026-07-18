@@ -33,6 +33,8 @@ compile_error!("the `ode-sdrive-expert` safe API requires the `std` feature");
 compile_error!(
     "the `optimization-linear-programming-in-memory` safe API requires the `std` feature"
 );
+#[cfg(all(feature = "fftpack-real", not(feature = "std")))]
+compile_error!("the `fftpack-real` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -104,9 +106,14 @@ pub mod polynomials;
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
     feature = "ode-sdrive-expert",
-    feature = "optimization-linear-programming-in-memory"
+    feature = "optimization-linear-programming-in-memory",
+    feature = "fftpack-real"
 ))]
 pub(crate) mod runtime;
+
+/// Safe plan objects for the reviewed single-precision real FFTPACK families.
+#[cfg(feature = "fftpack-real")]
+pub mod fftpack;
 
 /// Test-only observations of the hosted process-wide native runtime lock.
 ///

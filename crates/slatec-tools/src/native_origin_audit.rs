@@ -23,6 +23,7 @@ const FLAGS: &[&str] = &["-x", "f77", "-std=legacy", "-ffixed-line-length-none",
 const OVERLAY_FILES: &[&str] = &[
     "ode-sdrive-source-closure.json",
     "lp-in-memory-source-closure.json",
+    "fftpack-real-source-closure.json",
 ];
 
 /// Concise result of a completed native-origin audit.
@@ -1669,6 +1670,7 @@ fn canonical_url(subset: &str, path: &str) -> Result<String> {
         "main-src" => "https://www.netlib.org/slatec/",
         "fnlib" => "https://www.netlib.org/slatec/fnlib/",
         "lin" => "https://www.netlib.org/slatec/lin/",
+        "fishfft" => "https://www.netlib.org/slatec/fishfft/",
         _ => return Err(policy("unknown reviewed source subset")),
     };
     Ok(format!("{prefix}{path}"))
@@ -1679,6 +1681,7 @@ fn origin(subset: &str) -> &'static str {
         "main-src" => "SLATEC",
         "fnlib" => "SLATEC-hosted FNLIB",
         "lin" => "SLATEC-hosted LINPACK/BLAS/support",
+        "fishfft" => "SLATEC-hosted FFTPACK",
         _ => "unknown provider",
     }
 }
@@ -1848,11 +1851,17 @@ mod tests {
             serde_json::from_slice(&fs::read(root.join("per-wrapper-native-state.json")).unwrap())
                 .unwrap();
         assert!(projections["records"].as_array().is_some_and(|records| {
-            records.len() == 190
+            records.len() == 206
                 && records.iter().all(|record| {
                     record["object_closure"]
                         .as_array()
                         .is_some_and(|objects| !objects.is_empty())
+                })
+                && records.iter().any(|record| {
+                    record["safe_function"] == "slatec::fftpack::RealFftPlan::new"
+                        && record["saved_mutable_locals"]
+                            .as_array()
+                            .is_some_and(|saved| !saved.is_empty())
                 })
         }));
     }

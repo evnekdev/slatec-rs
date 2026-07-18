@@ -70,6 +70,22 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::bounded_least_squares::solve_bounded_least_squares_f32` | `SBOLS` | linear least squares | f32 | dense bounded linear least-squares fitting | `std` | `least-squares-linear-bounded` | [bounded linear least squares](../../examples/least_squares/mixed_bounds.rs) |
 | `slatec::constrained_least_squares::solve_constrained_least_squares` | `DLSEI` | linear least squares | f64 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/equality_constrained_fit.rs) |
 | `slatec::constrained_least_squares::solve_constrained_least_squares_f32` | `LSEI` | linear least squares | f32 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/inequality_constrained_fit.rs) |
+| `slatec::fftpack::CosineTransformPlan::new` | `COSTI` | real FFTPACK | f32 | initialize a full cosine-transform plan | `std` | `fftpack-real` | [full cosine transform plan initialization](../../examples/fftpack/cosine_transform.rs) |
+| `slatec::fftpack::CosineTransformPlan::transform` | `COST` | real FFTPACK | f32 | compute the full FFTPACK cosine transform | `std` | `fftpack-real` | [full cosine transform](../../examples/fftpack/cosine_transform.rs) |
+| `slatec::fftpack::EasyRealFftPlan::backward` | `EZFFTB` | real FFTPACK | f32 | synthesize a real sequence from Fourier-series coefficients | `std` | `fftpack-real` | [easy real Fourier synthesis](../../examples/fftpack/real_fft.rs) |
+| `slatec::fftpack::EasyRealFftPlan::forward` | `EZFFTF` | real FFTPACK | f32 | compute separate real Fourier-series coefficients | `std` | `fftpack-real` | [easy real Fourier forward transform](../../examples/fftpack/real_fft.rs) |
+| `slatec::fftpack::EasyRealFftPlan::new` | `EZFFTI` | real FFTPACK | f32 | initialize an easy real Fourier plan | `std` | `fftpack-real` | [easy real Fourier plan initialization](../../examples/fftpack/real_fft.rs) |
+| `slatec::fftpack::QuarterWaveCosinePlan::backward` | `COSQB` | real FFTPACK | f32 | compute a quarter-wave cosine backward transform | `std` | `fftpack-real` | [quarter-wave cosine backward transform](../../examples/fftpack/quarter_wave.rs) |
+| `slatec::fftpack::QuarterWaveCosinePlan::forward` | `COSQF` | real FFTPACK | f32 | compute a quarter-wave cosine forward transform | `std` | `fftpack-real` | [quarter-wave cosine forward transform](../../examples/fftpack/quarter_wave.rs) |
+| `slatec::fftpack::QuarterWaveCosinePlan::new` | `COSQI` | real FFTPACK | f32 | initialize a quarter-wave cosine-transform plan | `std` | `fftpack-real` | [quarter-wave cosine plan initialization](../../examples/fftpack/quarter_wave.rs) |
+| `slatec::fftpack::QuarterWaveSinePlan::backward` | `SINQB` | real FFTPACK | f32 | compute a quarter-wave sine backward transform | `std` | `fftpack-real` | [quarter-wave sine backward transform](../../examples/fftpack/quarter_wave.rs) |
+| `slatec::fftpack::QuarterWaveSinePlan::forward` | `SINQF` | real FFTPACK | f32 | compute a quarter-wave sine forward transform | `std` | `fftpack-real` | [quarter-wave sine forward transform](../../examples/fftpack/quarter_wave.rs) |
+| `slatec::fftpack::QuarterWaveSinePlan::new` | `SINQI` | real FFTPACK | f32 | initialize a quarter-wave sine-transform plan | `std` | `fftpack-real` | [quarter-wave sine plan initialization](../../examples/fftpack/quarter_wave.rs) |
+| `slatec::fftpack::RealFftPlan::backward` | `RFFTB` | real FFTPACK | f32 | compute a packed periodic real Fourier synthesis | `std` | `fftpack-real` | [periodic real FFT backward transform](../../examples/fftpack/real_fft.rs) |
+| `slatec::fftpack::RealFftPlan::forward` | `RFFTF` | real FFTPACK | f32 | compute a packed periodic real Fourier transform | `std` | `fftpack-real` | [periodic real FFT forward transform](../../examples/fftpack/real_fft.rs) |
+| `slatec::fftpack::RealFftPlan::new` | `RFFTI` | real FFTPACK | f32 | initialize a periodic real FFTPACK plan | `std` | `fftpack-real` | [periodic real FFT plan initialization](../../examples/fftpack/real_fft.rs) |
+| `slatec::fftpack::SineTransformPlan::new` | `SINTI` | real FFTPACK | f32 | initialize a full sine-transform plan | `std` | `fftpack-real` | [full sine transform plan initialization](../../examples/fftpack/sine_transform.rs) |
+| `slatec::fftpack::SineTransformPlan::transform` | `SINT` | real FFTPACK | f32 | compute the full FFTPACK sine transform | `std` | `fftpack-real` | [full sine transform](../../examples/fftpack/sine_transform.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -224,6 +240,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `CBRT` -> `slatec::special::elementary::cbrt_f32`
 - `CHKDER` -> `slatec::nonlinear::check_jacobian_f32`
 - `COSDG` -> `slatec::special::elementary::cos_degrees_f32`
+- `COSQB` -> `slatec::fftpack::QuarterWaveCosinePlan::backward`
+- `COSQF` -> `slatec::fftpack::QuarterWaveCosinePlan::forward`
+- `COSQI` -> `slatec::fftpack::QuarterWaveCosinePlan::new`
+- `COST` -> `slatec::fftpack::CosineTransformPlan::transform`
+- `COSTI` -> `slatec::fftpack::CosineTransformPlan::new`
 - `CSEVL` -> `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `DAI` -> `slatec::special::airy::airy_ai`
 - `DAIE` -> `slatec::special::airy::airy_ai_scaled`
@@ -324,6 +345,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `ERF` -> `slatec::special::error_functions::erf_f32`
 - `ERFC` -> `slatec::special::error_functions::erfc_f32`
 - `EXPREL` -> `slatec::special::elementary::exprel_f32`
+- `EZFFTB` -> `slatec::fftpack::EasyRealFftPlan::backward`
+- `EZFFTF` -> `slatec::fftpack::EasyRealFftPlan::forward`
+- `EZFFTI` -> `slatec::fftpack::EasyRealFftPlan::new`
 - `FAC` -> `slatec::special::gamma::factorial_f32`
 - `FZERO` -> `slatec::roots::find_root_f32`
 - `GAMI` -> `slatec::special::gamma::incomplete_gamma_lower_f32`
@@ -347,6 +371,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `QAWS` -> `slatec::quadrature::integrate_weighted_endpoints_f32`
 - `QNC79` -> `slatec::quadrature::integrate_nc79_f32`
 - `QNG` -> `slatec::quadrature::integrate_non_adaptive_f32`
+- `RFFTB` -> `slatec::fftpack::RealFftPlan::backward`
+- `RFFTF` -> `slatec::fftpack::RealFftPlan::forward`
+- `RFFTI` -> `slatec::fftpack::RealFftPlan::new`
 - `SASUM` -> `slatec::blas::level1::sasum`
 - `SASUM` -> `slatec::blas::level1::sasum_strided`
 - `SAXPY` -> `slatec::blas::level1::saxpy`
@@ -367,6 +394,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SGEMV` -> `slatec::blas::level2::sgemv_contiguous`
 - `SGER` -> `slatec::blas::level2::sger`
 - `SINDG` -> `slatec::special::elementary::sin_degrees_f32`
+- `SINQB` -> `slatec::fftpack::QuarterWaveSinePlan::backward`
+- `SINQF` -> `slatec::fftpack::QuarterWaveSinePlan::forward`
+- `SINQI` -> `slatec::fftpack::QuarterWaveSinePlan::new`
+- `SINT` -> `slatec::fftpack::SineTransformPlan::transform`
+- `SINTI` -> `slatec::fftpack::SineTransformPlan::new`
 - `SNLS1` -> `slatec::least_squares::least_squares_expert_f32`
 - `SNLS1` -> `slatec::least_squares::least_squares_with_jacobian_f32`
 - `SNLS1E` -> `slatec::least_squares::least_squares_f32`
@@ -612,6 +644,25 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::linear_programming::LinearProgram::<f32>::solve` — sparse in-memory linear programming with variable and row-activity bounds
 - `slatec::linear_programming::LinearProgram::<f64>::solve` — sparse in-memory linear programming with variable and row-activity bounds
 
+### real FFTPACK
+
+- `slatec::fftpack::CosineTransformPlan::new` — initialize a full cosine-transform plan
+- `slatec::fftpack::CosineTransformPlan::transform` — compute the full FFTPACK cosine transform
+- `slatec::fftpack::EasyRealFftPlan::backward` — synthesize a real sequence from Fourier-series coefficients
+- `slatec::fftpack::EasyRealFftPlan::forward` — compute separate real Fourier-series coefficients
+- `slatec::fftpack::EasyRealFftPlan::new` — initialize an easy real Fourier plan
+- `slatec::fftpack::QuarterWaveCosinePlan::backward` — compute a quarter-wave cosine backward transform
+- `slatec::fftpack::QuarterWaveCosinePlan::forward` — compute a quarter-wave cosine forward transform
+- `slatec::fftpack::QuarterWaveCosinePlan::new` — initialize a quarter-wave cosine-transform plan
+- `slatec::fftpack::QuarterWaveSinePlan::backward` — compute a quarter-wave sine backward transform
+- `slatec::fftpack::QuarterWaveSinePlan::forward` — compute a quarter-wave sine forward transform
+- `slatec::fftpack::QuarterWaveSinePlan::new` — initialize a quarter-wave sine-transform plan
+- `slatec::fftpack::RealFftPlan::backward` — compute a packed periodic real Fourier synthesis
+- `slatec::fftpack::RealFftPlan::forward` — compute a packed periodic real Fourier transform
+- `slatec::fftpack::RealFftPlan::new` — initialize a periodic real FFTPACK plan
+- `slatec::fftpack::SineTransformPlan::new` — initialize a full sine-transform plan
+- `slatec::fftpack::SineTransformPlan::transform` — compute the full FFTPACK sine transform
+
 ## Capability index
 
 ### Core only
@@ -688,6 +739,22 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::bounded_least_squares::solve_bounded_least_squares_f32`
 - `slatec::constrained_least_squares::solve_constrained_least_squares`
 - `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
+- `slatec::fftpack::CosineTransformPlan::new`
+- `slatec::fftpack::CosineTransformPlan::transform`
+- `slatec::fftpack::EasyRealFftPlan::backward`
+- `slatec::fftpack::EasyRealFftPlan::forward`
+- `slatec::fftpack::EasyRealFftPlan::new`
+- `slatec::fftpack::QuarterWaveCosinePlan::backward`
+- `slatec::fftpack::QuarterWaveCosinePlan::forward`
+- `slatec::fftpack::QuarterWaveCosinePlan::new`
+- `slatec::fftpack::QuarterWaveSinePlan::backward`
+- `slatec::fftpack::QuarterWaveSinePlan::forward`
+- `slatec::fftpack::QuarterWaveSinePlan::new`
+- `slatec::fftpack::RealFftPlan::backward`
+- `slatec::fftpack::RealFftPlan::forward`
+- `slatec::fftpack::RealFftPlan::new`
+- `slatec::fftpack::SineTransformPlan::new`
+- `slatec::fftpack::SineTransformPlan::transform`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`

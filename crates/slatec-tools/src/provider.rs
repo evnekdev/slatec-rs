@@ -271,6 +271,7 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
     for file in [
         "ode-sdrive-source-closure.json",
         "lp-in-memory-source-closure.json",
+        "fftpack-real-source-closure.json",
     ] {
         let overlay_path = manifest_path.with_file_name(file);
         if !overlay_path.is_file() {
@@ -316,6 +317,7 @@ fn canonical_source_url(subset: &str, path: &str) -> Result<String> {
         "main-src" => "https://www.netlib.org/slatec/",
         "fnlib" => "https://www.netlib.org/slatec/fnlib/",
         "lin" => "https://www.netlib.org/slatec/lin/",
+        "fishfft" => "https://www.netlib.org/slatec/fishfft/",
         _ => {
             return Err(CorpusError::Verification(format!(
                 "no reviewed canonical provider origin for subset {subset}"

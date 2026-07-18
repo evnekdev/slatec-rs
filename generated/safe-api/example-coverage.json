@@ -644,6 +644,166 @@
       "validation_file": "crates/slatec/tests/constrained_least_squares_native.rs"
     },
     {
+      "doctest_present": false,
+      "example_case": "full cosine transform plan initialization",
+      "example_file": "examples/fftpack/cosine_transform.rs",
+      "fortran_routine": "COSTI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::CosineTransformPlan::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "full cosine transform",
+      "example_file": "examples/fftpack/cosine_transform.rs",
+      "fortran_routine": "COST",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::CosineTransformPlan::transform",
+      "validation_case": "transform",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "easy real Fourier synthesis",
+      "example_file": "examples/fftpack/real_fft.rs",
+      "fortran_routine": "EZFFTB",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::EasyRealFftPlan::backward",
+      "validation_case": "backward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "easy real Fourier forward transform",
+      "example_file": "examples/fftpack/real_fft.rs",
+      "fortran_routine": "EZFFTF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::EasyRealFftPlan::forward",
+      "validation_case": "forward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "easy real Fourier plan initialization",
+      "example_file": "examples/fftpack/real_fft.rs",
+      "fortran_routine": "EZFFTI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::EasyRealFftPlan::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "quarter-wave cosine backward transform",
+      "example_file": "examples/fftpack/quarter_wave.rs",
+      "fortran_routine": "COSQB",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::QuarterWaveCosinePlan::backward",
+      "validation_case": "backward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "quarter-wave cosine forward transform",
+      "example_file": "examples/fftpack/quarter_wave.rs",
+      "fortran_routine": "COSQF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::QuarterWaveCosinePlan::forward",
+      "validation_case": "forward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "quarter-wave cosine plan initialization",
+      "example_file": "examples/fftpack/quarter_wave.rs",
+      "fortran_routine": "COSQI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::QuarterWaveCosinePlan::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "quarter-wave sine backward transform",
+      "example_file": "examples/fftpack/quarter_wave.rs",
+      "fortran_routine": "SINQB",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::QuarterWaveSinePlan::backward",
+      "validation_case": "backward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "quarter-wave sine forward transform",
+      "example_file": "examples/fftpack/quarter_wave.rs",
+      "fortran_routine": "SINQF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::QuarterWaveSinePlan::forward",
+      "validation_case": "forward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "quarter-wave sine plan initialization",
+      "example_file": "examples/fftpack/quarter_wave.rs",
+      "fortran_routine": "SINQI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::QuarterWaveSinePlan::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "periodic real FFT backward transform",
+      "example_file": "examples/fftpack/real_fft.rs",
+      "fortran_routine": "RFFTB",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::RealFftPlan::backward",
+      "validation_case": "backward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "periodic real FFT forward transform",
+      "example_file": "examples/fftpack/real_fft.rs",
+      "fortran_routine": "RFFTF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::RealFftPlan::forward",
+      "validation_case": "forward",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "periodic real FFT plan initialization",
+      "example_file": "examples/fftpack/real_fft.rs",
+      "fortran_routine": "RFFTI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::RealFftPlan::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "full sine transform plan initialization",
+      "example_file": "examples/fftpack/sine_transform.rs",
+      "fortran_routine": "SINTI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::SineTransformPlan::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "full sine transform",
+      "example_file": "examples/fftpack/sine_transform.rs",
+      "fortran_routine": "SINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::fftpack::SineTransformPlan::transform",
+      "validation_case": "transform",
+      "validation_file": "crates/slatec/tests/fftpack_native.rs"
+    },
+    {
       "doctest_present": true,
       "example_case": "nonlinear least-squares covariance estimation",
       "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",

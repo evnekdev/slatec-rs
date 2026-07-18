@@ -5,7 +5,8 @@ This report changes no runtime behavior. Every hosted native wrapper remains pro
 ## Outcomes
 
 - `candidate_backend_dependent_parallel`: 28 wrappers
-- `not_candidate_mutable_native_state`: 162 wrappers
+- `candidate_parallel_safe_after_provider_audit`: 10 wrappers
+- `not_candidate_mutable_native_state`: 168 wrappers
 
 ## Required evidence
 

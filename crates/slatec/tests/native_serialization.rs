@@ -11,6 +11,7 @@ use slatec::bounded_least_squares::{
     BoundedLeastSquaresOptions, BoundedLeastSquaresProblem, VariableBounds,
     solve_bounded_least_squares,
 };
+use slatec::fftpack::RealFftPlan;
 use slatec::linear_least_squares::{
     MatrixRef, NonnegativeLeastSquaresProblem, VariableConstraint, solve_nonnegative_least_squares,
 };
@@ -103,6 +104,13 @@ fn run_linear_programming() {
     assert!(result.solution.is_some());
 }
 
+fn run_real_fftpack() {
+    let mut values = [1.0_f32, 0.0, -1.0, 0.0, 0.5, -0.5, 0.25];
+    let mut plan = RealFftPlan::new(values.len()).unwrap();
+    plan.forward(&mut values).unwrap();
+    plan.backward(&mut values).unwrap();
+}
+
 fn concurrent_pair(left: fn(), right: fn()) {
     let barrier = Arc::new(Barrier::new(3));
     let spawn = |work: fn()| {
@@ -129,6 +137,8 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_root, run_quadrature);
     concurrent_pair(run_linear_programming, run_ode);
     concurrent_pair(run_linear_programming, run_bounded);
+    concurrent_pair(run_real_fftpack, run_ode);
+    concurrent_pair(run_real_fftpack, run_linear_programming);
     let observed = snapshot();
     assert_eq!(observed.active, 0);
     assert_eq!(observed.maximum_active, 1);
