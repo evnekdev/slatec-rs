@@ -272,6 +272,7 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         "ode-sdrive-source-closure.json",
         "lp-in-memory-source-closure.json",
         "fftpack-real-source-closure.json",
+        "pchip-source-closure.json",
     ] {
         let overlay_path = manifest_path.with_file_name(file);
         if !overlay_path.is_file() {
@@ -318,6 +319,7 @@ fn canonical_source_url(subset: &str, path: &str) -> Result<String> {
         "fnlib" => "https://www.netlib.org/slatec/fnlib/",
         "lin" => "https://www.netlib.org/slatec/lin/",
         "fishfft" => "https://www.netlib.org/slatec/fishfft/",
+        "pchip" => "https://www.netlib.org/slatec/pchip/",
         _ => {
             return Err(CorpusError::Verification(format!(
                 "no reviewed canonical provider origin for subset {subset}"
@@ -338,6 +340,7 @@ fn receipt_source<'a>(
             "main-src" => "SLATEC main source archive",
             "fnlib" => "SLATEC-hosted FNLIB",
             "lin" => "SLATEC-hosted LINPACK/BLAS/support directory",
+            "pchip" => "SLATEC PCHIP package",
             _ => "unreviewed provider subset",
         },
         path: &source.path,

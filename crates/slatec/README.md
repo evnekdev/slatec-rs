@@ -43,6 +43,13 @@ initialized work array and preserves the original in-place storage and native
 normalization. The selected snapshot contains no reviewed `f64` real FFTPACK
 counterparts. See the [real FFTPACK guide](../../docs/api/safe-real-fftpack.md).
 
+The hosted `pchip` feature provides owned `f32` and `f64`
+`PiecewiseCubicHermite` curves over reviewed PCHIP. Monotone, controlled, and
+PCHSP endpoint derivative construction feed native value/derivative evaluation
+and definite integration. Knots remain strictly ordered as supplied, native
+endpoint extrapolation is opt-in, and the shared XERROR runtime keeps calls
+process-serialized. See the [PCHIP guide](../../docs/api/safe-pchip.md).
+
 Native concurrency is conservative. APIs that use the hosted legacy runtime
 are process-serialized; the existing `no_std`/`alloc` BLAS and Jacobian-check
 features remain backend-dependent and do not promise parallel native safety.

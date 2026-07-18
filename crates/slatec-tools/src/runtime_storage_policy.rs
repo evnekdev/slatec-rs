@@ -38,9 +38,19 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
 
     let arguments = argument_lookup(&argument_index)?;
     let projections_value = read_value(repo_path(SAFE_API).join("per-wrapper-native-state.json"))?;
-    let projections = projections_value["records"]
+    let mut projections = projections_value["records"]
         .as_array()
-        .ok_or_else(|| policy("per-wrapper native-state index lacks records"))?;
+        .ok_or_else(|| policy("per-wrapper native-state index lacks records"))?
+        .clone();
+    // The PCHIP closure has focused source/object evidence independent of the
+    // prior broad provider audit.  Merge those conservative projections here
+    // so the global policy cannot accidentally omit a newly safe public API.
+    projections.extend(crate::safe_pchip::native_state_projections()?);
+    projections.sort_by(|left, right| {
+        left["safe_function"]
+            .as_str()
+            .cmp(&right["safe_function"].as_str())
+    });
     let projection_by_path = projections
         .iter()
         .filter_map(|record| {
@@ -55,7 +65,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         &mutable_state.routine_sources,
         &projection_by_path,
     )?;
-    let relaxation = relaxation_records(projections)?;
+    let relaxation = relaxation_records(&projections)?;
     let relaxation_roadmap = relaxation_roadmap(&relaxation);
     let storage = storage_records(&mappings, &arguments)?;
     let concurrency_summary = concurrency_summary(&concurrency);
@@ -151,6 +161,7 @@ fn concurrency_records(
         let ode = feature == "ode-sdrive-expert";
         let lp = feature == "optimization-linear-programming-in-memory";
         let fftpack = feature == "fftpack-real";
+        let pchip = feature == "pchip";
         let callback = callback_dispatch(domain, feature);
         let class = if backend_dependent {
             "BackendDependent"
@@ -169,7 +180,7 @@ fn concurrency_records(
         };
         let xerror = if lp {
             "scoped_XGETF_XSETF_and_XGETUA_XSETUA_restore"
-        } else if matches!(feature, "ode-sdrive-expert") {
+        } else if matches!(feature, "ode-sdrive-expert") || pchip {
             "scoped_XGETF_XSETF_restore"
         } else if feature.starts_with("least-squares") {
             "scoped_XGETF_XSETF_restore_where_reviewed"
@@ -188,6 +199,8 @@ fn concurrency_records(
             "saved_IER_XERROR_and_callback_context; complete_native_stress_validation_confirms_serialized_execution"
         } else if fftpack {
             "RFFTI1_and_EZFFT1_NTRYH_are_SAVE_DATA_tables_emitted_as_writable_local_data; no_source_writer_was_found_but_calls_remain_serialized_conservatively"
+        } else if pchip {
+            "PCHIP_SAVE_DATA_constants_and_process_global_XERROR; serialized"
         } else if callback != "none" {
             "thread_local_callback_registration_and_legacy_runtime; serialized"
         } else {
@@ -199,6 +212,8 @@ fn concurrency_records(
             "no_mandatory_file_protocol_in_reviewed_SDRIV3_DDRIV3_scope"
         } else if fftpack {
             "none_in_exact_real_FFTPACK_closure"
+        } else if pchip {
+            "none_in_exact_PCHIP_closure"
         } else {
             "not_a_public_resource_contract; source-closure-specific audit_required_before_relaxation"
         };
@@ -210,6 +225,8 @@ fn concurrency_records(
             "not_candidate_for_ParallelSafe: saved_IER_XERROR_callback_context_and_provider_runtime evidence require process serialization"
         } else if fftpack {
             "not_candidate_mutable_native_state: RFFTI1_and_EZFFT1_NTRYH_are_SAVEd_DATA_tables_with_writable_object_symbols; no_parallel_native_stress_evidence"
+        } else if pchip {
+            "not_candidate_mutable_native_state: PCHIP_SAVE_DATA_storage_and_XERROR_require_process_serialization"
         } else {
             "require_complete_source_closure_audit_XERROR_audit_and_parallel_stress_test"
         };
@@ -492,6 +509,35 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
                 status: audit_status,
             },
         );
+    }
+    // PCHIP was added after the last broad native-origin audit.  Its narrow
+    // closure is nevertheless fully source-reviewed and every PCHIP object
+    // was inspected with the same GNU MinGW command recorded by that audit.
+    // Merge this conservative, family-local evidence rather than pretending
+    // that an unrelated broad provider build scanned these sources.  Any
+    // later broad audit may replace these records by using the same source
+    // identifiers; the first complete record remains authoritative.
+    let pchip_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/pchip-source-closure.json",
+    ))?;
+    let pchip_sources = pchip_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("PCHIP closure lacks source records"))?;
+    for source in pchip_sources {
+        let id = string(source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(source, "path")?.to_owned(),
+            storage: format!(
+                "focused_pchip_source_and_object_audit:{}:all_32_PCHIP_objects_inspected",
+                string(source, "path")?
+            ),
+            // The closure is intentionally conservative.  Several numerical
+            // units have saved DATA values and every exposed error path can
+            // reach XERROR, so no individual PCHIP entry can be a parallel
+            // candidate even when its own object has no named writable symbol.
+            mutable: true,
+            status: "complete_mutable_state_found".to_owned(),
+        });
     }
     Ok(output)
 }
@@ -806,6 +852,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/fftpack-real-source-closure.json",
     ))?;
     closures["families"]["fftpack-real"] = fftpack_closure["source_ids"].clone();
+    let pchip_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/pchip-source-closure.json",
+    ))?;
+    closures["families"]["pchip"] = pchip_closure["source_ids"].clone();
     let interface = read_value(repo_path("generated/ffi/interface-inventory.json"))?;
     let source_paths = selected_source_paths(&source_files)?;
     let source_by_routine = routine_source_ids(&interface, &source_paths)?;

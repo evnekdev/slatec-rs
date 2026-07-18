@@ -24,6 +24,7 @@ const OVERLAY_FILES: &[&str] = &[
     "ode-sdrive-source-closure.json",
     "lp-in-memory-source-closure.json",
     "fftpack-real-source-closure.json",
+    "pchip-source-closure.json",
 ];
 
 /// Concise result of a completed native-origin audit.
@@ -434,9 +435,12 @@ fn verified_receipt(cache: &Path, sources: &[Source]) -> Result<CacheReceipt> {
         .map(|source| (source.id.as_str(), source))
         .collect::<BTreeMap<_, _>>();
     for source in sources {
-        let entry = entries
-            .get(source.id.as_str())
-            .ok_or_else(|| policy("source-cache receipt lacks a selected source"))?;
+        let entry = entries.get(source.id.as_str()).ok_or_else(|| {
+            policy(&format!(
+                "source-cache receipt lacks selected source {}",
+                source.id
+            ))
+        })?;
         if entry.sha256 != source.sha256 || entry.canonical_upstream_url != source.url {
             return Err(policy(
                 "source-cache receipt does not match the verified source manifest",
@@ -1671,6 +1675,7 @@ fn canonical_url(subset: &str, path: &str) -> Result<String> {
         "fnlib" => "https://www.netlib.org/slatec/fnlib/",
         "lin" => "https://www.netlib.org/slatec/lin/",
         "fishfft" => "https://www.netlib.org/slatec/fishfft/",
+        "pchip" => "https://www.netlib.org/slatec/pchip/",
         _ => return Err(policy("unknown reviewed source subset")),
     };
     Ok(format!("{prefix}{path}"))
@@ -1682,6 +1687,7 @@ fn origin(subset: &str) -> &'static str {
         "fnlib" => "SLATEC-hosted FNLIB",
         "lin" => "SLATEC-hosted LINPACK/BLAS/support",
         "fishfft" => "SLATEC-hosted FFTPACK",
+        "pchip" => "SLATEC PCHIP package",
         _ => "unknown provider",
     }
 }

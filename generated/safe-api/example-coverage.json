@@ -1065,6 +1065,66 @@
     },
     {
       "doctest_present": false,
+      "example_case": "piecewise-cubic Hermite value evaluation",
+      "example_file": "examples/pchip/monotone.rs",
+      "fortran_routine": "PCHFE",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::evaluate_into",
+      "validation_case": "evaluate_into",
+      "validation_file": "crates/slatec/tests/pchip_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "piecewise-cubic Hermite value and derivative evaluation",
+      "example_file": "examples/pchip/evaluate_derivative.rs",
+      "fortran_routine": "PCHFD",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into",
+      "validation_case": "evaluate_with_derivatives_into",
+      "validation_file": "crates/slatec/tests/pchip_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "piecewise-cubic Hermite definite integration",
+      "example_file": "examples/pchip/integrate.rs",
+      "fortran_routine": "PCHIA",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::integrate",
+      "validation_case": "integrate",
+      "validation_file": "crates/slatec/tests/pchip_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "monotonicity-preserving Hermite derivative construction",
+      "example_file": "examples/pchip/monotone.rs",
+      "fortran_routine": "PCHIM",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::monotone",
+      "validation_case": "monotone",
+      "validation_file": "crates/slatec/tests/pchip_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "controlled monotone Hermite derivative construction",
+      "example_file": "examples/pchip/monotone.rs",
+      "fortran_routine": "PCHIC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions",
+      "validation_case": "monotone_with_conditions",
+      "validation_file": "crates/slatec/tests/pchip_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "cubic-spline Hermite derivative construction",
+      "example_file": "examples/pchip/custom_derivatives.rs",
+      "fortran_routine": "PCHSP",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::spline",
+      "validation_case": "spline",
+      "validation_file": "crates/slatec/tests/pchip_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "polynomials",
       "example_file": "examples/special/functions.rs",
       "fortran_routine": "DCSEVL",

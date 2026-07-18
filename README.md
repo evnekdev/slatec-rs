@@ -121,6 +121,12 @@ sine/cosine transforms. Plans own their initialized native workspaces and
 preserve FFTPACK's native packed layouts and normalization; the authoritative
 snapshot has no reviewed double-precision counterparts. See the
 [real FFTPACK guide](docs/api/safe-real-fftpack.md).
+The opt-in hosted `pchip` feature adds owned `f32` and `f64` piecewise-cubic
+Hermite curves over original PCHIP routines. It supports monotone and typed
+controlled derivative construction, PCHSP's typed endpoint conditions, value
+and first-derivative evaluation, and definite integration. It never sorts or
+merges knots; endpoint-cubic extrapolation is rejected by default and may be
+enabled explicitly with a report. See the [PCHIP guide](docs/api/safe-pchip.md).
 
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS

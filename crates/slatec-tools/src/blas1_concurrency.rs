@@ -49,10 +49,16 @@ struct Candidate {
 /// Generates backend-specific BLAS Level 1 concurrency evidence.
 pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     fs::create_dir_all(output_dir)?;
-    let projections = keyed_records(
+    let mut projections = keyed_records(
         repo_path(SAFE_API).join("per-wrapper-native-state.json"),
         "safe_function",
     )?;
+    // Keep the ownership gate complete when a family supplies focused native
+    // evidence before the next broad native-origin archive audit.
+    for projection in crate::safe_pchip::native_state_projections()? {
+        let safe_function = string(&projection, "safe_function")?.to_owned();
+        projections.entry(safe_function).or_insert(projection);
+    }
     let functions = records(repo_path(SAFE_API).join("function-index.json"))?;
     let source_index = source_index()?;
     let membership = membership_index()?;

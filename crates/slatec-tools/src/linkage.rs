@@ -501,6 +501,9 @@ fn family_for(path: &str, routine: &str) -> String {
     if path.contains("::fftpack::") {
         return "fftpack-real".to_owned();
     }
+    if path.contains("::pchip::") {
+        return "pchip".to_owned();
+    }
     "unclassified".to_owned()
 }
 
@@ -884,6 +887,10 @@ mod tests {
         assert_eq!(
             family_for("slatec::fftpack::RealFftPlan::forward", "RFFTF"),
             "fftpack-real"
+        );
+        assert_eq!(
+            family_for("slatec::pchip::PiecewiseCubicHermite::monotone", "PCHIM"),
+            "pchip"
         );
     }
 
