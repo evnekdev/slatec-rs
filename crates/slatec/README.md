@@ -31,7 +31,10 @@ Jacobians, mass matrices, DAEs, and interpolation are deliberately deferred.
 The hosted `optimization-linear-programming-in-memory` feature provides typed
 owned sparse-column LPs over original `SPLP`/`DSPLP`. It rejects problems that
 would require paging and never exposes Fortran-unit, save/restore, or printing
-controls.
+controls. Optimal results provide checked typed basis records, source-audited
+row multipliers and reduced costs, and independently recomputed KKT
+diagnostics; reviewed controls are limited to iteration count, feasibility
+tolerances, and pricing.
 
 Native concurrency is conservative. APIs that use the hosted legacy runtime
 are process-serialized; the existing `no_std`/`alloc` BLAS and Jacobian-check

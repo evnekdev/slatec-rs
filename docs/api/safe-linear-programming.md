@@ -1,9 +1,13 @@
-# Reviewed but deferred SLATEC linear programming
+# Historical paging audit for SLATEC linear programming
 
-`SPLP` and `DSPLP` are **not supported public APIs** in this crate. There is
-no `optimization` Cargo feature, raw declaration, provider source closure,
-safe wrapper, or example for them. This document records the completed source
-audit and the reason for deferral.
+`SPLP` and `DSPLP` are supported only through the safe,
+in-memory-only `optimization-linear-programming-in-memory` feature. The public
+API never opens a paging file, exposes a Fortran unit, enables save/restore, or
+uses legacy printing. See the [safe in-memory LP guide](safe-linear-programming-in-memory.md)
+for the supported API, dual diagnostics, basis decoding, and controls.
+
+This document preserves the source audit explaining why **out-of-core paging**
+remains deferred.
 
 ## Mathematical model
 
@@ -33,7 +37,7 @@ are one-based. `INDCAT=0` assigns an entry and `INDCAT=1` accumulates it. The
 provided stream callbacks assign entries; they do not establish a safe Rust
 policy for duplicate entries.
 
-## Why the drivers remain deferred
+## Why out-of-core paging remains deferred
 
 The sparse path is not wholly memory resident. The f64 path reaches
 `DPRWVR -> SOPENM/SCLOSM`; the f32 path reaches `PRWVIR -> SOPENM/SCLOSM`.
@@ -44,9 +48,11 @@ or reliable propagation of paging I/O failure into `INFO`.
 
 A process-global runtime lock would serialize calls but cannot make this
 external file lifecycle recoverable or artifact-free. Replacing the paging
-subsidiary with an I/O shim would alter the reviewed native contract, so this
-milestone intentionally does not do so.
+subsidiary with an I/O shim would alter the reviewed native contract. The safe
+wrapper consequently allocates `LAMAT >= N + NNZ + 6`, installs no-I/O traps,
+and rejects a problem before FFI when its Rust-side resident-nonzero limit
+would be exceeded.
 
-The deterministic audit records are in
-`generated/safe-api/linear-programming-*.json` and
-`generated/safe-api/linear-programming-validation-summary.md`.
+The deterministic current contracts are in `generated/safe-api/lp-*.json` and
+`generated/safe-api/lp-validation-summary.md`; historical candidate records
+remain in `generated/safe-api/linear-programming-*.json`.

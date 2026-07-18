@@ -51,10 +51,11 @@ bare-metal native-runtime claim.
 
 ## Deferred scope
 
-`SPLP`/`DSPLP` remain deferred, along with arbitrary general inequalities,
-sparse storage, warm starts, dual values, sensitivity analysis, quadratic
-programming, and linear programming. Combined bounds on variables and bounds
-on linear expressions are available separately through
+General `SPLP`/`DSPLP` linear programming is a separate in-memory-only feature,
+not a bounded least-squares API. Arbitrary general inequalities, sparse
+least-squares storage, warm starts, dual values, sensitivity analysis, and
+quadratic programming remain outside this least-squares family. Combined
+bounds on variables and bounds on linear expressions are available separately through
 `least-squares-linear-bounded-constrained`.
 
 See [`examples/least_squares/bounded_fit.rs`](../../examples/least_squares/bounded_fit.rs),

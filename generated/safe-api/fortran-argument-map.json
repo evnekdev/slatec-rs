@@ -4112,7 +4112,7 @@
           "transformation": "owned"
         },
         {
-          "rust": "internal fixed option list: printing, continuation, and save/restore disabled; key 54 absent; LAMAT and LBM supplied",
+          "rust": "internal reviewed option list: printing, continuation, save/restore, dense callback, and key 54 disabled; exact LAMAT/LBM plus typed iteration/tolerance/pricing controls",
           "fortran": "PRGOPT",
           "transformation": "owned"
         },
@@ -4142,19 +4142,19 @@
           "transformation": "owned"
         },
         {
-          "rust": "optimal result.solution followed by independently recomputed row activities",
+          "rust": "optimal result.solution variables plus independently recomputed row activities; labelled progress only for INFO=-25",
           "fortran": "PRIMAL",
           "transformation": "owned"
         },
         {
-          "rust": null,
+          "rust": "optimal result.solution.dual: row multipliers y then reduced costs c-A^T*y",
           "fortran": "DUALS",
-          "transformation": "internal"
+          "transformation": "owned"
         },
         {
-          "rust": null,
+          "rust": "optimal result.solution.basis.basic, validated one-based native identifiers",
           "fortran": "IBASIS",
-          "transformation": "internal"
+          "transformation": "owned"
         },
         {
           "rust": null,
@@ -4167,9 +4167,9 @@
           "transformation": "internal"
         },
         {
-          "rust": null,
+          "rust": "private checked workspace; optimal IBB segment decodes typed basis positions",
           "fortran": "IWORK",
-          "transformation": "internal"
+          "transformation": "owned"
         },
         {
           "rust": null,
@@ -4204,7 +4204,7 @@
           "transformation": "owned"
         },
         {
-          "rust": "internal fixed option list: printing, continuation, and save/restore disabled; key 54 absent; LAMAT and LBM supplied",
+          "rust": "internal reviewed option list: printing, continuation, save/restore, dense callback, and key 54 disabled; exact LAMAT/LBM plus typed iteration/tolerance/pricing controls",
           "fortran": "PRGOPT",
           "transformation": "owned"
         },
@@ -4234,19 +4234,19 @@
           "transformation": "owned"
         },
         {
-          "rust": "optimal result.solution followed by independently recomputed row activities",
+          "rust": "optimal result.solution variables plus independently recomputed row activities; labelled progress only for INFO=-25",
           "fortran": "PRIMAL",
           "transformation": "owned"
         },
         {
-          "rust": null,
+          "rust": "optimal result.solution.dual: row multipliers y then reduced costs c-A^T*y",
           "fortran": "DUALS",
-          "transformation": "internal"
+          "transformation": "owned"
         },
         {
-          "rust": null,
+          "rust": "optimal result.solution.basis.basic, validated one-based native identifiers",
           "fortran": "IBASIS",
-          "transformation": "internal"
+          "transformation": "owned"
         },
         {
           "rust": null,
@@ -4259,9 +4259,9 @@
           "transformation": "internal"
         },
         {
-          "rust": null,
+          "rust": "private checked workspace; optimal IBB segment decodes typed basis positions",
           "fortran": "IWORK",
-          "transformation": "internal"
+          "transformation": "owned"
         },
         {
           "rust": null,
