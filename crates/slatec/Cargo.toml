@@ -39,6 +39,11 @@ blas-level1 = [
     "slatec-src/blas-level1",
 ]
 blas-level1-native-tests = ["blas-level1"]
+blas-level1-concurrency-native-tests = [
+    "std",
+    "blas-level1-native-tests",
+    "native-serialization-tests",
+]
 blas-level2 = [
     "blas-level1-validation",
     "slatec-sys/raw-family-blas-level2",

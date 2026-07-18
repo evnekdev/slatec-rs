@@ -168,12 +168,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::special::error_functions::erfc_f32` | `ERFC` | special functions | f32 | validated scalar numerical function | `std` | `special-error` | [error_functions](../../examples/special/functions.rs) |
 | `slatec::special::gamma::beta` | `DBETA` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
 | `slatec::special::gamma::beta_f32` | `BETA` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::binomial_coefficient` | `DBINOM` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::gamma::binomial_coefficient_f32` | `BINOM` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::gamma::binomial_coefficient` | `DBINOM` | special functions | f64 | validated scalar numerical function | `std` | `special-gamma` | [gamma](../../examples/special/functions.rs) |
+| `slatec::special::gamma::binomial_coefficient_f32` | `BINOM` | special functions | f32 | validated scalar numerical function | `std` | `special-gamma` | [gamma](../../examples/special/functions.rs) |
 | `slatec::special::gamma::digamma` | `DPSI` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
 | `slatec::special::gamma::digamma_f32` | `PSI` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
-| `slatec::special::gamma::factorial` | `DFAC` | special functions | f64 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
-| `slatec::special::gamma::factorial_f32` | `FAC` | special functions | f32 | validated scalar numerical function | `std` | `special-elementary` | [elementary](../../examples/special/functions.rs) |
+| `slatec::special::gamma::factorial` | `DFAC` | special functions | f64 | validated scalar numerical function | `std` | `special-gamma` | [gamma](../../examples/special/functions.rs) |
+| `slatec::special::gamma::factorial_f32` | `FAC` | special functions | f32 | validated scalar numerical function | `std` | `special-gamma` | [gamma](../../examples/special/functions.rs) |
 | `slatec::special::gamma::gamma` | `DGAMMA` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
 | `slatec::special::gamma::gamma_f32` | `GAMMA` | special functions | f32 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |
 | `slatec::special::gamma::incomplete_gamma_lower` | `DGAMI` | special functions | f64 | validated scalar numerical function | `std` | `special` | [gamma_beta](../../examples/special/functions.rs) |

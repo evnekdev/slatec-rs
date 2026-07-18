@@ -1176,8 +1176,8 @@ fn per_wrapper_native_state(
         let routine = required_string(function, "fortran_routine")?;
         let feature = required_string(function, "feature")?;
         let domain = required_string(function, "domain")?;
-        let mut feature_families = resolved_feature_families(feature, &families)?;
-        let mut family_ids = feature_families
+        let feature_families = resolved_feature_families(feature, &families)?;
+        let family_ids = feature_families
             .iter()
             .flat_map(|family| families.get(family).into_iter().flatten())
             .cloned()
@@ -1189,22 +1189,15 @@ fn per_wrapper_native_state(
             })
         });
         if feature_closure_mismatch {
-            let owner_ids = owners
+            let actual_owners = owners
                 .get(&entry)
                 .into_iter()
                 .flatten()
-                .map(|object| object.trim_end_matches(".o"))
-                .collect::<BTreeSet<_>>();
-            feature_families = families
-                .iter()
-                .filter(|(_, ids)| owner_ids.iter().any(|id| ids.contains(*id)))
-                .map(|(family, _)| family.clone())
-                .collect();
-            family_ids = feature_families
-                .iter()
-                .flat_map(|family| families.get(family).into_iter().flatten())
                 .cloned()
-                .collect();
+                .collect::<Vec<_>>();
+            return Err(policy(&format!(
+                "safe function {safe_function} declares feature {feature}, but native entry {routine} is owned by {actual_owners:?}; add an explicit reviewed shared-dependency record only when the entry point is intentionally shared"
+            )));
         }
         let mut allowed = family_ids
             .iter()
@@ -1234,6 +1227,21 @@ fn per_wrapper_native_state(
                     .map(|candidate| candidate.source.source_file.clone())
             })
             .collect::<Vec<_>>();
+        let closure_undefined_symbols = closure
+            .iter()
+            .filter_map(|object| symbols.get(object))
+            .flat_map(|table| table.undefined.iter().cloned())
+            .filter(|symbol| {
+                !owners.get(symbol).is_some_and(|candidates| {
+                    candidates.iter().any(|object| closure.contains(object))
+                })
+            })
+            .collect::<BTreeSet<_>>();
+        let entry_object = owners
+            .get(&entry)
+            .and_then(|candidates| candidates.iter().find(|object| closure.contains(*object)))
+            .cloned()
+            .ok_or_else(|| policy("native entry object disappeared from the computed closure"))?;
         let findings = scans
             .iter()
             .filter(|scan| closure.contains(&format!("{}.o", scan.source.id)))
@@ -1312,10 +1320,31 @@ fn per_wrapper_native_state(
         if !unresolved.is_empty() {
             blockers.push("unresolved_source_object_crosscheck".to_owned());
         }
-        if feature_closure_mismatch {
-            blockers.push("checked_in_function_index_feature_does_not_own_native_entry".to_owned());
+        if feature == "blas-level1"
+            && matches!(
+                routine,
+                "SASUM"
+                    | "DASUM"
+                    | "SAXPY"
+                    | "DAXPY"
+                    | "SCOPY"
+                    | "DCOPY"
+                    | "SDOT"
+                    | "DDOT"
+                    | "SSCAL"
+                    | "DSCAL"
+                    | "SSWAP"
+                    | "DSWAP"
+                    | "ISAMAX"
+                    | "IDAMAX"
+            )
+        {
+            blockers.push(
+                "external_and_system_provider_identity_and_thread_safety_not_proven".to_owned(),
+            );
+        } else {
+            blockers.push("provider_and_compiler_runtime_thread_safety_not_proven".to_owned());
         }
-        blockers.push("provider_and_compiler_runtime_thread_safety_not_proven".to_owned());
         let writable_symbols = writable
             .iter()
             .filter(|record| {
@@ -1329,11 +1358,13 @@ fn per_wrapper_native_state(
         records.push(json!({
             "safe_function":safe_function,
             "native_entry_points":[routine],
+            "entry_object":entry_object,
             "feature":feature,
             "effective_native_families":feature_families,
             "feature_closure_mismatch":feature_closure_mismatch,
             "source_closure":closure_sources,
             "object_closure":closure,
+            "external_undefined_symbols":closure_undefined_symbols,
             "saved_mutable_locals":saved,
             "common_blocks":common,
             "xerror_state":xerror,
@@ -1341,10 +1372,18 @@ fn per_wrapper_native_state(
             "callback_state":[callback_state],
             "writable_symbols":writable_symbols,
             "source_object_unresolved":unresolved,
-            "provider_unknowns":["GNU_Fortran_runtime_reentrancy_contract_not_proven","external_BLAS_LINPACK_provider_configuration_BackendDependent"],
+            "provider_unknowns":if feature == "blas-level1" && matches!(routine, "SASUM" | "DASUM" | "SAXPY" | "DAXPY" | "SCOPY" | "DCOPY" | "SDOT" | "DDOT" | "SSCAL" | "DSCAL" | "SSWAP" | "DSWAP" | "ISAMAX" | "IDAMAX") {
+                vec!["external_BLAS_provider_identity_and_version_not_observable", "system_archive_provider_contract_not_verified"]
+            } else {
+                vec!["GNU_Fortran_runtime_reentrancy_contract_not_proven", "external_BLAS_LINPACK_provider_configuration_BackendDependent"]
+            },
             "rust_api_concurrency":rust_api_concurrency(feature),
             "native_routine_reentrancy":best_source_class,
-            "provider_runtime_thread_safety":"unknown_or_backend_dependent",
+            "provider_runtime_thread_safety":if feature == "blas-level1" && matches!(routine, "SASUM" | "DASUM" | "SAXPY" | "DAXPY" | "SCOPY" | "DCOPY" | "SDOT" | "DDOT" | "SSCAL" | "DSCAL" | "SSWAP" | "DSWAP" | "ISAMAX" | "IDAMAX") {
+                "reviewed_source_backend_qualified; external_and_system_backend_dependent"
+            } else {
+                "unknown_or_backend_dependent"
+            },
             "current_class":current_class,
             "best_possible_class_from_slatec_source":best_source_class,
             "remaining_blockers":blockers,

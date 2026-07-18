@@ -22,13 +22,23 @@ unrelated provider objects are not projected onto every wrapper.
 | Class | Current meaning |
 | --- | --- |
 | `SerializedGlobal` | The safe entry point requires `std` and enters the process-wide native-runtime guard. It may not run its native segment concurrently with another such call. |
-| `BackendDependent` | The API preserves an existing `no_std` or `alloc` capability and therefore cannot acquire the hosted lock. It makes no Rust thread-safety claim; provider source provenance and parallel stress tests are required before narrowing the classification. |
+| `BackendDependent` | The API preserves an existing `no_std` or `alloc` capability and therefore cannot acquire the hosted lock. It makes no blanket Rust thread-safety claim; provider source provenance and parallel stress tests are required before narrowing the classification. |
+| `ParallelSafe` | A backend-specific record proves that independent calls with non-overlapping mutable storage may execute concurrently. It is never a provider-independent library-wide claim. |
 
-There is currently no `ParallelSafe` safe wrapper. A future relaxation needs a
-complete transitive source audit, compiler-local-storage evidence, a reviewed
-XERROR/error path, writable-object-symbol inspection, COMMON ownership,
-provider/runtime evidence, and targeted concurrent stress tests. Successful
-tests alone do not override an identified mutable global.
+The 28 `ASUM`, `AXPY`, `COPY`, `DOT`, `SCAL`, `SWAP`, and `I?AMAX`
+contiguous/strided wrapper records are `ParallelSafe` only for the exact
+hash-verified GNU MinGW `source-build` profile. Their objects have no mutable
+static state or external imports, and actual native entry overlaps under
+stress. System archives, external linkage, named-but-unselected vendor
+libraries, and unknown providers remain `BackendDependent`. `SNRM2`/`DNRM2`
+and `SROT`/`DROT` retain their saved-state exclusions. No hosted solver lock is
+removed or narrowed; the BLAS wrappers' existing direct dispatch is unchanged.
+
+Any future relaxation needs a complete transitive source audit,
+compiler-local-storage evidence, a reviewed XERROR/error path,
+writable-object-symbol inspection, COMMON ownership, provider/runtime evidence,
+and targeted concurrent stress tests. Successful tests alone do not override
+an identified mutable global.
 
 The lock is reentrant only on its owning Rust thread. This lets a non-callback
 safe helper run from an active hosted callback without deadlock. A
@@ -95,20 +105,23 @@ cannot be lost when a later family is considered.
 A global lock prevents races in the safe wrapper, but does not make the native
 algorithm reentrant. Similarly, a session being `Send` when its callback and
 error are `Send` does not permit simultaneous native execution. No current
-wrapper is advertised as natively parallel-safe; external BLAS and other
-provider/runtime implementations remain `BackendDependent` unless their own
-state and threading contracts are proven.
+hosted solver is advertised as natively parallel-safe; external BLAS and other
+unidentified provider/runtime implementations remain `BackendDependent` unless
+their own state and threading contracts are proven.
 
 Concurrency is recorded as three separate questions: Rust ownership and
 `Send`/`Sync`, reentrancy of the exact retained SLATEC object closure, and the
 thread-safety contract of the compiler runtime and linked provider. The
 roadmap in
 [`concurrency-relaxation-roadmap.md`](../../generated/safe-api/concurrency-relaxation-roadmap.md)
-does not change behavior. Test-only instrumentation measures active hosted
+does not change solver behavior. Test-only instrumentation measures active hosted
 lock scopes, the maximum simultaneous count, current ownership, and nested
-same-thread entry; cross-family native tests must continue to observe a
-maximum of one. Independent buffers remain storage evidence only, never proof
-of native reentrancy.
+same-thread entry. Cross-family hosted native tests must continue to observe a
+maximum of one. Separate candidate instrumentation surrounds the exact BLAS
+FFI calls and proves overlap for the reviewed source backend, including overlap
+with a hosted exclusive scope only after the closures were shown to share no
+mutable state or runtime imports. Independent buffers remain an argument
+precondition, never source-level proof by themselves.
 
 ## Storage and interoperability
 

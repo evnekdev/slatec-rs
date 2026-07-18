@@ -1,5 +1,6 @@
 use slatec_tools::acquire;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
+use slatec_tools::blas1_concurrency;
 use slatec_tools::complete_corpus;
 use slatec_tools::error::{CorpusError, Result};
 use slatec_tools::extract;
@@ -182,6 +183,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-runtime-storage-policy"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-blas1-concurrency-audit"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -693,6 +699,14 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "generate-blas1-concurrency-audit" => {
+            let result = blas1_concurrency::generate(&options.output_dir)?;
+            println!(
+                "success: qualified {} BLAS Level 1 candidates across {} backend records ({})",
+                result.candidate_count, result.backend_record_count, result.semantic_hash
+            );
+            Ok(())
+        }
         "generate-native-origin-audit" => {
             let result = native_origin_audit::generate(&options.output_dir)?;
             println!(
@@ -731,7 +745,7 @@ fn run() -> Result<()> {
             Ok(())
         }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-linear-programming-deferred-metadata, generate-safe-ode-sdrive-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-native-origin-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-linear-programming-deferred-metadata, generate-safe-ode-sdrive-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }
@@ -813,5 +827,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-nonlinear-api|generate-safe-nonlinear-expert-api|generate-safe-least-squares-api|generate-safe-linear-least-squares-api|generate-safe-linear-programming-deferred-metadata|generate-safe-ode-sdrive-metadata|generate-optimization-audit|generate-ode-audit|generate-safe-bounded-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-constrained-linear-least-squares-api|generate-safe-api-docs|generate-runtime-storage-policy|generate-native-origin-audit|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-nonlinear-api|generate-safe-nonlinear-expert-api|generate-safe-least-squares-api|generate-safe-linear-least-squares-api|generate-safe-linear-programming-deferred-metadata|generate-safe-ode-sdrive-metadata|generate-optimization-audit|generate-ode-audit|generate-safe-bounded-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-constrained-linear-least-squares-api|generate-safe-api-docs|generate-runtime-storage-policy|generate-blas1-concurrency-audit|generate-native-origin-audit|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
 }
