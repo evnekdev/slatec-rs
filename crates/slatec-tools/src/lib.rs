@@ -9,6 +9,7 @@ pub mod extract;
 pub mod ffi_inventory;
 pub mod ffi_validation;
 pub mod fixed_form;
+pub mod fortran_state;
 pub mod full_corpus;
 pub mod hash;
 pub mod linkage;

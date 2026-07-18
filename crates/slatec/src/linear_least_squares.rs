@@ -839,10 +839,10 @@ fn norms_f32(problem: NonnegativeLeastSquaresProblem<'_, f32>, solution: &[f32])
 #[cfg(feature = "least-squares-linear-nonnegative")]
 fn norm_f64(matrix: MatrixRef<'_, f64>, rhs: &[f64], solution: &[f64]) -> f64 {
     let mut sum = 0.0;
-    for row in 0..matrix.rows() {
-        let mut residual = -rhs[row];
-        for column in 0..matrix.columns() {
-            residual += *matrix.get(row, column).expect("validated") * solution[column];
+    for (row, &rhs_value) in rhs.iter().take(matrix.rows()).enumerate() {
+        let mut residual = -rhs_value;
+        for (column, &value) in solution.iter().take(matrix.columns()).enumerate() {
+            residual += *matrix.get(row, column).expect("validated") * value;
         }
         sum += residual * residual;
     }
@@ -851,10 +851,10 @@ fn norm_f64(matrix: MatrixRef<'_, f64>, rhs: &[f64], solution: &[f64]) -> f64 {
 #[cfg(feature = "least-squares-linear-nonnegative")]
 fn norm_f32(matrix: MatrixRef<'_, f32>, rhs: &[f32], solution: &[f32]) -> f32 {
     let mut sum = 0.0_f32;
-    for row in 0..matrix.rows() {
-        let mut residual = -rhs[row];
-        for column in 0..matrix.columns() {
-            residual += *matrix.get(row, column).expect("validated") * solution[column];
+    for (row, &rhs_value) in rhs.iter().take(matrix.rows()).enumerate() {
+        let mut residual = -rhs_value;
+        for (column, &value) in solution.iter().take(matrix.columns()).enumerate() {
+            residual += *matrix.get(row, column).expect("validated") * value;
         }
         sum += residual * residual;
     }

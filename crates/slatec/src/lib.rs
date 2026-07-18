@@ -100,6 +100,48 @@ pub mod polynomials;
 ))]
 pub(crate) mod runtime;
 
+/// Test-only observations of the hosted process-wide native runtime lock.
+///
+/// This module is available only with `native-serialization-tests`; it does
+/// not alter lock scope or advertise native parallel execution.
+#[cfg(feature = "native-serialization-tests")]
+#[doc(hidden)]
+pub mod native_serialization_test_support {
+    /// A point-in-time observation of hosted native lock activity.
+    #[derive(Clone, Debug, Eq, PartialEq)]
+    pub struct Snapshot {
+        /// Hosted outermost native scopes currently active.
+        pub active: usize,
+        /// Maximum outermost scopes observed since reset.
+        pub maximum_active: usize,
+        /// Same-thread nested lock entries observed since reset.
+        pub nested_same_thread: usize,
+        /// Whether the process-wide lock currently has an owner.
+        pub owner_present: bool,
+        /// Debug-form Rust thread identifier of the current owner, if any.
+        pub owner_thread: Option<std::string::String>,
+    }
+
+    /// Resets test counters while holding the same process-wide runtime lock.
+    pub fn reset() {
+        crate::runtime::reset_hosted_native_call_audit();
+    }
+
+    /// Returns the current test-only serialization observation.
+    #[must_use]
+    pub fn snapshot() -> Snapshot {
+        let (active, maximum_active, nested_same_thread, owner_present, owner_thread) =
+            crate::runtime::hosted_native_call_audit();
+        Snapshot {
+            active,
+            maximum_active,
+            nested_same_thread,
+            owner_present,
+            owner_thread,
+        }
+    }
+}
+
 #[cfg(any(
     feature = "quadrature-basic",
     feature = "quadrature-breakpoints",

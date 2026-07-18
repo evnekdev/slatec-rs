@@ -425,9 +425,11 @@ fn option_array(
     })
 }
 
+type EncodedBounds<T> = (Vec<T>, Vec<T>, Vec<FortranInteger>);
+
 fn encode_bounds<T: Copy + Default + Finite + PartialOrd>(
     bounds: &[VariableBounds<T>],
-) -> Result<(Vec<T>, Vec<T>, Vec<FortranInteger>), BoundedLeastSquaresError> {
+) -> Result<EncodedBounds<T>, BoundedLeastSquaresError> {
     let mut lower = vec![T::default(); bounds.len()];
     let mut upper = vec![T::default(); bounds.len()];
     let mut types = vec![0; bounds.len()];

@@ -14,6 +14,7 @@ use serde::Deserialize;
 use serde_json::{Value, json};
 
 use crate::error::{CorpusError, Result};
+use crate::fortran_state;
 use crate::hash;
 
 const SNAPSHOT: &str = "complete-slatec-05078ebcb649b50e4435";
@@ -45,6 +46,8 @@ struct ManifestSource {
 struct Manifest {
     sources: Vec<ManifestSource>,
     families: BTreeMap<String, Vec<String>>,
+    #[serde(default)]
+    profile_override_families: BTreeSet<String>,
 }
 
 #[derive(Deserialize)]
@@ -52,6 +55,8 @@ struct Overlay {
     family: String,
     source_ids: Vec<String>,
     sources: Vec<OverlaySource>,
+    #[serde(default)]
+    profile_override: bool,
 }
 
 #[derive(Deserialize)]
@@ -89,12 +94,6 @@ struct ReceiptSource {
 }
 
 #[derive(Clone)]
-struct Statement {
-    line: usize,
-    text: String,
-}
-
-#[derive(Clone)]
 struct Finding {
     source_file: String,
     routine: String,
@@ -107,12 +106,14 @@ struct Finding {
     scope: String,
     parallel_effect: String,
     evidence_lines: Vec<String>,
+    layout: String,
 }
 
 #[derive(Clone)]
 struct Scan {
     source: Source,
     routine: String,
+    program_units: Vec<String>,
     findings: Vec<Finding>,
 }
 
@@ -132,6 +133,9 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     let scans = scan_sources(&sources)?;
     let build_root = repo_path("target/native-origin-audit");
     fs::create_dir_all(&build_root)?;
+    let scanner_validation = scanner_validation(&compiler, &sources)?;
+    let full_corpus_root = env_path("SLATEC_FULL_CORPUS_ROOT")?;
+    let full_common = full_corpus_common_index(&full_corpus_root)?;
     let objects = compile_and_inspect(&compiler, &sources, &build_root)?;
     let storage_probe = storage_probe(&compiler, &build_root)?;
     completeness_gate(&sources, &scans, &objects)?;
@@ -160,12 +164,16 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         .map(finding_json)
         .collect::<Vec<_>>();
     let common = common_index(&scans)?;
+    let membership = family_membership(&sources, &scans)?;
     let xerror = xerror_index(&scans)?;
     let source_by_routine = scans
         .iter()
         .map(|scan| (scan.routine.clone(), scan.source.source_file.clone()))
         .collect::<BTreeMap<_, _>>();
     let writable = writable_symbol_index(&objects, &scans, &source_by_routine)?;
+    let crosscheck = native_state_crosscheck(&objects, &scans, &writable);
+    let projections =
+        per_wrapper_native_state(&compiler, &objects, &scans, &writable, &crosscheck)?;
     let symbols_by_object = writable
         .iter()
         .map(|record| record[1].as_str().unwrap_or_default().to_owned())
@@ -234,7 +242,14 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         "archive_member_count":objects.len(),
         "cache_receipt_checked_unix_seconds":receipt.checked_unix_seconds,
         "compiler_storage_model":"complete_mutable_state_found",
+        "fixed_form_scanner":scanner_validation["status"],
+        "scanner_disagreement_count":scanner_validation["disagreement_count"],
         "common_blocks":common["status"],
+        "selected_common_record_count":common["records"].as_array().map_or(0, Vec::len),
+        "full_corpus_common_record_count":full_common["records"].as_array().map_or(0, Vec::len),
+        "source_object_crosscheck":crosscheck["status"],
+        "source_object_unresolved_count":crosscheck["unresolved_count"],
+        "per_wrapper_projection_count":projections["records"].as_array().map_or(0, Vec::len),
         "xerror":xerror["status"],
         "parallel_safe_eligible":false,
         "reason":"writable_saved_locals_XERROR_state_callback_context_and_provider_runtime_unknowns_require_conservative_serialization"
@@ -251,13 +266,18 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         ),
         (
             "native-source-mutable-state-index.json",
-            json!({"schema_id":"slatec.native.source-mutable-state-index","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"columns":["source_file","routine","storage","origin","implicitly_saved","mutable","access","writers","scope","parallel_effect","evidence_lines"],"records":findings}),
+            json!({"schema_id":"slatec.native.source-mutable-state-index","schema_version":"1.1.0","snapshot_id":SNAPSHOT,"columns":["source_file","routine","storage","origin","implicitly_saved","mutable","access","writers","scope","parallel_effect","evidence_lines","normalized_layout"],"records":findings}),
         ),
         (
             "native-writable-symbol-index.json",
-            json!({"schema_id":"slatec.native.writable-symbol-index","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"columns":["symbol","object","section","binding","size","source_routine","source_storage_record","mutable","classification_effect"],"records":writable}),
+            json!({"schema_id":"slatec.native.writable-symbol-index","schema_version":"1.1.0","snapshot_id":SNAPSHOT,"columns":["symbol","object","section","binding","size","source_routine","source_storage_record","mutable","classification_effect","consistency_status","state_effect"],"records":writable}),
         ),
+        ("native-state-crosscheck.json", crosscheck),
+        ("per-wrapper-native-state.json", projections),
         ("common-block-index.json", common),
+        ("selected-common-block-index.json", common_index(&scans)?),
+        ("fortran-scanner-validation.json", scanner_validation),
+        ("native-source-family-membership.json", membership),
         ("xerror-state-index.json", xerror),
         ("native-origin-audit-status.json", validation),
         ("native-origin-profile-source-index.json", profile_objects),
@@ -270,6 +290,12 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         fs::write(output_dir.join(name), &bytes)?;
         semantic.extend_from_slice(&bytes);
     }
+    let corpus_output = output_dir.parent().unwrap_or(output_dir).join("corpus");
+    fs::create_dir_all(&corpus_output)?;
+    let mut bytes = serde_json::to_vec(&full_common)?;
+    bytes.push(b'\n');
+    fs::write(corpus_output.join("common-block-index.json"), &bytes)?;
+    semantic.extend_from_slice(&bytes);
     Ok(ResultSummary {
         source_count: sources.len(),
         object_count: objects.len(),
@@ -414,135 +440,286 @@ fn scan_sources(sources: &[Source]) -> Result<Vec<Scan>> {
         .collect::<Result<Vec<_>>>()
 }
 
-fn scan_source(source: Source) -> Result<Scan> {
-    let text = String::from_utf8(fs::read(&source.cache_path)?)
-        .map_err(|_| policy("Fortran source is not UTF-8"))?;
-    let statements = statements(&text);
-    let routine = statements
-        .iter()
-        .find_map(|statement| routine_name(&statement.text))
-        .unwrap_or_else(|| "UNKNOWN_PROGRAM_UNIT".to_owned());
-    let mut findings = Vec::new();
-    for statement in &statements {
-        let upper = statement.text.to_ascii_uppercase();
-        let evidence = vec![format!(
-            "{}:{} {}",
-            source.source_file, statement.line, statement.text
-        )];
-        if let Some(storage) = data_storage(&upper) {
-            findings.push(Finding {
-                source_file: source.source_file.clone(),
-                routine: routine.clone(),
-                storage,
-                origin: "DATA".to_owned(),
-                implicitly_saved: true,
-                mutable: true,
-                access: "read_write".to_owned(),
-                writers: vec![routine.clone()],
-                scope: "process".to_owned(),
-                parallel_effect: "disqualifies_parallel_safe".to_owned(),
-                evidence_lines: evidence,
-            });
-        } else if let Some(storage) = save_storage(&upper) {
-            findings.push(Finding {
-                source_file: source.source_file.clone(),
-                routine: routine.clone(),
-                storage,
-                origin: "SAVE".to_owned(),
-                implicitly_saved: false,
-                mutable: true,
-                access: "read_write".to_owned(),
-                writers: vec![routine.clone()],
-                scope: "process".to_owned(),
-                parallel_effect: "disqualifies_parallel_safe".to_owned(),
-                evidence_lines: evidence,
-            });
-        } else if let Some(storage) = common_storage(&upper) {
-            findings.push(Finding {
-                source_file: source.source_file.clone(),
-                routine: routine.clone(),
-                storage,
-                origin: "COMMON".to_owned(),
-                implicitly_saved: true,
-                mutable: true,
-                access: "read_write".to_owned(),
-                writers: vec![routine.clone()],
-                scope: "process".to_owned(),
-                parallel_effect: "disqualifies_parallel_safe".to_owned(),
-                evidence_lines: evidence,
-            });
-        } else if upper.starts_with("EQUIVALENCE") {
-            findings.push(construct_finding(
-                &source,
-                &routine,
-                "EQUIVALENCE",
-                statement,
-                "review_required",
-            ));
-        } else if upper.starts_with("BLOCK DATA") {
-            findings.push(construct_finding(
-                &source,
-                &routine,
-                "BLOCK_DATA",
-                statement,
-                "disqualifies_parallel_safe",
-            ));
-        } else if upper.starts_with("ENTRY ") {
-            findings.push(construct_finding(
-                &source,
-                &routine,
-                "ENTRY",
-                statement,
-                "review_required",
-            ));
-        } else if is_io_statement(&upper) {
-            findings.push(construct_finding(
-                &source,
-                &routine,
-                "FORTRAN_IO",
-                statement,
-                "disqualifies_parallel_safe",
-            ));
-        } else if is_xerror_call(&upper) {
-            findings.push(construct_finding(
-                &source,
-                &routine,
-                "XERROR_CALL",
-                statement,
-                "disqualifies_parallel_safe",
-            ));
-        } else if declaration_initialization(&upper) {
-            findings.push(Finding {
-                source_file: source.source_file.clone(),
-                routine: routine.clone(),
-                storage: "declaration_initialized_local".to_owned(),
-                origin: "DECLARATION_INITIALIZATION".to_owned(),
-                implicitly_saved: true,
-                mutable: true,
-                access: "read_write".to_owned(),
-                writers: vec![routine.clone()],
-                scope: "process".to_owned(),
-                parallel_effect: "disqualifies_parallel_safe".to_owned(),
-                evidence_lines: evidence,
-            });
+fn scanner_validation(compiler: &Path, sources: &[Source]) -> Result<Value> {
+    let mut records = Vec::with_capacity(sources.len());
+    let mut disagreement_count = 0_usize;
+    for source in sources {
+        let bytes = fs::read(&source.cache_path)?;
+        let findings = fortran_state::scan(&bytes);
+        let scanner = fortran_state::scanner_oracle(&findings);
+        let oracle = fortran_state::compiler_oracle(compiler, &source.cache_path)
+            .map_err(|message| policy(&message))?;
+        let save_all = findings
+            .iter()
+            .any(|finding| finding.origin == "SAVE" && finding.storage == "all_locals");
+        let persistent_agrees = scanner
+            .persistent_variables
+            .is_subset(&oracle.persistent_variables)
+            && (save_all
+                || oracle
+                    .persistent_variables
+                    .is_subset(&scanner.persistent_variables));
+        let agrees = scanner.common_blocks == oracle.common_blocks && persistent_agrees;
+        if !agrees {
+            disagreement_count += 1;
+        }
+        records.push(json!([
+            source.id,
+            source.source_file,
+            scanner.common_blocks,
+            oracle.common_blocks,
+            scanner.persistent_variables,
+            oracle.persistent_variables,
+            if agrees { "agrees" } else { "disagrees" },
+            if save_all {
+                "bare_SAVE_expands_to_compiler_symbol_set"
+            } else {
+                "exact"
+            }
+        ]));
+    }
+    Ok(json!({
+        "schema_id":"slatec.native.fortran-scanner-validation",
+        "schema_version":"1.0.0",
+        "snapshot_id":SNAPSHOT,
+        "independent_oracle":"GNU_Fortran_-fdump-parse-tree_-fsyntax-only",
+        "status":if disagreement_count == 0 { "complete_agreement" } else { "complete_with_disagreements" },
+        "disagreement_count":disagreement_count,
+        "columns":["source_id","source_file","scanner_common","compiler_common","scanner_persistent","compiler_persistent","status","comparison_rule"],
+        "records":records
+    }))
+}
+
+fn full_corpus_common_index(root: &Path) -> Result<Value> {
+    let mut files = Vec::new();
+    collect_fortran_files(root, root, &mut files)?;
+    files.sort_by(|left, right| left.0.cmp(&right.0));
+    let mut records = Vec::new();
+    let mut include_count = 0_usize;
+    for (relative, path) in files {
+        let findings = fortran_state::scan(&fs::read(path)?);
+        include_count += findings
+            .iter()
+            .filter(|finding| finding.origin == "INCLUDE")
+            .count();
+        for finding in findings
+            .into_iter()
+            .filter(|finding| finding.origin == "COMMON")
+        {
+            records.push(json!([
+                relative,
+                finding.routine,
+                finding.storage,
+                finding.layout,
+                finding.line,
+                "reviewed_full_corpus_not_selected_closure",
+            ]));
         }
     }
-    specialize_ier(&mut findings, &source.source_file, &routine);
+    records.sort_by(|left, right| {
+        left[2]
+            .as_str()
+            .cmp(&right[2].as_str())
+            .then(left[0].as_str().cmp(&right[0].as_str()))
+            .then(left[1].as_str().cmp(&right[1].as_str()))
+    });
+    Ok(json!({
+        "schema_id":"slatec.corpus.common-block-index",
+        "schema_version":"1.0.0",
+        "snapshot_id":SNAPSHOT,
+        "scope":"complete_reviewed_corpus_informational_only",
+        "status":if records.is_empty() { "complete_no_mutable_state_found" } else { "complete_mutable_state_found" },
+        "source_file_count":files_count(root)?,
+        "include_statement_count":include_count,
+        "columns":["source_file","routine","block","normalized_layout","line","selection_status"],
+        "records":records
+    }))
+}
+
+fn collect_fortran_files(
+    root: &Path,
+    directory: &Path,
+    output: &mut Vec<(String, PathBuf)>,
+) -> Result<()> {
+    let mut entries = fs::read_dir(directory)?.collect::<std::io::Result<Vec<_>>>()?;
+    entries.sort_by_key(std::fs::DirEntry::file_name);
+    for entry in entries {
+        let path = entry.path();
+        if path.is_dir() {
+            collect_fortran_files(root, &path, output)?;
+        } else if path
+            .extension()
+            .is_some_and(|extension| extension.eq_ignore_ascii_case("f"))
+        {
+            let relative = path
+                .strip_prefix(root)
+                .map_err(|_| policy("full-corpus path escaped its root"))?
+                .to_string_lossy()
+                .replace('\\', "/");
+            output.push((relative, path));
+        }
+    }
+    Ok(())
+}
+
+fn files_count(root: &Path) -> Result<usize> {
+    let mut files = Vec::new();
+    collect_fortran_files(root, root, &mut files)?;
+    Ok(files.len())
+}
+
+fn family_membership(sources: &[Source], scans: &[Scan]) -> Result<Value> {
+    let manifest_path = repo_path("crates/slatec-src/metadata/family-source-closure.json");
+    let mut manifest: Manifest = serde_json::from_slice(&fs::read(&manifest_path)?)?;
+    let overlay: Overlay = serde_json::from_slice(&fs::read(
+        manifest_path.with_file_name("ode-sdrive-source-closure.json"),
+    )?)?;
+    manifest
+        .families
+        .insert(overlay.family.clone(), overlay.source_ids.clone());
+    if overlay.profile_override {
+        manifest.profile_override_families.insert(overlay.family);
+    }
+    let mut families_by_source = BTreeMap::<String, BTreeSet<String>>::new();
+    for (family, ids) in &manifest.families {
+        for id in ids {
+            families_by_source
+                .entry(id.clone())
+                .or_default()
+                .insert(family.clone());
+        }
+    }
+    let link_report: Value = serde_json::from_slice(&fs::read(repo_path(
+        "generated/linkage/family-link-report.json",
+    ))?)?;
+    let examples = link_report["examples"]
+        .as_array()
+        .cloned()
+        .unwrap_or_default();
+    let mut records = Vec::with_capacity(sources.len());
+    for source in sources {
+        let families = if source.subset == "project-profile" {
+            manifest.profile_override_families.clone()
+        } else {
+            families_by_source
+                .get(&source.id)
+                .cloned()
+                .unwrap_or_default()
+        };
+        let units = scans
+            .iter()
+            .find(|scan| scan.source.id == source.id)
+            .map(|scan| scan.program_units.clone())
+            .unwrap_or_default();
+        let retained = examples
+            .iter()
+            .filter(|example| {
+                example["retained_family_roots"]
+                    .as_array()
+                    .is_some_and(|roots| {
+                        roots.iter().any(|root| {
+                            root.as_str().is_some_and(|root| {
+                                units
+                                    .iter()
+                                    .any(|unit| root.eq_ignore_ascii_case(&format!("{unit}_")))
+                            })
+                        })
+                    })
+            })
+            .filter_map(|example| example["example"].as_str().map(str::to_owned))
+            .collect::<Vec<_>>();
+        records.push(json!([
+            source.id,
+            source.source_file,
+            format!("{}.o", source.id),
+            families,
+            families.len() > 1,
+            families.is_empty() && source.origin != "project_profile_support",
+            families,
+            retained,
+            if retained.is_empty() {
+                "not_observed_in_checked_in_root_symbol_probe"
+            } else {
+                "root_symbol_observed_in_narrow_probe"
+            },
+        ]));
+    }
+    records.sort_by(|left, right| left[0].as_str().cmp(&right[0].as_str()));
+    Ok(json!({
+        "schema_id":"slatec.native.source-family-membership",
+        "schema_version":"1.0.0",
+        "snapshot_id":SNAPSHOT,
+        "archive_policy":"source-build archives the union of selected family closures; profile objects are included whenever any enabled family requires the reviewed profile override",
+        "columns":["source_id","source_path","object_name","safe_families","shared","provider_corpus_only","included_in_family_archives","retained_by_narrow_probes","retention_evidence"],
+        "records":records
+    }))
+}
+
+fn scan_source(source: Source) -> Result<Scan> {
+    let bytes = fs::read(&source.cache_path)?;
+    let program_units = fortran_state::program_units(&bytes);
+    let routine = program_units
+        .first()
+        .cloned()
+        .unwrap_or_else(|| "UNKNOWN_PROGRAM_UNIT".to_owned());
+    let mut findings = fortran_state::scan(&bytes)
+        .into_iter()
+        .map(|finding| {
+            let persistent = matches!(
+                finding.origin.as_str(),
+                "DATA" | "SAVE" | "COMMON" | "DECLARATION_INITIALIZATION"
+            );
+            let mutable = persistent
+                || matches!(
+                    finding.origin.as_str(),
+                    "BLOCK_DATA" | "FORTRAN_IO" | "XERROR_CALL"
+                );
+            Finding {
+                source_file: source.source_file.clone(),
+                routine: finding.routine.clone(),
+                storage: finding.storage,
+                origin: finding.origin.clone(),
+                implicitly_saved: matches!(
+                    finding.origin.as_str(),
+                    "DATA" | "COMMON" | "DECLARATION_INITIALIZATION"
+                ),
+                mutable,
+                access: if mutable {
+                    "read_write"
+                } else {
+                    "review_required"
+                }
+                .to_owned(),
+                writers: vec![finding.routine],
+                scope: if mutable { "process" } else { "routine" }.to_owned(),
+                parallel_effect: if mutable {
+                    "disqualifies_parallel_safe"
+                } else {
+                    "review_required"
+                }
+                .to_owned(),
+                evidence_lines: vec![format!(
+                    "{}:{} {}",
+                    source.source_file, finding.line, finding.statement
+                )],
+                layout: finding.layout,
+            }
+        })
+        .collect::<Vec<_>>();
+    specialize_ier(&mut findings, &source.source_file);
     Ok(Scan {
         source,
         routine,
+        program_units,
         findings,
     })
 }
 
-fn specialize_ier(findings: &mut [Finding], source_file: &str, routine: &str) {
-    if !matches!(routine, "SDSTP" | "DDSTP") {
-        return;
-    }
-    for finding in findings
-        .iter_mut()
-        .filter(|finding| finding.storage == "IER")
-    {
+fn specialize_ier(findings: &mut [Finding], source_file: &str) {
+    for finding in findings.iter_mut().filter(|finding| {
+        finding.storage == "IER" && matches!(finding.routine.as_str(), "SDSTP" | "DDSTP")
+    }) {
+        let routine = finding.routine.as_str();
         finding.writers = if routine == "SDSTP" {
             vec!["SDSTP".to_owned(), "SDNTL".to_owned(), "SDPST".to_owned()]
         } else {
@@ -566,169 +743,6 @@ fn specialize_ier(findings: &mut [Finding], source_file: &str, routine: &str) {
     }
 }
 
-fn construct_finding(
-    source: &Source,
-    routine: &str,
-    origin: &str,
-    statement: &Statement,
-    effect: &str,
-) -> Finding {
-    Finding {
-        source_file: source.source_file.clone(),
-        routine: routine.to_owned(),
-        storage: "program_unit_construct".to_owned(),
-        origin: origin.to_owned(),
-        implicitly_saved: false,
-        mutable: origin == "FORTRAN_IO" || origin == "BLOCK_DATA" || origin == "XERROR_CALL",
-        access: "review_required".to_owned(),
-        writers: vec![routine.to_owned()],
-        scope: "process".to_owned(),
-        parallel_effect: effect.to_owned(),
-        evidence_lines: vec![format!(
-            "{}:{} {}",
-            source.source_file, statement.line, statement.text
-        )],
-    }
-}
-
-fn statements(text: &str) -> Vec<Statement> {
-    let mut result: Vec<Statement> = Vec::new();
-    for (index, raw) in text.lines().enumerate() {
-        let line = raw.trim_end();
-        if line.is_empty() || is_fixed_comment(line) {
-            continue;
-        }
-        let (continuation, body) = if line.len() >= 6 {
-            let continuation = line.as_bytes()[5] != b' ' && line.as_bytes()[5] != b'0';
-            (continuation, line[6..].trim())
-        } else {
-            (false, line.trim())
-        };
-        let body = body.split('!').next().unwrap_or_default().trim();
-        if body.is_empty() {
-            continue;
-        }
-        if continuation {
-            if let Some(previous) = result.last_mut() {
-                previous.text.push(' ');
-                previous.text.push_str(body);
-                continue;
-            }
-        }
-        result.push(Statement {
-            line: index + 1,
-            text: body.to_owned(),
-        });
-    }
-    result
-}
-
-fn is_fixed_comment(line: &str) -> bool {
-    matches!(line.as_bytes().first(), Some(b'C' | b'c' | b'*' | b'!'))
-}
-
-fn routine_name(text: &str) -> Option<String> {
-    let upper = text.to_ascii_uppercase();
-    if let Some(rest) = upper.strip_prefix("BLOCK DATA") {
-        return rest
-            .trim()
-            .split(|character: char| character == '(' || character.is_whitespace())
-            .next()
-            .filter(|name| !name.is_empty())
-            .map(str::to_owned);
-    }
-    for keyword in ["SUBROUTINE", "FUNCTION"] {
-        if let Some(index) = upper.find(keyword) {
-            let before = &upper[..index];
-            if !before.trim().is_empty()
-                && !["INTEGER", "REAL", "DOUBLE PRECISION", "LOGICAL", "COMPLEX"]
-                    .iter()
-                    .any(|prefix| before.trim() == *prefix)
-            {
-                continue;
-            }
-            return upper[index + keyword.len()..]
-                .trim()
-                .split(|character: char| character == '(' || character.is_whitespace())
-                .next()
-                .filter(|name| !name.is_empty())
-                .map(str::to_owned);
-        }
-    }
-    None
-}
-
-fn data_storage(text: &str) -> Option<String> {
-    text.strip_prefix("DATA ").map(|rest| {
-        rest.split('/')
-            .next()
-            .unwrap_or("DATA")
-            .trim()
-            .replace(' ', "_")
-    })
-}
-
-fn save_storage(text: &str) -> Option<String> {
-    let rest = text
-        .strip_prefix("SAVE ")
-        .or_else(|| text.strip_prefix("SAVE/"))
-        .or_else(|| (text == "SAVE").then_some(""))?;
-    Some({
-        let trimmed = rest.trim();
-        if trimmed.is_empty() {
-            "all_locals".to_owned()
-        } else {
-            trimmed.replace(' ', "_")
-        }
-    })
-}
-
-fn common_storage(text: &str) -> Option<String> {
-    let rest = text.strip_prefix("COMMON")?.trim();
-    if let Some(rest) = rest.strip_prefix('/') {
-        return rest.split('/').next().map(str::to_owned);
-    }
-    Some("(blank)".to_owned())
-}
-
-fn declaration_initialization(text: &str) -> bool {
-    [
-        "INTEGER",
-        "REAL",
-        "DOUBLE PRECISION",
-        "LOGICAL",
-        "CHARACTER",
-        "COMPLEX",
-    ]
-    .iter()
-    .any(|prefix| text.starts_with(prefix) && text.contains('/'))
-}
-
-fn is_io_statement(text: &str) -> bool {
-    [
-        "OPEN",
-        "CLOSE",
-        "READ",
-        "WRITE",
-        "REWIND",
-        "BACKSPACE",
-        "ENDFILE",
-        "INQUIRE",
-    ]
-    .iter()
-    .any(|keyword| text.starts_with(keyword))
-}
-
-fn is_xerror_call(text: &str) -> bool {
-    [
-        "XERMSG", "XERRWV", "XERPRN", "XERSVE", "XGETF", "XSETF", "J4SAVE",
-    ]
-    .iter()
-    .any(|name| {
-        text.contains(&format!("CALL {name}")) || (*name == "J4SAVE" && text.contains("J4SAVE("))
-    })
-}
-
 fn finding_json(finding: &Finding) -> Value {
     json!([
         finding.source_file,
@@ -741,7 +755,8 @@ fn finding_json(finding: &Finding) -> Value {
         finding.writers,
         finding.scope,
         finding.parallel_effect,
-        finding.evidence_lines
+        finding.evidence_lines,
+        finding.layout
     ])
 }
 
@@ -760,7 +775,7 @@ fn common_index(scans: &[Scan]) -> Result<Value> {
         .map(|(block, declarations)| {
             let layouts = declarations
                 .iter()
-                .map(|finding| finding.evidence_lines.first().cloned().unwrap_or_default())
+                .map(|finding| finding.layout.clone())
                 .collect::<Vec<_>>();
             let routines = declarations
                 .iter()
@@ -779,8 +794,11 @@ fn common_index(scans: &[Scan]) -> Result<Value> {
         .collect::<Vec<_>>();
     Ok(json!({
         "schema_id":"slatec.native.common-block-index",
-        "schema_version":"1.0.0",
+        "schema_version":"1.1.0",
         "snapshot_id":SNAPSHOT,
+        "scope":"exact currently selected safe source closures and reviewed profile objects",
+        "validation":"continuation-aware scanner plus GNU Fortran parse-tree oracle plus COFF writable-symbol inspection",
+        "empty_result_explanation":if records.is_empty() { "none of the exact currently compiled selected source units declares COMMON; COMMON declarations exist in deferred unselected corpus units and are indexed separately in generated/corpus/common-block-index.json" } else { "selected COMMON declarations are listed below" },
         "status":if records.is_empty() { "complete_no_mutable_state_found" } else { "complete_mutable_state_found" },
         "columns":["block","declaring_routines","layout_evidence","access","scope","classification","status"],
         "records":records
@@ -952,6 +970,12 @@ fn writable_symbol_index(
             };
             let routine = source_routine_from_symbol(symbol, &object.source, scans);
             let storage = storage_from_symbol(symbol, &routine, scans);
+            let consistency = if storage == "unidentified_writable_symbol" {
+                "object_only_compiler_generated"
+            } else {
+                "source_and_object_confirmed"
+            };
+            let state_effect = storage_effect(&storage, &routine);
             records.push(json!([
                 symbol,
                 object.name,
@@ -961,7 +985,9 @@ fn writable_symbol_index(
                 routine,
                 storage,
                 true,
-                "disqualifies_parallel_safe"
+                "disqualifies_parallel_safe",
+                consistency,
+                state_effect,
             ]));
         }
         if !found {
@@ -977,7 +1003,9 @@ fn writable_symbol_index(
                     .unwrap_or_else(|| "UNKNOWN".to_owned()),
                 "none",
                 false,
-                "complete_no_mutable_state_found"
+                "complete_no_mutable_state_found",
+                "complete_no_mutable_state_found",
+                "none",
             ]));
         }
     }
@@ -988,6 +1016,499 @@ fn writable_symbol_index(
             .then(left[1].as_str().cmp(&right[1].as_str()))
     });
     Ok(records)
+}
+
+fn storage_effect(storage: &str, routine: &str) -> &'static str {
+    if storage.ends_with(":IER") && matches!(routine, "SDSTP" | "DDSTP") {
+        "error_state_flag"
+    } else if storage.starts_with("COMMON:") {
+        "numerical_or_runtime_shared_state"
+    } else if storage.starts_with("DATA:") || storage.starts_with("SAVE:") {
+        "cached_constant_or_numerical_state_reviewed_conservatively"
+    } else if storage == "unidentified_writable_symbol" {
+        "unknown"
+    } else {
+        "compiler_or_runtime_state"
+    }
+}
+
+fn native_state_crosscheck(objects: &[Object], scans: &[Scan], writable: &[Value]) -> Value {
+    let mut records = Vec::new();
+    for record in writable {
+        if record[0].as_str() == Some("(no_writable_symbols)") {
+            continue;
+        }
+        records.push(json!([
+            "object_to_source",
+            record[1],
+            record[5],
+            record[6],
+            record[0],
+            record[9],
+            if record[9].as_str() == Some("object_only_compiler_generated") {
+                "unidentified writable symbol remains a conservative provider/compiler blocker"
+            } else {
+                "writable symbol mapped to a persistent source declaration"
+            }
+        ]));
+    }
+    for scan in scans {
+        let object = objects
+            .iter()
+            .find(|object| object.source.id == scan.source.id)
+            .map(|object| object.name.as_str())
+            .unwrap_or("missing_object");
+        for finding in scan.findings.iter().filter(|finding| {
+            finding.mutable
+                && matches!(
+                    finding.origin.as_str(),
+                    "DATA" | "SAVE" | "COMMON" | "DECLARATION_INITIALIZATION"
+                )
+        }) {
+            let needle = finding.storage.to_ascii_uppercase();
+            let matched = writable.iter().find(|record| {
+                record[1].as_str() == Some(object)
+                    && (record[6]
+                        .as_str()
+                        .is_some_and(|storage| storage.to_ascii_uppercase().ends_with(&needle))
+                        || record[0].as_str().is_some_and(|symbol| {
+                            symbol
+                                .split('.')
+                                .next()
+                                .is_some_and(|base| base.eq_ignore_ascii_case(&needle))
+                        }))
+            });
+            let status = if matched.is_some() {
+                "source_and_object_confirmed"
+            } else {
+                "source_only_optimized_or_unresolved"
+            };
+            records.push(json!([
+                "source_to_object",
+                object,
+                finding.routine,
+                format!("{}:{}", finding.origin, finding.storage),
+                matched.and_then(|record| record[0].as_str()).unwrap_or("none"),
+                status,
+                if matched.is_some() {
+                    "persistent source declaration has writable object evidence"
+                } else {
+                    "no writable COFF symbol; may be read-only/optimized but remains a relaxation blocker until classified"
+                }
+            ]));
+        }
+    }
+    records.sort_by(|left, right| {
+        left[0]
+            .as_str()
+            .cmp(&right[0].as_str())
+            .then(left[1].as_str().cmp(&right[1].as_str()))
+            .then(left[3].as_str().cmp(&right[3].as_str()))
+    });
+    let unresolved = records
+        .iter()
+        .filter(|record| {
+            matches!(
+                record[5].as_str(),
+                Some("source_only_optimized_or_unresolved" | "unresolved_mismatch")
+            )
+        })
+        .count();
+    json!({
+        "schema_id":"slatec.native.state-crosscheck",
+        "schema_version":"1.0.0",
+        "snapshot_id":SNAPSHOT,
+        "status":if unresolved == 0 { "complete_reconciled" } else { "complete_with_conservative_unresolved_records" },
+        "unresolved_count":unresolved,
+        "relaxation_policy":"any source_only_optimized_or_unresolved or unresolved_mismatch record blocks concurrency relaxation for closures containing it",
+        "columns":["direction","object","routine","source_storage","symbol","consistency_status","evidence"],
+        "records":records
+    })
+}
+
+#[derive(Default)]
+struct ObjectSymbols {
+    defined: BTreeSet<String>,
+    undefined: BTreeSet<String>,
+}
+
+type FamilySources = BTreeMap<String, BTreeSet<String>>;
+
+fn per_wrapper_native_state(
+    compiler: &Path,
+    objects: &[Object],
+    scans: &[Scan],
+    writable: &[Value],
+    crosscheck: &Value,
+) -> Result<Value> {
+    let symbols = inspect_object_symbols(compiler, objects)?;
+    let (families, profile_families) = family_source_sets()?;
+    let mut owners = BTreeMap::<String, Vec<String>>::new();
+    for (object, table) in &symbols {
+        for symbol in &table.defined {
+            owners
+                .entry(symbol.clone())
+                .or_default()
+                .push(object.clone());
+        }
+    }
+    let functions: Value = serde_json::from_slice(&fs::read(repo_path(
+        "generated/safe-api/function-index.json",
+    ))?)?;
+    let functions = functions["records"]
+        .as_array()
+        .ok_or_else(|| policy("safe function index has no records"))?;
+    let unresolved_objects = crosscheck["records"]
+        .as_array()
+        .into_iter()
+        .flatten()
+        .filter(|record| {
+            matches!(
+                record[5].as_str(),
+                Some("source_only_optimized_or_unresolved" | "unresolved_mismatch")
+            )
+        })
+        .filter_map(|record| record[1].as_str().map(str::to_owned))
+        .collect::<BTreeSet<_>>();
+    let mut records = Vec::with_capacity(functions.len());
+    for function in functions {
+        let safe_function = required_string(function, "rust_path")?;
+        let routine = required_string(function, "fortran_routine")?;
+        let feature = required_string(function, "feature")?;
+        let domain = required_string(function, "domain")?;
+        let mut feature_families = resolved_feature_families(feature, &families)?;
+        let mut family_ids = feature_families
+            .iter()
+            .flat_map(|family| families.get(family).into_iter().flatten())
+            .cloned()
+            .collect::<BTreeSet<_>>();
+        let entry = format!("{}_", routine.to_ascii_lowercase());
+        let feature_closure_mismatch = !owners.get(&entry).is_some_and(|candidates| {
+            candidates.iter().any(|object| {
+                family_ids.contains(object.trim_end_matches(".o")) || object.starts_with("profile-")
+            })
+        });
+        if feature_closure_mismatch {
+            let owner_ids = owners
+                .get(&entry)
+                .into_iter()
+                .flatten()
+                .map(|object| object.trim_end_matches(".o"))
+                .collect::<BTreeSet<_>>();
+            feature_families = families
+                .iter()
+                .filter(|(_, ids)| owner_ids.iter().any(|id| ids.contains(*id)))
+                .map(|(family, _)| family.clone())
+                .collect();
+            family_ids = feature_families
+                .iter()
+                .flat_map(|family| families.get(family).into_iter().flatten())
+                .cloned()
+                .collect();
+        }
+        let mut allowed = family_ids
+            .iter()
+            .map(|id| format!("{id}.o"))
+            .collect::<BTreeSet<_>>();
+        if feature_families
+            .iter()
+            .any(|family| profile_families.contains(family))
+        {
+            allowed.extend(
+                ["profile-i1mach.o", "profile-r1mach.o", "profile-d1mach.o"]
+                    .into_iter()
+                    .map(str::to_owned),
+            );
+        }
+        let closure = reachable_objects(&entry, &allowed, &owners, &symbols).map_err(|_| {
+            policy(&format!(
+                "native entry point {routine} for {safe_function} is absent from feature {feature}"
+            ))
+        })?;
+        let closure_sources = closure
+            .iter()
+            .filter_map(|object| {
+                objects
+                    .iter()
+                    .find(|candidate| candidate.name == *object)
+                    .map(|candidate| candidate.source.source_file.clone())
+            })
+            .collect::<Vec<_>>();
+        let findings = scans
+            .iter()
+            .filter(|scan| closure.contains(&format!("{}.o", scan.source.id)))
+            .flat_map(|scan| scan.findings.iter())
+            .collect::<Vec<_>>();
+        let saved = findings
+            .iter()
+            .filter(|finding| {
+                finding.mutable
+                    && matches!(
+                        finding.origin.as_str(),
+                        "DATA" | "SAVE" | "DECLARATION_INITIALIZATION"
+                    )
+            })
+            .map(|finding| {
+                json!({
+                    "source":finding.source_file,
+                    "routine":finding.routine,
+                    "storage":finding.storage,
+                    "origin":finding.origin,
+                    "effect":saved_effect(finding),
+                    "reset_each_public_call":if finding.storage == "IER" { "yes_but_reset_and_use_are_not_atomic_across_concurrent_calls" } else { "not_proven" },
+                })
+            })
+            .collect::<Vec<_>>();
+        let common = findings
+            .iter()
+            .filter(|finding| finding.origin == "COMMON")
+            .map(|finding| finding.storage.clone())
+            .collect::<BTreeSet<_>>();
+        let xerror = findings
+            .iter()
+            .filter(|finding| finding.origin == "XERROR_CALL")
+            .map(|finding| format!("{}:{}", finding.routine, finding.storage))
+            .collect::<BTreeSet<_>>();
+        let io = findings
+            .iter()
+            .filter(|finding| finding.origin == "FORTRAN_IO")
+            .map(|finding| format!("{}:{}", finding.routine, finding.storage))
+            .collect::<BTreeSet<_>>();
+        let callback_state = callback_state(domain, feature);
+        let unresolved = closure
+            .intersection(&unresolved_objects)
+            .cloned()
+            .collect::<Vec<_>>();
+        let backend_dependent =
+            feature.starts_with("blas-") || feature == "nonlinear-jacobian-check";
+        let current_class = if backend_dependent {
+            "BackendDependent"
+        } else {
+            "SerializedGlobal"
+        };
+        let best_source_class = if !common.is_empty() || !saved.is_empty() {
+            "SerializedFamily"
+        } else if !xerror.is_empty() || !io.is_empty() {
+            "SerializedGlobal"
+        } else {
+            "ParallelSafeFromSelectedSlatecSourceOnly"
+        };
+        let mut blockers = Vec::new();
+        if !saved.is_empty() {
+            blockers.push("saved_mutable_local_state".to_owned());
+        }
+        if !common.is_empty() {
+            blockers.push("mutable_COMMON_state".to_owned());
+        }
+        if !xerror.is_empty() {
+            blockers.push("process_global_XERROR_state".to_owned());
+        }
+        if !io.is_empty() {
+            blockers.push("Fortran_runtime_IO_state".to_owned());
+        }
+        if callback_state != "none" {
+            blockers.push("callback_dispatch_and_failure_containment".to_owned());
+        }
+        if !unresolved.is_empty() {
+            blockers.push("unresolved_source_object_crosscheck".to_owned());
+        }
+        if feature_closure_mismatch {
+            blockers.push("checked_in_function_index_feature_does_not_own_native_entry".to_owned());
+        }
+        blockers.push("provider_and_compiler_runtime_thread_safety_not_proven".to_owned());
+        let writable_symbols = writable
+            .iter()
+            .filter(|record| {
+                record[1]
+                    .as_str()
+                    .is_some_and(|object| closure.contains(object))
+                    && record[7].as_bool() == Some(true)
+            })
+            .map(|record| record[0].clone())
+            .collect::<Vec<_>>();
+        records.push(json!({
+            "safe_function":safe_function,
+            "native_entry_points":[routine],
+            "feature":feature,
+            "effective_native_families":feature_families,
+            "feature_closure_mismatch":feature_closure_mismatch,
+            "source_closure":closure_sources,
+            "object_closure":closure,
+            "saved_mutable_locals":saved,
+            "common_blocks":common,
+            "xerror_state":xerror,
+            "fortran_io":io,
+            "callback_state":[callback_state],
+            "writable_symbols":writable_symbols,
+            "source_object_unresolved":unresolved,
+            "provider_unknowns":["GNU_Fortran_runtime_reentrancy_contract_not_proven","external_BLAS_LINPACK_provider_configuration_BackendDependent"],
+            "rust_api_concurrency":rust_api_concurrency(feature),
+            "native_routine_reentrancy":best_source_class,
+            "provider_runtime_thread_safety":"unknown_or_backend_dependent",
+            "current_class":current_class,
+            "best_possible_class_from_slatec_source":best_source_class,
+            "remaining_blockers":blockers,
+        }));
+    }
+    records.sort_by(|left, right| {
+        left["safe_function"]
+            .as_str()
+            .cmp(&right["safe_function"].as_str())
+    });
+    Ok(json!({
+        "schema_id":"slatec.native.per-wrapper-state",
+        "schema_version":"1.0.0",
+        "snapshot_id":SNAPSHOT,
+        "closure_method":"COFF object dependency graph rooted at each reviewed native entry point and restricted to that safe feature's reviewed archive members",
+        "records":records
+    }))
+}
+
+fn resolved_feature_families(
+    feature: &str,
+    families: &BTreeMap<String, BTreeSet<String>>,
+) -> Result<Vec<String>> {
+    if families.contains_key(feature) {
+        return Ok(vec![feature.to_owned()]);
+    }
+    if feature == "special" {
+        return Ok(families
+            .keys()
+            .filter(|family| family.starts_with("special-"))
+            .cloned()
+            .collect());
+    }
+    let parts = feature.split(" + ").map(str::to_owned).collect::<Vec<_>>();
+    if !parts.is_empty() && parts.iter().all(|part| families.contains_key(part)) {
+        return Ok(parts);
+    }
+    Err(policy(&format!(
+        "safe function feature {feature} has no reviewed native family"
+    )))
+}
+
+fn inspect_object_symbols(
+    compiler: &Path,
+    objects: &[Object],
+) -> Result<BTreeMap<String, ObjectSymbols>> {
+    let nm = sibling_tool(compiler, "nm");
+    let mut output = BTreeMap::new();
+    for object in objects {
+        let text = command_output(&nm, &["-g", &object.path.display().to_string()])?;
+        let mut symbols = ObjectSymbols::default();
+        for line in text.lines() {
+            let fields = line.split_whitespace().collect::<Vec<_>>();
+            let Some(symbol) = fields.last() else {
+                continue;
+            };
+            let kind = fields
+                .get(fields.len().saturating_sub(2))
+                .copied()
+                .unwrap_or("");
+            if kind == "U" {
+                symbols.undefined.insert(symbol.to_ascii_lowercase());
+            } else if matches!(kind, "T" | "D" | "B" | "R" | "C" | "W") {
+                symbols.defined.insert(symbol.to_ascii_lowercase());
+            }
+        }
+        output.insert(object.name.clone(), symbols);
+    }
+    Ok(output)
+}
+
+fn family_source_sets() -> Result<(FamilySources, BTreeSet<String>)> {
+    let manifest_path = repo_path("crates/slatec-src/metadata/family-source-closure.json");
+    let mut manifest: Manifest = serde_json::from_slice(&fs::read(&manifest_path)?)?;
+    let overlay: Overlay = serde_json::from_slice(&fs::read(
+        manifest_path.with_file_name("ode-sdrive-source-closure.json"),
+    )?)?;
+    manifest.families.insert(
+        overlay.family.clone(),
+        overlay.source_ids.into_iter().collect(),
+    );
+    if overlay.profile_override {
+        manifest.profile_override_families.insert(overlay.family);
+    }
+    Ok((
+        manifest
+            .families
+            .into_iter()
+            .map(|(family, ids)| (family, ids.into_iter().collect()))
+            .collect(),
+        manifest.profile_override_families,
+    ))
+}
+
+fn reachable_objects(
+    entry: &str,
+    allowed: &BTreeSet<String>,
+    owners: &BTreeMap<String, Vec<String>>,
+    symbols: &BTreeMap<String, ObjectSymbols>,
+) -> Result<BTreeSet<String>> {
+    let mut pending = vec![entry.to_owned()];
+    let mut visited_symbols = BTreeSet::new();
+    let mut closure = BTreeSet::new();
+    while let Some(symbol) = pending.pop() {
+        if !visited_symbols.insert(symbol.clone()) {
+            continue;
+        }
+        let owner = owners
+            .get(&symbol)
+            .and_then(|candidates| candidates.iter().find(|object| allowed.contains(*object)));
+        let Some(owner) = owner else {
+            if symbol == entry {
+                return Err(policy(&format!(
+                    "native entry point {entry} has no object in its reviewed family"
+                )));
+            }
+            continue;
+        };
+        if closure.insert(owner.clone()) {
+            if let Some(table) = symbols.get(owner) {
+                pending.extend(table.undefined.iter().cloned());
+            }
+        }
+    }
+    Ok(closure)
+}
+
+fn required_string<'a>(value: &'a Value, field: &str) -> Result<&'a str> {
+    value[field]
+        .as_str()
+        .ok_or_else(|| policy("safe function record lacks a required string"))
+}
+
+fn saved_effect(finding: &Finding) -> &'static str {
+    if finding.storage == "IER" && matches!(finding.routine.as_str(), "SDSTP" | "DDSTP") {
+        "error_state_flag"
+    } else if finding.origin == "DATA" {
+        "cached_constant_or_numerical_state"
+    } else if finding.origin == "SAVE" {
+        "numerical_continuation_or_cached_state"
+    } else {
+        "initialization_sentinel_or_unknown"
+    }
+}
+
+fn callback_state(domain: &str, feature: &str) -> &'static str {
+    if feature == "ode-sdrive-expert" {
+        "thread_local_ODE_callback_context_while_process_lock_held"
+    } else if matches!(
+        domain,
+        "quadrature" | "roots" | "nonlinear" | "least squares"
+    ) {
+        "thread_local_callback_registry_while_process_lock_held"
+    } else {
+        "none"
+    }
+}
+
+fn rust_api_concurrency(feature: &str) -> &'static str {
+    if feature == "ode-sdrive-expert" {
+        "session_is_Send_only_when_callback_and_error_are_Send; session_is_not_Sync; mutable_borrow_prevents_simultaneous_use"
+    } else {
+        "independent_arguments_may_be_used_from_separate_threads_under_Rust_ownership; this_does_not_imply_native_reentrancy"
+    }
 }
 
 fn section_map(objdump: &Path, object: &Path) -> Result<BTreeMap<i32, String>> {
@@ -1022,8 +1543,8 @@ fn source_routine_from_symbol(symbol: &str, source: &Source, scans: &[Scan]) -> 
     let normalized = symbol.trim_end_matches('_').to_ascii_uppercase();
     scans
         .iter()
-        .find(|scan| scan.source.id == source.id && scan.routine == normalized)
-        .map(|scan| scan.routine.clone())
+        .find(|scan| scan.source.id == source.id && scan.program_units.contains(&normalized))
+        .map(|_| normalized)
         .unwrap_or_else(|| routine_for_source(source, scans))
 }
 
@@ -1186,29 +1707,34 @@ mod tests {
 
     #[test]
     fn fixed_form_scanner_ignores_comments_and_preserves_continuations() {
-        let statements = statements(
-            "C DATA NOPE /1/\n      SUBROUTINE DEMO\n      DATA IER /.FALSE./\n     8 , OTHER /1/\n      END\n",
+        let findings = fortran_state::scan(
+            b"C DATA NOPE /1/\n      SUBROUTINE DEMO\n      DATA IER /.FALSE./\n     8 , OTHER /1/\n      END\n",
         );
-        assert_eq!(statements.len(), 3);
-        assert_eq!(routine_name(&statements[0].text).as_deref(), Some("DEMO"));
-        assert_eq!(
-            data_storage(&statements[1].text.to_ascii_uppercase()).as_deref(),
-            Some("IER")
-        );
-        assert_eq!(save_storage("SAVE1(I) = 0.D0"), None);
-        assert_eq!(save_storage("SAVE I, J"), Some("I,_J".to_owned()));
+        assert!(findings.iter().any(|finding| finding.storage == "IER"));
+        assert!(findings.iter().any(|finding| finding.storage == "OTHER"));
+        assert!(findings.iter().all(|finding| finding.routine == "DEMO"));
     }
 
     #[test]
     fn common_and_runtime_constructs_are_classified_without_comment_matches() {
-        assert_eq!(
-            common_storage("COMMON /STATE/ A, B"),
-            Some("STATE".to_owned())
+        let findings = fortran_state::scan(
+            b"      SUBROUTINE DEMO\n      COMMON /STATE/ A,B\n      OPEN (UNIT=1)\n      CALL XERMSG ('A','B','C',1,1)\nC XERROR is mentioned in a comment\n      EXTERNAL XERMSG\n      END\n",
         );
-        assert!(is_io_statement("OPEN (UNIT=1)"));
-        assert!(is_xerror_call("CALL XERMSG ('A','B','C',1,1)"));
-        assert!(!is_xerror_call("XERROR is mentioned in a comment"));
-        assert!(!is_xerror_call("EXTERNAL XERMSG"));
+        assert!(findings.iter().any(|finding| finding.storage == "STATE"));
+        assert_eq!(
+            findings
+                .iter()
+                .filter(|finding| finding.origin == "FORTRAN_IO")
+                .count(),
+            1
+        );
+        assert_eq!(
+            findings
+                .iter()
+                .filter(|finding| finding.origin == "XERROR_CALL")
+                .count(),
+            1
+        );
     }
 
     #[test]
@@ -1255,5 +1781,38 @@ mod tests {
             common["status"].as_str(),
             Some("complete_no_mutable_state_found")
         );
+        let scanner: Value = serde_json::from_slice(
+            &fs::read(root.join("fortran-scanner-validation.json")).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(scanner["status"].as_str(), Some("complete_agreement"));
+        assert_eq!(scanner["disagreement_count"].as_u64(), Some(0));
+        let full_common: Value = serde_json::from_slice(
+            &fs::read(repo_path("generated/corpus/common-block-index.json")).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(full_common["source_file_count"].as_u64(), Some(1_452));
+        assert!(full_common["records"].as_array().is_some_and(|records| {
+            records.len() == 172
+                && records
+                    .iter()
+                    .all(|record| record[5] == "reviewed_full_corpus_not_selected_closure")
+        }));
+        let crosscheck: Value =
+            serde_json::from_slice(&fs::read(root.join("native-state-crosscheck.json")).unwrap())
+                .unwrap();
+        assert_eq!(crosscheck["status"].as_str(), Some("complete_reconciled"));
+        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(0));
+        let projections: Value =
+            serde_json::from_slice(&fs::read(root.join("per-wrapper-native-state.json")).unwrap())
+                .unwrap();
+        assert!(projections["records"].as_array().is_some_and(|records| {
+            records.len() == 188
+                && records.iter().all(|record| {
+                    record["object_closure"]
+                        .as_array()
+                        .is_some_and(|objects| !objects.is_empty())
+                })
+        }));
     }
 }

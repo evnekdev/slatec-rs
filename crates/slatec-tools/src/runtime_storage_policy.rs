@@ -37,8 +37,26 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         .ok_or_else(|| policy("selected corpus lacks snapshot_id"))?;
 
     let arguments = argument_lookup(&argument_index)?;
+    let projections_value = read_value(repo_path(SAFE_API).join("per-wrapper-native-state.json"))?;
+    let projections = projections_value["records"]
+        .as_array()
+        .ok_or_else(|| policy("per-wrapper native-state index lacks records"))?;
+    let projection_by_path = projections
+        .iter()
+        .filter_map(|record| {
+            record["safe_function"]
+                .as_str()
+                .map(|path| (path.to_owned(), record))
+        })
+        .collect::<BTreeMap<_, _>>();
     let mutable_state = mutable_global_state_records(&functions)?;
-    let concurrency = concurrency_records(&functions, &mutable_state.routine_sources)?;
+    let concurrency = concurrency_records(
+        &functions,
+        &mutable_state.routine_sources,
+        &projection_by_path,
+    )?;
+    let relaxation = relaxation_records(projections)?;
+    let relaxation_roadmap = relaxation_roadmap(&relaxation);
     let storage = storage_records(&mappings, &arguments)?;
     let concurrency_summary = concurrency_summary(&concurrency);
     let storage_summary = storage_summary(&storage);
@@ -54,8 +72,19 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
                 "schema_id":"slatec.runtime.concurrency-index",
                 "schema_version":"1.0.0",
                 "snapshot_id":snapshot,
-                "columns":["safe_path","fortran_routine","feature","concurrency_class","lock_scope","current_dispatch","callback_dispatch","nested_callback_policy","xerror_policy","native_state_evidence","mutable_global_state_record_ids","external_io_evidence","send_policy","sync_policy","relaxation_gate","review_state"],
+                "columns":["safe_path","fortran_routine","feature","concurrency_class","lock_scope","current_dispatch","callback_dispatch","nested_callback_policy","xerror_policy","native_state_evidence","mutable_global_state_record_ids","external_io_evidence","send_policy","sync_policy","relaxation_gate","review_state","rust_api_concurrency","native_routine_reentrancy","provider_runtime_thread_safety","exact_object_closure","projection_evidence"],
                 "records":concurrency,
+            }),
+        ),
+        (
+            "concurrency-relaxation-candidates.json",
+            json!({
+                "schema_id":"slatec.runtime.concurrency-relaxation-candidates",
+                "schema_version":"1.0.0",
+                "snapshot_id":snapshot,
+                "behavior_change":"none; roadmap only; global runtime lock remains unchanged",
+                "columns":["safe_function","native_entry_points","feature","current_class","outcome","best_possible_class_from_slatec_source","remaining_blockers","evidence"],
+                "records":relaxation,
             }),
         ),
         (
@@ -91,6 +120,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     }
     for (name, text) in [
         ("concurrency-audit-summary.md", concurrency_summary),
+        ("concurrency-relaxation-roadmap.md", relaxation_roadmap),
         ("storage-interoperability-summary.md", storage_summary),
     ] {
         fs::write(output_dir.join(name), text.as_bytes())?;
@@ -106,6 +136,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
 fn concurrency_records(
     functions: &[Value],
     routine_sources: &BTreeMap<String, String>,
+    projections: &BTreeMap<String, &Value>,
 ) -> Result<Vec<Value>> {
     let mut output = Vec::with_capacity(functions.len());
     for function in functions {
@@ -169,6 +200,9 @@ fn concurrency_records(
             backend_dependent,
             routine_sources.get(routine),
         );
+        let projection = projections
+            .get(safe_path)
+            .ok_or_else(|| policy("safe function lacks an exact native-state projection"))?;
         output.push(json!([
             safe_path,
             routine,
@@ -194,10 +228,87 @@ fn concurrency_records(
             },
             relaxation,
             "reviewed_policy_record",
+            projection["rust_api_concurrency"],
+            projection["native_routine_reentrancy"],
+            projection["provider_runtime_thread_safety"],
+            projection["object_closure"],
+            "generated/safe-api/per-wrapper-native-state.json",
         ]));
     }
     output.sort_by(|left, right| left[0].as_str().cmp(&right[0].as_str()));
     Ok(output)
+}
+
+fn relaxation_records(projections: &[Value]) -> Result<Vec<Value>> {
+    let mut output = Vec::with_capacity(projections.len());
+    for projection in projections {
+        let safe = string(projection, "safe_function")?;
+        let feature = string(projection, "feature")?;
+        let saved = projection["saved_mutable_locals"]
+            .as_array()
+            .is_some_and(|records| !records.is_empty());
+        let common = projection["common_blocks"]
+            .as_array()
+            .is_some_and(|records| !records.is_empty());
+        let xerror = projection["xerror_state"]
+            .as_array()
+            .is_some_and(|records| !records.is_empty());
+        let io = projection["fortran_io"]
+            .as_array()
+            .is_some_and(|records| !records.is_empty());
+        let callback = projection["callback_state"]
+            .as_array()
+            .is_some_and(|records| records.iter().any(|record| record != "none"));
+        let unresolved = projection["source_object_unresolved"]
+            .as_array()
+            .is_some_and(|records| !records.is_empty());
+        let outcome = if saved || common {
+            "not_candidate_mutable_native_state"
+        } else if io {
+            "not_candidate_fortran_io"
+        } else if xerror {
+            "not_candidate_xerror"
+        } else if callback {
+            "not_candidate_callback_runtime"
+        } else if unresolved || projection["feature_closure_mismatch"] == true {
+            "insufficient_evidence"
+        } else if feature.starts_with("blas-") || feature == "nonlinear-jacobian-check" {
+            "candidate_backend_dependent_parallel"
+        } else {
+            "candidate_parallel_safe_after_provider_audit"
+        };
+        output.push(json!([
+            safe,
+            projection["native_entry_points"],
+            feature,
+            projection["current_class"],
+            outcome,
+            projection["best_possible_class_from_slatec_source"],
+            projection["remaining_blockers"],
+            "generated/safe-api/per-wrapper-native-state.json; generated/safe-api/native-state-crosscheck.json; generated/safe-api/fortran-scanner-validation.json"
+        ]));
+    }
+    output.sort_by(|left, right| left[0].as_str().cmp(&right[0].as_str()));
+    Ok(output)
+}
+
+fn relaxation_roadmap(records: &[Value]) -> String {
+    let mut counts = BTreeMap::<&str, usize>::new();
+    for record in records {
+        *counts
+            .entry(record[4].as_str().unwrap_or("insufficient_evidence"))
+            .or_default() += 1;
+    }
+    let mut text = String::from(
+        "# Concurrency relaxation roadmap\n\nThis report changes no runtime behavior. Every hosted native wrapper remains protected by the process-wide reentrant lock, and `BackendDependent` remains a provider qualification rather than a parallel-safety promise. Independent Rust buffers and `Send` values do not prove native reentrancy.\n\n## Outcomes\n\n",
+    );
+    for (outcome, count) in counts {
+        text.push_str(&format!("- `{outcome}`: {count} wrappers\n"));
+    }
+    text.push_str(
+        "\n## Required evidence\n\nA future relaxation must have a complete logical-statement source scan, GNU Fortran oracle agreement, bidirectional source/object reconciliation, an exact retained object closure, no reachable XERROR or Fortran-I/O state, and a documented compiler/provider/runtime concurrency contract. Family locks are considered only where mutable state is proved family-local. No current record is promoted to native parallel execution.\n\nStorage layout remains orthogonal: packed storage uses `matrixpacked`, conventional rectangular storage may use standard dense crates, and exact-layout slices/views remain valid without implicit repacking or transpose. The existing LP paging and unit-lifecycle deferral is unchanged.\n",
+    );
+    text
 }
 
 fn mutable_state_ids(
@@ -1079,7 +1190,7 @@ fn concurrency_summary(records: &[Value]) -> String {
         .collect::<Vec<_>>()
         .join(", ");
     format!(
-        "# Runtime concurrency audit\n\n- Classified safe functions: {} ({rendered}).\n- `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.\n- `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.\n- The origin audit hash-verifies and scans 330 provider sources, compiles and inspects their objects plus three profile objects, records no selected-closure COMMON block, and records XERROR saved state separately.\n- `SDRIV3`/`DDRIV3` sessions remain `SerializedGlobal`: `SDSTP`/`DDSTP` emit saved writable `IER` storage, XERROR is process-global, callback dispatch is scoped, and provider/runtime reentrancy is not a public guarantee. Native stress tests observe at most one active SDRIVE foreign call.\n",
+        "# Runtime concurrency audit\n\n- Classified safe functions: {} ({rendered}).\n- `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.\n- `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.\n- Rust ownership safety, exact retained-native-closure reentrancy, and provider/runtime thread safety are separate fields; independent buffers do not prove native reentrancy.\n- The origin audit hash-verifies and scans 330 provider sources, compiles and inspects their objects plus three profile objects, records no selected-closure COMMON block, and separately preserves 172 COMMON declarations from the 1,452-file reviewed corpus. GNU Fortran parse-tree validation reports no selected-source scanner disagreement.\n- `SDRIV3`/`DDRIV3` sessions remain `SerializedGlobal`: `SDSTP`/`DDSTP` emit saved writable `IER` storage, XERROR is process-global, callback dispatch is scoped, and provider/runtime reentrancy is not a public guarantee. Cross-family native instrumentation observes at most one active hosted native lock scope.\n",
         records.len()
     )
 }
@@ -1146,6 +1257,8 @@ mod tests {
         for name in [
             "concurrency-index.json",
             "concurrency-audit-summary.md",
+            "concurrency-relaxation-candidates.json",
+            "concurrency-relaxation-roadmap.md",
             "mutable-global-state-index.json",
             "storage-contract-index.json",
             "storage-interoperability-summary.md",
@@ -1164,6 +1277,32 @@ mod tests {
             matches!(
                 record[3].as_str(),
                 Some("SerializedGlobal" | "BackendDependent")
+            )
+        }));
+        assert!(concurrency.iter().all(|record| {
+            record[16].is_string()
+                && record[17].is_string()
+                && record[18].is_string()
+                && record[19]
+                    .as_array()
+                    .is_some_and(|objects| !objects.is_empty())
+        }));
+        let candidates =
+            records(first.path().join("concurrency-relaxation-candidates.json")).unwrap();
+        assert_eq!(candidates.len(), one.function_count);
+        assert!(candidates.iter().all(|record| {
+            matches!(
+                record[4].as_str(),
+                Some(
+                    "not_candidate_mutable_native_state"
+                        | "not_candidate_xerror"
+                        | "not_candidate_callback_runtime"
+                        | "not_candidate_fortran_io"
+                        | "candidate_for_family_lock"
+                        | "candidate_backend_dependent_parallel"
+                        | "candidate_parallel_safe_after_provider_audit"
+                        | "insufficient_evidence"
+                )
             )
         }));
         let global = records(first.path().join("mutable-global-state-index.json")).unwrap();
