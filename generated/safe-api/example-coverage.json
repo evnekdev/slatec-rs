@@ -2142,6 +2142,126 @@
       "rust_path": "slatec::special::integrals::exponential_integral_ei_f32",
       "validation_case": "exponential_integral_ei_f32",
       "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "DRC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rc",
+      "validation_case": "carlson_rc",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "RC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rc_f32",
+      "validation_case": "carlson_rc_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "DRD",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rd",
+      "validation_case": "carlson_rd",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "RD",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rd_f32",
+      "validation_case": "carlson_rd_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "DRF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rf",
+      "validation_case": "carlson_rf",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "RF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rf_f32",
+      "validation_case": "carlson_rf_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "DRJ",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rj",
+      "validation_case": "carlson_rj",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "elliptic",
+      "example_file": "examples/special/elliptic.rs",
+      "fortran_routine": "RJ",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::carlson_rj_f32",
+      "validation_case": "carlson_rj_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scalar-expanded-integrals",
+      "example_file": "examples/special/integrals.rs",
+      "fortran_routine": "DLI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::logarithmic_integral",
+      "validation_case": "logarithmic_integral",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scalar-expanded-integrals",
+      "example_file": "examples/special/integrals.rs",
+      "fortran_routine": "ALI",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::logarithmic_integral_f32",
+      "validation_case": "logarithmic_integral_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scalar-expanded-integrals",
+      "example_file": "examples/special/integrals.rs",
+      "fortran_routine": "DSPENC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::spence_integral",
+      "validation_case": "spence_integral",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scalar-expanded-integrals",
+      "example_file": "examples/special/integrals.rs",
+      "fortran_routine": "SPENC",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::special::scalar_expanded::spence_integral_f32",
+      "validation_case": "spence_integral_f32",
+      "validation_file": "crates/slatec/tests/special_functions_native.rs"
     }
   ]
 }

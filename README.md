@@ -65,6 +65,11 @@ limited to that validated GNU MinGW profile, and serializes its FNLIB calls
 where legacy saved/error state is process-global. See
 [`docs/api/safe-special-functions.md`](docs/api/safe-special-functions.md) for
 the supported families, native setup, and domain/error boundary.
+The separate `special-scalar-expanded` feature adds reviewed real scalar
+logarithmic and Spence integrals plus Carlson `RC`/`RF`/`RD`/`RJ` elliptic
+integrals in both precisions. It remains process-serialized because the native
+closure uses saved initialization and XERROR; complex, sequence, workspace,
+and translated implementations remain excluded.
 
 The callback-bearing safe API covers focused QUADPACK integration through
 `QAG`, `QAGS`, `QAGI`, `QAWC`, `QAGP`, `QAWS`, `QAWO`, `QAWF`, `QNG`, and

@@ -15,7 +15,7 @@ for other compilers or targets.
 Enable the family features deliberately:
 
 ```toml
-slatec = { version = "0.1", features = ["special-functions", "special-functions-f32", "special-functions-polynomials"] }
+slatec = { version = "0.1", features = ["std", "source-build", "special-functions", "special-functions-f32", "special-functions-polynomials"] }
 ```
 
 Native applications explicitly select `source-build`, `system`, or
@@ -71,6 +71,14 @@ f32 pairs for:
 - exponential integrals: `e1` and `ei`; and
 - a coefficient-slice Chebyshev series evaluator under `slatec::polynomials`.
 
+The hosted `special-scalar-expanded` feature adds f32/f64 logarithmic
+integrals (`ALI`/`DLI`), Spence integrals (`SPENC`/`DSPENC`), and Carlson
+symmetric elliptic integrals `RC`, `RF`, `RD`, and `RJ`. It is a distinct
+feature because it adds a separately reviewed source closure. Carlson wrappers
+preserve the native `IER` status as `SpecialFunctionError::NativeStatus` after
+scoped XERROR restoration; they never return an invalid native result as a
+successful scalar.
+
 The f64 function names are unqualified; f32 variants have an `_f32` suffix.
 The exact inclusion/deferment inventory lives in
 [`generated/safe-api/special-function-wrapper-index.json`](../../generated/safe-api/special-function-wrapper-index.json)
@@ -86,6 +94,10 @@ The wrappers deliberately use conservative validated domains. For example,
 the exposed K Bessel forms require a positive argument. Other valid-domain
 restrictions are recorded per wrapper in the generated inventory. Scaled forms
 are named explicitly; they must not be confused with their unscaled analogue.
+`logarithmic_integral` rejects `x <= 0`, `x = 1`, and values outside the
+reviewed `Ei(log(x))` envelope. `spence_integral` accepts finite real inputs.
+Carlson arguments use their documented nonnegative/positive real domains;
+machine-range limits are reported by native `IER` rather than guessed in Rust.
 
 ```rust,no_run
 use slatec::special::{airy, bessel, elementary, error_functions, gamma};
@@ -97,6 +109,12 @@ assert_eq!(bessel::bessel_j0(0.0)?, 1.0);
 assert!(airy::airy_ai(0.0)?.is_finite());
 # Ok::<(), slatec::special::SpecialFunctionError>(())
 ```
+
+For the newly reviewed families see
+[`examples/special/integrals.rs`](../../examples/special/integrals.rs),
+[`examples/special/elliptic.rs`](../../examples/special/elliptic.rs), and the
+[candidate audit](../domains/special-functions-audit.md). They allocate no
+workspace, expose no complex ABI, and add no ecosystem dependency.
 
 No wrapper here replaces the original algorithm, configures the public legacy
 error system, or guarantees behaviour outside the supported native profile.

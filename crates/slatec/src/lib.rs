@@ -76,7 +76,8 @@ pub mod blas;
     feature = "special-error",
     feature = "special-airy",
     feature = "special-bessel",
-    feature = "special-integrals"
+    feature = "special-integrals",
+    feature = "special-scalar-expanded"
 ))]
 pub mod special;
 
@@ -93,6 +94,7 @@ pub mod polynomials;
     feature = "special-airy",
     feature = "special-bessel",
     feature = "special-integrals",
+    feature = "special-scalar-expanded",
     feature = "quadrature-basic",
     feature = "quadrature-breakpoints",
     feature = "quadrature-weighted",

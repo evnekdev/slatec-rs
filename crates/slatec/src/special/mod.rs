@@ -25,5 +25,7 @@ pub mod error_functions;
 pub mod gamma;
 #[cfg(feature = "special-integrals")]
 pub mod integrals;
+#[cfg(feature = "special-scalar-expanded")]
+pub mod scalar_expanded;
 
 pub use error::SpecialFunctionError;
