@@ -28,4 +28,11 @@ sessions over original `SDRIV3`/`DDRIV3`. Its first scope has only a
 panic-contained RHS callback and same-direction continuation; event roots,
 Jacobians, mass matrices, DAEs, and interpolation are deliberately deferred.
 
+Native concurrency is conservative. APIs that use the hosted legacy runtime
+are process-serialized; the existing `no_std`/`alloc` BLAS and Jacobian-check
+features remain backend-dependent and do not promise parallel native safety.
+Matrix and vector storage is passed only under each function's documented
+Fortran layout contract, with no implicit repacking or transposition. See the
+repository [runtime concurrency and storage policy](../../docs/architecture/runtime-concurrency-and-storage-policy.md).
+
 Native implementations are selected explicitly with `prebuilt`, `source-build`, `system`, or `external-backend`. No redistributable prebuilt provider is currently available because historical source rights remain unresolved.

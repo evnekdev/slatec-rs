@@ -480,7 +480,7 @@ fn run_f64(
     let mut norm = 0.0;
     let mut mode = 0;
     let _lock = crate::runtime::lock_native();
-    let _errors = crate::runtime::permit_recoverable_least_squares_statuses();
+    let _errors = crate::runtime::permit_recoverable_native_statuses();
     // SAFETY: all scalar dimensions fit the reviewed GNU Fortran INTEGER ABI;
     // W(MDW,NCOLS+1), bound arrays, IOPT, X, RW=5*NCOLS, and IW=2*NCOLS are
     // owned, initialized, correctly sized, and nonaliasing. The held runtime
@@ -518,7 +518,7 @@ fn run_f32(
     let mut norm = 0.0_f32;
     let mut mode = 0;
     let _lock = crate::runtime::lock_native();
-    let _errors = crate::runtime::permit_recoverable_least_squares_statuses();
+    let _errors = crate::runtime::permit_recoverable_native_statuses();
     // SAFETY: f32 counterpart of run_f64. All reviewed native arrays are
     // owned, initialized, correctly sized, nonaliasing, and protected by the
     // process-global runtime/XERROR scope.

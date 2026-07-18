@@ -90,14 +90,13 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
     NATIVE_RUNTIME_LOCK.lock()
 }
 
-/// Temporarily makes the reviewed legacy level-one completion messages return.
+/// Temporarily makes reviewed legacy level-one completion messages return.
 ///
-/// The `DNLS1`/`SNLS1` implementation reports its INFO values 4 through 8
-/// through level-one `XERMSG` after it has written a final iterate. The easy
-/// drivers translate 8 to 4 before returning. The validated profile's default
-/// error policy terminates at level one, so least-squares wrappers apply this
-/// scope only while the process-global native runtime lock is held and restore
-/// the prior `XSETF` control value before returning to Rust.
+/// Reviewed native drivers can report nonfatal completion states through
+/// level-one `XERMSG` after writing a final state. The validated profile's
+/// default error policy terminates at level one, so the wrappers listed below
+/// apply this scope only while the process-global native runtime lock is held
+/// and restore the prior `XSETF` control value before returning to Rust.
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
@@ -107,7 +106,7 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
     feature = "least-squares-linear-bounded-constrained",
     feature = "ode-sdrive-expert"
 ))]
-pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorScope {
+pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
     let mut previous = 0;
     // SAFETY: these reviewed XERROR controls take one valid INTEGER pointer.
     // The caller holds the shared process-global native runtime lock.
@@ -119,13 +118,7 @@ pub(crate) fn permit_recoverable_least_squares_statuses() -> RecoverableErrorSco
     RecoverableErrorScope { previous }
 }
 
-/// Temporarily permits the reviewed recoverable SDRIVE completion messages.
-#[cfg(feature = "ode-sdrive-expert")]
-pub(crate) fn permit_recoverable_ode_statuses() -> RecoverableErrorScope {
-    permit_recoverable_least_squares_statuses()
-}
-
-/// Restores the prior XERROR control flag after a scoped least-squares call.
+/// Restores the prior XERROR control flag after a scoped native call.
 #[cfg(any(
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",

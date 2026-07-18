@@ -2,7 +2,7 @@
 //!
 //! This module intentionally emits no wrapper, raw-FFI, provider, feature, or
 //! source-closure record. Its output preserves the audit decision that the
-//! original drivers' mandatory external paging protocol cannot provide the
+//! original drivers' conditional external paging protocol cannot provide the
 //! safe ownership and recovery guarantees required by this crate.
 
 use std::collections::BTreeMap;
@@ -111,7 +111,7 @@ pub fn generate(
         ),
         (
             "linear-programming-deferred.json",
-            json!({"schema_id":"slatec.safe-linear-programming.deferred","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["item","role","reason","review_state"],"records":[["DSPLP","f64_sparse_linear_programming_driver","mandatory_DPRWVR_to_SOPENM_SCLOSM_global_direct_access_file_has_no_safe_ownership_cleanup_or_reliable_io_failure_protocol","reviewed_and_deferred"],["SPLP","f32_sparse_linear_programming_driver","mandatory_PRWVIR_to_SOPENM_SCLOSM_global_direct_access_file_has_no_safe_ownership_cleanup_or_reliable_io_failure_protocol","reviewed_and_deferred"],["optimization-linear-programming_feature","public_capability","no_safe_driver_is_available_so_no_feature_or_provider_closure_is_advertised","deferred"],["native_io_shim","substitution","explicitly_not_implemented_to_preserve_the_reviewed_original_source_contract","deferred"]]}),
+            json!({"schema_id":"slatec.safe-linear-programming.deferred","schema_version":"1.1.0","snapshot_id":snapshot,"columns":["item","role","reason","review_state"],"records":[["DSPLP","f64_sparse_linear_programming_driver","conditional_DPRWVR_paging_uses_a_global_Fortran_unit_without_a_safe_lifecycle_or_failure_recovery_contract","reviewed_and_deferred"],["SPLP","f32_sparse_linear_programming_driver","conditional_PRWVIR_paging_uses_a_global_Fortran_unit_without_a_safe_lifecycle_or_failure_recovery_contract","reviewed_and_deferred"],["optimization-linear-programming_feature","public_capability","no_safe_driver_is_available_so_no_feature_or_provider_closure_is_advertised","deferred"],["native_io_shim","substitution","explicitly_not_implemented_to_preserve_the_reviewed_original_source_contract","deferred"]]}),
         ),
     ];
     fs::create_dir_all(output_dir)?;
@@ -122,7 +122,7 @@ pub fn generate(
         bytes.extend_from_slice(&encoded);
     }
     let summary = format!(
-        "# Reviewed but deferred SLATEC linear programming\n\n- Snapshot: `{snapshot}`.\n- Candidates: `SPLP` (f32) and `DSPLP` (f64); neither has a raw declaration, provider feature, source closure, safe wrapper, or example.\n- Model: minimize `c^T x` subject to `A x = w`, with `IND`-encoded lower, upper, two-sided/fixed, or free bounds on both `x` and the row activities `w`.\n- Sparse protocol: `USRMT`/`DUSRMT` is a one-based external callback protocol, not a modern owned sparse-matrix ABI.\n- Blocking dependency: the single path uses `PRWVIR -> SOPENM/SCLOSM`; the double path uses `DPRWVR -> SOPENM/SCLOSM`. They open a process-global direct-access Fortran unit and close it with `STATUS='KEEP'`.\n- Decision: a runtime lock can serialize access, but cannot give Rust filename ownership, deterministic cleanup, or a reliable post-I/O-failure native state. No native I/O shim is substituted.\n"
+        "# Reviewed but deferred SLATEC linear programming\n\n- Snapshot: `{snapshot}`.\n- Candidates: `SPLP` (f32) and `DSPLP` (f64); neither has a raw declaration, provider feature, source closure, safe wrapper, or example.\n- Model: minimize `c^T x` subject to `A x = w`, with `IND`-encoded lower, upper, two-sided/fixed, or free bounds on both `x` and the row activities `w`.\n- Sparse protocol: `USRMT`/`DUSRMT` is a one-based external callback protocol, not a modern owned sparse-matrix ABI.\n- Conditional paging: the single path uses `PRWVIR` and the double path uses `DPRWVR`. Their `SOPENM` call occurs when the first page is written; the package documents activation only for save/restore or when the matrix exceeds high-speed storage. The caller is not required to pre-open unit 1. Option 54 chooses its global Fortran unit; `SCLOSM` is option-controlled and closes with `STATUS='KEEP'`.\n- Decision: a runtime lock can serialize access, but cannot provide a safe unit lifecycle, deterministic deletion, or a reliable post-I/O-failure native state. No native I/O shim is substituted.\n"
     );
     fs::write(
         output_dir.join("linear-programming-validation-summary.md"),

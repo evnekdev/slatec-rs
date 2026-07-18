@@ -597,7 +597,7 @@ fn run_f64(
     let mut objective_norm = 0.0;
     let mut mode = 0;
     let _lock = crate::runtime::lock_native();
-    let _errors = crate::runtime::permit_recoverable_least_squares_statuses();
+    let _errors = crate::runtime::permit_recoverable_native_statuses();
     // SAFETY: all scalar dimensions use the reviewed GNU Fortran INTEGER ABI;
     // W(MDW,N+1), PRGOPT, X, WS, and IP are owned, initialized, nonaliasing,
     // and sized by the exact LSEI formula. The shared runtime lock and RAII
@@ -650,7 +650,7 @@ fn run_f32(
     let mut objective_norm = 0.0_f32;
     let mut mode = 0;
     let _lock = crate::runtime::lock_native();
-    let _errors = crate::runtime::permit_recoverable_least_squares_statuses();
+    let _errors = crate::runtime::permit_recoverable_native_statuses();
     // SAFETY: f32 counterpart of run_f64. All LSEI arrays are owned,
     // initialized, exactly sized, nonaliasing, and guarded by the shared
     // native-runtime lock and restoring XERROR scope.

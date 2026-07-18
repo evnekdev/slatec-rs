@@ -441,7 +441,7 @@ where
         residual_callback,
         jacobian_callback,
         |callback: ExpertLeastSquaresF64Callback| {
-            let _error_scope = crate::runtime::permit_recoverable_least_squares_statuses();
+            let _error_scope = crate::runtime::permit_recoverable_native_statuses();
             // SAFETY: M, N, LDFJAC=M and all exact native arrays are checked;
             // the scoped callback validates residual/Jacobian pointers and
             // dimensions; NPRINT=0; and the selected GNU MinGW profile owns
@@ -559,7 +559,7 @@ where
         residual_callback,
         jacobian_callback,
         |callback: ExpertLeastSquaresF32Callback| {
-            let _error_scope = crate::runtime::permit_recoverable_least_squares_statuses();
+            let _error_scope = crate::runtime::permit_recoverable_native_statuses();
             // SAFETY: f32 equivalent of the fully checked DNLS1 call above,
             // using the reviewed SNLS1 ABI and exact M-by-N FJAC allocation.
             unsafe {

@@ -584,7 +584,7 @@ fn run_f64(
     let mut objective_norm = 0.0;
     let mut mode = 0;
     let _lock = crate::runtime::lock_native();
-    let _errors = crate::runtime::permit_recoverable_least_squares_statuses();
+    let _errors = crate::runtime::permit_recoverable_native_statuses();
     // SAFETY: every native dimension and exact reviewed storage formula was
     // checked; W, BL, BU, IND, IOPT, X, RW, and IW are initialized, owned,
     // nonaliasing allocations. The shared lock and RAII XERROR scope protect
@@ -631,7 +631,7 @@ fn run_f32(
     let mut objective_norm = 0.0_f32;
     let mut mode = 0;
     let _lock = crate::runtime::lock_native();
-    let _errors = crate::runtime::permit_recoverable_least_squares_statuses();
+    let _errors = crate::runtime::permit_recoverable_native_statuses();
     // SAFETY: f32 counterpart of run_f64. All reviewed native arrays are
     // owned, initialized, correctly sized, nonaliasing, and protected by the
     // process-global runtime and scoped XERROR restoration guard.

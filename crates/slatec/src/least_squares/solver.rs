@@ -247,7 +247,7 @@ where
         residual_count,
         function,
         |callback: LeastSquaresF64Callback| {
-            let _error_scope = crate::runtime::permit_recoverable_least_squares_statuses();
+            let _error_scope = crate::runtime::permit_recoverable_native_statuses();
             // SAFETY: checked M, N, and LWA match the reviewed `DNLS1E`
             // IOPT=1 formula; parameter/residual/workspace pointers remain
             // valid for the call; the callback is scoped and panic-contained;
@@ -313,7 +313,7 @@ where
         residual_count,
         function,
         |callback: LeastSquaresF32Callback| {
-            let _error_scope = crate::runtime::permit_recoverable_least_squares_statuses();
+            let _error_scope = crate::runtime::permit_recoverable_native_statuses();
             // SAFETY: see run_f64; this calls the reviewed single-precision
             // `SNLS1E` ABI with the same checked IOPT=1 workspace formula.
             unsafe {

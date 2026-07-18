@@ -34,6 +34,20 @@ root wrapper is exposed until its interface validation gate is cleared.
 The Rust API can therefore be `no_std` compatible while the selected native
 backend remains hosted. No bare-metal execution has been validated.
 
+## Concurrency and storage policy
+
+Hosted safe wrappers that enter legacy SLATEC runtime state are serialized by a
+process-wide runtime guard. Existing `no_std`/`alloc` BLAS and Jacobian-check
+features intentionally do not acquire that hosted guard; they are classified
+as `BackendDependent`, not thread-safe. The classification is per safe
+function in [`generated/safe-api/concurrency-index.json`](../../generated/safe-api/concurrency-index.json).
+
+Every native argument has an explicit storage record. The core API does not
+silently transpose, repack, densify, or materialize strided matrix data. Any
+future ecosystem adapter must be optional and verify the exact native layout,
+mutability, and leading-dimension rules. See the
+[runtime concurrency and storage policy](../architecture/runtime-concurrency-and-storage-policy.md).
+
 ## Backends and offline policy
 
 Exactly one backend must be selected whenever a numerical family is enabled.
