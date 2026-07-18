@@ -2441,11 +2441,11 @@
       "precision": "f64",
       "purpose": "validated scalar numerical function",
       "capability": "std",
-      "feature": "special-elementary",
+      "feature": "special-gamma",
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/special/gamma/fn.binomial_coefficient.html",
       "example_file": "examples/special/functions.rs",
-      "example_case": "elementary",
+      "example_case": "gamma",
       "inclusion_status": "safe_api_available"
     },
     {
@@ -2456,11 +2456,11 @@
       "precision": "f32",
       "purpose": "validated scalar numerical function",
       "capability": "std",
-      "feature": "special-elementary",
+      "feature": "special-gamma",
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/special/gamma/fn.binomial_coefficient_f32.html",
       "example_file": "examples/special/functions.rs",
-      "example_case": "elementary",
+      "example_case": "gamma",
       "inclusion_status": "safe_api_available"
     },
     {
@@ -2501,11 +2501,11 @@
       "precision": "f64",
       "purpose": "validated scalar numerical function",
       "capability": "std",
-      "feature": "special-elementary",
+      "feature": "special-gamma",
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/special/gamma/fn.factorial.html",
       "example_file": "examples/special/functions.rs",
-      "example_case": "elementary",
+      "example_case": "gamma",
       "inclusion_status": "safe_api_available"
     },
     {
@@ -2516,11 +2516,11 @@
       "precision": "f32",
       "purpose": "validated scalar numerical function",
       "capability": "std",
-      "feature": "special-elementary",
+      "feature": "special-gamma",
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/special/gamma/fn.factorial_f32.html",
       "example_file": "examples/special/functions.rs",
-      "example_case": "elementary",
+      "example_case": "gamma",
       "inclusion_status": "safe_api_available"
     },
     {

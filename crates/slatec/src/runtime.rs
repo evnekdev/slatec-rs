@@ -105,6 +105,12 @@ static ACTIVE_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
 static MAX_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
 #[cfg(feature = "native-serialization-tests")]
 static NESTED_SAME_THREAD_ENTRIES: AtomicUsize = AtomicUsize::new(0);
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+static ACTIVE_BLAS1_NATIVE_CALLS: AtomicUsize = AtomicUsize::new(0);
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+static MAX_BLAS1_NATIVE_CALLS: AtomicUsize = AtomicUsize::new(0);
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+static BLAS1_HOSTED_OVERLAPS: AtomicUsize = AtomicUsize::new(0);
 
 #[cfg(feature = "native-serialization-tests")]
 fn hosted_native_scope_enter() {
@@ -152,6 +158,48 @@ pub(crate) fn hosted_native_call_audit() -> (usize, usize, usize, bool, Option<s
         NESTED_SAME_THREAD_ENTRIES.load(Ordering::SeqCst),
         state.owner.is_some(),
         state.owner.as_ref().map(|owner| std::format!("{owner:?}")),
+    )
+}
+
+/// Test-only scope around an exact qualified BLAS Level 1 foreign call.
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+pub(crate) struct Blas1NativeCallAudit;
+
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+impl Blas1NativeCallAudit {
+    pub(crate) fn enter() -> Self {
+        let active = ACTIVE_BLAS1_NATIVE_CALLS.fetch_add(1, Ordering::SeqCst) + 1;
+        MAX_BLAS1_NATIVE_CALLS.fetch_max(active, Ordering::SeqCst);
+        if ACTIVE_HOSTED_NATIVE_SCOPES.load(Ordering::SeqCst) > 0 {
+            BLAS1_HOSTED_OVERLAPS.fetch_add(1, Ordering::SeqCst);
+        }
+        Self
+    }
+}
+
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+impl Drop for Blas1NativeCallAudit {
+    fn drop(&mut self) {
+        let previous = ACTIVE_BLAS1_NATIVE_CALLS.fetch_sub(1, Ordering::SeqCst);
+        debug_assert!(previous > 0, "BLAS Level 1 native-call audit underflowed");
+    }
+}
+
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+pub(crate) fn reset_blas1_native_call_audit() {
+    let _runtime = lock_native();
+    debug_assert_eq!(ACTIVE_BLAS1_NATIVE_CALLS.load(Ordering::SeqCst), 0);
+    ACTIVE_BLAS1_NATIVE_CALLS.store(0, Ordering::SeqCst);
+    MAX_BLAS1_NATIVE_CALLS.store(0, Ordering::SeqCst);
+    BLAS1_HOSTED_OVERLAPS.store(0, Ordering::SeqCst);
+}
+
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+pub(crate) fn blas1_native_call_audit() -> (usize, usize, usize) {
+    (
+        ACTIVE_BLAS1_NATIVE_CALLS.load(Ordering::SeqCst),
+        MAX_BLAS1_NATIVE_CALLS.load(Ordering::SeqCst),
+        BLAS1_HOSTED_OVERLAPS.load(Ordering::SeqCst),
     )
 }
 

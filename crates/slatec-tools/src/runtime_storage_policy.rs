@@ -72,7 +72,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
                 "schema_id":"slatec.runtime.concurrency-index",
                 "schema_version":"1.0.0",
                 "snapshot_id":snapshot,
-                "columns":["safe_path","fortran_routine","feature","concurrency_class","lock_scope","current_dispatch","callback_dispatch","nested_callback_policy","xerror_policy","native_state_evidence","mutable_global_state_record_ids","external_io_evidence","send_policy","sync_policy","relaxation_gate","review_state","rust_api_concurrency","native_routine_reentrancy","provider_runtime_thread_safety","exact_object_closure","projection_evidence"],
+                "columns":["safe_path","fortran_routine","feature","concurrency_class","lock_scope","current_dispatch","callback_dispatch","nested_callback_policy","xerror_policy","native_state_evidence","mutable_global_state_record_ids","external_io_evidence","send_policy","sync_policy","relaxation_gate","review_state","rust_api_concurrency","native_routine_reentrancy","provider_runtime_thread_safety","exact_object_closure","projection_evidence","backend_concurrency_evidence"],
                 "records":concurrency,
             }),
         ),
@@ -126,6 +126,8 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         fs::write(output_dir.join(name), text.as_bytes())?;
         semantic.extend_from_slice(text.as_bytes());
     }
+    let blas1 = crate::blas1_concurrency::generate(output_dir)?;
+    semantic.extend_from_slice(blas1.semantic_hash.as_bytes());
 
     Ok(ResultSummary {
         function_count: functions.len(),
@@ -233,6 +235,11 @@ fn concurrency_records(
             projection["provider_runtime_thread_safety"],
             projection["object_closure"],
             "generated/safe-api/per-wrapper-native-state.json",
+            if is_qualified_blas1_candidate(feature, routine) {
+                "generated/safe-api/backend-concurrency-index.json: ParallelSafe only for source-build-gnu-mingw-reviewed; system/external/unknown remain BackendDependent"
+            } else {
+                "not_in_BLAS_Level_1_backend_qualification_scope"
+            },
         ]));
     }
     output.sort_by(|left, right| left[0].as_str().cmp(&right[0].as_str()));
@@ -306,9 +313,30 @@ fn relaxation_roadmap(records: &[Value]) -> String {
         text.push_str(&format!("- `{outcome}`: {count} wrappers\n"));
     }
     text.push_str(
-        "\n## Required evidence\n\nA future relaxation must have a complete logical-statement source scan, GNU Fortran oracle agreement, bidirectional source/object reconciliation, an exact retained object closure, no reachable XERROR or Fortran-I/O state, and a documented compiler/provider/runtime concurrency contract. Family locks are considered only where mutable state is proved family-local. No current record is promoted to native parallel execution.\n\nStorage layout remains orthogonal: packed storage uses `matrixpacked`, conventional rectangular storage may use standard dense crates, and exact-layout slices/views remain valid without implicit repacking or transpose. The existing LP paging and unit-lifecycle deferral is unchanged.\n",
+        "\n## Required evidence\n\nThe 28 BLAS Level 1 records are now qualified `ParallelSafe` only for the exact hash-verified `source-build-gnu-mingw-reviewed` backend and only for independent calls with non-overlapping mutable storage. Their existing direct, `core`-capable dispatch is unchanged. System archives, external linkage, named-but-unselected vendor libraries, and unknown providers remain `BackendDependent`. Every callback, XERROR, ODE, and solver family retains process-global serialization.\n\nAny other future relaxation must have a complete logical-statement source scan, GNU Fortran oracle agreement, bidirectional source/object reconciliation, an exact retained object closure, no reachable XERROR or Fortran-I/O state, and a documented compiler/provider/runtime concurrency contract. Family locks are considered only where mutable state is proved family-local.\n\nStorage layout remains orthogonal: packed storage uses `matrixpacked`, conventional rectangular storage may use standard dense crates, and exact-layout slices/views remain valid without implicit repacking or transpose. The existing LP paging and unit-lifecycle deferral is unchanged.\n",
     );
     text
+}
+
+fn is_qualified_blas1_candidate(feature: &str, routine: &str) -> bool {
+    feature == "blas-level1"
+        && matches!(
+            routine,
+            "SASUM"
+                | "DASUM"
+                | "SAXPY"
+                | "DAXPY"
+                | "SCOPY"
+                | "DCOPY"
+                | "SDOT"
+                | "DDOT"
+                | "SSCAL"
+                | "DSCAL"
+                | "SSWAP"
+                | "DSWAP"
+                | "ISAMAX"
+                | "IDAMAX"
+        )
 }
 
 fn mutable_state_ids(
@@ -1259,6 +1287,11 @@ mod tests {
             "concurrency-audit-summary.md",
             "concurrency-relaxation-candidates.json",
             "concurrency-relaxation-roadmap.md",
+            "function-family-ownership.json",
+            "backend-concurrency-index.json",
+            "blas1-concurrency-evidence.json",
+            "blas1-provider-qualification.json",
+            "blas1-concurrency-audit-summary.md",
             "mutable-global-state-index.json",
             "storage-contract-index.json",
             "storage-interoperability-summary.md",

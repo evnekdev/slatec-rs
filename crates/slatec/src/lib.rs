@@ -142,6 +142,41 @@ pub mod native_serialization_test_support {
     }
 }
 
+/// Test-only observations surrounding exact qualified BLAS Level 1 FFI calls.
+///
+/// This module is available only to the reviewed source-backend concurrency
+/// test profile. It does not alter production dispatch or provider claims.
+#[cfg(feature = "blas-level1-concurrency-native-tests")]
+#[doc(hidden)]
+pub mod blas1_concurrency_test_support {
+    /// A point-in-time observation of candidate native-call overlap.
+    #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+    pub struct Snapshot {
+        /// Candidate BLAS native calls currently active.
+        pub active: usize,
+        /// Maximum simultaneous candidate BLAS native calls since reset.
+        pub maximum_active: usize,
+        /// Candidate entries observed while a hosted exclusive scope was active.
+        pub hosted_overlaps: usize,
+    }
+
+    /// Resets candidate native-call counters while no hosted solver can enter.
+    pub fn reset() {
+        crate::runtime::reset_blas1_native_call_audit();
+    }
+
+    /// Returns the current test-only candidate overlap observation.
+    #[must_use]
+    pub fn snapshot() -> Snapshot {
+        let (active, maximum_active, hosted_overlaps) = crate::runtime::blas1_native_call_audit();
+        Snapshot {
+            active,
+            maximum_active,
+            hosted_overlaps,
+        }
+    }
+}
+
 #[cfg(any(
     feature = "quadrature-basic",
     feature = "quadrature-breakpoints",

@@ -329,14 +329,14 @@ const WRAPPERS: &[WrapperSpec] = &[
     spec!(
         "DFAC",
         "slatec::special::gamma::factorial",
-        "elementary",
+        "gamma",
         "f64",
         "fully_prechecked"
     ),
     spec!(
         "DBINOM",
         "slatec::special::gamma::binomial_coefficient",
-        "elementary",
+        "gamma",
         "f64",
         "fully_prechecked"
     ),
@@ -415,14 +415,14 @@ const WRAPPERS: &[WrapperSpec] = &[
     spec!(
         "FAC",
         "slatec::special::gamma::factorial_f32",
-        "elementary",
+        "gamma",
         "f32",
         "fully_prechecked"
     ),
     spec!(
         "BINOM",
         "slatec::special::gamma::binomial_coefficient_f32",
-        "elementary",
+        "gamma",
         "f32",
         "fully_prechecked"
     ),

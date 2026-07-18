@@ -63,6 +63,11 @@ fn safe_api_metadata_is_compact_and_contains_no_source_text() {
         "example-coverage.json",
         "capability-summary.json",
         "function-index.md",
+        "function-family-ownership.json",
+        "backend-concurrency-index.json",
+        "blas1-concurrency-evidence.json",
+        "blas1-provider-qualification.json",
+        "blas1-concurrency-audit-summary.md",
     ] {
         let contents = std::fs::read(metadata_path(name)).expect("safe API documentation metadata");
         assert!(

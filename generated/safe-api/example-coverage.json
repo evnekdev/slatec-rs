@@ -1625,7 +1625,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "elementary",
+      "example_case": "gamma",
       "example_file": "examples/special/functions.rs",
       "fortran_routine": "DBINOM",
       "native_execution_status": "native_execution_passed",
@@ -1635,7 +1635,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "elementary",
+      "example_case": "gamma",
       "example_file": "examples/special/functions.rs",
       "fortran_routine": "BINOM",
       "native_execution_status": "native_execution_passed",
@@ -1665,7 +1665,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "elementary",
+      "example_case": "gamma",
       "example_file": "examples/special/functions.rs",
       "fortran_routine": "DFAC",
       "native_execution_status": "native_execution_passed",
@@ -1675,7 +1675,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "elementary",
+      "example_case": "gamma",
       "example_file": "examples/special/functions.rs",
       "fortran_routine": "FAC",
       "native_execution_status": "native_execution_passed",

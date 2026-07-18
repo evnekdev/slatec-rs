@@ -66,3 +66,45 @@ express the safe API's aliasing contract.
 The safe complex API is intentionally deferred. `slatec-sys` layout records
 are not exposed as preferred public complex types, and no complex return ABI is
 assumed by this module.
+
+## Backend-qualified concurrency
+
+Concurrency is an implementation-specific claim, not a consequence of the
+BLAS name. The exact hash-verified GNU MinGW `source-build` objects for
+`ASUM`, `AXPY`, `COPY`, `DOT`, `SCAL`, `SWAP`, and `I?AMAX` have single-object
+closures with no writable static symbols, transitive calls, COMMON, XERROR,
+Fortran I/O, or callbacks. Under the recorded production compiler flags,
+ordinary locals are automatic. High-contention tests observe simultaneous
+entry into those exact native routines. Therefore their contiguous and
+strided wrappers are classified `ParallelSafe` for that backend only, with
+this qualification:
+
+> Independent calls with non-overlapping mutable storage may execute
+> concurrently.
+
+Read-only inputs may be shared. Safe Rust borrowing prevents one call from
+constructing overlapping mutable slices; unsafe aliases created elsewhere are
+outside this contract. Positive and negative nonzero increments are supported,
+zero increments are rejected, and zero-length operations return before FFI.
+
+`SNRM2`/`DNRM2` and `SROT`/`DROT` remain excluded because their selected
+objects contain saved writable state. The `system` and `external-backend`
+profiles cannot identify or version the user-supplied provider, so they remain
+`BackendDependent`; the same applies to unqualified OpenBLAS, MKL, BLIS,
+Accelerate, separately built Netlib BLAS, and unknown providers. The reviewed
+Netlib/SLATEC loops are single-threaded, while external providers may use
+worker threads or process-global thread controls. `slatec-rs` does not change
+provider thread counts, and `ParallelSafe` is not a performance or
+oversubscription recommendation.
+
+The conservative provider records link to the vendors' own threading material:
+[OpenBLAS controls](https://github.com/OpenMathLib/OpenBLAS#setting-the-number-of-threads-using-environment-variables),
+[oneMKL threading control](https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2024-2/threading-control.html),
+[BLIS multithreading](https://github.com/flame/blis/blob/master/docs/Multithreading.md),
+and [Accelerate BLAS threading](https://developer.apple.com/documentation/accelerate/blas_threading).
+These links explain why provider-internal behavior varies; they do not qualify
+any provider under the project's unidentified external profiles.
+
+Production dispatch is unchanged. These `core`-capable BLAS wrappers continue
+to call their selected provider directly. ODE, callback, XERROR, and solver
+families retain the process-wide native runtime lock.

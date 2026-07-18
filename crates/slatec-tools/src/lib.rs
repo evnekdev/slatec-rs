@@ -2,6 +2,7 @@
 
 pub mod acquire;
 pub mod archive;
+pub mod blas1_concurrency;
 pub mod complete_corpus;
 pub mod diagnostics;
 pub mod error;
