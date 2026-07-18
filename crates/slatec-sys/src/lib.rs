@@ -56,9 +56,14 @@ pub mod generated;
     feature = "raw-family-special-airy",
     feature = "raw-family-special-bessel",
     feature = "raw-family-special-integrals",
-    feature = "raw-family-special-polynomials"
+    feature = "raw-family-special-polynomials",
+    feature = "raw-family-fftpack-real"
 ))]
 pub mod families;
+
+/// Hand-reviewed real FFTPACK declarations for the plan-based safe API.
+#[cfg(feature = "raw-family-fftpack-real")]
+pub mod fftpack;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///

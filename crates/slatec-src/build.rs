@@ -36,6 +36,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
         "OPTIMIZATION_LINEAR_PROGRAMMING_IN_MEMORY",
         "optimization-linear-programming-in-memory",
     ),
+    ("FFTPACK_REAL", "fftpack-real"),
     (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
@@ -99,6 +100,7 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/ode-sdrive-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
     let families = enabled_families();
@@ -197,6 +199,7 @@ fn build_sources(families: &BTreeSet<String>) {
             "optimization-linear-programming-in-memory",
             "lp-in-memory-source-closure.json",
         ),
+        ("fftpack-real", "fftpack-real-source-closure.json"),
     ] {
         if families.contains(family) && !manifest.families.contains_key(family) {
             apply_family_overlay(&mut manifest, family, file);

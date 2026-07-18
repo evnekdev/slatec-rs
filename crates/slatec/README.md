@@ -36,6 +36,13 @@ row multipliers and reduced costs, and independently recomputed KKT
 diagnostics; reviewed controls are limited to iteration count, feasibility
 tolerances, and pricing.
 
+The hosted `fftpack-real` feature provides reusable `f32` plans over the
+reviewed real FFTPACK families: periodic packed real FFT, easy Fourier series,
+full sine/cosine, and quarter-wave sine/cosine transforms. Each plan owns its
+initialized work array and preserves the original in-place storage and native
+normalization. The selected snapshot contains no reviewed `f64` real FFTPACK
+counterparts. See the [real FFTPACK guide](../../docs/api/safe-real-fftpack.md).
+
 Native concurrency is conservative. APIs that use the hosted legacy runtime
 are process-serialized; the existing `no_std`/`alloc` BLAS and Jacobian-check
 features remain backend-dependent and do not promise parallel native safety.

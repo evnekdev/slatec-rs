@@ -150,6 +150,7 @@ fn concurrency_records(
             feature.starts_with("blas-") || feature == "nonlinear-jacobian-check";
         let ode = feature == "ode-sdrive-expert";
         let lp = feature == "optimization-linear-programming-in-memory";
+        let fftpack = feature == "fftpack-real";
         let callback = callback_dispatch(domain, feature);
         let class = if backend_dependent {
             "BackendDependent"
@@ -172,6 +173,8 @@ fn concurrency_records(
             "scoped_XGETF_XSETF_restore"
         } else if feature.starts_with("least-squares") {
             "scoped_XGETF_XSETF_restore_where_reviewed"
+        } else if fftpack {
+            "not_reachable_in_exact_real_FFTPACK_closure"
         } else if backend_dependent {
             "native_default_not_scoped"
         } else {
@@ -183,6 +186,8 @@ fn concurrency_records(
             "source_level_reentrancy_not_proven; safe_wrapper_exposes_no_global_dispatch"
         } else if ode {
             "saved_IER_XERROR_and_callback_context; complete_native_stress_validation_confirms_serialized_execution"
+        } else if fftpack {
+            "RFFTI1_and_EZFFT1_NTRYH_are_SAVE_DATA_tables_emitted_as_writable_local_data; no_source_writer_was_found_but_calls_remain_serialized_conservatively"
         } else if callback != "none" {
             "thread_local_callback_registration_and_legacy_runtime; serialized"
         } else {
@@ -192,6 +197,8 @@ fn concurrency_records(
             "paging_and_open_close_implementations_excluded; no_IO_forbidden_entry_symbols; valid_calls_preflight_resident_capacity"
         } else if ode {
             "no_mandatory_file_protocol_in_reviewed_SDRIV3_DDRIV3_scope"
+        } else if fftpack {
+            "none_in_exact_real_FFTPACK_closure"
         } else {
             "not_a_public_resource_contract; source-closure-specific audit_required_before_relaxation"
         };
@@ -201,6 +208,8 @@ fn concurrency_records(
             "require_provider_source_provenance_and_parallel_stress_test_before_threadsafe_claim"
         } else if ode {
             "not_candidate_for_ParallelSafe: saved_IER_XERROR_callback_context_and_provider_runtime evidence require process serialization"
+        } else if fftpack {
+            "not_candidate_mutable_native_state: RFFTI1_and_EZFFT1_NTRYH_are_SAVEd_DATA_tables_with_writable_object_symbols; no_parallel_native_stress_evidence"
         } else {
             "require_complete_source_closure_audit_XERROR_audit_and_parallel_stress_test"
         };
@@ -209,6 +218,7 @@ fn concurrency_records(
             domain,
             ode,
             backend_dependent,
+            fftpack,
             routine_sources.get(routine),
         );
         let projection = projections
@@ -357,6 +367,7 @@ fn mutable_state_ids(
     domain: &str,
     ode: bool,
     backend_dependent: bool,
+    fftpack: bool,
     routine_source: Option<&String>,
 ) -> Vec<String> {
     let mut ids = vec![
@@ -388,6 +399,12 @@ fn mutable_state_ids(
         )
     {
         ids.push("rust-callback-thread-local-registry".to_owned());
+    }
+    if fftpack {
+        ids.extend([
+            "rffti1-data-ntryh".to_owned(),
+            "ezfft1-data-ntryh".to_owned(),
+        ]);
     }
     if let Some(routine_source) = routine_source {
         // Direct routine source records are evidence for the entry point;
@@ -678,6 +695,40 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
             ]
         ]),
         json!([
+            "rffti1-data-ntryh",
+            "RFFTI1",
+            "NTRYH initialized factor-order table",
+            "DATA",
+            true,
+            "compile_time",
+            "process",
+            "read_only",
+            "wrapper_lock",
+            "benign_after_init",
+            [
+                "fishfft/rffti1.f: SAVE NTRYH; DATA NTRYH /4,2,3,5/",
+                "generated/safe-api/native-writable-symbol-index.json: rffti1 object emits local writable ntryh.0 in .data",
+                "No executable writer is present in the complete reviewed real FFTPACK closure; local linkage is nevertheless one process-image instance."
+            ]
+        ]),
+        json!([
+            "ezfft1-data-ntryh",
+            "EZFFT1",
+            "NTRYH initialized factor-order table",
+            "DATA",
+            true,
+            "compile_time",
+            "process",
+            "read_only",
+            "wrapper_lock",
+            "benign_after_init",
+            [
+                "fishfft/ezfft1.f: SAVE NTRYH; DATA NTRYH /4,2,3,5/",
+                "generated/safe-api/native-writable-symbol-index.json: ezfft1 object emits local writable ntryh.0 in .data",
+                "No executable writer is present in the complete reviewed real FFTPACK closure; local linkage is nevertheless one process-image instance."
+            ]
+        ]),
+        json!([
             "provider-blas-runtime-unresolved",
             "BLAS_level1_level2_level3_provider",
             "linked_provider_static_locals_common_blocks_and_runtime_state",
@@ -751,6 +802,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
     ))?;
     closures["families"]["optimization-linear-programming-in-memory"] =
         lp_closure["source_ids"].clone();
+    let fftpack_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fftpack-real-source-closure.json",
+    ))?;
+    closures["families"]["fftpack-real"] = fftpack_closure["source_ids"].clone();
     let interface = read_value(repo_path("generated/ffi/interface-inventory.json"))?;
     let source_paths = selected_source_paths(&source_files)?;
     let source_by_routine = routine_source_ids(&interface, &source_paths)?;

@@ -115,6 +115,12 @@ results expose checked typed basis data, source-audited row multipliers and
 reduced costs, and independently computed primal-dual KKT diagnostics. The
 reviewed controls cover iteration limit, feasibility tolerances, and pricing
 only. See the [in-memory LP guide](docs/api/safe-linear-programming-in-memory.md).
+The opt-in hosted `fftpack-real` feature adds reusable single-precision real
+FFTPACK plans for periodic, easy Fourier, full sine/cosine, and quarter-wave
+sine/cosine transforms. Plans own their initialized native workspaces and
+preserve FFTPACK's native packed layouts and normalization; the authoritative
+snapshot has no reviewed double-precision counterparts. See the
+[real FFTPACK guide](docs/api/safe-real-fftpack.md).
 
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS

@@ -486,6 +486,98 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    for (path, routine, family) in [
+        (
+            "slatec::fftpack::RealFftPlan::new",
+            "RFFTI",
+            "periodic real FFT plan initialization",
+        ),
+        (
+            "slatec::fftpack::RealFftPlan::forward",
+            "RFFTF",
+            "periodic real FFT forward transform",
+        ),
+        (
+            "slatec::fftpack::RealFftPlan::backward",
+            "RFFTB",
+            "periodic real FFT backward transform",
+        ),
+        (
+            "slatec::fftpack::EasyRealFftPlan::new",
+            "EZFFTI",
+            "easy real Fourier plan initialization",
+        ),
+        (
+            "slatec::fftpack::EasyRealFftPlan::forward",
+            "EZFFTF",
+            "easy real Fourier forward transform",
+        ),
+        (
+            "slatec::fftpack::EasyRealFftPlan::backward",
+            "EZFFTB",
+            "easy real Fourier synthesis",
+        ),
+        (
+            "slatec::fftpack::SineTransformPlan::new",
+            "SINTI",
+            "full sine transform plan initialization",
+        ),
+        (
+            "slatec::fftpack::SineTransformPlan::transform",
+            "SINT",
+            "full sine transform",
+        ),
+        (
+            "slatec::fftpack::CosineTransformPlan::new",
+            "COSTI",
+            "full cosine transform plan initialization",
+        ),
+        (
+            "slatec::fftpack::CosineTransformPlan::transform",
+            "COST",
+            "full cosine transform",
+        ),
+        (
+            "slatec::fftpack::QuarterWaveSinePlan::new",
+            "SINQI",
+            "quarter-wave sine plan initialization",
+        ),
+        (
+            "slatec::fftpack::QuarterWaveSinePlan::forward",
+            "SINQF",
+            "quarter-wave sine forward transform",
+        ),
+        (
+            "slatec::fftpack::QuarterWaveSinePlan::backward",
+            "SINQB",
+            "quarter-wave sine backward transform",
+        ),
+        (
+            "slatec::fftpack::QuarterWaveCosinePlan::new",
+            "COSQI",
+            "quarter-wave cosine plan initialization",
+        ),
+        (
+            "slatec::fftpack::QuarterWaveCosinePlan::forward",
+            "COSQF",
+            "quarter-wave cosine forward transform",
+        ),
+        (
+            "slatec::fftpack::QuarterWaveCosinePlan::backward",
+            "COSQB",
+            "quarter-wave cosine backward transform",
+        ),
+    ] {
+        output.push(record(
+            path,
+            routine,
+            "real FFTPACK",
+            "f32",
+            family,
+            "std",
+            "fftpack-real",
+        ));
+    }
     Ok(output)
 }
 
@@ -634,6 +726,16 @@ fn record(
         }
         "ordinary differential equations" => "examples/ode/exponential_decay.rs".to_owned(),
         "linear programming" => "examples/linear_programming/basic.rs".to_owned(),
+        "real FFTPACK" if path.contains("SineTransform") => {
+            "examples/fftpack/sine_transform.rs".to_owned()
+        }
+        "real FFTPACK" if path.contains("CosineTransform") => {
+            "examples/fftpack/cosine_transform.rs".to_owned()
+        }
+        "real FFTPACK" if path.contains("QuarterWave") => {
+            "examples/fftpack/quarter_wave.rs".to_owned()
+        }
+        "real FFTPACK" => "examples/fftpack/real_fft.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };
@@ -720,7 +822,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
         "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "IPVT", "ERR", "RW", "IW",
-        "WS", "IP", "LW", "LIW", "DATTRV", "DUALS", "IBASIS",
+        "WS", "WSAVE", "IP", "LW", "LIW", "DATTRV", "DUALS", "IBASIS",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
@@ -776,6 +878,13 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "private checked workspace; optimal IBB segment decodes typed basis positions"
                     .to_owned()
             }
+            "N" if function.domain == "real FFTPACK" => "plan.length".to_owned(),
+            "R" | "X" if function.domain == "real FFTPACK" => {
+                "caller contiguous transform buffer".to_owned()
+            }
+            "AZERO" if function.domain == "real FFTPACK" => "EasyRealSpectrum::mean".to_owned(),
+            "A" if function.domain == "real FFTPACK" => "EasyRealSpectrum::cosine".to_owned(),
+            "B" if function.domain == "real FFTPACK" => "EasyRealSpectrum::sine".to_owned(),
             "F" | "FCN" => "function".to_owned(),
             "M" if jacobian_check => "point.len".to_owned(),
             "N" if jacobian_check => "point.len".to_owned(),
@@ -947,7 +1056,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "callback"
         } else if matches!(
             function.domain.as_str(),
-            "linear least squares" | "linear programming"
+            "linear least squares" | "linear programming" | "real FFTPACK"
         ) {
             "owned"
         } else {
@@ -999,6 +1108,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "linear least squares",
         "ordinary differential equations",
         "linear programming",
+        "real FFTPACK",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -1083,6 +1193,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
         "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
+        "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -1132,6 +1243,7 @@ fn native_status(domain: &str) -> &'static str {
         | "least squares"
         | "linear least squares"
         | "linear programming"
+        | "real FFTPACK"
         | "special functions"
         | "polynomials" => "native_execution_passed",
         _ => "unknown",
@@ -1191,6 +1303,34 @@ fn purpose(family: &str) -> &'static str {
         }
         "sparse in-memory linear programming" => {
             "sparse in-memory linear programming with variable and row-activity bounds"
+        }
+        "periodic real FFT plan initialization" => "initialize a periodic real FFTPACK plan",
+        "periodic real FFT forward transform" => "compute a packed periodic real Fourier transform",
+        "periodic real FFT backward transform" => {
+            "compute a packed periodic real Fourier synthesis"
+        }
+        "easy real Fourier plan initialization" => "initialize an easy real Fourier plan",
+        "easy real Fourier forward transform" => {
+            "compute separate real Fourier-series coefficients"
+        }
+        "easy real Fourier synthesis" => {
+            "synthesize a real sequence from Fourier-series coefficients"
+        }
+        "full sine transform plan initialization" => "initialize a full sine-transform plan",
+        "full sine transform" => "compute the full FFTPACK sine transform",
+        "full cosine transform plan initialization" => "initialize a full cosine-transform plan",
+        "full cosine transform" => "compute the full FFTPACK cosine transform",
+        "quarter-wave sine plan initialization" => "initialize a quarter-wave sine-transform plan",
+        "quarter-wave sine forward transform" => "compute a quarter-wave sine forward transform",
+        "quarter-wave sine backward transform" => "compute a quarter-wave sine backward transform",
+        "quarter-wave cosine plan initialization" => {
+            "initialize a quarter-wave cosine-transform plan"
+        }
+        "quarter-wave cosine forward transform" => {
+            "compute a quarter-wave cosine forward transform"
+        }
+        "quarter-wave cosine backward transform" => {
+            "compute a quarter-wave cosine backward transform"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",

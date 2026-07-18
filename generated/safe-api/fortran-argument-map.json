@@ -2839,6 +2839,358 @@
       ]
     },
     {
+      "rust_path": "slatec::fftpack::CosineTransformPlan::new",
+      "fortran_routine": "COSTI",
+      "program_unit_id": "full-provider-7fbd2bfcc8728813",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::CosineTransformPlan::transform",
+      "fortran_routine": "COST",
+      "program_unit_id": "full-provider-a4a7a5e857f5339f",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous transform buffer",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::EasyRealFftPlan::backward",
+      "fortran_routine": "EZFFTB",
+      "program_unit_id": "full-provider-4806e67ca9ba8150",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": "EasyRealSpectrum::mean",
+          "fortran": "AZERO",
+          "transformation": "owned"
+        },
+        {
+          "rust": "EasyRealSpectrum::cosine",
+          "fortran": "A",
+          "transformation": "owned"
+        },
+        {
+          "rust": "EasyRealSpectrum::sine",
+          "fortran": "B",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::EasyRealFftPlan::forward",
+      "fortran_routine": "EZFFTF",
+      "program_unit_id": "full-provider-3531d45bf61cb3bf",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": "EasyRealSpectrum::mean",
+          "fortran": "AZERO",
+          "transformation": "owned"
+        },
+        {
+          "rust": "EasyRealSpectrum::cosine",
+          "fortran": "A",
+          "transformation": "owned"
+        },
+        {
+          "rust": "EasyRealSpectrum::sine",
+          "fortran": "B",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::EasyRealFftPlan::new",
+      "fortran_routine": "EZFFTI",
+      "program_unit_id": "full-provider-7bf13a8aadd92b85",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::QuarterWaveCosinePlan::backward",
+      "fortran_routine": "COSQB",
+      "program_unit_id": "full-provider-96f0acbe61e567c7",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous transform buffer",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::QuarterWaveCosinePlan::forward",
+      "fortran_routine": "COSQF",
+      "program_unit_id": "full-provider-5ccf16dbfd69a0f8",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous transform buffer",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::QuarterWaveCosinePlan::new",
+      "fortran_routine": "COSQI",
+      "program_unit_id": "full-provider-a1d8fa64d911e426",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::QuarterWaveSinePlan::backward",
+      "fortran_routine": "SINQB",
+      "program_unit_id": "full-provider-015697803585984b",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous transform buffer",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::QuarterWaveSinePlan::forward",
+      "fortran_routine": "SINQF",
+      "program_unit_id": "full-provider-8826feda79f0ae1d",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous transform buffer",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::QuarterWaveSinePlan::new",
+      "fortran_routine": "SINQI",
+      "program_unit_id": "full-provider-48a8c08e2b24e084",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::RealFftPlan::backward",
+      "fortran_routine": "RFFTB",
+      "program_unit_id": "full-provider-09bc5c76f29bf2d0",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::RealFftPlan::forward",
+      "fortran_routine": "RFFTF",
+      "program_unit_id": "full-provider-01fd2fe81dbb3824",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::RealFftPlan::new",
+      "fortran_routine": "RFFTI",
+      "program_unit_id": "full-provider-d91ca0ebb9e2b1c3",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::SineTransformPlan::new",
+      "fortran_routine": "SINTI",
+      "program_unit_id": "full-provider-95b830cc330cf4f8",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::fftpack::SineTransformPlan::transform",
+      "fortran_routine": "SINT",
+      "program_unit_id": "full-provider-6490241b13394a90",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous transform buffer",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WSAVE",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::least_squares::covariance_from_expert_fit",
       "fortran_routine": "DCOV",
       "program_unit_id": "full-provider-ac51f11e9b483b2c",
