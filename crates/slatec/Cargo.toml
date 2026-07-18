@@ -118,6 +118,15 @@ ode-sdrive-expert = [
     "slatec-src/ode-sdrive-expert",
 ]
 ode-sdrive-expert-native-tests = ["ode-sdrive-expert"]
+native-serialization-tests = [
+    "std",
+    "ode-sdrive-expert-native-tests",
+    "quadrature-native-tests",
+    "roots-native-tests",
+    "least-squares-linear-bounded-native-tests",
+    "least-squares-linear-nonnegative-native-tests",
+    "special-gamma",
+]
 
 least-squares = ["least-squares-nonlinear", "least-squares-covariance", "least-squares-linear"]
 least-squares-nonlinear = [

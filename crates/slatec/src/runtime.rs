@@ -5,7 +5,10 @@ use std::rc::Rc;
 use std::sync::{Condvar, Mutex};
 use std::thread::ThreadId;
 
-#[cfg(feature = "ode-sdrive-expert-native-tests")]
+#[cfg(any(
+    feature = "ode-sdrive-expert-native-tests",
+    feature = "native-serialization-tests"
+))]
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 struct LockState {
@@ -37,10 +40,12 @@ impl NativeRuntimeLock {
                 None => {
                     state.owner = Some(current);
                     state.depth = 1;
+                    hosted_native_scope_enter();
                     break;
                 }
                 Some(owner) if owner == &current => {
                     state.depth += 1;
+                    hosted_native_nested_enter();
                     break;
                 }
                 Some(_) => {
@@ -84,6 +89,7 @@ impl Drop for NativeRuntimeGuard {
         state.depth -= 1;
         if state.depth == 0 {
             state.owner = None;
+            hosted_native_scope_exit();
             self.lock.available.notify_one();
         }
     }
@@ -91,6 +97,62 @@ impl Drop for NativeRuntimeGuard {
 
 pub(crate) fn lock_native() -> NativeRuntimeGuard {
     NATIVE_RUNTIME_LOCK.lock()
+}
+
+#[cfg(feature = "native-serialization-tests")]
+static ACTIVE_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
+#[cfg(feature = "native-serialization-tests")]
+static MAX_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
+#[cfg(feature = "native-serialization-tests")]
+static NESTED_SAME_THREAD_ENTRIES: AtomicUsize = AtomicUsize::new(0);
+
+#[cfg(feature = "native-serialization-tests")]
+fn hosted_native_scope_enter() {
+    let active = ACTIVE_HOSTED_NATIVE_SCOPES.fetch_add(1, Ordering::SeqCst) + 1;
+    MAX_HOSTED_NATIVE_SCOPES.fetch_max(active, Ordering::SeqCst);
+}
+
+#[cfg(not(feature = "native-serialization-tests"))]
+fn hosted_native_scope_enter() {}
+
+#[cfg(feature = "native-serialization-tests")]
+fn hosted_native_nested_enter() {
+    NESTED_SAME_THREAD_ENTRIES.fetch_add(1, Ordering::SeqCst);
+}
+
+#[cfg(not(feature = "native-serialization-tests"))]
+fn hosted_native_nested_enter() {}
+
+#[cfg(feature = "native-serialization-tests")]
+fn hosted_native_scope_exit() {
+    let previous = ACTIVE_HOSTED_NATIVE_SCOPES.fetch_sub(1, Ordering::SeqCst);
+    debug_assert_eq!(previous, 1, "hosted native scope audit lost serialization");
+}
+
+#[cfg(not(feature = "native-serialization-tests"))]
+fn hosted_native_scope_exit() {}
+
+#[cfg(feature = "native-serialization-tests")]
+pub(crate) fn reset_hosted_native_call_audit() {
+    let _guard = lock_native();
+    MAX_HOSTED_NATIVE_SCOPES.store(0, Ordering::SeqCst);
+    NESTED_SAME_THREAD_ENTRIES.store(0, Ordering::SeqCst);
+}
+
+#[cfg(feature = "native-serialization-tests")]
+pub(crate) fn hosted_native_call_audit() -> (usize, usize, usize, bool, Option<std::string::String>)
+{
+    let state = NATIVE_RUNTIME_LOCK
+        .state
+        .lock()
+        .unwrap_or_else(|error| error.into_inner());
+    (
+        ACTIVE_HOSTED_NATIVE_SCOPES.load(Ordering::SeqCst),
+        MAX_HOSTED_NATIVE_SCOPES.load(Ordering::SeqCst),
+        NESTED_SAME_THREAD_ENTRIES.load(Ordering::SeqCst),
+        state.owner.is_some(),
+        state.owner.as_ref().map(|owner| std::format!("{owner:?}")),
+    )
 }
 
 #[cfg(feature = "ode-sdrive-expert-native-tests")]
@@ -229,5 +291,23 @@ mod tests {
         drop(first);
         receiver.recv_timeout(Duration::from_secs(1)).unwrap();
         handle.join().unwrap();
+    }
+
+    #[cfg(feature = "native-serialization-tests")]
+    #[test]
+    fn audit_tracks_nesting_and_restores_after_panic() {
+        super::reset_hosted_native_call_audit();
+        let panic = std::panic::catch_unwind(|| {
+            let _first = super::lock_native();
+            let _nested = super::lock_native();
+            panic!("test panic while native lock is held");
+        });
+        assert!(panic.is_err());
+        let (active, maximum, nested, owner, owner_thread) = super::hosted_native_call_audit();
+        assert_eq!(active, 0);
+        assert_eq!(maximum, 1);
+        assert_eq!(nested, 1);
+        assert!(!owner);
+        assert!(owner_thread.is_none());
     }
 }

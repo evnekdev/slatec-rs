@@ -13,6 +13,9 @@ The complete per-function decision is generated in
 [`generated/safe-api/concurrency-index.json`](../../generated/safe-api/concurrency-index.json).
 Each record links to the corresponding findings in
 [`generated/safe-api/mutable-global-state-index.json`](../../generated/safe-api/mutable-global-state-index.json).
+The wrapper-specific retained source and object projections are recorded in
+[`per-wrapper-native-state.json`](../../generated/safe-api/per-wrapper-native-state.json);
+unrelated provider objects are not projected onto every wrapper.
 
 ## Concurrency classes
 
@@ -67,12 +70,45 @@ writable-symbol, COMMON, and XERROR records are in
 and [`xerror-state-index.json`](../../generated/safe-api/xerror-state-index.json).
 Object inspection supplements source analysis; it does not prove reentrancy.
 
+The source-state scanner now consumes complete fixed-form logical statements
+from the shared quote- and Hollerith-aware lexer. Its fixture suite covers
+named and blank COMMON, multiple blocks per statement, continuations, legal
+spacing and case, labels, comments and literals, SAVE (including saved COMMON
+blocks), DATA, initialized declarations, BLOCK DATA, EQUIVALENCE, ENTRY,
+multiple program units, continued dimensions, and INCLUDE recognition. GNU
+Fortran `-fdump-parse-tree -fsyntax-only` is an independent oracle for every
+fixture and every one of the 333 selected/profile sources. The selected scan
+and compiler oracle agree with no discrepancies; the bidirectional source and
+COFF writable-symbol cross-check is recorded in
+[`native-state-crosscheck.json`](../../generated/safe-api/native-state-crosscheck.json).
+
+The empty selected COMMON result is therefore scoped evidence, not an
+assumption. None of the exact 333 currently compiled selected/profile units
+declares COMMON, as recorded in
+[`selected-common-block-index.json`](../../generated/safe-api/selected-common-block-index.json).
+The separate 1,452-file reviewed-corpus scan finds 172 COMMON declarations in
+deferred or otherwise unselected files and preserves them in
+[`generated/corpus/common-block-index.json`](../../generated/corpus/common-block-index.json).
+Those future-family findings do not contaminate current closures, but they
+cannot be lost when a later family is considered.
+
 A global lock prevents races in the safe wrapper, but does not make the native
 algorithm reentrant. Similarly, a session being `Send` when its callback and
 error are `Send` does not permit simultaneous native execution. No current
 wrapper is advertised as natively parallel-safe; external BLAS and other
 provider/runtime implementations remain `BackendDependent` unless their own
 state and threading contracts are proven.
+
+Concurrency is recorded as three separate questions: Rust ownership and
+`Send`/`Sync`, reentrancy of the exact retained SLATEC object closure, and the
+thread-safety contract of the compiler runtime and linked provider. The
+roadmap in
+[`concurrency-relaxation-roadmap.md`](../../generated/safe-api/concurrency-relaxation-roadmap.md)
+does not change behavior. Test-only instrumentation measures active hosted
+lock scopes, the maximum simultaneous count, current ownership, and nested
+same-thread entry; cross-family native tests must continue to observe a
+maximum of one. Independent buffers remain storage evidence only, never proof
+of native reentrancy.
 
 ## Storage and interoperability
 
