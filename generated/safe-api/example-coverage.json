@@ -784,6 +784,26 @@
       "validation_file": "crates/slatec/tests/nonnegative_least_squares_native.rs"
     },
     {
+      "doctest_present": false,
+      "example_case": "sparse in-memory linear programming",
+      "example_file": "examples/linear_programming/basic.rs",
+      "fortran_routine": "SPLP",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::linear_programming::LinearProgram::<f32>::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/tests/linear_programming_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "sparse in-memory linear programming",
+      "example_file": "examples/linear_programming/basic.rs",
+      "fortran_routine": "DSPLP",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::linear_programming::LinearProgram::<f64>::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/tests/linear_programming_native.rs"
+    },
+    {
       "doctest_present": true,
       "example_case": "Jacobian consistency checking",
       "example_file": "examples/nonlinear/check_jacobian.rs",

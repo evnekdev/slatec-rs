@@ -101,6 +101,11 @@ pub mod nonlinear;
 #[cfg(any(feature = "raw-ffi-ode", feature = "raw-family-ode-sdrive-expert"))]
 pub mod ode;
 
+/// Hand-reviewed `SPLP`/`DSPLP` declarations for the in-memory-only safe
+/// linear-programming feature.
+#[cfg(feature = "raw-family-optimization-linear-programming-in-memory")]
+pub mod linear_programming;
+
 /// Hand-reviewed declarations for nonlinear least-squares easy and expert
 /// drivers.
 ///
@@ -146,6 +151,7 @@ pub mod linear_least_squares;
     feature = "raw-family-least-squares-linear-bounded",
     feature = "raw-family-least-squares-linear-constrained",
     feature = "raw-family-least-squares-linear-bounded-constrained",
-    feature = "raw-family-ode-sdrive-expert"
+    feature = "raw-family-ode-sdrive-expert",
+    feature = "raw-family-optimization-linear-programming-in-memory"
 ))]
 pub mod legacy_error;

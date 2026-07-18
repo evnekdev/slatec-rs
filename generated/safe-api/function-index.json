@@ -1174,6 +1174,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::linear_programming::LinearProgram::<f32>::solve",
+      "fortran_routine": "SPLP",
+      "module": "slatec::linear_programming::LinearProgram::<f32>",
+      "domain": "linear programming",
+      "precision": "f32",
+      "purpose": "sparse in-memory linear programming with variable and row-activity bounds",
+      "capability": "std",
+      "feature": "optimization-linear-programming-in-memory",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/linear_programming/LinearProgram/<f32>/fn.solve.html",
+      "example_file": "examples/linear_programming/basic.rs",
+      "example_case": "sparse in-memory linear programming",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::linear_programming::LinearProgram::<f64>::solve",
+      "fortran_routine": "DSPLP",
+      "module": "slatec::linear_programming::LinearProgram::<f64>",
+      "domain": "linear programming",
+      "precision": "f64",
+      "purpose": "sparse in-memory linear programming with variable and row-activity bounds",
+      "capability": "std",
+      "feature": "optimization-linear-programming-in-memory",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/linear_programming/LinearProgram/<f64>/fn.solve.html",
+      "example_file": "examples/linear_programming/basic.rs",
+      "example_case": "sparse in-memory linear programming",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::nonlinear::check_jacobian",
       "fortran_routine": "DCKDER",
       "module": "slatec::nonlinear",

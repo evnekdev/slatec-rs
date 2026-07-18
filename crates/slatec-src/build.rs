@@ -33,6 +33,10 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("NONLINEAR_JACOBIAN_CHECK", "nonlinear-jacobian-check"),
     ("ODE_SDRIVE_EXPERT", "ode-sdrive-expert"),
     (
+        "OPTIMIZATION_LINEAR_PROGRAMMING_IN_MEMORY",
+        "optimization-linear-programming-in-memory",
+    ),
+    (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
     ),
@@ -94,6 +98,7 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/ode-sdrive-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
     let families = enabled_families();
@@ -186,10 +191,16 @@ fn build_sources(families: &BTreeSet<String>) {
         &fs::read(&manifest_path).expect("read family source closure manifest"),
     )
     .expect("parse family source closure manifest");
-    if families.contains("ode-sdrive-expert")
-        && !manifest.families.contains_key("ode-sdrive-expert")
-    {
-        apply_ode_sdrive_overlay(&mut manifest);
+    for (family, file) in [
+        ("ode-sdrive-expert", "ode-sdrive-source-closure.json"),
+        (
+            "optimization-linear-programming-in-memory",
+            "lp-in-memory-source-closure.json",
+        ),
+    ] {
+        if families.contains(family) && !manifest.families.contains_key(family) {
+            apply_family_overlay(&mut manifest, family, file);
+        }
     }
     let by_id = manifest
         .sources
@@ -251,14 +262,15 @@ fn build_sources(families: &BTreeSet<String>) {
     emit_runtime_links(&compiler);
 }
 
-fn apply_ode_sdrive_overlay(manifest: &mut Manifest) {
-    let path =
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("metadata/ode-sdrive-source-closure.json");
+fn apply_family_overlay(manifest: &mut Manifest, family: &str, file: &str) {
+    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("metadata")
+        .join(file);
     let overlay: FamilyOverlay =
-        serde_json::from_slice(&fs::read(&path).expect("read SDRIVE source closure overlay"))
-            .expect("parse SDRIVE source closure overlay");
-    if overlay.family != "ode-sdrive-expert" {
-        panic!("SDRIVE source closure overlay has an unexpected family name");
+        serde_json::from_slice(&fs::read(&path).expect("read family source closure overlay"))
+            .expect("parse family source closure overlay");
+    if overlay.family != family {
+        panic!("source closure overlay has an unexpected family name");
     }
     let known = manifest
         .sources
@@ -270,7 +282,7 @@ fn apply_ode_sdrive_overlay(manifest: &mut Manifest) {
         .iter()
         .any(|source| known.contains(source.id.as_str()))
     {
-        panic!("SDRIVE source closure overlay duplicates a base source id");
+        panic!("source closure overlay duplicates a base source id");
     }
     manifest.sources.extend(overlay.sources);
     if manifest
@@ -278,7 +290,7 @@ fn apply_ode_sdrive_overlay(manifest: &mut Manifest) {
         .insert(overlay.family.clone(), overlay.source_ids)
         .is_some()
     {
-        panic!("base source closure unexpectedly already defines SDRIVE");
+        panic!("base source closure unexpectedly already defines {family}");
     }
     if overlay.profile_override {
         manifest.profile_override_families.insert(overlay.family);

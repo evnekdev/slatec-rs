@@ -149,6 +149,7 @@ fn concurrency_records(
         let backend_dependent =
             feature.starts_with("blas-") || feature == "nonlinear-jacobian-check";
         let ode = feature == "ode-sdrive-expert";
+        let lp = feature == "optimization-linear-programming-in-memory";
         let callback = callback_dispatch(domain, feature);
         let class = if backend_dependent {
             "BackendDependent"
@@ -165,7 +166,9 @@ fn concurrency_records(
         } else {
             "crate::runtime::lock_native"
         };
-        let xerror = if matches!(feature, "ode-sdrive-expert") {
+        let xerror = if lp {
+            "scoped_XGETF_XSETF_and_XGETUA_XSETUA_restore"
+        } else if matches!(feature, "ode-sdrive-expert") {
             "scoped_XGETF_XSETF_restore"
         } else if feature.starts_with("least-squares") {
             "scoped_XGETF_XSETF_restore_where_reviewed"
@@ -174,7 +177,9 @@ fn concurrency_records(
         } else {
             "native_default_or_checked_precondition; no_general_interception_claim"
         };
-        let global = if backend_dependent {
+        let global = if lp {
+            "LA05DD_or_LA05DS_COMMON_saved_LA05_state_XERROR_and_thread_local_sparse_callback; serialized"
+        } else if backend_dependent {
             "source_level_reentrancy_not_proven; safe_wrapper_exposes_no_global_dispatch"
         } else if ode {
             "saved_IER_XERROR_and_callback_context; complete_native_stress_validation_confirms_serialized_execution"
@@ -183,12 +188,16 @@ fn concurrency_records(
         } else {
             "selected_SLATEC_FNLIB_or_driver_state_may_include_SAVE_COMMON_or_XERROR; serialized_conservatively"
         };
-        let external_io = if ode {
+        let external_io = if lp {
+            "paging_and_open_close_implementations_excluded; no_IO_forbidden_entry_symbols; valid_calls_preflight_resident_capacity"
+        } else if ode {
             "no_mandatory_file_protocol_in_reviewed_SDRIV3_DDRIV3_scope"
         } else {
             "not_a_public_resource_contract; source-closure-specific audit_required_before_relaxation"
         };
-        let relaxation = if backend_dependent {
+        let relaxation = if lp {
+            "not_candidate_for_ParallelSafe: mutable_LA05_COMMON_saved_state_XERROR_callback_dispatch_and_provider_runtime_require_process_serialization"
+        } else if backend_dependent {
             "require_provider_source_provenance_and_parallel_stress_test_before_threadsafe_claim"
         } else if ode {
             "not_candidate_for_ParallelSafe: saved_IER_XERROR_callback_context_and_provider_runtime evidence require process serialization"
@@ -220,11 +229,15 @@ fn concurrency_records(
             external_io,
             if ode {
                 "Send_if_callback_and_error_are_Send; otherwise_not_Send"
+            } else if lp {
+                "owned_problem_values_may_be_Send; solve_remains_process_serialized"
             } else {
                 "not_part_of_function_contract"
             },
             if ode {
                 "not_Sync"
+            } else if lp {
+                "immutable_problem_may_be_Sync; native_entries_remain_serialized"
             } else {
                 "not_part_of_function_contract"
             },
@@ -313,7 +326,7 @@ fn relaxation_roadmap(records: &[Value]) -> String {
         text.push_str(&format!("- `{outcome}`: {count} wrappers\n"));
     }
     text.push_str(
-        "\n## Required evidence\n\nThe 28 BLAS Level 1 records are now qualified `ParallelSafe` only for the exact hash-verified `source-build-gnu-mingw-reviewed` backend and only for independent calls with non-overlapping mutable storage. Their existing direct, `core`-capable dispatch is unchanged. System archives, external linkage, named-but-unselected vendor libraries, and unknown providers remain `BackendDependent`. Every callback, XERROR, ODE, and solver family retains process-global serialization.\n\nAny other future relaxation must have a complete logical-statement source scan, GNU Fortran oracle agreement, bidirectional source/object reconciliation, an exact retained object closure, no reachable XERROR or Fortran-I/O state, and a documented compiler/provider/runtime concurrency contract. Family locks are considered only where mutable state is proved family-local.\n\nStorage layout remains orthogonal: packed storage uses `matrixpacked`, conventional rectangular storage may use standard dense crates, and exact-layout slices/views remain valid without implicit repacking or transpose. The existing LP paging and unit-lifecycle deferral is unchanged.\n",
+        "\n## Required evidence\n\nThe 28 BLAS Level 1 records are now qualified `ParallelSafe` only for the exact hash-verified `source-build-gnu-mingw-reviewed` backend and only for independent calls with non-overlapping mutable storage. Their existing direct, `core`-capable dispatch is unchanged. System archives, external linkage, named-but-unselected vendor libraries, and unknown providers remain `BackendDependent`. Every callback, XERROR, ODE, LP, and solver family retains process-global serialization.\n\nAny other future relaxation must have a complete logical-statement source scan, GNU Fortran oracle agreement, bidirectional source/object reconciliation, an exact retained object closure, no reachable XERROR or Fortran-I/O state, and a documented compiler/provider/runtime concurrency contract. Family locks are considered only where mutable state is proved family-local.\n\nStorage layout remains orthogonal: packed storage uses `matrixpacked`, conventional rectangular storage may use standard dense crates, and exact-layout slices/views remain valid without implicit repacking or transpose. LP external paging and unit lifecycle remain deferred; the current safe LP subset preflights resident capacity and contains no file-I/O implementation.\n",
     );
     text
 }
@@ -371,7 +384,7 @@ fn mutable_state_ids(
     } else if !backend_dependent
         && matches!(
             domain,
-            "quadrature" | "roots" | "nonlinear" | "least squares"
+            "quadrature" | "roots" | "nonlinear" | "least squares" | "linear programming"
         )
     {
         ids.push("rust-callback-thread-local-registry".to_owned());
@@ -693,7 +706,7 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
             "unsafe",
             [
                 "Fortran connected units are process runtime state",
-                "SPLP/DSPLP paging remains deferred and is separately described in lp-paging-policy.json"
+                "SPLP/DSPLP safe calls exclude real paging and file-I/O implementations; XERROR still owns process-global output-unit state"
             ]
         ]),
         json!([
@@ -709,7 +722,7 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
             "unsafe",
             [
                 "src/dplpdm.f:39, src/dplpmn.f:152, and src/la05ad.f:61 declare COMMON /LA05DD/",
-                "The deferred LP family shares mutable factorization state; it is not a candidate for a parallel-safe classification even apart from conditional direct-access paging."
+                "The safe in-memory LP family shares mutable factorization state; it remains SerializedGlobal independently of the excluded paging path."
             ]
         ]),
         json!([
@@ -730,9 +743,14 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         ]),
     ];
     let source_files = read_value(repo_path("generated/ffi/selected-source-files.json"))?;
-    let closures = read_value(repo_path(
+    let mut closures = read_value(repo_path(
         "crates/slatec-src/metadata/family-source-closure.json",
     ))?;
+    let lp_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/lp-in-memory-source-closure.json",
+    ))?;
+    closures["families"]["optimization-linear-programming-in-memory"] =
+        lp_closure["source_ids"].clone();
     let interface = read_value(repo_path("generated/ffi/interface-inventory.json"))?;
     let source_paths = selected_source_paths(&source_files)?;
     let source_by_routine = routine_source_ids(&interface, &source_paths)?;
@@ -903,6 +921,8 @@ fn callback_dispatch(domain: &str, feature: &str) -> &'static str {
         "session_scoped_thread_local_context"
     } else if feature == "nonlinear-jacobian-check" {
         "rust_callbacks_only; no_native_callback"
+    } else if feature == "optimization-linear-programming-in-memory" {
+        "scoped_thread_local_sparse_column_context"
     } else if matches!(
         domain,
         "quadrature" | "roots" | "nonlinear" | "least squares"
@@ -1166,22 +1186,22 @@ fn matrixpacked_compatibility(snapshot: &str) -> Value {
     })
 }
 
-fn lp_paging_policy(snapshot: &str) -> Value {
+pub(crate) fn lp_paging_policy(snapshot: &str) -> Value {
     json!({
         "schema_id":"slatec.runtime.lp-paging-policy",
-        "schema_version":"1.0.0",
+        "schema_version":"2.0.0",
         "snapshot_id":snapshot,
-        "status":"reviewed_deferred_no_public_ffi_or_feature",
+        "status":"safe_in_memory_only; external_paging_deferred",
         "columns":["subject","single_precision","double_precision","source_evidence","policy"],
         "records":[
-            ["mathematical_model","SPLP_minimize_c_transpose_x_subject_to_Ax_equals_w_with_typed_x_and_w_bounds","DSPLP_minimize_c_transpose_x_subject_to_Ax_equals_w_with_typed_x_and_w_bounds","src/splp.f_and_src/dsplp.f_prologues","remain_deferred; no_safe_wrapper"],
-            ["matrix_callback","USRMAT_one_based_sequential_sparse_column_data","DUSRMT_one_based_sequential_sparse_column_data","src/splp.f_and_src/dsplp.f_DATTRV_description","no_public_callback_abi"],
-            ["paging_subsidiary","PRWVIR_single_precision_counterpart; no_SPRWVR_program_unit_in_selected_source","DPRWVR","src/prwvir.f_and_src/dprwvr.f","paging_is_not_a_safe_public_resource_protocol"],
-            ["paging_activation","only_when_save_restore_or_matrix_storage_exceeds_high_speed_memory","only_when_save_restore_or_matrix_storage_exceeds_high_speed_memory","src/splp.f_and_src/dsplp.f_Input_Output_files_required","no_claim_that_caller_must_preopen_a_matrix_file"],
-            ["unit_selection","option_KEY_54_selects_sparse_page_Fortran_unit_default_1","option_KEY_54_selects_sparse_page_Fortran_unit_default_1","src/splp.f_and_src/dsplp.f_option_54","unit_is_process_global_legacy_resource"],
-            ["open_close_behavior","PRWVIR_calls_SOPENM_when_first_page_write_triggers_paging; SCLOSM_is_option_controlled","DPRWVR_calls_SOPENM_when_first_page_write_triggers_paging; SCLOSM_is_option_controlled","src/prwvir.f_src/dprwvr.f_src/sopenm.f_src/sclosm.f","solver_does_not_require_the_caller_to_preopen_unit_1; direct_access_file_can_be_activated_by_paging; no_safe_lifecycle_guarantee"],
-            ["save_restore","unit_2_is_only_for_explicit_save_restore_option","unit_2_is_only_for_explicit_save_restore_option","src/splp.f_and_src/dsplp.f_Input_Output_files_required","disabled_in_any_future_default_safe_configuration"],
-            ["printing","KEY_51_enables_legacy_output_unit","KEY_51_enables_legacy_output_unit","src/splp.f_and_src/dsplp.f_option_51","must_remain_off_by_default_if_ever_wrapped"]
+            ["mathematical_model","SPLP_minimize_c_transpose_x_subject_to_Ax_equals_w_with_typed_x_and_w_bounds","DSPLP_minimize_c_transpose_x_subject_to_Ax_equals_w_with_typed_x_and_w_bounds","src/splp.f_and_src/dsplp.f_prologues","safe_in_memory_wrapper"],
+            ["matrix_callback","USRMAT_one_based_sequential_sparse_column_data","DUSRMT_one_based_sequential_sparse_column_data","src/splp.f_and_src/dsplp.f_DATTRV_description","private_contained_trampoline_over_validated_owned_CSC"],
+            ["paging_activation","save_restore_or_matrix_staging_exceeds_LAMAT","save_restore_or_matrix_staging_exceeds_LAMAT","src/splp.f_src/dsplp.f_and_DPLPMN_SPLPMN","save_restore_disabled_and_LAMAT_preflighted"],
+            ["resident_capacity","max(N+7,N+NNZ+6)","max(N+7,N+NNZ+6)","DPLPMN_SPLPMN_matrix_staging","PagingRequired_returned_before_FFI_if_the_public_limit_is_too_small"],
+            ["unit_selection","option_KEY_54_not_emitted","option_KEY_54_not_emitted","internal_PRGOPT_builder","no_public_Fortran_unit_or_filesystem_resource"],
+            ["paging_implementations","PRWVIR_PRWPGE_SOPENM_SCLOSM_excluded","DPRWVR_DPRWPG_SOPENM_SCLOSM_excluded","lp-in-memory-source-closure.json","ABI_forbidden_entry_symbols_do_no_IO_and_any_entry_discards_the_native_result"],
+            ["save_restore","disabled","disabled","internal_PRGOPT_builder","not_public"],
+            ["printing","KEY_51_fixed_zero","KEY_51_fixed_zero","internal_PRGOPT_builder","legacy_printing_disabled"]
         ]
     })
 }
@@ -1200,7 +1220,7 @@ fn runtime_policy(snapshot: &str, functions: usize, storage_records: usize) -> V
             "xerror":"only specifically reviewed recoverable native status paths temporarily change XERROR; guards restore the prior setting",
             "storage":"native layout is explicit per argument; implicit transpose, densification, packing, repacking, and arbitrary-stride conversion are prohibited",
             "interoperability":"the core API remains slices, Vec, and lightweight checked views; any matrixpacked, nalgebra, ndarray, or faer adapter is optional and must be explicit",
-            "linear_programming":"SPLP and DSPLP remain reviewed but deferred; no FFI, provider source closure, feature, or I/O shim is added"
+            "linear_programming":"SPLP and DSPLP expose only the validated in-memory sparse subset; paging implementations, option key 54, save/restore, printing, and filesystem resources remain unavailable"
         }
     })
 }
@@ -1218,7 +1238,7 @@ fn concurrency_summary(records: &[Value]) -> String {
         .collect::<Vec<_>>()
         .join(", ");
     format!(
-        "# Runtime concurrency audit\n\n- Classified safe functions: {} ({rendered}).\n- `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.\n- `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.\n- Rust ownership safety, exact retained-native-closure reentrancy, and provider/runtime thread safety are separate fields; independent buffers do not prove native reentrancy.\n- The origin audit hash-verifies and scans 330 provider sources, compiles and inspects their objects plus three profile objects, records no selected-closure COMMON block, and separately preserves 172 COMMON declarations from the 1,452-file reviewed corpus. GNU Fortran parse-tree validation reports no selected-source scanner disagreement.\n- `SDRIV3`/`DDRIV3` sessions remain `SerializedGlobal`: `SDSTP`/`DDSTP` emit saved writable `IER` storage, XERROR is process-global, callback dispatch is scoped, and provider/runtime reentrancy is not a public guarantee. Cross-family native instrumentation observes at most one active hosted native lock scope.\n",
+        "# Runtime concurrency audit\n\n- Classified safe functions: {} ({rendered}).\n- `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.\n- `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.\n- Rust ownership safety, exact retained-native-closure reentrancy, and provider/runtime thread safety are separate fields; independent buffers do not prove native reentrancy.\n- The origin audit hash-verifies, scans, compiles, and inspects every selected base and overlay source. It records selected LP COMMON blocks and preserves full-corpus COMMON findings separately; any parser disagreement or source/object mismatch remains conservatively unresolved rather than weakening serialization.\n- `SDRIV3`/`DDRIV3` and the safe in-memory `SPLP`/`DSPLP` subset remain `SerializedGlobal`: mutable saved/COMMON storage, XERROR, callback dispatch, and provider/runtime uncertainty require the lock. Cross-family native instrumentation observes at most one active hosted native lock scope.\n",
         records.len()
     )
 }
@@ -1414,16 +1434,17 @@ mod tests {
     }
 
     #[test]
-    fn lp_remains_deferred_without_a_mandatory_preopen_claim() {
+    fn lp_exposes_only_the_in_memory_subset_and_keeps_paging_deferred() {
         let temp = tempfile::tempdir().unwrap();
         generate(temp.path()).unwrap();
         let lp = read_value(temp.path().join("lp-paging-policy.json")).unwrap();
         assert_eq!(
             lp["status"].as_str(),
-            Some("reviewed_deferred_no_public_ffi_or_feature")
+            Some("safe_in_memory_only; external_paging_deferred")
         );
         let rendered = serde_json::to_string(&lp).unwrap();
-        assert!(rendered.contains("no_claim_that_caller_must_preopen_a_matrix_file"));
-        assert!(!rendered.contains("mandatory_external_file"));
+        assert!(rendered.contains("option_KEY_54_not_emitted"));
+        assert!(rendered.contains("no_public_Fortran_unit_or_filesystem_resource"));
+        assert!(rendered.contains("PagingRequired_returned_before_FFI"));
     }
 }

@@ -319,6 +319,50 @@ impl Drop for RecoverableErrorScope {
     }
 }
 
+/// Makes level-one LP statuses return while preserving all XERROR controls.
+#[cfg(feature = "optimization-linear-programming-in-memory")]
+pub(crate) fn permit_lp_native_statuses() -> LpErrorScope {
+    let mut previous_flag = 0;
+    let mut previous_units = [0; 5];
+    let mut previous_unit_count = 0;
+    // SAFETY: the caller holds the process-wide native lock and supplies the
+    // documented fixed-size XERROR unit buffer.
+    unsafe {
+        slatec_sys::legacy_error::xgetf(&mut previous_flag);
+        slatec_sys::legacy_error::xgetua(previous_units.as_mut_ptr(), &mut previous_unit_count);
+        let mut nonfatal = 0;
+        slatec_sys::legacy_error::xsetf(&mut nonfatal);
+    }
+    LpErrorScope {
+        previous_flag,
+        previous_units,
+        previous_unit_count,
+    }
+}
+
+/// Restores the XERROR control flag and output-unit list after one LP call.
+#[cfg(feature = "optimization-linear-programming-in-memory")]
+pub(crate) struct LpErrorScope {
+    previous_flag: slatec_sys::FortranInteger,
+    previous_units: [slatec_sys::FortranInteger; 5],
+    previous_unit_count: slatec_sys::FortranInteger,
+}
+
+#[cfg(feature = "optimization-linear-programming-in-memory")]
+impl Drop for LpErrorScope {
+    fn drop(&mut self) {
+        // SAFETY: every value was captured from XGETF/XGETUA while the same
+        // process-wide native lock remained held.
+        unsafe {
+            slatec_sys::legacy_error::xsetua(
+                self.previous_units.as_mut_ptr(),
+                &mut self.previous_unit_count,
+            );
+            slatec_sys::legacy_error::xsetf(&mut self.previous_flag);
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::sync::mpsc;

@@ -123,8 +123,20 @@ ode-sdrive-expert = [
     "slatec-src/ode-sdrive-expert",
 ]
 ode-sdrive-expert-native-tests = ["ode-sdrive-expert"]
+
+optimization = ["optimization-linear-programming-in-memory"]
+optimization-linear-programming-in-memory = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-optimization-linear-programming-in-memory",
+    "slatec-src/optimization-linear-programming-in-memory",
+]
+optimization-linear-programming-in-memory-native-tests = [
+    "optimization-linear-programming-in-memory",
+]
 native-serialization-tests = [
     "std",
+    "optimization-linear-programming-in-memory-native-tests",
     "ode-sdrive-expert-native-tests",
     "quadrature-native-tests",
     "roots-native-tests",
@@ -212,8 +224,8 @@ least-squares-native-tests = [
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
 interpolate = []
-optimize = []
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "interpolate", "optimize", "special"]
+optimize = ["optimization"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "optimization", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -314,3 +326,7 @@ required-features = ["least-squares-linear-bounded-constrained"]
 [[example]]
 name = "link_ode_sdrive"
 required-features = ["ode-sdrive-expert"]
+
+[[example]]
+name = "link_linear_programming_in_memory"
+required-features = ["optimization-linear-programming-in-memory"]

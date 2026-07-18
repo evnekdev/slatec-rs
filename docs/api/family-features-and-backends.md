@@ -17,10 +17,14 @@ routine.
 | `roots` | `roots-scalar`, `roots-polynomial` |
 | `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check` |
 | `ode` | `ode-sdrive-expert` |
+| `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.
+The optimization alias is deliberately limited to resident-memory
+`SPLP`/`DSPLP`; external paging and Fortran-unit lifecycle management remain
+deferred.
 
 ## Capability layers
 

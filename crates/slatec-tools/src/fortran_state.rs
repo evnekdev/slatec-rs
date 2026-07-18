@@ -345,10 +345,11 @@ fn save_variables(text: &str) -> Vec<String> {
     let Some(rest) = text.strip_prefix("SAVE") else {
         return Vec::new();
     };
-    if rest
-        .bytes()
-        .next()
-        .is_some_and(|byte| byte.is_ascii_digit() || matches!(byte, b'(' | b'='))
+    if rest.contains('=')
+        || rest
+            .bytes()
+            .next()
+            .is_some_and(|byte| byte.is_ascii_digit() || matches!(byte, b'(' | b'='))
     {
         return Vec::new();
     }
@@ -506,6 +507,12 @@ mod tests {
             commons: &[],
         },
         Fixture {
+            name: "identifier_starting_with_save_is_not_a_save_statement",
+            source: "      SUBROUTINE A\n      SAVEDT = .FALSE.\n      END\n",
+            origins: &[],
+            commons: &[],
+        },
+        Fixture {
             name: "save_block",
             source: "      SUBROUTINE A\n      COMMON /STATE/ X\n      SAVE /STATE/\n      END\n",
             origins: &["COMMON", "SAVE"],
@@ -606,7 +613,12 @@ mod tests {
 
     #[test]
     fn multiple_program_units_keep_their_own_scope() {
-        let findings = scan(FIXTURES[13].source.as_bytes());
+        let source = FIXTURES
+            .iter()
+            .find(|fixture| fixture.name == "multiple_units_entry")
+            .unwrap()
+            .source;
+        let findings = scan(source.as_bytes());
         assert!(
             findings
                 .iter()
