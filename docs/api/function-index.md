@@ -112,6 +112,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::nonlinear::solve_system_with_jacobian_f32` | `SNSQ` | nonlinear | f32 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
 | `slatec::ode::OdeSession::<f32, F, E>::integrate_to` | `SDRIV3` | ordinary differential equations | f32 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/harmonic_oscillator.rs) |
 | `slatec::ode::OdeSession::<f64, F, E>::integrate_to` | `DDRIV3` | ordinary differential equations | f64 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/exponential_decay.rs) |
+| `slatec::pchip::PiecewiseCubicHermite::evaluate_into` | `PCHFE` | piecewise cubic Hermite interpolation | f32/f64 | evaluate a piecewise-cubic Hermite curve | `std` | `pchip` | [piecewise-cubic Hermite value evaluation](../../examples/pchip/monotone.rs) |
+| `slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into` | `PCHFD` | piecewise cubic Hermite interpolation | f32/f64 | evaluate a piecewise-cubic Hermite curve and first derivative | `std` | `pchip` | [piecewise-cubic Hermite value and derivative evaluation](../../examples/pchip/evaluate_derivative.rs) |
+| `slatec::pchip::PiecewiseCubicHermite::integrate` | `PCHIA` | piecewise cubic Hermite interpolation | f32/f64 | integrate a piecewise-cubic Hermite curve | `std` | `pchip` | [piecewise-cubic Hermite definite integration](../../examples/pchip/integrate.rs) |
+| `slatec::pchip::PiecewiseCubicHermite::monotone` | `PCHIM` | piecewise cubic Hermite interpolation | f32/f64 | construct monotonicity-preserving piecewise-cubic Hermite derivatives | `std` | `pchip` | [monotonicity-preserving Hermite derivative construction](../../examples/pchip/monotone.rs) |
+| `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions` | `PCHIC` | piecewise cubic Hermite interpolation | f32/f64 | construct controlled monotone piecewise-cubic Hermite derivatives | `std` | `pchip` | [controlled monotone Hermite derivative construction](../../examples/pchip/monotone.rs) |
+| `slatec::pchip::PiecewiseCubicHermite::spline` | `PCHSP` | piecewise cubic Hermite interpolation | f32/f64 | construct PCHSP cubic-spline Hermite derivatives | `std` | `pchip` | [cubic-spline Hermite derivative construction](../../examples/pchip/custom_derivatives.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series` | `DCSEVL` | polynomials | f64 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::polynomials::chebyshev::chebyshev_series_f32` | `CSEVL` | polynomials | f32 | validated scalar numerical function | `std` | `special-polynomials` | [polynomials](../../examples/special/functions.rs) |
 | `slatec::quadrature::integrate` | `DQAG` | quadrature | f64 | adaptive finite-interval integration | `std` | `quadrature-basic` | [finite](../../examples/quadrature/families.rs) |
@@ -360,6 +366,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `ISAMAX` -> `slatec::blas::level1::isamax`
 - `ISAMAX` -> `slatec::blas::level1::isamax_strided`
 - `LSEI` -> `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
+- `PCHFD` -> `slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into`
+- `PCHFE` -> `slatec::pchip::PiecewiseCubicHermite::evaluate_into`
+- `PCHIA` -> `slatec::pchip::PiecewiseCubicHermite::integrate`
+- `PCHIC` -> `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions`
+- `PCHIM` -> `slatec::pchip::PiecewiseCubicHermite::monotone`
+- `PCHSP` -> `slatec::pchip::PiecewiseCubicHermite::spline`
 - `PSI` -> `slatec::special::gamma::digamma_f32`
 - `QAG` -> `slatec::quadrature::integrate_f32`
 - `QAGI` -> `slatec::quadrature::integrate_infinite_f32`
@@ -663,6 +675,15 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::fftpack::SineTransformPlan::new` — initialize a full sine-transform plan
 - `slatec::fftpack::SineTransformPlan::transform` — compute the full FFTPACK sine transform
 
+### piecewise cubic Hermite interpolation
+
+- `slatec::pchip::PiecewiseCubicHermite::evaluate_into` — evaluate a piecewise-cubic Hermite curve
+- `slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into` — evaluate a piecewise-cubic Hermite curve and first derivative
+- `slatec::pchip::PiecewiseCubicHermite::integrate` — integrate a piecewise-cubic Hermite curve
+- `slatec::pchip::PiecewiseCubicHermite::monotone` — construct monotonicity-preserving piecewise-cubic Hermite derivatives
+- `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions` — construct controlled monotone piecewise-cubic Hermite derivatives
+- `slatec::pchip::PiecewiseCubicHermite::spline` — construct PCHSP cubic-spline Hermite derivatives
+
 ## Capability index
 
 ### Core only
@@ -779,6 +800,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
 - `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
+- `slatec::pchip::PiecewiseCubicHermite::evaluate_into`
+- `slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into`
+- `slatec::pchip::PiecewiseCubicHermite::integrate`
+- `slatec::pchip::PiecewiseCubicHermite::monotone`
+- `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions`
+- `slatec::pchip::PiecewiseCubicHermite::spline`
 - `slatec::polynomials::chebyshev::chebyshev_series`
 - `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `slatec::quadrature::integrate`

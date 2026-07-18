@@ -38,6 +38,7 @@ pub mod safe_lp_in_memory;
 pub mod safe_nonlinear;
 pub mod safe_nonlinear_expert;
 pub mod safe_ode_sdrive;
+pub mod safe_pchip;
 pub mod safe_quadrature;
 pub mod safe_roots;
 pub mod safe_special;

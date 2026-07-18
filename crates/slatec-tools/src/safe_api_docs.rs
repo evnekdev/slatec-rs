@@ -578,6 +578,48 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             "fftpack-real",
         ));
     }
+    for (path, routine, family) in [
+        (
+            "slatec::pchip::PiecewiseCubicHermite::monotone",
+            "PCHIM",
+            "monotonicity-preserving Hermite derivative construction",
+        ),
+        (
+            "slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions",
+            "PCHIC",
+            "controlled monotone Hermite derivative construction",
+        ),
+        (
+            "slatec::pchip::PiecewiseCubicHermite::spline",
+            "PCHSP",
+            "cubic-spline Hermite derivative construction",
+        ),
+        (
+            "slatec::pchip::PiecewiseCubicHermite::evaluate_into",
+            "PCHFE",
+            "piecewise-cubic Hermite value evaluation",
+        ),
+        (
+            "slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into",
+            "PCHFD",
+            "piecewise-cubic Hermite value and derivative evaluation",
+        ),
+        (
+            "slatec::pchip::PiecewiseCubicHermite::integrate",
+            "PCHIA",
+            "piecewise-cubic Hermite definite integration",
+        ),
+    ] {
+        output.push(record(
+            path,
+            routine,
+            "piecewise cubic Hermite interpolation",
+            "f32/f64",
+            family,
+            "std",
+            "pchip",
+        ));
+    }
     Ok(output)
 }
 
@@ -736,6 +778,16 @@ fn record(
             "examples/fftpack/quarter_wave.rs".to_owned()
         }
         "real FFTPACK" => "examples/fftpack/real_fft.rs".to_owned(),
+        "piecewise cubic Hermite interpolation" if path.contains("integrate") => {
+            "examples/pchip/integrate.rs".to_owned()
+        }
+        "piecewise cubic Hermite interpolation" if path.contains("derivative") => {
+            "examples/pchip/evaluate_derivative.rs".to_owned()
+        }
+        "piecewise cubic Hermite interpolation" if path.contains("spline") => {
+            "examples/pchip/custom_derivatives.rs".to_owned()
+        }
+        "piecewise cubic Hermite interpolation" => "examples/pchip/monotone.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };
@@ -1056,7 +1108,10 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "callback"
         } else if matches!(
             function.domain.as_str(),
-            "linear least squares" | "linear programming" | "real FFTPACK"
+            "linear least squares"
+                | "linear programming"
+                | "real FFTPACK"
+                | "piecewise cubic Hermite interpolation"
         ) {
             "owned"
         } else {
@@ -1109,6 +1164,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "ordinary differential equations",
         "linear programming",
         "real FFTPACK",
+        "piecewise cubic Hermite interpolation",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -1194,6 +1250,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
         "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
+        "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -1244,6 +1301,7 @@ fn native_status(domain: &str) -> &'static str {
         | "linear least squares"
         | "linear programming"
         | "real FFTPACK"
+        | "piecewise cubic Hermite interpolation"
         | "special functions"
         | "polynomials" => "native_execution_passed",
         _ => "unknown",
@@ -1331,6 +1389,22 @@ fn purpose(family: &str) -> &'static str {
         }
         "quarter-wave cosine backward transform" => {
             "compute a quarter-wave cosine backward transform"
+        }
+        "monotonicity-preserving Hermite derivative construction" => {
+            "construct monotonicity-preserving piecewise-cubic Hermite derivatives"
+        }
+        "controlled monotone Hermite derivative construction" => {
+            "construct controlled monotone piecewise-cubic Hermite derivatives"
+        }
+        "cubic-spline Hermite derivative construction" => {
+            "construct PCHSP cubic-spline Hermite derivatives"
+        }
+        "piecewise-cubic Hermite value evaluation" => "evaluate a piecewise-cubic Hermite curve",
+        "piecewise-cubic Hermite value and derivative evaluation" => {
+            "evaluate a piecewise-cubic Hermite curve and first derivative"
+        }
+        "piecewise-cubic Hermite definite integration" => {
+            "integrate a piecewise-cubic Hermite curve"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",

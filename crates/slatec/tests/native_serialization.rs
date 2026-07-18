@@ -18,6 +18,7 @@ use slatec::linear_least_squares::{
 use slatec::linear_programming::{LinearProgram, LpBound, SparseColumns};
 use slatec::native_serialization_test_support::{reset, snapshot};
 use slatec::ode::{OdeOptions, OdeSession, OdeTolerance, OdeTolerances};
+use slatec::pchip::PiecewiseCubicHermite;
 use slatec::quadrature::{IntegrationOptions, integrate};
 use slatec::roots::{RootBracket, RootOptions, find_root};
 
@@ -111,6 +112,11 @@ fn run_real_fftpack() {
     plan.backward(&mut values).unwrap();
 }
 
+fn run_pchip() {
+    let curve = PiecewiseCubicHermite::<f64>::monotone(&[0.0, 0.5, 1.0], &[0.0, 0.3, 1.0]).unwrap();
+    assert!(curve.evaluate(0.25).unwrap().is_finite());
+}
+
 fn concurrent_pair(left: fn(), right: fn()) {
     let barrier = Arc::new(Barrier::new(3));
     let spawn = |work: fn()| {
@@ -139,6 +145,8 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_linear_programming, run_bounded);
     concurrent_pair(run_real_fftpack, run_ode);
     concurrent_pair(run_real_fftpack, run_linear_programming);
+    concurrent_pair(run_pchip, run_ode);
+    concurrent_pair(run_pchip, run_real_fftpack);
     let observed = snapshot();
     assert_eq!(observed.active, 0);
     assert_eq!(observed.maximum_active, 1);

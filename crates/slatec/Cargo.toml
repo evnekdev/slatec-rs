@@ -142,10 +142,18 @@ fftpack-real = [
     "slatec-src/fftpack-real",
 ]
 fftpack-real-native-tests = ["fftpack-real"]
+pchip = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-pchip",
+    "slatec-src/pchip",
+]
+pchip-native-tests = ["pchip"]
 native-serialization-tests = [
     "std",
     "optimization-linear-programming-in-memory-native-tests",
     "fftpack-real-native-tests",
+    "pchip-native-tests",
     "ode-sdrive-expert-native-tests",
     "quadrature-native-tests",
     "roots-native-tests",
@@ -234,7 +242,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = []
 optimize = ["optimization"]
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "optimization", "fftpack-real", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "optimization", "fftpack-real", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -343,3 +351,7 @@ required-features = ["optimization-linear-programming-in-memory"]
 [[example]]
 name = "link_fftpack_real"
 required-features = ["fftpack-real"]
+
+[[example]]
+name = "link_pchip"
+required-features = ["pchip"]

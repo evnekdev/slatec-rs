@@ -274,7 +274,8 @@ pub(crate) fn max_ode_native_calls() -> usize {
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
-    feature = "ode-sdrive-expert"
+    feature = "ode-sdrive-expert",
+    feature = "pchip"
 ))]
 pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
     let mut previous = 0;
@@ -296,7 +297,8 @@ pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
-    feature = "ode-sdrive-expert"
+    feature = "ode-sdrive-expert",
+    feature = "pchip"
 ))]
 pub(crate) struct RecoverableErrorScope {
     previous: slatec_sys::FortranInteger,
@@ -309,7 +311,8 @@ pub(crate) struct RecoverableErrorScope {
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
-    feature = "ode-sdrive-expert"
+    feature = "ode-sdrive-expert",
+    feature = "pchip"
 ))]
 impl Drop for RecoverableErrorScope {
     fn drop(&mut self) {

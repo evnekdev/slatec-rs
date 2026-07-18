@@ -57,13 +57,18 @@ pub mod generated;
     feature = "raw-family-special-bessel",
     feature = "raw-family-special-integrals",
     feature = "raw-family-special-polynomials",
-    feature = "raw-family-fftpack-real"
+    feature = "raw-family-fftpack-real",
+    feature = "raw-family-pchip"
 ))]
 pub mod families;
 
 /// Hand-reviewed real FFTPACK declarations for the plan-based safe API.
 #[cfg(feature = "raw-family-fftpack-real")]
 pub mod fftpack;
+
+/// Hand-reviewed PCHIP and piecewise-cubic Hermite declarations.
+#[cfg(feature = "raw-family-pchip")]
+pub mod pchip;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///
@@ -157,6 +162,7 @@ pub mod linear_least_squares;
     feature = "raw-family-least-squares-linear-constrained",
     feature = "raw-family-least-squares-linear-bounded-constrained",
     feature = "raw-family-ode-sdrive-expert",
-    feature = "raw-family-optimization-linear-programming-in-memory"
+    feature = "raw-family-optimization-linear-programming-in-memory",
+    feature = "raw-family-pchip"
 ))]
 pub mod legacy_error;

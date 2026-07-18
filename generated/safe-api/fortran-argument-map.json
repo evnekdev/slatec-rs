@@ -5733,6 +5733,333 @@
       ]
     },
     {
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::evaluate_into",
+      "fortran_routine": "PCHFE",
+      "program_unit_id": "full-provider-5bcb840143d30cc9",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "d",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "incfd",
+          "fortran": "INCFD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "skip",
+          "fortran": "SKIP",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ne",
+          "fortran": "NE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xe",
+          "fortran": "XE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "fe",
+          "fortran": "FE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::evaluate_with_derivatives_into",
+      "fortran_routine": "PCHFD",
+      "program_unit_id": "full-provider-7e2214a4a23ebe63",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "d",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "incfd",
+          "fortran": "INCFD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "skip",
+          "fortran": "SKIP",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ne",
+          "fortran": "NE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xe",
+          "fortran": "XE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "fe",
+          "fortran": "FE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "de",
+          "fortran": "DE",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::integrate",
+      "fortran_routine": "PCHIA",
+      "program_unit_id": "full-provider-f614ec62d1848de8",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "d",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "incfd",
+          "fortran": "INCFD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "skip",
+          "fortran": "SKIP",
+          "transformation": "owned"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "owned"
+        },
+        {
+          "rust": "b",
+          "fortran": "B",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::monotone",
+      "fortran_routine": "PCHIM",
+      "program_unit_id": "full-provider-b4d2f96922d077e9",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "d",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "incfd",
+          "fortran": "INCFD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions",
+      "fortran_routine": "PCHIC",
+      "program_unit_id": "full-provider-62cf8c00e1da0fe6",
+      "arguments": [
+        {
+          "rust": "ic",
+          "fortran": "IC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "vc",
+          "fortran": "VC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "switch",
+          "fortran": "SWITCH",
+          "transformation": "owned"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "d",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "incfd",
+          "fortran": "INCFD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "wk",
+          "fortran": "WK",
+          "transformation": "owned"
+        },
+        {
+          "rust": "nwk",
+          "fortran": "NWK",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::pchip::PiecewiseCubicHermite::spline",
+      "fortran_routine": "PCHSP",
+      "program_unit_id": "full-provider-d4f4f76fa35342c7",
+      "arguments": [
+        {
+          "rust": "ic",
+          "fortran": "IC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "vc",
+          "fortran": "VC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "d",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "incfd",
+          "fortran": "INCFD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "wk",
+          "fortran": "WK",
+          "transformation": "owned"
+        },
+        {
+          "rust": "nwk",
+          "fortran": "NWK",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::polynomials::chebyshev::chebyshev_series",
       "fortran_routine": "DCSEVL",
       "program_unit_id": "full-provider-b31575014b5cbefd",
