@@ -58,6 +58,13 @@ and definite integration. Knots remain strictly ordered as supplied, native
 endpoint extrapolation is opt-in, and the shared XERROR runtime keeps calls
 process-serialized. See the [PCHIP guide](../../docs/api/safe-pchip.md).
 
+The hosted `special-scalar-expanded` feature provides real scalar
+logarithmic/Spence integrals and Carlson symmetric elliptic integrals in both
+precisions. It has no caller workspace or external numerical dependency;
+native saved initialization and XERROR keep it globally serialized. Complex,
+sequence, arbitrary-workspace, and translated special-function APIs remain
+deferred. See the [special-functions guide](../../docs/api/safe-special-functions.md).
+
 Native concurrency is conservative. APIs that use the hosted legacy runtime
 are process-serialized; the existing `no_std`/`alloc` BLAS and Jacobian-check
 features remain backend-dependent and do not promise parallel native safety.

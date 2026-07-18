@@ -8902,6 +8902,270 @@
           "transformation": "pass"
         }
       ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rc",
+      "fortran_routine": "DRC",
+      "program_unit_id": "full-provider-c924cd3731f61707",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rc_f32",
+      "fortran_routine": "RC",
+      "program_unit_id": "full-provider-f94041e0c376d064",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rd",
+      "fortran_routine": "DRD",
+      "program_unit_id": "full-provider-e3f8eb9b36b84632",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rd_f32",
+      "fortran_routine": "RD",
+      "program_unit_id": "full-provider-3d3e5e7ec89d1d9f",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rf",
+      "fortran_routine": "DRF",
+      "program_unit_id": "full-provider-19418c23f8c47fde",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rf_f32",
+      "fortran_routine": "RF",
+      "program_unit_id": "full-provider-439dc658a07a054b",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rj",
+      "fortran_routine": "DRJ",
+      "program_unit_id": "full-provider-048c7f47175c83d5",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "pass"
+        },
+        {
+          "rust": "p",
+          "fortran": "P",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::carlson_rj_f32",
+      "fortran_routine": "RJ",
+      "program_unit_id": "full-provider-4c8ec531464b896a",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "pass"
+        },
+        {
+          "rust": "p",
+          "fortran": "P",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IER",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::logarithmic_integral",
+      "fortran_routine": "DLI",
+      "program_unit_id": "full-provider-7d827691a48f371c",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::logarithmic_integral_f32",
+      "fortran_routine": "ALI",
+      "program_unit_id": "full-provider-6fa046d923b430e8",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::spence_integral",
+      "fortran_routine": "DSPENC",
+      "program_unit_id": "full-provider-4a8e957b5af77592",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::special::scalar_expanded::spence_integral_f32",
+      "fortran_routine": "SPENC",
+      "program_unit_id": "full-provider-a0ae1b7ac31c0094",
+      "arguments": [
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        }
+      ]
     }
   ]
 }

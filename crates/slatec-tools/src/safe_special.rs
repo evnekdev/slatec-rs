@@ -16,7 +16,163 @@ const SCHEMA_VERSION: &str = "1.0.0";
 const SEMANTIC_VERSION: &str = "1";
 const PROFILE: &str = "ffi-profile-gnu-mingw-x86_64";
 const MAX_FILE_BYTES: usize = 64 * 1024;
-const MAX_TOTAL_BYTES: usize = 256 * 1024;
+// The complete audited scalar-special comparison retains provenance hashes for
+// every classified candidate; it remains compact, but exceeds the former
+// wrapper-only inventory limit.
+const MAX_TOTAL_BYTES: usize = 384 * 1024;
+
+/// Returns conservative source/object-state projections for the newly
+/// reviewed scalar-expanded special wrappers.
+///
+/// The focused profile is deliberately classified as process serialized.  It
+/// reaches FNLIB `SAVE`/`DATA` coefficient state and, for `LI` and the
+/// Carlson integrals, the process-global XERROR controls.  The broad
+/// native-origin audit supplies the compiler and COFF evidence for these
+/// records; this function prevents a newly generated wrapper from being
+/// omitted while that audit is regenerated.
+pub(crate) fn native_state_projections() -> Result<Vec<Value>> {
+    let closure: Value = serde_json::from_slice(&fs::read(
+        Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../slatec-src/metadata/special-scalar-expanded-source-closure.json"),
+    )?)?;
+    let object_closure = closure["source_ids"]
+        .as_array()
+        .ok_or_else(|| {
+            CorpusError::Verification("scalar-expanded closure lacks source ids".to_owned())
+        })?
+        .iter()
+        .filter_map(Value::as_str)
+        .map(|id| format!("{id}.o"))
+        .chain(
+            ["profile-i1mach.o", "profile-r1mach.o", "profile-d1mach.o"]
+                .into_iter()
+                .map(str::to_owned),
+        )
+        .collect::<Vec<_>>();
+    let source_closure = closure["sources"]
+        .as_array()
+        .ok_or_else(|| {
+            CorpusError::Verification("scalar-expanded closure lacks sources".to_owned())
+        })?
+        .iter()
+        .filter_map(|source| source["path"].as_str())
+        .map(str::to_owned)
+        .collect::<Vec<_>>();
+    let entries = [
+        (
+            "slatec::special::scalar_expanded::logarithmic_integral",
+            "DLI",
+            "selected-source-34fcdfbc2eb3936a",
+            "SAVE/DATA state in transitive DEI/E1 coefficient evaluation",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::logarithmic_integral_f32",
+            "ALI",
+            "selected-source-d8a3ff5f7aae10c6",
+            "SAVE/DATA state in transitive EI/E1 coefficient evaluation",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::spence_integral",
+            "DSPENC",
+            "selected-source-108b03d18a937d43",
+            "DSPENC SAVE/DATA coefficient initialization",
+            false,
+        ),
+        (
+            "slatec::special::scalar_expanded::spence_integral_f32",
+            "SPENC",
+            "selected-source-031d35577d56b3ce",
+            "SPENC SAVE/DATA coefficient initialization",
+            false,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rc",
+            "DRC",
+            "selected-source-37aaabe2b00326ff",
+            "DRC SAVE/DATA range constants",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rc_f32",
+            "RC",
+            "selected-source-b52bf204922ab465",
+            "RC SAVE/DATA range constants",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rf",
+            "DRF",
+            "selected-source-6d15f5236d7f501e",
+            "DRF SAVE/DATA range constants",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rf_f32",
+            "RF",
+            "selected-source-05991ed39dc9b8ef",
+            "RF SAVE/DATA range constants",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rd",
+            "DRD",
+            "selected-source-8b9e73030d087160",
+            "DRD SAVE/DATA range constants",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rd_f32",
+            "RD",
+            "selected-source-b92a8487032a308b",
+            "RD SAVE/DATA range constants",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rj",
+            "DRJ",
+            "selected-source-2deb572916fc392a",
+            "DRJ SAVE/DATA range constants and transitive DRC",
+            true,
+        ),
+        (
+            "slatec::special::scalar_expanded::carlson_rj_f32",
+            "RJ",
+            "selected-source-cc2237573df902b8",
+            "RJ SAVE/DATA range constants and transitive RC",
+            true,
+        ),
+    ];
+    Ok(entries
+        .into_iter()
+        .map(|(safe_function, routine, entry_source, saved_state, xerror)| {
+            json!({
+                "safe_function":safe_function,
+                "native_entry_points":[routine],
+                "feature":"special-scalar-expanded",
+                "effective_native_families":["special-scalar-expanded"],
+                "entry_object":format!("{entry_source}.o"),
+                "object_closure":object_closure,
+                "source_closure":source_closure,
+                "saved_mutable_locals":[saved_state],
+                "common_blocks":[],
+                "xerror_state":if xerror { vec!["XERROR J4SAVE/XERSVE process-global state"] } else { Vec::<&str>::new() },
+                "fortran_io":[],
+                "callback_state":["none"],
+                "writable_symbols":["focused GNU MinGW source-build audit: SAVE/DATA storage is retained conservatively"],
+                "source_object_unresolved":[],
+                "external_undefined_symbols":[],
+                "feature_closure_mismatch":false,
+                "native_routine_reentrancy":"SerializedGlobal",
+                "rust_api_concurrency":"scalar arguments are independently owned; every native entry remains process serialized",
+                "provider_runtime_thread_safety":"reviewed source build remains serialized; external and system backends are BackendDependent",
+                "provider_unknowns":["external_or_system_Fortran_runtime_and_provider_contract_not_qualified"],
+                "remaining_blockers":["SAVE/DATA mutable storage", "process-global XERROR where reachable", "provider/runtime qualification"]
+            })
+        })
+        .collect())
+}
 
 #[derive(Clone, Copy)]
 struct WrapperSpec {
@@ -608,6 +764,114 @@ const WRAPPERS: &[WrapperSpec] = &[
         "f32",
         "fully_prechecked"
     ),
+    spec_with_runtime!(
+        "DLI",
+        "slatec::special::scalar_expanded::logarithmic_integral",
+        "scalar-expanded-integrals",
+        "f64",
+        "conservative_prechecked",
+        "fnlib_initialized_saved_state",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "ALI",
+        "slatec::special::scalar_expanded::logarithmic_integral_f32",
+        "scalar-expanded-integrals",
+        "f32",
+        "conservative_prechecked",
+        "fnlib_initialized_saved_state",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "DSPENC",
+        "slatec::special::scalar_expanded::spence_integral",
+        "scalar-expanded-integrals",
+        "f64",
+        "finite_prechecked",
+        "fnlib_initialized_saved_state",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "SPENC",
+        "slatec::special::scalar_expanded::spence_integral_f32",
+        "scalar-expanded-integrals",
+        "f32",
+        "finite_prechecked",
+        "fnlib_initialized_saved_state",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "DRC",
+        "slatec::special::scalar_expanded::carlson_rc",
+        "elliptic",
+        "f64",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "RC",
+        "slatec::special::scalar_expanded::carlson_rc_f32",
+        "elliptic",
+        "f32",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "DRF",
+        "slatec::special::scalar_expanded::carlson_rf",
+        "elliptic",
+        "f64",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "RF",
+        "slatec::special::scalar_expanded::carlson_rf_f32",
+        "elliptic",
+        "f32",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "DRD",
+        "slatec::special::scalar_expanded::carlson_rd",
+        "elliptic",
+        "f64",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "RD",
+        "slatec::special::scalar_expanded::carlson_rd_f32",
+        "elliptic",
+        "f32",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "DRJ",
+        "slatec::special::scalar_expanded::carlson_rj",
+        "elliptic",
+        "f64",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
+    spec_with_runtime!(
+        "RJ",
+        "slatec::special::scalar_expanded::carlson_rj_f32",
+        "elliptic",
+        "f32",
+        "prechecked_with_native_ier",
+        "saved_machine_constants_and_xerror",
+        "serialized_process_global"
+    ),
 ];
 
 #[derive(Debug)]
@@ -665,11 +929,13 @@ pub fn generate(
                 CorpusError::Verification(format!("raw FFI interface inventory lacks {name}"))
             })
     };
-    let (id_ix, name_ix, kind_ix, subset_ix, symbol_ix, confidence_ix, batch_ix) = (
+    let (id_ix, name_ix, kind_ix, subset_ix, path_ix, sha_ix, symbol_ix, confidence_ix, batch_ix) = (
         ix("program_unit_id")?,
         ix("normalized_name")?,
         ix("kind")?,
         ix("source_subset")?,
+        ix("source_path")?,
+        ix("raw_sha256")?,
         ix("observed_raw_symbol")?,
         ix("confidence_class")?,
         ix("binding_batch")?,
@@ -677,6 +943,7 @@ pub fn generate(
     let mut candidates = Vec::new();
     let mut wrappers = Vec::new();
     let mut deferred = Vec::new();
+    let mut source_metadata = BTreeMap::new();
     let mut seen_sources = BTreeSet::new();
     for record in records {
         let row = record.as_array().ok_or_else(|| {
@@ -695,6 +962,10 @@ pub fn generate(
         let raw_symbol = row_string(row, symbol_ix)?;
         let confidence = row_string(row, confidence_ix)?;
         let subset = row_string(row, subset_ix)?;
+        source_metadata.insert(
+            source.clone(),
+            (row_string(row, path_ix)?, row_string(row, sha_ix)?),
+        );
         let (disposition, reason, spec) = if let Some(spec) = specs.get(source.as_str()) {
             if confidence != "generated_abi_sensitive" {
                 return Err(CorpusError::Verification(format!(
@@ -776,7 +1047,7 @@ pub fn generate(
     sort_rows(&mut candidates, 1);
     sort_rows(&mut wrappers, 3);
     sort_rows(&mut deferred, 1);
-    let family_summary = family_summary(&wrappers)?;
+    let existing_family_summary = family_summary(&wrappers)?;
     let runtime_state = wrappers
         .iter()
         .map(|row| {
@@ -805,7 +1076,7 @@ pub fn generate(
     }))?);
     outputs.insert("special-function-family-summary.json", compact(&json!({
         "schema_id":"slatec.safe-special.family-summary", "schema_version":SCHEMA_VERSION,
-        "snapshot_id":snapshot, "columns":["family","precision","wrapper_count"], "records":family_summary
+        "snapshot_id":snapshot, "columns":["family","precision","wrapper_count"], "records":existing_family_summary
     }))?);
     outputs.insert("special-function-runtime-state.json", compact(&json!({
         "schema_id":"slatec.safe-special.runtime-state", "schema_version":SCHEMA_VERSION,
@@ -815,10 +1086,184 @@ pub fn generate(
         "schema_id":"slatec.safe-special.deferred", "schema_version":SCHEMA_VERSION,
         "snapshot_id":snapshot, "columns":["program_unit_id","source_unit","raw_symbol","reason","review_state"], "records":deferred
     }))?);
+    let special_candidates = candidates
+        .iter()
+        .filter(|row| is_special_candidate(row))
+        .cloned()
+        .collect::<Vec<_>>();
+    let special_wrappers = wrappers
+        .iter()
+        .filter(|row| is_special_wrapper(row))
+        .cloned()
+        .collect::<Vec<_>>();
+    let comparison = special_candidates
+        .iter()
+        .map(|row| {
+            let values = row.as_array().expect("constructed special candidate");
+            json!([
+                values[1].clone(),
+                values[0].clone(),
+                values[3].clone(),
+                special_classification(values),
+                values[6].clone(),
+                values[7].clone(),
+                values[8].clone(),
+            ])
+        })
+        .collect::<Vec<_>>();
+    let special_inventory = special_candidates
+        .iter()
+        .map(|row| {
+            let values = row.as_array().expect("constructed special candidate");
+            let source = values[1].as_str().unwrap_or_default();
+            let (path, sha256) = source_metadata
+                .get(source)
+                .cloned()
+                .unwrap_or_else(|| ("reviewed_manual_declaration".to_owned(), "".to_owned()));
+            json!([
+                values[1].clone(),
+                values[0].clone(),
+                values[2].clone(),
+                values[3].clone(),
+                path,
+                sha256,
+                values[10].clone(),
+                special_classification(values),
+                values[13].clone(),
+                scaling_contract(source),
+                values[11].clone(),
+                values[12].clone(),
+            ])
+        })
+        .collect::<Vec<_>>();
+    let domain_contracts = special_wrappers
+        .iter()
+        .map(|row| {
+            let values = row.as_array().expect("constructed special wrapper");
+            json!([values[1].clone(), values[3].clone(), values[9].clone()])
+        })
+        .collect::<Vec<_>>();
+    let scaling_contracts = special_wrappers
+        .iter()
+        .map(|row| {
+            let values = row.as_array().expect("constructed special wrapper");
+            let source = values[1].as_str().unwrap_or_default();
+            json!([
+                values[1].clone(),
+                values[3].clone(),
+                scaling_contract(source)
+            ])
+        })
+        .collect::<Vec<_>>();
+    let status_map = special_wrappers
+        .iter()
+        .map(|row| {
+            let values = row.as_array().expect("constructed special wrapper");
+            let source = values[1].as_str().unwrap_or_default();
+            json!([
+                values[1].clone(),
+                values[3].clone(),
+                status_contract(source)
+            ])
+        })
+        .collect::<Vec<_>>();
+    let source_closures = vec![json!([
+        "special-scalar-expanded",
+        "SLATEC and FNLIB",
+        "selected direct scalar entries plus machine constants and XERROR",
+        "serialized_process_global",
+        "reviewed_source_build_only"
+    ])];
+    let native_state = special_wrappers
+        .iter()
+        .map(|row| {
+            let values = row.as_array().expect("constructed special wrapper");
+            let source = values[1].as_str().unwrap_or_default();
+            json!([
+                values[1].clone(),
+                values[3].clone(),
+                native_state_contract(source),
+                native_object_evidence(source),
+                "SerializedGlobal"
+            ])
+        })
+        .collect::<Vec<_>>();
+    let concurrency = special_wrappers
+        .iter()
+        .flat_map(|row| {
+            let values = row.as_array().expect("constructed special wrapper");
+            [
+                json!([
+                    values[3].clone(),
+                    "slatec-src-gnu-mingw",
+                    "SerializedGlobal",
+                    "SAVE/DATA state and process-global XERROR"
+                ]),
+                json!([
+                    values[3].clone(),
+                    "external-or-system-provider",
+                    "BackendDependent",
+                    "provider identity and runtime contract are not qualified"
+                ]),
+            ]
+        })
+        .collect::<Vec<_>>();
+    outputs.insert("special-existing-vs-candidate.json", compact(&json!({
+        "schema_id":"slatec.safe-special.existing-vs-candidate", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot,
+        "columns":["native_name","program_unit_id","source_subset","classification","disposition","reason","safe_path"], "records":comparison
+    }))?);
+    outputs.insert("special-candidate-inventory.json", compact(&json!({
+        "schema_id":"slatec.safe-special.candidate-inventory", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot,
+        "columns":["native_name","program_unit_id","raw_symbol","source_subset","source_path","source_sha256","precision","classification","domain_policy","scaling","runtime_dependency","state_policy"], "records":special_inventory
+    }))?);
+    outputs.insert("special-candidate-classification.json", compact(&json!({
+        "schema_id":"slatec.safe-special.candidate-classification", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot,
+        "columns":["native_name","classification","reason"],
+        "records":special_candidates.iter().map(|row| { let values=row.as_array().expect("constructed special candidate"); json!([values[1].clone(),special_classification(values),values[7].clone()]) }).collect::<Vec<_>>()
+    }))?);
+    outputs.insert("special-domain-contracts.json", compact(&json!({
+        "schema_id":"slatec.safe-special.domain-contracts", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["native_name","safe_path","domain_policy"], "records":domain_contracts
+    }))?);
+    outputs.insert("special-scaling-contracts.json", compact(&json!({
+        "schema_id":"slatec.safe-special.scaling-contracts", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["native_name","safe_path","scaling"], "records":scaling_contracts
+    }))?);
+    outputs.insert("special-status-map.json", compact(&json!({
+        "schema_id":"slatec.safe-special.status-map", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["native_name","safe_path","status_policy"], "records":status_map
+    }))?);
+    outputs.insert("special-source-closures.json", compact(&json!({
+        "schema_id":"slatec.safe-special.source-closures", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["profile","provider","closure","native_state","source_build_policy"], "records":source_closures
+    }))?);
+    outputs.insert("special-native-state.json", compact(&json!({
+        "schema_id":"slatec.safe-special.native-state", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["native_name","safe_path","source_state","object_evidence","classification"], "records":native_state
+    }))?);
+    outputs.insert("special-concurrency.json", compact(&json!({
+        "schema_id":"slatec.safe-special.concurrency", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["safe_path","backend_profile","classification","reason"], "records":concurrency
+    }))?);
+    outputs.insert("special-wrapper-index.json", compact(&json!({
+        "schema_id":"slatec.safe-special.expanded-wrapper-index", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["program_unit_id","native_name","raw_symbol","safe_path","family","precision","interface_shape","runtime_dependency","state_policy","domain_policy","native_execution","reference_test","identity_test","invalid_input_containment","review_state"], "records":special_wrappers
+    }))?);
+    outputs.insert("special-family-summary.json", compact(&json!({
+        "schema_id":"slatec.safe-special.expanded-family-summary", "schema_version":SCHEMA_VERSION,
+        "snapshot_id":snapshot, "columns":["family","precision","wrapper_count"], "records":family_summary(&special_wrappers)?
+    }))?);
     let semantic_hash = semantic_hash(&outputs);
     outputs.insert(
         "special-function-validation-summary.md",
         summary(&snapshot, candidates.len(), wrappers.len(), deferred.len()).into_bytes(),
+    );
+    outputs.insert(
+        "special-validation-summary.md",
+        expanded_summary(&snapshot, special_candidates.len(), special_wrappers.len()).into_bytes(),
     );
     outputs.insert("special-function-manifest.json", compact(&json!({
         "id": stable_id("safe-special", &[&snapshot, &semantic_hash]),
@@ -863,7 +1308,13 @@ fn require_runtime_gate(runtime: &Value) -> Result<()> {
 }
 
 fn deferred_reason(source: &str) -> &'static str {
-    if matches!(source, "RAND" | "RGAUSS" | "RUNIF") {
+    if matches!(source, "CHU" | "DCHU") {
+        "insufficiently_documented_convergence_contract"
+    } else if matches!(source, "POCH" | "DPOCH" | "POCH1" | "DPOCH1") {
+        "insufficiently_documented_argument_reliability"
+    } else if matches!(source, "COT" | "DCOT") {
+        "fatal_near_pole_precision_path"
+    } else if matches!(source, "RAND" | "RGAUSS" | "RUNIF") {
         "mutable_global_state"
     } else if source.starts_with("D9") || source.starts_with("R9") {
         "internal_approximant"
@@ -906,6 +1357,123 @@ fn deferred_reason(source: &str) -> &'static str {
         "dynamic_workspace_or_array"
     } else {
         "unverified_public_contract"
+    }
+}
+
+fn is_special_candidate(row: &Value) -> bool {
+    let values = row.as_array().expect("constructed safe-special candidate");
+    let subset = values[3].as_str().unwrap_or_default();
+    let source = values[1].as_str().unwrap_or_default();
+    subset == "fnlib"
+        || matches!(
+            source,
+            "RC" | "DRC" | "RF" | "DRF" | "RD" | "DRD" | "RJ" | "DRJ"
+        )
+}
+
+fn is_special_wrapper(row: &Value) -> bool {
+    let values = row.as_array().expect("constructed safe-special wrapper");
+    let path = values[3].as_str().unwrap_or_default();
+    path.starts_with("slatec::special::")
+}
+
+fn special_classification(values: &[Value]) -> &'static str {
+    let disposition = values[6].as_str().unwrap_or_default();
+    let safe_path = values[8].as_str().unwrap_or_default();
+    let reason = values[7].as_str().unwrap_or_default();
+    if disposition == "included" && safe_path.contains("scalar_expanded") {
+        "suitable_for_this_milestone"
+    } else if disposition == "included" {
+        "already_safely_exposed"
+    } else if reason == "mutable_global_state" {
+        "deferred_due_to_global_mutable_state"
+    } else if reason == "dynamic_workspace_or_array" {
+        "deferred_due_to_sequence_or_workspace"
+    } else if reason == "internal_approximant" {
+        "internal_or_subsidiary_only"
+    } else if reason == "portable_intrinsic_duplicate" {
+        "obsolete_alias_or_duplicate"
+    } else if reason.contains("convergence") || reason.contains("reliability") {
+        "insufficiently_documented"
+    } else if reason == "fatal_near_pole_precision_path" {
+        "deferred_due_to_branch_or_precision_ambiguity"
+    } else {
+        "deferred_pending_contract_review"
+    }
+}
+
+fn scaling_contract(source: &str) -> &'static str {
+    if matches!(
+        source,
+        "AIE"
+            | "DAIE"
+            | "BIE"
+            | "DBIE"
+            | "BESI0E"
+            | "BESI1E"
+            | "BESK0E"
+            | "BESK1E"
+            | "DBSI0E"
+            | "DBSI1E"
+            | "DBSK0E"
+            | "DBSK1E"
+    ) {
+        "explicit_native_scaled_variant"
+    } else {
+        "unscaled_native_value"
+    }
+}
+
+fn status_contract(source: &str) -> &'static str {
+    if matches!(
+        source,
+        "RC" | "DRC" | "RF" | "DRF" | "RD" | "DRD" | "RJ" | "DRJ"
+    ) {
+        "IER: 0=success; 1=invalid_sign; 2=too_small; 3=too_large"
+    } else if matches!(source, "ALI" | "DLI") {
+        "Rust preflight rejects native fatal domain"
+    } else {
+        "no_separate_native_status"
+    }
+}
+
+fn native_state_contract(source: &str) -> &'static str {
+    match source {
+        "ALI" | "DLI" => {
+            "direct scalar wrapper reaches transitive EI/DEI SAVE/DATA coefficient state; LI domain path reaches XERROR"
+        }
+        "SPENC" | "DSPENC" => "SAVE/DATA FIRST,NSPENC,PI26,SPENCS,XBIG",
+        "RC" | "DRC" => {
+            "SAVE/DATA FIRST,ERRTOL,LOLIM,UPLIM,C1,C2; documented IER path reaches XERROR"
+        }
+        "RF" | "DRF" => {
+            "SAVE/DATA FIRST,ERRTOL,LOLIM,UPLIM,C1,C2,C3; documented IER path reaches XERROR"
+        }
+        "RD" | "DRD" | "RJ" | "DRJ" => {
+            "SAVE/DATA FIRST,ERRTOL,LOLIM,UPLIM,C1,C2,C3,C4; documented IER path reaches XERROR"
+        }
+        _ => "reviewed closure state",
+    }
+}
+
+fn native_object_evidence(source: &str) -> &'static str {
+    match source {
+        "SPENC" | "DSPENC" => {
+            "reviewed GNU MinGW COFF object has writable FIRST,NSPENC,PI26,SPENCS,XBIG symbols"
+        }
+        "RC" | "DRC" => {
+            "reviewed GNU MinGW COFF object has writable FIRST,ERRTOL,LOLIM,UPLIM,C1,C2 symbols"
+        }
+        "RF" | "DRF" => {
+            "reviewed GNU MinGW COFF object has writable FIRST,ERRTOL,LOLIM,UPLIM,C1,C2,C3 symbols"
+        }
+        "RD" | "DRD" | "RJ" | "DRJ" => {
+            "reviewed GNU MinGW COFF object has writable FIRST,ERRTOL,LOLIM,UPLIM,C1,C2,C3,C4 symbols"
+        }
+        "ALI" | "DLI" => {
+            "direct object has no named writable symbol; transitive EI/DEI closure state remains serialized"
+        }
+        _ => "focused source-build object inspection",
     }
 }
 
@@ -1031,6 +1599,12 @@ fn summary(snapshot: &str, candidates: usize, wrappers: usize, deferred: usize) 
     )
 }
 
+fn expanded_summary(snapshot: &str, candidates: usize, wrappers: usize) -> String {
+    format!(
+        "# Safe real scalar special-function expansion\n\n- Snapshot: `{snapshot}`\n- Reviewed scalar-special candidates: {candidates}\n- Safe Rust wrappers: {wrappers}\n- New scope: logarithmic integral, Spence's integral, and Carlson RC/RF/RD/RJ in `f32` and `f64`\n- Deferred: complex ABI, sequence/workspace APIs, CHU and Pochhammer reliability gaps, and cotangent's fatal near-pole path\n- Native state: `SAVE`/`DATA` initialization and XERROR require process-global serialization\n- Focused native evidence: GNU MinGW source-build object inspection and the narrow link probe completed; the broad audit worker did not reach a final report in this host run, so it supplies no concurrency-relaxation evidence\n- Provider policy: the reviewed GNU MinGW source backend is serialized; external and system providers remain backend-dependent\n\nNo translated approximation, native binary, or source artifact is included.\n"
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1080,6 +1654,18 @@ mod tests {
             "special-function-deferred.json",
             "special-function-validation-summary.md",
             "special-function-manifest.json",
+            "special-existing-vs-candidate.json",
+            "special-candidate-inventory.json",
+            "special-candidate-classification.json",
+            "special-domain-contracts.json",
+            "special-scaling-contracts.json",
+            "special-status-map.json",
+            "special-source-closures.json",
+            "special-native-state.json",
+            "special-concurrency.json",
+            "special-wrapper-index.json",
+            "special-family-summary.json",
+            "special-validation-summary.md",
         ] {
             assert_eq!(
                 fs::read(first.join(name)).unwrap(),

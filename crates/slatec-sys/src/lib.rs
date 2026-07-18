@@ -62,6 +62,11 @@ pub mod generated;
 ))]
 pub mod families;
 
+/// Hand-reviewed scalar declarations for the expanded real special-function
+/// family.
+#[cfg(feature = "raw-family-special-scalar-expanded")]
+pub mod special_scalar_expanded;
+
 /// Hand-reviewed real FFTPACK declarations for the plan-based safe API.
 #[cfg(feature = "raw-family-fftpack-real")]
 pub mod fftpack;
@@ -169,6 +174,7 @@ pub mod linear_least_squares;
     feature = "raw-family-ode-sdrive-expert",
     feature = "raw-family-dassl",
     feature = "raw-family-optimization-linear-programming-in-memory",
-    feature = "raw-family-pchip"
+    feature = "raw-family-pchip",
+    feature = "raw-family-special-scalar-expanded"
 ))]
 pub mod legacy_error;

@@ -647,6 +647,7 @@ fn special_feature(family: &str) -> &'static str {
         "airy" => "special-airy",
         "bessel" => "special-bessel",
         "integrals" => "special-integrals",
+        "scalar-expanded-integrals" | "elliptic" => "special-scalar-expanded",
         "polynomials" => "special-polynomials",
         _ => "special",
     }
@@ -807,6 +808,12 @@ fn record(
             "examples/pchip/custom_derivatives.rs".to_owned()
         }
         "piecewise cubic Hermite interpolation" => "examples/pchip/monotone.rs".to_owned(),
+        "special functions" if path.contains("scalar_expanded") && path.contains("carlson_") => {
+            "examples/special/elliptic.rs".to_owned()
+        }
+        "special functions" if path.contains("scalar_expanded") => {
+            "examples/special/integrals.rs".to_owned()
+        }
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };

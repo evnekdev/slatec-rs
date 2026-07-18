@@ -59,6 +59,7 @@ blas-level23-native-tests = ["blas-level2", "blas-level3"]
 special = [
     "special-elementary", "special-gamma", "special-beta", "special-error",
     "special-airy", "special-bessel", "special-integrals", "special-polynomials",
+    "special-scalar-expanded",
 ]
 special-common = ["std", "blas-level1-validation"]
 special-f32 = []
@@ -70,6 +71,8 @@ special-airy = ["special-common", "special-f32", "slatec-sys/raw-family-special-
 special-bessel = ["special-common", "special-f32", "slatec-sys/raw-family-special-bessel", "slatec-src/special-bessel"]
 special-integrals = ["special-common", "special-f32", "slatec-sys/raw-family-special-integrals", "slatec-src/special-integrals"]
 special-polynomials = ["special-common", "special-f32", "slatec-sys/raw-family-special-polynomials", "slatec-src/special-polynomials"]
+special-scalar-expanded = ["special-common", "special-f32", "slatec-sys/raw-family-special-scalar-expanded", "slatec-src/special-scalar-expanded"]
+special-scalar-expanded-native-tests = ["special-scalar-expanded"]
 
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
@@ -257,6 +260,8 @@ special-functions-polynomials = ["special-polynomials"]
 special-functions-native-tests = [
     "special-functions-f32",
     "special-functions-polynomials",
+    "special-scalar-expanded-native-tests",
+    "slatec-sys/raw-ffi-scalar-functions",
 ]
 
 [dependencies]
@@ -367,3 +372,17 @@ required-features = ["fftpack-real"]
 [[example]]
 name = "link_pchip"
 required-features = ["pchip"]
+
+[[example]]
+name = "link_special_scalar_expanded"
+required-features = ["special-scalar-expanded"]
+
+[[example]]
+name = "special_integrals"
+path = "../../examples/special/integrals.rs"
+required-features = ["special-scalar-expanded"]
+
+[[example]]
+name = "special_elliptic"
+path = "../../examples/special/elliptic.rs"
+required-features = ["special-scalar-expanded"]

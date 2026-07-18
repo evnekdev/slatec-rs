@@ -30,6 +30,13 @@ pub enum SpecialFunctionError {
         /// SLATEC legacy error level.
         level: i32,
     },
+    /// A scalar routine returned its documented status argument.
+    NativeStatus {
+        /// Safe Rust function name.
+        function: &'static str,
+        /// The routine-specific documented status value.
+        status: i32,
+    },
     /// The process-global SLATEC runtime state could not be used safely.
     RuntimeStateUnavailable {
         /// Safe Rust function name.
@@ -69,6 +76,12 @@ impl fmt::Display for SpecialFunctionError {
                 formatter,
                 "{function}: SLATEC reported error {error_number} at level {level}"
             ),
+            Self::NativeStatus { function, status } => {
+                write!(
+                    formatter,
+                    "{function}: SLATEC reported native status {status}"
+                )
+            }
             Self::RuntimeStateUnavailable { function } => {
                 write!(formatter, "{function}: SLATEC runtime state is unavailable")
             }

@@ -20,6 +20,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("SPECIAL_BESSEL", "special-bessel"),
     ("SPECIAL_INTEGRALS", "special-integrals"),
     ("SPECIAL_POLYNOMIALS", "special-polynomials"),
+    ("SPECIAL_SCALAR_EXPANDED", "special-scalar-expanded"),
     ("QUADRATURE_BASIC", "quadrature-basic"),
     ("QUADRATURE_BREAKPOINTS", "quadrature-breakpoints"),
     ("QUADRATURE_WEIGHTED", "quadrature-weighted"),
@@ -105,6 +106,7 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/pchip-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/special-scalar-expanded-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
     let families = enabled_families();
@@ -206,6 +208,10 @@ fn build_sources(families: &BTreeSet<String>) {
         ),
         ("fftpack-real", "fftpack-real-source-closure.json"),
         ("pchip", "pchip-source-closure.json"),
+        (
+            "special-scalar-expanded",
+            "special-scalar-expanded-source-closure.json",
+        ),
     ] {
         if families.contains(family) && !manifest.families.contains_key(family) {
             apply_family_overlay(&mut manifest, family, file);

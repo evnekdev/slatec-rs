@@ -47,11 +47,15 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     // so the global policy cannot accidentally omit a newly safe public API.
     projections.extend(crate::safe_pchip::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
-    projections.sort_by(|left, right| {
-        left["safe_function"]
-            .as_str()
-            .cmp(&right["safe_function"].as_str())
-    });
+    projections.extend(crate::safe_special::native_state_projections()?);
+    // Focused projections are appended after a prior broad audit.  Replace a
+    // stale broad record with the focused record for the same safe function,
+    // rather than emitting duplicate roadmap/concurrency rows.
+    let mut projections_by_path = BTreeMap::new();
+    for projection in projections {
+        projections_by_path.insert(string(&projection, "safe_function")?.to_owned(), projection);
+    }
+    let projections = projections_by_path.into_values().collect::<Vec<_>>();
     let projection_by_path = projections
         .iter()
         .filter_map(|record| {
@@ -558,6 +562,29 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             status: "complete_mutable_state_found".to_owned(),
         });
     }
+    // The scalar-expanded special profile was added after the previously
+    // committed broad audit.  It is intentionally conservative pending that
+    // audit's regeneration: source review and the GNU MinGW link probe show
+    // the closure is complete, while every wrapper remains serialized because
+    // it reaches SAVEd/DATA coefficient state and, where documented, XERROR.
+    let special_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/special-scalar-expanded-source-closure.json",
+    ))?;
+    let special_sources = special_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("scalar-expanded closure lacks source records"))?;
+    for source in special_sources {
+        let id = string(source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(source, "path")?.to_owned(),
+            storage: format!(
+                "focused_special_source_and_link_audit:{}:SAVE_DATA_and_XERROR_conservative",
+                string(source, "path")?
+            ),
+            mutable: true,
+            status: "complete_mutable_state_found".to_owned(),
+        });
+    }
     // The broad native-origin retry is recorded separately.  Until it emits a
     // completed archive report containing DASSL, retain focused closure
     // evidence instead of allowing a missing record to imply reentrancy.
@@ -945,6 +972,11 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/pchip-source-closure.json",
     ))?;
     closures["families"]["pchip"] = pchip_closure["source_ids"].clone();
+    let special_scalar_expanded_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/special-scalar-expanded-source-closure.json",
+    ))?;
+    closures["families"]["special-scalar-expanded"] =
+        special_scalar_expanded_closure["source_ids"].clone();
     let dassl_closure = read_value(repo_path(
         "crates/slatec-src/metadata/dassl-source-closure.json",
     ))?;

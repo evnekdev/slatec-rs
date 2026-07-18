@@ -26,6 +26,7 @@ const OVERLAY_FILES: &[&str] = &[
     "lp-in-memory-source-closure.json",
     "fftpack-real-source-closure.json",
     "pchip-source-closure.json",
+    "special-scalar-expanded-source-closure.json",
 ];
 
 /// Concise result of a completed native-origin audit.

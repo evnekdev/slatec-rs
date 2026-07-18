@@ -220,12 +220,25 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::special::integrals::exponential_integral_e1_f32` | `E1` | special functions | f32 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
 | `slatec::special::integrals::exponential_integral_ei` | `DEI` | special functions | f64 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
 | `slatec::special::integrals::exponential_integral_ei_f32` | `EI` | special functions | f32 | validated scalar numerical function | `std` | `special-integrals` | [integrals](../../examples/special/functions.rs) |
+| `slatec::special::scalar_expanded::carlson_rc` | `DRC` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rc_f32` | `RC` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rd` | `DRD` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rd_f32` | `RD` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rf` | `DRF` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rf_f32` | `RF` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rj` | `DRJ` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::carlson_rj_f32` | `RJ` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [elliptic](../../examples/special/elliptic.rs) |
+| `slatec::special::scalar_expanded::logarithmic_integral` | `DLI` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
+| `slatec::special::scalar_expanded::logarithmic_integral_f32` | `ALI` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
+| `slatec::special::scalar_expanded::spence_integral` | `DSPENC` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
+| `slatec::special::scalar_expanded::spence_integral_f32` | `SPENC` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
 
 ## Original Fortran routine index
 
 - `AI` -> `slatec::special::airy::airy_ai_f32`
 - `AIE` -> `slatec::special::airy::airy_ai_scaled_f32`
 - `ALBETA` -> `slatec::special::gamma::log_beta_f32`
+- `ALI` -> `slatec::special::scalar_expanded::logarithmic_integral_f32`
 - `ALNGAM` -> `slatec::special::gamma::log_gamma_f32`
 - `ALNREL` -> `slatec::special::elementary::log1p_f32`
 - `BESI0` -> `slatec::special::bessel::bessel_i0_f32`
@@ -312,6 +325,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DGEMV` -> `slatec::blas::level2::dgemv_contiguous`
 - `DGER` -> `slatec::blas::level2::dger`
 - `DLBETA` -> `slatec::special::gamma::log_beta`
+- `DLI` -> `slatec::special::scalar_expanded::logarithmic_integral`
 - `DLNGAM` -> `slatec::special::gamma::log_gamma`
 - `DLNREL` -> `slatec::special::elementary::log1p`
 - `DLSEI` -> `slatec::constrained_least_squares::solve_constrained_least_squares`
@@ -334,11 +348,16 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DQAWS` -> `slatec::quadrature::integrate_weighted_endpoints`
 - `DQNC79` -> `slatec::quadrature::integrate_nc79`
 - `DQNG` -> `slatec::quadrature::integrate_non_adaptive`
+- `DRC` -> `slatec::special::scalar_expanded::carlson_rc`
+- `DRD` -> `slatec::special::scalar_expanded::carlson_rd`
+- `DRF` -> `slatec::special::scalar_expanded::carlson_rf`
+- `DRJ` -> `slatec::special::scalar_expanded::carlson_rj`
 - `DROT` -> `slatec::blas::level1::drot`
 - `DROT` -> `slatec::blas::level1::drot_strided`
 - `DSCAL` -> `slatec::blas::level1::dscal`
 - `DSCAL` -> `slatec::blas::level1::dscal_strided`
 - `DSINDG` -> `slatec::special::elementary::sin_degrees`
+- `DSPENC` -> `slatec::special::scalar_expanded::spence_integral`
 - `DSPLP` -> `slatec::linear_programming::LinearProgram::<f64>::solve`
 - `DSWAP` -> `slatec::blas::level1::dswap`
 - `DSWAP` -> `slatec::blas::level1::dswap_strided`
@@ -386,9 +405,13 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `QAWS` -> `slatec::quadrature::integrate_weighted_endpoints_f32`
 - `QNC79` -> `slatec::quadrature::integrate_nc79_f32`
 - `QNG` -> `slatec::quadrature::integrate_non_adaptive_f32`
+- `RC` -> `slatec::special::scalar_expanded::carlson_rc_f32`
+- `RD` -> `slatec::special::scalar_expanded::carlson_rd_f32`
+- `RF` -> `slatec::special::scalar_expanded::carlson_rf_f32`
 - `RFFTB` -> `slatec::fftpack::RealFftPlan::backward`
 - `RFFTF` -> `slatec::fftpack::RealFftPlan::forward`
 - `RFFTI` -> `slatec::fftpack::RealFftPlan::new`
+- `RJ` -> `slatec::special::scalar_expanded::carlson_rj_f32`
 - `SASUM` -> `slatec::blas::level1::sasum`
 - `SASUM` -> `slatec::blas::level1::sasum_strided`
 - `SAXPY` -> `slatec::blas::level1::saxpy`
@@ -423,6 +446,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SNSQ` -> `slatec::nonlinear::solve_system_expert_f32`
 - `SNSQ` -> `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `SNSQE` -> `slatec::nonlinear::solve_system_f32`
+- `SPENC` -> `slatec::special::scalar_expanded::spence_integral_f32`
 - `SPLP` -> `slatec::linear_programming::LinearProgram::<f32>::solve`
 - `SROT` -> `slatec::blas::level1::srot`
 - `SROT` -> `slatec::blas::level1::srot_strided`
@@ -579,6 +603,18 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::special::integrals::exponential_integral_e1_f32` — validated scalar numerical function
 - `slatec::special::integrals::exponential_integral_ei` — validated scalar numerical function
 - `slatec::special::integrals::exponential_integral_ei_f32` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rc` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rc_f32` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rd` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rd_f32` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rf` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rf_f32` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rj` — validated scalar numerical function
+- `slatec::special::scalar_expanded::carlson_rj_f32` — validated scalar numerical function
+- `slatec::special::scalar_expanded::logarithmic_integral` — validated scalar numerical function
+- `slatec::special::scalar_expanded::logarithmic_integral_f32` — validated scalar numerical function
+- `slatec::special::scalar_expanded::spence_integral` — validated scalar numerical function
+- `slatec::special::scalar_expanded::spence_integral_f32` — validated scalar numerical function
 
 ### polynomials
 
@@ -912,3 +948,15 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::special::integrals::exponential_integral_e1_f32`
 - `slatec::special::integrals::exponential_integral_ei`
 - `slatec::special::integrals::exponential_integral_ei_f32`
+- `slatec::special::scalar_expanded::carlson_rc`
+- `slatec::special::scalar_expanded::carlson_rc_f32`
+- `slatec::special::scalar_expanded::carlson_rd`
+- `slatec::special::scalar_expanded::carlson_rd_f32`
+- `slatec::special::scalar_expanded::carlson_rf`
+- `slatec::special::scalar_expanded::carlson_rf_f32`
+- `slatec::special::scalar_expanded::carlson_rj`
+- `slatec::special::scalar_expanded::carlson_rj_f32`
+- `slatec::special::scalar_expanded::logarithmic_integral`
+- `slatec::special::scalar_expanded::logarithmic_integral_f32`
+- `slatec::special::scalar_expanded::spence_integral`
+- `slatec::special::scalar_expanded::spence_integral_f32`
