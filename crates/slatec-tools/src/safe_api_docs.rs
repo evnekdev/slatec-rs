@@ -471,6 +471,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/lp-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "linear programming",
+                column(row, columns, "precision")?,
+                "sparse in-memory linear programming",
+                "std",
+                "optimization-linear-programming-in-memory",
+            ))
+        },
+    )?;
     Ok(output)
 }
 
@@ -618,6 +633,7 @@ fn record(
             "examples/ode/harmonic_oscillator.rs".to_owned()
         }
         "ordinary differential equations" => "examples/ode/exponential_decay.rs".to_owned(),
+        "linear programming" => "examples/linear_programming/basic.rs".to_owned(),
         "polynomials" => "examples/special/functions.rs".to_owned(),
         _ => "examples/special/functions.rs".to_owned(),
     };
@@ -704,7 +720,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
         "LR", "QTF", "WA1", "WA2", "WA3", "WA4", "XP", "FVECP", "MODE", "IPVT", "ERR", "RW", "IW",
-        "WS", "IP",
+        "WS", "IP", "LW", "LIW", "DATTRV", "DUALS", "IBASIS",
     ];
     let inferred = function.rust_path.ends_with("_contiguous")
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
@@ -715,11 +731,38 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
         && !(function.domain == "linear least squares" && upper == "MODE")
         && !(analytic_jacobian && upper == "JAC")
-        && !(jacobian_check && matches!(upper.as_str(), "FJAC" | "ERR"));
+        && !(jacobian_check && matches!(upper.as_str(), "FJAC" | "ERR"))
+        && !(function.domain == "linear programming" && upper == "INFO");
     let rust = if internal_argument || inferred {
         None
     } else {
         Some(match upper.as_str() {
+            "USRMAT" | "DUSRMT" if function.domain == "linear programming" => {
+                "problem.matrix delivered by an internal one-based sparse-column trampoline"
+                    .to_owned()
+            }
+            "MRELAS" if function.domain == "linear programming" => {
+                "problem.matrix.rows".to_owned()
+            }
+            "NVARS" if function.domain == "linear programming" => {
+                "problem.matrix.columns".to_owned()
+            }
+            "COSTS" if function.domain == "linear programming" => {
+                "problem.objective".to_owned()
+            }
+            "PRGOPT" if function.domain == "linear programming" => {
+                "internal fixed option list: printing, continuation, and save/restore disabled; key 54 absent; LAMAT and LBM supplied"
+                    .to_owned()
+            }
+            "BL" | "BU" | "IND" if function.domain == "linear programming" => {
+                "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding"
+                    .to_owned()
+            }
+            "INFO" if function.domain == "linear programming" => "result.status".to_owned(),
+            "PRIMAL" if function.domain == "linear programming" => {
+                "optimal result.solution followed by independently recomputed row activities"
+                    .to_owned()
+            }
             "F" | "FCN" => "function".to_owned(),
             "M" if jacobian_check => "point.len".to_owned(),
             "N" if jacobian_check => "point.len".to_owned(),
@@ -876,6 +919,8 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     };
     let callback_argument = upper == "F"
         || (matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "FCN")
+        || (function.domain == "linear programming"
+            && matches!(upper.as_str(), "USRMAT" | "DUSRMT"))
         || (analytic_jacobian && upper == "JAC")
         || (jacobian_check && upper == "FJAC");
     ArgumentMap {
@@ -887,7 +932,10 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "internal"
         } else if callback_argument {
             "callback"
-        } else if function.domain == "linear least squares" {
+        } else if matches!(
+            function.domain.as_str(),
+            "linear least squares" | "linear programming"
+        ) {
             "owned"
         } else {
             "pass"
@@ -937,6 +985,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "least squares",
         "linear least squares",
         "ordinary differential equations",
+        "linear programming",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -1020,6 +1069,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
         "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
+        "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -1068,6 +1118,7 @@ fn native_status(domain: &str) -> &'static str {
         | "nonlinear"
         | "least squares"
         | "linear least squares"
+        | "linear programming"
         | "special functions"
         | "polynomials" => "native_execution_passed",
         _ => "unknown",
@@ -1124,6 +1175,9 @@ fn purpose(family: &str) -> &'static str {
         }
         "equality and inequality constrained linear least squares" => {
             "dense equality and inequality constrained linear least-squares fitting"
+        }
+        "sparse in-memory linear programming" => {
+            "sparse in-memory linear programming with variable and row-activity bounds"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",

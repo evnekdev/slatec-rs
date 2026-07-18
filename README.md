@@ -5,7 +5,8 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `nonlinear-expert`, `least-squares-nonlinear-easy`, and
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
-`least-squares-linear-bounded-constrained`. Numerical families
+`least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, and
+`optimization-linear-programming-in-memory`. Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
 historical source rights remain unresolved. `source-build` is offline-only and
@@ -106,6 +107,11 @@ The opt-in `ode-sdrive-expert` feature adds owned, panic-contained real
 explicit-IVP sessions over `SDRIV3`/`DDRIV3`; it is deliberately limited to an
 RHS callback and caller-controlled continuation. See the
 [SDRIVE session guide](docs/api/safe-ode-sdrive-expert.md).
+The opt-in `optimization-linear-programming-in-memory` feature wraps original
+`SPLP`/`DSPLP` for sparse linear programs that fit entirely in native resident
+workspace. Paging, Fortran units, save/restore, and legacy printing are never
+enabled; insufficient resident capacity is rejected before FFI. See the
+[in-memory LP guide](docs/api/safe-linear-programming-in-memory.md).
 
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS

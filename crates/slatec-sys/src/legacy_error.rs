@@ -14,4 +14,14 @@ unsafe extern "C" {
     /// Sets the process-global legacy XERROR control flag.
     #[link_name = "xsetf_"]
     pub fn xsetf(control: *mut FortranInteger);
+
+    /// Reads the process-global legacy XERROR output-unit list.
+    #[cfg(feature = "raw-family-optimization-linear-programming-in-memory")]
+    #[link_name = "xgetua_"]
+    pub fn xgetua(units: *mut FortranInteger, count: *mut FortranInteger);
+
+    /// Restores the process-global legacy XERROR output-unit list.
+    #[cfg(feature = "raw-family-optimization-linear-programming-in-memory")]
+    #[link_name = "xsetua_"]
+    pub fn xsetua(units: *mut FortranInteger, count: *mut FortranInteger);
 }

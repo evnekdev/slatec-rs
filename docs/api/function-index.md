@@ -84,6 +84,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::least_squares::least_squares_with_jacobian_f32` | `SNLS1` | least squares | f32 | expert analytic-Jacobian nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert analytic-Jacobian nonlinear least squares](../../examples/least_squares/expert_analytic_jacobian_f32.rs) |
 | `slatec::linear_least_squares::solve_nonnegative_least_squares` | `DWNNLS` | linear least squares | f64 | equality-constrained nonnegative linear least-squares fitting | `std` | `least-squares-linear-nonnegative` | [equality-constrained nonnegative linear least squares](../../examples/least_squares/nonnegative_fit.rs) |
 | `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` | `WNNLS` | linear least squares | f32 | equality-constrained nonnegative linear least-squares fitting | `std` | `least-squares-linear-nonnegative` | [equality-constrained nonnegative linear least squares](../../examples/least_squares/mixed_nonnegative_fit.rs) |
+| `slatec::linear_programming::LinearProgram::<f32>::solve` | `SPLP` | linear programming | f32 | sparse in-memory linear programming with variable and row-activity bounds | `std` | `optimization-linear-programming-in-memory` | [sparse in-memory linear programming](../../examples/linear_programming/basic.rs) |
+| `slatec::linear_programming::LinearProgram::<f64>::solve` | `DSPLP` | linear programming | f64 | sparse in-memory linear programming with variable and row-activity bounds | `std` | `optimization-linear-programming-in-memory` | [sparse in-memory linear programming](../../examples/linear_programming/basic.rs) |
 | `slatec::nonlinear::check_jacobian` | `DCKDER` | nonlinear | f64 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::check_jacobian_f32` | `CHKDER` | nonlinear | f32 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
@@ -307,6 +309,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DSCAL` -> `slatec::blas::level1::dscal`
 - `DSCAL` -> `slatec::blas::level1::dscal_strided`
 - `DSINDG` -> `slatec::special::elementary::sin_degrees`
+- `DSPLP` -> `slatec::linear_programming::LinearProgram::<f64>::solve`
 - `DSWAP` -> `slatec::blas::level1::dswap`
 - `DSWAP` -> `slatec::blas::level1::dswap_strided`
 - `DSYMV` -> `slatec::blas::level2::dsymv`
@@ -372,6 +375,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SNSQ` -> `slatec::nonlinear::solve_system_expert_f32`
 - `SNSQ` -> `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `SNSQE` -> `slatec::nonlinear::solve_system_f32`
+- `SPLP` -> `slatec::linear_programming::LinearProgram::<f32>::solve`
 - `SROT` -> `slatec::blas::level1::srot`
 - `SROT` -> `slatec::blas::level1::srot_strided`
 - `SSCAL` -> `slatec::blas::level1::sscal`
@@ -603,6 +607,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::ode::OdeSession::<f32, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
 - `slatec::ode::OdeSession::<f64, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
 
+### linear programming
+
+- `slatec::linear_programming::LinearProgram::<f32>::solve` — sparse in-memory linear programming with variable and row-activity bounds
+- `slatec::linear_programming::LinearProgram::<f64>::solve` — sparse in-memory linear programming with variable and row-activity bounds
+
 ## Capability index
 
 ### Core only
@@ -693,6 +702,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::least_squares::least_squares_with_jacobian_f32`
 - `slatec::linear_least_squares::solve_nonnegative_least_squares`
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32`
+- `slatec::linear_programming::LinearProgram::<f32>::solve`
+- `slatec::linear_programming::LinearProgram::<f64>::solve`
 - `slatec::nonlinear::solve_system`
 - `slatec::nonlinear::solve_system_expert`
 - `slatec::nonlinear::solve_system_expert_f32`

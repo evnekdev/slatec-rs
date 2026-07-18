@@ -26,6 +26,13 @@ compile_error!("the `least-squares-nonlinear-easy` safe API requires the `std` f
 compile_error!("the `least-squares-nonlinear-expert` safe API requires the `std` feature");
 #[cfg(all(feature = "ode-sdrive-expert", not(feature = "std")))]
 compile_error!("the `ode-sdrive-expert` safe API requires the `std` feature");
+#[cfg(all(
+    feature = "optimization-linear-programming-in-memory",
+    not(feature = "std")
+))]
+compile_error!(
+    "the `optimization-linear-programming-in-memory` safe API requires the `std` feature"
+);
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -96,7 +103,8 @@ pub mod polynomials;
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
     feature = "least-squares-linear-bounded-constrained",
-    feature = "ode-sdrive-expert"
+    feature = "ode-sdrive-expert",
+    feature = "optimization-linear-programming-in-memory"
 ))]
 pub(crate) mod runtime;
 
@@ -263,3 +271,12 @@ pub mod bounded_constrained_least_squares;
 /// the original SLATEC `SDRIV3` and `DDRIV3` drivers.
 #[cfg(feature = "ode-sdrive-expert")]
 pub mod ode;
+
+/// Safe sparse linear programming over original `SPLP` and `DSPLP`, limited
+/// to problems proved to remain entirely in native high-speed memory.
+///
+/// The linear objective is distinct from every least-squares family. Paging,
+/// Fortran-unit management, save/restore, native printing, and filesystem use
+/// are not exposed.
+#[cfg(feature = "optimization-linear-programming-in-memory")]
+pub mod linear_programming;

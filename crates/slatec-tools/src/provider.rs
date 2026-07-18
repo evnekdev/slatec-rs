@@ -258,11 +258,6 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
 
 fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
     let mut manifest: SourceManifest = serde_json::from_slice(&fs::read(manifest_path)?)?;
-    let overlay_path = manifest_path.with_file_name("ode-sdrive-source-closure.json");
-    if !overlay_path.is_file() {
-        return Ok(manifest);
-    }
-    let overlay: FamilyOverlay = serde_json::from_slice(&fs::read(&overlay_path)?)?;
     let mut ids = manifest
         .sources
         .iter()
@@ -273,32 +268,42 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         .iter()
         .map(|source| (source.subset.clone(), source.path.clone()))
         .collect::<std::collections::BTreeSet<_>>();
-    for source in overlay.sources {
-        if !ids.insert(source.id.clone())
-            || !paths.insert((source.subset.clone(), source.path.clone()))
+    for file in [
+        "ode-sdrive-source-closure.json",
+        "lp-in-memory-source-closure.json",
+    ] {
+        let overlay_path = manifest_path.with_file_name(file);
+        if !overlay_path.is_file() {
+            continue;
+        }
+        let overlay: FamilyOverlay = serde_json::from_slice(&fs::read(&overlay_path)?)?;
+        for source in overlay.sources {
+            if !ids.insert(source.id.clone())
+                || !paths.insert((source.subset.clone(), source.path.clone()))
+            {
+                return Err(CorpusError::Verification(format!(
+                    "{file} duplicates provider source {} ({}/{})",
+                    source.id, source.subset, source.path
+                )));
+            }
+            manifest.sources.push(ProviderSource {
+                url: canonical_source_url(&source.subset, &source.path)?,
+                id: source.id,
+                subset: source.subset,
+                path: source.path,
+                sha256: source.sha256,
+            });
+        }
+        if manifest
+            .families
+            .insert(overlay.family.clone(), overlay.source_ids)
+            .is_some()
         {
             return Err(CorpusError::Verification(format!(
-                "SDRIVE overlay duplicates provider source {} ({}/{})",
-                source.id, source.subset, source.path
+                "{file} duplicates family {}",
+                overlay.family
             )));
         }
-        manifest.sources.push(ProviderSource {
-            url: canonical_source_url(&source.subset, &source.path)?,
-            id: source.id,
-            subset: source.subset,
-            path: source.path,
-            sha256: source.sha256,
-        });
-    }
-    if manifest
-        .families
-        .insert(overlay.family.clone(), overlay.source_ids)
-        .is_some()
-    {
-        return Err(CorpusError::Verification(format!(
-            "SDRIVE overlay duplicates family {}",
-            overlay.family
-        )));
     }
     manifest
         .sources

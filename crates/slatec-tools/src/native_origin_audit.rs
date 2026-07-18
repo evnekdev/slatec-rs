@@ -20,6 +20,10 @@ use crate::hash;
 const SNAPSHOT: &str = "complete-slatec-05078ebcb649b50e4435";
 const TARGET: &str = "x86_64-w64-mingw32";
 const FLAGS: &[&str] = &["-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c"];
+const OVERLAY_FILES: &[&str] = &[
+    "ode-sdrive-source-closure.json",
+    "lp-in-memory-source-closure.json",
+];
 
 /// Concise result of a completed native-origin audit.
 #[derive(Debug)]
@@ -328,55 +332,7 @@ fn compiler_model(compiler: &Path) -> Result<CompilerModel> {
 
 fn sources(cache: &Path) -> Result<Vec<Source>> {
     let manifest_path = repo_path("crates/slatec-src/metadata/family-source-closure.json");
-    let mut manifest: Manifest = serde_json::from_slice(&fs::read(&manifest_path)?)?;
-    let overlay_path = manifest_path.with_file_name("ode-sdrive-source-closure.json");
-    let overlay: Overlay = serde_json::from_slice(&fs::read(overlay_path)?)?;
-    if manifest.families.contains_key(&overlay.family) {
-        return Err(policy(
-            "SDRIVE overlay unexpectedly duplicates a base source family",
-        ));
-    }
-    let overlay_ids = overlay
-        .sources
-        .iter()
-        .map(|source| source.id.as_str())
-        .collect::<BTreeSet<_>>();
-    let family_ids = overlay
-        .source_ids
-        .iter()
-        .map(String::as_str)
-        .collect::<BTreeSet<_>>();
-    let base_ids = manifest
-        .sources
-        .iter()
-        .map(|source| source.id.as_str())
-        .collect::<BTreeSet<_>>();
-    if !overlay_ids.is_subset(&family_ids)
-        || family_ids
-            .iter()
-            .any(|id| !overlay_ids.contains(id) && !base_ids.contains(id))
-    {
-        return Err(policy(
-            "SDRIVE overlay source ids do not resolve to overlay or base source records",
-        ));
-    }
-    let mut ids = manifest
-        .sources
-        .iter()
-        .map(|source| source.id.clone())
-        .collect::<BTreeSet<_>>();
-    for source in overlay.sources {
-        if !ids.insert(source.id.clone()) {
-            return Err(policy("SDRIVE overlay duplicates a base source id"));
-        }
-        manifest.sources.push(ManifestSource {
-            url: canonical_url(&source.subset, &source.path)?,
-            id: source.id,
-            subset: source.subset,
-            path: source.path,
-            sha256: source.sha256,
-        });
-    }
+    let mut manifest = manifest_with_overlays(&manifest_path)?;
     manifest
         .sources
         .sort_by(|left, right| left.id.cmp(&right.id));
@@ -404,6 +360,63 @@ fn sources(cache: &Path) -> Result<Vec<Source>> {
         });
     }
     Ok(result)
+}
+
+fn manifest_with_overlays(manifest_path: &Path) -> Result<Manifest> {
+    let mut manifest: Manifest = serde_json::from_slice(&fs::read(manifest_path)?)?;
+    let mut ids = manifest
+        .sources
+        .iter()
+        .map(|source| source.id.clone())
+        .collect::<BTreeSet<_>>();
+    for file in OVERLAY_FILES {
+        let overlay_path = manifest_path.with_file_name(file);
+        if !overlay_path.is_file() {
+            continue;
+        }
+        let overlay: Overlay = serde_json::from_slice(&fs::read(overlay_path)?)?;
+        if manifest.families.contains_key(&overlay.family) {
+            return Err(policy("source overlay duplicates a base source family"));
+        }
+        let overlay_ids = overlay
+            .sources
+            .iter()
+            .map(|source| source.id.as_str())
+            .collect::<BTreeSet<_>>();
+        let family_ids = overlay
+            .source_ids
+            .iter()
+            .map(String::as_str)
+            .collect::<BTreeSet<_>>();
+        if !overlay_ids.is_subset(&family_ids)
+            || family_ids
+                .iter()
+                .any(|id| !overlay_ids.contains(id) && !ids.contains(*id))
+        {
+            return Err(policy(
+                "source overlay ids do not resolve to overlay or base records",
+            ));
+        }
+        for source in overlay.sources {
+            if !ids.insert(source.id.clone()) {
+                return Err(policy("source overlay duplicates a source id"));
+            }
+            manifest.sources.push(ManifestSource {
+                url: canonical_url(&source.subset, &source.path)?,
+                id: source.id,
+                subset: source.subset,
+                path: source.path,
+                sha256: source.sha256,
+            });
+        }
+        manifest
+            .families
+            .insert(overlay.family.clone(), overlay.source_ids);
+        if overlay.profile_override {
+            manifest.profile_override_families.insert(overlay.family);
+        }
+    }
+    Ok(manifest)
 }
 
 fn verified_receipt(cache: &Path, sources: &[Source]) -> Result<CacheReceipt> {
@@ -570,16 +583,7 @@ fn files_count(root: &Path) -> Result<usize> {
 
 fn family_membership(sources: &[Source], scans: &[Scan]) -> Result<Value> {
     let manifest_path = repo_path("crates/slatec-src/metadata/family-source-closure.json");
-    let mut manifest: Manifest = serde_json::from_slice(&fs::read(&manifest_path)?)?;
-    let overlay: Overlay = serde_json::from_slice(&fs::read(
-        manifest_path.with_file_name("ode-sdrive-source-closure.json"),
-    )?)?;
-    manifest
-        .families
-        .insert(overlay.family.clone(), overlay.source_ids.clone());
-    if overlay.profile_override {
-        manifest.profile_override_families.insert(overlay.family);
-    }
+    let manifest = manifest_with_overlays(&manifest_path)?;
     let mut families_by_source = BTreeMap::<String, BTreeSet<String>>::new();
     for (family, ids) in &manifest.families {
         for id in ids {
@@ -1457,17 +1461,7 @@ fn inspect_object_symbols(
 
 fn family_source_sets() -> Result<(FamilySources, BTreeSet<String>)> {
     let manifest_path = repo_path("crates/slatec-src/metadata/family-source-closure.json");
-    let mut manifest: Manifest = serde_json::from_slice(&fs::read(&manifest_path)?)?;
-    let overlay: Overlay = serde_json::from_slice(&fs::read(
-        manifest_path.with_file_name("ode-sdrive-source-closure.json"),
-    )?)?;
-    manifest.families.insert(
-        overlay.family.clone(),
-        overlay.source_ids.into_iter().collect(),
-    );
-    if overlay.profile_override {
-        manifest.profile_override_families.insert(overlay.family);
-    }
+    let manifest = manifest_with_overlays(&manifest_path)?;
     Ok((
         manifest
             .families
@@ -1818,8 +1812,13 @@ mod tests {
                 .unwrap();
         assert_eq!(
             common["status"].as_str(),
-            Some("complete_no_mutable_state_found")
+            Some("complete_mutable_state_found")
         );
+        assert!(common["records"].as_array().is_some_and(|records| {
+            records.len() == 2
+                && records.iter().any(|record| record[0] == "LA05DD")
+                && records.iter().any(|record| record[0] == "LA05DS")
+        }));
         let scanner: Value = serde_json::from_slice(
             &fs::read(root.join("fortran-scanner-validation.json")).unwrap(),
         )
@@ -1840,13 +1839,16 @@ mod tests {
         let crosscheck: Value =
             serde_json::from_slice(&fs::read(root.join("native-state-crosscheck.json")).unwrap())
                 .unwrap();
-        assert_eq!(crosscheck["status"].as_str(), Some("complete_reconciled"));
-        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(0));
+        assert_eq!(
+            crosscheck["status"].as_str(),
+            Some("complete_with_conservative_unresolved_records")
+        );
+        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(12));
         let projections: Value =
             serde_json::from_slice(&fs::read(root.join("per-wrapper-native-state.json")).unwrap())
                 .unwrap();
         assert!(projections["records"].as_array().is_some_and(|records| {
-            records.len() == 188
+            records.len() == 190
                 && records.iter().all(|record| {
                     record["object_closure"]
                         .as_array()

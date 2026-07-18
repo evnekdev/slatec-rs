@@ -14,6 +14,7 @@ use slatec::bounded_least_squares::{
 use slatec::linear_least_squares::{
     MatrixRef, NonnegativeLeastSquaresProblem, VariableConstraint, solve_nonnegative_least_squares,
 };
+use slatec::linear_programming::{LinearProgram, LpBound, SparseColumns};
 use slatec::native_serialization_test_support::{reset, snapshot};
 use slatec::ode::{OdeOptions, OdeSession, OdeTolerance, OdeTolerances};
 use slatec::quadrature::{IntegrationOptions, integrate};
@@ -87,6 +88,21 @@ fn run_quadrature() {
     integrate(|x| x * x, 0.0, 1.0, IntegrationOptions::default()).unwrap();
 }
 
+fn run_linear_programming() {
+    let matrix =
+        SparseColumns::<f64>::new(1, 2, vec![0, 1, 2], vec![0, 0], vec![1.0, 1.0]).unwrap();
+    let result = LinearProgram::<f64>::new(
+        vec![1.0, 2.0],
+        matrix,
+        vec![LpBound::Lower(1.0)],
+        vec![LpBound::Lower(0.0), LpBound::Lower(0.0)],
+    )
+    .unwrap()
+    .solve()
+    .unwrap();
+    assert!(result.solution.is_some());
+}
+
 fn concurrent_pair(left: fn(), right: fn()) {
     let barrier = Arc::new(Barrier::new(3));
     let spawn = |work: fn()| {
@@ -111,6 +127,8 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_ode, run_bounded);
     concurrent_pair(run_bounded, run_nonnegative);
     concurrent_pair(run_root, run_quadrature);
+    concurrent_pair(run_linear_programming, run_ode);
+    concurrent_pair(run_linear_programming, run_bounded);
     let observed = snapshot();
     assert_eq!(observed.active, 0);
     assert_eq!(observed.maximum_active, 1);

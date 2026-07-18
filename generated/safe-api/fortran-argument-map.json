@@ -4087,6 +4087,190 @@
       ]
     },
     {
+      "rust_path": "slatec::linear_programming::LinearProgram::<f32>::solve",
+      "fortran_routine": "SPLP",
+      "program_unit_id": "full-provider-9b892d63a5b94d04",
+      "arguments": [
+        {
+          "rust": "problem.matrix delivered by an internal one-based sparse-column trampoline",
+          "fortran": "USRMAT",
+          "transformation": "callback"
+        },
+        {
+          "rust": "problem.matrix.rows",
+          "fortran": "MRELAS",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.matrix.columns",
+          "fortran": "NVARS",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.objective",
+          "fortran": "COSTS",
+          "transformation": "owned"
+        },
+        {
+          "rust": "internal fixed option list: printing, continuation, and save/restore disabled; key 54 absent; LAMAT and LBM supplied",
+          "fortran": "PRGOPT",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "DATTRV",
+          "transformation": "internal"
+        },
+        {
+          "rust": "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding",
+          "fortran": "BL",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding",
+          "fortran": "BU",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding",
+          "fortran": "IND",
+          "transformation": "owned"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "owned"
+        },
+        {
+          "rust": "optimal result.solution followed by independently recomputed row activities",
+          "fortran": "PRIMAL",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "DUALS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IBASIS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::linear_programming::LinearProgram::<f64>::solve",
+      "fortran_routine": "DSPLP",
+      "program_unit_id": "full-provider-11cd1b50504a17b2",
+      "arguments": [
+        {
+          "rust": "problem.matrix delivered by an internal one-based sparse-column trampoline",
+          "fortran": "DUSRMT",
+          "transformation": "callback"
+        },
+        {
+          "rust": "problem.matrix.rows",
+          "fortran": "MRELAS",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.matrix.columns",
+          "fortran": "NVARS",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.objective",
+          "fortran": "COSTS",
+          "transformation": "owned"
+        },
+        {
+          "rust": "internal fixed option list: printing, continuation, and save/restore disabled; key 54 absent; LAMAT and LBM supplied",
+          "fortran": "PRGOPT",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "DATTRV",
+          "transformation": "internal"
+        },
+        {
+          "rust": "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding",
+          "fortran": "BL",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding",
+          "fortran": "BU",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.variable_bounds followed by problem.row_bounds in native typed bound encoding",
+          "fortran": "IND",
+          "transformation": "owned"
+        },
+        {
+          "rust": "result.status",
+          "fortran": "INFO",
+          "transformation": "owned"
+        },
+        {
+          "rust": "optimal result.solution followed by independently recomputed row activities",
+          "fortran": "PRIMAL",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "DUALS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IBASIS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::nonlinear::check_jacobian",
       "fortran_routine": "DCKDER",
       "program_unit_id": "full-provider-c352a88d029c63fa",
