@@ -38,15 +38,17 @@ with typed lower/upper bounds on x and on row activities w.
 
 They obtain sparse matrix data through the one-based `USRMT`/`DUSRMT` callback:
 the `IFLAG` protocol initializes, yields entries, and terminates a column;
-`INDCAT` chooses assignment or accumulation.  However, their mandatory paging
-path is `PRWVIR`/`DPRWVR` to `SOPENM`/`SCLOSM`.  That path opens a
-process-global direct-access external file and closes it with `STATUS='KEEP'`.
-It supplies neither Rust-owned filename/scratch policy nor deterministic
-deletion or reliable I/O-failure propagation.
+`INDCAT` chooses assignment or accumulation. Their paging path is conditional,
+not a requirement that the caller pre-open a file: it is used for save/restore
+or when matrix storage exceeds high-speed memory. `PRWVIR`/`DPRWVR` uses option
+54's process-global Fortran unit and may call `SOPENM` on the first page write;
+`SCLOSM` is option-controlled and closes with `STATUS='KEEP'`. This still
+supplies neither a safe Rust-owned unit lifecycle nor deterministic deletion or
+reliable I/O-failure propagation.
 
-The existing native runtime lock can serialize calls, but it cannot make the
-retained file recoverable after a callback failure, native error, or panic, and
-cannot meet the repository's no-artifact guarantee.  The audit consequently
+The existing native runtime lock can serialize calls, but it cannot make an
+activated unit recoverable after a callback failure, native error, or panic,
+and cannot meet the repository's cleanup guarantees. The audit consequently
 selects **no optimization family yet**.  It does not add a native I/O shim,
 raw declaration, provider feature, source closure, wrapper, or example.
 

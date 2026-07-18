@@ -15,7 +15,7 @@ use std::thread_local;
 
 use slatec_sys::FortranInteger;
 
-use crate::runtime::{lock_native, permit_recoverable_ode_statuses};
+use crate::runtime::{lock_native, permit_recoverable_native_statuses};
 
 thread_local! {
     static ACTIVE_CONTEXT: ThreadCell<*mut c_void> = const { ThreadCell::new(core::ptr::null_mut()) };
@@ -868,7 +868,7 @@ where
     let mut upper_bandwidth = 0;
     let mut equation_count = 0;
     let mut error_flag = 0;
-    let _xerror = permit_recoverable_ode_statuses();
+    let _xerror = permit_recoverable_native_statuses();
     // SAFETY: every pointer points to session-owned storage for the documented
     // SDRIV3 RHS-only mode, and all ABI callback signatures are reviewed.
     unsafe {
@@ -925,7 +925,7 @@ where
     let mut upper_bandwidth = 0;
     let mut equation_count = 0;
     let mut error_flag = 0;
-    let _xerror = permit_recoverable_ode_statuses();
+    let _xerror = permit_recoverable_native_statuses();
     // SAFETY: every pointer points to session-owned storage for the documented
     // DDRIV3 RHS-only mode, and all ABI callback signatures are reviewed.
     unsafe {

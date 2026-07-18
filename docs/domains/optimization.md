@@ -19,7 +19,7 @@ This survey covers SLATEC’s constrained optimization, linear programming, boun
 
 | Family | Representative routines | Mathematical role | Provenance/confidence | Precision |
 |---|---|---|---|---|
-| sparse linear programming (deferred) | `SPLP/DSPLP` | linear objectives and sparse constraint matrices | SLATEC-incorporated family; mandatory paging I/O is unsuitable for a safe wrapper | S/D |
+| sparse linear programming (deferred) | `SPLP/DSPLP` | linear objectives and sparse constraint matrices | SLATEC-incorporated family; conditional global-unit paging is unsuitable for a safe wrapper | S/D |
 | bounded/constrained least squares | `SBOLS/DBOLS`, `SBOCLS/DBOCLS` | bounds and linear equality constraints around least squares | Lawson–Hanson-related incorporated family | S/D |
 | equality/inequality least squares | `LSEI/DLSEI` | constrained linear least squares, optional covariance | incorporated least-squares family | S/D |
 | nonnegative/equality constrained | `WNNLS/DWNNLS` | weighted/nonnegative constrained least squares | Lawson–Hanson family | S/D |
@@ -52,7 +52,7 @@ The `E` driver reduces configuration but does not erase the underlying local-con
 
 `DSPLP` is described as solving linear programming problems with up to a few thousand constraints and variables while taking advantage of sparse constraint storage. Its interface includes user matrix-handling callbacks and extensive integer/real workspaces, and its subsidiary list contains many `SPLP`-specific routines ([`slatec-toc`](https://www.netlib.org/slatec/toc); [`DSPLP source`](https://www.netlib.org/slatec/src/dsplp.f)).
 
-This pair is **deferred**, not an API candidate. Its mandatory paging route opens a process-global direct-access external file and retains it with `STATUS='KEEP'`; serializing native calls cannot provide Rust-owned filename policy, reliable failure recovery, or deterministic cleanup. See [the optimization-family audit](optimization-audit.md) for the verified model and callback protocol.
+This pair is **deferred**, not an API candidate. Paging is activated only for save/restore or matrix overflow from high-speed storage; the caller need not pre-open unit 1. When activated, the selected global Fortran unit can be opened as a direct-access file and retained with `STATUS='KEEP'`; serializing native calls cannot provide a safe unit lifecycle, reliable failure recovery, or deterministic cleanup. See [the optimization-family audit](optimization-audit.md) for the verified model and callback protocol.
 
 ## Constrained linear least squares
 
@@ -110,7 +110,7 @@ Current high-level optimization libraries commonly provide a unified result obje
 | Risk | Example | Proposed mitigation |
 |---|---|---|
 | residual/Jacobian callbacks | `DNLS1` callback mode and mutable flags | panic-safe trampolines and explicit callback contracts |
-| sparse matrix callbacks and mandatory paging I/O | `DSPLP` user matrix access protocol | deferred: no safe adapter can repair retained external-file ownership |
+| sparse matrix callbacks and conditional global-unit paging | `DSPLP` user matrix access protocol | deferred: no safe adapter can repair the unit lifecycle and retained external-file ownership |
 | overwritten matrices | constrained least-squares drivers may transform input | ownership-taking builders or documented mutable views |
 | mixed work arrays | real and integer workspace formulas | internal checked allocation |
 | leading dimensions | Jacobian and constraint matrices | validated column-major views |
@@ -153,7 +153,7 @@ A facade may later unify shared result fields, but it should not erase method-sp
 
 ### Linear programming
 
-No sparse-LP wrapper is planned from this corpus: `SPLP`/`DSPLP` remain deferred pending a source contract that removes mandatory retained external-file paging.
+No sparse-LP wrapper is planned from this corpus: `SPLP`/`DSPLP` remain deferred pending a source contract with a safe global-unit lifecycle and I/O-failure recovery protocol.
 
 ## Candidate crate boundaries
 

@@ -45,9 +45,13 @@ native runtime lock is held. This prevents callback-context cross-talk and
 rejects callback-nested solver calls. Sessions are not `Sync`; independent
 calls are deliberately serialized while XERROR state is scoped and restored.
 The reviewed `SDRIV3`/`DDRIV3` closure has no mandatory external-file
-protocol. Level-one XERROR diagnostics are scoped to `XSETF(0)`, so ordinary
-recoverable native returns do not print; unreviewed fatal native contracts are
-not made recoverable and permanently fail the session.
+protocol. `SDSTP`/`DDSTP` do contain initialized `IER` locals, so the native
+closure remains serialized even apart from callback and XERROR state.
+Level-one XERROR diagnostics are scoped to `XSETF(0)`, so ordinary recoverable
+native returns do not print; unreviewed fatal native contracts are not made
+recoverable and permanently fail the session. The local source cache currently
+lacks part of the closure, so no native rebuild or binary-symbol result is
+claimed by this policy audit.
 
 ## Tolerances and workspace
 

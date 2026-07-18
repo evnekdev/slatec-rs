@@ -107,6 +107,14 @@ explicit-IVP sessions over `SDRIV3`/`DDRIV3`; it is deliberately limited to an
 RHS callback and caller-controlled continuation. See the
 [SDRIVE session guide](docs/api/safe-ode-sdrive-expert.md).
 
+All native-call concurrency and storage claims are deliberately conservative:
+hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS
+and Jacobian-checking APIs are backend-dependent rather than advertised as
+thread-safe. Matrix layout is explicit; no hidden transpose, packing, sparse
+conversion, or arbitrary-stride materialization is performed. See the
+[runtime concurrency and storage policy](docs/architecture/runtime-concurrency-and-storage-policy.md)
+and its generated per-function records.
+
 With the complete selected evidence and GNU MinGW compiler available, run:
 
 ```text

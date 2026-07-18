@@ -579,7 +579,7 @@ where
             }
         },
         |callback: ExpertLeastSquaresF64Callback| {
-            let _error_scope = crate::runtime::permit_recoverable_least_squares_statuses();
+            let _error_scope = crate::runtime::permit_recoverable_native_statuses();
             // SAFETY: M, N, LDR=M, and the exact R[M*N], FVEC[M], WA1..3[N],
             // and WA4[M] layouts are checked; the scoped callback validates
             // all native callback pointers; and this uses the reviewed GNU
@@ -683,7 +683,7 @@ where
             }
         },
         |callback: ExpertLeastSquaresF32Callback| {
-            let _error_scope = crate::runtime::permit_recoverable_least_squares_statuses();
+            let _error_scope = crate::runtime::permit_recoverable_native_statuses();
             // SAFETY: f32 equivalent of the checked `DCOV` call above, using
             // the reviewed `SCOV` ABI and exact source-documented work arrays.
             unsafe {

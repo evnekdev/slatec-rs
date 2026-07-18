@@ -49,11 +49,11 @@ const CANDIDATES: &[Candidate] = &[
         derivative: "none",
         callback: "USRMT: IFLAG initialization/entry/end protocol; one-based I,J; INDCAT assign_or_accumulate",
         state: "COMMON_LA05DD_and_legacy_XERROR",
-        io: "mandatory_PRWVIR_to_SOPENM_SCLOSM_direct_access_external_file_STATUS_KEEP",
+        io: "conditional_PRWVIR_paging_to_SOPENM_SCLOSM_direct_access_file_STATUS_KEEP",
         status: "INFO=1 optimum; -1 infeasible; -2 no_finite_solution; -3 both; -4..-29 contract_or_numerical",
         workspace: "LW>=4*N+8*M+LAMAT+LBM; LIW>=N+11*M+LAMAT+2*LBM; defaults LAMAT=4*N+7,LBM=8*M",
         disposition: "deferred",
-        reason: "mandatory_global_external_file_has_no_safe_ownership_cleanup_or_reliable_io_failure_status",
+        reason: "conditional_global_Fortran_unit_paging_has_no_safe_lifecycle_cleanup_or_reliable_io_failure_status",
     },
     Candidate {
         name: "DSPLP",
@@ -65,11 +65,11 @@ const CANDIDATES: &[Candidate] = &[
         derivative: "none",
         callback: "DUSRMT: IFLAG initialization/entry/end protocol; one-based I,J; INDCAT assign_or_accumulate",
         state: "COMMON_LA05DD_and_legacy_XERROR",
-        io: "mandatory_DPRWVR_to_SOPENM_SCLOSM_direct_access_external_file_STATUS_KEEP",
+        io: "conditional_DPRWVR_paging_to_SOPENM_SCLOSM_direct_access_file_STATUS_KEEP",
         status: "INFO=1 optimum; -1 infeasible; -2 no_finite_solution; -3 both; -4..-29 contract_or_numerical",
         workspace: "LW>=4*N+8*M+LAMAT+LBM; LIW>=N+11*M+LAMAT+2*LBM; defaults LAMAT=4*N+7,LBM=8*M",
         disposition: "deferred",
-        reason: "mandatory_global_external_file_has_no_safe_ownership_cleanup_or_reliable_io_failure_status",
+        reason: "conditional_global_Fortran_unit_paging_has_no_safe_lifecycle_cleanup_or_reliable_io_failure_status",
     },
     Candidate {
         name: "SNLS1",
@@ -729,7 +729,7 @@ pub fn generate(
                 c.name,
                 c.io,
                 if c.name == "SPLP" || c.name == "DSPLP" {
-                    "unsafe_mandatory_external_file"
+                    "unsafe_conditional_global_Fortran_unit_paging"
                 } else {
                     "controlled_by_existing_wrapper"
                 }
@@ -768,7 +768,7 @@ pub fn generate(
         json!([
             "SPLP/DSPLP",
             "SPLPMN/DPLPMN; paging; LA05; XERROR; machine constants",
-            "large; mandatory external paging; no source closure added",
+            "large; conditional external paging and global unit lifecycle; no source closure added",
             "deferred"
         ]),
         json!([
@@ -790,7 +790,7 @@ pub fn generate(
             "not_public"
         ]),
     ];
-    let selection = json!({"schema_id":"slatec.optimization.selection","schema_version":"1.0.0","snapshot_id":snapshot,"recommendation":"no_optimization_family_yet","recommended_routines":[],"reason":"the selected corpus has no standalone scalar-minimization, bounded-multivariate-minimization, or nonlinear-programming driver; the only remaining public general optimizer is SPLP/DSPLP, whose mandatory process-global retained external paging file violates the safe-wrapper requirements","future_requirements":["do_not_substitute_an_IO_shim_without_a_new_source-contract_decision","retain_existing_callback_runtime_lock_and_XERROR_scopes","use_slices_or_lightweight_views_and_owned_native_mutable_storage","keep_ecosystem_adapters_optional_and_separate"]});
+    let selection = json!({"schema_id":"slatec.optimization.selection","schema_version":"1.1.0","snapshot_id":snapshot,"recommendation":"no_optimization_family_yet","recommended_routines":[],"reason":"the selected corpus has no standalone scalar-minimization, bounded-multivariate-minimization, or nonlinear-programming driver; the only remaining public general optimizer is SPLP/DSPLP, whose conditional paging uses a global Fortran unit without a safe lifecycle or reliable recovery contract","future_requirements":["do_not_substitute_an_IO_shim_without_a_new_source-contract_decision","retain_existing_callback_runtime_lock_and_XERROR_scopes","use_slices_or_lightweight_views_and_owned_native_mutable_storage","keep_ecosystem_adapters_optional_and_separate"]});
     let files = [
         (
             "optimization-candidate-index.json",
@@ -834,7 +834,7 @@ pub fn generate(
         bytes.extend_from_slice(&encoded);
     }
     let summary = format!(
-        "# SLATEC optimization-family audit\n\n- Snapshot: `{snapshot}`.\n- Discovery found no standalone scalar-minimization, vector-bound nonlinear-minimization, or nonlinear-programming driver in the selected corpus.\n- Existing safe families cover nonlinear least squares, covariance, nonlinear equation support, derivative checking, and constrained linear least squares.\n- The only remaining public general optimizer is `SPLP`/`DSPLP`; both remain deferred because their mandatory paging path retains a process-global direct-access external file.\n- Recommendation: **no optimization family yet**. A future wrapper must retain panic-contained callbacks, scoped XERROR control, serialized native calls, and slices/lightweight views with privately owned mutable native storage; optional nalgebra/ndarray/faer adapters must remain separate.\n- No public optimization feature, raw declaration, provider closure, native source, or translated algorithm is added.\n"
+        "# SLATEC optimization-family audit\n\n- Snapshot: `{snapshot}`.\n- Discovery found no standalone scalar-minimization, vector-bound nonlinear-minimization, or nonlinear-programming driver in the selected corpus.\n- Existing safe families cover nonlinear least squares, covariance, nonlinear equation support, derivative checking, and constrained linear least squares.\n- The only remaining public general optimizer is `SPLP`/`DSPLP`; both remain deferred because conditional paging uses a process-global direct-access Fortran unit without a safe lifecycle or recovery contract. The caller is not required to pre-open unit 1; option 54 selects it when paging is activated.\n- Recommendation: **no optimization family yet**. A future wrapper must retain panic-contained callbacks, scoped XERROR control, serialized native calls, and slices/lightweight views with privately owned mutable native storage; optional nalgebra/ndarray/faer adapters must remain separate.\n- No public optimization feature, raw declaration, provider closure, native source, or translated algorithm is added.\n"
     );
     fs::write(
         output_dir.join("optimization-audit-summary.md"),
@@ -928,7 +928,7 @@ fn family_rows() -> Vec<Value> {
             "sparse_linear_programming",
             "SPLP/DSPLP",
             "remaining_public_general_optimizer",
-            "unsafe_mandatory_external_file"
+            "unsafe_conditional_global_Fortran_unit_paging"
         ]),
         json!([
             "nonlinear_least_squares",
@@ -985,7 +985,8 @@ mod tests {
     fn lp_is_marked_io_and_not_selected() {
         for name in ["SPLP", "DSPLP"] {
             let c = CANDIDATES.iter().find(|c| c.name == name).unwrap();
-            assert!(c.io.contains("mandatory"));
+            assert!(c.io.contains("conditional"));
+            assert!(!c.io.contains("mandatory"));
             assert_eq!(c.disposition, "deferred");
         }
     }

@@ -22,6 +22,7 @@ pub mod prologues;
 pub mod provider;
 pub mod raw_ffi;
 pub mod runtime_profile;
+pub mod runtime_storage_policy;
 pub mod safe_api_docs;
 pub mod safe_bounded_constrained_linear_least_squares;
 pub mod safe_bounded_linear_least_squares;

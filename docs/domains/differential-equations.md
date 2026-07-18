@@ -10,6 +10,16 @@ session over `SDRIV3`/`DDRIV3` for explicit initial-value problems only,
 (../api/safe-ode-sdrive-expert.md). The reviewed broader family selection and
 deferrals remain recorded in the [ODE-family audit](ode-audit.md).
 
+`SDRIV3`/`DDRIV3` calls are process-serialized. The source review found
+initialized local `IER` storage in the transitive `SDSTP`/`DDSTP` step routines,
+in addition to the scoped callback context and process-global XERROR control.
+The sessions therefore make no parallel-native-execution claim. A complete
+offline source closure was not available for this validation pass, so native
+rebuild, binary symbol inspection, and concurrent native test results remain
+pending; this is not treated as evidence that the closure has no other mutable
+static state. See the [runtime concurrency and storage policy]
+(../architecture/runtime-concurrency-and-storage-policy.md).
+
 ## Principal families
 
 | Family | Representative routines | Method/problem | Precision |
