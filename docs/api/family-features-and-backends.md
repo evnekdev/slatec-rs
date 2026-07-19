@@ -29,6 +29,7 @@ The optimization alias is deliberately limited to resident-memory
 `SPLP`/`DSPLP`; external paging and Fortran-unit lifecycle management remain
 deferred.
 
+
 ## Capability layers
 
 - Core-only APIs use `core` and caller-owned slices. They compile with
@@ -142,3 +143,18 @@ The aggregate `raw-ffi-*` features enable only the unstable generated layer.
 They are not a promise of canonical family paths or provider closure. See
 [the raw API architecture](../architecture/slatec-sys-public-raw-api.md) for
 the reviewed-path and compatibility policy.
+
+### Reviewed BLAS raw features
+
+R2A adds matching public raw aliases in `slatec-sys`: `blas` expands to
+`blas-level1`, `blas-level2`, and `blas-level3`, each of which selects the
+matching `raw-family-blas-level*` declaration gates. The same level names in
+`slatec-src` select generated, symbol-closed source sets for every promoted
+raw BLAS routine, not only the routines used by the safe facade. `slatec`
+uses the same feature names and retains its safe wrapper subset; it also hosts
+the direct raw link and runtime smoke tests when a native provider is selected.
+
+Direct consumers can instead depend on `slatec-sys` and provide the selected
+profile's native symbols themselves. The reconciliation report records this
+distinction per routine; source-provider selection is never an implicit side
+effect of enabling `slatec-sys`.

@@ -67,6 +67,23 @@ slatec_sys::roots::scalar::{fzero, dfzero}
 slatec_sys::pde::fishpack::{hwscrt, pois3d}
 ```
 
+R2A additionally establishes stable public BLAS paths:
+
+```rust
+slatec_sys::blas::level1::daxpy
+slatec_sys::blas::level2::dgemv
+slatec_sys::blas::level3::dgemm
+```
+
+The complete feasible BLAS set is generated from the source-hash-guarded
+family-review policy rather than copied into hand-written `extern` blocks.
+Each canonical item re-exports the single ABI-shaped generated declaration;
+`slatec_sys::families::blas_level{1,2,3}` are compatibility re-exports of
+that same item. The public surface therefore has no duplicate declarations.
+The companion [`blas-family-report.json`](../../generated/raw-api/blas-family-report.json)
+records all retained BLAS classifications, including excluded complex-return
+functions, non-BLAS multiprecision subsidiaries, and catalogue-only entries.
+
 The legacy `slatec_sys::roots::{fzero,dfzero}`,
 `slatec_sys::fishpack_cartesian_2d::hwscrt`, and
 `slatec_sys::fishpack_pois3d::pois3d` paths are compatibility re-exports. A
@@ -142,3 +159,21 @@ drivers, R4 for exceptional return and CHARACTER/complex interfaces, and R5
 for the publication freeze audit. `roots-family-report.json` is the required
 pilot gap report; HWSCRT and POIS3D remain tracked reviewed drivers with their
 selected closures and native regression evidence.
+
+## BLAS R2A evidence and ABI boundary
+
+The reviewed BLAS policy covers 121 historically user-callable subroutines
+whose GNU Fortran declaration shapes and native symbols were validated in the
+numeric-scalar, numeric-array, scalar-function, complex-argument, and
+CHARACTER ABI batches. The policy is keyed to a manifest of selected provider
+source hashes; any source drift stops regeneration before a reviewed path can
+be emitted.
+
+BLAS character options are native one-byte CHARACTER buffers followed by the
+compiler-observed trailing hidden length values (`FortranCharacterLength`), in
+visible argument order. `Complex32` documents the selected GNU Fortran
+COMPLEX storage record. The three complex-return functions are deliberately
+not declared because a correct Rust return ABI has not been established.
+Routine documentation is generated from verified prologue facts plus a small
+authored BLAS operation template, and its audit checks every exported routine,
+argument, source link, ABI statement, and `# Safety` section.

@@ -1,0 +1,4430 @@
+{
+  "disposition_counts": {
+    "missing or ambiguous symbol: no selected executable provider": 25,
+    "not actually BLAS: multiprecision arithmetic subsidiary": 18,
+    "reviewed public BLAS routine": 121,
+    "unsupported ABI: complex-valued Fortran function return": 3
+  },
+  "records": [
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-a828f8ae9155ec52",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::caxpy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::caxpy",
+      "historical_role": "user_callable",
+      "native_symbol": "caxpy_",
+      "operation_class": "AXPY vector update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CAXPY",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "bfe2b99c0bc0baf27b3e011ebcddd71ef3fb6fabe1c612267b8d029715e8e254",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-15eb0bebdb3d133d",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ccopy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::ccopy",
+      "historical_role": "user_callable",
+      "native_symbol": "ccopy_",
+      "operation_class": "vector copy",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CCOPY",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6d0775ea36666c7ac5d4d7ed6082a153ac2eb814fb3c244d387727228d21018e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-dda8844ee69c03de",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "unsupported ABI: complex-valued Fortran function return",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "user_callable",
+      "native_symbol": "cdcdot_",
+      "operation_class": "dot product",
+      "precision": "complex_f32",
+      "program_unit_kind": "function",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CDCDOT",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "e005ea4248a742f5de1b8330b849106c40931fa8e9109c060c53194bb983d995",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-19c8cb831efde55c",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "unsupported ABI: complex-valued Fortran function return",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "user_callable",
+      "native_symbol": "cdotc_",
+      "operation_class": "selected BLAS helper",
+      "precision": "complex_f32",
+      "program_unit_kind": "function",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CDOTC",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "ec14a8ca9dfbc18a9e9728e39e4a9d87514f5cbb63a11781d28113d881a05289",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-503b917251d9a16b",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "unsupported ABI: complex-valued Fortran function return",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "user_callable",
+      "native_symbol": "cdotu_",
+      "operation_class": "selected BLAS helper",
+      "precision": "complex_f32",
+      "program_unit_kind": "function",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CDOTU",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "720691230d2327a3750d6c43043c8f1ce82b0275201ad7530757a430327aef41",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-de38e1a40a02ae8a",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::cgbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cgbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "cgbmv_",
+      "operation_class": "general band matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CGBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "0b155ff92db5bef739247059360b4e471163f6c38e41e6458c7f09557de27892",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-a6bffdae5d880dea",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::cgemm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cgemm",
+      "historical_role": "user_callable",
+      "native_symbol": "cgemm_",
+      "operation_class": "general matrix-matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CGEMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "bace4abf30ff6ef04ab8a0af7e2a62c020b8f9a2b91aace48c4de029f04274a4",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-ee24fc12181b69b6",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::cgemv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cgemv",
+      "historical_role": "user_callable",
+      "native_symbol": "cgemv_",
+      "operation_class": "general matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CGEMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "480e30551b2d85c47ec0f2180f2649b1b56544bd8b36fe5d7f6491a30932afe6",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-235d4d806af0d58d",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::cgerc"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::cgerc",
+      "historical_role": "user_callable",
+      "native_symbol": "cgerc_",
+      "operation_class": "rank-one matrix update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CGERC",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "81fdd760a721959a7d89141b841c26be140cdd41feb71727c0e3348f8d94d704",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-446c7d29695500c2",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::cgeru"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::cgeru",
+      "historical_role": "user_callable",
+      "native_symbol": "cgeru_",
+      "operation_class": "rank-one matrix update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CGERU",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "49ae0a617eb3e7d19fe19148b2d1f1ae644ea03c9ef300b2d84d230f0c042b05",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-db12cf89e98e7ead",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::chbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::chbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "chbmv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "c62637b2880b30b0b447c27590412cface3036d6a1c5bcdf5ce6a1cc27f52850",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-46159cbb087ce9d5",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::chemm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::chemm",
+      "historical_role": "user_callable",
+      "native_symbol": "chemm_",
+      "operation_class": "symmetric or Hermitian matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CHEMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2bbeea113dd6d6ed8d6360ed72d9d8dcbf1114b0f7049a578856d6c60c150aa2",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-f78ce911439cda4e",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::chemv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::chemv",
+      "historical_role": "user_callable",
+      "native_symbol": "chemv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHEMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "3b6d153b4001170fba2fe066afaec06e0b7741f45d16eea1ae305847e075cf82",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-17d6b65f8f70c908",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::cher"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cher",
+      "historical_role": "user_callable",
+      "native_symbol": "cher_",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHER",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "090529b38618a8aa988c48404b1fc7d0319a24e8fb7322ab2b934706366c209b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-3028938981287cef",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::cher2"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cher2",
+      "historical_role": "user_callable",
+      "native_symbol": "cher2_",
+      "operation_class": "symmetric or Hermitian rank-two update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHER2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "c373baff4d699f6206fa60eb2d0e897c75936b658df99bb92d0b278a2ce18136",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-9278dcd935cfe641",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::cher2k"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cher2k",
+      "historical_role": "user_callable",
+      "native_symbol": "cher2k_",
+      "operation_class": "symmetric or Hermitian rank-2k update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CHER2K",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "50d8f71ddd7c4ef77de90c27005523a20fe8c6dfd0e6df943774a25ee1458117",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-ceef25931bce6395",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::cherk"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::cherk",
+      "historical_role": "user_callable",
+      "native_symbol": "cherk_",
+      "operation_class": "symmetric or Hermitian rank-k update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CHERK",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "c7165c41920b8e0ca0e3de20505f2df1f05a2e83e1ea070e82fcfe178eb10f9e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8c1b7945f7e99717",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::chpmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::chpmv",
+      "historical_role": "user_callable",
+      "native_symbol": "chpmv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "afce32864a01ef9a6f5a3eb4d6999f483f8ff7bff9ef57ceb45cf043501157ca",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-31251dc268648097",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::chpr"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::chpr",
+      "historical_role": "user_callable",
+      "native_symbol": "chpr_",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHPR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "301cc661f7252e84951b192645f62e62490f5704d5c53642d412b71eea5eea77",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-7d5e330e19a578a2",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::chpr2"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::chpr2",
+      "historical_role": "user_callable",
+      "native_symbol": "chpr2_",
+      "operation_class": "selected BLAS helper",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CHPR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "57faee72fc15dbe9f214039fea6fbd38497bd77c535d9e0688ed79bf7b4df1df",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-8a9ba1dd16fb8f0f",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::crotg"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::crotg",
+      "historical_role": "user_callable",
+      "native_symbol": "crotg_",
+      "operation_class": "plane-rotation parameter generation",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CROTG",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "d1fd85d8f441adead31511ecef0eddf9cdcddac860bb772e58727c8603548874",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CSBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-63227f654a7c202c",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::cscal"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::cscal",
+      "historical_role": "user_callable",
+      "native_symbol": "cscal_",
+      "operation_class": "vector scaling",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CSCAL",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "dc55a78c8a9eea091ba3cd4302fde3114ddc2f8dc2792bf690bf0c2215e492ca",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CSPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "selected BLAS helper",
+      "precision": "complex_f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CSPR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-5f3b99d5cf3ff767",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::csrot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::csrot",
+      "historical_role": "user_callable",
+      "native_symbol": "csrot_",
+      "operation_class": "plane rotation",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CSROT",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "7d3a8a9ae214b771dea261b76eb4669b34b3d627f7880d1e7353023ca322a733",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-beca447988becea1",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::csscal"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::csscal",
+      "historical_role": "user_callable",
+      "native_symbol": "csscal_",
+      "operation_class": "vector scaling",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CSSCAL",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "231a0f81f2081c2ac3955fb09c09829e324961e58de330dd280b3ebde3b7ed76",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-917a4873e5d41f79",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::cswap"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::cswap",
+      "historical_role": "user_callable",
+      "native_symbol": "cswap_",
+      "operation_class": "vector swap",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "CSWAP",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "56dd1a9377f986cd7bb709d9a398662f8cf5f25fed9f470dabe2bce9264c8048",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-c0baad22c187ee09",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::csymm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::csymm",
+      "historical_role": "user_callable",
+      "native_symbol": "csymm_",
+      "operation_class": "symmetric or Hermitian matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CSYMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "4f6b775dae4052f2aa9e4dfaf3356442e9ad80ef06167a9e4f6c08d8c022d038",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CSYMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-two update",
+      "precision": "complex_f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "CSYR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-81294e9faf716e01",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::csyr2k"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::csyr2k",
+      "historical_role": "user_callable",
+      "native_symbol": "csyr2k_",
+      "operation_class": "symmetric or Hermitian rank-2k update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CSYR2K",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "31868bffc9fb7a196fbb993ddaf8d738c56ecefb03aab1ba6b011b9daef27951",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-623d0832b9cc5fb2",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::csyrk"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::csyrk",
+      "historical_role": "user_callable",
+      "native_symbol": "csyrk_",
+      "operation_class": "symmetric or Hermitian rank-k update",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CSYRK",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "ecac86dbd9657de5aff1ea60e6482bd282fc145a39f1abeff1e9ef0433b96e20",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-3a039ce3ced5d49a",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ctbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "ctbmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CTBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "a8f6f65db86791c2a673e0581ebd35e8bdc1c5b8d30ed6be1e5f00bb77d87417",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-9276b968e8b424f5",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ctbsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctbsv",
+      "historical_role": "user_callable",
+      "native_symbol": "ctbsv_",
+      "operation_class": "triangular solve",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CTBSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "4619361b993096070ac896bb7441df71a70bef0f7044bf59290e1d7e959719f5",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-eb542c39fe12cc09",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ctpmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctpmv",
+      "historical_role": "user_callable",
+      "native_symbol": "ctpmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CTPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "1c0c92c430401015f007c99dd33252bcd144837e262452512c2f71f564e6a72e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-e025bbe82d5acb4e",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ctpsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctpsv",
+      "historical_role": "user_callable",
+      "native_symbol": "ctpsv_",
+      "operation_class": "triangular solve",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CTPSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6f923d32b907e2d4d00f1fe8b1e688d2af982f3f1073c1bc9d8e6d647500395b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-d8bde96154a88836",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::ctrmm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctrmm",
+      "historical_role": "user_callable",
+      "native_symbol": "ctrmm_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CTRMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "57a29a9be27b5f49fef514ebbd7103c0f3867287f78d8b1d925e41fca83c97dd",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-5752b16f9c1df3d3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ctrmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctrmv",
+      "historical_role": "user_callable",
+      "native_symbol": "ctrmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CTRMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "db10ebee6df9099308833d9664aea165baebd273bb3a5caeebb8204dd2579e85",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-e6ef67d633aaef2b",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::ctrsm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctrsm",
+      "historical_role": "user_callable",
+      "native_symbol": "ctrsm_",
+      "operation_class": "triangular solve",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "CTRSM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "009459386c72397fe81a6538017c5c16a65a9f133c97023177486b15f44d288f",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-f18c539a9796f458",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ctrsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ctrsv",
+      "historical_role": "user_callable",
+      "native_symbol": "ctrsv_",
+      "operation_class": "triangular solve",
+      "precision": "complex_f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "CTRSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6facbaf5d37bd57ff2d11b497bbb66a9f6db1f9f5fc01673e5f0d4234f256d5a",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-8fd6283cb1142d44",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dasum"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::dasum",
+      "historical_role": "user_callable",
+      "native_symbol": "dasum_",
+      "operation_class": "sum of vector magnitudes",
+      "precision": "f64",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DASUM",
+      "safe_wrapper_status": "slatec::blas::level1::dasum",
+      "source_hash": "640f60449c83d974a085824e714a5c487555bd07e661a718955fc9884680e366",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-f31ee65504b5a1da",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::daxpy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::daxpy",
+      "historical_role": "user_callable",
+      "native_symbol": "daxpy_",
+      "operation_class": "AXPY vector update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DAXPY",
+      "safe_wrapper_status": "slatec::blas::level1::daxpy",
+      "source_hash": "f566b2232bd0d0f806de780d80e6bf6411c046d46d6ae9b0c9c7a89b812045e0",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-7e9b2ebbd88c8ec8",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dcdot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::dcdot",
+      "historical_role": "user_callable",
+      "native_symbol": "dcdot_",
+      "operation_class": "dot product",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DCDOT",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "101ba23f649cb6eb207ea1aa5b0cd600408008dfc2e51c87340b95e04ee2db7e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-11066d5d32da9d80",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dcopy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dcopy",
+      "historical_role": "user_callable",
+      "native_symbol": "dcopy_",
+      "operation_class": "vector copy",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DCOPY",
+      "safe_wrapper_status": "slatec::blas::level1::dcopy",
+      "source_hash": "a4c12801d4d6a085da7d0b62cbe7a35fe119da14b2e84478ac6cf8c02bfba979",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-474201223513ac06",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dcopym"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dcopym",
+      "historical_role": "user_callable",
+      "native_symbol": "dcopym_",
+      "operation_class": "vector copy",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DCOPYM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "c1bca9490721fb3ec904c0da73080807eae142f335476544d5f44ebacc6c9e52",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-844cb3a9fca9c8fd",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ddot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::ddot",
+      "historical_role": "user_callable",
+      "native_symbol": "ddot_",
+      "operation_class": "dot product",
+      "precision": "f64",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DDOT",
+      "safe_wrapper_status": "slatec::blas::level1::ddot",
+      "source_hash": "20a82a4e825cbbac0e2bb98752fbeb01f809e7f6bfeeab069bf196944c2c88f4",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-143929c1dbdfa7eb",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dgbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dgbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dgbmv_",
+      "operation_class": "general band matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DGBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "be556ce3c077ab7d982dc46ac23124d1b8fd9c96a17f9ce9c2fc4402be626bc4",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-8304816992104475",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::dgemm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dgemm",
+      "historical_role": "user_callable",
+      "native_symbol": "dgemm_",
+      "operation_class": "general matrix-matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "DGEMM",
+      "safe_wrapper_status": "slatec::blas::level3::dgemm",
+      "source_hash": "878aaf5a6e18568afd4f524e7639353124e190259a1f2a5f2f54495bedbefbc7",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-892b90618050293c",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dgemv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dgemv",
+      "historical_role": "user_callable",
+      "native_symbol": "dgemv_",
+      "operation_class": "general matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DGEMV",
+      "safe_wrapper_status": "slatec::blas::level2::dgemv",
+      "source_hash": "24f5ed42b0abbf73da1ca32d1ec439ee3057ec9454e7d52f211550cb4846020b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-9159dc7c314e7342",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dger"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dger",
+      "historical_role": "user_callable",
+      "native_symbol": "dger_",
+      "operation_class": "rank-one matrix update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DGER",
+      "safe_wrapper_status": "slatec::blas::level2::dger",
+      "source_hash": "08ed9a32805e684216094b849ee5d614f641f8099cc0cc51e062dc828e26d092",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "rank-one matrix update",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DGERC",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "rank-one matrix update",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DGERU",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHEMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHEMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHER",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-two update",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHER2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-k update",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHERK",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "selected BLAS helper",
+      "precision": "f64",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "DHPR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-010420d14360a2c6",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dnrm2"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::dnrm2",
+      "historical_role": "user_callable",
+      "native_symbol": "dnrm2_",
+      "operation_class": "Euclidean vector norm",
+      "precision": "f64",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DNRM2",
+      "safe_wrapper_status": "slatec::blas::level1::dnrm2",
+      "source_hash": "ca16ebaa7d23f5760a78bc31581d567894e10792602365e0d2d82f7359801f2e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-af0c74193d616b71",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dqdota"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::dqdota",
+      "historical_role": "user_callable",
+      "native_symbol": "dqdota_",
+      "operation_class": "dot product",
+      "precision": "f64",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DQDOTA",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "15c0e198dbcb7896210223fbceb2d3c09fb62649193a5db38c491238608bf6c7",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-d2b2e0f305eee7bd",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dqdoti"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::dqdoti",
+      "historical_role": "user_callable",
+      "native_symbol": "dqdoti_",
+      "operation_class": "dot product",
+      "precision": "f64",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DQDOTI",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "673feaf6972add2d5f9c06cea1adcbd75a59d8004324bfdd06c1088436e7c55d",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-e03fe1d3ee149237",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::drot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::drot",
+      "historical_role": "user_callable",
+      "native_symbol": "drot_",
+      "operation_class": "plane rotation",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DROT",
+      "safe_wrapper_status": "slatec::blas::level1::drot",
+      "source_hash": "109d77d5e37bed5298903967177d884fe5598f3992b0e213f601f151d92d083b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-43222b6f19aacb9e",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::drotg"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_scalar_subroutines::drotg",
+      "historical_role": "user_callable",
+      "native_symbol": "drotg_",
+      "operation_class": "plane-rotation parameter generation",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DROTG",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "7fef52c9890086243337e932d4d13ccdd1db1293bd286784fa657d4f42deca86",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-ae71704ca459e80b",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::drotm"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::drotm",
+      "historical_role": "user_callable",
+      "native_symbol": "drotm_",
+      "operation_class": "modified plane rotation",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DROTM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "7319abacc3eb4f65caa2003f68d5c5512f7bdac87621fde205f00e597c128a29",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-325503c5e8104509",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::drotmg"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::drotmg",
+      "historical_role": "user_callable",
+      "native_symbol": "drotmg_",
+      "operation_class": "modified plane-rotation parameter generation",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DROTMG",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "8cedf83e93a4cd06de7699b98062b6ef0f7a72780afeefc0a909e554d0a27d0c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-b4b07b09ee6ea3bc",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ds2y"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::ds2y",
+      "historical_role": "user_callable",
+      "native_symbol": "ds2y_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DS2Y",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "9f1402b7265716e567fa9aefa0610bf6df4e784a9d80e460b88f6474470a0e94",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8f071073bd2af04a",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dsbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dsbmv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "72b1da18d8d5b45de6956a76d4a3ed70985a8c5ebee6dfb81c792f312447bf24",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-a9ae7eaae41546ca",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dscal"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dscal",
+      "historical_role": "user_callable",
+      "native_symbol": "dscal_",
+      "operation_class": "vector scaling",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DSCAL",
+      "safe_wrapper_status": "slatec::blas::level1::dscal",
+      "source_hash": "9ccf5aa5b87f11db2fbd3c1b53c63ef499b8310b72fbf52879f239ec913b6cac",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-2399cdd0ec04a433",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dsdi"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dsdi",
+      "historical_role": "user_callable",
+      "native_symbol": "dsdi_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DSDI",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "802a641985f7b53216651bfbf70dde8f26444a818acd92ea717b684f560817ee",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-8a640da19612cca2",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dsdot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::dsdot",
+      "historical_role": "user_callable",
+      "native_symbol": "dsdot_",
+      "operation_class": "dot product",
+      "precision": "f64",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DSDOT",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "1bd6445e51a33039ee58755facfda6708b9a09f8e1335eadb0c2130ff8b45dd5",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-77550de0c456ca42",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dsmtv"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dsmtv",
+      "historical_role": "user_callable",
+      "native_symbol": "dsmtv_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DSMTV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "73dd0cda5ef43e00995d68b6c514be416eb723894742c32e051221edec392235",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-b432c46228b5d754",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dsmv"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dsmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dsmv_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DSMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "9a847c31512b7b873710e74222ea9e63eb5b94da066ed33868e02281234f1bd4",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-65b1993f01d8a721",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dspmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dspmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dspmv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "d3e34d4b45aec0e39af730524a5829b96ae8760fd9826e4d44169178519bae7f",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8d99a8a869d4e52b",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dspr"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dspr",
+      "historical_role": "user_callable",
+      "native_symbol": "dspr_",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSPR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "a265f972e02af734b106cb66d9ee91e5281c0e959b162ddb2858859bfdea5198",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8c762f0f34843131",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dspr2"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dspr2",
+      "historical_role": "user_callable",
+      "native_symbol": "dspr2_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSPR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "137dbd01e4894671ff79f17fe479a7973c455bcf2bde70b91bee050a7d8a55ac",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-4093a09ebc087c32",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::dswap"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::dswap",
+      "historical_role": "user_callable",
+      "native_symbol": "dswap_",
+      "operation_class": "vector swap",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "DSWAP",
+      "safe_wrapper_status": "slatec::blas::level1::dswap",
+      "source_hash": "3653d2f7a43ff2ab3f43a13a67e1e7f14b5bc4dfac874c472163f50ba4c79c72",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-eb47ba3c479da5e7",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::dsymm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsymm",
+      "historical_role": "user_callable",
+      "native_symbol": "dsymm_",
+      "operation_class": "symmetric or Hermitian matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "DSYMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "f5e93a9e521bc40e94561f5083528e4dda1bc13551a57f603cf844332c6770db",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-537811ea4507de9d",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dsymv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsymv",
+      "historical_role": "user_callable",
+      "native_symbol": "dsymv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSYMV",
+      "safe_wrapper_status": "slatec::blas::level2::dsymv",
+      "source_hash": "7c3c6e8c5dfa2944ac1cf3145ed4a3c1fd1d152a38c72205d57a47cf030702a7",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8628991f51121973",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dsyr"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsyr",
+      "historical_role": "user_callable",
+      "native_symbol": "dsyr_",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSYR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "70fa735298d83d8ce127af21891c7c0826f19dcf0dc3f4ab0a8871523e4edc2b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-f6d177f274fabe22",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dsyr2"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsyr2",
+      "historical_role": "user_callable",
+      "native_symbol": "dsyr2_",
+      "operation_class": "symmetric or Hermitian rank-two update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DSYR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "c95db316dc40d0ef02eb61b91b0c6ae090404c54a497ab7c56c440be9803292c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-ed171d14219a17c3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::dsyr2k"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsyr2k",
+      "historical_role": "user_callable",
+      "native_symbol": "dsyr2k_",
+      "operation_class": "symmetric or Hermitian rank-2k update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "DSYR2K",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2fad19aaaee5e3f906935c51e75b2c3cb8781eefa45c1c3d22067553b01e5007",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-49015c300ceadad3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::dsyrk"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dsyrk",
+      "historical_role": "user_callable",
+      "native_symbol": "dsyrk_",
+      "operation_class": "symmetric or Hermitian rank-k update",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "DSYRK",
+      "safe_wrapper_status": "slatec::blas::level3::dsyrk",
+      "source_hash": "6a151200046ef85af18c4767609fe6ee57ff040230a528876ce35a3814e2b416",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8303240383888897",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dtbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dtbmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DTBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6f6aade4768fa8d1c2b051089c85a86156f70e387a5b10ccc20d5ddb996c5b4c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-d58a0228f3c665b9",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dtbsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtbsv",
+      "historical_role": "user_callable",
+      "native_symbol": "dtbsv_",
+      "operation_class": "triangular solve",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DTBSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "acbf45eb4686332cce5f04654b7ed7c158a29d63d305da67dbe958b7547eda44",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-59327c0c519db899",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dtpmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtpmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dtpmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DTPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2136b426850aaf2ecf822b208f1c391a921ca16aa2eb10a6d2253d5e104f6c81",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-71f1e36cff931719",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dtpsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtpsv",
+      "historical_role": "user_callable",
+      "native_symbol": "dtpsv_",
+      "operation_class": "triangular solve",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DTPSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "ba3f7eeab10701bb75d83a97dae6210fc8a929203076f59fe4bb0981a359f5e7",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-e30eb52568bab4c2",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::dtrmm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtrmm",
+      "historical_role": "user_callable",
+      "native_symbol": "dtrmm_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "DTRMM",
+      "safe_wrapper_status": "slatec::blas::level3::dtrmm",
+      "source_hash": "1da291caaea596aa1582c8cb9cadbc17219a91f8dba80cc8af28a8215c829522",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8affef5b867e516b",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dtrmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtrmv",
+      "historical_role": "user_callable",
+      "native_symbol": "dtrmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DTRMV",
+      "safe_wrapper_status": "slatec::blas::level2::dtrmv",
+      "source_hash": "f3be0cf5dd5add2abaced982245a20f6fba16d6e0f03f3d9ecd45c21c5e28d25",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-db08cd690ac8d4b3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::dtrsm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtrsm",
+      "historical_role": "user_callable",
+      "native_symbol": "dtrsm_",
+      "operation_class": "triangular solve",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "DTRSM",
+      "safe_wrapper_status": "slatec::blas::level3::dtrsm",
+      "source_hash": "019b5567da4b2362fa703366124398740caa7e49193f2d66b34aa86f9537154a",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-2cf8628c34f7bbf7",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::dtrsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::dtrsv",
+      "historical_role": "user_callable",
+      "native_symbol": "dtrsv_",
+      "operation_class": "triangular solve",
+      "precision": "f64",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "DTRSV",
+      "safe_wrapper_status": "slatec::blas::level2::dtrsv",
+      "source_hash": "2aa5fad38f61558c457cca72cfc14594f3b8d0ab88fbb23b7c2e77441e6c272a",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-4532a955646429a9",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::icamax"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::icamax",
+      "historical_role": "user_callable",
+      "native_symbol": "icamax_",
+      "operation_class": "index of maximum vector magnitude",
+      "precision": "integer_or_index",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "ICAMAX",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "1b29dc915dcaebf58ca39b7080c5d554455276b31906c2d5fd2daba2d2817afb",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-d49135baa9eefae8",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::icopy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::icopy",
+      "historical_role": "user_callable",
+      "native_symbol": "icopy_",
+      "operation_class": "vector copy",
+      "precision": "integer_or_index",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "ICOPY",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2307b2700066f47171e0d4d97fb1be479a96ff198a9225f31cd0c867c15e89d7",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-03dd7cd6ab981b5d",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::idamax"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::idamax",
+      "historical_role": "user_callable",
+      "native_symbol": "idamax_",
+      "operation_class": "index of maximum vector magnitude",
+      "precision": "integer_or_index",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "IDAMAX",
+      "safe_wrapper_status": "slatec::blas::level1::idamax",
+      "source_hash": "7c17932b8fea31147e037180d26dd21430a93a7f4a1d496a5794552118cf484b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-1d3cb7d5594f5db1",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::isamax"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::isamax",
+      "historical_role": "user_callable",
+      "native_symbol": "isamax_",
+      "operation_class": "index of maximum vector magnitude",
+      "precision": "integer_or_index",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "ISAMAX",
+      "safe_wrapper_status": "slatec::blas::level1::isamax",
+      "source_hash": "0e892e9c98e70a4203f109a36f06c226e86ddd73931f454d43482d718a188fb5",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-8983ef6bd4abf192",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::iswap"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::iswap",
+      "historical_role": "user_callable",
+      "native_symbol": "iswap_",
+      "operation_class": "vector swap",
+      "precision": "integer_or_index",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "ISWAP",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "9f9dc940ee029fb3d6eb3cbd4834cd33308261e001091603b4f16c3a535de5d2",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-70ae64b2cb89201e",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpadd",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpadd_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPADD",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "e3440041ee993ba748f6b32a73a4b48d339b7d5b4659d4026f8f414e15708d98",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-e5ae71b5c5764204",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpadd2",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpadd2_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPADD2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "bf5dc2f05ee8e01aa7205e818caec6a93a0219341315b327b3879d33e1065676",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-0a43e0541edb2dfb",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpadd3",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpadd3_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPADD3",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "9d225be2fc3f8747183fd61eddaccfc5dc871117c86afe010e59c1f068563223",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-14f6cbd33e7503ab",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-scalar-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_scalar_subroutines::mpblas",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpblas_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPBLAS",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2bbbd55f1818612875d0a7b04f3c1bcae0377adb495cc3a9d2e366127c29e745",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-38dfb99d1c395e9b",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpcdm",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpcdm_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPCDM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "e478853f20e4f2cc3fb6015e4bcde573f8d7eabf0fbce945bde7940ac2fabfeb",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-e54eff7c48e0d08e",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-scalar-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_scalar_subroutines::mpchk",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpchk_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPCHK",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "687a95f83f4a36e6009aed10449d1f273be760df0a4c61b9c0ee3ecbaedcc6c6",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-e995b3a796f27a3f",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpcmd",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpcmd_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPCMD",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "e2a865e558564f50b3416361591759639c00130aab9195954bdd172e0b22582d",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-50ecd86c3403cad0",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpdivi",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpdivi_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPDIVI",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "089cd40ca096e5671e2927f14878a034af7d7fee1ea1b3dfba683c95e8373185",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-dff2c4d114ed738d",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-scalar-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_scalar_subroutines::mperr",
+      "historical_role": "subsidiary",
+      "native_symbol": "mperr_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPERR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6486c5036a2b7eda7515fd0c30fcef7e4ebfd8c631e50b7a1b98d0cdc9bd9086",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-9d042e9990dfd838",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpmaxr",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpmaxr_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPMAXR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "b0c1c2b2c8fa7d584b5f867287adfd7d9c08e43e76903259627f114421e5b3d0",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-0d3c0ccd77c10fa9",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpmlp",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpmlp_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPMLP",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "1629499be3278f2cb9a605b05ac5d26501d38956d6313edf6fcc00f73d3d744f",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-656c804dbd59742d",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpmul",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpmul_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPMUL",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "cd1e060f612e56a4d91065b34bfc865bf11cc45c4d6e817cbc464d807995ef2b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-b873354d9ef4bd56",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpmul2",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpmul2_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPMUL2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "e1e0587204149a6c416de2b80171eead7035d17a2153411c882a8ecd6a4165bd",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-8685bc4582d1346e",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpmuli",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpmuli_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPMULI",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "aaefe2dcad1c79fe9064b56fe5bb2993c8be1ecd32f2059d502ae0c516e454f7",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-089387af2d7aff64",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpnzr",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpnzr_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPNZR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6cc3d5cdfa33054fc19f6739d7bc07147e2155c0ea31dc45711054953d74d7ed",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-1143ad0d2692bb0b",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpovfl",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpovfl_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPOVFL",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "f681365a06ea1e0fc59e7521a065a1c37c92d9ac3a7bfc78424388c0e3a9dea2",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-56fdfe2a4079ac97",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpstr",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpstr_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPSTR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "51a00f53f29363590c87ed659a0f312d6573bb52e25b13d6d14b19abdcde3659",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "full-provider-7639c92623a304ed",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "multiprecision helper is not a standalone BLAS public routine",
+      "existing_family_declaration_paths": [],
+      "feature": "raw-ffi-numeric-array-subroutines",
+      "final_disposition": "not actually BLAS: multiprecision arithmetic subsidiary",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::mpunfl",
+      "historical_role": "subsidiary",
+      "native_symbol": "mpunfl_",
+      "operation_class": "selected BLAS helper",
+      "precision": "unknown",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "MPUNFL",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "20683ac12ce28408dac69c40b359f0822af78d822832bebbe864273e59bd2176",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-014398e8138837ef",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::sasum"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::sasum",
+      "historical_role": "user_callable",
+      "native_symbol": "sasum_",
+      "operation_class": "sum of vector magnitudes",
+      "precision": "f32",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SASUM",
+      "safe_wrapper_status": "slatec::blas::level1::sasum",
+      "source_hash": "7226c190efe380a040c88bee375a1c9327d8a5a3644a72b35c9b057fce8a6b02",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-d106ad3804c20e5d",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::saxpy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::saxpy",
+      "historical_role": "user_callable",
+      "native_symbol": "saxpy_",
+      "operation_class": "AXPY vector update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SAXPY",
+      "safe_wrapper_status": "slatec::blas::level1::saxpy",
+      "source_hash": "5fbc2aa52983e9679e5ab496cdbc400f183c1555231ddcce7e3eb1103c9ee6d2",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-fe7cbad40e766d94",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::scasum"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::scasum",
+      "historical_role": "user_callable",
+      "native_symbol": "scasum_",
+      "operation_class": "sum of vector magnitudes",
+      "precision": "f32",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SCASUM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "ce69e8015655653f95377162e20756217343a9e88bd2f3c542b95384afe3deba",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-1a6c2cdacbe051fe",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::scnrm2"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::complex_arguments::scnrm2",
+      "historical_role": "user_callable",
+      "native_symbol": "scnrm2_",
+      "operation_class": "Euclidean vector norm",
+      "precision": "f32",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SCNRM2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "8317fb77c08c6bd042c14b02e89267951d5cbbedb67486becea668a943efdcbb",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-ce5228372c90647f",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::scopy"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::scopy",
+      "historical_role": "user_callable",
+      "native_symbol": "scopy_",
+      "operation_class": "vector copy",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SCOPY",
+      "safe_wrapper_status": "slatec::blas::level1::scopy",
+      "source_hash": "9888e104d4bdbbc2c02d67fe57aeb6add0a14f006a63c6786ed11c96b789b1ca",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-744de4b9dba3e473",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::scopym"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::scopym",
+      "historical_role": "user_callable",
+      "native_symbol": "scopym_",
+      "operation_class": "vector copy",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SCOPYM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "5a8a0f2c94484c90df24827b343e2e97e0851083f3be062537fc5d50607ce84b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-35f2e5e233709c3e",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::sdot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::sdot",
+      "historical_role": "user_callable",
+      "native_symbol": "sdot_",
+      "operation_class": "dot product",
+      "precision": "f32",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SDOT",
+      "safe_wrapper_status": "slatec::blas::level1::sdot",
+      "source_hash": "2b012e6244ed53801a29f0944817ebb5d712843a0a3eadce1bf4ed891c7aa114",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-7d569b29bc902d6e",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::sdsdot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::sdsdot",
+      "historical_role": "user_callable",
+      "native_symbol": "sdsdot_",
+      "operation_class": "dot product",
+      "precision": "f32",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SDSDOT",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "a1b973914d59506fbfab0cd68295f4601bf62a09c4ef369c08b1e2975f0950b9",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-d4e4fd5fe5e771b9",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::sgbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::sgbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "sgbmv_",
+      "operation_class": "general band matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SGBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "6c82622dd7376e04f176f4979fc8f62039bd03f62caaab47d4eff04936e40627",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-a5a00e614f86f82e",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::sgemm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::sgemm",
+      "historical_role": "user_callable",
+      "native_symbol": "sgemm_",
+      "operation_class": "general matrix-matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "SGEMM",
+      "safe_wrapper_status": "slatec::blas::level3::sgemm",
+      "source_hash": "b3ac8d21b557a864e73a2cdba1ff048ab5b6ca71858997ffc6a4f64b28d38be1",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-c0f8341783facdb3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::sgemv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::sgemv",
+      "historical_role": "user_callable",
+      "native_symbol": "sgemv_",
+      "operation_class": "general matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SGEMV",
+      "safe_wrapper_status": "slatec::blas::level2::sgemv",
+      "source_hash": "46679a9cb69b2aeac099493af335da642ad8e14f7db74dce345f4cb4e3769f6e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-3a9e0b8565c6df78",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::sger"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::sger",
+      "historical_role": "user_callable",
+      "native_symbol": "sger_",
+      "operation_class": "rank-one matrix update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SGER",
+      "safe_wrapper_status": "slatec::blas::level2::sger",
+      "source_hash": "6baa31f8ed3fb457a9d43c8319be016c1b48106d2992a63917e89d551d860ef0",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "rank-one matrix update",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SGERC",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "rank-one matrix update",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SGERU",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHEMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHEMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHER",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-two update",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHER2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian rank-k update",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHERK",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": null,
+      "canonical_provider": "unavailable",
+      "documentation_status": "not_documented",
+      "exclusion_reason": "catalogue identity has no selected executable provider",
+      "existing_family_declaration_paths": [],
+      "feature": "not_assigned",
+      "final_disposition": "missing or ambiguous symbol: no selected executable provider",
+      "generated_declaration_path": "not_generated",
+      "historical_role": "historical_or_obsolete",
+      "native_symbol": "not_observed",
+      "operation_class": "selected BLAS helper",
+      "precision": "f32",
+      "program_unit_kind": "unknown",
+      "provider_closure": "not available",
+      "provider_feature": "not_assigned",
+      "routine": "SHPR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "unavailable",
+      "test_coverage": {
+        "compile": "not_compiled",
+        "link": "not_tested",
+        "runtime": "not_tested"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-f3a1afce36b35827",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::snrm2"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::scalar_functions::snrm2",
+      "historical_role": "user_callable",
+      "native_symbol": "snrm2_",
+      "operation_class": "Euclidean vector norm",
+      "precision": "f32",
+      "program_unit_kind": "function",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SNRM2",
+      "safe_wrapper_status": "slatec::blas::level1::snrm2",
+      "source_hash": "69f77063ebdc63ab5039c176e1fa2f6faa29feb93cf23d3b3ced7bccdf45075c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-f2f32b7a6a41f5db",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::srot"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::srot",
+      "historical_role": "user_callable",
+      "native_symbol": "srot_",
+      "operation_class": "plane rotation",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SROT",
+      "safe_wrapper_status": "slatec::blas::level1::srot",
+      "source_hash": "0d8018aed48aa557f6ab6bcab94991fbeaa4c175e1ca6274ac5be4face704f6c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-eb362ae36217d81b",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::srotg"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_scalar_subroutines::srotg",
+      "historical_role": "user_callable",
+      "native_symbol": "srotg_",
+      "operation_class": "plane-rotation parameter generation",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SROTG",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "a9778c475d7f240caf844aecbef3b1b10698b870076ee217c775709f13ee1916",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-15c08111015fc650",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::srotm"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::srotm",
+      "historical_role": "user_callable",
+      "native_symbol": "srotm_",
+      "operation_class": "modified plane rotation",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SROTM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "7cbf41aef9d6a4fb186d20c50c9adffc1d5d3bdad7791d6e89f5faf798c8b36c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-873252c3bf1cb060",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::srotmg"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::srotmg",
+      "historical_role": "user_callable",
+      "native_symbol": "srotmg_",
+      "operation_class": "modified plane-rotation parameter generation",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SROTMG",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "1ea404c262faabbb4d69852bcab4b466ba79d347bbcaea3070ea26ca25ea719a",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-7ae795c9ca1ec042",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ss2y"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::ss2y",
+      "historical_role": "user_callable",
+      "native_symbol": "ss2y_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SS2Y",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "bcd603a709229a7df97ef5bab7f5322d8c5228f4b1a605609769bdbf84da1d76",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-a1227de9862daad4",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ssbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "ssbmv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "d2f9013a673e4f5aab75f0e65f2da3fca43de9bea6e8e142fa72b87505fdf6af",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-09099ab5635b8fa3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::sscal"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::sscal",
+      "historical_role": "user_callable",
+      "native_symbol": "sscal_",
+      "operation_class": "vector scaling",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SSCAL",
+      "safe_wrapper_status": "slatec::blas::level1::sscal",
+      "source_hash": "4da2fc7291ac45046ed0680e6519c862dbfd0a5df96961ebb49b2442fc4a05f9",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-1bffead7464cb4d5",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ssdi"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::ssdi",
+      "historical_role": "user_callable",
+      "native_symbol": "ssdi_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SSDI",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "10ac0b00f701e23b40ddfeefb83c74eeddfe5636491a5b22456745ca9a0457d3",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-e7d21ab1ff3f5477",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ssmtv"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::ssmtv",
+      "historical_role": "user_callable",
+      "native_symbol": "ssmtv_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SSMTV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "b279e6663a1c34fa09ababf822aa38eea078a0e222bb512772d3ea6dda91aa51",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-f0f4464efaccf9b7",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::ssmv"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::ssmv",
+      "historical_role": "user_callable",
+      "native_symbol": "ssmv_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SSMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "932ec7efd29aa7154eecf470ceca4b0ab826777347ba2bd40adc5b434b05d949",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-11b315f490eeb90f",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::sspmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::sspmv",
+      "historical_role": "user_callable",
+      "native_symbol": "sspmv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "667ea8ad8f6d237f2cc5c0912788f2901499133abb2e6316ed6373e48c7e6571",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-5b31f84d09b28a8c",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::sspr"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::sspr",
+      "historical_role": "user_callable",
+      "native_symbol": "sspr_",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSPR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2db9ed44c18477697e2a670045d158b71539501db8a4f29c97d2909866c55de5",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-94496e89829acba5",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::sspr2"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::sspr2",
+      "historical_role": "user_callable",
+      "native_symbol": "sspr2_",
+      "operation_class": "selected BLAS helper",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSPR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "2789f34d6d603bcacdbdc7091c02fb51a88adb542a7ec5f574590195c7c65c3f",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 1,
+      "canonical_provider": "full-provider-f52692fc8ca0bce9",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level1::sswap"
+      ],
+      "feature": "blas-level1",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::numeric_array_subroutines::sswap",
+      "historical_role": "user_callable",
+      "native_symbol": "sswap_",
+      "operation_class": "vector swap",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level1`",
+      "provider_feature": "blas-level1",
+      "routine": "SSWAP",
+      "safe_wrapper_status": "slatec::blas::level1::sswap",
+      "source_hash": "828441ab957dfb68f509dfdc05e3734a2337d79af5383f6d5492f44696cfd60a",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-c0bbf0e6ac2e8f76",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::ssymm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssymm",
+      "historical_role": "user_callable",
+      "native_symbol": "ssymm_",
+      "operation_class": "symmetric or Hermitian matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "SSYMM",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "59d6613c1b095aaa2ff8cc104e0cf3732fb2bffe61cd7b1181ee28244b88b853",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-cfda14a30ad21354",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ssymv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssymv",
+      "historical_role": "user_callable",
+      "native_symbol": "ssymv_",
+      "operation_class": "symmetric or Hermitian matrix-vector multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSYMV",
+      "safe_wrapper_status": "slatec::blas::level2::ssymv",
+      "source_hash": "4373e2d516be53108db9de78a98c0b7ef3406fb0ae0f4d6d51eb4bafcab929e4",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-8f2eb997304a6a52",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ssyr"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssyr",
+      "historical_role": "user_callable",
+      "native_symbol": "ssyr_",
+      "operation_class": "symmetric or Hermitian rank-one update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSYR",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "d285d6ea0b12cb3df3c62ef9b8b7ef07aa52da3b030760e706b5a294a497c91b",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-d67df259cdde2894",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::ssyr2"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssyr2",
+      "historical_role": "user_callable",
+      "native_symbol": "ssyr2_",
+      "operation_class": "symmetric or Hermitian rank-two update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "SSYR2",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "7f66ff8b92819dc442b16ca9f0b7b7b3aacbd3271e75100c2b9f54f6b138a79a",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-8d12dec7a8e33d69",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::ssyr2k"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssyr2k",
+      "historical_role": "user_callable",
+      "native_symbol": "ssyr2k_",
+      "operation_class": "symmetric or Hermitian rank-2k update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "SSYR2K",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "71a72061bb11cc6afc5fc4007e4e3507a25100a08daa945fcdc189114087705c",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-7cc78c1abbf810dd",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::ssyrk"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::ssyrk",
+      "historical_role": "user_callable",
+      "native_symbol": "ssyrk_",
+      "operation_class": "symmetric or Hermitian rank-k update",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "SSYRK",
+      "safe_wrapper_status": "slatec::blas::level3::ssyrk",
+      "source_hash": "b1cfe61f0d1aeb799843d65efc48d532bfefb64fb51f023cc437803ed066d891",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-4ba1f66b5173ea76",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::stbmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::stbmv",
+      "historical_role": "user_callable",
+      "native_symbol": "stbmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "STBMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "7bbd6817e162dfc8e34cfc1fdc2a55322c4f21cc40b813ab01e5ec28076947a0",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-eeb6e4a21f25d8e9",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::stbsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::stbsv",
+      "historical_role": "user_callable",
+      "native_symbol": "stbsv_",
+      "operation_class": "triangular solve",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "STBSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "9fa365c3ad1717cd41f5aa74e557b913ba80b0ecf27ba52773a87be50e10203f",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-65891856028355a3",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::stpmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::stpmv",
+      "historical_role": "user_callable",
+      "native_symbol": "stpmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "STPMV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "99055fe346c5a6cb7f5594ba6106f1b3054560d74061476549052b7c43a6d319",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-2ff88e804e1d3744",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::stpsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::stpsv",
+      "historical_role": "user_callable",
+      "native_symbol": "stpsv_",
+      "operation_class": "triangular solve",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "STPSV",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "source_hash": "c5e419050a41bc42514b39f95532203a7962949eba3fdbaa6799f8f93fd05b3e",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-bb823d3f343bc012",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::strmm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::strmm",
+      "historical_role": "user_callable",
+      "native_symbol": "strmm_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "STRMM",
+      "safe_wrapper_status": "slatec::blas::level3::strmm",
+      "source_hash": "467d94aaa5c121a58c47e934424b01145434eb73fbdbdb75a341a525193146b4",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-ecd3c21d1e5ef169",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::strmv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::strmv",
+      "historical_role": "user_callable",
+      "native_symbol": "strmv_",
+      "operation_class": "triangular matrix multiply",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "STRMV",
+      "safe_wrapper_status": "slatec::blas::level2::strmv",
+      "source_hash": "da74e4c8e1664386eff9583fda1cf3f1fee0dd8c2abc3ae2ec75d4a2b85cb4c9",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 3,
+      "canonical_provider": "full-provider-b1c48855a1ea9bc8",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level3::strsm"
+      ],
+      "feature": "blas-level3",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::strsm",
+      "historical_role": "user_callable",
+      "native_symbol": "strsm_",
+      "operation_class": "triangular solve",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level3`",
+      "provider_feature": "blas-level3",
+      "routine": "STRSM",
+      "safe_wrapper_status": "slatec::blas::level3::strsm",
+      "source_hash": "6c1c3b295fab993a57bf81566283d0e82d1b140c568f46690aeb6cabf033e924",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    },
+    {
+      "blas_level": 2,
+      "canonical_provider": "full-provider-43b388fe1db47164",
+      "documentation_status": "complete_authored",
+      "exclusion_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::blas_level2::strsv"
+      ],
+      "feature": "blas-level2",
+      "final_disposition": "reviewed public BLAS routine",
+      "generated_declaration_path": "slatec_sys::generated::character::strsv",
+      "historical_role": "user_callable",
+      "native_symbol": "strsv_",
+      "operation_class": "triangular solve",
+      "precision": "f32",
+      "program_unit_kind": "subroutine",
+      "provider_closure": "slatec-src feature `blas-level2`",
+      "provider_feature": "blas-level2",
+      "routine": "STRSV",
+      "safe_wrapper_status": "slatec::blas::level2::strsv",
+      "source_hash": "835b0d0141731a9d087e9884893696d1b64b9752819542b6e90945602a810641",
+      "test_coverage": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "passed"
+      }
+    }
+  ],
+  "schema_id": "slatec-sys.raw-api.blas-family-report",
+  "schema_version": "1.0.0",
+  "scope": "Every catalogue identity classified by the R1 taxonomy as blas; no identity is silently omitted."
+}

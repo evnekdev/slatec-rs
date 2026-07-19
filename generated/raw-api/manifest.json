@@ -6,6 +6,7 @@
     "interface_inventory": "generated/ffi/interface-inventory.json"
   },
   "outputs": [
+    "blas-family-report.json",
     "canonical-paths.json",
     "coverage-summary.json",
     "documentation-audit.json",
@@ -19,5 +20,5 @@
   ],
   "schema_id": "slatec-sys.raw-api.manifest",
   "schema_version": "1.0.0",
-  "semantic_hash": "573bf7e6f3a7507c690af13472ad452ba1fbac2909c5a5ab2494238aa383e3c7"
+  "semantic_hash": "a5e9a106e8f97921881ef265fc9aeee8eba9fdbad10485397d9b3337c9aff465"
 }

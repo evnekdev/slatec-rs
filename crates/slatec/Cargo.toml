@@ -55,6 +55,8 @@ blas-level3 = [
     "slatec-src/blas-level3",
 ]
 blas-level23-native-tests = ["blas-level2", "blas-level3"]
+blas-raw-link-tests = ["blas"]
+blas-raw-native-tests = ["blas-raw-link-tests"]
 
 special = [
     "special-elementary", "special-gamma", "special-beta", "special-error",
@@ -345,6 +347,26 @@ required-features = ["special-bessel"]
 [[example]]
 name = "link_blas_level3"
 required-features = ["blas-level3"]
+
+[[example]]
+name = "raw_blas_level1_axpy"
+required-features = ["blas"]
+
+[[example]]
+name = "raw_blas_level2_gemv"
+required-features = ["blas"]
+
+[[example]]
+name = "raw_blas_level2_triangular_solve"
+required-features = ["blas"]
+
+[[example]]
+name = "raw_blas_level3_gemm"
+required-features = ["blas"]
+
+[[example]]
+name = "raw_blas_complex"
+required-features = ["blas"]
 
 [[example]]
 name = "link_quadrature_oscillatory"

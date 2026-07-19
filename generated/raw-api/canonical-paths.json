@@ -947,13 +947,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::caxpy",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::caxpy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::caxpy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::caxpy",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::caxpy"
+      ],
       "routine": "CAXPY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1156,13 +1160,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ccopy",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::ccopy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ccopy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ccopy",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::ccopy"
+      ],
       "routine": "CCOPY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1477,13 +1485,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cgbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::cgbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::cgbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::cgbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::cgbmv"
+      ],
       "routine": "CGBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1549,40 +1561,56 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cgemm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::cgemm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::cgemm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::cgemm",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::cgemm"
+      ],
       "routine": "CGEMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cgemv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::cgemv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::cgemv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::cgemv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::cgemv"
+      ],
       "routine": "CGEMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cgerc",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::cgerc",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::cgerc"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::cgerc",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::cgerc"
+      ],
       "routine": "CGERC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cgeru",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::cgeru",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::cgeru"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::cgeru",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::cgeru"
+      ],
       "routine": "CGERU",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1621,67 +1649,95 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::chbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::chbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::chbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::chbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::chbmv"
+      ],
       "routine": "CHBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::chemm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::chemm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::chemm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::chemm",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::chemm"
+      ],
       "routine": "CHEMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::chemv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::chemv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::chemv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::chemv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::chemv"
+      ],
       "routine": "CHEMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cher",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::cher",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::cher"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::cher",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::cher"
+      ],
       "routine": "CHER",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cher2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::cher2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::cher2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::cher2",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::cher2"
+      ],
       "routine": "CHER2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cher2k",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::cher2k",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::cher2k"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::cher2k",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::cher2k"
+      ],
       "routine": "CHER2K",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cherk",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::cherk",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::cherk"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::cherk",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::cherk"
+      ],
       "routine": "CHERK",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1839,31 +1895,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::chpmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::chpmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::chpmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::chpmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::chpmv"
+      ],
       "routine": "CHPMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::chpr",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::chpr",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::chpr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::chpr",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::chpr"
+      ],
       "routine": "CHPR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::chpr2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::chpr2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::chpr2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::chpr2",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::chpr2"
+      ],
       "routine": "CHPR2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2526,13 +2594,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::crotg",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::crotg",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::crotg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::crotg",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::crotg"
+      ],
       "routine": "CROTG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2553,13 +2625,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cscal",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::cscal",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::cscal"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::cscal",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::cscal"
+      ],
       "routine": "CSCAL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2726,22 +2802,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::csrot",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::csrot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::csrot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::csrot",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::csrot"
+      ],
       "routine": "CSROT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::csscal",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::csscal",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::csscal"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::csscal",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::csscal"
+      ],
       "routine": "CSSCAL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2753,22 +2837,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cswap",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::cswap",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::cswap"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::cswap",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::cswap"
+      ],
       "routine": "CSWAP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::csymm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::csymm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::csymm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::csymm",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::csymm"
+      ],
       "routine": "CSYMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2789,22 +2881,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::csyr2k",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::csyr2k",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::csyr2k"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::csyr2k",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::csyr2k"
+      ],
       "routine": "CSYR2K",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::csyrk",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::csyrk",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::csyrk"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::csyrk",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::csyrk"
+      ],
       "routine": "CSYRK",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2825,40 +2925,56 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::ctbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ctbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ctbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ctbmv"
+      ],
       "routine": "CTBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctbsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::ctbsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ctbsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ctbsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ctbsv"
+      ],
       "routine": "CTBSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctpmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::ctpmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ctpmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ctpmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ctpmv"
+      ],
       "routine": "CTPMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctpsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::ctpsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ctpsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ctpsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ctpsv"
+      ],
       "routine": "CTPSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2879,22 +2995,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctrmm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::ctrmm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::ctrmm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::ctrmm",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::ctrmm"
+      ],
       "routine": "CTRMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctrmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::ctrmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ctrmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ctrmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ctrmv"
+      ],
       "routine": "CTRMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2906,22 +3030,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctrsm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level3::ctrsm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::ctrsm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::ctrsm",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::ctrsm"
+      ],
       "routine": "CTRSM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ctrsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::ctrsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ctrsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ctrsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ctrsv"
+      ],
       "routine": "CTRSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3243,15 +3375,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dasum",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::dasum",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dasum"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dasum",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::dasum"
+        "slatec_sys::families::blas_level1::dasum"
       ],
       "routine": "DASUM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3319,15 +3453,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::daxpy",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::daxpy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::daxpy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::daxpy",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::daxpy"
+        "slatec_sys::families::blas_level1::daxpy"
       ],
       "routine": "DAXPY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3864,13 +4000,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dcdot",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dcdot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dcdot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dcdot",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dcdot"
+      ],
       "routine": "DCDOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4019,24 +4159,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dcopy",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::dcopy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dcopy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dcopy",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::dcopy"
+        "slatec_sys::families::blas_level1::dcopy"
       ],
       "routine": "DCOPY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dcopym",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dcopym",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dcopym"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dcopym",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dcopym"
+      ],
       "routine": "DCOPYM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4292,15 +4438,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ddot",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::ddot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ddot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ddot",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::ddot"
+        "slatec_sys::families::blas_level1::ddot"
       ],
       "routine": "DDOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4778,13 +4926,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dgbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dgbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dgbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dgbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dgbmv"
+      ],
       "routine": "DGBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4834,37 +4986,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dgemm",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::dgemm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::dgemm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::dgemm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgemm"
+        "slatec_sys::families::blas_level3::dgemm"
       ],
       "routine": "DGEMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dgemv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::dgemv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dgemv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dgemv",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgemv"
+        "slatec_sys::families::blas_level2::dgemv"
       ],
       "routine": "DGEMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dger",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::dger",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dger"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dger",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::dger"
+        "slatec_sys::families::blas_level2::dger"
       ],
       "routine": "DGER",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -5358,15 +5516,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dnrm2",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::dnrm2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dnrm2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dnrm2",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::dnrm2"
+        "slatec_sys::families::blas_level1::dnrm2"
       ],
       "routine": "DNRM2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6235,22 +6395,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dqdota",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dqdota",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dqdota"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dqdota",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dqdota"
+      ],
       "routine": "DQDOTA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dqdoti",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dqdoti",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dqdoti"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dqdoti",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dqdoti"
+      ],
       "routine": "DQDOTI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6562,42 +6730,56 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::drot",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::drot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::drot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::drot",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::drot"
+        "slatec_sys::families::blas_level1::drot"
       ],
       "routine": "DROT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::drotg",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::drotg",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::drotg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::drotg",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::drotg"
+      ],
       "routine": "DROTG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::drotm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::drotm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::drotm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::drotm",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::drotm"
+      ],
       "routine": "DROTM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::drotmg",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::drotmg",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::drotmg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::drotmg",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::drotmg"
+      ],
       "routine": "DROTMG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6618,33 +6800,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ds2y",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "DS2Y",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "DSBMV",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dscal",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::ds2y",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ds2y"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ds2y",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::dscal"
+        "slatec_sys::families::blas_level1::ds2y"
+      ],
+      "routine": "DS2Y",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level2::dsbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dsbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dsbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dsbmv"
+      ],
+      "routine": "DSBMV",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::dscal",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dscal"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dscal",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dscal"
       ],
       "routine": "DSCAL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6701,13 +6893,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsdi",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dsdi",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dsdi"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dsdi",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dsdi"
+      ],
       "routine": "DSDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6719,13 +6915,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsdot",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dsdot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dsdot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dsdot",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dsdot"
+      ],
       "routine": "DSDOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7009,22 +7209,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsmtv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dsmtv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dsmtv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dsmtv",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dsmtv"
+      ],
       "routine": "DSMTV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::dsmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dsmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dsmv",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::dsmv"
+      ],
       "routine": "DSMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7112,31 +7320,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dspmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dspmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dspmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dspmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dspmv"
+      ],
       "routine": "DSPMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dspr",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dspr",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dspr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dspr",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dspr"
+      ],
       "routine": "DSPR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dspr2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dspr2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dspr2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dspr2",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dspr2"
+      ],
       "routine": "DSPR2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7220,73 +7440,95 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dswap",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::dswap",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::dswap"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::dswap",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::dswap"
+        "slatec_sys::families::blas_level1::dswap"
       ],
       "routine": "DSWAP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsymm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "DSYMM",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsymv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::dsymm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::dsymm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::dsymm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::dsymv"
+        "slatec_sys::families::blas_level3::dsymm"
+      ],
+      "routine": "DSYMM",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level2::dsymv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dsymv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dsymv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dsymv"
       ],
       "routine": "DSYMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsyr",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "DSYR",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsyr2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "DSYR2",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsyr2k",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "DSYR2K",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dsyrk",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::dsyr",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dsyr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dsyr",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::dsyrk"
+        "slatec_sys::families::blas_level2::dsyr"
+      ],
+      "routine": "DSYR",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level2::dsyr2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dsyr2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dsyr2",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dsyr2"
+      ],
+      "routine": "DSYR2",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level3::dsyr2k",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::dsyr2k"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::dsyr2k",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::dsyr2k"
+      ],
+      "routine": "DSYR2K",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level3::dsyrk",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::dsyrk"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::dsyrk",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::dsyrk"
       ],
       "routine": "DSYRK",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7307,22 +7549,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dtbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dtbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dtbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dtbmv"
+      ],
       "routine": "DTBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtbsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dtbsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dtbsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dtbsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dtbsv"
+      ],
       "routine": "DTBSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7343,22 +7593,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtpmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dtpmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dtpmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dtpmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dtpmv"
+      ],
       "routine": "DTPMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtpsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::dtpsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dtpsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dtpsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::dtpsv"
+      ],
       "routine": "DTPSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7379,26 +7637,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtrmm",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::dtrmm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::dtrmm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::dtrmm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::dtrmm"
+        "slatec_sys::families::blas_level3::dtrmm"
       ],
       "routine": "DTRMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtrmv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::dtrmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dtrmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dtrmv",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::dtrmv"
+        "slatec_sys::families::blas_level2::dtrmv"
       ],
       "routine": "DTRMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7410,26 +7672,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtrsm",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::dtrsm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::dtrsm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::dtrsm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::dtrsm"
+        "slatec_sys::families::blas_level3::dtrsm"
       ],
       "routine": "DTRSM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::dtrsv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::dtrsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::dtrsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::dtrsv",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::dtrsv"
+        "slatec_sys::families::blas_level2::dtrsv"
       ],
       "routine": "DTRSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8451,33 +8717,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::icamax",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "ICAMAX",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::icopy",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "ICOPY",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::idamax",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::icamax",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::icamax"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::icamax",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::idamax"
+        "slatec_sys::families::blas_level1::icamax"
+      ],
+      "routine": "ICAMAX",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::icopy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::icopy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::icopy",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::icopy"
+      ],
+      "routine": "ICOPY",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::idamax",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::idamax"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::idamax",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::idamax"
       ],
       "routine": "IDAMAX",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8669,15 +8945,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::isamax",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::isamax",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::isamax"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::isamax",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::isamax"
+        "slatec_sys::families::blas_level1::isamax"
       ],
       "routine": "ISAMAX",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8815,13 +9093,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::iswap",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::iswap",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::iswap"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::iswap",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::iswap"
+      ],
       "routine": "ISWAP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11015,26 +11297,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sasum",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::sasum",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::sasum"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::sasum",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::sasum"
+        "slatec_sys::families::blas_level1::sasum"
       ],
       "routine": "SASUM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::saxpy",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::saxpy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::saxpy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::saxpy",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::saxpy"
+        "slatec_sys::families::blas_level1::saxpy"
       ],
       "routine": "SAXPY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11086,13 +11372,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::scasum",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::scasum",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::scasum"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::scasum",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::scasum"
+      ],
       "routine": "SCASUM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11176,13 +11466,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::scnrm2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::scnrm2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::scnrm2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::scnrm2",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::scnrm2"
+      ],
       "routine": "SCNRM2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11194,24 +11488,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::scopy",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::scopy",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::scopy"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::scopy",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::scopy"
+        "slatec_sys::families::blas_level1::scopy"
       ],
       "routine": "SCOPY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::scopym",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::scopym",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::scopym"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::scopym",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::scopym"
+      ],
       "routine": "SCOPYM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11344,15 +11644,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sdot",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::sdot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::sdot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::sdot",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::sdot"
+        "slatec_sys::families::blas_level1::sdot"
       ],
       "routine": "SDOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11411,13 +11713,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sdsdot",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::sdsdot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::sdsdot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::sdsdot",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::sdsdot"
+      ],
       "routine": "SDSDOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11489,13 +11795,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sgbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::sgbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::sgbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::sgbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::sgbmv"
+      ],
       "routine": "SGBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11563,37 +11873,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sgemm",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::sgemm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::sgemm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::sgemm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::sgemm"
+        "slatec_sys::families::blas_level3::sgemm"
       ],
       "routine": "SGEMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sgemv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::sgemv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::sgemv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::sgemv",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::sgemv"
+        "slatec_sys::families::blas_level2::sgemv"
       ],
       "routine": "SGEMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sger",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::sger",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::sger"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::sger",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::sger"
+        "slatec_sys::families::blas_level2::sger"
       ],
       "routine": "SGER",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11972,15 +12288,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::snrm2",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::snrm2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::snrm2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::snrm2",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::snrm2"
+        "slatec_sys::families::blas_level1::snrm2"
       ],
       "routine": "SNRM2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12414,42 +12732,56 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::srot",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::srot",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::srot"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::srot",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::srot"
+        "slatec_sys::families::blas_level1::srot"
       ],
       "routine": "SROT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::srotg",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::srotg",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::srotg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::srotg",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::srotg"
+      ],
       "routine": "SROTG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::srotm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::srotm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::srotm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::srotm",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::srotm"
+      ],
       "routine": "SROTM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::srotmg",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::srotmg",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::srotmg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::srotmg",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::srotmg"
+      ],
       "routine": "SROTMG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12461,33 +12793,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ss2y",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "SS2Y",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "SSBMV",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sscal",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::ss2y",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ss2y"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ss2y",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::sscal"
+        "slatec_sys::families::blas_level1::ss2y"
+      ],
+      "routine": "SS2Y",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level2::ssbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ssbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ssbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ssbmv"
+      ],
+      "routine": "SSBMV",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::sscal",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::sscal"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::sscal",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::sscal"
       ],
       "routine": "SSCAL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12544,13 +12886,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssdi",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::ssdi",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ssdi"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ssdi",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::ssdi"
+      ],
       "routine": "SSDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12805,22 +13151,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssmtv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::ssmtv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ssmtv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ssmtv",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::ssmtv"
+      ],
       "routine": "SSMTV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level1::ssmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::ssmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::ssmv",
+      "intended_module": "blas::level1",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level1::ssmv"
+      ],
       "routine": "SSMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12868,31 +13222,43 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sspmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::sspmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::sspmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::sspmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::sspmv"
+      ],
       "routine": "SSPMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sspr",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::sspr",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::sspr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::sspr",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::sspr"
+      ],
       "routine": "SSPR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sspr2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::sspr2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::sspr2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::sspr2",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::sspr2"
+      ],
       "routine": "SSPR2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12913,91 +13279,121 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::sswap",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level1::sswap",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level1::sswap"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::sswap",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [
-        "slatec_sys::families::sswap"
+        "slatec_sys::families::blas_level1::sswap"
       ],
       "routine": "SSWAP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssymm",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "SSYMM",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssymv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::ssymm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::ssymm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::ssymm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::ssymv"
+        "slatec_sys::families::blas_level3::ssymm"
+      ],
+      "routine": "SSYMM",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level2::ssymv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ssymv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ssymv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ssymv"
       ],
       "routine": "SSYMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssyr",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "SSYR",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssyr2",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "SSYR2",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssyr2k",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
-      "routine": "SSYR2K",
-      "status": "planned"
-    },
-    {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::ssyrk",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::ssyr",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ssyr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ssyr",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::ssyrk"
+        "slatec_sys::families::blas_level2::ssyr"
+      ],
+      "routine": "SSYR",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level2::ssyr2",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::ssyr2"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::ssyr2",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::ssyr2"
+      ],
+      "routine": "SSYR2",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level3::ssyr2k",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::ssyr2k"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::ssyr2k",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::ssyr2k"
+      ],
+      "routine": "SSYR2K",
+      "status": "implemented"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level3::ssyrk",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::ssyrk"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::ssyrk",
+      "intended_module": "blas::level3",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level3::ssyrk"
       ],
       "routine": "SSYRK",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::stbmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::stbmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::stbmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::stbmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::stbmv"
+      ],
       "routine": "STBMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::stbsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::stbsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::stbsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::stbsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::stbsv"
+      ],
       "routine": "STBSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -13045,22 +13441,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::stpmv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::stpmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::stpmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::stpmv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::stpmv"
+      ],
       "routine": "STPMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::stpsv",
-      "intended_module": "blas",
-      "legacy_rust_paths": [],
+      "canonical_rust_path": "slatec_sys::blas::level2::stpsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::stpsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::stpsv",
+      "intended_module": "blas::level2",
+      "legacy_rust_paths": [
+        "slatec_sys::families::blas_level2::stpsv"
+      ],
       "routine": "STPSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -13081,26 +13485,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::strmm",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::strmm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::strmm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::strmm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::strmm"
+        "slatec_sys::families::blas_level3::strmm"
       ],
       "routine": "STRMM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::strmv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::strmv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::strmv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::strmv",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::strmv"
+        "slatec_sys::families::blas_level2::strmv"
       ],
       "routine": "STRMV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -13112,26 +13520,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::strsm",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level3::strsm",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level3::strsm"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level3::strsm",
+      "intended_module": "blas::level3",
       "legacy_rust_paths": [
-        "slatec_sys::families::strsm"
+        "slatec_sys::families::blas_level3::strsm"
       ],
       "routine": "STRSM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::strsv",
-      "intended_module": "blas",
+      "canonical_rust_path": "slatec_sys::blas::level2::strsv",
+      "compatibility_paths": [
+        "slatec_sys::families::blas_level2::strsv"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::blas::level2::strsv",
+      "intended_module": "blas::level2",
       "legacy_rust_paths": [
-        "slatec_sys::families::strsv"
+        "slatec_sys::families::blas_level2::strsv"
       ],
       "routine": "STRSV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",

@@ -62,5 +62,5 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `not_tested`
 - Runtime-test status: `not_tested`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
+- Exclusion or deferment reason: `selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure`
 <!-- raw-api-status:end -->
