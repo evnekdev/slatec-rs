@@ -167,6 +167,13 @@ fishpack-cartesian-2d = [
     "slatec-src/fishpack-cartesian-2d",
 ]
 fishpack-cartesian-2d-native-tests = ["fishpack-cartesian-2d"]
+fishpack-pois3d = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-fishpack-pois3d",
+    "slatec-src/fishpack-pois3d",
+]
+fishpack-pois3d-native-tests = ["fishpack-pois3d"]
 banded-linear-systems = ["std", "blas-level1-validation", "slatec-sys/raw-family-banded-linear-systems", "slatec-src/banded-linear-systems"]
 banded-linear-systems-native-tests = ["banded-linear-systems"]
 pchip = [
@@ -196,6 +203,7 @@ native-serialization-tests = [
     "fftpack-real-native-tests",
     "fftpack-complex-native-tests",
     "fishpack-cartesian-2d-native-tests",
+    "fishpack-pois3d-native-tests",
     "banded-linear-systems-native-tests",
     "pchip-native-tests",
     "bspline-native-tests",
@@ -289,7 +297,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = ["pchip", "bspline", "piecewise-polynomial"]
 optimize = ["optimization"]
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -414,6 +422,11 @@ required-features = ["fftpack-complex"]
 name = "fishpack_cartesian_2d"
 path = "../../examples/fishpack_cartesian_2d.rs"
 required-features = ["fishpack-cartesian-2d"]
+
+[[example]]
+name = "fishpack_pois3d"
+path = "../../examples/fishpack_pois3d.rs"
+required-features = ["fishpack-pois3d"]
 
 [[example]]
 name = "banded_factor_and_solve"

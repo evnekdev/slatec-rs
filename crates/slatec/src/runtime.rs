@@ -8,7 +8,8 @@ use std::thread::ThreadId;
 #[cfg(any(
     feature = "ode-sdrive-expert-native-tests",
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -102,17 +103,20 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
 
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 static ACTIVE_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 static MAX_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 static NESTED_SAME_THREAD_ENTRIES: AtomicUsize = AtomicUsize::new(0);
 #[cfg(feature = "blas-level1-concurrency-native-tests")]
@@ -124,7 +128,8 @@ static BLAS1_HOSTED_OVERLAPS: AtomicUsize = AtomicUsize::new(0);
 
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 fn hosted_native_scope_enter() {
     let active = ACTIVE_HOSTED_NATIVE_SCOPES.fetch_add(1, Ordering::SeqCst) + 1;
@@ -133,13 +138,15 @@ fn hosted_native_scope_enter() {
 
 #[cfg(not(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 )))]
 fn hosted_native_scope_enter() {}
 
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 fn hosted_native_nested_enter() {
     NESTED_SAME_THREAD_ENTRIES.fetch_add(1, Ordering::SeqCst);
@@ -147,13 +154,15 @@ fn hosted_native_nested_enter() {
 
 #[cfg(not(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 )))]
 fn hosted_native_nested_enter() {}
 
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 fn hosted_native_scope_exit() {
     let previous = ACTIVE_HOSTED_NATIVE_SCOPES.fetch_sub(1, Ordering::SeqCst);
@@ -162,13 +171,15 @@ fn hosted_native_scope_exit() {
 
 #[cfg(not(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 )))]
 fn hosted_native_scope_exit() {}
 
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 pub(crate) fn reset_hosted_native_call_audit() {
     let _guard = lock_native();
@@ -178,7 +189,8 @@ pub(crate) fn reset_hosted_native_call_audit() {
 
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 pub(crate) fn hosted_native_call_audit() -> (usize, usize, usize, bool, Option<std::string::String>)
 {
@@ -436,7 +448,8 @@ mod tests {
 
     #[cfg(any(
         feature = "native-serialization-tests",
-        feature = "fishpack-cartesian-2d-native-tests"
+        feature = "fishpack-cartesian-2d-native-tests",
+        feature = "fishpack-pois3d-native-tests"
     ))]
     #[test]
     fn audit_tracks_nesting_and_restores_after_panic() {

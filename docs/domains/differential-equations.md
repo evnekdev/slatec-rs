@@ -89,6 +89,13 @@ It does not expose generic FISHPACK, `GENBUN`, `BLKTRI`, `POIS3D`, or any
 non-Cartesian geometry. See the [safe Cartesian FISHPACK guide]
 (../api/safe-fishpack-cartesian-2d.md).
 
+The separately reviewed `fishpack-pois3d` feature exposes only the actual
+structured `POIS3D` block-tridiagonal system: typed first/second-axis ghost
+relations, a cyclic constant or noncyclic tridiagonal third axis, and an owned
+three-dimensional unknown grid. It does not provide arbitrary values on six
+faces or a general 3D Cartesian PDE facade. See the [structured POIS3D guide]
+(../api/safe-fishpack-pois3d.md).
+
 ## Common callback and workspace patterns
 
 - RHS callback \(f(t,y)\);

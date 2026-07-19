@@ -1009,6 +1009,21 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::differential_equations::pde::Pois3dProblem::solve",
+      "fortran_routine": "POIS3D",
+      "module": "slatec::differential_equations::pde",
+      "domain": "Structured FISHPACK PDE",
+      "precision": "f32",
+      "purpose": "checked owned structured three-dimensional block-tridiagonal solve",
+      "capability": "std",
+      "feature": "fishpack-pois3d",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/differential_equations/pde/struct.Pois3dProblem.html#method.solve",
+      "example_file": "examples/fishpack_pois3d.rs",
+      "example_case": "manufactured structured cyclic POIS3D system",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::fftpack::CosineTransformPlan::new",
       "fortran_routine": "COSTI",
       "module": "slatec::fftpack::CosineTransformPlan",

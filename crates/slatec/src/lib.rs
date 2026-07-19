@@ -67,6 +67,8 @@ compile_error!("the `fftpack-real` safe API requires the `std` feature");
 compile_error!("the `fftpack-complex` safe API requires the `std` feature");
 #[cfg(all(feature = "fishpack-cartesian-2d", not(feature = "std")))]
 compile_error!("the `fishpack-cartesian-2d` safe API requires the `std` feature");
+#[cfg(all(feature = "fishpack-pois3d", not(feature = "std")))]
+compile_error!("the `fishpack-pois3d` safe API requires the `std` feature");
 #[cfg(all(feature = "pchip", not(feature = "std")))]
 compile_error!("the `pchip` safe API requires the `std` feature");
 #[cfg(all(feature = "bspline", not(feature = "std")))]
@@ -143,6 +145,7 @@ pub mod polynomials;
     feature = "fftpack-real",
     feature = "fftpack-complex",
     feature = "fishpack-cartesian-2d",
+    feature = "fishpack-pois3d",
     feature = "banded-linear-systems",
     feature = "pchip",
     feature = "bspline",
@@ -171,7 +174,8 @@ pub mod dassl;
 /// does not alter lock scope or advertise native parallel execution.
 #[cfg(any(
     feature = "native-serialization-tests",
-    feature = "fishpack-cartesian-2d-native-tests"
+    feature = "fishpack-cartesian-2d-native-tests",
+    feature = "fishpack-pois3d-native-tests"
 ))]
 #[doc(hidden)]
 pub mod native_serialization_test_support {

@@ -11,8 +11,8 @@
 | Providers | 2238 |
 | Catalogue-only | 26 |
 | Raw-bound | 1253 |
-| Safely wrapped | 209 |
-| Deeply audited | 209 |
+| Safely wrapped | 210 |
+| Deeply audited | 210 |
 
 The documented reference values are approximately 902 user-callable and at least 1,400 total routines. Computed values are reported as found; unresolved entries and provider variants remain visible rather than being invented or collapsed.
 

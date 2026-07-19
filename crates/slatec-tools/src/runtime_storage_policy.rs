@@ -51,6 +51,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     projections.extend(crate::safe_piecewise_polynomial::native_state_projections()?);
     projections.extend(crate::safe_fftpack_complex::native_state_projections()?);
     projections.extend(crate::safe_fishpack::native_state_projections()?);
+    projections.extend(crate::safe_pois3d::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
@@ -751,6 +752,24 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             status: "complete_no_mutable_state_found".to_owned(),
         });
     }
+    let pois3d_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fishpack-pois3d-source-closure.json",
+    ))?;
+    let pois3d_sources = pois3d_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("POIS3D closure lacks source records"))?;
+    for source in pois3d_sources {
+        let id = string(source, "id")?.to_owned();
+        let path = string(source, "path")?;
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: path.to_owned(),
+            storage: format!(
+                "focused_fishpack_pois3d_source_and_link_audit:{path}:no_COMMON_SAVE_statement_DATA_XERROR_or_IO"
+            ),
+            mutable: false,
+            status: "complete_no_mutable_state_found".to_owned(),
+        });
+    }
     Ok(output)
 }
 
@@ -1149,6 +1168,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/fishpack-cartesian-2d-source-closure.json",
     ))?;
     closures["families"]["fishpack-cartesian-2d"] = fishpack_closure["source_ids"].clone();
+    let pois3d_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fishpack-pois3d-source-closure.json",
+    ))?;
+    closures["families"]["fishpack-pois3d"] = pois3d_closure["source_ids"].clone();
     let banded_closure = read_value(repo_path(
         "crates/slatec-src/metadata/banded-linear-systems-source-closure.json",
     ))?;

@@ -682,7 +682,7 @@
 | [PASSF5](routines/passf5.md) | subsidiary | Calculate the fast Fourier transform of subvectors of length five. | unknown | provider_present | bound | none |
 | [PGSF](routines/pgsf.md) | subsidiary | Subsidiary to CBLKTR | unknown | canonical_verified | bound | none |
 | [PIMACH](routines/pimach.md) | subsidiary | Subsidiary to HSTCSP, HSTSSP and HWSCSP | unknown | canonical_verified | bound | none |
-| [POIS3D](routines/pois3d.md) | user_callable | Solve a three-dimensional block tridiagonal linear system which arises from a finite difference approximation to a three-dimensional Poisson equation using the Fourier transform package FFTPAK written by Paul Swarztrauber. | unknown | provider_present | bound | none |
+| [POIS3D](routines/pois3d.md) | user_callable | Solve a three-dimensional block tridiagonal linear system which arises from a finite difference approximation to a three-dimensional Poisson equation using the Fourier transform package FFTPAK written by Paul Swarztrauber. | unknown | provider_present | bound | safe_public |
 | [POISD2](routines/poisd2.md) | subsidiary | Subsidiary to GENBUN | unknown | canonical_verified | bound | none |
 | [POISN2](routines/poisn2.md) | subsidiary | Subsidiary to GENBUN | unknown | canonical_verified | bound | none |
 | [POISP2](routines/poisp2.md) | subsidiary | Subsidiary to GENBUN | unknown | canonical_verified | bound | none |

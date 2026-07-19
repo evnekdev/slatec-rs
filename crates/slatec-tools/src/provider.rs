@@ -275,6 +275,7 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         "fftpack-real-source-closure.json",
         "fftpack-complex-source-closure.json",
         "fishpack-cartesian-2d-source-closure.json",
+        "fishpack-pois3d-source-closure.json",
         "banded-linear-systems-source-closure.json",
         "pchip-source-closure.json",
         "bspline-source-closure.json",

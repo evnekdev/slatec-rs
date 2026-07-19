@@ -65,6 +65,12 @@ and non-uniqueness reporting; private checked workspace; and process-global
 native serialization. Three-dimensional and non-Cartesian FISHPACK families
 remain deferred. See the [Cartesian FISHPACK guide](../../docs/api/safe-fishpack-cartesian-2d.md).
 
+The hosted `fishpack-pois3d` feature provides a separate owned `f32` facade
+over the structured discrete `POIS3D` system. It has typed transverse
+ghost-node rules plus checked cyclic or noncyclic third-axis coefficients; it
+is not an arbitrary six-face three-dimensional PDE interface. See the
+[structured POIS3D guide](../../docs/api/safe-fishpack-pois3d.md).
+
 The hosted `banded-linear-systems` feature provides compact general-band
 `f32`/`f64` LU factors, reusable direct and transpose solves, `SGBCO`/`DGBCO`
 reciprocal 1-norm condition estimates, and `SGBDI`/`DGBDI` base-ten scaled

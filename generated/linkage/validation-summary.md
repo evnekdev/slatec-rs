@@ -1,8 +1,8 @@
 # Family linkage validation
 
 - Snapshot: `complete-slatec-05078ebcb649b50e4435`
-- Families: 35
-- Reviewed physical sources in the union: 495
+- Families: 36
+- Reviewed physical sources in the union: 498
 - Native example binaries validated: 21/22.
 - Single-gamma unrelated-domain retention check: passed.
 - Least-squares narrow-link check: passed. `DNLS1E` intentionally retains `DNLS1`, its direct original implementation; `DCKDER` remains in that object because its optional native checking branch cannot be extracted separately.

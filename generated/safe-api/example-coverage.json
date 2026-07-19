@@ -675,6 +675,16 @@
     },
     {
       "doctest_present": false,
+      "example_case": "manufactured structured cyclic POIS3D system",
+      "example_file": "examples/fishpack_pois3d.rs",
+      "fortran_routine": "POIS3D",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::Pois3dProblem::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/tests/fishpack_pois3d_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "full cosine transform plan initialization",
       "example_file": "examples/fftpack/cosine_transform.rs",
       "fortran_routine": "COSTI",
