@@ -732,6 +732,28 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             })
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/fishpack-pois3d-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(FunctionRecord {
+                rust_path: column(row, columns, "safe_path")?.to_owned(),
+                fortran_routine: column(row, columns, "raw_routine")?.to_owned(),
+                module: "slatec::differential_equations::pde".to_owned(),
+                domain: "Structured FISHPACK PDE".to_owned(),
+                precision: column(row, columns, "precision")?.to_owned(),
+                purpose: "checked owned structured three-dimensional block-tridiagonal solve"
+                    .to_owned(),
+                capability: "std".to_owned(),
+                feature: "fishpack-pois3d".to_owned(),
+                native_profile: PROFILE.to_owned(),
+                documentation: "https://docs.rs/slatec/latest/slatec/differential_equations/pde/struct.Pois3dProblem.html#method.solve".to_owned(),
+                example_file: "examples/fishpack_pois3d.rs".to_owned(),
+                example_case: "manufactured structured cyclic POIS3D system".to_owned(),
+                inclusion_status: "safe_api_available".to_owned(),
+            })
+        },
+    )?;
     Ok(output)
 }
 
@@ -1023,6 +1045,7 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
 fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let upper = name.to_ascii_uppercase();
     let fishpack = function.domain == "Cartesian FISHPACK PDE";
+    let pois3d = function.domain == "Structured FISHPACK PDE";
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
@@ -1041,6 +1064,11 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 upper.as_str(),
                 "MBDCND" | "NBDCND" | "IDIMF" | "IERROR" | "W"
             ))
+        || (pois3d
+            && matches!(
+                upper.as_str(),
+                "LPEROD" | "MPEROD" | "NPEROD" | "LDIMF" | "MDIMF" | "IERROR" | "W"
+            ))
         || (bspline_constructor && matches!(upper.as_str(), "N" | "BCOEF" | "Q"))
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
@@ -1055,6 +1083,15 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         None
     } else {
         Some(match upper.as_str() {
+            "L" if pois3d => "problem.rhs.nx".to_owned(),
+            "M" if pois3d => "problem.rhs.ny".to_owned(),
+            "N" if pois3d => "problem.rhs.nz".to_owned(),
+            "C1" if pois3d => "problem.c1".to_owned(),
+            "C2" if pois3d => "problem.c2".to_owned(),
+            "A" | "B" | "C" if pois3d => {
+                "private owned buffers derived from ThirdAxisOperator".to_owned()
+            }
+            "F" if pois3d => "owned Grid3 RHS overwritten with solution".to_owned(),
             "A" if fishpack => "problem.x.lower".to_owned(),
             "B" if fishpack => "problem.x.upper".to_owned(),
             "M" if fishpack => "problem.x.intervals".to_owned(),
@@ -1477,6 +1514,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/piecewise_polynomial_native.rs"
         }
         "Cartesian FISHPACK PDE" => "crates/slatec/tests/fishpack_cartesian_2d_native.rs",
+        "Structured FISHPACK PDE" => "crates/slatec/tests/fishpack_pois3d_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }

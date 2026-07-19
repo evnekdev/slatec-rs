@@ -1,0 +1,1 @@
+{"columns":["safe_function","class","lock_scope","claim"],"records":[["Pois3dProblem::solve","SerializedGlobal","crate::runtime::lock_native around the complete FFI call","owned problems may be moved across threads but native solves never overlap"]],"schema_id":"slatec.safe-fishpack.pois3d.concurrency","schema_version":"1.0.0","snapshot_id":"complete-slatec-05078ebcb649b50e4435"}

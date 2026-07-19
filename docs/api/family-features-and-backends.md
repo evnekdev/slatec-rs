@@ -19,6 +19,7 @@ routine.
 | `ode` | `ode-sdrive-expert` |
 | DAE | `dassl` |
 | Cartesian PDE | `fishpack-cartesian-2d` |
+| Structured 3D FISHPACK system | `fishpack-pois3d` |
 | `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
 

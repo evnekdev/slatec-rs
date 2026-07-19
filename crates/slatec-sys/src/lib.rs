@@ -82,6 +82,11 @@ pub mod fftpack_complex;
 #[cfg(feature = "raw-family-fishpack-cartesian-2d")]
 pub mod fishpack_cartesian_2d;
 
+/// Hand-reviewed declaration for the focused structured FISHPACK `POIS3D`
+/// driver.
+#[cfg(feature = "raw-family-fishpack-pois3d")]
+pub mod fishpack_pois3d;
+
 /// Hand-reviewed LINPACK general-band factorization and solve declarations.
 #[cfg(feature = "raw-family-banded-linear-systems")]
 pub mod banded;

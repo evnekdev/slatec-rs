@@ -3120,6 +3120,93 @@
       ]
     },
     {
+      "rust_path": "slatec::differential_equations::pde::Pois3dProblem::solve",
+      "fortran_routine": "POIS3D",
+      "program_unit_id": "full-provider-212f20c3093bb177",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "LPEROD",
+          "transformation": "internal"
+        },
+        {
+          "rust": "problem.rhs.nx",
+          "fortran": "L",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.c1",
+          "fortran": "C1",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MPEROD",
+          "transformation": "internal"
+        },
+        {
+          "rust": "problem.rhs.ny",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.c2",
+          "fortran": "C2",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NPEROD",
+          "transformation": "internal"
+        },
+        {
+          "rust": "problem.rhs.nz",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private owned buffers derived from ThirdAxisOperator",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private owned buffers derived from ThirdAxisOperator",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private owned buffers derived from ThirdAxisOperator",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "LDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "MDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "owned Grid3 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::fftpack::CosineTransformPlan::new",
       "fortran_routine": "COSTI",
       "program_unit_id": "full-provider-7fbd2bfcc8728813",

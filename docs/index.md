@@ -25,8 +25,9 @@ The collection is ready to advance to reproducible bulk source ingestion and met
 
 ## Complete catalogue
 
-The first safe Cartesian FISHPACK solver is documented in the [Cartesian
-Poisson/Helmholtz guide](api/safe-fishpack-cartesian-2d.md).
+The safe FISHPACK surfaces are documented in the [Cartesian
+Poisson/Helmholtz guide](api/safe-fishpack-cartesian-2d.md) and the separate
+[structured `POIS3D` guide](api/safe-fishpack-pois3d.md).
 
 [Complete SLATEC Routine Index](reference/slatec-routine-index.md) provides the generated historical inventory and `slatec-rs` coverage map, with [family browsing](reference/routines-by-family.md), [alphabetical lookup](reference/routines-alphabetical.md), and [coverage and reconciliation](reference/routine-coverage.md).
 

@@ -998,3 +998,12 @@ pub use fishpack_cartesian_2d::{
     AxisBoundary, CartesianCorner, CartesianHelmholtz2d, CartesianPdeSolution, Grid2,
     NativePdeStatus, PdeError, SolutionUniqueness, UniformAxis,
 };
+
+#[cfg(feature = "fishpack-pois3d")]
+mod fishpack_pois3d;
+
+#[cfg(feature = "fishpack-pois3d")]
+pub use fishpack_pois3d::{
+    CyclicAxisCoefficients, Grid3, Pois3dError, Pois3dProblem, ThirdAxisOperator,
+    TransverseBoundary, TridiagonalAxisCoefficients,
+};

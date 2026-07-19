@@ -501,6 +501,11 @@ fn family_for(path: &str, routine: &str) -> String {
     if path.contains("::dassl::") {
         return "dassl".to_owned();
     }
+    if path.contains("::differential_equations::pde::Pois3d")
+        || path.contains("::differential_equations::pde::Grid3")
+    {
+        return "fishpack-pois3d".to_owned();
+    }
     if path.contains("::differential_equations::pde::") {
         return "fishpack-cartesian-2d".to_owned();
     }
@@ -904,6 +909,13 @@ mod tests {
                 "HWSCRT"
             ),
             "fishpack-cartesian-2d"
+        );
+        assert_eq!(
+            family_for(
+                "slatec::differential_equations::pde::Pois3dProblem::solve",
+                "POIS3D"
+            ),
+            "fishpack-pois3d"
         );
     }
 

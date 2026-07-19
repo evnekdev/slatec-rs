@@ -6,7 +6,7 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
-`fishpack-cartesian-2d`, `optimization-linear-programming-in-memory`, and
+`fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`, and
 `piecewise-polynomial`.
 Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
@@ -147,6 +147,11 @@ Typed periodic, value, derivative, and mixed edges are validated before FFI;
 the result preserves perturbation and non-uniqueness information, while
 workspace and leading dimensions remain private. Calls are process-serialized.
 See the [Cartesian FISHPACK guide](docs/api/safe-fishpack-cartesian-2d.md).
+The opt-in `fishpack-pois3d` feature adds a checked owned `f32` facade over
+the structured discrete `POIS3D` block-tridiagonal system. It uses typed
+transverse ghost rules and cyclic or noncyclic third-axis coefficients; it
+does not model arbitrary six-face 3D boundary data. See the [structured
+POIS3D guide](docs/api/safe-fishpack-pois3d.md).
 The opt-in hosted `pchip` feature adds owned `f32` and `f64` piecewise-cubic
 Hermite curves over original PCHIP routines. It supports monotone and typed
 controlled derivative construction, PCHSP's typed endpoint conditions, value

@@ -73,6 +73,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::dassl::DaeSession::<f32, F>::advance_to` | `SDASSL` | differential-algebraic equations | f32 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/algebraic_variable.rs) |
 | `slatec::dassl::DaeSession::<f64, F>::advance_to` | `DDASSL` | differential-algebraic equations | f64 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/index1_constraint.rs) |
 | `slatec::differential_equations::pde::CartesianHelmholtz2d::solve` | `HWSCRT` | Cartesian FISHPACK PDE | f32 | checked owned Cartesian Poisson/Helmholtz finite-difference solve | `std` | `fishpack-cartesian-2d` | [mixed Cartesian Poisson problem](../../examples/fishpack_cartesian_2d.rs) |
+| `slatec::differential_equations::pde::Pois3dProblem::solve` | `POIS3D` | Structured FISHPACK PDE | f32 | checked owned structured three-dimensional block-tridiagonal solve | `std` | `fishpack-pois3d` | [manufactured structured cyclic POIS3D system](../../examples/fishpack_pois3d.rs) |
 | `slatec::fftpack::CosineTransformPlan::new` | `COSTI` | real FFTPACK | f32 | initialize a full cosine-transform plan | `std` | `fftpack-real` | [full cosine transform plan initialization](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::CosineTransformPlan::transform` | `COST` | real FFTPACK | f32 | compute the full FFTPACK cosine transform | `std` | `fftpack-real` | [full cosine transform](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::EasyRealFftPlan::backward` | `EZFFTB` | real FFTPACK | f32 | synthesize a real sequence from Fourier-series coefficients | `std` | `fftpack-real` | [easy real Fourier synthesis](../../examples/fftpack/real_fft.rs) |
@@ -422,6 +423,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `PCHIC` -> `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions`
 - `PCHIM` -> `slatec::pchip::PiecewiseCubicHermite::monotone`
 - `PCHSP` -> `slatec::pchip::PiecewiseCubicHermite::spline`
+- `POIS3D` -> `slatec::differential_equations::pde::Pois3dProblem::solve`
 - `PPQAD` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
@@ -855,6 +857,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - `slatec::dassl::DaeSession::<f64, F>::advance_to`
 - `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
+- `slatec::differential_equations::pde::Pois3dProblem::solve`
 - `slatec::fftpack::CosineTransformPlan::new`
 - `slatec::fftpack::CosineTransformPlan::transform`
 - `slatec::fftpack::EasyRealFftPlan::backward`
