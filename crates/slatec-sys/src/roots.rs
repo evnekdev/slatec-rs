@@ -13,6 +13,34 @@ pub type RootFnF64 = unsafe extern "C" fn(*const f64) -> f64;
 pub type RootFnF32 = unsafe extern "C" fn(*const f32) -> f32;
 
 unsafe extern "C" {
+    /// Finds a zero of the double-precision callback `F`.
+    ///
+    /// Original SLATEC routine: `DFZERO`; supported ABI profile:
+    /// `ffi-profile-gnu-mingw-x86_64`; native symbol: `dfzero_`. Source:
+    /// <https://www.netlib.org/slatec/src/dfzero.f>.
+    ///
+    /// # Arguments
+    ///
+    /// - `F` is a non-null input callback. It is invoked synchronously with a
+    ///   pointer to a readable `f64`; native code does not retain it.
+    /// - `B` and `C` are non-null in/out pointers to the initial bracket
+    ///   endpoints and returned enclosing interval.
+    /// - `R` is a non-null output pointer for the computed root estimate.
+    /// - `RE` and `AE` are non-null input pointers to relative and absolute
+    ///   error tolerances.
+    /// - `IFLAG` is a non-null output pointer for the historical completion
+    ///   code: `1` is normal bracketed-root completion; `2` means `B` was
+    ///   exactly zero; `3` reports a possible singular point; `4` reports no
+    ///   sign change after interval collapse; and `5` reports more than 500
+    ///   callback evaluations. Callers must inspect this value after the call.
+    ///
+    /// # Safety
+    ///
+    /// `F` must follow the GNU Fortran callback ABI, remain valid throughout
+    /// the call, and never unwind into Fortran. Every scalar pointer must be
+    /// non-null, correctly aligned, and valid for the documented access; no
+    /// pointer may alias mutable storage in a way that violates Rust's aliasing
+    /// rules. The caller must serialize use of legacy SLATEC runtime state.
     #[link_name = "dfzero_"]
     pub fn dfzero(
         function: RootFnF64,
@@ -24,6 +52,34 @@ unsafe extern "C" {
         iflag: *mut FortranInteger,
     );
 
+    /// Finds a zero of the single-precision callback `F`.
+    ///
+    /// Original SLATEC routine: `FZERO`; supported ABI profile:
+    /// `ffi-profile-gnu-mingw-x86_64`; native symbol: `fzero_`. Source:
+    /// <https://www.netlib.org/slatec/src/fzero.f>.
+    ///
+    /// # Arguments
+    ///
+    /// - `F` is a non-null input callback. It is invoked synchronously with a
+    ///   pointer to a readable `f32`; native code does not retain it.
+    /// - `B` and `C` are non-null in/out pointers to the initial bracket
+    ///   endpoints and returned enclosing interval.
+    /// - `R` is a non-null output pointer for the computed root estimate.
+    /// - `RE` and `AE` are non-null input pointers to relative and absolute
+    ///   error tolerances.
+    /// - `IFLAG` is a non-null output pointer for the historical completion
+    ///   code: `1` is normal bracketed-root completion; `2` means `B` was
+    ///   exactly zero; `3` reports a possible singular point; `4` reports no
+    ///   sign change after interval collapse; and `5` reports more than 500
+    ///   callback evaluations. Callers must inspect this value after the call.
+    ///
+    /// # Safety
+    ///
+    /// `F` must follow the GNU Fortran callback ABI, remain valid throughout
+    /// the call, and never unwind into Fortran. Every scalar pointer must be
+    /// non-null, correctly aligned, and valid for the documented access; no
+    /// pointer may alias mutable storage in a way that violates Rust's aliasing
+    /// rules. The caller must serialize use of legacy SLATEC runtime state.
     #[link_name = "fzero_"]
     pub fn fzero(
         function: RootFnF32,
@@ -34,4 +90,12 @@ unsafe extern "C" {
         absolute_error: *mut f32,
         iflag: *mut FortranInteger,
     );
+}
+
+/// Canonical scalar root-finding namespace.
+///
+/// The parent `roots::{fzero, dfzero}` paths remain supported compatibility
+/// re-exports. No additional `extern` declarations live here.
+pub mod scalar {
+    pub use super::{RootFnF32, RootFnF64, dfzero, fzero};
 }

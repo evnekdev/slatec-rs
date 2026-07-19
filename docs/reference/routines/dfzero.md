@@ -52,3 +52,20 @@ DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
 - Enriched from the 20-routine pilot; this catalogue is the canonical corpus view.
+
+<!-- raw-api-status:start -->
+## Raw Rust API status
+
+This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
+
+- Generated raw declaration: `not_generated`
+- Reviewed family declaration: `reviewed_public_driver`
+- Canonical Rust path: `slatec_sys::roots::scalar::dfzero`
+- Current legacy Rust paths: `slatec_sys::roots::dfzero`
+- Provider-backed callable symbol: `yes` (`observed_exactly_once`)
+- Documentation status: `complete_authored`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
+- Safe-wrapper status: `slatec::roots::find_root`
+- Exclusion or deferment reason: `none`
+<!-- raw-api-status:end -->

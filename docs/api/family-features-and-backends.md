@@ -121,3 +121,24 @@ For a `no_std` consumer that supplies the final native link:
 [dependencies]
 slatec = { version = "0.1", default-features = false, features = ["external-backend", "blas-level1"] }
 ```
+
+## Raw API feature reconciliation
+
+`slatec-sys` is usable directly with its reviewed raw-family feature and a
+matching `slatec-src` provider feature, or with an externally managed native
+link. The feature name names the Rust declaration surface; the provider
+feature selects the source closure. Neither fact alone implies that a
+generated declaration has been semantically reviewed.
+
+R1 records all three layers—`slatec-sys`, `slatec-src`, and the optional safe
+`slatec` facade—in `generated/raw-api/feature-provider-map.json`. Generation
+rejects a reviewed raw routine that lacks its `slatec-sys` gate or a usable
+`slatec-src` provider feature. It also makes the direct/raw relationship
+explicit: use `raw-family-roots-scalar` with `roots-scalar`,
+`raw-family-fishpack-cartesian-2d` with `fishpack-cartesian-2d`, and
+`raw-family-fishpack-pois3d` with `fishpack-pois3d`.
+
+The aggregate `raw-ffi-*` features enable only the unstable generated layer.
+They are not a promise of canonical family paths or provider closure. See
+[the raw API architecture](../architecture/slatec-sys-public-raw-api.md) for
+the reviewed-path and compatibility policy.

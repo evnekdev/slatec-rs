@@ -3,6 +3,9 @@
 **/target/
 Cargo.lock
 
+# Local linked worktrees
+.worktrees/
+
 # Native compiler, archiver, linker, and packaging artifacts
 *.o
 *.obj

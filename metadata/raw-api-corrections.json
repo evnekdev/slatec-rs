@@ -1,0 +1,135 @@
+{
+  "schema_id": "slatec-sys.raw-api.authored-corrections",
+  "schema_version": "1.0.0",
+  "policy": "A correction is keyed by routine identity and the selected source SHA-256. Generation fails when that source changes; generated declarations alone never create a reviewed status.",
+  "records": [
+    {
+      "routine": "FZERO",
+      "source_hash": "d3aa53f915058e74e22eec56cda0a338a7ca481854eb3686f2496da27e0450d3",
+      "source_file": "main-src/src/fzero.f",
+      "review_status": "reviewed_public_driver",
+      "driver_role": "historically_user_callable_driver",
+      "canonical_rust_path": "slatec_sys::roots::scalar::fzero",
+      "compatibility_paths": ["slatec_sys::roots::fzero"],
+      "feature": "raw-family-roots-scalar",
+      "provider_feature": "roots-scalar",
+      "safe_wrapper_path": "slatec::roots::find_root_f32",
+      "link_test_status": "passed",
+      "runtime_test_status": "passed",
+      "arguments": ["F", "B", "C", "R", "RE", "AE", "IFLAG"],
+      "documentation": {
+        "purpose": "Locates a zero of a single-precision scalar function in a bracketed interval.",
+        "original_slates_name": "FZERO",
+        "precision": "f32",
+        "mathematical_operation": "bracketed scalar root finding",
+        "source_provider": "selected SLATEC main-src provider",
+        "abi_profile": "ffi-profile-gnu-mingw-x86_64",
+        "source_link": "https://www.netlib.org/slatec/src/fzero.f",
+        "safety": "The callback must use the reviewed GNU Fortran scalar-function ABI, remain valid for the call, not unwind, and every scalar pointer must be valid for the documented read or write access.",
+        "provenance": {
+          "purpose": "source_prologue",
+          "arguments": "safe_wrapper_audit",
+          "callback": "authored_override",
+          "status_codes": "source_prologue",
+          "abi_profile": "compiler_observation"
+        }
+      }
+    },
+    {
+      "routine": "DFZERO",
+      "source_hash": "a16fc8c6621f0e0e849d52316d9642b8b761464705ae60a31b0cbdc200755447",
+      "source_file": "main-src/src/dfzero.f",
+      "review_status": "reviewed_public_driver",
+      "driver_role": "historically_user_callable_driver",
+      "canonical_rust_path": "slatec_sys::roots::scalar::dfzero",
+      "compatibility_paths": ["slatec_sys::roots::dfzero"],
+      "feature": "raw-family-roots-scalar",
+      "provider_feature": "roots-scalar",
+      "safe_wrapper_path": "slatec::roots::find_root",
+      "link_test_status": "passed",
+      "runtime_test_status": "passed",
+      "arguments": ["F", "B", "C", "R", "RE", "AE", "IFLAG"],
+      "documentation": {
+        "purpose": "Locates a zero of a double-precision scalar function in a bracketed interval.",
+        "original_slates_name": "DFZERO",
+        "precision": "f64",
+        "mathematical_operation": "bracketed scalar root finding",
+        "source_provider": "selected SLATEC main-src provider",
+        "abi_profile": "ffi-profile-gnu-mingw-x86_64",
+        "source_link": "https://www.netlib.org/slatec/src/dfzero.f",
+        "safety": "The callback must use the reviewed GNU Fortran scalar-function ABI, remain valid for the call, not unwind, and every scalar pointer must be valid for the documented read or write access.",
+        "provenance": {
+          "purpose": "source_prologue",
+          "arguments": "safe_wrapper_audit",
+          "callback": "authored_override",
+          "status_codes": "source_prologue",
+          "abi_profile": "compiler_observation"
+        }
+      }
+    },
+    {
+      "routine": "HWSCRT",
+      "source_hash": "9bcd5a3be9e6d63e7dcc33637eb37ef07ba10b727b74859d08cb4daa7f813202",
+      "source_file": "fishfft/hwscrt.f",
+      "review_status": "reviewed_public_driver",
+      "driver_role": "historically_user_callable_driver",
+      "canonical_rust_path": "slatec_sys::pde::fishpack::hwscrt",
+      "compatibility_paths": ["slatec_sys::fishpack_cartesian_2d::hwscrt"],
+      "feature": "raw-family-fishpack-cartesian-2d",
+      "provider_feature": "fishpack-cartesian-2d",
+      "safe_wrapper_path": "slatec::differential_equations::pde::CartesianHelmholtz2d::solve",
+      "link_test_status": "passed",
+      "runtime_test_status": "passed",
+      "arguments": ["A", "B", "M", "MBDCND", "BDA", "BDB", "C", "D", "N", "NBDCND", "BDC", "BDD", "ELMBDA", "F", "IDIMF", "PERTRB", "IERROR", "W"],
+      "documentation": {
+        "purpose": "Solves a Cartesian five-point finite-difference Helmholtz or Poisson problem.",
+        "original_slates_name": "HWSCRT",
+        "precision": "f32",
+        "mathematical_operation": "two-dimensional separable elliptic PDE solve",
+        "source_provider": "selected SLATEC fishfft provider",
+        "abi_profile": "ffi-profile-gnu-mingw-x86_64",
+        "source_link": "https://www.netlib.org/slatec/fishfft/hwscrt.f",
+        "safety": "All scalar and array pointers must be non-null and valid for the documented access. F is a writable column-major IDIMF by N+1 array, W has the documented workspace extent, and the legacy native runtime must be serialized by the caller.",
+        "provenance": {
+          "purpose": "source_prologue",
+          "arguments": "safe_wrapper_audit",
+          "workspace": "source_prologue",
+          "status_codes": "source_prologue",
+          "abi_profile": "compiler_observation"
+        }
+      }
+    },
+    {
+      "routine": "POIS3D",
+      "source_hash": "9daf0cd2c9eab106f9b508f426003a98719d21ed29b4fde0f224300d8e88da78",
+      "source_file": "fishfft/pois3d.f",
+      "review_status": "reviewed_public_driver",
+      "driver_role": "historically_user_callable_driver",
+      "canonical_rust_path": "slatec_sys::pde::fishpack::pois3d",
+      "compatibility_paths": ["slatec_sys::fishpack_pois3d::pois3d"],
+      "feature": "raw-family-fishpack-pois3d",
+      "provider_feature": "fishpack-pois3d",
+      "safe_wrapper_path": "slatec::differential_equations::pde::Pois3dProblem::solve",
+      "link_test_status": "passed",
+      "runtime_test_status": "passed",
+      "arguments": ["LPEROD", "L", "C1", "MPEROD", "M", "C2", "NPEROD", "N", "A", "B", "C", "LDIMF", "MDIMF", "F", "IERROR", "W"],
+      "documentation": {
+        "purpose": "Solves the selected structured three-dimensional block-tridiagonal finite-difference system.",
+        "original_slates_name": "POIS3D",
+        "precision": "f32",
+        "mathematical_operation": "three-dimensional separable elliptic PDE solve",
+        "source_provider": "selected SLATEC fishfft provider",
+        "abi_profile": "ffi-profile-gnu-mingw-x86_64",
+        "source_link": "https://www.netlib.org/slatec/fishfft/pois3d.f",
+        "safety": "All scalar and array pointers must be non-null and valid for the documented access. A, B, C and F are writable Fortran storage, F is LDIMF by MDIMF by N column-major storage, W satisfies the source workspace bound, and the legacy native runtime must be serialized by the caller.",
+        "provenance": {
+          "purpose": "source_prologue",
+          "arguments": "safe_wrapper_audit",
+          "workspace": "source_prologue",
+          "status_codes": "source_prologue",
+          "abi_profile": "compiler_observation"
+        }
+      }
+    }
+  ]
+}

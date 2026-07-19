@@ -1,0 +1,29 @@
+{
+  "counts": {
+    "abi_validated_generated_declarations": 1253,
+    "explicitly_excluded_routines": 157,
+    "fully_documented_raw_routines": 4,
+    "generated_raw_declaration_candidates": 1253,
+    "historically_user_callable_routines": 902,
+    "link_tested_raw_routines": 1255,
+    "preexisting_family_declarations_pending_r1_review": 227,
+    "provider_backed_callable_raw_routines": 1476,
+    "retained_identities": 1517,
+    "reviewed_family_raw_declarations": 4,
+    "reviewed_public_subsidiaries": 0,
+    "reviewed_user_callable_raw_drivers": 4,
+    "runtime_tested_raw_routines": 1255,
+    "safely_wrapped_routines": 210,
+    "unclassified_routines": 0
+  },
+  "metric_definitions": {
+    "abi_validated_generated_declarations": "generated candidates in an explicitly validated ABI batch",
+    "fully_documented_raw_routines": "reviewed records with complete routine, argument, and Safety documentation",
+    "generated_raw_declaration_candidates": "records with a compiler-emitted declaration candidate",
+    "preexisting_family_declarations_pending_r1_review": "legacy family extern declarations that have not passed the R1 documentation and source-hash review gate",
+    "provider_backed_callable_raw_routines": "records with a selected provider and an observed native symbol",
+    "reviewed_family_raw_declarations": "only entries in the hash-guarded correction registry"
+  },
+  "schema_id": "slatec-sys.raw-api.coverage-summary",
+  "schema_version": "1.0.0"
+}

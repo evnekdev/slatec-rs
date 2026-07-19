@@ -171,3 +171,27 @@ every validated aggregate. Passing a batch is evidence for the exact GNU
 MinGW profile only; it does not establish a safe wrapper, callback signature,
 complex return convention, character result convention, thread safety, or
 general ABI portability.
+
+## Canonical raw API inventory (R1)
+
+`generated/ffi/` answers a deliberately narrow question: what the selected
+GNU Fortran toolchain could compile and describe. It is not a stable public
+API inventory. R1 joins that evidence with the retained catalogue, selected
+providers, source hashes, historical role, feature graph, safe-wrapper index,
+and authored reviews into exactly one record per routine identity under
+`generated/raw-api/`.
+
+Regenerate and validate it without downloading source:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- generate-raw-api-inventory --offline
+cargo run -p slatec-tools --bin slatec-corpus -- validate-raw-api-inventory --offline
+```
+
+The result distinguishes generated candidates, ABI-validated generated
+declarations, reviewed public drivers and subsidiaries, provider-backed
+routines, link/runtime coverage, documentation coverage, safe wrappers, and
+explicit exclusions. A declaration in `slatec_sys::generated` remains a
+transitional ABI-shaped path until it has a reviewed canonical mathematical
+path. Hash-guarded corrections in `metadata/raw-api-corrections.json` supply
+only reviewed facts that cannot safely be inferred from executable source.

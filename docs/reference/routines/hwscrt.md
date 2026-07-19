@@ -48,3 +48,20 @@ Subroutine HWSCRT solves the standard five-point finite difference approximation
 ## Evidence notes
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
+
+<!-- raw-api-status:start -->
+## Raw Rust API status
+
+This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
+
+- Generated raw declaration: `generated_abi_validated`
+- Reviewed family declaration: `reviewed_public_driver`
+- Canonical Rust path: `slatec_sys::pde::fishpack::hwscrt`
+- Current legacy Rust paths: `slatec_sys::fishpack_cartesian_2d::hwscrt`
+- Provider-backed callable symbol: `yes` (`observed_exactly_once`)
+- Documentation status: `complete_authored`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
+- Safe-wrapper status: `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
+- Exclusion or deferment reason: `none`
+<!-- raw-api-status:end -->

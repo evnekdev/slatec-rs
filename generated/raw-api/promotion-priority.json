@@ -1,0 +1,166 @@
+{
+  "families": [
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 298,
+      "historically_user_callable": 176,
+      "module": "special",
+      "promotion_score": 1484,
+      "safe_wrapper_audits": 90,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 249,
+      "historically_user_callable": 246,
+      "module": "linear_algebra::dense",
+      "promotion_score": 1088,
+      "safe_wrapper_audits": 3,
+      "unresolved_callbacks": 32
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 139,
+      "historically_user_callable": 124,
+      "module": "blas",
+      "promotion_score": 794,
+      "safe_wrapper_audits": 36,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 74,
+      "historically_user_callable": 74,
+      "module": "eigen",
+      "promotion_score": 370,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 72,
+      "historically_user_callable": 50,
+      "module": "interpolation",
+      "promotion_score": 334,
+      "safe_wrapper_audits": 10,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 48,
+      "historically_user_callable": 52,
+      "module": "runtime",
+      "promotion_score": 252,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 98,
+      "historically_user_callable": 19,
+      "module": "pde::fishpack",
+      "promotion_score": 232,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 9
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 50,
+      "historically_user_callable": 24,
+      "module": "approximation",
+      "promotion_score": 228,
+      "safe_wrapper_audits": 14,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 28,
+      "historically_user_callable": 20,
+      "module": "fftpack",
+      "promotion_score": 192,
+      "safe_wrapper_audits": 19,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 27,
+      "historically_user_callable": 73,
+      "module": "quadrature",
+      "promotion_score": 151,
+      "safe_wrapper_audits": 22,
+      "unresolved_callbacks": 42
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 84,
+      "historically_user_callable": 21,
+      "module": "ode",
+      "promotion_score": 134,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 21
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 50,
+      "historically_user_callable": 2,
+      "module": "optimization",
+      "promotion_score": 104,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 2
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 21,
+      "historically_user_callable": 10,
+      "module": "nonlinear",
+      "promotion_score": 86,
+      "safe_wrapper_audits": 6,
+      "unresolved_callbacks": 2
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 2,
+      "module": "roots::scalar",
+      "promotion_score": 30,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 5,
+      "historically_user_callable": 5,
+      "module": "statistics",
+      "promotion_score": 25,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 2,
+      "historically_user_callable": 2,
+      "module": "roots::polynomial",
+      "promotion_score": 10,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 8,
+      "historically_user_callable": 2,
+      "module": "dae",
+      "promotion_score": 0,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 6
+    }
+  ],
+  "ranking_inputs": [
+    "historical user-callable count",
+    "generated declaration availability",
+    "documentation completeness",
+    "safe-wrapper audits",
+    "unresolved callbacks"
+  ],
+  "schema_id": "slatec-sys.raw-api.promotion-priority",
+  "schema_version": "1.0.0"
+}

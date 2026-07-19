@@ -1,0 +1,23 @@
+{
+  "inputs": {
+    "catalogue": "generated/slatec-routines/routine-catalogue.json",
+    "compiler_validation": "generated/ffi-validation/batch-validation-summary.json",
+    "corrections": "metadata/raw-api-corrections.json",
+    "interface_inventory": "generated/ffi/interface-inventory.json"
+  },
+  "outputs": [
+    "canonical-paths.json",
+    "coverage-summary.json",
+    "documentation-audit.json",
+    "exclusion-report.json",
+    "feature-provider-map.json",
+    "module-taxonomy.json",
+    "promotion-priority.json",
+    "roots-family-report.json",
+    "routine-status.json",
+    "validation-summary.md"
+  ],
+  "schema_id": "slatec-sys.raw-api.manifest",
+  "schema_version": "1.0.0",
+  "semantic_hash": "573bf7e6f3a7507c690af13472ad452ba1fbac2909c5a5ab2494238aa383e3c7"
+}

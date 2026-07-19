@@ -50,3 +50,20 @@ Solve the bounded and constrained least squares problem consisting of solving th
 ## Evidence notes
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
+
+<!-- raw-api-status:start -->
+## Raw Rust API status
+
+This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
+
+- Generated raw declaration: `generated_abi_validated`
+- Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
+- Canonical Rust path: `not_promoted`
+- Current legacy Rust paths: `slatec_sys::linear_least_squares::dbocls`
+- Provider-backed callable symbol: `yes` (`observed_exactly_once`)
+- Documentation status: `legacy_partial_rustdoc`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
+- Safe-wrapper status: `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares`
+- Exclusion or deferment reason: `none`
+<!-- raw-api-status:end -->
