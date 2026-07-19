@@ -141,7 +141,7 @@ pub fn generate(
             "subroutine",
             "interpolation knots, values, coefficients, work",
             "banded work",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "DBINTK",
@@ -150,7 +150,7 @@ pub fn generate(
             "subroutine",
             "interpolation knots, values, coefficients, work",
             "banded work",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "BINT4",
@@ -231,7 +231,7 @@ pub fn generate(
             "subroutine",
             "B-to-PP arrays",
             "caller storage",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "DBSPPP",
@@ -240,7 +240,7 @@ pub fn generate(
             "subroutine",
             "B-to-PP arrays",
             "caller storage",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "PPQAD",
@@ -249,7 +249,7 @@ pub fn generate(
             "subroutine",
             "PP representation",
             "caller storage",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "DPPQAD",
@@ -258,7 +258,7 @@ pub fn generate(
             "subroutine",
             "PP representation",
             "caller storage",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "BSPEV",
@@ -330,7 +330,7 @@ pub fn generate(
             "function",
             "PP representation and point",
             "none",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ],
         [
             "DPPVAL",
@@ -339,7 +339,7 @@ pub fn generate(
             "function",
             "PP representation and point",
             "none",
-            "deferred"
+            "included_by_piecewise_polynomial"
         ]
     ]);
     let wrappers = json!([
@@ -387,7 +387,7 @@ pub fn generate(
         ),
         (
             "bspline-candidate-classification.json",
-            json!({"schema_id":"slatec.safe-bspline.candidate-classification","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["candidate","status","reason"],"records":[["BVALU/DBVALU","included","scalar value and native derivative contract; no callback or persistent caller state"],["BSQAD/DBSQAD","included","bounded-order signed definite integration with exact 3*K workspace"],["BINTK/DBINTK,BINT4/DBINT4","deferred","interpolation-knot, banded-workspace, and endpoint construction surface requires a separate reviewed constructor"],["BSPEV/DBSPEV plus BSPDR/DBSPDR","deferred","multi-derivative output requires a checked derivative-table representation and distinct cached interval-state contract"],["BSPVN/DBSPVN,BSPVD/DBSPVD,BSPLVN,BSPLVD","deferred","basis-vector workspace and interval-state API is not required for the representation facade"],["BFQAD/DBFQAD","deferred","weighted callback containment requires a separate callback audit"],["BSPPP/DBSPPP,PPVAL/DPPVAL,PPQAD/DPPQAD","deferred","piecewise-polynomial representation conversion is a distinct storage contract"],["BSPDOC","internal_only","non-executable package documentation, not a numerical entry point"],["tensor_product,smoothing,NURBS","deferred","outside the scalar representation scope"]]}),
+            json!({"schema_id":"slatec.safe-bspline.candidate-classification","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["candidate","status","reason"],"records":[["BVALU/DBVALU","included","scalar value and native derivative contract; no callback or persistent caller state"],["BSQAD/DBSQAD","included","bounded-order signed definite integration with exact 3*K workspace"],["BINTK/DBINTK,BINT4/DBINT4","deferred","interpolation-knot, banded-workspace, and endpoint construction surface requires a separate reviewed constructor"],["BSPEV/DBSPEV plus BSPDR/DBSPDR","deferred","multi-derivative output requires a checked derivative-table representation and distinct cached interval-state contract"],["BSPVN/DBSPVN,BSPVD/DBSPVD,BSPLVN,BSPLVD","deferred","basis-vector workspace and interval-state API is not required for the representation facade"],["BFQAD/DBFQAD","deferred","weighted callback containment requires a separate callback audit"],["BSPPP/DBSPPP","included_elsewhere","exact B-spline-to-PP conversion is exposed by the piecewise-polynomial feature"],["PPVAL/DPPVAL,PPQAD/DPPQAD","included_elsewhere","PP storage and evaluation are owned by the piecewise-polynomial feature"],["BSPDOC","internal_only","non-executable package documentation, not a numerical entry point"],["tensor_product,smoothing,NURBS","deferred","outside the scalar representation scope"]]}),
         ),
         (
             "bspline-source-closure.json",

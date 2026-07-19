@@ -113,6 +113,14 @@ pub struct BSpline<T> {
 }
 
 impl<T> BSpline<T> {
+    /// Returns the exact native B-spline storage for internal representation conversion.
+    ///
+    /// This is crate-visible only: public callers use checked construction and
+    /// the explicit PP conversion exposed by the piecewise-polynomial family.
+    pub(crate) fn native_parts(&self) -> (&[T], &[T], usize) {
+        (&self.knots, &self.coefficients, self.order)
+    }
+
     /// Returns the owned nondecreasing knot sequence.
     #[must_use]
     pub fn knots(&self) -> &[T] {

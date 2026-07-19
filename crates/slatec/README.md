@@ -65,6 +65,14 @@ SLATEC `BVALU`/`DBVALU` for value or derivative evaluation and
 coefficient conversion, or caller-managed workspace. See the
 [B-spline guide](../../docs/api/safe-bspline.md).
 
+The hosted `piecewise-polynomial` feature provides owned `f32` and `f64`
+right-Taylor PP curves over reviewed `PPVAL`/`DPPVAL` evaluation and
+`PPQAD`/`DPPQAD` exact integration. With `bspline`, it also performs exact
+`BSPPP`/`DBSPPP` B-spline-to-PP conversion. Breakpoints are strictly
+increasing and never reordered; native extrapolation is not used. PCHIP and
+PP-to-B-spline conversion remain deferred. See the
+[piecewise-polynomial guide](../../docs/api/safe-piecewise-polynomial.md).
+
 The hosted `special-scalar-expanded` feature provides real scalar
 logarithmic/Spence integrals and Carlson symmetric elliptic integrals in both
 precisions. It has no caller workspace or external numerical dependency;

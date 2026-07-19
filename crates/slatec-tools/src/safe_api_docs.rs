@@ -516,6 +516,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/piecewise-polynomial-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "piecewise-polynomial interpolation",
+                column(row, columns, "precision")?,
+                column(row, columns, "mathematical_model")?,
+                "std",
+                "piecewise-polynomial",
+            ))
+        },
+    )?;
     for (path, routine, family) in [
         (
             "slatec::fftpack::RealFftPlan::new",
@@ -830,6 +845,20 @@ fn record(
             "examples/bspline/derivatives.rs".to_owned()
         }
         "B-spline interpolation" => "examples/bspline/from_parts.rs".to_owned(),
+        "piecewise-polynomial interpolation" if path.contains("to_piecewise_polynomial") => {
+            "examples/piecewise_polynomial/from_bspline.rs".to_owned()
+        }
+        "piecewise-polynomial interpolation" if path.contains("integrate") => {
+            "examples/piecewise_polynomial/integrate.rs".to_owned()
+        }
+        "piecewise-polynomial interpolation"
+            if path.contains("derivative") || path.contains("into") =>
+        {
+            "examples/piecewise_polynomial/evaluate_derivatives.rs".to_owned()
+        }
+        "piecewise-polynomial interpolation" => {
+            "examples/piecewise_polynomial/from_pieces.rs".to_owned()
+        }
         "special functions" if path.contains("scalar_expanded") && path.contains("carlson_") => {
             "examples/special/elliptic.rs".to_owned()
         }
@@ -1160,6 +1189,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 | "linear programming"
                 | "real FFTPACK"
                 | "piecewise cubic Hermite interpolation"
+                | "piecewise-polynomial interpolation"
         ) {
             "owned"
         } else {
@@ -1213,6 +1243,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "linear programming",
         "real FFTPACK",
         "piecewise cubic Hermite interpolation",
+        "piecewise-polynomial interpolation",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -1301,6 +1332,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
         "B-spline interpolation" => "crates/slatec/tests/bspline_native.rs",
+        "piecewise-polynomial interpolation" => {
+            "crates/slatec/tests/piecewise_polynomial_native.rs"
+        }
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -1352,6 +1386,7 @@ fn native_status(domain: &str) -> &'static str {
         | "linear programming"
         | "real FFTPACK"
         | "piecewise cubic Hermite interpolation"
+        | "piecewise-polynomial interpolation"
         | "special functions"
         | "polynomials" => "native_execution_passed",
         _ => "unknown",
@@ -1455,6 +1490,15 @@ fn purpose(family: &str) -> &'static str {
         }
         "piecewise-cubic Hermite definite integration" => {
             "integrate a piecewise-cubic Hermite curve"
+        }
+        "PP Taylor evaluation" => "evaluate a right-Taylor piecewise polynomial",
+        "PP Taylor derivative evaluation" => {
+            "evaluate a right-Taylor piecewise-polynomial derivative"
+        }
+        "PP batch evaluation" => "batch-evaluate a right-Taylor piecewise polynomial",
+        "exact PP definite integration" => "integrate a piecewise polynomial exactly",
+        "exact B-spline to PP conversion" => {
+            "convert a B-spline exactly to piecewise-polynomial form"
         }
         "finite" => "adaptive finite-interval integration",
         "infinite" => "adaptive infinite-interval integration",

@@ -13,7 +13,7 @@ SLATEC classifies interpolation under GAMS `E` and approximation/fitting under `
 | PCHIP integration | `PCHIA/DPCHIA`, `PCHID/DPCHID` | integrate Hermite representation | PCHIP |
 | B-spline interpolation | `BINT4/DBINT4`, `BINTK/DBINTK` | construct B-representation interpolants | BSPLINE collection |
 | B-spline evaluation | `BVALU/DBVALU`, `BSPEV/DBSPEV` | evaluate values/derivatives | BSPLINE |
-| Representation conversion | `BSPLPP/DBSPPP`, `PPVAL/DPPVAL` | B-representation to piecewise polynomial and evaluation | BSPLINE |
+| Representation conversion | `BSPPP/DBSPPP`, `PPVAL/DPPVAL`, `PPQAD/DPPQAD` | B-representation to piecewise polynomial, evaluation, and integration | BSPLINE |
 | Spline fitting | `FC/DFC`, `EFC/DEFC` | weighted and constrained B-spline fitting | incorporated fitting family |
 | Polynomial interpolation/fitting | `POLINT/DPOLINT`, `POLFIT/DPOLFT`, `PVALUE/DP1VLU` | interpolate or least-squares fit polynomials | mixed SLATEC families |
 | Interval location | `INTRV/DINTRV` and helpers | locate knot/subinterval | subsidiary utility |
@@ -39,6 +39,18 @@ data, insert knots, form basis vectors, sort inputs, or convert storage.
 The native closure reaches XERROR and `BSQAD`/`DBSQAD` retain initialized
 quadrature tables, so this subset remains globally serialized. See
 [`safe-bspline.md`](../api/safe-bspline.md) for the exact native contract.
+
+## Reviewed piecewise-polynomial subset
+
+The hosted `piecewise-polynomial` feature now exposes an owned real univariate
+PP representation through `PPVAL`/`DPPVAL`, `PPQAD`/`DPPQAD`, and exact
+`BSPPP`/`DBSPPP` B-spline conversion. Its breakpoints are strictly increasing
+and each column stores right Taylor derivatives. Evaluation uses the right
+piece at interior breaks, integration is exact for the represented pieces,
+and extrapolation is rejected by default or explicitly clamped in Rust.
+PCHIP conversion and PP-to-B-spline conversion remain deferred: neither is
+silently reconstructed in Rust. See
+[`safe-piecewise-polynomial.md`](../api/safe-piecewise-polynomial.md).
 
 ## B-representation and PP representation
 

@@ -92,6 +92,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::integrate` | `BSQAD` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/integrate.rs) |
+| `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial` | `BSPPP` | piecewise-polynomial interpolation | f32/f64 | convert a B-spline exactly to piecewise-polynomial form | `std` | `piecewise-polynomial` | [exact B-spline to PP conversion](../../examples/piecewise_polynomial/from_bspline.rs) |
+| `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise-polynomial derivative | `std` | `piecewise-polynomial` | [PP Taylor derivative evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
+| `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP Taylor evaluation](../../examples/piecewise_polynomial/from_pieces.rs) |
+| `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | batch-evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP batch evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
+| `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` | `PPQAD` | piecewise-polynomial interpolation | f32/f64 | integrate a piecewise polynomial exactly | `std` | `piecewise-polynomial` | [exact PP definite integration](../../examples/piecewise_polynomial/integrate.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -262,6 +267,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BI` -> `slatec::special::airy::airy_bi_f32`
 - `BIE` -> `slatec::special::airy::airy_bi_scaled_f32`
 - `BINOM` -> `slatec::special::gamma::binomial_coefficient_f32`
+- `BSPPP` -> `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `BSQAD` -> `slatec::interpolation::bspline::BSpline::integrate`
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::derivative`
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate`
@@ -402,6 +408,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `PCHIC` -> `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions`
 - `PCHIM` -> `slatec::pchip::PiecewiseCubicHermite::monotone`
 - `PCHSP` -> `slatec::pchip::PiecewiseCubicHermite::spline`
+- `PPQAD` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
+- `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
+- `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
+- `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into`
 - `PSI` -> `slatec::special::gamma::digamma_f32`
 - `QAG` -> `slatec::quadrature::integrate_f32`
 - `QAGI` -> `slatec::quadrature::integrate_infinite_f32`
@@ -732,6 +742,14 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions` — construct controlled monotone piecewise-cubic Hermite derivatives
 - `slatec::pchip::PiecewiseCubicHermite::spline` — construct PCHSP cubic-spline Hermite derivatives
 
+### piecewise-polynomial interpolation
+
+- `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial` — convert a B-spline exactly to piecewise-polynomial form
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative` — evaluate a right-Taylor piecewise-polynomial derivative
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate` — evaluate a right-Taylor piecewise polynomial
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` — batch-evaluate a right-Taylor piecewise polynomial
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` — integrate a piecewise polynomial exactly
+
 ## Capability index
 
 ### Core only
@@ -830,6 +848,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::bspline::BSpline::evaluate`
 - `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `slatec::interpolation::bspline::BSpline::integrate`
+- `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into`
+- `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`

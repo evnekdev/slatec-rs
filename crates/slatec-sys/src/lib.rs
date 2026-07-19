@@ -59,7 +59,8 @@ pub mod generated;
     feature = "raw-family-special-polynomials",
     feature = "raw-family-fftpack-real",
     feature = "raw-family-pchip",
-    feature = "raw-family-bspline"
+    feature = "raw-family-bspline",
+    feature = "raw-family-piecewise-polynomial"
 ))]
 pub mod families;
 
@@ -79,6 +80,11 @@ pub mod pchip;
 /// Hand-reviewed declarations for the restricted safe B-spline facade.
 #[cfg(feature = "raw-family-bspline")]
 pub mod bspline;
+
+/// Hand-reviewed declarations for PP-form evaluation, integration, and
+/// B-spline conversion.
+#[cfg(feature = "raw-family-piecewise-polynomial")]
+pub mod piecewise_polynomial;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///
@@ -181,6 +187,7 @@ pub mod linear_least_squares;
     feature = "raw-family-optimization-linear-programming-in-memory",
     feature = "raw-family-pchip",
     feature = "raw-family-bspline",
+    feature = "raw-family-piecewise-polynomial",
     feature = "raw-family-special-scalar-expanded"
 ))]
 pub mod legacy_error;

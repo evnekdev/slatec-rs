@@ -80,6 +80,7 @@ raw-family-optimization-linear-programming-in-memory = ["ffi-profile-gnu-mingw-x
 raw-family-fftpack-real = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-pchip = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-bspline = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-piecewise-polynomial = ["ffi-profile-gnu-mingw-x86_64"]
 
 # Public family aliases mirror slatec and slatec-src. They remain narrow: the
 # reviewed least-squares declarations do not enable the broad callback batch.
@@ -104,6 +105,7 @@ optimization-linear-programming-in-memory = ["raw-family-optimization-linear-pro
 fftpack-real = ["raw-family-fftpack-real"]
 pchip = ["raw-family-pchip"]
 bspline = ["raw-family-bspline"]
+piecewise-polynomial = ["raw-family-piecewise-polynomial"]
 special-scalar-expanded = ["raw-family-special-scalar-expanded"]
 
 [build-dependencies]

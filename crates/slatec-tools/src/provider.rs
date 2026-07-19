@@ -275,6 +275,7 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         "fftpack-real-source-closure.json",
         "pchip-source-closure.json",
         "bspline-source-closure.json",
+        "piecewise-polynomial-source-closure.json",
         "special-scalar-expanded-source-closure.json",
     ] {
         let overlay_path = manifest_path.with_file_name(file);
