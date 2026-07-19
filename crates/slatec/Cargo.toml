@@ -465,6 +465,16 @@ path = "../../examples/bspline/integrate.rs"
 required-features = ["bspline"]
 
 [[example]]
+name = "bspline_interpolate"
+path = "../../examples/interpolation/bspline_interpolate.rs"
+required-features = ["bspline"]
+
+[[example]]
+name = "bspline_interpolate_and_convert"
+path = "../../examples/interpolation/bspline_interpolate_and_convert.rs"
+required-features = ["bspline", "piecewise-polynomial"]
+
+[[example]]
 name = "link_special_scalar_expanded"
 required-features = ["special-scalar-expanded"]
 

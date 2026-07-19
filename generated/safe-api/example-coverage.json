@@ -825,7 +825,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/derivatives.rs",
       "fortran_routine": "BVALU",
       "native_execution_status": "unknown",
@@ -835,7 +835,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/from_parts.rs",
       "fortran_routine": "BVALU",
       "native_execution_status": "unknown",
@@ -845,7 +845,7 @@
     },
     {
       "doctest_present": false,
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/from_parts.rs",
       "fortran_routine": "BVALU",
       "native_execution_status": "unknown",
@@ -855,12 +855,22 @@
     },
     {
       "doctest_present": false,
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/integrate.rs",
       "fortran_routine": "BSQAD",
       "native_execution_status": "unknown",
       "rust_path": "slatec::interpolation::bspline::BSpline::integrate",
       "validation_case": "integrate",
+      "validation_file": "crates/slatec/tests/bspline_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
+      "example_file": "examples/interpolation/bspline_interpolate.rs",
+      "fortran_routine": "BINTK",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
+      "validation_case": "interpolate_with_knots",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
     },
     {

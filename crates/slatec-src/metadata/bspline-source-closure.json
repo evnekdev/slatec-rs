@@ -17,7 +17,15 @@
     "selected-source-60f744ba036ffdb7",
     "selected-source-1fdae9155aa43140",
     "selected-source-bb2d61d06785b38d",
-    "selected-source-9be192a17f28e8b7"
+    "selected-source-9be192a17f28e8b7",
+    "bspline-construction-bintk",
+    "bspline-construction-dbintk",
+    "bspline-construction-bnfac",
+    "bspline-construction-dbnfac",
+    "bspline-construction-bnslv",
+    "bspline-construction-dbnslv",
+    "selected-source-0b0f94e192482fd8",
+    "selected-source-30bf33c4804a324e"
   ],
   "sources": [
     {"id":"selected-source-287a4838efb0e436","subset":"main-src","path":"src/bvalu.f","sha256":"3a6ecd109cfcb12a731ffc553af5cc605af9d5c4b8c307f1a5e1cf06fde8efe2"},
@@ -25,6 +33,14 @@
     {"id":"selected-source-d7a112ce8c81f313","subset":"main-src","path":"src/bsqad.f","sha256":"17105fa39e1151eb6bb72b88eba651776f3fb375d4673d04838a6296c24f5606"},
     {"id":"selected-source-15a7c6dd45cf58ab","subset":"main-src","path":"src/dbsqad.f","sha256":"3c12df2da62a012a8b0f4e4440e09d02d4d61e5c83d8cbab827195340ab2f1a4"},
     {"id":"selected-source-2e9c8f07c27a38e0","subset":"main-src","path":"src/intrv.f","sha256":"01790d5b582f35e7923e2e199464d2b11a06804fd813b11801b47bbfc4458b88"},
-    {"id":"selected-source-9ef9d812fab69522","subset":"main-src","path":"src/dintrv.f","sha256":"9c942c7e7f379d98573c71e3b38a2c52f4e0ef56c4b20c90ea37639db6fc31a3"}
+    {"id":"selected-source-9ef9d812fab69522","subset":"main-src","path":"src/dintrv.f","sha256":"9c942c7e7f379d98573c71e3b38a2c52f4e0ef56c4b20c90ea37639db6fc31a3"},
+    {"id":"bspline-construction-bintk","subset":"main-src","path":"src/bintk.f","sha256":"f5151b683b1551008db41ddba04396b971964b397284b0b675d85ae486a471bc"},
+    {"id":"bspline-construction-dbintk","subset":"main-src","path":"src/dbintk.f","sha256":"a19bdeffda3dac57d0f7b34c01085379a8830803183496d6716c70be44c9bf30"},
+    {"id":"bspline-construction-bnfac","subset":"main-src","path":"src/bnfac.f","sha256":"e71fafbdb3a4868fab376da7b3b59f32e401c8121d41b4fcf50819d393b87212"},
+    {"id":"bspline-construction-dbnfac","subset":"main-src","path":"src/dbnfac.f","sha256":"b2fd9722b683ff05681fe5cb49352061350561354c8be6bfee87bb4acef91864"},
+    {"id":"bspline-construction-bnslv","subset":"main-src","path":"src/bnslv.f","sha256":"e4a30c37a0c8232c38e1b0df37f91fe853373db63d19654a5ede8017fa1bfcb6"},
+    {"id":"bspline-construction-dbnslv","subset":"main-src","path":"src/dbnslv.f","sha256":"89689f6408c0875a21c8acb4ff5ecd493462952659e5d03cbb9e0acadfe74c8d"},
+    {"id":"selected-source-0b0f94e192482fd8","subset":"main-src","path":"src/bspvn.f","sha256":"1d2689043ae7b9783cf59877302bbf23cf8f62429b7abb16266f921f8d592f73"},
+    {"id":"selected-source-30bf33c4804a324e","subset":"main-src","path":"src/dbspvn.f","sha256":"b8d2394623c739b9ae224c34b55d3ffe1064baa399e519ec91e3da7d6a0006db"}
   ]
 }

@@ -148,10 +148,11 @@ merges knots; endpoint-cubic extrapolation is rejected by default and may be
 enabled explicitly with a report. See the [PCHIP guide](docs/api/safe-pchip.md).
 
 The opt-in hosted `bspline` feature adds owned `f32` and `f64` scalar B-spline
-curves constructed from validated knots, coefficients, and order. It performs
-original SLATEC `BVALU`/`DBVALU` evaluation and `BSQAD`/`DBSQAD` integration
-without hidden knot sorting, coefficient conversion, or caller workspace. See
-the [B-spline guide](docs/api/safe-bspline.md).
+curves. `BINTK`/`DBINTK` construct exact interpolants from strictly increasing
+nodes, values, an explicit complete knot sequence, and order; `BVALU`/`DBVALU`
+evaluate and `BSQAD`/`DBSQAD` integrate them. It has no hidden knot-generation
+policy, sorting, coefficient conversion, or caller workspace. See the
+[B-spline guide](docs/api/safe-bspline.md).
 
 The opt-in hosted `piecewise-polynomial` feature adds owned real univariate
 PP curves using exact native right-Taylor storage. It evaluates values and

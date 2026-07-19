@@ -510,7 +510,7 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
                 column(row, columns, "raw_routine")?,
                 "B-spline interpolation",
                 column(row, columns, "precision")?,
-                "owned scalar B-spline evaluation, derivatives, and definite integration",
+                "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
                 "std",
                 "bspline",
             ))
@@ -888,6 +888,9 @@ fn record(
             "examples/pchip/custom_derivatives.rs".to_owned()
         }
         "piecewise cubic Hermite interpolation" => "examples/pchip/monotone.rs".to_owned(),
+        "B-spline interpolation" if path.contains("interpolate_with_knots") => {
+            "examples/interpolation/bspline_interpolate.rs".to_owned()
+        }
         "B-spline interpolation" if path.contains("integrate") => {
             "examples/bspline/integrate.rs".to_owned()
         }
@@ -1007,7 +1010,10 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         && ["LDA", "LDB", "LDC", "INCX", "INCY"].contains(&upper.as_str());
     let analytic_jacobian = function.rust_path.contains("with_jacobian");
     let jacobian_check = function.rust_path.contains("check_jacobian");
+    let bspline_constructor = function.domain == "B-spline interpolation"
+        && function.rust_path.contains("interpolate_with_knots");
     let internal_argument = (internal.contains(&upper.as_str())
+        || (bspline_constructor && matches!(upper.as_str(), "N" | "BCOEF" | "Q"))
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
         || (jacobian_check && upper == "FVEC"))
@@ -1078,6 +1084,12 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "DET" if function.domain == "banded linear systems" => {
                 "ScaledDeterminant mantissa and checked decimal exponent".to_owned()
             }
+            "X" if bspline_constructor => "nodes".to_owned(),
+            "Y" if bspline_constructor => "values".to_owned(),
+            "T" if bspline_constructor => {
+                "complete knot sequence copied into owned native storage".to_owned()
+            }
+            "K" if bspline_constructor => "order".to_owned(),
             "N" if function.domain == "real FFTPACK" => "plan.length".to_owned(),
             "N" if function.domain == "complex FFTPACK" => "plan.length".to_owned(),
             "R" | "X" if function.domain == "real FFTPACK" => {
@@ -1250,29 +1262,32 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             && matches!(upper.as_str(), "USRMAT" | "DUSRMT"))
         || (analytic_jacobian && upper == "JAC")
         || (jacobian_check && upper == "FJAC");
+    let transformation = if inferred {
+        "inferred"
+    } else if internal_argument {
+        "internal"
+    } else if bspline_constructor && upper == "T" {
+        "owned"
+    } else if callback_argument {
+        "callback"
+    } else if matches!(
+        function.domain.as_str(),
+        "linear least squares"
+            | "linear programming"
+            | "real FFTPACK"
+            | "complex FFTPACK"
+            | "banded linear systems"
+            | "piecewise cubic Hermite interpolation"
+            | "piecewise-polynomial interpolation"
+    ) {
+        "owned"
+    } else {
+        "pass"
+    };
     ArgumentMap {
         rust,
         fortran: upper,
-        transformation: if inferred {
-            "inferred"
-        } else if internal_argument {
-            "internal"
-        } else if callback_argument {
-            "callback"
-        } else if matches!(
-            function.domain.as_str(),
-            "linear least squares"
-                | "linear programming"
-                | "real FFTPACK"
-                | "complex FFTPACK"
-                | "banded linear systems"
-                | "piecewise cubic Hermite interpolation"
-                | "piecewise-polynomial interpolation"
-        ) {
-            "owned"
-        } else {
-            "pass"
-        },
+        transformation,
     }
 }
 

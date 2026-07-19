@@ -1245,7 +1245,7 @@
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/interpolation/bspline/BSpline/fn.derivative.html",
       "example_file": "examples/bspline/derivatives.rs",
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "inclusion_status": "safe_api_available"
     },
     {
@@ -1260,7 +1260,7 @@
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/interpolation/bspline/BSpline/fn.evaluate.html",
       "example_file": "examples/bspline/from_parts.rs",
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "inclusion_status": "safe_api_available"
     },
     {
@@ -1275,7 +1275,7 @@
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/interpolation/bspline/BSpline/fn.evaluate_into.html",
       "example_file": "examples/bspline/from_parts.rs",
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "inclusion_status": "safe_api_available"
     },
     {
@@ -1290,7 +1290,22 @@
       "native_profile": "ffi-profile-gnu-mingw-x86_64",
       "documentation": "https://docs.rs/slatec/latest/slatec/interpolation/bspline/BSpline/fn.integrate.html",
       "example_file": "examples/bspline/integrate.rs",
-      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
+      "fortran_routine": "BINTK",
+      "module": "slatec::interpolation::bspline::BSpline",
+      "domain": "B-spline interpolation",
+      "precision": "f32/f64",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "bspline",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/interpolation/bspline/BSpline/fn.interpolate_with_knots.html",
+      "example_file": "examples/interpolation/bspline_interpolate.rs",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "inclusion_status": "safe_api_available"
     },
     {

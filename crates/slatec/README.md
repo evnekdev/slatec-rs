@@ -73,12 +73,12 @@ and definite integration. Knots remain strictly ordered as supplied, native
 endpoint extrapolation is opt-in, and the shared XERROR runtime keeps calls
 process-serialized. See the [PCHIP guide](../../docs/api/safe-pchip.md).
 
-The hosted `bspline` feature provides owned `f32` and `f64` `BSpline` curves
-from validated nondecreasing knots, coefficients, and order. It calls reviewed
-SLATEC `BVALU`/`DBVALU` for value or derivative evaluation and
-`BSQAD`/`DBSQAD` for scalar definite integration, with no hidden sorting,
-coefficient conversion, or caller-managed workspace. See the
-[B-spline guide](../../docs/api/safe-bspline.md).
+The hosted `bspline` feature provides owned `f32` and `f64` `BSpline` curves.
+Reviewed `BINTK`/`DBINTK` construct exact interpolants from strictly increasing
+nodes, values, a complete caller-supplied knot sequence, and order;
+`BVALU`/`DBVALU` evaluate values or derivatives and `BSQAD`/`DBSQAD` integrate.
+There is no hidden knot-generation policy, sorting, coefficient conversion, or
+caller-managed workspace. See the [B-spline guide](../../docs/api/safe-bspline.md).
 
 The hosted `piecewise-polynomial` feature provides owned `f32` and `f64`
 right-Taylor PP curves over reviewed `PPVAL`/`DPPVAL` evaluation and

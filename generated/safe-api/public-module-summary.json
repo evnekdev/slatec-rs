@@ -2,7 +2,7 @@
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 181
+    "std": 182
   },
   "frozen_high_level_paths": [
     "roadmap",
@@ -16,19 +16,19 @@
     "transforms",
     "interpolation"
   ],
-  "safe_function_count": 241,
+  "safe_function_count": 242,
   "schema_id": "slatec.safe-api.public-module-summary",
   "schema_version": "1.0.0",
-  "semantic_hash": "332482d7aeb8c62a8dbc563e3cc8260463d7bf30225813d2af44faeafe0850a7",
+  "semantic_hash": "fd7d8a08a69db4f3414cdaa696a1e31f16090f00a422851b3a2e41e8e144ac9b",
   "stability_totals": {
     "Frozen": 10,
     "Provisional": 3,
     "Reserved": 62
   },
   "status_totals": {
-    "Deferred": 2,
+    "Deferred": 3,
     "Implemented": 29,
     "Partial": 15,
-    "Planned": 19
+    "Planned": 18
   }
 }

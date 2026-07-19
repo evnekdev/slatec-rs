@@ -1,8 +1,11 @@
 //! Hand-reviewed raw declarations for the selected scalar B-spline routines.
 //!
 //! `BVALU`/`DBVALU` return a scalar function result by value. `BSQAD` and
-//! `DBSQAD` return their definite integral through `BQUAD`. All arrays are
-//! contiguous in the safe facade and use GNU Fortran's default `INTEGER`.
+//! `DBSQAD` return their definite integral through `BQUAD`.
+//! `BINTK`/`DBINTK` construct coefficients for caller-supplied complete knot
+//! sequences; their factorization workspace has exactly `(2*K - 1)*N`
+//! elements and their scratch vector has exactly `2*K` elements. All arrays
+//! are contiguous in the safe facade and use GNU Fortran's default `INTEGER`.
 
 use crate::FortranInteger;
 
@@ -53,6 +56,39 @@ unsafe extern "C" {
         lower: *const f64,
         upper: *const f64,
         integral: *mut f64,
+        workspace: *mut f64,
+    );
+    /// Constructs single-precision B-spline coefficients that interpolate
+    /// `Y(I)` at strictly increasing `X(I)` for a supplied knot sequence.
+    ///
+    /// `X`, `Y`, and `T` are read-only arrays of lengths `N`, `N`, and
+    /// `N + K`; `BCOEF`, `Q`, and `WORK` are writable arrays of lengths `N`,
+    /// `(2*K - 1)*N`, and `2*K`, respectively. The routine reports malformed
+    /// or singular systems only through XERROR; the safe facade preflights the
+    /// documented Schoenberg--Whitney conditions before this call.
+    #[link_name = "bintk_"]
+    pub fn bintk(
+        nodes: *const f32,
+        values: *const f32,
+        knots: *const f32,
+        point_count: *const FortranInteger,
+        order: *const FortranInteger,
+        coefficients: *mut f32,
+        factorization: *mut f32,
+        workspace: *mut f32,
+    );
+    /// Double-precision counterpart of [`bintk`].
+    ///
+    /// The array mutability and exact lengths are the same as for `BINTK`.
+    #[link_name = "dbintk_"]
+    pub fn dbintk(
+        nodes: *const f64,
+        values: *const f64,
+        knots: *const f64,
+        point_count: *const FortranInteger,
+        order: *const FortranInteger,
+        coefficients: *mut f64,
+        factorization: *mut f64,
         workspace: *mut f64,
     );
 }
