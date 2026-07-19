@@ -252,6 +252,13 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "banded-linear-systems",
+      "grouped_paths": [
+        "linear_algebra::banded"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "pchip",
       "grouped_paths": [
         "interpolation::pchip"

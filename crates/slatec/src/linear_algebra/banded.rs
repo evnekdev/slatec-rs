@@ -1,6 +1,506 @@
-//! Banded-storage linear algebra.
+//! Checked general real banded linear systems over LINPACK `SGBFA`/`DGBFA`.
 //!
-//! # Status: Planned
-//!
-//! No callable API is currently provided. Leading dimensions and compact
-//! layout contracts remain to be reviewed.
+//! `BandMatrixRef` borrows compact column-major storage with logical entry
+//! `A[row,col]` at `data[(upper + row - col) + leading_dimension * col]`.
+//! Factorization copies that input into private expanded storage with
+//! `2*lower + upper + 1` rows, then uses `SGBFA` or `DGBFA`; callers never
+//! expose that mutable LU layout. `SGBSL`/`DGBSL` solve `A x=b` and `A^T x=b`.
+
+#![cfg(feature = "banded-linear-systems")]
+
+use alloc::{vec, vec::Vec};
+use core::convert::TryFrom;
+use slatec_sys::FortranInteger;
+
+use crate::runtime::lock_native;
+
+/// A validation failure or documented factorization result for banded systems.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum BandError {
+    /// A dimension or bandwidth is unsupported by the native contract.
+    InvalidDimensions,
+    /// Checked arithmetic or Fortran-integer conversion overflowed.
+    DimensionOverflow,
+    /// The compact storage leading dimension is too small.
+    LeadingDimensionTooSmall {
+        /// Minimum valid leading dimension.
+        required: usize,
+        /// Caller-supplied leading dimension.
+        actual: usize,
+    },
+    /// The backing slice does not contain every declared storage column.
+    StorageLengthTooSmall {
+        /// Required scalar elements.
+        required: usize,
+        /// Available scalar elements.
+        actual: usize,
+    },
+    /// Factorization is limited to square matrices.
+    NonSquareMatrix {
+        /// Logical row count.
+        rows: usize,
+        /// Logical column count.
+        cols: usize,
+    },
+    /// A right-hand-side vector has the wrong length.
+    RightHandSideLengthMismatch {
+        /// Factorization dimension.
+        expected: usize,
+        /// Supplied vector length.
+        actual: usize,
+    },
+    /// A column-major right-hand-side block has an invalid leading dimension.
+    RightHandSideLeadingDimensionTooSmall {
+        /// Factorization dimension.
+        required: usize,
+        /// Supplied right-hand-side leading dimension.
+        actual: usize,
+    },
+    /// The native factorization encountered a zero pivot, using a zero-based index.
+    Singular {
+        /// Zero-based failing pivot position.
+        pivot: usize,
+    },
+    /// Allocation for private native factor storage failed.
+    AllocationFailed,
+    /// Native output did not meet the reviewed pivot contract.
+    NativeContractViolation,
+}
+
+/// The result of reading a logical matrix coordinate.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum BandElementRef<'a, T> {
+    /// The coordinate lies within the declared band and has physical storage.
+    Stored(&'a T),
+    /// The coordinate is in bounds but structurally zero.
+    StructuralZero,
+}
+
+/// A checked borrowed view of compact column-major general-band storage.
+#[derive(Clone, Copy, Debug)]
+pub struct BandMatrixRef<'a, T> {
+    data: &'a [T],
+    rows: usize,
+    cols: usize,
+    lower: usize,
+    upper: usize,
+    lda: usize,
+}
+
+impl<'a, T> BandMatrixRef<'a, T> {
+    /// Validates compact general-band storage with an explicit leading dimension.
+    pub fn from_band_storage(
+        data: &'a [T],
+        rows: usize,
+        cols: usize,
+        lower: usize,
+        upper: usize,
+        lda: usize,
+    ) -> Result<Self, BandError> {
+        if rows == 0 || cols == 0 || lower >= rows || upper >= cols {
+            return Err(BandError::InvalidDimensions);
+        }
+        let required_lda = lower
+            .checked_add(upper)
+            .and_then(|v| v.checked_add(1))
+            .ok_or(BandError::DimensionOverflow)?;
+        if lda < required_lda {
+            return Err(BandError::LeadingDimensionTooSmall {
+                required: required_lda,
+                actual: lda,
+            });
+        }
+        let required = lda.checked_mul(cols).ok_or(BandError::DimensionOverflow)?;
+        if data.len() < required {
+            return Err(BandError::StorageLengthTooSmall {
+                required,
+                actual: data.len(),
+            });
+        }
+        let _ = FortranInteger::try_from(rows).map_err(|_| BandError::DimensionOverflow)?;
+        let _ = FortranInteger::try_from(lower).map_err(|_| BandError::DimensionOverflow)?;
+        let _ = FortranInteger::try_from(upper).map_err(|_| BandError::DimensionOverflow)?;
+        Ok(Self {
+            data,
+            rows,
+            cols,
+            lower,
+            upper,
+            lda,
+        })
+    }
+    /// Validates tightly packed compact band storage.
+    pub fn from_compact_storage(
+        data: &'a [T],
+        rows: usize,
+        cols: usize,
+        lower: usize,
+        upper: usize,
+    ) -> Result<Self, BandError> {
+        let lda = lower
+            .checked_add(upper)
+            .and_then(|v| v.checked_add(1))
+            .ok_or(BandError::DimensionOverflow)?;
+        Self::from_band_storage(data, rows, cols, lower, upper, lda)
+    }
+    /// Returns the logical row count.
+    #[must_use]
+    pub fn rows(&self) -> usize {
+        self.rows
+    }
+    /// Returns the logical column count.
+    #[must_use]
+    pub fn cols(&self) -> usize {
+        self.cols
+    }
+    /// Returns the number of subdiagonals.
+    #[must_use]
+    pub fn lower_bandwidth(&self) -> usize {
+        self.lower
+    }
+    /// Returns the number of superdiagonals.
+    #[must_use]
+    pub fn upper_bandwidth(&self) -> usize {
+        self.upper
+    }
+    /// Returns the physical storage leading dimension.
+    #[must_use]
+    pub fn leading_dimension(&self) -> usize {
+        self.lda
+    }
+    /// Distinguishes out-of-bounds coordinates from in-bounds structural zeros.
+    #[must_use]
+    pub fn get(&self, row: usize, col: usize) -> Option<BandElementRef<'a, T>> {
+        if row >= self.rows || col >= self.cols {
+            return None;
+        }
+        if row.saturating_add(self.upper) < col || col.saturating_add(self.lower) < row {
+            return Some(BandElementRef::StructuralZero);
+        }
+        let band_row = self.upper + row - col;
+        Some(BandElementRef::Stored(
+            &self.data[band_row + self.lda * col],
+        ))
+    }
+}
+
+/// Reusable single-precision general-band LU factors.
+#[derive(Debug)]
+pub struct BandLu32 {
+    factors: Vec<f32>,
+    pivots: Vec<FortranInteger>,
+    n: FortranInteger,
+    lower: FortranInteger,
+    upper: FortranInteger,
+    lda: FortranInteger,
+}
+/// Reusable double-precision general-band LU factors.
+#[derive(Debug)]
+pub struct BandLu64 {
+    factors: Vec<f64>,
+    pivots: Vec<FortranInteger>,
+    n: FortranInteger,
+    lower: FortranInteger,
+    upper: FortranInteger,
+    lda: FortranInteger,
+}
+
+impl BandMatrixRef<'_, f32> {
+    /// Copies and factors this square compact matrix.
+    pub fn factorize(self) -> Result<BandLu32, BandError> {
+        factor32(self)
+    }
+}
+impl BandMatrixRef<'_, f64> {
+    /// Copies and factors this square compact matrix.
+    pub fn factorize(self) -> Result<BandLu64, BandError> {
+        factor64(self)
+    }
+}
+
+impl BandLu32 {
+    /// Returns the factorized square dimension.
+    #[must_use]
+    pub fn dimension(&self) -> usize {
+        self.n as usize
+    }
+    /// Returns zero-based partial-pivot row indices.
+    pub fn pivots(&self) -> Result<Vec<usize>, BandError> {
+        pivots(&self.pivots, self.n)
+    }
+    /// Solves `A x=b` in place without changing the factors.
+    pub fn solve_in_place(&self, rhs: &mut [f32]) -> Result<(), BandError> {
+        self.solve(rhs, 0)
+    }
+    /// Solves `A^T x=b` in place without changing the factors.
+    pub fn solve_transpose_in_place(&self, rhs: &mut [f32]) -> Result<(), BandError> {
+        self.solve(rhs, 1)
+    }
+    /// Solves independently stored column-major right-hand sides in place.
+    pub fn solve_many_in_place(
+        &self,
+        rhs: &mut [f32],
+        count: usize,
+        lda: usize,
+    ) -> Result<(), BandError> {
+        solve_many32(self, rhs, count, lda, 0)
+    }
+    fn solve(&self, rhs: &mut [f32], job: FortranInteger) -> Result<(), BandError> {
+        solve32(self, rhs, job)
+    }
+}
+impl BandLu64 {
+    /// Returns the factorized square dimension.
+    #[must_use]
+    pub fn dimension(&self) -> usize {
+        self.n as usize
+    }
+    /// Returns zero-based partial-pivot row indices.
+    pub fn pivots(&self) -> Result<Vec<usize>, BandError> {
+        pivots(&self.pivots, self.n)
+    }
+    /// Solves `A x=b` in place without changing the factors.
+    pub fn solve_in_place(&self, rhs: &mut [f64]) -> Result<(), BandError> {
+        self.solve(rhs, 0)
+    }
+    /// Solves `A^T x=b` in place without changing the factors.
+    pub fn solve_transpose_in_place(&self, rhs: &mut [f64]) -> Result<(), BandError> {
+        self.solve(rhs, 1)
+    }
+    /// Solves independently stored column-major right-hand sides in place.
+    pub fn solve_many_in_place(
+        &self,
+        rhs: &mut [f64],
+        count: usize,
+        lda: usize,
+    ) -> Result<(), BandError> {
+        solve_many64(self, rhs, count, lda, 0)
+    }
+    fn solve(&self, rhs: &mut [f64], job: FortranInteger) -> Result<(), BandError> {
+        solve64(self, rhs, job)
+    }
+}
+
+fn expanded<T: Copy + Default>(
+    m: BandMatrixRef<'_, T>,
+) -> Result<
+    (
+        Vec<T>,
+        FortranInteger,
+        FortranInteger,
+        FortranInteger,
+        FortranInteger,
+    ),
+    BandError,
+> {
+    if m.rows != m.cols {
+        return Err(BandError::NonSquareMatrix {
+            rows: m.rows,
+            cols: m.cols,
+        });
+    }
+    let lda = m
+        .lower
+        .checked_mul(2)
+        .and_then(|v| v.checked_add(m.upper))
+        .and_then(|v| v.checked_add(1))
+        .ok_or(BandError::DimensionOverflow)?;
+    let size = lda
+        .checked_mul(m.cols)
+        .ok_or(BandError::DimensionOverflow)?;
+    let mut out = Vec::new();
+    out.try_reserve_exact(size)
+        .map_err(|_| BandError::AllocationFailed)?;
+    out.resize(size, T::default());
+    for col in 0..m.cols {
+        for row in col.saturating_sub(m.upper)..core::cmp::min(m.rows, col + m.lower + 1) {
+            let src = m.upper + row - col + m.lda * col;
+            let dst = m.lower + m.upper + row - col + lda * col;
+            out[dst] = m.data[src];
+        }
+    }
+    Ok((
+        out,
+        FortranInteger::try_from(m.rows).map_err(|_| BandError::DimensionOverflow)?,
+        FortranInteger::try_from(m.lower).map_err(|_| BandError::DimensionOverflow)?,
+        FortranInteger::try_from(m.upper).map_err(|_| BandError::DimensionOverflow)?,
+        FortranInteger::try_from(lda).map_err(|_| BandError::DimensionOverflow)?,
+    ))
+}
+fn factor32(m: BandMatrixRef<'_, f32>) -> Result<BandLu32, BandError> {
+    let (mut a, n, ml, mu, mut lda) = expanded(m)?;
+    let mut p = vec![0; n as usize];
+    let mut info = 0;
+    {
+        let _g = lock_native();
+        unsafe {
+            slatec_sys::banded::sgbfa(
+                a.as_mut_ptr(),
+                &mut lda,
+                &mut (n.clone()),
+                &mut (ml.clone()),
+                &mut (mu.clone()),
+                p.as_mut_ptr(),
+                &mut info,
+            )
+        }
+    }
+    if info != 0 {
+        return Err(BandError::Singular {
+            pivot: (info - 1) as usize,
+        });
+    }
+    Ok(BandLu32 {
+        factors: a,
+        pivots: p,
+        n,
+        lower: ml,
+        upper: mu,
+        lda,
+    })
+}
+fn factor64(m: BandMatrixRef<'_, f64>) -> Result<BandLu64, BandError> {
+    let (mut a, n, ml, mu, mut lda) = expanded(m)?;
+    let mut p = vec![0; n as usize];
+    let mut info = 0;
+    {
+        let _g = lock_native();
+        unsafe {
+            slatec_sys::banded::dgbfa(
+                a.as_mut_ptr(),
+                &mut lda,
+                &mut (n.clone()),
+                &mut (ml.clone()),
+                &mut (mu.clone()),
+                p.as_mut_ptr(),
+                &mut info,
+            )
+        }
+    }
+    if info != 0 {
+        return Err(BandError::Singular {
+            pivot: (info - 1) as usize,
+        });
+    }
+    Ok(BandLu64 {
+        factors: a,
+        pivots: p,
+        n,
+        lower: ml,
+        upper: mu,
+        lda,
+    })
+}
+fn pivots(p: &[FortranInteger], n: FortranInteger) -> Result<Vec<usize>, BandError> {
+    p.iter()
+        .map(|&x| {
+            if x > 0 && x <= n {
+                Ok((x - 1) as usize)
+            } else {
+                Err(BandError::NativeContractViolation)
+            }
+        })
+        .collect()
+}
+fn solve32(l: &BandLu32, b: &mut [f32], mut job: FortranInteger) -> Result<(), BandError> {
+    if b.len() != l.n as usize {
+        return Err(BandError::RightHandSideLengthMismatch {
+            expected: l.n as usize,
+            actual: b.len(),
+        });
+    };
+    let _g = lock_native();
+    let mut n = l.n;
+    let mut ml = l.lower;
+    let mut mu = l.upper;
+    let mut lda = l.lda;
+    unsafe {
+        slatec_sys::banded::sgbsl(
+            l.factors.as_ptr() as *mut _,
+            &mut lda,
+            &mut n,
+            &mut ml,
+            &mut mu,
+            l.pivots.as_ptr() as *mut _,
+            b.as_mut_ptr(),
+            &mut job,
+        )
+    };
+    Ok(())
+}
+fn solve64(l: &BandLu64, b: &mut [f64], mut job: FortranInteger) -> Result<(), BandError> {
+    if b.len() != l.n as usize {
+        return Err(BandError::RightHandSideLengthMismatch {
+            expected: l.n as usize,
+            actual: b.len(),
+        });
+    };
+    let _g = lock_native();
+    let mut n = l.n;
+    let mut ml = l.lower;
+    let mut mu = l.upper;
+    let mut lda = l.lda;
+    unsafe {
+        slatec_sys::banded::dgbsl(
+            l.factors.as_ptr() as *mut _,
+            &mut lda,
+            &mut n,
+            &mut ml,
+            &mut mu,
+            l.pivots.as_ptr() as *mut _,
+            b.as_mut_ptr(),
+            &mut job,
+        )
+    };
+    Ok(())
+}
+fn solve_many32(
+    l: &BandLu32,
+    b: &mut [f32],
+    count: usize,
+    lda: usize,
+    job: FortranInteger,
+) -> Result<(), BandError> {
+    if lda < l.n as usize {
+        return Err(BandError::RightHandSideLeadingDimensionTooSmall {
+            required: l.n as usize,
+            actual: lda,
+        });
+    }
+    let need = lda.checked_mul(count).ok_or(BandError::DimensionOverflow)?;
+    if b.len() < need {
+        return Err(BandError::StorageLengthTooSmall {
+            required: need,
+            actual: b.len(),
+        });
+    }
+    for j in 0..count {
+        solve32(l, &mut b[lda * j..lda * j + l.n as usize], job)?
+    }
+    Ok(())
+}
+fn solve_many64(
+    l: &BandLu64,
+    b: &mut [f64],
+    count: usize,
+    lda: usize,
+    job: FortranInteger,
+) -> Result<(), BandError> {
+    if lda < l.n as usize {
+        return Err(BandError::RightHandSideLeadingDimensionTooSmall {
+            required: l.n as usize,
+            actual: lda,
+        });
+    }
+    let need = lda.checked_mul(count).ok_or(BandError::DimensionOverflow)?;
+    if b.len() < need {
+        return Err(BandError::StorageLengthTooSmall {
+            required: need,
+            actual: b.len(),
+        });
+    }
+    for j in 0..count {
+        solve64(l, &mut b[lda * j..lda * j + l.n as usize], job)?
+    }
+    Ok(())
+}
