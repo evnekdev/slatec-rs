@@ -1,5 +1,14 @@
 //! Exponential integrals with fatal singular inputs prechecked in Rust.
 
+/// Exponential-integral compatibility view.
+pub mod exponential;
+/// Logarithmic-integral compatibility view.
+pub mod logarithmic;
+/// Spence-integral compatibility view.
+pub mod spence;
+/// Trigonometric-integral placeholder.
+pub mod trigonometric;
+
 use slatec_sys::families::special_integrals as raw;
 
 use super::{SpecialFunctionError, runtime};

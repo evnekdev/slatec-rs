@@ -11,12 +11,17 @@
 //! callback-bearing SLATEC facade.
 
 #[cfg(feature = "least-squares-covariance")]
-mod covariance;
+pub mod covariance;
 mod error;
 #[cfg(feature = "least-squares-nonlinear-expert")]
 mod expert;
 #[cfg(feature = "least-squares-nonlinear-easy")]
 mod solver;
+
+/// Linear least-squares organization.
+pub mod linear;
+/// Nonlinear least-squares organization.
+pub mod nonlinear;
 
 #[cfg(feature = "least-squares-covariance")]
 pub use covariance::{

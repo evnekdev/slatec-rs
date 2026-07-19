@@ -17,6 +17,7 @@ use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
 use slatec_tools::prologues;
 use slatec_tools::provider;
+use slatec_tools::public_module_roadmap;
 use slatec_tools::raw_ffi;
 use slatec_tools::runtime_profile;
 use slatec_tools::runtime_storage_policy;
@@ -197,6 +198,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-api-docs"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-public-module-roadmap"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -755,6 +761,14 @@ fn run() -> Result<()> {
             println!(
                 "success: indexed {} safe functions ({})",
                 result.function_count, result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-public-module-roadmap" => {
+            let result = public_module_roadmap::generate(&options.output_dir)?;
+            println!(
+                "success: documented {} safe functions ({})",
+                result.safe_function_count, result.semantic_hash
             );
             Ok(())
         }

@@ -92,4 +92,5 @@ impl fmt::Display for SpecialFunctionError {
     }
 }
 
+#[cfg(feature = "std")]
 impl std::error::Error for SpecialFunctionError {}

@@ -9,6 +9,32 @@
 //! `prebuilt` is unavailable while historical redistribution rights remain
 //! unresolved; see
 //! [`docs/api/family-features-and-backends.md`](https://github.com/evnekdev/slatec-rs/blob/master/docs/api/family-features-and-backends.md).
+//!
+//! # API map
+//!
+//! The long-term mathematical organization is visible without enabling a
+//! numerical feature: [`linear_algebra`], [`special`], [`integration`],
+//! [`equations`], [`least_squares`], [`differential_equations`],
+//! [`optimization`], [`transforms`], and [`interpolation`]. See [`roadmap`]
+//! for status, feature, runtime, and compatibility information.
+//!
+//! Existing paths such as `blas`, `quadrature`, and `nonlinear` remain
+//! supported compatibility paths. The grouped paths are the preferred
+//! organization for new documentation and future additions; no removal
+//! schedule is established.
+//!
+//! # Features and documentation
+//!
+//! Select a safe family and one explicit native backend. For the broadest
+//! hosted view, use `std,external-backend,full`; the structural roadmap is
+//! also available with `--no-default-features` and with `alloc` alone. For
+//! example:
+//!
+//! ```text
+//! cargo doc -p slatec --no-deps --no-default-features
+//! cargo doc -p slatec --no-deps --no-default-features --features alloc
+//! cargo doc -p slatec --no-deps --no-default-features --features std,external-backend,full
+//! ```
 
 #[cfg(feature = "alloc")]
 extern crate alloc;
@@ -67,18 +93,10 @@ static SLATEC_IMPLEMENTATION_PROVIDER: fn() = slatec_src::ensure_linked;
 ))]
 pub mod blas;
 
-/// Runtime-validated scalar facades over selected original SLATEC FNLIB
-/// routines for the GNU MinGW x86_64 profile.
-#[cfg(any(
-    feature = "special-elementary",
-    feature = "special-gamma",
-    feature = "special-beta",
-    feature = "special-error",
-    feature = "special-airy",
-    feature = "special-bessel",
-    feature = "special-integrals",
-    feature = "special-scalar-expanded"
-))]
+/// Special functions, including feature-gated scalar FNLIB facades.
+///
+/// This namespace remains visible for roadmap navigation without numerical
+/// features. Its callable contents require their documented family features.
 pub mod special;
 
 /// Scalar polynomial helpers whose storage contracts are independently
@@ -264,6 +282,15 @@ pub mod nonlinear;
     feature = "least-squares-covariance"
 ))]
 pub mod least_squares;
+/// Reserved least-squares documentation structure when no least-squares
+/// feature is selected.
+#[cfg(not(any(
+    feature = "least-squares-nonlinear-easy",
+    feature = "least-squares-nonlinear-expert",
+    feature = "least-squares-covariance"
+)))]
+#[path = "docs_placeholders/least_squares.rs"]
+pub mod least_squares;
 
 /// Safe constrained linear least-squares facades over original SLATEC
 /// `WNNLS` and `DWNNLS` implementations.
@@ -303,3 +330,27 @@ pub mod ode;
 /// are not exposed.
 #[cfg(feature = "optimization-linear-programming-in-memory")]
 pub mod linear_programming;
+
+/// Permanent safe-API roadmap, statuses, and compatibility policy.
+pub mod roadmap;
+
+/// Linear-algebra organization and feature-gated BLAS compatibility views.
+pub mod linear_algebra;
+
+/// Numerical integration organization and QUADPACK compatibility views.
+pub mod integration;
+
+/// Root finding and nonlinear-equation organization.
+pub mod equations;
+
+/// Ordinary and differential-algebraic equation organization.
+pub mod differential_equations;
+
+/// Optimization organization, including in-memory linear programming.
+pub mod optimization;
+
+/// Transform organization, including real FFTPACK plans.
+pub mod transforms;
+
+/// Interpolation and approximation organization, including PCHIP.
+pub mod interpolation;

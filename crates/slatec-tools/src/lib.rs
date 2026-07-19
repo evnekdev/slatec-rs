@@ -23,6 +23,7 @@ pub mod policy;
 pub mod program_units;
 pub mod prologues;
 pub mod provider;
+pub mod public_module_roadmap;
 pub mod raw_ffi;
 pub mod runtime_profile;
 pub mod runtime_storage_policy;
