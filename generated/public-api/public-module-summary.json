@@ -1,0 +1,34 @@
+{
+  "capability_counts": {
+    "alloc": 2,
+    "core": 58,
+    "std": 184
+  },
+  "frozen_high_level_paths": [
+    "roadmap",
+    "linear_algebra",
+    "special",
+    "integration",
+    "equations",
+    "least_squares",
+    "differential_equations",
+    "optimization",
+    "transforms",
+    "interpolation"
+  ],
+  "safe_function_count": 244,
+  "schema_id": "slatec.safe-api.public-module-summary",
+  "schema_version": "1.0.0",
+  "semantic_hash": "f7824a92ec6b9b0d08d0ad63a83ef5a6b5c901ec8e0cbc02f009cbac68c97818",
+  "stability_totals": {
+    "Frozen": 10,
+    "Provisional": 3,
+    "Reserved": 62
+  },
+  "status_totals": {
+    "Deferred": 3,
+    "Implemented": 30,
+    "Partial": 15,
+    "Planned": 17
+  }
+}
