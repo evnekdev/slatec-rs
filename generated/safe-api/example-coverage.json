@@ -824,6 +824,46 @@
       "validation_file": "crates/slatec/tests/fftpack_native.rs"
     },
     {
+      "doctest_present": false,
+      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_file": "examples/bspline/derivatives.rs",
+      "fortran_routine": "BVALU",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::interpolation::bspline::BSpline::derivative",
+      "validation_case": "derivative",
+      "validation_file": "crates/slatec/tests/bspline_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_file": "examples/bspline/from_parts.rs",
+      "fortran_routine": "BVALU",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::interpolation::bspline::BSpline::evaluate",
+      "validation_case": "evaluate",
+      "validation_file": "crates/slatec/tests/bspline_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_file": "examples/bspline/from_parts.rs",
+      "fortran_routine": "BVALU",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::interpolation::bspline::BSpline::evaluate_into",
+      "validation_case": "evaluate_into",
+      "validation_file": "crates/slatec/tests/bspline_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned scalar B-spline evaluation, derivatives, and definite integration",
+      "example_file": "examples/bspline/integrate.rs",
+      "fortran_routine": "BSQAD",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::interpolation::bspline::BSpline::integrate",
+      "validation_case": "integrate",
+      "validation_file": "crates/slatec/tests/bspline_native.rs"
+    },
+    {
       "doctest_present": true,
       "example_case": "nonlinear least-squares covariance estimation",
       "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",

@@ -140,6 +140,12 @@ and first-derivative evaluation, and definite integration. It never sorts or
 merges knots; endpoint-cubic extrapolation is rejected by default and may be
 enabled explicitly with a report. See the [PCHIP guide](docs/api/safe-pchip.md).
 
+The opt-in hosted `bspline` feature adds owned `f32` and `f64` scalar B-spline
+curves constructed from validated knots, coefficients, and order. It performs
+original SLATEC `BVALU`/`DBVALU` evaluation and `BSQAD`/`DBSQAD` integration
+without hidden knot sorting, coefficient conversion, or caller workspace. See
+the [B-spline guide](docs/api/safe-bspline.md).
+
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS
 and Jacobian-checking APIs are backend-dependent rather than advertised as

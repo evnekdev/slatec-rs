@@ -58,7 +58,8 @@ pub mod generated;
     feature = "raw-family-special-integrals",
     feature = "raw-family-special-polynomials",
     feature = "raw-family-fftpack-real",
-    feature = "raw-family-pchip"
+    feature = "raw-family-pchip",
+    feature = "raw-family-bspline"
 ))]
 pub mod families;
 
@@ -74,6 +75,10 @@ pub mod fftpack;
 /// Hand-reviewed PCHIP and piecewise-cubic Hermite declarations.
 #[cfg(feature = "raw-family-pchip")]
 pub mod pchip;
+
+/// Hand-reviewed declarations for the restricted safe B-spline facade.
+#[cfg(feature = "raw-family-bspline")]
+pub mod bspline;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///
@@ -175,6 +180,7 @@ pub mod linear_least_squares;
     feature = "raw-family-dassl",
     feature = "raw-family-optimization-linear-programming-in-memory",
     feature = "raw-family-pchip",
+    feature = "raw-family-bspline",
     feature = "raw-family-special-scalar-expanded"
 ))]
 pub mod legacy_error;

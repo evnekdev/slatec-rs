@@ -40,6 +40,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ),
     ("FFTPACK_REAL", "fftpack-real"),
     ("PCHIP", "pchip"),
+    ("BSPLINE", "bspline"),
     (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
@@ -106,6 +107,7 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/pchip-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/bspline-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/special-scalar-expanded-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
@@ -208,6 +210,7 @@ fn build_sources(families: &BTreeSet<String>) {
         ),
         ("fftpack-real", "fftpack-real-source-closure.json"),
         ("pchip", "pchip-source-closure.json"),
+        ("bspline", "bspline-source-closure.json"),
         (
             "special-scalar-expanded",
             "special-scalar-expanded-source-closure.json",
@@ -359,15 +362,21 @@ fn verified_cached_source(cache: &Path, source: &Source) -> PathBuf {
 }
 
 fn compile_one(compiler: &Path, source: &Path, object: &Path) {
-    let status = Command::new(compiler)
+    let output = Command::new(compiler)
         .args(["-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c"])
         .arg(source)
         .arg("-o")
         .arg(object)
-        .status()
+        .output()
         .unwrap_or_else(|error| panic!("start {}: {error}", compiler.display()));
-    if !status.success() {
-        panic!("GNU Fortran failed for {}", source.display());
+    if !output.status.success() {
+        panic!(
+            "GNU Fortran failed for {} with {}\nstdout:\n{}\nstderr:\n{}",
+            source.display(),
+            output.status,
+            String::from_utf8_lossy(&output.stdout),
+            String::from_utf8_lossy(&output.stderr),
+        );
     }
 }
 

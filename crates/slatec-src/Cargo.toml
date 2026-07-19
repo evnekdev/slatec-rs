@@ -55,6 +55,7 @@ optimization = ["optimization-linear-programming-in-memory"]
 optimization-linear-programming-in-memory = []
 fftpack-real = []
 pchip = []
+bspline = []
 least-squares = ["least-squares-nonlinear", "least-squares-covariance", "least-squares-linear"]
 least-squares-nonlinear = [
     "least-squares-nonlinear-easy",

@@ -501,6 +501,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/bspline-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "B-spline interpolation",
+                column(row, columns, "precision")?,
+                "owned scalar B-spline evaluation, derivatives, and definite integration",
+                "std",
+                "bspline",
+            ))
+        },
+    )?;
     for (path, routine, family) in [
         (
             "slatec::fftpack::RealFftPlan::new",
@@ -808,6 +823,13 @@ fn record(
             "examples/pchip/custom_derivatives.rs".to_owned()
         }
         "piecewise cubic Hermite interpolation" => "examples/pchip/monotone.rs".to_owned(),
+        "B-spline interpolation" if path.contains("integrate") => {
+            "examples/bspline/integrate.rs".to_owned()
+        }
+        "B-spline interpolation" if path.contains("derivative") => {
+            "examples/bspline/derivatives.rs".to_owned()
+        }
+        "B-spline interpolation" => "examples/bspline/from_parts.rs".to_owned(),
         "special functions" if path.contains("scalar_expanded") && path.contains("carlson_") => {
             "examples/special/elliptic.rs".to_owned()
         }
@@ -1278,6 +1300,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
         "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
+        "B-spline interpolation" => "crates/slatec/tests/bspline_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }

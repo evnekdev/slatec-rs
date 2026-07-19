@@ -159,11 +159,19 @@ pchip = [
     "slatec-src/pchip",
 ]
 pchip-native-tests = ["pchip"]
+bspline = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-bspline",
+    "slatec-src/bspline",
+]
+bspline-native-tests = ["bspline"]
 native-serialization-tests = [
     "std",
     "optimization-linear-programming-in-memory-native-tests",
     "fftpack-real-native-tests",
     "pchip-native-tests",
+    "bspline-native-tests",
     "dassl-native-tests",
     "ode-sdrive-expert-native-tests",
     "quadrature-native-tests",
@@ -251,7 +259,7 @@ least-squares-native-tests = [
 
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
-interpolate = []
+interpolate = ["pchip", "bspline"]
 optimize = ["optimization"]
 full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
@@ -372,6 +380,25 @@ required-features = ["fftpack-real"]
 [[example]]
 name = "link_pchip"
 required-features = ["pchip"]
+
+[[example]]
+name = "link_bspline"
+required-features = ["bspline"]
+
+[[example]]
+name = "bspline_from_parts"
+path = "../../examples/bspline/from_parts.rs"
+required-features = ["bspline"]
+
+[[example]]
+name = "bspline_derivatives"
+path = "../../examples/bspline/derivatives.rs"
+required-features = ["bspline"]
+
+[[example]]
+name = "bspline_integrate"
+path = "../../examples/bspline/integrate.rs"
+required-features = ["bspline"]
 
 [[example]]
 name = "link_special_scalar_expanded"

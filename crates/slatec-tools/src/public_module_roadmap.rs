@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 226;
+const SAFE_FUNCTION_TARGET: usize = 230;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -46,6 +46,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "optimization-linear-programming-in-memory",
     "fftpack-real",
     "pchip",
+    "bspline",
 ];
 const FROZEN_HIGH_LEVEL_PATHS: &[&str] = &[
     "roadmap",
@@ -853,12 +854,18 @@ fn leaves() -> Vec<LeafSpec> {
             "SerializedGlobal",
             &["slatec::pchip::"]
         ),
-        planned!(
+        partial!(
             "interpolation::bspline",
             "crates/slatec/src/interpolation/bspline.rs",
-            "Reserved",
-            "B-spline storage and endpoint contracts are unreviewed.",
-            "Audit B-spline candidates."
+            "bspline",
+            "crate::interpolation::bspline",
+            "none",
+            "bspline",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            "Interpolation construction, basis vectors, weighted callbacks, representation conversion, tensor products, and smoothing remain deferred.",
+            "Audit one constructor family without broadening the representation API."
         ),
         planned!(
             "interpolation::piecewise_polynomial",
@@ -1072,6 +1079,11 @@ fn features() -> Vec<FeatureRecord> {
             grouped_paths: &["interpolation::pchip"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
+        FeatureRecord {
+            cargo_feature: "bspline",
+            grouped_paths: &["interpolation::bspline"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
     ]
 }
 
@@ -1110,7 +1122,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 166),
+            ("std".to_owned(), 170),
         ])
     {
         return Err(policy(

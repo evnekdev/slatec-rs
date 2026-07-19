@@ -1,0 +1,30 @@
+{
+  "family": "bspline",
+  "profile_override": true,
+  "source_ids": [
+    "selected-source-287a4838efb0e436",
+    "selected-source-242a68f29652a7d5",
+    "selected-source-d7a112ce8c81f313",
+    "selected-source-15a7c6dd45cf58ab",
+    "selected-source-2e9c8f07c27a38e0",
+    "selected-source-9ef9d812fab69522",
+    "selected-source-37c1dbf0f41a4725",
+    "selected-source-abab17e1d4c0a1a8",
+    "selected-source-34d2ab39a8d150a7",
+    "selected-source-10275ec90dd6e066",
+    "selected-source-273c06b35f95f85b",
+    "selected-source-84e03977dd3521a1",
+    "selected-source-60f744ba036ffdb7",
+    "selected-source-1fdae9155aa43140",
+    "selected-source-bb2d61d06785b38d",
+    "selected-source-9be192a17f28e8b7"
+  ],
+  "sources": [
+    {"id":"selected-source-287a4838efb0e436","subset":"main-src","path":"src/bvalu.f","sha256":"3a6ecd109cfcb12a731ffc553af5cc605af9d5c4b8c307f1a5e1cf06fde8efe2"},
+    {"id":"selected-source-242a68f29652a7d5","subset":"main-src","path":"src/dbvalu.f","sha256":"2e1b9bba1f395c30864c7d6c9b6a196cb9e4d6029fb499734ab849f6019ac1f9"},
+    {"id":"selected-source-d7a112ce8c81f313","subset":"main-src","path":"src/bsqad.f","sha256":"17105fa39e1151eb6bb72b88eba651776f3fb375d4673d04838a6296c24f5606"},
+    {"id":"selected-source-15a7c6dd45cf58ab","subset":"main-src","path":"src/dbsqad.f","sha256":"3c12df2da62a012a8b0f4e4440e09d02d4d61e5c83d8cbab827195340ab2f1a4"},
+    {"id":"selected-source-2e9c8f07c27a38e0","subset":"main-src","path":"src/intrv.f","sha256":"01790d5b582f35e7923e2e199464d2b11a06804fd813b11801b47bbfc4458b88"},
+    {"id":"selected-source-9ef9d812fab69522","subset":"main-src","path":"src/dintrv.f","sha256":"9c942c7e7f379d98573c71e3b38a2c52f4e0ef56c4b20c90ea37639db6fc31a3"}
+  ]
+}

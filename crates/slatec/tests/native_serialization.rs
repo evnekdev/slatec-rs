@@ -13,6 +13,7 @@ use slatec::bounded_least_squares::{
 };
 use slatec::dassl::{DaeOptions, DaeSession, DaeTolerance, ResidualAction};
 use slatec::fftpack::RealFftPlan;
+use slatec::interpolation::bspline::BSpline;
 use slatec::linear_least_squares::{
     MatrixRef, NonnegativeLeastSquaresProblem, VariableConstraint, solve_nonnegative_least_squares,
 };
@@ -138,6 +139,11 @@ fn run_pchip() {
     assert!(curve.evaluate(0.25).unwrap().is_finite());
 }
 
+fn run_bspline() {
+    let curve = BSpline::<f64>::from_parts(vec![0.0, 0.0, 1.0, 1.0], vec![0.0, 1.0], 2).unwrap();
+    assert!((curve.integrate(0.0, 1.0).unwrap() - 0.5).abs() < 1.0e-12);
+}
+
 fn concurrent_pair(left: fn(), right: fn()) {
     let barrier = Arc::new(Barrier::new(3));
     let spawn = |work: fn()| {
@@ -163,6 +169,7 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_dassl, run_ode);
     concurrent_pair(run_dassl, run_linear_programming);
     concurrent_pair(run_dassl, run_pchip);
+    concurrent_pair(run_dassl, run_bspline);
     concurrent_pair(run_dassl, run_real_fftpack);
     concurrent_pair(run_bounded, run_nonnegative);
     concurrent_pair(run_root, run_quadrature);
@@ -172,6 +179,9 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_real_fftpack, run_linear_programming);
     concurrent_pair(run_pchip, run_ode);
     concurrent_pair(run_pchip, run_real_fftpack);
+    concurrent_pair(run_bspline, run_ode);
+    concurrent_pair(run_bspline, run_pchip);
+    concurrent_pair(run_bspline, run_real_fftpack);
     let observed = snapshot();
     assert_eq!(observed.active, 0);
     assert_eq!(observed.maximum_active, 1);
