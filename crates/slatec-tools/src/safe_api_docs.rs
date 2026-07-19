@@ -710,6 +710,28 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             "pchip",
         ));
     }
+    collect_columnar(
+        "generated/safe-api/fishpack-cartesian-2d-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(FunctionRecord {
+                rust_path: column(row, columns, "safe_path")?.to_owned(),
+                fortran_routine: column(row, columns, "raw_routine")?.to_owned(),
+                module: "slatec::differential_equations::pde".to_owned(),
+                domain: "Cartesian FISHPACK PDE".to_owned(),
+                precision: column(row, columns, "precision")?.to_owned(),
+                purpose: "checked owned Cartesian Poisson/Helmholtz finite-difference solve"
+                    .to_owned(),
+                capability: "std".to_owned(),
+                feature: "fishpack-cartesian-2d".to_owned(),
+                native_profile: PROFILE.to_owned(),
+                documentation: "https://docs.rs/slatec/latest/slatec/differential_equations/pde/struct.CartesianHelmholtz2d.html#method.solve".to_owned(),
+                example_file: "examples/fishpack_cartesian_2d.rs".to_owned(),
+                example_case: "mixed Cartesian Poisson problem".to_owned(),
+                inclusion_status: "safe_api_available".to_owned(),
+            })
+        },
+    )?;
     Ok(output)
 }
 
@@ -1000,6 +1022,7 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
 
 fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let upper = name.to_ascii_uppercase();
+    let fishpack = function.domain == "Cartesian FISHPACK PDE";
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
         "BLIST", "RLIST", "ELIST", "JAC", "IOPT", "NPRINT", "WA", "LWA", "FJAC", "LDFJAC", "R",
@@ -1013,6 +1036,11 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let bspline_constructor = function.domain == "B-spline interpolation"
         && function.rust_path.contains("interpolate_with_knots");
     let internal_argument = (internal.contains(&upper.as_str())
+        || (fishpack
+            && matches!(
+                upper.as_str(),
+                "MBDCND" | "NBDCND" | "IDIMF" | "IERROR" | "W"
+            ))
         || (bspline_constructor && matches!(upper.as_str(), "N" | "BCOEF" | "Q"))
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
@@ -1027,6 +1055,21 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         None
     } else {
         Some(match upper.as_str() {
+            "A" if fishpack => "problem.x.lower".to_owned(),
+            "B" if fishpack => "problem.x.upper".to_owned(),
+            "M" if fishpack => "problem.x.intervals".to_owned(),
+            "C" if fishpack => "problem.y.lower".to_owned(),
+            "D" if fishpack => "problem.y.upper".to_owned(),
+            "N" if fishpack => "problem.y.intervals".to_owned(),
+            "BDA" | "BDB" if fishpack => {
+                "private x-edge derivative buffer from AxisBoundary".to_owned()
+            }
+            "BDC" | "BDD" if fishpack => {
+                "private y-edge derivative buffer from AxisBoundary".to_owned()
+            }
+            "ELMBDA" if fishpack => "problem.coefficient".to_owned(),
+            "F" if fishpack => "owned Grid2 RHS overwritten with solution".to_owned(),
+            "PERTRB" if fishpack => "result.perturbation".to_owned(),
             "USRMAT" | "DUSRMT" if function.domain == "linear programming" => {
                 "problem.matrix delivered by an internal one-based sparse-column trampoline"
                     .to_owned()
@@ -1276,6 +1319,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             | "linear programming"
             | "real FFTPACK"
             | "complex FFTPACK"
+            | "Cartesian FISHPACK PDE"
             | "banded linear systems"
             | "piecewise cubic Hermite interpolation"
             | "piecewise-polynomial interpolation"
@@ -1338,6 +1382,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "banded linear systems",
         "piecewise cubic Hermite interpolation",
         "piecewise-polynomial interpolation",
+        "Cartesian FISHPACK PDE",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
         for item in functions.iter().filter(|item| item.domain == domain) {
@@ -1431,6 +1476,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "piecewise-polynomial interpolation" => {
             "crates/slatec/tests/piecewise_polynomial_native.rs"
         }
+        "Cartesian FISHPACK PDE" => "crates/slatec/tests/fishpack_cartesian_2d_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }
@@ -1484,6 +1530,7 @@ fn native_status(domain: &str) -> &'static str {
         | "complex FFTPACK"
         | "piecewise cubic Hermite interpolation"
         | "piecewise-polynomial interpolation"
+        | "Cartesian FISHPACK PDE"
         | "special functions"
         | "polynomials" => "native_execution_passed",
         _ => "unknown",

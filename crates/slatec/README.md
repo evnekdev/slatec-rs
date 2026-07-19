@@ -58,6 +58,13 @@ negative/positive exponent directions and `N` round-trip scale, and has no
 `Complex64` plan because the selected snapshot contains no complex `f64`
 roots. See the [complex FFTPACK guide](../../docs/api/safe-complex-fftpack.md).
 
+The hosted `fishpack-cartesian-2d` feature provides an owned `f32` Cartesian
+Poisson/Helmholtz finite-difference solve over reviewed `HWSCRT`. It has typed
+periodic, value, derivative, and mixed edge conditions; explicit perturbation
+and non-uniqueness reporting; private checked workspace; and process-global
+native serialization. Three-dimensional and non-Cartesian FISHPACK families
+remain deferred. See the [Cartesian FISHPACK guide](../../docs/api/safe-fishpack-cartesian-2d.md).
+
 The hosted `banded-linear-systems` feature provides compact general-band
 `f32`/`f64` LU factors, reusable direct and transpose solves, `SGBCO`/`DGBCO`
 reciprocal 1-norm condition estimates, and `SGBDI`/`DGBDI` base-ten scaled

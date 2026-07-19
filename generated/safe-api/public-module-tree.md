@@ -6,9 +6,9 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 
 | Status | Leaves |
 | --- | ---: |
-| Implemented | 29 |
+| Implemented | 30 |
 | Partial | 15 |
-| Planned | 18 |
+| Planned | 17 |
 | Deferred | 3 |
 | Unavailable | 0 |
 
@@ -73,7 +73,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | differential_equations | `differential_equations::dae::dassl::user_jacobian` | Reserved | Deferred | no | `` | unreviewed | unreviewed | unreviewed | `` | User-Jacobian callback aliasing and lifecycle contracts are not yet reviewed. | Resolve the blocker in a dedicated audited milestone. |
 | differential_equations | `differential_equations::dae::dassl::banded` | Reserved | Deferred | no | `` | unreviewed | unreviewed | unreviewed | `` | Banded Jacobian layout and callback contracts are outside the residual-only scope. | Resolve the blocker in a dedicated audited milestone. |
 | differential_equations | `differential_equations::boundary_value` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No reviewed safe boundary-value family is selected. | Inventory boundary-value candidates. |
-| differential_equations | `differential_equations::pde` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | PDE/FISHPACK contracts are outside current ODE/DAE scopes. | Audit a distinct PDE family. |
+| differential_equations | `differential_equations::pde` | Reserved | Implemented | yes | `fishpack-cartesian-2d` | f32 | std | SerializedGlobal | `slatec::differential_equations::pde` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | optimization | `optimization::linear_programming` | Reserved | Implemented | yes | `optimization-linear-programming-in-memory` | f32,f64 | std | SerializedGlobal | `slatec::linear_programming` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | optimization | `optimization::unconstrained` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe unconstrained-minimization family exists. | Use the optimization inventory to select one family. |
 | optimization | `optimization::constrained` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe constrained-optimization family exists. | Use the optimization inventory to select one family. |

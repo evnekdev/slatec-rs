@@ -1,17 +1,17 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 242,
+  "safe_function_count": 243,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 182
+    "std": 183
   },
   "status_totals": {
     "Deferred": 3,
-    "Implemented": 29,
+    "Implemented": 30,
     "Partial": 15,
-    "Planned": 18
+    "Planned": 17
   },
   "stability_totals": {
     "Frozen": 10,
@@ -978,18 +978,20 @@
       "canonical_grouped_module_path": "differential_equations::pde",
       "module_file": "crates/slatec/src/differential_equations/pde.rs",
       "stability": "Reserved",
-      "status": "Planned",
-      "cargo_feature": null,
-      "current_implementation_module": null,
-      "compatibility_path": null,
-      "safe_native_families": [],
-      "precision_coverage": "unreviewed",
-      "runtime_level": "unreviewed",
-      "concurrency_classification": "unreviewed",
-      "status_rationale": "A coherent future family is intended, but no safe API is public.",
-      "blocker": "PDE/FISHPACK contracts are outside current ODE/DAE scopes.",
-      "likely_next_milestone": "Audit a distinct PDE family.",
-      "evidence_source": "selected-snapshot inventories and domain roadmap"
+      "status": "Implemented",
+      "cargo_feature": "fishpack-cartesian-2d",
+      "current_implementation_module": "crate::differential_equations::pde",
+      "compatibility_path": "slatec::differential_equations::pde",
+      "safe_native_families": [
+        "fishpack-cartesian-2d"
+      ],
+      "precision_coverage": "f32",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
+      "evidence_source": "generated/safe-api/function-index.json"
     },
     {
       "canonical_grouped_module_path": "optimization::linear_programming",

@@ -38,6 +38,7 @@ pub mod safe_constrained_linear_least_squares;
 pub mod safe_dassl;
 pub mod safe_fftpack;
 pub mod safe_fftpack_complex;
+pub mod safe_fishpack;
 pub mod safe_least_squares;
 pub mod safe_linear_least_squares;
 pub mod safe_linear_programming_deferred;

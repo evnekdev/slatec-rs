@@ -80,6 +80,15 @@ Some families solve linear problems by superposition, while others handle nonlin
 
 FISHPACK solves separable elliptic PDEs on structured grids and related block-tridiagonal systems. It uses cyclic reduction and Fourier-related machinery; `POIS3D`, for example, is described as using FFTPACK. Therefore the PDE domain depends on transforms and structured linear algebra even though FISHPACK and FFTPACK share a relocated Netlib directory ([`slatec-fishfft`](https://www.netlib.org/slatec/fishfft/); [`netlib-fishpack`](https://www.netlib.org/fishpack/)).
 
+The first reviewed safe PDE surface is intentionally narrower: the hosted
+`fishpack-cartesian-2d` feature owns a single-precision Cartesian
+Poisson/Helmholtz problem and calls only `HWSCRT`. It provides typed periodic,
+Dirichlet, Neumann, and mixed edges; private checked workspace; explicit
+`PERTRB`/non-uniqueness reporting; and process-global native serialization.
+It does not expose generic FISHPACK, `GENBUN`, `BLKTRI`, `POIS3D`, or any
+non-Cartesian geometry. See the [safe Cartesian FISHPACK guide]
+(../api/safe-fishpack-cartesian-2d.md).
+
 ## Common callback and workspace patterns
 
 - RHS callback \(f(t,y)\);

@@ -994,6 +994,21 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::differential_equations::pde::CartesianHelmholtz2d::solve",
+      "fortran_routine": "HWSCRT",
+      "module": "slatec::differential_equations::pde",
+      "domain": "Cartesian FISHPACK PDE",
+      "precision": "f32",
+      "purpose": "checked owned Cartesian Poisson/Helmholtz finite-difference solve",
+      "capability": "std",
+      "feature": "fishpack-cartesian-2d",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/differential_equations/pde/struct.CartesianHelmholtz2d.html#method.solve",
+      "example_file": "examples/fishpack_cartesian_2d.rs",
+      "example_case": "mixed Cartesian Poisson problem",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::fftpack::CosineTransformPlan::new",
       "fortran_routine": "COSTI",
       "module": "slatec::fftpack::CosineTransformPlan",

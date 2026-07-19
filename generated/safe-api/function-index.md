@@ -72,6 +72,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::constrained_least_squares::solve_constrained_least_squares_f32` | `LSEI` | linear least squares | f32 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/inequality_constrained_fit.rs) |
 | `slatec::dassl::DaeSession::<f32, F>::advance_to` | `SDASSL` | differential-algebraic equations | f32 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/algebraic_variable.rs) |
 | `slatec::dassl::DaeSession::<f64, F>::advance_to` | `DDASSL` | differential-algebraic equations | f64 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/index1_constraint.rs) |
+| `slatec::differential_equations::pde::CartesianHelmholtz2d::solve` | `HWSCRT` | Cartesian FISHPACK PDE | f32 | checked owned Cartesian Poisson/Helmholtz finite-difference solve | `std` | `fishpack-cartesian-2d` | [mixed Cartesian Poisson problem](../../examples/fishpack_cartesian_2d.rs) |
 | `slatec::fftpack::CosineTransformPlan::new` | `COSTI` | real FFTPACK | f32 | initialize a full cosine-transform plan | `std` | `fftpack-real` | [full cosine transform plan initialization](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::CosineTransformPlan::transform` | `COST` | real FFTPACK | f32 | compute the full FFTPACK cosine transform | `std` | `fftpack-real` | [full cosine transform](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::EasyRealFftPlan::backward` | `EZFFTB` | real FFTPACK | f32 | synthesize a real sequence from Fourier-series coefficients | `std` | `fftpack-real` | [easy real Fourier synthesis](../../examples/fftpack/real_fft.rs) |
@@ -409,6 +410,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `GAMIT` -> `slatec::special::gamma::tricomi_incomplete_gamma_f32`
 - `GAMMA` -> `slatec::special::gamma::gamma_f32`
 - `GAMR` -> `slatec::special::gamma::reciprocal_gamma_f32`
+- `HWSCRT` -> `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
 - `IDAMAX` -> `slatec::blas::level1::idamax`
 - `IDAMAX` -> `slatec::blas::level1::idamax_strided`
 - `ISAMAX` -> `slatec::blas::level1::isamax`
@@ -770,6 +772,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` — batch-evaluate a right-Taylor piecewise polynomial
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` — integrate a piecewise polynomial exactly
 
+### Cartesian FISHPACK PDE
+
+- `slatec::differential_equations::pde::CartesianHelmholtz2d::solve` — checked owned Cartesian Poisson/Helmholtz finite-difference solve
+
 ## Capability index
 
 ### Core only
@@ -848,6 +854,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
 - `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - `slatec::dassl::DaeSession::<f64, F>::advance_to`
+- `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
 - `slatec::fftpack::CosineTransformPlan::new`
 - `slatec::fftpack::CosineTransformPlan::transform`
 - `slatec::fftpack::EasyRealFftPlan::backward`

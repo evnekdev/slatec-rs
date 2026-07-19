@@ -25,6 +25,9 @@ The collection is ready to advance to reproducible bulk source ingestion and met
 
 ## Complete catalogue
 
+The first safe Cartesian FISHPACK solver is documented in the [Cartesian
+Poisson/Helmholtz guide](api/safe-fishpack-cartesian-2d.md).
+
 [Complete SLATEC Routine Index](reference/slatec-routine-index.md) provides the generated historical inventory and `slatec-rs` coverage map, with [family browsing](reference/routines-by-family.md), [alphabetical lookup](reference/routines-alphabetical.md), and [coverage and reconciliation](reference/routine-coverage.md).
 
 Routine descriptions are assembled from canonical Netlib source prologues, the Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a module match is verified, and reviewed secondary evidence. Source revisions can differ, so the canonical prologue takes precedence; compact indexes show a short purpose and link to one generated page per routine, where full descriptions and distinctly labelled external references are retained.

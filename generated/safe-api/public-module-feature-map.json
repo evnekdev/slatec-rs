@@ -231,6 +231,13 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "fishpack-cartesian-2d",
+      "grouped_paths": [
+        "differential_equations::pde"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "optimization-linear-programming-in-memory",
       "grouped_paths": [
         "optimization::linear_programming"

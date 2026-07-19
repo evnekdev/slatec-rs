@@ -29,10 +29,10 @@ Subroutine HWSCRT solves the standard five-point finite difference approximation
 - Source status: `provider_present`
 - Raw-binding status: `bound`
 - Build/profile status: `selected_by_profile`
-- Audit status: `family_inventory_only`
-- Safe-API status: `none`
-- Implementation status: `not_exposed_as_safe_api`
-- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+- Audit status: `deeply_audited`
+- Safe-API status: `safe_public`
+- Implementation status: `safe_api_available`
+- Safe Rust paths: `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
 
 ## Providers
 

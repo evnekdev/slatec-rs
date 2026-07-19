@@ -50,6 +50,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     projections.extend(crate::safe_bspline::native_state_projections()?);
     projections.extend(crate::safe_piecewise_polynomial::native_state_projections()?);
     projections.extend(crate::safe_fftpack_complex::native_state_projections()?);
+    projections.extend(crate::safe_fishpack::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
@@ -727,6 +728,29 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             },
         });
     }
+    // HWSCRT's Cartesian FISHPACK closure is likewise narrow and has focused
+    // source plus GNU MinGW link evidence.  It contains no mutable COMMON,
+    // SAVE, DATA, XERROR, Fortran I/O, or callback path, including through
+    // GENBUN and the direct subsidiary solvers.  Retain the runtime lock until
+    // provider/runtime reentrancy is qualified independently.
+    let fishpack_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fishpack-cartesian-2d-source-closure.json",
+    ))?;
+    let fishpack_sources = fishpack_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("Cartesian FISHPACK closure lacks source records"))?;
+    for source in fishpack_sources {
+        let id = string(source, "id")?.to_owned();
+        let path = string(source, "path")?;
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: path.to_owned(),
+            storage: format!(
+                "focused_fishpack_cartesian_source_and_link_audit:{path}:no_COMMON_SAVE_DATA_XERROR_or_IO"
+            ),
+            mutable: false,
+            status: "complete_no_mutable_state_found".to_owned(),
+        });
+    }
     Ok(output)
 }
 
@@ -1097,6 +1121,17 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
     let mut closures = read_value(repo_path(
         "crates/slatec-src/metadata/family-source-closure.json",
     ))?;
+    // Linkage metadata may retain a compiler-observed `unclassified` bucket
+    // for non-public source units. It is not a safe API family and must not
+    // widen this audit beyond reviewed public closures.
+    closures["families"]
+        .as_object_mut()
+        .ok_or_else(|| policy("family source closure lacks families"))?
+        .remove("unclassified");
+    let ode_sdrive_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/ode-sdrive-source-closure.json",
+    ))?;
+    closures["families"]["ode-sdrive-expert"] = ode_sdrive_closure["source_ids"].clone();
     let lp_closure = read_value(repo_path(
         "crates/slatec-src/metadata/lp-in-memory-source-closure.json",
     ))?;
@@ -1110,6 +1145,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/fftpack-complex-source-closure.json",
     ))?;
     closures["families"]["fftpack-complex"] = fftpack_complex_closure["source_ids"].clone();
+    let fishpack_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fishpack-cartesian-2d-source-closure.json",
+    ))?;
+    closures["families"]["fishpack-cartesian-2d"] = fishpack_closure["source_ids"].clone();
     let banded_closure = read_value(repo_path(
         "crates/slatec-src/metadata/banded-linear-systems-source-closure.json",
     ))?;

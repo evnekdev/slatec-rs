@@ -3023,6 +3023,103 @@
       ]
     },
     {
+      "rust_path": "slatec::differential_equations::pde::CartesianHelmholtz2d::solve",
+      "fortran_routine": "HWSCRT",
+      "program_unit_id": "full-provider-27c1afe90989cbd6",
+      "arguments": [
+        {
+          "rust": "problem.x.lower",
+          "fortran": "A",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.x.upper",
+          "fortran": "B",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.x.intervals",
+          "fortran": "M",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private x-edge derivative buffer from AxisBoundary",
+          "fortran": "BDA",
+          "transformation": "owned"
+        },
+        {
+          "rust": "private x-edge derivative buffer from AxisBoundary",
+          "fortran": "BDB",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.y.lower",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.y.upper",
+          "fortran": "D",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.y.intervals",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private y-edge derivative buffer from AxisBoundary",
+          "fortran": "BDC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "private y-edge derivative buffer from AxisBoundary",
+          "fortran": "BDD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "owned"
+        },
+        {
+          "rust": "owned Grid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::fftpack::CosineTransformPlan::new",
       "fortran_routine": "COSTI",
       "program_unit_id": "full-provider-7fbd2bfcc8728813",

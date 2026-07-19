@@ -274,6 +274,7 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         "lp-in-memory-source-closure.json",
         "fftpack-real-source-closure.json",
         "fftpack-complex-source-closure.json",
+        "fishpack-cartesian-2d-source-closure.json",
         "banded-linear-systems-source-closure.json",
         "pchip-source-closure.json",
         "bspline-source-closure.json",
@@ -284,7 +285,14 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
         if !overlay_path.is_file() {
             continue;
         }
-        let overlay: FamilyOverlay = serde_json::from_slice(&fs::read(&overlay_path)?)?;
+        let mut overlay: FamilyOverlay = serde_json::from_slice(&fs::read(&overlay_path)?)?;
+        // The linkage generator can materialize a reviewed family directly in
+        // the base manifest.  Match slatec-src/build.rs and reuse that family
+        // instead of adding the overlay under duplicate provider identities.
+        if manifest.families.contains_key(&overlay.family) {
+            continue;
+        }
+        let mut reused_ids = std::collections::BTreeMap::new();
         for source in overlay.sources {
             let existing = manifest.sources.iter().find(|known| known.id == source.id);
             if let Some(existing) = existing {
@@ -298,6 +306,22 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
                     "{file} disagrees about provider source {} ({}/{})",
                     source.id, source.subset, source.path
                 )));
+            }
+            if let Some(existing) = manifest
+                .sources
+                .iter()
+                .find(|known| known.subset == source.subset && known.path == source.path)
+            {
+                if existing.sha256 != source.sha256 {
+                    return Err(CorpusError::Verification(format!(
+                        "{file} disagrees about provider bytes for {}/{}",
+                        source.subset, source.path
+                    )));
+                }
+                if existing.id.starts_with("selected-source-") {
+                    reused_ids.insert(source.id, existing.id.clone());
+                    continue;
+                }
             }
             if !ids.insert(source.id.clone())
                 || !paths.insert((source.subset.clone(), source.path.clone()))
@@ -314,6 +338,11 @@ fn provider_manifest(manifest_path: &Path) -> Result<SourceManifest> {
                 path: source.path,
                 sha256: source.sha256,
             });
+        }
+        for id in &mut overlay.source_ids {
+            if let Some(reused) = reused_ids.get(id) {
+                *id = reused.clone();
+            }
         }
         if manifest
             .families
@@ -359,7 +388,7 @@ fn receipt_source<'a>(
             "main-src" => "SLATEC main source archive",
             "fnlib" => "SLATEC-hosted FNLIB",
             "lin" => "SLATEC-hosted LINPACK/BLAS/support directory",
-            "fishfft" => "SLATEC-hosted FFTPACK",
+            "fishfft" => "SLATEC-hosted FISHPACK/FFTPACK",
             "pchip" => "SLATEC PCHIP package",
             _ => "unreviewed provider subset",
         },
@@ -489,7 +518,7 @@ mod tests {
     }
 
     #[test]
-    fn banded_overlay_reuses_canonical_shared_source_ids() {
+    fn banded_overlay_keeps_its_reviewed_source_closure() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let manifest =
             provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
@@ -498,21 +527,24 @@ mod tests {
             .families
             .get("banded-linear-systems")
             .expect("banded family");
-        for id in [
-            "ode-source-sgbfa",
-            "ode-source-dgbfa",
-            "ode-source-sgbsl",
-            "ode-source-dgbsl",
-            "selected-source-6f96c5d6bf492c26",
-            "selected-source-279c0ab3ecea5e7f",
-            "selected-source-5b9cd6fbebf4f453",
-            "selected-source-6cb918517961738d",
-            "selected-source-ad5a3d887da96246",
-            "selected-source-737860eb0340df52",
-            "selected-source-f4734383da09961a",
-            "selected-source-97f5e57210c2ff0e",
+        let source_paths = source_ids
+            .iter()
+            .map(|id| {
+                manifest
+                    .sources
+                    .iter()
+                    .find(|source| &source.id == id)
+                    .expect("banded source id")
+                    .path
+                    .as_str()
+            })
+            .collect::<std::collections::BTreeSet<_>>();
+        for path in [
+            "sgbfa.f", "dgbfa.f", "sgbsl.f", "dgbsl.f", "sgbco.f", "dgbco.f", "sgbdi.f", "dgbdi.f",
+            "sasum.f", "dasum.f", "saxpy.f", "daxpy.f", "sscal.f", "dscal.f", "isamax.f",
+            "idamax.f", "sdot.f", "ddot.f",
         ] {
-            assert!(source_ids.iter().any(|source_id| source_id == id), "{id}");
+            assert!(source_paths.contains(path), "{path}");
         }
     }
 
@@ -523,23 +555,39 @@ mod tests {
             provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
                 .expect("provider manifest");
         assert!(manifest.families.contains_key("ode-sdrive-expert"));
-        for (id, expected) in [
-            (
-                "ode-source-ddcor",
-                "https://www.netlib.org/slatec/src/ddcor.f",
-            ),
-            (
-                "ode-source-dgbfa",
-                "https://www.netlib.org/slatec/lin/dgbfa.f",
-            ),
+        for (path, expected) in [
+            ("src/ddcor.f", "https://www.netlib.org/slatec/src/ddcor.f"),
+            ("dgbfa.f", "https://www.netlib.org/slatec/lin/dgbfa.f"),
         ] {
             let source = manifest
                 .sources
                 .iter()
-                .find(|source| source.id == id)
+                .find(|source| source.path == path)
                 .expect("overlay source");
             assert_eq!(source.url, expected);
         }
+    }
+
+    #[test]
+    fn materialized_fishpack_family_is_not_readded_by_its_overlay() {
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let manifest =
+            provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
+                .expect("provider manifest");
+        let fishpack = manifest
+            .families
+            .get("fishpack-cartesian-2d")
+            .expect("materialized FISHPACK family");
+        assert_eq!(fishpack.len(), 11);
+        let hwscrt = manifest
+            .sources
+            .iter()
+            .find(|source| source.path == "hwscrt.f")
+            .expect("HWSCRT provider source");
+        assert_eq!(
+            hwscrt.sha256,
+            "9bcd5a3be9e6d63e7dcc33637eb37ef07ba10b727b74859d08cb4daa7f813202"
+        );
     }
 
     #[test]
@@ -556,7 +604,10 @@ mod tests {
             .find(|record| record["mode"] == "prebuilt")
             .expect("prebuilt record");
         assert_eq!(prebuilt["status"], "blocked");
-        assert_eq!(providers["family_count"], 34);
+        let manifest =
+            provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
+                .expect("provider manifest");
+        assert_eq!(providers["family_count"], manifest.families.len());
 
         for name in ["slatec", "slatec-core", "slatec-sys", "slatec-src"] {
             let crate_root = root.join("crates").join(name);

@@ -7,7 +7,8 @@ use std::thread::ThreadId;
 
 #[cfg(any(
     feature = "ode-sdrive-expert-native-tests",
-    feature = "native-serialization-tests"
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
 ))]
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -99,11 +100,20 @@ pub(crate) fn lock_native() -> NativeRuntimeGuard {
     NATIVE_RUNTIME_LOCK.lock()
 }
 
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 static ACTIVE_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 static MAX_HOSTED_NATIVE_SCOPES: AtomicUsize = AtomicUsize::new(0);
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 static NESTED_SAME_THREAD_ENTRIES: AtomicUsize = AtomicUsize::new(0);
 #[cfg(feature = "blas-level1-concurrency-native-tests")]
 static ACTIVE_BLAS1_NATIVE_CALLS: AtomicUsize = AtomicUsize::new(0);
@@ -112,40 +122,64 @@ static MAX_BLAS1_NATIVE_CALLS: AtomicUsize = AtomicUsize::new(0);
 #[cfg(feature = "blas-level1-concurrency-native-tests")]
 static BLAS1_HOSTED_OVERLAPS: AtomicUsize = AtomicUsize::new(0);
 
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 fn hosted_native_scope_enter() {
     let active = ACTIVE_HOSTED_NATIVE_SCOPES.fetch_add(1, Ordering::SeqCst) + 1;
     MAX_HOSTED_NATIVE_SCOPES.fetch_max(active, Ordering::SeqCst);
 }
 
-#[cfg(not(feature = "native-serialization-tests"))]
+#[cfg(not(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+)))]
 fn hosted_native_scope_enter() {}
 
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 fn hosted_native_nested_enter() {
     NESTED_SAME_THREAD_ENTRIES.fetch_add(1, Ordering::SeqCst);
 }
 
-#[cfg(not(feature = "native-serialization-tests"))]
+#[cfg(not(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+)))]
 fn hosted_native_nested_enter() {}
 
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 fn hosted_native_scope_exit() {
     let previous = ACTIVE_HOSTED_NATIVE_SCOPES.fetch_sub(1, Ordering::SeqCst);
     debug_assert_eq!(previous, 1, "hosted native scope audit lost serialization");
 }
 
-#[cfg(not(feature = "native-serialization-tests"))]
+#[cfg(not(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+)))]
 fn hosted_native_scope_exit() {}
 
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 pub(crate) fn reset_hosted_native_call_audit() {
     let _guard = lock_native();
     MAX_HOSTED_NATIVE_SCOPES.store(0, Ordering::SeqCst);
     NESTED_SAME_THREAD_ENTRIES.store(0, Ordering::SeqCst);
 }
 
-#[cfg(feature = "native-serialization-tests")]
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 pub(crate) fn hosted_native_call_audit() -> (usize, usize, usize, bool, Option<std::string::String>)
 {
     let state = NATIVE_RUNTIME_LOCK
@@ -400,7 +434,10 @@ mod tests {
         handle.join().unwrap();
     }
 
-    #[cfg(feature = "native-serialization-tests")]
+    #[cfg(any(
+        feature = "native-serialization-tests",
+        feature = "fishpack-cartesian-2d-native-tests"
+    ))]
     #[test]
     fn audit_tracks_nesting_and_restores_after_panic() {
         super::reset_hosted_native_call_audit();

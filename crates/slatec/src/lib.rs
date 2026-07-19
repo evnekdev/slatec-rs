@@ -65,6 +65,8 @@ compile_error!(
 compile_error!("the `fftpack-real` safe API requires the `std` feature");
 #[cfg(all(feature = "fftpack-complex", not(feature = "std")))]
 compile_error!("the `fftpack-complex` safe API requires the `std` feature");
+#[cfg(all(feature = "fishpack-cartesian-2d", not(feature = "std")))]
+compile_error!("the `fishpack-cartesian-2d` safe API requires the `std` feature");
 #[cfg(all(feature = "pchip", not(feature = "std")))]
 compile_error!("the `pchip` safe API requires the `std` feature");
 #[cfg(all(feature = "bspline", not(feature = "std")))]
@@ -140,6 +142,7 @@ pub mod polynomials;
     feature = "optimization-linear-programming-in-memory",
     feature = "fftpack-real",
     feature = "fftpack-complex",
+    feature = "fishpack-cartesian-2d",
     feature = "banded-linear-systems",
     feature = "pchip",
     feature = "bspline",
@@ -164,9 +167,12 @@ pub mod dassl;
 
 /// Test-only observations of the hosted process-wide native runtime lock.
 ///
-/// This module is available only with `native-serialization-tests`; it does
-/// not alter lock scope or advertise native parallel execution.
-#[cfg(feature = "native-serialization-tests")]
+/// This module is available only with a native serialization test feature; it
+/// does not alter lock scope or advertise native parallel execution.
+#[cfg(any(
+    feature = "native-serialization-tests",
+    feature = "fishpack-cartesian-2d-native-tests"
+))]
 #[doc(hidden)]
 pub mod native_serialization_test_support {
     /// A point-in-time observation of hosted native lock activity.

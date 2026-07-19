@@ -501,6 +501,9 @@ fn family_for(path: &str, routine: &str) -> String {
     if path.contains("::dassl::") {
         return "dassl".to_owned();
     }
+    if path.contains("::differential_equations::pde::") {
+        return "fishpack-cartesian-2d".to_owned();
+    }
     if path.contains("::fftpack::") {
         return "fftpack-real".to_owned();
     }
@@ -894,6 +897,13 @@ mod tests {
         assert_eq!(
             family_for("slatec::pchip::PiecewiseCubicHermite::monotone", "PCHIM"),
             "pchip"
+        );
+        assert_eq!(
+            family_for(
+                "slatec::differential_equations::pde::CartesianHelmholtz2d::solve",
+                "HWSCRT"
+            ),
+            "fishpack-cartesian-2d"
         );
     }
 
