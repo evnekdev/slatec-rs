@@ -25,6 +25,7 @@ pub mod prologues;
 pub mod provider;
 pub mod public_module_roadmap;
 pub mod raw_ffi;
+pub mod routine_catalogue;
 pub mod runtime_profile;
 pub mod runtime_storage_policy;
 pub mod safe_api_docs;
