@@ -1,16 +1,16 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 235,
+  "safe_function_count": 238,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 175
+    "std": 178
   },
   "status_totals": {
-    "Deferred": 3,
+    "Deferred": 2,
     "Implemented": 28,
-    "Partial": 14,
+    "Partial": 15,
     "Planned": 20
   },
   "stability_totals": {
@@ -1082,18 +1082,20 @@
       "canonical_grouped_module_path": "transforms::fft::complex",
       "module_file": "crates/slatec/src/transforms/fft/complex.rs",
       "stability": "Reserved",
-      "status": "Deferred",
-      "cargo_feature": null,
-      "current_implementation_module": null,
-      "compatibility_path": null,
-      "safe_native_families": [],
-      "precision_coverage": "unreviewed",
-      "runtime_level": "unreviewed",
-      "concurrency_classification": "unreviewed",
-      "status_rationale": "The family is deliberately postponed pending a documented blocker.",
-      "blocker": "The Fortran complex ABI requires a dedicated reviewed milestone.",
-      "likely_next_milestone": "Resolve the blocker in a dedicated audited milestone.",
-      "evidence_source": "generated safe-family deferred metadata"
+      "status": "Partial",
+      "cargo_feature": "fftpack-complex",
+      "current_implementation_module": "crate::transforms::fft::complex",
+      "compatibility_path": "none",
+      "safe_native_families": [
+        "fftpack-complex"
+      ],
+      "precision_coverage": "f32 (Complex32); Complex64 native roots absent",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
+      "blocker": "Only the selected single-precision standard real-array complex FFTPACK interface exists; multidimensional work remains separate.",
+      "likely_next_milestone": "Audit a native double-precision complex family only if one is added to the selected snapshot.",
+      "evidence_source": "generated/safe-api/function-index.json"
     },
     {
       "canonical_grouped_module_path": "transforms::fft::multidimensional",

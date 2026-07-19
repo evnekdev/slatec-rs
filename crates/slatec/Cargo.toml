@@ -152,6 +152,14 @@ fftpack-real = [
     "slatec-src/fftpack-real",
 ]
 fftpack-real-native-tests = ["fftpack-real"]
+fftpack-complex = [
+    "std",
+    "blas-level1-validation",
+    "dep:num-complex",
+    "slatec-sys/raw-family-fftpack-complex",
+    "slatec-src/fftpack-complex",
+]
+fftpack-complex-native-tests = ["fftpack-complex"]
 pchip = [
     "std",
     "blas-level1-validation",
@@ -177,6 +185,7 @@ native-serialization-tests = [
     "std",
     "optimization-linear-programming-in-memory-native-tests",
     "fftpack-real-native-tests",
+    "fftpack-complex-native-tests",
     "pchip-native-tests",
     "bspline-native-tests",
     "piecewise-polynomial-native-tests",
@@ -269,7 +278,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = ["pchip", "bspline", "piecewise-polynomial"]
 optimize = ["optimization"]
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "pchip", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "fftpack-complex", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -284,6 +293,7 @@ special-functions-native-tests = [
 slatec-core.workspace = true
 slatec-sys.workspace = true
 slatec-src.workspace = true
+num-complex = { workspace = true, optional = true }
 
 [[example]]
 name = "link_gamma"
@@ -384,6 +394,20 @@ required-features = ["optimization-linear-programming-in-memory"]
 [[example]]
 name = "link_fftpack_real"
 required-features = ["fftpack-real"]
+
+[[example]]
+name = "link_fftpack_complex"
+required-features = ["fftpack-complex"]
+
+[[example]]
+name = "fftpack_complex_round_trip"
+path = "../../examples/fftpack/complex_round_trip.rs"
+required-features = ["fftpack-complex"]
+
+[[example]]
+name = "fftpack_complex_spectrum"
+path = "../../examples/fftpack/complex_spectrum.rs"
+required-features = ["fftpack-complex"]
 
 [[example]]
 name = "link_pchip"

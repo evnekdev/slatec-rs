@@ -2,8 +2,9 @@
 //!
 //! # Status: Partial
 //!
-//! Real FFTPACK plans are available in `fft`. Complex and multidimensional
-//! APIs remain separate source and ABI milestones.
+//! Real and selected complex FFTPACK plans are available in `fft` behind their
+//! separate feature flags. Multidimensional APIs remain a separate source and
+//! ABI milestone.
 
 /// Fourier transforms.
 pub mod fft;

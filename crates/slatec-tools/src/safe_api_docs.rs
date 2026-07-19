@@ -623,6 +623,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             "fftpack-real",
         ));
     }
+    collect_columnar(
+        "generated/safe-api/fftpack-complex-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "complex FFTPACK",
+                column(row, columns, "public_scalar")?,
+                column(row, columns, "operation")?,
+                "std",
+                "fftpack-complex",
+            ))
+        },
+    )?;
     for (path, routine, family) in [
         (
             "slatec::pchip::PiecewiseCubicHermite::monotone",
@@ -828,6 +843,10 @@ fn record(
             "examples/fftpack/quarter_wave.rs".to_owned()
         }
         "real FFTPACK" => "examples/fftpack/real_fft.rs".to_owned(),
+        "complex FFTPACK" if path.contains("forward") => {
+            "examples/fftpack/complex_spectrum.rs".to_owned()
+        }
+        "complex FFTPACK" => "examples/fftpack/complex_round_trip.rs".to_owned(),
         "piecewise cubic Hermite interpolation" if path.contains("integrate") => {
             "examples/pchip/integrate.rs".to_owned()
         }
@@ -958,6 +977,8 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let analytic_jacobian = function.rust_path.contains("with_jacobian");
     let jacobian_check = function.rust_path.contains("check_jacobian");
     let internal_argument = (internal.contains(&upper.as_str())
+        || (function.domain == "complex FFTPACK"
+            && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
         || (jacobian_check && upper == "FVEC"))
         && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
         && !(function.domain == "linear least squares" && upper == "MODE")
@@ -1008,8 +1029,13 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                     .to_owned()
             }
             "N" if function.domain == "real FFTPACK" => "plan.length".to_owned(),
+            "N" if function.domain == "complex FFTPACK" => "plan.length".to_owned(),
             "R" | "X" if function.domain == "real FFTPACK" => {
                 "caller contiguous transform buffer".to_owned()
+            }
+            "C" if function.domain == "complex FFTPACK" => {
+                "caller contiguous Complex32 transform buffer, viewed as checked re/im f32 words"
+                    .to_owned()
             }
             "AZERO" if function.domain == "real FFTPACK" => "EasyRealSpectrum::mean".to_owned(),
             "A" if function.domain == "real FFTPACK" => "EasyRealSpectrum::cosine".to_owned(),
@@ -1188,6 +1214,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "linear least squares"
                 | "linear programming"
                 | "real FFTPACK"
+                | "complex FFTPACK"
                 | "piecewise cubic Hermite interpolation"
                 | "piecewise-polynomial interpolation"
         ) {
@@ -1330,6 +1357,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "differential-algebraic equations" => "crates/slatec/tests/dassl_native.rs",
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
         "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
+        "complex FFTPACK" => "crates/slatec/tests/fftpack_complex_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
         "B-spline interpolation" => "crates/slatec/tests/bspline_native.rs",
         "piecewise-polynomial interpolation" => {
@@ -1385,6 +1413,7 @@ fn native_status(domain: &str) -> &'static str {
         | "linear least squares"
         | "linear programming"
         | "real FFTPACK"
+        | "complex FFTPACK"
         | "piecewise cubic Hermite interpolation"
         | "piecewise-polynomial interpolation"
         | "special functions"

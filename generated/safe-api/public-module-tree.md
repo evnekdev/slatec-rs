@@ -7,9 +7,9 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | Status | Leaves |
 | --- | ---: |
 | Implemented | 28 |
-| Partial | 14 |
+| Partial | 15 |
 | Planned | 20 |
-| Deferred | 3 |
+| Deferred | 2 |
 | Unavailable | 0 |
 
 | Stability | Leaves |
@@ -79,7 +79,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | optimization | `optimization::constrained` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe constrained-optimization family exists. | Use the optimization inventory to select one family. |
 | optimization | `optimization::nonlinear` | Provisional | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Callback, state, and source-family selection remain uncertain. | Complete nonlinear-optimization inventory. |
 | transforms | `transforms::fft::real` | Reserved | Implemented | yes | `fftpack-real` | f32,f64 | std | SerializedGlobal | `slatec::fftpack` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
-| transforms | `transforms::fft::complex` | Reserved | Deferred | no | `` | unreviewed | unreviewed | unreviewed | `` | The Fortran complex ABI requires a dedicated reviewed milestone. | Resolve the blocker in a dedicated audited milestone. |
+| transforms | `transforms::fft::complex` | Reserved | Partial | yes | `fftpack-complex` | f32 (Complex32); Complex64 native roots absent | std | SerializedGlobal | `none` | Only the selected single-precision standard real-array complex FFTPACK interface exists; multidimensional work remains separate. | Audit a native double-precision complex family only if one is added to the selected snapshot. |
 | transforms | `transforms::fft::multidimensional` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No reviewed safe multidimensional transform family is selected. | Audit a bounded multidimensional transform family. |
 | interpolation | `interpolation::pchip` | Reserved | Implemented | yes | `pchip` | f32,f64 | std | SerializedGlobal | `slatec::pchip` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | interpolation | `interpolation::bspline` | Reserved | Partial | yes | `bspline` | f32,f64 | std | SerializedGlobal | `none` | Interpolation construction, basis vectors, weighted callbacks, tensor products, and smoothing remain deferred. | Audit one constructor family without broadening the representation API. |

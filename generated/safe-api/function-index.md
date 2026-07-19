@@ -241,6 +241,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::special::scalar_expanded::logarithmic_integral_f32` | `ALI` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
 | `slatec::special::scalar_expanded::spence_integral` | `DSPENC` | special functions | f64 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
 | `slatec::special::scalar_expanded::spence_integral_f32` | `SPENC` | special functions | f32 | validated scalar numerical function | `std` | `special-scalar-expanded` | [scalar-expanded-integrals](../../examples/special/integrals.rs) |
+| `slatec::transforms::fft::complex::ComplexFftPlan32::backward` | `CFFTB1` | complex FFTPACK | Complex32 | validated scalar numerical function | `std` | `fftpack-complex` | [positive exponent in-place DFT](../../examples/fftpack/complex_round_trip.rs) |
+| `slatec::transforms::fft::complex::ComplexFftPlan32::forward` | `CFFTF1` | complex FFTPACK | Complex32 | validated scalar numerical function | `std` | `fftpack-complex` | [negative exponent in-place DFT](../../examples/fftpack/complex_spectrum.rs) |
+| `slatec::transforms::fft::complex::ComplexFftPlan32::new` | `CFFTI1` | complex FFTPACK | Complex32 | validated scalar numerical function | `std` | `fftpack-complex` | [initialize reusable plan](../../examples/fftpack/complex_round_trip.rs) |
 
 ## Original Fortran routine index
 
@@ -273,6 +276,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate`
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `CBRT` -> `slatec::special::elementary::cbrt_f32`
+- `CFFTB1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::backward`
+- `CFFTF1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::forward`
+- `CFFTI1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::new`
 - `CHKDER` -> `slatec::nonlinear::check_jacobian_f32`
 - `COSDG` -> `slatec::special::elementary::cos_degrees_f32`
 - `COSQB` -> `slatec::fftpack::QuarterWaveCosinePlan::backward`
@@ -995,3 +1001,6 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::special::scalar_expanded::logarithmic_integral_f32`
 - `slatec::special::scalar_expanded::spence_integral`
 - `slatec::special::scalar_expanded::spence_integral_f32`
+- `slatec::transforms::fft::complex::ComplexFftPlan32::backward`
+- `slatec::transforms::fft::complex::ComplexFftPlan32::forward`
+- `slatec::transforms::fft::complex::ComplexFftPlan32::new`

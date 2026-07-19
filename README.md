@@ -134,6 +134,12 @@ sine/cosine transforms. Plans own their initialized native workspaces and
 preserve FFTPACK's native packed layouts and normalization; the authoritative
 snapshot has no reviewed double-precision counterparts. See the
 [real FFTPACK guide](docs/api/safe-real-fftpack.md).
+The opt-in hosted `fftpack-complex` feature adds one-dimensional in-place
+single-precision complex FFTPACK plans over `num_complex::Complex32`. It uses
+the reviewed standard real-array `CFFTI1/CFFTF1/CFFTB1` interface, preserving
+the negative/positive exponent directions and native `N` round-trip scale.
+The selected snapshot has no reviewed complex `f64` roots. See the
+[complex FFTPACK guide](docs/api/safe-complex-fftpack.md).
 The opt-in hosted `pchip` feature adds owned `f32` and `f64` piecewise-cubic
 Hermite curves over original PCHIP routines. It supports monotone and typed
 controlled derivative construction, PCHSP's typed endpoint conditions, value

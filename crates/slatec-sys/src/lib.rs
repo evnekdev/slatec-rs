@@ -73,6 +73,11 @@ pub mod special_scalar_expanded;
 #[cfg(feature = "raw-family-fftpack-real")]
 pub mod fftpack;
 
+/// Hand-reviewed standard real-array declarations for the selected complex
+/// FFTPACK plan family.
+#[cfg(feature = "raw-family-fftpack-complex")]
+pub mod fftpack_complex;
+
 /// Hand-reviewed PCHIP and piecewise-cubic Hermite declarations.
 #[cfg(feature = "raw-family-pchip")]
 pub mod pchip;

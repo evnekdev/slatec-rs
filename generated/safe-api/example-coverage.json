@@ -2352,6 +2352,36 @@
       "rust_path": "slatec::special::scalar_expanded::spence_integral_f32",
       "validation_case": "spence_integral_f32",
       "validation_file": "crates/slatec/tests/special_functions_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "positive exponent in-place DFT",
+      "example_file": "examples/fftpack/complex_round_trip.rs",
+      "fortran_routine": "CFFTB1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::backward",
+      "validation_case": "backward",
+      "validation_file": "crates/slatec/tests/fftpack_complex_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "negative exponent in-place DFT",
+      "example_file": "examples/fftpack/complex_spectrum.rs",
+      "fortran_routine": "CFFTF1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::forward",
+      "validation_case": "forward",
+      "validation_file": "crates/slatec/tests/fftpack_complex_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "initialize reusable plan",
+      "example_file": "examples/fftpack/complex_round_trip.rs",
+      "fortran_routine": "CFFTI1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::new",
+      "validation_case": "new",
+      "validation_file": "crates/slatec/tests/fftpack_complex_native.rs"
     }
   ]
 }

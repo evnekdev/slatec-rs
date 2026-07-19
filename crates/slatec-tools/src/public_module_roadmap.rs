@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 235;
+const SAFE_FUNCTION_TARGET: usize = 238;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -45,6 +45,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "dassl",
     "optimization-linear-programming-in-memory",
     "fftpack-real",
+    "fftpack-complex",
     "pchip",
     "bspline",
     "piecewise-polynomial",
@@ -831,10 +832,18 @@ fn leaves() -> Vec<LeafSpec> {
             "SerializedGlobal",
             &["slatec::fftpack::"]
         ),
-        deferred!(
+        partial!(
             "transforms::fft::complex",
             "crates/slatec/src/transforms/fft/complex.rs",
-            "The Fortran complex ABI requires a dedicated reviewed milestone."
+            "fftpack-complex",
+            "crate::transforms::fft::complex",
+            "none",
+            "fftpack-complex",
+            "f32 (Complex32); Complex64 native roots absent",
+            "std",
+            "SerializedGlobal",
+            "Only the selected single-precision standard real-array complex FFTPACK interface exists; multidimensional work remains separate.",
+            "Audit a native double-precision complex family only if one is added to the selected snapshot."
         ),
         planned!(
             "transforms::fft::multidimensional",
@@ -1082,6 +1091,11 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "fftpack-complex",
+            grouped_paths: &["transforms::fft::complex"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "pchip",
             grouped_paths: &["interpolation::pchip"],
             evidence_source: "crates/slatec/Cargo.toml",
@@ -1134,7 +1148,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 175),
+            ("std".to_owned(), 178),
         ])
     {
         return Err(policy(
