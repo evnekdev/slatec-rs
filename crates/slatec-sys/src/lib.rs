@@ -53,6 +53,21 @@ pub struct Complex64 {
 
 pub mod generated;
 
+/// Canonical reviewed raw BLAS namespace.
+///
+/// Enable `blas-level1`, `blas-level2`, `blas-level3`, or the aggregate
+/// `blas` feature.  The legacy [`families`] BLAS modules remain compatibility
+/// re-exports; [`generated`] paths remain ABI-shaped transitional access.
+#[cfg(any(
+    feature = "blas-level1",
+    feature = "blas-level2",
+    feature = "blas-level3",
+    feature = "raw-family-blas-level1",
+    feature = "raw-family-blas-level2",
+    feature = "raw-family-blas-level3"
+))]
+pub mod blas;
+
 /// Generated raw declarations grouped by safe public family rather than ABI
 /// shape. These modules are the preferred dependency of narrow safe features.
 #[cfg(any(

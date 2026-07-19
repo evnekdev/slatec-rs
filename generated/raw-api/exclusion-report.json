@@ -2,13 +2,30 @@
   "by_reason": {
     "callback ABI has compiler-shape evidence but no routine-specific callback contract": 114,
     "catalogue identity has no selected executable provider": 26,
-    "runtime or machine-support unit is not independently callable": 17
+    "multiprecision helper is not a standalone BLAS public routine": 18,
+    "runtime or machine-support unit is not independently callable": 17,
+    "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure": 3
   },
   "records": [
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "BFQAD",
       "state": "unsupported_callback_abi"
+    },
+    {
+      "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "routine": "CDCDOT",
+      "state": "unsupported_complex_return_abi"
+    },
+    {
+      "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "routine": "CDOTC",
+      "state": "unsupported_complex_return_abi"
+    },
+    {
+      "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "routine": "CDOTU",
+      "state": "unsupported_complex_return_abi"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
@@ -469,6 +486,96 @@
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "LSOD",
       "state": "unsupported_callback_abi"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPADD",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPADD2",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPADD3",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPBLAS",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPCDM",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPCHK",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPCMD",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPDIVI",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPERR",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPMAXR",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPMLP",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPMUL",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPMUL2",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPMULI",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPNZR",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPOVFL",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPSTR",
+      "state": "not_independently_callable"
+    },
+    {
+      "reason": "multiprecision helper is not a standalone BLAS public routine",
+      "routine": "MPUNFL",
+      "state": "not_independently_callable"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",

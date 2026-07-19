@@ -1137,6 +1137,7 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         ]),
     ];
     let source_files = read_value(repo_path("generated/ffi/selected-source-files.json"))?;
+    let source_paths = selected_source_paths(&source_files)?;
     let mut closures = read_value(repo_path(
         "crates/slatec-src/metadata/family-source-closure.json",
     ))?;
@@ -1147,58 +1148,47 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         .as_object_mut()
         .ok_or_else(|| policy("family source closure lacks families"))?
         .remove("unclassified");
-    let ode_sdrive_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/ode-sdrive-source-closure.json",
-    ))?;
-    closures["families"]["ode-sdrive-expert"] = ode_sdrive_closure["source_ids"].clone();
-    let lp_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/lp-in-memory-source-closure.json",
-    ))?;
-    closures["families"]["optimization-linear-programming-in-memory"] =
-        lp_closure["source_ids"].clone();
-    let fftpack_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/fftpack-real-source-closure.json",
-    ))?;
-    closures["families"]["fftpack-real"] = fftpack_closure["source_ids"].clone();
-    let fftpack_complex_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/fftpack-complex-source-closure.json",
-    ))?;
-    closures["families"]["fftpack-complex"] = fftpack_complex_closure["source_ids"].clone();
-    let fishpack_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/fishpack-cartesian-2d-source-closure.json",
-    ))?;
-    closures["families"]["fishpack-cartesian-2d"] = fishpack_closure["source_ids"].clone();
-    let pois3d_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/fishpack-pois3d-source-closure.json",
-    ))?;
-    closures["families"]["fishpack-pois3d"] = pois3d_closure["source_ids"].clone();
-    let banded_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/banded-linear-systems-source-closure.json",
-    ))?;
-    closures["families"]["banded-linear-systems"] = banded_closure["source_ids"].clone();
-    let pchip_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/pchip-source-closure.json",
-    ))?;
-    closures["families"]["pchip"] = pchip_closure["source_ids"].clone();
-    let bspline_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/bspline-source-closure.json",
-    ))?;
-    closures["families"]["bspline"] = bspline_closure["source_ids"].clone();
-    let pp_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/piecewise-polynomial-source-closure.json",
-    ))?;
-    closures["families"]["piecewise-polynomial"] = pp_closure["source_ids"].clone();
-    let special_scalar_expanded_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/special-scalar-expanded-source-closure.json",
-    ))?;
-    closures["families"]["special-scalar-expanded"] =
-        special_scalar_expanded_closure["source_ids"].clone();
-    let dassl_closure = read_value(repo_path(
-        "crates/slatec-src/metadata/dassl-source-closure.json",
-    ))?;
-    closures["families"]["dassl"] = dassl_closure["source_ids"].clone();
+    let mut overlay_aliases = BTreeMap::new();
+    for (family, file) in [
+        ("ode-sdrive-expert", "ode-sdrive-source-closure.json"),
+        ("dassl", "dassl-source-closure.json"),
+        (
+            "optimization-linear-programming-in-memory",
+            "lp-in-memory-source-closure.json",
+        ),
+        ("fftpack-real", "fftpack-real-source-closure.json"),
+        ("fftpack-complex", "fftpack-complex-source-closure.json"),
+        (
+            "fishpack-cartesian-2d",
+            "fishpack-cartesian-2d-source-closure.json",
+        ),
+        ("fishpack-pois3d", "fishpack-pois3d-source-closure.json"),
+        (
+            "banded-linear-systems",
+            "banded-linear-systems-source-closure.json",
+        ),
+        ("pchip", "pchip-source-closure.json"),
+        ("bspline", "bspline-source-closure.json"),
+        (
+            "piecewise-polynomial",
+            "piecewise-polynomial-source-closure.json",
+        ),
+        (
+            "special-scalar-expanded",
+            "special-scalar-expanded-source-closure.json",
+        ),
+    ] {
+        let families = closures["families"]
+            .as_object_mut()
+            .ok_or_else(|| policy("family source closure lacks families"))?;
+        if families.contains_key(family) {
+            continue;
+        }
+        let overlay = read_value(repo_path(format!("crates/slatec-src/metadata/{file}")))?;
+        overlay_aliases.extend(overlay_source_aliases(&overlay, &source_paths)?);
+        families.insert(family.to_owned(), overlay["source_ids"].clone());
+    }
     let interface = read_value(repo_path("generated/ffi/interface-inventory.json"))?;
-    let source_paths = selected_source_paths(&source_files)?;
     let source_by_routine = routine_source_ids(&interface, &source_paths)?;
     let safe_routines = functions
         .iter()
@@ -1231,7 +1221,13 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         .values()
         .flat_map(|sources| sources.as_array().into_iter().flatten())
         .filter_map(Value::as_str)
-        .map(str::to_owned)
+        .map(|source_id| {
+            overlay_aliases
+                .get(source_id)
+                .filter(|selected_id| native_sources.contains_key(selected_id.as_str()))
+                .cloned()
+                .unwrap_or_else(|| source_id.to_owned())
+        })
         .collect::<std::collections::BTreeSet<_>>();
     // A public raw routine occasionally lives in a physical source file which
     // is not named by a family closure record. Include those direct owners as
@@ -1330,6 +1326,32 @@ fn selected_source_paths(source_files: &Value) -> Result<BTreeMap<String, String
         );
     }
     Ok(output)
+}
+
+fn overlay_source_aliases(
+    overlay: &Value,
+    source_paths: &BTreeMap<String, String>,
+) -> Result<BTreeMap<String, String>> {
+    let by_path = source_paths
+        .iter()
+        .map(|(id, path)| (path.as_str(), id.as_str()))
+        .collect::<BTreeMap<_, _>>();
+    let mut aliases = BTreeMap::new();
+    for source in overlay["sources"]
+        .as_array()
+        .ok_or_else(|| policy("source closure overlay lacks sources"))?
+    {
+        let id = source["id"]
+            .as_str()
+            .ok_or_else(|| policy("source closure overlay source lacks id"))?;
+        let path = source["path"]
+            .as_str()
+            .ok_or_else(|| policy("source closure overlay source lacks path"))?;
+        if let Some(selected_id) = by_path.get(path) {
+            aliases.insert(id.to_owned(), (*selected_id).to_owned());
+        }
+    }
+    Ok(aliases)
 }
 
 fn routine_source_ids(

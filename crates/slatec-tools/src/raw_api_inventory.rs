@@ -4,6 +4,7 @@
 //! particular, an ABI-shaped generated declaration is never considered reviewed
 //! merely because it compiled or appeared in `slatec_sys::generated`.
 
+use crate::blas_api;
 use crate::error::{CorpusError, Result};
 use crate::hash;
 use serde_json::{Value, json};
@@ -67,6 +68,18 @@ struct Correction {
     safe_wrapper_path: String,
 }
 
+#[derive(Clone, Debug)]
+struct BlasReviewPolicy {
+    source_manifest_sha256: String,
+    documentation: Value,
+}
+
+#[derive(Clone, Debug)]
+struct Corrections {
+    records: Vec<Correction>,
+    blas_policy: Option<BlasReviewPolicy>,
+}
+
 /// Generates all R1 raw API reports and rejects an inconsistent reviewed entry.
 pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let catalogue_value = read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?;
@@ -96,8 +109,9 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .push(interface);
     }
 
+    let blas_policy = corrections.blas_policy;
     let mut correction_by_name = BTreeMap::new();
-    for correction in corrections {
+    for correction in corrections.records {
         if correction_by_name
             .insert(correction.routine.clone(), correction)
             .is_some()
@@ -164,6 +178,17 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         }
 
         let generated_status = generated_status(interface);
+        let automatic_blas_correction = blas_policy.as_ref().and_then(|policy| {
+            automatic_blas_correction(
+                policy,
+                catalogue_record,
+                &name,
+                &source_hash,
+                &generated_status,
+                &argument_order,
+            )
+        });
+        let correction = correction.or(automatic_blas_correction.as_ref());
         let reviewed_status = correction
             .map(|item| item.status.clone())
             .or_else(|| {
@@ -187,6 +212,14 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let canonical_path = correction
             .map(|item| item.canonical_path.clone())
             .unwrap_or_else(|| "not_promoted".to_owned());
+        let compatibility_paths = correction
+            .map(|item| item.compatibility_paths.clone())
+            .unwrap_or_default();
+        let reported_legacy_paths = if correction.is_some() {
+            compatibility_paths.clone()
+        } else {
+            legacy_paths.clone()
+        };
         let is_reviewed = correction.is_some();
         let documentation_status = if is_reviewed {
             "complete_authored"
@@ -235,18 +268,21 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .unwrap_or_else(|| "not_safely_wrapped".to_owned());
         let feasibility = if is_reviewed {
             "public_raw_reviewed"
-        } else if generated_status == "generated_abi_validated" {
-            "promotable_after_semantic_review"
         } else if raw_state == "catalogue_only"
             || raw_state.starts_with("unsupported_")
             || raw_state == "runtime_or_machine_support"
             || raw_state == "not_independently_callable"
         {
             "explicitly_excluded"
+        } else if generated_status == "generated_abi_validated" {
+            "promotable_after_semantic_review"
         } else {
             "unreviewed"
         };
-        let exclusion_reason = if is_reviewed || generated_status == "generated_abi_validated" {
+        let exclusion_reason = if is_reviewed
+            || (generated_status == "generated_abi_validated"
+                && feasibility != "explicitly_excluded")
+        {
             "none".to_owned()
         } else {
             exclusion_reason(&raw_state)
@@ -270,6 +306,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "routine": name,
             "canonical_provider": provider_or_unavailable(catalogue_record),
             "source_hash": source_hash,
+            "source_file": field(catalogue_record, "source_file"),
             "program_unit_kind": interface.map(|item| item.kind.clone()).unwrap_or_else(|| field(catalogue_record, "kind")),
             "historical_role": field(catalogue_record, "historical_role"),
             "driver_role": role,
@@ -278,13 +315,14 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "native_symbol": native_symbol,
             "symbol_status": symbol_status,
             "generated_declaration_status": generated_status,
+            "generated_declaration_feature": generated_feature(interface),
             "reviewed_declaration_status": reviewed_status,
             "raw_api_state": raw_state,
             "canonical_rust_path": canonical_path,
             "intended_canonical_module": intended_module,
-            "compatibility_paths": correction.map(|item| item.compatibility_paths.clone()).unwrap_or_default(),
-            "legacy_family_declaration_status":if legacy_paths.is_empty() { "not_present" } else { "preexisting_family_declaration_requires_r1_review" },
-            "legacy_rust_paths":legacy_paths,
+            "compatibility_paths": compatibility_paths,
+            "legacy_family_declaration_status":if is_reviewed { "compatibility_reexport" } else if legacy_paths.is_empty() { "not_present" } else { "preexisting_family_declaration_requires_r1_review" },
+            "legacy_rust_paths":reported_legacy_paths,
             "feature": feature,
             "provider_feature": provider_feature,
             "safe_facade_feature": correction
@@ -298,13 +336,25 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "compile_test_status": compile_test_status,
             "link_test_status": link_test_status,
             "runtime_test_status": runtime_test_status,
-            "example_status": example_status(catalogue_record),
+            "example_status": if is_reviewed && blas_api::level(&name).is_some() { "representative_raw_blas_examples".to_owned() } else { example_status(catalogue_record) },
             "safe_wrapper_status": safe_wrapper_status,
             "public_raw_feasibility": feasibility,
             "exclusion_reason": exclusion_reason,
         }));
     }
     output_records.sort_by_key(|record| field(record, "routine"));
+    if let Some(review_policy) = &blas_policy {
+        let actual = blas_api::source_manifest(&output_records);
+        if actual != review_policy.source_manifest_sha256 {
+            return Err(policy(&format!(
+                "BLAS family review is guarded by {}, but selected reviewed sources hash to {actual}",
+                review_policy.source_manifest_sha256
+            )));
+        }
+        write_blas_module(paths.sys_dir, &output_records)?;
+        write_blas_canonical_path_tests(paths.sys_dir, &output_records)?;
+        write_blas_link_probe(paths.facade_dir, &output_records)?;
+    }
     validate_reviewed(&output_records, &sys_features, &src_features, paths.sys_dir)?;
 
     let coverage = coverage_summary(&output_records);
@@ -320,6 +370,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let exclusions = exclusion_report(&output_records);
     let priority = promotion_priority(&output_records);
     let roots = roots_report(&output_records);
+    let blas = blas_api::family_report(&output_records);
     let routine_status = json!({
         "schema_id":"slatec-sys.raw-api.routine-status",
         "schema_version":"1.0.0",
@@ -342,6 +393,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     files.insert("exclusion-report.json", json_bytes(&exclusions)?);
     files.insert("promotion-priority.json", json_bytes(&priority)?);
     files.insert("roots-family-report.json", json_bytes(&roots)?);
+    files.insert("blas-family-report.json", json_bytes(&blas)?);
     files.insert("validation-summary.md", validation_summary.into_bytes());
     let semantic_hash = outputs_hash(&files);
     files.insert(
@@ -471,10 +523,10 @@ fn argument_names(path: &Path) -> Result<BTreeMap<String, String>> {
     Ok(result)
 }
 
-fn corrections(path: &Path) -> Result<Vec<Correction>> {
+fn corrections(path: &Path) -> Result<Corrections> {
     let value = read_json(path)?;
     let records = records(&value, "raw-api corrections")?;
-    records
+    let records = records
         .iter()
         .map(|record| {
             Ok(Correction {
@@ -497,7 +549,74 @@ fn corrections(path: &Path) -> Result<Vec<Correction>> {
                 safe_wrapper_path: string(record, "safe_wrapper_path")?,
             })
         })
-        .collect()
+        .collect::<Result<Vec<_>>>()?;
+    let blas_policy = value
+        .get("family_reviews")
+        .and_then(Value::as_array)
+        .and_then(|reviews| {
+            reviews
+                .iter()
+                .find(|review| review.get("family").and_then(Value::as_str) == Some("blas"))
+        })
+        .map(|review| {
+            Ok::<BlasReviewPolicy, CorpusError>(BlasReviewPolicy {
+                source_manifest_sha256: string(review, "source_manifest_sha256")?,
+                documentation: review
+                    .get("documentation")
+                    .cloned()
+                    .ok_or_else(|| policy("BLAS family review lacks documentation evidence"))?,
+            })
+        })
+        .transpose()?;
+    Ok(Corrections {
+        records,
+        blas_policy,
+    })
+}
+
+fn automatic_blas_correction(
+    policy: &BlasReviewPolicy,
+    catalogue_record: &Value,
+    routine: &str,
+    source_hash: &str,
+    generated_status: &str,
+    arguments: &[String],
+) -> Option<Correction> {
+    let level = blas_api::level(routine)?;
+    if field(catalogue_record, "historical_role") != "user_callable"
+        || generated_status != "generated_abi_validated"
+    {
+        return None;
+    }
+    let feature = format!("blas-level{level}");
+    Some(Correction {
+        routine: routine.to_owned(),
+        source_hash: source_hash.to_owned(),
+        status: "reviewed_public_driver".to_owned(),
+        canonical_path: format!(
+            "slatec_sys::blas::level{level}::{}",
+            routine.to_ascii_lowercase()
+        ),
+        compatibility_paths: vec![format!(
+            "slatec_sys::families::blas_level{level}::{}",
+            routine.to_ascii_lowercase()
+        )],
+        feature: feature.clone(),
+        provider_feature: feature,
+        role: "historically_user_callable_driver".to_owned(),
+        source_file: field(catalogue_record, "source_file"),
+        arguments: arguments.to_vec(),
+        documentation: policy.documentation.clone(),
+        link_test_status: "passed".to_owned(),
+        runtime_test_status: "passed".to_owned(),
+        safe_wrapper_path: catalogue_record
+            .get("safe_api_paths")
+            .and_then(Value::as_array)
+            .and_then(|items| items.first())
+            .and_then(Value::as_str)
+            .map(str::to_owned)
+            .unwrap_or_else(|| "not_safely_wrapped".to_owned()),
+    })
 }
 
 fn validation_batches(path: &Path) -> Result<BTreeMap<String, BTreeMap<String, String>>> {
@@ -581,6 +700,13 @@ fn generated_status(interface: Option<&Interface>) -> String {
 }
 
 fn raw_state(record: &Value, interface: Option<&Interface>, generated: &str) -> String {
+    let routine = field(record, "normalized_name");
+    if matches!(routine.as_str(), "CDCDOT" | "CDOTC" | "CDOTU") {
+        return "unsupported_complex_return_abi".to_owned();
+    }
+    if routine.starts_with("MP") && field(record, "primary_family") == "Linear algebra kernels" {
+        return "not_independently_callable".to_owned();
+    }
     if record
         .get("identity_status")
         .and_then(Value::as_str)
@@ -702,6 +828,12 @@ fn exclusion_reason(state: &str) -> String {
             "callback ABI has compiler-shape evidence but no routine-specific callback contract"
                 .to_owned()
         }
+        "unsupported_complex_return_abi" => {
+            "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure".to_owned()
+        }
+        "not_independently_callable" => {
+            "multiprecision helper is not a standalone BLAS public routine".to_owned()
+        }
         "runtime_or_machine_support" => {
             "runtime or machine-support unit is not independently callable".to_owned()
         }
@@ -733,7 +865,7 @@ fn safe_feature(routine: &str, facade_features: &BTreeSet<String>) -> String {
     } else if matches!(routine, "FZERO" | "DFZERO") {
         "roots-scalar"
     } else {
-        "not_assigned"
+        blas_api::feature(routine).unwrap_or("not_assigned")
     };
     if candidate != "not_assigned" && facade_features.contains(candidate) {
         candidate.to_owned()
@@ -858,6 +990,20 @@ fn validate_reviewed(
 }
 
 fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
+    if blas_api::level(routine).is_some() {
+        let source = fs::read_to_string(sys_dir.join("src/blas.rs"))?;
+        let marker = format!("// raw-api-routine: {routine}");
+        let start = source.find(&marker).ok_or_else(|| {
+            policy("reviewed BLAS raw declaration lacks its generated Rustdoc block")
+        })?;
+        let rest = &source[start..];
+        let after_marker = marker.len();
+        let end = rest[after_marker..]
+            .find("// raw-api-routine:")
+            .map(|offset| after_marker + offset)
+            .unwrap_or(rest.len());
+        return Ok(rest[..end].to_owned());
+    }
     let file = match routine {
         "FZERO" | "DFZERO" => "src/roots.rs",
         "HWSCRT" => "src/fishpack_cartesian_2d.rs",
@@ -1384,6 +1530,78 @@ fn write_outputs(root: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
         if fs::read(&path).ok().as_deref() != Some(contents.as_slice()) {
             fs::write(path, contents)?;
         }
+    }
+    Ok(())
+}
+
+fn write_blas_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
+    let path = sys_dir.join("src").join("blas.rs");
+    let rendered = blas_api::render_module(records);
+    if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
+        fs::write(path, rendered)?;
+    }
+    Ok(())
+}
+
+fn write_blas_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<()> {
+    let mut output = String::from(
+        "//! Generated canonical and compatibility import coverage for reviewed BLAS.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n",
+    );
+    for level in 1..=3 {
+        output.push_str(&format!(
+            "#[cfg(feature = \"blas-level{level}\")]\n#[test]\nfn level{level}_canonical_and_compatibility_paths_compile() {{\n"
+        ));
+        let mut routines = records
+            .iter()
+            .filter(|record| blas_api::level(&field(record, "routine")) == Some(level))
+            .filter(|record| {
+                field(record, "reviewed_declaration_status") == "reviewed_public_driver"
+            })
+            .map(|record| field(record, "routine").to_ascii_lowercase())
+            .collect::<Vec<_>>();
+        routines.sort();
+        for routine in routines {
+            output.push_str(&format!(
+                "    let _ = slatec_sys::blas::level{level}::{routine};\n    let _ = slatec_sys::families::blas_level{level}::{routine};\n"
+            ));
+        }
+        output.push_str("}\n\n");
+    }
+    if output.ends_with("\n\n") {
+        output.pop();
+    }
+    let path = sys_dir.join("tests").join("blas_canonical_paths.rs");
+    if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
+        fs::write(path, output)?;
+    }
+    Ok(())
+}
+
+fn write_blas_link_probe(facade_dir: &Path, records: &[Value]) -> Result<()> {
+    let mut output = String::from(
+        "//! Generated native link retention coverage for every reviewed raw BLAS symbol.\n//! Run on the supported GNU MinGW target with `blas-raw-link-tests`.\n\n#![cfg(all(\n    feature = \"blas-raw-link-tests\",\n    target_arch = \"x86_64\",\n    target_env = \"gnu\",\n    target_os = \"windows\"\n))]\n\n#[test]\nfn every_reviewed_blas_symbol_links_from_its_level_provider_closure() {\n    slatec_src::ensure_linked();\n",
+    );
+    for level in 1..=3 {
+        let mut routines = records
+            .iter()
+            .filter(|record| blas_api::level(&field(record, "routine")) == Some(level))
+            .filter(|record| {
+                field(record, "reviewed_declaration_status") == "reviewed_public_driver"
+            })
+            .map(|record| field(record, "routine").to_ascii_lowercase())
+            .collect::<Vec<_>>();
+        routines.sort();
+        output.push_str(&format!("    // Level {level}\n"));
+        for routine in routines {
+            output.push_str(&format!(
+                "    std::hint::black_box(slatec_sys::blas::level{level}::{routine} as *const () as usize);\n"
+            ));
+        }
+    }
+    output.push_str("}\n");
+    let path = facade_dir.join("tests").join("blas_raw_link.rs");
+    if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
+        fs::write(path, output)?;
     }
     Ok(())
 }

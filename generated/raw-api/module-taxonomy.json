@@ -619,9 +619,9 @@
       "routine": "CATANH"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CAXPY"
     },
     {
@@ -757,9 +757,9 @@
       "routine": "CCMPB"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CCOPY"
     },
     {
@@ -783,7 +783,7 @@
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "unsupported_complex_return_abi",
       "routine": "CDCDOT"
     },
     {
@@ -819,13 +819,13 @@
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "unsupported_complex_return_abi",
       "routine": "CDOTC"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "unsupported_complex_return_abi",
       "routine": "CDOTU"
     },
     {
@@ -967,9 +967,9 @@
       "routine": "CGBFA"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CGBMV"
     },
     {
@@ -1015,27 +1015,27 @@
       "routine": "CGEIR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CGEMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CGEMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CGERC"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CGERU"
     },
     {
@@ -1063,45 +1063,45 @@
       "routine": "CHARIN"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHEMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHEMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHER"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHER2"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHER2K"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHERK"
     },
     {
@@ -1207,21 +1207,21 @@
       "routine": "CHPFA"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHPMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHPR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CHPR2"
     },
     {
@@ -1657,9 +1657,9 @@
       "routine": "CRATI"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CROTG"
     },
     {
@@ -1675,9 +1675,9 @@
       "routine": "CSBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSCAL"
     },
     {
@@ -1789,15 +1789,15 @@
       "routine": "CSROOT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSROT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSSCAL"
     },
     {
@@ -1807,15 +1807,15 @@
       "routine": "CSVDC"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSWAP"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSYMM"
     },
     {
@@ -1831,15 +1831,15 @@
       "routine": "CSYR2"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSYR2K"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CSYRK"
     },
     {
@@ -1855,27 +1855,27 @@
       "routine": "CTANH"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTBSV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTPMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTPSV"
     },
     {
@@ -1891,15 +1891,15 @@
       "routine": "CTRDI"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTRMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTRMV"
     },
     {
@@ -1909,15 +1909,15 @@
       "routine": "CTRSL"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTRSM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CTRSV"
     },
     {
@@ -2131,9 +2131,9 @@
       "routine": "DASINH"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DASUM"
     },
     {
@@ -2179,9 +2179,9 @@
       "routine": "DAWS"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DAXPY"
     },
     {
@@ -2509,9 +2509,9 @@
       "routine": "DCBRT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DCDOT"
     },
     {
@@ -2611,15 +2611,15 @@
       "routine": "DCOEF"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DCOPY"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DCOPYM"
     },
     {
@@ -2785,9 +2785,9 @@
       "routine": "DDOGLG"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DDOT"
     },
     {
@@ -3085,9 +3085,9 @@
       "routine": "DGBFA"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGBMV"
     },
     {
@@ -3121,21 +3121,21 @@
       "routine": "DGEFS"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGEMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGEMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGER"
     },
     {
@@ -3457,9 +3457,9 @@
       "routine": "DNLS1E"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DNRM2"
     },
     {
@@ -4015,15 +4015,15 @@
       "routine": "DQCHEB"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DQDOTA"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DQDOTI"
     },
     {
@@ -4225,27 +4225,27 @@
       "routine": "DRLCAL"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DROT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DROTG"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DROTM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DROTMG"
     },
     {
@@ -4261,21 +4261,21 @@
       "routine": "DS2LT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DS2Y"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSCAL"
     },
     {
@@ -4315,9 +4315,9 @@
       "routine": "DSDGMR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSDI"
     },
     {
@@ -4327,9 +4327,9 @@
       "routine": "DSDOMN"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSDOT"
     },
     {
@@ -4519,15 +4519,15 @@
       "routine": "DSMMTI"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSMTV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSMV"
     },
     {
@@ -4585,21 +4585,21 @@
       "routine": "DSPLP"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSPMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSPR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSPR2"
     },
     {
@@ -4657,45 +4657,45 @@
       "routine": "DSVDC"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSWAP"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSYMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSYMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSYR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSYR2"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSYR2K"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSYRK"
     },
     {
@@ -4711,15 +4711,15 @@
       "routine": "DTANH"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTBSV"
     },
     {
@@ -4735,15 +4735,15 @@
       "routine": "DTOUT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTPMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTPSV"
     },
     {
@@ -4759,15 +4759,15 @@
       "routine": "DTRDI"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTRMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTRMV"
     },
     {
@@ -4777,15 +4777,15 @@
       "routine": "DTRSL"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTRSM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DTRSV"
     },
     {
@@ -5443,21 +5443,21 @@
       "routine": "I1MERG"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ICAMAX"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ICOPY"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "IDAMAX"
     },
     {
@@ -5587,9 +5587,9 @@
       "routine": "IPSORT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ISAMAX"
     },
     {
@@ -5683,9 +5683,9 @@
       "routine": "ISSOMN"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ISWAP"
     },
     {
@@ -5865,109 +5865,109 @@
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPADD"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPADD2"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPADD3"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPBLAS"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPCDM"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPCHK"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPCMD"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPDIVI"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPERR"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPMAXR"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPMLP"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPMUL"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPMUL2"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPMULI"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPNZR"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPOVFL"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPSTR"
     },
     {
       "intended_canonical_module": "blas",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "not_independently_callable",
       "routine": "MPUNFL"
     },
     {
@@ -7111,15 +7111,15 @@
       "routine": "S1MERG"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SASUM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SAXPY"
     },
     {
@@ -7153,9 +7153,9 @@
       "routine": "SBOLSM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SCASUM"
     },
     {
@@ -7213,9 +7213,9 @@
       "routine": "SCLOSM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SCNRM2"
     },
     {
@@ -7225,15 +7225,15 @@
       "routine": "SCOEF"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SCOPY"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SCOPYM"
     },
     {
@@ -7321,9 +7321,9 @@
       "routine": "SDNTP"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SDOT"
     },
     {
@@ -7363,9 +7363,9 @@
       "routine": "SDSCL"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SDSDOT"
     },
     {
@@ -7411,9 +7411,9 @@
       "routine": "SGBFA"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SGBMV"
     },
     {
@@ -7459,21 +7459,21 @@
       "routine": "SGEIR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SGEMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SGEMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SGER"
     },
     {
@@ -7717,9 +7717,9 @@
       "routine": "SNLS1E"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SNRM2"
     },
     {
@@ -8005,27 +8005,27 @@
       "routine": "SRLCAL"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SROT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SROTG"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SROTM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SROTMG"
     },
     {
@@ -8035,21 +8035,21 @@
       "routine": "SS2LT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SS2Y"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSCAL"
     },
     {
@@ -8089,9 +8089,9 @@
       "routine": "SSDGMR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSDI"
     },
     {
@@ -8263,15 +8263,15 @@
       "routine": "SSMMTI"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSMTV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSMV"
     },
     {
@@ -8305,21 +8305,21 @@
       "routine": "SSPFA"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSPMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSPR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSPR2"
     },
     {
@@ -8335,57 +8335,57 @@
       "routine": "SSVDC"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSWAP"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSYMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSYMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSYR"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSYR2"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSYR2K"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SSYRK"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STBMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STBSV"
     },
     {
@@ -8419,15 +8419,15 @@
       "routine": "STOUT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STPMV"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STPSV"
     },
     {
@@ -8443,15 +8443,15 @@
       "routine": "STRDI"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STRMM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STRMV"
     },
     {
@@ -8461,15 +8461,15 @@
       "routine": "STRSL"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level3",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STRSM"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level2",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "STRSV"
     },
     {

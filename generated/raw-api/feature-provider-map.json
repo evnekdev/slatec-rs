@@ -695,10 +695,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CAXPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -856,10 +856,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CCOPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1101,10 +1101,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CGBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1157,31 +1157,31 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CGEMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CGEMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CGERC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CGERU",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1213,52 +1213,52 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CHEMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHEMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHER",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHER2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CHER2K",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CHERK",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1381,24 +1381,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHPMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHPR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CHPR2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1906,10 +1906,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CROTG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1927,10 +1927,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CSCAL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2060,17 +2060,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CSROT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CSSCAL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2081,17 +2081,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "CSWAP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CSYMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2109,17 +2109,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CSYR2K",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CSYRK",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2137,31 +2137,31 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CTBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CTBSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CTPMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CTPSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2179,17 +2179,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CTRMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CTRMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2200,17 +2200,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "CTRSM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "CTRSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2459,10 +2459,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DASUM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2515,10 +2515,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DAXPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2900,10 +2900,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DCDOT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3019,17 +3019,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DCOPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DCOPYM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3222,10 +3222,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DDOT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3572,10 +3572,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DGBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3614,24 +3614,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "DGEMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DGEMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DGER",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -4006,10 +4006,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DNRM2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -4657,17 +4657,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DQDOTA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DQDOTI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -4902,31 +4902,31 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DROT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-scalar-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DROTG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DROTM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DROTMG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -4944,24 +4944,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DS2Y",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DSCAL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5007,10 +5007,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DSDI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5021,10 +5021,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DSDOT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5245,17 +5245,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DSMTV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DSMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5322,24 +5322,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSPMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSPR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSPR2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5406,52 +5406,52 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "DSWAP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "DSYMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSYMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSYR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DSYR2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "DSYR2K",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "DSYRK",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5469,17 +5469,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DTBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DTBSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5497,17 +5497,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DTPMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DTPSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5525,17 +5525,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "DTRMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DTRMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5546,17 +5546,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "DTRSM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "DTRSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6323,24 +6323,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "ICAMAX",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "ICOPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "IDAMAX",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6491,10 +6491,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "ISAMAX",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6603,10 +6603,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "ISWAP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8269,17 +8269,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SASUM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SAXPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8318,10 +8318,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SCASUM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8388,10 +8388,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SCNRM2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8402,17 +8402,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SCOPY",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SCOPYM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8514,10 +8514,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SDOT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8563,10 +8563,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SDSDOT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8619,10 +8619,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SGBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8675,24 +8675,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "SGEMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SGEMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SGER",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8976,10 +8976,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SNRM2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9312,31 +9312,31 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SROT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-scalar-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SROTG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SROTM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SROTMG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9347,24 +9347,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SS2Y",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SSCAL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9410,10 +9410,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SSDI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9613,17 +9613,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SSMTV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SSMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9662,24 +9662,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSPMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSPR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSPR2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9697,66 +9697,66 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-numeric-array-subroutines",
+      "native_provider_feature": "blas-level1",
+      "raw_declaration_feature": "blas-level1",
       "routine": "SSWAP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level1"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "SSYMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSYMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSYR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "SSYR2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "SSYR2K",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "SSYRK",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "STBMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "STBSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9795,17 +9795,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "STPMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "STPSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9823,17 +9823,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "STRMM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "STRMV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -9844,17 +9844,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level3",
+      "raw_declaration_feature": "blas-level3",
       "routine": "STRSM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level3"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-character",
+      "native_provider_feature": "blas-level2",
+      "raw_declaration_feature": "blas-level2",
       "routine": "STRSV",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "blas-level2"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",

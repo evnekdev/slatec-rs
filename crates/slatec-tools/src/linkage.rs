@@ -1,5 +1,6 @@
 //! Deterministic safe-family to raw-symbol and native-object closure metadata.
 
+use crate::blas_api;
 use crate::error::{CorpusError, Result};
 use crate::hash;
 use serde_json::{Value, json};
@@ -46,6 +47,20 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     family_symbols
         .entry("roots-polynomial".to_owned())
         .or_default();
+    // R2A raw BLAS is reviewed as a complete public family, not merely as
+    // whatever subset current safe wrappers happen to call. These seeds make
+    // each `slatec-src` level feature select the exact source closure for all
+    // canonical raw symbols and give link probes a complete symbol set.
+    for (level, routines) in [
+        ("blas-level1", blas_api::LEVEL1),
+        ("blas-level2", blas_api::LEVEL2),
+        ("blas-level3", blas_api::LEVEL3),
+    ] {
+        family_symbols
+            .entry(level.to_owned())
+            .or_default()
+            .extend(routines.iter().map(|routine| (*routine).to_owned()));
+    }
 
     let mut unit_to_source = BTreeMap::new();
     let mut source_details = BTreeMap::<String, SourceDetail>::new();
@@ -583,6 +598,12 @@ fn render_family_bindings(
         }
         let module = family.replace('-', "_");
         let feature = format!("raw-family-{family}");
+        if let Some(level) = family.strip_prefix("blas-level") {
+            output.push_str(&format!(
+                "/// Compatibility re-exports for the canonical reviewed BLAS Level {level} namespace.\n#[cfg(feature = \"{feature}\")]\npub mod {module} {{\n    pub use crate::blas::level{level}::*;\n}}\n\n"
+            ));
+            continue;
+        }
         output.push_str(&format!(
             "/// Reviewed declarations required by `{family}`.\n#[cfg(feature = \"{feature}\")]\npub mod {module} {{\n    use crate::{{Complex32, Complex64, FortranCharacterLength, FortranInteger, FortranLogical}};\n    use core::ffi::c_char;\n\n    unsafe extern \"C\" {{\n"
         ));

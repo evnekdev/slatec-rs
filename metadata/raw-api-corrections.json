@@ -131,5 +131,21 @@
         }
       }
     }
+  ],
+  "family_reviews": [
+    {
+      "family": "blas",
+      "source_manifest_sha256": "543ed03cae726e4dd1f9bb58830f942f080bf06a27556b4dcc695241c4c34388",
+      "policy": "R2A reviews the 121 compiler-validated, historically user-callable selected BLAS identities as one source-hash manifest. Any selected routine, provider, or source hash change rejects the promotion until this authored policy is requalified.",
+      "documentation": {
+        "purpose": "source_prologue",
+        "arguments": "source_prologue_and_authored_blas_operation_template",
+        "array_extents": "authored_blas_storage_template",
+        "character_abi": "compiler_observation_and_authored_override",
+        "safety": "authored_blas_raw_safety_contract",
+        "source_link": "selected_provider_metadata",
+        "abi_profile": "compiler_observation"
+      }
+    }
   ]
 }

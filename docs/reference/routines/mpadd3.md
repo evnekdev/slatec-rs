@@ -64,5 +64,5 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `none`
+- Exclusion or deferment reason: `multiprecision helper is not a standalone BLAS public routine`
 <!-- raw-api-status:end -->

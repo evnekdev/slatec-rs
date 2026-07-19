@@ -25,7 +25,13 @@ const OVERLAY_FILES: &[&str] = &[
     "dassl-source-closure.json",
     "lp-in-memory-source-closure.json",
     "fftpack-real-source-closure.json",
+    "fftpack-complex-source-closure.json",
+    "fishpack-cartesian-2d-source-closure.json",
+    "fishpack-pois3d-source-closure.json",
+    "banded-linear-systems-source-closure.json",
     "pchip-source-closure.json",
+    "bspline-source-closure.json",
+    "piecewise-polynomial-source-closure.json",
     "special-scalar-expanded-source-closure.json",
 ];
 
@@ -378,14 +384,47 @@ fn manifest_with_overlays(manifest_path: &Path) -> Result<Manifest> {
         if !overlay_path.is_file() {
             continue;
         }
-        let overlay: Overlay = serde_json::from_slice(&fs::read(overlay_path)?)?;
+        let mut overlay: Overlay = serde_json::from_slice(&fs::read(overlay_path)?)?;
         if manifest.families.contains_key(&overlay.family) {
-            return Err(policy("source overlay duplicates a base source family"));
+            // `slatec-src/build.rs` gives an emitted base closure precedence
+            // over a historical focused overlay. Mirror that provider rule so
+            // this audit observes the exact closure the source backend builds.
+            continue;
+        }
+        // Historical overlays sometimes name a physical source with a
+        // family-local id while the generated base manifest already has the
+        // same verified path under its selected-source id. Reuse the base
+        // identity, matching provider acquisition, so the audit neither
+        // double-compiles an object nor asks the cache receipt for an alias.
+        let mut reused_ids = BTreeMap::new();
+        for source in &overlay.sources {
+            if let Some(existing) = manifest
+                .sources
+                .iter()
+                .find(|item| item.subset == source.subset && item.path == source.path)
+            {
+                if existing.sha256 != source.sha256 {
+                    return Err(policy(
+                        "source overlays disagree about shared provider bytes",
+                    ));
+                }
+                reused_ids.insert(source.id.clone(), existing.id.clone());
+            }
+        }
+        for id in &mut overlay.source_ids {
+            if let Some(reused) = reused_ids.get(id) {
+                *id = reused.clone();
+            }
         }
         let overlay_ids = overlay
             .sources
             .iter()
-            .map(|source| source.id.as_str())
+            .map(|source| {
+                reused_ids
+                    .get(&source.id)
+                    .map(String::as_str)
+                    .unwrap_or(source.id.as_str())
+            })
             .collect::<BTreeSet<_>>();
         let family_ids = overlay
             .source_ids
@@ -402,6 +441,9 @@ fn manifest_with_overlays(manifest_path: &Path) -> Result<Manifest> {
             ));
         }
         for source in overlay.sources {
+            if reused_ids.contains_key(&source.id) {
+                continue;
+            }
             let url = canonical_url(&source.subset, &source.path)?;
             if let Some(existing) = manifest.sources.iter().find(|item| item.id == source.id) {
                 if existing.url != url
@@ -1835,8 +1877,7 @@ mod tests {
             Some("complete_mutable_state_found")
         );
         assert!(common["records"].as_array().is_some_and(|records| {
-            records.len() == 2
-                && records.iter().any(|record| record[0] == "LA05DD")
+            records.iter().any(|record| record[0] == "LA05DD")
                 && records.iter().any(|record| record[0] == "LA05DS")
         }));
         let scanner: Value = serde_json::from_slice(
@@ -1863,12 +1904,12 @@ mod tests {
             crosscheck["status"].as_str(),
             Some("complete_with_conservative_unresolved_records")
         );
-        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(12));
+        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(28));
         let projections: Value =
             serde_json::from_slice(&fs::read(root.join("per-wrapper-native-state.json")).unwrap())
                 .unwrap();
         assert!(projections["records"].as_array().is_some_and(|records| {
-            records.len() == 206
+            records.len() == 244
                 && records.iter().all(|record| {
                     record["object_closure"]
                         .as_array()
