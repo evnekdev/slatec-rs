@@ -162,6 +162,13 @@ extrapolation by default, does not sort inputs, and leaves PCHIP and
 PP-to-B-spline conversion deferred. See the
 [piecewise-polynomial guide](docs/api/safe-piecewise-polynomial.md).
 
+The opt-in hosted `banded-linear-systems` feature provides compact general
+real `f32`/`f64` LINPACK LU factors and direct/transpose solves together with
+`SGBCO`/`DGBCO` reciprocal 1-norm condition estimates and `SGBDI`/`DGBDI`
+base-ten scaled determinant metadata. It does not create a dense matrix,
+packing, or ecosystem-adapter API. See the
+[banded-system guide](docs/api/safe-banded-linear-systems.md).
+
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS
 and Jacobian-checking APIs are backend-dependent rather than advertised as

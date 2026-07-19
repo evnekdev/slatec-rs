@@ -446,6 +446,77 @@ mod tests {
     }
 
     #[test]
+    fn duplicate_overlay_provider_paths_are_rejected() {
+        let root = tempdir().expect("temp root");
+        let manifest_path = root.path().join("family-source-closure.json");
+        let base = json!({
+            "sources":[{
+                "id":"base-source",
+                "subset":"lin",
+                "path":"shared.f",
+                "sha256":hex_sha256(b"base"),
+                "url":"https://example.invalid/shared.f"
+            }],
+            "families":{"base":["base-source"]}
+        });
+        fs::write(
+            &manifest_path,
+            serde_json::to_vec(&base).expect("base manifest"),
+        )
+        .expect("write base manifest");
+        let duplicate = json!({
+            "family":"banded-linear-systems",
+            "source_ids":["other-source"],
+            "sources":[{
+                "id":"other-source",
+                "subset":"lin",
+                "path":"shared.f",
+                "sha256":hex_sha256(b"base")
+            }]
+        });
+        fs::write(
+            root.path()
+                .join("banded-linear-systems-source-closure.json"),
+            serde_json::to_vec(&duplicate).expect("duplicate overlay"),
+        )
+        .expect("write duplicate overlay");
+
+        let error = match provider_manifest(&manifest_path) {
+            Ok(_) => panic!("duplicate path must fail"),
+            Err(error) => error,
+        };
+        assert!(error.to_string().contains("duplicates provider path"));
+    }
+
+    #[test]
+    fn banded_overlay_reuses_canonical_shared_source_ids() {
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let manifest =
+            provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
+                .expect("provider manifest");
+        let source_ids = manifest
+            .families
+            .get("banded-linear-systems")
+            .expect("banded family");
+        for id in [
+            "ode-source-sgbfa",
+            "ode-source-dgbfa",
+            "ode-source-sgbsl",
+            "ode-source-dgbsl",
+            "selected-source-6f96c5d6bf492c26",
+            "selected-source-279c0ab3ecea5e7f",
+            "selected-source-5b9cd6fbebf4f453",
+            "selected-source-6cb918517961738d",
+            "selected-source-ad5a3d887da96246",
+            "selected-source-737860eb0340df52",
+            "selected-source-f4734383da09961a",
+            "selected-source-97f5e57210c2ff0e",
+        ] {
+            assert!(source_ids.iter().any(|source_id| source_id == id), "{id}");
+        }
+    }
+
+    #[test]
     fn sdrive_overlay_sources_use_reviewed_netlib_origins() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let manifest =

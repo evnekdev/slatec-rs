@@ -4917,6 +4917,137 @@
       ]
     },
     {
+      "rust_path": "slatec::linear_algebra::banded::BandLu32::scaled_determinant",
+      "fortran_routine": "SGBDI",
+      "program_unit_id": "full-provider-f97a0fc82876ca6e",
+      "arguments": [
+        {
+          "rust": "compact input copied into private expanded LINPACK band storage, or immutable private LU factors",
+          "fortran": "ABD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "private expanded leading dimension 2*lower+upper+1",
+          "fortran": "LDA",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix dimension",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix.lower_bandwidth",
+          "fortran": "ML",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix.upper_bandwidth",
+          "fortran": "MU",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ScaledDeterminant mantissa and checked decimal exponent",
+          "fortran": "DET",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::linear_algebra::banded::BandLu64::scaled_determinant",
+      "fortran_routine": "DGBDI",
+      "program_unit_id": "full-provider-734bd3a6eac89c14",
+      "arguments": [
+        {
+          "rust": "compact input copied into private expanded LINPACK band storage, or immutable private LU factors",
+          "fortran": "ABD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "private expanded leading dimension 2*lower+upper+1",
+          "fortran": "LDA",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix dimension",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix.lower_bandwidth",
+          "fortran": "ML",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix.upper_bandwidth",
+          "fortran": "MU",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ScaledDeterminant mantissa and checked decimal exponent",
+          "fortran": "DET",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate",
+      "fortran_routine": "SGBCO",
+      "program_unit_id": "full-provider-26d07d0c836a3d02",
+      "arguments": [
+        {
+          "rust": "compact input copied into private expanded LINPACK band storage, or immutable private LU factors",
+          "fortran": "ABD",
+          "transformation": "owned"
+        },
+        {
+          "rust": "private expanded leading dimension 2*lower+upper+1",
+          "fortran": "LDA",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix dimension",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix.lower_bandwidth",
+          "fortran": "ML",
+          "transformation": "owned"
+        },
+        {
+          "rust": "matrix.upper_bandwidth",
+          "fortran": "MU",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "IPVT",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ReciprocalCondition::value",
+          "fortran": "RCOND",
+          "transformation": "owned"
+        },
+        {
+          "rust": "z",
+          "fortran": "Z",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::linear_least_squares::solve_nonnegative_least_squares",
       "fortran_routine": "DWNNLS",
       "program_unit_id": "full-provider-b016458ce44e45a0",

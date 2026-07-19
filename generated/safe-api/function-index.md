@@ -109,6 +109,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::least_squares::least_squares_f32` | `SNLS1E` | least squares | f32 | finite-difference nonlinear least-squares fitting | `std` | `least-squares-nonlinear-easy` | [finite-difference nonlinear least squares](../../examples/least_squares/linear_fit_f32.rs) |
 | `slatec::least_squares::least_squares_with_jacobian` | `DNLS1` | least squares | f64 | expert analytic-Jacobian nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert analytic-Jacobian nonlinear least squares](../../examples/least_squares/expert_analytic_jacobian.rs) |
 | `slatec::least_squares::least_squares_with_jacobian_f32` | `SNLS1` | least squares | f32 | expert analytic-Jacobian nonlinear least-squares fitting | `std` | `least-squares-nonlinear-expert` | [expert analytic-Jacobian nonlinear least squares](../../examples/least_squares/expert_analytic_jacobian_f32.rs) |
+| `slatec::linear_algebra::banded::BandLu32::scaled_determinant` | `SGBDI` | banded linear systems | f32 | validated scalar numerical function | `std` | `banded-linear-systems` | [scaled base-ten determinant metadata from general-band LU factors](../../examples/banded/factor_and_solve.rs) |
+| `slatec::linear_algebra::banded::BandLu64::scaled_determinant` | `DGBDI` | banded linear systems | f64 | validated scalar numerical function | `std` | `banded-linear-systems` | [scaled base-ten determinant metadata from general-band LU factors](../../examples/banded/factor_and_solve.rs) |
+| `slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate` | `SGBCO` | banded linear systems | f32/f64 | validated scalar numerical function | `std` | `banded-linear-systems` | [general-band LU factorization with reciprocal 1-norm condition estimate](../../examples/banded/factor_and_solve.rs) |
 | `slatec::linear_least_squares::solve_nonnegative_least_squares` | `DWNNLS` | linear least squares | f64 | equality-constrained nonnegative linear least-squares fitting | `std` | `least-squares-linear-nonnegative` | [equality-constrained nonnegative linear least squares](../../examples/least_squares/nonnegative_fit.rs) |
 | `slatec::linear_least_squares::solve_nonnegative_least_squares_f32` | `WNNLS` | linear least squares | f32 | equality-constrained nonnegative linear least-squares fitting | `std` | `least-squares-linear-nonnegative` | [equality-constrained nonnegative linear least squares](../../examples/least_squares/mixed_nonnegative_fit.rs) |
 | `slatec::linear_programming::LinearProgram::<f32>::solve` | `SPLP` | linear programming | f32 | sparse in-memory linear programming with variable and row-activity bounds | `std` | `optimization-linear-programming-in-memory` | [sparse in-memory linear programming](../../examples/linear_programming/basic.rs) |
@@ -339,6 +342,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DGAMIT` -> `slatec::special::gamma::tricomi_incomplete_gamma`
 - `DGAMMA` -> `slatec::special::gamma::gamma`
 - `DGAMR` -> `slatec::special::gamma::reciprocal_gamma`
+- `DGBDI` -> `slatec::linear_algebra::banded::BandLu64::scaled_determinant`
 - `DGEMM` -> `slatec::blas::level3::dgemm`
 - `DGEMM` -> `slatec::blas::level3::dgemm_contiguous`
 - `DGEMV` -> `slatec::blas::level2::dgemv`
@@ -451,6 +455,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SDOT` -> `slatec::blas::level1::sdot`
 - `SDOT` -> `slatec::blas::level1::sdot_strided`
 - `SDRIV3` -> `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
+- `SGBCO` -> `slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate`
+- `SGBDI` -> `slatec::linear_algebra::banded::BandLu32::scaled_determinant`
 - `SGEMM` -> `slatec::blas::level3::sgemm`
 - `SGEMM` -> `slatec::blas::level3::sgemm_contiguous`
 - `SGEMV` -> `slatec::blas::level2::sgemv`
@@ -739,6 +745,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::fftpack::SineTransformPlan::new` — initialize a full sine-transform plan
 - `slatec::fftpack::SineTransformPlan::transform` — compute the full FFTPACK sine transform
 
+### banded linear systems
+
+- `slatec::linear_algebra::banded::BandLu32::scaled_determinant` — validated scalar numerical function
+- `slatec::linear_algebra::banded::BandLu64::scaled_determinant` — validated scalar numerical function
+- `slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate` — validated scalar numerical function
+
 ### piecewise cubic Hermite interpolation
 
 - `slatec::pchip::PiecewiseCubicHermite::evaluate_into` — evaluate a piecewise-cubic Hermite curve
@@ -871,6 +883,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::least_squares::least_squares_f32`
 - `slatec::least_squares::least_squares_with_jacobian`
 - `slatec::least_squares::least_squares_with_jacobian_f32`
+- `slatec::linear_algebra::banded::BandLu32::scaled_determinant`
+- `slatec::linear_algebra::banded::BandLu64::scaled_determinant`
+- `slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate`
 - `slatec::linear_least_squares::solve_nonnegative_least_squares`
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32`
 - `slatec::linear_programming::LinearProgram::<f32>::solve`

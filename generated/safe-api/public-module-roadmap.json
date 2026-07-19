@@ -1,16 +1,16 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 238,
+  "safe_function_count": 241,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 178
+    "std": 181
   },
   "status_totals": {
     "Deferred": 2,
-    "Implemented": 28,
-    "Partial": 16,
+    "Implemented": 29,
+    "Partial": 15,
     "Planned": 19
   },
   "stability_totals": {
@@ -109,7 +109,7 @@
       "canonical_grouped_module_path": "linear_algebra::banded",
       "module_file": "crates/slatec/src/linear_algebra/banded.rs",
       "stability": "Reserved",
-      "status": "Partial",
+      "status": "Implemented",
       "cargo_feature": "banded-linear-systems",
       "current_implementation_module": "crate::linear_algebra::banded",
       "compatibility_path": "none",
@@ -119,9 +119,9 @@
       "precision_coverage": "f32,f64",
       "runtime_level": "std",
       "concurrency_classification": "SerializedGlobal",
-      "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
-      "blocker": "General real LU factorization and direct/transpose solves are available; condition estimates and determinant metadata remain deferred.",
-      "likely_next_milestone": "Audit SGBCO/DGBCO and SGBDI/DGBDI only with independently verified output contracts.",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {

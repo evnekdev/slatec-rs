@@ -638,6 +638,36 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    for (path, routine, precision, purpose) in [
+        (
+            "slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate",
+            "SGBCO",
+            "f32/f64",
+            "general-band LU factorization with reciprocal 1-norm condition estimate",
+        ),
+        (
+            "slatec::linear_algebra::banded::BandLu32::scaled_determinant",
+            "SGBDI",
+            "f32",
+            "scaled base-ten determinant metadata from general-band LU factors",
+        ),
+        (
+            "slatec::linear_algebra::banded::BandLu64::scaled_determinant",
+            "DGBDI",
+            "f64",
+            "scaled base-ten determinant metadata from general-band LU factors",
+        ),
+    ] {
+        output.push(record(
+            path,
+            routine,
+            "banded linear systems",
+            precision,
+            purpose,
+            "std",
+            "banded-linear-systems",
+        ));
+    }
     for (path, routine, family) in [
         (
             "slatec::pchip::PiecewiseCubicHermite::monotone",
@@ -847,6 +877,7 @@ fn record(
             "examples/fftpack/complex_spectrum.rs".to_owned()
         }
         "complex FFTPACK" => "examples/fftpack/complex_round_trip.rs".to_owned(),
+        "banded linear systems" => "examples/banded/factor_and_solve.rs".to_owned(),
         "piecewise cubic Hermite interpolation" if path.contains("integrate") => {
             "examples/pchip/integrate.rs".to_owned()
         }
@@ -1027,6 +1058,25 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "IWORK" if function.domain == "linear programming" => {
                 "private checked workspace; optimal IBB segment decodes typed basis positions"
                     .to_owned()
+            }
+            "ABD" if function.domain == "banded linear systems" => {
+                "compact input copied into private expanded LINPACK band storage, or immutable private LU factors".to_owned()
+            }
+            "LDA" if function.domain == "banded linear systems" => {
+                "private expanded leading dimension 2*lower+upper+1".to_owned()
+            }
+            "N" if function.domain == "banded linear systems" => "matrix dimension".to_owned(),
+            "ML" if function.domain == "banded linear systems" => {
+                "matrix.lower_bandwidth".to_owned()
+            }
+            "MU" if function.domain == "banded linear systems" => {
+                "matrix.upper_bandwidth".to_owned()
+            }
+            "RCOND" if function.domain == "banded linear systems" => {
+                "ReciprocalCondition::value".to_owned()
+            }
+            "DET" if function.domain == "banded linear systems" => {
+                "ScaledDeterminant mantissa and checked decimal exponent".to_owned()
             }
             "N" if function.domain == "real FFTPACK" => "plan.length".to_owned(),
             "N" if function.domain == "complex FFTPACK" => "plan.length".to_owned(),
@@ -1215,6 +1265,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 | "linear programming"
                 | "real FFTPACK"
                 | "complex FFTPACK"
+                | "banded linear systems"
                 | "piecewise cubic Hermite interpolation"
                 | "piecewise-polynomial interpolation"
         ) {
@@ -1269,6 +1320,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "ordinary differential equations",
         "linear programming",
         "real FFTPACK",
+        "banded linear systems",
         "piecewise cubic Hermite interpolation",
         "piecewise-polynomial interpolation",
     ] {
@@ -1358,6 +1410,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
         "real FFTPACK" => "crates/slatec/tests/fftpack_native.rs",
         "complex FFTPACK" => "crates/slatec/tests/fftpack_complex_native.rs",
+        "banded linear systems" => "crates/slatec/tests/banded_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
         "B-spline interpolation" => "crates/slatec/tests/bspline_native.rs",
         "piecewise-polynomial interpolation" => {
