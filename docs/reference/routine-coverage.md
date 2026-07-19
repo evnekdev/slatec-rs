@@ -4,12 +4,12 @@
 
 | Measure | Count |
 | --- | ---: |
-| Logical identities | 1521 |
+| Logical identities | 1517 |
 | Historically user-callable | 902 |
 | Subsidiary/helper | 539 |
 | Source files | 2192 |
 | Providers | 2238 |
-| Catalogue-only | 30 |
+| Catalogue-only | 26 |
 | Raw-bound | 1253 |
 | Safely wrapped | 208 |
 | Deeply audited | 208 |
@@ -18,4 +18,22 @@ The documented reference values are approximately 902 user-callable and at least
 
 ## Outstanding reconciliation
 
-**111** diagnostics cover catalogue-only identities, conflicting providers, and unresolved roles. Description text uses a concise TOC or pilot purpose only where current evidence provides it; all other records state explicit unavailability.
+**103** diagnostics cover catalogue-only identities, conflicting providers, and unresolved roles. Description text uses a concise TOC or pilot purpose only where current evidence provides it; all other records state explicit unavailability.
+
+## Family classification
+
+| Measure | Count |
+| --- | ---: |
+| Retained routine identities | 1517 |
+| Historical numerical program units | 1478 |
+| Subsidiary routines | 539 |
+| Shared numerical utilities | 31 |
+| Runtime and machine support units | 24 |
+| Documentation/tooling program units | 15 |
+| Excluded intrinsic references | 0 |
+| Excluded external symbols | 0 |
+| Excluded parser/prose candidates | 4 |
+| Classified with verified GAMS/package evidence | 1102 |
+| Classified with high-confidence inheritance | 355 |
+| Classified by conservative description inference | 60 |
+| Genuinely unresolved | 0 |

@@ -12,7 +12,7 @@ use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 
-const VERSION: &str = "1.1.0";
+const VERSION: &str = "1.2.0";
 const CREATED_AT: &str = "1970-01-01T00:00:00Z";
 const NO_DESCRIPTION: &str = "Description unavailable from current source evidence.";
 
@@ -80,6 +80,39 @@ struct DirectoryEntry {
     directory_url: Option<String>,
 }
 
+#[derive(Clone)]
+struct FamilyClassification {
+    primary_family: String,
+    secondary_families: Vec<String>,
+    mathematical_domain: String,
+    package_provenance: String,
+    family_source: String,
+    family_confidence: String,
+    parent_names: Vec<String>,
+    precision_family_group: Option<String>,
+    identity_kind: String,
+    identity_status: String,
+    description_rule: Option<String>,
+}
+
+#[derive(Clone)]
+struct ExcludedCandidate {
+    name: String,
+    kind: String,
+    discovery_source: String,
+    reason: String,
+    evidence: String,
+    confidence: String,
+}
+
+#[derive(Clone)]
+struct GamsFamily {
+    prefix: String,
+    family: String,
+    domain: String,
+    confidence: String,
+}
+
 pub fn generate(
     full_corpus_dir: &Path,
     _program_unit_dir: &Path,
@@ -90,7 +123,7 @@ pub fn generate(
 ) -> Result<CatalogueResult> {
     let manifest = read_json(&full_corpus_dir.join("manifest.json"))?;
     let providers = read_providers(full_corpus_dir)?;
-    let identities = read_identities(full_corpus_dir)?;
+    let mut identities = read_identities(full_corpus_dir)?;
     let toc = toc_purposes()?;
     let directories = directory_entries()?;
     let snapshot = manifest
@@ -101,15 +134,21 @@ pub fn generate(
     let raw = raw_statuses(ffi_dir)?;
     let safe = safe_paths(safe_api_dir)?;
     let pilot = pilot_metadata()?;
+    for identity in identities.values_mut() {
+        if let Some(item) = toc.get(&identity.name) {
+            identity.gams = item.gams.clone();
+        }
+    }
+    let exclusions = excluded_identities(&identities);
+    identities.retain(|name, _| !exclusions.contains_key(name));
+    let gams_families = gams_family_map()?;
+    let classifications =
+        classify_identities(&identities, &providers, &toc, &pilot, &gams_families);
     let mut records = identities
         .values()
         .map(|identity| {
-            let mut identity = identity.clone();
-            if let Some(toc) = toc.get(&identity.name) {
-                identity.gams = toc.gams.clone();
-            }
             build_record(
-                &identity,
+                identity,
                 &providers,
                 toc.get(&identity.name),
                 &directories,
@@ -117,6 +156,9 @@ pub fn generate(
                 raw.get(&identity.name),
                 safe.get(&identity.name),
                 pilot.get(&identity.name),
+                classifications
+                    .get(&identity.name)
+                    .ok_or_else(|| policy("identity has no family classification"))?,
             )
         })
         .collect::<Result<Vec<_>>>()?;
@@ -127,7 +169,12 @@ pub fn generate(
     let description_coverage = description_coverage(&records);
     let discrepancies = description_discrepancies(&records);
     let external_references = external_reference_map(&records);
-    let excluded = excluded_candidates(&records);
+    let excluded = excluded_candidates(&exclusions);
+    let classification_report =
+        family_classification_report(&records, &classifications, &exclusions);
+    let classification_diagnostics = family_classification_diagnostics(&records, &classifications);
+    let parent_map = parent_family_map(&records, &classifications);
+    let precision_map = precision_family_map(&records, &classifications);
     let provider_map = provider_map(&records);
     let family_index = family_index(&records);
     let alphabetical_index = alphabetical_index(&records);
@@ -160,6 +207,16 @@ pub fn generate(
         json_bytes(&external_references)?,
     );
     files.insert("excluded-candidates.json", json_bytes(&excluded)?);
+    files.insert(
+        "family-classification-report.json",
+        json_bytes(&classification_report)?,
+    );
+    files.insert(
+        "family-classification-diagnostics.json",
+        json_bytes(&classification_diagnostics)?,
+    );
+    files.insert("parent-family-map.json", json_bytes(&parent_map)?);
+    files.insert("precision-family-map.json", json_bytes(&precision_map)?);
     files.insert("reconciliation-diagnostics.json", json_bytes(&diagnostics)?);
     let semantic_hash = output_hash(&files);
     let file_hashes: BTreeMap<_, _> = files
@@ -172,11 +229,11 @@ pub fn generate(
         "main_src_snapshot_id":manifest.get("main_src_snapshot_id"), "identity_count":records.len(),
         "offline_regeneration":true, "output_semantic_hash":semantic_hash,
         "output_file_hashes":file_hashes,
-        "evidence_sources":["generated/full-corpus","generated/program-units","generated/ffi","generated/safe-api","metadata/routines-pilot.toml","cached Netlib Version 4.1 TOC"],
+        "evidence_sources":["generated/full-corpus","generated/program-units","generated/ffi","generated/safe-api","metadata/routines-pilot.toml","metadata/gams-family-map.toml","cached Netlib Version 4.1 TOC"],
     }))?);
     write_jsons(output_dir, &files)?;
     write_docs(docs_dir, &records, &coverage, &diagnostics)?;
-    validate_docs(docs_dir, &records)?;
+    validate_docs(docs_dir, &records, &exclusions)?;
     Ok(CatalogueResult {
         identity_count: records.len(),
         semantic_hash,
@@ -274,6 +331,7 @@ fn build_record(
     raw: Option<&String>,
     safe: Option<&Vec<String>>,
     pilot: Option<&Pilot>,
+    classification: &FamilyClassification,
 ) -> Result<Value> {
     let mut providers = identity
         .provider_ids
@@ -361,7 +419,9 @@ fn build_record(
         .find_map(|provider| directory_url(directories, provider));
     let source_variants = description_variants(canonical_source, toc, directory);
     let reference = official_references(&providers, directories, toc);
-    let (family, domain, package) = classify(identity, &providers, pilot);
+    let family = &classification.primary_family;
+    let domain = &classification.mathematical_domain;
+    let package = &classification.package_provenance;
     let raw_binding_status = raw.cloned().unwrap_or_else(|| "not_bound".to_owned());
     let safe_api_paths = safe.cloned().unwrap_or_default();
     let safe_api_status = if safe_api_paths.is_empty() {
@@ -402,7 +462,8 @@ fn build_record(
         "short_description":description, "short_purpose":description, "full_description":full_description, "description_summary":description, "description_source":description_type, "description_source_url":description_url, "description_source_field":source_field, "description_confidence":confidence, "description_dialect":dialect, "description_was_normalized":normalized,
         "description_evidence":{"selected_source":description_type,"variants":source_variants,"toc_shared_purpose_group":toc.and_then(|item| item.group.as_ref()),"unavailable_justification":if confidence == "unavailable" { unavailable_justification(identity, &providers, toc, directory) } else { Value::Null }},
         "official_documentation":reference,
-        "user_callable_status":user_status(identity, &kind), "primary_family":family, "secondary_families":[], "mathematical_domain":domain, "gams_classification":gams(identity), "package_provenance":package,
+        "user_callable_status":user_status(identity, &kind), "historical_role":identity.toc_role, "dependency_role":if classification.parent_names.is_empty() { "none" } else { "subsidiary_parent_linked" }, "project_exposure_role":if safe_api_paths.is_empty() { "not_exposed_as_safe_api" } else { "safe_api_available" }, "identity_kind":classification.identity_kind, "identity_status":classification.identity_status,
+        "primary_family":family, "secondary_families":classification.secondary_families, "family_source":classification.family_source, "family_confidence":classification.family_confidence, "family_parent_routines":classification.parent_names, "precision_family_group":classification.precision_family_group, "description_classification_rule":classification.description_rule, "mathematical_domain":domain, "gams_classification":gams(identity), "netlib_gams_codes":identity.gams.as_ref().map(|code| vec![code]).unwrap_or_default(), "nist_gams_matches":[], "gams_evidence_url":if identity.gams.is_some() { Value::String("https://www.netlib.org/slatec/toc".to_owned()) } else { Value::Null }, "gams_match_confidence":if identity.gams.is_some() { "verified_cached" } else { "unavailable" }, "package_provenance":package,
         "precision":precision(&identity.name), "scalar_kind":scalar_kind(&identity.name), "source_status":source_status,
         "canonical_provider":canonical.map(provider_value), "alternate_providers":alternatives, "provider_relationships":relationships,
         "source_file":canonical.map(|provider| format!("{}/{}", provider.subset, provider.path)), "source_hash":canonical.map(|provider| provider.raw_hash.clone()),
@@ -847,9 +908,13 @@ fn provider_source_path(provider: &Provider, snapshot: &str) -> PathBuf {
             .join("files")
             .join(&provider.path)
     } else {
-        Path::new("evidence/full-corpus/audit-input/supplemental")
-            .join(&provider.subset)
-            .join(&provider.path)
+        let root =
+            Path::new("evidence/full-corpus/audit-input/supplemental").join(&provider.subset);
+        if root.is_file() {
+            root
+        } else {
+            root.join(&provider.path)
+        }
     }
 }
 
@@ -1265,8 +1330,95 @@ fn external_reference_map(records: &[Value]) -> Value {
     json!({"schema_id":"slatec-rs/external-reference-map","schema_version":VERSION,"verification_scope":{"netlib":"cached official directory and TOC evidence","nist_gams":"institutional site reviewed; no per-module cached matches","secondary_html":"no routine rendering verified in this refresh"},"records":records.iter().map(|record| json!({"identity":name(record),"references":record.get("official_documentation")})).collect::<Vec<_>>()})
 }
 
-fn excluded_candidates(records: &[Value]) -> Value {
-    json!({"schema_id":"slatec-rs/excluded-candidates","schema_version":VERSION,"records":records.iter().filter(|record| field(record,"source_status") == "catalogue_only").map(|record| json!({"identity":name(record),"reason":"No reconciled source provider; retained as a catalogue-only identity for audit rather than inventing a provider or description."})).collect::<Vec<_>>()})
+fn excluded_candidates(exclusions: &BTreeMap<String, ExcludedCandidate>) -> Value {
+    json!({"schema_id":"slatec-rs/excluded-candidates","schema_version":VERSION,"records":exclusions.values().map(|item| json!({"candidate_name":item.name,"candidate_kind":item.kind,"discovery_source":item.discovery_source,"exclusion_reason":item.reason,"evidence":item.evidence,"confidence":item.confidence})).collect::<Vec<_>>()})
+}
+
+fn family_classification_report(
+    records: &[Value],
+    classifications: &BTreeMap<String, FamilyClassification>,
+    exclusions: &BTreeMap<String, ExcludedCandidate>,
+) -> Value {
+    let source_counts = [
+        "netlib_gams",
+        "package_provenance",
+        "parent_inheritance",
+        "precision_sibling",
+        "description_inference",
+        "reviewed_override",
+        "unresolved",
+    ]
+    .into_iter()
+    .map(|source| {
+        (
+            source,
+            classifications
+                .values()
+                .filter(|item| item.family_source == source)
+                .count(),
+        )
+    })
+    .collect::<BTreeMap<_, _>>();
+    json!({"schema_id":"slatec-rs/family-classification-report","schema_version":VERSION,"total_retained_identities":records.len(),"excluded_candidates":exclusions.len(),"family_source_counts":source_counts,"families":records.iter().fold(BTreeMap::<String,usize>::new(), |mut counts, record| { *counts.entry(field(record,"primary_family").to_owned()).or_default() += 1; counts })})
+}
+
+fn family_classification_diagnostics(
+    records: &[Value],
+    classifications: &BTreeMap<String, FamilyClassification>,
+) -> Value {
+    let mut entries = Vec::new();
+    for record in records {
+        let Some(classification) = classifications.get(name(record)) else {
+            continue;
+        };
+        if classification.family_source == "unresolved" {
+            entries.push(json!({"rule":"unresolved_family","identity":name(record),"message":"No verified GAMS, package, parent, or precision-family evidence resolved the functional family."}));
+        }
+        if classification.family_source == "parent_inheritance"
+            && classification.secondary_families.len() > 1
+        {
+            entries.push(json!({"rule":"ambiguous_parent_families","identity":name(record),"parents":classification.parent_names,"secondary_families":classification.secondary_families}));
+        }
+        if field(record, "identity_status") == "catalogue_only_unresolved" {
+            entries.push(json!({"rule":"catalogue_only_unresolved","identity":name(record),"message":"Historical TOC identity has no reconciled source provider."}));
+        }
+        if classification.family_confidence == "low" {
+            entries.push(json!({"rule":"low_confidence_classification","identity":name(record),"source":classification.family_source}));
+        }
+        if classification.family_source == "description_inference" {
+            entries.push(json!({"rule":"description_only_classification","identity":name(record),"matched_rule":classification.description_rule}));
+        }
+        if classification.identity_kind == "documentation_or_tooling_program_unit" {
+            entries.push(json!({"rule":"tooling_unit_classified","identity":name(record)}));
+        }
+    }
+    json!({"schema_id":"slatec-rs/family-classification-diagnostics","schema_version":VERSION,"records":entries})
+}
+
+fn parent_family_map(
+    records: &[Value],
+    classifications: &BTreeMap<String, FamilyClassification>,
+) -> Value {
+    json!({"schema_id":"slatec-rs/parent-family-map","schema_version":VERSION,"records":records.iter().filter_map(|record| classifications.get(name(record)).filter(|item| !item.parent_names.is_empty()).map(|item| json!({"identity":name(record),"parents":item.parent_names,"primary_family":item.primary_family,"source":item.family_source,"confidence":item.family_confidence}))).collect::<Vec<_>>()})
+}
+
+fn precision_family_map(
+    records: &[Value],
+    classifications: &BTreeMap<String, FamilyClassification>,
+) -> Value {
+    let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    for record in records {
+        if let Some(group) = classifications
+            .get(name(record))
+            .and_then(|item| item.precision_family_group.as_ref())
+        {
+            groups
+                .entry(group.clone())
+                .or_default()
+                .push(name(record).to_owned());
+        }
+    }
+    json!({"schema_id":"slatec-rs/precision-family-map","schema_version":VERSION,"records":groups.into_iter().map(|(group,mut identities)| { identities.sort(); json!({"group":group,"identities":identities}) }).collect::<Vec<_>>()})
 }
 
 fn normalize_description_lines(lines: &[String]) -> String {
@@ -1341,6 +1493,479 @@ fn user_status(identity: &Identity, kind: &str) -> &'static str {
         "historically_subsidiary"
     } else {
         "unresolved"
+    }
+}
+
+fn gams_family_map() -> Result<Vec<GamsFamily>> {
+    let parsed: toml::Value =
+        toml::from_str(&fs::read_to_string("metadata/gams-family-map.toml")?)?;
+    let mut seen = BTreeSet::new();
+    let mut output = Vec::new();
+    for value in parsed
+        .get("mapping")
+        .and_then(toml::Value::as_array)
+        .ok_or_else(|| policy("GAMS family map lacks mappings"))?
+    {
+        let table = value
+            .as_table()
+            .ok_or_else(|| policy("invalid GAMS family mapping"))?;
+        let required = |key| {
+            table
+                .get(key)
+                .and_then(toml::Value::as_str)
+                .map(ToOwned::to_owned)
+                .ok_or_else(|| policy("incomplete GAMS family mapping"))
+        };
+        let prefix = required("prefix")?;
+        if !seen.insert(prefix.clone()) {
+            return Err(policy("duplicate GAMS family mapping prefix"));
+        }
+        output.push(GamsFamily {
+            prefix,
+            family: required("family")?,
+            domain: required("domain")?,
+            confidence: required("confidence")?,
+        });
+    }
+    output.sort_by(|left, right| {
+        right
+            .prefix
+            .len()
+            .cmp(&left.prefix.len())
+            .then(left.prefix.cmp(&right.prefix))
+    });
+    Ok(output)
+}
+
+fn excluded_identities(
+    identities: &BTreeMap<String, Identity>,
+) -> BTreeMap<String, ExcludedCandidate> {
+    let mut output = BTreeMap::new();
+    for (name, kind, reason, evidence) in [
+        (
+            "A6B",
+            "catalogue_cross_reference",
+            "TOC category heading, not a program unit",
+            "Version 4.1 TOC line 85 is the A6B Base conversion heading; no provider or declaration resolves.",
+        ),
+        (
+            "C4B",
+            "catalogue_cross_reference",
+            "TOC category heading, not a program unit",
+            "Version 4.1 TOC line 163 is the C4B Exponential, logarithmic heading; no provider or declaration resolves.",
+        ),
+        (
+            "INDICATES",
+            "prose_token",
+            "wrapped TOC prose captured as an identity",
+            "No provider or declaration resolves; the token occurs in TOC explanatory text.",
+        ),
+        (
+            "PRECEEDING",
+            "prose_token",
+            "wrapped TOC prose captured as an identity",
+            "No provider or declaration resolves; the token occurs in TOC explanatory text.",
+        ),
+    ] {
+        if identities.contains_key(name) {
+            output.insert(
+                name.to_owned(),
+                ExcludedCandidate {
+                    name: name.to_owned(),
+                    kind: kind.to_owned(),
+                    discovery_source: "cached Netlib Version 4.1 TOC reconciliation".to_owned(),
+                    reason: reason.to_owned(),
+                    evidence: evidence.to_owned(),
+                    confidence: "verified".to_owned(),
+                },
+            );
+        }
+    }
+    output
+}
+
+fn classify_identities(
+    identities: &BTreeMap<String, Identity>,
+    providers: &BTreeMap<String, Provider>,
+    toc: &BTreeMap<String, TocPurpose>,
+    pilot: &BTreeMap<String, Pilot>,
+    gams_families: &[GamsFamily],
+) -> BTreeMap<String, FamilyClassification> {
+    let mut output = BTreeMap::new();
+    for identity in identities.values() {
+        output.insert(
+            identity.name.clone(),
+            base_classification(
+                identity,
+                providers,
+                pilot.get(&identity.name),
+                gams_families,
+            ),
+        );
+    }
+    for _ in 0..identities.len() {
+        let mut changed = false;
+        for identity in identities.values() {
+            let Some(current) = output.get(&identity.name).cloned() else {
+                continue;
+            };
+            if current.family_source != "unresolved" {
+                continue;
+            }
+            let parents = subsidiary_parents(identity, toc, identities);
+            if parents.is_empty() {
+                continue;
+            }
+            let parent_classes = parents
+                .iter()
+                .filter_map(|name| output.get(name))
+                .filter(|class| class.family_source != "unresolved")
+                .collect::<Vec<_>>();
+            if parent_classes.len() != parents.len() {
+                continue;
+            }
+            let families = parent_classes
+                .iter()
+                .map(|class| class.primary_family.clone())
+                .collect::<BTreeSet<_>>();
+            let mut next = current;
+            next.parent_names = parents;
+            next.family_source = "parent_inheritance".to_owned();
+            if families.len() == 1 {
+                next.primary_family = families
+                    .first()
+                    .cloned()
+                    .unwrap_or_else(|| "Genuinely unresolved routines".to_owned());
+                next.mathematical_domain = parent_classes[0].mathematical_domain.clone();
+                next.package_provenance = parent_classes[0].package_provenance.clone();
+                next.family_confidence = "high".to_owned();
+            } else {
+                next.primary_family = "Shared numerical utilities".to_owned();
+                next.secondary_families = families.into_iter().collect();
+                next.mathematical_domain = "data-utilities".to_owned();
+                next.package_provenance = "multiple-parent-families".to_owned();
+                next.family_confidence = "medium".to_owned();
+            }
+            output.insert(identity.name.clone(), next);
+            changed = true;
+        }
+        if !changed {
+            break;
+        }
+    }
+    let mut groups: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    for (name, item) in toc {
+        if let Some(group) = &item.group {
+            groups.entry(group.clone()).or_default().push(name.clone());
+        }
+    }
+    for names in groups.values() {
+        for name in names {
+            if let Some(current) = output.get(name).cloned() {
+                let mut next = current;
+                next.precision_family_group = toc.get(name).and_then(|item| item.group.clone());
+                output.insert(name.clone(), next);
+            }
+        }
+        let known = names
+            .iter()
+            .filter_map(|name| output.get(name))
+            .filter(|class| class.family_source != "unresolved")
+            .cloned()
+            .collect::<Vec<_>>();
+        let families = known
+            .iter()
+            .map(|class| class.primary_family.clone())
+            .collect::<BTreeSet<_>>();
+        if known.is_empty() || families.len() != 1 {
+            continue;
+        }
+        for name in names {
+            let Some(current) = output.get(name).cloned() else {
+                continue;
+            };
+            if current.family_source != "unresolved" {
+                continue;
+            }
+            let mut next = known[0].clone();
+            next.family_source = "precision_sibling".to_owned();
+            next.family_confidence = "high".to_owned();
+            next.precision_family_group = toc.get(name).and_then(|item| item.group.clone());
+            output.insert(name.clone(), next);
+        }
+    }
+    for identity in identities.values() {
+        let Some(current) = output.get(&identity.name).cloned() else {
+            continue;
+        };
+        if current.family_source != "unresolved" {
+            continue;
+        }
+        let Some(purpose) = toc.get(&identity.name).map(|item| item.purpose.as_str()) else {
+            continue;
+        };
+        if let Some((family, domain, package, rule)) =
+            description_family_rule(&identity.name, purpose)
+        {
+            let mut next = current;
+            next.primary_family = family.to_owned();
+            next.mathematical_domain = domain.to_owned();
+            next.package_provenance = package.to_owned();
+            next.family_source = "description_inference".to_owned();
+            next.family_confidence = "medium".to_owned();
+            next.description_rule = Some(rule.to_owned());
+            output.insert(identity.name.clone(), next);
+        }
+    }
+    output
+}
+
+fn description_family_rule(
+    name: &str,
+    purpose: &str,
+) -> Option<(&'static str, &'static str, &'static str, &'static str)> {
+    let upper = purpose.to_ascii_uppercase();
+    if upper.contains("DDASSL")
+        || upper.contains("SDASSL")
+        || upper.contains("INITIAL VALUE PROBLEM")
+        || upper.contains("CDSTP")
+        || upper.contains("DDSTP")
+        || upper.contains("SDSTP")
+        || upper.contains("YH ARRAY")
+        || upper.contains("CORRECTIONS TO THE Y ARRAY")
+        || upper.contains("YH VALUES")
+        || upper.contains("STEP SIZE IS CHANGED")
+        || (upper.contains("IROOT") && upper.contains("STOPPING CRITERION"))
+        || (upper.contains("JACOBIAN MATRIX") && upper.contains("DIFFERENTIAL EQUATIONS"))
+    {
+        Some((
+            "ODE solvers",
+            "ode-dae",
+            "ode-dae-families",
+            "source purpose identifies an ODE or DASSL solver component",
+        ))
+    } else if name.starts_with('Q') || name.starts_with("DQ") {
+        Some((
+            "Numerical quadrature",
+            "quadrature",
+            "quadpack",
+            "QUADPACK-style Q/DQ subsidiary with quadrature-purpose evidence",
+        ))
+    } else if upper.contains("MERGE TWO STRINGS") {
+        Some((
+            "Shared numerical utilities",
+            "data-utilities",
+            "shared-utility",
+            "source purpose identifies a typed merge utility",
+        ))
+    } else if upper.contains("COMPLEX SQUARE ROOT") || upper.contains("COMPLEX QUOTIENT") {
+        Some((
+            "Elementary and transcendental functions",
+            "special-functions",
+            "fnlib",
+            "source purpose identifies a complex elementary operation",
+        ))
+    } else if upper.contains("SINGULAR VALUE DECOMPOSITION") {
+        Some((
+            "Dense linear algebra",
+            "dense-linear-algebra",
+            "linpack",
+            "source purpose identifies singular-value decomposition",
+        ))
+    } else {
+        None
+    }
+}
+
+fn base_classification(
+    identity: &Identity,
+    providers: &BTreeMap<String, Provider>,
+    pilot: Option<&Pilot>,
+    gams_families: &[GamsFamily],
+) -> FamilyClassification {
+    let providers = identity
+        .provider_ids
+        .iter()
+        .filter_map(|id| providers.get(id))
+        .collect::<Vec<_>>();
+    let subset = |name: &str| providers.iter().any(|provider| provider.subset == name);
+    let (primary_family, domain, package, source, confidence) =
+        if subset("sladoc") || subset("slprep") || subset("subsid") {
+            (
+                "Documentation and source-processing tools",
+                "documentation-tools",
+                "slatec-documentation-tools",
+                "reviewed_override",
+                "verified",
+            )
+        } else if subset("pchip") {
+            (
+                "PCHIP",
+                "interpolation",
+                "pchip",
+                "package_provenance",
+                "verified",
+            )
+        } else if subset("err") || identity.name.starts_with("XER") {
+            (
+                "Error handling",
+                "runtime-support",
+                "slatec-error",
+                "package_provenance",
+                "high",
+            )
+        } else if matches!(identity.name.as_str(), "D1MACH" | "I1MACH" | "R1MACH") {
+            (
+                "Runtime and machine support",
+                "runtime-support",
+                "slatec-machine-constants",
+                "reviewed_override",
+                "verified",
+            )
+        } else if subset("fishfft")
+            && identity
+                .gams
+                .as_ref()
+                .is_some_and(|code| code.starts_with('J'))
+        {
+            (
+                "FFTPACK transforms",
+                "transforms",
+                "fftpack",
+                "package_provenance",
+                "verified",
+            )
+        } else if subset("fishfft") {
+            (
+                "FISHPACK elliptic PDE solvers",
+                "pde-integral-equations",
+                "fishpack",
+                "package_provenance",
+                "verified",
+            )
+        } else if subset("spfun") {
+            (
+                "Elementary and transcendental functions",
+                "special-functions",
+                "fnlib",
+                "package_provenance",
+                "verified",
+            )
+        } else if let Some(mapping) = identity.gams.as_ref().and_then(|code| {
+            gams_families
+                .iter()
+                .find(|mapping| code.starts_with(&mapping.prefix))
+        }) {
+            (
+                mapping.family.as_str(),
+                mapping.domain.as_str(),
+                "unknown",
+                "netlib_gams",
+                mapping.confidence.as_str(),
+            )
+        } else if subset("fnlib") {
+            (
+                "Special functions",
+                "special-functions",
+                "fnlib",
+                "package_provenance",
+                "verified",
+            )
+        } else if let Some(pilot) = pilot {
+            let (family, domain, package) = classify(
+                identity,
+                &providers
+                    .iter()
+                    .map(|provider| (*provider).clone())
+                    .collect::<Vec<_>>(),
+                Some(pilot),
+            );
+            return FamilyClassification {
+                primary_family: family,
+                secondary_families: Vec::new(),
+                mathematical_domain: domain,
+                package_provenance: package,
+                family_source: "reviewed_override".to_owned(),
+                family_confidence: "high".to_owned(),
+                parent_names: Vec::new(),
+                precision_family_group: None,
+                identity_kind: identity_kind(identity, &providers),
+                identity_status: identity_status(identity),
+                description_rule: None,
+            };
+        } else {
+            (
+                "Genuinely unresolved routines",
+                "uncategorized",
+                "unknown",
+                "unresolved",
+                "unresolved",
+            )
+        };
+    FamilyClassification {
+        primary_family: primary_family.to_owned(),
+        secondary_families: Vec::new(),
+        mathematical_domain: domain.to_owned(),
+        package_provenance: package.to_owned(),
+        family_source: source.to_owned(),
+        family_confidence: confidence.to_owned(),
+        parent_names: Vec::new(),
+        precision_family_group: None,
+        identity_kind: identity_kind(identity, &providers),
+        identity_status: identity_status(identity),
+        description_rule: None,
+    }
+}
+
+fn subsidiary_parents(
+    identity: &Identity,
+    toc: &BTreeMap<String, TocPurpose>,
+    identities: &BTreeMap<String, Identity>,
+) -> Vec<String> {
+    let Some(purpose) = toc.get(&identity.name).map(|item| item.purpose.as_str()) else {
+        return Vec::new();
+    };
+    let Some(rest) = purpose.strip_prefix("Subsidiary to ") else {
+        return Vec::new();
+    };
+    rest.split(|character: char| {
+        !(character.is_ascii_alphanumeric() || character == '$' || character == '_')
+    })
+    .filter(|candidate| identifier(candidate))
+    .map(|candidate| candidate.to_ascii_uppercase())
+    .filter(|candidate| identities.contains_key(candidate))
+    .collect::<BTreeSet<_>>()
+    .into_iter()
+    .collect()
+}
+
+fn identity_kind(identity: &Identity, providers: &[&Provider]) -> String {
+    if providers
+        .iter()
+        .any(|provider| matches!(provider.subset.as_str(), "sladoc" | "slprep" | "subsid"))
+    {
+        "documentation_or_tooling_program_unit".to_owned()
+    } else if identity.provider_ids.is_empty() {
+        "historical_catalogue_identity".to_owned()
+    } else {
+        identity
+            .kinds
+            .iter()
+            .find(|kind| kind.as_str() != "unknown")
+            .cloned()
+            .unwrap_or_else(|| "program_unit".to_owned())
+    }
+}
+
+fn identity_status(identity: &Identity) -> String {
+    if identity.provider_ids.is_empty() {
+        if identity.gams.is_some() {
+            "historical_external_dependency".to_owned()
+        } else {
+            "catalogue_only_unresolved".to_owned()
+        }
+    } else {
+        "retained_verified_program_unit".to_owned()
     }
 }
 
@@ -1641,6 +2266,7 @@ fn coverage(records: &[Value], providers: &BTreeMap<String, Provider>, manifest:
         "total_logical_identities":records.len(), "user_callable_identities":count("user_callable_status","historically_user_callable"), "subsidiary_helper_identities":count("user_callable_status","historically_subsidiary"), "entry_identities":count("kind","entry"), "block_data_identities":count("kind","block_data"),
         "source_only_identities":source_only, "catalogue_only_identities":count("source_status","catalogue_only"), "unresolved_role_identities":count("user_callable_status","unresolved"), "provider_count":providers.len(), "source_file_count":source_files,
         "duplicate_provider_groups":count("source_status","conflicting"), "duplicate_equivalent_provider_groups":equivalent_provider_groups, "conflicting_provider_groups":count("source_status","conflicting"), "described_identities":records.iter().filter(|record| field(record,"description_confidence") != "unavailable").count(), "identities_without_descriptions":count("description_confidence","unavailable"), "raw_bound_identities":count("raw_binding_status","bound"), "safely_wrapped_identities":count("safe_api_status","safe_public"), "deeply_audited_identities":count("audit_status","deeply_audited"),
+        "family_classification":{"shared_utilities":count("primary_family","Shared numerical utilities"),"runtime_and_machine_support":count("primary_family","Runtime and machine support") + count("primary_family","Error handling"),"documentation_tooling":count("primary_family","Documentation and source-processing tools"),"genuinely_unresolved":count("primary_family","Genuinely unresolved routines"),"netlib_gams":count("family_source","netlib_gams"),"parent_inheritance":count("family_source","parent_inheritance"),"precision_sibling":count("family_source","precision_sibling"),"description_inference":count("family_source","description_inference"),"historical_external_dependencies":count("identity_status","historical_external_dependency")},
         "documented_comparison":{"user_callable_target":902,"total_routine_floor":1400,"audit_reported_union":manifest.pointer("/summary/unique_program_units_in_union")}})
 }
 
@@ -1746,6 +2372,45 @@ fn write_docs(root: &Path, records: &[Value], summary: &Value, diagnostics: &Val
                 .unwrap_or(0)
         ),
     )?;
+    let count_family = |family: &str| {
+        records
+            .iter()
+            .filter(|record| field(record, "primary_family") == family)
+            .count()
+    };
+    let tooling = count_family("Documentation and source-processing tools");
+    let shared = count_family("Shared numerical utilities");
+    let runtime = count_family("Runtime and machine support")
+        + count_family("Machine constants")
+        + count_family("Error handling");
+    let unresolved = count_family("Genuinely unresolved routines");
+    let numerical = records.len().saturating_sub(tooling + runtime);
+    writeln!(
+        fs::OpenOptions::new()
+            .append(true)
+            .open(output.join("routine-coverage.md"))?,
+        "\n## Family classification\n\n| Measure | Count |\n| --- | ---: |\n| Retained routine identities | {} |\n| Historical numerical program units | {numerical} |\n| Subsidiary routines | {} |\n| Shared numerical utilities | {shared} |\n| Runtime and machine support units | {runtime} |\n| Documentation/tooling program units | {tooling} |\n| Excluded intrinsic references | 0 |\n| Excluded external symbols | 0 |\n| Excluded parser/prose candidates | 4 |\n| Classified with verified GAMS/package evidence | {} |\n| Classified with high-confidence inheritance | {} |\n| Classified by conservative description inference | {} |\n| Genuinely unresolved | {unresolved} |",
+        records.len(),
+        records
+            .iter()
+            .filter(|record| field(record, "user_callable_status") == "historically_subsidiary")
+            .count(),
+        records
+            .iter()
+            .filter(|record| matches!(
+                field(record, "family_source"),
+                "netlib_gams" | "package_provenance" | "reviewed_override"
+            ))
+            .count(),
+        records
+            .iter()
+            .filter(|record| field(record, "family_source") == "parent_inheritance")
+            .count(),
+        records
+            .iter()
+            .filter(|record| field(record, "family_source") == "description_inference")
+            .count(),
+    )?;
     Ok(())
 }
 
@@ -1757,6 +2422,9 @@ fn family_markdown(records: &[Value]) -> String {
             .or_default()
             .push(record);
     }
+    groups
+        .entry("Genuinely unresolved routines".to_owned())
+        .or_default();
     let mut output = "# SLATEC Routines by Function Family\n\n[Complete index](slatec-routine-index.md) · [Alphabetical lookup](routines-alphabetical.md) · [Coverage](routine-coverage.md)\n\n`source`, `raw`, and `safe` are independent coverage dimensions.\n".to_owned();
     for (family, mut rows) in groups {
         rows.sort_by(|a, b| name(a).cmp(name(b)));
@@ -1821,12 +2489,26 @@ fn details_markdown(records: &[Value]) -> String {
             anchor(name(record)),
             name(record)
         ));
-        output.push_str(&format!("- Purpose: {}\n- Role: {}\n- Kind: {}\n- Precision: {}\n- Family: {}\n- Package provenance: {}\n- Canonical provider: {}\n- Raw binding: {}\n- Safe API: {}\n", compact(field(record, "short_purpose")), field(record, "role"), field(record, "kind"), field(record, "precision"), field(record, "primary_family"), field(record, "package_provenance"), record.pointer("/canonical_provider/source_file").and_then(Value::as_str).unwrap_or("unavailable"), field(record, "raw_binding_status"), field(record, "safe_api_status")));
+        output.push_str(&format!("- Purpose: {}\n- Historical role: {}\n- Kind: {}\n- Identity status: {}\n- Precision: {}\n- Family: {}\n- Family evidence: {} ({})\n- Package provenance: {}\n- Canonical provider: {}\n- Raw binding: {}\n- Safe API: {}\n", compact(field(record, "short_purpose")), field(record, "historical_role"), field(record, "kind"), field(record, "identity_status"), field(record, "precision"), field(record, "primary_family"), field(record, "family_source"), field(record, "family_confidence"), field(record, "package_provenance"), record.pointer("/canonical_provider/source_file").and_then(Value::as_str).unwrap_or("unavailable"), field(record, "raw_binding_status"), field(record, "safe_api_status")));
         if let Some(code) = record
             .pointer("/gams_classification/code")
             .and_then(Value::as_str)
         {
             output.push_str(&format!("- GAMS classification: {code}\n"));
+        }
+        if let Some(parents) = record
+            .get("family_parent_routines")
+            .and_then(Value::as_array)
+            .filter(|parents| !parents.is_empty())
+        {
+            output.push_str(&format!(
+                "- Parent-family evidence: {}\n",
+                parents
+                    .iter()
+                    .filter_map(Value::as_str)
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            ));
         }
         output.push_str("\n### Full description\n\n");
         output.push_str(
@@ -1886,7 +2568,11 @@ fn validate_records(records: &[Value], providers: &BTreeMap<String, Provider>) -
     }
     Ok(())
 }
-fn validate_docs(root: &Path, records: &[Value]) -> Result<()> {
+fn validate_docs(
+    root: &Path,
+    records: &[Value],
+    exclusions: &BTreeMap<String, ExcludedCandidate>,
+) -> Result<()> {
     if !fs::read_to_string(root.join("index.md"))?.contains("Complete SLATEC Routine Index") {
         return Err(policy(
             "documentation navigation lacks Complete SLATEC Routine Index",
@@ -1910,6 +2596,13 @@ fn validate_docs(root: &Path, records: &[Value]) -> Result<()> {
             })
         {
             return Err(policy("unverified Netlib source URL"));
+        }
+    }
+    for candidate in exclusions.keys() {
+        if alphabetical.contains(&format!("routine-{}", candidate.to_ascii_lowercase()))
+            || details.contains(&format!("routine-{}", candidate.to_ascii_lowercase()))
+        {
+            return Err(policy("excluded candidate appears in documentation rows"));
         }
     }
     Ok(())
@@ -2041,6 +2734,53 @@ mod tests {
 
     fn source(text: &str) -> SourceDescription {
         parse_prologue(text).expect("fixture contains a prologue")
+    }
+
+    fn test_identity(name: &str, gams: Option<&str>) -> Identity {
+        Identity {
+            name: name.to_owned(),
+            provider_ids: Vec::new(),
+            kinds: vec!["subroutine".to_owned()],
+            provider_group: "unresolved".to_owned(),
+            in_list: false,
+            in_toc: true,
+            toc_role: "subsidiary".to_owned(),
+            list_lines: Vec::new(),
+            toc_lines: Vec::new(),
+            gams: gams.map(ToOwned::to_owned),
+        }
+    }
+
+    fn test_toc(purpose: &str, group: Option<&str>) -> TocPurpose {
+        TocPurpose {
+            purpose: purpose.to_owned(),
+            gams: None,
+            role: "subsidiary".to_owned(),
+            group: group.map(ToOwned::to_owned),
+        }
+    }
+
+    fn test_gams() -> Vec<GamsFamily> {
+        vec![
+            GamsFamily {
+                prefix: "D1".to_owned(),
+                family: "Linear algebra kernels".to_owned(),
+                domain: "linear-algebra-kernels".to_owned(),
+                confidence: "verified".to_owned(),
+            },
+            GamsFamily {
+                prefix: "D".to_owned(),
+                family: "Dense linear algebra".to_owned(),
+                domain: "dense-linear-algebra".to_owned(),
+                confidence: "verified".to_owned(),
+            },
+            GamsFamily {
+                prefix: "H".to_owned(),
+                family: "Numerical quadrature".to_owned(),
+                domain: "quadrature".to_owned(),
+                confidence: "verified".to_owned(),
+            },
+        ]
     }
 
     #[test]
@@ -2186,5 +2926,120 @@ mod tests {
         );
         assert!(mangled_reasons("C***PURPOSE broken").contains(&"contains_fixed_form_marker"));
         assert!(mangled_reasons("f(x").contains(&"unbalanced_parentheses"));
+    }
+
+    #[test]
+    fn parent_inheritance_handles_same_ambiguous_missing_and_cyclic_parents() {
+        let mut identities = BTreeMap::new();
+        for (name, gams) in [
+            ("P1", Some("H1")),
+            ("P2", Some("H2")),
+            ("P3", Some("D1")),
+            ("CHILD", None),
+            ("AMBIG", None),
+            ("MISSING", None),
+            ("CYCLEA", None),
+            ("CYCLEB", None),
+        ] {
+            identities.insert(name.to_owned(), test_identity(name, gams));
+        }
+        let toc = BTreeMap::from([
+            (
+                "CHILD".to_owned(),
+                test_toc("Subsidiary to P1 and P2", None),
+            ),
+            (
+                "AMBIG".to_owned(),
+                test_toc("Subsidiary to P1 and P3", None),
+            ),
+            ("MISSING".to_owned(), test_toc("Subsidiary to GHOST", None)),
+            ("CYCLEA".to_owned(), test_toc("Subsidiary to CYCLEB", None)),
+            ("CYCLEB".to_owned(), test_toc("Subsidiary to CYCLEA", None)),
+        ]);
+        let result = classify_identities(
+            &identities,
+            &BTreeMap::new(),
+            &toc,
+            &BTreeMap::new(),
+            &test_gams(),
+        );
+        assert_eq!(result["CHILD"].primary_family, "Numerical quadrature");
+        assert_eq!(result["CHILD"].family_source, "parent_inheritance");
+        assert_eq!(result["AMBIG"].primary_family, "Shared numerical utilities");
+        assert_eq!(result["MISSING"].family_source, "unresolved");
+        assert_eq!(result["CYCLEA"].family_source, "unresolved");
+    }
+
+    #[test]
+    fn gams_and_precision_family_classification_are_deterministic() {
+        let mut identities = BTreeMap::new();
+        identities.insert("DROOT".to_owned(), test_identity("DROOT", Some("D1A")));
+        identities.insert("SROOT".to_owned(), test_identity("SROOT", None));
+        let toc = BTreeMap::from([
+            ("DROOT".to_owned(), test_toc("Kernel.", Some("group-root"))),
+            ("SROOT".to_owned(), test_toc("Kernel.", Some("group-root"))),
+        ]);
+        let result = classify_identities(
+            &identities,
+            &BTreeMap::new(),
+            &toc,
+            &BTreeMap::new(),
+            &test_gams(),
+        );
+        assert_eq!(result["DROOT"].primary_family, "Linear algebra kernels");
+        assert_eq!(result["SROOT"].family_source, "precision_sibling");
+        assert_eq!(
+            result["SROOT"].precision_family_group.as_deref(),
+            Some("group-root")
+        );
+    }
+
+    #[test]
+    fn exclusions_preserve_real_intrinsic_named_program_units_and_remove_prose() {
+        let mut identities = BTreeMap::new();
+        let mut acos = test_identity("ACOS", None);
+        acos.provider_ids.push("provider-acos".to_owned());
+        identities.insert("ACOS".to_owned(), acos);
+        identities.insert("INDICATES".to_owned(), test_identity("INDICATES", None));
+        let excluded = excluded_identities(&identities);
+        assert!(!excluded.contains_key("ACOS"));
+        assert_eq!(excluded["INDICATES"].kind, "prose_token");
+    }
+
+    #[test]
+    fn tooling_and_description_rules_are_explicit() {
+        assert_eq!(
+            description_family_rule("QELG", "The epsilon algorithm computes an error estimate.")
+                .map(|item| item.0),
+            Some("Numerical quadrature")
+        );
+        assert_eq!(
+            description_family_rule(
+                "CDPST",
+                "Evaluates the Jacobian matrix of differential equations."
+            )
+            .map(|item| item.0),
+            Some("ODE solvers")
+        );
+        let mut identity = test_identity("SLADOC", None);
+        identity.provider_ids.push("tool".to_owned());
+        let provider = Provider {
+            id: "tool".to_owned(),
+            subset: "sladoc".to_owned(),
+            relationship: "x".to_owned(),
+            path: "sladoc".to_owned(),
+            raw_hash: "x".to_owned(),
+            normalized_hash: "x".to_owned(),
+        };
+        let classification = base_classification(
+            &identity,
+            &BTreeMap::from([("tool".to_owned(), provider)]),
+            None,
+            &test_gams(),
+        );
+        assert_eq!(
+            classification.primary_family,
+            "Documentation and source-processing tools"
+        );
     }
 }

@@ -1,0 +1,107 @@
+schema_version = 1
+generated_for = "slatec-rs"
+status = "reviewed-project-family-mapping"
+
+# Prefixes are matched longest-first.  They retain GAMS evidence while mapping
+# it to navigation families; this is deliberately not a Rust-module map.
+[[mapping]]
+prefix = "D1"
+family = "Linear algebra kernels"
+domain = "linear-algebra-kernels"
+confidence = "verified"
+
+[[mapping]]
+prefix = "D4"
+family = "Eigenvalue problems"
+domain = "dense-linear-algebra"
+confidence = "high"
+
+[[mapping]]
+prefix = "D"
+family = "Dense linear algebra"
+domain = "dense-linear-algebra"
+confidence = "verified"
+
+[[mapping]]
+prefix = "C4"
+family = "Elementary and transcendental functions"
+domain = "special-functions"
+confidence = "high"
+
+[[mapping]]
+prefix = "C"
+family = "Special functions"
+domain = "special-functions"
+confidence = "verified"
+
+[[mapping]]
+prefix = "A"
+family = "Arithmetic and extended-range arithmetic"
+domain = "numeric-support"
+confidence = "verified"
+
+[[mapping]]
+prefix = "E"
+family = "Interpolation"
+domain = "interpolation"
+confidence = "verified"
+
+[[mapping]]
+prefix = "F"
+family = "Nonlinear equations"
+domain = "nonlinear-equations"
+confidence = "verified"
+
+[[mapping]]
+prefix = "G"
+family = "Optimization and least squares"
+domain = "optimization"
+confidence = "verified"
+
+[[mapping]]
+prefix = "H"
+family = "Numerical quadrature"
+domain = "quadrature"
+confidence = "verified"
+
+[[mapping]]
+prefix = "I"
+family = "ODE solvers"
+domain = "ode-dae"
+confidence = "high"
+
+[[mapping]]
+prefix = "J"
+family = "FFTPACK transforms"
+domain = "transforms"
+confidence = "verified"
+
+[[mapping]]
+prefix = "K"
+family = "Approximation"
+domain = "approximation"
+confidence = "verified"
+
+[[mapping]]
+prefix = "L"
+family = "Probability and statistics"
+domain = "probability-statistics"
+confidence = "verified"
+
+[[mapping]]
+prefix = "N"
+family = "Shared numerical utilities"
+domain = "data-utilities"
+confidence = "high"
+
+[[mapping]]
+prefix = "R"
+family = "Runtime and machine support"
+domain = "runtime-support"
+confidence = "high"
+
+[[mapping]]
+prefix = "Z"
+family = "Shared numerical utilities"
+domain = "uncategorized"
+confidence = "low"
