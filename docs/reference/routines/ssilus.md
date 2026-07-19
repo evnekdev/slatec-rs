@@ -1,0 +1,49 @@
+# SSILUS
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Incomplete LU Decomposition Preconditioner SLAP Set Up. Routine to generate the incomplete LDU decomposition of a matrix. The unit lower triangular factor L is stored by rows and the unit upper triangular factor U is stored by columns. The inverse of the diagonal matrix D is stored. No fill in is allowed.
+
+## Description
+
+*Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM INTEGER NL, IL(NL), JL(NL), NU, IU(NU), JU(NU) INTEGER NROW(N), NCOL(N) REAL A(NELT), L(NL), DINV(N), U(NU) CALL SSILUS( N, NELT, IA, JA, A, ISYM, NL, IL, JL, L, $ DINV, NU, IU, JU, U, NROW, NCOL ) *Arguments: N :IN Integer Order of the Matrix. NELT :IN Integer. Number of elements in arrays IA, JA, and A. IA :IN Integer IA(NELT). JA :IN Integer JA(NELT). A :IN Real A(NELT). These arrays should hold the matrix A in the SLAP Column format. See "Description", below. ISYM :IN Integer. Flag to indicate symmetric storage format. If ISYM=0, all non-zero entries of the matrix are stored. If ISYM=1, the matrix is symmetric, and only the lower triangle of the matrix is stored. NL :OUT Integer. Number of non-zeros in the L array. IL :OUT Integer IL(NL). JL :OUT Integer JL(NL). L :OUT Real L(NL). IL, JL, L contain the unit lower triangular factor of the incomplete decomposition of some matrix stored in SLAP Row format. The Diagonal of ones *IS* stored. See "DESCRIPTION", below for more details about the SLAP format. NU :OUT Integer. Number of non-zeros in the U array. IU :OUT Integer IU(NU). JU :OUT Integer JU(NU). U :OUT Real U(NU). IU, JU, U contain the unit upper triangular factor of the incomplete decomposition of some matrix stored in SLAP Column format. The Diagonal of ones *IS* stored. See "Description", below for more details about the SLAP format. NROW :WORK Integer NROW(N). NROW(I) is the number of non-zero elements in the I-th row of L. NCOL :WORK Integer NCOL(N). NCOL(I) is the number of non-zero elements in the I-th column of U. *Description IL, JL, L should contain the unit lower triangular factor of the incomplete decomposition of the A matrix stored in SLAP Row format. IU, JU, U should contain the unit upper factor of the incomplete decomposition of the A matrix stored in SLAP Column format This ILU factorization can be computed by the SSILUS routine. The diagonals (which are all one's) are stored. =================== S L A P Column format ================== This routine requires that the matrix A be stored in the SLAP Column format. In this format the non-zeros are stored counting down columns (except for the diagonal entry, which must appear first in each "column") and are stored in the real array A. In other words, for each column in the matrix put the diagonal entry in A. Then put in the other non-zero elements going down the column (except the diagonal) in order. The IA array holds the row index for each non-zero. The JA array holds the offsets into the IA, A arrays for the beginning of each column. That is, IA(JA(ICOL)), A(JA(ICOL)) points to the beginning of the ICOL-th column in IA and A. IA(JA(ICOL+1)-1), A(JA(ICOL+1)-1) points to the
+
+## Classification
+
+- Historical role: `user_callable`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `f32`
+- Scalar kind: `real`
+- Primary family: `Dense linear algebra`
+- Mathematical domain: `dense-linear-algebra`
+- Package provenance: `unknown`
+- GAMS classifications: `D2E`
+- Family evidence: `netlib_gams` (`verified`)
+
+## Project coverage
+
+- Source status: `provider_present`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `lin/ssilus.f` (`relocated-subset`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/lin/ssilus.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/lin/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

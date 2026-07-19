@@ -1,0 +1,50 @@
+# SORTH
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Internal routine for SGMRES.
+
+## Description
+
+This routine orthogonalizes the vector VNEW against the previous KMP vectors in the V array. It uses a modified Gram-Schmidt orthogonalization procedure with conditional reorthogonalization. *Usage: INTEGER N, LL, LDHES, KMP REAL VNEW(N), V(N,LL), HES(LDHES,LL), SNORMW CALL SORTH(VNEW, V, HES, N, LL, LDHES, KMP, SNORMW) *Arguments: VNEW :INOUT Real VNEW(N) On input, the vector of length N containing a scaled product of the Jacobian and the vector V(*,LL). On output, the new vector orthogonal to V(*,i0) to V(*,LL), where i0 = max(1, LL-KMP+1). V :IN Real V(N,LL) The N x LL array containing the previous LL orthogonal vectors V(*,1) to V(*,LL). HES :INOUT Real HES(LDHES,LL) On input, an LL x LL upper Hessenberg matrix containing, in HES(I,K), K.lt.LL, the scaled inner products of A*V(*,K) and V(*,i). On return, column LL of HES is filled in with the scaled inner products of A*V(*,LL) and V(*,i). N :IN Integer The order of the matrix A, and the length of VNEW. LL :IN Integer The current order of the matrix HES. LDHES :IN Integer The leading dimension of the HES array. KMP :IN Integer The number of previous vectors the new vector VNEW must be made orthogonal to (KMP .le. MAXL). SNORMW :OUT REAL Scalar containing the l-2 norm of VNEW.
+
+## Classification
+
+- Historical role: `subsidiary`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `f32`
+- Scalar kind: `real`
+- Primary family: `Dense linear algebra`
+- Mathematical domain: `dense-linear-algebra`
+- Package provenance: `unknown`
+- GAMS classifications: `D2A4`
+- Family evidence: `netlib_gams` (`verified`)
+
+## Project coverage
+
+- Source status: `provider_present`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `lin/sorth.f` (`relocated-subset`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/lin/sorth.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/lin/sorth.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/lin/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

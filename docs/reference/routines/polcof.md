@@ -1,0 +1,51 @@
+# POLCOF
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Compute the coefficients of the polynomial fit (including Hermite polynomial fits) produced by a previous call to POLINT.
+
+## Description
+
+Written by Robert E. Huddleston, Sandia Laboratories, Livermore Abstract Subroutine POLCOF computes the coefficients of the polynomial fit (including Hermite polynomial fits ) produced by a previous call to POLINT. The coefficients of the polynomial, expanded about XX, are stored in the array D. The expansion is of the form P(Z) = D(1) + D(2)*(Z-XX) +D(3)*((Z-XX)**2) + ... + D(N)*((Z-XX)**(N-1)). Between the call to POLINT and the call to POLCOF the variable N and the arrays X and C must not be altered. ***** INPUT PARAMETERS XX - The point about which the Taylor expansion is to be made. N - **** * N, X, and C must remain unchanged between the X - * call to POLINT or the call to POLCOF. C - **** ***** OUTPUT PARAMETER D - The array of coefficients for the Taylor expansion as explained in the abstract ***** STORAGE PARAMETER WORK - This is an array to provide internal working storage. It must be dimensioned by at least 2*N in the calling program. **** Note - There are two methods for evaluating the fit produced by POLINT. You may call POLYVL to perform the task, or you may call POLCOF to obtain the coefficients of the Taylor expansion and then write your own evaluation scheme. Due to the inherent errors in the computations of the Taylor expansion from the Newton coefficients produced by POLINT, much more accuracy may be expected by calling POLYVL as opposed to writing your own scheme.
+
+## Classification
+
+- Historical role: `user_callable`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `unknown`
+- Scalar kind: `unknown`
+- Primary family: `Interpolation`
+- Mathematical domain: `interpolation`
+- Package provenance: `unknown`
+- GAMS classifications: `E1B`
+- Family evidence: `netlib_gams` (`verified`)
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/polcof.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/polcof.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/polcof.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

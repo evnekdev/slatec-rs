@@ -1,0 +1,51 @@
+# QELG
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+The routine determines the limit of a given sequence of approximations, by means of the Epsilon algorithm of P. Wynn. An estimate of the absolute error is also given. The condensed Epsilon table is computed. Only those elements needed for the computation of the next diagonal are preserved.
+
+## Description
+
+Epsilon algorithm Standard fortran subroutine Real version PARAMETERS N - Integer EPSTAB(N) contains the new element in the first column of the epsilon table. EPSTAB - Real Vector of dimension 52 containing the elements of the two lower diagonals of the triangular epsilon table. The elements are numbered starting at the right-hand corner of the triangle. RESULT - Real Resulting approximation to the integral ABSERR - Real Estimate of the absolute error computed from RESULT and the 3 previous results RES3LA - Real Vector of dimension 3 containing the last 3 results NRES - Integer Number of calls to the routine (should be zero at first call)
+
+## Classification
+
+- Historical role: `subsidiary`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `unknown`
+- Scalar kind: `unknown`
+- Primary family: `Numerical quadrature`
+- Mathematical domain: `quadrature`
+- Package provenance: `quadpack`
+- Family evidence: `description_inference` (`medium`)
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/qelg.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/qelg.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/qelg.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/src/qelg.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

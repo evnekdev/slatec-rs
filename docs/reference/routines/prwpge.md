@@ -1,0 +1,52 @@
+# PRWPGE
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Subsidiary to SPLP
+
+## Description
+
+PRWPGE LIMITS THE TYPE OF STORAGE TO A SEQUENTIAL SCHEME. VIRTUAL MEMORY PAGE READ/WRITE SUBROUTINE. DEPENDING ON THE VALUE OF KEY, SUBROUTINE PRWPGE() PERFORMS A PAGE READ OR WRITE OF PAGE IPAGE. THE PAGE HAS LENGTH LPG. KEY IS A FLAG INDICATING WHETHER A PAGE READ OR WRITE IS TO BE PERFORMED. IF KEY = 1 DATA IS READ. IF KEY = 2 DATA IS WRITTEN. IPAGE IS THE PAGE NUMBER OF THE MATRIX TO BE ACCESSED. LPG IS THE LENGTH OF THE PAGE OF THE MATRIX TO BE ACCESSED. SX(*),IX(*) IS THE MATRIX TO BE ACCESSED. THIS SUBROUTINE IS A MODIFICATION OF THE SUBROUTINE LRWPGE, SANDIA LABS. REPT. SAND78-0785. MODIFICATIONS BY K.L. HIEBERT AND R.J. HANSON REVISED 811130-1000 REVISED YYMMDD-HHMM
+
+## Classification
+
+- Historical role: `subsidiary`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `unknown`
+- Scalar kind: `unknown`
+- Primary family: `Optimization and least squares`
+- Mathematical domain: `optimization`
+- Package provenance: `unknown`
+- Family evidence: `parent_inheritance` (`high`)
+- Parent-family evidence: `SPLP`
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/prwpge.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/prwpge.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/prwpge.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/src/prwpge.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

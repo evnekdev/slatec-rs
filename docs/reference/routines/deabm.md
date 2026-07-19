@@ -1,0 +1,52 @@
+# DEABM
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Solve an initial value problem in ordinary differential equations using an Adams-Bashforth method.
+
+## Description
+
+This is the Adams code in the package of differential equation solvers DEPAC, consisting of the codes DERKF, DEABM, and DEBDF. Design of the package was by L. F. Shampine and H. A. Watts. It is documented in SAND79-2374 , DEPAC - Design of a User Oriented Package of ODE Solvers. DEABM is a driver for a modification of the code ODE written by L. F. Shampine and M. K. Gordon Sandia Laboratories Albuquerque, New Mexico 87185 ********************************************************************** ** DEPAC PACKAGE OVERVIEW ** ************************************************** You have a choice of three differential equation solvers from DEPAC. The following brief descriptions are meant to aid you in choosing the most appropriate code for your problem. DERKF is a fifth order Runge-Kutta code. It is the simplest of the three choices, both algorithmically and in the use of the code. DERKF is primarily designed to solve non-stiff and mildly stiff differential equations when derivative evaluations are not expensive. It should generally not be used to get high accuracy results nor answers at a great many specific points. Because DERKF has very low overhead costs, it will usually result in the least expensive integration when solving problems requiring a modest amount of accuracy and having equations that are not costly to evaluate. DERKF attempts to discover when it is not suitable for the task posed. DEABM is a variable order (one through twelve) Adams code. Its complexity lies somewhere between that of DERKF and DEBDF. DEABM is primarily designed to solve non-stiff and mildly stiff differential equations when derivative evaluations are expensive, high accuracy results are needed or answers at many specific points are required. DEABM attempts to discover when it is not suitable for the task posed. DEBDF is a variable order (one through five) backward differentiation formula code. It is the most complicated of the three choices. DEBDF is primarily designed to solve stiff differential equations at crude to moderate tolerances. If the problem is very stiff at all, DERKF and DEABM will be quite inefficient compared to DEBDF. However, DEBDF will be inefficient compared to DERKF and DEABM on non-stiff problems because it uses much more storage, has a much larger overhead, and the low order formulas will not give high accuracies efficiently. The concept of stiffness cannot be described in a few words. If you do not know the problem to be stiff, try either DERKF or DEABM. Both of these codes will inform you of stiffness when the cost of solving such problems becomes important. ********************************************************************** ** ABSTRACT ** ************** Subroutine DEABM uses the Adams-Bashforth-Moulton predictorcorrector formulas of orders one through twelve to integrate a system of NEQ first order ordinary differential equations of the form DU/DX = F(X,U) when the vector Y(*) of initial values for U(*) at X=T is given. The subroutine integrates from T to TOUT. It is easy to continue the integration to get results at additional TOUT. This is the interval mode of operation. It is also easy for the routine to return with the solution at each intermediate step on the way to TOUT. This is the intermediate-output mode of operation. DEABM uses subprograms DES, STEPS, SINTRP, HSTART, HVNRM, R1MACH and the error handling routine XERMSG. The only machine dependent parameters to be assigned appear in R1MACH. ********************************************************************** ** DESCRIPTION OF THE ARGUMENTS TO DEABM (AN OVERVIEW) ** ********************************************************* The parameters are F -- This is the name of a subroutine which you provide to define the differential equations. NEQ -- This is the number of (first order) differential equations to be integrated. T -- This is a value of the independent variable. Y(*) -- This array contains the solution components at T. TOUT -- This is a point at which a solution is desired. INFO(*) -- The basic task of the code is to integrate the differential equations from T to TOUT and return an answer at TOUT. INFO(*) is an integer array which is used to communicate exactly how you want this task to be carried out. RTOL, ATOL -- These quantities represent relative and absolute error tolerances which you provide to indicate how accurately you wish the solution to be computed. You may choose them to be both scalars or else both vectors. IDID -- This scalar quantity is an indicator reporting what the code did. You must monitor this integer variable to decide what action to take next. RWORK(*), LRW -- RWORK(*) is a real work array of length LRW which provides the code with needed storage space. IWORK(*), LIW -- IWORK(*) is an integer work array of length LIW which provides the code with needed storage space and an across call flag. RPAR, IPAR -- These are real and integer parameter arrays which you can use for communication between your calling program and the F subroutine. Quantities which are used as input items are NEQ, T, Y(*), TOUT, INFO(*), RTOL, ATOL, RWORK(1), LRW and LIW. Quantities which may be altered by the code are T, Y(*), INFO(1), RTOL, ATOL, IDID, RWORK(*) and IWORK(*). ********************************************************************** ** INPUT -- WHAT TO DO ON THE FIRST CALL TO DEABM ** **************************************************** The first call of the code is defined to be the start of each new problem. Read through the descriptions of all the following items, provide sufficient storage space for designated arrays, set appropriate variables for the initialization of the problem, and give information about how you want the problem to be solved. F -- Provide a subroutine of the form F(X,U,UPRIME,RPAR,IPAR) to define the system of first order differential equations which is to be solved. For the given values of X and the vector U(*)=(U(1),U(2),...,U(NEQ)) , the subroutine must evaluate the NEQ components of the system of differential equations DU/DX = F(X,U) and store the derivatives in array UPRIME(*), that is, UPRIME(I) = * DU(I)/DX * for equations I=1,...,NEQ. Subroutine F must not alter X or U(*). You must declare the name F in an external statement in your program that calls DEABM. You must dimension U and UPRIME in F. RPAR and IPAR are real and integer parameter arrays which you can use for communication between your calling program and subroutine F. They are not used or altered by DEABM. If you do not need RPAR or IPAR, ignore these parameters by treating them as dummy arguments. If you do choose to use them, dimension them in your calling program and in F as arrays of appropriate length. NEQ -- Set it to the number of differential equations. (NEQ .GE. 1) T -- Set it to the initial point of the integration. You must use a program variable for T because the code changes its value. Y(*) -- Set this vector to the initial values of the NEQ solution components at the initial point. You must dimension Y at least NEQ in your calling program. TOUT -- Set it to the first point at which a solution is desired. You can take TOUT = T, in which case the code will evaluate the derivative of the solution at T and return. Integration either forward in T (TOUT .GT. T) or backward in T (TOUT .LT. T) is permitted. The code advances the solution from T to TOUT using step sizes which are automatically selected so as to achieve the desired accuracy. If you wish, the code will return with the solution and its derivative following each intermediate step (intermediate-output mode) so that you can monitor them, but you still must provide TOUT in accord with the basic aim of the code. The first step taken by the code is a critical one because it must reflect how fast the solution changes near the initial point. The code automatically selects an initial step size which is practically always suitable for the problem. By using the fact that the code will not step past TOUT in the first step, you could, if necessary, restrict the length of the initial step size. For some problems it may not be permissible to integrate past a point TSTOP because a discontinuity occurs there or the solution or its derivative is not defined beyond TSTOP. When you have declared a TSTOP point (see INFO(4) and RWORK(1)), you have told the code not to integrate past TSTOP. In this case any TOUT beyond TSTOP is invalid
+
+## Classification
+
+- Historical role: `user_callable`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `f64`
+- Scalar kind: `real`
+- Primary family: `ODE solvers`
+- Mathematical domain: `ode-dae`
+- Package provenance: `unknown`
+- GAMS classifications: `I1A1B`
+- Family evidence: `netlib_gams` (`high`)
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `not_bound`
+- Build/profile status: `available_but_unselected`
+- Audit status: `identity_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/deabm.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/deabm.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/deabm.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/src/deabm.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
