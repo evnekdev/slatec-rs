@@ -88,6 +88,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::fftpack::RealFftPlan::new` | `RFFTI` | real FFTPACK | f32 | initialize a periodic real FFTPACK plan | `std` | `fftpack-real` | [periodic real FFT plan initialization](../../examples/fftpack/real_fft.rs) |
 | `slatec::fftpack::SineTransformPlan::new` | `SINTI` | real FFTPACK | f32 | initialize a full sine-transform plan | `std` | `fftpack-real` | [full sine transform plan initialization](../../examples/fftpack/sine_transform.rs) |
 | `slatec::fftpack::SineTransformPlan::transform` | `SINT` | real FFTPACK | f32 | compute the full FFTPACK sine transform | `std` | `fftpack-real` | [full sine transform](../../examples/fftpack/sine_transform.rs) |
+| `slatec::interpolation::bspline::BSpline::derivative` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/derivatives.rs) |
+| `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
+| `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
+| `slatec::interpolation::bspline::BSpline::integrate` | `BSQAD` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/integrate.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -258,6 +262,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BI` -> `slatec::special::airy::airy_bi_f32`
 - `BIE` -> `slatec::special::airy::airy_bi_scaled_f32`
 - `BINOM` -> `slatec::special::gamma::binomial_coefficient_f32`
+- `BSQAD` -> `slatec::interpolation::bspline::BSpline::integrate`
+- `BVALU` -> `slatec::interpolation::bspline::BSpline::derivative`
+- `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate`
+- `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `CBRT` -> `slatec::special::elementary::cbrt_f32`
 - `CHKDER` -> `slatec::nonlinear::check_jacobian_f32`
 - `COSDG` -> `slatec::special::elementary::cos_degrees_f32`
@@ -818,6 +826,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::fftpack::RealFftPlan::new`
 - `slatec::fftpack::SineTransformPlan::new`
 - `slatec::fftpack::SineTransformPlan::transform`
+- `slatec::interpolation::bspline::BSpline::derivative`
+- `slatec::interpolation::bspline::BSpline::evaluate`
+- `slatec::interpolation::bspline::BSpline::evaluate_into`
+- `slatec::interpolation::bspline::BSpline::integrate`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`

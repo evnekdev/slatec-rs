@@ -30,6 +30,7 @@ pub mod runtime_storage_policy;
 pub mod safe_api_docs;
 pub mod safe_bounded_constrained_linear_least_squares;
 pub mod safe_bounded_linear_least_squares;
+pub mod safe_bspline;
 pub mod safe_constrained_linear_least_squares;
 pub mod safe_dassl;
 pub mod safe_fftpack;

@@ -46,6 +46,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     // prior broad provider audit.  Merge those conservative projections here
     // so the global policy cannot accidentally omit a newly safe public API.
     projections.extend(crate::safe_pchip::native_state_projections()?);
+    projections.extend(crate::safe_bspline::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
@@ -252,9 +253,11 @@ fn concurrency_records(
             fftpack,
             routine_sources.get(routine),
         );
-        let projection = projections
-            .get(safe_path)
-            .ok_or_else(|| policy("safe function lacks an exact native-state projection"))?;
+        let projection = projections.get(safe_path).ok_or_else(|| {
+            CorpusError::Verification(format!(
+                "safe function lacks an exact native-state projection: {safe_path}"
+            ))
+        })?;
         output.push(json!([
             safe_path,
             routine,
@@ -558,6 +561,29 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             // units have saved DATA values and every exposed error path can
             // reach XERROR, so no individual PCHIP entry can be a parallel
             // candidate even when its own object has no named writable symbol.
+            mutable: true,
+            status: "complete_mutable_state_found".to_owned(),
+        });
+    }
+    // The B-spline representation profile is likewise focused after the
+    // prior broad archive audit. Its complete small closure was source-
+    // reviewed and linked with the reviewed compiler profile; XERROR and the
+    // initialized BSQAD/DBSQAD quadrature tables retain the conservative
+    // serialization classification.
+    let bspline_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/bspline-source-closure.json",
+    ))?;
+    let bspline_sources = bspline_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("B-spline closure lacks source records"))?;
+    for source in bspline_sources {
+        let id = string(source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(source, "path")?.to_owned(),
+            storage: format!(
+                "focused_bspline_source_and_link_audit:{}:BVALU_BSQAD_and_XERROR_closure_inspected",
+                string(source, "path")?
+            ),
             mutable: true,
             status: "complete_mutable_state_found".to_owned(),
         });
@@ -972,6 +998,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/pchip-source-closure.json",
     ))?;
     closures["families"]["pchip"] = pchip_closure["source_ids"].clone();
+    let bspline_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/bspline-source-closure.json",
+    ))?;
+    closures["families"]["bspline"] = bspline_closure["source_ids"].clone();
     let special_scalar_expanded_closure = read_value(repo_path(
         "crates/slatec-src/metadata/special-scalar-expanded-source-closure.json",
     ))?;

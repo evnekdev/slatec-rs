@@ -65,6 +65,8 @@ compile_error!(
 compile_error!("the `fftpack-real` safe API requires the `std` feature");
 #[cfg(all(feature = "pchip", not(feature = "std")))]
 compile_error!("the `pchip` safe API requires the `std` feature");
+#[cfg(all(feature = "bspline", not(feature = "std")))]
+compile_error!("the `bspline` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -133,7 +135,8 @@ pub mod polynomials;
     feature = "dassl",
     feature = "optimization-linear-programming-in-memory",
     feature = "fftpack-real",
-    feature = "pchip"
+    feature = "pchip",
+    feature = "bspline"
 ))]
 pub(crate) mod runtime;
 
@@ -144,6 +147,9 @@ pub mod fftpack;
 /// Safe piecewise-cubic Hermite interpolation backed by SLATEC PCHIP.
 #[cfg(feature = "pchip")]
 pub mod pchip;
+
+#[cfg(feature = "bspline")]
+mod bspline;
 
 /// Safe residual-only sessions for the reviewed real SLATEC DASSL drivers.
 #[cfg(feature = "dassl")]

@@ -3375,6 +3375,194 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::bspline::BSpline::derivative",
+      "fortran_routine": "BVALU",
+      "program_unit_id": "full-provider-a84dd70ebbee8a4f",
+      "arguments": [
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ideriv",
+          "fortran": "IDERIV",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "inbv",
+          "fortran": "INBV",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::bspline::BSpline::evaluate",
+      "fortran_routine": "BVALU",
+      "program_unit_id": "full-provider-a84dd70ebbee8a4f",
+      "arguments": [
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ideriv",
+          "fortran": "IDERIV",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "inbv",
+          "fortran": "INBV",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::bspline::BSpline::evaluate_into",
+      "fortran_routine": "BVALU",
+      "program_unit_id": "full-provider-a84dd70ebbee8a4f",
+      "arguments": [
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ideriv",
+          "fortran": "IDERIV",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "inbv",
+          "fortran": "INBV",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::bspline::BSpline::integrate",
+      "fortran_routine": "BSQAD",
+      "program_unit_id": "full-provider-c7343de5fee26f3a",
+      "arguments": [
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "bcoef",
+          "fortran": "BCOEF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x1",
+          "fortran": "X1",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x2",
+          "fortran": "X2",
+          "transformation": "pass"
+        },
+        {
+          "rust": "bquad",
+          "fortran": "BQUAD",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::least_squares::covariance_from_expert_fit",
       "fortran_routine": "DCOV",
       "program_unit_id": "full-provider-ac51f11e9b483b2c",

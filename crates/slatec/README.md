@@ -58,6 +58,13 @@ and definite integration. Knots remain strictly ordered as supplied, native
 endpoint extrapolation is opt-in, and the shared XERROR runtime keeps calls
 process-serialized. See the [PCHIP guide](../../docs/api/safe-pchip.md).
 
+The hosted `bspline` feature provides owned `f32` and `f64` `BSpline` curves
+from validated nondecreasing knots, coefficients, and order. It calls reviewed
+SLATEC `BVALU`/`DBVALU` for value or derivative evaluation and
+`BSQAD`/`DBSQAD` for scalar definite integration, with no hidden sorting,
+coefficient conversion, or caller-managed workspace. See the
+[B-spline guide](../../docs/api/safe-bspline.md).
+
 The hosted `special-scalar-expanded` feature provides real scalar
 logarithmic/Spence integrals and Carlson symmetric elliptic integrals in both
 precisions. It has no caller workspace or external numerical dependency;

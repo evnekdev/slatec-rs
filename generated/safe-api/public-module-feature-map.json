@@ -250,6 +250,13 @@
         "interpolation::pchip"
       ],
       "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
+      "cargo_feature": "bspline",
+      "grouped_paths": [
+        "interpolation::bspline"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
     }
   ]
 }

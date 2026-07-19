@@ -26,6 +26,20 @@ PCHIP separates construction from evaluation. `PCHIM` computes derivatives for a
 
 PCHIP is not synonymous with all SLATEC interpolation. B-splines, smoothing/fitting and multidimensional routines have separate provenance and storage.
 
+## Reviewed B-spline subset
+
+The opt-in `bspline` feature now exposes the already-constructed univariate
+real B-representation used by `BVALU`/`DBVALU` and `BSQAD`/`DBSQAD`: owned
+nondecreasing knots, coefficients, and order. It evaluates values and native
+derivatives and performs definite integration without translating a spline
+algorithm. The basic domain is `T[K-1]..=T[N]`; outside points are rejected by
+default or may be explicitly clamped to an endpoint limit. It does not fit
+data, insert knots, form basis vectors, sort inputs, or convert storage.
+
+The native closure reaches XERROR and `BSQAD`/`DBSQAD` retain initialized
+quadrature tables, so this subset remains globally serialized. See
+[`safe-bspline.md`](../api/safe-bspline.md) for the exact native contract.
+
 ## B-representation and PP representation
 
 B-spline routines often use:
