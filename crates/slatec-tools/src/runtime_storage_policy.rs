@@ -48,6 +48,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     projections.extend(crate::safe_pchip::native_state_projections()?);
     projections.extend(crate::safe_bspline::native_state_projections()?);
     projections.extend(crate::safe_piecewise_polynomial::native_state_projections()?);
+    projections.extend(crate::safe_fftpack_complex::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
@@ -169,7 +170,9 @@ fn concurrency_records(
         let dassl = feature == "dassl";
         let session_callback = ode || dassl;
         let lp = feature == "optimization-linear-programming-in-memory";
-        let fftpack = feature == "fftpack-real";
+        let fftpack_real = feature == "fftpack-real";
+        let fftpack_complex = feature == "fftpack-complex";
+        let fftpack = fftpack_real || fftpack_complex;
         let pchip = feature == "pchip";
         let callback = callback_dispatch(domain, feature);
         let class = if backend_dependent {
@@ -193,7 +196,9 @@ fn concurrency_records(
             "scoped_XGETF_XSETF_restore"
         } else if feature.starts_with("least-squares") {
             "scoped_XGETF_XSETF_restore_where_reviewed"
-        } else if fftpack {
+        } else if fftpack_complex {
+            "not_reachable_in_exact_complex_FFTPACK_closure"
+        } else if fftpack_real {
             "not_reachable_in_exact_real_FFTPACK_closure"
         } else if backend_dependent {
             "native_default_not_scoped"
@@ -208,7 +213,9 @@ fn concurrency_records(
             "saved_IER_XERROR_and_callback_context; complete_native_stress_validation_confirms_serialized_execution"
         } else if dassl {
             "saved_DASSL_DATA_state_XERROR_and_callback_context; serialized"
-        } else if fftpack {
+        } else if fftpack_complex {
+            "CFFTI1_NTRYH_is_SAVE_DATA_and_emitted_as_writable_local_data; no_source_writer_was_found_but_calls_remain_serialized_conservatively"
+        } else if fftpack_real {
             "RFFTI1_and_EZFFT1_NTRYH_are_SAVE_DATA_tables_emitted_as_writable_local_data; no_source_writer_was_found_but_calls_remain_serialized_conservatively"
         } else if pchip {
             "PCHIP_SAVE_DATA_constants_and_process_global_XERROR; serialized"
@@ -223,7 +230,9 @@ fn concurrency_records(
             "no_mandatory_file_protocol_in_reviewed_SDRIV3_DDRIV3_scope"
         } else if dassl {
             "no_OPEN_CLOSE_or_retained_external_file_protocol_in_reviewed_DASSL_scope"
-        } else if fftpack {
+        } else if fftpack_complex {
+            "none_in_exact_complex_FFTPACK_closure"
+        } else if fftpack_real {
             "none_in_exact_real_FFTPACK_closure"
         } else if pchip {
             "none_in_exact_PCHIP_closure"
@@ -238,7 +247,9 @@ fn concurrency_records(
             "not_candidate_for_ParallelSafe: saved_IER_XERROR_callback_context_and_provider_runtime evidence require process serialization"
         } else if dassl {
             "not_candidate_for_ParallelSafe: DASSL_SAVE_DATA_XERROR_callback_context_and_provider_runtime evidence require process serialization"
-        } else if fftpack {
+        } else if fftpack_complex {
+            "not_candidate_mutable_native_state: CFFTI1_NTRYH_is_SAVEd_DATA_storage_with_a_writable_object_symbol; no_parallel_native_stress_evidence"
+        } else if fftpack_real {
             "not_candidate_mutable_native_state: RFFTI1_and_EZFFT1_NTRYH_are_SAVEd_DATA_tables_with_writable_object_symbols; no_parallel_native_stress_evidence"
         } else if pchip {
             "not_candidate_mutable_native_state: PCHIP_SAVE_DATA_storage_and_XERROR_require_process_serialization"
@@ -445,10 +456,14 @@ fn mutable_state_ids(
         ids.push("rust-callback-thread-local-registry".to_owned());
     }
     if fftpack {
-        ids.extend([
-            "rffti1-data-ntryh".to_owned(),
-            "ezfft1-data-ntryh".to_owned(),
-        ]);
+        if feature == "fftpack-complex" {
+            ids.push("cffti1-data-ntryh".to_owned());
+        } else {
+            ids.extend([
+                "rffti1-data-ntryh".to_owned(),
+                "ezfft1-data-ntryh".to_owned(),
+            ]);
+        }
     }
     if let Some(routine_source) = routine_source {
         // Direct routine source records are evidence for the entry point;
@@ -653,6 +668,39 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             ),
             mutable: true,
             status: "complete_mutable_state_found".to_owned(),
+        });
+    }
+    // The standard complex FFTPACK closure is deliberately narrow and uses
+    // only real-array entry points.  Its focused source/object audit found
+    // CFFTI1's SAVEd DATA factor table in writable local storage; the remaining
+    // CFFTF1/CFFTB1 and PASS* units have no persistent native state.  Keeping
+    // each source record here lets the global policy project this exact closure
+    // without accidentally borrowing state from unrelated fishfft routines.
+    let fftpack_complex_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fftpack-complex-source-closure.json",
+    ))?;
+    let fftpack_complex_sources = fftpack_complex_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("complex FFTPACK closure lacks source records"))?;
+    for source in fftpack_complex_sources {
+        let id = string(source, "id")?.to_owned();
+        let path = string(source, "path")?;
+        let has_saved_table = path == "cffti1.f";
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: path.to_owned(),
+            storage: if has_saved_table {
+                "focused_fftpack_complex_source_and_object_audit:cffti1.f:NTRYH_SAVE_DATA_writable_local".to_owned()
+            } else {
+                format!(
+                    "focused_fftpack_complex_source_and_object_audit:{path}:no_persistent_native_storage"
+                )
+            },
+            mutable: has_saved_table,
+            status: if has_saved_table {
+                "complete_mutable_state_found".to_owned()
+            } else {
+                "complete_no_mutable_state_found".to_owned()
+            },
         });
     }
     Ok(output)
@@ -940,6 +988,23 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
             ]
         ]),
         json!([
+            "cffti1-data-ntryh",
+            "CFFTI1",
+            "NTRYH initialized factor-order table",
+            "SAVE+DATA",
+            true,
+            "compile_time",
+            "process",
+            "read_only",
+            "wrapper_lock",
+            "benign_after_init",
+            [
+                "fishfft/cffti1.f: SAVE NTRYH; DATA NTRYH /3,4,2,5/",
+                "focused complex FFT closure audit: no executable source writer is present",
+                "The local symbol has process-image lifetime, so the hosted lock remains in force pending an independent parallel audit."
+            ]
+        ]),
+        json!([
             "provider-blas-runtime-unresolved",
             "BLAS_level1_level2_level3_provider",
             "linked_provider_static_locals_common_blocks_and_runtime_state",
@@ -1017,6 +1082,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/fftpack-real-source-closure.json",
     ))?;
     closures["families"]["fftpack-real"] = fftpack_closure["source_ids"].clone();
+    let fftpack_complex_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/fftpack-complex-source-closure.json",
+    ))?;
+    closures["families"]["fftpack-complex"] = fftpack_complex_closure["source_ids"].clone();
     let pchip_closure = read_value(repo_path(
         "crates/slatec-src/metadata/pchip-source-closure.json",
     ))?;
@@ -1089,7 +1158,7 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
                     audited.mutable,
                     "explicit",
                     "process",
-                    if audited.mutable { "read_write" } else { "read_only" },
+                    native_storage_access(source_id, audited),
                     "wrapper_lock",
                     audited.status,
                     [format!("selected overlay source id {source_id}"), format!("generated/safe-api/native-source-scan-index.json: {}", audited.status), "complete source and object evidence is required by the native-origin audit gate"]
@@ -1113,11 +1182,7 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
             audited.mutable,
             "explicit",
             "process",
-            if audited.mutable {
-                "read_write"
-            } else {
-                "read_only"
-            },
+            native_storage_access(source_id, audited),
             "wrapper_lock",
             audited.status,
             [
@@ -1135,6 +1200,18 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         records,
         routine_sources,
     })
+}
+
+fn native_storage_access(source_id: &str, audited: &NativeSourceStatus) -> &'static str {
+    if source_id == "selected-source-43ec770eeca689dc" {
+        // CFFTI1's `NTRYH` lives in writable `.data` because it is DATA/SAVE,
+        // but this exact source closure only reads the table.
+        "read_only"
+    } else if audited.mutable {
+        "read_write"
+    } else {
+        "read_only"
+    }
 }
 
 fn selected_source_paths(source_files: &Value) -> Result<BTreeMap<String, String>> {

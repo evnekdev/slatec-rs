@@ -3527,6 +3527,51 @@
       "example_file": "examples/special/integrals.rs",
       "example_case": "scalar-expanded-integrals",
       "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::backward",
+      "fortran_routine": "CFFTB1",
+      "module": "slatec::transforms::fft::complex::ComplexFftPlan32",
+      "domain": "complex FFTPACK",
+      "precision": "Complex32",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "fftpack-complex",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/transforms/fft/complex/ComplexFftPlan32/fn.backward.html",
+      "example_file": "examples/fftpack/complex_round_trip.rs",
+      "example_case": "positive exponent in-place DFT",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::forward",
+      "fortran_routine": "CFFTF1",
+      "module": "slatec::transforms::fft::complex::ComplexFftPlan32",
+      "domain": "complex FFTPACK",
+      "precision": "Complex32",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "fftpack-complex",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/transforms/fft/complex/ComplexFftPlan32/fn.forward.html",
+      "example_file": "examples/fftpack/complex_spectrum.rs",
+      "example_case": "negative exponent in-place DFT",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::new",
+      "fortran_routine": "CFFTI1",
+      "module": "slatec::transforms::fft::complex::ComplexFftPlan32",
+      "domain": "complex FFTPACK",
+      "precision": "Complex32",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "fftpack-complex",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/transforms/fft/complex/ComplexFftPlan32/fn.new.html",
+      "example_file": "examples/fftpack/complex_round_trip.rs",
+      "example_case": "initialize reusable plan",
+      "inclusion_status": "safe_api_available"
     }
   ]
 }

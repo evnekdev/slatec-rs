@@ -51,6 +51,13 @@ initialized work array and preserves the original in-place storage and native
 normalization. The selected snapshot contains no reviewed `f64` real FFTPACK
 counterparts. See the [real FFTPACK guide](../../docs/api/safe-real-fftpack.md).
 
+The hosted `fftpack-complex` feature provides a one-dimensional in-place
+`ComplexFftPlan32` over public `num_complex::Complex32`. It calls the reviewed
+standard real-array `CFFTI1/CFFTF1/CFFTB1` interface, preserves the native
+negative/positive exponent directions and `N` round-trip scale, and has no
+`Complex64` plan because the selected snapshot contains no complex `f64`
+roots. See the [complex FFTPACK guide](../../docs/api/safe-complex-fftpack.md).
+
 The hosted `pchip` feature provides owned `f32` and `f64`
 `PiecewiseCubicHermite` curves over reviewed PCHIP. Monotone, controlled, and
 PCHSP endpoint derivative construction feed native value/derivative evaluation

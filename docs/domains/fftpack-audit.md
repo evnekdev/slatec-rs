@@ -9,8 +9,9 @@ audited `f32` family; no names or precision pairs were inferred mechanically.
 
 The narrow closure comprises 32 hash-pinned `fishfft` source files: the six
 family front ends, FFT factor initialization, real radix kernels, and the
-full/quarter-wave helpers. It does not include complex FFTPACK, multidimensional
-transforms, FISHPACK, BLAS, XERROR, callbacks, or Fortran I/O.
+full/quarter-wave helpers. The separate complex audit exposes only the
+standard single-precision `CFFTI1/CFFTF1/CFFTB1` path. Neither closure includes
+multidimensional transforms, FISHPACK, BLAS, XERROR, callbacks, or Fortran I/O.
 
 Source scanning found two compile-time initialized saved factor tables:
 `NTRYH` in `RFFTI1` and `EZFFT1`. The closure has no writers for either table.

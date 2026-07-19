@@ -9594,6 +9594,92 @@
           "transformation": "pass"
         }
       ]
+    },
+    {
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::backward",
+      "fortran_routine": "CFFTB1",
+      "program_unit_id": "full-provider-6c7d0bfa887aff24",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous Complex32 transform buffer, viewed as checked re/im f32 words",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "CH",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IFAC",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::forward",
+      "fortran_routine": "CFFTF1",
+      "program_unit_id": "full-provider-f3d7ed47ed0ac113",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "caller contiguous Complex32 transform buffer, viewed as checked re/im f32 words",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "CH",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IFAC",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::transforms::fft::complex::ComplexFftPlan32::new",
+      "fortran_routine": "CFFTI1",
+      "program_unit_id": "full-provider-260b70bfcecff12f",
+      "arguments": [
+        {
+          "rust": "plan.length",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WA",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IFAC",
+          "transformation": "internal"
+        }
+      ]
     }
   ]
 }

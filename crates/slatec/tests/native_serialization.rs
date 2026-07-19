@@ -7,6 +7,7 @@
 
 use std::sync::{Arc, Barrier};
 
+use num_complex::Complex32;
 use slatec::bounded_least_squares::{
     BoundedLeastSquaresOptions, BoundedLeastSquaresProblem, VariableBounds,
     solve_bounded_least_squares,
@@ -24,6 +25,7 @@ use slatec::ode::{OdeOptions, OdeSession, OdeTolerance, OdeTolerances};
 use slatec::pchip::PiecewiseCubicHermite;
 use slatec::quadrature::{IntegrationOptions, integrate};
 use slatec::roots::{RootBracket, RootOptions, find_root};
+use slatec::transforms::fft::complex::ComplexFftPlan32;
 
 fn run_ode() {
     let mut session = OdeSession::new(
@@ -135,6 +137,13 @@ fn run_real_fftpack() {
     plan.backward(&mut values).unwrap();
 }
 
+fn run_complex_fftpack() {
+    let mut values = [Complex32::new(1.0, 0.0), Complex32::new(0.0, 1.0)];
+    let mut plan = ComplexFftPlan32::new(values.len()).unwrap();
+    plan.forward(&mut values).unwrap();
+    plan.backward(&mut values).unwrap();
+}
+
 fn run_pchip() {
     let curve = PiecewiseCubicHermite::<f64>::monotone(&[0.0, 0.5, 1.0], &[0.0, 0.3, 1.0]).unwrap();
     assert!(curve.evaluate(0.25).unwrap().is_finite());
@@ -178,12 +187,15 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_dassl, run_pchip);
     concurrent_pair(run_dassl, run_bspline);
     concurrent_pair(run_dassl, run_real_fftpack);
+    concurrent_pair(run_dassl, run_complex_fftpack);
     concurrent_pair(run_bounded, run_nonnegative);
     concurrent_pair(run_root, run_quadrature);
     concurrent_pair(run_linear_programming, run_ode);
     concurrent_pair(run_linear_programming, run_bounded);
     concurrent_pair(run_real_fftpack, run_ode);
     concurrent_pair(run_real_fftpack, run_linear_programming);
+    concurrent_pair(run_real_fftpack, run_complex_fftpack);
+    concurrent_pair(run_complex_fftpack, run_piecewise_polynomial);
     concurrent_pair(run_pchip, run_ode);
     concurrent_pair(run_pchip, run_real_fftpack);
     concurrent_pair(run_bspline, run_ode);

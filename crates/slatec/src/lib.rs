@@ -63,6 +63,8 @@ compile_error!(
 );
 #[cfg(all(feature = "fftpack-real", not(feature = "std")))]
 compile_error!("the `fftpack-real` safe API requires the `std` feature");
+#[cfg(all(feature = "fftpack-complex", not(feature = "std")))]
+compile_error!("the `fftpack-complex` safe API requires the `std` feature");
 #[cfg(all(feature = "pchip", not(feature = "std")))]
 compile_error!("the `pchip` safe API requires the `std` feature");
 #[cfg(all(feature = "bspline", not(feature = "std")))]
@@ -137,6 +139,7 @@ pub mod polynomials;
     feature = "dassl",
     feature = "optimization-linear-programming-in-memory",
     feature = "fftpack-real",
+    feature = "fftpack-complex",
     feature = "pchip",
     feature = "bspline",
     feature = "piecewise-polynomial"

@@ -22,32 +22,8 @@ use slatec_sys::FortranInteger;
 
 use crate::runtime::lock_native;
 
-/// An error detected before a real FFTPACK plan enters native code.
-///
-/// FFTPACK's real routines have no status return.  Constructors therefore
-/// validate all documented dimensions and allocation arithmetic, while
-/// transform methods validate the exact slice length.
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub enum FftError {
-    /// The requested transform length is outside the routine's documented range.
-    InvalidLength {
-        /// The requested length.
-        length: usize,
-        /// The smallest accepted length for this plan family.
-        minimum: usize,
-    },
-    /// A transform slice does not match the plan length.
-    LengthMismatch {
-        /// Plan length established by its constructor.
-        expected: usize,
-        /// Slice length passed to the transform method.
-        actual: usize,
-    },
-    /// A length or workspace formula cannot be represented by the native ABI.
-    DimensionOverflow,
-    /// Allocation of the private native workspace or explicit easy-spectrum buffers failed.
-    AllocationFailed,
-}
+/// Shared pre-native FFTPACK validation errors.
+pub use crate::transforms::fft::FftError;
 
 #[derive(Debug)]
 struct PlanCore {

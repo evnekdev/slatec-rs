@@ -115,5 +115,7 @@ executable source—including its small-size paths—uses factor 4. The API and
 direct-oracle tests follow the executable behavior and the documented `4*N`
 composition relation.
 
-Complex FFTPACK, multidimensional FFTs, FISHPACK, arbitrary strides, external
-array adapters, and translated algorithms are intentionally out of scope.
+The separate `fftpack-complex` feature exposes only reviewed one-dimensional
+single-precision complex FFTPACK plans. Multidimensional FFTs, FISHPACK,
+arbitrary strides, external array adapters, and translated algorithms remain
+out of scope.

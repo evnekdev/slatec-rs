@@ -245,6 +245,13 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "fftpack-complex",
+      "grouped_paths": [
+        "transforms::fft::complex"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "pchip",
       "grouped_paths": [
         "interpolation::pchip"
