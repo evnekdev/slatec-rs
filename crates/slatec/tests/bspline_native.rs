@@ -136,3 +136,201 @@ fn coefficient_linearity_and_integral_additivity_hold() {
             < 2.0e-12
     );
 }
+
+fn cubic_nodes_f64() -> [f64; 5] {
+    [0.0, 0.75, 1.5, 2.25, 3.0]
+}
+
+fn cubic_knots_f64() -> [f64; 9] {
+    // The complete knot vector is supplied directly to DBINTK. The first
+    // four knots lie at or to the left of x[0], and the final four lie at or
+    // to the right of x[N-1]; every data point meets the strict
+    // Schoenberg--Whitney support condition.
+    [-3.0, -2.0, -1.0, 0.0, 1.5, 3.0, 4.0, 5.0, 6.0]
+}
+
+fn cubic_value_f64(x: f64) -> f64 {
+    x * x * x - 2.0 * x + 1.0
+}
+
+fn cubic_derivative_f64(x: f64) -> f64 {
+    3.0 * x * x - 2.0
+}
+
+#[test]
+fn dbintk_construction_reproduces_a_cubic_and_integrates_it() {
+    let nodes = cubic_nodes_f64();
+    let values = nodes.map(cubic_value_f64);
+    let spline =
+        BSpline::<f64>::interpolate_with_knots(&nodes, &values, &cubic_knots_f64(), 4).unwrap();
+    assert_eq!(spline.order(), 4);
+    assert_eq!(spline.knots(), &cubic_knots_f64());
+    for (&node, value) in nodes.iter().zip(values) {
+        assert!((spline.evaluate(node).unwrap() - value).abs() < 5.0e-12);
+    }
+    for point in [0.125, 0.5, 1.25, 2.5] {
+        assert!((spline.evaluate(point).unwrap() - cubic_value_f64(point)).abs() < 2.0e-11);
+        assert!(
+            (spline.derivative(point, 1).unwrap() - cubic_derivative_f64(point)).abs() < 5.0e-11
+        );
+    }
+    assert!((spline.integrate(0.0, 3.0).unwrap() - 14.25).abs() < 1.0e-10);
+}
+
+#[test]
+fn bintk_construction_reproduces_nonuniform_cubic_data() {
+    let nodes = [0.0_f32, 0.75, 1.5, 2.25, 3.0];
+    let values = nodes.map(|x| x * x * x - 2.0 * x + 1.0);
+    let knots = [-3.0_f32, -2.0, -1.0, 0.0, 1.5, 3.0, 4.0, 5.0, 6.0];
+    let spline = BSpline::<f32>::interpolate_with_knots(&nodes, &values, &knots, 4).unwrap();
+    for (&node, value) in nodes.iter().zip(values) {
+        assert!((spline.evaluate(node).unwrap() - value).abs() < 3.0e-4);
+    }
+    for point in [0.125_f32, 0.5, 1.25, 2.5] {
+        let expected = point * point * point - 2.0 * point + 1.0;
+        let derivative = 3.0 * point * point - 2.0;
+        assert!((spline.evaluate(point).unwrap() - expected).abs() < 5.0e-4);
+        assert!((spline.derivative(point, 1).unwrap() - derivative).abs() < 1.0e-3);
+    }
+    assert!((spline.integrate(0.0, 3.0).unwrap() - 14.25).abs() < 1.0e-3);
+}
+
+#[test]
+fn bintk_accepts_order_one_and_clamped_order_two_endpoint_conditions() {
+    let constant = BSpline::<f64>::interpolate_with_knots(&[0.5], &[3.25], &[0.0, 1.0], 1).unwrap();
+    assert_eq!(constant.order(), 1);
+    assert!((constant.evaluate(0.0).unwrap() - 3.25).abs() < 1.0e-12);
+    assert!((constant.evaluate(1.0).unwrap() - 3.25).abs() < 1.0e-12);
+
+    let nodes = [0.0_f64, 1.0, 2.0, 3.0];
+    let values = nodes.map(|x| 2.0 * x - 1.0);
+    // Endpoint equality is valid only because both endpoint knots repeat K=2
+    // times. The two interior supports remain strict.
+    let spline =
+        BSpline::<f64>::interpolate_with_knots(&nodes, &values, &[0.0, 0.0, 1.5, 2.5, 3.0, 3.0], 2)
+            .unwrap();
+    for (&node, &value) in nodes.iter().zip(values.iter()) {
+        assert!((spline.evaluate(node).unwrap() - value).abs() < 2.0e-12);
+    }
+    assert!((spline.evaluate(1.25).unwrap() - 1.5).abs() < 2.0e-12);
+}
+
+#[test]
+fn interpolation_is_affine_in_the_ordinates() {
+    let nodes = cubic_nodes_f64();
+    let knots = cubic_knots_f64();
+    let values = nodes.map(cubic_value_f64);
+    let shifted = values.map(|value| value + 4.5);
+    let scaled = values.map(|value| -2.0 * value);
+    let base = BSpline::<f64>::interpolate_with_knots(&nodes, &values, &knots, 4).unwrap();
+    let shifted = BSpline::<f64>::interpolate_with_knots(&nodes, &shifted, &knots, 4).unwrap();
+    let scaled = BSpline::<f64>::interpolate_with_knots(&nodes, &scaled, &knots, 4).unwrap();
+    for point in [0.125, 0.5, 1.25, 2.5] {
+        let value = base.evaluate(point).unwrap();
+        assert!((shifted.evaluate(point).unwrap() - (value + 4.5)).abs() < 3.0e-11);
+        assert!((scaled.evaluate(point).unwrap() + 2.0 * value).abs() < 5.0e-11);
+    }
+}
+
+#[test]
+fn interpolation_input_and_schoenberg_whitney_preflight_are_typed() {
+    let nodes = [0.0_f64, 1.0, 2.0];
+    let knots = [-1.0, 0.0, 1.0, 2.0, 3.0];
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&nodes, &[0.0, 1.0], &knots, 2),
+        Err(BSplineError::InterpolationLengthMismatch {
+            nodes: 3,
+            values: 2,
+        })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&[], &[], &[], 1),
+        Err(BSplineError::TooFewInterpolationPoints {
+            points: 0,
+            order: 1,
+        })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&nodes, &[0.0, 1.0, 2.0], &knots, 0),
+        Err(BSplineError::InvalidOrder)
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&nodes, &[0.0, 1.0, 2.0], &knots, 4),
+        Err(BSplineError::TooFewInterpolationPoints {
+            points: 3,
+            order: 4,
+        })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&nodes, &[0.0, 1.0, 2.0], &knots[..4], 2),
+        Err(BSplineError::KnotCountMismatch {
+            expected: 5,
+            actual: 4,
+        })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(
+            &nodes,
+            &[0.0, 1.0, 2.0],
+            &[-1.0, 0.0, f64::NAN, 2.0, 3.0],
+            2,
+        ),
+        Err(BSplineError::NonFiniteInput)
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(
+            &nodes,
+            &[0.0, 1.0, 2.0],
+            &[-1.0, 1.5, 1.0, 2.0, 3.0],
+            2,
+        ),
+        Err(BSplineError::KnotsNotNondecreasing { index: 2 })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&[0.0, 0.0, 2.0], &[0.0, 1.0, 2.0], &knots, 2),
+        Err(BSplineError::InterpolationNodesNotStrictlyIncreasing { index: 1 })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&[0.0, f64::NAN, 2.0], &[0.0, 1.0, 2.0], &knots, 2),
+        Err(BSplineError::NonFiniteInterpolationNode { index: 1 })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(&nodes, &[0.0, f64::INFINITY, 2.0], &knots, 2),
+        Err(BSplineError::NonFiniteInterpolationValue { index: 1 })
+    );
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(
+            &nodes,
+            &[0.0, 1.0, 2.0],
+            &[-1.0, 0.0, 0.5, 0.75, 3.0],
+            2,
+        ),
+        Err(BSplineError::SchoenbergWhitneyViolation { index: 2 })
+    );
+}
+
+#[test]
+fn construction_scopes_xerror_and_invalid_preflight_does_not_touch_it() {
+    let mut before = 0;
+    // SAFETY: XGETF has the reviewed scalar Fortran ABI. The safe constructor
+    // itself holds the process-wide runtime lock for its complete XERROR scope.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut before) };
+
+    let nodes = cubic_nodes_f64();
+    let values = nodes.map(cubic_value_f64);
+    BSpline::<f64>::interpolate_with_knots(&nodes, &values, &cubic_knots_f64(), 4).unwrap();
+    assert_eq!(
+        BSpline::<f64>::interpolate_with_knots(
+            &nodes,
+            &values,
+            &[-3.0, -2.0, -1.0, 0.5, 1.5, 3.0, 4.0, 5.0, 6.0],
+            4,
+        ),
+        Err(BSplineError::SchoenbergWhitneyViolation { index: 0 })
+    );
+
+    let mut after = 0;
+    // SAFETY: XGETF has the reviewed scalar Fortran ABI.
+    unsafe { slatec_sys::legacy_error::xgetf(&mut after) };
+    assert_eq!(after, before);
+}

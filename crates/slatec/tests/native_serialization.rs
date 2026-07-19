@@ -155,6 +155,19 @@ fn run_bspline() {
     assert!((curve.integrate(0.0, 1.0).unwrap() - 0.5).abs() < 1.0e-12);
 }
 
+fn run_bspline_construction() {
+    let nodes = [0.0_f64, 0.75, 1.5, 2.25, 3.0];
+    let values = nodes.map(|x| x * x * x - 2.0 * x + 1.0);
+    let curve = BSpline::<f64>::interpolate_with_knots(
+        &nodes,
+        &values,
+        &[-3.0, -2.0, -1.0, 0.0, 1.5, 3.0, 4.0, 5.0, 6.0],
+        4,
+    )
+    .unwrap();
+    assert!((curve.evaluate(1.25).unwrap() - (1.25_f64.powi(3) - 1.5)).abs() < 1.0e-11);
+}
+
 fn run_piecewise_polynomial() {
     let curve = PiecewisePolynomial::<f64>::from_parts(vec![0.0, 1.0], vec![0.0, 1.0], 2).unwrap();
     assert!((curve.evaluate(0.25).unwrap() - 0.25).abs() < 1.0e-12);
@@ -210,6 +223,11 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_bspline, run_ode);
     concurrent_pair(run_bspline, run_pchip);
     concurrent_pair(run_bspline, run_real_fftpack);
+    concurrent_pair(run_bspline_construction, run_bspline);
+    concurrent_pair(run_bspline_construction, run_piecewise_polynomial);
+    concurrent_pair(run_bspline_construction, run_banded_diagnostics);
+    concurrent_pair(run_bspline_construction, run_complex_fftpack);
+    concurrent_pair(run_bspline_construction, run_quadrature);
     concurrent_pair(run_piecewise_polynomial, run_ode);
     concurrent_pair(run_piecewise_polynomial, run_pchip);
     concurrent_pair(run_piecewise_polynomial, run_bspline);

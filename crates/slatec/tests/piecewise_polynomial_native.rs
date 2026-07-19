@@ -144,3 +144,27 @@ fn bspline_conversion_is_available_in_both_precisions() {
     assert!((pp.evaluate(0.25).unwrap() - 0.25).abs() < 3.0e-5);
     assert!((pp.integrate(0.0, 1.0).unwrap() - 0.5).abs() < 4.0e-5);
 }
+
+#[test]
+fn interpolated_bspline_converts_without_changing_its_values_or_integral() {
+    let nodes = [0.0_f64, 0.75, 1.5, 2.25, 3.0];
+    let values = nodes.map(|x| x * x * x - 2.0 * x + 1.0);
+    let spline = BSpline::<f64>::interpolate_with_knots(
+        &nodes,
+        &values,
+        &[-3.0, -2.0, -1.0, 0.0, 1.5, 3.0, 4.0, 5.0, 6.0],
+        4,
+    )
+    .unwrap();
+    let pp = spline.to_piecewise_polynomial().unwrap();
+    for point in [0.0, 0.125, 0.75, 1.5, 2.25, 2.875, 3.0] {
+        assert!((pp.evaluate(point).unwrap() - spline.evaluate(point).unwrap()).abs() < 1.0e-10);
+        assert!(
+            (pp.derivative(point, 1).unwrap() - spline.derivative(point, 1).unwrap()).abs()
+                < 2.0e-10
+        );
+    }
+    assert!(
+        (pp.integrate(0.0, 3.0).unwrap() - spline.integrate(0.0, 3.0).unwrap()).abs() < 1.0e-10
+    );
+}

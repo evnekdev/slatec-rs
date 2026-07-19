@@ -815,8 +815,8 @@
       "runtime_level": "std",
       "concurrency_classification": "SerializedGlobal",
       "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
-      "blocker": "Interpolation construction, basis vectors, weighted callbacks, tensor products, and smoothing remain deferred.",
-      "likely_next_milestone": "Audit one constructor family without broadening the representation API.",
+      "blocker": "Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred.",
+      "likely_next_milestone": "Audit one additional constructor or basis family without broadening the representation API.",
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {

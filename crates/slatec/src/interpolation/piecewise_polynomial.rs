@@ -775,6 +775,8 @@ fn zeroed<T: Copy + Default>(length: usize) -> Result<Vec<T>, PiecewisePolynomia
 
 #[cfg(test)]
 mod tests {
+    use alloc::vec;
+
     use super::*;
 
     #[test]

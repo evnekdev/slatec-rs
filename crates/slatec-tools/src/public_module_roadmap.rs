@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 241;
+const SAFE_FUNCTION_TARGET: usize = 242;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -743,12 +743,10 @@ fn leaves() -> Vec<LeafSpec> {
             "SerializedGlobal",
             &["slatec::ode::"]
         ),
-        planned!(
+        deferred!(
             "differential_equations::ode::runge_kutta",
             "crates/slatec/src/differential_equations/ode/runge_kutta.rs",
-            "Reserved",
-            "No reviewed safe Runge--Kutta source family is selected.",
-            "Audit a bounded ODE family."
+            "DERKF/DDERKF derivative callbacks expose no abort or status channel. Rust callback errors and panics can be caught at a trampoline, but native execution cannot be terminated deterministically; placeholder derivatives could mutate continuation state using invalid data. A safe wrapper requires a reviewed native adaptation with an explicit abort protocol or a different driver family."
         ),
         planned!(
             "differential_equations::ode::adams",
@@ -880,8 +878,8 @@ fn leaves() -> Vec<LeafSpec> {
             "f32,f64",
             "std",
             "SerializedGlobal",
-            "Interpolation construction, basis vectors, weighted callbacks, tensor products, and smoothing remain deferred.",
-            "Audit one constructor family without broadening the representation API."
+            "Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred.",
+            "Audit one additional constructor or basis family without broadening the representation API."
         ),
         partial!(
             "interpolation::piecewise_polynomial",
@@ -1159,11 +1157,11 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 181),
+            ("std".to_owned(), 182),
         ])
     {
         return Err(policy(
-            "capability counts changed during documentation-only milestone",
+            "capability counts differ from the reviewed safe surface",
         ));
     }
 

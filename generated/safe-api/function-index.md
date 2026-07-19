@@ -88,10 +88,11 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::fftpack::RealFftPlan::new` | `RFFTI` | real FFTPACK | f32 | initialize a periodic real FFTPACK plan | `std` | `fftpack-real` | [periodic real FFT plan initialization](../../examples/fftpack/real_fft.rs) |
 | `slatec::fftpack::SineTransformPlan::new` | `SINTI` | real FFTPACK | f32 | initialize a full sine-transform plan | `std` | `fftpack-real` | [full sine transform plan initialization](../../examples/fftpack/sine_transform.rs) |
 | `slatec::fftpack::SineTransformPlan::transform` | `SINT` | real FFTPACK | f32 | compute the full FFTPACK sine transform | `std` | `fftpack-real` | [full sine transform](../../examples/fftpack/sine_transform.rs) |
-| `slatec::interpolation::bspline::BSpline::derivative` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/derivatives.rs) |
-| `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
-| `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
-| `slatec::interpolation::bspline::BSpline::integrate` | `BSQAD` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [owned scalar B-spline evaluation, derivatives, and definite integration](../../examples/bspline/integrate.rs) |
+| `slatec::interpolation::bspline::BSpline::derivative` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/derivatives.rs) |
+| `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
+| `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
+| `slatec::interpolation::bspline::BSpline::integrate` | `BSQAD` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/integrate.rs) |
+| `slatec::interpolation::bspline::BSpline::interpolate_with_knots` | `BINTK` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/interpolation/bspline_interpolate.rs) |
 | `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial` | `BSPPP` | piecewise-polynomial interpolation | f32/f64 | convert a B-spline exactly to piecewise-polynomial form | `std` | `piecewise-polynomial` | [exact B-spline to PP conversion](../../examples/piecewise_polynomial/from_bspline.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise-polynomial derivative | `std` | `piecewise-polynomial` | [PP Taylor derivative evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP Taylor evaluation](../../examples/piecewise_polynomial/from_pieces.rs) |
@@ -273,6 +274,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BI` -> `slatec::special::airy::airy_bi_f32`
 - `BIE` -> `slatec::special::airy::airy_bi_scaled_f32`
 - `BINOM` -> `slatec::special::gamma::binomial_coefficient_f32`
+- `BINTK` -> `slatec::interpolation::bspline::BSpline::interpolate_with_knots`
 - `BSPPP` -> `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `BSQAD` -> `slatec::interpolation::bspline::BSpline::integrate`
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::derivative`
@@ -866,6 +868,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::bspline::BSpline::evaluate`
 - `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `slatec::interpolation::bspline::BSpline::integrate`
+- `slatec::interpolation::bspline::BSpline::interpolate_with_knots`
 - `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`

@@ -3563,6 +3563,53 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
+      "fortran_routine": "BINTK",
+      "program_unit_id": "full-provider-c79a4afab0c19bed",
+      "arguments": [
+        {
+          "rust": "nodes",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "complete knot sequence copied into owned native storage",
+          "fortran": "T",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": "order",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "BCOEF",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "Q",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::interpolation::bspline::BSpline::to_piecewise_polynomial",
       "fortran_routine": "BSPPP",
       "program_unit_id": "full-provider-c8c62bbcbb4d7c6d",
