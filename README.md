@@ -53,6 +53,13 @@ an explicit corpus-wide GNU Fortran compilation and raw-binding generator. It
 uses the original selected Fortran without translating numerical algorithms;
 ABI-sensitive and unresolved interfaces remain gated for review. See
 [`docs/extraction/ffi-interface-inventory.md`](docs/extraction/ffi-interface-inventory.md).
+
+The raw public API is governed by a separate canonical inventory. It records one
+status per retained routine and distinguishes generated declarations from
+ABI-validated and reviewed paths; the ABI-shaped `slatec_sys::generated`
+namespace is transitional rather than stable. See the
+[raw API architecture](docs/architecture/slatec-sys-public-raw-api.md) and
+[`generated/raw-api/`](generated/raw-api/).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

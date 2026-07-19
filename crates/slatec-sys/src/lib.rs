@@ -6,6 +6,16 @@
 //! or safe conversion in `build.rs`. Native provider selection and automatic
 //! hosted linking belong to `slatec-src`; an external-backend consumer can use
 //! these declarations without any hidden native build directive.
+//!
+//! # Stability policy
+//!
+//! Reviewed declarations are promoted to canonical mathematical modules and
+//! retain older paths as compatibility re-exports. The ABI-shaped [`generated`]
+//! module is transitional implementation-generated access: its paths are not
+//! stable merely because an item is available there. The source-hash-guarded
+//! raw API inventory defines reviewed status, documentation, and validation
+//! coverage. An evidence-proven ABI correction may change an unsafe signature,
+//! because an incorrect FFI declaration is a safety bug.
 
 /// GNU Fortran default `INTEGER` after the supported profile probe.
 #[cfg(feature = "ffi-profile-gnu-mingw-x86_64")]
@@ -86,6 +96,25 @@ pub mod fishpack_cartesian_2d;
 /// driver.
 #[cfg(feature = "raw-family-fishpack-pois3d")]
 pub mod fishpack_pois3d;
+
+/// Canonical raw PDE namespace.
+///
+/// Only reviewed FISHPACK drivers are re-exported here. The historical focused
+/// modules remain compatibility paths and no duplicate FFI declarations are
+/// introduced.
+#[cfg(any(
+    feature = "raw-family-fishpack-cartesian-2d",
+    feature = "raw-family-fishpack-pois3d"
+))]
+pub mod pde {
+    /// Canonical reviewed FISHPACK driver namespace.
+    pub mod fishpack {
+        #[cfg(feature = "raw-family-fishpack-cartesian-2d")]
+        pub use crate::fishpack_cartesian_2d::hwscrt;
+        #[cfg(feature = "raw-family-fishpack-pois3d")]
+        pub use crate::fishpack_pois3d::pois3d;
+    }
+}
 
 /// Hand-reviewed LINPACK general-band factorization and solve declarations.
 #[cfg(feature = "raw-family-banded-linear-systems")]

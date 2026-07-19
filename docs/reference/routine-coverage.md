@@ -10,9 +10,11 @@
 | Source files | 2192 |
 | Providers | 2238 |
 | Catalogue-only | 26 |
-| Raw-bound | 1253 |
+| Generated raw declaration candidates | 1253 |
 | Safely wrapped | 210 |
 | Deeply audited | 210 |
+
+The generated-candidate count is compiler/profile evidence only. The canonical raw inventory below separates it from reviewed declarations, provider coverage, link/runtime evidence, and documentation.
 
 The documented reference values are approximately 902 user-callable and at least 1,400 total routines. Computed values are reported as found; unresolved entries and provider variants remain visible rather than being invented or collapsed.
 
@@ -37,3 +39,29 @@ The documented reference values are approximately 902 user-callable and at least
 | Classified with high-confidence inheritance | 355 |
 | Classified by conservative description inference | 60 |
 | Genuinely unresolved | 0 |
+
+<!-- raw-api-coverage:start -->
+## Canonical raw API inventory
+
+The former aggregate is retired because it conflated generated declarations, reviewed declarations, and validation evidence. The [authoritative status records](../../generated/raw-api/routine-status.json) make every metric reproducible.
+
+| Metric | Count |
+| --- | ---: |
+| Retained identities | 1517 |
+| Historically user-callable routines | 902 |
+| Generated raw declaration candidates | 1253 |
+| ABI-validated generated declarations | 1253 |
+| Reviewed family raw declarations | 4 |
+| Reviewed user-callable raw drivers | 4 |
+| Reviewed public subsidiaries | 0 |
+| Provider-backed callable raw routines | 1476 |
+| Link-tested raw routines | 1255 |
+| Runtime-tested raw routines | 1255 |
+| Fully documented raw routines | 4 |
+| Pre-existing family declarations pending R1 review | 227 |
+| Safely wrapped routines | 210 |
+| Explicitly excluded routines | 157 |
+| Unclassified routines | 0 |
+
+The definitions and exclusions are generated in [coverage-summary.json](../../generated/raw-api/coverage-summary.json) and [exclusion-report.json](../../generated/raw-api/exclusion-report.json).
+<!-- raw-api-coverage:end -->

@@ -48,3 +48,20 @@ Evaluate EXPREL(X) = (EXP(X) - 1.0) / X. For small ABS(X) the Taylor series is u
 ## Evidence notes
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
+
+<!-- raw-api-status:start -->
+## Raw Rust API status
+
+This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
+
+- Generated raw declaration: `generated_abi_validated`
+- Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
+- Canonical Rust path: `not_promoted`
+- Current legacy Rust paths: `slatec_sys::families::dexprl`
+- Provider-backed callable symbol: `yes` (`observed_exactly_once`)
+- Documentation status: `legacy_partial_rustdoc`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
+- Safe-wrapper status: `slatec::special::elementary::exprel`
+- Exclusion or deferment reason: `none`
+<!-- raw-api-status:end -->

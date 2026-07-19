@@ -48,3 +48,20 @@ Subroutine POIS3D solves the linear system of equations C1*(X(I-1,J,K)-2.*X(I,J,
 ## Evidence notes
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
+
+<!-- raw-api-status:start -->
+## Raw Rust API status
+
+This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
+
+- Generated raw declaration: `generated_abi_validated`
+- Reviewed family declaration: `reviewed_public_driver`
+- Canonical Rust path: `slatec_sys::pde::fishpack::pois3d`
+- Current legacy Rust paths: `slatec_sys::fishpack_pois3d::pois3d`
+- Provider-backed callable symbol: `yes` (`observed_exactly_once`)
+- Documentation status: `complete_authored`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
+- Safe-wrapper status: `slatec::differential_equations::pde::Pois3dProblem::solve`
+- Exclusion or deferment reason: `none`
+<!-- raw-api-status:end -->
