@@ -46,6 +46,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     // prior broad provider audit.  Merge those conservative projections here
     // so the global policy cannot accidentally omit a newly safe public API.
     projections.extend(crate::safe_pchip::native_state_projections()?);
+    projections.extend(crate::safe_banded::native_state_projections()?);
     projections.extend(crate::safe_bspline::native_state_projections()?);
     projections.extend(crate::safe_piecewise_polynomial::native_state_projections()?);
     projections.extend(crate::safe_fftpack_complex::native_state_projections()?);
@@ -649,6 +650,29 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             status: "complete_mutable_state_found".to_owned(),
         });
     }
+    // General-band diagnostics extend the existing narrow banded closure.
+    // Focused source review covers both precisions, the required BLAS entries,
+    // and the newly selected GBCO/GBDI roots.  They have no persistent
+    // numerical storage, error runtime, callback, or I/O path; the API stays
+    // serialized until a provider/runtime concurrency qualification exists.
+    let banded_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/banded-linear-systems-source-closure.json",
+    ))?;
+    let banded_sources = banded_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("banded closure lacks source records"))?;
+    for source in banded_sources {
+        let id = string(source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(source, "path")?.to_owned(),
+            storage: format!(
+                "focused_banded_source_and_link_audit:{}:no_COMMON_SAVE_DATA_XERROR_or_IO",
+                string(source, "path")?
+            ),
+            mutable: false,
+            status: "complete_no_mutable_state_found".to_owned(),
+        });
+    }
     // The broad native-origin retry is recorded separately.  Until it emits a
     // completed archive report containing DASSL, retain focused closure
     // evidence instead of allowing a missing record to imply reentrancy.
@@ -1086,6 +1110,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/fftpack-complex-source-closure.json",
     ))?;
     closures["families"]["fftpack-complex"] = fftpack_complex_closure["source_ids"].clone();
+    let banded_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/banded-linear-systems-source-closure.json",
+    ))?;
+    closures["families"]["banded-linear-systems"] = banded_closure["source_ids"].clone();
     let pchip_closure = read_value(repo_path(
         "crates/slatec-src/metadata/pchip-source-closure.json",
     ))?;

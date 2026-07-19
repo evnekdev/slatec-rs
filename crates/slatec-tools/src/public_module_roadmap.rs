@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 238;
+const SAFE_FUNCTION_TARGET: usize = 241;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -274,7 +274,7 @@ fn leaves() -> Vec<LeafSpec> {
             "Dense overwrite and factorization contracts are unreviewed.",
             "Audit one narrow dense solver family."
         ),
-        partial!(
+        implemented!(
             "linear_algebra::banded",
             "crates/slatec/src/linear_algebra/banded.rs",
             "banded-linear-systems",
@@ -284,8 +284,7 @@ fn leaves() -> Vec<LeafSpec> {
             "f32,f64",
             "std",
             "SerializedGlobal",
-            "General real LU factorization and direct/transpose solves are available; condition estimates and determinant metadata remain deferred.",
-            "Audit SGBCO/DGBCO and SGBDI/DGBDI only with independently verified output contracts."
+            &["slatec::linear_algebra::banded::"]
         ),
         planned!(
             "linear_algebra::packed",
@@ -1160,7 +1159,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 178),
+            ("std".to_owned(), 181),
         ])
     {
         return Err(policy(

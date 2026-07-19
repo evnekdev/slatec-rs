@@ -1034,6 +1034,36 @@
       "validation_file": "crates/slatec/tests/least_squares_native.rs"
     },
     {
+      "doctest_present": false,
+      "example_case": "scaled base-ten determinant metadata from general-band LU factors",
+      "example_file": "examples/banded/factor_and_solve.rs",
+      "fortran_routine": "SGBDI",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::linear_algebra::banded::BandLu32::scaled_determinant",
+      "validation_case": "scaled_determinant",
+      "validation_file": "crates/slatec/tests/banded_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "scaled base-ten determinant metadata from general-band LU factors",
+      "example_file": "examples/banded/factor_and_solve.rs",
+      "fortran_routine": "DGBDI",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::linear_algebra::banded::BandLu64::scaled_determinant",
+      "validation_case": "scaled_determinant",
+      "validation_file": "crates/slatec/tests/banded_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "general-band LU factorization with reciprocal 1-norm condition estimate",
+      "example_file": "examples/banded/factor_and_solve.rs",
+      "fortran_routine": "SGBCO",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate",
+      "validation_case": "factorize_with_condition_estimate",
+      "validation_file": "crates/slatec/tests/banded_native.rs"
+    },
+    {
       "doctest_present": true,
       "example_case": "equality-constrained nonnegative linear least squares",
       "example_file": "examples/least_squares/nonnegative_fit.rs",

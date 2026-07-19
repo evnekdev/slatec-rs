@@ -58,6 +58,14 @@ negative/positive exponent directions and `N` round-trip scale, and has no
 `Complex64` plan because the selected snapshot contains no complex `f64`
 roots. See the [complex FFTPACK guide](../../docs/api/safe-complex-fftpack.md).
 
+The hosted `banded-linear-systems` feature provides compact general-band
+`f32`/`f64` LU factors, reusable direct and transpose solves, `SGBCO`/`DGBCO`
+reciprocal 1-norm condition estimates, and `SGBDI`/`DGBDI` base-ten scaled
+determinant metadata. Input is copied only into the private expanded LINPACK
+layout; no dense conversion or matrix dependency is introduced. Exact singular
+pivots remain errors, while a successful zero reciprocal estimate is preserved
+as a numerical diagnostic. See the [banded-system guide](../../docs/api/safe-banded-linear-systems.md).
+
 The hosted `pchip` feature provides owned `f32` and `f64`
 `PiecewiseCubicHermite` curves over reviewed PCHIP. Monotone, controlled, and
 PCHSP endpoint derivative construction feed native value/derivative evaluation

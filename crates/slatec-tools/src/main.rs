@@ -22,6 +22,7 @@ use slatec_tools::raw_ffi;
 use slatec_tools::runtime_profile;
 use slatec_tools::runtime_storage_policy;
 use slatec_tools::safe_api_docs;
+use slatec_tools::safe_banded;
 use slatec_tools::safe_bounded_constrained_linear_least_squares;
 use slatec_tools::safe_bounded_linear_least_squares;
 use slatec_tools::safe_bspline;
@@ -186,6 +187,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-piecewise-polynomial-metadata"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-safe-banded-metadata"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -727,6 +733,18 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "generate-safe-banded-metadata" => {
+            let result = safe_banded::generate(
+                &options.selected_corpus_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "generated safe banded metadata snapshot={} hash={}",
+                result.snapshot_id, result.semantic_hash
+            );
+            Ok(())
+        }
         "generate-optimization-audit" => {
             let result = optimization_audit::generate(
                 &PathBuf::from("generated/ffi"),
@@ -962,5 +980,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-nonlinear-api|generate-safe-nonlinear-expert-api|generate-safe-least-squares-api|generate-safe-linear-least-squares-api|generate-safe-linear-programming-deferred-metadata|generate-safe-lp-in-memory-metadata|generate-safe-fftpack-metadata|generate-safe-pchip-metadata|generate-safe-bspline-metadata|generate-safe-piecewise-polynomial-metadata|generate-safe-ode-sdrive-metadata|generate-safe-dassl-metadata|generate-optimization-audit|generate-ode-audit|generate-safe-bounded-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-constrained-linear-least-squares-api|generate-safe-api-docs|generate-runtime-storage-policy|generate-blas1-concurrency-audit|generate-native-origin-audit|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-nonlinear-api|generate-safe-nonlinear-expert-api|generate-safe-least-squares-api|generate-safe-linear-least-squares-api|generate-safe-linear-programming-deferred-metadata|generate-safe-lp-in-memory-metadata|generate-safe-fftpack-metadata|generate-safe-pchip-metadata|generate-safe-bspline-metadata|generate-safe-piecewise-polynomial-metadata|generate-safe-banded-metadata|generate-safe-ode-sdrive-metadata|generate-safe-dassl-metadata|generate-optimization-audit|generate-ode-audit|generate-safe-bounded-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-constrained-linear-least-squares-api|generate-safe-api-docs|generate-runtime-storage-policy|generate-blas1-concurrency-audit|generate-native-origin-audit|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
 }

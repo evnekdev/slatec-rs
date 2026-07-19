@@ -16,6 +16,7 @@ use slatec::dassl::{DaeOptions, DaeSession, DaeTolerance, ResidualAction};
 use slatec::fftpack::RealFftPlan;
 use slatec::interpolation::bspline::BSpline;
 use slatec::interpolation::piecewise_polynomial::PiecewisePolynomial;
+use slatec::linear_algebra::banded::BandMatrixRef;
 use slatec::linear_least_squares::{
     MatrixRef, NonnegativeLeastSquaresProblem, VariableConstraint, solve_nonnegative_least_squares,
 };
@@ -160,6 +161,14 @@ fn run_piecewise_polynomial() {
     assert!((curve.integrate(0.0, 1.0).unwrap() - 0.5).abs() < 1.0e-12);
 }
 
+fn run_banded_diagnostics() {
+    let storage = [2.0_f64, 8.0];
+    let matrix = BandMatrixRef::from_compact_storage(&storage, 2, 2, 0, 0).unwrap();
+    let (lu, condition) = matrix.factorize_with_condition_estimate().unwrap();
+    assert!(condition.value() > 0.0);
+    assert_eq!(lu.scaled_determinant().unwrap().exponent10(), 1);
+}
+
 fn concurrent_pair(left: fn(), right: fn()) {
     let barrier = Arc::new(Barrier::new(3));
     let spawn = |work: fn()| {
@@ -204,6 +213,9 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_piecewise_polynomial, run_ode);
     concurrent_pair(run_piecewise_polynomial, run_pchip);
     concurrent_pair(run_piecewise_polynomial, run_bspline);
+    concurrent_pair(run_banded_diagnostics, run_complex_fftpack);
+    concurrent_pair(run_banded_diagnostics, run_piecewise_polynomial);
+    concurrent_pair(run_banded_diagnostics, run_quadrature);
     let observed = snapshot();
     assert_eq!(observed.active, 0);
     assert_eq!(observed.maximum_active, 1);

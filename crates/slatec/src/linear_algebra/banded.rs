@@ -5,10 +5,13 @@
 //! Factorization copies that input into private expanded storage with
 //! `2*lower + upper + 1` rows, then uses `SGBFA` or `DGBFA`; callers never
 //! expose that mutable LU layout. `SGBSL`/`DGBSL` solve `A x=b` and `A^T x=b`.
+//! `SGBCO`/`DGBCO` combine factorization with a reciprocal 1-norm condition
+//! estimate, while `SGBDI`/`DGBDI` return a scaled determinant from those
+//! private factors.
 
 #![cfg(feature = "banded-linear-systems")]
 
-use alloc::{vec, vec::Vec};
+use alloc::vec::Vec;
 use core::convert::TryFrom;
 use slatec_sys::FortranInteger;
 
@@ -65,6 +68,51 @@ pub enum BandError {
     AllocationFailed,
     /// Native output did not meet the reviewed pivot contract.
     NativeContractViolation,
+}
+
+/// A reciprocal estimate of the 1-norm condition number of a factored matrix.
+///
+/// This is the estimate produced by LINPACK `SGBCO`/`DGBCO`, not the condition
+/// number itself. It estimates `1 / (||A||_1 * ||A^-1||_1)`. Zero can mean an
+/// exact singularity or that the estimate underflowed; successful factorization
+/// is reported separately, so callers must not automatically invert this value.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ReciprocalCondition<T> {
+    value: T,
+}
+
+impl<T: Copy> ReciprocalCondition<T> {
+    /// Returns the native reciprocal 1-norm condition estimate.
+    #[must_use]
+    pub fn value(self) -> T {
+        self.value
+    }
+}
+
+/// A base-ten scaled determinant returned by LINPACK `SGBDI`/`DGBDI`.
+///
+/// The determinant is represented as `mantissa * 10^exponent10`. For a
+/// nonzero determinant the native routines normalize the absolute mantissa to
+/// the half-open interval `[1, 10)`. If the mantissa is zero, the determinant
+/// is zero and the native exponent has no mathematical significance.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ScaledDeterminant<T> {
+    mantissa: T,
+    exponent10: i32,
+}
+
+impl<T: Copy> ScaledDeterminant<T> {
+    /// Returns the signed base-ten mantissa.
+    #[must_use]
+    pub fn mantissa(self) -> T {
+        self.mantissa
+    }
+
+    /// Returns the base-ten exponent.
+    #[must_use]
+    pub fn exponent10(self) -> i32 {
+        self.exponent10
+    }
 }
 
 /// The result of reading a logical matrix coordinate.
@@ -210,11 +258,37 @@ impl BandMatrixRef<'_, f32> {
     pub fn factorize(self) -> Result<BandLu32, BandError> {
         factor32(self)
     }
+
+    /// Copies, factors, and estimates the reciprocal 1-norm condition number.
+    ///
+    /// This invokes LINPACK `SGBCO`, which computes the original matrix
+    /// 1-norm before overwriting its private expanded copy with LU factors.
+    /// Exact singular pivots are returned as [`BandError::Singular`]; a zero
+    /// estimate with successful factors is a valid underflowed or numerically
+    /// singular estimate.
+    pub fn factorize_with_condition_estimate(
+        self,
+    ) -> Result<(BandLu32, ReciprocalCondition<f32>), BandError> {
+        factor_with_condition32(self)
+    }
 }
 impl BandMatrixRef<'_, f64> {
     /// Copies and factors this square compact matrix.
     pub fn factorize(self) -> Result<BandLu64, BandError> {
         factor64(self)
+    }
+
+    /// Copies, factors, and estimates the reciprocal 1-norm condition number.
+    ///
+    /// This invokes LINPACK `DGBCO`, which computes the original matrix
+    /// 1-norm before overwriting its private expanded copy with LU factors.
+    /// Exact singular pivots are returned as [`BandError::Singular`]; a zero
+    /// estimate with successful factors is a valid underflowed or numerically
+    /// singular estimate.
+    pub fn factorize_with_condition_estimate(
+        self,
+    ) -> Result<(BandLu64, ReciprocalCondition<f64>), BandError> {
+        factor_with_condition64(self)
     }
 }
 
@@ -244,6 +318,14 @@ impl BandLu32 {
         lda: usize,
     ) -> Result<(), BandError> {
         solve_many32(self, rhs, count, lda, 0)
+    }
+
+    /// Returns the normalized base-ten determinant of this immutable LU factorization.
+    ///
+    /// LINPACK `SGBDI` reads the existing private factors and pivot vector; it
+    /// does not consume or mutate this reusable factorization.
+    pub fn scaled_determinant(&self) -> Result<ScaledDeterminant<f32>, BandError> {
+        determinant32(self)
     }
     fn solve(&self, rhs: &mut [f32], job: FortranInteger) -> Result<(), BandError> {
         solve32(self, rhs, job)
@@ -275,6 +357,14 @@ impl BandLu64 {
         lda: usize,
     ) -> Result<(), BandError> {
         solve_many64(self, rhs, count, lda, 0)
+    }
+
+    /// Returns the normalized base-ten determinant of this immutable LU factorization.
+    ///
+    /// LINPACK `DGBDI` reads the existing private factors and pivot vector; it
+    /// does not consume or mutate this reusable factorization.
+    pub fn scaled_determinant(&self) -> Result<ScaledDeterminant<f64>, BandError> {
+        determinant64(self)
     }
     fn solve(&self, rhs: &mut [f64], job: FortranInteger) -> Result<(), BandError> {
         solve64(self, rhs, job)
@@ -329,7 +419,7 @@ fn expanded<T: Copy + Default>(
 }
 fn factor32(m: BandMatrixRef<'_, f32>) -> Result<BandLu32, BandError> {
     let (mut a, n, ml, mu, mut lda) = expanded(m)?;
-    let mut p = vec![0; n as usize];
+    let mut p = integer_workspace(n)?;
     let mut info = 0;
     {
         let _g = lock_native();
@@ -361,7 +451,7 @@ fn factor32(m: BandMatrixRef<'_, f32>) -> Result<BandLu32, BandError> {
 }
 fn factor64(m: BandMatrixRef<'_, f64>) -> Result<BandLu64, BandError> {
     let (mut a, n, ml, mu, mut lda) = expanded(m)?;
-    let mut p = vec![0; n as usize];
+    let mut p = integer_workspace(n)?;
     let mut info = 0;
     {
         let _g = lock_native();
@@ -389,6 +479,211 @@ fn factor64(m: BandMatrixRef<'_, f64>) -> Result<BandLu64, BandError> {
         lower: ml,
         upper: mu,
         lda,
+    })
+}
+
+fn factor_with_condition32(
+    m: BandMatrixRef<'_, f32>,
+) -> Result<(BandLu32, ReciprocalCondition<f32>), BandError> {
+    let (mut a, n, ml, mu, mut lda) = expanded(m)?;
+    let mut p = integer_workspace(n)?;
+    let mut z = real_workspace32(n)?;
+    let mut rcond = 0.0;
+    {
+        let _g = lock_native();
+        unsafe {
+            slatec_sys::banded::sgbco(
+                a.as_mut_ptr(),
+                &mut lda,
+                &mut (n.clone()),
+                &mut (ml.clone()),
+                &mut (mu.clone()),
+                p.as_mut_ptr(),
+                &mut rcond,
+                z.as_mut_ptr(),
+            )
+        }
+    }
+    if let Some(pivot) = zero_diagonal32(&a, n, ml, mu, lda) {
+        return Err(BandError::Singular { pivot });
+    }
+    if !rcond.is_finite() || rcond < 0.0 {
+        return Err(BandError::NativeContractViolation);
+    }
+    Ok((
+        BandLu32 {
+            factors: a,
+            pivots: p,
+            n,
+            lower: ml,
+            upper: mu,
+            lda,
+        },
+        ReciprocalCondition { value: rcond },
+    ))
+}
+
+fn factor_with_condition64(
+    m: BandMatrixRef<'_, f64>,
+) -> Result<(BandLu64, ReciprocalCondition<f64>), BandError> {
+    let (mut a, n, ml, mu, mut lda) = expanded(m)?;
+    let mut p = integer_workspace(n)?;
+    let mut z = real_workspace64(n)?;
+    let mut rcond = 0.0;
+    {
+        let _g = lock_native();
+        unsafe {
+            slatec_sys::banded::dgbco(
+                a.as_mut_ptr(),
+                &mut lda,
+                &mut (n.clone()),
+                &mut (ml.clone()),
+                &mut (mu.clone()),
+                p.as_mut_ptr(),
+                &mut rcond,
+                z.as_mut_ptr(),
+            )
+        }
+    }
+    if let Some(pivot) = zero_diagonal64(&a, n, ml, mu, lda) {
+        return Err(BandError::Singular { pivot });
+    }
+    if !rcond.is_finite() || rcond < 0.0 {
+        return Err(BandError::NativeContractViolation);
+    }
+    Ok((
+        BandLu64 {
+            factors: a,
+            pivots: p,
+            n,
+            lower: ml,
+            upper: mu,
+            lda,
+        },
+        ReciprocalCondition { value: rcond },
+    ))
+}
+
+fn integer_workspace(n: FortranInteger) -> Result<Vec<FortranInteger>, BandError> {
+    let count = usize::try_from(n).map_err(|_| BandError::DimensionOverflow)?;
+    let mut values = Vec::new();
+    values
+        .try_reserve_exact(count)
+        .map_err(|_| BandError::AllocationFailed)?;
+    values.resize(count, 0);
+    Ok(values)
+}
+
+fn real_workspace32(n: FortranInteger) -> Result<Vec<f32>, BandError> {
+    let count = usize::try_from(n).map_err(|_| BandError::DimensionOverflow)?;
+    let mut values = Vec::new();
+    values
+        .try_reserve_exact(count)
+        .map_err(|_| BandError::AllocationFailed)?;
+    values.resize(count, 0.0);
+    Ok(values)
+}
+
+fn real_workspace64(n: FortranInteger) -> Result<Vec<f64>, BandError> {
+    let count = usize::try_from(n).map_err(|_| BandError::DimensionOverflow)?;
+    let mut values = Vec::new();
+    values
+        .try_reserve_exact(count)
+        .map_err(|_| BandError::AllocationFailed)?;
+    values.resize(count, 0.0);
+    Ok(values)
+}
+
+fn zero_diagonal32(
+    factors: &[f32],
+    n: FortranInteger,
+    lower: FortranInteger,
+    upper: FortranInteger,
+    lda: FortranInteger,
+) -> Option<usize> {
+    let row = usize::try_from(lower.checked_add(upper)?).ok()?;
+    let stride = usize::try_from(lda).ok()?;
+    (0..usize::try_from(n).ok()?)
+        .filter(|column| factors[row + stride * column] == 0.0)
+        .last()
+}
+
+fn zero_diagonal64(
+    factors: &[f64],
+    n: FortranInteger,
+    lower: FortranInteger,
+    upper: FortranInteger,
+    lda: FortranInteger,
+) -> Option<usize> {
+    let row = usize::try_from(lower.checked_add(upper)?).ok()?;
+    let stride = usize::try_from(lda).ok()?;
+    (0..usize::try_from(n).ok()?)
+        .filter(|column| factors[row + stride * column] == 0.0)
+        .last()
+}
+
+fn determinant32(l: &BandLu32) -> Result<ScaledDeterminant<f32>, BandError> {
+    let mut det = [0.0; 2];
+    let _g = lock_native();
+    unsafe {
+        slatec_sys::banded::sgbdi(
+            l.factors.as_ptr(),
+            &l.lda,
+            &l.n,
+            &l.lower,
+            &l.upper,
+            l.pivots.as_ptr(),
+            det.as_mut_ptr(),
+        )
+    };
+    scaled32(det)
+}
+
+fn determinant64(l: &BandLu64) -> Result<ScaledDeterminant<f64>, BandError> {
+    let mut det = [0.0; 2];
+    let _g = lock_native();
+    unsafe {
+        slatec_sys::banded::dgbdi(
+            l.factors.as_ptr(),
+            &l.lda,
+            &l.n,
+            &l.lower,
+            &l.upper,
+            l.pivots.as_ptr(),
+            det.as_mut_ptr(),
+        )
+    };
+    scaled64(det)
+}
+
+fn scaled32(det: [f32; 2]) -> Result<ScaledDeterminant<f32>, BandError> {
+    let exponent = f64::from(det[1]);
+    if !det[0].is_finite()
+        || !det[1].is_finite()
+        || det[1].trunc() != det[1]
+        || exponent < f64::from(i32::MIN)
+        || exponent > f64::from(i32::MAX)
+    {
+        return Err(BandError::NativeContractViolation);
+    }
+    Ok(ScaledDeterminant {
+        mantissa: det[0],
+        exponent10: det[1] as i32,
+    })
+}
+
+fn scaled64(det: [f64; 2]) -> Result<ScaledDeterminant<f64>, BandError> {
+    if !det[0].is_finite()
+        || !det[1].is_finite()
+        || det[1].trunc() != det[1]
+        || det[1] < f64::from(i32::MIN)
+        || det[1] > f64::from(i32::MAX)
+    {
+        return Err(BandError::NativeContractViolation);
+    }
+    Ok(ScaledDeterminant {
+        mantissa: det[0],
+        exponent10: det[1] as i32,
     })
 }
 fn pivots(p: &[FortranInteger], n: FortranInteger) -> Result<Vec<usize>, BandError> {
