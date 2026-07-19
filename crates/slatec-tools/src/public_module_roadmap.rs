@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 242;
+const SAFE_FUNCTION_TARGET: usize = 243;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -43,6 +43,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "least-squares-linear-bounded-constrained",
     "ode-sdrive-expert",
     "dassl",
+    "fishpack-cartesian-2d",
     "optimization-linear-programming-in-memory",
     "fftpack-real",
     "fftpack-complex",
@@ -784,12 +785,17 @@ fn leaves() -> Vec<LeafSpec> {
             "No reviewed safe boundary-value family is selected.",
             "Inventory boundary-value candidates."
         ),
-        planned!(
+        implemented!(
             "differential_equations::pde",
             "crates/slatec/src/differential_equations/pde.rs",
-            "Reserved",
-            "PDE/FISHPACK contracts are outside current ODE/DAE scopes.",
-            "Audit a distinct PDE family."
+            "fishpack-cartesian-2d",
+            "crate::differential_equations::pde",
+            "slatec::differential_equations::pde",
+            "fishpack-cartesian-2d",
+            "f32",
+            "std",
+            "SerializedGlobal",
+            &["slatec::differential_equations::pde::"]
         ),
         implemented!(
             "optimization::linear_programming",
@@ -1085,6 +1091,11 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "fishpack-cartesian-2d",
+            grouped_paths: &["differential_equations::pde"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "optimization-linear-programming-in-memory",
             grouped_paths: &["optimization::linear_programming"],
             evidence_source: "crates/slatec/Cargo.toml",
@@ -1157,7 +1168,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 182),
+            ("std".to_owned(), 183),
         ])
     {
         return Err(policy(

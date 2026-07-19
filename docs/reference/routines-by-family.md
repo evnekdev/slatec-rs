@@ -653,7 +653,7 @@
 | [HSTPLR](routines/hstplr.md) | user_callable | Solve the standard five-point finite difference approximation on a staggered grid to the Helmholtz equation in polar coordinates. | unknown | provider_present | bound | none |
 | [HSTSSP](routines/hstssp.md) | user_callable | Solve the standard five-point finite difference approximation on a staggered grid to the Helmholtz equation in spherical coordinates and on the surface of the unit sphere (radius of 1). | unknown | provider_present | bound | none |
 | [HW3CRT](routines/hw3crt.md) | user_callable | Solve the standard seven-point finite difference approximation to the Helmholtz equation in Cartesian coordinates. | unknown | provider_present | bound | none |
-| [HWSCRT](routines/hwscrt.md) | user_callable | Solves the standard five-point finite difference approximation to the Helmholtz equation in Cartesian coordinates. | unknown | provider_present | bound | none |
+| [HWSCRT](routines/hwscrt.md) | user_callable | Solves the standard five-point finite difference approximation to the Helmholtz equation in Cartesian coordinates. | unknown | provider_present | bound | safe_public |
 | [HWSCS1](routines/hwscs1.md) | subsidiary | Subsidiary to HWSCSP | unknown | canonical_verified | bound | none |
 | [HWSCSP](routines/hwscsp.md) | user_callable | Solve a finite difference approximation to the modified Helmholtz equation in spherical coordinates assuming axisymmetry (no dependence on longitude). | unknown | provider_present | bound | none |
 | [HWSCYL](routines/hwscyl.md) | user_callable | Solve a standard finite difference approximation to the Helmholtz equation in cylindrical coordinates. | unknown | provider_present | bound | none |

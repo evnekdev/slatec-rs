@@ -78,6 +78,10 @@ pub mod fftpack;
 #[cfg(feature = "raw-family-fftpack-complex")]
 pub mod fftpack_complex;
 
+/// Hand-reviewed declaration for the focused Cartesian FISHPACK driver.
+#[cfg(feature = "raw-family-fishpack-cartesian-2d")]
+pub mod fishpack_cartesian_2d;
+
 /// Hand-reviewed LINPACK general-band factorization and solve declarations.
 #[cfg(feature = "raw-family-banded-linear-systems")]
 pub mod banded;

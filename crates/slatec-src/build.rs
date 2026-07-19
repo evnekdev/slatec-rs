@@ -40,6 +40,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ),
     ("FFTPACK_REAL", "fftpack-real"),
     ("FFTPACK_COMPLEX", "fftpack-complex"),
+    ("FISHPACK_CARTESIAN_2D", "fishpack-cartesian-2d"),
     ("BANDED_LINEAR_SYSTEMS", "banded-linear-systems"),
     ("PCHIP", "pchip"),
     ("BSPLINE", "bspline"),
@@ -110,6 +111,7 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-complex-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/fishpack-cartesian-2d-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/banded-linear-systems-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/pchip-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/bspline-source-closure.json");
@@ -216,6 +218,10 @@ fn build_sources(families: &BTreeSet<String>) {
         ),
         ("fftpack-real", "fftpack-real-source-closure.json"),
         ("fftpack-complex", "fftpack-complex-source-closure.json"),
+        (
+            "fishpack-cartesian-2d",
+            "fishpack-cartesian-2d-source-closure.json",
+        ),
         (
             "banded-linear-systems",
             "banded-linear-systems-source-closure.json",

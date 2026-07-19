@@ -6,7 +6,8 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
-`optimization-linear-programming-in-memory`, and `piecewise-polynomial`.
+`fishpack-cartesian-2d`, `optimization-linear-programming-in-memory`, and
+`piecewise-polynomial`.
 Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
@@ -140,6 +141,12 @@ the reviewed standard real-array `CFFTI1/CFFTF1/CFFTB1` interface, preserving
 the negative/positive exponent directions and native `N` round-trip scale.
 The selected snapshot has no reviewed complex `f64` roots. See the
 [complex FFTPACK guide](docs/api/safe-complex-fftpack.md).
+The opt-in hosted `fishpack-cartesian-2d` feature adds an owned `f32`
+Cartesian Poisson/Helmholtz finite-difference solve over selected `HWSCRT`.
+Typed periodic, value, derivative, and mixed edges are validated before FFI;
+the result preserves perturbation and non-uniqueness information, while
+workspace and leading dimensions remain private. Calls are process-serialized.
+See the [Cartesian FISHPACK guide](docs/api/safe-fishpack-cartesian-2d.md).
 The opt-in hosted `pchip` feature adds owned `f32` and `f64` piecewise-cubic
 Hermite curves over original PCHIP routines. It supports monotone and typed
 controlled derivative construction, PCHSP's typed endpoint conditions, value

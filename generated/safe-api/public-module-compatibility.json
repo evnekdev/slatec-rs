@@ -725,6 +725,25 @@
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {
+      "canonical_grouped_module_path": "differential_equations::pde",
+      "module_file": "crates/slatec/src/differential_equations/pde.rs",
+      "stability": "Reserved",
+      "status": "Implemented",
+      "cargo_feature": "fishpack-cartesian-2d",
+      "current_implementation_module": "crate::differential_equations::pde",
+      "compatibility_path": "slatec::differential_equations::pde",
+      "safe_native_families": [
+        "fishpack-cartesian-2d"
+      ],
+      "precision_coverage": "f32",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
+      "evidence_source": "generated/safe-api/function-index.json"
+    },
+    {
       "canonical_grouped_module_path": "optimization::linear_programming",
       "module_file": "crates/slatec/src/optimization/linear_programming.rs",
       "stability": "Reserved",

@@ -1,0 +1,30 @@
+{
+  "family": "fishpack-cartesian-2d",
+  "profile_override": false,
+  "source_ids": [
+    "fishpack-cartesian-2d-hwscrt",
+    "fishpack-cartesian-2d-genbun",
+    "fishpack-cartesian-2d-poisd2",
+    "fishpack-cartesian-2d-poisn2",
+    "fishpack-cartesian-2d-poisp2",
+    "fishpack-cartesian-2d-cosgen",
+    "fishpack-cartesian-2d-s1merg",
+    "fishpack-cartesian-2d-trix",
+    "fishpack-cartesian-2d-tri3",
+    "fishpack-cartesian-2d-pimach",
+    "selected-source-b3c3b83a9ceaaeb4"
+  ],
+  "sources": [
+    {"id":"fishpack-cartesian-2d-hwscrt","subset":"fishfft","path":"hwscrt.f","sha256":"9bcd5a3be9e6d63e7dcc33637eb37ef07ba10b727b74859d08cb4daa7f813202"},
+    {"id":"fishpack-cartesian-2d-genbun","subset":"fishfft","path":"genbun.f","sha256":"c54069e07f3b22162ab776f7a165213b6f21e67d482d38835888a6915b872af2"},
+    {"id":"fishpack-cartesian-2d-poisd2","subset":"main-src","path":"src/poisd2.f","sha256":"ec4a0920dcd7215730f9008682db04f837957ccd93119d3f35435fb7b904a40a"},
+    {"id":"fishpack-cartesian-2d-poisn2","subset":"main-src","path":"src/poisn2.f","sha256":"9abf49865e19fde938b40c5c9205c8d0ce989e743f9c92186e763291e4626576"},
+    {"id":"fishpack-cartesian-2d-poisp2","subset":"main-src","path":"src/poisp2.f","sha256":"9ae3d82f495be7410589b198032c69af439a9be34ec9ab7376b99495a1260b0c"},
+    {"id":"fishpack-cartesian-2d-cosgen","subset":"main-src","path":"src/cosgen.f","sha256":"58c8d559ecc53dbc55ddf1adf5fc0e5539381433403b87ef56c42f9e7b042a93"},
+    {"id":"fishpack-cartesian-2d-s1merg","subset":"main-src","path":"src/s1merg.f","sha256":"e452915134ecad34ba6829677b4b7309071736d5803f97c641623682bc743bff"},
+    {"id":"fishpack-cartesian-2d-trix","subset":"main-src","path":"src/trix.f","sha256":"1423a81f1e4666a3c4ac718cb8762781efd1d7e3570bf6e6a419c5555c061204"},
+    {"id":"fishpack-cartesian-2d-tri3","subset":"main-src","path":"src/tri3.f","sha256":"3d8b140635122c825fd61459448127e70579f5ad3d407240c34d75d4c2863a5e"},
+    {"id":"fishpack-cartesian-2d-pimach","subset":"main-src","path":"src/pimach.f","sha256":"f69e0ef7ba5a5970d7d327bcc5a7db68850c886104f0812ed6b9ae488ecc6945"},
+    {"id":"selected-source-b3c3b83a9ceaaeb4","subset":"lin","path":"scopy.f","sha256":"9888e104d4bdbbc2c02d67fe57aeb6add0a14f006a63c6786ed11c96b789b1ca"}
+  ]
+}
