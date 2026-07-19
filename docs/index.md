@@ -23,6 +23,10 @@ The collection is ready to advance to reproducible bulk source ingestion and met
 6. [Routine catalogue](routines/README.md) — pilot metadata and future extraction process.
 7. [Rust crate architecture](rust/crate-architecture.md) — proposed staged Rust organization.
 
+## Complete catalogue
+
+[Complete SLATEC Routine Index](reference/slatec-routine-index.md) provides the generated historical inventory and `slatec-rs` coverage map, with [family browsing](reference/routines-by-family.md), [alphabetical lookup](reference/routines-alphabetical.md), and [coverage and reconciliation](reference/routine-coverage.md).
+
 ## Sources and evidence policy
 
 - [Source register](sources/source-register.md)
