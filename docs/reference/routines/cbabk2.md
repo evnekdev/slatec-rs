@@ -1,0 +1,49 @@
+# CBABK2
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Form the eigenvectors of a complex general matrix from the eigenvectors of matrix output from CBAL.
+
+## Description
+
+This subroutine is a translation of the ALGOL procedure CBABK2, which is a complex version of BALBAK, NUM. MATH. 13, 293-304(1969) by Parlett and Reinsch. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). This subroutine forms the eigenvectors of a COMPLEX GENERAL matrix by back transforming those of the corresponding balanced matrix determined by CBAL. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, ZR and ZI, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix Z=(ZR,ZI). N is an INTEGER variable. N must be less than or equal to NM. LOW and IGH are INTEGER variables determined by CBAL. SCALE contains information determining the permutations and scaling factors used by CBAL. SCALE is a one-dimensional REAL array, dimensioned SCALE(N). M is the number of eigenvectors to be back transformed. M is an INTEGER variable. ZR and ZI contain the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first M columns. ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). On OUTPUT ZR and ZI contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY
+
+## Classification
+
+- Historical role: `user_callable`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `complex_f32`
+- Scalar kind: `complex`
+- Primary family: `Eigenvalue problems`
+- Mathematical domain: `dense-linear-algebra`
+- Package provenance: `unknown`
+- GAMS classifications: `D4C4`
+- Family evidence: `netlib_gams` (`high`)
+
+## Project coverage
+
+- Source status: `provider_present`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `lin/cbabk2.f` (`relocated-subset`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/lin/cbabk2.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/lin/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

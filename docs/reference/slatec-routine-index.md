@@ -14,4 +14,4 @@ Inclusion does not imply a modern recommendation, ABI safety, compilation, a can
 
 ## Description evidence
 
-Descriptions are assembled from canonical Netlib source prologues, the official Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a verified module match exists, and reviewed secondary sources. Source revisions can differ; the canonical source prologue takes precedence. Compact indexes show a complete short purpose; [routine details and evidence](routine-details.md) retain full source descriptions and external cross-references. External references are cross-checks, not replacements for local evidence.
+Descriptions are assembled from canonical Netlib source prologues, the official Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a verified module match exists, and reviewed secondary sources. Source revisions can differ; the canonical source prologue takes precedence. Compact indexes link to one generated page per routine; [the compatibility page](routine-details.md) documents the migration from the former monolithic detail file. External references are cross-checks, not replacements for local evidence.

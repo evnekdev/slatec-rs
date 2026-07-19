@@ -1,0 +1,50 @@
+# BISECT
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Compute the eigenvalues of a symmetric tridiagonal matrix in a given interval using Sturm sequencing.
+
+## Description
+
+This subroutine is a translation of the bisection technique in the ALGOL procedure TRISTURM by Peters and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 418-439(1971). This subroutine finds those eigenvalues of a TRIDIAGONAL SYMMETRIC matrix which lie in a specified interval, using bisection. On INPUT N is the order of the matrix. N is an INTEGER variable. EPS1 is an absolute error tolerance for the computed eigenvalues. If the input EPS1 is non-positive, it is reset for each submatrix to a default value, namely, minus the product of the relative machine precision and the 1-norm of the submatrix. EPS1 is a REAL variable. D contains the diagonal elements of the input matrix. D is a one-dimensional REAL array, dimensioned D(N). E contains the subdiagonal elements of the input matrix in its last N-1 positions. E(1) is arbitrary. E is a one-dimensional REAL array, dimensioned E(N). E2 contains the squares of the corresponding elements of E. E2(1) is arbitrary. E2 is a one-dimensional REAL array, dimensioned E2(N). LB and UB define the interval to be searched for eigenvalues. If LB is not less than UB, no eigenvalues will be found. LB and UB are REAL variables. MM should be set to an upper bound for the number of eigenvalues in the interval. WARNING - If more than MM eigenvalues are determined to lie in the interval, an error return is made with no eigenvalues found. MM is an INTEGER variable. On OUTPUT EPS1 is unaltered unless it has been reset to its (last) default value. D and E are unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. E2(1) is also set to zero. M is the number of eigenvalues determined to lie in (LB,UB). M is an INTEGER variable. W contains the M eigenvalues in ascending order. W is a one-dimensional REAL array, dimensioned W(MM). IND contains in its first M positions the submatrix indices associated with the corresponding eigenvalues in W -1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc. IND is an one-dimensional INTEGER array, dimensioned IND(MM). IERR is an INTEGER flag set to Zero for normal return, 3*N+1 if M exceeds MM. In this case, M contains the number of eigenvalues determined to lie in (LB,UB). RV4 and RV5 are one-dimensional REAL arrays used for temporary storage, dimensioned RV4(N) and RV5(N). The ALGOL procedure STURMCNT contained in TRISTURM appears in BISECT in-line. Note that subroutine TQL1 or IMTQL1 is generally faster than BISECT, if more than N/4 eigenvalues are to be found. Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY
+
+## Classification
+
+- Historical role: `user_callable`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `unknown`
+- Scalar kind: `unknown`
+- Primary family: `Eigenvalue problems`
+- Mathematical domain: `dense-linear-algebra`
+- Package provenance: `unknown`
+- GAMS classifications: `D4A5`
+- Family evidence: `netlib_gams` (`high`)
+
+## Project coverage
+
+- Source status: `provider_present`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `lin/bisect.f` (`relocated-subset`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/lin/bisect.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/lin/bisect.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/lin/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

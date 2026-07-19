@@ -1,0 +1,52 @@
+# EXINT
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Compute an M member sequence of exponential integrals E(N+K,X), K=0,1,...,M-1 for N .GE. 1 and X .GE. 0.
+
+## Description
+
+EXINT computes M member sequences of exponential integrals E(N+K,X), K=0,1,...,M-1 for N .GE. 1 and X .GE. 0. The exponential integral is defined by E(N,X)=integral on (1,infinity) of EXP(-XT)/T**N where X=0.0 and N=1 cannot occur simultaneously. Formulas and notation are found in the NBS Handbook of Mathematical Functions (ref. 1). The power series is implemented for X .LE. XCUT and the confluent hypergeometric representation E(A,X) = EXP(-X)*(X**(A-1))*U(A,A,X) is computed for X .GT. XCUT. Since sequences are computed in a stable fashion by recurring away from X, A is selected as the integer closest to X within the constraint N .LE. A .LE. N+M-1. For the U computation, A is further modified to be the nearest even integer. Indices are carried forward or backward by the two term recursion relation K*E(K+1,X) + X*E(K,X) = EXP(-X) once E(A,X) is computed. The U function is computed by means of the backward recursive Miller algorithm applied to the three term contiguous relation for U(A+K,A,X), K=0,1,... This produces accurate ratios and determines U(A+K,A,X), and hence E(A,X), to within a multiplicative constant C. Another contiguous relation applied to C*U(A,A,X) and C*U(A+1,A,X) gets C*U(A+1,A+1,X), a quantity proportional to E(A+1,X). The normalizing constant C is obtained from the two term recursion relation above with K=A. Description of Arguments
+
+## Classification
+
+- Historical role: `user_callable`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `unknown`
+- Scalar kind: `unknown`
+- Primary family: `Special functions`
+- Mathematical domain: `special-functions`
+- Package provenance: `unknown`
+- GAMS classifications: `C5`
+- Family evidence: `netlib_gams` (`verified`)
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/exint.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/exint.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/exint.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/src/exint.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

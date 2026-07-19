@@ -1,0 +1,50 @@
+# SDATRP
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Interpolation routine for SDASSL.
+
+## Description
+
+THE METHODS IN SUBROUTINE SDASTP USE POLYNOMIALS TO APPROXIMATE THE SOLUTION. SDATRP APPROXIMATES THE SOLUTION AND ITS DERIVATIVE AT TIME XOUT BY EVALUATING ONE OF THESE POLYNOMIALS, AND ITS DERIVATIVE,THERE. INFORMATION DEFINING THIS POLYNOMIAL IS PASSED FROM SDASTP, SO SDATRP CANNOT BE USED ALONE. THE PARAMETERS ARE: X THE CURRENT TIME IN THE INTEGRATION. XOUT THE TIME AT WHICH THE SOLUTION IS DESIRED YOUT THE INTERPOLATED APPROXIMATION TO Y AT XOUT (THIS IS OUTPUT) YPOUT THE INTERPOLATED APPROXIMATION TO YPRIME AT XOUT (THIS IS OUTPUT) NEQ NUMBER OF EQUATIONS KOLD ORDER USED ON LAST SUCCESSFUL STEP PHI ARRAY OF SCALED DIVIDED DIFFERENCES OF Y PSI ARRAY OF PAST STEPSIZE HISTORY
+
+## Classification
+
+- Historical role: `subsidiary`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `f32`
+- Scalar kind: `real`
+- Primary family: `ODE solvers`
+- Mathematical domain: `ode-dae`
+- Package provenance: `ode-dae-families`
+- Family evidence: `description_inference` (`medium`)
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/sdatrp.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/sdatrp.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/sdatrp.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

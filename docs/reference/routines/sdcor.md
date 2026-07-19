@@ -1,0 +1,51 @@
+# SDCOR
+
+[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+
+## Purpose
+
+Subroutine SDCOR computes corrections to the Y array.
+
+## Description
+
+In the case of functional iteration, update Y directly from the result of the last call to F. In the case of the chord method, compute the corrector error and solve the linear system with that as right hand side and DFDY as coefficient matrix, using the LU decomposition if MITER is 1, 2, 4, or 5.
+
+## Classification
+
+- Historical role: `subsidiary`
+- Program-unit kind: `subroutine`
+- Identity kind: `subroutine`
+- Identity status: `retained_verified_program_unit`
+- Precision: `f32`
+- Scalar kind: `real`
+- Primary family: `ODE solvers`
+- Mathematical domain: `ode-dae`
+- Package provenance: `ode-dae-families`
+- Family evidence: `description_inference` (`medium`)
+
+## Project coverage
+
+- Source status: `canonical_verified`
+- Raw-binding status: `bound`
+- Build/profile status: `selected_by_profile`
+- Audit status: `family_inventory_only`
+- Safe-API status: `none`
+- Implementation status: `not_exposed_as_safe_api`
+- Deferment status: Catalogue inclusion does not imply a Rust binding or safe API.
+
+## Providers
+
+- Canonical provider: `main-src/src/sdcor.f` (`pinned-reproducible-subset`)
+- Alternate providers:
+  - `src/sdcor.f` (`live-main-source`)
+
+## Official references
+
+- [Netlib source](https://www.netlib.org/slatec/src/sdcor.f) — `verified_cached`
+- [Netlib full source](https://www.netlib.org/cgi-bin/netlibfiles.pl?filename=/slatec/src/sdcor.f) — `verified_cached`
+- [Netlib directory entry](https://www.netlib.org/slatec/src/) — `verified_cached`
+- [Netlib TOC](https://www.netlib.org/slatec/toc) — `verified_cached`
+
+## Evidence notes
+
+Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.

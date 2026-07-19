@@ -4,6 +4,7 @@
 //! build closure.  It is deliberately offline and deterministic.
 
 use crate::error::{CorpusError, Result};
+use crate::fixed_form;
 use crate::hash;
 use crate::{TOOL_NAME, TOOL_VERSION};
 use serde_json::{Value, json};
@@ -12,7 +13,7 @@ use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 
-const VERSION: &str = "1.2.0";
+const VERSION: &str = "1.3.0";
 const CREATED_AT: &str = "1970-01-01T00:00:00Z";
 const NO_DESCRIPTION: &str = "Description unavailable from current source evidence.";
 
@@ -78,6 +79,7 @@ struct DirectoryEntry {
     source_url: Option<String>,
     fullsource_url: Option<String>,
     directory_url: Option<String>,
+    cached_source_path: Option<PathBuf>,
 }
 
 #[derive(Clone)]
@@ -164,6 +166,9 @@ pub fn generate(
         .collect::<Result<Vec<_>>>()?;
     records.sort_by(|a, b| name(a).cmp(name(b)));
     validate_records(&records, &providers)?;
+    let page_filenames = routine_page_filenames(&records)?;
+    let routine_pages = render_routine_pages(&records, &page_filenames)?;
+    let page_index = routine_page_index(&records, &page_filenames, &routine_pages)?;
 
     let coverage = coverage(&records, &providers, &manifest);
     let description_coverage = description_coverage(&records);
@@ -206,6 +211,7 @@ pub fn generate(
         "external-reference-map.json",
         json_bytes(&external_references)?,
     );
+    files.insert("routine-page-index.json", json_bytes(&page_index)?);
     files.insert("excluded-candidates.json", json_bytes(&excluded)?);
     files.insert(
         "family-classification-report.json",
@@ -229,11 +235,18 @@ pub fn generate(
         "main_src_snapshot_id":manifest.get("main_src_snapshot_id"), "identity_count":records.len(),
         "offline_regeneration":true, "output_semantic_hash":semantic_hash,
         "output_file_hashes":file_hashes,
-        "evidence_sources":["generated/full-corpus","generated/program-units","generated/ffi","generated/safe-api","metadata/routines-pilot.toml","metadata/gams-family-map.toml","cached Netlib Version 4.1 TOC"],
+        "evidence_sources":["generated/full-corpus","generated/program-units","generated/ffi","generated/safe-api","metadata/routines-pilot.toml","metadata/gams-family-map.toml","cached Netlib source files, directory indexes, and Version 4.1 TOC"],
     }))?);
     write_jsons(output_dir, &files)?;
-    write_docs(docs_dir, &records, &coverage, &diagnostics)?;
-    validate_docs(docs_dir, &records, &exclusions)?;
+    write_docs(
+        docs_dir,
+        &records,
+        &coverage,
+        &diagnostics,
+        &page_filenames,
+        &routine_pages,
+    )?;
+    validate_docs(docs_dir, &records, &exclusions, &page_filenames)?;
     Ok(CatalogueResult {
         identity_count: records.len(),
         semantic_hash,
@@ -418,7 +431,7 @@ fn build_record(
         .iter()
         .find_map(|provider| directory_url(directories, provider));
     let source_variants = description_variants(canonical_source, toc, directory);
-    let reference = official_references(&providers, directories, toc);
+    let reference = official_references(&identity.name, &providers, directories, toc)?;
     let family = &classification.primary_family;
     let domain = &classification.mathematical_domain;
     let package = &classification.package_provenance;
@@ -798,6 +811,12 @@ fn directory_entries() -> Result<BTreeMap<(String, String), DirectoryEntry>> {
                             )),
                             fullsource_url,
                             directory_url: Some(directory_url.clone()),
+                            cached_source_path: Some(
+                                Path::new("evidence/full-corpus/audit-input/directories")
+                                    .join(subset)
+                                    .join("files")
+                                    .join(&filename),
+                            ),
                             ..DirectoryEntry::default()
                         },
                     ));
@@ -1157,23 +1176,105 @@ fn description_variants(
 }
 
 fn official_references(
+    identity: &str,
     providers: &[Provider],
     directories: &BTreeMap<(String, String), DirectoryEntry>,
     toc: Option<&TocPurpose>,
-) -> Value {
+) -> Result<Value> {
     let directory = providers
         .iter()
         .find_map(|provider| directories.get(&(provider.subset.clone(), provider.path.clone())));
-    json!({
-        "netlib_source_url":directory.and_then(|entry| entry.source_url.as_ref()).map(|url| json!({"url":url,"status":"verified_cached"})),
-        "netlib_fullsource_url":directory.and_then(|entry| entry.fullsource_url.as_ref()).map(|url| json!({"url":url,"status":"verified_cached"})),
-        "netlib_directory_entry_url":directory.and_then(|entry| entry.directory_url.as_ref()).map(|url| json!({"url":url,"status":"verified_cached"})),
+    let netlib_source = match directory {
+        Some(entry) => source_reference(identity, entry)?,
+        None => Value::Null,
+    };
+    Ok(json!({
+        "netlib_source_url":netlib_source,
+        "netlib_fullsource_url":directory.and_then(|entry| entry.fullsource_url.as_ref()).map(|url| json!({"url":url,"status":"verified_cached","verification_basis":"cached_netlib_directory_entry"})),
+        "netlib_directory_entry_url":directory.and_then(|entry| entry.directory_url.as_ref()).map(|url| json!({"url":url,"status":"verified_cached","verification_basis":"cached_netlib_directory_index"})),
         "netlib_toc_reference":toc.map(|item| json!({"url":"https://www.netlib.org/slatec/toc","status":"verified_cached","role":item.role,"shared_purpose_group":item.group})),
         "nist_gams_module_url":Value::Null,
         "nist_gams_status":"not_matched_during_offline_generation",
         "secondary_html_reference_url":Value::Null,
         "secondary_html_status":"not_verified"
-    })
+    }))
+}
+
+fn source_reference(identity: &str, entry: &DirectoryEntry) -> Result<Value> {
+    let Some(url) = entry.source_url.as_deref() else {
+        return Ok(Value::Null);
+    };
+    let routine_specific = entry.directory_url.as_deref() != Some(url)
+        && !url.ends_with('/')
+        && !url.ends_with("index.html");
+    if !routine_specific {
+        return Ok(json!({
+            "url":url,
+            "status":"invalid",
+            "verification_basis":"source URL resolves to a directory or index"
+        }));
+    }
+    let Some(path) = entry.cached_source_path.as_deref() else {
+        return Ok(json!({
+            "url":url,
+            "status":"candidate_unverified",
+            "verification_basis":"no cached routine source path"
+        }));
+    };
+    if !path.is_file() {
+        return Ok(json!({
+            "url":url,
+            "status":"candidate_unverified",
+            "cached_path":slash_path(path),
+            "verification_basis":"cached routine source is unavailable"
+        }));
+    }
+    let bytes = fs::read(path)?;
+    let statements = fixed_form::logical_statements(&fixed_form::physical_lines(&bytes));
+    let mut parent: Option<String> = None;
+    let expected = identity.to_ascii_uppercase();
+    for statement in statements {
+        if let Some(start) = fixed_form::start_declaration(&statement.normalized_statement_text) {
+            parent = start.name.as_ref().map(|name| name.to_ascii_uppercase());
+            if parent.as_deref() == Some(expected.as_str()) {
+                return Ok(json!({
+                    "url":url,
+                    "status":"verified_cached",
+                    "cached_path":slash_path(path),
+                    "verification_basis":"fixed_form_program_unit_declaration",
+                    "declaration_kind":start.kind,
+                    "declared_identity":expected
+                }));
+            }
+        } else if let Some((entry_name, _)) =
+            fixed_form::entry_declaration(&statement.normalized_statement_text)
+            && entry_name.eq_ignore_ascii_case(identity)
+        {
+            return Ok(json!({
+                "url":url,
+                "status":"verified_cached",
+                "cached_path":slash_path(path),
+                "verification_basis":"fixed_form_entry_declaration",
+                "declaration_kind":"entry",
+                "declared_identity":expected,
+                "entry_parent":parent
+            }));
+        }
+        if fixed_form::is_end(&statement.normalized_statement_text) {
+            parent = None;
+        }
+    }
+    Ok(json!({
+        "url":url,
+        "status":"invalid",
+        "cached_path":slash_path(path),
+        "verification_basis":"cached source has no matching fixed-form program unit or ENTRY declaration",
+        "expected_identity":expected
+    }))
+}
+
+fn slash_path(path: &Path) -> String {
+    path.to_string_lossy().replace('\\', "/")
 }
 
 fn unavailable_justification(
@@ -1327,7 +1428,18 @@ fn description_discrepancies(records: &[Value]) -> Value {
 }
 
 fn external_reference_map(records: &[Value]) -> Value {
-    json!({"schema_id":"slatec-rs/external-reference-map","schema_version":VERSION,"verification_scope":{"netlib":"cached official directory and TOC evidence","nist_gams":"institutional site reviewed; no per-module cached matches","secondary_html":"no routine rendering verified in this refresh"},"records":records.iter().map(|record| json!({"identity":name(record),"references":record.get("official_documentation")})).collect::<Vec<_>>()})
+    let source_status_counts =
+        records
+            .iter()
+            .fold(BTreeMap::<String, usize>::new(), |mut counts, record| {
+                let status = record
+                    .pointer("/official_documentation/netlib_source_url/status")
+                    .and_then(Value::as_str)
+                    .unwrap_or("not_available");
+                *counts.entry(status.to_owned()).or_default() += 1;
+                counts
+            });
+    json!({"schema_id":"slatec-rs/external-reference-map","schema_version":VERSION,"verification_scope":{"netlib_source":"individual cached source parsed for a matching fixed-form program unit or ENTRY declaration","netlib_full_source":"routine-specific endpoint recorded in the cached official directory index","netlib_directory_entry":"cached official directory index, intentionally distinct from individual source","netlib_toc":"cached official Version 4.1 TOC","nist_gams":"no per-module cached matches","secondary_html":"no routine rendering verified in this refresh"},"netlib_source_status_counts":source_status_counts,"records":records.iter().map(|record| json!({"identity":name(record),"references":record.get("official_documentation")})).collect::<Vec<_>>()})
 }
 
 fn excluded_candidates(exclusions: &BTreeMap<String, ExcludedCandidate>) -> Value {
@@ -2302,7 +2414,14 @@ fn diagnostics(records: &[Value], manifest: &Value) -> Value {
     json!({"schema_id":"slatec-rs/routine-reconciliation-diagnostics","schema_version":VERSION,"documented_targets":{"user_callable":902,"total_floor":1400},"audit_union":manifest.pointer("/summary/unique_program_units_in_union"),"records":output})
 }
 
-fn write_docs(root: &Path, records: &[Value], summary: &Value, diagnostics: &Value) -> Result<()> {
+fn write_docs(
+    root: &Path,
+    records: &[Value],
+    summary: &Value,
+    diagnostics: &Value,
+    page_filenames: &BTreeMap<String, String>,
+    routine_pages: &BTreeMap<String, String>,
+) -> Result<()> {
     let output = root.join("reference");
     fs::create_dir_all(&output)?;
     let total = summary
@@ -2327,17 +2446,18 @@ fn write_docs(root: &Path, records: &[Value], summary: &Value, diagnostics: &Val
         fs::OpenOptions::new()
             .append(true)
             .open(output.join("slatec-routine-index.md"))?,
-        "\n## Description evidence\n\nDescriptions are assembled from canonical Netlib source prologues, the official Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a verified module match exists, and reviewed secondary sources. Source revisions can differ; the canonical source prologue takes precedence. Compact indexes show a complete short purpose; [routine details and evidence](routine-details.md) retain full source descriptions and external cross-references. External references are cross-checks, not replacements for local evidence."
+        "\n## Description evidence\n\nDescriptions are assembled from canonical Netlib source prologues, the official Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a verified module match exists, and reviewed secondary sources. Source revisions can differ; the canonical source prologue takes precedence. Compact indexes link to one generated page per routine; [the compatibility page](routine-details.md) documents the migration from the former monolithic detail file. External references are cross-checks, not replacements for local evidence."
     )?;
     fs::write(
         output.join("routines-by-family.md"),
-        family_markdown(records),
+        family_markdown(records, page_filenames),
     )?;
     fs::write(
         output.join("routines-alphabetical.md"),
-        alphabetical_markdown(records),
+        alphabetical_markdown(records, page_filenames),
     )?;
-    fs::write(output.join("routine-details.md"), details_markdown(records))?;
+    fs::write(output.join("routine-details.md"), compatibility_markdown())?;
+    write_routine_pages(&output.join("routines"), routine_pages)?;
     let diagnostics_count = diagnostics
         .get("records")
         .and_then(Value::as_array)
@@ -2414,7 +2534,7 @@ fn write_docs(root: &Path, records: &[Value], summary: &Value, diagnostics: &Val
     Ok(())
 }
 
-fn family_markdown(records: &[Value]) -> String {
+fn family_markdown(records: &[Value], page_filenames: &BTreeMap<String, String>) -> String {
     let mut groups: BTreeMap<String, Vec<&Value>> = BTreeMap::new();
     for record in records {
         groups
@@ -2431,9 +2551,9 @@ fn family_markdown(records: &[Value]) -> String {
         output.push_str(&format!("\n## {family}\n\n| Routine | Role | Purpose | Precision | Source | Raw | Safe |\n| --- | --- | --- | --- | --- | --- | --- |\n"));
         for row in rows {
             output.push_str(&format!(
-                "| [{}](routine-details.md#{}) | {} | {} | {} | {} | {} | {} |\n",
+                "| [{}](routines/{}) | {} | {} | {} | {} | {} | {} |\n",
                 name(row),
-                anchor(name(row)),
+                page_filenames[name(row)],
                 field(row, "role"),
                 compact(field(row, "short_description")),
                 field(row, "precision"),
@@ -2445,7 +2565,7 @@ fn family_markdown(records: &[Value]) -> String {
     }
     output
 }
-fn alphabetical_markdown(records: &[Value]) -> String {
+fn alphabetical_markdown(records: &[Value], page_filenames: &BTreeMap<String, String>) -> String {
     let mut groups: BTreeMap<char, Vec<&Value>> = BTreeMap::new();
     for record in records {
         groups
@@ -2465,10 +2585,10 @@ fn alphabetical_markdown(records: &[Value]) -> String {
         output.push_str(&format!("\n## <a id=\"alpha-{}\"></a>{}\n\n| Routine | Family | Role | Purpose | Coverage |\n| --- | --- | --- | --- | --- |\n", letter.to_ascii_lowercase(), if letter == '#' { "Other".to_owned() } else { letter.to_string() }));
         for row in rows {
             output.push_str(&format!(
-                "| <a id=\"{}\"></a>[{}](routine-details.md#{}) | {} | {} | {} | source: {}; raw: {}; safe: {} |\n",
+                "| <a id=\"{}\"></a>[{}](routines/{}) | {} | {} | {} | source: {}; raw: {}; safe: {} |\n",
                 anchor(name(row)),
                 name(row),
-                anchor(name(row)),
+                page_filenames[name(row)],
                 field(row, "primary_family"),
                 field(row, "role"),
                 compact(field(row, "short_description")),
@@ -2481,66 +2601,309 @@ fn alphabetical_markdown(records: &[Value]) -> String {
     output
 }
 
-fn details_markdown(records: &[Value]) -> String {
-    let mut output = "# SLATEC Routine Details\n\n[Complete index](slatec-routine-index.md) | [Browse by family](routines-by-family.md) | [Alphabetical lookup](routines-alphabetical.md)\n\nFull descriptions retain the complete logical source `DESCRIPTION` or `ABSTRACT` field where cached evidence provides one.\n".to_owned();
+fn compatibility_markdown() -> &'static str {
+    "# Routine Details\n\nRoutine details are now generated as one page per routine. Links to anchors in the former monolithic page should be replaced with the canonical links in the indexes.\n\n- [Browse by family](routines-by-family.md)\n- [Browse alphabetically](routines-alphabetical.md)\n- [Coverage and reconciliation](routine-coverage.md)\n"
+}
+
+fn routine_page_filenames(records: &[Value]) -> Result<BTreeMap<String, String>> {
+    let mut groups: BTreeMap<String, Vec<&Value>> = BTreeMap::new();
     for record in records {
-        output.push_str(&format!(
-            "\n## <a id=\"{}\"></a>{}\n\n",
-            anchor(name(record)),
-            name(record)
-        ));
-        output.push_str(&format!("- Purpose: {}\n- Historical role: {}\n- Kind: {}\n- Identity status: {}\n- Precision: {}\n- Family: {}\n- Family evidence: {} ({})\n- Package provenance: {}\n- Canonical provider: {}\n- Raw binding: {}\n- Safe API: {}\n", compact(field(record, "short_purpose")), field(record, "historical_role"), field(record, "kind"), field(record, "identity_status"), field(record, "precision"), field(record, "primary_family"), field(record, "family_source"), field(record, "family_confidence"), field(record, "package_provenance"), record.pointer("/canonical_provider/source_file").and_then(Value::as_str).unwrap_or("unavailable"), field(record, "raw_binding_status"), field(record, "safe_api_status")));
-        if let Some(code) = record
-            .pointer("/gams_classification/code")
-            .and_then(Value::as_str)
-        {
-            output.push_str(&format!("- GAMS classification: {code}\n"));
+        groups
+            .entry(filename_slug(name(record)))
+            .or_default()
+            .push(record);
+    }
+    let mut output = BTreeMap::new();
+    let mut used = BTreeSet::new();
+    for (base, group) in groups {
+        for record in &group {
+            let filename = if group.len() == 1 {
+                format!("{base}.md")
+            } else {
+                let identity_kind = filename_slug(field(record, "identity_kind"));
+                let material = format!("{}\0{}", name(record), field(record, "identity_kind"));
+                format!(
+                    "{base}--{identity_kind}-{}.md",
+                    &hash::bytes(material.as_bytes())[..12]
+                )
+            };
+            if !used.insert(filename.clone()) {
+                return Err(policy("routine page filename collision"));
+            }
+            output.insert(name(record).to_owned(), filename);
         }
-        if let Some(parents) = record
-            .get("family_parent_routines")
-            .and_then(Value::as_array)
-            .filter(|parents| !parents.is_empty())
-        {
-            output.push_str(&format!(
-                "- Parent-family evidence: {}\n",
-                parents
-                    .iter()
-                    .filter_map(Value::as_str)
-                    .collect::<Vec<_>>()
-                    .join(", ")
+    }
+    if output.len() != records.len() {
+        return Err(policy("routine page filename coverage mismatch"));
+    }
+    Ok(output)
+}
+
+fn filename_slug(identity: &str) -> String {
+    let mut output = String::new();
+    let mut separator = false;
+    for character in identity.to_ascii_lowercase().chars() {
+        if character.is_ascii_alphanumeric() {
+            output.push(character);
+            separator = false;
+        } else if !output.is_empty() && !separator {
+            output.push('-');
+            separator = true;
+        }
+    }
+    while output.ends_with('-') {
+        output.pop();
+    }
+    if output.is_empty() {
+        "routine".to_owned()
+    } else {
+        output
+    }
+}
+
+fn render_routine_pages(
+    records: &[Value],
+    page_filenames: &BTreeMap<String, String>,
+) -> Result<BTreeMap<String, String>> {
+    let mut output = BTreeMap::new();
+    for record in records {
+        let filename = page_filenames
+            .get(name(record))
+            .ok_or_else(|| policy("routine page filename missing"))?;
+        let page = routine_page_markdown(record);
+        if page.len() > 256 * 1024 {
+            return Err(policy("generated routine page exceeds 256 KiB"));
+        }
+        if page.lines().filter(|line| line.starts_with("# ")).count() != 1 {
+            return Err(policy(
+                "routine page must contain exactly one canonical heading",
             ));
         }
-        output.push_str("\n### Full description\n\n");
-        output.push_str(
-            record
-                .get("full_description")
-                .and_then(Value::as_str)
-                .unwrap_or("No full source description is available in the cached evidence."),
-        );
-        output.push_str("\n\n### Official documentation\n\n");
-        for (key, label) in [
-            ("netlib_source_url", "Source"),
-            ("netlib_fullsource_url", "Full source"),
-            ("netlib_toc_reference", "TOC"),
-            ("nist_gams_module_url", "GAMS"),
-            ("secondary_html_reference_url", "External docs"),
-        ] {
-            if let Some(url) = record
-                .pointer(&format!("/official_documentation/{key}/url"))
-                .and_then(Value::as_str)
-            {
-                output.push_str(&format!("[{}]({}) ", label, url));
-            }
+        if output.insert(filename.clone(), page).is_some() {
+            return Err(policy("duplicate generated routine page"));
         }
-        output.push_str("\n\n### Evidence notes\n\n");
+    }
+    Ok(output)
+}
+
+fn routine_page_markdown(record: &Value) -> String {
+    let mut output = format!(
+        "# {}\n\n[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)\n\n## Purpose\n\n{}\n",
+        name(record),
+        field(record, "short_purpose")
+    );
+    if let Some(description) = record.get("full_description").and_then(Value::as_str) {
+        output.push_str(&format!("\n## Description\n\n{description}\n"));
+    }
+    output.push_str("\n## Classification\n\n");
+    for (label, key) in [
+        ("Historical role", "historical_role"),
+        ("Program-unit kind", "kind"),
+        ("Identity kind", "identity_kind"),
+        ("Identity status", "identity_status"),
+        ("Precision", "precision"),
+        ("Scalar kind", "scalar_kind"),
+        ("Primary family", "primary_family"),
+        ("Mathematical domain", "mathematical_domain"),
+        ("Package provenance", "package_provenance"),
+    ] {
+        output.push_str(&format!("- {label}: `{}`\n", field(record, key)));
+    }
+    append_array(
+        &mut output,
+        record,
+        "secondary_families",
+        "Secondary families",
+    );
+    append_array(
+        &mut output,
+        record,
+        "netlib_gams_codes",
+        "GAMS classifications",
+    );
+    output.push_str(&format!(
+        "- Family evidence: `{}` (`{}`)\n",
+        field(record, "family_source"),
+        field(record, "family_confidence")
+    ));
+    append_array(
+        &mut output,
+        record,
+        "family_parent_routines",
+        "Parent-family evidence",
+    );
+
+    output.push_str("\n## Project coverage\n\n");
+    for (label, key) in [
+        ("Source status", "source_status"),
+        ("Raw-binding status", "raw_binding_status"),
+        ("Build/profile status", "source_profile_status"),
+        ("Audit status", "audit_status"),
+        ("Safe-API status", "safe_api_status"),
+        ("Implementation status", "implementation_status"),
+    ] {
+        output.push_str(&format!("- {label}: `{}`\n", field(record, key)));
+    }
+    append_array(&mut output, record, "safe_api_paths", "Safe Rust paths");
+    if !field(record, "deferral_or_exclusion_reason").is_empty() {
         output.push_str(&format!(
-            "Selected from `{}` using `{}`; confidence: `{}`.\n",
-            field(record, "description_source"),
-            field(record, "description_source_field"),
-            field(record, "description_confidence")
+            "- Deferment status: {}\n",
+            field(record, "deferral_or_exclusion_reason")
         ));
     }
+
+    output.push_str("\n## Providers\n\n");
+    if let Some(provider) = record
+        .get("canonical_provider")
+        .filter(|value| !value.is_null())
+    {
+        output.push_str(&format!(
+            "- Canonical provider: `{}/{}` (`{}`)\n",
+            field(provider, "subset"),
+            field(provider, "source_file"),
+            field(provider, "relationship")
+        ));
+    } else {
+        output.push_str("- Canonical provider: unavailable\n");
+    }
+    if let Some(providers) = record
+        .get("alternate_providers")
+        .and_then(Value::as_array)
+        .filter(|providers| !providers.is_empty())
+    {
+        output.push_str("- Alternate providers:\n");
+        for provider in providers {
+            output.push_str(&format!(
+                "  - `{}/{}` (`{}`)\n",
+                field(provider, "subset"),
+                field(provider, "source_file"),
+                field(provider, "relationship")
+            ));
+        }
+    }
+
+    output.push_str("\n## Official references\n\n");
+    let mut reference_count = 0;
+    for (key, label) in [
+        ("netlib_source_url", "Netlib source"),
+        ("netlib_fullsource_url", "Netlib full source"),
+        ("netlib_directory_entry_url", "Netlib directory entry"),
+        ("netlib_toc_reference", "Netlib TOC"),
+        ("nist_gams_module_url", "NIST GAMS"),
+        ("secondary_html_reference_url", "Secondary HTML reference"),
+    ] {
+        if let Some(reference) = record
+            .pointer(&format!("/official_documentation/{key}"))
+            .filter(|value| !value.is_null())
+            && let Some(url) = reference.get("url").and_then(Value::as_str)
+        {
+            let status = reference
+                .get("status")
+                .and_then(Value::as_str)
+                .unwrap_or("candidate_unverified");
+            output.push_str(&format!("- [{label}]({url}) — `{status}`\n"));
+            reference_count += 1;
+        }
+    }
+    if reference_count == 0 {
+        output.push_str("- Official references unavailable from current cached evidence.\n");
+    }
+
+    output.push_str("\n## Evidence notes\n\n");
+    output.push_str(&format!(
+        "Description selected from `{}` using `{}`; confidence: `{}`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.\n",
+        field(record, "description_source"),
+        field(record, "description_source_field"),
+        field(record, "description_confidence")
+    ));
+    if let Some(notes) = record
+        .get("notes")
+        .and_then(Value::as_array)
+        .filter(|notes| !notes.is_empty())
+    {
+        for note in notes.iter().filter_map(Value::as_str) {
+            output.push_str(&format!("\n- {note}\n"));
+        }
+    }
     output
+}
+
+fn append_array(output: &mut String, record: &Value, key: &str, label: &str) {
+    if let Some(values) = record
+        .get(key)
+        .and_then(Value::as_array)
+        .filter(|values| !values.is_empty())
+    {
+        let values = values
+            .iter()
+            .filter_map(Value::as_str)
+            .collect::<Vec<_>>()
+            .join(", ");
+        if !values.is_empty() {
+            output.push_str(&format!("- {label}: `{values}`\n"));
+        }
+    }
+}
+
+fn write_routine_pages(root: &Path, pages: &BTreeMap<String, String>) -> Result<()> {
+    fs::create_dir_all(root)?;
+    for entry in fs::read_dir(root)? {
+        let path = entry?.path();
+        if path.is_file() && path.extension().and_then(|value| value.to_str()) == Some("md") {
+            fs::remove_file(path)?;
+        }
+    }
+    for (filename, content) in pages {
+        fs::write(root.join(filename), content)?;
+    }
+    Ok(())
+}
+
+fn routine_page_index(
+    records: &[Value],
+    page_filenames: &BTreeMap<String, String>,
+    pages: &BTreeMap<String, String>,
+) -> Result<Value> {
+    let mut output = Vec::new();
+    for record in records {
+        let filename = &page_filenames[name(record)];
+        let content = pages
+            .get(filename)
+            .ok_or_else(|| policy("routine page content missing"))?;
+        let external_reference_status = record
+            .pointer("/official_documentation/netlib_source_url/status")
+            .and_then(Value::as_str)
+            .unwrap_or("not_available");
+        output.push(json!({
+            "identity":name(record),
+            "local_path":format!("docs/reference/routines/{filename}"),
+            "local_url":format!("routines/{filename}"),
+            "filename":filename,
+            "content_hash":hash::bytes(content.as_bytes()),
+            "content_size_bytes":content.len(),
+            "external_reference_status":external_reference_status
+        }));
+    }
+    let mut sizes = pages.values().map(String::len).collect::<Vec<_>>();
+    sizes.sort_unstable();
+    let total_size_bytes = sizes.iter().sum::<usize>();
+    let median_size_bytes = match sizes.as_slice() {
+        [] => 0,
+        values if values.len() % 2 == 1 => values[values.len() / 2],
+        values => (values[values.len() / 2 - 1] + values[values.len() / 2]) / 2,
+    };
+    Ok(json!({
+        "schema_id":"slatec-rs/routine-page-index",
+        "schema_version":VERSION,
+        "summary":{
+            "routine_page_count":output.len(),
+            "total_size_bytes":total_size_bytes,
+            "largest_size_bytes":sizes.last().copied().unwrap_or(0),
+            "median_size_bytes":median_size_bytes,
+            "maximum_allowed_size_bytes":256 * 1024
+        },
+        "records":output
+    }))
 }
 
 fn validate_records(records: &[Value], providers: &BTreeMap<String, Provider>) -> Result<()> {
@@ -2572,37 +2935,158 @@ fn validate_docs(
     root: &Path,
     records: &[Value],
     exclusions: &BTreeMap<String, ExcludedCandidate>,
+    page_filenames: &BTreeMap<String, String>,
 ) -> Result<()> {
     if !fs::read_to_string(root.join("index.md"))?.contains("Complete SLATEC Routine Index") {
         return Err(policy(
             "documentation navigation lacks Complete SLATEC Routine Index",
         ));
     }
+    let family = fs::read_to_string(root.join("reference/routines-by-family.md"))?;
     let alphabetical = fs::read_to_string(root.join("reference/routines-alphabetical.md"))?;
     let details = fs::read_to_string(root.join("reference/routine-details.md"))?;
+    if details.len() > 16 * 1024
+        || details.contains("## <a id=\"routine-")
+        || !details.contains("routines-by-family.md")
+        || !details.contains("routines-alphabetical.md")
+    {
+        return Err(policy("routine details compatibility page is invalid"));
+    }
+    if family.contains("routine-details.md#routine-")
+        || alphabetical.contains("routine-details.md#routine-")
+    {
+        return Err(policy(
+            "generated index retains a stale routine detail anchor",
+        ));
+    }
+    let routine_dir = root.join("reference/routines");
+    let page_count = fs::read_dir(&routine_dir)?
+        .filter_map(std::result::Result::ok)
+        .filter(|entry| {
+            entry.path().is_file()
+                && entry.path().extension().and_then(|value| value.to_str()) == Some("md")
+        })
+        .count();
+    if page_count != records.len() {
+        return Err(policy("routine page file count does not match identities"));
+    }
     for record in records {
+        let filename = page_filenames
+            .get(name(record))
+            .ok_or_else(|| policy("routine page filename missing during validation"))?;
+        let link = format!("[{}](routines/{filename})", name(record));
+        if family.matches(&link).count() != 1 {
+            return Err(policy("family index routine link is missing or duplicated"));
+        }
+        if alphabetical.matches(&link).count() != 1 {
+            return Err(policy("alphabetical routine link is missing or duplicated"));
+        }
         if !alphabetical.contains(&format!("id=\"{}\"", anchor(name(record)))) {
             return Err(policy("alphabetical anchor missing"));
         }
-        if !details.contains(&format!("id=\"{}\"", anchor(name(record)))) {
-            return Err(policy("routine detail anchor missing"));
-        }
-        if record
-            .pointer("/official_documentation/netlib_source_url/url")
-            .is_some_and(|url| {
-                !url.as_str()
-                    .unwrap_or_default()
-                    .starts_with("https://www.netlib.org/")
-            })
+        let page_path = routine_dir.join(filename);
+        let page = fs::read_to_string(&page_path)?;
+        if !page.starts_with(&format!("# {}\n", name(record)))
+            || page.lines().filter(|line| line.starts_with("# ")).count() != 1
+            || !page.contains("../routines-by-family.md")
+            || !page.contains("../routines-alphabetical.md")
         {
-            return Err(policy("unverified Netlib source URL"));
+            return Err(policy("routine page content or navigation is invalid"));
+        }
+        let source = record.pointer("/official_documentation/netlib_source_url");
+        let directory = record.pointer("/official_documentation/netlib_directory_entry_url");
+        if let Some(source) = source.filter(|value| !value.is_null()) {
+            let url = source
+                .get("url")
+                .and_then(Value::as_str)
+                .unwrap_or_default();
+            let status = source
+                .get("status")
+                .and_then(Value::as_str)
+                .unwrap_or_default();
+            if !url.starts_with("https://www.netlib.org/")
+                || !matches!(
+                    status,
+                    "verified_cached"
+                        | "verified_online"
+                        | "candidate_unverified"
+                        | "invalid"
+                        | "not_available"
+                )
+            {
+                return Err(policy("Netlib source URL or status is invalid"));
+            }
+            if directory
+                .and_then(|value| value.get("url"))
+                .and_then(Value::as_str)
+                == Some(url)
+            {
+                return Err(policy("Netlib source URL equals directory entry URL"));
+            }
+            if status == "verified_cached"
+                && (!source
+                    .get("verification_basis")
+                    .and_then(Value::as_str)
+                    .is_some_and(|basis| basis.starts_with("fixed_form_"))
+                    || source.get("declared_identity").and_then(Value::as_str)
+                        != Some(name(record)))
+            {
+                return Err(policy(
+                    "verified cached source lacks matching declaration evidence",
+                ));
+            }
         }
     }
     for candidate in exclusions.keys() {
         if alphabetical.contains(&format!("routine-{}", candidate.to_ascii_lowercase()))
-            || details.contains(&format!("routine-{}", candidate.to_ascii_lowercase()))
+            || family.contains(&format!("[{}]", candidate))
         {
             return Err(policy("excluded candidate appears in documentation rows"));
+        }
+    }
+    let mut generated_markdown = vec![
+        root.join("reference/slatec-routine-index.md"),
+        root.join("reference/routines-by-family.md"),
+        root.join("reference/routines-alphabetical.md"),
+        root.join("reference/routine-coverage.md"),
+        root.join("reference/routine-details.md"),
+    ];
+    generated_markdown.extend(
+        page_filenames
+            .values()
+            .map(|filename| routine_dir.join(filename)),
+    );
+    for path in &generated_markdown {
+        validate_local_markdown_links(path)?;
+        if fs::read_to_string(path)?.contains("routine-details.md#routine-") {
+            return Err(policy("stale monolithic detail anchor remains"));
+        }
+    }
+    Ok(())
+}
+
+fn validate_local_markdown_links(path: &Path) -> Result<()> {
+    let text = fs::read_to_string(path)?;
+    let mut remaining = text.as_str();
+    while let Some(start) = remaining.find("](") {
+        let after = &remaining[(start + 2)..];
+        let Some(end) = after.find(')') else {
+            break;
+        };
+        let destination = &after[..end];
+        remaining = &after[(end + 1)..];
+        if destination.is_empty()
+            || destination.starts_with('#')
+            || destination.starts_with("https://")
+            || destination.starts_with("http://")
+            || destination.starts_with("mailto:")
+        {
+            continue;
+        }
+        let local = destination.split('#').next().unwrap_or(destination);
+        let resolved = path.parent().unwrap_or(Path::new(".")).join(local);
+        if !resolved.is_file() {
+            return Err(policy("generated Markdown link does not resolve"));
         }
     }
     Ok(())
@@ -2783,10 +3267,125 @@ mod tests {
         ]
     }
 
+    fn page_record(name: &str, identity_kind: &str) -> Value {
+        json!({
+            "canonical_name":name,
+            "normalized_name":name,
+            "short_purpose":format!("Purpose for {name}."),
+            "historical_role":"user_callable",
+            "kind":identity_kind,
+            "identity_kind":identity_kind,
+            "identity_status":"retained_verified_program_unit",
+            "precision":"f64",
+            "scalar_kind":"real",
+            "primary_family":"Test family",
+            "secondary_families":[],
+            "mathematical_domain":"test",
+            "package_provenance":"test",
+            "netlib_gams_codes":[],
+            "family_source":"test",
+            "family_confidence":"verified",
+            "family_parent_routines":[],
+            "source_status":"canonical_verified",
+            "raw_binding_status":"not_bound",
+            "source_profile_status":"available_but_unselected",
+            "audit_status":"identity_only",
+            "safe_api_status":"none",
+            "safe_api_paths":[],
+            "implementation_status":"not_exposed_as_safe_api",
+            "deferral_or_exclusion_reason":"Not exposed.",
+            "canonical_provider":null,
+            "alternate_providers":[],
+            "official_documentation":{},
+            "description_source":"fixture",
+            "description_source_field":"purpose",
+            "description_confidence":"verified",
+            "notes":[]
+        })
+    }
+
     #[test]
     fn anchors_are_stable() {
         assert_eq!(anchor("DAXPY"), "routine-daxpy");
         assert_eq!(anchor("A$1"), "routine-a-1");
+    }
+
+    #[test]
+    fn routine_page_filenames_are_stable_and_collision_free() {
+        let first = vec![
+            page_record("A$1", "subroutine"),
+            page_record("A-1", "entry"),
+        ];
+        let mut reversed = first.clone();
+        reversed.reverse();
+        let left = routine_page_filenames(&first).expect("filenames");
+        let right = routine_page_filenames(&reversed).expect("filenames");
+        assert_eq!(left, right);
+        assert_ne!(left["A$1"], left["A-1"]);
+        assert!(left.values().all(|filename| filename.ends_with(".md")));
+    }
+
+    #[test]
+    fn each_rendered_page_contains_only_its_canonical_heading() {
+        let records = vec![
+            page_record("FIRST", "subroutine"),
+            page_record("SECOND", "function"),
+        ];
+        let filenames = routine_page_filenames(&records).expect("filenames");
+        let pages = render_routine_pages(&records, &filenames).expect("pages");
+        assert_eq!(pages.len(), records.len());
+        assert!(pages[&filenames["FIRST"]].starts_with("# FIRST\n"));
+        assert!(!pages[&filenames["FIRST"]].contains("# SECOND"));
+        assert!(compatibility_markdown().len() < 16 * 1024);
+        assert!(!compatibility_markdown().contains("## <a id=\"routine-"));
+    }
+
+    #[test]
+    fn indexes_share_canonical_routine_page_links() {
+        let records = vec![page_record("FIRST", "subroutine")];
+        let filenames = routine_page_filenames(&records).expect("filenames");
+        let link = format!("[FIRST](routines/{})", filenames["FIRST"]);
+        assert!(family_markdown(&records, &filenames).contains(&link));
+        assert!(alphabetical_markdown(&records, &filenames).contains(&link));
+        assert!(!family_markdown(&records, &filenames).contains("routine-details.md#"));
+    }
+
+    #[test]
+    fn cached_source_verification_parses_units_entries_and_block_data() {
+        let temp = tempfile::tempdir().expect("tempdir");
+        let path = temp.path().join("fixture.f");
+        fs::write(
+            &path,
+            b"      SUBROUTINE PARENT(X)\n      ENTRY CHILD(X)\n      END\n      BLOCK DATA INIT\n      END\n",
+        )
+        .expect("fixture");
+        let directory = DirectoryEntry {
+            source_url: Some("https://www.netlib.org/slatec/src/fixture.f".to_owned()),
+            directory_url: Some("https://www.netlib.org/slatec/src/".to_owned()),
+            cached_source_path: Some(path),
+            ..DirectoryEntry::default()
+        };
+        let parent = source_reference("PARENT", &directory).expect("parent reference");
+        assert_eq!(parent["status"], "verified_cached");
+        assert_eq!(parent["declaration_kind"], "subroutine");
+        let child = source_reference("CHILD", &directory).expect("entry reference");
+        assert_eq!(child["verification_basis"], "fixed_form_entry_declaration");
+        assert_eq!(child["entry_parent"], "PARENT");
+        let block = source_reference("INIT", &directory).expect("block data reference");
+        assert_eq!(block["declaration_kind"], "block_data");
+        let missing = source_reference("MISSING", &directory).expect("missing reference");
+        assert_eq!(missing["status"], "invalid");
+    }
+
+    #[test]
+    fn directory_urls_are_never_accepted_as_routine_sources() {
+        let directory = DirectoryEntry {
+            source_url: Some("https://www.netlib.org/slatec/src/".to_owned()),
+            directory_url: Some("https://www.netlib.org/slatec/src/".to_owned()),
+            ..DirectoryEntry::default()
+        };
+        let reference = source_reference("TEST", &directory).expect("reference");
+        assert_eq!(reference["status"], "invalid");
     }
     #[test]
     fn main_src_is_preferred_as_canonical_provider() {

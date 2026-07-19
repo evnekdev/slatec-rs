@@ -27,7 +27,7 @@ The collection is ready to advance to reproducible bulk source ingestion and met
 
 [Complete SLATEC Routine Index](reference/slatec-routine-index.md) provides the generated historical inventory and `slatec-rs` coverage map, with [family browsing](reference/routines-by-family.md), [alphabetical lookup](reference/routines-alphabetical.md), and [coverage and reconciliation](reference/routine-coverage.md).
 
-Routine descriptions are assembled from canonical Netlib source prologues, the Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a module match is verified, and reviewed secondary evidence. Source revisions can differ, so the canonical prologue takes precedence; compact indexes show a short purpose while full descriptions and external cross-references are retained in the generated routine details.
+Routine descriptions are assembled from canonical Netlib source prologues, the Version 4.1 TOC, cached Netlib directory metadata, NIST GAMS where a module match is verified, and reviewed secondary evidence. Source revisions can differ, so the canonical prologue takes precedence; compact indexes show a short purpose and link to one generated page per routine, where full descriptions and distinctly labelled external references are retained.
 
 ## Sources and evidence policy
 
