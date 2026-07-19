@@ -7,8 +7,8 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | Status | Leaves |
 | --- | ---: |
 | Implemented | 28 |
-| Partial | 13 |
-| Planned | 21 |
+| Partial | 14 |
+| Planned | 20 |
 | Deferred | 3 |
 | Unavailable | 0 |
 
@@ -82,8 +82,8 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | transforms | `transforms::fft::complex` | Reserved | Deferred | no | `` | unreviewed | unreviewed | unreviewed | `` | The Fortran complex ABI requires a dedicated reviewed milestone. | Resolve the blocker in a dedicated audited milestone. |
 | transforms | `transforms::fft::multidimensional` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No reviewed safe multidimensional transform family is selected. | Audit a bounded multidimensional transform family. |
 | interpolation | `interpolation::pchip` | Reserved | Implemented | yes | `pchip` | f32,f64 | std | SerializedGlobal | `slatec::pchip` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
-| interpolation | `interpolation::bspline` | Reserved | Partial | yes | `bspline` | f32,f64 | std | SerializedGlobal | `none` | Interpolation construction, basis vectors, weighted callbacks, representation conversion, tensor products, and smoothing remain deferred. | Audit one constructor family without broadening the representation API. |
-| interpolation | `interpolation::piecewise_polynomial` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe piecewise-polynomial family exists. | Audit a coherent family. |
+| interpolation | `interpolation::bspline` | Reserved | Partial | yes | `bspline` | f32,f64 | std | SerializedGlobal | `none` | Interpolation construction, basis vectors, weighted callbacks, tensor products, and smoothing remain deferred. | Audit one constructor family without broadening the representation API. |
+| interpolation | `interpolation::piecewise_polynomial` | Reserved | Partial | yes | `piecewise-polynomial` | f32,f64 | std | SerializedGlobal | `none` | PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred. | Audit one additional representation conversion only after its native contract and storage semantics are complete. |
 | interpolation | `interpolation::divided_differences` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe divided-difference family exists. | Audit a coherent family. |
 | interpolation | `interpolation::chebyshev` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Interpolation uses need a distinct contract from scalar polynomial evaluation. | Audit Chebyshev interpolation. |
 | interpolation | `interpolation::approximation` | Provisional | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | The intended source-family boundary remains uncertain. | Complete approximation-family inventory. |

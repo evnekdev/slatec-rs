@@ -3563,6 +3563,246 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::bspline::BSpline::to_piecewise_polynomial",
+      "fortran_routine": "BSPPP",
+      "program_unit_id": "full-provider-c8c62bbcbb4d7c6d",
+      "arguments": [
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "owned"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "owned"
+        },
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "owned"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "owned"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative",
+      "fortran_routine": "PPVAL",
+      "program_unit_id": "full-provider-da54fa4892dc3613",
+      "arguments": [
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ideriv",
+          "fortran": "IDERIV",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "inppv",
+          "fortran": "INPPV",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate",
+      "fortran_routine": "PPVAL",
+      "program_unit_id": "full-provider-da54fa4892dc3613",
+      "arguments": [
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ideriv",
+          "fortran": "IDERIV",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "inppv",
+          "fortran": "INPPV",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into",
+      "fortran_routine": "PPVAL",
+      "program_unit_id": "full-provider-da54fa4892dc3613",
+      "arguments": [
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "owned"
+        },
+        {
+          "rust": "ideriv",
+          "fortran": "IDERIV",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x",
+          "fortran": "X",
+          "transformation": "owned"
+        },
+        {
+          "rust": "inppv",
+          "fortran": "INPPV",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate",
+      "fortran_routine": "PPQAD",
+      "program_unit_id": "full-provider-2354a3416a8b78ce",
+      "arguments": [
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "owned"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "owned"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "owned"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x1",
+          "fortran": "X1",
+          "transformation": "owned"
+        },
+        {
+          "rust": "x2",
+          "fortran": "X2",
+          "transformation": "owned"
+        },
+        {
+          "rust": "pquad",
+          "fortran": "PQUAD",
+          "transformation": "owned"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::least_squares::covariance_from_expert_fit",
       "fortran_routine": "DCOV",
       "program_unit_id": "full-provider-ac51f11e9b483b2c",

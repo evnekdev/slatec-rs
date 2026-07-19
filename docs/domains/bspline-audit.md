@@ -33,8 +33,9 @@ Deferred work includes `BINTK`/`DBINTK` and `BINT4`/`DBINT4` interpolation
 construction; `BSPEV`/`DBSPEV` plus `BSPDR`/`DBSPDR` multi-derivative
 evaluation, whose checked derivative-table and interval-cache representation
 deserves a dedicated API; `BSPVN`/`DBSPVN`, `BSPVD`/`DBSPVD`, `BSPLVN`, and
-`BSPLVD` basis APIs; `BFQAD`/`DBFQAD` callback integration; and B-to-
-piecewise-polynomial conversion and evaluation. `BSPDOC` is a non-executable
+`BSPLVD` basis APIs; and `BFQAD`/`DBFQAD` callback integration. Exact
+B-to-piecewise-polynomial conversion is now owned by the separate
+`piecewise-polynomial` feature using `BSPPP`/`DBSPPP`. `BSPDOC` is a non-executable
 package documentation unit, not a numerical entry point. Tensor-product
 splines, smoothing/fitting, NURBS, complex routines, and matrix or ecosystem
 adapters remain deferred as well. These cases require their own

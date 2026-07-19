@@ -864,6 +864,56 @@
       "validation_file": "crates/slatec/tests/bspline_native.rs"
     },
     {
+      "doctest_present": false,
+      "example_case": "exact B-spline to PP conversion",
+      "example_file": "examples/piecewise_polynomial/from_bspline.rs",
+      "fortran_routine": "BSPPP",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::bspline::BSpline::to_piecewise_polynomial",
+      "validation_case": "to_piecewise_polynomial",
+      "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "PP Taylor derivative evaluation",
+      "example_file": "examples/piecewise_polynomial/evaluate_derivatives.rs",
+      "fortran_routine": "PPVAL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative",
+      "validation_case": "derivative",
+      "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "PP Taylor evaluation",
+      "example_file": "examples/piecewise_polynomial/from_pieces.rs",
+      "fortran_routine": "PPVAL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate",
+      "validation_case": "evaluate",
+      "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "PP batch evaluation",
+      "example_file": "examples/piecewise_polynomial/evaluate_derivatives.rs",
+      "fortran_routine": "PPVAL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into",
+      "validation_case": "evaluate_into",
+      "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "exact PP definite integration",
+      "example_file": "examples/piecewise_polynomial/integrate.rs",
+      "fortran_routine": "PPQAD",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate",
+      "validation_case": "integrate",
+      "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
+    },
+    {
       "doctest_present": true,
       "example_case": "nonlinear least-squares covariance estimation",
       "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",

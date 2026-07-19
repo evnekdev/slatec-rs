@@ -67,6 +67,8 @@ compile_error!("the `fftpack-real` safe API requires the `std` feature");
 compile_error!("the `pchip` safe API requires the `std` feature");
 #[cfg(all(feature = "bspline", not(feature = "std")))]
 compile_error!("the `bspline` safe API requires the `std` feature");
+#[cfg(all(feature = "piecewise-polynomial", not(feature = "std")))]
+compile_error!("the `piecewise-polynomial` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -136,7 +138,8 @@ pub mod polynomials;
     feature = "optimization-linear-programming-in-memory",
     feature = "fftpack-real",
     feature = "pchip",
-    feature = "bspline"
+    feature = "bspline",
+    feature = "piecewise-polynomial"
 ))]
 pub(crate) mod runtime;
 

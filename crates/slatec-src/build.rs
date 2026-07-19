@@ -41,6 +41,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("FFTPACK_REAL", "fftpack-real"),
     ("PCHIP", "pchip"),
     ("BSPLINE", "bspline"),
+    ("PIECEWISE_POLYNOMIAL", "piecewise-polynomial"),
     (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
@@ -108,6 +109,7 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/pchip-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/bspline-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/piecewise-polynomial-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/special-scalar-expanded-source-closure.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
@@ -211,6 +213,10 @@ fn build_sources(families: &BTreeSet<String>) {
         ("fftpack-real", "fftpack-real-source-closure.json"),
         ("pchip", "pchip-source-closure.json"),
         ("bspline", "bspline-source-closure.json"),
+        (
+            "piecewise-polynomial",
+            "piecewise-polynomial-source-closure.json",
+        ),
         (
             "special-scalar-expanded",
             "special-scalar-expanded-source-closure.json",

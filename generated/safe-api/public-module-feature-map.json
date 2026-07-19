@@ -257,6 +257,13 @@
         "interpolation::bspline"
       ],
       "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
+      "cargo_feature": "piecewise-polynomial",
+      "grouped_paths": [
+        "interpolation::piecewise_polynomial"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
     }
   ]
 }

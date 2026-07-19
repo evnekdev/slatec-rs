@@ -166,12 +166,20 @@ bspline = [
     "slatec-src/bspline",
 ]
 bspline-native-tests = ["bspline"]
+piecewise-polynomial = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-piecewise-polynomial",
+    "slatec-src/piecewise-polynomial",
+]
+piecewise-polynomial-native-tests = ["piecewise-polynomial", "bspline"]
 native-serialization-tests = [
     "std",
     "optimization-linear-programming-in-memory-native-tests",
     "fftpack-real-native-tests",
     "pchip-native-tests",
     "bspline-native-tests",
+    "piecewise-polynomial-native-tests",
     "dassl-native-tests",
     "ode-sdrive-expert-native-tests",
     "quadrature-native-tests",
@@ -259,7 +267,7 @@ least-squares-native-tests = [
 
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
-interpolate = ["pchip", "bspline"]
+interpolate = ["pchip", "bspline", "piecewise-polynomial"]
 optimize = ["optimization"]
 full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
@@ -384,6 +392,30 @@ required-features = ["pchip"]
 [[example]]
 name = "link_bspline"
 required-features = ["bspline"]
+
+[[example]]
+name = "link_piecewise_polynomial"
+required-features = ["piecewise-polynomial"]
+
+[[example]]
+name = "piecewise_polynomial_from_pieces"
+path = "../../examples/piecewise_polynomial/from_pieces.rs"
+required-features = ["piecewise-polynomial"]
+
+[[example]]
+name = "piecewise_polynomial_evaluate_derivatives"
+path = "../../examples/piecewise_polynomial/evaluate_derivatives.rs"
+required-features = ["piecewise-polynomial"]
+
+[[example]]
+name = "piecewise_polynomial_integrate"
+path = "../../examples/piecewise_polynomial/integrate.rs"
+required-features = ["piecewise-polynomial"]
+
+[[example]]
+name = "piecewise_polynomial_from_bspline"
+path = "../../examples/piecewise_polynomial/from_bspline.rs"
+required-features = ["piecewise-polynomial", "bspline"]
 
 [[example]]
 name = "bspline_from_parts"

@@ -278,6 +278,7 @@ pub(crate) fn max_ode_native_calls() -> usize {
     feature = "dassl",
     feature = "pchip",
     feature = "bspline",
+    feature = "piecewise-polynomial",
     feature = "special-scalar-expanded"
 ))]
 pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
@@ -304,6 +305,7 @@ pub(crate) fn permit_recoverable_native_statuses() -> RecoverableErrorScope {
     feature = "dassl",
     feature = "pchip",
     feature = "bspline",
+    feature = "piecewise-polynomial",
     feature = "special-scalar-expanded"
 ))]
 pub(crate) struct RecoverableErrorScope {
@@ -321,6 +323,7 @@ pub(crate) struct RecoverableErrorScope {
     feature = "dassl",
     feature = "pchip",
     feature = "bspline",
+    feature = "piecewise-polynomial",
     feature = "special-scalar-expanded"
 ))]
 impl Drop for RecoverableErrorScope {

@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 230;
+const SAFE_FUNCTION_TARGET: usize = 235;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -47,6 +47,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "fftpack-real",
     "pchip",
     "bspline",
+    "piecewise-polynomial",
 ];
 const FROZEN_HIGH_LEVEL_PATHS: &[&str] = &[
     "roadmap",
@@ -864,15 +865,21 @@ fn leaves() -> Vec<LeafSpec> {
             "f32,f64",
             "std",
             "SerializedGlobal",
-            "Interpolation construction, basis vectors, weighted callbacks, representation conversion, tensor products, and smoothing remain deferred.",
+            "Interpolation construction, basis vectors, weighted callbacks, tensor products, and smoothing remain deferred.",
             "Audit one constructor family without broadening the representation API."
         ),
-        planned!(
+        partial!(
             "interpolation::piecewise_polynomial",
             "crates/slatec/src/interpolation/piecewise_polynomial.rs",
-            "Reserved",
-            "No selected safe piecewise-polynomial family exists.",
-            "Audit a coherent family."
+            "piecewise-polynomial",
+            "crate::interpolation::piecewise_polynomial",
+            "none",
+            "piecewise-polynomial",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            "PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred.",
+            "Audit one additional representation conversion only after its native contract and storage semantics are complete."
         ),
         planned!(
             "interpolation::divided_differences",
@@ -1084,6 +1091,11 @@ fn features() -> Vec<FeatureRecord> {
             grouped_paths: &["interpolation::bspline"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
+        FeatureRecord {
+            cargo_feature: "piecewise-polynomial",
+            grouped_paths: &["interpolation::piecewise_polynomial"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
     ]
 }
 
@@ -1122,7 +1134,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 170),
+            ("std".to_owned(), 175),
         ])
     {
         return Err(policy(

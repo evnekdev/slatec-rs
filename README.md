@@ -6,7 +6,8 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
-`optimization-linear-programming-in-memory`. Numerical families
+`optimization-linear-programming-in-memory`, and `piecewise-polynomial`.
+Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
 historical source rights remain unresolved. `source-build` is offline-only and
@@ -145,6 +146,15 @@ curves constructed from validated knots, coefficients, and order. It performs
 original SLATEC `BVALU`/`DBVALU` evaluation and `BSQAD`/`DBSQAD` integration
 without hidden knot sorting, coefficient conversion, or caller workspace. See
 the [B-spline guide](docs/api/safe-bspline.md).
+
+The opt-in hosted `piecewise-polynomial` feature adds owned real univariate
+PP curves using exact native right-Taylor storage. It evaluates values and
+derivatives through `PPVAL`/`DPPVAL`, integrates exactly through
+`PPQAD`/`DPPQAD`, and converts a reviewed `BSpline` through
+`BSPPP`/`DBSPPP` when both features are enabled. It rejects native
+extrapolation by default, does not sort inputs, and leaves PCHIP and
+PP-to-B-spline conversion deferred. See the
+[piecewise-polynomial guide](docs/api/safe-piecewise-polynomial.md).
 
 All native-call concurrency and storage claims are deliberately conservative:
 hosted wrappers are process-serialized, while existing `no_std`/`alloc` BLAS

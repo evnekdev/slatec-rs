@@ -35,9 +35,11 @@ and protects the package's saved quadrature tables; it is not a parallel
 native-execution claim.
 
 This feature intentionally excludes interpolation/fitting construction,
-basis-function vectors, tensor-product splines, smoothing, B-spline-to-PP
-conversion, NURBS/rational splines, arbitrary strides, external array adapters
-and translated algorithms. PCHIP remains the separate
+basis-function vectors, tensor-product splines, smoothing, NURBS/rational
+splines, arbitrary strides, external array adapters and translated algorithms.
+When the hosted `piecewise-polynomial` feature is also enabled,
+`BSpline::to_piecewise_polynomial` performs the reviewed exact
+`BSPPP`/`DBSPPP` conversion. PCHIP remains the separate
 `interpolation::pchip` family.
 
 The polynomial degree is `order - 1`; the constructor returns the order and

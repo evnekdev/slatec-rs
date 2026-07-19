@@ -47,6 +47,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     // so the global policy cannot accidentally omit a newly safe public API.
     projections.extend(crate::safe_pchip::native_state_projections()?);
     projections.extend(crate::safe_bspline::native_state_projections()?);
+    projections.extend(crate::safe_piecewise_polynomial::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
@@ -588,6 +589,28 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             status: "complete_mutable_state_found".to_owned(),
         });
     }
+    // PP evaluation and B-spline conversion use a focused closure that was
+    // inspected with the same reviewed compiler profile.  The PP numerical
+    // routines themselves have no persistent numerical storage, but their
+    // reachable XERROR path remains a process-global serialization blocker.
+    let pp_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/piecewise-polynomial-source-closure.json",
+    ))?;
+    let pp_sources = pp_closure["sources"]
+        .as_array()
+        .ok_or_else(|| policy("piecewise-polynomial closure lacks source records"))?;
+    for source in pp_sources {
+        let id = string(source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(source, "path")?.to_owned(),
+            storage: format!(
+                "focused_piecewise_polynomial_source_and_link_audit:{}:PP_BSPPP_and_XERROR_closure_inspected",
+                string(source, "path")?
+            ),
+            mutable: true,
+            status: "complete_mutable_state_found".to_owned(),
+        });
+    }
     // The scalar-expanded special profile was added after the previously
     // committed broad audit.  It is intentionally conservative pending that
     // audit's regeneration: source review and the GNU MinGW link probe show
@@ -1002,6 +1025,10 @@ fn mutable_global_state_records(functions: &[Value]) -> Result<MutableStateAudit
         "crates/slatec-src/metadata/bspline-source-closure.json",
     ))?;
     closures["families"]["bspline"] = bspline_closure["source_ids"].clone();
+    let pp_closure = read_value(repo_path(
+        "crates/slatec-src/metadata/piecewise-polynomial-source-closure.json",
+    ))?;
+    closures["families"]["piecewise-polynomial"] = pp_closure["source_ids"].clone();
     let special_scalar_expanded_closure = read_value(repo_path(
         "crates/slatec-src/metadata/special-scalar-expanded-source-closure.json",
     ))?;

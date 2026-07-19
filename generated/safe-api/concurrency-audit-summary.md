@@ -1,6 +1,6 @@
 # Runtime concurrency audit
 
-- Classified safe functions: 230 (`BackendDependent`: 60, `SerializedGlobal`: 170).
+- Classified safe functions: 235 (`BackendDependent`: 60, `SerializedGlobal`: 175).
 - `SerializedGlobal` records enter the reentrant-per-thread, process-wide native runtime guard. This permits a non-callback native helper inside an active hosted call, but callback-based nested native operations remain rejected.
 - `BackendDependent` records preserve existing `no_std`/`alloc` capability and do not make a Rust thread-safety claim. They require provider provenance, source-level reentrancy evidence, and parallel stress tests before any narrower class is adopted.
 - Rust ownership safety, exact retained-native-closure reentrancy, and provider/runtime thread safety are separate fields; independent buffers do not prove native reentrancy.

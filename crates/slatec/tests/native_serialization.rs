@@ -14,6 +14,7 @@ use slatec::bounded_least_squares::{
 use slatec::dassl::{DaeOptions, DaeSession, DaeTolerance, ResidualAction};
 use slatec::fftpack::RealFftPlan;
 use slatec::interpolation::bspline::BSpline;
+use slatec::interpolation::piecewise_polynomial::PiecewisePolynomial;
 use slatec::linear_least_squares::{
     MatrixRef, NonnegativeLeastSquaresProblem, VariableConstraint, solve_nonnegative_least_squares,
 };
@@ -144,6 +145,12 @@ fn run_bspline() {
     assert!((curve.integrate(0.0, 1.0).unwrap() - 0.5).abs() < 1.0e-12);
 }
 
+fn run_piecewise_polynomial() {
+    let curve = PiecewisePolynomial::<f64>::from_parts(vec![0.0, 1.0], vec![0.0, 1.0], 2).unwrap();
+    assert!((curve.evaluate(0.25).unwrap() - 0.25).abs() < 1.0e-12);
+    assert!((curve.integrate(0.0, 1.0).unwrap() - 0.5).abs() < 1.0e-12);
+}
+
 fn concurrent_pair(left: fn(), right: fn()) {
     let barrier = Arc::new(Barrier::new(3));
     let spawn = |work: fn()| {
@@ -182,6 +189,9 @@ fn different_hosted_families_never_overlap_native_lock_scopes() {
     concurrent_pair(run_bspline, run_ode);
     concurrent_pair(run_bspline, run_pchip);
     concurrent_pair(run_bspline, run_real_fftpack);
+    concurrent_pair(run_piecewise_polynomial, run_ode);
+    concurrent_pair(run_piecewise_polynomial, run_pchip);
+    concurrent_pair(run_piecewise_polynomial, run_bspline);
     let observed = snapshot();
     assert_eq!(observed.active, 0);
     assert_eq!(observed.maximum_active, 1);

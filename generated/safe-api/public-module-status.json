@@ -1117,7 +1117,7 @@
       "runtime_level": "std",
       "concurrency_classification": "SerializedGlobal",
       "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
-      "blocker": "Interpolation construction, basis vectors, weighted callbacks, representation conversion, tensor products, and smoothing remain deferred.",
+      "blocker": "Interpolation construction, basis vectors, weighted callbacks, tensor products, and smoothing remain deferred.",
       "likely_next_milestone": "Audit one constructor family without broadening the representation API.",
       "evidence_source": "generated/safe-api/function-index.json"
     },
@@ -1125,18 +1125,20 @@
       "canonical_grouped_module_path": "interpolation::piecewise_polynomial",
       "module_file": "crates/slatec/src/interpolation/piecewise_polynomial.rs",
       "stability": "Reserved",
-      "status": "Planned",
-      "cargo_feature": null,
-      "current_implementation_module": null,
-      "compatibility_path": null,
-      "safe_native_families": [],
-      "precision_coverage": "unreviewed",
-      "runtime_level": "unreviewed",
-      "concurrency_classification": "unreviewed",
-      "status_rationale": "A coherent future family is intended, but no safe API is public.",
-      "blocker": "No selected safe piecewise-polynomial family exists.",
-      "likely_next_milestone": "Audit a coherent family.",
-      "evidence_source": "selected-snapshot inventories and domain roadmap"
+      "status": "Partial",
+      "cargo_feature": "piecewise-polynomial",
+      "current_implementation_module": "crate::interpolation::piecewise_polynomial",
+      "compatibility_path": "none",
+      "safe_native_families": [
+        "piecewise-polynomial"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
+      "blocker": "PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred.",
+      "likely_next_milestone": "Audit one additional representation conversion only after its native contract and storage semantics are complete.",
+      "evidence_source": "generated/safe-api/function-index.json"
     },
     {
       "canonical_grouped_module_path": "interpolation::divided_differences",
