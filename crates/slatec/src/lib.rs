@@ -140,6 +140,7 @@ pub mod polynomials;
     feature = "optimization-linear-programming-in-memory",
     feature = "fftpack-real",
     feature = "fftpack-complex",
+    feature = "banded-linear-systems",
     feature = "pchip",
     feature = "bspline",
     feature = "piecewise-polynomial"

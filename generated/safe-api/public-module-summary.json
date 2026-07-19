@@ -19,7 +19,7 @@
   "safe_function_count": 238,
   "schema_id": "slatec.safe-api.public-module-summary",
   "schema_version": "1.0.0",
-  "semantic_hash": "3335f728ded1aeaca37c697d04cb11a81011e6237f3af6aab412c1c12917cdaf",
+  "semantic_hash": "13ae216b514d92fbbd44330e4a1fc4aba0355223eda4d4896a07e362b14aef6e",
   "stability_totals": {
     "Frozen": 10,
     "Provisional": 3,
@@ -28,7 +28,7 @@
   "status_totals": {
     "Deferred": 2,
     "Implemented": 28,
-    "Partial": 15,
-    "Planned": 20
+    "Partial": 16,
+    "Planned": 19
   }
 }

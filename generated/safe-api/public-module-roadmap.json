@@ -10,8 +10,8 @@
   "status_totals": {
     "Deferred": 2,
     "Implemented": 28,
-    "Partial": 15,
-    "Planned": 20
+    "Partial": 16,
+    "Planned": 19
   },
   "stability_totals": {
     "Frozen": 10,
@@ -109,18 +109,20 @@
       "canonical_grouped_module_path": "linear_algebra::banded",
       "module_file": "crates/slatec/src/linear_algebra/banded.rs",
       "stability": "Reserved",
-      "status": "Planned",
-      "cargo_feature": null,
-      "current_implementation_module": null,
-      "compatibility_path": null,
-      "safe_native_families": [],
-      "precision_coverage": "unreviewed",
-      "runtime_level": "unreviewed",
-      "concurrency_classification": "unreviewed",
-      "status_rationale": "A coherent future family is intended, but no safe API is public.",
-      "blocker": "Banded leading-dimension and compact-layout contracts are unreviewed.",
-      "likely_next_milestone": "Audit a narrow banded family.",
-      "evidence_source": "selected-snapshot inventories and domain roadmap"
+      "status": "Partial",
+      "cargo_feature": "banded-linear-systems",
+      "current_implementation_module": "crate::linear_algebra::banded",
+      "compatibility_path": "none",
+      "safe_native_families": [
+        "banded-linear-systems"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
+      "blocker": "General real LU factorization and direct/transpose solves are available; condition estimates and determinant metadata remain deferred.",
+      "likely_next_milestone": "Audit SGBCO/DGBCO and SGBDI/DGBDI only with independently verified output contracts.",
+      "evidence_source": "generated/safe-api/function-index.json"
     },
     {
       "canonical_grouped_module_path": "linear_algebra::packed",

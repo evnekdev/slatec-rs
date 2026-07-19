@@ -2,8 +2,9 @@
 //!
 //! # Status: Partial
 //!
-//! Reviewed BLAS Levels 1--3 are available through `blas`. Dense, banded,
-//! packed, eigenvalue, and sparse families are reserved for future audits.
+//! Reviewed BLAS Levels 1--3 and general banded systems are available through
+//! their respective modules. Dense, packed, eigenvalue, and sparse families
+//! remain reserved for future audits.
 //! Existing `crate::blas` paths remain supported compatibility paths.
 
 /// Banded linear algebra.

@@ -60,6 +60,25 @@
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {
+      "canonical_grouped_module_path": "linear_algebra::banded",
+      "module_file": "crates/slatec/src/linear_algebra/banded.rs",
+      "stability": "Reserved",
+      "status": "Partial",
+      "cargo_feature": "banded-linear-systems",
+      "current_implementation_module": "crate::linear_algebra::banded",
+      "compatibility_path": "none",
+      "safe_native_families": [
+        "banded-linear-systems"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
+      "blocker": "General real LU factorization and direct/transpose solves are available; condition estimates and determinant metadata remain deferred.",
+      "likely_next_milestone": "Audit SGBCO/DGBCO and SGBDI/DGBDI only with independently verified output contracts.",
+      "evidence_source": "generated/safe-api/function-index.json"
+    },
+    {
       "canonical_grouped_module_path": "special::elementary",
       "module_file": "crates/slatec/src/special/elementary.rs",
       "stability": "Reserved",

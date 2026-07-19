@@ -46,6 +46,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "optimization-linear-programming-in-memory",
     "fftpack-real",
     "fftpack-complex",
+    "banded-linear-systems",
     "pchip",
     "bspline",
     "piecewise-polynomial",
@@ -273,12 +274,18 @@ fn leaves() -> Vec<LeafSpec> {
             "Dense overwrite and factorization contracts are unreviewed.",
             "Audit one narrow dense solver family."
         ),
-        planned!(
+        partial!(
             "linear_algebra::banded",
             "crates/slatec/src/linear_algebra/banded.rs",
-            "Reserved",
-            "Banded leading-dimension and compact-layout contracts are unreviewed.",
-            "Audit a narrow banded family."
+            "banded-linear-systems",
+            "crate::linear_algebra::banded",
+            "none",
+            "banded-linear-systems",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            "General real LU factorization and direct/transpose solves are available; condition estimates and determinant metadata remain deferred.",
+            "Audit SGBCO/DGBCO and SGBDI/DGBDI only with independently verified output contracts."
         ),
         planned!(
             "linear_algebra::packed",
@@ -1093,6 +1100,11 @@ fn features() -> Vec<FeatureRecord> {
         FeatureRecord {
             cargo_feature: "fftpack-complex",
             grouped_paths: &["transforms::fft::complex"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
+            cargo_feature: "banded-linear-systems",
+            grouped_paths: &["linear_algebra::banded"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {

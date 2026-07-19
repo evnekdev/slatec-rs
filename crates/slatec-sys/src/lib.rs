@@ -78,6 +78,10 @@ pub mod fftpack;
 #[cfg(feature = "raw-family-fftpack-complex")]
 pub mod fftpack_complex;
 
+/// Hand-reviewed LINPACK general-band factorization and solve declarations.
+#[cfg(feature = "raw-family-banded-linear-systems")]
+pub mod banded;
+
 /// Hand-reviewed PCHIP and piecewise-cubic Hermite declarations.
 #[cfg(feature = "raw-family-pchip")]
 pub mod pchip;

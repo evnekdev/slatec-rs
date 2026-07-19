@@ -7,8 +7,8 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | Status | Leaves |
 | --- | ---: |
 | Implemented | 28 |
-| Partial | 15 |
-| Planned | 20 |
+| Partial | 16 |
+| Planned | 19 |
 | Deferred | 2 |
 | Unavailable | 0 |
 
@@ -26,7 +26,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | linear_algebra | `linear_algebra::blas::level2` | Reserved | Implemented | yes | `blas-level2` | f32,f64 | core | SerializedGlobal | `slatec::blas::level2` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | linear_algebra | `linear_algebra::blas::level3` | Reserved | Implemented | yes | `blas-level3` | f32,f64 | core | SerializedGlobal | `slatec::blas::level3` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | linear_algebra | `linear_algebra::dense` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Dense overwrite and factorization contracts are unreviewed. | Audit one narrow dense solver family. |
-| linear_algebra | `linear_algebra::banded` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Banded leading-dimension and compact-layout contracts are unreviewed. | Audit a narrow banded family. |
+| linear_algebra | `linear_algebra::banded` | Reserved | Partial | yes | `banded-linear-systems` | f32,f64 | std | SerializedGlobal | `none` | General real LU factorization and direct/transpose solves are available; condition estimates and determinant metadata remain deferred. | Audit SGBCO/DGBCO and SGBDI/DGBDI only with independently verified output contracts. |
 | linear_algebra | `linear_algebra::packed` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Packed storage representation requires a dedicated safe view policy. | Audit packed storage and mutation semantics. |
 | linear_algebra | `linear_algebra::eigen` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No safe EISPACK/LINPACK family is selected. | Inventory eigenvalue drivers. |
 | linear_algebra | `linear_algebra::sparse::iterative` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Sparse ownership and callback contracts are unreviewed. | Audit an iterative sparse family. |
