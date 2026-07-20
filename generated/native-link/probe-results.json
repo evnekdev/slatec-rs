@@ -1,0 +1,371 @@
+{
+  "records": [
+    {
+      "assertions": [
+        {
+          "observed": [],
+          "passed": true,
+          "rule": "all no-call links no SLATEC implementation symbol"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "all-no-call",
+      "link_slatec_archive": true,
+      "name": "all_no_call",
+      "requested_symbols": []
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains SAXPY"
+        },
+        {
+          "observed": [
+            "SAXPY"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, roots, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "complete-source-archive",
+      "link_slatec_archive": true,
+      "name": "all_saxpy_only",
+      "requested_symbols": [
+        "SAXPY"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "baseline",
+      "link_slatec_archive": false,
+      "name": "baseline_no_slatec",
+      "requested_symbols": []
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "DDOT"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_ddot_only",
+      "requested_symbols": [
+        "DDOT"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DGAMMA"
+        },
+        {
+          "observed": [
+            "D1MACH",
+            "D9LGMC",
+            "DCSEVL",
+            "DGAMLM",
+            "DGAMMA",
+            "FDUMP",
+            "I1MACH",
+            "INITDS",
+            "J4SAVE",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, roots, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_dgamma_only",
+      "requested_symbols": [
+        "DGAMMA"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "FDUMP",
+            "FZERO",
+            "I1MACH",
+            "J4SAVE",
+            "R1MACH",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw-address",
+      "link_slatec_archive": true,
+      "name": "raw_fzero_only",
+      "requested_symbols": [
+        "FZERO"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "COSGEN",
+            "GENBUN",
+            "HWSCRT",
+            "PIMACH",
+            "POISD2",
+            "POISN2",
+            "POISP2",
+            "S1MERG",
+            "SCOPY",
+            "TRI3",
+            "TRIX"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw-address",
+      "link_slatec_archive": true,
+      "name": "raw_hwscrt_only",
+      "requested_symbols": [
+        "HWSCRT"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "COSQB",
+            "COSQB1",
+            "COSQF",
+            "COSQF1",
+            "COSQI",
+            "COST",
+            "COSTI",
+            "PIMACH",
+            "POIS3D",
+            "POS3D1",
+            "RADB2",
+            "RADB3",
+            "RADB4",
+            "RADB5",
+            "RADBG",
+            "RADF2",
+            "RADF3",
+            "RADF4",
+            "RADF5",
+            "RADFG",
+            "RFFTB",
+            "RFFTB1",
+            "RFFTF",
+            "RFFTF1",
+            "RFFTI",
+            "RFFTI1",
+            "SINQB",
+            "SINQF",
+            "SINQI",
+            "SINT",
+            "SINTI",
+            "TRIDQ"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw-address",
+      "link_slatec_archive": true,
+      "name": "raw_pois3d_only",
+      "requested_symbols": [
+        "POIS3D"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "DDOT",
+            "SAXPY"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_saxpy_ddot",
+      "requested_symbols": [
+        "SAXPY",
+        "DDOT"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains SAXPY"
+        },
+        {
+          "observed": [
+            "SAXPY"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, roots, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_saxpy_only",
+      "requested_symbols": [
+        "SAXPY"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "DASUM",
+            "DAXPY",
+            "DCOPY",
+            "DDOT",
+            "DNRM2",
+            "DROT",
+            "DSCAL",
+            "DSWAP",
+            "IDAMAX",
+            "ISAMAX",
+            "SASUM",
+            "SAXPY",
+            "SCOPY",
+            "SDOT",
+            "SNRM2",
+            "SROT",
+            "SSCAL",
+            "SSWAP"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_blas_only",
+      "requested_symbols": [
+        "DDOT"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "known_archive_symbols": 623,
+          "observed": [
+            "ALGAMS",
+            "ALNGAM",
+            "ALNREL",
+            "BINOM",
+            "COT",
+            "CSEVL",
+            "D1MACH",
+            "D9GMIC",
+            "D9GMIT",
+            "D9LGIC",
+            "D9LGIT",
+            "D9LGMC",
+            "DBINOM",
+            "DCOT",
+            "DCSEVL",
+            "DFAC",
+            "DGAMI",
+            "DGAMIC",
+            "DGAMIT",
+            "DGAMLM",
+            "DGAMMA",
+            "DGAMR",
+            "DLGAMS",
+            "DLNGAM",
+            "DLNREL",
+            "DPSI",
+            "FAC",
+            "FDUMP",
+            "GAMI",
+            "GAMIC",
+            "GAMIT",
+            "GAMLIM",
+            "GAMMA",
+            "GAMR",
+            "I1MACH",
+            "INITDS",
+            "INITS",
+            "J4SAVE",
+            "PSI",
+            "R1MACH",
+            "R9GMIC",
+            "R9GMIT",
+            "R9LGIC",
+            "R9LGIT",
+            "R9LGMC",
+            "XERCLR",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETF",
+            "XGETUA",
+            "XSETF"
+          ],
+          "passed": true,
+          "rule": "requested symbol is retained"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_special_only",
+      "requested_symbols": [
+        "DGAMMA"
+      ]
+    }
+  ],
+  "schema_id": "slatec-rs/native-link-probe-results",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435"
+}

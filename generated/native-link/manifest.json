@@ -1,0 +1,61 @@
+{
+  "determinism": "committed reports exclude timestamps, paths outside the workspace, logs, binaries, maps, objects, archives, and elapsed-time measurements",
+  "pipeline": {
+    "archive_bytes": 2800354,
+    "archive_commands": [
+      [
+        "C:\\gcc64\\bin\\ar.exe",
+        "cr",
+        "ARCHIVE",
+        "OBJECT..."
+      ],
+      [
+        "C:\\gcc64\\bin\\ar.exe",
+        "q",
+        "ARCHIVE",
+        "OBJECT..."
+      ],
+      [
+        "C:\\gcc64\\bin\\ar.exe",
+        "s",
+        "ARCHIVE"
+      ]
+    ],
+    "archive_member_count": 662,
+    "compiler_command": [
+      "C:\\gcc64\\bin\\x86_64-w64-mingw32-gfortran.exe",
+      "-x",
+      "f77",
+      "-std=legacy",
+      "-ffixed-line-length-none",
+      "-c",
+      "SOURCE",
+      "-o",
+      "OBJECT"
+    ],
+    "generated_amalgamation": false,
+    "object_count": 662,
+    "partial_linking": false,
+    "rust_link_directives": [
+      "cargo:rustc-link-search=native=OUT_DIR",
+      "cargo:rustc-link-lib=static=slatec_family",
+      "cargo:rustc-link-lib=static=gfortran",
+      "cargo:rustc-link-lib=static=quadmath"
+    ],
+    "source_selection": "family-source-closure.json plus reviewed family overlay files",
+    "whole_archive": false
+  },
+  "schema_id": "slatec-rs/native-link",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "toolchain": {
+    "archiver": "C:\\gcc64\\bin\\ar.exe",
+    "archiver_version": "GNU ar (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r1) 2.43",
+    "compiler": "C:\\gcc64\\bin\\x86_64-w64-mingw32-gfortran.exe",
+    "compiler_target": "x86_64-w64-mingw32",
+    "compiler_version": "GNU Fortran (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 14.2.0",
+    "nm": "C:\\gcc64\\bin\\nm.exe",
+    "objdump": "C:\\gcc64\\bin\\objdump.exe",
+    "size": "C:\\gcc64\\bin\\size.exe"
+  }
+}
