@@ -37,10 +37,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-beta",
+      "raw_declaration_feature": "special-beta",
       "routine": "ALBETA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-beta"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -58,17 +58,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "ALNGAM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "ALNREL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -331,17 +331,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-beta",
+      "raw_declaration_feature": "special-beta",
       "routine": "BETA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-beta"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-beta",
+      "raw_declaration_feature": "special-beta",
       "routine": "BETAI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-beta"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -366,10 +366,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "BINOM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -793,10 +793,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "CBRT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -1633,10 +1633,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "COSDG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2508,10 +2508,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DAWS",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2627,17 +2627,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-beta",
+      "raw_declaration_feature": "special-beta",
       "routine": "DBETA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-beta"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-beta",
+      "raw_declaration_feature": "special-beta",
       "routine": "DBETAI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-beta"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2669,10 +2669,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DBINOM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2893,10 +2893,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DCBRT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3040,10 +3040,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DCOSDG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3145,10 +3145,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DDAWS",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3355,17 +3355,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-error",
+      "raw_declaration_feature": "special-error",
       "routine": "DERF",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-error"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-error",
+      "raw_declaration_feature": "special-error",
       "routine": "DERFC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-error"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3411,17 +3411,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DEXPRL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DFAC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3488,24 +3488,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DGAMI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DGAMIC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DGAMIT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3523,17 +3523,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DGAMMA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DGAMR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3824,10 +3824,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-beta",
+      "raw_declaration_feature": "special-beta",
       "routine": "DLBETA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-beta"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3859,17 +3859,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DLNGAM",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DLNREL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -4482,10 +4482,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "DPSI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5105,10 +5105,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "DSINDG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5889,17 +5889,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-error",
+      "raw_declaration_feature": "special-error",
       "routine": "ERF",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-error"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-error",
+      "raw_declaration_feature": "special-error",
       "routine": "ERFC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-error"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5924,10 +5924,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "EXPREL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -5959,10 +5959,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "FAC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6050,24 +6050,24 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "GAMI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "GAMIC",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "GAMIT",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6085,17 +6085,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "GAMMA",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "GAMR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -7464,10 +7464,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-gamma",
+      "raw_declaration_feature": "special-gamma",
       "routine": "PSI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-gamma"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8815,10 +8815,10 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-elementary",
+      "raw_declaration_feature": "special-elementary",
       "routine": "SINDG",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-elementary"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",

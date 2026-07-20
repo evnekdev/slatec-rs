@@ -2,11 +2,11 @@
   "families": [
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 298,
-      "historically_user_callable": 176,
+      "generated_abi_validated": 258,
+      "historically_user_callable": 136,
       "module": "special",
-      "promotion_score": 1484,
-      "safe_wrapper_audits": 90,
+      "promotion_score": 1124,
+      "safe_wrapper_audits": 50,
       "unresolved_callbacks": 0
     },
     {
@@ -55,6 +55,15 @@
       "unresolved_callbacks": 0
     },
     {
+      "documentation_complete": 18,
+      "generated_abi_validated": 18,
+      "historically_user_callable": 18,
+      "module": "special::gamma",
+      "promotion_score": 306,
+      "safe_wrapper_audits": 18,
+      "unresolved_callbacks": 0
+    },
+    {
       "documentation_complete": 21,
       "generated_abi_validated": 21,
       "historically_user_callable": 21,
@@ -88,6 +97,15 @@
       "module": "approximation",
       "promotion_score": 228,
       "safe_wrapper_audits": 14,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 12,
+      "generated_abi_validated": 12,
+      "historically_user_callable": 12,
+      "module": "special::elementary",
+      "promotion_score": 204,
+      "safe_wrapper_audits": 12,
       "unresolved_callbacks": 0
     },
     {
@@ -127,6 +145,15 @@
       "unresolved_callbacks": 2
     },
     {
+      "documentation_complete": 6,
+      "generated_abi_validated": 6,
+      "historically_user_callable": 6,
+      "module": "special::beta",
+      "promotion_score": 102,
+      "safe_wrapper_audits": 6,
+      "unresolved_callbacks": 0
+    },
+    {
       "documentation_complete": 0,
       "generated_abi_validated": 21,
       "historically_user_callable": 10,
@@ -134,6 +161,15 @@
       "promotion_score": 86,
       "safe_wrapper_audits": 6,
       "unresolved_callbacks": 2
+    },
+    {
+      "documentation_complete": 4,
+      "generated_abi_validated": 4,
+      "historically_user_callable": 4,
+      "module": "special::error",
+      "promotion_score": 68,
+      "safe_wrapper_audits": 4,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 0,

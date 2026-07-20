@@ -6,6 +6,7 @@
     "interface_inventory": "generated/ffi/interface-inventory.json"
   },
   "outputs": [
+    "all-feature-coverage.json",
     "blas-family-report.json",
     "canonical-paths.json",
     "coverage-summary.json",
@@ -16,9 +17,10 @@
     "promotion-priority.json",
     "roots-family-report.json",
     "routine-status.json",
+    "special-foundations-report.json",
     "validation-summary.md"
   ],
   "schema_id": "slatec-sys.raw-api.manifest",
   "schema_version": "1.0.0",
-  "semantic_hash": "a5e9a106e8f97921881ef265fc9aeee8eba9fdbad10485397d9b3337c9aff465"
+  "semantic_hash": "cd7e487090d2538c21aa1998ab9f75b4a8c7a876cd9981f74f3a4b5f3b87b4ef"
 }

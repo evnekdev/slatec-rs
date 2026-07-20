@@ -1,4 +1,5 @@
 use slatec_tools::acquire;
+use slatec_tools::all_feature_coverage;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::blas1_concurrency;
 use slatec_tools::complete_corpus;
@@ -120,7 +121,10 @@ fn run() -> Result<()> {
     }
     if matches!(
         options.command.as_str(),
-        "generate-raw-api-inventory" | "validate-raw-api-inventory"
+        "generate-raw-api-inventory"
+            | "validate-raw-api-inventory"
+            | "generate-all-feature-coverage"
+            | "validate-all-feature-coverage"
     ) && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/raw-api");
@@ -496,6 +500,8 @@ fn run() -> Result<()> {
             let ffi_validation_dir = PathBuf::from("generated/ffi-validation");
             let safe_api_dir = PathBuf::from("generated/safe-api");
             let corrections_path = PathBuf::from("metadata/raw-api-corrections.json");
+            let public_feature_registry_path =
+                PathBuf::from("metadata/public-family-features.json");
             let sys_dir = PathBuf::from("crates/slatec-sys");
             let src_dir = PathBuf::from("crates/slatec-src");
             let facade_dir = PathBuf::from("crates/slatec");
@@ -507,6 +513,7 @@ fn run() -> Result<()> {
                 ffi_validation_dir: &ffi_validation_dir,
                 safe_api_dir: &safe_api_dir,
                 corrections_path: &corrections_path,
+                public_feature_registry_path: &public_feature_registry_path,
                 sys_dir: &sys_dir,
                 src_dir: &src_dir,
                 facade_dir: &facade_dir,
@@ -521,6 +528,26 @@ fn run() -> Result<()> {
             println!(
                 "{}: {} identities, {} reviewed ({})",
                 result.status, result.identity_count, result.reviewed_count, result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-all-feature-coverage" | "validate-all-feature-coverage" => {
+            let report = all_feature_coverage::generate(
+                &PathBuf::from("crates/slatec-sys/Cargo.toml"),
+                &PathBuf::from("metadata/public-family-features.json"),
+            )?;
+            let mut bytes = serde_json::to_vec_pretty(&report)?;
+            bytes.push(b'\n');
+            let output = options.output_dir.join("all-feature-coverage.json");
+            std::fs::create_dir_all(&options.output_dir)?;
+            if std::fs::read(&output).ok().as_deref() != Some(bytes.as_slice()) {
+                std::fs::write(&output, bytes)?;
+            }
+            println!(
+                "success: {} public families covered by all",
+                report["families_covered_by_all"]
+                    .as_array()
+                    .map_or(0, Vec::len)
             );
             Ok(())
         }
@@ -1003,7 +1030,7 @@ fn run() -> Result<()> {
             Ok(())
         }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-api-inventory, validate-raw-api-inventory, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-linear-programming-deferred-metadata, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fftpack-complex-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-api-inventory, validate-raw-api-inventory, generate-all-feature-coverage, validate-all-feature-coverage, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }
@@ -1085,5 +1112,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|generate-routine-catalogue|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-raw-api-inventory|validate-raw-api-inventory|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-nonlinear-api|generate-safe-nonlinear-expert-api|generate-safe-least-squares-api|generate-safe-linear-least-squares-api|generate-safe-linear-programming-deferred-metadata|generate-safe-lp-in-memory-metadata|generate-safe-fftpack-metadata|generate-safe-fftpack-complex-metadata|generate-safe-fishpack-cartesian-2d-metadata|generate-safe-fishpack-pois3d-metadata|generate-safe-pchip-metadata|generate-safe-bspline-metadata|generate-safe-piecewise-polynomial-metadata|generate-safe-banded-metadata|generate-safe-ode-sdrive-metadata|generate-safe-dassl-metadata|generate-optimization-audit|generate-ode-audit|generate-safe-bounded-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-constrained-linear-least-squares-api|generate-safe-api-docs|generate-runtime-storage-policy|generate-blas1-concurrency-audit|generate-native-origin-audit|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <acquire|verify|inspect|extract|manifest|prepare|scan-program-units|scan-prologues|analyze-prologues|audit-full-corpus|generate-routine-catalogue|select-full-corpus|scan-ffi-inventory|probe-native-ffi|generate-raw-ffi|build-native-ffi|validate-raw-ffi|validate-runtime-profile|generate-raw-api-inventory|validate-raw-api-inventory|generate-all-feature-coverage|validate-all-feature-coverage|generate-safe-special-api|generate-safe-quadrature-api|generate-safe-roots-api|generate-safe-nonlinear-api|generate-safe-nonlinear-expert-api|generate-safe-least-squares-api|generate-safe-linear-least-squares-api|generate-safe-linear-programming-deferred-metadata|generate-safe-lp-in-memory-metadata|generate-safe-fftpack-metadata|generate-safe-fftpack-complex-metadata|generate-safe-fishpack-cartesian-2d-metadata|generate-safe-fishpack-pois3d-metadata|generate-safe-pchip-metadata|generate-safe-bspline-metadata|generate-safe-piecewise-polynomial-metadata|generate-safe-banded-metadata|generate-safe-ode-sdrive-metadata|generate-safe-dassl-metadata|generate-optimization-audit|generate-ode-audit|generate-safe-bounded-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-bounded-constrained-linear-least-squares-api|generate-safe-constrained-linear-least-squares-api|generate-safe-api-docs|generate-runtime-storage-policy|generate-blas1-concurrency-audit|generate-native-origin-audit|generate-linkage-metadata|acquire-provider-sources|generate-provider-metadata> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
 }

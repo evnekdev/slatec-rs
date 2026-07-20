@@ -62,8 +62,11 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Reviewed family declaration: `reviewed_public_driver`
 - Canonical Rust path: `slatec_sys::roots::scalar::dfzero`
 - Current legacy Rust paths: `slatec_sys::roots::dfzero`
+- Public declaration feature: `raw-family-roots-scalar`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_authored`
+- Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `slatec::roots::find_root`

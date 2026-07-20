@@ -58,8 +58,11 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Reviewed family declaration: `reviewed_public_driver`
 - Canonical Rust path: `slatec_sys::pde::fishpack::pois3d`
 - Current legacy Rust paths: `slatec_sys::fishpack_pois3d::pois3d`
+- Public declaration feature: `raw-family-fishpack-pois3d`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_authored`
+- Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `slatec::differential_equations::pde::Pois3dProblem::solve`

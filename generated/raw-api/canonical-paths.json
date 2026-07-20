@@ -51,15 +51,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::albeta",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::beta::albeta",
+      "compatibility_paths": [
+        "slatec_sys::families::special_beta::albeta"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::beta::albeta",
+      "intended_module": "special::beta",
       "legacy_rust_paths": [
-        "slatec_sys::families::albeta"
+        "slatec_sys::families::special_beta::albeta"
       ],
       "routine": "ALBETA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -82,26 +84,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::alngam",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::alngam",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::alngam"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::alngam",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::alngam"
+        "slatec_sys::families::special_gamma::alngam"
       ],
       "routine": "ALNGAM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::alnrel",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::alnrel",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::alnrel"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::alnrel",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::alnrel"
+        "slatec_sys::families::special_elementary::alnrel"
       ],
       "routine": "ALNREL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -461,26 +467,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::beta",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::beta::beta",
+      "compatibility_paths": [
+        "slatec_sys::families::special_beta::beta"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::beta::beta",
+      "intended_module": "special::beta",
       "legacy_rust_paths": [
-        "slatec_sys::families::beta"
+        "slatec_sys::families::special_beta::beta"
       ],
       "routine": "BETA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::betai",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::beta::betai",
+      "compatibility_paths": [
+        "slatec_sys::families::special_beta::betai"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::beta::betai",
+      "intended_module": "special::beta",
       "legacy_rust_paths": [
-        "slatec_sys::families::betai"
+        "slatec_sys::families::special_beta::betai"
       ],
       "routine": "BETAI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -514,15 +524,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::binom",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::binom",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::binom"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::binom",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::binom"
+        "slatec_sys::families::special_gamma::binom"
       ],
       "routine": "BINOM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1077,15 +1089,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbrt",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::cbrt",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::cbrt"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::cbrt",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::cbrt"
+        "slatec_sys::families::special_elementary::cbrt"
       ],
       "routine": "CBRT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2231,15 +2245,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cosdg",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::cosdg",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::cosdg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::cosdg",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::cosdg"
+        "slatec_sys::families::special_elementary::cosdg"
       ],
       "routine": "COSDG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3442,15 +3458,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::daws",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::daws",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::daws"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::daws",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::daws"
+        "slatec_sys::families::special_elementary::daws"
       ],
       "routine": "DAWS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level1::daxpy",
@@ -3617,26 +3635,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dbeta",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::beta::dbeta",
+      "compatibility_paths": [
+        "slatec_sys::families::special_beta::dbeta"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::beta::dbeta",
+      "intended_module": "special::beta",
       "legacy_rust_paths": [
-        "slatec_sys::families::dbeta"
+        "slatec_sys::families::special_beta::dbeta"
       ],
       "routine": "DBETA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dbetai",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::beta::dbetai",
+      "compatibility_paths": [
+        "slatec_sys::families::special_beta::dbetai"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::beta::dbetai",
+      "intended_module": "special::beta",
       "legacy_rust_paths": [
-        "slatec_sys::families::dbetai"
+        "slatec_sys::families::special_beta::dbetai"
       ],
       "routine": "DBETAI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3679,15 +3701,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dbinom",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dbinom",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dbinom"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dbinom",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dbinom"
+        "slatec_sys::families::special_gamma::dbinom"
       ],
       "routine": "DBINOM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3989,15 +4013,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dcbrt",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::dcbrt",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::dcbrt"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::dcbrt",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::dcbrt"
+        "slatec_sys::families::special_elementary::dcbrt"
       ],
       "routine": "DCBRT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level1::dcdot",
@@ -4194,15 +4220,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dcosdg",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::dcosdg",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::dcosdg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::dcosdg",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::dcosdg"
+        "slatec_sys::families::special_elementary::dcosdg"
       ],
       "routine": "DCOSDG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4337,15 +4365,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ddaws",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::ddaws",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::ddaws"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::ddaws",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::ddaws"
+        "slatec_sys::families::special_elementary::ddaws"
       ],
       "routine": "DDAWS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4619,26 +4649,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::derf",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::error::derf",
+      "compatibility_paths": [
+        "slatec_sys::families::special_error::derf"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::error::derf",
+      "intended_module": "special::error",
       "legacy_rust_paths": [
-        "slatec_sys::families::derf"
+        "slatec_sys::families::special_error::derf"
       ],
       "routine": "DERF",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::derfc",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::error::derfc",
+      "compatibility_paths": [
+        "slatec_sys::families::special_error::derfc"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::error::derfc",
+      "intended_module": "special::error",
       "legacy_rust_paths": [
-        "slatec_sys::families::derfc"
+        "slatec_sys::families::special_error::derfc"
       ],
       "routine": "DERFC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4695,26 +4729,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dexprl",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::dexprl",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::dexprl"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::dexprl",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::dexprl"
+        "slatec_sys::families::special_elementary::dexprl"
       ],
       "routine": "DEXPRL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dfac",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dfac",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dfac"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dfac",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dfac"
+        "slatec_sys::families::special_gamma::dfac"
       ],
       "routine": "DFAC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4802,37 +4840,43 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dgami",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dgami",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dgami"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dgami",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgami"
+        "slatec_sys::families::special_gamma::dgami"
       ],
       "routine": "DGAMI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dgamic",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dgamic",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dgamic"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dgamic",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgamic"
+        "slatec_sys::families::special_gamma::dgamic"
       ],
       "routine": "DGAMIC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dgamit",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dgamit",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dgamit"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dgamit",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgamit"
+        "slatec_sys::families::special_gamma::dgamit"
       ],
       "routine": "DGAMIT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4853,26 +4897,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dgamma",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dgamma",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dgamma"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dgamma",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgamma"
+        "slatec_sys::families::special_gamma::dgamma"
       ],
       "routine": "DGAMMA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dgamr",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dgamr",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dgamr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dgamr",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dgamr"
+        "slatec_sys::families::special_gamma::dgamr"
       ],
       "routine": "DGAMR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -5268,15 +5316,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dlbeta",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::beta::dlbeta",
+      "compatibility_paths": [
+        "slatec_sys::families::special_beta::dlbeta"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::beta::dlbeta",
+      "intended_module": "special::beta",
       "legacy_rust_paths": [
-        "slatec_sys::families::dlbeta"
+        "slatec_sys::families::special_beta::dlbeta"
       ],
       "routine": "DLBETA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -5317,26 +5367,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dlngam",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dlngam",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dlngam"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dlngam",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dlngam"
+        "slatec_sys::families::special_gamma::dlngam"
       ],
       "routine": "DLNGAM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dlnrel",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::dlnrel",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::dlnrel"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::dlnrel",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::dlnrel"
+        "slatec_sys::families::special_elementary::dlnrel"
       ],
       "routine": "DLNREL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6152,15 +6206,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dpsi",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::dpsi",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::dpsi"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::dpsi",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::dpsi"
+        "slatec_sys::families::special_gamma::dpsi"
       ],
       "routine": "DPSI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7027,15 +7083,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dsindg",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::dsindg",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::dsindg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::dsindg",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::dsindg"
+        "slatec_sys::families::special_elementary::dsindg"
       ],
       "routine": "DSINDG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8127,26 +8185,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::erf",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::error::erf",
+      "compatibility_paths": [
+        "slatec_sys::families::special_error::erf"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::error::erf",
+      "intended_module": "special::error",
       "legacy_rust_paths": [
-        "slatec_sys::families::erf"
+        "slatec_sys::families::special_error::erf"
       ],
       "routine": "ERF",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::erfc",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::error::erfc",
+      "compatibility_paths": [
+        "slatec_sys::families::special_error::erfc"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::error::erfc",
+      "intended_module": "special::error",
       "legacy_rust_paths": [
-        "slatec_sys::families::erfc"
+        "slatec_sys::families::special_error::erfc"
       ],
       "routine": "ERFC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8176,15 +8238,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::exprel",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::exprel",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::exprel"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::exprel",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::exprel"
+        "slatec_sys::families::special_elementary::exprel"
       ],
       "routine": "EXPREL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8229,15 +8293,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::fac",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::fac",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::fac"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::fac",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::fac"
+        "slatec_sys::families::special_gamma::fac"
       ],
       "routine": "FAC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8352,37 +8418,43 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::gami",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::gami",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::gami"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::gami",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::gami"
+        "slatec_sys::families::special_gamma::gami"
       ],
       "routine": "GAMI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::gamic",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::gamic",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::gamic"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::gamic",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::gamic"
+        "slatec_sys::families::special_gamma::gamic"
       ],
       "routine": "GAMIC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::gamit",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::gamit",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::gamit"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::gamit",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::gamit"
+        "slatec_sys::families::special_gamma::gamit"
       ],
       "routine": "GAMIT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8403,26 +8475,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::gamma",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::gamma",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::gamma"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::gamma",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::gamma"
+        "slatec_sys::families::special_gamma::gamma"
       ],
       "routine": "GAMMA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::gamr",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::gamr",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::gamr"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::gamr",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::gamr"
+        "slatec_sys::families::special_gamma::gamr"
       ],
       "routine": "GAMR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10226,15 +10302,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::psi",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::gamma::psi",
+      "compatibility_paths": [
+        "slatec_sys::families::special_gamma::psi"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::gamma::psi",
+      "intended_module": "special::gamma",
       "legacy_rust_paths": [
-        "slatec_sys::families::psi"
+        "slatec_sys::families::special_gamma::psi"
       ],
       "routine": "PSI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12065,15 +12143,17 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::sindg",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::elementary::sindg",
+      "compatibility_paths": [
+        "slatec_sys::families::special_elementary::sindg"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::elementary::sindg",
+      "intended_module": "special::elementary",
       "legacy_rust_paths": [
-        "slatec_sys::families::sindg"
+        "slatec_sys::families::special_elementary::sindg"
       ],
       "routine": "SINDG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",

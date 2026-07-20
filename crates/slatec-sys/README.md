@@ -32,3 +32,25 @@ Fortran function returns (`CDCDOT`, `CDOTC`, and `CDOTU`) are explicitly
 excluded until a return ABI is independently reviewed. See
 [`docs/api/raw-blas.md`](../../docs/api/raw-blas.md) for direct-call examples
 and the full ABI contract.
+
+## Reviewed scalar special foundations
+
+R2B promotes 40 historically user-callable scalar routines in the canonical
+`slatec_sys::special::{elementary,gamma,beta,error}` modules. Enable the
+matching `special-*` feature or `special`; the previous
+`slatec_sys::families::special_{group}` paths remain compatibility re-exports.
+The functions use direct `f32`/`f64` GNU MinGW scalar returns and scalar
+arguments passed by address. Their generated Rustdoc records the source,
+native symbol, domains, XERROR/FNLIB behavior, and raw Safety contract.
+
+FNLIB saved initialization and the legacy error runtime are process-global;
+raw callers must synchronize concurrent calls as needed. See
+[`docs/api/raw-special-foundations.md`](../../docs/api/raw-special-foundations.md)
+for direct-call and provider guidance.
+
+## `all` declaration aggregate
+
+The `all` feature directly selects every authored public mathematical family
+aggregate. It is declaration-only and deliberately does not select a source,
+system, or external provider. Its exact coverage is checked by
+[`generated/raw-api/all-feature-coverage.json`](../../generated/raw-api/all-feature-coverage.json).

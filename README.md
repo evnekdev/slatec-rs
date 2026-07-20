@@ -60,6 +60,11 @@ ABI-validated and reviewed paths; the ABI-shaped `slatec_sys::generated`
 namespace is transitional rather than stable. See the
 [raw API architecture](docs/architecture/slatec-sys-public-raw-api.md) and
 [`generated/raw-api/`](generated/raw-api/).
+R2B additionally promotes 40 source-hash-reviewed scalar special functions at
+`slatec_sys::special::{elementary,gamma,beta,error}` and adds the declaration-
+only `slatec-sys/all` aggregate. These unsafe direct bindings do not select a
+native provider; their XERROR/FNLIB and synchronization boundary is documented
+in [`docs/api/raw-special-foundations.md`](docs/api/raw-special-foundations.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

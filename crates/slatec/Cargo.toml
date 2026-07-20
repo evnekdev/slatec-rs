@@ -75,6 +75,10 @@ special-integrals = ["special-common", "special-f32", "slatec-sys/raw-family-spe
 special-polynomials = ["special-common", "special-f32", "slatec-sys/raw-family-special-polynomials", "slatec-src/special-polynomials"]
 special-scalar-expanded = ["special-common", "special-f32", "slatec-sys/raw-family-special-scalar-expanded", "slatec-src/special-scalar-expanded"]
 special-scalar-expanded-native-tests = ["special-scalar-expanded"]
+special-raw-link-tests = ["special"]
+special-raw-native-tests = ["special-raw-link-tests"]
+raw-all-compile = ["slatec-sys/all"]
+raw-all-link-tests = ["raw-all-compile", "full"]
 
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
@@ -367,6 +371,26 @@ required-features = ["blas"]
 [[example]]
 name = "raw_blas_complex"
 required-features = ["blas"]
+
+[[example]]
+name = "raw_special_elementary"
+required-features = ["special-elementary"]
+
+[[example]]
+name = "raw_special_gamma"
+required-features = ["special-gamma"]
+
+[[example]]
+name = "raw_special_beta"
+required-features = ["special-beta"]
+
+[[example]]
+name = "raw_special_error_functions"
+required-features = ["special-error"]
+
+[[example]]
+name = "raw_all_features_compile"
+required-features = ["raw-all-compile"]
 
 [[example]]
 name = "link_quadrature_oscillatory"

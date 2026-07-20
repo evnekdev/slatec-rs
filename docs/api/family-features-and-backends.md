@@ -12,7 +12,7 @@ routine.
 | Domain alias | Narrow features |
 | --- | --- |
 | `blas` | `blas-level1`, `blas-level2`, `blas-level3` |
-| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials` |
+| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded` |
 | `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
 | `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check` |
@@ -158,3 +158,20 @@ Direct consumers can instead depend on `slatec-sys` and provide the selected
 profile's native symbols themselves. The reconciliation report records this
 distinction per routine; source-provider selection is never an implicit side
 effect of enabling `slatec-sys`.
+
+### Reviewed scalar-special raw features and `all`
+
+R2B promotes the scalar elementary, gamma, beta, and error foundations under
+`slatec_sys::special::{elementary,gamma,beta,error}`. The public
+`special-elementary`, `special-gamma`, `special-beta`, and `special-error`
+aliases select their corresponding reviewed declarations; `special` includes
+all four. The matching `slatec-src` feature selects the source closure, while
+the safe `slatec` feature continues to select only its existing safe facade.
+The former `families::special_*` raw paths remain compatibility re-exports.
+
+`slatec-sys/all` is the declaration-only aggregate of every public
+mathematical family. It intentionally selects no provider or backend and does
+not promise stability for any unreviewed generated declaration. The generated
+[`all-feature-coverage.json`](../../generated/raw-api/all-feature-coverage.json)
+proves direct coverage of the maintained family registry and reports its
+transitive declaration closure.

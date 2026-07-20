@@ -58,8 +58,11 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
 - Canonical Rust path: `not_promoted`
 - Current legacy Rust paths: `slatec_sys::fftpack::cosqb`
+- Public declaration feature: `raw-ffi-numeric-array-subroutines`
+- `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `legacy_partial_rustdoc`
+- Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `slatec::fftpack::QuarterWaveCosinePlan::backward`

@@ -1,0 +1,1627 @@
+{
+  "candidate_count": 40,
+  "disposition_counts": {
+    "reviewed public driver": 40
+  },
+  "records": [
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "B"
+      ],
+      "canonical_provider": "full-provider-28d2b9a40c3d9a3e",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_beta::albeta"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::log_beta_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::beta::albeta",
+      "native_symbol": "albeta_",
+      "precision": "f32",
+      "provider_feature_status": "special-beta",
+      "purpose": "Computes the natural logarithm of the complete Beta function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "ALBETA",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/albeta.f",
+      "source_hash": "d27b27c086a52208978d685e903e562f3741ca1baf527287a230bd63e4ddabae",
+      "target_group": "beta",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-83754f0e154167cd",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::alngam"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::log_gamma_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::alngam",
+      "native_symbol": "alngam_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the logarithm of the absolute value of Gamma.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "ALNGAM",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/alngam.f",
+      "source_hash": "d2cc54236f1efa559175ad7e9d9f9b4f5d03630ec9b69801b047f414a7d96ede",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-7b8a94d5a46444f3",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::alnrel"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::log1p_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::alnrel",
+      "native_symbol": "alnrel_",
+      "precision": "f32",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Evaluates `ln(1 + x)` with relative-error accuracy near zero.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "ALNREL",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/alnrel.f",
+      "source_hash": "e0f20b9e29a4bc176260ae2223b65a837308cb62943f38bb8c19f9255dfec6c7",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "B"
+      ],
+      "canonical_provider": "full-provider-e4144753752f8572",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_beta::beta"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::beta_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::beta::beta",
+      "native_symbol": "beta_",
+      "precision": "f32",
+      "provider_feature_status": "special-beta",
+      "purpose": "Computes the complete Beta function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "BETA",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/beta.f",
+      "source_hash": "dbdf0d025ec445758aee5c3f96177967cb67c51bc68093237a84a054e1eca07c",
+      "target_group": "beta",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X",
+        "PIN",
+        "QIN"
+      ],
+      "canonical_provider": "full-provider-338f4cc19b51c0a6",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_beta::betai"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::regularized_beta_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::beta::betai",
+      "native_symbol": "betai_",
+      "precision": "f32",
+      "provider_feature_status": "special-beta",
+      "purpose": "Computes the regularized incomplete Beta ratio.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "BETAI",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/betai.f",
+      "source_hash": "a6a36a9e8db44fb9e6b260f4fb76db093228412b5005a3dbe1b228a92bf52dd3",
+      "target_group": "beta",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "N",
+        "M"
+      ],
+      "canonical_provider": "full-provider-1c9778aa4f113fe6",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::binom"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::binomial_coefficient_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::binom",
+      "native_symbol": "binom_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes a binomial coefficient.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "BINOM",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/binom.f",
+      "source_hash": "8fb4db24e6efea9fe882fc79881368137bedecc9b03efbd5ac53b2b00a1b0554",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-1533f97ac6fe4af0",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::cbrt"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::cbrt_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::cbrt",
+      "native_symbol": "cbrt_",
+      "precision": "f32",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes the real cube root.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "CBRT",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/cbrt.f",
+      "source_hash": "5df2908489a1a20a877672a90459cb4784edba25df5ec335cda49e5dfc75cfbc",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source uses machine constants but documents no routine-specific XERROR domain rejection for ordinary finite inputs."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-83eee5b10e647302",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::cosdg"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::cos_degrees_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::cosdg",
+      "native_symbol": "cosdg_",
+      "precision": "f32",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes cosine with the argument expressed in degrees.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "COSDG",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/cosdg.f",
+      "source_hash": "97a6fbc69f452047f244a26c5686803c7db93e2372a0cea8f9507bfcefe3743f",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source does not report ordinary finite inputs through XERROR."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-d910a32a69a9b3ef",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::daws"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::dawson_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::daws",
+      "native_symbol": "daws_",
+      "precision": "f32",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes Dawson's integral for a real argument.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "DAWS",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/daws.f",
+      "source_hash": "3038e3fef858f53431e5b2eb67a0a9be9ac62b16da0a279fb6e56e708f4ae2ef",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "B"
+      ],
+      "canonical_provider": "full-provider-c2218e356ca37d3f",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_beta::dbeta"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::beta",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::beta::dbeta",
+      "native_symbol": "dbeta_",
+      "precision": "f64",
+      "provider_feature_status": "special-beta",
+      "purpose": "Computes the double-precision complete Beta function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DBETA",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dbeta.f",
+      "source_hash": "8ed4b6aa906f054539b8f214da90b043ad5494b50718789336879d1b629d5d3f",
+      "target_group": "beta",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X",
+        "PIN",
+        "QIN"
+      ],
+      "canonical_provider": "full-provider-676c1bb951f8354f",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_beta::dbetai"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::regularized_beta",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::beta::dbetai",
+      "native_symbol": "dbetai_",
+      "precision": "f64",
+      "provider_feature_status": "special-beta",
+      "purpose": "Computes the double-precision regularized incomplete Beta ratio.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DBETAI",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dbetai.f",
+      "source_hash": "64eaeb14a43c6ae2c49735c62f7b5c0dc8a64948a9865c74db77dbb890c3fe09",
+      "target_group": "beta",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "N",
+        "M"
+      ],
+      "canonical_provider": "full-provider-b1848abc902b2451",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dbinom"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::binomial_coefficient",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dbinom",
+      "native_symbol": "dbinom_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes a double-precision binomial coefficient.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DBINOM",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dbinom.f",
+      "source_hash": "04fde7af024d061cd84f67def99a9fe2cd6131e2d39770794080c0cec270abde",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-5a4730fc04f83be8",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::dcbrt"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::cbrt",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::dcbrt",
+      "native_symbol": "dcbrt_",
+      "precision": "f64",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes the double-precision real cube root.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DCBRT",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dcbrt.f",
+      "source_hash": "096df2dc6db3e608082259f12fa9d5f862289e78f5cb82489aa0cf129bef692e",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source uses machine constants but documents no routine-specific XERROR domain rejection for ordinary finite inputs."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-03079b5f6ef2df31",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::dcosdg"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::cos_degrees",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::dcosdg",
+      "native_symbol": "dcosdg_",
+      "precision": "f64",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes double-precision cosine with the argument expressed in degrees.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DCOSDG",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dcosdg.f",
+      "source_hash": "ebaa8605ef7c4d931f8d97fbd2dd8c71e4dbe8f061e74e817a35d374a496e620",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source does not report ordinary finite inputs through XERROR."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-6b1c0a77e9609e2e",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::ddaws"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::dawson",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::ddaws",
+      "native_symbol": "ddaws_",
+      "precision": "f64",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes the double-precision Dawson integral.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DDAWS",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/ddaws.f",
+      "source_hash": "44f21a8ef13fb9f8c17bc77f524dc4bc5e61d92d03841900e45836211bfcf8ac",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-3b43b57f60c467f6",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_error::derf"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::error_functions::erf",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::error::derf",
+      "native_symbol": "derf_",
+      "precision": "f64",
+      "provider_feature_status": "special-error",
+      "purpose": "Computes the double-precision error function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DERF",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/derf.f",
+      "source_hash": "d3997603b1382bc2501b999dded3cd537990df465819c420101c143e2adce245",
+      "target_group": "error",
+      "xerror_fnlib_dependency": "The source initializes saved coefficients; its complementary-function path handles tail underflow according to the native floating-point behavior."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-28532b1495f3bac2",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_error::derfc"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::error_functions::erfc",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::error::derfc",
+      "native_symbol": "derfc_",
+      "precision": "f64",
+      "provider_feature_status": "special-error",
+      "purpose": "Computes the double-precision complementary error function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DERFC",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/derfc.f",
+      "source_hash": "789292ae72242e66d57d990ae77de4412e4311da1f4ca64b1a5826a0cb3b2359",
+      "target_group": "error",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-528bf34b2aa77472",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::dexprl"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::exprel",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::dexprl",
+      "native_symbol": "dexprl_",
+      "precision": "f64",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes the relative exponential accurately near zero.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DEXPRL",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dexprl.f",
+      "source_hash": "1507ed7c1cf87db38995a6047db1feb332bf23817dc97d8a9449daf0fb8bb8e8",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source uses machine constants; overflow follows the native floating-point/runtime behavior."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "N"
+      ],
+      "canonical_provider": "full-provider-2d8169aa57e4f3a6",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dfac"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::factorial",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dfac",
+      "native_symbol": "dfac_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes a double-precision factorial.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DFAC",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dfac.f",
+      "source_hash": "a2791ba7fb11eb6a8b944bf6d0b09058427f4b06ea2ec4b1cac637aa6928947e",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "X"
+      ],
+      "canonical_provider": "full-provider-6dcf9270d002626b",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dgami"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_lower",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dgami",
+      "native_symbol": "dgami_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the lower incomplete Gamma integral.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DGAMI",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dgami.f",
+      "source_hash": "0c300d1996c66f30606df996c5758bade078387917bbd595c94ef66256dd3d58",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "X"
+      ],
+      "canonical_provider": "full-provider-418c630a1935a331",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dgamic"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_upper",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dgamic",
+      "native_symbol": "dgamic_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the complementary incomplete Gamma integral.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DGAMIC",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dgamic.f",
+      "source_hash": "f019e031bb41a4bcb339a5fa98c1f801e41ba2c535606173a1d5d871c6acfe5d",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "X"
+      ],
+      "canonical_provider": "full-provider-ef0b5f035cb82912",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dgamit"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::tricomi_incomplete_gamma",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dgamit",
+      "native_symbol": "dgamit_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes Tricomi's incomplete Gamma function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DGAMIT",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dgamit.f",
+      "source_hash": "3e6588aa893cfd35c2b07966054d653090a0a5230aff1584b1bd0f8347c0025f",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-fba63d75b3e077b9",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dgamma"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::gamma",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dgamma",
+      "native_symbol": "dgamma_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the complete Gamma function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DGAMMA",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dgamma.f",
+      "source_hash": "6ed1d9ce1b8bb014e3736796d51c14709b2dd14fa789fd32fdc963ac90954426",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-8e5b160bb1bc03a8",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dgamr"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::reciprocal_gamma",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dgamr",
+      "native_symbol": "dgamr_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the reciprocal Gamma function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DGAMR",
+      "runtime_global_state_dependencies": "This routine reads and temporarily changes legacy XERROR control with XGETF/XSETF and clears selected reports with XERCLR; serialize it with every other call that can use the legacy error runtime.",
+      "source_file": "fnlib/dgamr.f",
+      "source_hash": "6e4ad8c03c1e2528b894d3c43d0be86044cb26b8ef9a4ef9aad0596492858ddd",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The implementation deliberately suppresses selected Gamma diagnostics with XERCLR while evaluating its result; callers must account for legacy XERROR state."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "B"
+      ],
+      "canonical_provider": "full-provider-1ee90cb746883a0f",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_beta::dlbeta"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::log_beta",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::beta::dlbeta",
+      "native_symbol": "dlbeta_",
+      "precision": "f64",
+      "provider_feature_status": "special-beta",
+      "purpose": "Computes the double-precision natural logarithm of the complete Beta function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DLBETA",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dlbeta.f",
+      "source_hash": "4550e206b3d6aefa0ef2f0e98a769287d34f68d10d6be46b29ec3f2a5292bfbc",
+      "target_group": "beta",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-dae73c5ac3d5f638",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dlngam"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::log_gamma",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dlngam",
+      "native_symbol": "dlngam_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the logarithm of the absolute value of double-precision Gamma.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DLNGAM",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dlngam.f",
+      "source_hash": "0be36b841a0f5f3a966793ae33a13b4c8a9f64aaf5de3e957d3ece2da854bd3b",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-e558c4161d7ec74f",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::dlnrel"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::log1p",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::dlnrel",
+      "native_symbol": "dlnrel_",
+      "precision": "f64",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Evaluates double-precision `ln(1 + x)` with relative-error accuracy near zero.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DLNREL",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dlnrel.f",
+      "source_hash": "3cddf7c89cfcf965c305a50058b93a1e1ffbebeb43a8cd936ab7abefa4652755",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-d7f4380fe713f6a0",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::dpsi"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::digamma",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::dpsi",
+      "native_symbol": "dpsi_",
+      "precision": "f64",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the double-precision digamma function.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DPSI",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dpsi.f",
+      "source_hash": "d92f9179612d49a56eda35349764905aa97e2c6564cb9079aa7296d16daee448",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-7eea1cc313807214",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::dsindg"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::sin_degrees",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::dsindg",
+      "native_symbol": "dsindg_",
+      "precision": "f64",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes double-precision sine with the argument expressed in degrees.",
+      "return_kind": "f64 Fortran scalar function",
+      "routine": "DSINDG",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/dsindg.f",
+      "source_hash": "1f884dcaf5835d19f43dd03700d6ee85bce526236ced3207428b3adb2c3d74f0",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source does not report ordinary finite inputs through XERROR."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-c05a5f4e5d168e9c",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_error::erf"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::error_functions::erf_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::error::erf",
+      "native_symbol": "erf_",
+      "precision": "f32",
+      "provider_feature_status": "special-error",
+      "purpose": "Computes the error function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "ERF",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/erf.f",
+      "source_hash": "c63f326756672d49a7a87ba7897ef83fd4e38a8b8c79351f5197008563d34e6f",
+      "target_group": "error",
+      "xerror_fnlib_dependency": "The source initializes saved coefficients; its complementary-function path handles tail underflow according to the native floating-point behavior."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-580e6562bfdb75d0",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_error::erfc"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::error_functions::erfc_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::error::erfc",
+      "native_symbol": "erfc_",
+      "precision": "f32",
+      "provider_feature_status": "special-error",
+      "purpose": "Computes the complementary error function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "ERFC",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/erfc.f",
+      "source_hash": "8fc79bc57c551b3427bb0e3fdfa521f0d9e7dd8a31d89ad20e9addec92714496",
+      "target_group": "error",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-31cd8d541d1bfb0d",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::exprel"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::exprel_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::exprel",
+      "native_symbol": "exprel_",
+      "precision": "f32",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes the relative exponential accurately near zero.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "EXPREL",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/exprel.f",
+      "source_hash": "dab8ad000e80656329eb84319518331fff857e1f3ab772982529b7b6f6635dab",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source uses machine constants; overflow follows the native floating-point/runtime behavior."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "N"
+      ],
+      "canonical_provider": "full-provider-5a5153512db1c25b",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::fac"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::factorial_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::fac",
+      "native_symbol": "fac_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes a factorial.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "FAC",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/fac.f",
+      "source_hash": "a85123d2c17ea7b63ec8c16ecde5c163a62f2ee1532366b9ba7cc9f950682a26",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "X"
+      ],
+      "canonical_provider": "full-provider-17ee5a4415667186",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::gami"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_lower_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::gami",
+      "native_symbol": "gami_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the lower incomplete Gamma integral.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "GAMI",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/gami.f",
+      "source_hash": "3db222c1b3625d3d930e0e2098699aaef240fa2eba27812696d207e7960cc201",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "X"
+      ],
+      "canonical_provider": "full-provider-0e43010ee0036089",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::gamic"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_upper_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::gamic",
+      "native_symbol": "gamic_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the complementary incomplete Gamma integral.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "GAMIC",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/gamic.f",
+      "source_hash": "f5033c54790d20ac58106050bc19147081735ecdd268a9c417326a8450f2310a",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "A",
+        "X"
+      ],
+      "canonical_provider": "full-provider-ef6b55c5116aaeb2",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::gamit"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::tricomi_incomplete_gamma_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::gamit",
+      "native_symbol": "gamit_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes Tricomi's incomplete Gamma function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "GAMIT",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/gamit.f",
+      "source_hash": "485d8800df3f9d9c5765a08f9e5964ca9e5c97573807bb30350dee409c610192",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-08296fb977fddf71",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::gamma"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::gamma_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::gamma",
+      "native_symbol": "gamma_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the complete Gamma function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "GAMMA",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/gamma.f",
+      "source_hash": "37e90ccd9e8a6123dbaba335d53ef124fe39f18244bea11585d878a56e8dae53",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-20a262a4b8f10698",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::gamr"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::reciprocal_gamma_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::gamr",
+      "native_symbol": "gamr_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the reciprocal Gamma function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "GAMR",
+      "runtime_global_state_dependencies": "This routine reads and temporarily changes legacy XERROR control with XGETF/XSETF and clears selected reports with XERCLR; serialize it with every other call that can use the legacy error runtime.",
+      "source_file": "fnlib/gamr.f",
+      "source_hash": "677fd1b452d86312748893f36523155390f3f753474d07a0afb8b90dd03d16fd",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The implementation deliberately suppresses selected Gamma diagnostics with XERCLR while evaluating its result; callers must account for legacy XERROR state."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-ab67ae42814fb036",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_gamma::psi"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::gamma::digamma_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::gamma::psi",
+      "native_symbol": "psi_",
+      "precision": "f32",
+      "provider_feature_status": "special-gamma",
+      "purpose": "Computes the digamma function.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "PSI",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/psi.f",
+      "source_hash": "02ed7daf7d9c886e3cf89f7781270b1e6cca235ef8e668ca78472c270acdde51",
+      "target_group": "gamma",
+      "xerror_fnlib_dependency": "The selected source reports documented domain, overflow, underflow, or precision conditions through legacy XERROR/XERMSG; a raw caller must avoid fatal configurations and does not receive a Rust error value."
+    },
+    {
+      "all_feature_reachability": "transitively_enabled_by_all",
+      "argument_abi_category": "real or INTEGER scalar values passed by address",
+      "argument_order": [
+        "X"
+      ],
+      "canonical_provider": "full-provider-8592a526281289c2",
+      "documentation_evidence": {
+        "abi_profile": "compiler_observation",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "purpose": "source_prologue",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata"
+      },
+      "exclusion_or_deferment_reason": "none",
+      "existing_family_declaration_paths": [
+        "slatec_sys::families::special_elementary::sindg"
+      ],
+      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_safe_wrapper_audit": "slatec::special::elementary::sin_degrees_f32",
+      "final_feasibility_disposition": "reviewed public driver",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_path": "slatec_sys::special::elementary::sindg",
+      "native_symbol": "sindg_",
+      "precision": "f32",
+      "provider_feature_status": "special-elementary",
+      "purpose": "Computes sine with the argument expressed in degrees.",
+      "return_kind": "f32 Fortran scalar function",
+      "routine": "SINDG",
+      "runtime_global_state_dependencies": "FNLIB may initialize saved coefficients and machine constants on first use; it is not documented as thread-safe by this raw interface.",
+      "source_file": "fnlib/sindg.f",
+      "source_hash": "1011e5b1a680190ee4bc630a6fe5f383eab7151b3fb08b4a61b9e9141cd34785",
+      "target_group": "elementary",
+      "xerror_fnlib_dependency": "The source does not report ordinary finite inputs through XERROR."
+    }
+  ],
+  "schema_id": "slatec-sys.raw-api.special-foundations-report",
+  "schema_version": "1.0.0",
+  "scope": "Every R2B foundational scalar special-function identity selected by the authored elementary, gamma, beta, and error taxonomy."
+}
