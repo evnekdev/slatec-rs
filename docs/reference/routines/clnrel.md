@@ -54,17 +54,17 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
-- Canonical Rust path: `not_promoted`
+- Generated raw declaration: `generated_abi_validated`
+- Reviewed family declaration: `batch_c_automated_public`
+- Canonical Rust path: `slatec_sys::special::complex::clnrel`
 - Current legacy Rust paths: `none`
-- Public declaration feature: `not_assigned`
-- `all`-feature reachability: `not_enabled_by_all`
+- Public declaration feature: `batch-c-special`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `not_documented`
+- Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Link-test status: `passed`
+- Runtime-test status: `representative_batch_smoke_only`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

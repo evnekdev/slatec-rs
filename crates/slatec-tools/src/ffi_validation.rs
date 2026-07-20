@@ -25,6 +25,7 @@ const BATCHES: &[&str] = &[
     "batch_numeric_array_subroutines",
     "batch_scalar_functions",
     "batch_complex_arguments",
+    "batch_complex_returns",
     "batch_logical",
     "batch_character",
     "batch_callbacks",
@@ -465,6 +466,7 @@ fn parse_bindings(bindings_dir: &Path) -> Result<Vec<Binding>> {
         ),
         ("batch_scalar_functions", "scalar_functions.rs"),
         ("batch_complex_arguments", "complex_arguments.rs"),
+        ("batch_complex_returns", "complex_returns.rs"),
         ("batch_logical", "logical.rs"),
         ("batch_character", "character.rs"),
         ("batch_callbacks", "callbacks.rs"),
@@ -828,6 +830,7 @@ fn run_batches(
                 scalar_function_driver(),
             )?,
             "batch_complex_arguments" => run_complex_batch(context)?,
+            "batch_complex_returns" => run_complex_return_batch(context)?,
             "batch_logical" => run_logical_batch(context)?,
             "batch_character" => run_character_batch(context)?,
             "batch_callbacks" => run_authored_abi_batch(context, "callback")?,
@@ -877,6 +880,17 @@ fn run_complex_batch(context: &NativeContext) -> Result<(String, String, String)
         status.0,
         double_complex.1,
         "single-complex generated call plus authored double-complex layout probe".to_owned(),
+    ))
+}
+
+fn run_complex_return_batch(context: &NativeContext) -> Result<(String, String, String)> {
+    let module_path = fs::canonicalize(context.bindings_dir.join("complex_returns.rs"))?;
+    let source = driver_prelude(&module_path, "complex_returns", &complex_return_driver());
+    let status = compile_and_run_rust(context, "batch_complex_returns", &source)?;
+    Ok((
+        status.0,
+        status.1,
+        "generated single- and double-complex function-return calls".to_owned(),
     ))
 }
 
@@ -1132,6 +1146,10 @@ fn complex_driver() -> String {
     "fn main() { let mut value = Complex32 { re: 3.0, im: 4.0 }; let result = unsafe { complex_arguments::cabs(&mut value) }; if result != 5.0 { std::process::exit(2) } }".to_owned()
 }
 
+fn complex_return_driver() -> String {
+    "fn main() { let mut n = 1_i32; let mut inc = 1_i32; let mut x = [Complex32 { re: 1.0, im: 2.0 }]; let mut y = [Complex32 { re: 3.0, im: 4.0 }]; let c = unsafe { complex_returns::cdotu(&mut n, x.as_mut_ptr(), &mut inc, y.as_mut_ptr(), &mut inc) }; if c.re != -5.0 || c.im != 10.0 { std::process::exit(2) } let mut cb = Complex32 { re: 0.0, im: 0.0 }; let z = unsafe { complex_returns::cdcdot(&mut n, &mut cb, x.as_mut_ptr(), &mut inc, y.as_mut_ptr(), &mut inc) }; if z.re != -5.0 || z.im != 10.0 { std::process::exit(3) } }".to_owned()
+}
+
 fn logical_driver() -> String {
     "fn main() { let (mut nm, mut n, mut mb) = (1_i32, 1_i32, 0_i32); let mut a = [2.0_f32]; let mut d = [0.0_f32]; let mut e = [0.0_f32]; let mut e2 = [0.0_f32]; let mut matz = 0_i32; let mut z = [0.0_f32]; unsafe { logical::bandr(&mut nm, &mut n, &mut mb, a.as_mut_ptr(), d.as_mut_ptr(), e.as_mut_ptr(), e2.as_mut_ptr(), &mut matz, z.as_mut_ptr()) }; if matz != 0 { std::process::exit(2) } }".to_owned()
 }
@@ -1228,7 +1246,7 @@ fn validation_outputs(
     outputs.insert(
         "validation-summary.md",
         format!(
-            "# Generated raw FFI validation\n\n- Snapshot: `{}`\n- Profile: `{}` (`{}`)\n- Structural declarations audited: {}; failures: {}\n- Runtime batches passed: {}; pending or failed: {}\n- Profile feature: `{PROFILE_FEATURE}`\n\nThis validates only the GNU MinGW raw ABI profile. Complex-returning and character-returning functions, callbacks, unresolved interfaces, and infrastructure remain gated. No safe API is exposed.\n",
+            "# Generated raw FFI validation\n\n- Snapshot: `{}`\n- Profile: `{}` (`{}`)\n- Structural declarations audited: {}; failures: {}\n- Runtime batches passed: {}; pending or failed: {}\n- Profile feature: `{PROFILE_FEATURE}`\n\nThis validates only the GNU MinGW raw ABI profile. Validated complex-returning functions are included; character-returning functions, callbacks, unresolved interfaces, and infrastructure remain gated. No safe API is exposed.\n",
             context.snapshot_id,
             context.compiler_identity,
             context.compiler_target,
@@ -1247,6 +1265,8 @@ fn rust_return_type(kind: &str) -> Option<&'static str> {
         "REAL" => Some("f32"),
         "DOUBLE PRECISION" => Some("f64"),
         "LOGICAL" => Some("FortranLogical"),
+        "COMPLEX" => Some("Complex32"),
+        "DOUBLE COMPLEX" => Some("Complex64"),
         _ => None,
     }
 }
@@ -1394,6 +1414,7 @@ mod tests {
             "numeric_array_subroutines.rs",
             "scalar_functions.rs",
             "complex_arguments.rs",
+            "complex_returns.rs",
             "logical.rs",
             "callbacks.rs",
             "infrastructure.rs",

@@ -30,7 +30,7 @@ ABI blockers, conflicting/ambiguous/missing symbols, non-callable subsidiaries,
 runtime support, block data, documentation/tooling entries, external
 dependencies, and catalogue-only identities. The machine-readable enumeration
 is `reviewed_public_driver`, `reviewed_public_subsidiary`,
-`batch_a_public_driver`, `batch_b_public_driver`,
+`batch_a_public_driver`, `batch_b_public_driver`, `batch_c_public_driver`,
 `generated_candidate`, `generated_abi_validated`, `source_present_unbound`,
 `unsupported_callback_abi`, `unsupported_complex_return_abi`,
 `unsupported_character_return_abi`, `unsupported_entry_or_alternate_return`,
@@ -60,6 +60,15 @@ compile probes, and native link probes. It is still an unsafe raw tier: it does
 not create safe Rust closures, user-data trampolines, panic containment, or
 full semantic argument review. See
 [Batch B callback-bearing raw interfaces](../api/raw-batch-b-callbacks.md).
+
+`batch_c_public_driver` is the generated stability tier for complex numerical
+and simple flag-bearing interfaces. Promotion requires independent evidence for
+every complex, fixed `CHARACTER*1`, `LOGICAL`, and callback constituent, plus a
+selected source hash, unique symbol, canonical path, exact provider closure,
+generated unsafe documentation, and bulk compile/link evidence. Complex returns
+use only the compiler-probed GNU MinGW convention; raw logical values remain
+explicit `i32` ABI values rather than Rust `bool`. See
+[Batch C complex and flag-bearing interfaces](../api/raw-batch-c-complex-character-logical.md).
 
 ## Canonical namespace
 
@@ -134,14 +143,21 @@ These paths are stable within the Batch B evidence boundary. They remain raw
 FFI declarations: a Rust callback must be ABI-compatible, must not unwind
 across native code, and must manage any captured state outside the declaration.
 
+Batch C adds `complex` submodules inside the established mathematical taxonomy,
+including `linear_algebra::dense::complex`, `special::complex`,
+`nonlinear::complex`, and `pde::fishpack::complex`, while complex BLAS entries
+remain at their conventional BLAS levels. The private generated owner is not a
+user-facing `batch_c` namespace.
+
 The complete feasible BLAS set is generated from the source-hash-guarded
 family-review policy rather than copied into hand-written `extern` blocks.
 Each canonical item re-exports the single ABI-shaped generated declaration;
 `slatec_sys::families::blas_level{1,2,3}` are compatibility re-exports of
 that same item. The public surface therefore has no duplicate declarations.
 The companion [`blas-family-report.json`](../../generated/raw-api/blas-family-report.json)
-records all retained BLAS classifications, including excluded complex-return
-functions, non-BLAS multiprecision subsidiaries, and catalogue-only entries.
+records all retained BLAS classifications, including the Batch C promotion of
+complex-return functions, non-BLAS multiprecision subsidiaries, and
+catalogue-only entries.
 
 The legacy `slatec_sys::roots::{fzero,dfzero}`,
 `slatec_sys::fishpack_cartesian_2d::hwscrt`, and
@@ -197,6 +213,10 @@ provider features for the source families that own the callbacks. The initial
 provider mapping is `batch-b-quadrature` to `slatec-src/quadrature`,
 `batch-b-linear-algebra` to `slatec-src/linear-algebra`, and `batch-b-ode` to
 `slatec-src/ode`.
+Batch C uses five coherent mathematical declaration/provider pairs:
+`batch-c-blas`, `batch-c-linear-algebra`, `batch-c-special`,
+`batch-c-nonlinear`, and `batch-c-fishpack`. Their exact source closures are
+generated from candidate roots and compiler-observed dependencies.
 
 The public `all` feature directly names every authored public mathematical
 family aggregate. It is declaration-only: provider/backend, profile-only,
@@ -229,6 +249,10 @@ must have at least one callback ABI fingerprint, callback evidence must come
 from direct or forwarded source calls, unresolved or conflicting callback
 signatures are excluded, and the generated compile/link probes must import or
 reference every promoted canonical path.
+Batch C additionally requires controlled and selected-source compiler probes
+for complex layout and returns, character hidden lengths, and logical values.
+Its validator rejects long strings, unresolved combinations, missing provider
+closure members, incompatible fingerprints, and duplicate canonical paths.
 
 ## Stability and transition policy
 
@@ -259,7 +283,8 @@ BLAS character options are native one-byte CHARACTER buffers followed by the
 compiler-observed trailing hidden length values (`FortranCharacterLength`), in
 visible argument order. `Complex32` documents the selected GNU Fortran
 COMPLEX storage record. The three complex-return functions are deliberately
-not declared because a correct Rust return ABI has not been established.
+outside the R2A reviewed tier; Batch C later declares them after establishing
+the correct Rust return ABI with controlled and selected-source probes.
 Routine documentation is generated from verified prologue facts plus a small
 authored BLAS operation template, and its audit checks every exported routine,
 argument, source link, ABI statement, and `# Safety` section.

@@ -1,8 +1,8 @@
 # Native archive summary
 
-- Archive members: `662`
-- Compiled objects: `662`
-- Archive bytes: `2800354`
+- Archive members: `1317`
+- Compiled objects: `1317`
+- Archive bytes: `5497482`
 - Partial linking (`ld -r`): `false`
 - Whole-archive linking: `false`
 - Generated amalgamated source: `false`

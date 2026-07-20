@@ -1,10 +1,9 @@
 {
   "by_reason": {
-    "callback ABI has compiler-shape evidence but no routine-specific callback contract": 114,
+    "callback ABI has compiler-shape evidence but no routine-specific callback contract": 67,
     "catalogue identity has no selected executable provider": 26,
     "multiprecision helper is not a standalone BLAS public routine": 18,
     "runtime or machine-support unit is not independently callable": 17,
-    "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure": 3,
     "source object has unresolved external procedure dependencies: dfmat_, dgvec_, duivp_, duvec_": 1,
     "source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_": 1
   },
@@ -18,21 +17,6 @@
       "reason": "source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_",
       "routine": "BVSUP",
       "state": "external_dependency"
-    },
-    {
-      "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
-      "routine": "CDCDOT",
-      "state": "unsupported_complex_return_abi"
-    },
-    {
-      "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
-      "routine": "CDOTC",
-      "state": "unsupported_complex_return_abi"
-    },
-    {
-      "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
-      "routine": "CDOTU",
-      "state": "unsupported_complex_return_abi"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
@@ -86,11 +70,6 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DBCG",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DBFQAD",
       "state": "unsupported_callback_abi"
     },
@@ -98,21 +77,6 @@
       "reason": "source object has unresolved external procedure dependencies: dfmat_, dgvec_, duivp_, duvec_",
       "routine": "DBVSUP",
       "state": "external_dependency"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DCG",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DCGN",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DCGS",
-      "state": "unsupported_callback_abi"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
@@ -131,17 +95,7 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DDEABM",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DDEBDF",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DDERKF",
       "state": "unsupported_callback_abi"
     },
     {
@@ -176,11 +130,6 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DERKF",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DERKFS",
       "state": "unsupported_callback_abi"
     },
@@ -198,11 +147,6 @@
       "reason": "catalogue identity has no selected executable provider",
       "routine": "DGERU",
       "state": "catalogue_only"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DGMRES",
-      "state": "unsupported_callback_abi"
     },
     {
       "reason": "catalogue identity has no selected executable provider",
@@ -251,17 +195,7 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DIR",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DLSOD",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DOMN",
       "state": "unsupported_callback_abi"
     },
     {
@@ -291,26 +225,6 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQAGIE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQAGPE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQAGSE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQAWCE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DQAWFE",
       "state": "unsupported_callback_abi"
     },
@@ -321,62 +235,7 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQAWSE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQC25C",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DQC25F",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQC25S",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK15",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK15I",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK15W",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK21",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK31",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK41",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK51",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "DQK61",
       "state": "unsupported_callback_abi"
     },
     {
@@ -606,26 +465,6 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QAGIE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QAGPE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QAGSE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QAWCE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "QAWFE",
       "state": "unsupported_callback_abi"
     },
@@ -636,88 +475,13 @@
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QAWSE",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QC25C",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "QC25F",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QC25S",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK15",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK15I",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK15W",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK21",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK31",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK41",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK51",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "QK61",
       "state": "unsupported_callback_abi"
     },
     {
       "reason": "runtime or machine-support unit is not independently callable",
       "routine": "R1MACH",
       "state": "runtime_or_machine_support"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SBCG",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SCG",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SCGN",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SCGS",
-      "state": "unsupported_callback_abi"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
@@ -760,11 +524,6 @@
       "state": "catalogue_only"
     },
     {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SGMRES",
-      "state": "unsupported_callback_abi"
-    },
-    {
       "reason": "catalogue identity has no selected executable provider",
       "routine": "SHBMV",
       "state": "catalogue_only"
@@ -803,16 +562,6 @@
       "reason": "catalogue identity has no selected executable provider",
       "routine": "SHPR2",
       "state": "catalogue_only"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SIR",
-      "state": "unsupported_callback_abi"
-    },
-    {
-      "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
-      "routine": "SOMN",
-      "state": "unsupported_callback_abi"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",

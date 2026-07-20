@@ -30,6 +30,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     let batch_a = read_json(&root.join("generated/raw-api/batch-a-candidates.json"))?;
     let batch_a_classification =
         read_json(&root.join("generated/raw-api/abi-classification.json"))?;
+    let batch_c = read_json(&root.join("generated/raw-api/batch-c-candidates.json"))?;
     let selected_sources = read_json(&root.join("generated/ffi/selected-source-files.json"))?;
     let compilation = read_json(&root.join("generated/ffi/compilation-results.json"))?;
     let symbols = read_json(&root.join("generated/ffi/symbol-inventory.json"))?;
@@ -69,6 +70,17 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     // family closures therefore proves every promoted raw driver's provider
     // closure without falling back to a corpus-wide archive.
     for record in array_records(&batch_a, "Batch A candidates")? {
+        let family = string_field(record, "provider_feature")?;
+        let routine = string_field(record, "routine")?;
+        family_symbols
+            .entry(family.to_owned())
+            .or_default()
+            .insert(routine.to_owned());
+    }
+    // Batch C uses the same exact object-level dependency walk. ABI shape is
+    // a declaration concern; provider selection remains grouped by coherent
+    // mathematical family closures.
+    for record in array_records(&batch_c, "Batch C candidates")? {
         let family = string_field(record, "provider_feature")?;
         let routine = string_field(record, "routine")?;
         family_symbols

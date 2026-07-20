@@ -58,9 +58,10 @@ The canonical declarations are re-exported at the legacy compatibility paths
 second `extern` declaration is created. `slatec_sys::generated` remains
 transitional and is not a stable raw namespace.
 
-`CDCDOT`, `CDOTC`, and `CDOTU` are complex-valued Fortran functions and remain
-explicitly excluded: the selected compiler's complex return ABI has not yet
-been reviewed. The `MP*` entries classified with linear kernels are
+`CDCDOT`, `CDOTC`, and `CDOTU` are complex-valued Fortran functions promoted by
+Batch C after controlled and selected-source Rust probes established the
+supported GNU MinGW direct aggregate-return convention. The `MP*` entries
+classified with linear kernels are
 multiprecision implementation subsidiaries rather than public BLAS routines.
 Catalogue-only entries with no selected executable provider are reported as
 such. The exact complete disposition is generated in

@@ -5,8 +5,13 @@
 //! source metadata are the review inputs.
 
 /// Reviewed public BLAS Level 1 raw routines.
-#[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
+#[cfg(any(
+    feature = "blas-level1",
+    feature = "raw-family-blas-level1",
+    feature = "raw-family-batch-c-blas"
+))]
 pub mod level1 {
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CAXPY
     /// Original SLATEC routine `CAXPY`.
     /// Computes `Y <- alpha * X + Y` for the selected scalar type.
@@ -27,6 +32,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::caxpy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CCOPY
     /// Original SLATEC routine `CCOPY`.
     /// Executes the selected BLAS-family vector copy operation.
@@ -46,6 +52,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ccopy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CROTG
     /// Original SLATEC routine `CROTG`.
     /// Executes the selected BLAS-family plane-rotation parameter generation operation.
@@ -64,6 +71,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::crotg;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CSCAL
     /// Original SLATEC routine `CSCAL`.
     /// Executes the selected BLAS-family vector scaling operation.
@@ -82,6 +90,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::cscal;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CSROT
     /// Original SLATEC routine `CSROT`.
     /// Executes the selected BLAS-family plane rotation operation.
@@ -103,6 +112,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::csrot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CSSCAL
     /// Original SLATEC routine `CSSCAL`.
     /// Executes the selected BLAS-family vector scaling operation.
@@ -121,6 +131,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::csscal;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: CSWAP
     /// Original SLATEC routine `CSWAP`.
     /// Executes the selected BLAS-family vector swap operation.
@@ -140,6 +151,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::cswap;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DASUM
     /// Original SLATEC routine `DASUM`.
     /// Executes the selected BLAS-family sum of vector magnitudes operation.
@@ -157,6 +169,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dasum;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DAXPY
     /// Original SLATEC routine `DAXPY`.
     /// Computes `Y <- alpha * X + Y` for the selected scalar type.
@@ -177,6 +190,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::daxpy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DCDOT
     /// Original SLATEC routine `DCDOT`.
     /// Executes the selected BLAS-family dot product operation.
@@ -199,6 +213,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dcdot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DCOPY
     /// Original SLATEC routine `DCOPY`.
     /// Executes the selected BLAS-family vector copy operation.
@@ -218,6 +233,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dcopy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DCOPYM
     /// Original SLATEC routine `DCOPYM`.
     /// Executes the selected BLAS-family vector copy operation.
@@ -237,6 +253,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dcopym;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DDOT
     /// Original SLATEC routine `DDOT`.
     /// Executes the selected BLAS-family dot product operation.
@@ -256,6 +273,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ddot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DNRM2
     /// Original SLATEC routine `DNRM2`.
     /// Executes the selected BLAS-family Euclidean vector norm operation.
@@ -273,6 +291,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dnrm2;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DQDOTA
     /// Original SLATEC routine `DQDOTA`.
     /// Executes the selected BLAS-family dot product operation.
@@ -294,6 +313,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dqdota;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DQDOTI
     /// Original SLATEC routine `DQDOTI`.
     /// Executes the selected BLAS-family dot product operation.
@@ -315,6 +335,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dqdoti;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DROT
     /// Original SLATEC routine `DROT`.
     /// Executes the selected BLAS-family plane rotation operation.
@@ -336,6 +357,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::drot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DROTG
     /// Original SLATEC routine `DROTG`.
     /// Executes the selected BLAS-family plane-rotation parameter generation operation.
@@ -354,6 +376,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::drotg;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DROTM
     /// Original SLATEC routine `DROTM`.
     /// Executes the selected BLAS-family modified plane rotation operation.
@@ -374,6 +397,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::drotm;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DROTMG
     /// Original SLATEC routine `DROTMG`.
     /// Executes the selected BLAS-family modified plane-rotation parameter generation operation.
@@ -393,6 +417,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::drotmg;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DS2Y
     /// Original SLATEC routine `DS2Y`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -413,6 +438,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ds2y;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DSCAL
     /// Original SLATEC routine `DSCAL`.
     /// Executes the selected BLAS-family vector scaling operation.
@@ -431,6 +457,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dscal;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DSDI
     /// Original SLATEC routine `DSDI`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -455,6 +482,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dsdi;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DSDOT
     /// Original SLATEC routine `DSDOT`.
     /// Executes the selected BLAS-family dot product operation.
@@ -474,6 +502,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dsdot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DSMTV
     /// Original SLATEC routine `DSMTV`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -496,6 +525,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dsmtv;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DSMV
     /// Original SLATEC routine `DSMV`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -518,6 +548,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dsmv;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: DSWAP
     /// Original SLATEC routine `DSWAP`.
     /// Executes the selected BLAS-family vector swap operation.
@@ -537,6 +568,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::dswap;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: ICAMAX
     /// Original SLATEC routine `ICAMAX`.
     /// Executes the selected BLAS-family index of maximum vector magnitude operation.
@@ -554,6 +586,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::icamax;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: ICOPY
     /// Original SLATEC routine `ICOPY`.
     /// Executes the selected BLAS-family vector copy operation.
@@ -573,6 +606,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::icopy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: IDAMAX
     /// Original SLATEC routine `IDAMAX`.
     /// Executes the selected BLAS-family index of maximum vector magnitude operation.
@@ -590,6 +624,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::idamax;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: ISAMAX
     /// Original SLATEC routine `ISAMAX`.
     /// Executes the selected BLAS-family index of maximum vector magnitude operation.
@@ -607,6 +642,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::isamax;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: ISWAP
     /// Original SLATEC routine `ISWAP`.
     /// Executes the selected BLAS-family vector swap operation.
@@ -626,6 +662,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::iswap;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SASUM
     /// Original SLATEC routine `SASUM`.
     /// Executes the selected BLAS-family sum of vector magnitudes operation.
@@ -643,6 +680,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::sasum;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SAXPY
     /// Original SLATEC routine `SAXPY`.
     /// Computes `Y <- alpha * X + Y` for the selected scalar type.
@@ -663,6 +701,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::saxpy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SCASUM
     /// Original SLATEC routine `SCASUM`.
     /// Executes the selected BLAS-family sum of vector magnitudes operation.
@@ -680,6 +719,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::scasum;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SCNRM2
     /// Original SLATEC routine `SCNRM2`.
     /// Executes the selected BLAS-family Euclidean vector norm operation.
@@ -697,6 +737,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::scnrm2;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SCOPY
     /// Original SLATEC routine `SCOPY`.
     /// Executes the selected BLAS-family vector copy operation.
@@ -716,6 +757,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::scopy;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SCOPYM
     /// Original SLATEC routine `SCOPYM`.
     /// Executes the selected BLAS-family vector copy operation.
@@ -735,6 +777,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::scopym;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SDOT
     /// Original SLATEC routine `SDOT`.
     /// Executes the selected BLAS-family dot product operation.
@@ -754,6 +797,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::sdot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SDSDOT
     /// Original SLATEC routine `SDSDOT`.
     /// Executes the selected BLAS-family dot product operation.
@@ -774,6 +818,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::sdsdot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SNRM2
     /// Original SLATEC routine `SNRM2`.
     /// Executes the selected BLAS-family Euclidean vector norm operation.
@@ -791,6 +836,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::snrm2;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SROT
     /// Original SLATEC routine `SROT`.
     /// Executes the selected BLAS-family plane rotation operation.
@@ -812,6 +858,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::srot;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SROTG
     /// Original SLATEC routine `SROTG`.
     /// Executes the selected BLAS-family plane-rotation parameter generation operation.
@@ -830,6 +877,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::srotg;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SROTM
     /// Original SLATEC routine `SROTM`.
     /// Executes the selected BLAS-family modified plane rotation operation.
@@ -850,6 +898,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::srotm;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SROTMG
     /// Original SLATEC routine `SROTMG`.
     /// Executes the selected BLAS-family modified plane-rotation parameter generation operation.
@@ -869,6 +918,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::srotmg;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SS2Y
     /// Original SLATEC routine `SS2Y`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -889,6 +939,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ss2y;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SSCAL
     /// Original SLATEC routine `SSCAL`.
     /// Executes the selected BLAS-family vector scaling operation.
@@ -907,6 +958,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::sscal;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SSDI
     /// Original SLATEC routine `SSDI`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -931,6 +983,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ssdi;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SSMTV
     /// Original SLATEC routine `SSMTV`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -953,6 +1006,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ssmtv;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SSMV
     /// Original SLATEC routine `SSMV`.
     /// Executes the selected BLAS-family selected BLAS helper operation.
@@ -975,6 +1029,7 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::ssmv;
 
+    #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
     // raw-api-routine: SSWAP
     /// Original SLATEC routine `SSWAP`.
     /// Executes the selected BLAS-family vector swap operation.
@@ -993,6 +1048,10 @@ pub mod level1 {
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
     pub use crate::generated::blas::sswap;
+
+    /// Complex-return BLAS Level 1 functions promoted by Batch C.
+    #[cfg(feature = "raw-family-batch-c-blas")]
+    pub use crate::batch_c::blas::{cdcdot, cdotc, cdotu};
 }
 
 /// Reviewed public BLAS Level 2 raw routines.

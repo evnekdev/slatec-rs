@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    "generated/slatec-routines/routine-catalogue.json",
+    "generated/ffi/interface-inventory.json",
+    "generated/ffi/confidence-summary.json",
+    "generated/ffi-inventory/argument-index.json",
+    "generated/ffi-inventory/function-results.json",
+    "generated/raw-api/routine-status.json",
+    "generated/raw-api/batch-a-candidates.json",
+    "generated/raw-api/batch-b-candidates.json"
+  ],
+  "outputs": [
+    "batch-c-abi-evidence.json",
+    "batch-c-candidates.json",
+    "batch-c-classification.json",
+    "batch-c-exclusions.json",
+    "batch-c-provider-reconciliation.json",
+    "batch-c-summary.md"
+  ],
+  "schema_id": "slatec-sys.raw-api.batch-c-manifest",
+  "schema_version": "1.0.0",
+  "semantic_sha256": "cdba740ae18e0e647ff1e3acb514788b8a05d04e6b8a1980d1f968aff49d07d1"
+}

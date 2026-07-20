@@ -50,7 +50,7 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
+- Generated raw declaration: `generated_abi_validated`
 - Reviewed family declaration: `not_reviewed_by_raw_api_registry`
 - Canonical Rust path: `not_promoted`
 - Current legacy Rust paths: `none`
@@ -59,8 +59,8 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

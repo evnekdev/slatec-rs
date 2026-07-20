@@ -58,6 +58,11 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("BATCH_A_INTERPOLATION", "batch-a-interpolation"),
     ("BATCH_A_APPROXIMATION", "batch-a-approximation"),
     ("BATCH_A_STATISTICS", "batch-a-statistics"),
+    ("BATCH_C_BLAS", "batch-c-blas"),
+    ("BATCH_C_LINEAR_ALGEBRA", "batch-c-linear-algebra"),
+    ("BATCH_C_SPECIAL", "batch-c-special"),
+    ("BATCH_C_NONLINEAR", "batch-c-nonlinear"),
+    ("BATCH_C_FISHPACK", "batch-c-fishpack"),
     (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",

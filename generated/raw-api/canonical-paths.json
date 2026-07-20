@@ -814,13 +814,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::c0lgmc",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::c0lgmc",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::c0lgmc",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "C0LGMC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -877,31 +877,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cacos",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cacos",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cacos",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CACOS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cacosh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cacosh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cacosh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CACOSH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cairy",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cairy",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cairy",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CAIRY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -913,22 +913,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::casin",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::casin",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::casin",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CASIN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::casinh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::casinh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::casinh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CASINH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -940,31 +940,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::catan",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::catan",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::catan",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CATAN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::catan2",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::catan2",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::catan2",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CATAN2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::catanh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::catanh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::catanh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CATANH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level1::caxpy",
@@ -998,58 +998,58 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbesh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbesh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbesh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBESH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbesi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbesi",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbesi",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBESI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbesj",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbesj",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbesj",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBESJ",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbesk",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbesk",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbesk",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBESK",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbesy",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbesy",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbesy",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBESY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbeta",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbeta",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbeta",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBETA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1061,13 +1061,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cbiry",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cbiry",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cbiry",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CBIRY",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1088,13 +1088,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::pde::fishpack::complex::cblktr",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::pde::fishpack::cblktr",
-      "intended_module": "pde::fishpack",
+      "intended_canonical_rust_path": "slatec_sys::pde::fishpack::complex::cblktr",
+      "intended_module": "pde::fishpack::complex",
       "legacy_rust_paths": [],
       "routine": "CBLKTR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::special::elementary::cbrt",
@@ -1128,49 +1128,49 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::ccbrt",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ccbrt",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::ccbrt",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CCBRT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchdc",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cchdc",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchdc",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CCHDC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchdd",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cchdd",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchdd",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CCHDD",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchex",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cchex",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchex",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CCHEX",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchud",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cchud",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchud",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CCHUD",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1204,31 +1204,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::ccosh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ccosh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::ccosh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CCOSH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::ccot",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ccot",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::ccot",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CCOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::blas::level1::cdcdot",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cdcdot",
-      "intended_module": "blas",
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::cdcdot",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [],
       "routine": "CDCDOT",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1276,22 +1276,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::blas::level1::cdotc",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cdotc",
-      "intended_module": "blas",
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::cdotc",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [],
       "routine": "CDOTC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::blas::level1::cdotu",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::blas::cdotu",
-      "intended_module": "blas",
+      "intended_canonical_rust_path": "slatec_sys::blas::level1::cdotu",
+      "intended_module": "blas::level1",
       "legacy_rust_paths": [],
       "routine": "CDOTU",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1375,13 +1375,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cexprl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cexprl",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cexprl",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CEXPRL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -1462,49 +1462,49 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cgamma",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cgamma",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cgamma",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CGAMMA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cgamr",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cgamr",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cgamr",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CGAMR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgbco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGBCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgbdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGBDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbfa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgbfa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbfa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGBFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level2::cgbmv",
@@ -1520,31 +1520,31 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgbsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGBSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgeco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgeco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgeco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGECO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgedi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgedi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgedi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGEDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::eigen::numerical::cgeev",
@@ -1556,31 +1556,31 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgefa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgefa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgefa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGEFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgefs",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgefs",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgefs",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGEFS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgeir",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgeir",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgeir",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGEIR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level3::cgemm",
@@ -1635,22 +1635,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgesl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgesl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgesl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGESL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgtsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cgtsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgtsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CGTSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::eigen::numerical::ch",
@@ -1798,22 +1798,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chico",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chico",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chico",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHICO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chidi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chidi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chidi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHIDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::eigen::numerical::chiev",
@@ -1825,22 +1825,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chifa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chifa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chifa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHIFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chisl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chisl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chisl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHISL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::nonlinear::numerical::chkder",
@@ -1890,31 +1890,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chpco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHPCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chpdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHPDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpfa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chpfa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpfa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHPFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level2::chpmv",
@@ -1956,13 +1956,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::chpsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CHPSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::special::numerical::chu",
@@ -1992,31 +1992,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::clbeta",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::clbeta",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::clbeta",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CLBETA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::clngam",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::clngam",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::clngam",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CLNGAM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::clnrel",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::clnrel",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::clnrel",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CLNREL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2028,22 +2028,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::clog10",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::clog10",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::clog10",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CLOG10",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::pde::fishpack::complex::cmgnbn",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::pde::fishpack::cmgnbn",
-      "intended_module": "pde::fishpack",
+      "intended_canonical_rust_path": "slatec_sys::pde::fishpack::complex::cmgnbn",
+      "intended_module": "pde::fishpack::complex",
       "legacy_rust_paths": [],
       "routine": "CMGNBN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2109,58 +2109,58 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cnbco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CNBCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cnbdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CNBDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbfa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cnbfa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbfa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CNBFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbfs",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cnbfs",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbfs",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CNBFS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbir",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cnbir",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbir",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CNBIR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cnbsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CNBSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::eigen::numerical::combak",
@@ -2375,40 +2375,40 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpbco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPBCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpbdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPBDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbfa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpbfa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbfa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPBFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpbsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPBSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2429,103 +2429,103 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpoco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpoco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpoco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPOCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpodi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpodi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpodi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPODI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpofa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpofa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpofa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPOFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpofs",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpofs",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpofs",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPOFS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpoir",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cpoir",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpoir",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPOIR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cposl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cposl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cposl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPOSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cppco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPPCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cppdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPPDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppfa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cppfa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppfa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPPFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cppsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPPSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::cpqr79",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::nonlinear::cpqr79",
-      "intended_module": "nonlinear",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::cpqr79",
+      "intended_module": "nonlinear::complex",
       "legacy_rust_paths": [],
       "routine": "CPQR79",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2564,49 +2564,49 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::cpsi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::cpsi",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::cpsi",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CPSI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cptsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cptsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cptsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CPTSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::cpzero",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::roots::polynomial::cpzero",
-      "intended_module": "roots::polynomial",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::cpzero",
+      "intended_module": "nonlinear::complex",
       "legacy_rust_paths": [],
       "routine": "CPZERO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cqrdc",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cqrdc",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cqrdc",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CQRDC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cqrsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cqrsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cqrsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CQRSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2700,31 +2700,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csico",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::csico",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csico",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSICO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csidi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::csidi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csidi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSIDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csifa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::csifa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csifa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSIFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2736,49 +2736,49 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::csinh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::csinh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::csinh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CSINH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csisl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::csisl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csisl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSISL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cspco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSPCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cspdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSPDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspfa",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cspfa",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspfa",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSPFA",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2799,13 +2799,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::cspsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSPSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -2852,13 +2852,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csvdc",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::csvdc",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csvdc",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CSVDC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level1::cswap",
@@ -2931,22 +2931,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::ctan",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ctan",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::ctan",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CTAN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::special::complex::ctanh",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ctanh",
-      "intended_module": "special",
+      "intended_canonical_rust_path": "slatec_sys::special::complex::ctanh",
+      "intended_module": "special::complex",
       "legacy_rust_paths": [],
       "routine": "CTANH",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level2::ctbmv",
@@ -3001,22 +3001,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrco",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::ctrco",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrco",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CTRCO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrdi",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::ctrdi",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrdi",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CTRDI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level3::ctrmm",
@@ -3045,13 +3045,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrsl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::ctrsl",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrsl",
+      "intended_module": "linear_algebra::dense::complex",
       "legacy_rust_paths": [],
       "routine": "CTRSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level3::ctrsm",
@@ -3496,13 +3496,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dbcg",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::dbcg",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dbcg",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DBCG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4064,31 +4064,31 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcg",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::dcg",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcg",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DCG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcgn",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::dcgn",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcgn",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DCGN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcgs",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::dcgs",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcgs",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DCGS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::linear_algebra::dense::dchdc",
@@ -4421,13 +4421,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::callbacks::ddeabm",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::ode::ddeabm",
-      "intended_module": "ode",
+      "intended_canonical_rust_path": "slatec_sys::ode::callbacks::ddeabm",
+      "intended_module": "ode::callbacks",
       "legacy_rust_paths": [],
       "routine": "DDEABM",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4439,13 +4439,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::callbacks::dderkf",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::ode::dderkf",
-      "intended_module": "ode",
+      "intended_canonical_rust_path": "slatec_sys::ode::callbacks::dderkf",
+      "intended_module": "ode::callbacks",
       "legacy_rust_paths": [],
       "routine": "DDERKF",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4691,13 +4691,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::callbacks::derkf",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::ode::derkf",
-      "intended_module": "ode",
+      "intended_canonical_rust_path": "slatec_sys::ode::callbacks::derkf",
+      "intended_module": "ode::callbacks",
       "legacy_rust_paths": [],
       "routine": "DERKF",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -5125,13 +5125,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dgmres",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::dgmres",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dgmres",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DGMRES",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::linear_algebra::dense::dgtsl",
@@ -5314,13 +5314,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dir",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::dir",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dir",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DIR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -5639,13 +5639,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::domn",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::domn",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::domn",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "DOMN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6302,13 +6302,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagie",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqagie",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagie",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQAGIE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6322,13 +6322,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagpe",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqagpe",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagpe",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQAGPE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6342,13 +6342,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagse",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqagse",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagse",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQAGSE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6362,13 +6362,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawce",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqawce",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawce",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQAWCE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6422,22 +6422,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawse",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqawse",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawse",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQAWSE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqc25c",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqc25c",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqc25c",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQC25C",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6449,13 +6449,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqc25s",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqc25s",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqc25s",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQC25S",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6511,76 +6511,76 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk15",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK15",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15i",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk15i",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15i",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK15I",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15w",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk15w",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15w",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK15W",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk21",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk21",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk21",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK21",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk31",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk31",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk31",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK31",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk41",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk41",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk41",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK41",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk51",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk51",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk51",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK51",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk61",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::dqk61",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk61",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "DQK61",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::numerical::dqmomo",
@@ -10398,13 +10398,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagie",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qagie",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qagie",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QAGIE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10418,13 +10418,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagpe",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qagpe",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qagpe",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QAGPE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10438,13 +10438,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagse",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qagse",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qagse",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QAGSE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10458,13 +10458,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qawce",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qawce",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qawce",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QAWCE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10518,22 +10518,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qawse",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qawse",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qawse",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QAWSE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qc25c",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qc25c",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qc25c",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QC25C",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10545,13 +10545,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qc25s",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qc25s",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qc25s",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QC25S",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10581,76 +10581,76 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk15",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK15",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15i",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk15i",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15i",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK15I",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15w",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk15w",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15w",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK15W",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk21",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk21",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk21",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK21",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk31",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk31",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk31",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK31",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk41",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk41",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk41",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK41",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk51",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk51",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk51",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK51",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk61",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::quadrature::qk61",
-      "intended_module": "quadrature",
+      "intended_canonical_rust_path": "slatec_sys::quadrature::callbacks::qk61",
+      "intended_module": "quadrature::callbacks",
       "legacy_rust_paths": [],
       "routine": "QK61",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::numerical::qmomo",
@@ -11265,22 +11265,22 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::rpqr79",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::nonlinear::rpqr79",
-      "intended_module": "nonlinear",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::rpqr79",
+      "intended_module": "nonlinear::complex",
       "legacy_rust_paths": [],
       "routine": "RPQR79",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::rpzero",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::roots::polynomial::rpzero",
-      "intended_module": "roots::polynomial",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::rpzero",
+      "intended_module": "nonlinear::complex",
       "legacy_rust_paths": [],
       "routine": "RPZERO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::eigen::numerical::rs",
@@ -11417,13 +11417,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sbcg",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::sbcg",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sbcg",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SBCG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11479,31 +11479,31 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scg",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::scg",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scg",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SCG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scgn",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::scgn",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scgn",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SCGN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scgs",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::scgs",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scgs",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SCGS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::linear_algebra::dense::schdc",
@@ -12042,13 +12042,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sgmres",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::sgmres",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sgmres",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SGMRES",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::linear_algebra::dense::sgtsl",
@@ -12245,13 +12245,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sir",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::sir",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sir",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SIR",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12428,13 +12428,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::somn",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::linear_algebra::dense::somn",
-      "intended_module": "linear_algebra::dense",
+      "intended_canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::somn",
+      "intended_module": "linear_algebra::sparse::callbacks",
       "legacy_rust_paths": [],
       "routine": "SOMN",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",

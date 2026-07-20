@@ -5,16 +5,18 @@ This report is generated from exactly one status record per retained catalogue i
 | Metric | Count |
 | --- | ---: |
 | Retained identities | 1517 |
-| Generated ABI-validated declarations | 1253 |
+| Generated ABI-validated declarations | 1286 |
 | Reviewed public raw declarations | 173 |
 | Batch A public declarations | 459 |
-| Total public raw declarations | 632 |
+| Batch B public declarations | 47 |
+| Batch C public declarations | 97 |
+| Total public raw declarations | 776 |
 | Provider-backed callable raw routines | 1476 |
-| Link-tested raw routines | 1255 |
-| Runtime-tested raw routines | 796 |
-| Fully documented raw routines | 632 |
-| Explicit exclusions | 180 |
+| Link-tested raw routines | 1335 |
+| Runtime-tested raw routines | 732 |
+| Fully documented raw routines | 776 |
+| Explicit exclusions | 130 |
 
-Documentation audit: 632 public declarations, 0 public records missing fields, 885 queued declarations. Feature/provider reconciliation: `passed`. Roots report entries: 4.
+Documentation audit: 776 public declarations, 0 public records missing fields, 741 queued declarations. Feature/provider reconciliation: `passed`. Roots report entries: 4.
 
 The `slatec_sys::generated` namespace remains transitional, ABI-shaped generated access and is not a stable public namespace.

@@ -92,6 +92,11 @@ unsafe paths are under `slatec_sys::quadrature::callbacks`,
 `slatec_sys::linear_algebra::sparse::callbacks`, and
 `slatec_sys::ode::callbacks`; they are not safe closure wrappers. See
 [`docs/api/raw-batch-b-callbacks.md`](docs/api/raw-batch-b-callbacks.md).
+Batch C bulk-promotes 97 complex numerical and simple flag-bearing raw
+interfaces. Compiler probes establish the supported GNU MinGW complex return,
+fixed `CHARACTER*1` hidden-length, and `LOGICAL` conventions; canonical paths
+stay in mathematical modules and no safe wrappers are added. See the
+[Batch C raw guide](docs/api/raw-batch-c-complex-character-logical.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

@@ -49,18 +49,18 @@ The former aggregate is retired because it conflated generated declarations, rev
 | --- | ---: |
 | Retained identities | 1517 |
 | Historically user-callable routines | 902 |
-| Generated raw declaration candidates | 1253 |
-| ABI-validated generated declarations | 1253 |
+| Generated raw declaration candidates | 1286 |
+| ABI-validated generated declarations | 1286 |
 | Reviewed family raw declarations | 173 |
 | Reviewed user-callable raw drivers | 173 |
 | Reviewed public subsidiaries | 0 |
 | Provider-backed callable raw routines | 1476 |
-| Link-tested raw routines | 1255 |
-| Runtime-tested raw routines | 796 |
-| Fully documented raw routines | 632 |
+| Link-tested raw routines | 1335 |
+| Runtime-tested raw routines | 732 |
+| Fully documented raw routines | 776 |
 | Pre-existing family declarations pending R1 review | 143 |
 | Safely wrapped routines | 210 |
-| Explicitly excluded routines | 180 |
+| Explicitly excluded routines | 130 |
 | Unclassified routines | 0 |
 
 The definitions and exclusions are generated in [coverage-summary.json](../../generated/raw-api/coverage-summary.json) and [exclusion-report.json](../../generated/raw-api/exclusion-report.json).

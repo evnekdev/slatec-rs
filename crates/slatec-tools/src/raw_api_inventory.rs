@@ -106,6 +106,21 @@ struct BatchAPublic {
 }
 
 #[derive(Clone, Debug)]
+struct BulkPublic {
+    batch: &'static str,
+    source_hash: String,
+    canonical_path: String,
+    canonical_module: String,
+    feature: String,
+    provider_feature: String,
+    abi_class: String,
+    abi_fingerprint: String,
+    source_url: String,
+    purpose: String,
+    arguments: Vec<String>,
+}
+
+#[derive(Clone, Debug)]
 struct Corrections {
     records: Vec<Correction>,
     blas_policy: Option<BlasReviewPolicy>,
@@ -123,6 +138,18 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let _safe_api_records = records(&safe_api_index, "safe API function index")?;
     let corrections = corrections(paths.corrections_path)?;
     let batch_a = batch_a_candidates(&paths.output_dir.join("batch-a-candidates.json"))?;
+    let batch_b = bulk_candidates(
+        &paths.output_dir.join("batch-b-candidates.json"),
+        "batch_b",
+        "outer_abi_fingerprint",
+        "callback_abi",
+    )?;
+    let batch_c = bulk_candidates(
+        &paths.output_dir.join("batch-c-candidates.json"),
+        "batch_c",
+        "normalized_abi_fingerprint",
+        "combined_abi_class",
+    )?;
     let batch_a_exclusions = batch_a_exclusions(&paths.output_dir.join("abi-classification.json"))?;
     let validation = validation_batches(
         &paths
@@ -190,6 +217,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         });
         let correction = correction_by_name.get(&name);
         let batch_a_public = batch_a.get(&name);
+        let bulk_public = batch_b.get(&name).or_else(|| batch_c.get(&name));
         let batch_a_exclusion = batch_a_exclusions.get(&name);
         let legacy_paths = legacy_declarations.get(&name).cloned().unwrap_or_default();
         if let Some(correction) = correction {
@@ -276,10 +304,29 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 )));
             }
         }
+        if let Some(batch) = bulk_public {
+            if batch.source_hash != source_hash {
+                return Err(policy(&format!(
+                    "{} candidate for {name} is guarded by {}, but the selected source is {source_hash}",
+                    batch.batch, batch.source_hash
+                )));
+            }
+            if batch.arguments != argument_order {
+                return Err(policy(&format!(
+                    "{} candidate argument order for {name} differs from executable declaration",
+                    batch.batch
+                )));
+            }
+        }
         let is_batch_a_public = correction.is_none() && batch_a_public.is_some();
+        let is_bulk_public =
+            correction.is_none() && batch_a_public.is_none() && bulk_public.is_some();
         let reviewed_status = correction
             .map(|item| item.status.clone())
             .or_else(|| is_batch_a_public.then(|| "batch_a_automated_public".to_owned()))
+            .or_else(|| {
+                is_bulk_public.then(|| format!("{}_automated_public", bulk_public.unwrap().batch))
+            })
             .or_else(|| {
                 (!legacy_paths.is_empty())
                     .then(|| "preexisting_family_declaration_requires_r1_review".to_owned())
@@ -288,6 +335,9 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let raw_state = correction
             .map(|item| item.status.clone())
             .or_else(|| is_batch_a_public.then(|| "batch_a_public_driver".to_owned()))
+            .or_else(|| {
+                is_bulk_public.then(|| format!("{}_public_driver", bulk_public.unwrap().batch))
+            })
             .or_else(|| {
                 batch_a_exclusion
                     .filter(|item| item.0 == "external_dependency")
@@ -298,6 +348,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let feature = correction
             .map(|item| item.feature.clone())
             .or_else(|| batch_a_public.map(|item| item.feature.clone()))
+            .or_else(|| bulk_public.map(|item| item.feature.clone()))
             .unwrap_or_else(|| generated_feature(interface));
         let all_feature_reachability = if all_feature_closure.contains(feature.as_str()) {
             "transitively_enabled_by_all"
@@ -307,14 +358,17 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let provider_feature = correction
             .map(|item| item.provider_feature.clone())
             .or_else(|| batch_a_public.map(|item| item.provider_feature.clone()))
+            .or_else(|| bulk_public.map(|item| item.provider_feature.clone()))
             .unwrap_or_else(|| "not_assigned".to_owned());
         let intended_module = correction
             .map(|item| module_from_path(&item.canonical_path))
             .or_else(|| batch_a_public.map(|item| item.canonical_module.clone()))
+            .or_else(|| bulk_public.map(|item| item.canonical_module.clone()))
             .unwrap_or_else(|| taxonomy(catalogue_record, &name));
         let canonical_path = correction
             .map(|item| item.canonical_path.clone())
             .or_else(|| batch_a_public.map(|item| item.canonical_path.clone()))
+            .or_else(|| bulk_public.map(|item| item.canonical_path.clone()))
             .unwrap_or_else(|| "not_promoted".to_owned());
         let compatibility_paths = correction
             .map(|item| item.compatibility_paths.clone())
@@ -327,7 +381,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let is_reviewed = correction.is_some();
         let documentation_status = if is_reviewed {
             "complete_authored"
-        } else if is_batch_a_public {
+        } else if is_batch_a_public || is_bulk_public {
             "complete_generated_abi_contract"
         } else if !legacy_paths.is_empty() {
             "legacy_partial_rustdoc"
@@ -336,7 +390,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         };
         let argument_documentation_status = if is_reviewed {
             "complete_authored"
-        } else if is_batch_a_public {
+        } else if is_batch_a_public || is_bulk_public {
             "complete_generated_abi_contract"
         } else if !legacy_paths.is_empty() {
             "requires_r1_argument_review"
@@ -347,6 +401,12 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "reviewed_against_source_hash"
         } else if is_batch_a_public {
             "batch_a_source_hash_and_abi_fingerprint"
+        } else if is_bulk_public {
+            if bulk_public.unwrap().batch == "batch_b" {
+                "batch_b_source_hash_and_callback_fingerprint"
+            } else {
+                "batch_c_source_hash_and_abi_fingerprint"
+            }
         } else if !legacy_paths.is_empty() {
             "preexisting_review_not_requalified_for_r1"
         } else if generated_status == "generated_abi_validated" {
@@ -362,10 +422,12 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let link_test_status = correction
             .map(|item| item.link_test_status.clone())
             .or_else(|| is_batch_a_public.then(|| "passed".to_owned()))
+            .or_else(|| is_bulk_public.then(|| "passed".to_owned()))
             .unwrap_or_else(|| batch_status(interface, &validation, "link_status"));
         let runtime_test_status = correction
             .map(|item| item.runtime_test_status.clone())
             .or_else(|| is_batch_a_public.then(|| "not_required_batch_a".to_owned()))
+            .or_else(|| is_bulk_public.then(|| "representative_batch_smoke_only".to_owned()))
             .unwrap_or_else(|| batch_status(interface, &validation, "runtime_status"));
         let safe_wrapper_status = correction
             .map(|item| item.safe_wrapper_path.clone())
@@ -382,6 +444,12 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "public_raw_reviewed"
         } else if is_batch_a_public {
             "batch_a_public"
+        } else if is_bulk_public {
+            if bulk_public.unwrap().batch == "batch_b" {
+                "batch_b_public"
+            } else {
+                "batch_c_public"
+            }
         } else if raw_state == "catalogue_only"
             || raw_state.starts_with("unsupported_")
             || raw_state == "runtime_or_machine_support"
@@ -396,6 +464,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         };
         let exclusion_reason = if is_reviewed
             || is_batch_a_public
+            || is_bulk_public
             || (generated_status == "generated_abi_validated"
                 && feasibility != "explicitly_excluded")
         {
@@ -409,6 +478,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let role = correction
             .map(|item| item.role.clone())
             .or_else(|| is_batch_a_public.then(|| "historically_user_callable_driver".to_owned()))
+            .or_else(|| is_bulk_public.then(|| "historically_user_callable_driver".to_owned()))
             .unwrap_or_else(|| driver_role(catalogue_record));
         let native_symbol = interface
             .map(|item| item.native_symbol.clone())
@@ -453,7 +523,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 .unwrap_or_else(|| "not_assigned".to_owned()),
             "documentation_status": documentation_status,
             "argument_documentation_status": argument_documentation_status,
-            "documentation_evidence": correction.map(|item| item.documentation.clone()).or_else(|| batch_a_public.map(|item| json!({"purpose":"source_prologue","arguments":"executable_declaration","safety":"generated_conservative_abi_contract","source_link":item.source_url,"abi_profile":"ffi-profile-gnu-mingw-x86_64","abi_class":item.abi_class,"abi_fingerprint":item.abi_fingerprint,"purpose_text":item.purpose}))).unwrap_or_else(|| json!({"purpose":"unavailable","arguments":"unavailable"})),
+            "documentation_evidence": correction.map(|item| item.documentation.clone()).or_else(|| batch_a_public.map(|item| json!({"purpose":"source_prologue","arguments":"executable_declaration","safety":"generated_conservative_abi_contract","source_link":item.source_url,"abi_profile":"ffi-profile-gnu-mingw-x86_64","abi_class":item.abi_class,"abi_fingerprint":item.abi_fingerprint,"purpose_text":item.purpose}))).or_else(|| bulk_public.map(|item| json!({"purpose":"source_prologue","arguments":"executable_declaration","safety":"generated_conservative_abi_contract","source_link":item.source_url,"abi_profile":"ffi-profile-gnu-mingw-x86_64","abi_class":item.abi_class,"abi_fingerprint":item.abi_fingerprint,"purpose_text":item.purpose,"promotion_batch":item.batch}))).unwrap_or_else(|| json!({"purpose":"unavailable","arguments":"unavailable"})),
             "signature_review_status": signature_review_status,
             "argument_order": argument_order,
             "compile_test_status": compile_test_status,
@@ -510,6 +580,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     }
     validate_reviewed(&output_records, &sys_features, &src_features, paths.sys_dir)?;
     validate_batch_a_public(&output_records, &sys_features, &src_features, paths.sys_dir)?;
+    validate_bulk_public(&output_records, &sys_features, &src_features, paths.sys_dir)?;
 
     let coverage = coverage_summary(&output_records);
     let taxonomy_output = taxonomy_report(&output_records);
@@ -534,7 +605,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         "schema_id":"slatec-sys.raw-api.routine-status",
         "schema_version":"1.0.0",
         "record_model":"exactly one record per retained catalogue identity",
-        "state_model":["reviewed_public_driver","reviewed_public_subsidiary","batch_a_public_driver","generated_candidate","generated_abi_validated","source_present_unbound","unsupported_callback_abi","unsupported_complex_return_abi","unsupported_character_return_abi","unsupported_entry_or_alternate_return","conflicting_interface","ambiguous_symbol","missing_symbol","not_independently_callable","runtime_or_machine_support","block_data","documentation_or_tooling","catalogue_only","external_dependency"],
+        "state_model":["reviewed_public_driver","reviewed_public_subsidiary","batch_a_public_driver","batch_b_public_driver","batch_c_public_driver","generated_candidate","generated_abi_validated","source_present_unbound","unsupported_callback_abi","unsupported_complex_return_abi","unsupported_character_return_abi","unsupported_entry_or_alternate_return","conflicting_interface","ambiguous_symbol","missing_symbol","not_independently_callable","runtime_or_machine_support","block_data","documentation_or_tooling","catalogue_only","external_dependency"],
         "records": output_records,
     });
     let validation_summary =
@@ -805,6 +876,51 @@ fn batch_a_candidates(path: &Path) -> Result<BTreeMap<String, BatchAPublic>> {
             return Err(policy(
                 "Batch A candidates contain duplicate routine identities",
             ));
+        }
+    }
+    Ok(result)
+}
+
+fn bulk_candidates(
+    path: &Path,
+    batch: &'static str,
+    fingerprint_field: &str,
+    abi_class_field: &str,
+) -> Result<BTreeMap<String, BulkPublic>> {
+    if !path.is_file() {
+        return Err(policy(&format!(
+            "{} candidates are missing; regenerate that batch before generating the raw API inventory",
+            batch.replace('_', " ")
+        )));
+    }
+    let mut result = BTreeMap::new();
+    for record in records(&read_json(path)?, &format!("{batch} candidates"))? {
+        let routine = string(record, "routine")?;
+        let candidate = BulkPublic {
+            batch,
+            source_hash: string(record, "source_hash")?,
+            canonical_path: string(record, "canonical_rust_path")?,
+            canonical_module: string(record, "canonical_module")?,
+            feature: string(record, "declaration_feature")?,
+            provider_feature: string(record, "provider_feature")?,
+            abi_class: record
+                .get(abi_class_field)
+                .and_then(Value::as_str)
+                .unwrap_or("callback_bearing")
+                .to_owned(),
+            abi_fingerprint: string(record, fingerprint_field)?,
+            source_url: string(record, "source_url")?,
+            purpose: record
+                .get("purpose")
+                .and_then(Value::as_str)
+                .unwrap_or("Source-prologue purpose retained by the batch inventory.")
+                .to_owned(),
+            arguments: strings(record.get("arguments")),
+        };
+        if result.insert(routine, candidate).is_some() {
+            return Err(policy(&format!(
+                "{batch} candidates contain duplicate routine identities"
+            )));
         }
     }
     Ok(result)
@@ -1476,6 +1592,94 @@ fn validate_batch_a_public(
     Ok(())
 }
 
+fn validate_bulk_public(
+    records: &[Value],
+    sys_features: &BTreeSet<String>,
+    src_features: &BTreeSet<String>,
+    sys_dir: &Path,
+) -> Result<()> {
+    let provider_manifest = read_json(
+        &sys_dir
+            .parent()
+            .unwrap_or(sys_dir)
+            .join("slatec-src")
+            .join("metadata")
+            .join("family-source-closure.json"),
+    )?;
+    let sources = provider_manifest
+        .get("sources")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy("bulk provider manifest lacks source records"))?;
+    let mut paths = BTreeSet::new();
+    for record in records.iter().filter(|record| is_public_raw(record)) {
+        let routine = field(record, "routine");
+        let state = field(record, "raw_api_state");
+        let path = field(record, "canonical_rust_path");
+        if !paths.insert(path) {
+            return Err(policy("public raw canonical paths must be unique"));
+        }
+        if !matches!(
+            state.as_str(),
+            "batch_b_public_driver" | "batch_c_public_driver"
+        ) {
+            continue;
+        }
+        for key in [
+            "canonical_provider",
+            "source_hash",
+            "native_symbol",
+            "feature",
+            "provider_feature",
+        ] {
+            if field(record, key).is_empty() || field(record, key) == "not_assigned" {
+                return Err(policy(&format!("bulk public {routine} lacks {key}")));
+            }
+        }
+        if field(record, "symbol_status") != "observed_exactly_once"
+            || field(record, "link_test_status") != "passed"
+            || field(record, "documentation_status") != "complete_generated_abi_contract"
+            || field(record, "argument_documentation_status") != "complete_generated_abi_contract"
+        {
+            return Err(policy(&format!(
+                "bulk public {routine} lacks required symbol, link, or documentation evidence"
+            )));
+        }
+        if !sys_features.contains(&field(record, "feature"))
+            || !src_features.contains(&field(record, "provider_feature"))
+        {
+            return Err(policy(&format!(
+                "bulk public {routine} has missing feature coverage"
+            )));
+        }
+        let provider_feature = field(record, "provider_feature");
+        let Some(provider_ids) = provider_manifest
+            .pointer(&format!("/families/{provider_feature}"))
+            .and_then(Value::as_array)
+        else {
+            // Batch B deliberately records public aggregate provider features;
+            // its dedicated reconciliation expands and validates that closure.
+            continue;
+        };
+        let closure = provider_ids
+            .iter()
+            .filter_map(Value::as_str)
+            .collect::<BTreeSet<_>>();
+        let source_hash = field(record, "source_hash");
+        if !sources.iter().any(|source| {
+            source
+                .get("id")
+                .and_then(Value::as_str)
+                .is_some_and(|id| closure.contains(id))
+                && source.get("sha256").and_then(Value::as_str) == Some(source_hash.as_str())
+        }) {
+            return Err(policy(&format!(
+                "bulk public {routine} source is absent from provider feature {provider_feature}"
+            )));
+        }
+    }
+    Ok(())
+}
+
 fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
     if blas_api::level(routine).is_some() {
         let source = fs::read_to_string(sys_dir.join("src/blas.rs"))?;
@@ -1608,7 +1812,9 @@ fn coverage_summary(records: &[Value]) -> Value {
             "abi_validated_generated_declarations":"generated candidates in an explicitly validated ABI batch",
             "reviewed_family_raw_declarations":"only entries in the hash-guarded correction registry",
             "batch_a_public_declarations":"source-hash and ABI-fingerprint guarded public declarations generated under the Batch A policy; not hand-reviewed semantic contracts",
-            "public_raw_declarations":"reviewed declarations plus Batch A public declarations",
+            "batch_b_public_declarations":"source-hash and callback-fingerprint guarded public declarations generated under the Batch B policy",
+            "batch_c_public_declarations":"source-hash and compiler-probed ABI-fingerprint guarded public declarations generated under the Batch C policy",
+            "public_raw_declarations":"reviewed declarations plus Batch A, B, and C public declarations",
             "preexisting_family_declarations_pending_r1_review":"legacy family extern declarations that have not passed the R1 documentation and source-hash review gate",
             "provider_backed_callable_raw_routines":"records with a selected provider and an observed native symbol",
             "fully_documented_raw_routines":"public raw records with complete routine, argument, and Safety documentation under either the reviewed or Batch A generated-contract standard"
@@ -1622,6 +1828,8 @@ fn coverage_summary(records: &[Value]) -> Value {
             "reviewed_user_callable_raw_drivers":count(&|r| field(r,"reviewed_declaration_status")=="reviewed_public_driver"),
             "reviewed_public_subsidiaries":count(&|r| field(r,"reviewed_declaration_status")=="reviewed_public_subsidiary"),
             "batch_a_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_a_public_driver"),
+            "batch_b_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_b_public_driver"),
+            "batch_c_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_c_public_driver"),
             "public_raw_declarations":count(&|r| is_public_raw(r)),
             "provider_backed_callable_raw_routines":count(&|r| field(r,"symbol_status")=="observed_exactly_once" && field(r,"driver_role")!="runtime_support"),
             "link_tested_raw_routines":count(&|r| field(r,"link_test_status")=="passed"),
@@ -1637,7 +1845,10 @@ fn coverage_summary(records: &[Value]) -> Value {
 
 fn is_public_raw(record: &Value) -> bool {
     field(record, "reviewed_declaration_status").starts_with("reviewed_")
-        || field(record, "raw_api_state") == "batch_a_public_driver"
+        || matches!(
+            field(record, "raw_api_state").as_str(),
+            "batch_a_public_driver" | "batch_b_public_driver" | "batch_c_public_driver"
+        )
 }
 
 fn documentation_complete(record: &Value) -> bool {
@@ -1785,6 +1996,8 @@ fn documentation_audit(records: &[Value]) -> Value {
         "public_extern_declarations":public.len(),
         "reviewed_public_declarations":records.iter().filter(|record| field(record,"reviewed_declaration_status").starts_with("reviewed_")).count(),
         "batch_a_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_a_public_driver").count(),
+        "batch_b_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_b_public_driver").count(),
+        "batch_c_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_c_public_driver").count(),
         "routine_docs_present":public.iter().filter(|record| documentation_complete(record)).count(),
         "argument_docs_complete":public.iter().filter(|record| documentation_complete(record)).count(),
         "safety_sections_present":public.iter().filter(|record| record.pointer("/documentation_evidence/safety").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
@@ -1994,6 +2207,8 @@ fn validation_markdown(coverage: &Value, audit: &Value, features: &Value, roots:
          | Generated ABI-validated declarations | {} |\n\
          | Reviewed public raw declarations | {} |\n\
          | Batch A public declarations | {} |\n\
+         | Batch B public declarations | {} |\n\
+         | Batch C public declarations | {} |\n\
          | Total public raw declarations | {} |\n\
          | Provider-backed callable raw routines | {} |\n\
          | Link-tested raw routines | {} |\n\
@@ -2006,6 +2221,8 @@ fn validation_markdown(coverage: &Value, audit: &Value, features: &Value, roots:
         count("abi_validated_generated_declarations"),
         count("reviewed_family_raw_declarations"),
         count("batch_a_public_declarations"),
+        count("batch_b_public_declarations"),
+        count("batch_c_public_declarations"),
         count("public_raw_declarations"),
         count("provider_backed_callable_raw_routines"),
         count("link_tested_raw_routines"),
@@ -2221,7 +2438,7 @@ fn write_special_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let path = sys_dir.join("src").join("special.rs");
     let mut rendered = special_foundations_api::render_module(records);
     rendered.push_str(
-        "\n#[cfg(feature = \"raw-family-batch-a-special\")]\n#[path = \"batch_a/special.rs\"]\nmod batch_a;\n\n/// Canonical source-verified Batch A special-function declarations.\n#[cfg(feature = \"raw-family-batch-a-special\")]\npub use batch_a::numerical;\n",
+        "\n#[cfg(feature = \"raw-family-batch-a-special\")]\n#[path = \"batch_a/special.rs\"]\nmod batch_a;\n\n/// Canonical source-verified Batch A special-function declarations.\n#[cfg(feature = \"raw-family-batch-a-special\")]\npub use batch_a::numerical;\n\n/// Complex special-function interfaces promoted by Batch C.\n#[cfg(feature = \"raw-family-batch-c-special\")]\npub mod complex {\n    pub use crate::batch_c::special::*;\n}\n",
     );
     if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
         fs::write(path, rendered)?;

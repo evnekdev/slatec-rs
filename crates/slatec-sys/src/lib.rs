@@ -64,7 +64,8 @@ pub mod generated;
     feature = "blas-level3",
     feature = "raw-family-blas-level1",
     feature = "raw-family-blas-level2",
-    feature = "raw-family-blas-level3"
+    feature = "raw-family-blas-level3",
+    feature = "raw-family-batch-c-blas"
 ))]
 pub mod blas;
 
@@ -87,7 +88,8 @@ pub mod blas;
     feature = "raw-family-special-beta",
     feature = "raw-family-special-error",
     feature = "raw-family-special-airy",
-    feature = "raw-family-batch-a-special"
+    feature = "raw-family-batch-a-special",
+    feature = "raw-family-batch-c-special"
 ))]
 pub mod special;
 
@@ -96,9 +98,19 @@ pub mod special;
     feature = "batch-a-linear-algebra",
     feature = "batch-b-linear-algebra",
     feature = "raw-family-batch-a-linear-algebra",
-    feature = "raw-family-batch-b-linear-algebra"
+    feature = "raw-family-batch-b-linear-algebra",
+    feature = "raw-family-batch-c-linear-algebra"
 ))]
 pub mod linear_algebra;
+
+#[cfg(any(
+    feature = "raw-family-batch-c-blas",
+    feature = "raw-family-batch-c-linear-algebra",
+    feature = "raw-family-batch-c-special",
+    feature = "raw-family-batch-c-nonlinear",
+    feature = "raw-family-batch-c-fishpack"
+))]
+mod batch_c;
 
 /// Canonical Batch A eigenvalue declarations.
 #[cfg(feature = "batch-a-eigen")]
@@ -175,7 +187,8 @@ pub mod fishpack_pois3d;
 #[cfg(any(
     feature = "raw-family-fishpack-cartesian-2d",
     feature = "raw-family-fishpack-pois3d",
-    feature = "raw-family-batch-a-fishpack"
+    feature = "raw-family-batch-a-fishpack",
+    feature = "raw-family-batch-c-fishpack"
 ))]
 pub mod pde {
     /// Canonical reviewed FISHPACK driver namespace.
@@ -189,6 +202,10 @@ pub mod pde {
         mod batch_a;
         #[cfg(feature = "raw-family-batch-a-fishpack")]
         pub use batch_a::numerical;
+        #[cfg(feature = "raw-family-batch-c-fishpack")]
+        pub mod complex {
+            pub use crate::batch_c::fishpack::*;
+        }
     }
 }
 
@@ -256,7 +273,8 @@ pub mod roots;
     feature = "raw-family-nonlinear-easy",
     feature = "raw-family-nonlinear-expert",
     feature = "raw-family-nonlinear-jacobian-check",
-    feature = "raw-family-batch-a-nonlinear"
+    feature = "raw-family-batch-a-nonlinear",
+    feature = "raw-family-batch-c-nonlinear"
 ))]
 pub mod nonlinear;
 

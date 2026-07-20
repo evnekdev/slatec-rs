@@ -577,8 +577,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "C0LGMC",
       "safe_facade_feature": "not_assigned"
     },
@@ -626,22 +626,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CACOS",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CACOSH",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CAIRY",
       "safe_facade_feature": "not_assigned"
     },
@@ -654,15 +654,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CASIN",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CASINH",
       "safe_facade_feature": "not_assigned"
     },
@@ -675,22 +675,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CATAN",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CATAN2",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CATANH",
       "safe_facade_feature": "not_assigned"
     },
@@ -717,43 +717,43 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBESH",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBESI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBESJ",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBESK",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBESY",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBETA",
       "safe_facade_feature": "not_assigned"
     },
@@ -766,8 +766,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CBIRY",
       "safe_facade_feature": "not_assigned"
     },
@@ -787,8 +787,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-fishpack",
+      "raw_declaration_feature": "batch-c-fishpack",
       "routine": "CBLKTR",
       "safe_facade_feature": "not_assigned"
     },
@@ -815,36 +815,36 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CCBRT",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CCHDC",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CCHDD",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CCHEX",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CCHUD",
       "safe_facade_feature": "not_assigned"
     },
@@ -871,22 +871,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CCOSH",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CCOT",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-blas",
+      "raw_declaration_feature": "batch-c-blas",
       "routine": "CDCDOT",
       "safe_facade_feature": "not_assigned"
     },
@@ -927,15 +927,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-blas",
+      "raw_declaration_feature": "batch-c-blas",
       "routine": "CDOTC",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-blas",
+      "raw_declaration_feature": "batch-c-blas",
       "routine": "CDOTU",
       "safe_facade_feature": "not_assigned"
     },
@@ -1004,8 +1004,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CEXPRL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1067,36 +1067,36 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CGAMMA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CGAMR",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGBCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGBDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGBFA",
       "safe_facade_feature": "not_assigned"
     },
@@ -1109,22 +1109,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGBSL",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGECO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGEDI",
       "safe_facade_feature": "not_assigned"
     },
@@ -1137,22 +1137,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGEFA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGEFS",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGEIR",
       "safe_facade_feature": "not_assigned"
     },
@@ -1186,15 +1186,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGESL",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CGTSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1291,15 +1291,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHICO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHIDI",
       "safe_facade_feature": "not_assigned"
     },
@@ -1312,15 +1312,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHIFA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHISL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1361,22 +1361,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHPCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHPDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHPFA",
       "safe_facade_feature": "not_assigned"
     },
@@ -1403,8 +1403,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CHPSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1431,22 +1431,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CLBETA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CLNGAM",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CLNREL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1459,15 +1459,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CLOG10",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-fishpack",
+      "raw_declaration_feature": "batch-c-fishpack",
       "routine": "CMGNBN",
       "safe_facade_feature": "not_assigned"
     },
@@ -1522,43 +1522,43 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CNBCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CNBDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CNBFA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CNBFS",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CNBIR",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CNBSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1718,29 +1718,29 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPBCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPBDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPBFA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPBSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1760,78 +1760,78 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPOCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPODI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPOFA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPOFS",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPOIR",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPOSL",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPPCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPPDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPPFA",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPPSL",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-nonlinear",
+      "raw_declaration_feature": "batch-c-nonlinear",
       "routine": "CPQR79",
       "safe_facade_feature": "not_assigned"
     },
@@ -1865,36 +1865,36 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CPSI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CPTSL",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-nonlinear",
+      "raw_declaration_feature": "batch-c-nonlinear",
       "routine": "CPZERO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CQRDC",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CQRSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -1963,22 +1963,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSICO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSIDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSIFA",
       "safe_facade_feature": "not_assigned"
     },
@@ -1991,36 +1991,36 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CSINH",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSISL",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSPCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSPDI",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSPFA",
       "safe_facade_feature": "not_assigned"
     },
@@ -2040,8 +2040,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSPSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -2075,8 +2075,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CSVDC",
       "safe_facade_feature": "not_assigned"
     },
@@ -2124,15 +2124,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CTAN",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "batch-c-special",
+      "raw_declaration_feature": "batch-c-special",
       "routine": "CTANH",
       "safe_facade_feature": "not_assigned"
     },
@@ -2166,15 +2166,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CTRCO",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CTRDI",
       "safe_facade_feature": "not_assigned"
     },
@@ -2194,8 +2194,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-linear-algebra",
+      "raw_declaration_feature": "batch-c-linear-algebra",
       "routine": "CTRSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -2523,8 +2523,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DBCG",
       "safe_facade_feature": "not_assigned"
     },
@@ -2915,22 +2915,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DCG",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DCGN",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DCGS",
       "safe_facade_feature": "not_assigned"
     },
@@ -3174,8 +3174,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "ode",
+      "raw_declaration_feature": "batch-b-ode",
       "routine": "DDEABM",
       "safe_facade_feature": "not_assigned"
     },
@@ -3188,8 +3188,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "ode",
+      "raw_declaration_feature": "batch-b-ode",
       "routine": "DDERKF",
       "safe_facade_feature": "not_assigned"
     },
@@ -3370,8 +3370,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "ode",
+      "raw_declaration_feature": "batch-b-ode",
       "routine": "DERKF",
       "safe_facade_feature": "not_assigned"
     },
@@ -3664,8 +3664,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DGMRES",
       "safe_facade_feature": "not_assigned"
     },
@@ -3811,8 +3811,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DIR",
       "safe_facade_feature": "not_assigned"
     },
@@ -4042,8 +4042,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "DOMN",
       "safe_facade_feature": "not_assigned"
     },
@@ -4539,8 +4539,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQAGIE",
       "safe_facade_feature": "not_assigned"
     },
@@ -4553,8 +4553,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQAGPE",
       "safe_facade_feature": "not_assigned"
     },
@@ -4567,8 +4567,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQAGSE",
       "safe_facade_feature": "not_assigned"
     },
@@ -4581,8 +4581,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQAWCE",
       "safe_facade_feature": "not_assigned"
     },
@@ -4623,15 +4623,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQAWSE",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQC25C",
       "safe_facade_feature": "not_assigned"
     },
@@ -4644,8 +4644,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQC25S",
       "safe_facade_feature": "not_assigned"
     },
@@ -4686,57 +4686,57 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK15",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK15I",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK15W",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK21",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK31",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK41",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK51",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "DQK61",
       "safe_facade_feature": "not_assigned"
     },
@@ -7521,8 +7521,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QAGIE",
       "safe_facade_feature": "not_assigned"
     },
@@ -7535,8 +7535,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QAGPE",
       "safe_facade_feature": "not_assigned"
     },
@@ -7549,8 +7549,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QAGSE",
       "safe_facade_feature": "not_assigned"
     },
@@ -7563,8 +7563,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QAWCE",
       "safe_facade_feature": "not_assigned"
     },
@@ -7605,15 +7605,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QAWSE",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QC25C",
       "safe_facade_feature": "not_assigned"
     },
@@ -7626,8 +7626,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QC25S",
       "safe_facade_feature": "not_assigned"
     },
@@ -7654,57 +7654,57 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK15",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK15I",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK15W",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK21",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK31",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK41",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK51",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature",
+      "raw_declaration_feature": "batch-b-quadrature",
       "routine": "QK61",
       "safe_facade_feature": "not_assigned"
     },
@@ -8172,15 +8172,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-nonlinear",
+      "raw_declaration_feature": "batch-c-nonlinear",
       "routine": "RPQR79",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-complex-arguments",
+      "native_provider_feature": "batch-c-nonlinear",
+      "raw_declaration_feature": "batch-c-nonlinear",
       "routine": "RPZERO",
       "safe_facade_feature": "not_assigned"
     },
@@ -8284,8 +8284,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SBCG",
       "safe_facade_feature": "not_assigned"
     },
@@ -8326,22 +8326,22 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SCG",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SCGN",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SCGS",
       "safe_facade_feature": "not_assigned"
     },
@@ -8725,8 +8725,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SGMRES",
       "safe_facade_feature": "not_assigned"
     },
@@ -8872,8 +8872,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SIR",
       "safe_facade_feature": "not_assigned"
     },
@@ -9005,8 +9005,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "linear-algebra",
+      "raw_declaration_feature": "batch-b-linear-algebra",
       "routine": "SOMN",
       "safe_facade_feature": "not_assigned"
     },

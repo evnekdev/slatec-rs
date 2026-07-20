@@ -517,9 +517,9 @@
       "routine": "BVSUP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "C0LGMC"
     },
     {
@@ -531,13 +531,13 @@
     {
       "intended_canonical_module": "special",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "C9LGMC"
     },
     {
       "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "C9LN2R"
     },
     {
@@ -559,21 +559,21 @@
       "routine": "CACON"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CACOS"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CACOSH"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CAIRY"
     },
     {
@@ -583,15 +583,15 @@
       "routine": "CARG"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CASIN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CASINH"
     },
     {
@@ -601,21 +601,21 @@
       "routine": "CASYI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CATAN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CATAN2"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CATANH"
     },
     {
@@ -637,39 +637,39 @@
       "routine": "CBAL"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBESH"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBESI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBESJ"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBESK"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBESY"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBETA"
     },
     {
@@ -679,9 +679,9 @@
       "routine": "CBINU"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBIRY"
     },
     {
@@ -697,9 +697,9 @@
       "routine": "CBLKT1"
     },
     {
-      "intended_canonical_module": "pde::fishpack",
+      "intended_canonical_module": "pde::fishpack::complex",
       "primary_family": "FISHPACK elliptic PDE solvers",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CBLKTR"
     },
     {
@@ -721,33 +721,33 @@
       "routine": "CBUNK"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCBRT"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCHDC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCHDD"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCHEX"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCHUD"
     },
     {
@@ -765,25 +765,25 @@
     {
       "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "CCOS"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCOSH"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CCOT"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "unsupported_complex_return_abi",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CDCDOT"
     },
     {
@@ -817,15 +817,15 @@
       "routine": "CDNTP"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "unsupported_complex_return_abi",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CDOTC"
     },
     {
-      "intended_canonical_module": "blas",
+      "intended_canonical_module": "blas::level1",
       "primary_family": "Linear algebra kernels",
-      "promotion_state": "unsupported_complex_return_abi",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CDOTU"
     },
     {
@@ -879,13 +879,13 @@
     {
       "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "CEXP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CEXPRL"
     },
     {
@@ -937,33 +937,33 @@
       "routine": "CG"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGAMMA"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGAMR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGBFA"
     },
     {
@@ -973,21 +973,21 @@
       "routine": "CGBMV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGBSL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGECO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGEDI"
     },
     {
@@ -997,21 +997,21 @@
       "routine": "CGEEV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGEFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGEFS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGEIR"
     },
     {
@@ -1039,15 +1039,15 @@
       "routine": "CGERU"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGESL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CGTSL"
     },
     {
@@ -1129,15 +1129,15 @@
       "routine": "CHFIE"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHICO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHIDI"
     },
     {
@@ -1147,15 +1147,15 @@
       "routine": "CHIEV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHIFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHISL"
     },
     {
@@ -1189,21 +1189,21 @@
       "routine": "CHKSNG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHPDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHPFA"
     },
     {
@@ -1225,9 +1225,9 @@
       "routine": "CHPR2"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CHPSL"
     },
     {
@@ -1249,39 +1249,39 @@
       "routine": "CKSCL"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CLBETA"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CLNGAM"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CLNREL"
     },
     {
       "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "CLOG"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CLOG10"
     },
     {
-      "intended_canonical_module": "pde::fishpack",
+      "intended_canonical_module": "pde::fishpack::complex",
       "primary_family": "FISHPACK elliptic PDE solvers",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CMGNBN"
     },
     {
@@ -1327,39 +1327,39 @@
       "routine": "CMPTRX"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CNBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CNBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CNBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CNBFS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CNBIR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CNBSL"
     },
     {
@@ -1495,27 +1495,27 @@
       "routine": "CPADD"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPBSL"
     },
     {
@@ -1531,69 +1531,69 @@
       "routine": "CPEVLR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPOCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPODI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPOFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPOFS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPOIR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPOSL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPPDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPPFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPPSL"
     },
     {
-      "intended_canonical_module": "nonlinear",
+      "intended_canonical_module": "nonlinear::complex",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPQR79"
     },
     {
@@ -1621,33 +1621,33 @@
       "routine": "CPRODP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Special functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPSI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPTSL"
     },
     {
-      "intended_canonical_module": "roots::polynomial",
+      "intended_canonical_module": "nonlinear::complex",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CPZERO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CQRDC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CQRSL"
     },
     {
@@ -1705,57 +1705,57 @@
       "routine": "CSHCH"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSICO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSIDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSIFA"
     },
     {
       "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "CSIN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSINH"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSISL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSPDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSPFA"
     },
     {
@@ -1771,15 +1771,15 @@
       "routine": "CSPR2"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSPSL"
     },
     {
       "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "generated_abi_validated",
       "routine": "CSQRT"
     },
     {
@@ -1801,9 +1801,9 @@
       "routine": "CSSCAL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CSVDC"
     },
     {
@@ -1843,15 +1843,15 @@
       "routine": "CSYRK"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CTAN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::complex",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CTANH"
     },
     {
@@ -1879,15 +1879,15 @@
       "routine": "CTPSV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CTRCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CTRDI"
     },
     {
@@ -1903,9 +1903,9 @@
       "routine": "CTRMV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::dense::complex",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "CTRSL"
     },
     {
@@ -2185,9 +2185,9 @@
       "routine": "DAXPY"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DBCG"
     },
     {
@@ -2521,21 +2521,21 @@
       "routine": "DCFOD"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DCG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DCGN"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DCGS"
     },
     {
@@ -2743,9 +2743,9 @@
       "routine": "DDCST"
     },
     {
-      "intended_canonical_module": "ode",
+      "intended_canonical_module": "ode::callbacks",
       "primary_family": "ODE solvers",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DDEABM"
     },
     {
@@ -2755,9 +2755,9 @@
       "routine": "DDEBDF"
     },
     {
-      "intended_canonical_module": "ode",
+      "intended_canonical_module": "ode::callbacks",
       "primary_family": "ODE solvers",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DDERKF"
     },
     {
@@ -2911,9 +2911,9 @@
       "routine": "DERFC"
     },
     {
-      "intended_canonical_module": "ode",
+      "intended_canonical_module": "ode::callbacks",
       "primary_family": "ODE solvers",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DERKF"
     },
     {
@@ -3163,9 +3163,9 @@
       "routine": "DGLSS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DGMRES"
     },
     {
@@ -3289,9 +3289,9 @@
       "routine": "DINTYD"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DIR"
     },
     {
@@ -3487,9 +3487,9 @@
       "routine": "DOHTRL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DOMN"
     },
     {
@@ -3913,9 +3913,9 @@
       "routine": "DQAGI"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQAGIE"
     },
     {
@@ -3925,9 +3925,9 @@
       "routine": "DQAGP"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQAGPE"
     },
     {
@@ -3937,9 +3937,9 @@
       "routine": "DQAGS"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQAGSE"
     },
     {
@@ -3949,9 +3949,9 @@
       "routine": "DQAWC"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQAWCE"
     },
     {
@@ -3985,15 +3985,15 @@
       "routine": "DQAWS"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQAWSE"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQC25C"
     },
     {
@@ -4003,9 +4003,9 @@
       "routine": "DQC25F"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQC25S"
     },
     {
@@ -4039,51 +4039,51 @@
       "routine": "DQFORM"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK15"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK15I"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK15W"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK21"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK31"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK41"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK51"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "DQK61"
     },
     {
@@ -6469,9 +6469,9 @@
       "routine": "QAGI"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QAGIE"
     },
     {
@@ -6481,9 +6481,9 @@
       "routine": "QAGP"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QAGPE"
     },
     {
@@ -6493,9 +6493,9 @@
       "routine": "QAGS"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QAGSE"
     },
     {
@@ -6505,9 +6505,9 @@
       "routine": "QAWC"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QAWCE"
     },
     {
@@ -6541,15 +6541,15 @@
       "routine": "QAWS"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QAWSE"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QC25C"
     },
     {
@@ -6559,9 +6559,9 @@
       "routine": "QC25F"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QC25S"
     },
     {
@@ -6583,51 +6583,51 @@
       "routine": "QFORM"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK15"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK15I"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK15W"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK21"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK31"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK41"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK51"
     },
     {
-      "intended_canonical_module": "quadrature",
+      "intended_canonical_module": "quadrature::callbacks",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "QK61"
     },
     {
@@ -7027,15 +7027,15 @@
       "routine": "RKFAB"
     },
     {
-      "intended_canonical_module": "nonlinear",
+      "intended_canonical_module": "nonlinear::complex",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "RPQR79"
     },
     {
-      "intended_canonical_module": "roots::polynomial",
+      "intended_canonical_module": "nonlinear::complex",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "generated_abi_validated",
+      "promotion_state": "batch_c_public_driver",
       "routine": "RPZERO"
     },
     {
@@ -7123,9 +7123,9 @@
       "routine": "SAXPY"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SBCG"
     },
     {
@@ -7159,21 +7159,21 @@
       "routine": "SCASUM"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SCG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SCGN"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SCGS"
     },
     {
@@ -7501,9 +7501,9 @@
       "routine": "SGLSS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SGMRES"
     },
     {
@@ -7627,9 +7627,9 @@
       "routine": "SINTRP"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SIR"
     },
     {
@@ -7741,9 +7741,9 @@
       "routine": "SODS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse::callbacks",
       "primary_family": "Dense linear algebra",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "batch_b_public_driver",
       "routine": "SOMN"
     },
     {

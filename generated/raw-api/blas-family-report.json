@@ -63,10 +63,10 @@
     {
       "blas_level": null,
       "canonical_provider": "full-provider-dda8844ee69c03de",
-      "documentation_status": "not_documented",
-      "exclusion_reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "documentation_status": "complete_generated_abi_contract",
+      "exclusion_reason": "none",
       "existing_family_declaration_paths": [],
-      "feature": "not_assigned",
+      "feature": "batch-c-blas",
       "final_disposition": "unsupported ABI: complex-valued Fortran function return",
       "generated_declaration_path": "not_generated",
       "historical_role": "user_callable",
@@ -75,23 +75,23 @@
       "precision": "complex_f32",
       "program_unit_kind": "function",
       "provider_closure": "not available",
-      "provider_feature": "not_assigned",
+      "provider_feature": "batch-c-blas",
       "routine": "CDCDOT",
       "safe_wrapper_status": "not_safely_wrapped",
       "source_hash": "e005ea4248a742f5de1b8330b849106c40931fa8e9109c060c53194bb983d995",
       "test_coverage": {
         "compile": "compiler_observed",
-        "link": "not_tested",
-        "runtime": "not_tested"
+        "link": "passed",
+        "runtime": "representative_batch_smoke_only"
       }
     },
     {
       "blas_level": null,
       "canonical_provider": "full-provider-19c8cb831efde55c",
-      "documentation_status": "not_documented",
-      "exclusion_reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "documentation_status": "complete_generated_abi_contract",
+      "exclusion_reason": "none",
       "existing_family_declaration_paths": [],
-      "feature": "not_assigned",
+      "feature": "batch-c-blas",
       "final_disposition": "unsupported ABI: complex-valued Fortran function return",
       "generated_declaration_path": "not_generated",
       "historical_role": "user_callable",
@@ -100,23 +100,23 @@
       "precision": "complex_f32",
       "program_unit_kind": "function",
       "provider_closure": "not available",
-      "provider_feature": "not_assigned",
+      "provider_feature": "batch-c-blas",
       "routine": "CDOTC",
       "safe_wrapper_status": "not_safely_wrapped",
       "source_hash": "ec14a8ca9dfbc18a9e9728e39e4a9d87514f5cbb63a11781d28113d881a05289",
       "test_coverage": {
         "compile": "compiler_observed",
-        "link": "not_tested",
-        "runtime": "not_tested"
+        "link": "passed",
+        "runtime": "representative_batch_smoke_only"
       }
     },
     {
       "blas_level": null,
       "canonical_provider": "full-provider-503b917251d9a16b",
-      "documentation_status": "not_documented",
-      "exclusion_reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
+      "documentation_status": "complete_generated_abi_contract",
+      "exclusion_reason": "none",
       "existing_family_declaration_paths": [],
-      "feature": "not_assigned",
+      "feature": "batch-c-blas",
       "final_disposition": "unsupported ABI: complex-valued Fortran function return",
       "generated_declaration_path": "not_generated",
       "historical_role": "user_callable",
@@ -125,14 +125,14 @@
       "precision": "complex_f32",
       "program_unit_kind": "function",
       "provider_closure": "not available",
-      "provider_feature": "not_assigned",
+      "provider_feature": "batch-c-blas",
       "routine": "CDOTU",
       "safe_wrapper_status": "not_safely_wrapped",
       "source_hash": "720691230d2327a3750d6c43043c8f1ce82b0275201ad7530757a430327aef41",
       "test_coverage": {
         "compile": "compiler_observed",
-        "link": "not_tested",
-        "runtime": "not_tested"
+        "link": "passed",
+        "runtime": "representative_batch_smoke_only"
       }
     },
     {

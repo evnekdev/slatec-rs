@@ -22,8 +22,9 @@ user-callable, non-callback numerical interfaces. These canonical paths have
 an exact source hash, normalized ABI fingerprint, observed symbol, provider
 closure, bulk compile/link coverage, and generated conservative Rustdoc. They
 are not hand-reviewed semantic contracts, safe wrappers, or a numerical
-validation claim. Callback, CHARACTER, complex-return, ambiguous, missing,
-and subsidiary interfaces remain explicitly deferred. See
+validation claim. Batch A itself defers callback, CHARACTER, complex-return,
+ambiguous, missing, and subsidiary interfaces; later batches promote only the
+subsets with additional evidence. See
 [`docs/api/raw-batch-a.md`](../../docs/api/raw-batch-a.md).
 
 Use mathematical modules such as `special::numerical`,
@@ -43,6 +44,20 @@ broad mathematical family alias. These are still unsafe raw callbacks, not
 safe Rust closure wrappers. See
 [`docs/api/raw-batch-b-callbacks.md`](../../docs/api/raw-batch-b-callbacks.md).
 
+## Batch C complex and flag-bearing raw API
+
+Batch C promotes 97 complex numerical and simple flag-bearing declarations.
+The GNU MinGW profile probes `COMPLEX`/`DOUBLE COMPLEX` layout and direct
+function returns, trailing `usize` hidden lengths for fixed `CHARACTER*1`
+arguments, and `i32` Fortran `LOGICAL` values. Canonical paths remain grouped by
+mathematics, such as `blas::level1::cdotu`,
+`linear_algebra::dense::complex::cgefa`, and `special::complex::cairy`.
+
+These declarations are unsafe and compiler-profile-specific. Long or variable
+strings and unresolved combined ABIs remain excluded. See the
+[Batch C guide](../../docs/api/raw-batch-c-complex-character-logical.md) and its
+deterministic reports under `generated/raw-api/`.
+
 ## Reviewed BLAS API
 
 R2A promotes the feasible, historically user-callable BLAS corpus to the
@@ -56,8 +71,8 @@ is used. The compatibility modules
 For the supported GNU profile, CHARACTER selector arguments are passed as
 one-byte buffers followed by trailing `FortranCharacterLength` values. Complex
 arguments use the documented `Complex32` storage record. Complex-valued
-Fortran function returns (`CDCDOT`, `CDOTC`, and `CDOTU`) are explicitly
-excluded until a return ABI is independently reviewed. See
+Fortran function returns (`CDCDOT`, `CDOTC`, and `CDOTU`) are available through
+Batch C after independent controlled and selected-source return-ABI probes. See
 [`docs/api/raw-blas.md`](../../docs/api/raw-blas.md) for direct-call examples
 and the full ABI contract.
 
