@@ -209,3 +209,22 @@ reports. `validate-raw-batch-a --offline` rejects missing hashes, symbols,
 paths, features, provider closures, argument documentation, source links, or
 Safety sections. See [`docs/api/raw-batch-a.md`](../api/raw-batch-a.md) for the
 scope, non-goals, and native-provider workflow.
+
+## Batch B callback-bearing raw interface promotion
+
+Batch B also reuses the normalized interface inventory, but keeps a narrower
+source-analysis gate for procedure dummy arguments. `generate-raw-batch-b
+--offline` starts from compiler-observed interfaces marked for callback review,
+loads the selected fixed-form source from the verified source cache, and
+reconstructs direct and forwarded callback call shapes before emitting any
+canonical declaration.
+
+The generated reports are `callback-classification.json`,
+`callback-shapes.json`, `callback-forwarding.json`,
+`batch-b-candidates.json`, `batch-b-exclusions.json`, and
+`batch-b-summary.md` under `generated/raw-api/`. The validator rejects a
+promoted routine without a selected source hash, observed symbol, canonical
+path, declaration feature, provider feature, callback ABI fingerprint, source
+evidence, generated argument documentation, source link, Safety section,
+compile probe, and native link probe. See
+[`docs/api/raw-batch-b-callbacks.md`](../api/raw-batch-b-callbacks.md).

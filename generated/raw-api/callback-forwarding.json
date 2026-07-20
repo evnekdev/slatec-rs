@@ -1,0 +1,739 @@
+{
+  "records": [
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DBCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "DBCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DBCG"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DBCG"
+    },
+    {
+      "callback": "MTSOLV",
+      "evidence": [
+        "DBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DBCG"
+    },
+    {
+      "callback": "MTTVEC",
+      "evidence": [
+        "DBCG:MTTVEC(N,PP,ZZ,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DBCG"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "DCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DCG"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DCG"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DCGN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "DCGN:MATVEC(N,ATP,Z,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DCGN"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DCGN"
+    },
+    {
+      "callback": "MTTVEC",
+      "evidence": [
+        "DCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)",
+        "DCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DCGN"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DCGS:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "DCGS:MATVEC(N,P,V2,NELT,IA,JA,A,ISYM)",
+        "DCGS:MATVEC(N,V1,V2,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DCGS"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DCGS:MSOLVE(N,V1,R,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DCGS"
+    },
+    {
+      "callback": "DF",
+      "evidence": [
+        "DDEABM -> DDES:DF(A,Y,YP,RPAR,IPAR)",
+        "DDEABM -> DDES:DF(TOUT,Y,YPOUT,RPAR,IPAR)",
+        "DDEABM -> DDES -> DSTEPS:DF(X,P,YP,RPAR,IPAR)",
+        "DDEABM -> DDES -> DSTEPS:DF(X,Y,YP,RPAR,IPAR)",
+        "DDEABM -> DDES -> DSTEPS -> DHSTRT:DF(A+DA,Y,SF,RPAR,IPAR)",
+        "DDEABM -> DDES -> DSTEPS -> DHSTRT:DF(A,PV,YP,RPAR,IPAR)",
+        "DDEABM -> DDES -> DSTEPS -> DHSTRT:DF(A+DA,PV,YP,RPAR,IPAR)"
+      ],
+      "routine": "DDEABM"
+    },
+    {
+      "callback": "DF",
+      "evidence": [
+        "DDERKF -> DRKFS:DF(A,Y,YP,RPAR,IPAR)",
+        "DDERKF -> DRKFS:DF(A,Y,YP,RPAR,IPAR)",
+        "DDERKF -> DRKFS:DF(A,Y,YP,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DHSTRT:DF(A+DA,Y,SF,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DHSTRT:DF(A,PV,YP,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DHSTRT:DF(A+DA,PV,YP,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DFEHL:DF(T+CH,YS,F1,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DFEHL:DF(T+3.0D0*H/8.0D0,YS,F2,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DFEHL:DF(T+12.0D0*H/13.0D0,YS,F3,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DFEHL:DF(T+H,YS,F4,RPAR,IPAR)",
+        "DDERKF -> DRKFS -> DFEHL:DF(T+H/2.0D0,YS,F5,RPAR,IPAR)"
+      ],
+      "routine": "DDERKF"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DERKF -> DERKFS:F(A,Y,YP,RPAR,IPAR)",
+        "DERKF -> DERKFS:F(A,Y,YP,RPAR,IPAR)",
+        "DERKF -> DERKFS:F(A,Y,YP,RPAR,IPAR)",
+        "DERKF -> DERKFS -> HSTART:F(A+DA,Y,SF,RPAR,IPAR)",
+        "DERKF -> DERKFS -> HSTART:F(A,PV,YP,RPAR,IPAR)",
+        "DERKF -> DERKFS -> HSTART:F(A+DA,PV,YP,RPAR,IPAR)",
+        "DERKF -> DERKFS -> DEFEHL:F(T+CH,YS,F1,RPAR,IPAR)",
+        "DERKF -> DERKFS -> DEFEHL:F(T+3.*H/8.,YS,F2,RPAR,IPAR)",
+        "DERKF -> DERKFS -> DEFEHL:F(T+12.*H/13.,YS,F3,RPAR,IPAR)",
+        "DERKF -> DERKFS -> DEFEHL:F(T+H,YS,F4,RPAR,IPAR)",
+        "DERKF -> DERKFS -> DEFEHL:F(T+H/2.,YS,F5,RPAR,IPAR)"
+      ],
+      "routine": "DERKF"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DGMRES:MATVEC(N,X,RGWK(LR),NELT,IA,JA,A,ISYM)",
+        "DGMRES -> DPIGMR:MATVEC(N,Z,V(1,LL+1),NELT,IA,JA,A,ISYM)",
+        "DGMRES -> DPIGMR:MATVEC(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DGMRES"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DGMRES:MSOLVE(N,B,RGWK(LR),NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DGMRES -> DPIGMR:MSOLVE(N,WK,R0,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+        "DGMRES -> DPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+        "DGMRES -> DPIGMR:MSOLVE(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+        "DGMRES -> DPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)"
+      ],
+      "routine": "DGMRES"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "DIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DIR"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DIR"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "DOMN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "DOMN:MATVEC(N,P(1,IP),AP(1,IP),NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "DOMN"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "DOMN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "DOMN:MSOLVE(N,AP(1,IP),EMAP(1,IP),NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "DOMN"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQAGIE -> DQK15I:F(TABSC1)",
+        "DQAGIE -> DQK15I:F(TABSC1)",
+        "DQAGIE -> DQK15I:F(TABSC2)"
+      ],
+      "routine": "DQAGIE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQAGPE -> DQK21:F(CENTR)",
+        "DQAGPE -> DQK21:F(CENTR-ABSC)",
+        "DQAGPE -> DQK21:F(CENTR+ABSC)",
+        "DQAGPE -> DQK21:F(CENTR-ABSC)",
+        "DQAGPE -> DQK21:F(CENTR+ABSC)"
+      ],
+      "routine": "DQAGPE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQAGSE -> DQK21:F(CENTR)",
+        "DQAGSE -> DQK21:F(CENTR-ABSC)",
+        "DQAGSE -> DQK21:F(CENTR+ABSC)",
+        "DQAGSE -> DQK21:F(CENTR-ABSC)",
+        "DQAGSE -> DQK21:F(CENTR+ABSC)"
+      ],
+      "routine": "DQAGSE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQAWCE -> DQC25C:F(HLGTH+CENTR)",
+        "DQAWCE -> DQC25C:F(CENTR)",
+        "DQAWCE -> DQC25C:F(CENTR-HLGTH)",
+        "DQAWCE -> DQC25C:F(U+CENTR)",
+        "DQAWCE -> DQC25C:F(CENTR-U)",
+        "DQAWCE -> DQC25C -> DQK15W:F(CENTR)",
+        "DQAWCE -> DQC25C -> DQK15W:F(ABSC1)",
+        "DQAWCE -> DQC25C -> DQK15W:F(ABSC2)",
+        "DQAWCE -> DQC25C -> DQK15W:F(ABSC1)",
+        "DQAWCE -> DQC25C -> DQK15W:F(ABSC2)"
+      ],
+      "routine": "DQAWCE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQAWSE -> DQC25S:F(HLGTH+CENTR)",
+        "DQAWSE -> DQC25S:F(CENTR)",
+        "DQAWSE -> DQC25S:F(CENTR-HLGTH)",
+        "DQAWSE -> DQC25S:F(U+CENTR)",
+        "DQAWSE -> DQC25S:F(CENTR-U)",
+        "DQAWSE -> DQC25S:F(HLGTH+CENTR)",
+        "DQAWSE -> DQC25S:F(CENTR)",
+        "DQAWSE -> DQC25S:F(CENTR-HLGTH)",
+        "DQAWSE -> DQC25S:F(U+CENTR)",
+        "DQAWSE -> DQC25S:F(CENTR-U)",
+        "DQAWSE -> DQC25S -> DQK15W:F(CENTR)",
+        "DQAWSE -> DQC25S -> DQK15W:F(ABSC1)",
+        "DQAWSE -> DQC25S -> DQK15W:F(ABSC2)",
+        "DQAWSE -> DQC25S -> DQK15W:F(ABSC1)",
+        "DQAWSE -> DQC25S -> DQK15W:F(ABSC2)"
+      ],
+      "routine": "DQAWSE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQC25C:F(HLGTH+CENTR)",
+        "DQC25C:F(CENTR)",
+        "DQC25C:F(CENTR-HLGTH)",
+        "DQC25C:F(U+CENTR)",
+        "DQC25C:F(CENTR-U)",
+        "DQC25C -> DQK15W:F(CENTR)",
+        "DQC25C -> DQK15W:F(ABSC1)",
+        "DQC25C -> DQK15W:F(ABSC2)",
+        "DQC25C -> DQK15W:F(ABSC1)",
+        "DQC25C -> DQK15W:F(ABSC2)"
+      ],
+      "routine": "DQC25C"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQC25S:F(HLGTH+CENTR)",
+        "DQC25S:F(CENTR)",
+        "DQC25S:F(CENTR-HLGTH)",
+        "DQC25S:F(U+CENTR)",
+        "DQC25S:F(CENTR-U)",
+        "DQC25S:F(HLGTH+CENTR)",
+        "DQC25S:F(CENTR)",
+        "DQC25S:F(CENTR-HLGTH)",
+        "DQC25S:F(U+CENTR)",
+        "DQC25S:F(CENTR-U)",
+        "DQC25S -> DQK15W:F(CENTR)",
+        "DQC25S -> DQK15W:F(ABSC1)",
+        "DQC25S -> DQK15W:F(ABSC2)",
+        "DQC25S -> DQK15W:F(ABSC1)",
+        "DQC25S -> DQK15W:F(ABSC2)"
+      ],
+      "routine": "DQC25S"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK15:F(CENTR)",
+        "DQK15:F(CENTR-ABSC)",
+        "DQK15:F(CENTR+ABSC)",
+        "DQK15:F(CENTR-ABSC)",
+        "DQK15:F(CENTR+ABSC)"
+      ],
+      "routine": "DQK15"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK15I:F(TABSC1)",
+        "DQK15I:F(TABSC1)",
+        "DQK15I:F(TABSC2)"
+      ],
+      "routine": "DQK15I"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK15W:F(CENTR)",
+        "DQK15W:F(ABSC1)",
+        "DQK15W:F(ABSC2)",
+        "DQK15W:F(ABSC1)",
+        "DQK15W:F(ABSC2)"
+      ],
+      "routine": "DQK15W"
+    },
+    {
+      "callback": "W",
+      "evidence": [
+        "DQK15W:W(CENTR,P1,P2,P3,P4,KP)",
+        "DQK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+        "DQK15W:W(ABSC2,P1,P2,P3,P4,KP)",
+        "DQK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+        "DQK15W:W(ABSC2,P1,P2,P3,P4,KP)"
+      ],
+      "routine": "DQK15W"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK21:F(CENTR)",
+        "DQK21:F(CENTR-ABSC)",
+        "DQK21:F(CENTR+ABSC)",
+        "DQK21:F(CENTR-ABSC)",
+        "DQK21:F(CENTR+ABSC)"
+      ],
+      "routine": "DQK21"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK31:F(CENTR)",
+        "DQK31:F(CENTR-ABSC)",
+        "DQK31:F(CENTR+ABSC)",
+        "DQK31:F(CENTR-ABSC)",
+        "DQK31:F(CENTR+ABSC)"
+      ],
+      "routine": "DQK31"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK41:F(CENTR)",
+        "DQK41:F(CENTR-ABSC)",
+        "DQK41:F(CENTR+ABSC)",
+        "DQK41:F(CENTR-ABSC)",
+        "DQK41:F(CENTR+ABSC)"
+      ],
+      "routine": "DQK41"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK51:F(CENTR)",
+        "DQK51:F(CENTR-ABSC)",
+        "DQK51:F(CENTR+ABSC)",
+        "DQK51:F(CENTR-ABSC)",
+        "DQK51:F(CENTR+ABSC)"
+      ],
+      "routine": "DQK51"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "DQK61:F(CENTR)",
+        "DQK61:F(CENTR-DABSC)",
+        "DQK61:F(CENTR+DABSC)",
+        "DQK61:F(CENTR-DABSC)",
+        "DQK61:F(CENTR+DABSC)"
+      ],
+      "routine": "DQK61"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QAGIE -> QK15I:F(TABSC1)",
+        "QAGIE -> QK15I:F(TABSC1)",
+        "QAGIE -> QK15I:F(TABSC2)"
+      ],
+      "routine": "QAGIE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QAGPE -> QK21:F(CENTR)",
+        "QAGPE -> QK21:F(CENTR-ABSC)",
+        "QAGPE -> QK21:F(CENTR+ABSC)",
+        "QAGPE -> QK21:F(CENTR-ABSC)",
+        "QAGPE -> QK21:F(CENTR+ABSC)"
+      ],
+      "routine": "QAGPE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QAGSE -> QK21:F(CENTR)",
+        "QAGSE -> QK21:F(CENTR-ABSC)",
+        "QAGSE -> QK21:F(CENTR+ABSC)",
+        "QAGSE -> QK21:F(CENTR-ABSC)",
+        "QAGSE -> QK21:F(CENTR+ABSC)"
+      ],
+      "routine": "QAGSE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QAWCE -> QC25C:F(HLGTH+CENTR)",
+        "QAWCE -> QC25C:F(CENTR)",
+        "QAWCE -> QC25C:F(CENTR-HLGTH)",
+        "QAWCE -> QC25C:F(U+CENTR)",
+        "QAWCE -> QC25C:F(CENTR-U)",
+        "QAWCE -> QC25C -> QK15W:F(CENTR)",
+        "QAWCE -> QC25C -> QK15W:F(ABSC1)",
+        "QAWCE -> QC25C -> QK15W:F(ABSC2)",
+        "QAWCE -> QC25C -> QK15W:F(ABSC1)",
+        "QAWCE -> QC25C -> QK15W:F(ABSC2)"
+      ],
+      "routine": "QAWCE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QAWSE -> QC25S:F(HLGTH+CENTR)",
+        "QAWSE -> QC25S:F(CENTR)",
+        "QAWSE -> QC25S:F(CENTR-HLGTH)",
+        "QAWSE -> QC25S:F(U+CENTR)",
+        "QAWSE -> QC25S:F(CENTR-U)",
+        "QAWSE -> QC25S:F(HLGTH+CENTR)",
+        "QAWSE -> QC25S:F(CENTR)",
+        "QAWSE -> QC25S:F(CENTR-HLGTH)",
+        "QAWSE -> QC25S:F(U+CENTR)",
+        "QAWSE -> QC25S:F(CENTR-U)",
+        "QAWSE -> QC25S -> QK15W:F(CENTR)",
+        "QAWSE -> QC25S -> QK15W:F(ABSC1)",
+        "QAWSE -> QC25S -> QK15W:F(ABSC2)",
+        "QAWSE -> QC25S -> QK15W:F(ABSC1)",
+        "QAWSE -> QC25S -> QK15W:F(ABSC2)"
+      ],
+      "routine": "QAWSE"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QC25C:F(HLGTH+CENTR)",
+        "QC25C:F(CENTR)",
+        "QC25C:F(CENTR-HLGTH)",
+        "QC25C:F(U+CENTR)",
+        "QC25C:F(CENTR-U)",
+        "QC25C -> QK15W:F(CENTR)",
+        "QC25C -> QK15W:F(ABSC1)",
+        "QC25C -> QK15W:F(ABSC2)",
+        "QC25C -> QK15W:F(ABSC1)",
+        "QC25C -> QK15W:F(ABSC2)"
+      ],
+      "routine": "QC25C"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QC25S:F(HLGTH+CENTR)",
+        "QC25S:F(CENTR)",
+        "QC25S:F(CENTR-HLGTH)",
+        "QC25S:F(U+CENTR)",
+        "QC25S:F(CENTR-U)",
+        "QC25S:F(HLGTH+CENTR)",
+        "QC25S:F(CENTR)",
+        "QC25S:F(CENTR-HLGTH)",
+        "QC25S:F(U+CENTR)",
+        "QC25S:F(CENTR-U)",
+        "QC25S -> QK15W:F(CENTR)",
+        "QC25S -> QK15W:F(ABSC1)",
+        "QC25S -> QK15W:F(ABSC2)",
+        "QC25S -> QK15W:F(ABSC1)",
+        "QC25S -> QK15W:F(ABSC2)"
+      ],
+      "routine": "QC25S"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK15:F(CENTR)",
+        "QK15:F(CENTR-ABSC)",
+        "QK15:F(CENTR+ABSC)",
+        "QK15:F(CENTR-ABSC)",
+        "QK15:F(CENTR+ABSC)"
+      ],
+      "routine": "QK15"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK15I:F(TABSC1)",
+        "QK15I:F(TABSC1)",
+        "QK15I:F(TABSC2)"
+      ],
+      "routine": "QK15I"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK15W:F(CENTR)",
+        "QK15W:F(ABSC1)",
+        "QK15W:F(ABSC2)",
+        "QK15W:F(ABSC1)",
+        "QK15W:F(ABSC2)"
+      ],
+      "routine": "QK15W"
+    },
+    {
+      "callback": "W",
+      "evidence": [
+        "QK15W:W(CENTR,P1,P2,P3,P4,KP)",
+        "QK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+        "QK15W:W(ABSC2,P1,P2,P3,P4,KP)",
+        "QK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+        "QK15W:W(ABSC2,P1,P2,P3,P4,KP)"
+      ],
+      "routine": "QK15W"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK21:F(CENTR)",
+        "QK21:F(CENTR-ABSC)",
+        "QK21:F(CENTR+ABSC)",
+        "QK21:F(CENTR-ABSC)",
+        "QK21:F(CENTR+ABSC)"
+      ],
+      "routine": "QK21"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK31:F(CENTR)",
+        "QK31:F(CENTR-ABSC)",
+        "QK31:F(CENTR+ABSC)",
+        "QK31:F(CENTR-ABSC)",
+        "QK31:F(CENTR+ABSC)"
+      ],
+      "routine": "QK31"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK41:F(CENTR)",
+        "QK41:F(CENTR-ABSC)",
+        "QK41:F(CENTR+ABSC)",
+        "QK41:F(CENTR-ABSC)",
+        "QK41:F(CENTR+ABSC)"
+      ],
+      "routine": "QK41"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK51:F(CENTR)",
+        "QK51:F(CENTR-ABSC)",
+        "QK51:F(CENTR+ABSC)",
+        "QK51:F(CENTR-ABSC)",
+        "QK51:F(CENTR+ABSC)"
+      ],
+      "routine": "QK51"
+    },
+    {
+      "callback": "F",
+      "evidence": [
+        "QK61:F(CENTR)",
+        "QK61:F(CENTR-ABSC)",
+        "QK61:F(CENTR+ABSC)",
+        "QK61:F(CENTR-ABSC)",
+        "QK61:F(CENTR+ABSC)"
+      ],
+      "routine": "QK61"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SBCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "SBCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SBCG"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SBCG"
+    },
+    {
+      "callback": "MTSOLV",
+      "evidence": [
+        "SBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SBCG"
+    },
+    {
+      "callback": "MTTVEC",
+      "evidence": [
+        "SBCG:MTTVEC(N,PP,ZZ,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SBCG"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "SCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SCG"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SCG"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SCGN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "SCGN:MATVEC(N,ATP,Z,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SCGN"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SCGN"
+    },
+    {
+      "callback": "MTTVEC",
+      "evidence": [
+        "SCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)",
+        "SCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SCGN"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SCGS:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "SCGS:MATVEC(N,P,V2,NELT,IA,JA,A,ISYM)",
+        "SCGS:MATVEC(N,V1,V2,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SCGS"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SCGS:MSOLVE(N,V1,R,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SCGS"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SGMRES:MATVEC(N,X,RGWK(LR),NELT,IA,JA,A,ISYM)",
+        "SGMRES -> SPIGMR:MATVEC(N,Z,V(1,LL+1),NELT,IA,JA,A,ISYM)",
+        "SGMRES -> SPIGMR:MATVEC(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SGMRES"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SGMRES:MSOLVE(N,B,RGWK(LR),NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SGMRES -> SPIGMR:MSOLVE(N,WK,R0,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+        "SGMRES -> SPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+        "SGMRES -> SPIGMR:MSOLVE(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+        "SGMRES -> SPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)"
+      ],
+      "routine": "SGMRES"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "SIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SIR"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SIR"
+    },
+    {
+      "callback": "MATVEC",
+      "evidence": [
+        "SOMN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+        "SOMN:MATVEC(N,P(1,IP),AP(1,IP),NELT,IA,JA,A,ISYM)"
+      ],
+      "routine": "SOMN"
+    },
+    {
+      "callback": "MSOLVE",
+      "evidence": [
+        "SOMN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+        "SOMN:MSOLVE(N,AP(1,IP),EMAP(1,IP),NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+      ],
+      "routine": "SOMN"
+    }
+  ],
+  "schema_id": "slatec-sys.raw-api.callback-forwarding",
+  "schema_version": "1.0.0"
+}

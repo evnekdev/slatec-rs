@@ -52,6 +52,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("BATCH_A_QUADRATURE", "batch-a-quadrature"),
     ("BATCH_A_NONLINEAR", "batch-a-nonlinear"),
     ("BATCH_A_ODE", "batch-a-ode"),
+    ("BATCH_B_ODE", "batch-b-ode"),
     ("BATCH_A_FFTPACK", "batch-a-fftpack"),
     ("BATCH_A_FISHPACK", "batch-a-fishpack"),
     ("BATCH_A_INTERPOLATION", "batch-a-interpolation"),
@@ -119,6 +120,7 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/ode-sdrive-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/batch-b-ode-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/dassl-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
@@ -224,6 +226,7 @@ fn build_sources(families: &BTreeSet<String>) {
     .expect("parse family source closure manifest");
     for (family, file) in [
         ("ode-sdrive-expert", "ode-sdrive-source-closure.json"),
+        ("batch-b-ode", "batch-b-ode-source-closure.json"),
         ("dassl", "dassl-source-closure.json"),
         (
             "optimization-linear-programming-in-memory",

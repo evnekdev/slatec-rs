@@ -65,3 +65,23 @@ The former aggregate is retired because it conflated generated declarations, rev
 
 The definitions and exclusions are generated in [coverage-summary.json](../../generated/raw-api/coverage-summary.json) and [exclusion-report.json](../../generated/raw-api/exclusion-report.json).
 <!-- raw-api-coverage:end -->
+
+## Batch B callback-bearing raw supplement
+
+Batch B adds a generated callback-specific public raw tier after the R1
+canonical inventory and Batch A non-callback promotion. Its reproducible
+counts are generated in
+[`batch-b-summary.md`](../../generated/raw-api/batch-b-summary.md):
+
+| Metric | Count |
+| --- | ---: |
+| Callback-bearing retained identities | 161 |
+| Batch B newly promoted routines | 47 |
+| Already-public eligible callback routines | 22 |
+| Unique callback ABI fingerprints | 10 |
+| Forwarded callback signatures | 21 |
+| Runtime callback smoke routines | 3 |
+
+The complete per-routine Batch B classification and deferment reasons are in
+[`callback-classification.json`](../../generated/raw-api/callback-classification.json)
+and [`batch-b-exclusions.json`](../../generated/raw-api/batch-b-exclusions.json).

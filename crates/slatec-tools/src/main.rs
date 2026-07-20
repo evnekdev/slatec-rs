@@ -3,6 +3,7 @@ use slatec_tools::agent_guidance;
 use slatec_tools::all_feature_coverage;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::batch_a_api;
+use slatec_tools::batch_b_api;
 use slatec_tools::blas1_concurrency;
 use slatec_tools::complete_corpus;
 use slatec_tools::error::{CorpusError, Result};
@@ -64,6 +65,7 @@ struct Options {
     ffi_inventory_dir: PathBuf,
     bindings_dir: PathBuf,
     output_dir: PathBuf,
+    source_cache_dir: PathBuf,
     batches: Vec<String>,
     offline: bool,
 }
@@ -133,6 +135,8 @@ fn run() -> Result<()> {
         options.command.as_str(),
         "generate-raw-batch-a"
             | "validate-raw-batch-a"
+            | "generate-raw-batch-b"
+            | "validate-raw-batch-b"
             | "generate-raw-api-inventory"
             | "validate-raw-api-inventory"
             | "generate-all-feature-coverage"
@@ -524,6 +528,30 @@ fn run() -> Result<()> {
             };
             println!(
                 "{}: {} retained identities, {} Batch A candidates ({})",
+                result.status, result.retained_identities, result.candidates, result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-raw-batch-b" | "validate-raw-batch-b" => {
+            let source_cache_dir = source_cache_dir(&options)?;
+            let paths = batch_b_api::BatchBPaths {
+                catalogue_dir: &PathBuf::from("generated/slatec-routines"),
+                ffi_dir: &PathBuf::from("generated/ffi"),
+                ffi_inventory_dir: &options.ffi_inventory_dir,
+                raw_api_dir: &PathBuf::from("generated/raw-api"),
+                sys_dir: &PathBuf::from("crates/slatec-sys"),
+                src_dir: &PathBuf::from("crates/slatec-src"),
+                facade_dir: &PathBuf::from("crates/slatec"),
+                output_dir: &options.output_dir,
+                source_cache_dir: &source_cache_dir,
+            };
+            let result = if options.command == "generate-raw-batch-b" {
+                batch_b_api::generate(paths)?
+            } else {
+                batch_b_api::validate(paths)?
+            };
+            println!(
+                "{}: {} retained identities, {} Batch B candidates ({})",
                 result.status, result.retained_identities, result.candidates, result.semantic_hash
             );
             Ok(())
@@ -1082,7 +1110,7 @@ fn run() -> Result<()> {
             Ok(())
         }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-api-inventory, validate-raw-api-inventory, generate-all-feature-coverage, validate-all-feature-coverage, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-batch-b, validate-raw-batch-b, generate-raw-api-inventory, validate-raw-api-inventory, generate-all-feature-coverage, validate-all-feature-coverage, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }
@@ -1108,6 +1136,7 @@ fn parse_options() -> Result<Options> {
         ffi_inventory_dir: PathBuf::from("generated/ffi-inventory"),
         bindings_dir: PathBuf::from("crates/slatec-sys/src/generated"),
         output_dir: PathBuf::from("generated/corpus"),
+        source_cache_dir: PathBuf::new(),
         batches: Vec::new(),
         offline: false,
     };
@@ -1144,6 +1173,10 @@ fn parse_options() -> Result<Options> {
             "--output-dir" => {
                 options.output_dir = PathBuf::from(required_value(&mut args, "--output-dir")?)
             }
+            "--source-cache-dir" => {
+                options.source_cache_dir =
+                    PathBuf::from(required_value(&mut args, "--source-cache-dir")?)
+            }
             "--batch" => options.batches.push(required_value(&mut args, "--batch")?),
             "--offline" => options.offline = true,
             "--help" => return Err(CorpusError::Policy(usage().to_owned())),
@@ -1164,5 +1197,15 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <...|generate-native-link-audit|validate-native-link-audit|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <...|generate-native-link-audit|validate-native-link-audit|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
+}
+
+fn source_cache_dir(options: &Options) -> Result<PathBuf> {
+    if !options.source_cache_dir.as_os_str().is_empty() {
+        return Ok(options.source_cache_dir.clone());
+    }
+    if let Some(value) = std::env::var_os("SLATEC_SOURCE_CACHE") {
+        return Ok(PathBuf::from(value));
+    }
+    Ok(PathBuf::from("target/slatec-source-cache"))
 }

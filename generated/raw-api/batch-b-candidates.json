@@ -1,0 +1,4154 @@
+{
+  "records": [
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MTTVEC",
+        "MSOLVE",
+        "MTSOLV",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "RR",
+        "ZZ",
+        "PP",
+        "DZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DBCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "DBCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MTSOLV",
+          "evidence": [
+            "DBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MTTVEC",
+          "evidence": [
+            "DBCG:MTTVEC(N,PP,ZZ,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dbcg",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "dbcg_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned BiConjugate Gradient Sparse Ax = b Solver. Routine to solve a Non-Symmetric linear system Ax = b using the Preconditioned BiConjugate Gradient method.",
+      "return_type": "void",
+      "routine": "DBCG",
+      "source_file": "lin/dbcg.f",
+      "source_hash": "28643312a5316d00b377c637f9f20bf0f3ffe0b605d737f802e6c15fcc979e83",
+      "source_url": "https://www.netlib.org/slatec/lin/dbcg.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "DZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "DCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcg",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "dcg_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned Conjugate Gradient Sparse Ax=b Solver. Routine to solve a symmetric positive definite linear system Ax = b using the Preconditioned Conjugate Gradient method.",
+      "return_type": "void",
+      "routine": "DCG",
+      "source_file": "lin/dcg.f",
+      "source_hash": "9b9521769422e08b3a12d1c0993432d2b40b28829bc1e7d728ca02f914502c4c",
+      "source_url": "https://www.netlib.org/slatec/lin/dcg.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MTTVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "ATP",
+        "ATZ",
+        "DZ",
+        "ATDZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DCGN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "DCGN:MATVEC(N,ATP,Z,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MTTVEC",
+          "evidence": [
+            "DCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)",
+            "DCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcgn",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "dcgn_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned CG Sparse Ax=b Solver for Normal Equations. Routine to solve a general linear system Ax = b using the Preconditioned Conjugate Gradient method applied to the normal equations AA'y = b, x=A'y.",
+      "return_type": "void",
+      "routine": "DCGN",
+      "source_file": "lin/dcgn.f",
+      "source_hash": "0cc62a4c3f330d5a6647a300e27f6103063c8dfa4920fe6343d42a7a8bdc6f96",
+      "source_url": "https://www.netlib.org/slatec/lin/dcgn.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "R0",
+        "P",
+        "Q",
+        "U",
+        "V1",
+        "V2",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DCGS:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "DCGS:MATVEC(N,P,V2,NELT,IA,JA,A,ISYM)",
+            "DCGS:MATVEC(N,V1,V2,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DCGS:MSOLVE(N,V1,R,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dcgs",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "dcgs_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned BiConjugate Gradient Squared Ax=b Solver. Routine to solve a Non-Symmetric linear system Ax = b using the Preconditioned BiConjugate Gradient Squared method.",
+      "return_type": "void",
+      "routine": "DCGS",
+      "source_file": "lin/dcgs.f",
+      "source_hash": "0502041b9dae390c9f0cbe0ab24dbb4ebdb3c5f597e0ce8adff904206f4f602a",
+      "source_url": "https://www.netlib.org/slatec/lin/dcgs.f"
+    },
+    {
+      "arguments": [
+        "DF",
+        "NEQ",
+        "T",
+        "Y",
+        "TOUT",
+        "INFO",
+        "RTOL",
+        "ATOL",
+        "IDID",
+        "RWORK",
+        "LRW",
+        "IWORK",
+        "LIW",
+        "RPAR",
+        "IPAR"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "DF",
+          "evidence": [
+            "DDEABM -> DDES:DF(A,Y,YP,RPAR,IPAR)",
+            "DDEABM -> DDES:DF(TOUT,Y,YPOUT,RPAR,IPAR)",
+            "DDEABM -> DDES -> DSTEPS:DF(X,P,YP,RPAR,IPAR)",
+            "DDEABM -> DDES -> DSTEPS:DF(X,Y,YP,RPAR,IPAR)",
+            "DDEABM -> DDES -> DSTEPS -> DHSTRT:DF(A+DA,Y,SF,RPAR,IPAR)",
+            "DDEABM -> DDES -> DSTEPS -> DHSTRT:DF(A,PV,YP,RPAR,IPAR)",
+            "DDEABM -> DDES -> DSTEPS -> DHSTRT:DF(A+DA,PV,YP,RPAR,IPAR)"
+          ],
+          "fingerprint": "sub:void(mut_f64,mut_f64,mut_f64,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "ode::callbacks",
+      "canonical_rust_path": "slatec_sys::ode::callbacks::ddeabm",
+      "declaration_feature": "batch-b-ode",
+      "native_symbol": "ddeabm_",
+      "outer_abi_fingerprint": "subroutine:void(sub:void(mut_f64,mut_f64,mut_f64,mut_f64,mut_i32),mut_i32,mut_f64,mut_f64_ptr_rank1,mut_f64,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "ode",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Solve an initial value problem in ordinary differential equations using an Adams-Bashforth method.",
+      "return_type": "void",
+      "routine": "DDEABM",
+      "source_file": "main-src/src/ddeabm.f",
+      "source_hash": "574d6fd3ed68872e984be8adcfc0a6e29491ed0e2e5180cc90a937f26f2afaaf",
+      "source_url": "https://www.netlib.org/slatec/src/ddeabm.f"
+    },
+    {
+      "arguments": [
+        "DF",
+        "NEQ",
+        "T",
+        "Y",
+        "TOUT",
+        "INFO",
+        "RTOL",
+        "ATOL",
+        "IDID",
+        "RWORK",
+        "LRW",
+        "IWORK",
+        "LIW",
+        "RPAR",
+        "IPAR"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "DF",
+          "evidence": [
+            "DDERKF -> DRKFS:DF(A,Y,YP,RPAR,IPAR)",
+            "DDERKF -> DRKFS:DF(A,Y,YP,RPAR,IPAR)",
+            "DDERKF -> DRKFS:DF(A,Y,YP,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DHSTRT:DF(A+DA,Y,SF,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DHSTRT:DF(A,PV,YP,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DHSTRT:DF(A+DA,PV,YP,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DFEHL:DF(T+CH,YS,F1,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DFEHL:DF(T+3.0D0*H/8.0D0,YS,F2,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DFEHL:DF(T+12.0D0*H/13.0D0,YS,F3,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DFEHL:DF(T+H,YS,F4,RPAR,IPAR)",
+            "DDERKF -> DRKFS -> DFEHL:DF(T+H/2.0D0,YS,F5,RPAR,IPAR)"
+          ],
+          "fingerprint": "sub:void(mut_f64,mut_f64,mut_f64,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "ode::callbacks",
+      "canonical_rust_path": "slatec_sys::ode::callbacks::dderkf",
+      "declaration_feature": "batch-b-ode",
+      "native_symbol": "dderkf_",
+      "outer_abi_fingerprint": "subroutine:void(sub:void(mut_f64,mut_f64,mut_f64,mut_f64,mut_i32),mut_i32,mut_f64,mut_f64_ptr_rank1,mut_f64,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "ode",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Solve an initial value problem in ordinary differential equations using a Runge-Kutta-Fehlberg scheme.",
+      "return_type": "void",
+      "routine": "DDERKF",
+      "source_file": "main-src/src/dderkf.f",
+      "source_hash": "33099a7bc9f58e048de314b66155ca02e6f3544213563899cb054fd2a81a5d38",
+      "source_url": "https://www.netlib.org/slatec/src/dderkf.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "NEQ",
+        "T",
+        "Y",
+        "TOUT",
+        "INFO",
+        "RTOL",
+        "ATOL",
+        "IDID",
+        "RWORK",
+        "LRW",
+        "IWORK",
+        "LIW",
+        "RPAR",
+        "IPAR"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DERKF -> DERKFS:F(A,Y,YP,RPAR,IPAR)",
+            "DERKF -> DERKFS:F(A,Y,YP,RPAR,IPAR)",
+            "DERKF -> DERKFS:F(A,Y,YP,RPAR,IPAR)",
+            "DERKF -> DERKFS -> HSTART:F(A+DA,Y,SF,RPAR,IPAR)",
+            "DERKF -> DERKFS -> HSTART:F(A,PV,YP,RPAR,IPAR)",
+            "DERKF -> DERKFS -> HSTART:F(A+DA,PV,YP,RPAR,IPAR)",
+            "DERKF -> DERKFS -> DEFEHL:F(T+CH,YS,F1,RPAR,IPAR)",
+            "DERKF -> DERKFS -> DEFEHL:F(T+3.*H/8.,YS,F2,RPAR,IPAR)",
+            "DERKF -> DERKFS -> DEFEHL:F(T+12.*H/13.,YS,F3,RPAR,IPAR)",
+            "DERKF -> DERKFS -> DEFEHL:F(T+H,YS,F4,RPAR,IPAR)",
+            "DERKF -> DERKFS -> DEFEHL:F(T+H/2.,YS,F5,RPAR,IPAR)"
+          ],
+          "fingerprint": "sub:void(mut_f32,mut_f32,mut_f32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "ode::callbacks",
+      "canonical_rust_path": "slatec_sys::ode::callbacks::derkf",
+      "declaration_feature": "batch-b-ode",
+      "native_symbol": "derkf_",
+      "outer_abi_fingerprint": "subroutine:void(sub:void(mut_f32,mut_f32,mut_f32,mut_f32,mut_i32),mut_i32,mut_f32,mut_f32_ptr_rank1,mut_f32,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "ode",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Solve an initial value problem in ordinary differential equations using a Runge-Kutta-Fehlberg scheme.",
+      "return_type": "void",
+      "routine": "DERKF",
+      "source_file": "main-src/src/derkf.f",
+      "source_hash": "17afdfa7b1b2516b0f74b3d414eb4e377011a47c1aba1cb0c1b214470af7de39",
+      "source_url": "https://www.netlib.org/slatec/src/derkf.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "SB",
+        "SX",
+        "RGWK",
+        "LRGW",
+        "IGWK",
+        "LIGW",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DGMRES:MATVEC(N,X,RGWK(LR),NELT,IA,JA,A,ISYM)",
+            "DGMRES -> DPIGMR:MATVEC(N,Z,V(1,LL+1),NELT,IA,JA,A,ISYM)",
+            "DGMRES -> DPIGMR:MATVEC(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DGMRES:MSOLVE(N,B,RGWK(LR),NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DGMRES -> DPIGMR:MSOLVE(N,WK,R0,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+            "DGMRES -> DPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+            "DGMRES -> DPIGMR:MSOLVE(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+            "DGMRES -> DPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dgmres",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "dgmres_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned GMRES iterative sparse Ax=b solver. This routine uses the generalized minimum residual (GMRES) method with preconditioning to solve non-symmetric linear systems of the form: Ax = b.",
+      "return_type": "void",
+      "routine": "DGMRES",
+      "source_file": "lin/dgmres.f",
+      "source_hash": "1a03db5c93673c3b14134a88d0c26e3c040480bc58196c430e9b2a2b9c23abce",
+      "source_url": "https://www.netlib.org/slatec/lin/dgmres.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "DZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "DIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::dir",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "dir_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned Iterative Refinement Sparse Ax = b Solver. Routine to solve a general linear system Ax = b using iterative refinement with a matrix splitting.",
+      "return_type": "void",
+      "routine": "DIR",
+      "source_file": "lin/dir.f",
+      "source_hash": "7979e24efb9027bd374a9235ee7a8c6115ae1f707cb68dca17b73972e51457cd",
+      "source_url": "https://www.netlib.org/slatec/lin/dir.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "NSAVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "AP",
+        "EMAP",
+        "DZ",
+        "CSAV",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "DOMN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "DOMN:MATVEC(N,P(1,IP),AP(1,IP),NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "DOMN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "DOMN:MSOLVE(N,AP(1,IP),EMAP(1,IP),NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::domn",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "domn_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f64_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32),sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32),mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_f64_ptr_rank2,mut_f64_ptr_rank2,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned Orthomin Sparse Iterative Ax=b Solver. Routine to solve a general linear system Ax = b using the Preconditioned Orthomin method.",
+      "return_type": "void",
+      "routine": "DOMN",
+      "source_file": "lin/domn.f",
+      "source_hash": "d3463f5e022a89a7ebeee15b33f3a3e19d35d1013dd91d5972b8b9cfff08ec2e",
+      "source_url": "https://www.netlib.org/slatec/lin/domn.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "BOUND",
+        "INF",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQAGIE -> DQK15I:F(TABSC1)",
+            "DQAGIE -> DQK15I:F(TABSC1)",
+            "DQAGIE -> DQK15I:F(TABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagie",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqagie_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a given integral I = Integral of F over (BOUND,+INFINITY) or I = Integral of F over (-INFINITY,BOUND) or I = Integral of F over (-INFINITY,+INFINITY), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))",
+      "return_type": "void",
+      "routine": "DQAGIE",
+      "source_file": "main-src/src/dqagie.f",
+      "source_hash": "620493fddb1d457a74e90d2da7a3cf01177be59419591afcfaccaebf0dcbe771",
+      "source_url": "https://www.netlib.org/slatec/src/dqagie.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "NPTS2",
+        "POINTS",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "PTS",
+        "IORD",
+        "LEVEL",
+        "NDIN",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQAGPE -> DQK21:F(CENTR)",
+            "DQAGPE -> DQK21:F(CENTR-ABSC)",
+            "DQAGPE -> DQK21:F(CENTR+ABSC)",
+            "DQAGPE -> DQK21:F(CENTR-ABSC)",
+            "DQAGPE -> DQK21:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagpe",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqagpe_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_i32,mut_f64_ptr_rank1,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Approximate a given definite integral I = Integral of F over (A,B), hopefully satisfying the accuracy claim: ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)). Break points of the integration interval, where local difficulties of the integrand may occur (e.g. singularities or discontinuities) are provided by the user.",
+      "return_type": "void",
+      "routine": "DQAGPE",
+      "source_file": "main-src/src/dqagpe.f",
+      "source_hash": "5734cd489593e2f59f4cb5e41249326d2f02c0225c3257fa4cd0f93ca3ec2a90",
+      "source_url": "https://www.netlib.org/slatec/src/dqagpe.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQAGSE -> DQK21:F(CENTR)",
+            "DQAGSE -> DQK21:F(CENTR-ABSC)",
+            "DQAGSE -> DQK21:F(CENTR+ABSC)",
+            "DQAGSE -> DQK21:F(CENTR-ABSC)",
+            "DQAGSE -> DQK21:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagse",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqagse_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a given definite integral I = Integral of F over (A,B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).",
+      "return_type": "void",
+      "routine": "DQAGSE",
+      "source_file": "main-src/src/dqagse.f",
+      "source_hash": "e3c2dc3b1b64a265ca93f9bbb538560d7e2493407133ae239ffe66a3b9f04200",
+      "source_url": "https://www.netlib.org/slatec/src/dqagse.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "C",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQAWCE -> DQC25C:F(HLGTH+CENTR)",
+            "DQAWCE -> DQC25C:F(CENTR)",
+            "DQAWCE -> DQC25C:F(CENTR-HLGTH)",
+            "DQAWCE -> DQC25C:F(U+CENTR)",
+            "DQAWCE -> DQC25C:F(CENTR-U)",
+            "DQAWCE -> DQC25C -> DQK15W:F(CENTR)",
+            "DQAWCE -> DQC25C -> DQK15W:F(ABSC1)",
+            "DQAWCE -> DQC25C -> DQK15W:F(ABSC2)",
+            "DQAWCE -> DQC25C -> DQK15W:F(ABSC1)",
+            "DQAWCE -> DQC25C -> DQK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawce",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqawce_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a CAUCHY PRINCIPAL VALUE I = Integral of F*W over (A,B) (W(X) = 1/(X-C), (C.NE.A, C.NE.B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))",
+      "return_type": "void",
+      "routine": "DQAWCE",
+      "source_file": "main-src/src/dqawce.f",
+      "source_hash": "c1e0aa9da53a5a363bc2d1d5f7694f6d3fb60132fa7cb9897b9d882e902ae09d",
+      "source_url": "https://www.netlib.org/slatec/src/dqawce.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "ALFA",
+        "BETA",
+        "INTEGR",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQAWSE -> DQC25S:F(HLGTH+CENTR)",
+            "DQAWSE -> DQC25S:F(CENTR)",
+            "DQAWSE -> DQC25S:F(CENTR-HLGTH)",
+            "DQAWSE -> DQC25S:F(U+CENTR)",
+            "DQAWSE -> DQC25S:F(CENTR-U)",
+            "DQAWSE -> DQC25S:F(HLGTH+CENTR)",
+            "DQAWSE -> DQC25S:F(CENTR)",
+            "DQAWSE -> DQC25S:F(CENTR-HLGTH)",
+            "DQAWSE -> DQC25S:F(U+CENTR)",
+            "DQAWSE -> DQC25S:F(CENTR-U)",
+            "DQAWSE -> DQC25S -> DQK15W:F(CENTR)",
+            "DQAWSE -> DQC25S -> DQK15W:F(ABSC1)",
+            "DQAWSE -> DQC25S -> DQK15W:F(ABSC2)",
+            "DQAWSE -> DQC25S -> DQK15W:F(ABSC1)",
+            "DQAWSE -> DQC25S -> DQK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawse",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqawse_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a given definite integral I = Integral of F*W over (A,B), (where W shows a singular behaviour at the end points, see parameter INTEGR). Hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).",
+      "return_type": "void",
+      "routine": "DQAWSE",
+      "source_file": "main-src/src/dqawse.f",
+      "source_hash": "7dc6a86da42996a1d98d3deec8d0a80e26be03475ad9b33a64efda118943a779",
+      "source_url": "https://www.netlib.org/slatec/src/dqawse.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "C",
+        "RESULT",
+        "ABSERR",
+        "KRUL",
+        "NEVAL"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQC25C:F(HLGTH+CENTR)",
+            "DQC25C:F(CENTR)",
+            "DQC25C:F(CENTR-HLGTH)",
+            "DQC25C:F(U+CENTR)",
+            "DQC25C:F(CENTR-U)",
+            "DQC25C -> DQK15W:F(CENTR)",
+            "DQC25C -> DQK15W:F(ABSC1)",
+            "DQC25C -> DQK15W:F(ABSC2)",
+            "DQC25C -> DQK15W:F(ABSC1)",
+            "DQC25C -> DQK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqc25c",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqc25c_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F*W over (A,B) with error estimate, where W(X) = 1/(X-C)",
+      "return_type": "void",
+      "routine": "DQC25C",
+      "source_file": "main-src/src/dqc25c.f",
+      "source_hash": "18d47b42a593e82566ab614f09bf5b0faf6e694b80812e632a9346d54b487386",
+      "source_url": "https://www.netlib.org/slatec/src/dqc25c.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "BL",
+        "BR",
+        "ALFA",
+        "BETA",
+        "RI",
+        "RJ",
+        "RG",
+        "RH",
+        "RESULT",
+        "ABSERR",
+        "RESASC",
+        "INTEGR",
+        "NEV"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQC25S:F(HLGTH+CENTR)",
+            "DQC25S:F(CENTR)",
+            "DQC25S:F(CENTR-HLGTH)",
+            "DQC25S:F(U+CENTR)",
+            "DQC25S:F(CENTR-U)",
+            "DQC25S:F(HLGTH+CENTR)",
+            "DQC25S:F(CENTR)",
+            "DQC25S:F(CENTR-HLGTH)",
+            "DQC25S:F(U+CENTR)",
+            "DQC25S:F(CENTR-U)",
+            "DQC25S -> DQK15W:F(CENTR)",
+            "DQC25S -> DQK15W:F(ABSC1)",
+            "DQC25S -> DQK15W:F(ABSC2)",
+            "DQC25S -> DQK15W:F(ABSC1)",
+            "DQC25S -> DQK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqc25s",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqc25s_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64,mut_f64,mut_f64,mut_i32,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F*W over (BL,BR), with error estimate, where the weight function W has a singular behaviour of ALGEBRAICO-LOGARITHMIC type at the points A and/or B. (BL,BR) is a part of (A,B).",
+      "return_type": "void",
+      "routine": "DQC25S",
+      "source_file": "main-src/src/dqc25s.f",
+      "source_hash": "5c0dd73ab9d1370aae370628ceb05811a03185361f8fe8b40995f659ab252975",
+      "source_url": "https://www.netlib.org/slatec/src/dqc25s.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK15:F(CENTR)",
+            "DQK15:F(CENTR-ABSC)",
+            "DQK15:F(CENTR+ABSC)",
+            "DQK15:F(CENTR-ABSC)",
+            "DQK15:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk15_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B), with error estimate J = integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK15",
+      "source_file": "main-src/src/dqk15.f",
+      "source_hash": "bbde2fca12c9468577ce76c9b3e757c5dbe64db3a9876ca99b9bfd283186d152",
+      "source_url": "https://www.netlib.org/slatec/src/dqk15.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "BOUN",
+        "INF",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK15I:F(TABSC1)",
+            "DQK15I:F(TABSC1)",
+            "DQK15I:F(TABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15i",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk15i_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_i32,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The original (infinite integration range is mapped onto the interval (0,1) and (A,B) is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B).",
+      "return_type": "void",
+      "routine": "DQK15I",
+      "source_file": "main-src/src/dqk15i.f",
+      "source_hash": "4d130277f44da2e53ad0bd3cf61a5206a6d6b72cc1e4255bc504483cc3dd5a8f",
+      "source_url": "https://www.netlib.org/slatec/src/dqk15i.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "W",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "KP",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK15W:F(CENTR)",
+            "DQK15W:F(ABSC1)",
+            "DQK15W:F(ABSC2)",
+            "DQK15W:F(ABSC1)",
+            "DQK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "W",
+          "evidence": [
+            "DQK15W:W(CENTR,P1,P2,P3,P4,KP)",
+            "DQK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+            "DQK15W:W(ABSC2,P1,P2,P3,P4,KP)",
+            "DQK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+            "DQK15W:W(ABSC2,P1,P2,P3,P4,KP)"
+          ],
+          "fingerprint": "fn:f64(ref_f64,ref_f64,ref_f64,ref_f64,ref_f64,ref_i32)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk15w",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk15w_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),fn:f64(ref_f64,ref_f64,ref_f64,ref_f64,ref_f64,ref_i32),mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F*W over (A,B), with error estimate J = Integral of ABS(F*W) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK15W",
+      "source_file": "main-src/src/dqk15w.f",
+      "source_hash": "1fcfaaecb0dce13f597f2e1b78c640a7fb83f8240c0273423142826c1116efb9",
+      "source_url": "https://www.netlib.org/slatec/src/dqk15w.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK21:F(CENTR)",
+            "DQK21:F(CENTR-ABSC)",
+            "DQK21:F(CENTR+ABSC)",
+            "DQK21:F(CENTR-ABSC)",
+            "DQK21:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk21",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk21_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK21",
+      "source_file": "main-src/src/dqk21.f",
+      "source_hash": "494c16319fa57371fd24b6369808e8241f496f49cf10c39efae76f5ab6b0c79c",
+      "source_url": "https://www.netlib.org/slatec/src/dqk21.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK31:F(CENTR)",
+            "DQK31:F(CENTR-ABSC)",
+            "DQK31:F(CENTR+ABSC)",
+            "DQK31:F(CENTR-ABSC)",
+            "DQK31:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk31",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk31_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK31",
+      "source_file": "main-src/src/dqk31.f",
+      "source_hash": "9ce57d2c8bbd6a1e0f10f28d91ebd33d6737fd5905d000ffdb27cb07ac010937",
+      "source_url": "https://www.netlib.org/slatec/src/dqk31.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK41:F(CENTR)",
+            "DQK41:F(CENTR-ABSC)",
+            "DQK41:F(CENTR+ABSC)",
+            "DQK41:F(CENTR-ABSC)",
+            "DQK41:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk41",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk41_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK41",
+      "source_file": "main-src/src/dqk41.f",
+      "source_hash": "d9749538f98265a28e31445675b39fb6bc1670c164928f11c708115024a1b9f2",
+      "source_url": "https://www.netlib.org/slatec/src/dqk41.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK51:F(CENTR)",
+            "DQK51:F(CENTR-ABSC)",
+            "DQK51:F(CENTR+ABSC)",
+            "DQK51:F(CENTR-ABSC)",
+            "DQK51:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk51",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk51_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK51",
+      "source_file": "main-src/src/dqk51.f",
+      "source_hash": "977fbf1a3c659d6afc13b35a18ba0c0076d5a5fe1fc9ba09a692e11d33b94624",
+      "source_url": "https://www.netlib.org/slatec/src/dqk51.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "DOUBLE PRECISION",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "DQK61:F(CENTR)",
+            "DQK61:F(CENTR-DABSC)",
+            "DQK61:F(CENTR+DABSC)",
+            "DQK61:F(CENTR-DABSC)",
+            "DQK61:F(CENTR+DABSC)"
+          ],
+          "fingerprint": "fn:f64(ref_f64)",
+          "kind": "function",
+          "return_type": "DOUBLE PRECISION"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqk61",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "dqk61_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "DQK61",
+      "source_file": "main-src/src/dqk61.f",
+      "source_hash": "fa2f63719a33a6ba952ba7aa7d49263a4eced839e559f05a4f4a0dee33bbd01b",
+      "source_url": "https://www.netlib.org/slatec/src/dqk61.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "BOUND",
+        "INF",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QAGIE -> QK15I:F(TABSC1)",
+            "QAGIE -> QK15I:F(TABSC1)",
+            "QAGIE -> QK15I:F(TABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagie",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qagie_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a given integral I = Integral of F over (BOUND,+INFINITY) or I = Integral of F over (-INFINITY,BOUND) or I = Integral of F over (-INFINITY,+INFINITY), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))",
+      "return_type": "void",
+      "routine": "QAGIE",
+      "source_file": "main-src/src/qagie.f",
+      "source_hash": "d5287c7836388716f986e091065784c7745ad5af83e4705660eb32280727cf74",
+      "source_url": "https://www.netlib.org/slatec/src/qagie.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "NPTS2",
+        "POINTS",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "PTS",
+        "IORD",
+        "LEVEL",
+        "NDIN",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QAGPE -> QK21:F(CENTR)",
+            "QAGPE -> QK21:F(CENTR-ABSC)",
+            "QAGPE -> QK21:F(CENTR+ABSC)",
+            "QAGPE -> QK21:F(CENTR-ABSC)",
+            "QAGPE -> QK21:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagpe",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qagpe_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_i32,mut_f32_ptr_rank1,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Approximate a given definite integral I = Integral of F over (A,B), hopefully satisfying the accuracy claim: ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)). Break points of the integration interval, where local difficulties of the integrand may occur (e.g. singularities or discontinuities) are provided by the user.",
+      "return_type": "void",
+      "routine": "QAGPE",
+      "source_file": "main-src/src/qagpe.f",
+      "source_hash": "9d1817ce34879a77f7491d1b0995aabdd0b1c99582694d55f7dcd909cbec6f6c",
+      "source_url": "https://www.netlib.org/slatec/src/qagpe.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QAGSE -> QK21:F(CENTR)",
+            "QAGSE -> QK21:F(CENTR-ABSC)",
+            "QAGSE -> QK21:F(CENTR+ABSC)",
+            "QAGSE -> QK21:F(CENTR-ABSC)",
+            "QAGSE -> QK21:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagse",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qagse_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a given definite integral I = Integral of F over (A,B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).",
+      "return_type": "void",
+      "routine": "QAGSE",
+      "source_file": "main-src/src/qagse.f",
+      "source_hash": "ee502163513cbd2b61ce76246a2ef5c3f62ccff039e912497bfd047c005709c6",
+      "source_url": "https://www.netlib.org/slatec/src/qagse.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "C",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QAWCE -> QC25C:F(HLGTH+CENTR)",
+            "QAWCE -> QC25C:F(CENTR)",
+            "QAWCE -> QC25C:F(CENTR-HLGTH)",
+            "QAWCE -> QC25C:F(U+CENTR)",
+            "QAWCE -> QC25C:F(CENTR-U)",
+            "QAWCE -> QC25C -> QK15W:F(CENTR)",
+            "QAWCE -> QC25C -> QK15W:F(ABSC1)",
+            "QAWCE -> QC25C -> QK15W:F(ABSC2)",
+            "QAWCE -> QC25C -> QK15W:F(ABSC1)",
+            "QAWCE -> QC25C -> QK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qawce",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qawce_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a CAUCHY PRINCIPAL VALUE I = Integral of F*W over (A,B) (W(X) = 1/(X-C), (C.NE.A, C.NE.B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))",
+      "return_type": "void",
+      "routine": "QAWCE",
+      "source_file": "main-src/src/qawce.f",
+      "source_hash": "f9ed18f5100b7066567ca8e47307e3cc7035e3f2c16e7a3242cd5db227ce8c1e",
+      "source_url": "https://www.netlib.org/slatec/src/qawce.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "ALFA",
+        "BETA",
+        "INTEGR",
+        "EPSABS",
+        "EPSREL",
+        "LIMIT",
+        "RESULT",
+        "ABSERR",
+        "NEVAL",
+        "IER",
+        "ALIST",
+        "BLIST",
+        "RLIST",
+        "ELIST",
+        "IORD",
+        "LAST"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QAWSE -> QC25S:F(HLGTH+CENTR)",
+            "QAWSE -> QC25S:F(CENTR)",
+            "QAWSE -> QC25S:F(CENTR-HLGTH)",
+            "QAWSE -> QC25S:F(U+CENTR)",
+            "QAWSE -> QC25S:F(CENTR-U)",
+            "QAWSE -> QC25S:F(HLGTH+CENTR)",
+            "QAWSE -> QC25S:F(CENTR)",
+            "QAWSE -> QC25S:F(CENTR-HLGTH)",
+            "QAWSE -> QC25S:F(U+CENTR)",
+            "QAWSE -> QC25S:F(CENTR-U)",
+            "QAWSE -> QC25S -> QK15W:F(CENTR)",
+            "QAWSE -> QC25S -> QK15W:F(ABSC1)",
+            "QAWSE -> QC25S -> QK15W:F(ABSC2)",
+            "QAWSE -> QC25S -> QK15W:F(ABSC1)",
+            "QAWSE -> QC25S -> QK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qawse",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qawse_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The routine calculates an approximation result to a given definite integral I = Integral of F*W over (A,B), (where W shows a singular behaviour at the end points, see parameter INTEGR). Hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).",
+      "return_type": "void",
+      "routine": "QAWSE",
+      "source_file": "main-src/src/qawse.f",
+      "source_hash": "fc627a8fa8779549b5026c19a8c44869b5abbb9de8c0daae6f16dbcbeb09dc41",
+      "source_url": "https://www.netlib.org/slatec/src/qawse.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "C",
+        "RESULT",
+        "ABSERR",
+        "KRUL",
+        "NEVAL"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QC25C:F(HLGTH+CENTR)",
+            "QC25C:F(CENTR)",
+            "QC25C:F(CENTR-HLGTH)",
+            "QC25C:F(U+CENTR)",
+            "QC25C:F(CENTR-U)",
+            "QC25C -> QK15W:F(CENTR)",
+            "QC25C -> QK15W:F(ABSC1)",
+            "QC25C -> QK15W:F(ABSC2)",
+            "QC25C -> QK15W:F(ABSC1)",
+            "QC25C -> QK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qc25c",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qc25c_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F*W over (A,B) with error estimate, where W(X) = 1/(X-C)",
+      "return_type": "void",
+      "routine": "QC25C",
+      "source_file": "main-src/src/qc25c.f",
+      "source_hash": "00dd2ba850d5642ee7d4907b93c6617a105affea37d15538d1f50addf89151d2",
+      "source_url": "https://www.netlib.org/slatec/src/qc25c.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "BL",
+        "BR",
+        "ALFA",
+        "BETA",
+        "RI",
+        "RJ",
+        "RG",
+        "RH",
+        "RESULT",
+        "ABSERR",
+        "RESASC",
+        "INTEGR",
+        "NEV"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QC25S:F(HLGTH+CENTR)",
+            "QC25S:F(CENTR)",
+            "QC25S:F(CENTR-HLGTH)",
+            "QC25S:F(U+CENTR)",
+            "QC25S:F(CENTR-U)",
+            "QC25S:F(HLGTH+CENTR)",
+            "QC25S:F(CENTR)",
+            "QC25S:F(CENTR-HLGTH)",
+            "QC25S:F(U+CENTR)",
+            "QC25S:F(CENTR-U)",
+            "QC25S -> QK15W:F(CENTR)",
+            "QC25S -> QK15W:F(ABSC1)",
+            "QC25S -> QK15W:F(ABSC2)",
+            "QC25S -> QK15W:F(ABSC1)",
+            "QC25S -> QK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qc25s",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qc25s_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32,mut_f32,mut_f32,mut_i32,mut_i32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F*W over (BL,BR), with error estimate, where the weight function W has a singular behaviour of ALGEBRAICO-LOGARITHMIC type at the points A and/or B. (BL,BR) is a part of (A,B).",
+      "return_type": "void",
+      "routine": "QC25S",
+      "source_file": "main-src/src/qc25s.f",
+      "source_hash": "6003a38c168af204dd1cff9a485363c254539bdf1c3b3f43425806cff02d1ba8",
+      "source_url": "https://www.netlib.org/slatec/src/qc25s.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK15:F(CENTR)",
+            "QK15:F(CENTR-ABSC)",
+            "QK15:F(CENTR+ABSC)",
+            "QK15:F(CENTR-ABSC)",
+            "QK15:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk15_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B), with error estimate J = integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "QK15",
+      "source_file": "main-src/src/qk15.f",
+      "source_hash": "9ad9895679747e977101fe2f4a4e4e272a4c18cd4c8684f6b94c31c4dd8b9f5b",
+      "source_url": "https://www.netlib.org/slatec/src/qk15.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "BOUN",
+        "INF",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK15I:F(TABSC1)",
+            "QK15I:F(TABSC1)",
+            "QK15I:F(TABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15i",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk15i_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_i32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "The original (infinite integration range is mapped onto the interval (0,1) and (A,B) is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B).",
+      "return_type": "void",
+      "routine": "QK15I",
+      "source_file": "main-src/src/qk15i.f",
+      "source_hash": "b667b88f5e8fcced9d0d42bf4653e50d10b4ca7359aa706fab6a8d8461b72f96",
+      "source_url": "https://www.netlib.org/slatec/src/qk15i.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "W",
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "KP",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK15W:F(CENTR)",
+            "QK15W:F(ABSC1)",
+            "QK15W:F(ABSC2)",
+            "QK15W:F(ABSC1)",
+            "QK15W:F(ABSC2)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "W",
+          "evidence": [
+            "QK15W:W(CENTR,P1,P2,P3,P4,KP)",
+            "QK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+            "QK15W:W(ABSC2,P1,P2,P3,P4,KP)",
+            "QK15W:W(ABSC1,P1,P2,P3,P4,KP)",
+            "QK15W:W(ABSC2,P1,P2,P3,P4,KP)"
+          ],
+          "fingerprint": "fn:f32(ref_f32,ref_f32,ref_f32,ref_f32,ref_f32,ref_i32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk15w",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk15w_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),fn:f32(ref_f32,ref_f32,ref_f32,ref_f32,ref_f32,ref_i32),mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F*W over (A,B), with error estimate J = Integral of ABS(F*W) over (A,B)",
+      "return_type": "void",
+      "routine": "QK15W",
+      "source_file": "main-src/src/qk15w.f",
+      "source_hash": "be5fa3ea2470fd9106361a2fbb2c1199049628c94e93e444442531204c1e5703",
+      "source_url": "https://www.netlib.org/slatec/src/qk15w.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK21:F(CENTR)",
+            "QK21:F(CENTR-ABSC)",
+            "QK21:F(CENTR+ABSC)",
+            "QK21:F(CENTR-ABSC)",
+            "QK21:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk21",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk21_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "QK21",
+      "source_file": "main-src/src/qk21.f",
+      "source_hash": "73f413d63450697617dc97c3d2955723d0d7687d7e22789980149c8e6afc4fdc",
+      "source_url": "https://www.netlib.org/slatec/src/qk21.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK31:F(CENTR)",
+            "QK31:F(CENTR-ABSC)",
+            "QK31:F(CENTR+ABSC)",
+            "QK31:F(CENTR-ABSC)",
+            "QK31:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk31",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk31_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "QK31",
+      "source_file": "main-src/src/qk31.f",
+      "source_hash": "227bc8336f8017f92ba57c220633783e9a7af1e1b8d43f9f9985557b15fb1ce8",
+      "source_url": "https://www.netlib.org/slatec/src/qk31.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK41:F(CENTR)",
+            "QK41:F(CENTR-ABSC)",
+            "QK41:F(CENTR+ABSC)",
+            "QK41:F(CENTR-ABSC)",
+            "QK41:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk41",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk41_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "QK41",
+      "source_file": "main-src/src/qk41.f",
+      "source_hash": "da14b516042a58c03c97d7aca92a1ad4fe1fe11a33f744ee2ea722c59121fd08",
+      "source_url": "https://www.netlib.org/slatec/src/qk41.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK51:F(CENTR)",
+            "QK51:F(CENTR-ABSC)",
+            "QK51:F(CENTR+ABSC)",
+            "QK51:F(CENTR-ABSC)",
+            "QK51:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk51",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk51_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "QK51",
+      "source_file": "main-src/src/qk51.f",
+      "source_hash": "4d08ab28825fc75277964d3f7aa5f5c3ddfdc031e8ab53478808884e10f76e08",
+      "source_url": "https://www.netlib.org/slatec/src/qk51.f"
+    },
+    {
+      "arguments": [
+        "F",
+        "A",
+        "B",
+        "RESULT",
+        "ABSERR",
+        "RESABS",
+        "RESASC"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "F",
+          "evidence": [
+            "QK61:F(CENTR)",
+            "QK61:F(CENTR-ABSC)",
+            "QK61:F(CENTR+ABSC)",
+            "QK61:F(CENTR-ABSC)",
+            "QK61:F(CENTR+ABSC)"
+          ],
+          "fingerprint": "fn:f32(ref_f32)",
+          "kind": "function",
+          "return_type": "REAL"
+        }
+      ],
+      "canonical_module": "quadrature::callbacks",
+      "canonical_rust_path": "slatec_sys::quadrature::callbacks::qk61",
+      "declaration_feature": "batch-b-quadrature",
+      "native_symbol": "qk61_",
+      "outer_abi_fingerprint": "subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "quadrature",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)",
+      "return_type": "void",
+      "routine": "QK61",
+      "source_file": "main-src/src/qk61.f",
+      "source_hash": "4458cefb8c9c68ac0eed368bb2dfc5981a2fe9c5dd3e923a57864a0d0ffc9534",
+      "source_url": "https://www.netlib.org/slatec/src/qk61.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MTTVEC",
+        "MSOLVE",
+        "MTSOLV",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "RR",
+        "ZZ",
+        "PP",
+        "DZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SBCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "SBCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SBCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MTSOLV",
+          "evidence": [
+            "SBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SBCG:MTSOLV(N,RR,ZZ,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MTTVEC",
+          "evidence": [
+            "SBCG:MTTVEC(N,PP,ZZ,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sbcg",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "sbcg_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned BiConjugate Gradient Sparse Ax = b Solver. Routine to solve a Non-Symmetric linear system Ax = b using the Preconditioned BiConjugate Gradient method.",
+      "return_type": "void",
+      "routine": "SBCG",
+      "source_file": "lin/sbcg.f",
+      "source_hash": "c615e3856bc219ec8ae5b2923bbef4c1724d7b9ba430945584502a4e6030aef1",
+      "source_url": "https://www.netlib.org/slatec/lin/sbcg.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "DZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SCG:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "SCG:MATVEC(N,P,Z,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SCG:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scg",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "scg_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned Conjugate Gradient Sparse Ax=b Solver. Routine to solve a symmetric positive definite linear system Ax = b using the Preconditioned Conjugate Gradient method.",
+      "return_type": "void",
+      "routine": "SCG",
+      "source_file": "lin/scg.f",
+      "source_hash": "45097a2aeddec8193d48783102d92d068d87889a86a021dde62e375f051ce14c",
+      "source_url": "https://www.netlib.org/slatec/lin/scg.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MTTVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "ATP",
+        "ATZ",
+        "DZ",
+        "ATDZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SCGN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "SCGN:MATVEC(N,ATP,Z,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SCGN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MTTVEC",
+          "evidence": [
+            "SCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)",
+            "SCGN:MTTVEC(N,Z,ATZ,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scgn",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "scgn_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned CG Sparse Ax=b Solver for Normal Equations. Routine to solve a general linear system Ax = b using the Preconditioned Conjugate Gradient method applied to the normal equations AA'y = b, x=A'y.",
+      "return_type": "void",
+      "routine": "SCGN",
+      "source_file": "lin/scgn.f",
+      "source_hash": "33a5cf1aab4f5c6b28ef3ab2ec3eca166b1fd40402d8724505a333a3ae449726",
+      "source_url": "https://www.netlib.org/slatec/lin/scgn.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "R0",
+        "P",
+        "Q",
+        "U",
+        "V1",
+        "V2",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SCGS:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "SCGS:MATVEC(N,P,V2,NELT,IA,JA,A,ISYM)",
+            "SCGS:MATVEC(N,V1,V2,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SCGS:MSOLVE(N,V1,R,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SCGS:MSOLVE(N,V2,V1,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::scgs",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "scgs_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned BiConjugate Gradient Squared Ax=b Solver. Routine to solve a Non-Symmetric linear system Ax = b using the Preconditioned BiConjugate Gradient Squared method.",
+      "return_type": "void",
+      "routine": "SCGS",
+      "source_file": "lin/scgs.f",
+      "source_hash": "fde5fb7fb9717a0e4c970e98711a1efee61bb57526afad5b6ce415e20bb8af61",
+      "source_url": "https://www.netlib.org/slatec/lin/scgs.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "SB",
+        "SX",
+        "RGWK",
+        "LRGW",
+        "IGWK",
+        "LIGW",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SGMRES:MATVEC(N,X,RGWK(LR),NELT,IA,JA,A,ISYM)",
+            "SGMRES -> SPIGMR:MATVEC(N,Z,V(1,LL+1),NELT,IA,JA,A,ISYM)",
+            "SGMRES -> SPIGMR:MATVEC(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SGMRES:MSOLVE(N,B,RGWK(LR),NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SGMRES -> SPIGMR:MSOLVE(N,WK,R0,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+            "SGMRES -> SPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+            "SGMRES -> SPIGMR:MSOLVE(N,WK,V(1,LL+1),NELT,IA,JA,A,ISYM,RPAR,IPAR)",
+            "SGMRES -> SPIGMR:MSOLVE(N,WK,Z,NELT,IA,JA,A,ISYM,RPAR,IPAR)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sgmres",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "sgmres_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned GMRES Iterative Sparse Ax=b Solver. This routine uses the generalized minimum residual (GMRES) method with preconditioning to solve non-symmetric linear systems of the form: Ax = b.",
+      "return_type": "void",
+      "routine": "SGMRES",
+      "source_file": "lin/sgmres.f",
+      "source_hash": "6379b0b9e45a1dece3abab6e34ec456e24f80df34da76a8d0b6f57b4f808ec47",
+      "source_url": "https://www.netlib.org/slatec/lin/sgmres.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "DZ",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "SIR:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SIR:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::sir",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "sir_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned Iterative Refinement Sparse Ax = b Solver. Routine to solve a general linear system Ax = b using iterative refinement with a matrix splitting.",
+      "return_type": "void",
+      "routine": "SIR",
+      "source_file": "lin/sir.f",
+      "source_hash": "d82804bbee00dbc38613f46d552a43cb0b8c4e7c5e056e7bc427b46442b6a399",
+      "source_url": "https://www.netlib.org/slatec/lin/sir.f"
+    },
+    {
+      "arguments": [
+        "N",
+        "B",
+        "X",
+        "NELT",
+        "IA",
+        "JA",
+        "A",
+        "ISYM",
+        "MATVEC",
+        "MSOLVE",
+        "NSAVE",
+        "ITOL",
+        "TOL",
+        "ITMAX",
+        "ITER",
+        "ERR",
+        "IERR",
+        "IUNIT",
+        "R",
+        "Z",
+        "P",
+        "AP",
+        "EMAP",
+        "DZ",
+        "CSAV",
+        "RWORK",
+        "IWORK"
+      ],
+      "callbacks": [
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MATVEC",
+          "evidence": [
+            "SOMN:MATVEC(N,X,R,NELT,IA,JA,A,ISYM)",
+            "SOMN:MATVEC(N,P(1,IP),AP(1,IP),NELT,IA,JA,A,ISYM)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        },
+        {
+          "arguments": [
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "REAL",
+              "shape": "scalar_or_array_by_reference"
+            },
+            {
+              "declared_type": "INTEGER",
+              "shape": "scalar_or_array_by_reference"
+            }
+          ],
+          "dummy_name": "MSOLVE",
+          "evidence": [
+            "SOMN:MSOLVE(N,R,Z,NELT,IA,JA,A,ISYM,RWORK,IWORK)",
+            "SOMN:MSOLVE(N,AP(1,IP),EMAP(1,IP),NELT,IA,JA,A,ISYM,RWORK,IWORK)"
+          ],
+          "fingerprint": "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)",
+          "kind": "subroutine",
+          "return_type": "void"
+        }
+      ],
+      "canonical_module": "linear_algebra::sparse::callbacks",
+      "canonical_rust_path": "slatec_sys::linear_algebra::sparse::callbacks::somn",
+      "declaration_feature": "batch-b-linear-algebra",
+      "native_symbol": "somn_",
+      "outer_abi_fingerprint": "subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32),sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32),mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_f32_ptr_rank2,mut_f32_ptr_rank2,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1)",
+      "program_unit_kind": "subroutine",
+      "provider_feature": "linear-algebra",
+      "public_disposition": "new_callback_declaration",
+      "purpose": "Preconditioned Orthomin Sparse Iterative Ax=b Solver. Routine to solve a general linear system Ax = b using the Preconditioned Orthomin method.",
+      "return_type": "void",
+      "routine": "SOMN",
+      "source_file": "lin/somn.f",
+      "source_hash": "e0cbe9e8ba2f49c496a79c1ce467d63a68a6ffdb7196c93fd99c028d45988b59",
+      "source_url": "https://www.netlib.org/slatec/lin/somn.f"
+    }
+  ],
+  "schema_id": "slatec-sys.raw-api.batch-b-candidates",
+  "schema_version": "1.0.0"
+}

@@ -30,7 +30,7 @@ ABI blockers, conflicting/ambiguous/missing symbols, non-callable subsidiaries,
 runtime support, block data, documentation/tooling entries, external
 dependencies, and catalogue-only identities. The machine-readable enumeration
 is `reviewed_public_driver`, `reviewed_public_subsidiary`,
-`batch_a_public_driver`,
+`batch_a_public_driver`, `batch_b_public_driver`,
 `generated_candidate`, `generated_abi_validated`, `source_present_unbound`,
 `unsupported_callback_abi`, `unsupported_complex_return_abi`,
 `unsupported_character_return_abi`, `unsupported_entry_or_alternate_return`,
@@ -51,6 +51,15 @@ closure, generated argument/Safety contract, and bulk compile/link evidence.
 It is not hand-reviewed semantic documentation and is never counted as a
 `reviewed_*` declaration. The full policy and regeneration workflow are in
 [Batch A raw interfaces](../api/raw-batch-a.md).
+
+`batch_b_public_driver` is the matching generated stability tier for
+callback-bearing historically public routines whose outer ABI and callback ABI
+are both reconstructed from selected fixed-form source. It records callback
+fingerprints, forwarding evidence, canonical paths, features, source hashes,
+compile probes, and native link probes. It is still an unsafe raw tier: it does
+not create safe Rust closures, user-data trampolines, panic containment, or
+full semantic argument review. See
+[Batch B callback-bearing raw interfaces](../api/raw-batch-b-callbacks.md).
 
 ## Canonical namespace
 
@@ -112,6 +121,19 @@ submodules where required, including `linear_algebra::dense`, `eigen::numerical`
 `statistics::numerical`, and `special::numerical`. The direct paths are stable
 within the Batch A evidence boundary; `generated::*` remains transitional.
 
+Batch B adds generated callback namespaces where the callback ABI has been
+source-reconstructed:
+
+```rust
+slatec_sys::quadrature::callbacks::qk15
+slatec_sys::linear_algebra::sparse::callbacks::scg
+slatec_sys::ode::callbacks::derkf
+```
+
+These paths are stable within the Batch B evidence boundary. They remain raw
+FFI declarations: a Rust callback must be ABI-compatible, must not unwind
+across native code, and must manage any captured state outside the declaration.
+
 The complete feasible BLAS set is generated from the source-hash-guarded
 family-review policy rather than copied into hand-written `extern` blocks.
 Each canonical item re-exports the single ABI-shaped generated declaration;
@@ -170,6 +192,11 @@ does not select a backend implicitly.
 Batch A records the same raw/provider relationship using coherent
 `batch-a-*` closures. Those closure features are provider-only selectors; they
 do not turn the declaration-only `slatec-sys/all` feature into a native backend.
+Batch B records `batch-b-*` declaration features with matching coherent
+provider features for the source families that own the callbacks. The initial
+provider mapping is `batch-b-quadrature` to `slatec-src/quadrature`,
+`batch-b-linear-algebra` to `slatec-src/linear-algebra`, and `batch-b-ode` to
+`slatec-src/ode`.
 
 The public `all` feature directly names every authored public mathematical
 family aggregate. It is declaration-only: provider/backend, profile-only,
@@ -197,6 +224,11 @@ Batch A has an analogous validator for its narrower generated-contract bar,
 including candidate source-hash stability, canonical-path uniqueness, feature
 coverage, exact provider-closure membership, and every generated Rustdoc
 argument/Safety/source-link marker.
+Batch B validation adds callback-specific invariants: every promoted routine
+must have at least one callback ABI fingerprint, callback evidence must come
+from direct or forwarded source calls, unresolved or conflicting callback
+signatures are excluded, and the generated compile/link probes must import or
+reference every promoted canonical path.
 
 ## Stability and transition policy
 

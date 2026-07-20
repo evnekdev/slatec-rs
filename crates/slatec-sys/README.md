@@ -32,6 +32,17 @@ Use mathematical modules such as `special::numerical`,
 `slatec-src` provider feature selects the verified native closure; this crate
 itself stays provider-neutral.
 
+## Batch B generated callback raw API
+
+Batch B promotes 47 callback-bearing raw interfaces whose outer ABI and
+callback ABI are source-reconstructed from the selected provider cache. The
+new paths live under `quadrature::callbacks`,
+`linear_algebra::sparse::callbacks`, and `ode::callbacks`; enable
+`batch-b-quadrature`, `batch-b-linear-algebra`, `batch-b-ode`, or the matching
+broad mathematical family alias. These are still unsafe raw callbacks, not
+safe Rust closure wrappers. See
+[`docs/api/raw-batch-b-callbacks.md`](../../docs/api/raw-batch-b-callbacks.md).
+
 ## Reviewed BLAS API
 
 R2A promotes the feasible, historically user-callable BLAS corpus to the
