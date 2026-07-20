@@ -88,3 +88,7 @@ Prefer:
 5. prose documentation.
 
 When sources disagree, do not guess. Record the discrepancy and fix the authoritative layer.
+
+## Codex guidance
+
+Read [Using Codex](USING-CODEX.md) for how root and subtree `AGENTS.md` files apply to a task, and use the [task checklist](TASK-CHECKLIST.md) before substantial changes.

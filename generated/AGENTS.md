@@ -1,5 +1,9 @@
 # Generated-output instructions
 
+<!-- agent-rule: generated-no-hand-edit -->
+<!-- agent-rule: deterministic-regeneration -->
+<!-- agent-rule: generated-no-native-artifacts -->
+
 Scope: `generated/**`.
 
 Do not hand-edit files in this tree.

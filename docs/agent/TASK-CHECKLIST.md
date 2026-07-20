@@ -7,6 +7,7 @@ Use this for any change spanning more than one file or one crate.
 - [ ] Fetch and record current `origin/master` SHA.
 - [ ] Read every applicable `AGENTS.md` from repository root to the target path.
 - [ ] Read `docs/architecture/README.md` and the relevant detailed architecture documents.
+- [ ] Run `cargo run -p slatec-tools --bin slatec-corpus -- validate-agent-guidance` when `AGENTS.md`, workspace membership, architecture navigation, or `docs/agent` files change.
 - [ ] Identify authoritative authored inputs.
 - [ ] Identify generated outputs and their generator commands.
 - [ ] Identify affected crates, public paths, Cargo features, providers, and source closures.
@@ -44,6 +45,7 @@ Use this for any change spanning more than one file or one crate.
 - [ ] Run affected reduced-feature and `no_std` checks.
 - [ ] Run affected raw-FFI, source-cache, feature/provider, symbol, link, and native regressions.
 - [ ] Run generator validation.
+- [ ] Run the guidance validator when this PR changes its inputs.
 - [ ] Run same-root deterministic regeneration.
 - [ ] Run clean-root deterministic regeneration where supported.
 - [ ] Run package-content audit.

@@ -4,15 +4,17 @@ This index is the starting point for maintainers and coding agents. Keep it shor
 
 ## Layering
 
-- `../../README.md` — project overview and current capabilities.
-- `slatec-sys-public-raw-api.md` — raw API architecture, canonical paths, compatibility policy, documentation, and generated-layer transition.
-- `../api/family-features-and-backends.md` — public family features and provider relationships.
-- `native-link-granularity.md` — native source-to-object-to-archive pipeline and final-link guarantees.
+- [Project overview](../../README.md) — current capabilities.
+- [Raw API architecture](slatec-sys-public-raw-api.md) — canonical paths, compatibility policy, documentation, and generated-layer transition.
+- [Family features and backends](../api/family-features-and-backends.md) — public family features and provider relationships.
+- [Native link granularity](native-link-granularity.md) — native source-to-object-to-archive pipeline and final-link guarantees.
+- [Safe-facade link granularity](safe-facade-link-granularity.md) — safe-wrapper operation closure policy and safe-versus-raw link evidence.
 
 ## Repository map
 
-- `../agent/REPOSITORY-MAP.md` — ownership, authoritative inputs, generated outputs, and common change paths.
-- `../agent/TASK-CHECKLIST.md` — reconnaissance, implementation, validation, and completion checklist for Codex tasks.
+- [Repository map](../agent/REPOSITORY-MAP.md) — ownership, authoritative inputs, generated outputs, and common change paths.
+- [Task checklist](../agent/TASK-CHECKLIST.md) — reconnaissance, implementation, validation, and completion checklist for Codex tasks.
+- [Using Codex](../agent/USING-CODEX.md) — how hierarchical repository guidance applies to Codex work.
 
 ## Core invariants
 
