@@ -68,5 +68,5 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `none`
+- Exclusion or deferment reason: `source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_`
 <!-- raw-api-status:end -->

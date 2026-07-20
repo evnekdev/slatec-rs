@@ -10,15 +10,6 @@
       "unresolved_callbacks": 32
     },
     {
-      "documentation_complete": 0,
-      "generated_abi_validated": 250,
-      "historically_user_callable": 128,
-      "module": "special",
-      "promotion_score": 1052,
-      "safe_wrapper_audits": 42,
-      "unresolved_callbacks": 0
-    },
-    {
       "documentation_complete": 51,
       "generated_abi_validated": 51,
       "historically_user_callable": 51,
@@ -38,20 +29,29 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 74,
-      "historically_user_callable": 74,
-      "module": "eigen",
-      "promotion_score": 370,
+      "generated_abi_validated": 97,
+      "historically_user_callable": 97,
+      "module": "special::numerical",
+      "promotion_score": 653,
+      "safe_wrapper_audits": 42,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 153,
+      "historically_user_callable": 31,
+      "module": "special",
+      "promotion_score": 399,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 72,
-      "historically_user_callable": 50,
-      "module": "interpolation",
-      "promotion_score": 334,
-      "safe_wrapper_audits": 10,
+      "generated_abi_validated": 73,
+      "historically_user_callable": 73,
+      "module": "eigen::numerical",
+      "promotion_score": 365,
+      "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
     {
@@ -75,28 +75,19 @@
     {
       "documentation_complete": 0,
       "generated_abi_validated": 48,
+      "historically_user_callable": 48,
+      "module": "interpolation::numerical",
+      "promotion_score": 280,
+      "safe_wrapper_audits": 10,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 48,
       "historically_user_callable": 52,
       "module": "runtime",
       "promotion_score": 252,
       "safe_wrapper_audits": 0,
-      "unresolved_callbacks": 0
-    },
-    {
-      "documentation_complete": 2,
-      "generated_abi_validated": 98,
-      "historically_user_callable": 19,
-      "module": "pde::fishpack",
-      "promotion_score": 232,
-      "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 9
-    },
-    {
-      "documentation_complete": 0,
-      "generated_abi_validated": 50,
-      "historically_user_callable": 24,
-      "module": "approximation",
-      "promotion_score": 228,
-      "safe_wrapper_audits": 14,
       "unresolved_callbacks": 0
     },
     {
@@ -109,22 +100,22 @@
       "unresolved_callbacks": 0
     },
     {
-      "documentation_complete": 0,
-      "generated_abi_validated": 28,
-      "historically_user_callable": 20,
-      "module": "fftpack",
-      "promotion_score": 192,
-      "safe_wrapper_audits": 19,
-      "unresolved_callbacks": 0
+      "documentation_complete": 2,
+      "generated_abi_validated": 85,
+      "historically_user_callable": 6,
+      "module": "pde::fishpack",
+      "promotion_score": 167,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 9
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 27,
-      "historically_user_callable": 73,
-      "module": "quadrature",
-      "promotion_score": 151,
-      "safe_wrapper_audits": 22,
-      "unresolved_callbacks": 42
+      "generated_abi_validated": 19,
+      "historically_user_callable": 19,
+      "module": "fftpack::numerical",
+      "promotion_score": 159,
+      "safe_wrapper_audits": 16,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 8,
@@ -137,12 +128,30 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 84,
-      "historically_user_callable": 21,
+      "generated_abi_validated": 82,
+      "historically_user_callable": 19,
       "module": "ode",
-      "promotion_score": 134,
+      "promotion_score": 124,
       "safe_wrapper_audits": 2,
       "unresolved_callbacks": 21
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 18,
+      "historically_user_callable": 18,
+      "module": "approximation::numerical",
+      "promotion_score": 122,
+      "safe_wrapper_audits": 8,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 32,
+      "historically_user_callable": 6,
+      "module": "approximation",
+      "promotion_score": 106,
+      "safe_wrapper_audits": 6,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 0,
@@ -164,11 +173,20 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 21,
-      "historically_user_callable": 10,
+      "generated_abi_validated": 17,
+      "historically_user_callable": 63,
+      "module": "quadrature",
+      "promotion_score": 93,
+      "safe_wrapper_audits": 20,
+      "unresolved_callbacks": 42
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 19,
+      "historically_user_callable": 8,
       "module": "nonlinear",
-      "promotion_score": 86,
-      "safe_wrapper_audits": 6,
+      "promotion_score": 68,
+      "safe_wrapper_audits": 4,
       "unresolved_callbacks": 2
     },
     {
@@ -182,11 +200,47 @@
     },
     {
       "documentation_complete": 0,
+      "generated_abi_validated": 13,
+      "historically_user_callable": 13,
+      "module": "pde::fishpack::numerical",
+      "promotion_score": 65,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 10,
+      "historically_user_callable": 10,
+      "module": "quadrature::numerical",
+      "promotion_score": 58,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 24,
+      "historically_user_callable": 2,
+      "module": "interpolation",
+      "promotion_score": 54,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
       "generated_abi_validated": 18,
       "historically_user_callable": 3,
       "module": "blas",
       "promotion_score": 45,
       "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 9,
+      "historically_user_callable": 1,
+      "module": "fftpack",
+      "promotion_score": 33,
+      "safe_wrapper_audits": 3,
       "unresolved_callbacks": 0
     },
     {
@@ -202,8 +256,26 @@
       "documentation_complete": 0,
       "generated_abi_validated": 5,
       "historically_user_callable": 5,
-      "module": "statistics",
+      "module": "statistics::numerical",
       "promotion_score": 25,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 2,
+      "historically_user_callable": 2,
+      "module": "nonlinear::numerical",
+      "promotion_score": 18,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 2,
+      "historically_user_callable": 2,
+      "module": "ode::numerical",
+      "promotion_score": 10,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
@@ -213,6 +285,15 @@
       "historically_user_callable": 2,
       "module": "roots::polynomial",
       "promotion_score": 10,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 1,
+      "historically_user_callable": 1,
+      "module": "eigen",
+      "promotion_score": 5,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },

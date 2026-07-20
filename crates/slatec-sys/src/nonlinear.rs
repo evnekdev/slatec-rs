@@ -170,3 +170,11 @@ unsafe extern "C" {
         error: *mut f32,
     );
 }
+
+#[cfg(feature = "raw-family-batch-a-nonlinear")]
+#[path = "batch_a/nonlinear.rs"]
+mod batch_a;
+
+/// Canonical source-verified Batch A numerical nonlinear declarations.
+#[cfg(feature = "raw-family-batch-a-nonlinear")]
+pub use batch_a::numerical;

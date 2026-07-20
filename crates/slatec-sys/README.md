@@ -15,6 +15,23 @@ and subsidiaries, provider/link/runtime/documentation coverage, safe wrappers,
 and explicit exclusions. Its correction layer is source-hash guarded. See
 [`docs/architecture/slatec-sys-public-raw-api.md`](../../docs/architecture/slatec-sys-public-raw-api.md).
 
+## Batch A generated public raw API
+
+Batch A promotes the largest mechanically eligible group of historically
+user-callable, non-callback numerical interfaces. These canonical paths have
+an exact source hash, normalized ABI fingerprint, observed symbol, provider
+closure, bulk compile/link coverage, and generated conservative Rustdoc. They
+are not hand-reviewed semantic contracts, safe wrappers, or a numerical
+validation claim. Callback, CHARACTER, complex-return, ambiguous, missing,
+and subsidiary interfaces remain explicitly deferred. See
+[`docs/api/raw-batch-a.md`](../../docs/api/raw-batch-a.md).
+
+Use mathematical modules such as `special::numerical`,
+`quadrature::numerical`, `linear_algebra::dense`, and
+`interpolation::numerical`, not `generated::*`. A matching `batch-a-*`
+`slatec-src` provider feature selects the verified native closure; this crate
+itself stays provider-neutral.
+
 ## Reviewed BLAS API
 
 R2A promotes the feasible, historically user-callable BLAS corpus to the

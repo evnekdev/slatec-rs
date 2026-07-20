@@ -78,3 +78,11 @@ unsafe extern "C" {
     #[link_name = "cosqb_"]
     pub fn cosqb(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
 }
+
+#[cfg(feature = "raw-family-batch-a-fftpack")]
+#[path = "batch_a/fftpack.rs"]
+mod batch_a;
+
+/// Canonical source-verified Batch A FFTPACK declarations.
+#[cfg(feature = "raw-family-batch-a-fftpack")]
+pub use batch_a::numerical;

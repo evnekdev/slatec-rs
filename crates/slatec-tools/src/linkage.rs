@@ -27,6 +27,9 @@ pub struct LinkageResult {
 pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<LinkageResult> {
     let safe = read_json(&root.join("generated/safe-api/function-index.json"))?;
     let interfaces = read_json(&root.join("generated/ffi/interface-inventory.json"))?;
+    let batch_a = read_json(&root.join("generated/raw-api/batch-a-candidates.json"))?;
+    let batch_a_classification =
+        read_json(&root.join("generated/raw-api/abi-classification.json"))?;
     let selected_sources = read_json(&root.join("generated/ffi/selected-source-files.json"))?;
     let compilation = read_json(&root.join("generated/ffi/compilation-results.json"))?;
     let symbols = read_json(&root.join("generated/ffi/symbol-inventory.json"))?;
@@ -60,6 +63,18 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
             .entry(level.to_owned())
             .or_default()
             .extend(routines.iter().map(|routine| (*routine).to_owned()));
+    }
+    // Batch A is driven by the deterministic ABI classifier rather than safe
+    // wrappers.  The same object-level undefined-symbol walk used by the safe
+    // family closures therefore proves every promoted raw driver's provider
+    // closure without falling back to a corpus-wide archive.
+    for record in array_records(&batch_a, "Batch A candidates")? {
+        let family = string_field(record, "provider_feature")?;
+        let routine = string_field(record, "routine")?;
+        family_symbols
+            .entry(family.to_owned())
+            .or_default()
+            .insert(routine.to_owned());
     }
 
     let mut unit_to_source = BTreeMap::new();
@@ -155,6 +170,14 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         .expect("objects has a parent")
         .join("libslatec_selected_original.a");
     let undefined = undefined_symbols_archive(&nm, &archive, &source_objects)?;
+    let batch_linkage = batch_linkage_report(
+        array_records(&batch_a_classification, "Batch A ABI classification")?,
+        &name_to_unit,
+        &unit_to_source,
+        &source_names,
+        &undefined,
+        &symbol_owner,
+    )?;
 
     let xermsg_source = name_to_unit
         .get("XERMSG")
@@ -346,6 +369,12 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
     let raw_map = json!({"schema_id":"slatec-rs/family-to-raw-symbols","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":raw_rows});
     let source_map = json!({"schema_id":"slatec-rs/family-to-source-closure","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_rows});
     let closure_audit_report = json!({"schema_id":"slatec-rs/family-closure-audit","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"records":closure_audit});
+    let batch_linkage_report = json!({
+        "schema_id":"slatec-sys.raw-api.batch-a-linkage-report",
+        "schema_version":"1.0.0",
+        "policy":"Every pre-link Batch A candidate's selected object closure must resolve all Fortran procedure symbols through the selected provider or an explicit ABI-profile override. Unresolved procedure symbols make the routine an external-dependency exclusion.",
+        "records":batch_linkage,
+    });
     let validated_examples = examples
         .iter()
         .filter(|record| record["status"] == "passed")
@@ -386,6 +415,7 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
         ("family-to-raw-symbols.json", bytes(&raw_map)?),
         ("family-to-source-closure.json", bytes(&source_map)?),
         ("family-closure-audit.json", bytes(&closure_audit_report)?),
+        ("batch-a-linkage-report.json", bytes(&batch_linkage_report)?),
         ("symbol-retention-report.json", bytes(&retention)?),
         ("validation-summary.md", summary.into_bytes()),
     ];
@@ -798,6 +828,78 @@ fn undefined_symbols_archive(
         }
     }
     Ok(result)
+}
+
+fn batch_linkage_report(
+    classifications: &[Value],
+    name_to_unit: &BTreeMap<String, String>,
+    unit_to_source: &BTreeMap<String, String>,
+    source_names: &BTreeMap<String, BTreeSet<String>>,
+    undefined: &BTreeMap<String, BTreeSet<String>>,
+    symbol_owner: &BTreeMap<String, String>,
+) -> Result<Vec<Value>> {
+    let mut records = Vec::new();
+    for record in classifications
+        .iter()
+        .filter(|record| record["batch_a_pre_link_eligible"] == true)
+    {
+        let routine = string_field(record, "routine")?;
+        let source_hash = string_field(record, "source_hash")?;
+        let seed = name_to_unit
+            .get(routine)
+            .and_then(|unit| unit_to_source.get(unit))
+            .cloned()
+            .ok_or_else(|| {
+                CorpusError::Verification(format!(
+                    "Batch A candidate {routine} has no selected source owner"
+                ))
+            })?;
+        let mut closure = BTreeSet::new();
+        let mut external = BTreeSet::new();
+        let mut queue = VecDeque::from([seed]);
+        while let Some(source) = queue.pop_front() {
+            if !closure.insert(source.clone()) {
+                continue;
+            }
+            for symbol in undefined.get(&source).into_iter().flatten() {
+                if let Some(owner) = symbol_owner.get(symbol) {
+                    queue.push_back(owner.clone());
+                } else if is_external_fortran_procedure(symbol) {
+                    external.insert(symbol.clone());
+                }
+            }
+            // Provider profile replacements are linked by slatec-src rather
+            // than selected-source objects. They are valid closure leaves.
+            if source_names.get(&source).is_some_and(|names| {
+                names
+                    .iter()
+                    .any(|name| MACHINE_CONSTANTS.contains(&name.as_str()))
+            }) {
+                external
+                    .retain(|symbol| !matches!(symbol.as_str(), "i1mach_" | "r1mach_" | "d1mach_"));
+            }
+        }
+        let link_status = if external.is_empty() {
+            "source_closure_complete"
+        } else {
+            "external_dependency"
+        };
+        records.push(json!({
+            "routine":routine,
+            "source_hash":source_hash,
+            "source_ids":closure,
+            "external_undefined_symbols":external,
+            "link_status":link_status,
+        }));
+    }
+    records.sort_by(|left, right| left["routine"].as_str().cmp(&right["routine"].as_str()));
+    Ok(records)
+}
+
+fn is_external_fortran_procedure(symbol: &str) -> bool {
+    symbol.ends_with('_')
+        && !matches!(symbol, "i1mach_" | "r1mach_" | "d1mach_")
+        && !symbol.starts_with("__")
 }
 
 fn read_json(path: &Path) -> Result<Value> {

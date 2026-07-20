@@ -12,22 +12,30 @@
     "fftpack",
     "fishpack",
     "banded-linear-systems",
-    "interpolation"
+    "interpolation",
+    "linear-algebra",
+    "eigen",
+    "approximation",
+    "statistics"
   ],
   "families_covered_by_all": [
+    "approximation",
     "banded-linear-systems",
     "blas",
     "dassl",
+    "eigen",
     "fftpack",
     "fishpack",
     "interpolation",
     "least-squares",
+    "linear-algebra",
     "nonlinear",
     "ode",
     "optimization",
     "quadrature",
     "roots",
-    "special"
+    "special",
+    "statistics"
   ],
   "families_missing_from_all": [],
   "intentionally_excluded_feature_classes": {
@@ -324,6 +332,61 @@
         "direct_member_of_all": false,
         "feature": "raw-family-piecewise-polynomial",
         "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-linear-algebra",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-eigen",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-special",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-quadrature",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-nonlinear",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-ode",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-fftpack",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-fishpack",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-interpolation",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-approximation",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-a-statistics",
+        "transitively_reachable_from_all": true
       }
     ],
     "profile_only": [
@@ -343,22 +406,37 @@
     "external-backend"
   ],
   "public_family_aggregates": [
+    "approximation",
     "banded-linear-systems",
     "blas",
     "dassl",
+    "eigen",
     "fftpack",
     "fishpack",
     "interpolation",
     "least-squares",
+    "linear-algebra",
     "nonlinear",
     "ode",
     "optimization",
     "quadrature",
     "roots",
-    "special"
+    "special",
+    "statistics"
   ],
   "public_family_members_missing_directly": [],
   "public_subfamilies_or_components": [
+    "batch-a-approximation",
+    "batch-a-eigen",
+    "batch-a-fftpack",
+    "batch-a-fishpack",
+    "batch-a-interpolation",
+    "batch-a-linear-algebra",
+    "batch-a-nonlinear",
+    "batch-a-ode",
+    "batch-a-quadrature",
+    "batch-a-special",
+    "batch-a-statistics",
     "blas-level1",
     "blas-level2",
     "blas-level3",
@@ -404,13 +482,26 @@
   "schema_version": "1.0.0",
   "transitive_closure": [
     "all",
+    "approximation",
     "banded-linear-systems",
+    "batch-a-approximation",
+    "batch-a-eigen",
+    "batch-a-fftpack",
+    "batch-a-fishpack",
+    "batch-a-interpolation",
+    "batch-a-linear-algebra",
+    "batch-a-nonlinear",
+    "batch-a-ode",
+    "batch-a-quadrature",
+    "batch-a-special",
+    "batch-a-statistics",
     "blas",
     "blas-level1",
     "blas-level2",
     "blas-level3",
     "bspline",
     "dassl",
+    "eigen",
     "ffi-profile-gnu-mingw-x86_64",
     "fftpack",
     "fftpack-complex",
@@ -429,6 +520,7 @@
     "least-squares-nonlinear",
     "least-squares-nonlinear-easy",
     "least-squares-nonlinear-expert",
+    "linear-algebra",
     "nonlinear",
     "nonlinear-easy",
     "nonlinear-expert",
@@ -447,6 +539,17 @@
     "quadrature-oscillatory",
     "quadrature-weighted",
     "raw-family-banded-linear-systems",
+    "raw-family-batch-a-approximation",
+    "raw-family-batch-a-eigen",
+    "raw-family-batch-a-fftpack",
+    "raw-family-batch-a-fishpack",
+    "raw-family-batch-a-interpolation",
+    "raw-family-batch-a-linear-algebra",
+    "raw-family-batch-a-nonlinear",
+    "raw-family-batch-a-ode",
+    "raw-family-batch-a-quadrature",
+    "raw-family-batch-a-special",
+    "raw-family-batch-a-statistics",
     "raw-family-blas-level1",
     "raw-family-blas-level2",
     "raw-family-blas-level3",
@@ -497,7 +600,8 @@
     "special-gamma",
     "special-integrals",
     "special-polynomials",
-    "special-scalar-expanded"
+    "special-scalar-expanded",
+    "statistics"
   ],
   "unexpected_direct_members": []
 }

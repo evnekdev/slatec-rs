@@ -57,16 +57,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
 - Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
-- Canonical Rust path: `not_promoted`
+- Reviewed family declaration: `batch_a_automated_public`
+- Canonical Rust path: `slatec_sys::special::numerical::drc6j`
 - Current legacy Rust paths: `none`
-- Public declaration feature: `raw-ffi-numeric-array-subroutines`
-- `all`-feature reachability: `not_enabled_by_all`
+- Public declaration feature: `special`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `not_documented`
+- Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime-test status: `not_required_batch_a`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

@@ -1054,3 +1054,11 @@ pub mod airy {
     #[doc(inline)]
     pub use crate::families::special_airy::dbie;
 }
+
+#[cfg(feature = "raw-family-batch-a-special")]
+#[path = "batch_a/special.rs"]
+mod batch_a;
+
+/// Canonical source-verified Batch A special-function declarations.
+#[cfg(feature = "raw-family-batch-a-special")]
+pub use batch_a::numerical;

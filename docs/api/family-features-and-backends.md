@@ -12,7 +12,7 @@ routine.
 | Domain alias | Narrow features |
 | --- | --- |
 | `blas` | `blas-level1`, `blas-level2`, `blas-level3` |
-| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded` |
+| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `batch-a-special` |
 | `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
 | `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check` |
@@ -22,6 +22,7 @@ routine.
 | Structured 3D FISHPACK system | `fishpack-pois3d` |
 | `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
+| Batch A raw domains | `batch-a-linear-algebra`, `batch-a-eigen`, `batch-a-approximation`, `batch-a-statistics`, plus the Batch A members of `special`, `quadrature`, `nonlinear`, `ode`, `fftpack`, `fishpack`, and `interpolation` |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.
@@ -150,6 +151,17 @@ The aggregate `raw-ffi-*` features enable only the unstable generated layer.
 They are not a promise of canonical family paths or provider closure. See
 [the raw API architecture](../architecture/slatec-sys-public-raw-api.md) for
 the reviewed-path and compatibility policy.
+
+### Batch A raw provider features
+
+Batch A adds coherent `batch-a-*` declaration features in `slatec-sys` and
+matching source-closure features in `slatec-src`. They cover the generated
+canonical paths for straightforward historical numerical drivers; there is no
+feature per routine. They may be selected directly for a raw-only application,
+or through the relevant broad mathematical feature. The source closure is
+exactly derived from the promoted public symbols and their observed native
+dependencies. As with every raw declaration feature, `slatec-sys` alone
+selects no provider. See [`raw-batch-a.md`](raw-batch-a.md).
 
 ### Reviewed BLAS raw features
 

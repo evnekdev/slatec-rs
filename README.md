@@ -81,6 +81,11 @@ R2C promotes the eight real Airy drivers at `slatec_sys::special::airy`; their
 legacy `families::special_airy` paths remain re-exports, while complex Amos
 Airy interfaces remain explicitly deferred in
 [`docs/api/raw-special-airy.md`](docs/api/raw-special-airy.md).
+Batch A bulk-promotes the mechanically eligible, historically user-callable
+non-callback numerical raw interfaces at canonical mathematical paths. Each
+has source-hash, parsed-ABI, symbol, feature/provider-closure, and bulk
+compile/link evidence, but is intentionally not represented as a safe or
+hand-reviewed semantic API. See [`docs/api/raw-batch-a.md`](docs/api/raw-batch-a.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

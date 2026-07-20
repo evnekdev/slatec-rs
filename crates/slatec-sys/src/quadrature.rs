@@ -454,3 +454,11 @@ unsafe extern "C" {
         work: *mut f32,
     );
 }
+
+#[cfg(feature = "raw-family-batch-a-quadrature")]
+#[path = "batch_a/quadrature.rs"]
+mod batch_a;
+
+/// Canonical source-verified Batch A non-callback quadrature declarations.
+#[cfg(feature = "raw-family-batch-a-quadrature")]
+pub use batch_a::numerical;

@@ -1,0 +1,6 @@
+{
+  "policy": "Batch A has no broad correction overrides. Parser-normalized declarations are authoritative; a future correction must be keyed by routine and selected source hash.",
+  "records": [],
+  "schema_id": "slatec-sys.raw-api.batch-a-corrections",
+  "schema_version": "1.0.0"
+}

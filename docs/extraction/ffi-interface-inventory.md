@@ -195,3 +195,17 @@ explicit exclusions. A declaration in `slatec_sys::generated` remains a
 transitional ABI-shaped path until it has a reviewed canonical mathematical
 path. Hash-guarded corrections in `metadata/raw-api-corrections.json` supply
 only reviewed facts that cannot safely be inferred from executable source.
+
+## Batch A generated public raw interface promotion
+
+Batch A reuses this normalized interface inventory rather than creating a
+second source of truth. `generate-raw-batch-a --offline` classifies every
+retained identity, accepts only the documented fixed numerical ABI classes and
+historically public roles, records a source-hash-guarded ABI fingerprint, and
+generates canonical mathematical raw paths plus bounded compile/link probes.
+It writes `generated/raw-api/abi-classification.json`,
+`batch-a-candidates.json`, `batch-a-exclusions.json`, and related deterministic
+reports. `validate-raw-batch-a --offline` rejects missing hashes, symbols,
+paths, features, provider closures, argument documentation, source links, or
+Safety sections. See [`docs/api/raw-batch-a.md`](../api/raw-batch-a.md) for the
+scope, non-goals, and native-provider workflow.

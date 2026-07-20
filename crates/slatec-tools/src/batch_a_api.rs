@@ -1,0 +1,1430 @@
+//! Deterministic classification and canonical-path generation for Raw API Batch A.
+//!
+//! Batch A deliberately promotes only source-verified, compiler-observed
+//! non-callback numerical interfaces.  Its public declarations are not marked
+//! as semantic reviews: the reports retain the distinction between an
+//! ABI/link-validated raw contract and a runtime-validated safe API.
+
+use crate::error::{CorpusError, Result};
+use serde_json::{Value, json};
+use std::collections::{BTreeMap, BTreeSet};
+use std::fs;
+use std::path::{Path, PathBuf};
+use std::process::Command;
+
+const SCHEMA_VERSION: &str = "1.0.0";
+const GENERATED_HEADER: &str = "//! Generated Batch A canonical raw re-exports.\n//!\n//! Do not edit. Regenerate with `slatec-corpus generate-raw-batch-a --offline`.\n\n";
+
+/// Input and output locations for the Batch A classifier.
+pub struct BatchAPaths<'a> {
+    pub catalogue_dir: &'a Path,
+    pub ffi_dir: &'a Path,
+    pub ffi_inventory_dir: &'a Path,
+    pub raw_api_dir: &'a Path,
+    pub sys_dir: &'a Path,
+    pub src_dir: &'a Path,
+    pub facade_dir: &'a Path,
+    pub output_dir: &'a Path,
+}
+
+/// Compact deterministic result of Batch A generation or validation.
+#[derive(Clone, Debug, serde::Serialize)]
+pub struct BatchAResult {
+    pub status: String,
+    pub retained_identities: usize,
+    pub candidates: usize,
+    pub semantic_hash: String,
+    pub output_dir: PathBuf,
+}
+
+#[derive(Clone, Debug)]
+struct Interface {
+    provider_id: String,
+    kind: String,
+    source_hash: String,
+    native_symbol: String,
+    confidence: String,
+    batch: String,
+    argument_ids: Vec<String>,
+    result_id: Option<String>,
+}
+
+#[derive(Clone, Debug)]
+struct Argument {
+    name: String,
+    declared_type: String,
+    dimensions: Vec<Value>,
+    is_external: bool,
+    conflict_state: String,
+}
+
+#[derive(Clone, Debug)]
+struct FunctionResult {
+    declared_type: String,
+    conflict_state: String,
+}
+
+#[derive(Clone, Debug)]
+struct Candidate {
+    routine: String,
+    source_hash: String,
+    source_file: String,
+    source_url: String,
+    native_symbol: String,
+    kind: String,
+    abi_class: String,
+    abi_fingerprint: String,
+    canonical_module: String,
+    canonical_path: String,
+    declaration_feature: String,
+    provider_feature: String,
+    binding_module: String,
+    binding_path: String,
+    public_disposition: String,
+    purpose: String,
+    arguments: Vec<Argument>,
+    result: Option<FunctionResult>,
+}
+
+/// Generate the complete retained-corpus ABI classification, Batch A reports,
+/// and generated canonical re-export fragments.
+pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
+    let catalogue = records(
+        &read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?,
+        "routine catalogue",
+    )?
+    .clone();
+    let interfaces = interfaces(&paths.ffi_dir.join("interface-inventory.json"))?;
+    let arguments = arguments(&paths.ffi_inventory_dir.join("argument-index.json"))?;
+    let results = results(&paths.ffi_inventory_dir.join("function-results.json"))?;
+    let prior_status = prior_status(paths.raw_api_dir)?;
+    let linkage_exclusions = linkage_exclusions(paths.output_dir)?;
+    let legacy = legacy_declarations(paths.sys_dir)?;
+
+    let mut by_provider = BTreeMap::new();
+    for interface in interfaces {
+        if by_provider
+            .insert(interface.provider_id.clone(), interface)
+            .is_some()
+        {
+            return Err(policy("Batch A received duplicate FFI provider identities"));
+        }
+    }
+
+    let mut classifications = Vec::with_capacity(catalogue.len());
+    let mut candidates = Vec::new();
+    let mut exclusions = Vec::new();
+    let mut existing_public = 0usize;
+    let mut existing_eligible = 0usize;
+    let mut role_counts = BTreeMap::<String, usize>::new();
+
+    for record in &catalogue {
+        let routine = string(record, "normalized_name")?;
+        let source_hash = field(record, "source_hash");
+        let provider = record
+            .pointer("/canonical_provider/provider_id")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let interface = by_provider.get(provider);
+        let previous = prior_status.get(&routine);
+        let (public_role, role_reason) = public_role(record);
+        *role_counts.entry(public_role.clone()).or_default() += 1;
+        let mut classification = classify(
+            record,
+            interface,
+            &arguments,
+            &results,
+            &public_role,
+            role_reason.as_deref(),
+        )?;
+
+        if classification["batch_a_eligibility"] == "eligible" {
+            if let Some(external_symbols) =
+                linkage_exclusions.get(&(routine.clone(), source_hash.clone()))
+            {
+                classification["batch_a_eligibility"] = Value::String("excluded".to_owned());
+                classification["batch_a_exclusion_code"] =
+                    Value::String("external_dependency".to_owned());
+                classification["batch_a_exclusion_reason"] = Value::String(format!(
+                    "source object has unresolved external procedure dependencies: {}",
+                    external_symbols.join(", ")
+                ));
+            }
+        }
+
+        if previous.is_some_and(|state| state.starts_with("reviewed_public")) {
+            if classification["batch_a_eligibility"] == "eligible" {
+                classification["batch_a_eligibility"] = Value::String("already_public".to_owned());
+                classification["batch_a_exclusion_reason"] =
+                    Value::String("already has a canonical public raw declaration".to_owned());
+                existing_eligible += 1;
+            }
+            existing_public += 1;
+        }
+
+        if classification["batch_a_eligibility"] == "eligible" {
+            let interface = interface.expect("eligible classifications require an interface");
+            let args = interface
+                .argument_ids
+                .iter()
+                .map(|id| {
+                    arguments
+                        .get(id)
+                        .cloned()
+                        .ok_or_else(|| policy("Batch A interface refers to a missing argument"))
+                })
+                .collect::<Result<Vec<_>>>()?;
+            let result = interface
+                .result_id
+                .as_ref()
+                .map(|id| {
+                    results
+                        .get(id)
+                        .cloned()
+                        .ok_or_else(|| policy("Batch A function refers to a missing result"))
+                })
+                .transpose()?;
+            let (canonical_module, declaration_feature) = canonical_module(record, &routine)?;
+            let canonical_path = format!(
+                "slatec_sys::{canonical_module}::{}",
+                routine.to_ascii_lowercase()
+            );
+            let binding_module = binding_module(&interface.batch)?;
+            let binding_path = legacy
+                .get(&routine)
+                .and_then(|paths| paths.first())
+                .map(|path| path.replacen("slatec_sys::", "crate::", 1))
+                .unwrap_or_else(|| {
+                    format!(
+                        "crate::generated::{binding_module}::{}",
+                        routine.to_ascii_lowercase()
+                    )
+                });
+            let disposition = if legacy.contains_key(&routine) {
+                "canonical_reexport_of_legacy_declaration"
+            } else {
+                "canonical_reexport_of_generated_declaration"
+            };
+            let candidate = Candidate {
+                routine: routine.clone(),
+                source_hash: source_hash.clone(),
+                source_file: field(record, "source_file"),
+                source_url: source_url(record),
+                native_symbol: interface.native_symbol.clone(),
+                kind: interface.kind.clone(),
+                abi_class: classification["abi_class"]
+                    .as_str()
+                    .unwrap_or("unsupported_other")
+                    .to_owned(),
+                abi_fingerprint: abi_fingerprint(&interface.kind, &args, result.as_ref()),
+                canonical_module,
+                canonical_path,
+                declaration_feature: declaration_feature.clone(),
+                provider_feature: format!("batch-a-{declaration_feature}"),
+                binding_module,
+                binding_path,
+                public_disposition: disposition.to_owned(),
+                purpose: field(record, "short_purpose"),
+                arguments: args,
+                result,
+            };
+            classification["candidate"] = candidate_json(&candidate);
+            candidates.push(candidate);
+        } else if classification["batch_a_eligibility"] != "already_public" {
+            exclusions.push(json!({
+                "routine":routine,
+                "source_hash":source_hash,
+                "abi_class":classification["abi_class"].clone(),
+                "reason":classification["batch_a_exclusion_reason"].clone(),
+            }));
+        }
+        classifications.push(classification);
+    }
+
+    classifications.sort_by_key(|record| field(record, "routine"));
+    candidates.sort_by_key(|candidate| candidate.routine.clone());
+    exclusions.sort_by_key(|record| field(record, "routine"));
+    validate_candidates(&candidates)?;
+    write_canonical_modules(paths.sys_dir, &candidates)?;
+    write_compile_probes(paths.sys_dir, &candidates)?;
+    write_link_probes(paths.facade_dir, &candidates)?;
+
+    let abi_summary = summary_by(&classifications, "abi_class");
+    let exclusion_summary = summary_by(&classifications, "batch_a_exclusion_code");
+    let candidate_jsons = candidates.iter().map(candidate_json).collect::<Vec<_>>();
+    let newly_generated = candidates
+        .iter()
+        .filter(|candidate| {
+            candidate.public_disposition == "canonical_reexport_of_generated_declaration"
+        })
+        .count();
+    let legacy = candidates.len() - newly_generated;
+    let summary = json!({
+        "schema_id":"slatec-sys.raw-api.batch-a-summary",
+        "schema_version":SCHEMA_VERSION,
+        "policy":"Historically user-callable routines with an exact selected source hash, one observed native symbol, a compiler-validated numeric or LOGICAL ABI, no callback, CHARACTER, or complex argument/return, and a non-support public role are Batch A eligible. Batch A creates documented canonical unsafe paths but does not claim semantic, runtime, or numerical review.",
+        "counts":{
+            "total_retained_identities":classifications.len(),
+            "existing_canonical_public_raw_identities":existing_public,
+            "already_public_batch_a_eligible":existing_eligible,
+            "batch_a_candidates":candidates.len(),
+            "new_generated_declaration_reexports":newly_generated,
+            "legacy_declaration_canonical_reexports":legacy,
+            "eligible_subsidiaries_kept_internal":classifications.iter().filter(|record| record["batch_a_exclusion_code"] == "subsidiary_or_internal").count(),
+            "linkage_external_dependency_exclusions":linkage_exclusions.len(),
+            "compile_probe_batches":candidates.chunks(96).len(),
+            "link_probe_batches":candidates.chunks(96).len(),
+            "runtime_smoke_routines":5,
+            "source_hash_corrections":0,
+            "parser_fixes":0,
+            "canonical_name_conflicts":0,
+        },
+        "abi_classes":abi_summary,
+        "exclusions_by_code":exclusion_summary,
+        "public_role_counts":role_counts,
+        "validation":"Candidates are source/hash verified, parser-normalized, ABI classified, and assigned a unique canonical path. Native link and compile probes are generated separately; runtime validation is intentionally representative rather than universal."
+    });
+    let correction_report = json!({
+        "schema_id":"slatec-sys.raw-api.batch-a-corrections",
+        "schema_version":SCHEMA_VERSION,
+        "policy":"Batch A has no broad correction overrides. Parser-normalized declarations are authoritative; a future correction must be keyed by routine and selected source hash.",
+        "records":[]
+    });
+    let classification = json!({
+        "schema_id":"slatec-sys.raw-api.abi-classification",
+        "schema_version":SCHEMA_VERSION,
+        "records":classifications,
+    });
+    let candidates_output = json!({
+        "schema_id":"slatec-sys.raw-api.batch-a-candidates",
+        "schema_version":SCHEMA_VERSION,
+        "records":candidate_jsons,
+    });
+    let exclusions_output = json!({
+        "schema_id":"slatec-sys.raw-api.batch-a-exclusions",
+        "schema_version":SCHEMA_VERSION,
+        "records":exclusions,
+    });
+    let markdown = render_summary(&summary);
+    let classification_markdown = render_abi_summary(&summary);
+    let mut files = BTreeMap::new();
+    files.insert("abi-classification.json", bytes(&classification)?);
+    files.insert(
+        "abi-classification-summary.md",
+        classification_markdown.into_bytes(),
+    );
+    files.insert("batch-a-candidates.json", bytes(&candidates_output)?);
+    files.insert("batch-a-exclusions.json", bytes(&exclusions_output)?);
+    files.insert("batch-a-correction-report.json", bytes(&correction_report)?);
+    files.insert("batch-a-summary.md", markdown.into_bytes());
+    let semantic_hash = output_hash(&files);
+    files.insert(
+        "batch-a-manifest.json",
+        bytes(&json!({
+            "schema_id":"slatec-sys.raw-api.batch-a-manifest",
+            "schema_version":SCHEMA_VERSION,
+            "semantic_hash":semantic_hash,
+            "inputs":[
+                "generated/slatec-routines/routine-catalogue.json",
+                "generated/ffi/interface-inventory.json",
+                "generated/ffi-inventory/argument-index.json",
+                "generated/ffi-inventory/function-results.json",
+                "generated/raw-api/routine-status.json",
+                "generated/linkage/batch-a-linkage-report.json"
+            ],
+            "outputs":files.keys().collect::<Vec<_>>(),
+        }))?,
+    );
+    write_outputs(paths.output_dir, &files)?;
+    Ok(BatchAResult {
+        status: "success".to_owned(),
+        retained_identities: classifications.len(),
+        candidates: candidates.len(),
+        semantic_hash,
+        output_dir: paths.output_dir.to_path_buf(),
+    })
+}
+
+/// Regenerate Batch A output and validate its machine-checkable invariants.
+pub fn validate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
+    let sys_dir = paths.sys_dir.to_path_buf();
+    let result = generate(paths)?;
+    let candidates_value = read_json(&result.output_dir.join("batch-a-candidates.json"))?;
+    let candidates = records(&candidates_value, "Batch A candidates")?;
+    let mut paths = BTreeSet::new();
+    for record in candidates {
+        for key in [
+            "routine",
+            "source_hash",
+            "normalized_abi_fingerprint",
+            "native_symbol",
+            "canonical_module",
+            "canonical_rust_path",
+            "declaration_feature",
+            "provider_feature",
+            "binding_path",
+        ] {
+            if field(record, key).is_empty() {
+                return Err(policy(&format!("Batch A candidate lacks {key}")));
+            }
+        }
+        if !paths.insert(field(record, "canonical_rust_path")) {
+            return Err(policy("Batch A canonical paths must be unique"));
+        }
+        let source = generated_source_for_routine(
+            &sys_dir,
+            &field(record, "canonical_module"),
+            &field(record, "routine"),
+        )?;
+        for argument in strings(record.get("arguments")) {
+            if !source.contains(&format!("`{argument}`")) {
+                return Err(policy(&format!(
+                    "Batch A Rustdoc for {} lacks argument {argument}",
+                    field(record, "routine")
+                )));
+            }
+        }
+        for required in ["# Safety", "https://", "raw-api-routine:"] {
+            if !source.contains(required) {
+                return Err(policy(&format!(
+                    "Batch A Rustdoc for {} lacks {required}",
+                    field(record, "routine")
+                )));
+            }
+        }
+    }
+    Ok(result)
+}
+
+/// Returns the generated Rustdoc block for a Batch A public routine.
+pub fn generated_source_for_routine(sys_dir: &Path, module: &str, routine: &str) -> Result<String> {
+    let directory = sys_dir.join("src").join("batch_a");
+    let file = match module.split("::").next().unwrap_or_default() {
+        "linear_algebra" => directory.join("linear_algebra.rs"),
+        "pde" => directory.join("pde_fishpack.rs"),
+        name => directory.join(format!("{name}.rs")),
+    };
+    let source = fs::read_to_string(&file).map_err(|_| {
+        policy(&format!(
+            "Batch A canonical module source is missing for {routine}: {}",
+            file.display()
+        ))
+    })?;
+    let marker = format!("// raw-api-routine: {routine}\n");
+    let start = source.find(&marker).ok_or_else(|| {
+        policy(&format!(
+            "Batch A canonical Rustdoc marker is missing for {routine}"
+        ))
+    })?;
+    let rest = &source[start..];
+    let after = marker.len();
+    let end = rest[after..]
+        .find("// raw-api-routine:")
+        .map(|offset| after + offset)
+        .unwrap_or(rest.len());
+    Ok(rest[..end].to_owned())
+}
+
+fn classify(
+    record: &Value,
+    interface: Option<&Interface>,
+    arguments: &BTreeMap<String, Argument>,
+    results: &BTreeMap<String, FunctionResult>,
+    public_role: &str,
+    role_reason: Option<&str>,
+) -> Result<Value> {
+    let routine = string(record, "normalized_name")?;
+    let source_hash = field(record, "source_hash");
+    let mut base = json!({
+        "routine":routine,
+        "source_hash":source_hash,
+        "source_file":field(record,"source_file"),
+        "program_unit_kind":field(record,"kind"),
+        "historical_role":field(record,"historical_role"),
+        "public_role":public_role,
+        "primary_family":field(record,"primary_family"),
+        "provider_status":field(record,"source_status"),
+        "batch_a_eligibility":"excluded",
+        "batch_a_exclusion_code":"unsupported_other",
+        "batch_a_exclusion_reason":"no supported compiler-observed Batch A interface",
+        "abi_class":"unsupported_other",
+        "callback_presence":false,
+        "character_presence":false,
+        "complex_presence":false,
+        "logical_presence":false,
+        "entry_presence":record.get("entry_parent").and_then(Value::as_str).is_some(),
+        "batch_a_pre_link_eligible":false,
+    });
+    let Some(interface) = interface else {
+        base["batch_a_exclusion_code"] = Value::String("provider_or_parser_missing".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("no selected compiler-observed interface".to_owned());
+        return Ok(base);
+    };
+    base["native_symbol"] = Value::String(interface.native_symbol.clone());
+    base["compiler_confidence"] = Value::String(interface.confidence.clone());
+    base["binding_batch"] = Value::String(interface.batch.clone());
+    if public_role != "principal_public_routine" {
+        base["batch_a_exclusion_code"] = Value::String("subsidiary_or_internal".to_owned());
+        base["batch_a_exclusion_reason"] = Value::String(
+            role_reason
+                .unwrap_or("routine is not a Batch A public role")
+                .to_owned(),
+        );
+        return Ok(base);
+    }
+    if source_hash.is_empty() || interface.source_hash != source_hash {
+        base["batch_a_exclusion_code"] = Value::String("source_hash_mismatch".to_owned());
+        base["batch_a_exclusion_reason"] = Value::String(
+            "selected source hash does not match normalized interface evidence".to_owned(),
+        );
+        return Ok(base);
+    }
+    if interface.native_symbol.is_empty() {
+        base["batch_a_exclusion_code"] = Value::String("missing_native_symbol".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("provider has no unique observed native symbol".to_owned());
+        return Ok(base);
+    }
+    let args = interface
+        .argument_ids
+        .iter()
+        .map(|id| {
+            arguments
+                .get(id)
+                .ok_or_else(|| policy("Batch A argument index is incomplete"))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let result = interface
+        .result_id
+        .as_ref()
+        .map(|id| {
+            results
+                .get(id)
+                .ok_or_else(|| policy("Batch A function result index is incomplete"))
+        })
+        .transpose()?;
+    let callback = args.iter().any(|argument| argument.is_external);
+    let character = args
+        .iter()
+        .any(|argument| argument.declared_type == "CHARACTER");
+    let complex = args.iter().any(|argument| {
+        matches!(
+            argument.declared_type.as_str(),
+            "COMPLEX" | "DOUBLE COMPLEX"
+        )
+    });
+    let logical = args
+        .iter()
+        .any(|argument| argument.declared_type == "LOGICAL")
+        || result.is_some_and(|result| result.declared_type == "LOGICAL");
+    base["callback_presence"] = Value::Bool(callback);
+    base["character_presence"] = Value::Bool(character);
+    base["complex_presence"] = Value::Bool(complex);
+    base["logical_presence"] = Value::Bool(logical);
+    if callback {
+        base["abi_class"] = Value::String("callback_bearing".to_owned());
+        base["batch_a_exclusion_code"] = Value::String("callback".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("public ABI accepts an EXTERNAL procedure argument".to_owned());
+        return Ok(base);
+    }
+    if character {
+        base["abi_class"] = Value::String("character_bearing".to_owned());
+        base["batch_a_exclusion_code"] = Value::String("character".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("public ABI contains CHARACTER and hidden-length handling".to_owned());
+        return Ok(base);
+    }
+    if complex {
+        base["abi_class"] = Value::String("complex_array_or_scalar".to_owned());
+        base["batch_a_exclusion_code"] = Value::String("complex_argument_deferred".to_owned());
+        base["batch_a_exclusion_reason"] = Value::String("complex argument interfaces remain outside the deliberately numeric Batch A public policy".to_owned());
+        return Ok(base);
+    }
+    if result
+        .is_some_and(|result| matches!(result.declared_type.as_str(), "COMPLEX" | "DOUBLE COMPLEX"))
+    {
+        base["abi_class"] = Value::String("complex_return".to_owned());
+        base["batch_a_exclusion_code"] = Value::String("complex_return".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("complex function return ABI is not public in Batch A".to_owned());
+        return Ok(base);
+    }
+    if result.is_some_and(|result| result.declared_type == "CHARACTER") {
+        base["abi_class"] = Value::String("character_return".to_owned());
+        base["batch_a_exclusion_code"] = Value::String("character_return".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("CHARACTER function return ABI is not public in Batch A".to_owned());
+        return Ok(base);
+    }
+    if args.iter().any(|argument| {
+        !numeric_or_logical(&argument.declared_type) || !argument.conflict_state.is_empty()
+    }) || result.is_some_and(|result| {
+        !numeric_or_logical(&result.declared_type) || !result.conflict_state.is_empty()
+    }) {
+        base["batch_a_exclusion_code"] =
+            Value::String("parser_ambiguous_or_unsupported".to_owned());
+        base["batch_a_exclusion_reason"] = Value::String(
+            "normalized declaration has an unsupported or conflicting type".to_owned(),
+        );
+        return Ok(base);
+    }
+    if !matches!(
+        interface.confidence.as_str(),
+        "generated_standard" | "generated_abi_sensitive"
+    ) {
+        base["batch_a_exclusion_code"] = Value::String("provider_or_parser_missing".to_owned());
+        base["batch_a_exclusion_reason"] =
+            Value::String("compiler did not emit a validated raw declaration".to_owned());
+        return Ok(base);
+    }
+    let abi_class = abi_class(interface, &args, result)?;
+    base["abi_class"] = Value::String(abi_class);
+    base["batch_a_pre_link_eligible"] = Value::Bool(true);
+    base["batch_a_eligibility"] = Value::String("eligible".to_owned());
+    base["batch_a_exclusion_code"] = Value::String("none".to_owned());
+    base["batch_a_exclusion_reason"] = Value::String("none".to_owned());
+    Ok(base)
+}
+
+fn public_role(record: &Value) -> (String, Option<String>) {
+    if field(record, "historical_role") != "user_callable" {
+        return (
+            "subsidiary_or_internal".to_owned(),
+            Some("catalogue role is not historically user-callable".to_owned()),
+        );
+    }
+    let purpose = field(record, "short_purpose").to_ascii_lowercase();
+    if purpose.starts_with("documentation") || field(record, "normalized_name").ends_with("DOC") {
+        return (
+            "documentation_or_tooling".to_owned(),
+            Some("routine is a documentation or tooling program unit".to_owned()),
+        );
+    }
+    if matches!(
+        field(record, "primary_family").as_str(),
+        "Arithmetic and extended-range arithmetic"
+            | "Runtime and machine support"
+            | "Error handling"
+            | "Shared numerical utilities"
+    ) {
+        return (
+            "support_infrastructure".to_owned(),
+            Some(
+                "runtime, error, or shared support interfaces are not Batch A public drivers"
+                    .to_owned(),
+            ),
+        );
+    }
+    ("principal_public_routine".to_owned(), None)
+}
+
+fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
+    let value = match field(record, "primary_family").as_str() {
+        "Dense linear algebra" => ("linear_algebra::dense", "linear-algebra"),
+        "Eigenvalue problems" => ("eigen::numerical", "eigen"),
+        "Elementary and transcendental functions" | "Special functions" => {
+            ("special::numerical", "special")
+        }
+        "FFTPACK transforms" => ("fftpack::numerical", "fftpack"),
+        "FISHPACK elliptic PDE solvers" => ("pde::fishpack::numerical", "fishpack"),
+        "Interpolation" | "PCHIP" => ("interpolation::numerical", "interpolation"),
+        "Numerical quadrature" => ("quadrature::numerical", "quadrature"),
+        "Nonlinear equations" => ("nonlinear::numerical", "nonlinear"),
+        "ODE solvers" => ("ode::numerical", "ode"),
+        "Approximation" => ("approximation::numerical", "approximation"),
+        "Probability and statistics" => ("statistics::numerical", "statistics"),
+        other => {
+            return Err(policy(&format!(
+                "Batch A has no canonical public taxonomy mapping for {routine} ({other})"
+            )));
+        }
+    };
+    Ok((value.0.to_owned(), value.1.to_owned()))
+}
+
+fn abi_class(
+    interface: &Interface,
+    arguments: &[&Argument],
+    result: Option<&FunctionResult>,
+) -> Result<String> {
+    if interface.kind == "function" {
+        return Ok(match result.map(|result| result.declared_type.as_str()) {
+            Some("REAL") => "real_scalar_function",
+            Some("DOUBLE PRECISION") => "double_scalar_function",
+            Some("INTEGER") => "integer_scalar_function",
+            Some("LOGICAL") => "logical_scalar_function",
+            _ => {
+                return Err(policy(
+                    "eligible Batch A function has no supported scalar result",
+                ));
+            }
+        }
+        .to_owned());
+    }
+    if arguments
+        .iter()
+        .any(|argument| !argument.dimensions.is_empty())
+    {
+        if arguments.len() >= 8 {
+            Ok("workspace_or_matrix_numerical_subroutine".to_owned())
+        } else {
+            Ok("numerical_array_subroutine".to_owned())
+        }
+    } else if arguments
+        .iter()
+        .any(|argument| argument.declared_type == "LOGICAL")
+    {
+        Ok("logical_bearing_numerical_subroutine".to_owned())
+    } else {
+        Ok("simple_numerical_subroutine".to_owned())
+    }
+}
+
+fn numeric_or_logical(value: &str) -> bool {
+    matches!(value, "INTEGER" | "REAL" | "DOUBLE PRECISION" | "LOGICAL")
+}
+
+fn abi_fingerprint(kind: &str, arguments: &[Argument], result: Option<&FunctionResult>) -> String {
+    let args = arguments
+        .iter()
+        .map(|argument| {
+            let ty = rust_type(&argument.declared_type);
+            if argument.dimensions.is_empty() {
+                format!("mut_{ty}")
+            } else {
+                format!("mut_{ty}_ptr_rank{}", argument.dimensions.len())
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    if kind == "function" {
+        format!(
+            "function:{}({args})",
+            result
+                .map(|result| rust_type(&result.declared_type))
+                .unwrap_or("unknown")
+        )
+    } else {
+        format!("subroutine:void({args})")
+    }
+}
+
+fn rust_type(value: &str) -> &'static str {
+    match value {
+        "INTEGER" => "i32",
+        "REAL" => "f32",
+        "DOUBLE PRECISION" => "f64",
+        "LOGICAL" => "fortran_logical_i32",
+        _ => "unsupported",
+    }
+}
+
+fn binding_module(batch: &str) -> Result<String> {
+    match batch {
+        "batch_numeric_scalar_subroutines" => Ok("numeric_scalar_subroutines".to_owned()),
+        "batch_numeric_array_subroutines" => Ok("numeric_array_subroutines".to_owned()),
+        "batch_scalar_functions" => Ok("scalar_functions".to_owned()),
+        "batch_logical" => Ok("logical".to_owned()),
+        _ => Err(policy(
+            "Batch A candidate uses a non-approved generated binding batch",
+        )),
+    }
+}
+
+fn candidate_json(candidate: &Candidate) -> Value {
+    json!({
+        "routine":candidate.routine,
+        "source_hash":candidate.source_hash,
+        "source_file":candidate.source_file,
+        "source_url":candidate.source_url,
+        "native_symbol":candidate.native_symbol,
+        "program_unit_kind":candidate.kind,
+        "abi_class":candidate.abi_class,
+        "normalized_abi_fingerprint":candidate.abi_fingerprint,
+        "canonical_module":candidate.canonical_module,
+        "canonical_rust_path":candidate.canonical_path,
+        "declaration_feature":candidate.declaration_feature,
+        "provider_feature":candidate.provider_feature,
+        "binding_module":candidate.binding_module,
+        "binding_path":candidate.binding_path,
+        "public_disposition":candidate.public_disposition,
+        "purpose":candidate.purpose,
+        "arguments":candidate.arguments.iter().map(|argument| argument.name.clone()).collect::<Vec<_>>(),
+        "return_type":candidate.result.as_ref().map(|result| result.declared_type.clone()).unwrap_or_else(|| "void".to_owned()),
+    })
+}
+
+fn write_canonical_modules(sys_dir: &Path, candidates: &[Candidate]) -> Result<()> {
+    let mut by_root = BTreeMap::<String, Vec<&Candidate>>::new();
+    for candidate in candidates {
+        let root = candidate
+            .canonical_module
+            .split("::")
+            .next()
+            .unwrap_or_default()
+            .to_owned();
+        by_root.entry(root).or_default().push(candidate);
+    }
+    let destination = sys_dir.join("src").join("batch_a");
+    fs::create_dir_all(&destination)?;
+    for (root, entries) in by_root {
+        let name = if root == "linear_algebra" {
+            "linear_algebra".to_owned()
+        } else if root == "pde" {
+            "pde_fishpack".to_owned()
+        } else {
+            root.clone()
+        };
+        let mut text = GENERATED_HEADER.to_owned();
+        let child = entries
+            .first()
+            .and_then(|entry| entry.canonical_module.rsplit("::").next())
+            .unwrap_or("numerical");
+        text.push_str(&format!(
+            "/// Batch A canonical `{root}` declarations.\npub mod {child} {{\n"
+        ));
+        for candidate in entries {
+            render_candidate(&mut text, candidate);
+        }
+        text.push_str("}\n");
+        let path = destination.join(format!("{name}.rs"));
+        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+            fs::write(&path, text)?;
+        }
+        format_generated_rust(&path)?;
+    }
+    Ok(())
+}
+
+fn write_compile_probes(sys_dir: &Path, candidates: &[Candidate]) -> Result<()> {
+    const BATCH_SIZE: usize = 96;
+    let tests = sys_dir.join("tests");
+    fs::create_dir_all(&tests)?;
+    for (index, chunk) in candidates.chunks(BATCH_SIZE).enumerate() {
+        let mut text = String::from(
+            "//! Generated Batch A canonical-path compile probe.\n//! Regenerate with `slatec-corpus generate-raw-batch-a --offline`.\n\n",
+        );
+        text.push_str("#[cfg(feature = \"all\")]\nmod paths {\n    #[allow(unused_imports)]\n    use slatec_sys::{\n");
+        for candidate in chunk {
+            text.push_str(&format!(
+                "        {} as {},\n",
+                candidate
+                    .canonical_path
+                    .strip_prefix("slatec_sys::")
+                    .unwrap_or(&candidate.canonical_path),
+                candidate.routine.to_ascii_lowercase()
+            ));
+        }
+        text.push_str("    };\n\n    #[test]\n    fn canonical_paths_compile() {}\n}\n");
+        let path = tests.join(format!("batch_a_compile_{:02}.rs", index + 1));
+        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+            fs::write(&path, text)?;
+        }
+        format_generated_rust(&path)?;
+    }
+    Ok(())
+}
+
+fn write_link_probes(facade_dir: &Path, candidates: &[Candidate]) -> Result<()> {
+    const BATCH_SIZE: usize = 96;
+    let tests = facade_dir.join("tests");
+    fs::create_dir_all(&tests)?;
+    for (index, chunk) in candidates.chunks(BATCH_SIZE).enumerate() {
+        let mut text = String::from(
+            "//! Generated Batch A native-link probe.\n//! Regenerate with `slatec-corpus generate-raw-batch-a --offline`.\n\n#![cfg(all(feature = \"raw-batch-a-link-tests\", target_arch = \"x86_64\", target_env = \"gnu\", target_os = \"windows\"))]\n\n",
+        );
+        text.push_str("#[test]\nfn canonical_symbols_link() {\n");
+        text.push_str("    slatec_src::ensure_linked();\n");
+        for candidate in chunk {
+            let path = candidate
+                .canonical_path
+                .strip_prefix("slatec_sys::")
+                .unwrap_or(&candidate.canonical_path);
+            text.push_str(&format!(
+                "    let _ = core::hint::black_box(slatec_sys::{path} as *const () as usize);\n"
+            ));
+        }
+        text.push_str("}\n");
+        let path = tests.join(format!("raw_batch_a_link_{:02}.rs", index + 1));
+        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+            fs::write(&path, text)?;
+        }
+        format_generated_rust(&path)?;
+    }
+    Ok(())
+}
+
+fn format_generated_rust(path: &Path) -> Result<()> {
+    let output = Command::new("rustfmt")
+        .arg("--edition")
+        .arg("2024")
+        .arg(path)
+        .output()
+        .map_err(|error| {
+            policy(&format!(
+                "could not run rustfmt for {}: {error}",
+                path.display()
+            ))
+        })?;
+    if !output.status.success() {
+        return Err(policy(&format!(
+            "rustfmt failed for {}: {}",
+            path.display(),
+            String::from_utf8_lossy(&output.stderr).trim()
+        )));
+    }
+    Ok(())
+}
+
+fn render_candidate(text: &mut String, candidate: &Candidate) {
+    text.push_str(&format!("    // raw-api-routine: {}\n", candidate.routine));
+    render_docs(text, candidate, "    ");
+    if candidate.binding_path.starts_with("crate::generated::") {
+        // A consumer that explicitly enables the transitional ABI-shaped
+        // generated layer receives that one existing declaration. Otherwise
+        // the canonical Batch A path owns the declaration. The cfg branches
+        // are mutually exclusive, so no native symbol is independently
+        // declared twice in one crate build.
+        text.push_str(
+            "    #[cfg(any(feature = \"raw-ffi-basic\", feature = \"raw-ffi-logical\"))]\n",
+        );
+        text.push_str(&format!("    pub use {};\n\n", candidate.binding_path));
+        text.push_str(
+            "    #[cfg(not(any(feature = \"raw-ffi-basic\", feature = \"raw-ffi-logical\")))]\n",
+        );
+        text.push_str("    unsafe extern \"C\" {\n");
+        render_docs(text, candidate, "        ");
+        text.push_str(&format!(
+            "        #[link_name = \"{}\"]\n",
+            candidate.native_symbol
+        ));
+        text.push_str(&format!(
+            "        pub fn {}(",
+            candidate.routine.to_ascii_lowercase()
+        ));
+        for (index, argument) in candidate.arguments.iter().enumerate() {
+            if index > 0 {
+                text.push_str(", ");
+            }
+            text.push_str(&format!(
+                "{}: *mut {}",
+                rust_identifier(&argument.name),
+                rust_ffi_type(&argument.declared_type)
+            ));
+        }
+        text.push(')');
+        if let Some(result) = &candidate.result {
+            text.push_str(&format!(" -> {}", rust_ffi_type(&result.declared_type)));
+        }
+        text.push_str(";\n    }\n\n");
+        return;
+    }
+    text.push_str(&format!("    pub use {};\n\n", candidate.binding_path));
+}
+
+fn render_docs(text: &mut String, candidate: &Candidate, indent: &str) {
+    text.push_str(&format!("{indent}/// {}\n", one_line(&candidate.purpose)));
+    text.push_str(&format!("{indent}///\n{indent}/// Original SLATEC routine: `{}`; source: <{}>. Native symbol: `{}`.\n", candidate.routine, candidate.source_url, candidate.native_symbol));
+    text.push_str(&format!(
+        "{indent}/// Batch A ABI class: `{}`; normalized fingerprint: `{}`.\n",
+        candidate.abi_class, candidate.abi_fingerprint
+    ));
+    text.push_str(&format!(
+        "{indent}///\n{indent}/// # Arguments\n{indent}///\n"
+    ));
+    for argument in &candidate.arguments {
+        let shape = if argument.dimensions.is_empty() {
+            "scalar".to_owned()
+        } else {
+            format!("array of rank {}", argument.dimensions.len())
+        };
+        text.push_str(&format!(
+            "{indent}/// - `{}`: declared `{}` {shape}. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.\n",
+            argument.name, argument.declared_type, indent = indent
+        ));
+    }
+    if let Some(result) = &candidate.result {
+        text.push_str(&format!(
+            "{indent}/// - Return: Fortran `{}` scalar result.\n",
+            result.declared_type
+        ));
+    }
+    text.push_str(&format!("{indent}///\n{indent}/// # Safety\n{indent}///\n{indent}/// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.\n"));
+}
+
+fn rust_ffi_type(value: &str) -> &'static str {
+    match value {
+        "INTEGER" => "crate::FortranInteger",
+        "REAL" => "f32",
+        "DOUBLE PRECISION" => "f64",
+        "LOGICAL" => "crate::FortranLogical",
+        _ => "core::ffi::c_void",
+    }
+}
+
+fn rust_identifier(value: &str) -> String {
+    let value = value.to_ascii_lowercase();
+    if matches!(
+        value.as_str(),
+        "as" | "break"
+            | "const"
+            | "continue"
+            | "crate"
+            | "else"
+            | "enum"
+            | "extern"
+            | "false"
+            | "fn"
+            | "for"
+            | "if"
+            | "impl"
+            | "in"
+            | "let"
+            | "loop"
+            | "match"
+            | "mod"
+            | "move"
+            | "mut"
+            | "pub"
+            | "ref"
+            | "return"
+            | "self"
+            | "static"
+            | "struct"
+            | "super"
+            | "trait"
+            | "true"
+            | "type"
+            | "unsafe"
+            | "use"
+            | "where"
+            | "while"
+            | "async"
+            | "await"
+            | "dyn"
+    ) {
+        format!("r#{value}")
+    } else {
+        value
+    }
+}
+
+fn interfaces(path: &Path) -> Result<Vec<Interface>> {
+    table(&read_json(path)?, "FFI interface inventory")?
+        .into_iter()
+        .map(|row| {
+            Ok(Interface {
+                provider_id: required(&row, "program_unit_id", path)?,
+                kind: required(&row, "kind", path)?,
+                source_hash: required(&row, "raw_sha256", path)?,
+                native_symbol: optional(&row, "observed_raw_symbol"),
+                confidence: required(&row, "confidence_class", path)?,
+                batch: optional(&row, "binding_batch"),
+                argument_ids: strings(row.get("argument_ids")),
+                result_id: row
+                    .get("function_result_id")
+                    .and_then(Value::as_str)
+                    .map(str::to_owned),
+            })
+        })
+        .collect()
+}
+
+fn arguments(path: &Path) -> Result<BTreeMap<String, Argument>> {
+    let mut values = BTreeMap::new();
+    for row in table(&read_json(path)?, "FFI argument inventory")? {
+        let id = required(&row, "id", path)?;
+        if values
+            .insert(
+                id,
+                Argument {
+                    name: required(&row, "normalized_name", path)?,
+                    declared_type: optional(&row, "declared_type"),
+                    dimensions: row
+                        .get("dimensions")
+                        .and_then(Value::as_array)
+                        .cloned()
+                        .unwrap_or_default(),
+                    is_external: row
+                        .get("is_external")
+                        .and_then(Value::as_bool)
+                        .unwrap_or(false),
+                    conflict_state: optional(&row, "conflict_state"),
+                },
+            )
+            .is_some()
+        {
+            return Err(policy("duplicate FFI argument identity"));
+        }
+    }
+    Ok(values)
+}
+
+fn results(path: &Path) -> Result<BTreeMap<String, FunctionResult>> {
+    let mut values = BTreeMap::new();
+    for row in table(&read_json(path)?, "FFI function result inventory")? {
+        let id = required(&row, "id", path)?;
+        if values
+            .insert(
+                id,
+                FunctionResult {
+                    declared_type: optional(&row, "declared_type"),
+                    conflict_state: optional(&row, "conflict_state"),
+                },
+            )
+            .is_some()
+        {
+            return Err(policy("duplicate FFI function result identity"));
+        }
+    }
+    Ok(values)
+}
+
+fn linkage_exclusions(output_dir: &Path) -> Result<BTreeMap<(String, String), Vec<String>>> {
+    let Some(generated) = output_dir.parent() else {
+        return Ok(BTreeMap::new());
+    };
+    let path = generated.join("linkage/batch-a-linkage-report.json");
+    if !path.is_file() {
+        return Ok(BTreeMap::new());
+    }
+    let value = read_json(&path)?;
+    let mut exclusions = BTreeMap::new();
+    for record in records(&value, "Batch A linkage report")? {
+        if field(record, "link_status") != "external_dependency" {
+            continue;
+        }
+        let symbols = strings(record.get("external_undefined_symbols"));
+        if symbols.is_empty() {
+            return Err(policy("Batch A external dependency record has no symbols"));
+        }
+        let key = (field(record, "routine"), field(record, "source_hash"));
+        if exclusions.insert(key, symbols).is_some() {
+            return Err(policy(
+                "Batch A linkage report has duplicate routine/source records",
+            ));
+        }
+    }
+    Ok(exclusions)
+}
+
+fn prior_status(raw_api_dir: &Path) -> Result<BTreeMap<String, String>> {
+    let path = raw_api_dir.join("routine-status.json");
+    if !path.is_file() {
+        return Ok(BTreeMap::new());
+    }
+    let mut values = BTreeMap::new();
+    for row in records(&read_json(&path)?, "raw API status")? {
+        values.insert(field(row, "routine"), field(row, "raw_api_state"));
+    }
+    Ok(values)
+}
+
+fn legacy_declarations(sys_dir: &Path) -> Result<BTreeMap<String, Vec<String>>> {
+    let mut result = BTreeMap::<String, Vec<String>>::new();
+    for entry in fs::read_dir(sys_dir.join("src"))? {
+        let entry = entry?;
+        let path = entry.path();
+        if !path.is_file() || path.extension().and_then(|value| value.to_str()) != Some("rs") {
+            continue;
+        }
+        let stem = path
+            .file_stem()
+            .and_then(|value| value.to_str())
+            .unwrap_or_default()
+            .to_owned();
+        if stem == "lib" {
+            continue;
+        }
+        let source = fs::read_to_string(&path)?;
+        let mut modules = Vec::<String>::new();
+        let mut module_depths = Vec::<usize>::new();
+        let mut depth = 0usize;
+        for line in source.lines() {
+            let trimmed = line.trim();
+            if let Some(module) = trimmed
+                .strip_prefix("pub mod ")
+                .and_then(|value| value.strip_suffix('{'))
+                .map(str::trim)
+            {
+                modules.push(module.to_owned());
+                module_depths.push(depth + 1);
+            }
+            if let Some(name) = line
+                .trim_start()
+                .strip_prefix("pub fn ")
+                .and_then(|value| value.split_once('(').map(|(name, _)| name))
+            {
+                if !name.is_empty()
+                    && name
+                        .bytes()
+                        .all(|byte| byte.is_ascii_alphanumeric() || byte == b'_')
+                {
+                    let nested = modules
+                        .iter()
+                        .map(String::as_str)
+                        .collect::<Vec<_>>()
+                        .join("::");
+                    let prefix = if nested.is_empty() {
+                        format!("slatec_sys::{stem}")
+                    } else {
+                        format!("slatec_sys::{stem}::{nested}")
+                    };
+                    result
+                        .entry(name.to_ascii_uppercase())
+                        .or_default()
+                        .push(format!("{prefix}::{name}"));
+                }
+            }
+            let opens = trimmed.bytes().filter(|byte| *byte == b'{').count();
+            let closes = trimmed.bytes().filter(|byte| *byte == b'}').count();
+            depth = depth.saturating_add(opens).saturating_sub(closes);
+            while module_depths.last().is_some_and(|start| *start > depth) {
+                module_depths.pop();
+                modules.pop();
+            }
+        }
+    }
+    for paths in result.values_mut() {
+        paths.sort();
+        paths.dedup();
+    }
+    Ok(result)
+}
+
+fn validate_candidates(candidates: &[Candidate]) -> Result<()> {
+    let mut paths = BTreeSet::new();
+    let mut symbols = BTreeMap::<String, String>::new();
+    for candidate in candidates {
+        if !paths.insert(candidate.canonical_path.clone()) {
+            return Err(policy("Batch A canonical path collision"));
+        }
+        if let Some(previous) = symbols.insert(
+            candidate.native_symbol.clone(),
+            candidate.abi_fingerprint.clone(),
+        ) {
+            if previous != candidate.abi_fingerprint {
+                return Err(policy(
+                    "Batch A native symbol has incompatible ABI fingerprints",
+                ));
+            }
+        }
+    }
+    Ok(())
+}
+
+fn summary_by(records: &[Value], field_name: &str) -> BTreeMap<String, usize> {
+    let mut values = BTreeMap::new();
+    for record in records {
+        *values.entry(field(record, field_name)).or_default() += 1;
+    }
+    values
+}
+
+fn render_summary(summary: &Value) -> String {
+    let count = |key: &str| {
+        summary
+            .pointer(&format!("/counts/{key}"))
+            .and_then(Value::as_u64)
+            .unwrap_or_default()
+    };
+    format!(
+        "# Raw API Batch A summary\n\n\
+         - Retained identities: {}\n\
+         - Batch A candidates: {}\n\
+         - Already-public eligible declarations: {}\n\
+         - New generated-declaration re-exports: {}\n\
+         - Legacy-declaration canonical re-exports: {}\n\
+         - Eligible subsidiaries kept internal: {}\n\
+         - External-dependency exclusions found by object closure: {}\n\
+         - Canonical compile/link probe batches: {}/{}\n\
+         - Representative runtime smoke routines: {}\n\n\
+         Batch A paths are unsafe, source/hash and ABI-fingerprint verified, and link-validated by generated probes. They are not safe wrappers and do not imply universal runtime or numerical validation.\n",
+        count("total_retained_identities"),
+        count("batch_a_candidates"),
+        count("already_public_batch_a_eligible"),
+        count("new_generated_declaration_reexports"),
+        count("legacy_declaration_canonical_reexports"),
+        count("eligible_subsidiaries_kept_internal"),
+        count("linkage_external_dependency_exclusions"),
+        count("compile_probe_batches"),
+        count("link_probe_batches"),
+        count("runtime_smoke_routines"),
+    )
+}
+
+fn render_abi_summary(summary: &Value) -> String {
+    let mut text =
+        String::from("# Batch A ABI classification\n\n| ABI class | Count |\n| --- | ---: |\n");
+    if let Some(classes) = summary.get("abi_classes").and_then(Value::as_object) {
+        for (class, count) in classes {
+            text.push_str(&format!(
+                "| {class} | {} |\n",
+                count.as_u64().unwrap_or_default()
+            ));
+        }
+    }
+    text.push_str("\nThe classifier excludes callback, CHARACTER, complex-argument, complex-return, parser-ambiguous, provider-missing, support, and subsidiary interfaces with a machine-readable reason.\n");
+    text
+}
+
+fn source_url(record: &Value) -> String {
+    record
+        .pointer("/official_documentation/netlib_source_url/url")
+        .and_then(Value::as_str)
+        .or_else(|| record.get("description_source_url").and_then(Value::as_str))
+        .unwrap_or("https://www.netlib.org/slatec/")
+        .to_owned()
+}
+
+fn one_line(value: &str) -> String {
+    let compact = value.split_whitespace().collect::<Vec<_>>().join(" ");
+    if compact.is_empty() {
+        "Original SLATEC numerical routine.".to_owned()
+    } else {
+        compact
+    }
+}
+
+fn table(value: &Value, source: &str) -> Result<Vec<BTreeMap<String, Value>>> {
+    let names = value
+        .get("columns")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy(&format!("{source} has no columns")))?
+        .iter()
+        .map(|column| {
+            column
+                .as_str()
+                .map(str::to_owned)
+                .ok_or_else(|| policy(&format!("{source} has a non-string column")))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    records(value, source)?
+        .iter()
+        .map(|row| {
+            let cells = row
+                .as_array()
+                .or_else(|| row.get("value").and_then(Value::as_array))
+                .ok_or_else(|| policy(&format!("{source} has malformed row")))?;
+            if cells.len() != names.len() {
+                return Err(policy(&format!("{source} has wrong-width row")));
+            }
+            Ok(names.iter().cloned().zip(cells.iter().cloned()).collect())
+        })
+        .collect()
+}
+
+fn records<'a>(value: &'a Value, source: &str) -> Result<&'a Vec<Value>> {
+    value
+        .get("records")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy(&format!("{source} has no records")))
+}
+
+fn read_json(path: &Path) -> Result<Value> {
+    Ok(serde_json::from_slice(&fs::read(path)?)?)
+}
+fn bytes(value: &Value) -> Result<Vec<u8>> {
+    let mut value = serde_json::to_vec_pretty(value)?;
+    value.push(b'\n');
+    Ok(value)
+}
+fn required(row: &BTreeMap<String, Value>, key: &str, path: &Path) -> Result<String> {
+    let value = optional(row, key);
+    if value.is_empty() {
+        Err(policy(&format!("{} lacks {key}", path.display())))
+    } else {
+        Ok(value)
+    }
+}
+fn optional(row: &BTreeMap<String, Value>, key: &str) -> String {
+    row.get(key)
+        .and_then(Value::as_str)
+        .unwrap_or_default()
+        .to_owned()
+}
+fn string(value: &Value, key: &str) -> Result<String> {
+    let value = field(value, key);
+    if value.is_empty() {
+        Err(policy(&format!("record lacks {key}")))
+    } else {
+        Ok(value)
+    }
+}
+fn field(value: &Value, key: &str) -> String {
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .unwrap_or_default()
+        .to_owned()
+}
+fn strings(value: Option<&Value>) -> Vec<String> {
+    value
+        .and_then(Value::as_array)
+        .map(|values| {
+            values
+                .iter()
+                .filter_map(Value::as_str)
+                .map(str::to_owned)
+                .collect()
+        })
+        .unwrap_or_default()
+}
+fn output_hash(files: &BTreeMap<&str, Vec<u8>>) -> String {
+    use sha2::{Digest, Sha256};
+    let mut hash = Sha256::new();
+    for (name, contents) in files {
+        hash.update(name.as_bytes());
+        hash.update([0]);
+        hash.update(contents);
+    }
+    format!("{:x}", hash.finalize())
+}
+fn write_outputs(root: &Path, files: &BTreeMap<&str, Vec<u8>>) -> Result<()> {
+    fs::create_dir_all(root)?;
+    for (name, contents) in files {
+        let path = root.join(name);
+        if fs::read(&path).ok().as_deref() != Some(contents.as_slice()) {
+            fs::write(path, contents)?;
+        }
+    }
+    Ok(())
+}
+fn policy(message: &str) -> CorpusError {
+    CorpusError::Policy(message.to_owned())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fingerprint_keeps_rank_and_scalar_type() {
+        let scalar = Argument {
+            name: "N".to_owned(),
+            declared_type: "INTEGER".to_owned(),
+            dimensions: Vec::new(),
+            is_external: false,
+            conflict_state: String::new(),
+        };
+        let vector = Argument {
+            name: "X".to_owned(),
+            declared_type: "DOUBLE PRECISION".to_owned(),
+            dimensions: vec![Value::String("*".to_owned())],
+            is_external: false,
+            conflict_state: String::new(),
+        };
+        assert_eq!(
+            abi_fingerprint("subroutine", &[scalar, vector], None),
+            "subroutine:void(mut_i32,mut_f64_ptr_rank1)"
+        );
+    }
+
+    #[test]
+    fn public_role_rejects_documentation_units() {
+        let record = json!({"historical_role":"user_callable","short_purpose":"Documentation for a package.","normalized_name":"PKGDOC","primary_family":"Special functions"});
+        assert_eq!(public_role(&record).0, "documentation_or_tooling");
+    }
+}

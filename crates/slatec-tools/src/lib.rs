@@ -6,6 +6,7 @@ pub mod agent_guidance;
 pub mod airy_api;
 pub mod all_feature_coverage;
 pub mod archive;
+pub mod batch_a_api;
 pub mod blas1_concurrency;
 pub mod blas_api;
 pub mod complete_corpus;
