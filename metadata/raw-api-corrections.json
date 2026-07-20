@@ -146,6 +146,22 @@
         "source_link": "selected_provider_metadata",
         "abi_profile": "compiler_observation"
       }
+    },
+    {
+      "family": "special-foundations",
+      "source_manifest_sha256": "07b9a3662ff34d08305e6f122c1fe10d5bfd6f8b21d3c5e2191e071e813ed5e2",
+      "policy": "R2B reviews the 40 compiler-validated, historically user-callable scalar FNLIB identities in the elementary, gamma, beta, and error groups. The manifest binds every selected provider and source hash; any change requires an explicit documentation and ABI requalification.",
+      "documentation": {
+        "purpose": "source_prologue",
+        "mathematical_operation": "source_prologue_and_authored_foundation_metadata",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "safety": "authored_special_raw_safety_contract",
+        "source_link": "selected_provider_metadata",
+        "abi_profile": "compiler_observation"
+      }
     }
   ]
 }

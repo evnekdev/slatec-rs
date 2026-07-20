@@ -4,9 +4,11 @@
 //! particular, an ABI-shaped generated declaration is never considered reviewed
 //! merely because it compiled or appeared in `slatec_sys::generated`.
 
+use crate::all_feature_coverage;
 use crate::blas_api;
 use crate::error::{CorpusError, Result};
 use crate::hash;
+use crate::special_foundations_api;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
@@ -20,6 +22,7 @@ pub struct RawApiPaths<'a> {
     pub ffi_validation_dir: &'a Path,
     pub safe_api_dir: &'a Path,
     pub corrections_path: &'a Path,
+    pub public_feature_registry_path: &'a Path,
     pub sys_dir: &'a Path,
     pub src_dir: &'a Path,
     pub facade_dir: &'a Path,
@@ -75,9 +78,16 @@ struct BlasReviewPolicy {
 }
 
 #[derive(Clone, Debug)]
+struct SpecialFoundationsReviewPolicy {
+    source_manifest_sha256: String,
+    documentation: Value,
+}
+
+#[derive(Clone, Debug)]
 struct Corrections {
     records: Vec<Correction>,
     blas_policy: Option<BlasReviewPolicy>,
+    special_foundations_policy: Option<SpecialFoundationsReviewPolicy>,
 }
 
 /// Generates all R1 raw API reports and rejects an inconsistent reviewed entry.
@@ -97,6 +107,17 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let sys_features = cargo_features(&paths.sys_dir.join("Cargo.toml"))?;
     let src_features = cargo_features(&paths.src_dir.join("Cargo.toml"))?;
     let facade_features = cargo_features(&paths.facade_dir.join("Cargo.toml"))?;
+    let all_feature_coverage = all_feature_coverage::generate(
+        &paths.sys_dir.join("Cargo.toml"),
+        paths.public_feature_registry_path,
+    )?;
+    let all_feature_closure = all_feature_coverage
+        .get("transitive_closure")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy("all-feature coverage report lacks its transitive closure"))?
+        .iter()
+        .filter_map(Value::as_str)
+        .collect::<BTreeSet<_>>();
     let legacy_declarations = legacy_declarations(paths.sys_dir)?;
 
     let mut by_provider = BTreeMap::new();
@@ -110,6 +131,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     }
 
     let blas_policy = corrections.blas_policy;
+    let special_foundations_policy = corrections.special_foundations_policy;
     let mut correction_by_name = BTreeMap::new();
     for correction in corrections.records {
         if correction_by_name
@@ -188,7 +210,20 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 &argument_order,
             )
         });
-        let correction = correction.or(automatic_blas_correction.as_ref());
+        let automatic_special_foundations_correction =
+            special_foundations_policy.as_ref().and_then(|policy| {
+                automatic_special_foundations_correction(
+                    policy,
+                    catalogue_record,
+                    &name,
+                    &source_hash,
+                    &generated_status,
+                    &argument_order,
+                )
+            });
+        let correction = correction
+            .or(automatic_blas_correction.as_ref())
+            .or(automatic_special_foundations_correction.as_ref());
         let reviewed_status = correction
             .map(|item| item.status.clone())
             .or_else(|| {
@@ -203,6 +238,11 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let feature = correction
             .map(|item| item.feature.clone())
             .unwrap_or_else(|| generated_feature(interface));
+        let all_feature_reachability = if all_feature_closure.contains(feature.as_str()) {
+            "transitively_enabled_by_all"
+        } else {
+            "not_enabled_by_all"
+        };
         let provider_feature = correction
             .map(|item| item.provider_feature.clone())
             .unwrap_or_else(|| "not_assigned".to_owned());
@@ -324,6 +364,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "legacy_family_declaration_status":if is_reviewed { "compatibility_reexport" } else if legacy_paths.is_empty() { "not_present" } else { "preexisting_family_declaration_requires_r1_review" },
             "legacy_rust_paths":reported_legacy_paths,
             "feature": feature,
+            "all_feature_reachability": all_feature_reachability,
             "provider_feature": provider_feature,
             "safe_facade_feature": correction
                 .map(|_| safe_feature(&name, &facade_features))
@@ -336,7 +377,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "compile_test_status": compile_test_status,
             "link_test_status": link_test_status,
             "runtime_test_status": runtime_test_status,
-            "example_status": if is_reviewed && blas_api::level(&name).is_some() { "representative_raw_blas_examples".to_owned() } else { example_status(catalogue_record) },
+            "example_status": if is_reviewed && blas_api::level(&name).is_some() { "representative_raw_blas_examples".to_owned() } else if is_reviewed && special_foundations_api::group(&name).is_some() { "representative_raw_special_foundations_examples".to_owned() } else { example_status(catalogue_record) },
             "safe_wrapper_status": safe_wrapper_status,
             "public_raw_feasibility": feasibility,
             "exclusion_reason": exclusion_reason,
@@ -355,6 +396,18 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         write_blas_canonical_path_tests(paths.sys_dir, &output_records)?;
         write_blas_link_probe(paths.facade_dir, &output_records)?;
     }
+    if let Some(review_policy) = &special_foundations_policy {
+        let actual = special_foundations_api::source_manifest(&output_records);
+        if actual != review_policy.source_manifest_sha256 {
+            return Err(policy(&format!(
+                "special-foundations review is guarded by {}, but selected reviewed sources hash to {actual}",
+                review_policy.source_manifest_sha256
+            )));
+        }
+        write_special_foundations_module(paths.sys_dir, &output_records)?;
+        write_special_foundations_canonical_path_tests(paths.sys_dir, &output_records)?;
+        write_special_foundations_link_probe(paths.facade_dir, &output_records)?;
+    }
     validate_reviewed(&output_records, &sys_features, &src_features, paths.sys_dir)?;
 
     let coverage = coverage_summary(&output_records);
@@ -371,6 +424,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let priority = promotion_priority(&output_records);
     let roots = roots_report(&output_records);
     let blas = blas_api::family_report(&output_records);
+    let special_foundations = special_foundations_api::family_report(&output_records);
     let routine_status = json!({
         "schema_id":"slatec-sys.raw-api.routine-status",
         "schema_version":"1.0.0",
@@ -394,6 +448,14 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     files.insert("promotion-priority.json", json_bytes(&priority)?);
     files.insert("roots-family-report.json", json_bytes(&roots)?);
     files.insert("blas-family-report.json", json_bytes(&blas)?);
+    files.insert(
+        "special-foundations-report.json",
+        json_bytes(&special_foundations)?,
+    );
+    files.insert(
+        "all-feature-coverage.json",
+        json_bytes(&all_feature_coverage)?,
+    );
     files.insert("validation-summary.md", validation_summary.into_bytes());
     let semantic_hash = outputs_hash(&files);
     files.insert(
@@ -452,6 +514,7 @@ pub fn validate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         "driver_role",
         "canonical_rust_path",
         "feature",
+        "all_feature_reachability",
         "provider_feature",
         "documentation_status",
         "argument_documentation_status",
@@ -568,9 +631,27 @@ fn corrections(path: &Path) -> Result<Corrections> {
             })
         })
         .transpose()?;
+    let special_foundations_policy = value
+        .get("family_reviews")
+        .and_then(Value::as_array)
+        .and_then(|reviews| {
+            reviews.iter().find(|review| {
+                review.get("family").and_then(Value::as_str) == Some("special-foundations")
+            })
+        })
+        .map(|review| {
+            Ok::<SpecialFoundationsReviewPolicy, CorpusError>(SpecialFoundationsReviewPolicy {
+                source_manifest_sha256: string(review, "source_manifest_sha256")?,
+                documentation: review.get("documentation").cloned().ok_or_else(|| {
+                    policy("special-foundations family review lacks documentation evidence")
+                })?,
+            })
+        })
+        .transpose()?;
     Ok(Corrections {
         records,
         blas_policy,
+        special_foundations_policy,
     })
 }
 
@@ -599,6 +680,51 @@ fn automatic_blas_correction(
         ),
         compatibility_paths: vec![format!(
             "slatec_sys::families::blas_level{level}::{}",
+            routine.to_ascii_lowercase()
+        )],
+        feature: feature.clone(),
+        provider_feature: feature,
+        role: "historically_user_callable_driver".to_owned(),
+        source_file: field(catalogue_record, "source_file"),
+        arguments: arguments.to_vec(),
+        documentation: policy.documentation.clone(),
+        link_test_status: "passed".to_owned(),
+        runtime_test_status: "passed".to_owned(),
+        safe_wrapper_path: catalogue_record
+            .get("safe_api_paths")
+            .and_then(Value::as_array)
+            .and_then(|items| items.first())
+            .and_then(Value::as_str)
+            .map(str::to_owned)
+            .unwrap_or_else(|| "not_safely_wrapped".to_owned()),
+    })
+}
+
+fn automatic_special_foundations_correction(
+    policy: &SpecialFoundationsReviewPolicy,
+    catalogue_record: &Value,
+    routine: &str,
+    source_hash: &str,
+    generated_status: &str,
+    arguments: &[String],
+) -> Option<Correction> {
+    let group = special_foundations_api::group(routine)?;
+    if field(catalogue_record, "historical_role") != "user_callable"
+        || generated_status != "generated_abi_validated"
+    {
+        return None;
+    }
+    let feature = special_foundations_api::feature(routine)?;
+    Some(Correction {
+        routine: routine.to_owned(),
+        source_hash: source_hash.to_owned(),
+        status: "reviewed_public_driver".to_owned(),
+        canonical_path: format!(
+            "slatec_sys::special::{group}::{}",
+            routine.to_ascii_lowercase()
+        ),
+        compatibility_paths: vec![format!(
+            "slatec_sys::families::special_{group}::{}",
             routine.to_ascii_lowercase()
         )],
         feature: feature.clone(),
@@ -864,6 +990,12 @@ fn safe_feature(routine: &str, facade_features: &BTreeSet<String>) -> String {
         "fishpack-cartesian-2d"
     } else if matches!(routine, "FZERO" | "DFZERO") {
         "roots-scalar"
+    } else if let Some(feature) = special_foundations_api::feature(routine) {
+        return if facade_features.contains(&feature) {
+            feature
+        } else {
+            "not_assigned".to_owned()
+        };
     } else {
         blas_api::feature(routine).unwrap_or("not_assigned")
     };
@@ -995,6 +1127,20 @@ fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
         let marker = format!("// raw-api-routine: {routine}");
         let start = source.find(&marker).ok_or_else(|| {
             policy("reviewed BLAS raw declaration lacks its generated Rustdoc block")
+        })?;
+        let rest = &source[start..];
+        let after_marker = marker.len();
+        let end = rest[after_marker..]
+            .find("// raw-api-routine:")
+            .map(|offset| after_marker + offset)
+            .unwrap_or(rest.len());
+        return Ok(rest[..end].to_owned());
+    }
+    if special_foundations_api::group(routine).is_some() {
+        let source = fs::read_to_string(sys_dir.join("src/special.rs"))?;
+        let marker = format!("// raw-api-routine: {routine}");
+        let start = source.find(&marker).ok_or_else(|| {
+            policy("reviewed special raw declaration lacks its generated Rustdoc block")
         })?;
         let rest = &source[start..];
         let after_marker = marker.len();
@@ -1540,6 +1686,11 @@ fn write_blas_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
     if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
         fs::write(path, rendered)?;
     }
+    let generated_path = sys_dir.join("src").join("generated").join("blas.rs");
+    let generated = blas_api::render_generated_module(sys_dir, records)?;
+    if fs::read_to_string(&generated_path).ok().as_deref() != Some(generated.as_str()) {
+        fs::write(generated_path, generated)?;
+    }
     Ok(())
 }
 
@@ -1600,6 +1751,86 @@ fn write_blas_link_probe(facade_dir: &Path, records: &[Value]) -> Result<()> {
     }
     output.push_str("}\n");
     let path = facade_dir.join("tests").join("blas_raw_link.rs");
+    if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
+        fs::write(path, output)?;
+    }
+    Ok(())
+}
+
+fn write_special_foundations_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
+    let path = sys_dir.join("src").join("special.rs");
+    let rendered = special_foundations_api::render_module(records);
+    if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
+        fs::write(path, rendered)?;
+    }
+    Ok(())
+}
+
+fn write_special_foundations_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<()> {
+    let mut output = String::from(
+        "//! Generated canonical and compatibility import coverage for R2B special foundations.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n",
+    );
+    for group in ["elementary", "gamma", "beta", "error"] {
+        output.push_str(&format!(
+            "#[cfg(feature = \"special-{group}\")]\n#[test]\nfn {group}_canonical_and_compatibility_paths_compile() {{\n"
+        ));
+        let mut routines = records
+            .iter()
+            .filter(|record| {
+                special_foundations_api::group(&field(record, "routine")) == Some(group)
+            })
+            .filter(|record| {
+                field(record, "reviewed_declaration_status") == "reviewed_public_driver"
+            })
+            .map(|record| field(record, "routine").to_ascii_lowercase())
+            .collect::<Vec<_>>();
+        routines.sort();
+        for routine in routines {
+            output.push_str(&format!(
+                "    let _ = slatec_sys::special::{group}::{routine};\n    let _ = slatec_sys::families::special_{group}::{routine};\n"
+            ));
+        }
+        output.push_str("}\n\n");
+    }
+    if output.ends_with("\n\n") {
+        output.pop();
+    }
+    let path = sys_dir
+        .join("tests")
+        .join("special_foundations_canonical_paths.rs");
+    if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
+        fs::write(path, output)?;
+    }
+    Ok(())
+}
+
+fn write_special_foundations_link_probe(facade_dir: &Path, records: &[Value]) -> Result<()> {
+    let mut output = String::from(
+        "//! Generated native link retention coverage for every reviewed R2B special symbol.\n//! Run on the supported GNU MinGW target with `special-raw-link-tests`.\n\n#![cfg(all(\n    feature = \"special-raw-link-tests\",\n    target_arch = \"x86_64\",\n    target_env = \"gnu\",\n    target_os = \"windows\"\n))]\n\n#[test]\nfn every_reviewed_special_foundation_symbol_links_from_its_provider_closure() {\n    slatec_src::ensure_linked();\n",
+    );
+    for group in ["elementary", "gamma", "beta", "error"] {
+        let mut routines = records
+            .iter()
+            .filter(|record| {
+                special_foundations_api::group(&field(record, "routine")) == Some(group)
+            })
+            .filter(|record| {
+                field(record, "reviewed_declaration_status") == "reviewed_public_driver"
+            })
+            .map(|record| field(record, "routine").to_ascii_lowercase())
+            .collect::<Vec<_>>();
+        routines.sort();
+        output.push_str(&format!("    // {group}\n"));
+        for routine in routines {
+            output.push_str(&format!(
+                "    std::hint::black_box(slatec_sys::special::{group}::{routine} as *const () as usize);\n"
+            ));
+        }
+    }
+    output.push_str("}\n");
+    let path = facade_dir
+        .join("tests")
+        .join("special_foundations_raw_link.rs");
     if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
         fs::write(path, output)?;
     }
@@ -1726,10 +1957,13 @@ fn routine_page_status(record: &Value) -> String {
          This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).\n\n\
          - Generated raw declaration: `{}`\n\
          - Reviewed family declaration: `{}`\n\
-         - Canonical Rust path: `{}`\n\
-         - Current legacy Rust paths: `{}`\n\
-         - Provider-backed callable symbol: `{provider_backed}` (`{}`)\n\
+        - Canonical Rust path: `{}`\n\
+        - Current legacy Rust paths: `{}`\n\
+        - Public declaration feature: `{}`\n\
+        - `all`-feature reachability: `{}`\n\
+        - Provider-backed callable symbol: `{provider_backed}` (`{}`)\n\
          - Documentation status: `{}`\n\
+         - Compile-test status: `{}`\n\
          - Link-test status: `{}`\n\
          - Runtime-test status: `{}`\n\
          - Safe-wrapper status: `{}`\n\
@@ -1748,8 +1982,11 @@ fn routine_page_status(record: &Value) -> String {
                 .join(", "))
             .filter(|paths| !paths.is_empty())
             .unwrap_or_else(|| "none".to_owned()),
+        field(record, "feature"),
+        field(record, "all_feature_reachability"),
         field(record, "symbol_status"),
         field(record, "documentation_status"),
+        field(record, "compile_test_status"),
         field(record, "link_test_status"),
         field(record, "runtime_test_status"),
         field(record, "safe_wrapper_status"),

@@ -58,8 +58,11 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Reviewed family declaration: `reviewed_public_driver`
 - Canonical Rust path: `slatec_sys::blas::level2::cher`
 - Current legacy Rust paths: `slatec_sys::families::blas_level2::cher`
+- Public declaration feature: `blas-level2`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_authored`
+- Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `not_safely_wrapped`

@@ -62,8 +62,11 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
 - Canonical Rust path: `not_promoted`
 - Current legacy Rust paths: `slatec_sys::quadrature::dqag`
+- Public declaration feature: `raw-ffi-callbacks`
+- `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `legacy_partial_rustdoc`
+- Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
 - Runtime-test status: `not_tested`
 - Safe-wrapper status: `slatec::quadrature::integrate`

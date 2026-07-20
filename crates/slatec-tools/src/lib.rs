@@ -2,6 +2,7 @@
 #![recursion_limit = "256"]
 
 pub mod acquire;
+pub mod all_feature_coverage;
 pub mod archive;
 pub mod blas1_concurrency;
 pub mod blas_api;
@@ -54,6 +55,7 @@ pub mod safe_pois3d;
 pub mod safe_quadrature;
 pub mod safe_roots;
 pub mod safe_special;
+pub mod special_foundations_api;
 
 pub const TOOL_NAME: &str = "slatec-corpus";
 pub const TOOL_VERSION: &str = env!("CARGO_PKG_VERSION");

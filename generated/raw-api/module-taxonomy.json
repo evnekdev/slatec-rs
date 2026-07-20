@@ -55,9 +55,9 @@
       "routine": "AIE"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::beta",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ALBETA"
     },
     {
@@ -73,15 +73,15 @@
       "routine": "ALI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ALNGAM"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ALNREL"
     },
     {
@@ -307,15 +307,15 @@
       "routine": "BESYNU"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::beta",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "BETA"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::beta",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "BETAI"
     },
     {
@@ -337,9 +337,9 @@
       "routine": "BIE"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "BINOM"
     },
     {
@@ -703,9 +703,9 @@
       "routine": "CBLKTR"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CBRT"
     },
     {
@@ -1423,9 +1423,9 @@
       "routine": "COS"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "COSDG"
     },
     {
@@ -2173,9 +2173,9 @@
       "routine": "DAVINT"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DAWS"
     },
     {
@@ -2275,15 +2275,15 @@
       "routine": "DBESY1"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::beta",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DBETA"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::beta",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DBETAI"
     },
     {
@@ -2311,9 +2311,9 @@
       "routine": "DBIE"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DBINOM"
     },
     {
@@ -2503,9 +2503,9 @@
       "routine": "DBVSUP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DCBRT"
     },
     {
@@ -2629,9 +2629,9 @@
       "routine": "DCOS"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DCOSDG"
     },
     {
@@ -2719,9 +2719,9 @@
       "routine": "DDATRP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DDAWS"
     },
     {
@@ -2899,15 +2899,15 @@
       "routine": "DENORM"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::error",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DERF"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::error",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DERFC"
     },
     {
@@ -2947,15 +2947,15 @@
       "routine": "DEXP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DEXPRL"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DFAC"
     },
     {
@@ -3013,21 +3013,21 @@
       "routine": "DFZERO"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGAMI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGAMIC"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGAMIT"
     },
     {
@@ -3043,15 +3043,15 @@
       "routine": "DGAMLN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGAMMA"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DGAMR"
     },
     {
@@ -3301,9 +3301,9 @@
       "routine": "DJAIRY"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::beta",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DLBETA"
     },
     {
@@ -3331,15 +3331,15 @@
       "routine": "DLLTI2"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DLNGAM"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DLNREL"
     },
     {
@@ -3865,9 +3865,9 @@
       "routine": "DPRWVR"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DPSI"
     },
     {
@@ -4399,9 +4399,9 @@
       "routine": "DSIN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSINDG"
     },
     {
@@ -5071,15 +5071,15 @@
       "routine": "ENORM"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::error",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ERF"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::error",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "ERFC"
     },
     {
@@ -5101,9 +5101,9 @@
       "routine": "EXP"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "EXPREL"
     },
     {
@@ -5131,9 +5131,9 @@
       "routine": "EZFFTI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "FAC"
     },
     {
@@ -5209,21 +5209,21 @@
       "routine": "FZERO"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "GAMI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "GAMIC"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "GAMIT"
     },
     {
@@ -5239,15 +5239,15 @@
       "routine": "GAMLN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "GAMMA"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "GAMR"
     },
     {
@@ -6421,9 +6421,9 @@
       "routine": "PSGF"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::gamma",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "PSI"
     },
     {
@@ -7579,9 +7579,9 @@
       "routine": "SIN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::elementary",
       "primary_family": "Elementary and transcendental functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SINDG"
     },
     {

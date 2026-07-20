@@ -60,8 +60,11 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Reviewed family declaration: `not_reviewed_by_raw_api_registry`
 - Canonical Rust path: `not_promoted`
 - Current legacy Rust paths: `none`
+- Public declaration feature: `not_assigned`
+- `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
+- Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
 - Runtime-test status: `not_tested`
 - Safe-wrapper status: `not_safely_wrapped`

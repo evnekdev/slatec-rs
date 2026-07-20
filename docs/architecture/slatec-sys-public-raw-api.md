@@ -75,6 +75,16 @@ slatec_sys::blas::level2::dgemv
 slatec_sys::blas::level3::dgemm
 ```
 
+R2B establishes reviewed scalar special-function paths without changing the
+existing safe facade:
+
+```rust
+slatec_sys::special::elementary::dlnrel
+slatec_sys::special::gamma::dgamma
+slatec_sys::special::beta::dbetai
+slatec_sys::special::error::derfc
+```
+
 The complete feasible BLAS set is generated from the source-hash-guarded
 family-review policy rather than copied into hand-written `extern` blocks.
 Each canonical item re-exports the single ABI-shaped generated declaration;
@@ -130,6 +140,15 @@ Reviewed records fail validation when any required feature is absent. A raw
 consumer may use `slatec-sys` with an explicit external provider; `slatec-sys`
 does not select a backend implicitly.
 
+The public `all` feature directly names every authored public mathematical
+family aggregate. It is declaration-only: provider/backend, profile-only,
+ABI-shaped generated, raw-family, compatibility, and test-only switches are
+not direct members. The generated
+[`all-feature-coverage.json`](../../generated/raw-api/all-feature-coverage.json)
+checks that the registry and Cargo feature graph have no missing or unexpected
+aggregate members. A reviewed record also states whether its declaration
+feature is transitively reached by `all`.
+
 Validation levels are separate: source/hash and catalogue checks, compiler and
 symbol observation, declaration signature audit, compile-only canonical-path
 imports, native link validation, runtime validation, and safe-wrapper tests.
@@ -177,3 +196,24 @@ not declared because a correct Rust return ABI has not been established.
 Routine documentation is generated from verified prologue facts plus a small
 authored BLAS operation template, and its audit checks every exported routine,
 argument, source link, ABI statement, and `# Safety` section.
+
+## Scalar special foundations R2B evidence and ABI boundary
+
+The source-hash-guarded R2B policy promotes exactly 40 feasible, historically
+user-callable scalar routines in four groups: elementary (12), gamma (18),
+beta (6), and error (4). Each re-exports one validated generated declaration
+under `slatec_sys::special::{elementary,gamma,beta,error}`; the former
+`families::special_*` paths remain compatibility re-exports, not second FFI
+declarations. The candidate report records every target routine, source hash,
+provider, symbol, prior family path, safe-wrapper audit, disposition, and
+deferment reason.
+
+These are direct scalar-return functions for the supported GNU MinGW ABI;
+their scalar input pointers are non-null, readable, non-retained, and
+read-only. Documentation derives domain and XERROR facts from selected source
+prologues plus focused authored metadata. FNLIB saves initialization state and
+legacy error controls are process-global; the raw binding deliberately makes
+no thread-safety claim. `GAMR`/`DGAMR` additionally use XGETF/XSETF/XERCLR and
+must be serialized with other consumers of the legacy error runtime. Other
+special domains, complex returns, callback-bearing interfaces, and unresolved
+semantics remain unpromoted.

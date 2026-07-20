@@ -42,12 +42,31 @@ raw-ffi-ode = ["ffi-profile-gnu-mingw-x86_64"]
 raw-ffi-callbacks = []
 raw-ffi-infrastructure = []
 
+# `all` is the declaration-only aggregate of every public mathematical family.
+# It deliberately does not select a native provider; provider selection belongs
+# to slatec-src or to the final application.
+all = [
+    "blas",
+    "special",
+    "quadrature",
+    "roots",
+    "nonlinear",
+    "least-squares",
+    "ode",
+    "dassl",
+    "optimization",
+    "fftpack",
+    "fishpack",
+    "banded-linear-systems",
+    "interpolation",
+]
+
 # Reviewed API-family gates. Scalar and BLAS declarations are emitted into
 # family modules; callback families use their existing hand-reviewed modules.
 # None of these gates enables the broad callback or ABI-shape batches.
-raw-family-blas-level1 = ["ffi-profile-gnu-mingw-x86_64", "raw-ffi-numeric-scalar-subroutines", "raw-ffi-numeric-array-subroutines", "raw-ffi-scalar-functions", "raw-ffi-complex-arguments"]
-raw-family-blas-level2 = ["ffi-profile-gnu-mingw-x86_64", "raw-ffi-numeric-array-subroutines", "raw-ffi-complex-arguments", "raw-ffi-character"]
-raw-family-blas-level3 = ["ffi-profile-gnu-mingw-x86_64", "raw-ffi-numeric-array-subroutines", "raw-ffi-character"]
+raw-family-blas-level1 = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-blas-level2 = ["ffi-profile-gnu-mingw-x86_64"]
+raw-family-blas-level3 = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-special-elementary = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-special-gamma = ["ffi-profile-gnu-mingw-x86_64"]
 raw-family-special-beta = ["ffi-profile-gnu-mingw-x86_64"]
@@ -92,6 +111,29 @@ blas = ["blas-level1", "blas-level2", "blas-level3"]
 blas-level1 = ["raw-family-blas-level1"]
 blas-level2 = ["raw-family-blas-level2"]
 blas-level3 = ["raw-family-blas-level3"]
+special = ["special-elementary", "special-gamma", "special-beta", "special-error", "special-airy", "special-bessel", "special-integrals", "special-polynomials", "special-scalar-expanded"]
+special-elementary = ["raw-family-special-elementary"]
+special-gamma = ["raw-family-special-gamma"]
+special-beta = ["raw-family-special-beta"]
+special-error = ["raw-family-special-error"]
+special-airy = ["raw-family-special-airy"]
+special-bessel = ["raw-family-special-bessel"]
+special-integrals = ["raw-family-special-integrals"]
+special-polynomials = ["raw-family-special-polynomials"]
+special-scalar-expanded = ["raw-family-special-scalar-expanded"]
+quadrature = ["quadrature-basic", "quadrature-breakpoints", "quadrature-weighted", "quadrature-oscillatory", "quadrature-fourier", "quadrature-nonadaptive"]
+quadrature-basic = ["raw-family-quadrature-basic"]
+quadrature-breakpoints = ["raw-family-quadrature-breakpoints"]
+quadrature-weighted = ["raw-family-quadrature-weighted"]
+quadrature-oscillatory = ["raw-family-quadrature-oscillatory"]
+quadrature-fourier = ["raw-family-quadrature-fourier"]
+quadrature-nonadaptive = ["raw-family-quadrature-nonadaptive"]
+roots = ["roots-scalar"]
+roots-scalar = ["raw-family-roots-scalar"]
+nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check"]
+nonlinear-easy = ["raw-family-nonlinear-easy"]
+nonlinear-expert = ["raw-family-nonlinear-expert"]
+nonlinear-jacobian-check = ["raw-family-nonlinear-jacobian-check"]
 least-squares = ["least-squares-nonlinear", "least-squares-covariance", "least-squares-linear"]
 least-squares-nonlinear = [
     "least-squares-nonlinear-easy",
@@ -110,14 +152,16 @@ ode-sdrive-expert = ["raw-family-ode-sdrive-expert"]
 dassl = ["raw-family-dassl"]
 optimization = ["optimization-linear-programming-in-memory"]
 optimization-linear-programming-in-memory = ["raw-family-optimization-linear-programming-in-memory"]
+fftpack = ["fftpack-real", "fftpack-complex"]
 fftpack-real = ["raw-family-fftpack-real"]
 fftpack-complex = ["raw-family-fftpack-complex"]
+fishpack = ["fishpack-cartesian-2d", "fishpack-pois3d"]
 fishpack-cartesian-2d = ["raw-family-fishpack-cartesian-2d"]
 fishpack-pois3d = ["raw-family-fishpack-pois3d"]
 banded-linear-systems = ["raw-family-banded-linear-systems"]
+interpolation = ["pchip", "bspline", "piecewise-polynomial"]
 pchip = ["raw-family-pchip"]
 bspline = ["raw-family-bspline"]
 piecewise-polynomial = ["raw-family-piecewise-polynomial"]
-special-scalar-expanded = ["raw-family-special-scalar-expanded"]
 
 [build-dependencies]

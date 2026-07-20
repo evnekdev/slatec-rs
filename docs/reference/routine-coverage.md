@@ -51,14 +51,14 @@ The former aggregate is retired because it conflated generated declarations, rev
 | Historically user-callable routines | 902 |
 | Generated raw declaration candidates | 1253 |
 | ABI-validated generated declarations | 1253 |
-| Reviewed family raw declarations | 125 |
-| Reviewed user-callable raw drivers | 125 |
+| Reviewed family raw declarations | 165 |
+| Reviewed user-callable raw drivers | 165 |
 | Reviewed public subsidiaries | 0 |
 | Provider-backed callable raw routines | 1476 |
 | Link-tested raw routines | 1255 |
 | Runtime-tested raw routines | 1255 |
-| Fully documented raw routines | 125 |
-| Pre-existing family declarations pending R1 review | 191 |
+| Fully documented raw routines | 165 |
+| Pre-existing family declarations pending R1 review | 151 |
 | Safely wrapped routines | 210 |
 | Explicitly excluded routines | 178 |
 | Unclassified routines | 0 |

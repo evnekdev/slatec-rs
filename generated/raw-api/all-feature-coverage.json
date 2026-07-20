@@ -1,0 +1,503 @@
+{
+  "all_direct_members": [
+    "blas",
+    "special",
+    "quadrature",
+    "roots",
+    "nonlinear",
+    "least-squares",
+    "ode",
+    "dassl",
+    "optimization",
+    "fftpack",
+    "fishpack",
+    "banded-linear-systems",
+    "interpolation"
+  ],
+  "families_covered_by_all": [
+    "banded-linear-systems",
+    "blas",
+    "dassl",
+    "fftpack",
+    "fishpack",
+    "interpolation",
+    "least-squares",
+    "nonlinear",
+    "ode",
+    "optimization",
+    "quadrature",
+    "roots",
+    "special"
+  ],
+  "families_missing_from_all": [],
+  "intentionally_excluded_feature_classes": {
+    "compatibility_aliases": [],
+    "internal_abi_shape": [
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-basic",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-abi-sensitive",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-all-validated",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-numeric-scalar-subroutines",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-numeric-array-subroutines",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-scalar-functions",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-complex-arguments",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-logical",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-character",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-quadrature",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-roots",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-nonlinear",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-least-squares",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-linear-least-squares",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-ode",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-callbacks",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-ffi-infrastructure",
+        "transitively_reachable_from_all": false
+      }
+    ],
+    "internal_family_gates": [
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-blas-level1",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-blas-level2",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-blas-level3",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-elementary",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-gamma",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-beta",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-error",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-airy",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-bessel",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-integrals",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-polynomials",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-special-scalar-expanded",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-quadrature-basic",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-quadrature-breakpoints",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-quadrature-weighted",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-quadrature-oscillatory",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-quadrature-fourier",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-quadrature-nonadaptive",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-roots-scalar",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-nonlinear-easy",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-nonlinear-expert",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-nonlinear-jacobian-check",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-nonlinear-easy",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-nonlinear-expert",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-covariance",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-linear-nonnegative",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-linear-bounded",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-linear-constrained",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-least-squares-linear-bounded-constrained",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-ode-sdrive-expert",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-dassl",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-optimization-linear-programming-in-memory",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-fftpack-real",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-fftpack-complex",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-fishpack-cartesian-2d",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-fishpack-pois3d",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-banded-linear-systems",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-pchip",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-bspline",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-piecewise-polynomial",
+        "transitively_reachable_from_all": true
+      }
+    ],
+    "profile_only": [
+      {
+        "direct_member_of_all": false,
+        "feature": "ffi-profile-gnu-mingw-x86_64",
+        "transitively_reachable_from_all": true
+      }
+    ],
+    "test_only": []
+  },
+  "policy": "all directly names every authored public mathematical family aggregate. It never directly names provider, profile-only, raw ABI-shape, raw-family, test-only, or compatibility features; legitimate public family dependencies remain visible in the transitive closure.",
+  "provider_features_intentionally_excluded": [
+    "source-build",
+    "prebuilt",
+    "system",
+    "external-backend"
+  ],
+  "public_family_aggregates": [
+    "banded-linear-systems",
+    "blas",
+    "dassl",
+    "fftpack",
+    "fishpack",
+    "interpolation",
+    "least-squares",
+    "nonlinear",
+    "ode",
+    "optimization",
+    "quadrature",
+    "roots",
+    "special"
+  ],
+  "public_family_members_missing_directly": [],
+  "public_subfamilies_or_components": [
+    "blas-level1",
+    "blas-level2",
+    "blas-level3",
+    "bspline",
+    "fftpack-complex",
+    "fftpack-real",
+    "fishpack-cartesian-2d",
+    "fishpack-pois3d",
+    "least-squares-covariance",
+    "least-squares-linear",
+    "least-squares-linear-bounded",
+    "least-squares-linear-bounded-constrained",
+    "least-squares-linear-constrained",
+    "least-squares-linear-nonnegative",
+    "least-squares-nonlinear",
+    "least-squares-nonlinear-easy",
+    "least-squares-nonlinear-expert",
+    "nonlinear-easy",
+    "nonlinear-expert",
+    "nonlinear-jacobian-check",
+    "ode-sdrive-expert",
+    "optimization-linear-programming-in-memory",
+    "pchip",
+    "piecewise-polynomial",
+    "quadrature-basic",
+    "quadrature-breakpoints",
+    "quadrature-fourier",
+    "quadrature-nonadaptive",
+    "quadrature-oscillatory",
+    "quadrature-weighted",
+    "roots-scalar",
+    "special-airy",
+    "special-bessel",
+    "special-beta",
+    "special-elementary",
+    "special-error",
+    "special-gamma",
+    "special-integrals",
+    "special-polynomials",
+    "special-scalar-expanded"
+  ],
+  "schema_id": "slatec-sys.raw-api.all-feature-coverage",
+  "schema_version": "1.0.0",
+  "transitive_closure": [
+    "all",
+    "banded-linear-systems",
+    "blas",
+    "blas-level1",
+    "blas-level2",
+    "blas-level3",
+    "bspline",
+    "dassl",
+    "ffi-profile-gnu-mingw-x86_64",
+    "fftpack",
+    "fftpack-complex",
+    "fftpack-real",
+    "fishpack",
+    "fishpack-cartesian-2d",
+    "fishpack-pois3d",
+    "interpolation",
+    "least-squares",
+    "least-squares-covariance",
+    "least-squares-linear",
+    "least-squares-linear-bounded",
+    "least-squares-linear-bounded-constrained",
+    "least-squares-linear-constrained",
+    "least-squares-linear-nonnegative",
+    "least-squares-nonlinear",
+    "least-squares-nonlinear-easy",
+    "least-squares-nonlinear-expert",
+    "nonlinear",
+    "nonlinear-easy",
+    "nonlinear-expert",
+    "nonlinear-jacobian-check",
+    "ode",
+    "ode-sdrive-expert",
+    "optimization",
+    "optimization-linear-programming-in-memory",
+    "pchip",
+    "piecewise-polynomial",
+    "quadrature",
+    "quadrature-basic",
+    "quadrature-breakpoints",
+    "quadrature-fourier",
+    "quadrature-nonadaptive",
+    "quadrature-oscillatory",
+    "quadrature-weighted",
+    "raw-family-banded-linear-systems",
+    "raw-family-blas-level1",
+    "raw-family-blas-level2",
+    "raw-family-blas-level3",
+    "raw-family-bspline",
+    "raw-family-dassl",
+    "raw-family-fftpack-complex",
+    "raw-family-fftpack-real",
+    "raw-family-fishpack-cartesian-2d",
+    "raw-family-fishpack-pois3d",
+    "raw-family-least-squares-covariance",
+    "raw-family-least-squares-linear-bounded",
+    "raw-family-least-squares-linear-bounded-constrained",
+    "raw-family-least-squares-linear-constrained",
+    "raw-family-least-squares-linear-nonnegative",
+    "raw-family-least-squares-nonlinear-easy",
+    "raw-family-least-squares-nonlinear-expert",
+    "raw-family-nonlinear-easy",
+    "raw-family-nonlinear-expert",
+    "raw-family-nonlinear-jacobian-check",
+    "raw-family-ode-sdrive-expert",
+    "raw-family-optimization-linear-programming-in-memory",
+    "raw-family-pchip",
+    "raw-family-piecewise-polynomial",
+    "raw-family-quadrature-basic",
+    "raw-family-quadrature-breakpoints",
+    "raw-family-quadrature-fourier",
+    "raw-family-quadrature-nonadaptive",
+    "raw-family-quadrature-oscillatory",
+    "raw-family-quadrature-weighted",
+    "raw-family-roots-scalar",
+    "raw-family-special-airy",
+    "raw-family-special-bessel",
+    "raw-family-special-beta",
+    "raw-family-special-elementary",
+    "raw-family-special-error",
+    "raw-family-special-gamma",
+    "raw-family-special-integrals",
+    "raw-family-special-polynomials",
+    "raw-family-special-scalar-expanded",
+    "roots",
+    "roots-scalar",
+    "special",
+    "special-airy",
+    "special-bessel",
+    "special-beta",
+    "special-elementary",
+    "special-error",
+    "special-gamma",
+    "special-integrals",
+    "special-polynomials",
+    "special-scalar-expanded"
+  ],
+  "unexpected_direct_members": []
+}

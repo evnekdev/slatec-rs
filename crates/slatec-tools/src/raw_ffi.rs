@@ -1589,6 +1589,22 @@ fn generate_bindings(
     let mut module_index = String::from(
         "//! Generated raw GNU Fortran declarations for the selected SLATEC corpus.\n//!\n//! Do not edit. Regenerate with `slatec-corpus generate-raw-ffi --offline`.\n\n",
     );
+    // This narrow declaration owner is derived by the source-hash-guarded raw
+    // API inventory, not by the ABI-shape generator. Preserve it while
+    // rebuilding the broad generated layer so a raw-declaration regeneration
+    // does not erase the reviewed BLAS feature surface before the inventory
+    // pass runs again.
+    let reviewed_blas = bindings_dir.join("blas.rs");
+    if !reviewed_blas.is_file() {
+        return Err(CorpusError::Policy(
+            "reviewed BLAS generated declaration owner is missing; regenerate the raw API inventory first"
+                .to_owned(),
+        ));
+    }
+    module_index.push_str(
+        "#[cfg(any(\n    feature = \"raw-family-blas-level1\",\n    feature = \"raw-family-blas-level2\",\n    feature = \"raw-family-blas-level3\"\n))]\npub mod blas;\n",
+    );
+    fs::copy(&reviewed_blas, staging.join("blas.rs"))?;
     for batch in batches {
         let file_stem = batch.trim_start_matches("batch_");
         let feature = file_stem.replace('_', "-");

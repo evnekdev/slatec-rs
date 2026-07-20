@@ -2,6 +2,12 @@
 //!
 //! Do not edit. Regenerate with `slatec-corpus generate-raw-ffi --offline`.
 
+#[cfg(any(
+    feature = "raw-family-blas-level1",
+    feature = "raw-family-blas-level2",
+    feature = "raw-family-blas-level3"
+))]
+pub mod blas;
 #[cfg(feature = "raw-ffi-callbacks")]
 pub mod callbacks;
 #[cfg(feature = "raw-ffi-character")]
