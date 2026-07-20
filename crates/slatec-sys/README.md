@@ -48,6 +48,16 @@ raw callers must synchronize concurrent calls as needed. See
 [`docs/api/raw-special-foundations.md`](../../docs/api/raw-special-foundations.md)
 for direct-call and provider guidance.
 
+## Reviewed real Airy functions
+
+R2C promotes the eight real FNLIB Airy drivers at
+`slatec_sys::special::airy::{ai,aie,bi,bie,dai,daie,dbi,dbie}`. Enable
+`special-airy`; `slatec_sys::families::special_airy::*` remains a compatibility
+re-export. These unsafe scalar functions use the same direct GNU MinGW return
+ABI and by-address input contract as the reviewed scalar foundations. Complex
+Amos Airy drivers and Airy subsidiaries are intentionally not promoted; see
+[`docs/api/raw-special-airy.md`](../../docs/api/raw-special-airy.md).
+
 ## `all` declaration aggregate
 
 The `all` feature directly selects every authored public mathematical family

@@ -19,6 +19,12 @@
       "text_size": 633240
     },
     {
+      "bss_size": 4172,
+      "data_size": 179344,
+      "name": "raw_dai_only",
+      "text_size": 957592
+    },
+    {
       "bss_size": 624,
       "data_size": 132104,
       "name": "raw_ddot_only",
@@ -71,6 +77,12 @@
       "data_size": 132104,
       "name": "raw_saxpy_only",
       "text_size": 634408
+    },
+    {
+      "bss_size": 4204,
+      "data_size": 179952,
+      "name": "safe_airy_only",
+      "text_size": 959832
     },
     {
       "bss_size": 624,

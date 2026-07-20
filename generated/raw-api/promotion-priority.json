@@ -2,21 +2,21 @@
   "families": [
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 258,
-      "historically_user_callable": 136,
-      "module": "special",
-      "promotion_score": 1124,
-      "safe_wrapper_audits": 50,
-      "unresolved_callbacks": 0
-    },
-    {
-      "documentation_complete": 0,
       "generated_abi_validated": 249,
       "historically_user_callable": 246,
       "module": "linear_algebra::dense",
       "promotion_score": 1088,
       "safe_wrapper_audits": 3,
       "unresolved_callbacks": 32
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 250,
+      "historically_user_callable": 128,
+      "module": "special",
+      "promotion_score": 1052,
+      "safe_wrapper_audits": 42,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 51,
@@ -125,6 +125,15 @@
       "promotion_score": 151,
       "safe_wrapper_audits": 22,
       "unresolved_callbacks": 42
+    },
+    {
+      "documentation_complete": 8,
+      "generated_abi_validated": 8,
+      "historically_user_callable": 8,
+      "module": "special::airy",
+      "promotion_score": 136,
+      "safe_wrapper_audits": 8,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 0,

@@ -29,26 +29,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::ai",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::ai",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::ai"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::ai",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::ai"
+        "slatec_sys::families::special_airy::ai"
       ],
       "routine": "AI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::aie",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::aie",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::aie"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::aie",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::aie"
+        "slatec_sys::families::special_airy::aie"
       ],
       "routine": "AIE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::special::beta::albeta",
@@ -502,26 +506,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::bi",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::bi",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::bi"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::bi",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::bi"
+        "slatec_sys::families::special_airy::bi"
       ],
       "routine": "BI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::bie",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::bie",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::bie"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::bie",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::bie"
+        "slatec_sys::families::special_airy::bie"
       ],
       "routine": "BIE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::special::gamma::binom",
@@ -3351,26 +3359,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dai",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::dai",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::dai"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::dai",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::dai"
+        "slatec_sys::families::special_airy::dai"
       ],
       "routine": "DAI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::daie",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::daie",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::daie"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::daie",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::daie"
+        "slatec_sys::families::special_airy::daie"
       ],
       "routine": "DAIE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3679,26 +3691,30 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dbi",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::dbi",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::dbi"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::dbi",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::dbi"
+        "slatec_sys::families::special_airy::dbi"
       ],
       "routine": "DBI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::special::dbie",
-      "intended_module": "special",
+      "canonical_rust_path": "slatec_sys::special::airy::dbie",
+      "compatibility_paths": [
+        "slatec_sys::families::special_airy::dbie"
+      ],
+      "intended_canonical_rust_path": "slatec_sys::special::airy::dbie",
+      "intended_module": "special::airy",
       "legacy_rust_paths": [
-        "slatec_sys::families::dbie"
+        "slatec_sys::families::special_airy::dbie"
       ],
       "routine": "DBIE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::special::gamma::dbinom",

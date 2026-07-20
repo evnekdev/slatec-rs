@@ -77,6 +77,10 @@ R2B additionally promotes 40 source-hash-reviewed scalar special functions at
 only `slatec-sys/all` aggregate. These unsafe direct bindings do not select a
 native provider; their XERROR/FNLIB and synchronization boundary is documented
 in [`docs/api/raw-special-foundations.md`](docs/api/raw-special-foundations.md).
+R2C promotes the eight real Airy drivers at `slatec_sys::special::airy`; their
+legacy `families::special_airy` paths remain re-exports, while complex Amos
+Airy interfaces remain explicitly deferred in
+[`docs/api/raw-special-airy.md`](docs/api/raw-special-airy.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

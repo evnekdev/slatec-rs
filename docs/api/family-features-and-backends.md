@@ -192,3 +192,13 @@ not promise stability for any unreviewed generated declaration. The generated
 [`all-feature-coverage.json`](../../generated/raw-api/all-feature-coverage.json)
 proves direct coverage of the maintained family registry and reports its
 transitive declaration closure.
+
+### Reviewed real Airy raw feature
+
+`special-airy` selects the reviewed real FNLIB Airy declarations at
+`slatec_sys::special::airy` and the matching `slatec-src/special-airy` source
+closure. It is declaration-only in `slatec-sys`; a direct caller selects a
+provider explicitly. The safe `slatec/special-airy` feature keeps the existing
+`slatec::special::airy` API and uses those canonical raw re-exports. Complex
+Amos Airy interfaces and Airy subsidiaries do not become public stable paths
+through this feature.

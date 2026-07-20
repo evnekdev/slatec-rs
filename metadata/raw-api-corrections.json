@@ -162,6 +162,22 @@
         "source_link": "selected_provider_metadata",
         "abi_profile": "compiler_observation"
       }
+    },
+    {
+      "family": "special-airy",
+      "source_manifest_sha256": "c52dbc382173b03de659f8bfe1a4d6ba80e060359c2ac37a0c0134dd7b89c5b5",
+      "policy": "R2C reviews the eight compiler-validated, historically user-callable real FNLIB Airy scalar functions. The manifest binds every selected provider and source hash; complex Amos Airy drivers and Airy subsidiaries remain explicitly deferred for their own ABI and semantic review.",
+      "documentation": {
+        "purpose": "source_prologue",
+        "mathematical_operation": "source_prologue_and_authored_airy_metadata",
+        "arguments": "executable_declaration_and_authored_pointer_contract",
+        "domain_and_special_values": "source_prologue_and_safe_wrapper_audit",
+        "error_behavior": "source_prologue",
+        "global_state": "source_prologue_and_native_runtime_audit",
+        "safety": "authored_airy_raw_safety_contract",
+        "source_link": "selected_provider_metadata",
+        "abi_profile": "compiler_observation"
+      }
     }
   ]
 }

@@ -257,6 +257,8 @@ pub fn validate(output_dir: &Path) -> Result<()> {
         "safe_dgemm_only",
         "raw_dgamma_only",
         "safe_special_only",
+        "raw_dai_only",
+        "safe_airy_only",
         "safe_roots_only",
         "safe_fishpack_hwscrt_only",
     ] {
@@ -867,6 +869,13 @@ fn probe_specs() -> Vec<Probe> {
             source: RAW_DGAMMA,
         },
         Probe {
+            name: "raw_dai_only",
+            kind: "raw",
+            requested: &["DAI"],
+            link_slatec: true,
+            source: RAW_DAI,
+        },
+        Probe {
             name: "raw_fzero_only",
             kind: "raw-address",
             requested: &["FZERO"],
@@ -902,6 +911,7 @@ const RAW_SAXPY_DDOT: &str = "unsafe extern \"C\" { fn saxpy_(n:*const i32,a:*co
 const RAW_DGEMV: &str = "use core::ffi::c_char; unsafe extern \"C\" { fn dgemv_(t:*const c_char,m:*const i32,n:*const i32,a:*const f64,x:*const f64,ld:*const i32,v:*const f64,ix:*const i32,b:*const f64,y:*mut f64,iy:*const i32,l:usize); } fn main(){let t=b'N' as c_char;let m=1;let n=1;let one=1;let a=1.0;let b=0.0;let x=[2.0];let v=[3.0];let mut y=[0.0];unsafe{dgemv_(&t,&m,&n,&a,x.as_ptr(),&one,v.as_ptr(),&one,&b,y.as_mut_ptr(),&one,1)};println!(\"{}\",std::hint::black_box(y[0]));}";
 const RAW_DGEMM: &str = "use core::ffi::c_char; unsafe extern \"C\" { fn dgemm_(ta:*const c_char,tb:*const c_char,m:*const i32,n:*const i32,k:*const i32,a:*const f64,x:*const f64,lda:*const i32,y:*const f64,ldb:*const i32,b:*const f64,z:*mut f64,ldc:*const i32,la:usize,lb:usize); } fn main(){let t=b'N' as c_char;let one=1;let a=1.0;let b=0.0;let x=[2.0];let y=[3.0];let mut z=[0.0];unsafe{dgemm_(&t,&t,&one,&one,&one,&a,x.as_ptr(),&one,y.as_ptr(),&one,&b,z.as_mut_ptr(),&one,1,1)};println!(\"{}\",std::hint::black_box(z[0]));}";
 const RAW_DGAMMA: &str = "unsafe extern \"C\" { fn dgamma_(x:*const f64)->f64; } fn main(){let x=0.5;println!(\"{}\",std::hint::black_box(unsafe{dgamma_(&x)}));}";
+const RAW_DAI: &str = "unsafe extern \"C\" { fn dai_(x:*const f64)->f64; } fn main(){let x=0.0;println!(\"{}\",std::hint::black_box(unsafe{dai_(&x)}));}";
 const RAW_FZERO: &str = "unsafe extern \"C\" { fn fzero_(); } fn main(){println!(\"{}\",std::hint::black_box(fzero_ as usize));}";
 const RAW_HWSCRT: &str = "unsafe extern \"C\" { fn hwscrt_(); } fn main(){println!(\"{}\",std::hint::black_box(hwscrt_ as usize));}";
 const RAW_POIS3D: &str = "unsafe extern \"C\" { fn pois3d_(); } fn main(){println!(\"{}\",std::hint::black_box(pois3d_ as usize));}";
@@ -946,6 +956,12 @@ fn cargo_probes(
             "safe_special_only",
             "link_gamma",
             "source-build,special-gamma",
+            "safe",
+        ),
+        (
+            "safe_airy_only",
+            "link_airy",
+            "source-build,special-airy",
             "safe",
         ),
         (
@@ -1051,6 +1067,7 @@ fn requested_for_cargo_probe(name: &str) -> &'static [&'static str] {
         "safe_dgemv_only" => &["DGEMV"],
         "safe_dgemm_only" => &["DGEMM"],
         "safe_special_only" => &["DGAMMA"],
+        "safe_airy_only" => &["DAI"],
         "safe_roots_only" => &["FZERO"],
         "safe_fishpack_hwscrt_only" => &["HWSCRT"],
         _ => &[],
@@ -1097,6 +1114,10 @@ fn probe_assertions(name: &str, slatec: &BTreeSet<String>, all: &BTreeSet<String
         "raw_dgamma_only" => vec![
             json!({"rule":"contains DGAMMA","passed":contains("DGAMMA")}),
             json!({"rule":"excludes unrelated BLAS, roots, and FISHPACK drivers","passed":excludes(&["SAXPY","DDOT","SGEMM","FZERO","HWSCRT","POIS3D"]),"observed":slatec}),
+        ],
+        "raw_dai_only" | "safe_airy_only" => vec![
+            json!({"rule":"contains DAI","passed":contains("DAI")} ),
+            json!({"rule":"excludes unrelated BLAS, special, roots, and FISHPACK drivers","passed":excludes(&["SAXPY","DDOT","DGEMM","DGAMMA","DBI","FZERO","HWSCRT","POIS3D"]),"observed":slatec}),
         ],
         "safe_ddot_only" => vec![
             json!({"rule":"contains DDOT","passed":contains("DDOT")} ),
@@ -1229,6 +1250,7 @@ fn write_safe_facade_comparison(output: &Path, probe: &Value) -> Result<()> {
         ("raw_dgemv_only", "safe_dgemv_only"),
         ("raw_dgemm_only", "safe_dgemm_only"),
         ("raw_dgamma_only", "safe_special_only"),
+        ("raw_dai_only", "safe_airy_only"),
         ("raw_fzero_only", "safe_roots_only"),
         ("raw_hwscrt_only", "safe_fishpack_hwscrt_only"),
     ];

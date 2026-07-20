@@ -4,6 +4,7 @@
 //! particular, an ABI-shaped generated declaration is never considered reviewed
 //! merely because it compiled or appeared in `slatec_sys::generated`.
 
+use crate::airy_api;
 use crate::all_feature_coverage;
 use crate::blas_api;
 use crate::error::{CorpusError, Result};
@@ -84,10 +85,17 @@ struct SpecialFoundationsReviewPolicy {
 }
 
 #[derive(Clone, Debug)]
+struct AiryReviewPolicy {
+    source_manifest_sha256: String,
+    documentation: Value,
+}
+
+#[derive(Clone, Debug)]
 struct Corrections {
     records: Vec<Correction>,
     blas_policy: Option<BlasReviewPolicy>,
     special_foundations_policy: Option<SpecialFoundationsReviewPolicy>,
+    airy_policy: Option<AiryReviewPolicy>,
 }
 
 /// Generates all R1 raw API reports and rejects an inconsistent reviewed entry.
@@ -132,6 +140,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
 
     let blas_policy = corrections.blas_policy;
     let special_foundations_policy = corrections.special_foundations_policy;
+    let airy_policy = corrections.airy_policy;
     let mut correction_by_name = BTreeMap::new();
     for correction in corrections.records {
         if correction_by_name
@@ -221,9 +230,20 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                     &argument_order,
                 )
             });
+        let automatic_airy_correction = airy_policy.as_ref().and_then(|policy| {
+            automatic_airy_correction(
+                policy,
+                catalogue_record,
+                &name,
+                &source_hash,
+                &generated_status,
+                &argument_order,
+            )
+        });
         let correction = correction
             .or(automatic_blas_correction.as_ref())
-            .or(automatic_special_foundations_correction.as_ref());
+            .or(automatic_special_foundations_correction.as_ref())
+            .or(automatic_airy_correction.as_ref());
         let reviewed_status = correction
             .map(|item| item.status.clone())
             .or_else(|| {
@@ -351,7 +371,9 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "historical_role": field(catalogue_record, "historical_role"),
             "driver_role": role,
             "primary_family": field(catalogue_record, "primary_family"),
-            "precision": field(catalogue_record, "precision"),
+            "precision": airy_api::precision(&name)
+                .map(str::to_owned)
+                .unwrap_or_else(|| field(catalogue_record, "precision")),
             "native_symbol": native_symbol,
             "symbol_status": symbol_status,
             "generated_declaration_status": generated_status,
@@ -377,7 +399,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "compile_test_status": compile_test_status,
             "link_test_status": link_test_status,
             "runtime_test_status": runtime_test_status,
-            "example_status": if is_reviewed && blas_api::level(&name).is_some() { "representative_raw_blas_examples".to_owned() } else if is_reviewed && special_foundations_api::group(&name).is_some() { "representative_raw_special_foundations_examples".to_owned() } else { example_status(catalogue_record) },
+            "example_status": if is_reviewed && blas_api::level(&name).is_some() { "representative_raw_blas_examples".to_owned() } else if is_reviewed && special_foundations_api::group(&name).is_some() { "representative_raw_special_foundations_examples".to_owned() } else if is_reviewed && airy_api::is_real_driver(&name) { "representative_raw_airy_examples".to_owned() } else { example_status(catalogue_record) },
             "safe_wrapper_status": safe_wrapper_status,
             "public_raw_feasibility": feasibility,
             "exclusion_reason": exclusion_reason,
@@ -404,9 +426,26 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 review_policy.source_manifest_sha256
             )));
         }
-        write_special_foundations_module(paths.sys_dir, &output_records)?;
         write_special_foundations_canonical_path_tests(paths.sys_dir, &output_records)?;
         write_special_foundations_link_probe(paths.facade_dir, &output_records)?;
+    }
+    let airy_source_closure = if let Some(review_policy) = &airy_policy {
+        let actual = airy_api::source_manifest(&output_records);
+        if actual != review_policy.source_manifest_sha256 {
+            return Err(policy(&format!(
+                "Airy review is guarded by {}, but selected reviewed sources hash to {actual}",
+                review_policy.source_manifest_sha256
+            )));
+        }
+        let closure = validate_airy_source_closure(paths.src_dir, &output_records)?;
+        write_airy_canonical_path_tests(paths.sys_dir, &output_records)?;
+        write_airy_link_probe(paths.facade_dir, &output_records)?;
+        Some(closure)
+    } else {
+        None
+    };
+    if special_foundations_policy.is_some() || airy_policy.is_some() {
+        write_special_module(paths.sys_dir, &output_records)?;
     }
     validate_reviewed(&output_records, &sys_features, &src_features, paths.sys_dir)?;
 
@@ -425,6 +464,10 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let roots = roots_report(&output_records);
     let blas = blas_api::family_report(&output_records);
     let special_foundations = special_foundations_api::family_report(&output_records);
+    let mut airy = airy_api::family_report(&output_records);
+    if let Some(closure) = airy_source_closure {
+        airy["provider_source_closure"] = closure;
+    }
     let routine_status = json!({
         "schema_id":"slatec-sys.raw-api.routine-status",
         "schema_version":"1.0.0",
@@ -452,6 +495,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         "special-foundations-report.json",
         json_bytes(&special_foundations)?,
     );
+    files.insert("airy-family-report.json", json_bytes(&airy)?);
     files.insert(
         "all-feature-coverage.json",
         json_bytes(&all_feature_coverage)?,
@@ -648,10 +692,29 @@ fn corrections(path: &Path) -> Result<Corrections> {
             })
         })
         .transpose()?;
+    let airy_policy = value
+        .get("family_reviews")
+        .and_then(Value::as_array)
+        .and_then(|reviews| {
+            reviews
+                .iter()
+                .find(|review| review.get("family").and_then(Value::as_str) == Some("special-airy"))
+        })
+        .map(|review| {
+            Ok::<AiryReviewPolicy, CorpusError>(AiryReviewPolicy {
+                source_manifest_sha256: string(review, "source_manifest_sha256")?,
+                documentation: review
+                    .get("documentation")
+                    .cloned()
+                    .ok_or_else(|| policy("Airy family review lacks documentation evidence"))?,
+            })
+        })
+        .transpose()?;
     Ok(Corrections {
         records,
         blas_policy,
         special_foundations_policy,
+        airy_policy,
     })
 }
 
@@ -729,6 +792,50 @@ fn automatic_special_foundations_correction(
         )],
         feature: feature.clone(),
         provider_feature: feature,
+        role: "historically_user_callable_driver".to_owned(),
+        source_file: field(catalogue_record, "source_file"),
+        arguments: arguments.to_vec(),
+        documentation: policy.documentation.clone(),
+        link_test_status: "passed".to_owned(),
+        runtime_test_status: "passed".to_owned(),
+        safe_wrapper_path: catalogue_record
+            .get("safe_api_paths")
+            .and_then(Value::as_array)
+            .and_then(|items| items.first())
+            .and_then(Value::as_str)
+            .map(str::to_owned)
+            .unwrap_or_else(|| "not_safely_wrapped".to_owned()),
+    })
+}
+
+fn automatic_airy_correction(
+    policy: &AiryReviewPolicy,
+    catalogue_record: &Value,
+    routine: &str,
+    source_hash: &str,
+    generated_status: &str,
+    arguments: &[String],
+) -> Option<Correction> {
+    let feature = airy_api::feature(routine)?;
+    if field(catalogue_record, "historical_role") != "user_callable"
+        || generated_status != "generated_abi_validated"
+    {
+        return None;
+    }
+    Some(Correction {
+        routine: routine.to_owned(),
+        source_hash: source_hash.to_owned(),
+        status: "reviewed_public_driver".to_owned(),
+        canonical_path: format!(
+            "slatec_sys::special::airy::{}",
+            routine.to_ascii_lowercase()
+        ),
+        compatibility_paths: vec![format!(
+            "slatec_sys::families::special_airy::{}",
+            routine.to_ascii_lowercase()
+        )],
+        feature: feature.to_owned(),
+        provider_feature: feature.to_owned(),
         role: "historically_user_callable_driver".to_owned(),
         source_file: field(catalogue_record, "source_file"),
         arguments: arguments.to_vec(),
@@ -996,6 +1103,12 @@ fn safe_feature(routine: &str, facade_features: &BTreeSet<String>) -> String {
         } else {
             "not_assigned".to_owned()
         };
+    } else if let Some(feature) = airy_api::feature(routine) {
+        return if facade_features.contains(feature) {
+            feature.to_owned()
+        } else {
+            "not_assigned".to_owned()
+        };
     } else {
         blas_api::feature(routine).unwrap_or("not_assigned")
     };
@@ -1124,7 +1237,7 @@ fn validate_reviewed(
 fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
     if blas_api::level(routine).is_some() {
         let source = fs::read_to_string(sys_dir.join("src/blas.rs"))?;
-        let marker = format!("// raw-api-routine: {routine}");
+        let marker = format!("// raw-api-routine: {routine}\n");
         let start = source.find(&marker).ok_or_else(|| {
             policy("reviewed BLAS raw declaration lacks its generated Rustdoc block")
         })?;
@@ -1138,9 +1251,23 @@ fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
     }
     if special_foundations_api::group(routine).is_some() {
         let source = fs::read_to_string(sys_dir.join("src/special.rs"))?;
-        let marker = format!("// raw-api-routine: {routine}");
+        let marker = format!("// raw-api-routine: {routine}\n");
         let start = source.find(&marker).ok_or_else(|| {
             policy("reviewed special raw declaration lacks its generated Rustdoc block")
+        })?;
+        let rest = &source[start..];
+        let after_marker = marker.len();
+        let end = rest[after_marker..]
+            .find("// raw-api-routine:")
+            .map(|offset| after_marker + offset)
+            .unwrap_or(rest.len());
+        return Ok(rest[..end].to_owned());
+    }
+    if airy_api::is_real_driver(routine) {
+        let source = fs::read_to_string(sys_dir.join("src/special.rs"))?;
+        let marker = format!("// raw-api-routine: {routine}\n");
+        let start = source.find(&marker).ok_or_else(|| {
+            policy("reviewed Airy raw declaration lacks its generated Rustdoc block")
         })?;
         let rest = &source[start..];
         let after_marker = marker.len();
@@ -1161,6 +1288,70 @@ fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
         }
     };
     Ok(fs::read_to_string(sys_dir.join(file))?)
+}
+
+fn validate_airy_source_closure(src_dir: &Path, records: &[Value]) -> Result<Value> {
+    let value = read_json(&src_dir.join("metadata").join("family-source-closure.json"))?;
+    let ids = value
+        .pointer("/families/special-airy")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy("special-airy provider feature has no source closure"))?;
+    let closure_ids = ids
+        .iter()
+        .filter_map(Value::as_str)
+        .collect::<BTreeSet<_>>();
+    let sources = value
+        .get("sources")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy("source-closure metadata has no source records"))?;
+    let closure_sources = sources
+        .iter()
+        .filter(|source| {
+            source
+                .get("id")
+                .and_then(Value::as_str)
+                .map(|id| closure_ids.contains(id))
+                .unwrap_or(false)
+        })
+        .collect::<Vec<_>>();
+    if closure_sources.len() != closure_ids.len() {
+        return Err(policy(
+            "special-airy source closure refers to an unknown selected source",
+        ));
+    }
+    let mut reviewed_sources = Vec::new();
+    for record in records
+        .iter()
+        .filter(|record| airy_api::is_real_driver(&field(record, "routine")))
+    {
+        let source_hash = field(record, "source_hash");
+        let source = closure_sources
+            .iter()
+            .find(|source| {
+                source.get("sha256").and_then(Value::as_str) == Some(source_hash.as_str())
+            })
+            .ok_or_else(|| {
+                policy(&format!(
+                    "reviewed Airy {} is absent from the special-airy provider closure",
+                    field(record, "routine")
+                ))
+            })?;
+        reviewed_sources.push(json!({
+            "routine":field(record,"routine"),
+            "source_id":source.get("id").cloned().unwrap_or(Value::Null),
+            "source_path":source.get("path").cloned().unwrap_or(Value::Null),
+            "source_hash":source_hash,
+        }));
+    }
+    reviewed_sources
+        .sort_by(|left, right| left["routine"].as_str().cmp(&right["routine"].as_str()));
+    Ok(json!({
+        "provider_feature":"special-airy",
+        "source_count":closure_sources.len(),
+        "source_ids":closure_ids,
+        "reviewed_driver_sources":reviewed_sources,
+        "validation":"every reviewed real Airy driver source hash is a member of the exact slatec-src special-airy closure",
+    }))
 }
 
 fn coverage_summary(records: &[Value]) -> Value {
@@ -1757,7 +1948,7 @@ fn write_blas_link_probe(facade_dir: &Path, records: &[Value]) -> Result<()> {
     Ok(())
 }
 
-fn write_special_foundations_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
+fn write_special_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let path = sys_dir.join("src").join("special.rs");
     let rendered = special_foundations_api::render_module(records);
     if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
@@ -1831,6 +2022,54 @@ fn write_special_foundations_link_probe(facade_dir: &Path, records: &[Value]) ->
     let path = facade_dir
         .join("tests")
         .join("special_foundations_raw_link.rs");
+    if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
+        fs::write(path, output)?;
+    }
+    Ok(())
+}
+
+fn write_airy_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<()> {
+    let mut output = String::from(
+        "//! Generated canonical and compatibility import coverage for reviewed real Airy drivers.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n#[cfg(feature = \"special-airy\")]\n#[test]\nfn real_airy_canonical_and_compatibility_paths_compile() {\n",
+    );
+    let mut routines = records
+        .iter()
+        .filter(|record| airy_api::is_real_driver(&field(record, "routine")))
+        .filter(|record| field(record, "reviewed_declaration_status") == "reviewed_public_driver")
+        .map(|record| field(record, "routine").to_ascii_lowercase())
+        .collect::<Vec<_>>();
+    routines.sort();
+    for routine in routines {
+        output.push_str(&format!(
+            "    let _ = slatec_sys::special::airy::{routine};\n    let _ = slatec_sys::families::special_airy::{routine};\n"
+        ));
+    }
+    output.push_str("}\n");
+    let path = sys_dir.join("tests").join("airy_canonical_paths.rs");
+    if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
+        fs::write(path, output)?;
+    }
+    Ok(())
+}
+
+fn write_airy_link_probe(facade_dir: &Path, records: &[Value]) -> Result<()> {
+    let mut output = String::from(
+        "//! Generated native link coverage for every reviewed real Airy symbol.\n//! Run on the supported GNU MinGW target with `special-airy`.\n\n#![cfg(all(\n    feature = \"special-airy\",\n    target_arch = \"x86_64\",\n    target_env = \"gnu\",\n    target_os = \"windows\"\n))]\n\n#[test]\nfn every_reviewed_real_airy_symbol_links_from_the_airy_provider_closure() {\n    slatec_src::ensure_linked();\n",
+    );
+    let mut routines = records
+        .iter()
+        .filter(|record| airy_api::is_real_driver(&field(record, "routine")))
+        .filter(|record| field(record, "reviewed_declaration_status") == "reviewed_public_driver")
+        .map(|record| field(record, "routine").to_ascii_lowercase())
+        .collect::<Vec<_>>();
+    routines.sort();
+    for routine in routines {
+        output.push_str(&format!(
+            "    std::hint::black_box(slatec_sys::special::airy::{routine} as *const () as usize);\n"
+        ));
+    }
+    output.push_str("}\n");
+    let path = facade_dir.join("tests").join("airy_raw_link.rs");
     if fs::read_to_string(&path).ok().as_deref() != Some(output.as_str()) {
         fs::write(path, output)?;
     }
