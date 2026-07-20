@@ -5,8 +5,14 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Shared safe infrastructure for slatec-rs"
+homepage.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/slatec-core"
+description = "Provider-neutral no_std types and validation contracts shared by slatec-rs"
 readme = "README.md"
+keywords = ["slatec", "numerics", "no-std", "scientific"]
+categories = ["science", "mathematics", "no-std"]
+include = ["src/**", "Cargo.toml", "README.md", "AGENTS.md", "LICENSE-*"]
 
 [dependencies]
 slatec-sys.workspace = true

@@ -1,6 +1,6 @@
 //! Generated Batch D native-symbol link probe.
 
-#![cfg(feature = "raw-batch-d-link-tests")]
+#![cfg(feature = "raw-final-coverage-link-tests")]
 
 #[test]
 fn links_batch_d_symbols() {

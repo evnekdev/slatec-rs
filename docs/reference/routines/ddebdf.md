@@ -1,6 +1,6 @@
 # DDEBDF
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: ODE solvers](../families/ode-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,58 @@ This is the backward differentiation code in the package of differential equatio
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `support_unit_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the support identity records its role, side-effect boundary, and non-public disposition
+- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `DF` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | ********************************************************************** ** ABSTRACT ** ********************************************************************** Subroutine DDEBDF uses the backward differentiation formulas of orders one through five to integrate a system of NEQ first order ordinary differential equations of the form DU/DX = DF(X,U) when the vector Y(*) of initial values for U(*) at X=T is given. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NEQ` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | ********************************************************************** ** ABSTRACT ** ********************************************************************** Subroutine DDEBDF uses the backward differentiation formulas of orders one through five to integrate a system of NEQ first order ordinary differential equations of the form DU/DX = DF(X,U) when the vector Y(*) of initial values for U(*) at X=T is given. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `T` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | ********************************************************************** ** ABSTRACT ** ********************************************************************** Subroutine DDEBDF uses the backward differentiation formulas of orders one through five to integrate a system of NEQ first order ordinary differential equations of the form DU/DX = DF(X,U) when the vector Y(*) of initial values for U(*) at X=T is given. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | ********************************************************************** ** ABSTRACT ** ********************************************************************** Subroutine DDEBDF uses the backward differentiation formulas of orders one through five to integrate a system of NEQ first order ordinary differential equations of the form DU/DX = DF(X,U) when the vector Y(*) of initial values for U(*) at X=T is given. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `TOUT` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | The subroutine integrates from T to TOUT. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `INFO` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (15) | INFO(*) -- The basic task of the code is to integrate the differential equations from T to TOUT and return an answer at TOUT. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RTOL` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | RTOL, ATOL -- These DOUBLE PRECISION quantities represent relative and absolute error tolerances which you provide to indicate how accurately you wish the solution to be computed. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ATOL` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | RTOL, ATOL -- These DOUBLE PRECISION quantities represent relative and absolute error tolerances which you provide to indicate how accurately you wish the solution to be computed. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IDID` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | IDID -- This scalar quantity is an indicator reporting what the code did. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RWORK` | workspace | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | RWORK(*), LRW -- RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. | RWORK(*), LRW -- RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. Leading dimension: not established Workspace: RWORK(*), LRW -- RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. | required; null is not permitted for an ordinary Fortran actual argument |
+| `LRW` | workspace | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | RWORK(*), LRW -- RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. | RWORK(*), LRW -- RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. Leading dimension: not established Workspace: RWORK(*), LRW -- RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. | required; null is not permitted for an ordinary Fortran actual argument |
+| `IWORK` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | IWORK(*), LIW -- IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. | IWORK(*), LIW -- IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. Leading dimension: not established Workspace: IWORK(*), LIW -- IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. | required; null is not permitted for an ordinary Fortran actual argument |
+| `LIW` | workspace | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | IWORK(*), LIW -- IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. | IWORK(*), LIW -- IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. Leading dimension: not established Workspace: IWORK(*), LIW -- IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. | required; null is not permitted for an ordinary Fortran actual argument |
+| `RPAR` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | RPAR, IPAR -- These are DOUBLE PRECISION and INTEGER parameter arrays which you can use for communication between your calling program and the DF subroutine (and the DJAC subroutine). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IPAR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | RPAR, IPAR -- These are DOUBLE PRECISION and INTEGER parameter arrays which you can use for communication between your calling program and the DF subroutine (and the DJAC subroutine). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `DJAC` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | RPAR, IPAR -- These are DOUBLE PRECISION and INTEGER parameter arrays which you can use for communication between your calling program and the DF subroutine (and the DJAC subroutine). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Callback contract
+
+Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `unsupported-abi`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-callbacks`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `callback ABI has compiler-shape evidence but no routine-specific callback contract`
 <!-- raw-api-status:end -->

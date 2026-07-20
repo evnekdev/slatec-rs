@@ -1,0 +1,150 @@
+{
+  "family_pages": 20,
+  "public_routine_sum": 812,
+  "records": [
+    {
+      "family": "Approximation",
+      "public_routines": 24,
+      "retained_identities": 58,
+      "secondary_identities": 34,
+      "slug": "approximation"
+    },
+    {
+      "family": "Arithmetic and extended-range arithmetic",
+      "public_routines": 0,
+      "retained_identities": 17,
+      "secondary_identities": 17,
+      "slug": "arithmetic-and-extended-range-arithmetic"
+    },
+    {
+      "family": "Dense linear algebra",
+      "public_routines": 244,
+      "retained_identities": 282,
+      "secondary_identities": 38,
+      "slug": "dense-linear-algebra"
+    },
+    {
+      "family": "Documentation and source-processing tools",
+      "public_routines": 0,
+      "retained_identities": 15,
+      "secondary_identities": 15,
+      "slug": "documentation-and-source-processing-tools"
+    },
+    {
+      "family": "Eigenvalue problems",
+      "public_routines": 73,
+      "retained_identities": 74,
+      "secondary_identities": 1,
+      "slug": "eigenvalue-problems"
+    },
+    {
+      "family": "Elementary and transcendental functions",
+      "public_routines": 31,
+      "retained_identities": 74,
+      "secondary_identities": 43,
+      "slug": "elementary-and-transcendental-functions"
+    },
+    {
+      "family": "Error handling",
+      "public_routines": 0,
+      "retained_identities": 17,
+      "secondary_identities": 17,
+      "slug": "error-handling"
+    },
+    {
+      "family": "FFTPACK transforms",
+      "public_routines": 19,
+      "retained_identities": 28,
+      "secondary_identities": 9,
+      "slug": "fftpack-transforms"
+    },
+    {
+      "family": "FISHPACK elliptic PDE solvers",
+      "public_routines": 17,
+      "retained_identities": 107,
+      "secondary_identities": 90,
+      "slug": "fishpack-elliptic-pde-solvers"
+    },
+    {
+      "family": "Interpolation",
+      "public_routines": 26,
+      "retained_identities": 31,
+      "secondary_identities": 5,
+      "slug": "interpolation"
+    },
+    {
+      "family": "Linear algebra kernels",
+      "public_routines": 124,
+      "retained_identities": 167,
+      "secondary_identities": 43,
+      "slug": "linear-algebra-kernels"
+    },
+    {
+      "family": "Nonlinear equations",
+      "public_routines": 12,
+      "retained_identities": 31,
+      "secondary_identities": 19,
+      "slug": "nonlinear-equations"
+    },
+    {
+      "family": "Numerical quadrature",
+      "public_routines": 60,
+      "retained_identities": 89,
+      "secondary_identities": 29,
+      "slug": "numerical-quadrature"
+    },
+    {
+      "family": "ODE solvers",
+      "public_routines": 9,
+      "retained_identities": 132,
+      "secondary_identities": 123,
+      "slug": "ode-solvers"
+    },
+    {
+      "family": "Optimization and least squares",
+      "public_routines": 2,
+      "retained_identities": 57,
+      "secondary_identities": 55,
+      "slug": "optimization-and-least-squares"
+    },
+    {
+      "family": "PCHIP",
+      "public_routines": 22,
+      "retained_identities": 41,
+      "secondary_identities": 19,
+      "slug": "pchip"
+    },
+    {
+      "family": "Probability and statistics",
+      "public_routines": 5,
+      "retained_identities": 5,
+      "secondary_identities": 0,
+      "slug": "probability-and-statistics"
+    },
+    {
+      "family": "Runtime and machine support",
+      "public_routines": 0,
+      "retained_identities": 7,
+      "secondary_identities": 7,
+      "slug": "runtime-and-machine-support"
+    },
+    {
+      "family": "Shared numerical utilities",
+      "public_routines": 0,
+      "retained_identities": 31,
+      "secondary_identities": 31,
+      "slug": "shared-numerical-utilities"
+    },
+    {
+      "family": "Special functions",
+      "public_routines": 144,
+      "retained_identities": 254,
+      "secondary_identities": 110,
+      "slug": "special-functions"
+    }
+  ],
+  "retained_identity_sum": 1517,
+  "schema_id": "slatec-rs.family-page-index",
+  "schema_version": "1.0.0",
+  "secondary_identity_sum": 705
+}

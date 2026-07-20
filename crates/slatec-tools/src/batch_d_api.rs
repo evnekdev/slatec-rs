@@ -1040,7 +1040,7 @@ fn compile_probe(records: &[Value]) -> String {
 
 fn link_probe(records: &[Value]) -> String {
     let mut output = String::from(
-        "//! Generated Batch D native-symbol link probe.\n\n#![cfg(feature = \"raw-batch-d-link-tests\")]\n\n#[test]\nfn links_batch_d_symbols() {\n    slatec_src::ensure_linked();\n",
+        "//! Generated Batch D native-symbol link probe.\n\n#![cfg(feature = \"raw-final-coverage-link-tests\")]\n\n#[test]\nfn links_batch_d_symbols() {\n    slatec_src::ensure_linked();\n",
     );
     for record in records
         .iter()

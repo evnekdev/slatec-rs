@@ -2,6 +2,13 @@
 
 Safe, family-featured Rust APIs over validated original SLATEC Fortran routines.
 
+Use this crate when an owned, checked Rust interface exists for the required
+family. The safe surface is intentionally selective and is much smaller than
+the 812-routine raw API in `slatec-sys`. A native family requires exactly one
+explicit backend (`source-build`, `system`, or `external-backend`); builds never
+download source, and the unresolved-rights `prebuilt` mode remains unavailable.
+GNU MinGW on `x86_64-pc-windows-gnu` is the strongest validated native profile.
+
 The hosted `least-squares-nonlinear-easy` family provides residual-only,
 finite-difference nonlinear least-squares fitting through the original
 `SNLS1E` and `DNLS1E` easy drivers. The separate

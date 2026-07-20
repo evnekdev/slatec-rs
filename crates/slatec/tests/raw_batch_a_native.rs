@@ -6,7 +6,7 @@
 //! full Batch A corpus.
 
 #![cfg(all(
-    feature = "raw-batch-a-native-tests",
+    feature = "raw-canonical-native-tests",
     target_arch = "x86_64",
     target_env = "gnu",
     target_os = "windows"

@@ -37,7 +37,7 @@
       "routine": "ACOS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ACOSH"
@@ -61,13 +61,13 @@
       "routine": "ALBETA"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ALGAMS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ALI"
@@ -103,7 +103,7 @@
       "routine": "ASIN"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ASINH"
@@ -133,43 +133,43 @@
       "routine": "ATAN2"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ATANH"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "AVINT"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BAKVEC"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BALANC"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BALBAK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BANDR"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BANDV"
@@ -187,85 +187,85 @@
       "routine": "BDIFF"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESI0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESI0E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESI1"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESI1E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESJ"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESJ0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESJ1"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESK"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESK0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESK0E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESK1"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESK1E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESKES"
@@ -277,25 +277,25 @@
       "routine": "BESKNU"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESKS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESY"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESY0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BESY1"
@@ -343,19 +343,19 @@
       "routine": "BINOM"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BINT4"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BINTK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BISECT"
@@ -385,19 +385,19 @@
       "routine": "BLKTR1"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "BLKTRI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "BNDACC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "BNDSOL"
@@ -415,7 +415,7 @@
       "routine": "BNSLV"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "BQR"
@@ -427,7 +427,7 @@
       "routine": "BSGQ8"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSKIN"
@@ -439,13 +439,13 @@
       "routine": "BSPDOC"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSPDR"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSPEV"
@@ -463,25 +463,25 @@
       "routine": "BSPLVN"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSPPP"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSPVD"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSPVN"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "BSQAD"
@@ -493,7 +493,7 @@
       "routine": "BSRH"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "BVALU"
@@ -625,13 +625,13 @@
       "routine": "CAXPY"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CBABK2"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CBAL"
@@ -895,7 +895,7 @@
       "routine": "CFFTB"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "CFFTB1"
@@ -907,7 +907,7 @@
       "routine": "CFFTF"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "CFFTF1"
@@ -919,7 +919,7 @@
       "routine": "CFFTI"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "CFFTI1"
@@ -931,7 +931,7 @@
       "routine": "CFOD"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CG"
@@ -949,19 +949,19 @@
       "routine": "CGAMR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CGBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CGBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CGBFA"
@@ -973,7 +973,7 @@
       "routine": "CGBMV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CGBSL"
@@ -991,7 +991,7 @@
       "routine": "CGEDI"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CGEEV"
@@ -1045,13 +1045,13 @@
       "routine": "CGESL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CGTSL"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CH"
@@ -1111,13 +1111,13 @@
       "routine": "CHFCM"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "CHFDV"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "CHFEV"
@@ -1141,7 +1141,7 @@
       "routine": "CHIDI"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CHIEV"
@@ -1159,7 +1159,7 @@
       "routine": "CHISL"
     },
     {
-      "intended_canonical_module": "nonlinear::numerical",
+      "intended_canonical_module": "nonlinear::jacobian_check",
       "primary_family": "Nonlinear equations",
       "promotion_state": "batch_a_public_driver",
       "routine": "CHKDER"
@@ -1189,19 +1189,19 @@
       "routine": "CHKSNG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CHPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CHPDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CHPFA"
@@ -1225,19 +1225,19 @@
       "routine": "CHPR2"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CHPSL"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "CHU"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CINVIT"
@@ -1327,61 +1327,61 @@
       "routine": "CMPTRX"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CNBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CNBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CNBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CNBFS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CNBIR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CNBSL"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "COMBAK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "COMHES"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "COMLR"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "COMLR2"
@@ -1393,25 +1393,25 @@
       "routine": "COMPB"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "COMQR"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "COMQR2"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CORTB"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "CORTH"
@@ -1441,7 +1441,7 @@
       "routine": "COSH"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "COSQB"
@@ -1453,7 +1453,7 @@
       "routine": "COSQB1"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "COSQF"
@@ -1465,25 +1465,25 @@
       "routine": "COSQF1"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "COSQI"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "COST"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "COSTI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "COT"
@@ -1495,25 +1495,25 @@
       "routine": "CPADD"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPBSL"
@@ -1567,25 +1567,25 @@
       "routine": "CPOSL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPPDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPPFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPPSL"
@@ -1627,7 +1627,7 @@
       "routine": "CPSI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::banded::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPTSL"
@@ -1693,7 +1693,7 @@
       "routine": "CSERI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "CSEVL"
@@ -1741,19 +1741,19 @@
       "routine": "CSISL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CSPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CSPDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CSPFA"
@@ -1771,7 +1771,7 @@
       "routine": "CSPR2"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense::complex",
+      "intended_canonical_module": "linear_algebra::packed::complex",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_c_public_driver",
       "routine": "CSPSL"
@@ -1969,7 +1969,7 @@
       "routine": "CUOIK"
     },
     {
-      "intended_canonical_module": "statistics::numerical",
+      "intended_canonical_module": "statistics",
       "primary_family": "Probability and statistics",
       "promotion_state": "batch_a_public_driver",
       "routine": "CV"
@@ -2101,7 +2101,7 @@
       "routine": "DACOS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DACOSH"
@@ -2125,7 +2125,7 @@
       "routine": "DASIN"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DASINH"
@@ -2161,13 +2161,13 @@
       "routine": "DATAN2"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DATANH"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "DAVINT"
@@ -2197,79 +2197,79 @@
       "routine": "DBDIFF"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESI0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESI1"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESJ"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESJ0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESJ1"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESK"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESK0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESK1"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESKS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESY"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESY0"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBESY1"
@@ -2317,13 +2317,13 @@
       "routine": "DBINOM"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBINT4"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBINTK"
@@ -2347,13 +2347,13 @@
       "routine": "DBKSOL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBNDAC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBNDSL"
@@ -2371,13 +2371,13 @@
       "routine": "DBNSLV"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBOCLS"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBOLS"
@@ -2395,37 +2395,37 @@
       "routine": "DBSGQ8"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSI0E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSI1E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSK0E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSK1E"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSKES"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSKIN"
@@ -2437,37 +2437,37 @@
       "routine": "DBSKNU"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSPDR"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSPEV"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSPPP"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSPVD"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSPVN"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBSQAD"
@@ -2479,7 +2479,7 @@
       "routine": "DBSYNU"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DBVALU"
@@ -2563,13 +2563,13 @@
       "routine": "DCHFCM"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCHFDV"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCHFEV"
@@ -2587,7 +2587,7 @@
       "routine": "DCHKW"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCHU"
@@ -2599,7 +2599,7 @@
       "routine": "DCHUD"
     },
     {
-      "intended_canonical_module": "nonlinear::numerical",
+      "intended_canonical_module": "nonlinear::jacobian_check",
       "primary_family": "Nonlinear equations",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCKDER"
@@ -2641,7 +2641,7 @@
       "routine": "DCOSH"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Elementary and transcendental functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCOT"
@@ -2665,13 +2665,13 @@
       "routine": "DCSCAL"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCSEVL"
     },
     {
-      "intended_canonical_module": "statistics::numerical",
+      "intended_canonical_module": "statistics",
       "primary_family": "Probability and statistics",
       "promotion_state": "batch_a_public_driver",
       "routine": "DCV"
@@ -2839,7 +2839,7 @@
       "routine": "DDZRO"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DE1"
@@ -2857,7 +2857,7 @@
       "routine": "DEBDF"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DEFC"
@@ -2887,7 +2887,7 @@
       "routine": "DEFER"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DEI"
@@ -2935,7 +2935,7 @@
       "routine": "DEXBVP"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DEXINT"
@@ -2959,7 +2959,7 @@
       "routine": "DFAC"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DFC"
@@ -3031,7 +3031,7 @@
       "routine": "DGAMIT"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGAMLM"
@@ -3061,25 +3061,25 @@
       "routine": "DGAMRN"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGAUS8"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGBFA"
@@ -3091,7 +3091,7 @@
       "routine": "DGBMV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGBSL"
@@ -3169,7 +3169,7 @@
       "routine": "DGMRES"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DGTSL"
@@ -3229,7 +3229,7 @@
       "routine": "DHERK"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DHFTI"
@@ -3271,13 +3271,13 @@
       "routine": "DINT"
     },
     {
-      "intended_canonical_module": "ode::numerical",
+      "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "DINTP"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DINTRV"
@@ -3307,13 +3307,13 @@
       "routine": "DLBETA"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DLGAMS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DLI"
@@ -3367,7 +3367,7 @@
       "routine": "DLPDP"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DLSEI"
@@ -3415,31 +3415,31 @@
       "routine": "DMPAR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DNBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DNBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DNBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DNBFS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DNBSL"
@@ -3505,37 +3505,37 @@
       "routine": "DORTHR"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DP1VLU"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPBSL"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHBS"
@@ -3553,7 +3553,7 @@
       "routine": "DPCHCI"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHCM"
@@ -3571,37 +3571,37 @@
       "routine": "DPCHDF"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHFD"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHFE"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHIA"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHIC"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHID"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHIM"
@@ -3619,7 +3619,7 @@
       "routine": "DPCHNG"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCHSP"
@@ -3637,7 +3637,7 @@
       "routine": "DPCHSW"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPCOEF"
@@ -3679,7 +3679,7 @@
       "routine": "DPJAC"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPLINT"
@@ -3733,13 +3733,13 @@
       "routine": "DPNNZR"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPOCH"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPOCH1"
@@ -3769,19 +3769,19 @@
       "routine": "DPOFS"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPOLCF"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPOLFT"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPOLVL"
@@ -3799,13 +3799,13 @@
       "routine": "DPOSL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPPDI"
@@ -3817,7 +3817,7 @@
       "routine": "DPPERM"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPPFA"
@@ -3829,19 +3829,19 @@
       "routine": "DPPGQ8"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPPQAD"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPPSL"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPPVAL"
@@ -3871,7 +3871,7 @@
       "routine": "DPSI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPSIFN"
@@ -3889,7 +3889,7 @@
       "routine": "DPSORT"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DPTSL"
@@ -4087,7 +4087,7 @@
       "routine": "DQK61"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "DQMOMO"
@@ -4153,31 +4153,31 @@
       "routine": "DQWGTS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRC"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRC3JJ"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRC3JM"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRC6J"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRD"
@@ -4195,13 +4195,13 @@
       "routine": "DREORT"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRF"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DRJ"
@@ -4285,31 +4285,31 @@
       "routine": "DSD2S"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSDBCG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSDCG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSDCGN"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSDCGS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSDGMR"
@@ -4321,7 +4321,7 @@
       "routine": "DSDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSDOMN"
@@ -4345,13 +4345,13 @@
       "routine": "DSDSCL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSGS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSICCG"
@@ -4381,7 +4381,7 @@
       "routine": "DSIFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSILUR"
@@ -4423,7 +4423,7 @@
       "routine": "DSISL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSJAC"
@@ -4447,13 +4447,13 @@
       "routine": "DSLLTI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSLUBC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSLUCN"
@@ -4465,7 +4465,7 @@
       "routine": "DSLUCS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSLUGM"
@@ -4489,7 +4489,7 @@
       "routine": "DSLUI4"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSLUOM"
@@ -4555,25 +4555,25 @@
       "routine": "DSOSSL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSPDI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSPENC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSPFA"
@@ -4603,7 +4603,7 @@
       "routine": "DSPR2"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "DSPSL"
@@ -4873,7 +4873,7 @@
       "routine": "DWNLT3"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "DWNNLS"
@@ -4933,13 +4933,13 @@
       "routine": "DXLCAL"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DXLEGF"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "DXNRMP"
@@ -5017,13 +5017,13 @@
       "routine": "DYAIRY"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "E1"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "EFC"
@@ -5035,7 +5035,7 @@
       "routine": "EFCMN"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "EI"
@@ -5047,19 +5047,19 @@
       "routine": "EISDOC"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "ELMBAK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "ELMHES"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "ELTRAN"
@@ -5089,7 +5089,7 @@
       "routine": "EXBVP"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "EXINT"
@@ -5113,19 +5113,19 @@
       "routine": "EZFFT1"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "EZFFTB"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "EZFFTF"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "EZFFTI"
@@ -5137,7 +5137,7 @@
       "routine": "FAC"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "FC"
@@ -5173,13 +5173,13 @@
       "routine": "FFTDOC"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "FIGI"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "FIGI2"
@@ -5227,7 +5227,7 @@
       "routine": "GAMIT"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "GAMLIM"
@@ -5257,13 +5257,13 @@
       "routine": "GAMRN"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "GAUS8"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "GENBUN"
@@ -5299,13 +5299,13 @@
       "routine": "HPSORT"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "HQR"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "HQR2"
@@ -5317,7 +5317,7 @@
       "routine": "HSTART"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HSTCRT"
@@ -5329,49 +5329,49 @@
       "routine": "HSTCS1"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HSTCSP"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HSTCYL"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HSTPLR"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HSTSSP"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "HTRIB3"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "HTRIBK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "HTRID3"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "HTRIDI"
@@ -5383,7 +5383,7 @@
       "routine": "HVNRM"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HW3CRT"
@@ -5401,19 +5401,19 @@
       "routine": "HWSCS1"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HWSCSP"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HWSCYL"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HWSPLR"
@@ -5425,7 +5425,7 @@
       "routine": "HWSSS1"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "HWSSSP"
@@ -5485,19 +5485,19 @@
       "routine": "IFSID"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "IMTQL1"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "IMTQL2"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "IMTQLV"
@@ -5521,19 +5521,19 @@
       "routine": "INDXC"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "INITDS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "INITS"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "INTRV"
@@ -5545,7 +5545,7 @@
       "routine": "INTYD"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "INVIT"
@@ -5785,7 +5785,7 @@
       "routine": "LSAME"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "LSEI"
@@ -5989,13 +5989,13 @@
       "routine": "OHTROR"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "ORTBAK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "ORTHES"
@@ -6025,7 +6025,7 @@
       "routine": "ORTHOR"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "ORTRAN"
@@ -6091,7 +6091,7 @@
       "routine": "PASSF5"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHBS"
@@ -6109,7 +6109,7 @@
       "routine": "PCHCI"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHCM"
@@ -6133,37 +6133,37 @@
       "routine": "PCHDOC"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHFD"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHFE"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHIA"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHIC"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHID"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHIM"
@@ -6181,7 +6181,7 @@
       "routine": "PCHNGS"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "PCHIP",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCHSP"
@@ -6199,7 +6199,7 @@
       "routine": "PCHSW"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "PCOEF"
@@ -6241,13 +6241,13 @@
       "routine": "PNNZRS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "POCH"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "POCH1"
@@ -6277,31 +6277,31 @@
       "routine": "POISP2"
     },
     {
-      "intended_canonical_module": "pde::fishpack::numerical",
+      "intended_canonical_module": "pde::fishpack",
       "primary_family": "FISHPACK elliptic PDE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "POISTG"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "POLCOF"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "POLFIT"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "POLINT"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "POLYVL"
@@ -6343,7 +6343,7 @@
       "routine": "PPPSF"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "PPQAD"
@@ -6361,7 +6361,7 @@
       "routine": "PPSPF"
     },
     {
-      "intended_canonical_module": "interpolation::numerical",
+      "intended_canonical_module": "interpolation",
       "primary_family": "Interpolation",
       "promotion_state": "batch_a_public_driver",
       "routine": "PPVAL"
@@ -6427,7 +6427,7 @@
       "routine": "PSI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "PSIFN"
@@ -6439,7 +6439,7 @@
       "routine": "PSIXN"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "PVALUE"
@@ -6631,7 +6631,7 @@
       "routine": "QK61"
     },
     {
-      "intended_canonical_module": "quadrature::numerical",
+      "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
       "promotion_state": "batch_a_public_driver",
       "routine": "QMOMO"
@@ -6703,25 +6703,25 @@
       "routine": "QWGTS"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "QZHES"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "QZIT"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "QZVAL"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "QZVEC"
@@ -6877,13 +6877,13 @@
       "routine": "RADFG"
     },
     {
-      "intended_canonical_module": "statistics::numerical",
+      "intended_canonical_module": "statistics",
       "primary_family": "Probability and statistics",
       "promotion_state": "batch_a_public_driver",
       "routine": "RAND"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RATQR"
@@ -6895,55 +6895,55 @@
       "routine": "RBLNKS"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RC"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RC3JJ"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RC3JM"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RC6J"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RD"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "REBAK"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "REBAKB"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "REDUC"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "REDUC2"
@@ -6955,7 +6955,7 @@
       "routine": "REORT"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RF"
@@ -6967,7 +6967,7 @@
       "routine": "RFFTB"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "RFFTB1"
@@ -6979,7 +6979,7 @@
       "routine": "RFFTF"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "RFFTF1"
@@ -6991,31 +6991,31 @@
       "routine": "RFFTI"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "RFFTI1"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RG"
     },
     {
-      "intended_canonical_module": "statistics::numerical",
+      "intended_canonical_module": "statistics",
       "primary_family": "Probability and statistics",
       "promotion_state": "batch_a_public_driver",
       "routine": "RGAUSS"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RGG"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "RJ"
@@ -7039,13 +7039,13 @@
       "routine": "RPZERO"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RS"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RSB"
@@ -7057,43 +7057,43 @@
       "routine": "RSCO"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RSG"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RSGAB"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RSGBA"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RSP"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RST"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "RT"
     },
     {
-      "intended_canonical_module": "statistics::numerical",
+      "intended_canonical_module": "statistics",
       "primary_family": "Probability and statistics",
       "promotion_state": "batch_a_public_driver",
       "routine": "RUNIF"
@@ -7135,13 +7135,13 @@
       "routine": "SBHIN"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "SBOCLS"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "SBOLS"
@@ -7393,19 +7393,19 @@
       "routine": "SEPX4"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SGBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SGBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SGBFA"
@@ -7417,7 +7417,7 @@
       "routine": "SGBMV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SGBSL"
@@ -7435,7 +7435,7 @@
       "routine": "SGEDI"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "SGEEV"
@@ -7507,7 +7507,7 @@
       "routine": "SGMRES"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SGTSL"
@@ -7591,37 +7591,37 @@
       "routine": "SINH"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "SINQB"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "SINQF"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "SINQI"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "SINT"
     },
     {
-      "intended_canonical_module": "fftpack::numerical",
+      "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
       "promotion_state": "batch_a_public_driver",
       "routine": "SINTI"
     },
     {
-      "intended_canonical_module": "ode::numerical",
+      "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
       "promotion_state": "batch_a_public_driver",
       "routine": "SINTRP"
@@ -7669,37 +7669,37 @@
       "routine": "SMOUT"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SNBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SNBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SNBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SNBFS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SNBIR"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SNBSL"
@@ -7783,25 +7783,25 @@
       "routine": "SOSSOL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPBCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPBDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPBFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPBSL"
@@ -7819,7 +7819,7 @@
       "routine": "SPELIP"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPENC"
@@ -7933,13 +7933,13 @@
       "routine": "SPOSL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPPDI"
@@ -7951,13 +7951,13 @@
       "routine": "SPPERM"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPPFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPPSL"
@@ -7969,7 +7969,7 @@
       "routine": "SPSORT"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::banded",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SPTSL"
@@ -8059,31 +8059,31 @@
       "routine": "SSD2S"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSDBCG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSDCG"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSDCGN"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSDCGS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSDGMR"
@@ -8095,7 +8095,7 @@
       "routine": "SSDI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSDOMN"
@@ -8113,13 +8113,13 @@
       "routine": "SSDSCL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSGS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSICCG"
@@ -8143,7 +8143,7 @@
       "routine": "SSIDI"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSIEV"
@@ -8155,7 +8155,7 @@
       "routine": "SSIFA"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSILUR"
@@ -8173,7 +8173,7 @@
       "routine": "SSISL"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSJAC"
@@ -8197,13 +8197,13 @@
       "routine": "SSLLTI"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSLUBC"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSLUCN"
@@ -8215,7 +8215,7 @@
       "routine": "SSLUCS"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSLUGM"
@@ -8239,7 +8239,7 @@
       "routine": "SSLUI4"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::sparse",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSLUOM"
@@ -8281,25 +8281,25 @@
       "routine": "SSORT"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSPCO"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSPDI"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSPEV"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSPFA"
@@ -8323,7 +8323,7 @@
       "routine": "SSPR2"
     },
     {
-      "intended_canonical_module": "linear_algebra::dense",
+      "intended_canonical_module": "linear_algebra::packed",
       "primary_family": "Dense linear algebra",
       "promotion_state": "batch_a_public_driver",
       "routine": "SSPSL"
@@ -8545,55 +8545,55 @@
       "routine": "TEVLS"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TINVIT"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TQL1"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TQL2"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TQLRAT"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TRBAK1"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TRBAK3"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TRED1"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TRED2"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TRED3"
@@ -8605,7 +8605,7 @@
       "routine": "TRI3"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TRIDIB"
@@ -8635,7 +8635,7 @@
       "routine": "TRIX"
     },
     {
-      "intended_canonical_module": "eigen::numerical",
+      "intended_canonical_module": "linear_algebra::eigen",
       "primary_family": "Eigenvalue problems",
       "promotion_state": "batch_a_public_driver",
       "routine": "TSTURM"
@@ -8725,7 +8725,7 @@
       "routine": "WNLT3"
     },
     {
-      "intended_canonical_module": "approximation::numerical",
+      "intended_canonical_module": "approximation",
       "primary_family": "Approximation",
       "promotion_state": "batch_a_public_driver",
       "routine": "WNNLS"
@@ -8827,13 +8827,13 @@
       "routine": "XGETUN"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "XLEGF"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "XNRMP"
@@ -8935,7 +8935,7 @@
       "routine": "ZACON"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZAIRY"
@@ -8947,31 +8947,31 @@
       "routine": "ZASYI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZBESH"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZBESI"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZBESJ"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZBESK"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special::bessel",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZBESY"
@@ -8983,7 +8983,7 @@
       "routine": "ZBINU"
     },
     {
-      "intended_canonical_module": "special::numerical",
+      "intended_canonical_module": "special",
       "primary_family": "Special functions",
       "promotion_state": "batch_a_public_driver",
       "routine": "ZBIRY"

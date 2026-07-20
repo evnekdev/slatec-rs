@@ -48,15 +48,6 @@ unsafe extern "C" {
         elim: *mut f32,
         alim: *mut f32,
     );
-    #[link_name = "cairy_"]
-    pub fn cairy(
-        z: *mut Complex32,
-        id: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        ai: *mut Complex32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "carg_"]
     pub fn carg(z: *mut Complex32) -> f32;
     #[link_name = "casyi_"]
@@ -72,67 +63,6 @@ unsafe extern "C" {
         elim: *mut f32,
         alim: *mut f32,
     );
-    #[link_name = "caxpy_"]
-    pub fn caxpy(
-        n: *mut FortranInteger,
-        ca: *mut Complex32,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-    );
-    #[link_name = "cbesh_"]
-    pub fn cbesh(
-        z: *mut Complex32,
-        fnu: *mut f32,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cy: *mut Complex32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "cbesi_"]
-    pub fn cbesi(
-        z: *mut Complex32,
-        fnu: *mut f32,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cy: *mut Complex32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "cbesj_"]
-    pub fn cbesj(
-        z: *mut Complex32,
-        fnu: *mut f32,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cy: *mut Complex32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "cbesk_"]
-    pub fn cbesk(
-        z: *mut Complex32,
-        fnu: *mut f32,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cy: *mut Complex32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "cbesy_"]
-    pub fn cbesy(
-        z: *mut Complex32,
-        fnu: *mut f32,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cy: *mut Complex32,
-        nz: *mut FortranInteger,
-        cwrk: *mut Complex32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "cbinu_"]
     pub fn cbinu(
         z: *mut Complex32,
@@ -146,14 +76,6 @@ unsafe extern "C" {
         tol: *mut f32,
         elim: *mut f32,
         alim: *mut f32,
-    );
-    #[link_name = "cbiry_"]
-    pub fn cbiry(
-        z: *mut Complex32,
-        id: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        bi: *mut Complex32,
-        ierr: *mut FortranInteger,
     );
     #[link_name = "cbknu_"]
     pub fn cbknu(
@@ -189,24 +111,6 @@ unsafe extern "C" {
         prdct: *mut f32,
         cprdct: *mut f32,
     );
-    #[link_name = "cblktr_"]
-    pub fn cblktr(
-        iflg: *mut FortranInteger,
-        np: *mut FortranInteger,
-        n: *mut FortranInteger,
-        an: *mut f32,
-        bn: *mut f32,
-        cn: *mut f32,
-        mp: *mut FortranInteger,
-        m: *mut FortranInteger,
-        am: *mut Complex32,
-        bm: *mut Complex32,
-        cm: *mut Complex32,
-        idimy: *mut FortranInteger,
-        y: *mut Complex32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
     #[link_name = "cbuni_"]
     pub fn cbuni(
         z: *mut Complex32,
@@ -234,67 +138,6 @@ unsafe extern "C" {
         tol: *mut f32,
         elim: *mut f32,
         alim: *mut f32,
-    );
-    #[link_name = "cchdc_"]
-    pub fn cchdc(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        p: *mut FortranInteger,
-        work: *mut Complex32,
-        jpvt: *mut FortranInteger,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cchdd_"]
-    pub fn cchdd(
-        r: *mut Complex32,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        x: *mut Complex32,
-        z: *mut Complex32,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        y: *mut Complex32,
-        rho: *mut f32,
-        c: *mut f32,
-        s: *mut Complex32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cchex_"]
-    pub fn cchex(
-        r: *mut Complex32,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        k: *mut FortranInteger,
-        l: *mut FortranInteger,
-        z: *mut Complex32,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        c: *mut f32,
-        s: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cchud_"]
-    pub fn cchud(
-        r: *mut Complex32,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        x: *mut Complex32,
-        z: *mut Complex32,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        y: *mut Complex32,
-        rho: *mut f32,
-        c: *mut f32,
-        s: *mut Complex32,
-    );
-    #[link_name = "ccopy_"]
-    pub fn ccopy(
-        n: *mut FortranInteger,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
     );
     #[link_name = "cdcor_"]
     pub fn cdcor(
@@ -454,207 +297,6 @@ unsafe extern "C" {
     pub fn cfftb(n: *mut FortranInteger, c: *mut Complex32, wsave: *mut f32);
     #[link_name = "cfftf_"]
     pub fn cfftf(n: *mut FortranInteger, c: *mut Complex32, wsave: *mut f32);
-    #[link_name = "cgbco_"]
-    pub fn cgbco(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "cgbdi_"]
-    pub fn cgbdi(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut Complex32,
-    );
-    #[link_name = "cgbfa_"]
-    pub fn cgbfa(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cgbsl_"]
-    pub fn cgbsl(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cgeco_"]
-    pub fn cgeco(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "cgedi_"]
-    pub fn cgedi(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut Complex32,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cgefa_"]
-    pub fn cgefa(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cgefs_"]
-    pub fn cgefs(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut Complex32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut Complex32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "cgeir_"]
-    pub fn cgeir(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut Complex32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut Complex32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "cgerc_"]
-    pub fn cgerc(
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-    );
-    #[link_name = "cgeru_"]
-    pub fn cgeru(
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-    );
-    #[link_name = "cgesl_"]
-    pub fn cgesl(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cgtsl_"]
-    pub fn cgtsl(
-        n: *mut FortranInteger,
-        c: *mut Complex32,
-        d: *mut Complex32,
-        e: *mut Complex32,
-        b: *mut Complex32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "chico_"]
-    pub fn chico(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "chidi_"]
-    pub fn chidi(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut f32,
-        inert: *mut FortranInteger,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "chifa_"]
-    pub fn chifa(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "chisl_"]
-    pub fn chisl(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        b: *mut Complex32,
-    );
-    #[link_name = "chpco_"]
-    pub fn chpco(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "chpdi_"]
-    pub fn chpdi(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut f32,
-        inert: *mut FortranInteger,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "chpfa_"]
-    pub fn chpfa(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "chpsl_"]
-    pub fn chpsl(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        b: *mut Complex32,
-    );
     #[link_name = "ckscl_"]
     pub fn ckscl(
         zr: *mut Complex32,
@@ -666,20 +308,6 @@ unsafe extern "C" {
         ascle: *mut f32,
         tol: *mut f32,
         elim: *mut f32,
-    );
-    #[link_name = "cmgnbn_"]
-    pub fn cmgnbn(
-        nperod: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mperod: *mut FortranInteger,
-        m: *mut FortranInteger,
-        a: *mut Complex32,
-        b: *mut Complex32,
-        c: *mut Complex32,
-        idimy: *mut FortranInteger,
-        y: *mut Complex32,
-        ierror: *mut FortranInteger,
-        w: *mut Complex32,
     );
     #[link_name = "cmlri_"]
     pub fn cmlri(
@@ -784,74 +412,6 @@ unsafe extern "C" {
         d: *mut Complex32,
         w: *mut Complex32,
     );
-    #[link_name = "cnbco_"]
-    pub fn cnbco(
-        abe: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "cnbdi_"]
-    pub fn cnbdi(
-        abe: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut Complex32,
-    );
-    #[link_name = "cnbfa_"]
-    pub fn cnbfa(
-        abe: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cnbfs_"]
-    pub fn cnbfs(
-        abe: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        v: *mut Complex32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut Complex32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "cnbir_"]
-    pub fn cnbir(
-        abe: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        v: *mut Complex32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut Complex32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "cnbsl_"]
-    pub fn cnbsl(
-        abe: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut Complex32,
-        job: *mut FortranInteger,
-    );
     #[link_name = "cpadd_"]
     pub fn cpadd(
         n: *mut FortranInteger,
@@ -862,40 +422,6 @@ unsafe extern "C" {
         bp: *mut f32,
         bh: *mut f32,
     );
-    #[link_name = "cpbco_"]
-    pub fn cpbco(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cpbdi_"]
-    pub fn cpbdi(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        det: *mut f32,
-    );
-    #[link_name = "cpbfa_"]
-    pub fn cpbfa(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cpbsl_"]
-    pub fn cpbsl(
-        abd: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        b: *mut Complex32,
-    );
     #[link_name = "cpevl_"]
     pub fn cpevl(
         n: *mut FortranInteger,
@@ -905,84 +431,6 @@ unsafe extern "C" {
         c: *mut Complex32,
         b: *mut Complex32,
         kbd: *mut FortranLogical,
-    );
-    #[link_name = "cpoco_"]
-    pub fn cpoco(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cpodi_"]
-    pub fn cpodi(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        det: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cpofa_"]
-    pub fn cpofa(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cpofs_"]
-    pub fn cpofs(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut Complex32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut Complex32,
-    );
-    #[link_name = "cpoir_"]
-    pub fn cpoir(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut Complex32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut Complex32,
-    );
-    #[link_name = "cposl_"]
-    pub fn cposl(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut Complex32,
-    );
-    #[link_name = "cppco_"]
-    pub fn cppco(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cppdi_"]
-    pub fn cppdi(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        det: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cppfa_"]
-    pub fn cppfa(ap: *mut Complex32, n: *mut FortranInteger, info: *mut FortranInteger);
-    #[link_name = "cppsl_"]
-    pub fn cppsl(ap: *mut Complex32, n: *mut FortranInteger, b: *mut Complex32);
-    #[link_name = "cpqr79_"]
-    pub fn cpqr79(
-        ndeg: *mut FortranInteger,
-        coeff: *mut Complex32,
-        root: *mut Complex32,
-        ierr: *mut FortranInteger,
-        work: *mut f32,
     );
     #[link_name = "cproc_"]
     pub fn cproc(
@@ -1064,44 +512,6 @@ unsafe extern "C" {
         u: *mut Complex32,
         y: *mut Complex32,
     );
-    #[link_name = "cptsl_"]
-    pub fn cptsl(n: *mut FortranInteger, d: *mut Complex32, e: *mut Complex32, b: *mut Complex32);
-    #[link_name = "cpzero_"]
-    pub fn cpzero(
-        r#in: *mut FortranInteger,
-        a: *mut Complex32,
-        r: *mut Complex32,
-        t: *mut Complex32,
-        iflg: *mut FortranInteger,
-        s: *mut f32,
-    );
-    #[link_name = "cqrdc_"]
-    pub fn cqrdc(
-        x: *mut Complex32,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        p: *mut FortranInteger,
-        qraux: *mut Complex32,
-        jpvt: *mut FortranInteger,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cqrsl_"]
-    pub fn cqrsl(
-        x: *mut Complex32,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        qraux: *mut Complex32,
-        y: *mut Complex32,
-        qy: *mut Complex32,
-        qty: *mut Complex32,
-        b: *mut Complex32,
-        rsd: *mut Complex32,
-        xb: *mut Complex32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
     #[link_name = "crati_"]
     pub fn crati(
         z: *mut Complex32,
@@ -1110,8 +520,6 @@ unsafe extern "C" {
         cy: *mut Complex32,
         tol: *mut f32,
     );
-    #[link_name = "crotg_"]
-    pub fn crotg(ca: *mut Complex32, cb: *mut Complex32, c: *mut f32, s: *mut Complex32);
     #[link_name = "cs1s2_"]
     pub fn cs1s2(
         zr: *mut Complex32,
@@ -1121,13 +529,6 @@ unsafe extern "C" {
         ascle: *mut f32,
         alim: *mut f32,
         iuf: *mut FortranInteger,
-    );
-    #[link_name = "cscal_"]
-    pub fn cscal(
-        n: *mut FortranInteger,
-        ca: *mut Complex32,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
     );
     #[link_name = "cseri_"]
     pub fn cseri(
@@ -1143,140 +544,6 @@ unsafe extern "C" {
     );
     #[link_name = "cshch_"]
     pub fn cshch(z: *mut Complex32, csh: *mut Complex32, cch: *mut Complex32);
-    #[link_name = "csico_"]
-    pub fn csico(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "csidi_"]
-    pub fn csidi(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut Complex32,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "csifa_"]
-    pub fn csifa(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "csisl_"]
-    pub fn csisl(
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        b: *mut Complex32,
-    );
-    #[link_name = "cspco_"]
-    pub fn cspco(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-    );
-    #[link_name = "cspdi_"]
-    pub fn cspdi(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut Complex32,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "cspfa_"]
-    pub fn cspfa(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cspsl_"]
-    pub fn cspsl(
-        ap: *mut Complex32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        b: *mut Complex32,
-    );
-    #[link_name = "csrot_"]
-    pub fn csrot(
-        n: *mut FortranInteger,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-        c: *mut f32,
-        s: *mut f32,
-    );
-    #[link_name = "csscal_"]
-    pub fn csscal(
-        n: *mut FortranInteger,
-        sa: *mut f32,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-    );
-    #[link_name = "csvdc_"]
-    pub fn csvdc(
-        x: *mut Complex32,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        p: *mut FortranInteger,
-        s: *mut Complex32,
-        e: *mut Complex32,
-        u: *mut Complex32,
-        ldu: *mut FortranInteger,
-        v: *mut Complex32,
-        ldv: *mut FortranInteger,
-        work: *mut Complex32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "cswap_"]
-    pub fn cswap(
-        n: *mut FortranInteger,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-    );
-    #[link_name = "ctrco_"]
-    pub fn ctrco(
-        t: *mut Complex32,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut Complex32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "ctrdi_"]
-    pub fn ctrdi(
-        t: *mut Complex32,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        det: *mut Complex32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "ctrsl_"]
-    pub fn ctrsl(
-        t: *mut Complex32,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut Complex32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
     #[link_name = "cuchk_"]
     pub fn cuchk(y: *mut Complex32, nz: *mut FortranInteger, ascle: *mut f32, tol: *mut f32);
     #[link_name = "cunhj_"]
@@ -1386,23 +653,6 @@ unsafe extern "C" {
         elim: *mut f32,
         alim: *mut f32,
     );
-    #[link_name = "dcdot_"]
-    pub fn dcdot(
-        n: *mut FortranInteger,
-        fm: *mut f64,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-        dcr: *mut f64,
-        dci: *mut f64,
-    );
-    #[link_name = "icamax_"]
-    pub fn icamax(
-        n: *mut FortranInteger,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-    ) -> FortranInteger;
     #[link_name = "ppadd_"]
     pub fn ppadd(
         n: *mut FortranInteger,
@@ -1453,25 +703,175 @@ unsafe extern "C" {
         u: *mut Complex32,
         w: *mut Complex32,
     );
-    #[link_name = "rpqr79_"]
-    pub fn rpqr79(
-        ndeg: *mut FortranInteger,
-        coeff: *mut f32,
-        root: *mut Complex32,
-        ierr: *mut FortranInteger,
-        work: *mut f32,
-    );
-    #[link_name = "rpzero_"]
-    pub fn rpzero(
-        n: *mut FortranInteger,
-        a: *mut f32,
-        r: *mut Complex32,
-        t: *mut Complex32,
-        iflg: *mut FortranInteger,
-        s: *mut f32,
-    );
-    #[link_name = "scasum_"]
-    pub fn scasum(n: *mut FortranInteger, cx: *mut Complex32, incx: *mut FortranInteger) -> f32;
-    #[link_name = "scnrm2_"]
-    pub fn scnrm2(n: *mut FortranInteger, cx: *mut Complex32, incx: *mut FortranInteger) -> f32;
 }
+
+// ffi-declaration-aliases:start
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::caxpy`."]
+pub use crate::blas::level1::caxpy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ccopy`."]
+pub use crate::blas::level1::ccopy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::crotg`."]
+pub use crate::blas::level1::crotg;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::cscal`."]
+pub use crate::blas::level1::cscal;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::csrot`."]
+pub use crate::blas::level1::csrot;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::csscal`."]
+pub use crate::blas::level1::csscal;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::cswap`."]
+pub use crate::blas::level1::cswap;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dcdot`."]
+pub use crate::blas::level1::dcdot;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::icamax`."]
+pub use crate::blas::level1::icamax;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::scasum`."]
+pub use crate::blas::level1::scasum;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::scnrm2`."]
+pub use crate::blas::level1::scnrm2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::cgerc`."]
+pub use crate::blas::level2::cgerc;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::cgeru`."]
+pub use crate::blas::level2::cgeru;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cgbco`."]
+pub use crate::linear_algebra::banded::complex::cgbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cgbdi`."]
+pub use crate::linear_algebra::banded::complex::cgbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cgbfa`."]
+pub use crate::linear_algebra::banded::complex::cgbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cgbsl`."]
+pub use crate::linear_algebra::banded::complex::cgbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cgtsl`."]
+pub use crate::linear_algebra::banded::complex::cgtsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cnbco`."]
+pub use crate::linear_algebra::banded::complex::cnbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cnbdi`."]
+pub use crate::linear_algebra::banded::complex::cnbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cnbfa`."]
+pub use crate::linear_algebra::banded::complex::cnbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cnbfs`."]
+pub use crate::linear_algebra::banded::complex::cnbfs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cnbir`."]
+pub use crate::linear_algebra::banded::complex::cnbir;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cnbsl`."]
+pub use crate::linear_algebra::banded::complex::cnbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cpbco`."]
+pub use crate::linear_algebra::banded::complex::cpbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cpbdi`."]
+pub use crate::linear_algebra::banded::complex::cpbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cpbfa`."]
+pub use crate::linear_algebra::banded::complex::cpbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cpbsl`."]
+pub use crate::linear_algebra::banded::complex::cpbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::complex::cptsl`."]
+pub use crate::linear_algebra::banded::complex::cptsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cchdc`."]
+pub use crate::linear_algebra::dense::complex::cchdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cchdd`."]
+pub use crate::linear_algebra::dense::complex::cchdd;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cchex`."]
+pub use crate::linear_algebra::dense::complex::cchex;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cchud`."]
+pub use crate::linear_algebra::dense::complex::cchud;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cgeco`."]
+pub use crate::linear_algebra::dense::complex::cgeco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cgedi`."]
+pub use crate::linear_algebra::dense::complex::cgedi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cgefa`."]
+pub use crate::linear_algebra::dense::complex::cgefa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cgefs`."]
+pub use crate::linear_algebra::dense::complex::cgefs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cgeir`."]
+pub use crate::linear_algebra::dense::complex::cgeir;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cgesl`."]
+pub use crate::linear_algebra::dense::complex::cgesl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::chico`."]
+pub use crate::linear_algebra::dense::complex::chico;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::chidi`."]
+pub use crate::linear_algebra::dense::complex::chidi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::chifa`."]
+pub use crate::linear_algebra::dense::complex::chifa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::chisl`."]
+pub use crate::linear_algebra::dense::complex::chisl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cpoco`."]
+pub use crate::linear_algebra::dense::complex::cpoco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cpodi`."]
+pub use crate::linear_algebra::dense::complex::cpodi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cpofa`."]
+pub use crate::linear_algebra::dense::complex::cpofa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cpofs`."]
+pub use crate::linear_algebra::dense::complex::cpofs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cpoir`."]
+pub use crate::linear_algebra::dense::complex::cpoir;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cposl`."]
+pub use crate::linear_algebra::dense::complex::cposl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cqrdc`."]
+pub use crate::linear_algebra::dense::complex::cqrdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::cqrsl`."]
+pub use crate::linear_algebra::dense::complex::cqrsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::csico`."]
+pub use crate::linear_algebra::dense::complex::csico;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::csidi`."]
+pub use crate::linear_algebra::dense::complex::csidi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::csifa`."]
+pub use crate::linear_algebra::dense::complex::csifa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::csisl`."]
+pub use crate::linear_algebra::dense::complex::csisl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::csvdc`."]
+pub use crate::linear_algebra::dense::complex::csvdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::ctrco`."]
+pub use crate::linear_algebra::dense::complex::ctrco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::ctrdi`."]
+pub use crate::linear_algebra::dense::complex::ctrdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::complex::ctrsl`."]
+pub use crate::linear_algebra::dense::complex::ctrsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::chpco`."]
+pub use crate::linear_algebra::packed::complex::chpco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::chpdi`."]
+pub use crate::linear_algebra::packed::complex::chpdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::chpfa`."]
+pub use crate::linear_algebra::packed::complex::chpfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::chpsl`."]
+pub use crate::linear_algebra::packed::complex::chpsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cppco`."]
+pub use crate::linear_algebra::packed::complex::cppco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cppdi`."]
+pub use crate::linear_algebra::packed::complex::cppdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cppfa`."]
+pub use crate::linear_algebra::packed::complex::cppfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cppsl`."]
+pub use crate::linear_algebra::packed::complex::cppsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cspco`."]
+pub use crate::linear_algebra::packed::complex::cspco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cspdi`."]
+pub use crate::linear_algebra::packed::complex::cspdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cspfa`."]
+pub use crate::linear_algebra::packed::complex::cspfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cspsl`."]
+pub use crate::linear_algebra::packed::complex::cspsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::cpqr79`."]
+pub use crate::nonlinear::complex::cpqr79;
+#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::cpzero`."]
+pub use crate::nonlinear::complex::cpzero;
+#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::rpqr79`."]
+pub use crate::nonlinear::complex::rpqr79;
+#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::rpzero`."]
+pub use crate::nonlinear::complex::rpzero;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::complex::cblktr`."]
+pub use crate::pde::fishpack::complex::cblktr;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::complex::cmgnbn`."]
+pub use crate::pde::fishpack::complex::cmgnbn;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cairy`."]
+pub use crate::special::complex::cairy;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbesh`."]
+pub use crate::special::complex::cbesh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbesi`."]
+pub use crate::special::complex::cbesi;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbesj`."]
+pub use crate::special::complex::cbesj;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbesk`."]
+pub use crate::special::complex::cbesk;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbesy`."]
+pub use crate::special::complex::cbesy;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbiry`."]
+pub use crate::special::complex::cbiry;
+// ffi-declaration-aliases:end

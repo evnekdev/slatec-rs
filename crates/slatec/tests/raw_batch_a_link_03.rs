@@ -2,7 +2,7 @@
 //! Regenerate with `slatec-corpus generate-raw-batch-a --offline`.
 
 #![cfg(all(
-    feature = "raw-batch-a-link-tests",
+    feature = "raw-canonical-link-tests",
     target_arch = "x86_64",
     target_env = "gnu",
     target_os = "windows"
@@ -11,113 +11,100 @@
 #[test]
 fn canonical_symbols_link() {
     slatec_src::ensure_linked();
-    let _ = core::hint::black_box(slatec_sys::special::numerical::drc6j as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::drd as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::drf as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::drj as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::drc6j as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::drd as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::drf as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::drj as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::ds2lt as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsd2s as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdbcg as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdcg as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdcgn as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdcgs as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdgmr as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdomn as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsdbcg as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsdcg as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsdcgn as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsdcgs as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsdgmr as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsdomn as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsds as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsdscl as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsgs as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsiccg as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsgs as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsiccg as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsico as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsics as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsidi as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsifa as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsilur as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsilur as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsilus as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsisl as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsjac as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsjac as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsli as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsli2 as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsllti as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslubc as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslucn as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dslubc as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dslucn as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslucs as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslugm as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dslugm as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslui as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslui2 as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dslui4 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsluom as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::sparse::dsluom as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsluti as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsmmi2 as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsmmti as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dspco as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dspdi as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::dspenc as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dspfa as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dspsl as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::packed::dspco as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::packed::dspdi as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::dspenc as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::packed::dspfa as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::packed::dspsl as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dsvdc as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dtrco as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dtrdi as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dtrsl as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::dulsia as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::approximation::numerical::dwnnls as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::dxlegf as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::dxnrmp as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::e1 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::approximation::numerical::efc as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::ei as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::elmbak as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::elmhes as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::eltran as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::exint as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::fftpack::numerical::ezfftb as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::fftpack::numerical::ezfftf as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::fftpack::numerical::ezffti as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::approximation::numerical::fc as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::figi as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::figi2 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::gamlim as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::quadrature::numerical::gaus8 as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::genbun as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::approximation::dwnnls as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::dxlegf as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::dxnrmp as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::e1 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::approximation::efc as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::ei as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::elmbak as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::elmhes as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::eltran as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::exint as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::fftpack::ezfftb as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::fftpack::ezfftf as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::fftpack::ezffti as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::approximation::fc as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::figi as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::figi2 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::gamlim as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::quadrature::gaus8 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::genbun as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::hfti as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::hqr as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::hqr2 as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hstcrt as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hstcsp as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hstcyl as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hstplr as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hstssp as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::htrib3 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::htribk as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::htrid3 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::htridi as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hw3crt as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hwscsp as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hwscyl as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hwsplr as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::pde::fishpack::numerical::hwsssp as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::imtql1 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::imtql2 as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::imtqlv as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::initds as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::special::numerical::inits as *const () as usize);
-    let _ =
-        core::hint::black_box(slatec_sys::interpolation::numerical::intrv as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::invit as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::hqr as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::hqr2 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hstcrt as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hstcsp as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hstcyl as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hstplr as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hstssp as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::htrib3 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::htribk as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::htrid3 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::htridi as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hw3crt as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hwscsp as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hwscyl as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hwsplr as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::pde::fishpack::hwsssp as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::imtql1 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::imtql2 as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::imtqlv as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::initds as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::special::inits as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::interpolation::intrv as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::invit as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::llsia as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::approximation::numerical::lsei as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::approximation::lsei as *const () as usize);
     let _ = core::hint::black_box(slatec_sys::linear_algebra::dense::minfit as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::ortbak as *const () as usize);
-    let _ = core::hint::black_box(slatec_sys::eigen::numerical::orthes as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::ortbak as *const () as usize);
+    let _ = core::hint::black_box(slatec_sys::linear_algebra::eigen::orthes as *const () as usize);
 }

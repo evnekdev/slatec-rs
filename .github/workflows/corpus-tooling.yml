@@ -17,6 +17,16 @@ jobs:
       - run: cargo fmt --all -- --check
       - name: Validate repository guidance
         run: cargo run -p slatec-tools --bin slatec-corpus -- validate-agent-guidance
+      - name: Validate canonical raw API ownership and documentation views
+        run: |
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-unique-ffi-declarations --offline
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-public-surface-terminology --offline
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-release-readiness --offline
+      - name: Validate package graph, contents, and LF-only text
+        run: |
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-package-contents --offline
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-registry-simulation --offline
+          cargo run -p slatec-tools --bin slatec-corpus -- validate-eol --offline
       - run: cargo clippy --workspace --all-targets -- -D warnings
       - name: Compile raw binding modules without native linking
         run: cargo check -p slatec-sys --all-features
@@ -84,10 +94,15 @@ jobs:
         run: cargo test -p slatec-tools provider::tests
       - name: Package assembly contents
         run: cargo package --workspace --exclude slatec-tools --allow-dirty --no-verify
+      - name: Verify independently publishable base packages
+        run: |
+          cargo package -p slatec-sys --allow-dirty
+          cargo package -p slatec-src --allow-dirty
       - name: Documentation with warnings denied
         env:
           RUSTDOCFLAGS: -D warnings
         run: |
+          cargo doc -p slatec-sys --all-features --no-deps
           cargo doc -p slatec --no-default-features --features std,external-backend,full --no-deps
           cargo test --doc -p slatec --no-default-features --features std,external-backend,full
           cargo doc -p slatec --no-default-features --no-deps

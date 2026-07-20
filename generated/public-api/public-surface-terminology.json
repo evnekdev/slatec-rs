@@ -1,0 +1,12 @@
+{
+  "files_scanned": 1644,
+  "historical_allowlist": [
+    "docs/history/raw-api-milestones/**"
+  ],
+  "policy": "Current public API surfaces use mathematical and ABI terminology; historical milestone labels are confined to a narrow path allowlist.",
+  "schema_id": "slatec-sys.public-api.public-surface-terminology",
+  "schema_version": 1,
+  "status": "pass",
+  "violation_count": 0,
+  "violations": []
+}

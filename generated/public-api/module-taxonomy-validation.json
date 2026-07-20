@@ -1,0 +1,12 @@
+{
+  "canonical_numerical_segments": 0,
+  "canonical_public_paths": 812,
+  "canonical_top_level_eigen_paths": 0,
+  "compatibility_paths": 662,
+  "duplicate_canonical_paths": 0,
+  "duplicate_paths": [],
+  "missing_canonical_paths": 0,
+  "missing_routines": [],
+  "schema_id": "slatec-rs.module-taxonomy-validation",
+  "schema_version": "1.0.0"
+}

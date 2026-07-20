@@ -1,0 +1,10 @@
+{
+  "changed_working_files_checked": true,
+  "policy": "Every text blob in the Git index and every changed or untracked textual working file uses LF-only bytes. .gitattributes enforces eol=lf and final staging uses git add --renormalize.",
+  "result": "pass",
+  "schema_id": "slatec-rs.eol-audit",
+  "schema_version": "1.1.0",
+  "tracked_text_files": 2679,
+  "violation_count": 0,
+  "violations": []
+}

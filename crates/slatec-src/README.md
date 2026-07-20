@@ -1,6 +1,8 @@
 # slatec-src
 
-`no_std` implementation-provider selection for `slatec-rs`.
+`no_std` implementation-provider selection and native link integration for
+`slatec-rs`. Applications that need an implementation provider use this crate;
+declaration-only users can depend on `slatec-sys` directly.
 
 `source-build` consumes a separately acquired, checksum-verified cache and never accesses the network. `system` links an explicitly located archive, while `external-backend` emits no link directives. `prebuilt` is intentionally unavailable until redistribution rights are resolved.
 
@@ -15,3 +17,9 @@ external or system provider is not assumed to share those properties. See
 Safe-wrapper module layout is audited separately and does not modify this
 provider's one-source-per-object archive construction; see
 [`docs/architecture/safe-facade-link-granularity.md`](../../docs/architecture/safe-facade-link-granularity.md).
+
+This crate owns the workspace's Cargo `links = "slatec"` namespace. It never
+downloads source during a build. The strongest validated source-build profile
+is GNU MinGW on `x86_64-pc-windows-gnu`; system and external backends must supply
+an independently compatible ABI. Packages contain closure metadata and the
+reviewed machine-constant overrides, not the separately acquired source cache.

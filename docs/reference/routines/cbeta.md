@@ -1,6 +1,6 @@
 # CBETA
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Special functions](../families/special-functions.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -49,22 +49,48 @@ CBETA computes the complete beta function of complex parameters A and B. Input P
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `complete_structured`
+- Description provenance: `source_prologue`
+- Assessment: the selected source supplies a meaningful description and separable evidence for every argument
+- Dedicated family page: [Special functions](../families/special-functions.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `A` | input | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CBETA computes the complete beta function of complex parameters A and B. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | input | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CBETA computes the complete beta function of complex parameters A and B. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Return value
+
+The Fortran function returns `*mut crate::Complex32` through the compiler-validated ABI recorded by the authoritative declaration fingerprint `function:complex32(mut_complex32,mut_complex32)`.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::special::complex::cbeta`. Native symbol: `cbeta_`. Feature: `special-complex`. Provider status: `selected_provider_verified`. ABI fingerprint: `function:complex32(mut_complex32,mut_complex32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `batch_c_automated_public`
+- Public raw API status: `canonical-public`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::special::complex::cbeta`
-- Current legacy Rust paths: `none`
-- Public declaration feature: `batch-c-special`
+- Compatibility aliases: `none`
+- Public declaration feature: `special-complex`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `representative_batch_smoke_only`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

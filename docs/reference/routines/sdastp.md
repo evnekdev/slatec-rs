@@ -1,6 +1,6 @@
 # SDASTP
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: ODE solvers](../families/ode-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -50,22 +50,77 @@ SDASTP SOLVES A SYSTEM OF DIFFERENTIAL/ ALGEBRAIC EQUATIONS OF THE FORM G(X,Y,YP
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `X` | output | `REAL` (`explicit`) | `*mut f32` | scalar | SDASTP SOLVES A SYSTEM OF DIFFERENTIAL/ ALGEBRAIC EQUATIONS OF THE FORM G(X,Y,YPRIME) = 0, FOR ONE STEP (NORMALLY FROM X TO X+H). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | SDASTP SOLVES A SYSTEM OF DIFFERENTIAL/ ALGEBRAIC EQUATIONS OF THE FORM G(X,Y,YPRIME) = 0, FOR ONE STEP (NORMALLY FROM X TO X+H). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `YPRIME` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | SDASTP SOLVES A SYSTEM OF DIFFERENTIAL/ ALGEBRAIC EQUATIONS OF THE FORM G(X,Y,YPRIME) = 0, FOR ONE STEP (NORMALLY FROM X TO X+H). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NEQ` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | THE PARAMETERS REPRESENT X -- INDEPENDENT VARIABLE Y -- SOLUTION VECTOR AT X YPRIME -- DERIVATIVE OF SOLUTION VECTOR AFTER SUCCESSFUL STEP NEQ -- NUMBER OF EQUATIONS TO BE INTEGRATED RES -- EXTERNAL USER-SUPPLIED SUBROUTINE TO EVALUATE THE RESIDUAL. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RES` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | THE PARAMETERS REPRESENT X -- INDEPENDENT VARIABLE Y -- SOLUTION VECTOR AT X YPRIME -- DERIVATIVE OF SOLUTION VECTOR AFTER SUCCESSFUL STEP NEQ -- NUMBER OF EQUATIONS TO BE INTEGRATED RES -- EXTERNAL USER-SUPPLIED SUBROUTINE TO EVALUATE THE RESIDUAL. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `JAC` | callback | `INTEGER` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | JAC -- EXTERNAL USER-SUPPLIED ROUTINE TO EVALUATE THE ITERATION MATRIX (THIS IS OPTIONAL) THE CALL IS OF THE FORM CALL JAC(X,Y,YPRIME,PD,CJ,RPAR,IPAR) PD IS THE MATRIX OF PARTIAL DERIVATIVES, PD=DG/DY+CJ*DG/DYPRIME H -- APPROPRIATE STEP SIZE FOR NEXT STEP. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `H` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | SDASTP SOLVES A SYSTEM OF DIFFERENTIAL/ ALGEBRAIC EQUATIONS OF THE FORM G(X,Y,YPRIME) = 0, FOR ONE STEP (NORMALLY FROM X TO X+H). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WT` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | NORMALLY DETERMINED BY THE CODE WT -- VECTOR OF WEIGHTS FOR ERROR CRITERION. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `JSTART` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | JSTART -- INTEGER VARIABLE SET 0 FOR FIRST STEP, 1 OTHERWISE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IDID` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | IF IRES=-2, SDASTP RETURNS CONTROL TO THE CALLING PROGRAM WITH IDID = -11. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RPAR` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | THE CALL IS CALL RES(X,Y,YPRIME,DELTA,IRES,RPAR,IPAR) X,Y,YPRIME ARE INPUT. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IPAR` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | THE CALL IS CALL RES(X,Y,YPRIME,DELTA,IRES,RPAR,IPAR) X,Y,YPRIME ARE INPUT. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `PHI` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (NEQ, *) | IDID=-10-- THE CORRECTOR COULD NOT CONVERGE BECAUSE IRES WAS EQUAL TO MINUS ONE IDID=-11-- IRES EQUAL TO -2 WAS ENCOUNTERED, AND CONTROL IS BEING RETURNED TO THE CALLING PROGRAM RPAR,IPAR -- REAL AND INTEGER PARAMETER ARRAYS THAT ARE USED FOR COMMUNICATION BETWEEN THE CALLING PROGRAM AND EXTERNAL USER ROUTINES THEY ARE NOT ALTERED BY SDASTP PHI -- ARRAY OF DIVIDED DIFFERENCES USED BY SDASTP. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `DELTA` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | THE CALL IS CALL RES(X,Y,YPRIME,DELTA,IRES,RPAR,IPAR) X,Y,YPRIME ARE INPUT. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `E` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WM` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IWM` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ALPHA` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BETA` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `GAMMA` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `PSI` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `SIGMA` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CJ` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | JAC -- EXTERNAL USER-SUPPLIED ROUTINE TO EVALUATE THE ITERATION MATRIX (THIS IS OPTIONAL) THE CALL IS OF THE FORM CALL JAC(X,Y,YPRIME,PD,CJ,RPAR,IPAR) PD IS THE MATRIX OF PARTIAL DERIVATIVES, PD=DG/DY+CJ*DG/DYPRIME H -- APPROPRIATE STEP SIZE FOR NEXT STEP. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CJOLD` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `HOLD` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `S` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `HMIN` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `UROUND` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IPHASE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `JCALC` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `K` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. | THE LENGTH IS NEQ*(K+1),WHERE K IS THE MAXIMUM ORDER DELTA,E -- WORK VECTORS FOR SDASTP OF LENGTH NEQ WM,IWM -- REAL AND INTEGER ARRAYS STORING MATRIX INFORMATION SUCH AS THE MATRIX OF PARTIAL DERIVATIVES,PERMUTATION VECTOR, AND VARIOUS OTHER INFORMATION. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KOLD` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NS` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NONNEG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NTEMP` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Callback contract
+
+Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `unsupported-abi`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-callbacks`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `callback ABI has compiler-shape evidence but no routine-specific callback contract`
 <!-- raw-api-status:end -->

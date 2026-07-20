@@ -8,8 +8,6 @@ use crate::{Complex32, Complex64, FortranCharacterLength, FortranInteger, Fortra
 use core::ffi::c_char;
 
 unsafe extern "C" {
-    #[link_name = "algams_"]
-    pub fn algams(x: *mut f32, algam: *mut f32, sgngam: *mut f32);
     #[link_name = "bkisr_"]
     pub fn bkisr(x: *mut f32, n: *mut FortranInteger, sum: *mut f32, ierr: *mut FortranInteger);
     #[link_name = "bspdoc_"]
@@ -36,21 +34,8 @@ unsafe extern "C" {
     pub fn d9upak(x: *mut f64, y: *mut f64, n: *mut FortranInteger);
     #[link_name = "dbkisr_"]
     pub fn dbkisr(x: *mut f64, n: *mut FortranInteger, sum: *mut f64, ierr: *mut FortranInteger);
-    #[link_name = "dgamlm_"]
-    pub fn dgamlm(xmin: *mut f64, xmax: *mut f64);
-    #[link_name = "dgaus8_"]
-    pub fn dgaus8(
-        fun: *mut f64,
-        a: *mut f64,
-        b: *mut f64,
-        err: *mut f64,
-        ans: *mut f64,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "djairy_"]
     pub fn djairy(x: *mut f64, rx: *mut f64, c: *mut f64, ai: *mut f64, dai: *mut f64);
-    #[link_name = "dlgams_"]
-    pub fn dlgams(x: *mut f64, dlgam: *mut f64, sgngam: *mut f64);
     #[link_name = "dlpdoc_"]
     pub fn dlpdoc();
     #[link_name = "dmacon_"]
@@ -65,8 +50,6 @@ unsafe extern "C" {
         slope: *mut f64,
         ierr: *mut FortranInteger,
     );
-    #[link_name = "drotg_"]
-    pub fn drotg(da: *mut f64, db: *mut f64, dc: *mut f64, ds: *mut f64);
     #[link_name = "dxadd_"]
     pub fn dxadd(
         x: *mut f64,
@@ -106,17 +89,6 @@ unsafe extern "C" {
     pub fn fftdoc();
     #[link_name = "fundoc_"]
     pub fn fundoc();
-    #[link_name = "gamlim_"]
-    pub fn gamlim(xmin: *mut f32, xmax: *mut f32);
-    #[link_name = "gaus8_"]
-    pub fn gaus8(
-        fun: *mut f32,
-        a: *mut f32,
-        b: *mut f32,
-        err: *mut f32,
-        ans: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "indxa_"]
     pub fn indxa(
         i: *mut FortranInteger,
@@ -201,8 +173,6 @@ unsafe extern "C" {
     pub fn slpdoc();
     #[link_name = "sopenm_"]
     pub fn sopenm(ipage: *mut FortranInteger, lpage: *mut FortranInteger);
-    #[link_name = "srotg_"]
-    pub fn srotg(sa: *mut f32, sb: *mut f32, sc: *mut f32, ss: *mut f32);
     #[link_name = "xadd_"]
     pub fn xadd(
         x: *mut f32,
@@ -228,27 +198,6 @@ unsafe extern "C" {
     pub fn xred(x: *mut f32, ix: *mut FortranInteger, ierror: *mut FortranInteger);
     #[link_name = "yairy_"]
     pub fn yairy(x: *mut f32, rx: *mut f32, c: *mut f32, bi: *mut f32, dbi: *mut f32);
-    #[link_name = "zairy_"]
-    pub fn zairy(
-        zr: *mut f64,
-        zi: *mut f64,
-        id: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        air: *mut f64,
-        aii: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "zbiry_"]
-    pub fn zbiry(
-        zr: *mut f64,
-        zi: *mut f64,
-        id: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        bir: *mut f64,
-        bii: *mut f64,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "zdiv_"]
     pub fn zdiv(ar: *mut f64, ai: *mut f64, br: *mut f64, bi: *mut f64, cr: *mut f64, ci: *mut f64);
     #[link_name = "zexp_"]
@@ -310,3 +259,26 @@ unsafe extern "C" {
         bsumi: *mut f64,
     );
 }
+
+// ffi-declaration-aliases:start
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drotg`."]
+pub use crate::blas::level1::drotg;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srotg`."]
+pub use crate::blas::level1::srotg;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dgaus8`."]
+pub use crate::quadrature::dgaus8;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::gaus8`."]
+pub use crate::quadrature::gaus8;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::algams`."]
+pub use crate::special::algams;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dgamlm`."]
+pub use crate::special::dgamlm;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dlgams`."]
+pub use crate::special::dlgams;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::gamlim`."]
+pub use crate::special::gamlim;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::zairy`."]
+pub use crate::special::zairy;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::zbiry`."]
+pub use crate::special::zbiry;
+// ffi-declaration-aliases:end

@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "check": "validate-agent-guidance",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-raw-api-inventory",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-raw-batch-a",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-raw-batch-b",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-raw-batch-c",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-final-raw-api-disposition",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-all-feature-coverage",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-unique-ffi-declarations",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-public-surface-terminology",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-release-readiness",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-package-contents",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "validate-registry-simulation",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "formatting",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "workspace-check",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "strict-clippy",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "workspace-tests",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "strict-rustdoc",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "workspace-doctests",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "package-assembly",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "git-diff-check",
+      "exit_code": 0,
+      "status": "pass"
+    },
+    {
+      "check": "eol-audit",
+      "exit_code": 0,
+      "status": "pass"
+    }
+  ],
+  "native_scope": "portable checks only; GNU MinGW native regressions remain a separate required profile",
+  "schema_id": "slatec-rs.release-check",
+  "schema_version": "1.0.0",
+  "status": "pass"
+}

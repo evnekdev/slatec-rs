@@ -1,6 +1,6 @@
 //! Generated Batch C native-symbol link probe.
 
-#![cfg(feature = "raw-batch-c-link-tests")]
+#![cfg(feature = "raw-complex-abi-link-tests")]
 
 #[test]
 fn links_batch_c_symbols() {

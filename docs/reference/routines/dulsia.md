@@ -1,6 +1,6 @@
 # DULSIA
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Dense linear algebra](../families/dense-linear-algebra.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,62 @@ DULSIA computes the minimal length solution(s) to the problem AX=B where A is an
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `argument_contract_incomplete`
+- Description provenance: `source_prologue`
+- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
+- Dedicated family page: [Dense linear algebra](../families/dense-linear-algebra.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `A` | input | `DOUBLE PRECISION` (`implicit_rule`) | `*mut f64` | rank 2; dimensions (MDA, *) | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `MDA` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | DULSIA requires (MDA+1)*N + (MDB+1)*NB + 6*M dimensioned space ****************************************************************** * * * WARNING - All input arrays are changed on exit. | DULSIA requires (MDA+1)*N + (MDB+1)*NB + 6*M dimensioned space ****************************************************************** * * * WARNING - All input arrays are changed on exit. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `M` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | input | `DOUBLE PRECISION` (`implicit_rule`) | `*mut f64` | rank 2; dimensions (MDB, *) | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `MDB` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | DULSIA requires (MDA+1)*N + (MDB+1)*NB + 6*M dimensioned space ****************************************************************** * * * WARNING - All input arrays are changed on exit. | DULSIA requires (MDA+1)*N + (MDB+1)*NB + 6*M dimensioned space ****************************************************************** * * * WARNING - All input arrays are changed on exit. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NB` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. | DULSIA computes the minimal length solution(s) to the problem AX=B where A is an M by N matrix with M.LE.N and B is the M by NB matrix of right hand sides. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RE` | input | `DOUBLE PRECISION` (`implicit_rule`) | `*mut f64` | rank 1; dimensions (*) | ****************************************************************** * * * Note - Use of RE and AE are what make this * * code significantly different from * * other linear least squares solvers. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AE` | input | `DOUBLE PRECISION` (`implicit_rule`) | `*mut f64` | rank 1; dimensions (*) | ****************************************************************** * * * Note - Use of RE and AE are what make this * * code significantly different from * * other linear least squares solvers. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KEY` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | * * However, the inexperienced user is * * advised to set RE=0.,AE=0.,KEY=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `MODE` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | KEY=0 RE scalar AE scalar KEY=1 RE vector AE scalar KEY=2 RE scalar AE vector KEY=3 RE vector AE vector MODE The integer MODE indicates how the routine is to react if rank deficiency is detected. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NP` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | If MODE = 0 return immediately, no solution 1 compute truncated solution 2 compute minimal length least squares sol The inexperienced user is advised to set MODE=0 NP The first NP rows of A will not be interchanged with other rows even though the pivot strategy would suggest otherwise. | If MODE = 0 return immediately, no solution 1 compute truncated solution 2 compute minimal length least squares sol The inexperienced user is advised to set MODE=0 NP The first NP rows of A will not be interchanged with other rows even though the pivot strategy would suggest otherwise. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KRANK` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | If INFO = 0 original call INFO = 1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*M locations of WORK as output by the original call to DULSIA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KSURE` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | KRANK,KSURE The numerical rank of A, based upon the relative and absolute bounds on uncertainty, is bounded above by KRANK and below by KSURE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RNORM` | unavailable | `DOUBLE PRECISION` (`implicit_rule`) | `*mut f64` | rank 1; dimensions (*) | RNORM() Contains the Euclidean length of the NB residual vectors B(I)-AX(I), I=1,NB. | RNORM() Contains the Euclidean length of the NB residual vectors B(I)-AX(I), I=1,NB. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `W` | unavailable | `DOUBLE PRECISION` (`implicit_rule`) | `*mut f64` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `LW` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | LW Actual dimension of WORK IWORK() Integer work array dimensioned at least N+M. | LW Actual dimension of WORK IWORK() Integer work array dimensioned at least N+M. Leading dimension: not established Workspace: LW Actual dimension of WORK IWORK() Integer work array dimensioned at least N+M. | required; null is not permitted for an ordinary Fortran actual argument |
+| `IWORK` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | LW Actual dimension of WORK IWORK() Integer work array dimensioned at least N+M. | LW Actual dimension of WORK IWORK() Integer work array dimensioned at least N+M. Leading dimension: not established Workspace: LW Actual dimension of WORK IWORK() Integer work array dimensioned at least N+M. | required; null is not permitted for an ordinary Fortran actual argument |
+| `LIW` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | LIW Actual dimension of IWORK. | LIW Actual dimension of IWORK. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `INFO` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | INFO Is a flag which provides for the efficient solution of subsequent problems involving the same A but different B. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::linear_algebra::dense::dulsia`. Native symbol: `dulsia_`. Feature: `linear-algebra`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank2,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `batch_a_automated_public`
+- Public raw API status: `canonical-public`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::dense::dulsia`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `linear-algebra`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `not_required_batch_a`
+- Runtime validation: `representative-family-coverage`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

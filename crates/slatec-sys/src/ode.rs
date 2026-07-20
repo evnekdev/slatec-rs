@@ -163,18 +163,18 @@ unsafe extern "C" {
     );
 }
 
-#[cfg(feature = "raw-family-batch-a-ode")]
+#[cfg(feature = "raw-family-ode-integration")]
 #[path = "batch_a/ode.rs"]
-mod batch_a;
+mod canonical_bindings;
 
-/// Canonical source-verified Batch A non-callback ODE declarations.
-#[cfg(feature = "raw-family-batch-a-ode")]
-pub use batch_a::numerical;
+/// Canonical source-verified non-callback ODE declarations.
+#[cfg(feature = "raw-family-ode-integration")]
+pub use canonical_bindings::*;
 
-#[cfg(feature = "raw-family-batch-b-ode")]
+#[cfg(feature = "raw-family-ode-callbacks")]
 #[path = "batch_b/ode.rs"]
-mod batch_b;
+mod callback_bindings;
 
-/// Canonical source-verified Batch B callback-bearing ODE declarations.
-#[cfg(feature = "raw-family-batch-b-ode")]
-pub use batch_b::callbacks;
+/// Canonical source-verified callback-bearing ODE declarations.
+#[cfg(feature = "raw-family-ode-callbacks")]
+pub use callback_bindings::callbacks;

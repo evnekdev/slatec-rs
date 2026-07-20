@@ -30,90 +30,8 @@ unsafe extern "C" {
         wk: *mut f32,
         iflw: *mut FortranInteger,
     );
-    #[link_name = "avint_"]
-    pub fn avint(
-        x: *mut f32,
-        y: *mut f32,
-        n: *mut FortranInteger,
-        xlo: *mut f32,
-        xup: *mut f32,
-        ans: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "bakvec_"]
-    pub fn bakvec(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        t: *mut f32,
-        e: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "balanc_"]
-    pub fn balanc(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        scale: *mut f32,
-    );
-    #[link_name = "balbak_"]
-    pub fn balbak(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        scale: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "bandv_"]
-    pub fn bandv(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mbw: *mut FortranInteger,
-        a: *mut f32,
-        e21: *mut f32,
-        m: *mut FortranInteger,
-        w: *mut f32,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-        nv: *mut FortranInteger,
-        rv: *mut f32,
-        rv6: *mut f32,
-    );
     #[link_name = "bdiff_"]
     pub fn bdiff(l: *mut FortranInteger, v: *mut f32);
-    #[link_name = "besi_"]
-    pub fn besi(
-        x: *mut f32,
-        alpha: *mut f32,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        y: *mut f32,
-        nz: *mut FortranInteger,
-    );
-    #[link_name = "besj_"]
-    pub fn besj(
-        x: *mut f32,
-        alpha: *mut f32,
-        n: *mut FortranInteger,
-        y: *mut f32,
-        nz: *mut FortranInteger,
-    );
-    #[link_name = "besk_"]
-    pub fn besk(
-        x: *mut f32,
-        fnu: *mut f32,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        y: *mut f32,
-        nz: *mut FortranInteger,
-    );
-    #[link_name = "beskes_"]
-    pub fn beskes(xnu: *mut f32, x: *mut f32, nin: *mut FortranInteger, bke: *mut f32);
     #[link_name = "besknu_"]
     pub fn besknu(
         x: *mut f32,
@@ -123,56 +41,8 @@ unsafe extern "C" {
         y: *mut f32,
         nz: *mut FortranInteger,
     );
-    #[link_name = "besks_"]
-    pub fn besks(xnu: *mut f32, x: *mut f32, nin: *mut FortranInteger, bk: *mut f32);
-    #[link_name = "besy_"]
-    pub fn besy(x: *mut f32, fnu: *mut f32, n: *mut FortranInteger, y: *mut f32);
     #[link_name = "besynu_"]
     pub fn besynu(x: *mut f32, fnu: *mut f32, n: *mut FortranInteger, y: *mut f32);
-    #[link_name = "bint4_"]
-    pub fn bint4(
-        x: *mut f32,
-        y: *mut f32,
-        ndata: *mut FortranInteger,
-        ibcl: *mut FortranInteger,
-        ibcr: *mut FortranInteger,
-        fbcl: *mut f32,
-        fbcr: *mut f32,
-        kntopt: *mut FortranInteger,
-        t: *mut f32,
-        bcoef: *mut f32,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "bintk_"]
-    pub fn bintk(
-        x: *mut f32,
-        y: *mut f32,
-        t: *mut f32,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        bcoef: *mut f32,
-        q: *mut f32,
-        work: *mut f32,
-    );
-    #[link_name = "bisect_"]
-    pub fn bisect(
-        n: *mut FortranInteger,
-        eps1: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        lb: *mut f32,
-        ub: *mut f32,
-        mm: *mut FortranInteger,
-        m: *mut FortranInteger,
-        w: *mut f32,
-        ind: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-        rv4: *mut f32,
-        rv5: *mut f32,
-    );
     #[link_name = "bkias_"]
     pub fn bkias(
         x: *mut f32,
@@ -210,46 +80,6 @@ unsafe extern "C" {
         prdct: *mut f32,
         cprdct: *mut f32,
     );
-    #[link_name = "blktri_"]
-    pub fn blktri(
-        iflg: *mut FortranInteger,
-        np: *mut FortranInteger,
-        n: *mut FortranInteger,
-        an: *mut f32,
-        bn: *mut f32,
-        cn: *mut f32,
-        mp: *mut FortranInteger,
-        m: *mut FortranInteger,
-        am: *mut f32,
-        bm: *mut f32,
-        cm: *mut f32,
-        idimy: *mut FortranInteger,
-        y: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "bndacc_"]
-    pub fn bndacc(
-        g: *mut f32,
-        mdg: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        ip: *mut FortranInteger,
-        ir: *mut FortranInteger,
-        mt: *mut FortranInteger,
-        jt: *mut FortranInteger,
-    );
-    #[link_name = "bndsol_"]
-    pub fn bndsol(
-        mode: *mut FortranInteger,
-        g: *mut f32,
-        mdg: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        ip: *mut FortranInteger,
-        ir: *mut FortranInteger,
-        x: *mut f32,
-        n: *mut FortranInteger,
-        rnorm: *mut f32,
-    );
     #[link_name = "bnfac_"]
     pub fn bnfac(
         w: *mut f32,
@@ -268,18 +98,6 @@ unsafe extern "C" {
         nbandu: *mut FortranInteger,
         b: *mut f32,
     );
-    #[link_name = "bqr_"]
-    pub fn bqr(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mb: *mut FortranInteger,
-        a: *mut f32,
-        t: *mut f32,
-        r: *mut f32,
-        ierr: *mut FortranInteger,
-        nv: *mut FortranInteger,
-        rv: *mut f32,
-    );
     #[link_name = "bsgq8_"]
     pub fn bsgq8(
         fun: *mut f32,
@@ -294,37 +112,6 @@ unsafe extern "C" {
         err: *mut f32,
         ans: *mut f32,
         ierr: *mut FortranInteger,
-        work: *mut f32,
-    );
-    #[link_name = "bskin_"]
-    pub fn bskin(
-        x: *mut f32,
-        n: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        y: *mut f32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "bspdr_"]
-    pub fn bspdr(
-        t: *mut f32,
-        a: *mut f32,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        nderiv: *mut FortranInteger,
-        ad: *mut f32,
-    );
-    #[link_name = "bspev_"]
-    pub fn bspev(
-        t: *mut f32,
-        ad: *mut f32,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        nderiv: *mut FortranInteger,
-        x: *mut f32,
-        inev: *mut FortranInteger,
-        svalue: *mut f32,
         work: *mut f32,
     );
     #[link_name = "bsplvd_"]
@@ -344,52 +131,6 @@ unsafe extern "C" {
         x: *mut f32,
         ileft: *mut FortranInteger,
         vnikx: *mut f32,
-    );
-    #[link_name = "bsppp_"]
-    pub fn bsppp(
-        t: *mut f32,
-        a: *mut f32,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        ldc: *mut FortranInteger,
-        c: *mut f32,
-        xi: *mut f32,
-        lxi: *mut FortranInteger,
-        work: *mut f32,
-    );
-    #[link_name = "bspvd_"]
-    pub fn bspvd(
-        t: *mut f32,
-        k: *mut FortranInteger,
-        nderiv: *mut FortranInteger,
-        x: *mut f32,
-        ileft: *mut FortranInteger,
-        ldvnik: *mut FortranInteger,
-        vnikx: *mut f32,
-        work: *mut f32,
-    );
-    #[link_name = "bspvn_"]
-    pub fn bspvn(
-        t: *mut f32,
-        jhigh: *mut FortranInteger,
-        k: *mut FortranInteger,
-        index: *mut FortranInteger,
-        x: *mut f32,
-        ileft: *mut FortranInteger,
-        vnikx: *mut f32,
-        work: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "bsqad_"]
-    pub fn bsqad(
-        t: *mut f32,
-        bcoef: *mut f32,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        x1: *mut f32,
-        x2: *mut f32,
-        bquad: *mut f32,
-        work: *mut f32,
     );
     #[link_name = "bvder_"]
     pub fn bvder(x: *mut f32, y: *mut f32, yp: *mut f32, g: *mut f32, ipar: *mut FortranInteger);
@@ -452,27 +193,6 @@ unsafe extern "C" {
         ndiw: *mut FortranInteger,
         neqivp: *mut FortranInteger,
     );
-    #[link_name = "cbabk2_"]
-    pub fn cbabk2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        scale: *mut f32,
-        m: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-    );
-    #[link_name = "cbal_"]
-    pub fn cbal(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        scale: *mut f32,
-    );
     #[link_name = "ccmpb_"]
     pub fn ccmpb(
         n: *mut FortranInteger,
@@ -492,174 +212,10 @@ unsafe extern "C" {
         el: *mut f32,
         tq: *mut f32,
     );
-    #[link_name = "cfftb1_"]
-    pub fn cfftb1(
-        n: *mut FortranInteger,
-        c: *mut f32,
-        ch: *mut f32,
-        wa: *mut f32,
-        ifac: *mut FortranInteger,
-    );
-    #[link_name = "cfftf1_"]
-    pub fn cfftf1(
-        n: *mut FortranInteger,
-        c: *mut f32,
-        ch: *mut f32,
-        wa: *mut f32,
-        ifac: *mut FortranInteger,
-    );
     #[link_name = "cffti_"]
     pub fn cffti(n: *mut FortranInteger, wsave: *mut f32);
-    #[link_name = "cffti1_"]
-    pub fn cffti1(n: *mut FortranInteger, wa: *mut f32, ifac: *mut FortranInteger);
     #[link_name = "cfod_"]
     pub fn cfod(meth: *mut FortranInteger, elco: *mut f32, tesco: *mut f32);
-    #[link_name = "cg_"]
-    pub fn cg(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        matz: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        fv3: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "cgeev_"]
-    pub fn cgeev(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        e: *mut f32,
-        v: *mut f32,
-        ldv: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "ch_"]
-    pub fn ch(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        fm1: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "chfdv_"]
-    pub fn chfdv(
-        x1: *mut f32,
-        x2: *mut f32,
-        f1: *mut f32,
-        f2: *mut f32,
-        d1: *mut f32,
-        d2: *mut f32,
-        ne: *mut FortranInteger,
-        xe: *mut f32,
-        fe: *mut f32,
-        de: *mut f32,
-        next: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "chfev_"]
-    pub fn chfev(
-        x1: *mut f32,
-        x2: *mut f32,
-        f1: *mut f32,
-        f2: *mut f32,
-        d1: *mut f32,
-        d2: *mut f32,
-        ne: *mut FortranInteger,
-        xe: *mut f32,
-        fe: *mut f32,
-        next: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "chiev_"]
-    pub fn chiev(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        e: *mut f32,
-        v: *mut f32,
-        ldv: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "chkder_"]
-    pub fn chkder(
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        x: *mut f32,
-        fvec: *mut f32,
-        fjac: *mut f32,
-        ldfjac: *mut FortranInteger,
-        xp: *mut f32,
-        fvecp: *mut f32,
-        mode: *mut FortranInteger,
-        err: *mut f32,
-    );
-    #[link_name = "combak_"]
-    pub fn combak(
-        nm: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        int: *mut FortranInteger,
-        m: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-    );
-    #[link_name = "comhes_"]
-    pub fn comhes(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        int: *mut FortranInteger,
-    );
-    #[link_name = "comlr_"]
-    pub fn comlr(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        hr: *mut f32,
-        hi: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "comlr2_"]
-    pub fn comlr2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        int: *mut FortranInteger,
-        hr: *mut f32,
-        hi: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        zr: *mut f32,
-        zi: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "compb_"]
     pub fn compb(
         n: *mut FortranInteger,
@@ -671,58 +227,6 @@ unsafe extern "C" {
         ah: *mut f32,
         bh: *mut f32,
     );
-    #[link_name = "comqr_"]
-    pub fn comqr(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        hr: *mut f32,
-        hi: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "comqr2_"]
-    pub fn comqr2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        ortr: *mut f32,
-        orti: *mut f32,
-        hr: *mut f32,
-        hi: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        zr: *mut f32,
-        zi: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "cortb_"]
-    pub fn cortb(
-        nm: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        ortr: *mut f32,
-        orti: *mut f32,
-        m: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-    );
-    #[link_name = "corth_"]
-    pub fn corth(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        ortr: *mut f32,
-        orti: *mut f32,
-    );
     #[link_name = "cosgen_"]
     pub fn cosgen(
         n: *mut FortranInteger,
@@ -731,20 +235,10 @@ unsafe extern "C" {
         fden: *mut f32,
         a: *mut f32,
     );
-    #[link_name = "cosqb_"]
-    pub fn cosqb(n: *mut FortranInteger, x: *mut f32, wsave: *mut f32);
     #[link_name = "cosqb1_"]
     pub fn cosqb1(n: *mut FortranInteger, x: *mut f32, w: *mut f32, xh: *mut f32);
-    #[link_name = "cosqf_"]
-    pub fn cosqf(n: *mut FortranInteger, x: *mut f32, wsave: *mut f32);
     #[link_name = "cosqf1_"]
     pub fn cosqf1(n: *mut FortranInteger, x: *mut f32, w: *mut f32, xh: *mut f32);
-    #[link_name = "cosqi_"]
-    pub fn cosqi(n: *mut FortranInteger, wsave: *mut f32);
-    #[link_name = "cost_"]
-    pub fn cost(n: *mut FortranInteger, x: *mut f32, wsave: *mut f32);
-    #[link_name = "costi_"]
-    pub fn costi(n: *mut FortranInteger, wsave: *mut f32);
     #[link_name = "cpevlr_"]
     pub fn cpevlr(
         n: *mut FortranInteger,
@@ -808,57 +302,8 @@ unsafe extern "C" {
         wk: *mut f64,
         iflw: *mut FortranInteger,
     );
-    #[link_name = "davint_"]
-    pub fn davint(
-        x: *mut f64,
-        y: *mut f64,
-        n: *mut FortranInteger,
-        xlo: *mut f64,
-        xup: *mut f64,
-        ans: *mut f64,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "daxpy_"]
-    pub fn daxpy(
-        n: *mut FortranInteger,
-        da: *mut f64,
-        dx: *mut f64,
-        incx: *mut FortranInteger,
-        dy: *mut f64,
-        incy: *mut FortranInteger,
-    );
     #[link_name = "dbdiff_"]
     pub fn dbdiff(l: *mut FortranInteger, v: *mut f64);
-    #[link_name = "dbesi_"]
-    pub fn dbesi(
-        x: *mut f64,
-        alpha: *mut f64,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        y: *mut f64,
-        nz: *mut FortranInteger,
-    );
-    #[link_name = "dbesj_"]
-    pub fn dbesj(
-        x: *mut f64,
-        alpha: *mut f64,
-        n: *mut FortranInteger,
-        y: *mut f64,
-        nz: *mut FortranInteger,
-    );
-    #[link_name = "dbesk_"]
-    pub fn dbesk(
-        x: *mut f64,
-        fnu: *mut f64,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        y: *mut f64,
-        nz: *mut FortranInteger,
-    );
-    #[link_name = "dbesks_"]
-    pub fn dbesks(xnu: *mut f64, x: *mut f64, nin: *mut FortranInteger, bk: *mut f64);
-    #[link_name = "dbesy_"]
-    pub fn dbesy(x: *mut f64, fnu: *mut f64, n: *mut FortranInteger, y: *mut f64);
     #[link_name = "dbhin_"]
     pub fn dbhin(
         n: *mut FortranInteger,
@@ -871,33 +316,6 @@ unsafe extern "C" {
         rhs: *mut f64,
         iunit: *mut FortranInteger,
         job: *mut FortranInteger,
-    );
-    #[link_name = "dbint4_"]
-    pub fn dbint4(
-        x: *mut f64,
-        y: *mut f64,
-        ndata: *mut FortranInteger,
-        ibcl: *mut FortranInteger,
-        ibcr: *mut FortranInteger,
-        fbcl: *mut f64,
-        fbcr: *mut f64,
-        kntopt: *mut FortranInteger,
-        t: *mut f64,
-        bcoef: *mut f64,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        w: *mut f64,
-    );
-    #[link_name = "dbintk_"]
-    pub fn dbintk(
-        x: *mut f64,
-        y: *mut f64,
-        t: *mut f64,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        bcoef: *mut f64,
-        q: *mut f64,
-        work: *mut f64,
     );
     #[link_name = "dbkias_"]
     pub fn dbkias(
@@ -914,28 +332,6 @@ unsafe extern "C" {
     );
     #[link_name = "dbksol_"]
     pub fn dbksol(n: *mut FortranInteger, a: *mut f64, x: *mut f64);
-    #[link_name = "dbndac_"]
-    pub fn dbndac(
-        g: *mut f64,
-        mdg: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        ip: *mut FortranInteger,
-        ir: *mut FortranInteger,
-        mt: *mut FortranInteger,
-        jt: *mut FortranInteger,
-    );
-    #[link_name = "dbndsl_"]
-    pub fn dbndsl(
-        mode: *mut FortranInteger,
-        g: *mut f64,
-        mdg: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        ip: *mut FortranInteger,
-        ir: *mut FortranInteger,
-        x: *mut f64,
-        n: *mut FortranInteger,
-        rnorm: *mut f64,
-    );
     #[link_name = "dbnfac_"]
     pub fn dbnfac(
         w: *mut f64,
@@ -953,40 +349,6 @@ unsafe extern "C" {
         nbandl: *mut FortranInteger,
         nbandu: *mut FortranInteger,
         b: *mut f64,
-    );
-    #[link_name = "dbocls_"]
-    pub fn dbocls(
-        w: *mut f64,
-        mdw: *mut FortranInteger,
-        mcon: *mut FortranInteger,
-        mrows: *mut FortranInteger,
-        ncols: *mut FortranInteger,
-        bl: *mut f64,
-        bu: *mut f64,
-        ind: *mut FortranInteger,
-        iopt: *mut FortranInteger,
-        x: *mut f64,
-        rnormc: *mut f64,
-        rnorm: *mut f64,
-        mode: *mut FortranInteger,
-        rw: *mut f64,
-        iw: *mut FortranInteger,
-    );
-    #[link_name = "dbols_"]
-    pub fn dbols(
-        w: *mut f64,
-        mdw: *mut FortranInteger,
-        mrows: *mut FortranInteger,
-        ncols: *mut FortranInteger,
-        bl: *mut f64,
-        bu: *mut f64,
-        ind: *mut FortranInteger,
-        iopt: *mut FortranInteger,
-        x: *mut f64,
-        rnorm: *mut f64,
-        mode: *mut FortranInteger,
-        rw: *mut f64,
-        iw: *mut FortranInteger,
     );
     #[link_name = "dbolsm_"]
     pub fn dbolsm(
@@ -1023,18 +385,6 @@ unsafe extern "C" {
         ierr: *mut FortranInteger,
         work: *mut f64,
     );
-    #[link_name = "dbskes_"]
-    pub fn dbskes(xnu: *mut f64, x: *mut f64, nin: *mut FortranInteger, bke: *mut f64);
-    #[link_name = "dbskin_"]
-    pub fn dbskin(
-        x: *mut f64,
-        n: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        y: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "dbsknu_"]
     pub fn dbsknu(
         x: *mut f64,
@@ -1043,73 +393,6 @@ unsafe extern "C" {
         n: *mut FortranInteger,
         y: *mut f64,
         nz: *mut FortranInteger,
-    );
-    #[link_name = "dbspdr_"]
-    pub fn dbspdr(
-        t: *mut f64,
-        a: *mut f64,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        nderiv: *mut FortranInteger,
-        ad: *mut f64,
-    );
-    #[link_name = "dbspev_"]
-    pub fn dbspev(
-        t: *mut f64,
-        ad: *mut f64,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        nderiv: *mut FortranInteger,
-        x: *mut f64,
-        inev: *mut FortranInteger,
-        svalue: *mut f64,
-        work: *mut f64,
-    );
-    #[link_name = "dbsppp_"]
-    pub fn dbsppp(
-        t: *mut f64,
-        a: *mut f64,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        ldc: *mut FortranInteger,
-        c: *mut f64,
-        xi: *mut f64,
-        lxi: *mut FortranInteger,
-        work: *mut f64,
-    );
-    #[link_name = "dbspvd_"]
-    pub fn dbspvd(
-        t: *mut f64,
-        k: *mut FortranInteger,
-        nderiv: *mut FortranInteger,
-        x: *mut f64,
-        ileft: *mut FortranInteger,
-        ldvnik: *mut FortranInteger,
-        vnikx: *mut f64,
-        work: *mut f64,
-    );
-    #[link_name = "dbspvn_"]
-    pub fn dbspvn(
-        t: *mut f64,
-        jhigh: *mut FortranInteger,
-        k: *mut FortranInteger,
-        index: *mut FortranInteger,
-        x: *mut f64,
-        ileft: *mut FortranInteger,
-        vnikx: *mut f64,
-        work: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dbsqad_"]
-    pub fn dbsqad(
-        t: *mut f64,
-        bcoef: *mut f64,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        x1: *mut f64,
-        x2: *mut f64,
-        bquad: *mut f64,
-        work: *mut f64,
     );
     #[link_name = "dbsynu_"]
     pub fn dbsynu(x: *mut f64, fnu: *mut f64, n: *mut FortranInteger, y: *mut f64);
@@ -1176,101 +459,6 @@ unsafe extern "C" {
     );
     #[link_name = "dcfod_"]
     pub fn dcfod(meth: *mut FortranInteger, elco: *mut f64, tesco: *mut f64);
-    #[link_name = "dchdc_"]
-    pub fn dchdc(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        p: *mut FortranInteger,
-        work: *mut f64,
-        jpvt: *mut FortranInteger,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dchdd_"]
-    pub fn dchdd(
-        r: *mut f64,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        x: *mut f64,
-        z: *mut f64,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        y: *mut f64,
-        rho: *mut f64,
-        c: *mut f64,
-        s: *mut f64,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dchex_"]
-    pub fn dchex(
-        r: *mut f64,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        k: *mut FortranInteger,
-        l: *mut FortranInteger,
-        z: *mut f64,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        c: *mut f64,
-        s: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dchfdv_"]
-    pub fn dchfdv(
-        x1: *mut f64,
-        x2: *mut f64,
-        f1: *mut f64,
-        f2: *mut f64,
-        d1: *mut f64,
-        d2: *mut f64,
-        ne: *mut FortranInteger,
-        xe: *mut f64,
-        fe: *mut f64,
-        de: *mut f64,
-        next: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dchfev_"]
-    pub fn dchfev(
-        x1: *mut f64,
-        x2: *mut f64,
-        f1: *mut f64,
-        f2: *mut f64,
-        d1: *mut f64,
-        d2: *mut f64,
-        ne: *mut FortranInteger,
-        xe: *mut f64,
-        fe: *mut f64,
-        next: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dchud_"]
-    pub fn dchud(
-        r: *mut f64,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        x: *mut f64,
-        z: *mut f64,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        y: *mut f64,
-        rho: *mut f64,
-        c: *mut f64,
-        s: *mut f64,
-    );
-    #[link_name = "dckder_"]
-    pub fn dckder(
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        x: *mut f64,
-        fvec: *mut f64,
-        fjac: *mut f64,
-        ldfjac: *mut FortranInteger,
-        xp: *mut f64,
-        fvecp: *mut f64,
-        mode: *mut FortranInteger,
-        err: *mut f64,
-    );
     #[link_name = "dcoef_"]
     pub fn dcoef(
         yh: *mut f64,
@@ -1291,22 +479,6 @@ unsafe extern "C" {
         iwork: *mut FortranInteger,
         iflag: *mut FortranInteger,
         nfcc: *mut FortranInteger,
-    );
-    #[link_name = "dcopy_"]
-    pub fn dcopy(
-        n: *mut FortranInteger,
-        dx: *mut f64,
-        incx: *mut FortranInteger,
-        dy: *mut f64,
-        incy: *mut FortranInteger,
-    );
-    #[link_name = "dcopym_"]
-    pub fn dcopym(
-        n: *mut FortranInteger,
-        dx: *mut f64,
-        incx: *mut FortranInteger,
-        dy: *mut f64,
-        incy: *mut FortranInteger,
     );
     #[link_name = "dcpplt_"]
     pub fn dcpplt(
@@ -1429,21 +601,6 @@ unsafe extern "C" {
         fc: *mut f64,
         y: *mut f64,
     );
-    #[link_name = "defc_"]
-    pub fn defc(
-        ndata: *mut FortranInteger,
-        xdata: *mut f64,
-        ydata: *mut f64,
-        sddata: *mut f64,
-        nord: *mut FortranInteger,
-        nbkpt: *mut FortranInteger,
-        bkpt: *mut f64,
-        mdein: *mut FortranInteger,
-        mdeout: *mut FortranInteger,
-        coeff: *mut f64,
-        lw: *mut FortranInteger,
-        w: *mut f64,
-    );
     #[link_name = "defcmn_"]
     pub fn defcmn(
         ndata: *mut FortranInteger,
@@ -1497,35 +654,6 @@ unsafe extern "C" {
         iflag: *mut FortranInteger,
         work: *mut f64,
         iwork: *mut FortranInteger,
-    );
-    #[link_name = "dexint_"]
-    pub fn dexint(
-        x: *mut f64,
-        n: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        tol: *mut f64,
-        en: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dfc_"]
-    pub fn dfc(
-        ndata: *mut FortranInteger,
-        xdata: *mut f64,
-        ydata: *mut f64,
-        sddata: *mut f64,
-        nord: *mut FortranInteger,
-        nbkpt: *mut FortranInteger,
-        bkpt: *mut f64,
-        nconst: *mut FortranInteger,
-        xconst: *mut f64,
-        yconst: *mut f64,
-        nderiv: *mut FortranInteger,
-        mode: *mut FortranInteger,
-        coeff: *mut f64,
-        w: *mut f64,
-        iw: *mut FortranInteger,
     );
     #[link_name = "dfcmn_"]
     pub fn dfcmn(
@@ -1626,132 +754,6 @@ unsafe extern "C" {
         dattrv: *mut f64,
         iflag: *mut FortranInteger,
     );
-    #[link_name = "dgbco_"]
-    pub fn dgbco(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-    );
-    #[link_name = "dgbdi_"]
-    pub fn dgbdi(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut f64,
-    );
-    #[link_name = "dgbfa_"]
-    pub fn dgbfa(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dgbsl_"]
-    pub fn dgbsl(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dgeco_"]
-    pub fn dgeco(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-    );
-    #[link_name = "dgedi_"]
-    pub fn dgedi(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut f64,
-        work: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dgefa_"]
-    pub fn dgefa(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dgefs_"]
-    pub fn dgefs(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut f64,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dger_"]
-    pub fn dger(
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-    );
-    #[link_name = "dgesl_"]
-    pub fn dgesl(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dglss_"]
-    pub fn dglss(
-        a: *mut f64,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f64,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        rnorm: *mut f64,
-        work: *mut f64,
-        lw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        liw: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dgtsl_"]
-    pub fn dgtsl(
-        n: *mut FortranInteger,
-        c: *mut f64,
-        d: *mut f64,
-        e: *mut f64,
-        b: *mut f64,
-        info: *mut FortranInteger,
-    );
     #[link_name = "dh12_"]
     pub fn dh12(
         mode: *mut FortranInteger,
@@ -1783,53 +785,8 @@ unsafe extern "C" {
         info: *mut FortranInteger,
         ijob: *mut FortranInteger,
     );
-    #[link_name = "dhfti_"]
-    pub fn dhfti(
-        a: *mut f64,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f64,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        tau: *mut f64,
-        krank: *mut FortranInteger,
-        rnorm: *mut f64,
-        h: *mut f64,
-        g: *mut f64,
-        ip: *mut FortranInteger,
-    );
     #[link_name = "dhkseq_"]
     pub fn dhkseq(x: *mut f64, m: *mut FortranInteger, h: *mut f64, ierr: *mut FortranInteger);
-    #[link_name = "dintp_"]
-    pub fn dintp(
-        x: *mut f64,
-        y: *mut f64,
-        xout: *mut f64,
-        yout: *mut f64,
-        ypout: *mut f64,
-        neqn: *mut FortranInteger,
-        kold: *mut FortranInteger,
-        phi: *mut f64,
-        ivc: *mut FortranInteger,
-        iv: *mut FortranInteger,
-        kgi: *mut FortranInteger,
-        gi: *mut f64,
-        alpha: *mut f64,
-        og: *mut f64,
-        ow: *mut f64,
-        ox: *mut f64,
-        oy: *mut f64,
-    );
-    #[link_name = "dintrv_"]
-    pub fn dintrv(
-        xt: *mut f64,
-        lxt: *mut FortranInteger,
-        x: *mut f64,
-        ilo: *mut FortranInteger,
-        ileft: *mut FortranInteger,
-        mflag: *mut FortranInteger,
-    );
     #[link_name = "dintyd_"]
     pub fn dintyd(
         t: *mut f64,
@@ -1838,40 +795,6 @@ unsafe extern "C" {
         nyh: *mut FortranInteger,
         dky: *mut f64,
         iflag: *mut FortranInteger,
-    );
-    #[link_name = "dllsia_"]
-    pub fn dllsia(
-        a: *mut f64,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f64,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        re: *mut f64,
-        ae: *mut f64,
-        key: *mut FortranInteger,
-        mode: *mut FortranInteger,
-        np: *mut FortranInteger,
-        krank: *mut FortranInteger,
-        ksure: *mut FortranInteger,
-        rnorm: *mut f64,
-        w: *mut f64,
-        lw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        liw: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dllti2_"]
-    pub fn dllti2(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f64,
-        dinv: *mut f64,
     );
     #[link_name = "dlpdp_"]
     pub fn dlpdp(
@@ -1886,22 +809,6 @@ unsafe extern "C" {
         mode: *mut FortranInteger,
         ws: *mut f64,
         is: *mut FortranInteger,
-    );
-    #[link_name = "dlsei_"]
-    pub fn dlsei(
-        w: *mut f64,
-        mdw: *mut FortranInteger,
-        me: *mut FortranInteger,
-        ma: *mut FortranInteger,
-        mg: *mut FortranInteger,
-        n: *mut FortranInteger,
-        prgopt: *mut f64,
-        x: *mut f64,
-        rnorme: *mut f64,
-        rnorml: *mut f64,
-        mode: *mut FortranInteger,
-        ws: *mut f64,
-        ip: *mut FortranInteger,
     );
     #[link_name = "dlsi_"]
     pub fn dlsi(
@@ -1971,61 +878,6 @@ unsafe extern "C" {
         wa1: *mut f64,
         wa2: *mut f64,
     );
-    #[link_name = "dnbco_"]
-    pub fn dnbco(
-        abe: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-    );
-    #[link_name = "dnbdi_"]
-    pub fn dnbdi(
-        abe: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut f64,
-    );
-    #[link_name = "dnbfa_"]
-    pub fn dnbfa(
-        abe: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dnbfs_"]
-    pub fn dnbfs(
-        abe: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        v: *mut f64,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dnbsl_"]
-    pub fn dnbsl(
-        abe: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut f64,
-        job: *mut FortranInteger,
-    );
     #[link_name = "dogleg_"]
     pub fn dogleg(
         n: *mut FortranInteger,
@@ -2074,64 +926,6 @@ unsafe extern "C" {
         rows: *mut f64,
         rs: *mut f64,
     );
-    #[link_name = "dp1vlu_"]
-    pub fn dp1vlu(
-        l: *mut FortranInteger,
-        nder: *mut FortranInteger,
-        x: *mut f64,
-        yfit: *mut f64,
-        yp: *mut f64,
-        a: *mut f64,
-    );
-    #[link_name = "dpbco_"]
-    pub fn dpbco(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dpbdi_"]
-    pub fn dpbdi(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        det: *mut f64,
-    );
-    #[link_name = "dpbfa_"]
-    pub fn dpbfa(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dpbsl_"]
-    pub fn dpbsl(
-        abd: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        b: *mut f64,
-    );
-    #[link_name = "dpchbs_"]
-    pub fn dpchbs(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        knotyp: *mut FortranInteger,
-        nknots: *mut FortranInteger,
-        t: *mut f64,
-        bcoef: *mut f64,
-        ndim: *mut FortranInteger,
-        kord: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "dpchce_"]
     pub fn dpchce(
         ic: *mut FortranInteger,
@@ -2162,29 +956,6 @@ unsafe extern "C" {
         incfd: *mut FortranInteger,
         ierr: *mut FortranInteger,
     );
-    #[link_name = "dpchic_"]
-    pub fn dpchic(
-        ic: *mut FortranInteger,
-        vc: *mut f64,
-        switch: *mut f64,
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        wk: *mut f64,
-        nwk: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dpchim_"]
-    pub fn dpchim(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "dpchkt_"]
     pub fn dpchkt(n: *mut FortranInteger, x: *mut f64, knotyp: *mut FortranInteger, t: *mut f64);
     #[link_name = "dpchng_"]
@@ -2196,21 +967,6 @@ unsafe extern "C" {
         ix: *mut FortranInteger,
         ircx: *mut FortranInteger,
     );
-    #[link_name = "dpchsp_"]
-    pub fn dpchsp(
-        ic: *mut FortranInteger,
-        vc: *mut f64,
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        wk: *mut f64,
-        nwk: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dpcoef_"]
-    pub fn dpcoef(l: *mut FortranInteger, c: *mut f64, tc: *mut f64, a: *mut f64);
     #[link_name = "dpintm_"]
     pub fn dpintm(
         m: *mut FortranInteger,
@@ -2220,8 +976,6 @@ unsafe extern "C" {
         lmx: *mut FortranInteger,
         ipagef: *mut FortranInteger,
     );
-    #[link_name = "dplint_"]
-    pub fn dplint(n: *mut FortranInteger, x: *mut f64, y: *mut f64, c: *mut f64);
     #[link_name = "dpnnzr_"]
     pub fn dpnnzr(
         i: *mut FortranInteger,
@@ -2231,86 +985,6 @@ unsafe extern "C" {
         ix: *mut FortranInteger,
         ircx: *mut FortranInteger,
     );
-    #[link_name = "dpoco_"]
-    pub fn dpoco(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dpodi_"]
-    pub fn dpodi(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        det: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dpofa_"]
-    pub fn dpofa(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dpofs_"]
-    pub fn dpofs(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut f64,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f64,
-    );
-    #[link_name = "dpolcf_"]
-    pub fn dpolcf(
-        xx: *mut f64,
-        n: *mut FortranInteger,
-        x: *mut f64,
-        c: *mut f64,
-        d: *mut f64,
-        work: *mut f64,
-    );
-    #[link_name = "dpolft_"]
-    pub fn dpolft(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        y: *mut f64,
-        w: *mut f64,
-        maxdeg: *mut FortranInteger,
-        ndeg: *mut FortranInteger,
-        eps: *mut f64,
-        r: *mut f64,
-        ierr: *mut FortranInteger,
-        a: *mut f64,
-    );
-    #[link_name = "dpolvl_"]
-    pub fn dpolvl(
-        nder: *mut FortranInteger,
-        xx: *mut f64,
-        yfit: *mut f64,
-        yp: *mut f64,
-        n: *mut FortranInteger,
-        x: *mut f64,
-        c: *mut f64,
-        work: *mut f64,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dposl_"]
-    pub fn dposl(a: *mut f64, lda: *mut FortranInteger, n: *mut FortranInteger, b: *mut f64);
-    #[link_name = "dppco_"]
-    pub fn dppco(
-        ap: *mut f64,
-        n: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dppdi_"]
-    pub fn dppdi(ap: *mut f64, n: *mut FortranInteger, det: *mut f64, job: *mut FortranInteger);
     #[link_name = "dpperm_"]
     pub fn dpperm(
         dx: *mut f64,
@@ -2318,8 +992,6 @@ unsafe extern "C" {
         iperm: *mut FortranInteger,
         ier: *mut FortranInteger,
     );
-    #[link_name = "dppfa_"]
-    pub fn dppfa(ap: *mut f64, n: *mut FortranInteger, info: *mut FortranInteger);
     #[link_name = "dppgq8_"]
     pub fn dppgq8(
         fun: *mut f64,
@@ -2336,19 +1008,6 @@ unsafe extern "C" {
         ans: *mut f64,
         ierr: *mut FortranInteger,
     );
-    #[link_name = "dppqad_"]
-    pub fn dppqad(
-        ldc: *mut FortranInteger,
-        c: *mut f64,
-        xi: *mut f64,
-        lxi: *mut FortranInteger,
-        k: *mut FortranInteger,
-        x1: *mut f64,
-        x2: *mut f64,
-        pquad: *mut f64,
-    );
-    #[link_name = "dppsl_"]
-    pub fn dppsl(ap: *mut f64, n: *mut FortranInteger, b: *mut f64);
     #[link_name = "dprwpg_"]
     pub fn dprwpg(
         key: *mut FortranInteger,
@@ -2365,16 +1024,6 @@ unsafe extern "C" {
         sx: *mut f64,
         ix: *mut FortranInteger,
     );
-    #[link_name = "dpsifn_"]
-    pub fn dpsifn(
-        x: *mut f64,
-        n: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        ans: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "dpsort_"]
     pub fn dpsort(
         dx: *mut f64,
@@ -2383,8 +1032,6 @@ unsafe extern "C" {
         kflag: *mut FortranInteger,
         ier: *mut FortranInteger,
     );
-    #[link_name = "dptsl_"]
-    pub fn dptsl(n: *mut FortranInteger, d: *mut f64, e: *mut f64, b: *mut f64);
     #[link_name = "dqcheb_"]
     pub fn dqcheb(x: *mut f64, fval: *mut f64, cheb12: *mut f64, cheb24: *mut f64);
     #[link_name = "dqelg_"]
@@ -2404,16 +1051,6 @@ unsafe extern "C" {
         ldq: *mut FortranInteger,
         wa: *mut f64,
     );
-    #[link_name = "dqmomo_"]
-    pub fn dqmomo(
-        alfa: *mut f64,
-        beta: *mut f64,
-        ri: *mut f64,
-        rj: *mut f64,
-        rg: *mut f64,
-        rh: *mut f64,
-        integr: *mut FortranInteger,
-    );
     #[link_name = "dqpsrt_"]
     pub fn dqpsrt(
         limit: *mut FortranInteger,
@@ -2423,33 +1060,6 @@ unsafe extern "C" {
         elist: *mut f64,
         iord: *mut FortranInteger,
         nrmax: *mut FortranInteger,
-    );
-    #[link_name = "dqrdc_"]
-    pub fn dqrdc(
-        x: *mut f64,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        p: *mut FortranInteger,
-        qraux: *mut f64,
-        jpvt: *mut FortranInteger,
-        work: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dqrsl_"]
-    pub fn dqrsl(
-        x: *mut f64,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        qraux: *mut f64,
-        y: *mut f64,
-        qy: *mut f64,
-        qty: *mut f64,
-        b: *mut f64,
-        rsd: *mut f64,
-        xb: *mut f64,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
     );
     #[link_name = "dqrslv_"]
     pub fn dqrslv(
@@ -2462,43 +1072,6 @@ unsafe extern "C" {
         x: *mut f64,
         sigma: *mut f64,
         wa: *mut f64,
-    );
-    #[link_name = "drc3jj_"]
-    pub fn drc3jj(
-        l2: *mut f64,
-        l3: *mut f64,
-        m2: *mut f64,
-        m3: *mut f64,
-        l1min: *mut f64,
-        l1max: *mut f64,
-        thrcof: *mut f64,
-        ndim: *mut FortranInteger,
-        ier: *mut FortranInteger,
-    );
-    #[link_name = "drc3jm_"]
-    pub fn drc3jm(
-        l1: *mut f64,
-        l2: *mut f64,
-        l3: *mut f64,
-        m1: *mut f64,
-        m2min: *mut f64,
-        m2max: *mut f64,
-        thrcof: *mut f64,
-        ndim: *mut FortranInteger,
-        ier: *mut FortranInteger,
-    );
-    #[link_name = "drc6j_"]
-    pub fn drc6j(
-        l2: *mut f64,
-        l3: *mut f64,
-        l4: *mut f64,
-        l5: *mut f64,
-        l6: *mut f64,
-        l1min: *mut f64,
-        l1max: *mut f64,
-        sixcof: *mut f64,
-        ndim: *mut FortranInteger,
-        ier: *mut FortranInteger,
     );
     #[link_name = "dreadp_"]
     pub fn dreadp(
@@ -2559,644 +1132,10 @@ unsafe extern "C" {
         prod: *mut f64,
         r0nrm: *mut f64,
     );
-    #[link_name = "drot_"]
-    pub fn drot(
-        n: *mut FortranInteger,
-        dx: *mut f64,
-        incx: *mut FortranInteger,
-        dy: *mut f64,
-        incy: *mut FortranInteger,
-        dc: *mut f64,
-        ds: *mut f64,
-    );
-    #[link_name = "drotm_"]
-    pub fn drotm(
-        n: *mut FortranInteger,
-        dx: *mut f64,
-        incx: *mut FortranInteger,
-        dy: *mut f64,
-        incy: *mut FortranInteger,
-        dparam: *mut f64,
-    );
-    #[link_name = "drotmg_"]
-    pub fn drotmg(dd1: *mut f64, dd2: *mut f64, dx1: *mut f64, dy1: *mut f64, dparam: *mut f64);
     #[link_name = "drsco_"]
     pub fn drsco(rsav: *mut f64, isav: *mut FortranInteger);
-    #[link_name = "ds2lt_"]
-    pub fn ds2lt(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f64,
-    );
-    #[link_name = "ds2y_"]
-    pub fn ds2y(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-    );
-    #[link_name = "dscal_"]
-    pub fn dscal(n: *mut FortranInteger, da: *mut f64, dx: *mut f64, incx: *mut FortranInteger);
-    #[link_name = "dsd2s_"]
-    pub fn dsd2s(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        dinv: *mut f64,
-    );
-    #[link_name = "dsdbcg_"]
-    pub fn dsdbcg(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsdcg_"]
-    pub fn dsdcg(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsdcgn_"]
-    pub fn dsdcgn(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsdcgs_"]
-    pub fn dsdcgs(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsdgmr_"]
-    pub fn dsdgmr(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsdi_"]
-    pub fn dsdi(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        rwork: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dsdomn_"]
-    pub fn dsdomn(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsds_"]
-    pub fn dsds(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        dinv: *mut f64,
-    );
-    #[link_name = "dsdscl_"]
-    pub fn dsdscl(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        x: *mut f64,
-        b: *mut f64,
-        dinv: *mut f64,
-        job: *mut FortranInteger,
-        itol: *mut FortranInteger,
-    );
-    #[link_name = "dsgs_"]
-    pub fn dsgs(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsiccg_"]
-    pub fn dsiccg(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsico_"]
-    pub fn dsico(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-    );
-    #[link_name = "dsics_"]
-    pub fn dsics(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f64,
-        d: *mut f64,
-        r: *mut f64,
-        iwarn: *mut FortranInteger,
-    );
-    #[link_name = "dsidi_"]
-    pub fn dsidi(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut f64,
-        inert: *mut FortranInteger,
-        work: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dsifa_"]
-    pub fn dsifa(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dsilur_"]
-    pub fn dsilur(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsilus_"]
-    pub fn dsilus(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nl: *mut FortranInteger,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f64,
-        dinv: *mut f64,
-        nu: *mut FortranInteger,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f64,
-        nrow: *mut FortranInteger,
-        ncol: *mut FortranInteger,
-    );
-    #[link_name = "dsisl_"]
-    pub fn dsisl(
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        b: *mut f64,
-    );
-    #[link_name = "dsjac_"]
-    pub fn dsjac(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsli_"]
-    pub fn dsli(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        rwork: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dsli2_"]
-    pub fn dsli2(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f64,
-    );
-    #[link_name = "dsllti_"]
-    pub fn dsllti(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        rwork: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dslubc_"]
-    pub fn dslubc(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dslucn_"]
-    pub fn dslucn(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dslucs_"]
-    pub fn dslucs(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dslugm_"]
-    pub fn dslugm(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dslui_"]
-    pub fn dslui(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        rwork: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dslui2_"]
-    pub fn dslui2(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f64,
-        dinv: *mut f64,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f64,
-    );
-    #[link_name = "dslui4_"]
-    pub fn dslui4(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f64,
-        dinv: *mut f64,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f64,
-    );
-    #[link_name = "dsluom_"]
-    pub fn dsluom(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f64,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f64,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f64,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "dsluti_"]
-    pub fn dsluti(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        rwork: *mut f64,
-        iwork: *mut FortranInteger,
-    );
     #[link_name = "dslvs_"]
     pub fn dslvs(wm: *mut f64, iwm: *mut FortranInteger, x: *mut f64, tem: *mut f64);
-    #[link_name = "dsmmi2_"]
-    pub fn dsmmi2(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f64,
-        dinv: *mut f64,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f64,
-    );
-    #[link_name = "dsmmti_"]
-    pub fn dsmmti(
-        n: *mut FortranInteger,
-        b: *mut f64,
-        x: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-        rwork: *mut f64,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "dsmtv_"]
-    pub fn dsmtv(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        y: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-    );
-    #[link_name = "dsmv_"]
-    pub fn dsmv(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        y: *mut f64,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f64,
-        isym: *mut FortranInteger,
-    );
     #[link_name = "dsort_"]
     pub fn dsort(dx: *mut f64, dy: *mut f64, n: *mut FortranInteger, kflag: *mut FortranInteger);
     #[link_name = "dsoseq_"]
@@ -3234,33 +1173,6 @@ unsafe extern "C" {
         b: *mut f64,
         m: *mut FortranInteger,
     );
-    #[link_name = "dspco_"]
-    pub fn dspco(
-        ap: *mut f64,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-    );
-    #[link_name = "dspdi_"]
-    pub fn dspdi(
-        ap: *mut f64,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut f64,
-        inert: *mut FortranInteger,
-        work: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dspfa_"]
-    pub fn dspfa(
-        ap: *mut f64,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dspsl_"]
-    pub fn dspsl(ap: *mut f64, n: *mut FortranInteger, kpvt: *mut FortranInteger, b: *mut f64);
     #[link_name = "dstor1_"]
     pub fn dstor1(
         u: *mut f64,
@@ -3294,30 +1206,6 @@ unsafe extern "C" {
     );
     #[link_name = "dsvco_"]
     pub fn dsvco(rsav: *mut f64, isav: *mut FortranInteger);
-    #[link_name = "dsvdc_"]
-    pub fn dsvdc(
-        x: *mut f64,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        p: *mut FortranInteger,
-        s: *mut f64,
-        e: *mut f64,
-        u: *mut f64,
-        ldu: *mut FortranInteger,
-        v: *mut f64,
-        ldv: *mut FortranInteger,
-        work: *mut f64,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dswap_"]
-    pub fn dswap(
-        n: *mut FortranInteger,
-        dx: *mut f64,
-        incx: *mut FortranInteger,
-        dy: *mut f64,
-        incy: *mut FortranInteger,
-    );
     #[link_name = "dtin_"]
     pub fn dtin(
         n: *mut FortranInteger,
@@ -3343,33 +1231,6 @@ unsafe extern "C" {
         rhs: *mut f64,
         iunit: *mut FortranInteger,
         job: *mut FortranInteger,
-    );
-    #[link_name = "dtrco_"]
-    pub fn dtrco(
-        t: *mut f64,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        rcond: *mut f64,
-        z: *mut f64,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "dtrdi_"]
-    pub fn dtrdi(
-        t: *mut f64,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        det: *mut f64,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "dtrsl_"]
-    pub fn dtrsl(
-        t: *mut f64,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f64,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
     );
     #[link_name = "du11ls_"]
     pub fn du11ls(
@@ -3441,29 +1302,6 @@ unsafe extern "C" {
         ir: *mut FortranInteger,
         ic: *mut FortranInteger,
     );
-    #[link_name = "dulsia_"]
-    pub fn dulsia(
-        a: *mut f64,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f64,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        re: *mut f64,
-        ae: *mut f64,
-        key: *mut FortranInteger,
-        mode: *mut FortranInteger,
-        np: *mut FortranInteger,
-        krank: *mut FortranInteger,
-        ksure: *mut FortranInteger,
-        rnorm: *mut f64,
-        w: *mut f64,
-        lw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        liw: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
     #[link_name = "dusrmt_"]
     pub fn dusrmt(
         i: *mut FortranInteger,
@@ -3515,21 +1353,6 @@ unsafe extern "C" {
         h: *mut f64,
         w: *mut f64,
     );
-    #[link_name = "dwnnls_"]
-    pub fn dwnnls(
-        w: *mut f64,
-        mdw: *mut FortranInteger,
-        me: *mut FortranInteger,
-        ma: *mut FortranInteger,
-        n: *mut FortranInteger,
-        l: *mut FortranInteger,
-        prgopt: *mut f64,
-        x: *mut f64,
-        rnorm: *mut f64,
-        mode: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        work: *mut f64,
-    );
     #[link_name = "dwritp_"]
     pub fn dwritp(
         ipage: *mut FortranInteger,
@@ -3566,30 +1389,6 @@ unsafe extern "C" {
         j: *mut FortranInteger,
         uxxx: *mut f32,
         uxxxx: *mut f32,
-    );
-    #[link_name = "dxlegf_"]
-    pub fn dxlegf(
-        dnu1: *mut f64,
-        nudiff: *mut FortranInteger,
-        mu1: *mut FortranInteger,
-        mu2: *mut FortranInteger,
-        theta: *mut f64,
-        id: *mut FortranInteger,
-        pqa: *mut f64,
-        ipqa: *mut FortranInteger,
-        ierror: *mut FortranInteger,
-    );
-    #[link_name = "dxnrmp_"]
-    pub fn dxnrmp(
-        nu: *mut FortranInteger,
-        mu1: *mut FortranInteger,
-        mu2: *mut FortranInteger,
-        darg: *mut f64,
-        mode: *mut FortranInteger,
-        dpn: *mut f64,
-        ipn: *mut FortranInteger,
-        isig: *mut FortranInteger,
-        ierror: *mut FortranInteger,
     );
     #[link_name = "dxpmu_"]
     pub fn dxpmu(
@@ -3681,21 +1480,6 @@ unsafe extern "C" {
         uyyy: *mut f32,
         uyyyy: *mut f32,
     );
-    #[link_name = "efc_"]
-    pub fn efc(
-        ndata: *mut FortranInteger,
-        xdata: *mut f32,
-        ydata: *mut f32,
-        sddata: *mut f32,
-        nord: *mut FortranInteger,
-        nbkpt: *mut FortranInteger,
-        bkpt: *mut f32,
-        mdein: *mut FortranInteger,
-        mdeout: *mut FortranInteger,
-        coeff: *mut f32,
-        lw: *mut FortranInteger,
-        w: *mut f32,
-    );
     #[link_name = "efcmn_"]
     pub fn efcmn(
         ndata: *mut FortranInteger,
@@ -3718,35 +1502,6 @@ unsafe extern "C" {
         mdw: *mut FortranInteger,
         lw: *mut FortranInteger,
     );
-    #[link_name = "elmbak_"]
-    pub fn elmbak(
-        nm: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        a: *mut f32,
-        int: *mut FortranInteger,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "elmhes_"]
-    pub fn elmhes(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        a: *mut f32,
-        int: *mut FortranInteger,
-    );
-    #[link_name = "eltran_"]
-    pub fn eltran(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        a: *mut f32,
-        int: *mut FortranInteger,
-        z: *mut f32,
-    );
     #[link_name = "exbvp_"]
     pub fn exbvp(
         y: *mut f32,
@@ -3762,57 +1517,8 @@ unsafe extern "C" {
         work: *mut f32,
         iwork: *mut FortranInteger,
     );
-    #[link_name = "exint_"]
-    pub fn exint(
-        x: *mut f32,
-        n: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        tol: *mut f32,
-        en: *mut f32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "ezfft1_"]
     pub fn ezfft1(n: *mut FortranInteger, wa: *mut f32, ifac: *mut FortranInteger);
-    #[link_name = "ezfftb_"]
-    pub fn ezfftb(
-        n: *mut FortranInteger,
-        r: *mut f32,
-        azero: *mut f32,
-        a: *mut f32,
-        b: *mut f32,
-        wsave: *mut f32,
-    );
-    #[link_name = "ezfftf_"]
-    pub fn ezfftf(
-        n: *mut FortranInteger,
-        r: *mut f32,
-        azero: *mut f32,
-        a: *mut f32,
-        b: *mut f32,
-        wsave: *mut f32,
-    );
-    #[link_name = "ezffti_"]
-    pub fn ezffti(n: *mut FortranInteger, wsave: *mut f32);
-    #[link_name = "fc_"]
-    pub fn fc(
-        ndata: *mut FortranInteger,
-        xdata: *mut f32,
-        ydata: *mut f32,
-        sddata: *mut f32,
-        nord: *mut FortranInteger,
-        nbkpt: *mut FortranInteger,
-        bkpt: *mut f32,
-        nconst: *mut FortranInteger,
-        xconst: *mut f32,
-        yconst: *mut f32,
-        nderiv: *mut FortranInteger,
-        mode: *mut FortranInteger,
-        coeff: *mut f32,
-        w: *mut f32,
-        iw: *mut FortranInteger,
-    );
     #[link_name = "fcmn_"]
     pub fn fcmn(
         ndata: *mut FortranInteger,
@@ -3867,26 +1573,6 @@ unsafe extern "C" {
         epsfcn: *mut f32,
         wa: *mut f32,
     );
-    #[link_name = "figi_"]
-    pub fn figi(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        t: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "figi2_"]
-    pub fn figi2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        t: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "fulmat_"]
     pub fn fulmat(
         i: *mut FortranInteger,
@@ -3896,20 +1582,6 @@ unsafe extern "C" {
         prgopt: *mut f32,
         dattrv: *mut f32,
         iflag: *mut FortranInteger,
-    );
-    #[link_name = "genbun_"]
-    pub fn genbun(
-        nperod: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mperod: *mut FortranInteger,
-        m: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        c: *mut f32,
-        idimy: *mut FortranInteger,
-        y: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
     );
     #[link_name = "h12_"]
     pub fn h12(
@@ -3925,68 +1597,8 @@ unsafe extern "C" {
         icv: *mut FortranInteger,
         ncv: *mut FortranInteger,
     );
-    #[link_name = "hfti_"]
-    pub fn hfti(
-        a: *mut f32,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        tau: *mut f32,
-        krank: *mut FortranInteger,
-        rnorm: *mut f32,
-        h: *mut f32,
-        g: *mut f32,
-        ip: *mut FortranInteger,
-    );
     #[link_name = "hkseq_"]
     pub fn hkseq(x: *mut f32, m: *mut FortranInteger, h: *mut f32, ierr: *mut FortranInteger);
-    #[link_name = "hqr_"]
-    pub fn hqr(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        h: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "hqr2_"]
-    pub fn hqr2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        h: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "hstcrt_"]
-    pub fn hstcrt(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
     #[link_name = "hstcs1_"]
     pub fn hstcs1(
         intl: *mut FortranInteger,
@@ -4016,182 +1628,6 @@ unsafe extern "C" {
         snth: *mut f32,
         rsq: *mut f32,
         wrk: *mut f32,
-    );
-    #[link_name = "hstcsp_"]
-    pub fn hstcsp(
-        intl: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "hstcyl_"]
-    pub fn hstcyl(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "hstplr_"]
-    pub fn hstplr(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "hstssp_"]
-    pub fn hstssp(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "htrib3_"]
-    pub fn htrib3(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        tau: *mut f32,
-        m: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-    );
-    #[link_name = "htribk_"]
-    pub fn htribk(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        tau: *mut f32,
-        m: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-    );
-    #[link_name = "htrid3_"]
-    pub fn htrid3(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        tau: *mut f32,
-    );
-    #[link_name = "htridi_"]
-    pub fn htridi(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        tau: *mut f32,
-    );
-    #[link_name = "hw3crt_"]
-    pub fn hw3crt(
-        xs: *mut f32,
-        xf: *mut f32,
-        l: *mut FortranInteger,
-        lbdcnd: *mut FortranInteger,
-        bdxs: *mut f32,
-        bdxf: *mut f32,
-        ys: *mut f32,
-        yf: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bdys: *mut f32,
-        bdyf: *mut f32,
-        zs: *mut f32,
-        zf: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdzs: *mut f32,
-        bdzf: *mut f32,
-        elmbda: *mut f32,
-        ldimf: *mut FortranInteger,
-        mdimf: *mut FortranInteger,
-        f: *mut f32,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "hwscrt_"]
-    pub fn hwscrt(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
     );
     #[link_name = "hwscs1_"]
     pub fn hwscs1(
@@ -4224,70 +1660,6 @@ unsafe extern "C" {
         sint: *mut f32,
         bmh: *mut f32,
     );
-    #[link_name = "hwscsp_"]
-    pub fn hwscsp(
-        intl: *mut FortranInteger,
-        ts: *mut f32,
-        tf: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bdts: *mut f32,
-        bdtf: *mut f32,
-        rs: *mut f32,
-        rf: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdrs: *mut f32,
-        bdrf: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "hwscyl_"]
-    pub fn hwscyl(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "hwsplr_"]
-    pub fn hwsplr(
-        a: *mut f32,
-        b: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bda: *mut f32,
-        bdb: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdc: *mut f32,
-        bdd: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
     #[link_name = "hwsss1_"]
     pub fn hwsss1(
         ts: *mut f32,
@@ -4314,27 +1686,6 @@ unsafe extern "C" {
         sint: *mut f32,
         d: *mut f32,
     );
-    #[link_name = "hwsssp_"]
-    pub fn hwsssp(
-        ts: *mut f32,
-        tf: *mut f32,
-        m: *mut FortranInteger,
-        mbdcnd: *mut FortranInteger,
-        bdts: *mut f32,
-        bdtf: *mut f32,
-        ps: *mut f32,
-        pf: *mut f32,
-        n: *mut FortranInteger,
-        nbdcnd: *mut FortranInteger,
-        bdps: *mut f32,
-        bdpf: *mut f32,
-        elmbda: *mut f32,
-        f: *mut f32,
-        idimf: *mut FortranInteger,
-        pertrb: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
     #[link_name = "i1merg_"]
     pub fn i1merg(
         icos: *mut f32,
@@ -4343,45 +1694,6 @@ unsafe extern "C" {
         i2: *mut FortranInteger,
         m2: *mut FortranInteger,
         i3: *mut FortranInteger,
-    );
-    #[link_name = "icopy_"]
-    pub fn icopy(
-        n: *mut FortranInteger,
-        ix: *mut FortranInteger,
-        incx: *mut FortranInteger,
-        iy: *mut FortranInteger,
-        incy: *mut FortranInteger,
-    );
-    #[link_name = "imtql1_"]
-    pub fn imtql1(n: *mut FortranInteger, d: *mut f32, e: *mut f32, ierr: *mut FortranInteger);
-    #[link_name = "imtql2_"]
-    pub fn imtql2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        d: *mut f32,
-        e: *mut f32,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "imtqlv_"]
-    pub fn imtqlv(
-        n: *mut FortranInteger,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        w: *mut f32,
-        ind: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-        rv1: *mut f32,
-    );
-    #[link_name = "intrv_"]
-    pub fn intrv(
-        xt: *mut f32,
-        lxt: *mut FortranInteger,
-        x: *mut f32,
-        ilo: *mut FortranInteger,
-        ileft: *mut FortranInteger,
-        mflag: *mut FortranInteger,
     );
     #[link_name = "intyd_"]
     pub fn intyd(
@@ -4413,14 +1725,6 @@ unsafe extern "C" {
         iy: *mut FortranInteger,
         n: *mut FortranInteger,
         kflag: *mut FortranInteger,
-    );
-    #[link_name = "iswap_"]
-    pub fn iswap(
-        n: *mut FortranInteger,
-        ix: *mut FortranInteger,
-        incx: *mut FortranInteger,
-        iy: *mut FortranInteger,
-        incy: *mut FortranInteger,
     );
     #[link_name = "la05ad_"]
     pub fn la05ad(
@@ -4474,29 +1778,6 @@ unsafe extern "C" {
         u: *mut f32,
         mm: *mut FortranInteger,
     );
-    #[link_name = "llsia_"]
-    pub fn llsia(
-        a: *mut f32,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        re: *mut f32,
-        ae: *mut f32,
-        key: *mut FortranInteger,
-        mode: *mut FortranInteger,
-        np: *mut FortranInteger,
-        krank: *mut FortranInteger,
-        ksure: *mut FortranInteger,
-        rnorm: *mut f32,
-        w: *mut f32,
-        lw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        liw: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
     #[link_name = "lmpar_"]
     pub fn lmpar(
         n: *mut FortranInteger,
@@ -4525,22 +1806,6 @@ unsafe extern "C" {
         mode: *mut FortranInteger,
         ws: *mut f32,
         is: *mut FortranInteger,
-    );
-    #[link_name = "lsei_"]
-    pub fn lsei(
-        w: *mut f32,
-        mdw: *mut FortranInteger,
-        me: *mut FortranInteger,
-        ma: *mut FortranInteger,
-        mg: *mut FortranInteger,
-        n: *mut FortranInteger,
-        prgopt: *mut f32,
-        x: *mut f32,
-        rnorme: *mut f32,
-        rnorml: *mut f32,
-        mode: *mut FortranInteger,
-        ws: *mut f32,
-        ip: *mut FortranInteger,
     );
     #[link_name = "lsi_"]
     pub fn lsi(
@@ -4638,18 +1903,6 @@ unsafe extern "C" {
         w: *mut f32,
         wcnd: *mut f32,
     );
-    #[link_name = "minfit_"]
-    pub fn minfit(
-        nm: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        w: *mut f32,
-        ip: *mut FortranInteger,
-        b: *mut f32,
-        ierr: *mut FortranInteger,
-        rv1: *mut f32,
-    );
     #[link_name = "minso4_"]
     pub fn minso4(
         usol: *mut f32,
@@ -4743,25 +1996,6 @@ unsafe extern "C" {
         div: *mut f32,
         td: *mut f32,
     );
-    #[link_name = "ortbak_"]
-    pub fn ortbak(
-        nm: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        a: *mut f32,
-        ort: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "orthes_"]
-    pub fn orthes(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        a: *mut f32,
-        ort: *mut f32,
-    );
     #[link_name = "ortho4_"]
     pub fn ortho4(
         usol: *mut f32,
@@ -4807,16 +2041,6 @@ unsafe extern "C" {
         scales: *mut f32,
         rows: *mut f32,
         rs: *mut f32,
-    );
-    #[link_name = "ortran_"]
-    pub fn ortran(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        low: *mut FortranInteger,
-        igh: *mut FortranInteger,
-        a: *mut f32,
-        ort: *mut f32,
-        z: *mut f32,
     );
     #[link_name = "passb_"]
     pub fn passb(
@@ -4922,21 +2146,6 @@ unsafe extern "C" {
         wa3: *mut f32,
         wa4: *mut f32,
     );
-    #[link_name = "pchbs_"]
-    pub fn pchbs(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        knotyp: *mut FortranInteger,
-        nknots: *mut FortranInteger,
-        t: *mut f32,
-        bcoef: *mut f32,
-        ndim: *mut FortranInteger,
-        kord: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "pchce_"]
     pub fn pchce(
         ic: *mut FortranInteger,
@@ -4967,29 +2176,6 @@ unsafe extern "C" {
         incfd: *mut FortranInteger,
         ierr: *mut FortranInteger,
     );
-    #[link_name = "pchic_"]
-    pub fn pchic(
-        ic: *mut FortranInteger,
-        vc: *mut f32,
-        switch: *mut f32,
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        wk: *mut f32,
-        nwk: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "pchim_"]
-    pub fn pchim(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "pchkt_"]
     pub fn pchkt(n: *mut FortranInteger, x: *mut f32, knotyp: *mut FortranInteger, t: *mut f32);
     #[link_name = "pchngs_"]
@@ -5001,21 +2187,6 @@ unsafe extern "C" {
         ix: *mut FortranInteger,
         ircx: *mut FortranInteger,
     );
-    #[link_name = "pchsp_"]
-    pub fn pchsp(
-        ic: *mut FortranInteger,
-        vc: *mut f32,
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        wk: *mut f32,
-        nwk: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "pcoef_"]
-    pub fn pcoef(l: *mut FortranInteger, c: *mut f32, tc: *mut f32, a: *mut f32);
     #[link_name = "pinitm_"]
     pub fn pinitm(
         m: *mut FortranInteger,
@@ -5033,25 +2204,6 @@ unsafe extern "C" {
         sx: *mut f32,
         ix: *mut FortranInteger,
         ircx: *mut FortranInteger,
-    );
-    #[link_name = "pois3d_"]
-    pub fn pois3d(
-        lperod: *mut FortranInteger,
-        l: *mut FortranInteger,
-        c1: *mut f32,
-        mperod: *mut FortranInteger,
-        m: *mut FortranInteger,
-        c2: *mut f32,
-        nperod: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        c: *mut f32,
-        ldimf: *mut FortranInteger,
-        mdimf: *mut FortranInteger,
-        f: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
     );
     #[link_name = "poisd2_"]
     pub fn poisd2(
@@ -5108,56 +2260,6 @@ unsafe extern "C" {
         d: *mut f32,
         tcos: *mut f32,
         p: *mut f32,
-    );
-    #[link_name = "poistg_"]
-    pub fn poistg(
-        nperod: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mperod: *mut FortranInteger,
-        m: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        c: *mut f32,
-        idimy: *mut FortranInteger,
-        y: *mut f32,
-        ierror: *mut FortranInteger,
-        w: *mut f32,
-    );
-    #[link_name = "polcof_"]
-    pub fn polcof(
-        xx: *mut f32,
-        n: *mut FortranInteger,
-        x: *mut f32,
-        c: *mut f32,
-        d: *mut f32,
-        work: *mut f32,
-    );
-    #[link_name = "polfit_"]
-    pub fn polfit(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        y: *mut f32,
-        w: *mut f32,
-        maxdeg: *mut FortranInteger,
-        ndeg: *mut FortranInteger,
-        eps: *mut f32,
-        r: *mut f32,
-        ierr: *mut FortranInteger,
-        a: *mut f32,
-    );
-    #[link_name = "polint_"]
-    pub fn polint(n: *mut FortranInteger, x: *mut f32, y: *mut f32, c: *mut f32);
-    #[link_name = "polyvl_"]
-    pub fn polyvl(
-        nder: *mut FortranInteger,
-        xx: *mut f32,
-        yfit: *mut f32,
-        yp: *mut f32,
-        n: *mut FortranInteger,
-        x: *mut f32,
-        c: *mut f32,
-        work: *mut f32,
-        ierr: *mut FortranInteger,
     );
     #[link_name = "pos3d1_"]
     pub fn pos3d1(
@@ -5218,17 +2320,6 @@ unsafe extern "C" {
         ans: *mut f32,
         ierr: *mut FortranInteger,
     );
-    #[link_name = "ppqad_"]
-    pub fn ppqad(
-        ldc: *mut FortranInteger,
-        c: *mut f32,
-        xi: *mut f32,
-        lxi: *mut FortranInteger,
-        k: *mut FortranInteger,
-        x1: *mut f32,
-        x2: *mut f32,
-        pquad: *mut f32,
-    );
     #[link_name = "prod_"]
     pub fn prod(
         nd: *mut FortranInteger,
@@ -5285,25 +2376,6 @@ unsafe extern "C" {
         sx: *mut f32,
         ix: *mut FortranInteger,
     );
-    #[link_name = "psifn_"]
-    pub fn psifn(
-        x: *mut f32,
-        n: *mut FortranInteger,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        ans: *mut f32,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "pvalue_"]
-    pub fn pvalue(
-        l: *mut FortranInteger,
-        nder: *mut FortranInteger,
-        x: *mut f32,
-        yfit: *mut f32,
-        yp: *mut f32,
-        a: *mut f32,
-    );
     #[link_name = "qcheb_"]
     pub fn qcheb(x: *mut f32, fval: *mut f32, cheb12: *mut f32, cheb24: *mut f32);
     #[link_name = "qelg_"]
@@ -5322,16 +2394,6 @@ unsafe extern "C" {
         q: *mut f32,
         ldq: *mut FortranInteger,
         wa: *mut f32,
-    );
-    #[link_name = "qmomo_"]
-    pub fn qmomo(
-        alfa: *mut f32,
-        beta: *mut f32,
-        ri: *mut f32,
-        rj: *mut f32,
-        rg: *mut f32,
-        rh: *mut f32,
-        integr: *mut FortranInteger,
     );
     #[link_name = "qpsrt_"]
     pub fn qpsrt(
@@ -5370,17 +2432,6 @@ unsafe extern "C" {
         a: *mut f32,
         n: *mut FortranInteger,
         kflag: *mut FortranInteger,
-    );
-    #[link_name = "qzvec_"]
-    pub fn qzvec(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        alfr: *mut f32,
-        alfi: *mut f32,
-        beta: *mut f32,
-        z: *mut f32,
     );
     #[link_name = "r1mpyq_"]
     pub fn r1mpyq(
@@ -5493,79 +2544,6 @@ unsafe extern "C" {
         ch2: *mut f32,
         wa: *mut f32,
     );
-    #[link_name = "rc3jj_"]
-    pub fn rc3jj(
-        l2: *mut f32,
-        l3: *mut f32,
-        m2: *mut f32,
-        m3: *mut f32,
-        l1min: *mut f32,
-        l1max: *mut f32,
-        thrcof: *mut f32,
-        ndim: *mut FortranInteger,
-        ier: *mut FortranInteger,
-    );
-    #[link_name = "rc3jm_"]
-    pub fn rc3jm(
-        l1: *mut f32,
-        l2: *mut f32,
-        l3: *mut f32,
-        m1: *mut f32,
-        m2min: *mut f32,
-        m2max: *mut f32,
-        thrcof: *mut f32,
-        ndim: *mut FortranInteger,
-        ier: *mut FortranInteger,
-    );
-    #[link_name = "rc6j_"]
-    pub fn rc6j(
-        l2: *mut f32,
-        l3: *mut f32,
-        l4: *mut f32,
-        l5: *mut f32,
-        l6: *mut f32,
-        l1min: *mut f32,
-        l1max: *mut f32,
-        sixcof: *mut f32,
-        ndim: *mut FortranInteger,
-        ier: *mut FortranInteger,
-    );
-    #[link_name = "rebak_"]
-    pub fn rebak(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        dl: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "rebakb_"]
-    pub fn rebakb(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        dl: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "reduc_"]
-    pub fn reduc(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        dl: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "reduc2_"]
-    pub fn reduc2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        dl: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "reort_"]
     pub fn reort(
         ncomp: *mut FortranInteger,
@@ -5582,54 +2560,10 @@ unsafe extern "C" {
     );
     #[link_name = "rfftb_"]
     pub fn rfftb(n: *mut FortranInteger, r: *mut f32, wsave: *mut f32);
-    #[link_name = "rfftb1_"]
-    pub fn rfftb1(
-        n: *mut FortranInteger,
-        c: *mut f32,
-        ch: *mut f32,
-        wa: *mut f32,
-        ifac: *mut FortranInteger,
-    );
     #[link_name = "rfftf_"]
     pub fn rfftf(n: *mut FortranInteger, r: *mut f32, wsave: *mut f32);
-    #[link_name = "rfftf1_"]
-    pub fn rfftf1(
-        n: *mut FortranInteger,
-        c: *mut f32,
-        ch: *mut f32,
-        wa: *mut f32,
-        ifac: *mut FortranInteger,
-    );
     #[link_name = "rffti_"]
     pub fn rffti(n: *mut FortranInteger, wsave: *mut f32);
-    #[link_name = "rffti1_"]
-    pub fn rffti1(n: *mut FortranInteger, wa: *mut f32, ifac: *mut FortranInteger);
-    #[link_name = "rg_"]
-    pub fn rg(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        iv1: *mut FortranInteger,
-        fv1: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rgg_"]
-    pub fn rgg(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        alfr: *mut f32,
-        alfi: *mut f32,
-        beta: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "rkfab_"]
     pub fn rkfab(
         ncomp: *mut FortranInteger,
@@ -5654,106 +2588,8 @@ unsafe extern "C" {
         iwork: *mut FortranInteger,
         nfcc: *mut FortranInteger,
     );
-    #[link_name = "rs_"]
-    pub fn rs(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rsb_"]
-    pub fn rsb(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mb: *mut FortranInteger,
-        a: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "rsco_"]
     pub fn rsco(rsav: *mut f32, isav: *mut FortranInteger);
-    #[link_name = "rsg_"]
-    pub fn rsg(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rsgab_"]
-    pub fn rsgab(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rsgba_"]
-    pub fn rsgba(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rsp_"]
-    pub fn rsp(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        nv: *mut FortranInteger,
-        a: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        fv2: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rst_"]
-    pub fn rst(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        w: *mut f32,
-        e: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "rt_"]
-    pub fn rt(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        w: *mut f32,
-        matz: *mut FortranInteger,
-        z: *mut f32,
-        fv1: *mut f32,
-        ierr: *mut FortranInteger,
-    );
     #[link_name = "rwupdt_"]
     pub fn rwupdt(
         n: *mut FortranInteger,
@@ -5774,15 +2610,6 @@ unsafe extern "C" {
         m2: *mut FortranInteger,
         i3: *mut FortranInteger,
     );
-    #[link_name = "saxpy_"]
-    pub fn saxpy(
-        n: *mut FortranInteger,
-        sa: *mut f32,
-        sx: *mut f32,
-        incx: *mut FortranInteger,
-        sy: *mut f32,
-        incy: *mut FortranInteger,
-    );
     #[link_name = "sbhin_"]
     pub fn sbhin(
         n: *mut FortranInteger,
@@ -5795,40 +2622,6 @@ unsafe extern "C" {
         rhs: *mut f32,
         iunit: *mut FortranInteger,
         job: *mut FortranInteger,
-    );
-    #[link_name = "sbocls_"]
-    pub fn sbocls(
-        w: *mut f32,
-        mdw: *mut FortranInteger,
-        mcon: *mut FortranInteger,
-        mrows: *mut FortranInteger,
-        ncols: *mut FortranInteger,
-        bl: *mut f32,
-        bu: *mut f32,
-        ind: *mut FortranInteger,
-        iopt: *mut FortranInteger,
-        x: *mut f32,
-        rnormc: *mut f32,
-        rnorm: *mut f32,
-        mode: *mut FortranInteger,
-        rw: *mut f32,
-        iw: *mut FortranInteger,
-    );
-    #[link_name = "sbols_"]
-    pub fn sbols(
-        w: *mut f32,
-        mdw: *mut FortranInteger,
-        mrows: *mut FortranInteger,
-        ncols: *mut FortranInteger,
-        bl: *mut f32,
-        bu: *mut f32,
-        ind: *mut FortranInteger,
-        iopt: *mut FortranInteger,
-        x: *mut f32,
-        rnorm: *mut f32,
-        mode: *mut FortranInteger,
-        rw: *mut f32,
-        iw: *mut FortranInteger,
     );
     #[link_name = "sbolsm_"]
     pub fn sbolsm(
@@ -5848,59 +2641,6 @@ unsafe extern "C" {
         scl: *mut f32,
         ibasis: *mut FortranInteger,
         ibb: *mut FortranInteger,
-    );
-    #[link_name = "schdc_"]
-    pub fn schdc(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        p: *mut FortranInteger,
-        work: *mut f32,
-        jpvt: *mut FortranInteger,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "schdd_"]
-    pub fn schdd(
-        r: *mut f32,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        x: *mut f32,
-        z: *mut f32,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        y: *mut f32,
-        rho: *mut f32,
-        c: *mut f32,
-        s: *mut f32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "schex_"]
-    pub fn schex(
-        r: *mut f32,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        k: *mut FortranInteger,
-        l: *mut FortranInteger,
-        z: *mut f32,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        c: *mut f32,
-        s: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "schud_"]
-    pub fn schud(
-        r: *mut f32,
-        ldr: *mut FortranInteger,
-        p: *mut FortranInteger,
-        x: *mut f32,
-        z: *mut f32,
-        ldz: *mut FortranInteger,
-        nz: *mut FortranInteger,
-        y: *mut f32,
-        rho: *mut f32,
-        c: *mut f32,
-        s: *mut f32,
     );
     #[link_name = "scoef_"]
     pub fn scoef(
@@ -5922,22 +2662,6 @@ unsafe extern "C" {
         iwork: *mut FortranInteger,
         iflag: *mut FortranInteger,
         nfcc: *mut FortranInteger,
-    );
-    #[link_name = "scopy_"]
-    pub fn scopy(
-        n: *mut FortranInteger,
-        sx: *mut f32,
-        incx: *mut FortranInteger,
-        sy: *mut f32,
-        incy: *mut FortranInteger,
-    );
-    #[link_name = "scopym_"]
-    pub fn scopym(
-        n: *mut FortranInteger,
-        sx: *mut f32,
-        incx: *mut FortranInteger,
-        sy: *mut f32,
-        incy: *mut FortranInteger,
     );
     #[link_name = "scpplt_"]
     pub fn scpplt(
@@ -6033,155 +2757,6 @@ unsafe extern "C" {
         fc: *mut f32,
         y: *mut f32,
     );
-    #[link_name = "sgbco_"]
-    pub fn sgbco(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-    );
-    #[link_name = "sgbdi_"]
-    pub fn sgbdi(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut f32,
-    );
-    #[link_name = "sgbfa_"]
-    pub fn sgbfa(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sgbsl_"]
-    pub fn sgbsl(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "sgeco_"]
-    pub fn sgeco(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-    );
-    #[link_name = "sgedi_"]
-    pub fn sgedi(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut f32,
-        work: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "sgeev_"]
-    pub fn sgeev(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        e: *mut f32,
-        v: *mut f32,
-        ldv: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sgefa_"]
-    pub fn sgefa(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sgefs_"]
-    pub fn sgefs(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut f32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "sgeir_"]
-    pub fn sgeir(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut f32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "sger_"]
-    pub fn sger(
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-    );
-    #[link_name = "sgesl_"]
-    pub fn sgesl(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "sglss_"]
-    pub fn sglss(
-        a: *mut f32,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        rnorm: *mut f32,
-        work: *mut f32,
-        lw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        liw: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sgtsl_"]
-    pub fn sgtsl(
-        n: *mut FortranInteger,
-        c: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        b: *mut f32,
-        info: *mut FortranInteger,
-    );
     #[link_name = "shels_"]
     pub fn shels(
         a: *mut f32,
@@ -6199,117 +2774,8 @@ unsafe extern "C" {
         info: *mut FortranInteger,
         ijob: *mut FortranInteger,
     );
-    #[link_name = "sinqb_"]
-    pub fn sinqb(n: *mut FortranInteger, x: *mut f32, wsave: *mut f32);
-    #[link_name = "sinqf_"]
-    pub fn sinqf(n: *mut FortranInteger, x: *mut f32, wsave: *mut f32);
-    #[link_name = "sinqi_"]
-    pub fn sinqi(n: *mut FortranInteger, wsave: *mut f32);
-    #[link_name = "sint_"]
-    pub fn sint(n: *mut FortranInteger, x: *mut f32, wsave: *mut f32);
-    #[link_name = "sinti_"]
-    pub fn sinti(n: *mut FortranInteger, wsave: *mut f32);
-    #[link_name = "sintrp_"]
-    pub fn sintrp(
-        x: *mut f32,
-        y: *mut f32,
-        xout: *mut f32,
-        yout: *mut f32,
-        ypout: *mut f32,
-        neqn: *mut FortranInteger,
-        kold: *mut FortranInteger,
-        phi: *mut f32,
-        ivc: *mut FortranInteger,
-        iv: *mut FortranInteger,
-        kgi: *mut FortranInteger,
-        gi: *mut f32,
-        alpha: *mut f32,
-        og: *mut f32,
-        ow: *mut f32,
-        ox: *mut f32,
-        oy: *mut f32,
-    );
-    #[link_name = "sllti2_"]
-    pub fn sllti2(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f32,
-        dinv: *mut f32,
-    );
     #[link_name = "slvs_"]
     pub fn slvs(wm: *mut f32, iwm: *mut FortranInteger, x: *mut f32, tem: *mut f32);
-    #[link_name = "snbco_"]
-    pub fn snbco(
-        abe: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-    );
-    #[link_name = "snbdi_"]
-    pub fn snbdi(
-        abe: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        det: *mut f32,
-    );
-    #[link_name = "snbfa_"]
-    pub fn snbfa(
-        abe: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "snbfs_"]
-    pub fn snbfs(
-        abe: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        v: *mut f32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "snbir_"]
-    pub fn snbir(
-        abe: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        v: *mut f32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "snbsl_"]
-    pub fn snbsl(
-        abe: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ml: *mut FortranInteger,
-        mu: *mut FortranInteger,
-        ipvt: *mut FortranInteger,
-        b: *mut f32,
-        job: *mut FortranInteger,
-    );
     #[link_name = "sods_"]
     pub fn sods(
         a: *mut f32,
@@ -6368,96 +2834,6 @@ unsafe extern "C" {
         b: *mut f32,
         m: *mut FortranInteger,
     );
-    #[link_name = "spbco_"]
-    pub fn spbco(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "spbdi_"]
-    pub fn spbdi(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        det: *mut f32,
-    );
-    #[link_name = "spbfa_"]
-    pub fn spbfa(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "spbsl_"]
-    pub fn spbsl(
-        abd: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        m: *mut FortranInteger,
-        b: *mut f32,
-    );
-    #[link_name = "spoco_"]
-    pub fn spoco(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "spodi_"]
-    pub fn spodi(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        det: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "spofa_"]
-    pub fn spofa(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "spofs_"]
-    pub fn spofs(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut f32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f32,
-    );
-    #[link_name = "spoir_"]
-    pub fn spoir(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        v: *mut f32,
-        itask: *mut FortranInteger,
-        ind: *mut FortranInteger,
-        work: *mut f32,
-    );
-    #[link_name = "sposl_"]
-    pub fn sposl(a: *mut f32, lda: *mut FortranInteger, n: *mut FortranInteger, b: *mut f32);
-    #[link_name = "sppco_"]
-    pub fn sppco(
-        ap: *mut f32,
-        n: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sppdi_"]
-    pub fn sppdi(ap: *mut f32, n: *mut FortranInteger, det: *mut f32, job: *mut FortranInteger);
     #[link_name = "spperm_"]
     pub fn spperm(
         x: *mut f32,
@@ -6465,10 +2841,6 @@ unsafe extern "C" {
         iperm: *mut FortranInteger,
         ier: *mut FortranInteger,
     );
-    #[link_name = "sppfa_"]
-    pub fn sppfa(ap: *mut f32, n: *mut FortranInteger, info: *mut FortranInteger);
-    #[link_name = "sppsl_"]
-    pub fn sppsl(ap: *mut f32, n: *mut FortranInteger, b: *mut f32);
     #[link_name = "spsort_"]
     pub fn spsort(
         x: *mut f32,
@@ -6476,35 +2848,6 @@ unsafe extern "C" {
         iperm: *mut FortranInteger,
         kflag: *mut FortranInteger,
         ier: *mut FortranInteger,
-    );
-    #[link_name = "sptsl_"]
-    pub fn sptsl(n: *mut FortranInteger, d: *mut f32, e: *mut f32, b: *mut f32);
-    #[link_name = "sqrdc_"]
-    pub fn sqrdc(
-        x: *mut f32,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        p: *mut FortranInteger,
-        qraux: *mut f32,
-        jpvt: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "sqrsl_"]
-    pub fn sqrsl(
-        x: *mut f32,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        qraux: *mut f32,
-        y: *mut f32,
-        qy: *mut f32,
-        qty: *mut f32,
-        b: *mut f32,
-        rsd: *mut f32,
-        xb: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
     );
     #[link_name = "sreadp_"]
     pub fn sreadp(
@@ -6527,714 +2870,8 @@ unsafe extern "C" {
         prod: *mut f32,
         r0nrm: *mut f32,
     );
-    #[link_name = "srot_"]
-    pub fn srot(
-        n: *mut FortranInteger,
-        sx: *mut f32,
-        incx: *mut FortranInteger,
-        sy: *mut f32,
-        incy: *mut FortranInteger,
-        sc: *mut f32,
-        ss: *mut f32,
-    );
-    #[link_name = "srotm_"]
-    pub fn srotm(
-        n: *mut FortranInteger,
-        sx: *mut f32,
-        incx: *mut FortranInteger,
-        sy: *mut f32,
-        incy: *mut FortranInteger,
-        sparam: *mut f32,
-    );
-    #[link_name = "srotmg_"]
-    pub fn srotmg(sd1: *mut f32, sd2: *mut f32, sx1: *mut f32, sy1: *mut f32, sparam: *mut f32);
-    #[link_name = "ss2lt_"]
-    pub fn ss2lt(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f32,
-    );
-    #[link_name = "ss2y_"]
-    pub fn ss2y(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-    );
-    #[link_name = "sscal_"]
-    pub fn sscal(n: *mut FortranInteger, sa: *mut f32, sx: *mut f32, incx: *mut FortranInteger);
-    #[link_name = "ssd2s_"]
-    pub fn ssd2s(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        dinv: *mut f32,
-    );
-    #[link_name = "ssdbcg_"]
-    pub fn ssdbcg(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssdcg_"]
-    pub fn ssdcg(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssdcgn_"]
-    pub fn ssdcgn(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssdcgs_"]
-    pub fn ssdcgs(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssdgmr_"]
-    pub fn ssdgmr(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssdi_"]
-    pub fn ssdi(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        rwork: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "ssdomn_"]
-    pub fn ssdomn(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssds_"]
-    pub fn ssds(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        dinv: *mut f32,
-    );
-    #[link_name = "ssdscl_"]
-    pub fn ssdscl(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        x: *mut f32,
-        b: *mut f32,
-        dinv: *mut f32,
-        job: *mut FortranInteger,
-        itol: *mut FortranInteger,
-    );
-    #[link_name = "ssgs_"]
-    pub fn ssgs(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssiccg_"]
-    pub fn ssiccg(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssico_"]
-    pub fn ssico(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-    );
-    #[link_name = "ssics_"]
-    pub fn ssics(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f32,
-        d: *mut f32,
-        r: *mut f32,
-        iwarn: *mut FortranInteger,
-    );
-    #[link_name = "ssidi_"]
-    pub fn ssidi(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut f32,
-        inert: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "ssiev_"]
-    pub fn ssiev(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        e: *mut f32,
-        work: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "ssifa_"]
-    pub fn ssifa(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "ssilur_"]
-    pub fn ssilur(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssilus_"]
-    pub fn ssilus(
-        n: *mut FortranInteger,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nl: *mut FortranInteger,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f32,
-        dinv: *mut f32,
-        nu: *mut FortranInteger,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f32,
-        nrow: *mut FortranInteger,
-        ncol: *mut FortranInteger,
-    );
-    #[link_name = "ssisl_"]
-    pub fn ssisl(
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        b: *mut f32,
-    );
-    #[link_name = "ssjac_"]
-    pub fn ssjac(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssli_"]
-    pub fn ssli(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        rwork: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "ssli2_"]
-    pub fn ssli2(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nel: *mut FortranInteger,
-        iel: *mut FortranInteger,
-        jel: *mut FortranInteger,
-        el: *mut f32,
-    );
-    #[link_name = "ssllti_"]
-    pub fn ssllti(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        rwork: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "sslubc_"]
-    pub fn sslubc(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "sslucn_"]
-    pub fn sslucn(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "sslucs_"]
-    pub fn sslucs(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "sslugm_"]
-    pub fn sslugm(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "sslui_"]
-    pub fn sslui(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        rwork: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "sslui2_"]
-    pub fn sslui2(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f32,
-        dinv: *mut f32,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f32,
-    );
-    #[link_name = "sslui4_"]
-    pub fn sslui4(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f32,
-        dinv: *mut f32,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f32,
-    );
-    #[link_name = "ssluom_"]
-    pub fn ssluom(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        nsave: *mut FortranInteger,
-        itol: *mut FortranInteger,
-        tol: *mut f32,
-        itmax: *mut FortranInteger,
-        iter: *mut FortranInteger,
-        err: *mut f32,
-        ierr: *mut FortranInteger,
-        iunit: *mut FortranInteger,
-        rwork: *mut f32,
-        lenw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        leniw: *mut FortranInteger,
-    );
-    #[link_name = "ssluti_"]
-    pub fn ssluti(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        rwork: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "ssmmi2_"]
-    pub fn ssmmi2(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        il: *mut FortranInteger,
-        jl: *mut FortranInteger,
-        l: *mut f32,
-        dinv: *mut f32,
-        iu: *mut FortranInteger,
-        ju: *mut FortranInteger,
-        u: *mut f32,
-    );
-    #[link_name = "ssmmti_"]
-    pub fn ssmmti(
-        n: *mut FortranInteger,
-        b: *mut f32,
-        x: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-        rwork: *mut f32,
-        iwork: *mut FortranInteger,
-    );
-    #[link_name = "ssmtv_"]
-    pub fn ssmtv(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        y: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-    );
-    #[link_name = "ssmv_"]
-    pub fn ssmv(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        y: *mut f32,
-        nelt: *mut FortranInteger,
-        ia: *mut FortranInteger,
-        ja: *mut FortranInteger,
-        a: *mut f32,
-        isym: *mut FortranInteger,
-    );
     #[link_name = "ssort_"]
     pub fn ssort(x: *mut f32, y: *mut f32, n: *mut FortranInteger, kflag: *mut FortranInteger);
-    #[link_name = "sspco_"]
-    pub fn sspco(
-        ap: *mut f32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-    );
-    #[link_name = "sspdi_"]
-    pub fn sspdi(
-        ap: *mut f32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        det: *mut f32,
-        inert: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "sspev_"]
-    pub fn sspev(
-        a: *mut f32,
-        n: *mut FortranInteger,
-        e: *mut f32,
-        v: *mut f32,
-        ldv: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sspfa_"]
-    pub fn sspfa(
-        ap: *mut f32,
-        n: *mut FortranInteger,
-        kpvt: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sspsl_"]
-    pub fn sspsl(ap: *mut f32, n: *mut FortranInteger, kpvt: *mut FortranInteger, b: *mut f32);
-    #[link_name = "ssvdc_"]
-    pub fn ssvdc(
-        x: *mut f32,
-        ldx: *mut FortranInteger,
-        n: *mut FortranInteger,
-        p: *mut FortranInteger,
-        s: *mut f32,
-        e: *mut f32,
-        u: *mut f32,
-        ldu: *mut FortranInteger,
-        v: *mut f32,
-        ldv: *mut FortranInteger,
-        work: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "sswap_"]
-    pub fn sswap(
-        n: *mut FortranInteger,
-        sx: *mut f32,
-        incx: *mut FortranInteger,
-        sy: *mut f32,
-        incy: *mut FortranInteger,
-    );
     #[link_name = "stin_"]
     pub fn stin(
         n: *mut FortranInteger,
@@ -7270,33 +2907,6 @@ unsafe extern "C" {
         rhs: *mut f32,
         iunit: *mut FortranInteger,
         job: *mut FortranInteger,
-    );
-    #[link_name = "strco_"]
-    pub fn strco(
-        t: *mut f32,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        rcond: *mut f32,
-        z: *mut f32,
-        job: *mut FortranInteger,
-    );
-    #[link_name = "strdi_"]
-    pub fn strdi(
-        t: *mut f32,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        det: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
-    #[link_name = "strsl_"]
-    pub fn strsl(
-        t: *mut f32,
-        ldt: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        job: *mut FortranInteger,
-        info: *mut FortranInteger,
     );
     #[link_name = "stway_"]
     pub fn stway(
@@ -7343,82 +2953,6 @@ unsafe extern "C" {
     pub fn tevlc(n: *mut FortranInteger, d: *mut f32, e2: *mut f32, ierr: *mut FortranInteger);
     #[link_name = "tevls_"]
     pub fn tevls(n: *mut FortranInteger, d: *mut f32, e2: *mut f32, ierr: *mut FortranInteger);
-    #[link_name = "tinvit_"]
-    pub fn tinvit(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        m: *mut FortranInteger,
-        w: *mut f32,
-        ind: *mut FortranInteger,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-        rv1: *mut f32,
-        rv2: *mut f32,
-        rv3: *mut f32,
-        rv4: *mut f32,
-        rv6: *mut f32,
-    );
-    #[link_name = "tql1_"]
-    pub fn tql1(n: *mut FortranInteger, d: *mut f32, e: *mut f32, ierr: *mut FortranInteger);
-    #[link_name = "tql2_"]
-    pub fn tql2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        d: *mut f32,
-        e: *mut f32,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "tqlrat_"]
-    pub fn tqlrat(n: *mut FortranInteger, d: *mut f32, e2: *mut f32, ierr: *mut FortranInteger);
-    #[link_name = "trbak1_"]
-    pub fn trbak1(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        e: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "trbak3_"]
-    pub fn trbak3(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        nv: *mut FortranInteger,
-        a: *mut f32,
-        m: *mut FortranInteger,
-        z: *mut f32,
-    );
-    #[link_name = "tred1_"]
-    pub fn tred1(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-    );
-    #[link_name = "tred2_"]
-    pub fn tred2(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        z: *mut f32,
-    );
-    #[link_name = "tred3_"]
-    pub fn tred3(
-        n: *mut FortranInteger,
-        nv: *mut FortranInteger,
-        a: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-    );
     #[link_name = "tri3_"]
     pub fn tri3(
         m: *mut FortranInteger,
@@ -7434,23 +2968,6 @@ unsafe extern "C" {
         w1: *mut f32,
         w2: *mut f32,
         w3: *mut f32,
-    );
-    #[link_name = "tridib_"]
-    pub fn tridib(
-        n: *mut FortranInteger,
-        eps1: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        lb: *mut f32,
-        ub: *mut f32,
-        m11: *mut FortranInteger,
-        m: *mut FortranInteger,
-        w: *mut f32,
-        ind: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-        rv4: *mut f32,
-        rv5: *mut f32,
     );
     #[link_name = "tridq_"]
     pub fn tridq(
@@ -7493,28 +3010,6 @@ unsafe extern "C" {
         tcos: *mut f32,
         d: *mut f32,
         w: *mut f32,
-    );
-    #[link_name = "tsturm_"]
-    pub fn tsturm(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        eps1: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        lb: *mut f32,
-        ub: *mut f32,
-        mm: *mut FortranInteger,
-        m: *mut FortranInteger,
-        w: *mut f32,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-        rv1: *mut f32,
-        rv2: *mut f32,
-        rv3: *mut f32,
-        rv4: *mut f32,
-        rv5: *mut f32,
-        rv6: *mut f32,
     );
     #[link_name = "u11ls_"]
     pub fn u11ls(
@@ -7586,29 +3081,6 @@ unsafe extern "C" {
         ir: *mut FortranInteger,
         ic: *mut FortranInteger,
     );
-    #[link_name = "ulsia_"]
-    pub fn ulsia(
-        a: *mut f32,
-        mda: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        b: *mut f32,
-        mdb: *mut FortranInteger,
-        nb: *mut FortranInteger,
-        re: *mut f32,
-        ae: *mut f32,
-        key: *mut FortranInteger,
-        mode: *mut FortranInteger,
-        np: *mut FortranInteger,
-        krank: *mut FortranInteger,
-        ksure: *mut FortranInteger,
-        rnorm: *mut f32,
-        w: *mut f32,
-        lw: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        liw: *mut FortranInteger,
-        info: *mut FortranInteger,
-    );
     #[link_name = "usrmat_"]
     pub fn usrmat(
         i: *mut FortranInteger,
@@ -7649,45 +3121,6 @@ unsafe extern "C" {
         ipivot: *mut FortranInteger,
         h: *mut f32,
         w: *mut f32,
-    );
-    #[link_name = "wnnls_"]
-    pub fn wnnls(
-        w: *mut f32,
-        mdw: *mut FortranInteger,
-        me: *mut FortranInteger,
-        ma: *mut FortranInteger,
-        n: *mut FortranInteger,
-        l: *mut FortranInteger,
-        prgopt: *mut f32,
-        x: *mut f32,
-        rnorm: *mut f32,
-        mode: *mut FortranInteger,
-        iwork: *mut FortranInteger,
-        work: *mut f32,
-    );
-    #[link_name = "xlegf_"]
-    pub fn xlegf(
-        dnu1: *mut f32,
-        nudiff: *mut FortranInteger,
-        mu1: *mut FortranInteger,
-        mu2: *mut FortranInteger,
-        theta: *mut f32,
-        id: *mut FortranInteger,
-        pqa: *mut f32,
-        ipqa: *mut FortranInteger,
-        ierror: *mut FortranInteger,
-    );
-    #[link_name = "xnrmp_"]
-    pub fn xnrmp(
-        nu: *mut FortranInteger,
-        mu1: *mut FortranInteger,
-        mu2: *mut FortranInteger,
-        sarg: *mut f32,
-        mode: *mut FortranInteger,
-        spn: *mut f32,
-        ipn: *mut FortranInteger,
-        isig: *mut FortranInteger,
-        ierror: *mut FortranInteger,
     );
     #[link_name = "xpmu_"]
     pub fn xpmu(
@@ -7808,69 +3241,6 @@ unsafe extern "C" {
         tol: *mut f64,
         elim: *mut f64,
         alim: *mut f64,
-    );
-    #[link_name = "zbesh_"]
-    pub fn zbesh(
-        zr: *mut f64,
-        zi: *mut f64,
-        fnu: *mut f64,
-        kode: *mut FortranInteger,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cyr: *mut f64,
-        cyi: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "zbesi_"]
-    pub fn zbesi(
-        zr: *mut f64,
-        zi: *mut f64,
-        fnu: *mut f64,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cyr: *mut f64,
-        cyi: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "zbesj_"]
-    pub fn zbesj(
-        zr: *mut f64,
-        zi: *mut f64,
-        fnu: *mut f64,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cyr: *mut f64,
-        cyi: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "zbesk_"]
-    pub fn zbesk(
-        zr: *mut f64,
-        zi: *mut f64,
-        fnu: *mut f64,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cyr: *mut f64,
-        cyi: *mut f64,
-        nz: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "zbesy_"]
-    pub fn zbesy(
-        zr: *mut f64,
-        zi: *mut f64,
-        fnu: *mut f64,
-        kode: *mut FortranInteger,
-        n: *mut FortranInteger,
-        cyr: *mut f64,
-        cyi: *mut f64,
-        nz: *mut FortranInteger,
-        cwrkr: *mut f64,
-        cwrki: *mut f64,
-        ierr: *mut FortranInteger,
     );
     #[link_name = "zbinu_"]
     pub fn zbinu(
@@ -8099,3 +3469,800 @@ unsafe extern "C" {
         alim: *mut f64,
     );
 }
+
+// ffi-declaration-aliases:start
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dbocls`."]
+pub use crate::approximation::dbocls;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dbols`."]
+pub use crate::approximation::dbols;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::defc`."]
+pub use crate::approximation::defc;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dfc`."]
+pub use crate::approximation::dfc;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dlsei`."]
+pub use crate::approximation::dlsei;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dp1vlu`."]
+pub use crate::approximation::dp1vlu;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dpcoef`."]
+pub use crate::approximation::dpcoef;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dpolft`."]
+pub use crate::approximation::dpolft;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::dwnnls`."]
+pub use crate::approximation::dwnnls;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::efc`."]
+pub use crate::approximation::efc;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::fc`."]
+pub use crate::approximation::fc;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::lsei`."]
+pub use crate::approximation::lsei;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::pcoef`."]
+pub use crate::approximation::pcoef;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::polfit`."]
+pub use crate::approximation::polfit;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::pvalue`."]
+pub use crate::approximation::pvalue;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::sbocls`."]
+pub use crate::approximation::sbocls;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::sbols`."]
+pub use crate::approximation::sbols;
+#[doc = "Transitional ABI-shaped alias; use `crate::approximation::wnnls`."]
+pub use crate::approximation::wnnls;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::daxpy`."]
+pub use crate::blas::level1::daxpy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dcopy`."]
+pub use crate::blas::level1::dcopy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dcopym`."]
+pub use crate::blas::level1::dcopym;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drot`."]
+pub use crate::blas::level1::drot;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drotm`."]
+pub use crate::blas::level1::drotm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drotmg`."]
+pub use crate::blas::level1::drotmg;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ds2y`."]
+pub use crate::blas::level1::ds2y;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dscal`."]
+pub use crate::blas::level1::dscal;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dsdi`."]
+pub use crate::blas::level1::dsdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dsmtv`."]
+pub use crate::blas::level1::dsmtv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dsmv`."]
+pub use crate::blas::level1::dsmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dswap`."]
+pub use crate::blas::level1::dswap;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::icopy`."]
+pub use crate::blas::level1::icopy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::iswap`."]
+pub use crate::blas::level1::iswap;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::saxpy`."]
+pub use crate::blas::level1::saxpy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::scopy`."]
+pub use crate::blas::level1::scopy;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::scopym`."]
+pub use crate::blas::level1::scopym;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srot`."]
+pub use crate::blas::level1::srot;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srotm`."]
+pub use crate::blas::level1::srotm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srotmg`."]
+pub use crate::blas::level1::srotmg;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ss2y`."]
+pub use crate::blas::level1::ss2y;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::sscal`."]
+pub use crate::blas::level1::sscal;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ssdi`."]
+pub use crate::blas::level1::ssdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ssmtv`."]
+pub use crate::blas::level1::ssmtv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ssmv`."]
+pub use crate::blas::level1::ssmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::sswap`."]
+pub use crate::blas::level1::sswap;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dger`."]
+pub use crate::blas::level2::dger;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sger`."]
+pub use crate::blas::level2::sger;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cfftb1`."]
+pub use crate::fftpack::cfftb1;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cfftf1`."]
+pub use crate::fftpack::cfftf1;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cffti1`."]
+pub use crate::fftpack::cffti1;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cosqb`."]
+pub use crate::fftpack::cosqb;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cosqf`."]
+pub use crate::fftpack::cosqf;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cosqi`."]
+pub use crate::fftpack::cosqi;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cost`."]
+pub use crate::fftpack::cost;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::costi`."]
+pub use crate::fftpack::costi;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::ezfftb`."]
+pub use crate::fftpack::ezfftb;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::ezfftf`."]
+pub use crate::fftpack::ezfftf;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::ezffti`."]
+pub use crate::fftpack::ezffti;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::rfftb1`."]
+pub use crate::fftpack::rfftb1;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::rfftf1`."]
+pub use crate::fftpack::rfftf1;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::rffti1`."]
+pub use crate::fftpack::rffti1;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinqb`."]
+pub use crate::fftpack::sinqb;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinqf`."]
+pub use crate::fftpack::sinqf;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinqi`."]
+pub use crate::fftpack::sinqi;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sint`."]
+pub use crate::fftpack::sint;
+#[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinti`."]
+pub use crate::fftpack::sinti;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bint4`."]
+pub use crate::interpolation::bint4;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bintk`."]
+pub use crate::interpolation::bintk;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspdr`."]
+pub use crate::interpolation::bspdr;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspev`."]
+pub use crate::interpolation::bspev;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bsppp`."]
+pub use crate::interpolation::bsppp;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspvd`."]
+pub use crate::interpolation::bspvd;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspvn`."]
+pub use crate::interpolation::bspvn;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::chfdv`."]
+pub use crate::interpolation::chfdv;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::chfev`."]
+pub use crate::interpolation::chfev;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbint4`."]
+pub use crate::interpolation::dbint4;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbintk`."]
+pub use crate::interpolation::dbintk;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspdr`."]
+pub use crate::interpolation::dbspdr;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspev`."]
+pub use crate::interpolation::dbspev;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbsppp`."]
+pub use crate::interpolation::dbsppp;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspvd`."]
+pub use crate::interpolation::dbspvd;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspvn`."]
+pub use crate::interpolation::dbspvn;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dchfdv`."]
+pub use crate::interpolation::dchfdv;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dchfev`."]
+pub use crate::interpolation::dchfev;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dintrv`."]
+pub use crate::interpolation::dintrv;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchbs`."]
+pub use crate::interpolation::dpchbs;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchic`."]
+pub use crate::interpolation::dpchic;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchim`."]
+pub use crate::interpolation::dpchim;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchsp`."]
+pub use crate::interpolation::dpchsp;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dplint`."]
+pub use crate::interpolation::dplint;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpolcf`."]
+pub use crate::interpolation::dpolcf;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpolvl`."]
+pub use crate::interpolation::dpolvl;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::intrv`."]
+pub use crate::interpolation::intrv;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchbs`."]
+pub use crate::interpolation::pchbs;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchic`."]
+pub use crate::interpolation::pchic;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchim`."]
+pub use crate::interpolation::pchim;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchsp`."]
+pub use crate::interpolation::pchsp;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::polcof`."]
+pub use crate::interpolation::polcof;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::polint`."]
+pub use crate::interpolation::polint;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::polyvl`."]
+pub use crate::interpolation::polyvl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::bndacc`."]
+pub use crate::linear_algebra::banded::bndacc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::bndsol`."]
+pub use crate::linear_algebra::banded::bndsol;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dbndac`."]
+pub use crate::linear_algebra::banded::dbndac;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dbndsl`."]
+pub use crate::linear_algebra::banded::dbndsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbco`."]
+pub use crate::linear_algebra::banded::dgbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbdi`."]
+pub use crate::linear_algebra::banded::dgbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbfa`."]
+pub use crate::linear_algebra::banded::dgbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbsl`."]
+pub use crate::linear_algebra::banded::dgbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgtsl`."]
+pub use crate::linear_algebra::banded::dgtsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dhfti`."]
+pub use crate::linear_algebra::banded::dhfti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbco`."]
+pub use crate::linear_algebra::banded::dnbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbdi`."]
+pub use crate::linear_algebra::banded::dnbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbfa`."]
+pub use crate::linear_algebra::banded::dnbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbfs`."]
+pub use crate::linear_algebra::banded::dnbfs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbsl`."]
+pub use crate::linear_algebra::banded::dnbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbco`."]
+pub use crate::linear_algebra::banded::dpbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbdi`."]
+pub use crate::linear_algebra::banded::dpbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbfa`."]
+pub use crate::linear_algebra::banded::dpbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbsl`."]
+pub use crate::linear_algebra::banded::dpbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dptsl`."]
+pub use crate::linear_algebra::banded::dptsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbco`."]
+pub use crate::linear_algebra::banded::sgbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbdi`."]
+pub use crate::linear_algebra::banded::sgbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbfa`."]
+pub use crate::linear_algebra::banded::sgbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbsl`."]
+pub use crate::linear_algebra::banded::sgbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgtsl`."]
+pub use crate::linear_algebra::banded::sgtsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbco`."]
+pub use crate::linear_algebra::banded::snbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbdi`."]
+pub use crate::linear_algebra::banded::snbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbfa`."]
+pub use crate::linear_algebra::banded::snbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbfs`."]
+pub use crate::linear_algebra::banded::snbfs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbir`."]
+pub use crate::linear_algebra::banded::snbir;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbsl`."]
+pub use crate::linear_algebra::banded::snbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbco`."]
+pub use crate::linear_algebra::banded::spbco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbdi`."]
+pub use crate::linear_algebra::banded::spbdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbfa`."]
+pub use crate::linear_algebra::banded::spbfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbsl`."]
+pub use crate::linear_algebra::banded::spbsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sptsl`."]
+pub use crate::linear_algebra::banded::sptsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchdc`."]
+pub use crate::linear_algebra::dense::dchdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchdd`."]
+pub use crate::linear_algebra::dense::dchdd;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchex`."]
+pub use crate::linear_algebra::dense::dchex;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchud`."]
+pub use crate::linear_algebra::dense::dchud;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgeco`."]
+pub use crate::linear_algebra::dense::dgeco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgedi`."]
+pub use crate::linear_algebra::dense::dgedi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgefa`."]
+pub use crate::linear_algebra::dense::dgefa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgefs`."]
+pub use crate::linear_algebra::dense::dgefs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgesl`."]
+pub use crate::linear_algebra::dense::dgesl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dglss`."]
+pub use crate::linear_algebra::dense::dglss;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dllsia`."]
+pub use crate::linear_algebra::dense::dllsia;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dllti2`."]
+pub use crate::linear_algebra::dense::dllti2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpoco`."]
+pub use crate::linear_algebra::dense::dpoco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpodi`."]
+pub use crate::linear_algebra::dense::dpodi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpofa`."]
+pub use crate::linear_algebra::dense::dpofa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpofs`."]
+pub use crate::linear_algebra::dense::dpofs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dposl`."]
+pub use crate::linear_algebra::dense::dposl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dqrdc`."]
+pub use crate::linear_algebra::dense::dqrdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dqrsl`."]
+pub use crate::linear_algebra::dense::dqrsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ds2lt`."]
+pub use crate::linear_algebra::dense::ds2lt;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsd2s`."]
+pub use crate::linear_algebra::dense::dsd2s;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsds`."]
+pub use crate::linear_algebra::dense::dsds;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsdscl`."]
+pub use crate::linear_algebra::dense::dsdscl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsico`."]
+pub use crate::linear_algebra::dense::dsico;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsics`."]
+pub use crate::linear_algebra::dense::dsics;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsidi`."]
+pub use crate::linear_algebra::dense::dsidi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsifa`."]
+pub use crate::linear_algebra::dense::dsifa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsilus`."]
+pub use crate::linear_algebra::dense::dsilus;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsisl`."]
+pub use crate::linear_algebra::dense::dsisl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsli`."]
+pub use crate::linear_algebra::dense::dsli;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsli2`."]
+pub use crate::linear_algebra::dense::dsli2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsllti`."]
+pub use crate::linear_algebra::dense::dsllti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslucs`."]
+pub use crate::linear_algebra::dense::dslucs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslui`."]
+pub use crate::linear_algebra::dense::dslui;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslui2`."]
+pub use crate::linear_algebra::dense::dslui2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslui4`."]
+pub use crate::linear_algebra::dense::dslui4;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsluti`."]
+pub use crate::linear_algebra::dense::dsluti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsmmi2`."]
+pub use crate::linear_algebra::dense::dsmmi2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsmmti`."]
+pub use crate::linear_algebra::dense::dsmmti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsvdc`."]
+pub use crate::linear_algebra::dense::dsvdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dtrco`."]
+pub use crate::linear_algebra::dense::dtrco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dtrdi`."]
+pub use crate::linear_algebra::dense::dtrdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dtrsl`."]
+pub use crate::linear_algebra::dense::dtrsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dulsia`."]
+pub use crate::linear_algebra::dense::dulsia;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::hfti`."]
+pub use crate::linear_algebra::dense::hfti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::llsia`."]
+pub use crate::linear_algebra::dense::llsia;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::minfit`."]
+pub use crate::linear_algebra::dense::minfit;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schdc`."]
+pub use crate::linear_algebra::dense::schdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schdd`."]
+pub use crate::linear_algebra::dense::schdd;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schex`."]
+pub use crate::linear_algebra::dense::schex;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schud`."]
+pub use crate::linear_algebra::dense::schud;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgeco`."]
+pub use crate::linear_algebra::dense::sgeco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgedi`."]
+pub use crate::linear_algebra::dense::sgedi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgefa`."]
+pub use crate::linear_algebra::dense::sgefa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgefs`."]
+pub use crate::linear_algebra::dense::sgefs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgeir`."]
+pub use crate::linear_algebra::dense::sgeir;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgesl`."]
+pub use crate::linear_algebra::dense::sgesl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sglss`."]
+pub use crate::linear_algebra::dense::sglss;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sllti2`."]
+pub use crate::linear_algebra::dense::sllti2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spoco`."]
+pub use crate::linear_algebra::dense::spoco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spodi`."]
+pub use crate::linear_algebra::dense::spodi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spofa`."]
+pub use crate::linear_algebra::dense::spofa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spofs`."]
+pub use crate::linear_algebra::dense::spofs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spoir`."]
+pub use crate::linear_algebra::dense::spoir;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sposl`."]
+pub use crate::linear_algebra::dense::sposl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sqrdc`."]
+pub use crate::linear_algebra::dense::sqrdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sqrsl`."]
+pub use crate::linear_algebra::dense::sqrsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ss2lt`."]
+pub use crate::linear_algebra::dense::ss2lt;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssd2s`."]
+pub use crate::linear_algebra::dense::ssd2s;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssds`."]
+pub use crate::linear_algebra::dense::ssds;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssdscl`."]
+pub use crate::linear_algebra::dense::ssdscl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssico`."]
+pub use crate::linear_algebra::dense::ssico;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssics`."]
+pub use crate::linear_algebra::dense::ssics;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssidi`."]
+pub use crate::linear_algebra::dense::ssidi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssifa`."]
+pub use crate::linear_algebra::dense::ssifa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssilus`."]
+pub use crate::linear_algebra::dense::ssilus;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssisl`."]
+pub use crate::linear_algebra::dense::ssisl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssli`."]
+pub use crate::linear_algebra::dense::ssli;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssli2`."]
+pub use crate::linear_algebra::dense::ssli2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssllti`."]
+pub use crate::linear_algebra::dense::ssllti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslucs`."]
+pub use crate::linear_algebra::dense::sslucs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslui`."]
+pub use crate::linear_algebra::dense::sslui;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslui2`."]
+pub use crate::linear_algebra::dense::sslui2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslui4`."]
+pub use crate::linear_algebra::dense::sslui4;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssluti`."]
+pub use crate::linear_algebra::dense::ssluti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssmmi2`."]
+pub use crate::linear_algebra::dense::ssmmi2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssmmti`."]
+pub use crate::linear_algebra::dense::ssmmti;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssvdc`."]
+pub use crate::linear_algebra::dense::ssvdc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::strco`."]
+pub use crate::linear_algebra::dense::strco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::strdi`."]
+pub use crate::linear_algebra::dense::strdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::strsl`."]
+pub use crate::linear_algebra::dense::strsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ulsia`."]
+pub use crate::linear_algebra::dense::ulsia;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bakvec`."]
+pub use crate::linear_algebra::eigen::bakvec;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::balanc`."]
+pub use crate::linear_algebra::eigen::balanc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::balbak`."]
+pub use crate::linear_algebra::eigen::balbak;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bandv`."]
+pub use crate::linear_algebra::eigen::bandv;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bisect`."]
+pub use crate::linear_algebra::eigen::bisect;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bqr`."]
+pub use crate::linear_algebra::eigen::bqr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cbabk2`."]
+pub use crate::linear_algebra::eigen::cbabk2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cbal`."]
+pub use crate::linear_algebra::eigen::cbal;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cg`."]
+pub use crate::linear_algebra::eigen::cg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cgeev`."]
+pub use crate::linear_algebra::eigen::cgeev;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ch`."]
+pub use crate::linear_algebra::eigen::ch;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::chiev`."]
+pub use crate::linear_algebra::eigen::chiev;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::combak`."]
+pub use crate::linear_algebra::eigen::combak;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comhes`."]
+pub use crate::linear_algebra::eigen::comhes;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comlr`."]
+pub use crate::linear_algebra::eigen::comlr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comlr2`."]
+pub use crate::linear_algebra::eigen::comlr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comqr`."]
+pub use crate::linear_algebra::eigen::comqr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comqr2`."]
+pub use crate::linear_algebra::eigen::comqr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cortb`."]
+pub use crate::linear_algebra::eigen::cortb;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::corth`."]
+pub use crate::linear_algebra::eigen::corth;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::elmbak`."]
+pub use crate::linear_algebra::eigen::elmbak;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::elmhes`."]
+pub use crate::linear_algebra::eigen::elmhes;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::eltran`."]
+pub use crate::linear_algebra::eigen::eltran;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::figi`."]
+pub use crate::linear_algebra::eigen::figi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::figi2`."]
+pub use crate::linear_algebra::eigen::figi2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::hqr`."]
+pub use crate::linear_algebra::eigen::hqr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::hqr2`."]
+pub use crate::linear_algebra::eigen::hqr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htrib3`."]
+pub use crate::linear_algebra::eigen::htrib3;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htribk`."]
+pub use crate::linear_algebra::eigen::htribk;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htrid3`."]
+pub use crate::linear_algebra::eigen::htrid3;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htridi`."]
+pub use crate::linear_algebra::eigen::htridi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::imtql1`."]
+pub use crate::linear_algebra::eigen::imtql1;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::imtql2`."]
+pub use crate::linear_algebra::eigen::imtql2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::imtqlv`."]
+pub use crate::linear_algebra::eigen::imtqlv;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ortbak`."]
+pub use crate::linear_algebra::eigen::ortbak;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::orthes`."]
+pub use crate::linear_algebra::eigen::orthes;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ortran`."]
+pub use crate::linear_algebra::eigen::ortran;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::qzvec`."]
+pub use crate::linear_algebra::eigen::qzvec;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rebak`."]
+pub use crate::linear_algebra::eigen::rebak;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rebakb`."]
+pub use crate::linear_algebra::eigen::rebakb;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::reduc`."]
+pub use crate::linear_algebra::eigen::reduc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::reduc2`."]
+pub use crate::linear_algebra::eigen::reduc2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rg`."]
+pub use crate::linear_algebra::eigen::rg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rgg`."]
+pub use crate::linear_algebra::eigen::rgg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rs`."]
+pub use crate::linear_algebra::eigen::rs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsb`."]
+pub use crate::linear_algebra::eigen::rsb;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsg`."]
+pub use crate::linear_algebra::eigen::rsg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsgab`."]
+pub use crate::linear_algebra::eigen::rsgab;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsgba`."]
+pub use crate::linear_algebra::eigen::rsgba;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsp`."]
+pub use crate::linear_algebra::eigen::rsp;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rst`."]
+pub use crate::linear_algebra::eigen::rst;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rt`."]
+pub use crate::linear_algebra::eigen::rt;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::sgeev`."]
+pub use crate::linear_algebra::eigen::sgeev;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ssiev`."]
+pub use crate::linear_algebra::eigen::ssiev;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::sspev`."]
+pub use crate::linear_algebra::eigen::sspev;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tinvit`."]
+pub use crate::linear_algebra::eigen::tinvit;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tql1`."]
+pub use crate::linear_algebra::eigen::tql1;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tql2`."]
+pub use crate::linear_algebra::eigen::tql2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tqlrat`."]
+pub use crate::linear_algebra::eigen::tqlrat;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::trbak1`."]
+pub use crate::linear_algebra::eigen::trbak1;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::trbak3`."]
+pub use crate::linear_algebra::eigen::trbak3;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tred1`."]
+pub use crate::linear_algebra::eigen::tred1;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tred2`."]
+pub use crate::linear_algebra::eigen::tred2;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tred3`."]
+pub use crate::linear_algebra::eigen::tred3;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tridib`."]
+pub use crate::linear_algebra::eigen::tridib;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tsturm`."]
+pub use crate::linear_algebra::eigen::tsturm;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppco`."]
+pub use crate::linear_algebra::packed::dppco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppdi`."]
+pub use crate::linear_algebra::packed::dppdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppfa`."]
+pub use crate::linear_algebra::packed::dppfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppsl`."]
+pub use crate::linear_algebra::packed::dppsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspco`."]
+pub use crate::linear_algebra::packed::dspco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspdi`."]
+pub use crate::linear_algebra::packed::dspdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspfa`."]
+pub use crate::linear_algebra::packed::dspfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspsl`."]
+pub use crate::linear_algebra::packed::dspsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppco`."]
+pub use crate::linear_algebra::packed::sppco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppdi`."]
+pub use crate::linear_algebra::packed::sppdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppfa`."]
+pub use crate::linear_algebra::packed::sppfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppsl`."]
+pub use crate::linear_algebra::packed::sppsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspco`."]
+pub use crate::linear_algebra::packed::sspco;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspdi`."]
+pub use crate::linear_algebra::packed::sspdi;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspfa`."]
+pub use crate::linear_algebra::packed::sspfa;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspsl`."]
+pub use crate::linear_algebra::packed::sspsl;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdbcg`."]
+pub use crate::linear_algebra::sparse::dsdbcg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdcg`."]
+pub use crate::linear_algebra::sparse::dsdcg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdcgn`."]
+pub use crate::linear_algebra::sparse::dsdcgn;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdcgs`."]
+pub use crate::linear_algebra::sparse::dsdcgs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdgmr`."]
+pub use crate::linear_algebra::sparse::dsdgmr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdomn`."]
+pub use crate::linear_algebra::sparse::dsdomn;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsgs`."]
+pub use crate::linear_algebra::sparse::dsgs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsiccg`."]
+pub use crate::linear_algebra::sparse::dsiccg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsilur`."]
+pub use crate::linear_algebra::sparse::dsilur;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsjac`."]
+pub use crate::linear_algebra::sparse::dsjac;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dslubc`."]
+pub use crate::linear_algebra::sparse::dslubc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dslucn`."]
+pub use crate::linear_algebra::sparse::dslucn;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dslugm`."]
+pub use crate::linear_algebra::sparse::dslugm;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsluom`."]
+pub use crate::linear_algebra::sparse::dsluom;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdbcg`."]
+pub use crate::linear_algebra::sparse::ssdbcg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdcg`."]
+pub use crate::linear_algebra::sparse::ssdcg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdcgn`."]
+pub use crate::linear_algebra::sparse::ssdcgn;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdcgs`."]
+pub use crate::linear_algebra::sparse::ssdcgs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdgmr`."]
+pub use crate::linear_algebra::sparse::ssdgmr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdomn`."]
+pub use crate::linear_algebra::sparse::ssdomn;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssgs`."]
+pub use crate::linear_algebra::sparse::ssgs;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssiccg`."]
+pub use crate::linear_algebra::sparse::ssiccg;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssilur`."]
+pub use crate::linear_algebra::sparse::ssilur;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssjac`."]
+pub use crate::linear_algebra::sparse::ssjac;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::sslubc`."]
+pub use crate::linear_algebra::sparse::sslubc;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::sslucn`."]
+pub use crate::linear_algebra::sparse::sslucn;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::sslugm`."]
+pub use crate::linear_algebra::sparse::sslugm;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssluom`."]
+pub use crate::linear_algebra::sparse::ssluom;
+#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::jacobian_check::chkder`."]
+pub use crate::nonlinear::jacobian_check::chkder;
+#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::jacobian_check::dckder`."]
+pub use crate::nonlinear::jacobian_check::dckder;
+#[doc = "Transitional ABI-shaped alias; use `crate::ode::dintp`."]
+pub use crate::ode::dintp;
+#[doc = "Transitional ABI-shaped alias; use `crate::ode::sintrp`."]
+pub use crate::ode::sintrp;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::blktri`."]
+pub use crate::pde::fishpack::blktri;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::genbun`."]
+pub use crate::pde::fishpack::genbun;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstcrt`."]
+pub use crate::pde::fishpack::hstcrt;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstcsp`."]
+pub use crate::pde::fishpack::hstcsp;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstcyl`."]
+pub use crate::pde::fishpack::hstcyl;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstplr`."]
+pub use crate::pde::fishpack::hstplr;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstssp`."]
+pub use crate::pde::fishpack::hstssp;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hw3crt`."]
+pub use crate::pde::fishpack::hw3crt;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwscrt`."]
+pub use crate::pde::fishpack::hwscrt;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwscsp`."]
+pub use crate::pde::fishpack::hwscsp;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwscyl`."]
+pub use crate::pde::fishpack::hwscyl;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwsplr`."]
+pub use crate::pde::fishpack::hwsplr;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwsssp`."]
+pub use crate::pde::fishpack::hwsssp;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::pois3d`."]
+pub use crate::pde::fishpack::pois3d;
+#[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::poistg`."]
+pub use crate::pde::fishpack::poistg;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::avint`."]
+pub use crate::quadrature::avint;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::bsqad`."]
+pub use crate::quadrature::bsqad;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::davint`."]
+pub use crate::quadrature::davint;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dbsqad`."]
+pub use crate::quadrature::dbsqad;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dppqad`."]
+pub use crate::quadrature::dppqad;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dqmomo`."]
+pub use crate::quadrature::dqmomo;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::ppqad`."]
+pub use crate::quadrature::ppqad;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::qmomo`."]
+pub use crate::quadrature::qmomo;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besi`."]
+pub use crate::special::bessel::besi;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besj`."]
+pub use crate::special::bessel::besj;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besk`."]
+pub use crate::special::bessel::besk;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::beskes`."]
+pub use crate::special::bessel::beskes;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besks`."]
+pub use crate::special::bessel::besks;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besy`."]
+pub use crate::special::bessel::besy;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesi`."]
+pub use crate::special::bessel::dbesi;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesj`."]
+pub use crate::special::bessel::dbesj;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesk`."]
+pub use crate::special::bessel::dbesk;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesks`."]
+pub use crate::special::bessel::dbesks;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesy`."]
+pub use crate::special::bessel::dbesy;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesh`."]
+pub use crate::special::bessel::zbesh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesi`."]
+pub use crate::special::bessel::zbesi;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesj`."]
+pub use crate::special::bessel::zbesj;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesk`."]
+pub use crate::special::bessel::zbesk;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesy`."]
+pub use crate::special::bessel::zbesy;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::bskin`."]
+pub use crate::special::bskin;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dbskes`."]
+pub use crate::special::dbskes;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dbskin`."]
+pub use crate::special::dbskin;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dexint`."]
+pub use crate::special::dexint;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dpsifn`."]
+pub use crate::special::dpsifn;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::drc3jj`."]
+pub use crate::special::drc3jj;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::drc3jm`."]
+pub use crate::special::drc3jm;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::drc6j`."]
+pub use crate::special::drc6j;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dxlegf`."]
+pub use crate::special::dxlegf;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::dxnrmp`."]
+pub use crate::special::dxnrmp;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::exint`."]
+pub use crate::special::exint;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::psifn`."]
+pub use crate::special::psifn;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::rc3jj`."]
+pub use crate::special::rc3jj;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::rc3jm`."]
+pub use crate::special::rc3jm;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::rc6j`."]
+pub use crate::special::rc6j;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::xlegf`."]
+pub use crate::special::xlegf;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::xnrmp`."]
+pub use crate::special::xnrmp;
+// ffi-declaration-aliases:end

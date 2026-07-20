@@ -5,7 +5,7 @@
 //! outputs. They do not numerically validate every Batch B routine.
 
 #![cfg(all(
-    feature = "raw-batch-b-native-tests",
+    feature = "raw-callback-native-tests",
     target_arch = "x86_64",
     target_env = "gnu",
     target_os = "windows"

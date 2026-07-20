@@ -8,89 +8,73 @@ use crate::{Complex32, Complex64, FortranCharacterLength, FortranInteger, Fortra
 use core::ffi::c_char;
 
 unsafe extern "C" {
-    #[link_name = "c0lgmc_"]
-    pub fn c0lgmc(z: *mut Complex32) -> Complex32;
     #[link_name = "c9lgmc_"]
     pub fn c9lgmc(zin: *mut Complex32) -> Complex32;
     #[link_name = "c9ln2r_"]
     pub fn c9ln2r(z: *mut Complex32) -> Complex32;
-    #[link_name = "cacos_"]
-    pub fn cacos(z: *mut Complex32) -> Complex32;
-    #[link_name = "cacosh_"]
-    pub fn cacosh(z: *mut Complex32) -> Complex32;
-    #[link_name = "casin_"]
-    pub fn casin(zinp: *mut Complex32) -> Complex32;
-    #[link_name = "casinh_"]
-    pub fn casinh(z: *mut Complex32) -> Complex32;
-    #[link_name = "catan_"]
-    pub fn catan(z: *mut Complex32) -> Complex32;
-    #[link_name = "catan2_"]
-    pub fn catan2(csn: *mut Complex32, ccs: *mut Complex32) -> Complex32;
-    #[link_name = "catanh_"]
-    pub fn catanh(z: *mut Complex32) -> Complex32;
-    #[link_name = "cbeta_"]
-    pub fn cbeta(a: *mut Complex32, b: *mut Complex32) -> Complex32;
-    #[link_name = "ccbrt_"]
-    pub fn ccbrt(z: *mut Complex32) -> Complex32;
     #[link_name = "ccos_"]
     pub fn ccos(z: *mut Complex32) -> Complex32;
-    #[link_name = "ccosh_"]
-    pub fn ccosh(z: *mut Complex32) -> Complex32;
-    #[link_name = "ccot_"]
-    pub fn ccot(z: *mut Complex32) -> Complex32;
-    #[link_name = "cdcdot_"]
-    pub fn cdcdot(
-        n: *mut FortranInteger,
-        cb: *mut Complex32,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-    ) -> Complex32;
-    #[link_name = "cdotc_"]
-    pub fn cdotc(
-        n: *mut FortranInteger,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-    ) -> Complex32;
-    #[link_name = "cdotu_"]
-    pub fn cdotu(
-        n: *mut FortranInteger,
-        cx: *mut Complex32,
-        incx: *mut FortranInteger,
-        cy: *mut Complex32,
-        incy: *mut FortranInteger,
-    ) -> Complex32;
     #[link_name = "cexp_"]
     pub fn cexp(z: *mut Complex32) -> Complex32;
-    #[link_name = "cexprl_"]
-    pub fn cexprl(z: *mut Complex32) -> Complex32;
-    #[link_name = "cgamma_"]
-    pub fn cgamma(z: *mut Complex32) -> Complex32;
-    #[link_name = "cgamr_"]
-    pub fn cgamr(z: *mut Complex32) -> Complex32;
-    #[link_name = "clbeta_"]
-    pub fn clbeta(a: *mut Complex32, b: *mut Complex32) -> Complex32;
-    #[link_name = "clngam_"]
-    pub fn clngam(zin: *mut Complex32) -> Complex32;
-    #[link_name = "clnrel_"]
-    pub fn clnrel(z: *mut Complex32) -> Complex32;
     #[link_name = "clog_"]
     pub fn clog(z: *mut Complex32) -> Complex32;
-    #[link_name = "clog10_"]
-    pub fn clog10(z: *mut Complex32) -> Complex32;
-    #[link_name = "cpsi_"]
-    pub fn cpsi(zin: *mut Complex32) -> Complex32;
     #[link_name = "csin_"]
     pub fn csin(z: *mut Complex32) -> Complex32;
-    #[link_name = "csinh_"]
-    pub fn csinh(z: *mut Complex32) -> Complex32;
     #[link_name = "csqrt_"]
     pub fn csqrt(z: *mut Complex32) -> Complex32;
-    #[link_name = "ctan_"]
-    pub fn ctan(z: *mut Complex32) -> Complex32;
-    #[link_name = "ctanh_"]
-    pub fn ctanh(z: *mut Complex32) -> Complex32;
 }
+
+// ffi-declaration-aliases:start
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::cdcdot`."]
+pub use crate::blas::level1::cdcdot;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::cdotc`."]
+pub use crate::blas::level1::cdotc;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::cdotu`."]
+pub use crate::blas::level1::cdotu;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::c0lgmc`."]
+pub use crate::special::complex::c0lgmc;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cacos`."]
+pub use crate::special::complex::cacos;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cacosh`."]
+pub use crate::special::complex::cacosh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::casin`."]
+pub use crate::special::complex::casin;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::casinh`."]
+pub use crate::special::complex::casinh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::catan`."]
+pub use crate::special::complex::catan;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::catan2`."]
+pub use crate::special::complex::catan2;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::catanh`."]
+pub use crate::special::complex::catanh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbeta`."]
+pub use crate::special::complex::cbeta;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::ccbrt`."]
+pub use crate::special::complex::ccbrt;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::ccosh`."]
+pub use crate::special::complex::ccosh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::ccot`."]
+pub use crate::special::complex::ccot;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cexprl`."]
+pub use crate::special::complex::cexprl;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cgamma`."]
+pub use crate::special::complex::cgamma;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cgamr`."]
+pub use crate::special::complex::cgamr;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::clbeta`."]
+pub use crate::special::complex::clbeta;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::clngam`."]
+pub use crate::special::complex::clngam;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::clnrel`."]
+pub use crate::special::complex::clnrel;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::clog10`."]
+pub use crate::special::complex::clog10;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cpsi`."]
+pub use crate::special::complex::cpsi;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::csinh`."]
+pub use crate::special::complex::csinh;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::ctan`."]
+pub use crate::special::complex::ctan;
+#[doc = "Transitional ABI-shaped alias; use `crate::special::complex::ctanh`."]
+pub use crate::special::complex::ctanh;
+// ffi-declaration-aliases:end

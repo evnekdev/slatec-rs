@@ -46,23 +46,23 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("PCHIP", "pchip"),
     ("BSPLINE", "bspline"),
     ("PIECEWISE_POLYNOMIAL", "piecewise-polynomial"),
-    ("BATCH_A_LINEAR_ALGEBRA", "batch-a-linear-algebra"),
-    ("BATCH_A_EIGEN", "batch-a-eigen"),
-    ("BATCH_A_SPECIAL", "batch-a-special"),
-    ("BATCH_A_QUADRATURE", "batch-a-quadrature"),
-    ("BATCH_A_NONLINEAR", "batch-a-nonlinear"),
-    ("BATCH_A_ODE", "batch-a-ode"),
-    ("BATCH_B_ODE", "batch-b-ode"),
-    ("BATCH_A_FFTPACK", "batch-a-fftpack"),
-    ("BATCH_A_FISHPACK", "batch-a-fishpack"),
-    ("BATCH_A_INTERPOLATION", "batch-a-interpolation"),
-    ("BATCH_A_APPROXIMATION", "batch-a-approximation"),
-    ("BATCH_A_STATISTICS", "batch-a-statistics"),
-    ("BATCH_C_BLAS", "batch-c-blas"),
-    ("BATCH_C_LINEAR_ALGEBRA", "batch-c-linear-algebra"),
-    ("BATCH_C_SPECIAL", "batch-c-special"),
-    ("BATCH_C_NONLINEAR", "batch-c-nonlinear"),
-    ("BATCH_C_FISHPACK", "batch-c-fishpack"),
+    ("BATCH_A_LINEAR_ALGEBRA", "linear-algebra-real"),
+    ("BATCH_A_EIGEN", "linear-algebra-eigen"),
+    ("BATCH_A_SPECIAL", "special-real"),
+    ("BATCH_A_QUADRATURE", "quadrature-direct"),
+    ("BATCH_A_NONLINEAR", "nonlinear-jacobian"),
+    ("BATCH_A_ODE", "ode-integration"),
+    ("BATCH_B_ODE", "ode-callbacks"),
+    ("BATCH_A_FFTPACK", "fftpack-extended-real"),
+    ("BATCH_A_FISHPACK", "fishpack-general"),
+    ("BATCH_A_INTERPOLATION", "interpolation-general"),
+    ("BATCH_A_APPROXIMATION", "approximation-core"),
+    ("BATCH_A_STATISTICS", "statistics-core"),
+    ("BATCH_C_BLAS", "blas-complex"),
+    ("BATCH_C_LINEAR_ALGEBRA", "linear-algebra-complex"),
+    ("BATCH_C_SPECIAL", "special-complex"),
+    ("BATCH_C_NONLINEAR", "nonlinear-complex"),
+    ("BATCH_C_FISHPACK", "fishpack-complex"),
     (
         "LEAST_SQUARES_NONLINEAR_EASY",
         "least-squares-nonlinear-easy",
@@ -125,7 +125,7 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=metadata/family-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/ode-sdrive-source-closure.json");
-    println!("cargo:rerun-if-changed=metadata/batch-b-ode-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/ode-callbacks-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/dassl-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/lp-in-memory-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/fftpack-real-source-closure.json");
@@ -231,7 +231,7 @@ fn build_sources(families: &BTreeSet<String>) {
     .expect("parse family source closure manifest");
     for (family, file) in [
         ("ode-sdrive-expert", "ode-sdrive-source-closure.json"),
-        ("batch-b-ode", "batch-b-ode-source-closure.json"),
+        ("ode-callbacks", "ode-callbacks-source-closure.json"),
         ("dassl", "dassl-source-closure.json"),
         (
             "optimization-linear-programming-in-memory",

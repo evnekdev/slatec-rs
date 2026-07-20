@@ -7,10 +7,10 @@ This report is generated from exactly one status record per retained catalogue i
 | Retained identities | 1517 |
 | Generated ABI-validated declarations | 1286 |
 | Reviewed public raw declarations | 173 |
-| Batch A public declarations | 459 |
-| Batch B public declarations | 47 |
-| Batch C public declarations | 97 |
-| Batch D requalified public declarations | 36 |
+| Generated canonical numerical declarations | 459 |
+| Callback-bearing canonical declarations | 47 |
+| ABI-sensitive canonical declarations | 97 |
+| Requalified legacy declarations | 36 |
 | Total public raw declarations | 812 |
 | Provider-backed callable raw routines | 1476 |
 | Link-tested raw routines | 1371 |

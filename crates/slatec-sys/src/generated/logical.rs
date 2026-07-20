@@ -8,18 +8,6 @@ use crate::{Complex32, Complex64, FortranCharacterLength, FortranInteger, Fortra
 use core::ffi::c_char;
 
 unsafe extern "C" {
-    #[link_name = "bandr_"]
-    pub fn bandr(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        mb: *mut FortranInteger,
-        a: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        matz: *mut FortranLogical,
-        z: *mut f32,
-    );
     #[link_name = "chksng_"]
     pub fn chksng(
         mbdcnd: *mut FortranInteger,
@@ -31,25 +19,6 @@ unsafe extern "C" {
         cofx: *mut f32,
         cofy: *mut f32,
         singlr: *mut FortranLogical,
-    );
-    #[link_name = "cinvit_"]
-    pub fn cinvit(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        ar: *mut f32,
-        ai: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        select: *mut FortranLogical,
-        mm: *mut FortranInteger,
-        m: *mut FortranInteger,
-        zr: *mut f32,
-        zi: *mut f32,
-        ierr: *mut FortranInteger,
-        rm1: *mut f32,
-        rm2: *mut f32,
-        rv1: *mut f32,
-        rv2: *mut f32,
     );
     #[link_name = "d1updt_"]
     pub fn d1updt(
@@ -169,68 +138,6 @@ unsafe extern "C" {
         bnd: *mut f64,
         jstate: *mut FortranInteger,
     );
-    #[link_name = "dpchcm_"]
-    pub fn dpchcm(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ismon: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dpchfd_"]
-    pub fn dpchfd(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ne: *mut FortranInteger,
-        xe: *mut f64,
-        fe: *mut f64,
-        de: *mut f64,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dpchfe_"]
-    pub fn dpchfe(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ne: *mut FortranInteger,
-        xe: *mut f64,
-        fe: *mut f64,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "dpchia_"]
-    pub fn dpchia(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        a: *mut f64,
-        b: *mut f64,
-        ierr: *mut FortranInteger,
-    ) -> f64;
-    #[link_name = "dpchid_"]
-    pub fn dpchid(
-        n: *mut FortranInteger,
-        x: *mut f64,
-        f: *mut f64,
-        d: *mut f64,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ia: *mut FortranInteger,
-        ib: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    ) -> f64;
     #[link_name = "dpincw_"]
     pub fn dpincw(
         mrelas: *mut FortranInteger,
@@ -531,22 +438,6 @@ unsafe extern "C" {
         scale: *mut f64,
         wic: *mut f64,
     ) -> FortranLogical;
-    #[link_name = "invit_"]
-    pub fn invit(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        wr: *mut f32,
-        wi: *mut f32,
-        select: *mut FortranLogical,
-        mm: *mut FortranInteger,
-        m: *mut FortranInteger,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-        rm1: *mut f32,
-        rv1: *mut f32,
-        rv2: *mut f32,
-    );
     #[link_name = "la05bd_"]
     pub fn la05bd(
         a: *mut f64,
@@ -593,68 +484,6 @@ unsafe extern "C" {
         ia: *mut FortranInteger,
         reals: *mut FortranLogical,
     );
-    #[link_name = "pchcm_"]
-    pub fn pchcm(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ismon: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "pchfd_"]
-    pub fn pchfd(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ne: *mut FortranInteger,
-        xe: *mut f32,
-        fe: *mut f32,
-        de: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "pchfe_"]
-    pub fn pchfe(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ne: *mut FortranInteger,
-        xe: *mut f32,
-        fe: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "pchia_"]
-    pub fn pchia(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        a: *mut f32,
-        b: *mut f32,
-        ierr: *mut FortranInteger,
-    ) -> f32;
-    #[link_name = "pchid_"]
-    pub fn pchid(
-        n: *mut FortranInteger,
-        x: *mut f32,
-        f: *mut f32,
-        d: *mut f32,
-        incfd: *mut FortranInteger,
-        skip: *mut FortranLogical,
-        ia: *mut FortranInteger,
-        ib: *mut FortranInteger,
-        ierr: *mut FortranInteger,
-    ) -> f32;
     #[link_name = "qrfac_"]
     pub fn qrfac(
         m: *mut FortranInteger,
@@ -668,38 +497,6 @@ unsafe extern "C" {
         acnorm: *mut f32,
         wa: *mut f32,
     );
-    #[link_name = "qzhes_"]
-    pub fn qzhes(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        matz: *mut FortranLogical,
-        z: *mut f32,
-    );
-    #[link_name = "qzit_"]
-    pub fn qzit(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        eps1: *mut f32,
-        matz: *mut FortranLogical,
-        z: *mut f32,
-        ierr: *mut FortranInteger,
-    );
-    #[link_name = "qzval_"]
-    pub fn qzval(
-        nm: *mut FortranInteger,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        b: *mut f32,
-        alfr: *mut f32,
-        alfi: *mut f32,
-        beta: *mut f32,
-        matz: *mut FortranLogical,
-        z: *mut f32,
-    );
     #[link_name = "r1updt_"]
     pub fn r1updt(
         m: *mut FortranInteger,
@@ -710,21 +507,6 @@ unsafe extern "C" {
         v: *mut f32,
         w: *mut f32,
         sing: *mut FortranLogical,
-    );
-    #[link_name = "ratqr_"]
-    pub fn ratqr(
-        n: *mut FortranInteger,
-        eps1: *mut f32,
-        d: *mut f32,
-        e: *mut f32,
-        e2: *mut f32,
-        m: *mut FortranInteger,
-        w: *mut f32,
-        ind: *mut FortranInteger,
-        bd: *mut f32,
-        r#type: *mut FortranLogical,
-        idef: *mut FortranInteger,
-        ierr: *mut FortranInteger,
     );
     #[link_name = "sdcor_"]
     pub fn sdcor(
@@ -1135,3 +917,40 @@ unsafe extern "C" {
         wic: *mut f32,
     ) -> FortranLogical;
 }
+
+// ffi-declaration-aliases:start
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchcm`."]
+pub use crate::interpolation::dpchcm;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchfd`."]
+pub use crate::interpolation::dpchfd;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchfe`."]
+pub use crate::interpolation::dpchfe;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchia`."]
+pub use crate::interpolation::dpchia;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchid`."]
+pub use crate::interpolation::dpchid;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchcm`."]
+pub use crate::interpolation::pchcm;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchfd`."]
+pub use crate::interpolation::pchfd;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchfe`."]
+pub use crate::interpolation::pchfe;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchia`."]
+pub use crate::interpolation::pchia;
+#[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchid`."]
+pub use crate::interpolation::pchid;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bandr`."]
+pub use crate::linear_algebra::eigen::bandr;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cinvit`."]
+pub use crate::linear_algebra::eigen::cinvit;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::invit`."]
+pub use crate::linear_algebra::eigen::invit;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::qzhes`."]
+pub use crate::linear_algebra::eigen::qzhes;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::qzit`."]
+pub use crate::linear_algebra::eigen::qzit;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::qzval`."]
+pub use crate::linear_algebra::eigen::qzval;
+#[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ratqr`."]
+pub use crate::linear_algebra::eigen::ratqr;
+// ffi-declaration-aliases:end
