@@ -30,6 +30,7 @@ ABI blockers, conflicting/ambiguous/missing symbols, non-callable subsidiaries,
 runtime support, block data, documentation/tooling entries, external
 dependencies, and catalogue-only identities. The machine-readable enumeration
 is `reviewed_public_driver`, `reviewed_public_subsidiary`,
+`batch_a_public_driver`,
 `generated_candidate`, `generated_abi_validated`, `source_present_unbound`,
 `unsupported_callback_abi`, `unsupported_complex_return_abi`,
 `unsupported_character_return_abi`, `unsupported_entry_or_alternate_return`,
@@ -42,6 +43,14 @@ compiler/profile batch. It does **not** say that its callback lifetime, pointer
 semantics, workspace, error handling, or public documentation have been
 reviewed. Only the hash-guarded authored correction layer can emit
 `reviewed_public_driver` or `reviewed_public_subsidiary`.
+
+`batch_a_public_driver` is a separate, generated stability tier for a
+historically user-callable, non-callback numerical ABI. It has an exact source
+hash, parsed ABI fingerprint, observed symbol, canonical path, provider
+closure, generated argument/Safety contract, and bulk compile/link evidence.
+It is not hand-reviewed semantic documentation and is never counted as a
+`reviewed_*` declaration. The full policy and regeneration workflow are in
+[Batch A raw interfaces](../api/raw-batch-a.md).
 
 ## Canonical namespace
 
@@ -95,6 +104,13 @@ The earlier `slatec_sys::families::special_airy::*` items remain compatibility
 re-exports of those declarations. Complex Amos Airy drivers and Airy
 subsidiaries are reported explicitly, but are not promoted by the real-scalar
 review.
+
+Batch A extends the existing taxonomy with generated canonical numerical
+submodules where required, including `linear_algebra::dense`, `eigen::numerical`,
+`quadrature::numerical`, `interpolation::numerical`, `fftpack::numerical`,
+`pde::fishpack::numerical`, `ode::numerical`, `approximation::numerical`,
+`statistics::numerical`, and `special::numerical`. The direct paths are stable
+within the Batch A evidence boundary; `generated::*` remains transitional.
 
 The complete feasible BLAS set is generated from the source-hash-guarded
 family-review policy rather than copied into hand-written `extern` blocks.
@@ -151,6 +167,10 @@ Reviewed records fail validation when any required feature is absent. A raw
 consumer may use `slatec-sys` with an explicit external provider; `slatec-sys`
 does not select a backend implicitly.
 
+Batch A records the same raw/provider relationship using coherent
+`batch-a-*` closures. Those closure features are provider-only selectors; they
+do not turn the declaration-only `slatec-sys/all` feature into a native backend.
+
 The public `all` feature directly names every authored public mathematical
 family aggregate. It is declaration-only: provider/backend, profile-only,
 ABI-shaped generated, raw-family, compatibility, and test-only switches are
@@ -173,6 +193,10 @@ cargo run -p slatec-tools --bin slatec-corpus -- validate-raw-api-inventory --of
 Validation rejects a reviewed entry lacking its source hash, unique observed
 symbol, executable argument order, ABI/profile evidence, unique canonical path,
 raw and provider feature, complete docs, or required link/runtime status.
+Batch A has an analogous validator for its narrower generated-contract bar,
+including candidate source-hash stability, canonical-path uniqueness, feature
+coverage, exact provider-closure membership, and every generated Rustdoc
+argument/Safety/source-link marker.
 
 ## Stability and transition policy
 

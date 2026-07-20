@@ -81,13 +81,40 @@ pub mod blas;
     feature = "special-beta",
     feature = "special-error",
     feature = "special-airy",
+    feature = "batch-a-special",
     feature = "raw-family-special-elementary",
     feature = "raw-family-special-gamma",
     feature = "raw-family-special-beta",
     feature = "raw-family-special-error",
-    feature = "raw-family-special-airy"
+    feature = "raw-family-special-airy",
+    feature = "raw-family-batch-a-special"
 ))]
 pub mod special;
+
+/// Canonical Batch A dense-linear-algebra declarations.
+#[cfg(feature = "batch-a-linear-algebra")]
+#[path = "batch_a/linear_algebra.rs"]
+pub mod linear_algebra;
+
+/// Canonical Batch A eigenvalue declarations.
+#[cfg(feature = "batch-a-eigen")]
+#[path = "batch_a/eigen.rs"]
+pub mod eigen;
+
+/// Canonical Batch A approximation declarations.
+#[cfg(feature = "batch-a-approximation")]
+#[path = "batch_a/approximation.rs"]
+pub mod approximation;
+
+/// Canonical Batch A interpolation declarations.
+#[cfg(feature = "batch-a-interpolation")]
+#[path = "batch_a/interpolation.rs"]
+pub mod interpolation;
+
+/// Canonical Batch A statistics declarations.
+#[cfg(feature = "batch-a-statistics")]
+#[path = "batch_a/statistics.rs"]
+pub mod statistics;
 
 /// Generated raw declarations grouped by safe public family rather than ABI
 /// shape. These modules are the preferred dependency of narrow safe features.
@@ -116,7 +143,10 @@ pub mod families;
 pub mod special_scalar_expanded;
 
 /// Hand-reviewed real FFTPACK declarations for the plan-based safe API.
-#[cfg(feature = "raw-family-fftpack-real")]
+#[cfg(any(
+    feature = "raw-family-fftpack-real",
+    feature = "raw-family-batch-a-fftpack"
+))]
 pub mod fftpack;
 
 /// Hand-reviewed standard real-array declarations for the selected complex
@@ -140,7 +170,8 @@ pub mod fishpack_pois3d;
 /// introduced.
 #[cfg(any(
     feature = "raw-family-fishpack-cartesian-2d",
-    feature = "raw-family-fishpack-pois3d"
+    feature = "raw-family-fishpack-pois3d",
+    feature = "raw-family-batch-a-fishpack"
 ))]
 pub mod pde {
     /// Canonical reviewed FISHPACK driver namespace.
@@ -149,24 +180,41 @@ pub mod pde {
         pub use crate::fishpack_cartesian_2d::hwscrt;
         #[cfg(feature = "raw-family-fishpack-pois3d")]
         pub use crate::fishpack_pois3d::pois3d;
+        #[cfg(feature = "raw-family-batch-a-fishpack")]
+        #[path = "../../batch_a/pde_fishpack.rs"]
+        mod batch_a;
+        #[cfg(feature = "raw-family-batch-a-fishpack")]
+        pub use batch_a::numerical;
     }
 }
 
 /// Hand-reviewed LINPACK general-band factorization and solve declarations.
-#[cfg(feature = "raw-family-banded-linear-systems")]
+#[cfg(any(
+    feature = "raw-family-banded-linear-systems",
+    feature = "raw-family-batch-a-linear-algebra"
+))]
 pub mod banded;
 
 /// Hand-reviewed PCHIP and piecewise-cubic Hermite declarations.
-#[cfg(feature = "raw-family-pchip")]
+#[cfg(any(
+    feature = "raw-family-pchip",
+    feature = "raw-family-batch-a-interpolation"
+))]
 pub mod pchip;
 
 /// Hand-reviewed declarations for the restricted safe B-spline facade.
-#[cfg(feature = "raw-family-bspline")]
+#[cfg(any(
+    feature = "raw-family-bspline",
+    feature = "raw-family-batch-a-interpolation"
+))]
 pub mod bspline;
 
 /// Hand-reviewed declarations for PP-form evaluation, integration, and
 /// B-spline conversion.
-#[cfg(feature = "raw-family-piecewise-polynomial")]
+#[cfg(any(
+    feature = "raw-family-piecewise-polynomial",
+    feature = "raw-family-batch-a-interpolation"
+))]
 pub mod piecewise_polynomial;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
@@ -181,7 +229,8 @@ pub mod piecewise_polynomial;
     feature = "raw-family-quadrature-weighted",
     feature = "raw-family-quadrature-oscillatory",
     feature = "raw-family-quadrature-fourier",
-    feature = "raw-family-quadrature-nonadaptive"
+    feature = "raw-family-quadrature-nonadaptive",
+    feature = "raw-family-batch-a-quadrature"
 ))]
 pub mod quadrature;
 
@@ -201,13 +250,18 @@ pub mod roots;
     feature = "raw-ffi-nonlinear",
     feature = "raw-family-nonlinear-easy",
     feature = "raw-family-nonlinear-expert",
-    feature = "raw-family-nonlinear-jacobian-check"
+    feature = "raw-family-nonlinear-jacobian-check",
+    feature = "raw-family-batch-a-nonlinear"
 ))]
 pub mod nonlinear;
 
 /// Hand-reviewed `SDRIV3`/`DDRIV3` declarations for the safe RHS-only ODE
 /// session feature.
-#[cfg(any(feature = "raw-ffi-ode", feature = "raw-family-ode-sdrive-expert"))]
+#[cfg(any(
+    feature = "raw-ffi-ode",
+    feature = "raw-family-ode-sdrive-expert",
+    feature = "raw-family-batch-a-ode"
+))]
 pub mod ode;
 
 /// Hand-reviewed `SDASSL`/`DDASSL` declarations for the restricted safe
@@ -247,7 +301,8 @@ pub mod least_squares;
     feature = "raw-family-least-squares-linear-nonnegative",
     feature = "raw-family-least-squares-linear-bounded",
     feature = "raw-family-least-squares-linear-constrained",
-    feature = "raw-family-least-squares-linear-bounded-constrained"
+    feature = "raw-family-least-squares-linear-bounded-constrained",
+    feature = "raw-family-batch-a-approximation"
 ))]
 pub mod linear_least_squares;
 

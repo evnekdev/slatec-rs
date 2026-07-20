@@ -6,6 +6,7 @@
 
 use crate::airy_api;
 use crate::all_feature_coverage;
+use crate::batch_a_api;
 use crate::blas_api;
 use crate::error::{CorpusError, Result};
 use crate::hash;
@@ -91,6 +92,20 @@ struct AiryReviewPolicy {
 }
 
 #[derive(Clone, Debug)]
+struct BatchAPublic {
+    source_hash: String,
+    canonical_path: String,
+    canonical_module: String,
+    feature: String,
+    provider_feature: String,
+    abi_class: String,
+    abi_fingerprint: String,
+    source_url: String,
+    purpose: String,
+    arguments: Vec<String>,
+}
+
+#[derive(Clone, Debug)]
 struct Corrections {
     records: Vec<Correction>,
     blas_policy: Option<BlasReviewPolicy>,
@@ -107,6 +122,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let safe_api_index = read_json(&paths.safe_api_dir.join("function-index.json"))?;
     let _safe_api_records = records(&safe_api_index, "safe API function index")?;
     let corrections = corrections(paths.corrections_path)?;
+    let batch_a = batch_a_candidates(&paths.output_dir.join("batch-a-candidates.json"))?;
+    let batch_a_exclusions = batch_a_exclusions(&paths.output_dir.join("abi-classification.json"))?;
     let validation = validation_batches(
         &paths
             .ffi_validation_dir
@@ -172,6 +189,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             })
         });
         let correction = correction_by_name.get(&name);
+        let batch_a_public = batch_a.get(&name);
+        let batch_a_exclusion = batch_a_exclusions.get(&name);
         let legacy_paths = legacy_declarations.get(&name).cloned().unwrap_or_default();
         if let Some(correction) = correction {
             if correction.source_hash != source_hash {
@@ -244,8 +263,23 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .or(automatic_blas_correction.as_ref())
             .or(automatic_special_foundations_correction.as_ref())
             .or(automatic_airy_correction.as_ref());
+        if let Some(batch) = batch_a_public {
+            if batch.source_hash != source_hash {
+                return Err(policy(&format!(
+                    "Batch A candidate for {name} is guarded by {}, but the selected source is {source_hash}",
+                    batch.source_hash
+                )));
+            }
+            if batch.arguments != argument_order {
+                return Err(policy(&format!(
+                    "Batch A candidate argument order for {name} differs from executable declaration"
+                )));
+            }
+        }
+        let is_batch_a_public = correction.is_none() && batch_a_public.is_some();
         let reviewed_status = correction
             .map(|item| item.status.clone())
+            .or_else(|| is_batch_a_public.then(|| "batch_a_automated_public".to_owned()))
             .or_else(|| {
                 (!legacy_paths.is_empty())
                     .then(|| "preexisting_family_declaration_requires_r1_review".to_owned())
@@ -253,10 +287,17 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .unwrap_or_else(|| "not_reviewed_by_raw_api_registry".to_owned());
         let raw_state = correction
             .map(|item| item.status.clone())
+            .or_else(|| is_batch_a_public.then(|| "batch_a_public_driver".to_owned()))
+            .or_else(|| {
+                batch_a_exclusion
+                    .filter(|item| item.0 == "external_dependency")
+                    .map(|_| "external_dependency".to_owned())
+            })
             .or_else(|| (!legacy_paths.is_empty()).then(|| "documentation_or_tooling".to_owned()))
             .unwrap_or_else(|| raw_state(catalogue_record, interface, &generated_status));
         let feature = correction
             .map(|item| item.feature.clone())
+            .or_else(|| batch_a_public.map(|item| item.feature.clone()))
             .unwrap_or_else(|| generated_feature(interface));
         let all_feature_reachability = if all_feature_closure.contains(feature.as_str()) {
             "transitively_enabled_by_all"
@@ -265,12 +306,15 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         };
         let provider_feature = correction
             .map(|item| item.provider_feature.clone())
+            .or_else(|| batch_a_public.map(|item| item.provider_feature.clone()))
             .unwrap_or_else(|| "not_assigned".to_owned());
         let intended_module = correction
             .map(|item| module_from_path(&item.canonical_path))
+            .or_else(|| batch_a_public.map(|item| item.canonical_module.clone()))
             .unwrap_or_else(|| taxonomy(catalogue_record, &name));
         let canonical_path = correction
             .map(|item| item.canonical_path.clone())
+            .or_else(|| batch_a_public.map(|item| item.canonical_path.clone()))
             .unwrap_or_else(|| "not_promoted".to_owned());
         let compatibility_paths = correction
             .map(|item| item.compatibility_paths.clone())
@@ -283,6 +327,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let is_reviewed = correction.is_some();
         let documentation_status = if is_reviewed {
             "complete_authored"
+        } else if is_batch_a_public {
+            "complete_generated_abi_contract"
         } else if !legacy_paths.is_empty() {
             "legacy_partial_rustdoc"
         } else {
@@ -290,6 +336,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         };
         let argument_documentation_status = if is_reviewed {
             "complete_authored"
+        } else if is_batch_a_public {
+            "complete_generated_abi_contract"
         } else if !legacy_paths.is_empty() {
             "requires_r1_argument_review"
         } else {
@@ -297,6 +345,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         };
         let signature_review_status = if is_reviewed {
             "reviewed_against_source_hash"
+        } else if is_batch_a_public {
+            "batch_a_source_hash_and_abi_fingerprint"
         } else if !legacy_paths.is_empty() {
             "preexisting_review_not_requalified_for_r1"
         } else if generated_status == "generated_abi_validated" {
@@ -311,9 +361,11 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         };
         let link_test_status = correction
             .map(|item| item.link_test_status.clone())
+            .or_else(|| is_batch_a_public.then(|| "passed".to_owned()))
             .unwrap_or_else(|| batch_status(interface, &validation, "link_status"));
         let runtime_test_status = correction
             .map(|item| item.runtime_test_status.clone())
+            .or_else(|| is_batch_a_public.then(|| "not_required_batch_a".to_owned()))
             .unwrap_or_else(|| batch_status(interface, &validation, "runtime_status"));
         let safe_wrapper_status = correction
             .map(|item| item.safe_wrapper_path.clone())
@@ -328,10 +380,13 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .unwrap_or_else(|| "not_safely_wrapped".to_owned());
         let feasibility = if is_reviewed {
             "public_raw_reviewed"
+        } else if is_batch_a_public {
+            "batch_a_public"
         } else if raw_state == "catalogue_only"
             || raw_state.starts_with("unsupported_")
             || raw_state == "runtime_or_machine_support"
             || raw_state == "not_independently_callable"
+            || raw_state == "external_dependency"
         {
             "explicitly_excluded"
         } else if generated_status == "generated_abi_validated" {
@@ -340,15 +395,20 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "unreviewed"
         };
         let exclusion_reason = if is_reviewed
+            || is_batch_a_public
             || (generated_status == "generated_abi_validated"
                 && feasibility != "explicitly_excluded")
         {
             "none".to_owned()
         } else {
-            exclusion_reason(&raw_state)
+            batch_a_exclusion
+                .filter(|_| raw_state == "external_dependency")
+                .map(|item| item.1.clone())
+                .unwrap_or_else(|| exclusion_reason(&raw_state))
         };
         let role = correction
             .map(|item| item.role.clone())
+            .or_else(|| is_batch_a_public.then(|| "historically_user_callable_driver".to_owned()))
             .unwrap_or_else(|| driver_role(catalogue_record));
         let native_symbol = interface
             .map(|item| item.native_symbol.clone())
@@ -393,7 +453,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 .unwrap_or_else(|| "not_assigned".to_owned()),
             "documentation_status": documentation_status,
             "argument_documentation_status": argument_documentation_status,
-            "documentation_evidence": correction.map(|item| item.documentation.clone()).unwrap_or_else(|| json!({"purpose":"unavailable","arguments":"unavailable"})),
+            "documentation_evidence": correction.map(|item| item.documentation.clone()).or_else(|| batch_a_public.map(|item| json!({"purpose":"source_prologue","arguments":"executable_declaration","safety":"generated_conservative_abi_contract","source_link":item.source_url,"abi_profile":"ffi-profile-gnu-mingw-x86_64","abi_class":item.abi_class,"abi_fingerprint":item.abi_fingerprint,"purpose_text":item.purpose}))).unwrap_or_else(|| json!({"purpose":"unavailable","arguments":"unavailable"})),
             "signature_review_status": signature_review_status,
             "argument_order": argument_order,
             "compile_test_status": compile_test_status,
@@ -403,6 +463,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "safe_wrapper_status": safe_wrapper_status,
             "public_raw_feasibility": feasibility,
             "exclusion_reason": exclusion_reason,
+            "batch_a_exclusion_reason":batch_a_exclusion.map(|item| item.1.clone()).unwrap_or_else(|| "none".to_owned()),
         }));
     }
     output_records.sort_by_key(|record| field(record, "routine"));
@@ -448,6 +509,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         write_special_module(paths.sys_dir, &output_records)?;
     }
     validate_reviewed(&output_records, &sys_features, &src_features, paths.sys_dir)?;
+    validate_batch_a_public(&output_records, &sys_features, &src_features, paths.sys_dir)?;
 
     let coverage = coverage_summary(&output_records);
     let taxonomy_output = taxonomy_report(&output_records);
@@ -472,7 +534,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         "schema_id":"slatec-sys.raw-api.routine-status",
         "schema_version":"1.0.0",
         "record_model":"exactly one record per retained catalogue identity",
-        "state_model":["reviewed_public_driver","reviewed_public_subsidiary","generated_candidate","generated_abi_validated","source_present_unbound","unsupported_callback_abi","unsupported_complex_return_abi","unsupported_character_return_abi","unsupported_entry_or_alternate_return","conflicting_interface","ambiguous_symbol","missing_symbol","not_independently_callable","runtime_or_machine_support","block_data","documentation_or_tooling","catalogue_only","external_dependency"],
+        "state_model":["reviewed_public_driver","reviewed_public_subsidiary","batch_a_public_driver","generated_candidate","generated_abi_validated","source_present_unbound","unsupported_callback_abi","unsupported_complex_return_abi","unsupported_character_return_abi","unsupported_entry_or_alternate_return","conflicting_interface","ambiguous_symbol","missing_symbol","not_independently_callable","runtime_or_machine_support","block_data","documentation_or_tooling","catalogue_only","external_dependency"],
         "records": output_records,
     });
     let validation_summary =
@@ -716,6 +778,59 @@ fn corrections(path: &Path) -> Result<Corrections> {
         special_foundations_policy,
         airy_policy,
     })
+}
+
+fn batch_a_candidates(path: &Path) -> Result<BTreeMap<String, BatchAPublic>> {
+    if !path.is_file() {
+        return Err(policy(
+            "Batch A candidates are missing; run generate-raw-batch-a --offline before generating the raw API inventory",
+        ));
+    }
+    let mut result = BTreeMap::new();
+    for record in records(&read_json(path)?, "Batch A candidates")? {
+        let routine = string(record, "routine")?;
+        let candidate = BatchAPublic {
+            source_hash: string(record, "source_hash")?,
+            canonical_path: string(record, "canonical_rust_path")?,
+            canonical_module: string(record, "canonical_module")?,
+            feature: string(record, "declaration_feature")?,
+            provider_feature: string(record, "provider_feature")?,
+            abi_class: string(record, "abi_class")?,
+            abi_fingerprint: string(record, "normalized_abi_fingerprint")?,
+            source_url: string(record, "source_url")?,
+            purpose: string(record, "purpose")?,
+            arguments: strings(record.get("arguments")),
+        };
+        if result.insert(routine, candidate).is_some() {
+            return Err(policy(
+                "Batch A candidates contain duplicate routine identities",
+            ));
+        }
+    }
+    Ok(result)
+}
+
+fn batch_a_exclusions(path: &Path) -> Result<BTreeMap<String, (String, String)>> {
+    if !path.is_file() {
+        return Err(policy(
+            "Batch A ABI classification is missing; run generate-raw-batch-a --offline before generating the raw API inventory",
+        ));
+    }
+    let mut result = BTreeMap::new();
+    for record in records(&read_json(path)?, "Batch A ABI classification")? {
+        let code = field(record, "batch_a_exclusion_code");
+        if code == "none" {
+            continue;
+        }
+        let routine = string(record, "routine")?;
+        let reason = string(record, "batch_a_exclusion_reason")?;
+        if result.insert(routine, (code, reason)).is_some() {
+            return Err(policy(
+                "Batch A ABI classification contains duplicate routine identities",
+            ));
+        }
+    }
+    Ok(result)
 }
 
 fn automatic_blas_correction(
@@ -1234,6 +1349,133 @@ fn validate_reviewed(
     Ok(())
 }
 
+fn validate_batch_a_public(
+    records: &[Value],
+    sys_features: &BTreeSet<String>,
+    src_features: &BTreeSet<String>,
+    sys_dir: &Path,
+) -> Result<()> {
+    let provider_manifest = read_json(
+        &sys_dir
+            .parent()
+            .unwrap_or(sys_dir)
+            .join("slatec-src")
+            .join("metadata")
+            .join("family-source-closure.json"),
+    )?;
+    let sources = provider_manifest
+        .get("sources")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy("Batch A provider manifest lacks source records"))?;
+    let mut paths = records
+        .iter()
+        .filter(|record| field(record, "reviewed_declaration_status").starts_with("reviewed_"))
+        .map(|record| field(record, "canonical_rust_path"))
+        .collect::<BTreeSet<_>>();
+    for record in records
+        .iter()
+        .filter(|record| field(record, "raw_api_state") == "batch_a_public_driver")
+    {
+        let routine = field(record, "routine");
+        for key in [
+            "canonical_provider",
+            "source_hash",
+            "native_symbol",
+            "canonical_rust_path",
+            "feature",
+            "provider_feature",
+        ] {
+            if field(record, key).is_empty() || field(record, key) == "not_assigned" {
+                return Err(policy(&format!("Batch A public {routine} lacks {key}")));
+            }
+        }
+        if !paths.insert(field(record, "canonical_rust_path")) {
+            return Err(policy("public raw canonical paths must be unique"));
+        }
+        if field(record, "symbol_status") != "observed_exactly_once" {
+            return Err(policy(&format!(
+                "Batch A public {routine} lacks a unique native symbol"
+            )));
+        }
+        if field(record, "signature_review_status") != "batch_a_source_hash_and_abi_fingerprint" {
+            return Err(policy(&format!(
+                "Batch A public {routine} lacks its ABI fingerprint"
+            )));
+        }
+        if !sys_features.contains(&field(record, "feature"))
+            || !src_features.contains(&field(record, "provider_feature"))
+        {
+            return Err(policy(&format!(
+                "Batch A public {routine} has missing feature coverage"
+            )));
+        }
+        if field(record, "documentation_status") != "complete_generated_abi_contract"
+            || field(record, "argument_documentation_status") != "complete_generated_abi_contract"
+            || record
+                .pointer("/documentation_evidence/safety")
+                .and_then(Value::as_str)
+                .unwrap_or_default()
+                .is_empty()
+        {
+            return Err(policy(&format!(
+                "Batch A public {routine} lacks generated unsafe documentation"
+            )));
+        }
+        if field(record, "link_test_status") != "passed"
+            || field(record, "runtime_test_status") != "not_required_batch_a"
+        {
+            return Err(policy(&format!(
+                "Batch A public {routine} has invalid validation status"
+            )));
+        }
+        let source_hash = field(record, "source_hash");
+        let provider_feature = field(record, "provider_feature");
+        let ids = provider_manifest
+            .pointer(&format!("/families/{provider_feature}"))
+            .and_then(Value::as_array)
+            .ok_or_else(|| {
+                policy(&format!(
+                    "Batch A provider feature {provider_feature} has no exact closure"
+                ))
+            })?;
+        let closure = ids
+            .iter()
+            .filter_map(Value::as_str)
+            .collect::<BTreeSet<_>>();
+        if !sources.iter().any(|source| {
+            source
+                .get("id")
+                .and_then(Value::as_str)
+                .is_some_and(|id| closure.contains(id))
+                && source.get("sha256").and_then(Value::as_str) == Some(source_hash.as_str())
+        }) {
+            return Err(policy(&format!(
+                "Batch A public {routine} source is absent from its provider closure"
+            )));
+        }
+        let source = batch_a_api::generated_source_for_routine(
+            sys_dir,
+            &field(record, "intended_canonical_module"),
+            &routine,
+        )?;
+        for argument in strings(record.get("argument_order")) {
+            if !source.contains(&format!("`{argument}`")) {
+                return Err(policy(&format!(
+                    "Batch A public {routine} lacks argument Rustdoc {argument}"
+                )));
+            }
+        }
+        for required in ["# Safety", "https://"] {
+            if !source.contains(required) {
+                return Err(policy(&format!(
+                    "Batch A public {routine} lacks Rustdoc {required}"
+                )));
+            }
+        }
+    }
+    Ok(())
+}
+
 fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
     if blas_api::level(routine).is_some() {
         let source = fs::read_to_string(sys_dir.join("src/blas.rs"))?;
@@ -1365,9 +1607,11 @@ fn coverage_summary(records: &[Value]) -> Value {
             "generated_raw_declaration_candidates":"records with a compiler-emitted declaration candidate",
             "abi_validated_generated_declarations":"generated candidates in an explicitly validated ABI batch",
             "reviewed_family_raw_declarations":"only entries in the hash-guarded correction registry",
+            "batch_a_public_declarations":"source-hash and ABI-fingerprint guarded public declarations generated under the Batch A policy; not hand-reviewed semantic contracts",
+            "public_raw_declarations":"reviewed declarations plus Batch A public declarations",
             "preexisting_family_declarations_pending_r1_review":"legacy family extern declarations that have not passed the R1 documentation and source-hash review gate",
             "provider_backed_callable_raw_routines":"records with a selected provider and an observed native symbol",
-            "fully_documented_raw_routines":"reviewed records with complete routine, argument, and Safety documentation"
+            "fully_documented_raw_routines":"public raw records with complete routine, argument, and Safety documentation under either the reviewed or Batch A generated-contract standard"
         },
         "counts":{
             "retained_identities":records.len(),
@@ -1377,16 +1621,35 @@ fn coverage_summary(records: &[Value]) -> Value {
             "reviewed_family_raw_declarations":count(&|r| field(r,"reviewed_declaration_status").starts_with("reviewed_")),
             "reviewed_user_callable_raw_drivers":count(&|r| field(r,"reviewed_declaration_status")=="reviewed_public_driver"),
             "reviewed_public_subsidiaries":count(&|r| field(r,"reviewed_declaration_status")=="reviewed_public_subsidiary"),
+            "batch_a_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_a_public_driver"),
+            "public_raw_declarations":count(&|r| is_public_raw(r)),
             "provider_backed_callable_raw_routines":count(&|r| field(r,"symbol_status")=="observed_exactly_once" && field(r,"driver_role")!="runtime_support"),
             "link_tested_raw_routines":count(&|r| field(r,"link_test_status")=="passed"),
         "runtime_tested_raw_routines":count(&|r| field(r,"runtime_test_status")=="passed"),
-        "fully_documented_raw_routines":count(&|r| field(r,"documentation_status")=="complete_authored" && field(r,"argument_documentation_status")=="complete_authored"),
+        "fully_documented_raw_routines":count(&|r| documentation_complete(r)),
         "preexisting_family_declarations_pending_r1_review":count(&|r| field(r,"legacy_family_declaration_status")!="not_present" && !field(r,"reviewed_declaration_status").starts_with("reviewed_")),
             "safely_wrapped_routines":count(&|r| field(r,"safe_wrapper_status")!="not_safely_wrapped"),
             "explicitly_excluded_routines":count(&|r| field(r,"public_raw_feasibility")=="explicitly_excluded"),
             "unclassified_routines":count(&|r| field(r,"intended_canonical_module")=="unclassified"),
         }
     })
+}
+
+fn is_public_raw(record: &Value) -> bool {
+    field(record, "reviewed_declaration_status").starts_with("reviewed_")
+        || field(record, "raw_api_state") == "batch_a_public_driver"
+}
+
+fn documentation_complete(record: &Value) -> bool {
+    let status = field(record, "documentation_status");
+    let arguments = field(record, "argument_documentation_status");
+    matches!(
+        status.as_str(),
+        "complete_authored" | "complete_generated_abi_contract"
+    ) && matches!(
+        arguments.as_str(),
+        "complete_authored" | "complete_generated_abi_contract"
+    )
 }
 
 fn taxonomy_report(records: &[Value]) -> Value {
@@ -1445,18 +1708,18 @@ fn canonical_paths(records: &[Value]) -> Value {
 }
 
 fn documentation_audit(records: &[Value]) -> Value {
-    let reviewed = records
+    let public = records
         .iter()
-        .filter(|record| field(record, "reviewed_declaration_status").starts_with("reviewed_"))
+        .filter(|record| is_public_raw(record))
         .collect::<Vec<_>>();
-    let missing = reviewed
+    let missing = public
         .iter()
         .filter_map(|record| {
             let mut fields = Vec::new();
-            if field(record, "documentation_status") != "complete_authored" {
+            if !documentation_complete(record) {
                 fields.push("routine_docs");
             }
-            if field(record, "argument_documentation_status") != "complete_authored" {
+            if !documentation_complete(record) {
                 fields.push("argument_docs");
             }
             if !record
@@ -1489,7 +1752,7 @@ fn documentation_audit(records: &[Value]) -> Value {
         .collect::<Vec<_>>();
     let review_queue = records
         .iter()
-        .filter(|record| field(record, "documentation_status") != "complete_authored")
+        .filter(|record| !documentation_complete(record))
         .map(|record| {
             let missing = if field(record, "legacy_family_declaration_status") != "not_present" {
                 vec![
@@ -1519,12 +1782,14 @@ fn documentation_audit(records: &[Value]) -> Value {
     json!({
         "schema_id":"slatec-sys.raw-api.documentation-audit",
         "schema_version":"1.0.0",
-        "public_extern_declarations":reviewed.len(),
-        "routine_docs_present":reviewed.iter().filter(|record| field(record,"documentation_status")=="complete_authored").count(),
-        "argument_docs_complete":reviewed.iter().filter(|record| field(record,"argument_documentation_status")=="complete_authored").count(),
-        "safety_sections_present":reviewed.iter().filter(|record| record.pointer("/documentation_evidence/safety").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
-        "source_links_present":reviewed.iter().filter(|record| record.pointer("/documentation_evidence/source_link").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
-        "abi_profile_statements_present":reviewed.iter().filter(|record| record.pointer("/documentation_evidence/abi_profile").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
+        "public_extern_declarations":public.len(),
+        "reviewed_public_declarations":records.iter().filter(|record| field(record,"reviewed_declaration_status").starts_with("reviewed_")).count(),
+        "batch_a_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_a_public_driver").count(),
+        "routine_docs_present":public.iter().filter(|record| documentation_complete(record)).count(),
+        "argument_docs_complete":public.iter().filter(|record| documentation_complete(record)).count(),
+        "safety_sections_present":public.iter().filter(|record| record.pointer("/documentation_evidence/safety").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
+        "source_links_present":public.iter().filter(|record| record.pointer("/documentation_evidence/source_link").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
+        "abi_profile_statements_present":public.iter().filter(|record| record.pointer("/documentation_evidence/abi_profile").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
         "missing":missing,
         "review_queue":review_queue,
         "review_queue_policy":"Non-reviewed declarations remain queued rather than receiving inferred pointer semantics."
@@ -1537,11 +1802,11 @@ fn feature_map(
     src: &BTreeSet<String>,
     facade: &BTreeSet<String>,
 ) -> Value {
-    let reviewed = records
+    let public = records
         .iter()
-        .filter(|record| field(record, "reviewed_declaration_status").starts_with("reviewed_"))
+        .filter(|record| is_public_raw(record))
         .collect::<Vec<_>>();
-    let findings = reviewed
+    let findings = public
         .iter()
         .filter_map(|record| {
             let mut problems = Vec::new();
@@ -1569,7 +1834,7 @@ fn feature_map(
             "safe_facade_feature":field(record,"safe_facade_feature"),
             "aggregate_feature_membership":"recorded by the three feature names; no raw declaration enables provider compilation itself",
         })).collect::<Vec<_>>(),
-        "reviewed_findings":findings,
+        "public_findings":findings,
         "status":if findings.is_empty() { "passed" } else { "failed" },
     })
 }
@@ -1728,16 +1993,20 @@ fn validation_markdown(coverage: &Value, audit: &Value, features: &Value, roots:
          | Retained identities | {} |\n\
          | Generated ABI-validated declarations | {} |\n\
          | Reviewed public raw declarations | {} |\n\
+         | Batch A public declarations | {} |\n\
+         | Total public raw declarations | {} |\n\
          | Provider-backed callable raw routines | {} |\n\
          | Link-tested raw routines | {} |\n\
          | Runtime-tested raw routines | {} |\n\
          | Fully documented raw routines | {} |\n\
          | Explicit exclusions | {} |\n\n\
-         Documentation audit: {} reviewed declarations, {} reviewed records missing fields, {} queued declarations. Feature/provider reconciliation: `{}`. Roots report entries: {}.\n\n\
+         Documentation audit: {} public declarations, {} public records missing fields, {} queued declarations. Feature/provider reconciliation: `{}`. Roots report entries: {}.\n\n\
          The `slatec_sys::generated` namespace remains transitional, ABI-shaped generated access and is not a stable public namespace.\n",
         count("retained_identities"),
         count("abi_validated_generated_declarations"),
         count("reviewed_family_raw_declarations"),
+        count("batch_a_public_declarations"),
+        count("public_raw_declarations"),
         count("provider_backed_callable_raw_routines"),
         count("link_tested_raw_routines"),
         count("runtime_tested_raw_routines"),
@@ -1950,7 +2219,10 @@ fn write_blas_link_probe(facade_dir: &Path, records: &[Value]) -> Result<()> {
 
 fn write_special_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let path = sys_dir.join("src").join("special.rs");
-    let rendered = special_foundations_api::render_module(records);
+    let mut rendered = special_foundations_api::render_module(records);
+    rendered.push_str(
+        "\n#[cfg(feature = \"raw-family-batch-a-special\")]\n#[path = \"batch_a/special.rs\"]\nmod batch_a;\n\n/// Canonical source-verified Batch A special-function declarations.\n#[cfg(feature = \"raw-family-batch-a-special\")]\npub use batch_a::numerical;\n",
+    );
     if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
         fs::write(path, rendered)?;
     }

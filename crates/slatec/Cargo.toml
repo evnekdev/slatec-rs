@@ -79,6 +79,8 @@ special-raw-link-tests = ["special"]
 special-raw-native-tests = ["special-raw-link-tests"]
 raw-all-compile = ["slatec-sys/all"]
 raw-all-link-tests = ["raw-all-compile", "full"]
+raw-batch-a-link-tests = ["std", "source-build", "slatec-sys/all", "slatec-src/batch-a-all"]
+raw-batch-a-native-tests = ["raw-batch-a-link-tests"]
 
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",

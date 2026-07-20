@@ -4,13 +4,20 @@
     "catalogue identity has no selected executable provider": 26,
     "multiprecision helper is not a standalone BLAS public routine": 18,
     "runtime or machine-support unit is not independently callable": 17,
-    "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure": 3
+    "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure": 3,
+    "source object has unresolved external procedure dependencies: dfmat_, dgvec_, duivp_, duvec_": 1,
+    "source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_": 1
   },
   "records": [
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "BFQAD",
       "state": "unsupported_callback_abi"
+    },
+    {
+      "reason": "source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_",
+      "routine": "BVSUP",
+      "state": "external_dependency"
     },
     {
       "reason": "selected GNU Fortran ABI for complex-valued function returns is not reviewed for public Rust exposure",
@@ -86,6 +93,11 @@
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",
       "routine": "DBFQAD",
       "state": "unsupported_callback_abi"
+    },
+    {
+      "reason": "source object has unresolved external procedure dependencies: dfmat_, dgvec_, duivp_, duvec_",
+      "routine": "DBVSUP",
+      "state": "external_dependency"
     },
     {
       "reason": "callback ABI has compiler-shape evidence but no routine-specific callback contract",

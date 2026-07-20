@@ -57,16 +57,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
 - Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
-- Canonical Rust path: `not_promoted`
+- Reviewed family declaration: `batch_a_automated_public`
+- Canonical Rust path: `slatec_sys::interpolation::numerical::ppval`
 - Current legacy Rust paths: `slatec_sys::piecewise_polynomial::ppval`
-- Public declaration feature: `raw-ffi-scalar-functions`
-- `all`-feature reachability: `not_enabled_by_all`
+- Public declaration feature: `interpolation`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `legacy_partial_rustdoc`
+- Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime-test status: `not_required_batch_a`
 - Safe-wrapper status: `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

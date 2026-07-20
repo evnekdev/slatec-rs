@@ -162,3 +162,11 @@ unsafe extern "C" {
         ierflg: *mut FortranInteger,
     );
 }
+
+#[cfg(feature = "raw-family-batch-a-ode")]
+#[path = "batch_a/ode.rs"]
+mod batch_a;
+
+/// Canonical source-verified Batch A non-callback ODE declarations.
+#[cfg(feature = "raw-family-batch-a-ode")]
+pub use batch_a::numerical;

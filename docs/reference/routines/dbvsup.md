@@ -68,5 +68,5 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Link-test status: `passed`
 - Runtime-test status: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `none`
+- Exclusion or deferment reason: `source object has unresolved external procedure dependencies: dfmat_, dgvec_, duivp_, duvec_`
 <!-- raw-api-status:end -->

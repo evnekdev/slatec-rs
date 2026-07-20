@@ -1,0 +1,21 @@
+{
+  "inputs": [
+    "generated/slatec-routines/routine-catalogue.json",
+    "generated/ffi/interface-inventory.json",
+    "generated/ffi-inventory/argument-index.json",
+    "generated/ffi-inventory/function-results.json",
+    "generated/raw-api/routine-status.json",
+    "generated/linkage/batch-a-linkage-report.json"
+  ],
+  "outputs": [
+    "abi-classification-summary.md",
+    "abi-classification.json",
+    "batch-a-candidates.json",
+    "batch-a-correction-report.json",
+    "batch-a-exclusions.json",
+    "batch-a-summary.md"
+  ],
+  "schema_id": "slatec-sys.raw-api.batch-a-manifest",
+  "schema_version": "1.0.0",
+  "semantic_hash": "b1d21d1068b19449706ca4dcc4cb2a0496803297b5c74dc3bf5ab83d24ca3c07"
+}

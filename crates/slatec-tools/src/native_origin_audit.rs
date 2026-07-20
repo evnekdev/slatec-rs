@@ -1904,7 +1904,9 @@ mod tests {
             crosscheck["status"].as_str(),
             Some("complete_with_conservative_unresolved_records")
         );
-        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(28));
+        // Batch A widens the selected provider closure.  The crosscheck remains
+        // deliberately conservative for indirect external procedure references.
+        assert_eq!(crosscheck["unresolved_count"].as_u64(), Some(109));
         let projections: Value =
             serde_json::from_slice(&fs::read(root.join("per-wrapper-native-state.json")).unwrap())
                 .unwrap();
