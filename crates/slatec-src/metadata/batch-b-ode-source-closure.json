@@ -1,0 +1,109 @@
+{
+  "family": "batch-b-ode",
+  "profile_override": true,
+  "source_ids": [
+    "batch-b-ode-ddeabm",
+    "batch-b-ode-ddes",
+    "batch-b-ode-dsteps",
+    "batch-b-ode-dderkf",
+    "batch-b-ode-drkfs",
+    "batch-b-ode-dhstrt",
+    "batch-b-ode-dfehl",
+    "batch-b-ode-derkf",
+    "batch-b-ode-derkfs",
+    "batch-b-ode-hstart",
+    "batch-b-ode-defehl",
+    "batch-b-ode-hvnrm",
+    "batch-b-ode-dhvnrm",
+    "selected-source-10275ec90dd6e066",
+    "selected-source-1fdae9155aa43140",
+    "selected-source-273c06b35f95f85b",
+    "selected-source-34d2ab39a8d150a7",
+    "selected-source-37c1dbf0f41a4725",
+    "selected-source-60f744ba036ffdb7",
+    "selected-source-84e03977dd3521a1",
+    "selected-source-9be192a17f28e8b7",
+    "selected-source-abab17e1d4c0a1a8",
+    "selected-source-bb2d61d06785b38d"
+  ],
+  "sources": [
+    {
+      "id": "batch-b-ode-ddeabm",
+      "subset": "main-src",
+      "path": "src/ddeabm.f",
+      "sha256": "574d6fd3ed68872e984be8adcfc0a6e29491ed0e2e5180cc90a937f26f2afaaf"
+    },
+    {
+      "id": "batch-b-ode-ddes",
+      "subset": "main-src",
+      "path": "src/ddes.f",
+      "sha256": "51384ec3b1aa830316727da6553d63d94125c41c11b191ad80c78dd31455c984"
+    },
+    {
+      "id": "batch-b-ode-dsteps",
+      "subset": "main-src",
+      "path": "src/dsteps.f",
+      "sha256": "d6a73df41b92b74947fb813a180608f0e4c6de7c7e8de7b9c3a5228295b8b9f0"
+    },
+    {
+      "id": "batch-b-ode-dderkf",
+      "subset": "main-src",
+      "path": "src/dderkf.f",
+      "sha256": "33099a7bc9f58e048de314b66155ca02e6f3544213563899cb054fd2a81a5d38"
+    },
+    {
+      "id": "batch-b-ode-drkfs",
+      "subset": "main-src",
+      "path": "src/drkfs.f",
+      "sha256": "d7d041d55d48e6e41177b29598356014fec5b9dcbf2013ccd318baae11e3ec6a"
+    },
+    {
+      "id": "batch-b-ode-dhstrt",
+      "subset": "main-src",
+      "path": "src/dhstrt.f",
+      "sha256": "5b310f2c2148ebb37ef19716a246f07302d0a17556af82b5c3d5f55f3a47170a"
+    },
+    {
+      "id": "batch-b-ode-dfehl",
+      "subset": "main-src",
+      "path": "src/dfehl.f",
+      "sha256": "1ad17c4b0ccdf69dfeb0ddeae8796e2c33fd3583a235da23710621c045eb7e1f"
+    },
+    {
+      "id": "batch-b-ode-derkf",
+      "subset": "main-src",
+      "path": "src/derkf.f",
+      "sha256": "17afdfa7b1b2516b0f74b3d414eb4e377011a47c1aba1cb0c1b214470af7de39"
+    },
+    {
+      "id": "batch-b-ode-derkfs",
+      "subset": "main-src",
+      "path": "src/derkfs.f",
+      "sha256": "ac3b2597bcdc5d3e51c51d794f5cb01c8951fdd919b6b57c6cc5f9166b2e19d5"
+    },
+    {
+      "id": "batch-b-ode-hstart",
+      "subset": "main-src",
+      "path": "src/hstart.f",
+      "sha256": "2b685e1a0a5569b662aa98e11a2622637245726b1273d3b8f0ea5d694fe2d135"
+    },
+    {
+      "id": "batch-b-ode-defehl",
+      "subset": "main-src",
+      "path": "src/defehl.f",
+      "sha256": "3055c6df3bf40e102d7fb5915d17d0e61725616d3c9871ef161c637b6b6cfbea"
+    },
+    {
+      "id": "batch-b-ode-hvnrm",
+      "subset": "main-src",
+      "path": "src/hvnrm.f",
+      "sha256": "607a753536f1d6e84967939385859fcfab4023a5be97407316bc1a269d5a1fa1"
+    },
+    {
+      "id": "batch-b-ode-dhvnrm",
+      "subset": "main-src",
+      "path": "src/dhvnrm.f",
+      "sha256": "5b4e09438e3ae29ef95a5488c7eec805cee0027939ef9662306d7b5cd8c1cd6c"
+    }
+  ]
+}

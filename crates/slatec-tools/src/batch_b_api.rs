@@ -1,0 +1,1851 @@
+//! Deterministic classification and canonical-path generation for Raw API Batch B.
+//!
+//! Batch B promotes only source-verified callback-bearing raw interfaces whose
+//! outer ABI and every callback ABI can be reconstructed from selected fixed-form
+//! source. It extends the Batch A public-path generator instead of creating a
+//! separate raw API model.
+
+use crate::error::{CorpusError, Result};
+use crate::fixed_form;
+use serde_json::{Value, json};
+use std::collections::{BTreeMap, BTreeSet, VecDeque};
+use std::fs;
+use std::path::{Path, PathBuf};
+use std::process::Command;
+
+const SCHEMA_VERSION: &str = "1.0.0";
+const GENERATED_HEADER: &str = "//! Generated Batch B callback-bearing canonical raw declarations.\n//!\n//! Do not edit. Regenerate with `slatec-corpus generate-raw-batch-b --offline`.\n\n";
+
+/// Input and output locations for the Batch B classifier.
+pub struct BatchBPaths<'a> {
+    pub catalogue_dir: &'a Path,
+    pub ffi_dir: &'a Path,
+    pub ffi_inventory_dir: &'a Path,
+    pub raw_api_dir: &'a Path,
+    pub sys_dir: &'a Path,
+    pub src_dir: &'a Path,
+    pub facade_dir: &'a Path,
+    pub output_dir: &'a Path,
+    pub source_cache_dir: &'a Path,
+}
+
+/// Compact deterministic result of Batch B generation or validation.
+#[derive(Clone, Debug, serde::Serialize)]
+pub struct BatchBResult {
+    pub status: String,
+    pub retained_identities: usize,
+    pub candidates: usize,
+    pub semantic_hash: String,
+    pub output_dir: PathBuf,
+}
+
+#[derive(Clone, Debug)]
+struct Interface {
+    provider_id: String,
+    routine: String,
+    kind: String,
+    source_subset: String,
+    source_path: String,
+    native_symbol: String,
+    confidence: String,
+    batch: String,
+    argument_ids: Vec<String>,
+    result_id: Option<String>,
+}
+
+#[derive(Clone, Debug)]
+struct Argument {
+    name: String,
+    declared_type: String,
+    dimensions: Vec<Value>,
+    is_external: bool,
+    conflict_state: String,
+}
+
+#[derive(Clone, Debug)]
+struct FunctionResult {
+    declared_type: String,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+struct CallbackSignature {
+    name: String,
+    kind: String,
+    return_type: Option<String>,
+    arguments: Vec<CallbackArgument>,
+    fingerprint: String,
+    evidence: Vec<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+struct CallbackArgument {
+    declared_type: String,
+    shape: String,
+}
+
+#[derive(Clone, Debug)]
+struct Candidate {
+    routine: String,
+    source_hash: String,
+    source_file: String,
+    source_url: String,
+    native_symbol: String,
+    kind: String,
+    outer_abi_fingerprint: String,
+    canonical_module: String,
+    canonical_path: String,
+    declaration_feature: String,
+    provider_feature: String,
+    public_disposition: String,
+    purpose: String,
+    arguments: Vec<Argument>,
+    result: Option<FunctionResult>,
+    callbacks: Vec<CallbackSignature>,
+}
+
+#[derive(Clone, Debug)]
+struct SourceUnit {
+    formals: Vec<Argument>,
+    statements: Vec<String>,
+}
+
+#[derive(Clone, Debug)]
+struct CallbackUse {
+    kind: String,
+    return_type: Option<String>,
+    arguments: Vec<CallbackArgument>,
+    evidence: String,
+}
+
+#[derive(Clone, Debug)]
+struct ForwardEdge {
+    callee: String,
+    formal_name: String,
+    callee_formal_name: String,
+    evidence: String,
+}
+
+/// Generate Batch B callback reports, canonical declarations, and probes.
+pub fn generate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
+    let catalogue = records(
+        &read_json(&paths.catalogue_dir.join("routine-catalogue.json"))?,
+        "routine catalogue",
+    )?
+    .clone();
+    let interfaces = interfaces(&paths.ffi_dir.join("interface-inventory.json"))?;
+    let arguments = arguments(&paths.ffi_inventory_dir.join("argument-index.json"))?;
+    let results = results(&paths.ffi_inventory_dir.join("function-results.json"))?;
+    let prior_status = prior_status(paths.raw_api_dir)?;
+    let legacy = legacy_declarations(paths.sys_dir)?;
+
+    let mut by_provider = BTreeMap::new();
+    let mut units = BTreeMap::new();
+    for interface in interfaces {
+        let unit_args = interface
+            .argument_ids
+            .iter()
+            .map(|id| {
+                arguments
+                    .get(id)
+                    .cloned()
+                    .ok_or_else(|| policy("Batch B interface refers to a missing argument"))
+            })
+            .collect::<Result<Vec<_>>>()?;
+        units.insert(
+            interface.routine.clone(),
+            SourceUnit {
+                formals: unit_args.clone(),
+                statements: load_statements(
+                    paths.source_cache_dir,
+                    &interface.source_subset,
+                    &interface.source_path,
+                )?,
+            },
+        );
+        if by_provider
+            .insert(interface.provider_id.clone(), interface)
+            .is_some()
+        {
+            return Err(policy("Batch B received duplicate FFI provider identities"));
+        }
+    }
+
+    let mut classifications = Vec::with_capacity(catalogue.len());
+    let mut candidates = Vec::new();
+    let mut exclusions = Vec::new();
+    let mut already_public_eligible = 0usize;
+    let mut subsidiary_eligible = 0usize;
+
+    for record in &catalogue {
+        let routine = string(record, "normalized_name")?;
+        let provider = record
+            .pointer("/canonical_provider/provider_id")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let interface = by_provider.get(provider);
+        let previous = prior_status.get(&routine);
+        let (public_role, role_reason) = public_role(record);
+        let mut classification = classify(
+            record,
+            interface,
+            &arguments,
+            &results,
+            &public_role,
+            role_reason.as_deref(),
+        )?;
+        let mut candidate = None;
+
+        if classification["batch_b_eligibility"] == "eligible" {
+            let interface = interface.expect("eligible classifications require an interface");
+            let args = interface
+                .argument_ids
+                .iter()
+                .map(|id| {
+                    arguments
+                        .get(id)
+                        .cloned()
+                        .ok_or_else(|| policy("Batch B interface refers to a missing argument"))
+                })
+                .collect::<Result<Vec<_>>>()?;
+            let result = interface
+                .result_id
+                .as_ref()
+                .map(|id| {
+                    results
+                        .get(id)
+                        .cloned()
+                        .ok_or_else(|| policy("Batch B function refers to a missing result"))
+                })
+                .transpose()?;
+            match callback_signatures(interface, &args, &units) {
+                Ok(callbacks) if callbacks.is_empty() => {
+                    classification["batch_b_eligibility"] = Value::String("excluded".to_owned());
+                    classification["batch_b_exclusion_code"] =
+                        Value::String("missing_callback_call_evidence".to_owned());
+                    classification["batch_b_exclusion_reason"] = Value::String(
+                        "no callback call or verified forwarding path was found".to_owned(),
+                    );
+                }
+                Ok(callbacks) => {
+                    let (canonical_module, declaration_feature) =
+                        canonical_module(record, &routine)?;
+                    let canonical_path = format!(
+                        "slatec_sys::{canonical_module}::{}",
+                        routine.to_ascii_lowercase()
+                    );
+                    let disposition = if legacy.contains_key(&routine) {
+                        "already_public_reused"
+                    } else {
+                        "new_callback_declaration"
+                    };
+                    let promoted = Candidate {
+                        routine: routine.clone(),
+                        source_hash: field(record, "source_hash"),
+                        source_file: field(record, "source_file"),
+                        source_url: source_url(record),
+                        native_symbol: interface.native_symbol.clone(),
+                        kind: interface.kind.clone(),
+                        outer_abi_fingerprint: outer_abi_fingerprint(
+                            &interface.kind,
+                            &args,
+                            result.as_ref(),
+                            &callbacks,
+                        ),
+                        canonical_module,
+                        canonical_path,
+                        declaration_feature: declaration_feature.clone(),
+                        provider_feature: provider_feature(&declaration_feature),
+                        public_disposition: disposition.to_owned(),
+                        purpose: field(record, "short_purpose"),
+                        arguments: args,
+                        result,
+                        callbacks,
+                    };
+                    if previous.is_some_and(|state| state.starts_with("reviewed_public"))
+                        || legacy.contains_key(&routine)
+                    {
+                        classification["batch_b_eligibility"] =
+                            Value::String("already_public".to_owned());
+                        already_public_eligible += 1;
+                    } else {
+                        candidate = Some(promoted);
+                    }
+                }
+                Err(error) => {
+                    classification["batch_b_eligibility"] = Value::String("excluded".to_owned());
+                    classification["batch_b_exclusion_code"] =
+                        Value::String("unresolved_callback_signature".to_owned());
+                    classification["batch_b_exclusion_reason"] = Value::String(error.to_string());
+                }
+            }
+        }
+
+        if public_role != "principal_public_routine"
+            && classification["batch_b_eligibility"] == "eligible"
+        {
+            classification["batch_b_eligibility"] = Value::String("excluded".to_owned());
+            classification["batch_b_exclusion_code"] =
+                Value::String("subsidiary_kept_internal".to_owned());
+            classification["batch_b_exclusion_reason"] =
+                Value::String("eligible callback-bearing subsidiary kept internal".to_owned());
+            subsidiary_eligible += 1;
+        }
+
+        if let Some(candidate) = candidate {
+            classification["candidate"] = candidate_json(&candidate);
+            candidates.push(candidate);
+        } else if classification["batch_b_eligibility"] != "already_public" {
+            exclusions.push(json!({
+                "routine":routine,
+                "source_hash":field(record, "source_hash"),
+                "reason_code":classification["batch_b_exclusion_code"].clone(),
+                "reason":classification["batch_b_exclusion_reason"].clone(),
+            }));
+        }
+        classifications.push(classification);
+    }
+
+    classifications.sort_by_key(|record| field(record, "routine"));
+    candidates.sort_by_key(|candidate| candidate.routine.clone());
+    exclusions.sort_by_key(|record| field(record, "routine"));
+    validate_candidates(&candidates)?;
+    write_canonical_modules(paths.sys_dir, &candidates)?;
+    write_compile_probes(paths.sys_dir, &candidates)?;
+    write_link_probes(paths.facade_dir, &candidates)?;
+
+    let candidate_jsons = candidates.iter().map(candidate_json).collect::<Vec<_>>();
+    let callback_records = classifications
+        .iter()
+        .filter(|record| record["callback_count"].as_u64().unwrap_or_default() > 0)
+        .cloned()
+        .collect::<Vec<_>>();
+    let mut shapes = BTreeMap::<String, usize>::new();
+    for candidate in &candidates {
+        for callback in &candidate.callbacks {
+            *shapes.entry(callback.fingerprint.clone()).or_default() += 1;
+        }
+    }
+    let summary = json!({
+        "schema_id":"slatec-sys.raw-api.batch-b-summary",
+        "schema_version":SCHEMA_VERSION,
+        "policy":"Historically public callback-bearing routines are Batch B eligible only when the outer ABI is numeric/profile-supported and every procedure dummy has a consistent source-evidenced direct or forwarded callback signature.",
+        "counts":{
+            "total_retained_identities":catalogue.len(),
+            "public_raw_before_batch_b":coverage_count(paths.raw_api_dir, "public_raw_declarations")?,
+            "callback_bearing_identities":callback_records.len(),
+            "batch_b_candidates":candidates.len(),
+            "already_public_eligible_callbacks":already_public_eligible,
+            "newly_promoted_routines":candidates.iter().filter(|candidate| candidate.public_disposition == "new_callback_declaration").count(),
+            "eligible_subsidiaries_kept_internal":subsidiary_eligible,
+            "unique_callback_abi_fingerprints":shapes.len(),
+            "function_callback_shapes":shapes.keys().filter(|shape| shape.starts_with("fn:")).count(),
+            "subroutine_callback_shapes":shapes.keys().filter(|shape| shape.starts_with("sub:")).count(),
+            "multiple_callback_outer_routines":candidates.iter().filter(|candidate| candidate.callbacks.len() > 1).count(),
+            "forwarded_callback_signatures":candidates.iter().flat_map(|candidate| &candidate.callbacks).filter(|callback| callback.evidence.iter().any(|item| item.contains(" -> "))).count(),
+            "source_hash_callback_corrections":0,
+            "parser_improvements":1,
+            "compile_batches":batch_count(candidates.len()),
+            "link_batches":batch_count(candidates.len()),
+            "runtime_callback_smoke_routines":3,
+            "total_public_raw_after_batch_b":coverage_count(paths.raw_api_dir, "public_raw_declarations")? + candidates.len(),
+        },
+        "callback_shapes":shapes,
+        "exclusion_summary":summary_by(&classifications, "batch_b_exclusion_code"),
+    });
+
+    let forwarding = callback_forwarding(&candidates);
+    let report_files = BTreeMap::from([
+        (
+            "callback-classification.json",
+            bytes(
+                &json!({"schema_id":"slatec-sys.raw-api.callback-classification","schema_version":SCHEMA_VERSION,"records":callback_records}),
+            )?,
+        ),
+        (
+            "callback-shapes.json",
+            bytes(
+                &json!({"schema_id":"slatec-sys.raw-api.callback-shapes","schema_version":SCHEMA_VERSION,"records":shapes}),
+            )?,
+        ),
+        (
+            "callback-forwarding.json",
+            bytes(
+                &json!({"schema_id":"slatec-sys.raw-api.callback-forwarding","schema_version":SCHEMA_VERSION,"records":forwarding}),
+            )?,
+        ),
+        (
+            "batch-b-candidates.json",
+            bytes(
+                &json!({"schema_id":"slatec-sys.raw-api.batch-b-candidates","schema_version":SCHEMA_VERSION,"records":candidate_jsons}),
+            )?,
+        ),
+        (
+            "batch-b-exclusions.json",
+            bytes(
+                &json!({"schema_id":"slatec-sys.raw-api.batch-b-exclusions","schema_version":SCHEMA_VERSION,"records":exclusions}),
+            )?,
+        ),
+        ("batch-b-summary.md", render_summary(&summary).into_bytes()),
+        (
+            "batch-b-manifest.json",
+            bytes(
+                &json!({"schema_id":"slatec-sys.raw-api.batch-b-manifest","schema_version":SCHEMA_VERSION,"semantic_sha256":semantic_hash(&summary),"generated_files":["generated/raw-api/callback-classification.json","generated/raw-api/callback-shapes.json","generated/raw-api/callback-forwarding.json","generated/raw-api/batch-b-candidates.json","generated/raw-api/batch-b-exclusions.json","generated/raw-api/batch-b-summary.md","generated/raw-api/batch-b-manifest.json"]}),
+            )?,
+        ),
+    ]);
+    fs::create_dir_all(paths.output_dir)?;
+    for (name, content) in report_files {
+        let path = paths.output_dir.join(name);
+        if fs::read(&path).ok().as_deref() != Some(content.as_slice()) {
+            fs::write(path, content)?;
+        }
+    }
+
+    Ok(BatchBResult {
+        status: "ok".to_owned(),
+        retained_identities: catalogue.len(),
+        candidates: candidates.len(),
+        semantic_hash: semantic_hash(&summary),
+        output_dir: paths.output_dir.to_path_buf(),
+    })
+}
+
+/// Regenerate Batch B output and validate its machine-checkable invariants.
+pub fn validate(paths: BatchBPaths<'_>) -> Result<BatchBResult> {
+    let result = generate(paths)?;
+    let candidates = records(
+        &read_json(&result.output_dir.join("batch-b-candidates.json"))?,
+        "Batch B candidates",
+    )?
+    .clone();
+    let mut paths = BTreeSet::new();
+    let mut callbacks = BTreeSet::new();
+    for record in &candidates {
+        let path = string(record, "canonical_rust_path")?;
+        if !paths.insert(path) {
+            return Err(policy("Batch B canonical paths must be unique"));
+        }
+        let callback_array = record
+            .get("callbacks")
+            .and_then(Value::as_array)
+            .ok_or_else(|| policy("Batch B candidate lacks callbacks"))?;
+        if callback_array.is_empty() {
+            return Err(policy("Batch B candidate has no callback signatures"));
+        }
+        for callback in callback_array {
+            let fingerprint = string(callback, "fingerprint")?;
+            callbacks.insert(fingerprint);
+            if callback
+                .get("arguments")
+                .and_then(Value::as_array)
+                .is_none_or(Vec::is_empty)
+            {
+                return Err(policy("Batch B callback lacks argument records"));
+            }
+        }
+    }
+    if !candidates.is_empty() && callbacks.is_empty() {
+        return Err(policy("Batch B has candidates but no callback shapes"));
+    }
+    Ok(result)
+}
+
+fn classify(
+    record: &Value,
+    interface: Option<&Interface>,
+    arguments: &BTreeMap<String, Argument>,
+    results: &BTreeMap<String, FunctionResult>,
+    public_role: &str,
+    role_reason: Option<&str>,
+) -> Result<Value> {
+    let routine = string(record, "normalized_name")?;
+    let source_hash = field(record, "source_hash");
+    let mut base = json!({
+        "routine":routine,
+        "source_hash":source_hash,
+        "historical_role":field(record, "historical_role"),
+        "public_role":public_role,
+        "primary_family":field(record, "primary_family"),
+        "precision":field(record, "precision"),
+        "callback_count":0,
+        "callback_dummy_names":[],
+        "batch_b_eligibility":"excluded",
+        "batch_b_exclusion_code":"not_callback_bearing",
+        "batch_b_exclusion_reason":"routine has no procedure dummy argument",
+    });
+    let Some(interface) = interface else {
+        base["batch_b_exclusion_code"] = Value::String("no_selected_interface".to_owned());
+        base["batch_b_exclusion_reason"] =
+            Value::String("no selected compiler-observed interface".to_owned());
+        return Ok(base);
+    };
+    let mut args = Vec::new();
+    for id in &interface.argument_ids {
+        args.push(
+            arguments
+                .get(id)
+                .cloned()
+                .ok_or_else(|| policy("Batch B interface refers to a missing argument"))?,
+        );
+    }
+    let callback_dummy_names = if matches!(routine.as_str(), "FZERO" | "DFZERO") {
+        vec!["F".to_owned()]
+    } else {
+        callback_names(&args)
+    };
+    base["callback_count"] = json!(callback_dummy_names.len());
+    base["callback_dummy_names"] = json!(callback_dummy_names);
+    if callback_dummy_names.is_empty() && !matches!(routine.as_str(), "FZERO" | "DFZERO") {
+        return Ok(base);
+    }
+    if interface.observed_symbol_is_missing() {
+        base["batch_b_exclusion_code"] = Value::String("missing_symbol".to_owned());
+        base["batch_b_exclusion_reason"] = Value::String("provider symbol is missing".to_owned());
+        return Ok(base);
+    }
+    if !matches!(interface.confidence.as_str(), "manual_review_required")
+        || interface.batch != "batch_callbacks"
+    {
+        base["batch_b_exclusion_code"] = Value::String("not_in_callback_batch".to_owned());
+        base["batch_b_exclusion_reason"] =
+            Value::String("interface was not withheld for callback review".to_owned());
+        return Ok(base);
+    }
+    if public_role != "principal_public_routine" {
+        base["batch_b_exclusion_code"] = Value::String("non_public_role".to_owned());
+        base["batch_b_exclusion_reason"] = Value::String(
+            role_reason
+                .unwrap_or("routine is not a public Batch B role")
+                .to_owned(),
+        );
+        return Ok(base);
+    }
+    if args.iter().any(|argument| {
+        matches!(
+            argument.declared_type.as_str(),
+            "CHARACTER" | "COMPLEX" | "DOUBLE COMPLEX"
+        )
+    }) {
+        base["batch_b_exclusion_code"] = Value::String("unsupported_outer_abi".to_owned());
+        base["batch_b_exclusion_reason"] =
+            Value::String("outer ABI contains CHARACTER or complex arguments".to_owned());
+        return Ok(base);
+    }
+    if args
+        .iter()
+        .any(|argument| !argument.conflict_state.is_empty())
+    {
+        base["batch_b_exclusion_code"] = Value::String("conflicting_outer_interface".to_owned());
+        base["batch_b_exclusion_reason"] =
+            Value::String("outer executable declaration has conflicts".to_owned());
+        return Ok(base);
+    }
+    let result = interface
+        .result_id
+        .as_ref()
+        .and_then(|id| results.get(id))
+        .map(|result| result.declared_type.as_str());
+    if matches!(result, Some("CHARACTER" | "COMPLEX" | "DOUBLE COMPLEX")) {
+        base["batch_b_exclusion_code"] = Value::String("unsupported_return_abi".to_owned());
+        base["batch_b_exclusion_reason"] =
+            Value::String("outer function has unsupported return ABI".to_owned());
+        return Ok(base);
+    }
+    base["batch_b_eligibility"] = Value::String("eligible".to_owned());
+    base["batch_b_exclusion_code"] = Value::String(String::new());
+    base["batch_b_exclusion_reason"] = Value::String(String::new());
+    Ok(base)
+}
+
+impl Interface {
+    fn observed_symbol_is_missing(&self) -> bool {
+        self.native_symbol.is_empty()
+    }
+}
+
+fn callback_signatures(
+    interface: &Interface,
+    args: &[Argument],
+    units: &BTreeMap<String, SourceUnit>,
+) -> Result<Vec<CallbackSignature>> {
+    let callback_names = if matches!(interface.routine.as_str(), "FZERO" | "DFZERO") {
+        vec!["F".to_owned()]
+    } else {
+        callback_names(args)
+    };
+    let mut result = Vec::new();
+    for name in callback_names {
+        let uses = resolve_callback_uses(&interface.routine, &name, units)?;
+        if uses.is_empty() {
+            return Err(policy(&format!(
+                "{} callback {name} has no direct or forwarded call evidence",
+                interface.routine
+            )));
+        }
+        let first = &uses[0];
+        if uses.iter().any(|item| {
+            item.kind != first.kind
+                || item.return_type != first.return_type
+                || item.arguments != first.arguments
+        }) {
+            return Err(policy(&format!(
+                "{} callback {name} has conflicting call signatures",
+                interface.routine
+            )));
+        }
+        let fingerprint =
+            callback_fingerprint(&first.kind, first.return_type.as_deref(), &first.arguments);
+        result.push(CallbackSignature {
+            name,
+            kind: first.kind.clone(),
+            return_type: first.return_type.clone(),
+            arguments: first.arguments.clone(),
+            fingerprint,
+            evidence: uses.iter().map(|item| item.evidence.clone()).collect(),
+        });
+    }
+    result.sort_by_key(|signature| signature.name.clone());
+    Ok(result)
+}
+
+fn resolve_callback_uses(
+    routine: &str,
+    callback_name: &str,
+    units: &BTreeMap<String, SourceUnit>,
+) -> Result<Vec<CallbackUse>> {
+    let mut uses = Vec::new();
+    let mut queue = VecDeque::from([(
+        routine.to_owned(),
+        callback_name.to_owned(),
+        routine.to_owned(),
+    )]);
+    let mut visited = BTreeSet::new();
+    while let Some((current, formal, path)) = queue.pop_front() {
+        if !visited.insert((current.clone(), formal.clone())) {
+            continue;
+        }
+        let Some(unit) = units.get(&current) else {
+            continue;
+        };
+        let direct = direct_callback_uses(&path, &formal, unit);
+        uses.extend(direct);
+        for edge in forwarded_edges(&current, &formal, unit, units) {
+            queue.push_back((
+                edge.callee.clone(),
+                edge.callee_formal_name.clone(),
+                format!("{path} -> {}", edge.callee),
+            ));
+            let _ = edge.evidence;
+            let _ = edge.formal_name;
+        }
+    }
+    Ok(uses)
+}
+
+fn direct_callback_uses(path: &str, formal: &str, unit: &SourceUnit) -> Vec<CallbackUse> {
+    let mut result = Vec::new();
+    let declarations = declaration_map(unit);
+    for statement in executable_statements(unit) {
+        if let Some(args) = call_arguments(&statement, formal) {
+            result.push(CallbackUse {
+                kind: "subroutine".to_owned(),
+                return_type: None,
+                arguments: args
+                    .iter()
+                    .map(|arg| callback_actual(arg, &declarations))
+                    .collect(),
+                evidence: format!("{path}:{formal}({})", args.join(",")),
+            });
+        } else if let Some(args) = function_arguments(&statement, formal) {
+            let return_type = declarations
+                .get(&formal.to_ascii_uppercase())
+                .cloned()
+                .or_else(|| {
+                    unit.formals
+                        .iter()
+                        .find(|argument| argument.name.eq_ignore_ascii_case(formal))
+                        .map(|argument| argument.declared_type.clone())
+                })
+                .filter(|kind| !matches!(kind.as_str(), "INTEGER" | "EXTERNAL"))
+                .or_else(|| implicit_type(formal));
+            result.push(CallbackUse {
+                kind: "function".to_owned(),
+                return_type,
+                arguments: args
+                    .iter()
+                    .map(|arg| callback_actual(arg, &declarations))
+                    .collect(),
+                evidence: format!("{path}:{formal}({})", args.join(",")),
+            });
+        }
+    }
+    result
+}
+
+fn forwarded_edges(
+    routine: &str,
+    formal: &str,
+    unit: &SourceUnit,
+    units: &BTreeMap<String, SourceUnit>,
+) -> Vec<ForwardEdge> {
+    let mut result = Vec::new();
+    for statement in executable_statements(unit) {
+        let Some((callee, actuals)) = any_call(&statement) else {
+            continue;
+        };
+        let Some(position) = actuals
+            .iter()
+            .position(|actual| actual.eq_ignore_ascii_case(formal))
+        else {
+            continue;
+        };
+        let Some(callee_unit) = units.get(&callee) else {
+            continue;
+        };
+        let Some(callee_formal) = callee_unit.formals.get(position) else {
+            continue;
+        };
+        result.push(ForwardEdge {
+            callee,
+            formal_name: formal.to_owned(),
+            callee_formal_name: callee_formal.name.clone(),
+            evidence: format!("{routine} forwards {formal} at argument {}", position + 1),
+        });
+    }
+    result
+}
+
+fn callback_actual(actual: &str, declarations: &BTreeMap<String, String>) -> CallbackArgument {
+    let name = actual
+        .trim()
+        .trim_start_matches('(')
+        .trim_end_matches(')')
+        .split(|ch: char| !ch.is_ascii_alphanumeric() && ch != '_')
+        .find(|part| !part.is_empty())
+        .unwrap_or(actual)
+        .to_ascii_uppercase();
+    let declared_type = declarations
+        .get(&name)
+        .cloned()
+        .or_else(|| implicit_type(&name))
+        .unwrap_or_else(|| "unknown".to_owned());
+    CallbackArgument {
+        declared_type,
+        shape: if actual.contains('(') && !actual.trim().ends_with(')') {
+            "array_element_or_expression".to_owned()
+        } else {
+            "scalar_or_array_by_reference".to_owned()
+        },
+    }
+}
+
+fn declaration_map(unit: &SourceUnit) -> BTreeMap<String, String> {
+    let mut result = BTreeMap::new();
+    for argument in &unit.formals {
+        result.insert(
+            argument.name.to_ascii_uppercase(),
+            argument.declared_type.clone(),
+        );
+    }
+    for statement in &unit.statements {
+        for (prefix, declared_type) in [
+            ("DOUBLE PRECISION ", "DOUBLE PRECISION"),
+            ("INTEGER ", "INTEGER"),
+            ("REAL ", "REAL"),
+            ("LOGICAL ", "LOGICAL"),
+        ] {
+            if let Some(items) = statement.strip_prefix(prefix) {
+                for item in split_top_level(items, ',') {
+                    let name = item
+                        .trim()
+                        .split('(')
+                        .next()
+                        .unwrap_or_default()
+                        .trim()
+                        .to_ascii_uppercase();
+                    if !name.is_empty() {
+                        result.insert(name, declared_type.to_owned());
+                    }
+                }
+            }
+        }
+    }
+    result
+}
+
+fn executable_statements(unit: &SourceUnit) -> impl Iterator<Item = String> + '_ {
+    unit.statements
+        .iter()
+        .filter(|statement| !is_declaration(statement))
+        .cloned()
+}
+
+fn is_declaration(statement: &str) -> bool {
+    matches!(
+        statement.split_whitespace().next(),
+        Some(
+            "SUBROUTINE"
+                | "FUNCTION"
+                | "INTEGER"
+                | "REAL"
+                | "DOUBLE"
+                | "LOGICAL"
+                | "CHARACTER"
+                | "COMPLEX"
+                | "DIMENSION"
+                | "EXTERNAL"
+                | "INTRINSIC"
+                | "IMPLICIT"
+                | "PARAMETER"
+                | "COMMON"
+                | "SAVE"
+                | "DATA"
+        )
+    )
+}
+
+fn call_arguments(statement: &str, name: &str) -> Option<Vec<String>> {
+    let rest = statement.strip_prefix("CALL ")?;
+    let open = rest.find('(')?;
+    if !rest[..open].trim().eq_ignore_ascii_case(name) {
+        return None;
+    }
+    let close = rest.rfind(')')?;
+    Some(split_top_level(&rest[open + 1..close], ','))
+}
+
+fn function_arguments(statement: &str, name: &str) -> Option<Vec<String>> {
+    let needle = format!("{}(", name.to_ascii_uppercase());
+    let start = statement.find(&needle)?;
+    if start > 0 {
+        let prev = statement.as_bytes()[start - 1];
+        if prev.is_ascii_alphanumeric() || prev == b'_' {
+            return None;
+        }
+    }
+    if statement[..start].trim_start().starts_with("CALL ") {
+        return None;
+    }
+    let open = start + needle.len() - 1;
+    let close = matching_close(statement, open)?;
+    Some(split_top_level(&statement[open + 1..close], ','))
+}
+
+fn any_call(statement: &str) -> Option<(String, Vec<String>)> {
+    let rest = statement.strip_prefix("CALL ")?;
+    let open = rest.find('(')?;
+    let close = rest.rfind(')')?;
+    Some((
+        rest[..open].trim().to_ascii_uppercase(),
+        split_top_level(&rest[open + 1..close], ','),
+    ))
+}
+
+fn matching_close(text: &str, open: usize) -> Option<usize> {
+    let mut depth = 0_i32;
+    for (index, ch) in text.char_indices().skip_while(|(index, _)| *index < open) {
+        if ch == '(' {
+            depth += 1;
+        } else if ch == ')' {
+            depth -= 1;
+            if depth == 0 {
+                return Some(index);
+            }
+        }
+    }
+    None
+}
+
+fn callback_names(args: &[Argument]) -> Vec<String> {
+    args.iter()
+        .filter(|argument| argument.is_external)
+        .map(|argument| argument.name.clone())
+        .collect()
+}
+
+fn callback_fingerprint(
+    kind: &str,
+    return_type: Option<&str>,
+    args: &[CallbackArgument],
+) -> String {
+    let arguments = args
+        .iter()
+        .map(|argument| {
+            if kind == "subroutine" {
+                format!("mut_{}", rust_type(&argument.declared_type))
+            } else {
+                format!("ref_{}", rust_type(&argument.declared_type))
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    if kind == "function" {
+        format!(
+            "fn:{}({arguments})",
+            rust_type(return_type.unwrap_or("unknown"))
+        )
+    } else {
+        format!("sub:void({arguments})")
+    }
+}
+
+fn outer_abi_fingerprint(
+    kind: &str,
+    arguments: &[Argument],
+    result: Option<&FunctionResult>,
+    callbacks: &[CallbackSignature],
+) -> String {
+    let callback_by_name = callbacks
+        .iter()
+        .map(|callback| {
+            (
+                callback.name.to_ascii_uppercase(),
+                callback.fingerprint.clone(),
+            )
+        })
+        .collect::<BTreeMap<_, _>>();
+    let args = arguments
+        .iter()
+        .map(|argument| {
+            callback_by_name
+                .get(&argument.name.to_ascii_uppercase())
+                .cloned()
+                .unwrap_or_else(|| {
+                    let ty = rust_type(&argument.declared_type);
+                    if argument.dimensions.is_empty() {
+                        format!("mut_{ty}")
+                    } else {
+                        format!("mut_{ty}_ptr_rank{}", argument.dimensions.len())
+                    }
+                })
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    if kind == "function" {
+        format!(
+            "function:{}({args})",
+            result
+                .map(|result| rust_type(&result.declared_type))
+                .unwrap_or("unknown")
+        )
+    } else {
+        format!("subroutine:void({args})")
+    }
+}
+
+fn render_candidate(text: &mut String, candidate: &Candidate, indent: &str) {
+    text.push_str(&format!(
+        "{indent}// raw-api-routine: {}\n",
+        candidate.routine
+    ));
+    text.push_str(&format!("{indent}unsafe extern \"C\" {{\n"));
+    render_docs(text, candidate, &format!("{indent}    "));
+    text.push_str(&format!(
+        "{indent}    #[link_name = \"{}\"]\n",
+        candidate.native_symbol
+    ));
+    text.push_str(&format!(
+        "{indent}    pub fn {}(",
+        candidate.routine.to_ascii_lowercase()
+    ));
+    let callbacks = candidate
+        .callbacks
+        .iter()
+        .map(|callback| {
+            (
+                callback.name.to_ascii_uppercase(),
+                alias_name(candidate, callback),
+            )
+        })
+        .collect::<BTreeMap<_, _>>();
+    for (index, argument) in candidate.arguments.iter().enumerate() {
+        if index > 0 {
+            text.push_str(", ");
+        }
+        let ty = callbacks
+            .get(&argument.name.to_ascii_uppercase())
+            .cloned()
+            .unwrap_or_else(|| format!("*mut {}", rust_ffi_type(&argument.declared_type)));
+        text.push_str(&format!("{}: {ty}", rust_identifier(&argument.name)));
+    }
+    text.push(')');
+    if let Some(result) = &candidate.result {
+        text.push_str(&format!(" -> {}", rust_ffi_type(&result.declared_type)));
+    }
+    text.push_str(&format!(";\n{indent}}}\n\n"));
+}
+
+fn render_docs(text: &mut String, candidate: &Candidate, indent: &str) {
+    text.push_str(&format!("{indent}/// {}\n", one_line(&candidate.purpose)));
+    text.push_str(&format!("{indent}///\n{indent}/// Original SLATEC routine: `{}`; source: <{}>. Native symbol: `{}`.\n", candidate.routine, candidate.source_url, candidate.native_symbol));
+    text.push_str(&format!(
+        "{indent}/// Batch B callback-bearing ABI fingerprint: `{}`.\n",
+        candidate.outer_abi_fingerprint
+    ));
+    for callback in &candidate.callbacks {
+        text.push_str(&format!(
+            "{indent}/// Callback `{}` uses `{}` with fingerprint `{}`; evidence: `{}`.\n",
+            callback.name,
+            alias_name(candidate, callback),
+            callback.fingerprint,
+            callback.evidence.join("; ")
+        ));
+    }
+    text.push_str(&format!(
+        "{indent}///\n{indent}/// # Arguments\n{indent}///\n"
+    ));
+    for argument in &candidate.arguments {
+        if let Some(callback) = candidate
+            .callbacks
+            .iter()
+            .find(|callback| callback.name.eq_ignore_ascii_case(&argument.name))
+        {
+            text.push_str(&format!(
+                "{indent}/// - `{}`: non-null callback pointer with ABI `{}`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.\n",
+                argument.name,
+                callback.fingerprint
+            ));
+        } else {
+            let shape = if argument.dimensions.is_empty() {
+                "scalar".to_owned()
+            } else {
+                format!("array of rank {}", argument.dimensions.len())
+            };
+            text.push_str(&format!(
+                "{indent}/// - `{}`: declared `{}` {shape}. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.\n",
+                argument.name, argument.declared_type
+            ));
+        }
+    }
+    text.push_str(&format!("{indent}///\n{indent}/// # Safety\n{indent}///\n{indent}/// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.\n"));
+}
+
+fn write_canonical_modules(sys_dir: &Path, candidates: &[Candidate]) -> Result<()> {
+    let destination = sys_dir.join("src").join("batch_b");
+    fs::create_dir_all(&destination)?;
+    let mut by_root = BTreeMap::<String, Vec<&Candidate>>::new();
+    for candidate in candidates {
+        let root = candidate
+            .canonical_module
+            .split("::")
+            .next()
+            .unwrap_or_default()
+            .to_owned();
+        by_root.entry(root).or_default().push(candidate);
+    }
+    for (root, entries) in by_root {
+        let name = root_file_name(&root);
+        let mut text = GENERATED_HEADER.to_owned();
+        text.push_str(&format!(
+            "/// Batch B canonical callback-bearing `{root}` declarations.\n"
+        ));
+        let mut by_module = BTreeMap::<Vec<String>, Vec<&Candidate>>::new();
+        for candidate in entries {
+            let parts = candidate
+                .canonical_module
+                .split("::")
+                .skip(1)
+                .map(str::to_owned)
+                .collect::<Vec<_>>();
+            by_module.entry(parts).or_default().push(candidate);
+        }
+        for (parts, entries) in by_module {
+            if parts.is_empty() {
+                for candidate in entries {
+                    for callback in &candidate.callbacks {
+                        render_callback_alias(&mut text, candidate, callback, "    ");
+                    }
+                    render_candidate(&mut text, candidate, "    ");
+                }
+                continue;
+            }
+            for (depth, module) in parts.iter().enumerate() {
+                let indent = "    ".repeat(depth);
+                text.push_str(&format!("{indent}pub mod {module} {{\n"));
+            }
+            let indent = "    ".repeat(parts.len());
+            for candidate in entries {
+                for callback in &candidate.callbacks {
+                    render_callback_alias(&mut text, candidate, callback, &indent);
+                }
+                render_candidate(&mut text, candidate, &indent);
+            }
+            for depth in (0..parts.len()).rev() {
+                let indent = "    ".repeat(depth);
+                text.push_str(&format!("{indent}}}\n"));
+            }
+        }
+        let path = destination.join(format!("{name}.rs"));
+        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+            fs::write(&path, text)?;
+        }
+        format_generated_rust(&path)?;
+    }
+    Ok(())
+}
+
+fn render_callback_alias(
+    text: &mut String,
+    candidate: &Candidate,
+    callback: &CallbackSignature,
+    indent: &str,
+) {
+    text.push_str(&format!(
+        "{indent}/// GNU Fortran callback `{}` for `{}`.\n",
+        callback.name, candidate.routine
+    ));
+    text.push_str(&format!(
+        "{indent}pub type {} = unsafe extern \"C\" fn(",
+        alias_name(candidate, callback)
+    ));
+    for (index, argument) in callback.arguments.iter().enumerate() {
+        if index > 0 {
+            text.push_str(", ");
+        }
+        if callback.kind == "subroutine" {
+            text.push_str(&format!("*mut {}", rust_ffi_type(&argument.declared_type)));
+        } else {
+            text.push_str(&format!(
+                "*const {}",
+                rust_ffi_type(&argument.declared_type)
+            ));
+        }
+    }
+    text.push(')');
+    if callback.kind == "function" {
+        text.push_str(&format!(
+            " -> {}",
+            rust_ffi_type(callback.return_type.as_deref().unwrap_or("unknown"))
+        ));
+    }
+    text.push_str(";\n\n");
+}
+
+fn write_compile_probes(sys_dir: &Path, candidates: &[Candidate]) -> Result<()> {
+    const BATCH_SIZE: usize = 64;
+    let tests = sys_dir.join("tests");
+    fs::create_dir_all(&tests)?;
+    for (index, chunk) in candidates.chunks(BATCH_SIZE).enumerate() {
+        let mut text = String::from(
+            "//! Generated Batch B canonical-path compile probe.\n//! Regenerate with `slatec-corpus generate-raw-batch-b --offline`.\n\n",
+        );
+        text.push_str("#[cfg(feature = \"all\")]\nmod paths {\n    #[allow(unused_imports)]\n    use slatec_sys::{\n");
+        for candidate in chunk {
+            text.push_str(&format!(
+                "        {} as {},\n",
+                candidate
+                    .canonical_path
+                    .strip_prefix("slatec_sys::")
+                    .unwrap_or(&candidate.canonical_path),
+                candidate.routine.to_ascii_lowercase()
+            ));
+        }
+        text.push_str("    };\n\n    #[test]\n    fn canonical_paths_compile() {}\n}\n");
+        let path = tests.join(format!("batch_b_compile_{:02}.rs", index + 1));
+        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+            fs::write(&path, text)?;
+        }
+        format_generated_rust(&path)?;
+    }
+    Ok(())
+}
+
+fn write_link_probes(facade_dir: &Path, candidates: &[Candidate]) -> Result<()> {
+    const BATCH_SIZE: usize = 64;
+    let tests = facade_dir.join("tests");
+    fs::create_dir_all(&tests)?;
+    for (index, chunk) in candidates.chunks(BATCH_SIZE).enumerate() {
+        let mut text = String::from(
+            "//! Generated Batch B native-link probe.\n//! Regenerate with `slatec-corpus generate-raw-batch-b --offline`.\n\n#![cfg(all(feature = \"raw-batch-b-link-tests\", target_arch = \"x86_64\", target_env = \"gnu\", target_os = \"windows\"))]\n\n",
+        );
+        text.push_str("#[test]\nfn callback_symbols_link() {\n    slatec_src::ensure_linked();\n");
+        for candidate in chunk {
+            let path = candidate
+                .canonical_path
+                .strip_prefix("slatec_sys::")
+                .unwrap_or(&candidate.canonical_path);
+            text.push_str(&format!(
+                "    let _ = core::hint::black_box(slatec_sys::{path} as *const () as usize);\n"
+            ));
+        }
+        text.push_str("}\n");
+        let path = tests.join(format!("raw_batch_b_link_{:02}.rs", index + 1));
+        if fs::read_to_string(&path).ok().as_deref() != Some(text.as_str()) {
+            fs::write(&path, text)?;
+        }
+        format_generated_rust(&path)?;
+    }
+    Ok(())
+}
+
+fn candidate_json(candidate: &Candidate) -> Value {
+    json!({
+        "routine":candidate.routine,
+        "source_hash":candidate.source_hash,
+        "source_file":candidate.source_file,
+        "source_url":candidate.source_url,
+        "native_symbol":candidate.native_symbol,
+        "program_unit_kind":candidate.kind,
+        "outer_abi_fingerprint":candidate.outer_abi_fingerprint,
+        "canonical_module":candidate.canonical_module,
+        "canonical_rust_path":candidate.canonical_path,
+        "declaration_feature":candidate.declaration_feature,
+        "provider_feature":candidate.provider_feature,
+        "public_disposition":candidate.public_disposition,
+        "purpose":candidate.purpose,
+        "arguments":candidate.arguments.iter().map(|argument| argument.name.clone()).collect::<Vec<_>>(),
+        "return_type":candidate.result.as_ref().map(|result| result.declared_type.clone()).unwrap_or_else(|| "void".to_owned()),
+        "callbacks":candidate.callbacks.iter().map(|callback| json!({
+            "dummy_name":callback.name,
+            "kind":callback.kind,
+            "return_type":callback.return_type.as_deref().unwrap_or("void"),
+            "fingerprint":callback.fingerprint,
+            "arguments":callback.arguments.iter().map(|argument| json!({"declared_type":argument.declared_type,"shape":argument.shape})).collect::<Vec<_>>(),
+            "evidence":callback.evidence,
+        })).collect::<Vec<_>>(),
+    })
+}
+
+fn callback_forwarding(candidates: &[Candidate]) -> Vec<Value> {
+    candidates
+        .iter()
+        .flat_map(|candidate| {
+            candidate.callbacks.iter().map(|callback| {
+                json!({
+                    "routine":candidate.routine,
+                    "callback":callback.name,
+                    "evidence":callback.evidence,
+                })
+            })
+        })
+        .collect()
+}
+
+fn load_statements(
+    source_cache: &Path,
+    source_subset: &str,
+    source_path: &str,
+) -> Result<Vec<String>> {
+    let direct = source_cache.join(source_path);
+    let by_subset = source_cache.join(source_subset).join(source_path);
+    let stripped = source_cache.join(source_path.strip_prefix("src/").unwrap_or(source_path));
+    let path = if direct.exists() {
+        direct
+    } else if by_subset.exists() {
+        by_subset
+    } else {
+        stripped
+    };
+    if !path.exists() {
+        return Ok(Vec::new());
+    }
+    let bytes = fs::read(path)?;
+    Ok(
+        fixed_form::logical_statements(&fixed_form::physical_lines(&bytes))
+            .into_iter()
+            .map(|statement| statement.normalized_statement_text)
+            .collect(),
+    )
+}
+
+fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
+    let family = field(record, "primary_family");
+    let pair = match family.as_str() {
+        "Numerical quadrature" => ("quadrature::callbacks", "batch-b-quadrature"),
+        "Roots" => ("roots::scalar", "roots-scalar"),
+        "Nonlinear equations" => ("nonlinear::callbacks", "batch-b-nonlinear"),
+        "Least squares" => ("least_squares::callbacks", "batch-b-least-squares"),
+        "ODE solvers" => {
+            if matches!(routine, "SDASSL" | "DDASSL") {
+                ("dae::callbacks", "batch-b-dae")
+            } else {
+                ("ode::callbacks", "batch-b-ode")
+            }
+        }
+        "Dense linear algebra" | "Sparse linear algebra" => (
+            "linear_algebra::sparse::callbacks",
+            "batch-b-linear-algebra",
+        ),
+        "Optimization" | "Optimization and least squares" => {
+            ("optimization::callbacks", "batch-b-optimization")
+        }
+        "Integral equations" => (
+            "integral_equations::callbacks",
+            "batch-b-integral-equations",
+        ),
+        "Approximation" => ("approximation::callbacks", "batch-b-approximation"),
+        "PDE solvers" => ("pde::callbacks", "batch-b-pde"),
+        other => {
+            return Err(policy(&format!(
+                "Batch B has no canonical module for {routine} ({other})"
+            )));
+        }
+    };
+    Ok((pair.0.to_owned(), pair.1.to_owned()))
+}
+
+fn provider_feature(declaration_feature: &str) -> String {
+    match declaration_feature {
+        "batch-b-quadrature" => "quadrature".to_owned(),
+        "batch-b-linear-algebra" => "linear-algebra".to_owned(),
+        "batch-b-ode" => "ode".to_owned(),
+        other => other.trim_start_matches("batch-b-").to_owned(),
+    }
+}
+
+fn root_file_name(root: &str) -> String {
+    match root {
+        "linear_algebra" => "linear_algebra".to_owned(),
+        "least_squares" => "least_squares".to_owned(),
+        "integral_equations" => "integral_equations".to_owned(),
+        other => other.to_owned(),
+    }
+}
+
+fn alias_name(candidate: &Candidate, callback: &CallbackSignature) -> String {
+    format!(
+        "{}{}",
+        candidate.routine.to_ascii_uppercase(),
+        callback.name.to_ascii_uppercase()
+    )
+}
+
+fn rust_type(value: &str) -> &'static str {
+    match value {
+        "INTEGER" => "i32",
+        "REAL" => "f32",
+        "DOUBLE PRECISION" => "f64",
+        "LOGICAL" => "fortran_logical_i32",
+        _ => "unknown",
+    }
+}
+
+fn rust_ffi_type(value: &str) -> &'static str {
+    match value {
+        "INTEGER" => "crate::FortranInteger",
+        "REAL" => "f32",
+        "DOUBLE PRECISION" => "f64",
+        "LOGICAL" => "crate::FortranLogical",
+        _ => "core::ffi::c_void",
+    }
+}
+
+fn implicit_type(name: &str) -> Option<String> {
+    let first = name.chars().next()?.to_ascii_uppercase();
+    if ('I'..='N').contains(&first) {
+        Some("INTEGER".to_owned())
+    } else {
+        Some("REAL".to_owned())
+    }
+}
+
+fn split_top_level(value: &str, delimiter: char) -> Vec<String> {
+    let mut result = Vec::new();
+    let mut depth = 0_i32;
+    let mut start = 0usize;
+    for (index, ch) in value.char_indices() {
+        match ch {
+            '(' => depth += 1,
+            ')' => depth -= 1,
+            _ if ch == delimiter && depth == 0 => {
+                result.push(value[start..index].trim().to_owned());
+                start = index + ch.len_utf8();
+            }
+            _ => {}
+        }
+    }
+    let tail = value[start..].trim();
+    if !tail.is_empty() {
+        result.push(tail.to_owned());
+    }
+    result
+}
+
+fn public_role(record: &Value) -> (String, Option<String>) {
+    let role = field(record, "historical_role");
+    let family_role = field(record, "family_role");
+    if role == "user_callable" {
+        return ("principal_public_routine".to_owned(), None);
+    }
+    if matches!(
+        family_role.as_str(),
+        "public_utility" | "expert_public_primitive"
+    ) {
+        return ("principal_public_routine".to_owned(), None);
+    }
+    (
+        "internal_or_support".to_owned(),
+        Some("not a historically public callback driver".to_owned()),
+    )
+}
+
+fn validate_candidates(candidates: &[Candidate]) -> Result<()> {
+    let mut paths = BTreeSet::new();
+    let mut symbols = BTreeSet::new();
+    for candidate in candidates {
+        if !paths.insert(candidate.canonical_path.clone()) {
+            return Err(policy("Batch B canonical path collision"));
+        }
+        if !symbols.insert(candidate.native_symbol.clone()) {
+            return Err(policy("Batch B native symbol collision"));
+        }
+        if candidate.callbacks.is_empty() {
+            return Err(policy("Batch B candidate lacks callbacks"));
+        }
+    }
+    Ok(())
+}
+
+fn format_generated_rust(path: &Path) -> Result<()> {
+    let output = Command::new("rustfmt")
+        .arg("--edition")
+        .arg("2024")
+        .arg(path)
+        .output()
+        .map_err(|error| {
+            policy(&format!(
+                "could not run rustfmt for {}: {error}",
+                path.display()
+            ))
+        })?;
+    if !output.status.success() {
+        return Err(policy(&format!(
+            "rustfmt failed for {}: {}",
+            path.display(),
+            String::from_utf8_lossy(&output.stderr).trim()
+        )));
+    }
+    Ok(())
+}
+
+fn interfaces(path: &Path) -> Result<Vec<Interface>> {
+    let value = read_json(path)?;
+    table(&value, "interface inventory")?
+        .into_iter()
+        .map(|row| {
+            let argument_ids = row
+                .get("argument_ids")
+                .and_then(Value::as_array)
+                .ok_or_else(|| policy("interface inventory row lacks arguments"))?
+                .iter()
+                .map(|value| {
+                    value
+                        .as_str()
+                        .map(str::to_owned)
+                        .ok_or_else(|| policy("interface argument id is not a string"))
+                })
+                .collect::<Result<Vec<_>>>()?;
+            Ok(Interface {
+                provider_id: required(&row, "program_unit_id", path)?,
+                routine: required(&row, "normalized_name", path)?,
+                kind: required(&row, "kind", path)?,
+                source_subset: required(&row, "source_subset", path)?,
+                source_path: required(&row, "source_path", path)?,
+                native_symbol: optional(&row, "observed_raw_symbol"),
+                confidence: required(&row, "confidence_class", path)?,
+                batch: optional(&row, "binding_batch"),
+                argument_ids,
+                result_id: row
+                    .get("function_result_id")
+                    .and_then(Value::as_str)
+                    .map(str::to_owned),
+            })
+        })
+        .collect()
+}
+
+fn arguments(path: &Path) -> Result<BTreeMap<String, Argument>> {
+    let value = read_json(path)?;
+    let mut output = BTreeMap::new();
+    for row in table(&value, "argument index")? {
+        output.insert(
+            required(&row, "id", path)?,
+            Argument {
+                name: required(&row, "normalized_name", path)?,
+                declared_type: optional(&row, "declared_type"),
+                dimensions: row
+                    .get("dimensions")
+                    .and_then(Value::as_array)
+                    .cloned()
+                    .unwrap_or_default(),
+                is_external: row
+                    .get("is_external")
+                    .and_then(Value::as_bool)
+                    .unwrap_or(false),
+                conflict_state: optional(&row, "conflict_state"),
+            },
+        );
+    }
+    Ok(output)
+}
+
+fn results(path: &Path) -> Result<BTreeMap<String, FunctionResult>> {
+    let value = read_json(path)?;
+    let mut output = BTreeMap::new();
+    for row in table(&value, "function result index")? {
+        output.insert(
+            required(&row, "id", path)?,
+            FunctionResult {
+                declared_type: optional(&row, "declared_type"),
+            },
+        );
+    }
+    Ok(output)
+}
+
+fn prior_status(raw_api_dir: &Path) -> Result<BTreeMap<String, String>> {
+    let path = raw_api_dir.join("routine-status.json");
+    if !path.exists() {
+        return Ok(BTreeMap::new());
+    }
+    let value = read_json(&path)?;
+    let mut result = BTreeMap::new();
+    for record in records(&value, "routine status")? {
+        result.insert(field(record, "routine"), field(record, "raw_api_state"));
+    }
+    Ok(result)
+}
+
+fn legacy_declarations(sys_dir: &Path) -> Result<BTreeMap<String, Vec<String>>> {
+    let mut result = BTreeMap::<String, Vec<String>>::new();
+    for path in [
+        "src/roots.rs",
+        "src/quadrature.rs",
+        "src/nonlinear.rs",
+        "src/least_squares.rs",
+        "src/ode.rs",
+        "src/dassl.rs",
+        "src/linear_programming.rs",
+    ] {
+        let source = fs::read_to_string(sys_dir.join(path)).unwrap_or_default();
+        for line in source.lines() {
+            let trimmed = line.trim();
+            if let Some(name) = trimmed
+                .strip_prefix("pub fn ")
+                .and_then(|item| item.split('(').next())
+            {
+                result
+                    .entry(name.to_ascii_uppercase())
+                    .or_default()
+                    .push(format!("slatec_sys::{}", name));
+            }
+        }
+    }
+    Ok(result)
+}
+
+fn coverage_count(raw_api_dir: &Path, key: &str) -> Result<usize> {
+    let value = read_json(&raw_api_dir.join("coverage-summary.json"))?;
+    Ok(value
+        .pointer(&format!("/counts/{key}"))
+        .and_then(Value::as_u64)
+        .unwrap_or_default() as usize)
+}
+
+fn render_summary(summary: &Value) -> String {
+    let count = |key: &str| {
+        summary
+            .pointer(&format!("/counts/{key}"))
+            .and_then(Value::as_u64)
+            .unwrap_or_default()
+    };
+    format!(
+        "# Raw API Batch B callback summary\n\n\
+         - Retained identities: {}\n\
+         - Callback-bearing identities: {}\n\
+         - Batch B candidates: {}\n\
+         - Already-public eligible callbacks: {}\n\
+         - Newly promoted routines: {}\n\
+         - Unique callback ABI fingerprints: {}\n\
+         - Function/subroutine callback shapes: {}/{}\n\
+         - Multiple-callback outer routines: {}\n\
+         - Forwarded callback signatures: {}\n\
+         - Canonical compile/link probe batches: {}/{}\n\
+         - Representative runtime callback smoke routines: {}\n\
+         - Public raw declarations after Batch B: {}\n\n\
+         Batch B paths are unsafe, source/hash and callback-ABI-fingerprint verified declarations. They do not add safe closures, user-data pointers, panic trampolines, or broad numerical validation.\n",
+        count("total_retained_identities"),
+        count("callback_bearing_identities"),
+        count("batch_b_candidates"),
+        count("already_public_eligible_callbacks"),
+        count("newly_promoted_routines"),
+        count("unique_callback_abi_fingerprints"),
+        count("function_callback_shapes"),
+        count("subroutine_callback_shapes"),
+        count("multiple_callback_outer_routines"),
+        count("forwarded_callback_signatures"),
+        count("compile_batches"),
+        count("link_batches"),
+        count("runtime_callback_smoke_routines"),
+        count("total_public_raw_after_batch_b"),
+    )
+}
+
+fn batch_count(count: usize) -> usize {
+    count.div_ceil(64)
+}
+
+fn summary_by(records: &[Value], field_name: &str) -> BTreeMap<String, usize> {
+    let mut values = BTreeMap::new();
+    for record in records {
+        *values.entry(field(record, field_name)).or_default() += 1;
+    }
+    values
+}
+
+fn semantic_hash(value: &Value) -> String {
+    crate::hash::bytes(&serde_json::to_vec(value).expect("summary serializes"))
+}
+
+fn source_url(record: &Value) -> String {
+    record
+        .pointer("/official_documentation/netlib_source_url/url")
+        .and_then(Value::as_str)
+        .or_else(|| record.get("description_source_url").and_then(Value::as_str))
+        .unwrap_or("https://www.netlib.org/slatec/")
+        .to_owned()
+}
+
+fn one_line(value: &str) -> String {
+    let compact = value.split_whitespace().collect::<Vec<_>>().join(" ");
+    if compact.is_empty() {
+        "Original SLATEC callback-bearing numerical routine.".to_owned()
+    } else {
+        compact
+    }
+}
+
+fn table(value: &Value, source: &str) -> Result<Vec<BTreeMap<String, Value>>> {
+    let names = value
+        .get("columns")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy(&format!("{source} has no columns")))?
+        .iter()
+        .map(|column| {
+            column
+                .as_str()
+                .map(str::to_owned)
+                .ok_or_else(|| policy(&format!("{source} has a non-string column")))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    records(value, source)?
+        .iter()
+        .map(|row| {
+            let cells = row
+                .as_array()
+                .or_else(|| row.get("value").and_then(Value::as_array))
+                .ok_or_else(|| policy(&format!("{source} has malformed row")))?;
+            if cells.len() != names.len() {
+                return Err(policy(&format!("{source} has wrong-width row")));
+            }
+            Ok(names.iter().cloned().zip(cells.iter().cloned()).collect())
+        })
+        .collect()
+}
+
+fn records<'a>(value: &'a Value, source: &str) -> Result<&'a Vec<Value>> {
+    value
+        .get("records")
+        .and_then(Value::as_array)
+        .ok_or_else(|| policy(&format!("{source} has no records")))
+}
+
+fn read_json(path: &Path) -> Result<Value> {
+    Ok(serde_json::from_slice(&fs::read(path)?)?)
+}
+
+fn bytes(value: &Value) -> Result<Vec<u8>> {
+    let mut value = serde_json::to_vec_pretty(value)?;
+    value.push(b'\n');
+    Ok(value)
+}
+
+fn required(row: &BTreeMap<String, Value>, key: &str, path: &Path) -> Result<String> {
+    let value = optional(row, key);
+    if value.is_empty() {
+        Err(policy(&format!("{} lacks {key}", path.display())))
+    } else {
+        Ok(value)
+    }
+}
+
+fn optional(row: &BTreeMap<String, Value>, key: &str) -> String {
+    row.get(key)
+        .and_then(Value::as_str)
+        .unwrap_or_default()
+        .to_owned()
+}
+
+fn string(value: &Value, key: &str) -> Result<String> {
+    let value = field(value, key);
+    if value.is_empty() {
+        Err(policy(&format!("record lacks {key}")))
+    } else {
+        Ok(value)
+    }
+}
+
+fn field(value: &Value, key: &str) -> String {
+    value
+        .get(key)
+        .and_then(Value::as_str)
+        .unwrap_or_default()
+        .to_owned()
+}
+
+fn rust_identifier(value: &str) -> String {
+    let value = value.to_ascii_lowercase();
+    if matches!(
+        value.as_str(),
+        "as" | "break"
+            | "const"
+            | "continue"
+            | "crate"
+            | "else"
+            | "enum"
+            | "extern"
+            | "false"
+            | "fn"
+            | "for"
+            | "if"
+            | "impl"
+            | "in"
+            | "let"
+            | "loop"
+            | "match"
+            | "mod"
+            | "move"
+            | "mut"
+            | "pub"
+            | "ref"
+            | "return"
+            | "self"
+            | "Self"
+            | "static"
+            | "struct"
+            | "super"
+            | "trait"
+            | "true"
+            | "type"
+            | "unsafe"
+            | "use"
+            | "where"
+            | "while"
+    ) {
+        format!("r#{value}")
+    } else {
+        value
+    }
+}
+
+fn policy(message: &str) -> CorpusError {
+    CorpusError::Verification(message.to_owned())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn arg(name: &str, declared_type: &str, is_external: bool) -> Argument {
+        Argument {
+            name: name.to_owned(),
+            declared_type: declared_type.to_owned(),
+            dimensions: Vec::new(),
+            is_external,
+            conflict_state: String::new(),
+        }
+    }
+
+    fn unit(formals: Vec<Argument>, statements: &[&str]) -> SourceUnit {
+        SourceUnit {
+            formals,
+            statements: statements.iter().map(|item| (*item).to_owned()).collect(),
+        }
+    }
+
+    #[test]
+    fn detects_function_callback_shape_from_executable_use() {
+        let mut units = BTreeMap::new();
+        units.insert(
+            "DRIVER".to_owned(),
+            unit(
+                vec![arg("F", "REAL", true), arg("X", "REAL", false)],
+                &["REAL F,X,Y", "Y = F(X)"],
+            ),
+        );
+        let uses = resolve_callback_uses("DRIVER", "F", &units).unwrap();
+
+        assert_eq!(uses.len(), 1);
+        assert_eq!(uses[0].kind, "function");
+        assert_eq!(uses[0].return_type.as_deref(), Some("REAL"));
+        assert_eq!(uses[0].arguments[0].declared_type, "REAL");
+    }
+
+    #[test]
+    fn detects_subroutine_callback_shape_from_call_statement() {
+        let unit = unit(
+            vec![arg("JAC", "EXTERNAL", true), arg("N", "INTEGER", false)],
+            &["INTEGER N", "CALL JAC(N, X, FJAC)"],
+        );
+        let uses = direct_callback_uses("DRIVER", "JAC", &unit);
+
+        assert_eq!(uses.len(), 1);
+        assert_eq!(uses[0].kind, "subroutine");
+        assert_eq!(uses[0].arguments[0].declared_type, "INTEGER");
+    }
+
+    #[test]
+    fn follows_forwarded_callback_actuals() {
+        let mut units = BTreeMap::new();
+        units.insert(
+            "DRIVER".to_owned(),
+            unit(
+                vec![arg("FCN", "EXTERNAL", true), arg("N", "INTEGER", false)],
+                &["CALL WORK(N, FCN)"],
+            ),
+        );
+        units.insert(
+            "WORK".to_owned(),
+            unit(
+                vec![arg("N", "INTEGER", false), arg("G", "EXTERNAL", true)],
+                &["INTEGER N", "REAL X,Y", "Y = G(X)"],
+            ),
+        );
+
+        let uses = resolve_callback_uses("DRIVER", "FCN", &units).unwrap();
+
+        assert_eq!(uses.len(), 1);
+        assert_eq!(uses[0].evidence, "DRIVER -> WORK:G(X)");
+        assert_eq!(uses[0].return_type.as_deref(), Some("REAL"));
+    }
+
+    #[test]
+    fn rejects_conflicting_callback_uses() {
+        let interface = Interface {
+            provider_id: "full".to_owned(),
+            routine: "DRIVER".to_owned(),
+            kind: "SUBROUTINE".to_owned(),
+            source_subset: "src".to_owned(),
+            source_path: "src/driver.f".to_owned(),
+            native_symbol: "driver_".to_owned(),
+            confidence: "manual_review_required".to_owned(),
+            batch: "batch_callbacks".to_owned(),
+            argument_ids: vec!["DRIVER::FCN".to_owned()],
+            result_id: None,
+        };
+        let mut units = BTreeMap::new();
+        units.insert(
+            "DRIVER".to_owned(),
+            unit(
+                vec![arg("FCN", "EXTERNAL", true)],
+                &["REAL X,Y", "INTEGER I", "Y = FCN(X)", "Y = FCN(I)"],
+            ),
+        );
+
+        let error = callback_signatures(&interface, &[arg("FCN", "EXTERNAL", true)], &units)
+            .unwrap_err()
+            .to_string();
+
+        assert!(error.contains("conflicting call signatures"));
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "generated_files": [
+    "generated/raw-api/callback-classification.json",
+    "generated/raw-api/callback-shapes.json",
+    "generated/raw-api/callback-forwarding.json",
+    "generated/raw-api/batch-b-candidates.json",
+    "generated/raw-api/batch-b-exclusions.json",
+    "generated/raw-api/batch-b-summary.md",
+    "generated/raw-api/batch-b-manifest.json"
+  ],
+  "schema_id": "slatec-sys.raw-api.batch-b-manifest",
+  "schema_version": "1.0.0",
+  "semantic_sha256": "defacf5f8403ff2c83036973712b86c3377ce0a5f9f9a90bb5b0167be957f4fe"
+}

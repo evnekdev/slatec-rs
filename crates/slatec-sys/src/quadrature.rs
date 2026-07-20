@@ -462,3 +462,11 @@ mod batch_a;
 /// Canonical source-verified Batch A non-callback quadrature declarations.
 #[cfg(feature = "raw-family-batch-a-quadrature")]
 pub use batch_a::numerical;
+
+#[cfg(feature = "raw-family-batch-b-quadrature")]
+#[path = "batch_b/quadrature.rs"]
+mod batch_b;
+
+/// Canonical source-verified Batch B callback-bearing quadrature declarations.
+#[cfg(feature = "raw-family-batch-b-quadrature")]
+pub use batch_b::callbacks;

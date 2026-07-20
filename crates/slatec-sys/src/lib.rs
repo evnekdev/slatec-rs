@@ -91,9 +91,13 @@ pub mod blas;
 ))]
 pub mod special;
 
-/// Canonical Batch A dense-linear-algebra declarations.
-#[cfg(feature = "batch-a-linear-algebra")]
-#[path = "batch_a/linear_algebra.rs"]
+/// Canonical generated linear-algebra declarations.
+#[cfg(any(
+    feature = "batch-a-linear-algebra",
+    feature = "batch-b-linear-algebra",
+    feature = "raw-family-batch-a-linear-algebra",
+    feature = "raw-family-batch-b-linear-algebra"
+))]
 pub mod linear_algebra;
 
 /// Canonical Batch A eigenvalue declarations.
@@ -230,7 +234,8 @@ pub mod piecewise_polynomial;
     feature = "raw-family-quadrature-oscillatory",
     feature = "raw-family-quadrature-fourier",
     feature = "raw-family-quadrature-nonadaptive",
-    feature = "raw-family-batch-a-quadrature"
+    feature = "raw-family-batch-a-quadrature",
+    feature = "raw-family-batch-b-quadrature"
 ))]
 pub mod quadrature;
 
@@ -260,7 +265,8 @@ pub mod nonlinear;
 #[cfg(any(
     feature = "raw-ffi-ode",
     feature = "raw-family-ode-sdrive-expert",
-    feature = "raw-family-batch-a-ode"
+    feature = "raw-family-batch-a-ode",
+    feature = "raw-family-batch-b-ode"
 ))]
 pub mod ode;
 

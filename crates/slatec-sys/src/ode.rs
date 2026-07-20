@@ -170,3 +170,11 @@ mod batch_a;
 /// Canonical source-verified Batch A non-callback ODE declarations.
 #[cfg(feature = "raw-family-batch-a-ode")]
 pub use batch_a::numerical;
+
+#[cfg(feature = "raw-family-batch-b-ode")]
+#[path = "batch_b/ode.rs"]
+mod batch_b;
+
+/// Canonical source-verified Batch B callback-bearing ODE declarations.
+#[cfg(feature = "raw-family-batch-b-ode")]
+pub use batch_b::callbacks;

@@ -38,7 +38,8 @@
       "raw-family-nonlinear-easy", "raw-family-nonlinear-expert", "raw-family-nonlinear-jacobian-check",
       "raw-family-least-squares-nonlinear-easy", "raw-family-least-squares-nonlinear-expert", "raw-family-least-squares-covariance", "raw-family-least-squares-linear-nonnegative", "raw-family-least-squares-linear-bounded", "raw-family-least-squares-linear-constrained", "raw-family-least-squares-linear-bounded-constrained",
       "raw-family-ode-sdrive-expert", "raw-family-dassl", "raw-family-optimization-linear-programming-in-memory", "raw-family-fftpack-real", "raw-family-fftpack-complex", "raw-family-fishpack-cartesian-2d", "raw-family-fishpack-pois3d", "raw-family-banded-linear-systems", "raw-family-pchip", "raw-family-bspline", "raw-family-piecewise-polynomial",
-      "raw-family-batch-a-linear-algebra", "raw-family-batch-a-eigen", "raw-family-batch-a-special", "raw-family-batch-a-quadrature", "raw-family-batch-a-nonlinear", "raw-family-batch-a-ode", "raw-family-batch-a-fftpack", "raw-family-batch-a-fishpack", "raw-family-batch-a-interpolation", "raw-family-batch-a-approximation", "raw-family-batch-a-statistics"
+      "raw-family-batch-a-linear-algebra", "raw-family-batch-a-eigen", "raw-family-batch-a-special", "raw-family-batch-a-quadrature", "raw-family-batch-a-nonlinear", "raw-family-batch-a-ode", "raw-family-batch-a-fftpack", "raw-family-batch-a-fishpack", "raw-family-batch-a-interpolation", "raw-family-batch-a-approximation", "raw-family-batch-a-statistics",
+      "raw-family-batch-b-quadrature", "raw-family-batch-b-linear-algebra", "raw-family-batch-b-ode"
     ],
     "test_only": [],
     "compatibility_aliases": []

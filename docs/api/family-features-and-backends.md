@@ -13,16 +13,17 @@ routine.
 | --- | --- |
 | `blas` | `blas-level1`, `blas-level2`, `blas-level3` |
 | `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `batch-a-special` |
-| `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive` |
+| `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive`, `batch-b-quadrature` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
 | `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check` |
-| `ode` | `ode-sdrive-expert` |
+| `ode` | `ode-sdrive-expert`, `batch-b-ode` |
 | DAE | `dassl` |
 | Cartesian PDE | `fishpack-cartesian-2d` |
 | Structured 3D FISHPACK system | `fishpack-pois3d` |
 | `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
 | Batch A raw domains | `batch-a-linear-algebra`, `batch-a-eigen`, `batch-a-approximation`, `batch-a-statistics`, plus the Batch A members of `special`, `quadrature`, `nonlinear`, `ode`, `fftpack`, `fishpack`, and `interpolation` |
+| Batch B raw domains | `batch-b-quadrature`, `batch-b-linear-algebra`, `batch-b-ode` |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.
@@ -162,6 +163,22 @@ or through the relevant broad mathematical feature. The source closure is
 exactly derived from the promoted public symbols and their observed native
 dependencies. As with every raw declaration feature, `slatec-sys` alone
 selects no provider. See [`raw-batch-a.md`](raw-batch-a.md).
+
+### Batch B callback raw provider features
+
+Batch B adds coherent callback-bearing declaration features in `slatec-sys`:
+`batch-b-quadrature`, `batch-b-linear-algebra`, and `batch-b-ode`. The matching
+verified source-provider features are the existing family closures in
+`slatec-src`: `quadrature`, `linear-algebra`, and `ode`. Broad mathematical
+aliases include the relevant Batch B declaration features, while
+`slatec-sys/all` remains declaration-only and provider-neutral.
+
+These interfaces are raw callback ABIs, not safe closure wrappers. They
+stabilize canonical paths such as
+`slatec_sys::quadrature::callbacks::dqk15`,
+`slatec_sys::linear_algebra::sparse::callbacks::scg`, and
+`slatec_sys::ode::callbacks::derkf` within the generated evidence boundary.
+See [`raw-batch-b-callbacks.md`](raw-batch-b-callbacks.md).
 
 ### Reviewed BLAS raw features
 

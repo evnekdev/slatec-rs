@@ -1,0 +1,1396 @@
+//! Generated Batch B callback-bearing canonical raw declarations.
+//!
+//! Do not edit. Regenerate with `slatec-corpus generate-raw-batch-b --offline`.
+
+/// Batch B canonical callback-bearing `quadrature` declarations.
+pub mod callbacks {
+    /// GNU Fortran callback `F` for `DQAGIE`.
+    pub type DQAGIEF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQAGIE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a given integral I = Integral of F over (BOUND,+INFINITY) or I = Integral of F over (-INFINITY,BOUND) or I = Integral of F over (-INFINITY,+INFINITY), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))
+        ///
+        /// Original SLATEC routine: `DQAGIE`; source: <https://www.netlib.org/slatec/src/dqagie.f>. Native symbol: `dqagie_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `DQAGIEF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQAGIE -> DQK15I:F(TABSC1); DQAGIE -> DQK15I:F(TABSC1); DQAGIE -> DQK15I:F(TABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `BOUND`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INF`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqagie_"]
+        pub fn dqagie(
+            f: DQAGIEF,
+            bound: *mut f64,
+            inf: *mut crate::FortranInteger,
+            epsabs: *mut f64,
+            epsrel: *mut f64,
+            limit: *mut crate::FortranInteger,
+            result: *mut f64,
+            abserr: *mut f64,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f64,
+            blist: *mut f64,
+            rlist: *mut f64,
+            elist: *mut f64,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQAGPE`.
+    pub type DQAGPEF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQAGPE
+    unsafe extern "C" {
+        /// Approximate a given definite integral I = Integral of F over (A,B), hopefully satisfying the accuracy claim: ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)). Break points of the integration interval, where local difficulties of the integrand may occur (e.g. singularities or discontinuities) are provided by the user.
+        ///
+        /// Original SLATEC routine: `DQAGPE`; source: <https://www.netlib.org/slatec/src/dqagpe.f>. Native symbol: `dqagpe_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_i32,mut_f64_ptr_rank1,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `DQAGPEF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQAGPE -> DQK21:F(CENTR); DQAGPE -> DQK21:F(CENTR-ABSC); DQAGPE -> DQK21:F(CENTR+ABSC); DQAGPE -> DQK21:F(CENTR-ABSC); DQAGPE -> DQK21:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NPTS2`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `POINTS`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `PTS`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LEVEL`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NDIN`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqagpe_"]
+        pub fn dqagpe(
+            f: DQAGPEF,
+            a: *mut f64,
+            b: *mut f64,
+            npts2: *mut crate::FortranInteger,
+            points: *mut f64,
+            epsabs: *mut f64,
+            epsrel: *mut f64,
+            limit: *mut crate::FortranInteger,
+            result: *mut f64,
+            abserr: *mut f64,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f64,
+            blist: *mut f64,
+            rlist: *mut f64,
+            elist: *mut f64,
+            pts: *mut f64,
+            iord: *mut crate::FortranInteger,
+            level: *mut crate::FortranInteger,
+            ndin: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQAGSE`.
+    pub type DQAGSEF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQAGSE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a given definite integral I = Integral of F over (A,B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).
+        ///
+        /// Original SLATEC routine: `DQAGSE`; source: <https://www.netlib.org/slatec/src/dqagse.f>. Native symbol: `dqagse_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `DQAGSEF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQAGSE -> DQK21:F(CENTR); DQAGSE -> DQK21:F(CENTR-ABSC); DQAGSE -> DQK21:F(CENTR+ABSC); DQAGSE -> DQK21:F(CENTR-ABSC); DQAGSE -> DQK21:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqagse_"]
+        pub fn dqagse(
+            f: DQAGSEF,
+            a: *mut f64,
+            b: *mut f64,
+            epsabs: *mut f64,
+            epsrel: *mut f64,
+            limit: *mut crate::FortranInteger,
+            result: *mut f64,
+            abserr: *mut f64,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f64,
+            blist: *mut f64,
+            rlist: *mut f64,
+            elist: *mut f64,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQAWCE`.
+    pub type DQAWCEF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQAWCE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a CAUCHY PRINCIPAL VALUE I = Integral of F*W over (A,B) (W(X) = 1/(X-C), (C.NE.A, C.NE.B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))
+        ///
+        /// Original SLATEC routine: `DQAWCE`; source: <https://www.netlib.org/slatec/src/dqawce.f>. Native symbol: `dqawce_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `DQAWCEF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQAWCE -> DQC25C:F(HLGTH+CENTR); DQAWCE -> DQC25C:F(CENTR); DQAWCE -> DQC25C:F(CENTR-HLGTH); DQAWCE -> DQC25C:F(U+CENTR); DQAWCE -> DQC25C:F(CENTR-U); DQAWCE -> DQC25C -> DQK15W:F(CENTR); DQAWCE -> DQC25C -> DQK15W:F(ABSC1); DQAWCE -> DQC25C -> DQK15W:F(ABSC2); DQAWCE -> DQC25C -> DQK15W:F(ABSC1); DQAWCE -> DQC25C -> DQK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `C`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqawce_"]
+        pub fn dqawce(
+            f: DQAWCEF,
+            a: *mut f64,
+            b: *mut f64,
+            c: *mut f64,
+            epsabs: *mut f64,
+            epsrel: *mut f64,
+            limit: *mut crate::FortranInteger,
+            result: *mut f64,
+            abserr: *mut f64,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f64,
+            blist: *mut f64,
+            rlist: *mut f64,
+            elist: *mut f64,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQAWSE`.
+    pub type DQAWSEF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQAWSE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a given definite integral I = Integral of F*W over (A,B), (where W shows a singular behaviour at the end points, see parameter INTEGR). Hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).
+        ///
+        /// Original SLATEC routine: `DQAWSE`; source: <https://www.netlib.org/slatec/src/dqawse.f>. Native symbol: `dqawse_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `DQAWSEF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQAWSE -> DQC25S:F(HLGTH+CENTR); DQAWSE -> DQC25S:F(CENTR); DQAWSE -> DQC25S:F(CENTR-HLGTH); DQAWSE -> DQC25S:F(U+CENTR); DQAWSE -> DQC25S:F(CENTR-U); DQAWSE -> DQC25S:F(HLGTH+CENTR); DQAWSE -> DQC25S:F(CENTR); DQAWSE -> DQC25S:F(CENTR-HLGTH); DQAWSE -> DQC25S:F(U+CENTR); DQAWSE -> DQC25S:F(CENTR-U); DQAWSE -> DQC25S -> DQK15W:F(CENTR); DQAWSE -> DQC25S -> DQK15W:F(ABSC1); DQAWSE -> DQC25S -> DQK15W:F(ABSC2); DQAWSE -> DQC25S -> DQK15W:F(ABSC1); DQAWSE -> DQC25S -> DQK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALFA`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BETA`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INTEGR`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqawse_"]
+        pub fn dqawse(
+            f: DQAWSEF,
+            a: *mut f64,
+            b: *mut f64,
+            alfa: *mut f64,
+            beta: *mut f64,
+            integr: *mut crate::FortranInteger,
+            epsabs: *mut f64,
+            epsrel: *mut f64,
+            limit: *mut crate::FortranInteger,
+            result: *mut f64,
+            abserr: *mut f64,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f64,
+            blist: *mut f64,
+            rlist: *mut f64,
+            elist: *mut f64,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQC25C`.
+    pub type DQC25CF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQC25C
+    unsafe extern "C" {
+        /// To compute I = Integral of F*W over (A,B) with error estimate, where W(X) = 1/(X-C)
+        ///
+        /// Original SLATEC routine: `DQC25C`; source: <https://www.netlib.org/slatec/src/dqc25c.f>. Native symbol: `dqc25c_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_i32)`.
+        /// Callback `F` uses `DQC25CF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQC25C:F(HLGTH+CENTR); DQC25C:F(CENTR); DQC25C:F(CENTR-HLGTH); DQC25C:F(U+CENTR); DQC25C:F(CENTR-U); DQC25C -> DQK15W:F(CENTR); DQC25C -> DQK15W:F(ABSC1); DQC25C -> DQK15W:F(ABSC2); DQC25C -> DQK15W:F(ABSC1); DQC25C -> DQK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `C`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `KRUL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqc25c_"]
+        pub fn dqc25c(
+            f: DQC25CF,
+            a: *mut f64,
+            b: *mut f64,
+            c: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            krul: *mut crate::FortranInteger,
+            neval: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQC25S`.
+    pub type DQC25SF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQC25S
+    unsafe extern "C" {
+        /// To compute I = Integral of F*W over (BL,BR), with error estimate, where the weight function W has a singular behaviour of ALGEBRAICO-LOGARITHMIC type at the points A and/or B. (BL,BR) is a part of (A,B).
+        ///
+        /// Original SLATEC routine: `DQC25S`; source: <https://www.netlib.org/slatec/src/dqc25s.f>. Native symbol: `dqc25s_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64,mut_f64,mut_f64,mut_i32,mut_i32)`.
+        /// Callback `F` uses `DQC25SF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQC25S:F(HLGTH+CENTR); DQC25S:F(CENTR); DQC25S:F(CENTR-HLGTH); DQC25S:F(U+CENTR); DQC25S:F(CENTR-U); DQC25S:F(HLGTH+CENTR); DQC25S:F(CENTR); DQC25S:F(CENTR-HLGTH); DQC25S:F(U+CENTR); DQC25S:F(CENTR-U); DQC25S -> DQK15W:F(CENTR); DQC25S -> DQK15W:F(ABSC1); DQC25S -> DQK15W:F(ABSC2); DQC25S -> DQK15W:F(ABSC1); DQC25S -> DQK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BL`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALFA`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BETA`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RI`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RJ`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RG`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RH`: declared `DOUBLE PRECISION` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INTEGR`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEV`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqc25s_"]
+        pub fn dqc25s(
+            f: DQC25SF,
+            a: *mut f64,
+            b: *mut f64,
+            bl: *mut f64,
+            br: *mut f64,
+            alfa: *mut f64,
+            beta: *mut f64,
+            ri: *mut f64,
+            rj: *mut f64,
+            rg: *mut f64,
+            rh: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resasc: *mut f64,
+            integr: *mut crate::FortranInteger,
+            nev: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK15`.
+    pub type DQK15F = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK15
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B), with error estimate J = integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK15`; source: <https://www.netlib.org/slatec/src/dqk15.f>. Native symbol: `dqk15_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK15F` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK15:F(CENTR); DQK15:F(CENTR-ABSC); DQK15:F(CENTR+ABSC); DQK15:F(CENTR-ABSC); DQK15:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk15_"]
+        pub fn dqk15(
+            f: DQK15F,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK15I`.
+    pub type DQK15IF = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK15I
+    unsafe extern "C" {
+        /// The original (infinite integration range is mapped onto the interval (0,1) and (A,B) is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B).
+        ///
+        /// Original SLATEC routine: `DQK15I`; source: <https://www.netlib.org/slatec/src/dqk15i.f>. Native symbol: `dqk15i_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_i32,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK15IF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK15I:F(TABSC1); DQK15I:F(TABSC1); DQK15I:F(TABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `BOUN`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INF`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk15i_"]
+        pub fn dqk15i(
+            f: DQK15IF,
+            boun: *mut f64,
+            inf: *mut crate::FortranInteger,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK15W`.
+    pub type DQK15WF = unsafe extern "C" fn(*const f64) -> f64;
+
+    /// GNU Fortran callback `W` for `DQK15W`.
+    pub type DQK15WW = unsafe extern "C" fn(
+        *const f64,
+        *const f64,
+        *const f64,
+        *const f64,
+        *const f64,
+        *const crate::FortranInteger,
+    ) -> f64;
+
+    // raw-api-routine: DQK15W
+    unsafe extern "C" {
+        /// To compute I = Integral of F*W over (A,B), with error estimate J = Integral of ABS(F*W) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK15W`; source: <https://www.netlib.org/slatec/src/dqk15w.f>. Native symbol: `dqk15w_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),fn:f64(ref_f64,ref_f64,ref_f64,ref_f64,ref_f64,ref_i32),mut_f64,mut_f64,mut_f64,mut_f64,mut_i32,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK15WF` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK15W:F(CENTR); DQK15W:F(ABSC1); DQK15W:F(ABSC2); DQK15W:F(ABSC1); DQK15W:F(ABSC2)`.
+        /// Callback `W` uses `DQK15WW` with fingerprint `fn:f64(ref_f64,ref_f64,ref_f64,ref_f64,ref_f64,ref_i32)`; evidence: `DQK15W:W(CENTR,P1,P2,P3,P4,KP); DQK15W:W(ABSC1,P1,P2,P3,P4,KP); DQK15W:W(ABSC2,P1,P2,P3,P4,KP); DQK15W:W(ABSC1,P1,P2,P3,P4,KP); DQK15W:W(ABSC2,P1,P2,P3,P4,KP)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `W`: non-null callback pointer with ABI `fn:f64(ref_f64,ref_f64,ref_f64,ref_f64,ref_f64,ref_i32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `P1`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `P2`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `P3`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `P4`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `KP`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk15w_"]
+        pub fn dqk15w(
+            f: DQK15WF,
+            w: DQK15WW,
+            p1: *mut f64,
+            p2: *mut f64,
+            p3: *mut f64,
+            p4: *mut f64,
+            kp: *mut crate::FortranInteger,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK21`.
+    pub type DQK21F = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK21
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK21`; source: <https://www.netlib.org/slatec/src/dqk21.f>. Native symbol: `dqk21_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK21F` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK21:F(CENTR); DQK21:F(CENTR-ABSC); DQK21:F(CENTR+ABSC); DQK21:F(CENTR-ABSC); DQK21:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk21_"]
+        pub fn dqk21(
+            f: DQK21F,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK31`.
+    pub type DQK31F = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK31
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK31`; source: <https://www.netlib.org/slatec/src/dqk31.f>. Native symbol: `dqk31_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK31F` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK31:F(CENTR); DQK31:F(CENTR-ABSC); DQK31:F(CENTR+ABSC); DQK31:F(CENTR-ABSC); DQK31:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk31_"]
+        pub fn dqk31(
+            f: DQK31F,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK41`.
+    pub type DQK41F = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK41
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK41`; source: <https://www.netlib.org/slatec/src/dqk41.f>. Native symbol: `dqk41_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK41F` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK41:F(CENTR); DQK41:F(CENTR-ABSC); DQK41:F(CENTR+ABSC); DQK41:F(CENTR-ABSC); DQK41:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk41_"]
+        pub fn dqk41(
+            f: DQK41F,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK51`.
+    pub type DQK51F = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK51
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK51`; source: <https://www.netlib.org/slatec/src/dqk51.f>. Native symbol: `dqk51_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK51F` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK51:F(CENTR); DQK51:F(CENTR-ABSC); DQK51:F(CENTR+ABSC); DQK51:F(CENTR-ABSC); DQK51:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk51_"]
+        pub fn dqk51(
+            f: DQK51F,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `DQK61`.
+    pub type DQK61F = unsafe extern "C" fn(*const f64) -> f64;
+
+    // raw-api-routine: DQK61
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `DQK61`; source: <https://www.netlib.org/slatec/src/dqk61.f>. Native symbol: `dqk61_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f64(ref_f64),mut_f64,mut_f64,mut_f64,mut_f64,mut_f64,mut_f64)`.
+        /// Callback `F` uses `DQK61F` with fingerprint `fn:f64(ref_f64)`; evidence: `DQK61:F(CENTR); DQK61:F(CENTR-DABSC); DQK61:F(CENTR+DABSC); DQK61:F(CENTR-DABSC); DQK61:F(CENTR+DABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f64(ref_f64)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `DOUBLE PRECISION` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "dqk61_"]
+        pub fn dqk61(
+            f: DQK61F,
+            a: *mut f64,
+            b: *mut f64,
+            result: *mut f64,
+            abserr: *mut f64,
+            resabs: *mut f64,
+            resasc: *mut f64,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QAGIE`.
+    pub type QAGIEF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QAGIE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a given integral I = Integral of F over (BOUND,+INFINITY) or I = Integral of F over (-INFINITY,BOUND) or I = Integral of F over (-INFINITY,+INFINITY), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))
+        ///
+        /// Original SLATEC routine: `QAGIE`; source: <https://www.netlib.org/slatec/src/qagie.f>. Native symbol: `qagie_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `QAGIEF` with fingerprint `fn:f32(ref_f32)`; evidence: `QAGIE -> QK15I:F(TABSC1); QAGIE -> QK15I:F(TABSC1); QAGIE -> QK15I:F(TABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `BOUND`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INF`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qagie_"]
+        pub fn qagie(
+            f: QAGIEF,
+            bound: *mut f32,
+            inf: *mut crate::FortranInteger,
+            epsabs: *mut f32,
+            epsrel: *mut f32,
+            limit: *mut crate::FortranInteger,
+            result: *mut f32,
+            abserr: *mut f32,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f32,
+            blist: *mut f32,
+            rlist: *mut f32,
+            elist: *mut f32,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QAGPE`.
+    pub type QAGPEF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QAGPE
+    unsafe extern "C" {
+        /// Approximate a given definite integral I = Integral of F over (A,B), hopefully satisfying the accuracy claim: ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)). Break points of the integration interval, where local difficulties of the integrand may occur (e.g. singularities or discontinuities) are provided by the user.
+        ///
+        /// Original SLATEC routine: `QAGPE`; source: <https://www.netlib.org/slatec/src/qagpe.f>. Native symbol: `qagpe_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_i32,mut_f32_ptr_rank1,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `QAGPEF` with fingerprint `fn:f32(ref_f32)`; evidence: `QAGPE -> QK21:F(CENTR); QAGPE -> QK21:F(CENTR-ABSC); QAGPE -> QK21:F(CENTR+ABSC); QAGPE -> QK21:F(CENTR-ABSC); QAGPE -> QK21:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NPTS2`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `POINTS`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `PTS`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LEVEL`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NDIN`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qagpe_"]
+        pub fn qagpe(
+            f: QAGPEF,
+            a: *mut f32,
+            b: *mut f32,
+            npts2: *mut crate::FortranInteger,
+            points: *mut f32,
+            epsabs: *mut f32,
+            epsrel: *mut f32,
+            limit: *mut crate::FortranInteger,
+            result: *mut f32,
+            abserr: *mut f32,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f32,
+            blist: *mut f32,
+            rlist: *mut f32,
+            elist: *mut f32,
+            pts: *mut f32,
+            iord: *mut crate::FortranInteger,
+            level: *mut crate::FortranInteger,
+            ndin: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QAGSE`.
+    pub type QAGSEF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QAGSE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a given definite integral I = Integral of F over (A,B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).
+        ///
+        /// Original SLATEC routine: `QAGSE`; source: <https://www.netlib.org/slatec/src/qagse.f>. Native symbol: `qagse_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `QAGSEF` with fingerprint `fn:f32(ref_f32)`; evidence: `QAGSE -> QK21:F(CENTR); QAGSE -> QK21:F(CENTR-ABSC); QAGSE -> QK21:F(CENTR+ABSC); QAGSE -> QK21:F(CENTR-ABSC); QAGSE -> QK21:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qagse_"]
+        pub fn qagse(
+            f: QAGSEF,
+            a: *mut f32,
+            b: *mut f32,
+            epsabs: *mut f32,
+            epsrel: *mut f32,
+            limit: *mut crate::FortranInteger,
+            result: *mut f32,
+            abserr: *mut f32,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f32,
+            blist: *mut f32,
+            rlist: *mut f32,
+            elist: *mut f32,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QAWCE`.
+    pub type QAWCEF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QAWCE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a CAUCHY PRINCIPAL VALUE I = Integral of F*W over (A,B) (W(X) = 1/(X-C), (C.NE.A, C.NE.B), hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I))
+        ///
+        /// Original SLATEC routine: `QAWCE`; source: <https://www.netlib.org/slatec/src/qawce.f>. Native symbol: `qawce_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `QAWCEF` with fingerprint `fn:f32(ref_f32)`; evidence: `QAWCE -> QC25C:F(HLGTH+CENTR); QAWCE -> QC25C:F(CENTR); QAWCE -> QC25C:F(CENTR-HLGTH); QAWCE -> QC25C:F(U+CENTR); QAWCE -> QC25C:F(CENTR-U); QAWCE -> QC25C -> QK15W:F(CENTR); QAWCE -> QC25C -> QK15W:F(ABSC1); QAWCE -> QC25C -> QK15W:F(ABSC2); QAWCE -> QC25C -> QK15W:F(ABSC1); QAWCE -> QC25C -> QK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `C`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qawce_"]
+        pub fn qawce(
+            f: QAWCEF,
+            a: *mut f32,
+            b: *mut f32,
+            c: *mut f32,
+            epsabs: *mut f32,
+            epsrel: *mut f32,
+            limit: *mut crate::FortranInteger,
+            result: *mut f32,
+            abserr: *mut f32,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f32,
+            blist: *mut f32,
+            rlist: *mut f32,
+            elist: *mut f32,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QAWSE`.
+    pub type QAWSEF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QAWSE
+    unsafe extern "C" {
+        /// The routine calculates an approximation result to a given definite integral I = Integral of F*W over (A,B), (where W shows a singular behaviour at the end points, see parameter INTEGR). Hopefully satisfying following claim for accuracy ABS(I-RESULT).LE.MAX(EPSABS,EPSREL*ABS(I)).
+        ///
+        /// Original SLATEC routine: `QAWSE`; source: <https://www.netlib.org/slatec/src/qawse.f>. Native symbol: `qawse_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+        /// Callback `F` uses `QAWSEF` with fingerprint `fn:f32(ref_f32)`; evidence: `QAWSE -> QC25S:F(HLGTH+CENTR); QAWSE -> QC25S:F(CENTR); QAWSE -> QC25S:F(CENTR-HLGTH); QAWSE -> QC25S:F(U+CENTR); QAWSE -> QC25S:F(CENTR-U); QAWSE -> QC25S:F(HLGTH+CENTR); QAWSE -> QC25S:F(CENTR); QAWSE -> QC25S:F(CENTR-HLGTH); QAWSE -> QC25S:F(U+CENTR); QAWSE -> QC25S:F(CENTR-U); QAWSE -> QC25S -> QK15W:F(CENTR); QAWSE -> QC25S -> QK15W:F(ABSC1); QAWSE -> QC25S -> QK15W:F(ABSC2); QAWSE -> QC25S -> QK15W:F(ABSC1); QAWSE -> QC25S -> QK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALFA`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BETA`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INTEGR`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `EPSREL`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LIMIT`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IER`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RLIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ELIST`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `IORD`: declared `INTEGER` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `LAST`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qawse_"]
+        pub fn qawse(
+            f: QAWSEF,
+            a: *mut f32,
+            b: *mut f32,
+            alfa: *mut f32,
+            beta: *mut f32,
+            integr: *mut crate::FortranInteger,
+            epsabs: *mut f32,
+            epsrel: *mut f32,
+            limit: *mut crate::FortranInteger,
+            result: *mut f32,
+            abserr: *mut f32,
+            neval: *mut crate::FortranInteger,
+            ier: *mut crate::FortranInteger,
+            alist: *mut f32,
+            blist: *mut f32,
+            rlist: *mut f32,
+            elist: *mut f32,
+            iord: *mut crate::FortranInteger,
+            last: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QC25C`.
+    pub type QC25CF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QC25C
+    unsafe extern "C" {
+        /// To compute I = Integral of F*W over (A,B) with error estimate, where W(X) = 1/(X-C)
+        ///
+        /// Original SLATEC routine: `QC25C`; source: <https://www.netlib.org/slatec/src/qc25c.f>. Native symbol: `qc25c_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_i32)`.
+        /// Callback `F` uses `QC25CF` with fingerprint `fn:f32(ref_f32)`; evidence: `QC25C:F(HLGTH+CENTR); QC25C:F(CENTR); QC25C:F(CENTR-HLGTH); QC25C:F(U+CENTR); QC25C:F(CENTR-U); QC25C -> QK15W:F(CENTR); QC25C -> QK15W:F(ABSC1); QC25C -> QK15W:F(ABSC2); QC25C -> QK15W:F(ABSC1); QC25C -> QK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `C`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `KRUL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEVAL`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qc25c_"]
+        pub fn qc25c(
+            f: QC25CF,
+            a: *mut f32,
+            b: *mut f32,
+            c: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            krul: *mut crate::FortranInteger,
+            neval: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QC25S`.
+    pub type QC25SF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QC25S
+    unsafe extern "C" {
+        /// To compute I = Integral of F*W over (BL,BR), with error estimate, where the weight function W has a singular behaviour of ALGEBRAICO-LOGARITHMIC type at the points A and/or B. (BL,BR) is a part of (A,B).
+        ///
+        /// Original SLATEC routine: `QC25S`; source: <https://www.netlib.org/slatec/src/qc25s.f>. Native symbol: `qc25s_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32,mut_f32,mut_f32,mut_i32,mut_i32)`.
+        /// Callback `F` uses `QC25SF` with fingerprint `fn:f32(ref_f32)`; evidence: `QC25S:F(HLGTH+CENTR); QC25S:F(CENTR); QC25S:F(CENTR-HLGTH); QC25S:F(U+CENTR); QC25S:F(CENTR-U); QC25S:F(HLGTH+CENTR); QC25S:F(CENTR); QC25S:F(CENTR-HLGTH); QC25S:F(U+CENTR); QC25S:F(CENTR-U); QC25S -> QK15W:F(CENTR); QC25S -> QK15W:F(ABSC1); QC25S -> QK15W:F(ABSC2); QC25S -> QK15W:F(ABSC1); QC25S -> QK15W:F(ABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BL`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ALFA`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `BETA`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RI`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RJ`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RG`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RH`: declared `REAL` array of rank 1. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INTEGR`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `NEV`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qc25s_"]
+        pub fn qc25s(
+            f: QC25SF,
+            a: *mut f32,
+            b: *mut f32,
+            bl: *mut f32,
+            br: *mut f32,
+            alfa: *mut f32,
+            beta: *mut f32,
+            ri: *mut f32,
+            rj: *mut f32,
+            rg: *mut f32,
+            rh: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resasc: *mut f32,
+            integr: *mut crate::FortranInteger,
+            nev: *mut crate::FortranInteger,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK15`.
+    pub type QK15F = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK15
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B), with error estimate J = integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK15`; source: <https://www.netlib.org/slatec/src/qk15.f>. Native symbol: `qk15_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK15F` with fingerprint `fn:f32(ref_f32)`; evidence: `QK15:F(CENTR); QK15:F(CENTR-ABSC); QK15:F(CENTR+ABSC); QK15:F(CENTR-ABSC); QK15:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk15_"]
+        pub fn qk15(
+            f: QK15F,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK15I`.
+    pub type QK15IF = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK15I
+    unsafe extern "C" {
+        /// The original (infinite integration range is mapped onto the interval (0,1) and (A,B) is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B).
+        ///
+        /// Original SLATEC routine: `QK15I`; source: <https://www.netlib.org/slatec/src/qk15i.f>. Native symbol: `qk15i_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_i32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK15IF` with fingerprint `fn:f32(ref_f32)`; evidence: `QK15I:F(TABSC1); QK15I:F(TABSC1); QK15I:F(TABSC2)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `BOUN`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `INF`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk15i_"]
+        pub fn qk15i(
+            f: QK15IF,
+            boun: *mut f32,
+            inf: *mut crate::FortranInteger,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK15W`.
+    pub type QK15WF = unsafe extern "C" fn(*const f32) -> f32;
+
+    /// GNU Fortran callback `W` for `QK15W`.
+    pub type QK15WW = unsafe extern "C" fn(
+        *const f32,
+        *const f32,
+        *const f32,
+        *const f32,
+        *const f32,
+        *const crate::FortranInteger,
+    ) -> f32;
+
+    // raw-api-routine: QK15W
+    unsafe extern "C" {
+        /// To compute I = Integral of F*W over (A,B), with error estimate J = Integral of ABS(F*W) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK15W`; source: <https://www.netlib.org/slatec/src/qk15w.f>. Native symbol: `qk15w_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),fn:f32(ref_f32,ref_f32,ref_f32,ref_f32,ref_f32,ref_i32),mut_f32,mut_f32,mut_f32,mut_f32,mut_i32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK15WF` with fingerprint `fn:f32(ref_f32)`; evidence: `QK15W:F(CENTR); QK15W:F(ABSC1); QK15W:F(ABSC2); QK15W:F(ABSC1); QK15W:F(ABSC2)`.
+        /// Callback `W` uses `QK15WW` with fingerprint `fn:f32(ref_f32,ref_f32,ref_f32,ref_f32,ref_f32,ref_i32)`; evidence: `QK15W:W(CENTR,P1,P2,P3,P4,KP); QK15W:W(ABSC1,P1,P2,P3,P4,KP); QK15W:W(ABSC2,P1,P2,P3,P4,KP); QK15W:W(ABSC1,P1,P2,P3,P4,KP); QK15W:W(ABSC2,P1,P2,P3,P4,KP)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `W`: non-null callback pointer with ABI `fn:f32(ref_f32,ref_f32,ref_f32,ref_f32,ref_f32,ref_i32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `P1`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `P2`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `P3`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `P4`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `KP`: declared `INTEGER` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk15w_"]
+        pub fn qk15w(
+            f: QK15WF,
+            w: QK15WW,
+            p1: *mut f32,
+            p2: *mut f32,
+            p3: *mut f32,
+            p4: *mut f32,
+            kp: *mut crate::FortranInteger,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK21`.
+    pub type QK21F = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK21
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK21`; source: <https://www.netlib.org/slatec/src/qk21.f>. Native symbol: `qk21_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK21F` with fingerprint `fn:f32(ref_f32)`; evidence: `QK21:F(CENTR); QK21:F(CENTR-ABSC); QK21:F(CENTR+ABSC); QK21:F(CENTR-ABSC); QK21:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk21_"]
+        pub fn qk21(
+            f: QK21F,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK31`.
+    pub type QK31F = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK31
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK31`; source: <https://www.netlib.org/slatec/src/qk31.f>. Native symbol: `qk31_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK31F` with fingerprint `fn:f32(ref_f32)`; evidence: `QK31:F(CENTR); QK31:F(CENTR-ABSC); QK31:F(CENTR+ABSC); QK31:F(CENTR-ABSC); QK31:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk31_"]
+        pub fn qk31(
+            f: QK31F,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK41`.
+    pub type QK41F = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK41
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B), with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK41`; source: <https://www.netlib.org/slatec/src/qk41.f>. Native symbol: `qk41_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK41F` with fingerprint `fn:f32(ref_f32)`; evidence: `QK41:F(CENTR); QK41:F(CENTR-ABSC); QK41:F(CENTR+ABSC); QK41:F(CENTR-ABSC); QK41:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk41_"]
+        pub fn qk41(
+            f: QK41F,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK51`.
+    pub type QK51F = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK51
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK51`; source: <https://www.netlib.org/slatec/src/qk51.f>. Native symbol: `qk51_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK51F` with fingerprint `fn:f32(ref_f32)`; evidence: `QK51:F(CENTR); QK51:F(CENTR-ABSC); QK51:F(CENTR+ABSC); QK51:F(CENTR-ABSC); QK51:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk51_"]
+        pub fn qk51(
+            f: QK51F,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+
+    /// GNU Fortran callback `F` for `QK61`.
+    pub type QK61F = unsafe extern "C" fn(*const f32) -> f32;
+
+    // raw-api-routine: QK61
+    unsafe extern "C" {
+        /// To compute I = Integral of F over (A,B) with error estimate J = Integral of ABS(F) over (A,B)
+        ///
+        /// Original SLATEC routine: `QK61`; source: <https://www.netlib.org/slatec/src/qk61.f>. Native symbol: `qk61_`.
+        /// Batch B callback-bearing ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+        /// Callback `F` uses `QK61F` with fingerprint `fn:f32(ref_f32)`; evidence: `QK61:F(CENTR); QK61:F(CENTR-ABSC); QK61:F(CENTR+ABSC); QK61:F(CENTR-ABSC); QK61:F(CENTR+ABSC)`.
+        ///
+        /// # Arguments
+        ///
+        /// - `F`: non-null callback pointer with ABI `fn:f32(ref_f32)`. It is invoked synchronously by SLATEC or a source-hash-verified subsidiary and is not retained after the outer native call returns.
+        /// - `A`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `B`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESULT`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `ABSERR`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESABS`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        /// - `RESASC`: declared `REAL` scalar. Intent, exact extent expressions, aliasing permission, and pointer retention are unavailable from the normalized declaration; it must be non-null, aligned, and valid for every native access.
+        ///
+        /// # Safety
+        ///
+        /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
+        #[link_name = "qk61_"]
+        pub fn qk61(
+            f: QK61F,
+            a: *mut f32,
+            b: *mut f32,
+            result: *mut f32,
+            abserr: *mut f32,
+            resabs: *mut f32,
+            resasc: *mut f32,
+        );
+    }
+}

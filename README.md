@@ -86,6 +86,12 @@ non-callback numerical raw interfaces at canonical mathematical paths. Each
 has source-hash, parsed-ABI, symbol, feature/provider-closure, and bulk
 compile/link evidence, but is intentionally not represented as a safe or
 hand-reviewed semantic API. See [`docs/api/raw-batch-a.md`](docs/api/raw-batch-a.md).
+Batch B bulk-promotes 47 callback-bearing raw interfaces after reconstructing
+their callback ABI and forwarding evidence from selected source. The new
+unsafe paths are under `slatec_sys::quadrature::callbacks`,
+`slatec_sys::linear_algebra::sparse::callbacks`, and
+`slatec_sys::ode::callbacks`; they are not safe closure wrappers. See
+[`docs/api/raw-batch-b-callbacks.md`](docs/api/raw-batch-b-callbacks.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

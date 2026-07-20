@@ -387,6 +387,21 @@
         "direct_member_of_all": false,
         "feature": "raw-family-batch-a-statistics",
         "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-b-quadrature",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-b-linear-algebra",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-b-ode",
+        "transitively_reachable_from_all": true
       }
     ],
     "profile_only": [
@@ -437,6 +452,9 @@
     "batch-a-quadrature",
     "batch-a-special",
     "batch-a-statistics",
+    "batch-b-linear-algebra",
+    "batch-b-ode",
+    "batch-b-quadrature",
     "blas-level1",
     "blas-level2",
     "blas-level3",
@@ -495,6 +513,9 @@
     "batch-a-quadrature",
     "batch-a-special",
     "batch-a-statistics",
+    "batch-b-linear-algebra",
+    "batch-b-ode",
+    "batch-b-quadrature",
     "blas",
     "blas-level1",
     "blas-level2",
@@ -550,6 +571,9 @@
     "raw-family-batch-a-quadrature",
     "raw-family-batch-a-special",
     "raw-family-batch-a-statistics",
+    "raw-family-batch-b-linear-algebra",
+    "raw-family-batch-b-ode",
+    "raw-family-batch-b-quadrature",
     "raw-family-blas-level1",
     "raw-family-blas-level2",
     "raw-family-blas-level3",

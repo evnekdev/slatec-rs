@@ -1,0 +1,16 @@
+{
+  "records": {
+    "fn:f32(ref_f32)": 15,
+    "fn:f32(ref_f32,ref_f32,ref_f32,ref_f32,ref_f32,ref_i32)": 1,
+    "fn:f64(ref_f64)": 15,
+    "fn:f64(ref_f64,ref_f64,ref_f64,ref_f64,ref_f64,ref_i32)": 1,
+    "sub:void(mut_f32,mut_f32,mut_f32,mut_f32,mut_i32)": 1,
+    "sub:void(mut_f64,mut_f64,mut_f64,mut_f64,mut_i32)": 2,
+    "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)": 9,
+    "sub:void(mut_i32,mut_f32,mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32,mut_i32)": 8,
+    "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)": 9,
+    "sub:void(mut_i32,mut_f64,mut_f64,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64,mut_i32)": 8
+  },
+  "schema_id": "slatec-sys.raw-api.callback-shapes",
+  "schema_version": "1.0.0"
+}
