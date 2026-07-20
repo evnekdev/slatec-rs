@@ -116,3 +116,10 @@ Fortran layout contract, with no implicit repacking or transposition. See the
 repository [runtime concurrency and storage policy](../../docs/architecture/runtime-concurrency-and-storage-policy.md).
 
 Native implementations are selected explicitly with `prebuilt`, `source-build`, `system`, or `external-backend`. No redistributable prebuilt provider is currently available because historical source rights remain unresolved.
+
+Safe family features do not create a numerical implementation root. On the
+supported GNU MinGW source-build release profile, each safe operation is laid
+out to retain only its wrapper, checked shared support, and genuine native
+closure. BLAS Level 1 is isolated per operation and precision; sampled Level
+2/3 operations provide the same regression boundary. See the
+[safe-facade link-granularity policy](../../docs/architecture/safe-facade-link-granularity.md).

@@ -63,3 +63,6 @@ GNU MinGW `slatec-src` source provider, the final linker extracts only archive
 members needed by referenced symbols and their transitive closure. The audited
 reports and the limits for external providers are documented in
 [`docs/architecture/native-link-granularity.md`](../../docs/architecture/native-link-granularity.md).
+The safe facade has an additional operation-granularity policy; it does not
+change raw declaration or provider-feature semantics. See
+[`docs/architecture/safe-facade-link-granularity.md`](../../docs/architecture/safe-facade-link-granularity.md).

@@ -333,6 +333,18 @@ name = "link_blas_level1"
 required-features = ["blas-level1"]
 
 [[example]]
+name = "link_blas_level1_saxpy"
+required-features = ["blas-level1"]
+
+[[example]]
+name = "link_blas_level2_gemv"
+required-features = ["blas-level2"]
+
+[[example]]
+name = "link_safe_all_no_call"
+required-features = ["full"]
+
+[[example]]
 name = "link_quadrature_basic"
 required-features = ["quadrature-basic"]
 

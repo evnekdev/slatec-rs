@@ -7,11 +7,11 @@ use core::ffi::c_char;
 
 use slatec_sys::families::blas_level2 as raw;
 
-use super::validation::{
+use super::super::validation::{
     count, gemv_logical_lengths, increment, input_pointer, output_pointer, validate_matrix,
     validate_vector,
 };
-use super::{BlasError, Diagonal, Transpose, Triangle};
+use super::super::{BlasError, Diagonal, Transpose, Triangle};
 
 macro_rules! impl_real_level2 {
     (

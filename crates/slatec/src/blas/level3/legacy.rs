@@ -4,10 +4,10 @@
 
 use slatec_sys::families::blas_level3 as raw;
 
-use super::validation::{
+use super::super::validation::{
     count, gemm_stored_shapes, input_pointer, output_pointer, triangular_order, validate_matrix,
 };
-use super::{BlasError, Diagonal, Side, Transpose, Triangle};
+use super::super::{BlasError, Diagonal, Side, Transpose, Triangle};
 
 macro_rules! impl_real_level3 {
     (

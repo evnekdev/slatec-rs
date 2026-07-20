@@ -1291,7 +1291,12 @@ fn validate_leaves(leaves: &[LeafSpec], function_paths: &[&str]) -> Result<()> {
         if !paths.insert(leaf.path) {
             return Err(policy("duplicate canonical grouped module path"));
         }
-        if !workspace_path(leaf.module_file).is_file() {
+        let module_file = workspace_path(leaf.module_file);
+        let directory_module = module_file
+            .file_stem()
+            .map(|stem| module_file.with_file_name(stem).join("mod.rs"))
+            .unwrap_or_default();
+        if !module_file.is_file() && !directory_module.is_file() {
             return Err(policy("roadmap module file is absent"));
         }
         if leaf.status == "Implemented"

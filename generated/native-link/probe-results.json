@@ -3,20 +3,6 @@
     {
       "assertions": [
         {
-          "observed": [],
-          "passed": true,
-          "rule": "all no-call links no SLATEC implementation symbol"
-        }
-      ],
-      "assertions_passed": true,
-      "kind": "all-no-call",
-      "link_slatec_archive": true,
-      "name": "all_no_call",
-      "requested_symbols": []
-    },
-    {
-      "assertions": [
-        {
           "passed": true,
           "rule": "contains SAXPY"
         },
@@ -49,6 +35,20 @@
       "kind": "baseline",
       "link_slatec_archive": false,
       "name": "baseline_no_slatec",
+      "requested_symbols": []
+    },
+    {
+      "assertions": [
+        {
+          "observed": [],
+          "passed": true,
+          "rule": "all no-call links no SLATEC implementation symbol"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "all-no-call",
+      "link_slatec_archive": true,
+      "name": "raw_all_no_call",
       "requested_symbols": []
     },
     {
@@ -104,6 +104,72 @@
       "name": "raw_dgamma_only",
       "requested_symbols": [
         "DGAMMA"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DGEMM"
+        },
+        {
+          "observed": [
+            "DGEMM",
+            "FDUMP",
+            "I1MACH",
+            "J4SAVE",
+            "LSAME",
+            "XERBLA",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated Level 2/3 and other family drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_dgemm_only",
+      "requested_symbols": [
+        "DGEMM"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DGEMV"
+        },
+        {
+          "observed": [
+            "DGEMV",
+            "FDUMP",
+            "I1MACH",
+            "J4SAVE",
+            "LSAME",
+            "XERBLA",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated Level 2/3 and other family drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_dgemv_only",
+      "requested_symbols": [
+        "DGEMV"
       ]
     },
     {
@@ -260,35 +326,35 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "observed": [],
+          "passed": true,
+          "rule": "all no-call links no SLATEC implementation symbol"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "all-no-call",
+      "link_slatec_archive": true,
+      "name": "safe_all_no_call",
+      "requested_symbols": []
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DDOT"
+        },
+        {
           "observed": [
-            "DASUM",
-            "DAXPY",
-            "DCOPY",
-            "DDOT",
-            "DNRM2",
-            "DROT",
-            "DSCAL",
-            "DSWAP",
-            "IDAMAX",
-            "ISAMAX",
-            "SASUM",
-            "SAXPY",
-            "SCOPY",
-            "SDOT",
-            "SNRM2",
-            "SROT",
-            "SSCAL",
-            "SSWAP"
+            "DDOT"
           ],
           "passed": true,
-          "rule": "requested symbol is retained"
+          "rule": "excludes unrelated BLAS and other family drivers"
         }
       ],
       "assertions_passed": true,
       "kind": "safe",
       "link_slatec_archive": true,
-      "name": "safe_blas_only",
+      "name": "safe_ddot_only",
       "requested_symbols": [
         "DDOT"
       ]
@@ -296,65 +362,183 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "passed": true,
+          "rule": "contains DGEMM"
+        },
+        {
           "observed": [
-            "ALGAMS",
-            "ALNGAM",
-            "ALNREL",
-            "BINOM",
-            "COT",
-            "CSEVL",
-            "D1MACH",
-            "D9GMIC",
-            "D9GMIT",
-            "D9LGIC",
-            "D9LGIT",
-            "D9LGMC",
-            "DBINOM",
-            "DCOT",
-            "DCSEVL",
-            "DFAC",
-            "DGAMI",
-            "DGAMIC",
-            "DGAMIT",
-            "DGAMLM",
-            "DGAMMA",
-            "DGAMR",
-            "DLGAMS",
-            "DLNGAM",
-            "DLNREL",
-            "DPSI",
-            "FAC",
+            "DGEMM",
             "FDUMP",
-            "GAMI",
-            "GAMIC",
-            "GAMIT",
-            "GAMLIM",
-            "GAMMA",
-            "GAMR",
             "I1MACH",
-            "INITDS",
-            "INITS",
             "J4SAVE",
-            "PSI",
-            "R1MACH",
-            "R9GMIC",
-            "R9GMIT",
-            "R9LGIC",
-            "R9LGIT",
-            "R9LGMC",
-            "XERCLR",
+            "LSAME",
+            "XERBLA",
             "XERCNT",
             "XERHLT",
             "XERMSG",
             "XERPRN",
             "XERSVE",
-            "XGETF",
-            "XGETUA",
-            "XSETF"
+            "XGETUA"
           ],
           "passed": true,
-          "rule": "requested symbol is retained"
+          "rule": "excludes unrelated Level 2/3 and other family drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_dgemm_only",
+      "requested_symbols": [
+        "DGEMM"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DGEMV"
+        },
+        {
+          "observed": [
+            "DGEMV",
+            "FDUMP",
+            "I1MACH",
+            "J4SAVE",
+            "LSAME",
+            "XERBLA",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated Level 2/3 and other family drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_dgemv_only",
+      "requested_symbols": [
+        "DGEMV"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains HWSCRT"
+        },
+        {
+          "observed": [
+            "COSGEN",
+            "GENBUN",
+            "HWSCRT",
+            "PIMACH",
+            "POISD2",
+            "POISN2",
+            "POISP2",
+            "S1MERG",
+            "SCOPY",
+            "TRI3",
+            "TRIX"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, roots, and POIS3D drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_fishpack_hwscrt_only",
+      "requested_symbols": [
+        "HWSCRT"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains FZERO"
+        },
+        {
+          "observed": [
+            "D1MACH",
+            "DFZERO",
+            "FDUMP",
+            "FZERO",
+            "I1MACH",
+            "J4SAVE",
+            "R1MACH",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_roots_only",
+      "requested_symbols": [
+        "FZERO"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains SAXPY"
+        },
+        {
+          "observed": [
+            "SAXPY"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, roots, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_saxpy_only",
+      "requested_symbols": [
+        "SAXPY"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DGAMMA"
+        },
+        {
+          "observed": [
+            "D1MACH",
+            "D9LGMC",
+            "DCSEVL",
+            "DGAMLM",
+            "DGAMMA",
+            "FDUMP",
+            "I1MACH",
+            "INITDS",
+            "J4SAVE",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, roots, and FISHPACK drivers"
         }
       ],
       "assertions_passed": true,
