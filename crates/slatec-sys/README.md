@@ -54,3 +54,12 @@ The `all` feature directly selects every authored public mathematical family
 aggregate. It is declaration-only and deliberately does not select a source,
 system, or external provider. Its exact coverage is checked by
 [`generated/raw-api/all-feature-coverage.json`](../../generated/raw-api/all-feature-coverage.json).
+
+## Native link granularity
+
+Raw declaration features expose Rust names only. They neither require all
+native symbols nor cause `slatec-sys` to emit a native link directive. With the
+GNU MinGW `slatec-src` source provider, the final linker extracts only archive
+members needed by referenced symbols and their transitive closure. The audited
+reports and the limits for external providers are documented in
+[`docs/architecture/native-link-granularity.md`](../../docs/architecture/native-link-granularity.md).

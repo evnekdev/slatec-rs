@@ -60,6 +60,14 @@ ABI-validated and reviewed paths; the ABI-shaped `slatec_sys::generated`
 namespace is transitional rather than stable. See the
 [raw API architecture](docs/architecture/slatec-sys-public-raw-api.md) and
 [`generated/raw-api/`](generated/raw-api/).
+
+The GNU MinGW source provider compiles each selected original source to an
+individual archive member, so enabling a broad declaration or source feature
+does not itself put every SLATEC routine into an executable. The native-link
+audit records actual member, symbol-closure, and release-binary evidence in
+[`generated/native-link/`](generated/native-link/) and documents source-backend
+limits and external-provider caveats in
+[`docs/architecture/native-link-granularity.md`](docs/architecture/native-link-granularity.md).
 R2B additionally promotes 40 source-hash-reviewed scalar special functions at
 `slatec_sys::special::{elementary,gamma,beta,error}` and adds the declaration-
 only `slatec-sys/all` aggregate. These unsafe direct bindings do not select a

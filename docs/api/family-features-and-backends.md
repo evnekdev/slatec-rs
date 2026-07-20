@@ -109,6 +109,13 @@ compiler-observed closure and eleven native binary checks are recorded under
 `generated/linkage/`. Narrow examples check their own family roots and reject
 unrelated public family roots while permitting required support symbols.
 
+The source-backend native-link audit supersedes a feature-name-only claim: it
+records every archive member, its source/program units/symbol references, and
+the symbols and selected members in raw and safe release probes. In particular,
+`slatec-sys/all` is declaration-only; pairing it with `slatec`'s `full` source
+provider still must not retain SLATEC implementation code when no routine is
+called. See [native link granularity](../architecture/native-link-granularity.md).
+
 ## Examples
 
 ```toml
