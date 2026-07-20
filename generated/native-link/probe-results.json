@@ -54,6 +54,42 @@
     {
       "assertions": [
         {
+          "passed": true,
+          "rule": "contains DAI"
+        },
+        {
+          "observed": [
+            "D1MACH",
+            "D9AIMP",
+            "DAI",
+            "DAIE",
+            "DCSEVL",
+            "FDUMP",
+            "I1MACH",
+            "INITDS",
+            "J4SAVE",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, roots, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "raw",
+      "link_slatec_archive": true,
+      "name": "raw_dai_only",
+      "requested_symbols": [
+        "DAI"
+      ]
+    },
+    {
+      "assertions": [
+        {
           "known_archive_symbols": 623,
           "observed": [
             "DDOT"
@@ -321,6 +357,42 @@
       "name": "raw_saxpy_only",
       "requested_symbols": [
         "SAXPY"
+      ]
+    },
+    {
+      "assertions": [
+        {
+          "passed": true,
+          "rule": "contains DAI"
+        },
+        {
+          "observed": [
+            "D1MACH",
+            "D9AIMP",
+            "DAI",
+            "DAIE",
+            "DCSEVL",
+            "FDUMP",
+            "I1MACH",
+            "INITDS",
+            "J4SAVE",
+            "XERCNT",
+            "XERHLT",
+            "XERMSG",
+            "XERPRN",
+            "XERSVE",
+            "XGETUA"
+          ],
+          "passed": true,
+          "rule": "excludes unrelated BLAS, special, roots, and FISHPACK drivers"
+        }
+      ],
+      "assertions_passed": true,
+      "kind": "safe",
+      "link_slatec_archive": true,
+      "name": "safe_airy_only",
+      "requested_symbols": [
+        "DAI"
       ]
     },
     {

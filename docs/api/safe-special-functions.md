@@ -94,6 +94,12 @@ The wrappers deliberately use conservative validated domains. For example,
 the exposed K Bessel forms require a positive argument. Other valid-domain
 restrictions are recorded per wrapper in the generated inventory. Scaled forms
 are named explicitly; they must not be confused with their unscaled analogue.
+For the reviewed real Airy calls, `airy_ai_scaled(x)` is `Ai(x)` for `x <= 0`
+and `exp(2 x^(3/2) / 3) Ai(x)` for `x >= 0`; `airy_bi_scaled(x)` is `Bi(x)`
+for `x <= 0` and `exp(-2 x^(3/2) / 3) Bi(x)` for `x >= 0`. The selected FNLIB
+surface has no separately promoted real derivative driver, so public callers
+who need a numerical derivative must choose an approximation and its tolerance
+deliberately.
 `logarithmic_integral` rejects `x <= 0`, `x = 1`, and values outside the
 reviewed `Ei(log(x))` envelope. `spence_integral` accepts finite real inputs.
 Carlson arguments use their documented nonnegative/positive real domains;

@@ -7,6 +7,7 @@ Sizes are release-probe section measurements. They are diagnostic measurements, 
 | all_saxpy_only | 634408 | 132104 | 624 |
 | baseline_no_slatec | 633240 | 132072 | 624 |
 | raw_all_no_call | 633240 | 132040 | 624 |
+| raw_dai_only | 957592 | 179344 | 4172 |
 | raw_ddot_only | 634296 | 132104 | 624 |
 | raw_dgamma_only | 957784 | 175472 | 4108 |
 | raw_dgemm_only | 957208 | 174064 | 4044 |
@@ -16,6 +17,7 @@ Sizes are release-probe section measurements. They are diagnostic measurements, 
 | raw_pois3d_only | 698712 | 132728 | 624 |
 | raw_saxpy_ddot | 635480 | 132072 | 624 |
 | raw_saxpy_only | 634408 | 132104 | 624 |
+| safe_airy_only | 959832 | 179952 | 4204 |
 | safe_all_no_call | 633240 | 132040 | 624 |
 | safe_ddot_only | 636808 | 132936 | 624 |
 | safe_dgemm_only | 961176 | 174992 | 4044 |

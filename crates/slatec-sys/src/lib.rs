@@ -70,19 +70,22 @@ pub mod blas;
 
 /// Canonical reviewed raw scalar special-function namespaces.
 ///
-/// Enable one of `special-elementary`, `special-gamma`, `special-beta`, or
-/// `special-error`, or the aggregate `special`. The remaining public special
-/// subfamilies continue to be available through their compatibility modules
-/// until they receive the same source-hash and documentation review.
+/// Enable one of `special-elementary`, `special-gamma`, `special-beta`,
+/// `special-error`, or `special-airy`, or the aggregate `special`. The
+/// remaining public special subfamilies continue to be available through their
+/// compatibility modules until they receive the same source-hash and
+/// documentation review.
 #[cfg(any(
     feature = "special-elementary",
     feature = "special-gamma",
     feature = "special-beta",
     feature = "special-error",
+    feature = "special-airy",
     feature = "raw-family-special-elementary",
     feature = "raw-family-special-gamma",
     feature = "raw-family-special-beta",
-    feature = "raw-family-special-error"
+    feature = "raw-family-special-error",
+    feature = "raw-family-special-airy"
 ))]
 pub mod special;
 

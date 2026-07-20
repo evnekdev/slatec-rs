@@ -76,6 +76,63 @@
     },
     {
       "archive_members_selected": [
+        "profile-d1mach.o",
+        "profile-i1mach.o",
+        "selected-source-0deca9ef9fd2a2df.o",
+        "selected-source-10275ec90dd6e066.o",
+        "selected-source-1fdae9155aa43140.o",
+        "selected-source-273c06b35f95f85b.o",
+        "selected-source-34d2ab39a8d150a7.o",
+        "selected-source-37c1dbf0f41a4725.o",
+        "selected-source-60f744ba036ffdb7.o",
+        "selected-source-84e03977dd3521a1.o",
+        "selected-source-abab17e1d4c0a1a8.o",
+        "selected-source-d52ff331d93b8b2a.o",
+        "selected-source-e29e41489490bd88.o",
+        "selected-source-ec2322ff630b8382.o",
+        "selected-source-f3de2d6b6fc09924.o"
+      ],
+      "defined_slatec_symbols": [
+        "D1MACH",
+        "D9AIMP",
+        "DAI",
+        "DAIE",
+        "DCSEVL",
+        "FDUMP",
+        "I1MACH",
+        "INITDS",
+        "J4SAVE",
+        "XERCNT",
+        "XERHLT",
+        "XERMSG",
+        "XERPRN",
+        "XERSVE",
+        "XGETUA"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USERENV.dll",
+        "WS2_32.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "bcryptprimitives.dll",
+        "ntdll.dll"
+      ],
+      "name": "raw_dai_only"
+    },
+    {
+      "archive_members_selected": [
         "selected-source-97f5e57210c2ff0e.o"
       ],
       "defined_slatec_symbols": [
@@ -490,6 +547,83 @@
         "ntdll.dll"
       ],
       "name": "raw_saxpy_only"
+    },
+    {
+      "archive_members_selected": [
+        "profile-d1mach.o",
+        "profile-i1mach.o",
+        "selected-source-0deca9ef9fd2a2df.o",
+        "selected-source-10275ec90dd6e066.o",
+        "selected-source-1fdae9155aa43140.o",
+        "selected-source-273c06b35f95f85b.o",
+        "selected-source-34d2ab39a8d150a7.o",
+        "selected-source-37c1dbf0f41a4725.o",
+        "selected-source-60f744ba036ffdb7.o",
+        "selected-source-84e03977dd3521a1.o",
+        "selected-source-abab17e1d4c0a1a8.o",
+        "selected-source-d52ff331d93b8b2a.o",
+        "selected-source-e29e41489490bd88.o",
+        "selected-source-ec2322ff630b8382.o",
+        "selected-source-f3de2d6b6fc09924.o"
+      ],
+      "defined_rust_symbols": [
+        "<slatec::runtime::NativeRuntimeGuard as core::ops::drop::Drop>::drop",
+        "<std::sync::poison::condvar::Condvar>::wait::<slatec::runtime::LockState>",
+        "core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<slatec::runtime::LockState>>",
+        "slatec::runtime::lock_native",
+        "slatec::special::airy::ai::airy_ai"
+      ],
+      "defined_slatec_symbols": [
+        "D1MACH",
+        "D9AIMP",
+        "DAI",
+        "DAIE",
+        "DCSEVL",
+        "FDUMP",
+        "I1MACH",
+        "INITDS",
+        "J4SAVE",
+        "XERCNT",
+        "XERHLT",
+        "XERMSG",
+        "XERPRN",
+        "XERSVE",
+        "XGETUA"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USERENV.dll",
+        "WS2_32.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "bcryptprimitives.dll",
+        "ntdll.dll"
+      ],
+      "name": "safe_airy_only",
+      "rust_symbol_groups": {
+        "raw_binding_references": [],
+        "safe_wrappers": [
+          "slatec::special::airy::ai::airy_ai"
+        ],
+        "shared_safety_or_runtime_helpers": [
+          "<slatec::runtime::NativeRuntimeGuard as core::ops::drop::Drop>::drop",
+          "<std::sync::poison::condvar::Condvar>::wait::<slatec::runtime::LockState>",
+          "core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<slatec::runtime::LockState>>",
+          "slatec::runtime::lock_native"
+        ],
+        "unclassified_slatec_symbols": []
+      }
     },
     {
       "archive_members_selected": [],

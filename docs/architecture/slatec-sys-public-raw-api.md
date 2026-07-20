@@ -85,6 +85,17 @@ slatec_sys::special::beta::dbetai
 slatec_sys::special::error::derfc
 ```
 
+R2C adds the reviewed real FNLIB Airy drivers under one canonical module:
+
+```rust
+slatec_sys::special::airy::{ai, aie, bi, bie, dai, daie, dbi, dbie}
+```
+
+The earlier `slatec_sys::families::special_airy::*` items remain compatibility
+re-exports of those declarations. Complex Amos Airy drivers and Airy
+subsidiaries are reported explicitly, but are not promoted by the real-scalar
+review.
+
 The complete feasible BLAS set is generated from the source-hash-guarded
 family-review policy rather than copied into hand-written `extern` blocks.
 Each canonical item re-exports the single ABI-shaped generated declaration;
@@ -217,3 +228,21 @@ no thread-safety claim. `GAMR`/`DGAMR` additionally use XGETF/XSETF/XERCLR and
 must be serialized with other consumers of the legacy error runtime. Other
 special domains, complex returns, callback-bearing interfaces, and unresolved
 semantics remain unpromoted.
+
+## Real Airy R2C evidence and ABI boundary
+
+The source-hash-guarded R2C policy promotes exactly eight historically
+user-callable real FNLIB scalar functions: single- and double-precision Ai,
+Bi, and their exponentially scaled forms. Each accepts one real scalar by
+address and returns its real result directly under the observed GNU MinGW ABI.
+The generated Rustdoc records the selected source and symbol, scaling formula,
+XERROR range behavior for unscaled functions, FNLIB global-state caveat, and
+the complete raw pointer contract.
+
+The canonical `special::airy` declarations re-export the one existing
+compiler-observed `families::special_airy` declaration; no duplicate `extern`
+block is introduced. `airy-family-report.json` covers the eight reviewed real
+drivers alongside CAIRY/CBIRY/ZAIRY/ZBIRY and direct Airy helpers, which remain
+deferred pending their complex or subsidiary-contract review. The direct raw
+link probe imports all eight real symbols, while the safe facade keeps its
+existing public `slatec::special::airy` paths and serializes FNLIB calls.

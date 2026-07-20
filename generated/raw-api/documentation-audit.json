@@ -1,8 +1,8 @@
 {
-  "abi_profile_statements_present": 165,
-  "argument_docs_complete": 165,
+  "abi_profile_statements_present": 173,
+  "argument_docs_complete": 173,
   "missing": [],
-  "public_extern_declarations": 165,
+  "public_extern_declarations": 173,
   "review_queue": [
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -39,30 +39,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "ACOSH"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "AI"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "AIE"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -543,30 +519,6 @@
       ],
       "raw_api_state": "unsupported_callback_abi",
       "routine": "BFQAD"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "BI"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "BIE"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3677,30 +3629,6 @@
       "routine": "DACOSH"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DAI"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DAIE"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -3999,30 +3927,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DBHIN"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DBI"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DBIE"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -16230,9 +16134,9 @@
     }
   ],
   "review_queue_policy": "Non-reviewed declarations remain queued rather than receiving inferred pointer semantics.",
-  "routine_docs_present": 165,
-  "safety_sections_present": 165,
+  "routine_docs_present": 173,
+  "safety_sections_present": 173,
   "schema_id": "slatec-sys.raw-api.documentation-audit",
   "schema_version": "1.0.0",
-  "source_links_present": 165
+  "source_links_present": 173
 }

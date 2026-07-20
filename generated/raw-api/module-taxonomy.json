@@ -43,15 +43,15 @@
       "routine": "ACOSH"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "AI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "AIE"
     },
     {
@@ -325,15 +325,15 @@
       "routine": "BFQAD"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "BI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "BIE"
     },
     {
@@ -2107,15 +2107,15 @@
       "routine": "DACOSH"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DAI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DAIE"
     },
     {
@@ -2299,15 +2299,15 @@
       "routine": "DBHIN"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DBI"
     },
     {
-      "intended_canonical_module": "special",
+      "intended_canonical_module": "special::airy",
       "primary_family": "Special functions",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DBIE"
     },
     {

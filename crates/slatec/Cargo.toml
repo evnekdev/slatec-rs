@@ -401,6 +401,10 @@ name = "raw_special_error_functions"
 required-features = ["special-error"]
 
 [[example]]
+name = "raw_airy"
+required-features = ["special-airy"]
+
+[[example]]
 name = "raw_all_features_compile"
 required-features = ["raw-all-compile"]
 

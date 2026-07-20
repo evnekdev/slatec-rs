@@ -108,6 +108,14 @@ native saved initialization and XERROR keep it globally serialized. Complex,
 sequence, arbitrary-workspace, and translated special-function APIs remain
 deferred. See the [special-functions guide](../../docs/api/safe-special-functions.md).
 
+The narrower `special-airy` feature exposes checked `f64` and `f32` real Ai
+and Bi values plus their explicitly exponentially scaled variants through
+`slatec::special::airy`. On non-positive inputs the scaled values equal their
+unscaled counterparts. On positive inputs Ai is multiplied by
+`exp(2 x^(3/2) / 3)` and Bi by `exp(-2 x^(3/2) / 3)`. The selected FNLIB set
+has no separately promoted real derivative driver; complex Amos drivers and
+Airy subsidiaries remain deferred. See the [Airy guide](../../docs/api/raw-special-airy.md).
+
 Native concurrency is conservative. APIs that use the hosted legacy runtime
 are process-serialized; the existing `no_std`/`alloc` BLAS and Jacobian-check
 features remain backend-dependent and do not promise parallel native safety.

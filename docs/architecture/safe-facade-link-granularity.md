@@ -32,6 +32,12 @@ modules are independently extractable on the supported measurement profile.
 The audit rejects observed module collisions rather than assuming a source-file
 split is sufficient.
 
+The reviewed real Airy surface follows the same rule: each of `AI`, `AIE`,
+`BI`, `BIE`, `DAI`, `DAIE`, `DBI`, and `DBIE` has an operation-sized private
+safe-wrapper module. The public `slatec::special::airy` re-exports remain
+unchanged. Its `safe_airy_only` audit probe must retain `DAI` and its genuine
+FNLIB support closure, but not the other Airy drivers.
+
 Shared validation, integer conversion, locking, error mapping, character
 conversion, and workspace checks remain centralized only when they do not
 reference numerical routines. Production code contains no all-routine
@@ -65,7 +71,7 @@ cargo run -p slatec-tools -- validate-native-link-audit
 safe probes. It records executable/section sizes, selected archive members,
 native symbols, linker-map evidence, and compact demangled Rust-symbol groups.
 The validator enforces required and forbidden native symbols for safe SAXPY,
-DDOT, DGEMV, DGEMM, gamma, roots, HWSCRT, and both no-call aggregates. Raw
+DDOT, DGEMV, DGEMM, gamma, Airy Ai, roots, HWSCRT, and both no-call aggregates. Raw
 maps and unabridged `nm` output remain ignored under `target/native-link/`.
 
 When adding a safe family, add a representative probe or an explicit justified

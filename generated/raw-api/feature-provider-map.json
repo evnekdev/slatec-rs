@@ -23,17 +23,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "AI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "AIE",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -352,17 +352,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "BI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "BIE",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2431,17 +2431,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "DAI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "DAIE",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -2655,17 +2655,17 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "DBI",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-scalar-functions",
+      "native_provider_feature": "special-airy",
+      "raw_declaration_feature": "special-airy",
       "routine": "DBIE",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "special-airy"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",

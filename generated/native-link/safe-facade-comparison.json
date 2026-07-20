@@ -4,6 +4,113 @@
     {
       "raw_assertions_passed": true,
       "raw_native_symbols": [
+        "D1MACH",
+        "D9AIMP",
+        "DAI",
+        "DAIE",
+        "DCSEVL",
+        "FDUMP",
+        "I1MACH",
+        "INITDS",
+        "J4SAVE",
+        "XERCNT",
+        "XERHLT",
+        "XERMSG",
+        "XERPRN",
+        "XERSVE",
+        "XGETUA"
+      ],
+      "raw_probe": "raw_dai_only",
+      "raw_selected_archive_members": [
+        "profile-d1mach.o",
+        "profile-i1mach.o",
+        "selected-source-0deca9ef9fd2a2df.o",
+        "selected-source-10275ec90dd6e066.o",
+        "selected-source-1fdae9155aa43140.o",
+        "selected-source-273c06b35f95f85b.o",
+        "selected-source-34d2ab39a8d150a7.o",
+        "selected-source-37c1dbf0f41a4725.o",
+        "selected-source-60f744ba036ffdb7.o",
+        "selected-source-84e03977dd3521a1.o",
+        "selected-source-abab17e1d4c0a1a8.o",
+        "selected-source-d52ff331d93b8b2a.o",
+        "selected-source-e29e41489490bd88.o",
+        "selected-source-ec2322ff630b8382.o",
+        "selected-source-f3de2d6b6fc09924.o"
+      ],
+      "raw_size": {
+        "bss_size": 4172,
+        "data_size": 179344,
+        "name": "raw_dai_only",
+        "text_size": 957592
+      },
+      "safe_assertions_passed": true,
+      "safe_native_symbols": [
+        "D1MACH",
+        "D9AIMP",
+        "DAI",
+        "DAIE",
+        "DCSEVL",
+        "FDUMP",
+        "I1MACH",
+        "INITDS",
+        "J4SAVE",
+        "XERCNT",
+        "XERHLT",
+        "XERMSG",
+        "XERPRN",
+        "XERSVE",
+        "XGETUA"
+      ],
+      "safe_only_native_symbols": [],
+      "safe_probe": "safe_airy_only",
+      "safe_rust_symbol_groups": {
+        "raw_binding_references": [],
+        "safe_wrappers": [
+          "slatec::special::airy::ai::airy_ai"
+        ],
+        "shared_safety_or_runtime_helpers": [
+          "<slatec::runtime::NativeRuntimeGuard as core::ops::drop::Drop>::drop",
+          "<std::sync::poison::condvar::Condvar>::wait::<slatec::runtime::LockState>",
+          "core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<slatec::runtime::LockState>>",
+          "slatec::runtime::lock_native"
+        ],
+        "unclassified_slatec_symbols": []
+      },
+      "safe_rust_symbols": [
+        "<slatec::runtime::NativeRuntimeGuard as core::ops::drop::Drop>::drop",
+        "<std::sync::poison::condvar::Condvar>::wait::<slatec::runtime::LockState>",
+        "core::ptr::drop_glue::<std::sync::poison::mutex::MutexGuard<slatec::runtime::LockState>>",
+        "slatec::runtime::lock_native",
+        "slatec::special::airy::ai::airy_ai"
+      ],
+      "safe_selected_archive_members": [
+        "profile-d1mach.o",
+        "profile-i1mach.o",
+        "selected-source-0deca9ef9fd2a2df.o",
+        "selected-source-10275ec90dd6e066.o",
+        "selected-source-1fdae9155aa43140.o",
+        "selected-source-273c06b35f95f85b.o",
+        "selected-source-34d2ab39a8d150a7.o",
+        "selected-source-37c1dbf0f41a4725.o",
+        "selected-source-60f744ba036ffdb7.o",
+        "selected-source-84e03977dd3521a1.o",
+        "selected-source-abab17e1d4c0a1a8.o",
+        "selected-source-d52ff331d93b8b2a.o",
+        "selected-source-e29e41489490bd88.o",
+        "selected-source-ec2322ff630b8382.o",
+        "selected-source-f3de2d6b6fc09924.o"
+      ],
+      "safe_size": {
+        "bss_size": 4204,
+        "data_size": 179952,
+        "name": "safe_airy_only",
+        "text_size": 959832
+      }
+    },
+    {
+      "raw_assertions_passed": true,
+      "raw_native_symbols": [
         "DDOT"
       ],
       "raw_probe": "raw_ddot_only",
