@@ -1,7 +1,7 @@
 {
   "determinism": "committed reports exclude timestamps, paths outside the workspace, logs, binaries, maps, objects, archives, and elapsed-time measurements",
   "pipeline": {
-    "archive_bytes": 2800354,
+    "archive_bytes": 5497482,
     "archive_commands": [
       [
         "ar.exe",
@@ -21,7 +21,7 @@
         "ARCHIVE"
       ]
     ],
-    "archive_member_count": 662,
+    "archive_member_count": 1317,
     "compiler_command": [
       "gfortran",
       "-x",
@@ -34,7 +34,7 @@
       "OBJECT"
     ],
     "generated_amalgamation": false,
-    "object_count": 662,
+    "object_count": 1317,
     "partial_linking": false,
     "rust_link_directives": [
       "cargo:rustc-link-search=native=OUT_DIR",

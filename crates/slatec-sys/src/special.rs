@@ -1062,3 +1062,9 @@ mod batch_a;
 /// Canonical source-verified Batch A special-function declarations.
 #[cfg(feature = "raw-family-batch-a-special")]
 pub use batch_a::numerical;
+
+/// Complex special-function interfaces promoted by Batch C.
+#[cfg(feature = "raw-family-batch-c-special")]
+pub mod complex {
+    pub use crate::batch_c::special::*;
+}

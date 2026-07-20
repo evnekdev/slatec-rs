@@ -11,6 +11,6 @@
 - Forwarded callback signatures: 21
 - Canonical compile/link probe batches: 1/1
 - Representative runtime callback smoke routines: 3
-- Public raw declarations after Batch B: 679
+- Public raw declarations after Batch B: 823
 
 Batch B paths are unsafe, source/hash and callback-ABI-fingerprint verified declarations. They do not add safe closures, user-data pointers, panic trampolines, or broad numerical validation.

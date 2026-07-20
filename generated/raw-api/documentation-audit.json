@@ -1,9 +1,11 @@
 {
-  "abi_profile_statements_present": 632,
-  "argument_docs_complete": 632,
+  "abi_profile_statements_present": 776,
+  "argument_docs_complete": 776,
   "batch_a_public_declarations": 459,
+  "batch_b_public_declarations": 47,
+  "batch_c_public_declarations": 97,
   "missing": [],
-  "public_extern_declarations": 632,
+  "public_extern_declarations": 776,
   "review_queue": [
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -350,18 +352,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "C0LGMC"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "C1MERG"
     },
@@ -374,7 +364,7 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
+      "raw_api_state": "generated_abi_validated",
       "routine": "C9LGMC"
     },
     {
@@ -386,7 +376,7 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
+      "raw_api_state": "generated_abi_validated",
       "routine": "C9LN2R"
     },
     {
@@ -434,68 +424,8 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CACOS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CACOSH"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CAIRY"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CARG"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CASIN"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CASINH"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -518,128 +448,8 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CATAN"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CATAN2"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CATANH"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CBESH"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CBESI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CBESJ"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CBESK"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CBESY"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CBETA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CBINU"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CBIRY"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -675,18 +485,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CBLKTR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
       "routine": "CBUNI"
     },
     {
@@ -710,66 +508,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CCBRT"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CCHDC"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CCHDD"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CCHEX"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CCHUD"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CCMPB"
     },
@@ -782,44 +520,8 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
+      "raw_api_state": "generated_abi_validated",
       "routine": "CCOS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CCOSH"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CCOT"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_complex_return_abi",
-      "routine": "CDCDOT"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -880,30 +582,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CDNTP"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_complex_return_abi",
-      "routine": "CDOTC"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_complex_return_abi",
-      "routine": "CDOTU"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -1010,20 +688,8 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
+      "raw_api_state": "generated_abi_validated",
       "routine": "CEXP"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CEXPRL"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -1083,162 +749,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "source_present_unbound",
-      "routine": "CGAMMA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CGAMR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGBCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGBDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGBFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGBSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGECO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGEDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGEFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGEFS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGEIR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGESL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CGTSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
       "routine": "CHARIN"
     },
     {
@@ -1264,54 +774,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CHFIE"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHICO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHIDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHIFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHISL"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -1371,54 +833,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CHPCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHPDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHPFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CHPSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
       "routine": "CKSCL"
     },
     {
@@ -1430,68 +844,8 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CLBETA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CLNGAM"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CLNREL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CLOG"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CLOG10"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CMGNBN"
+      "routine": "CLOG"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -1587,78 +941,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CNBCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CNBDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CNBFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CNBFS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CNBIR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CNBSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
       "routine": "COMPB"
     },
     {
@@ -1743,54 +1025,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CPBCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPBDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPBFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPBSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
       "routine": "CPEVL"
     },
     {
@@ -1804,138 +1038,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CPEVLR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPOCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPODI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPOFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPOFS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPOIR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPOSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPPCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPPDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPPFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPPSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPQR79"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -1984,66 +1086,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CPRODP"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CPSI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPTSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CPZERO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CQRDC"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CQRSL"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2127,103 +1169,7 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CSICO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSIDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSIFA"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
       "routine": "CSIN"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CSINH"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSISL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSPCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSPDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSPFA"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2259,18 +1205,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "CSPSL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
       "routine": "CSQRT"
     },
     {
@@ -2284,18 +1218,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CSROOT"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CSVDC"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2320,66 +1242,6 @@
       ],
       "raw_api_state": "catalogue_only",
       "routine": "CSYR2"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CTAN"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CTANH"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CTRCO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CTRDI"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "CTRSL"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2798,18 +1660,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DBCG"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DBDIFF"
     },
@@ -2992,42 +1842,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DCFOD"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DCG"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DCGN"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DCGS"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3267,31 +2081,7 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "unsupported_callback_abi",
-      "routine": "DDEABM"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
       "routine": "DDEBDF"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DDERKF"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3531,18 +2321,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "unsupported_callback_abi",
-      "routine": "DERKF"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
       "routine": "DERKFS"
     },
     {
@@ -3712,18 +2490,6 @@
       ],
       "raw_api_state": "catalogue_only",
       "routine": "DGERU"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DGMRES"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3916,18 +2682,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DINTYD"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DIR"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -4144,18 +2898,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DOHTRL"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DOMN"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -4578,18 +3320,6 @@
       "routine": "DQAGI"
     },
     {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQAGIE"
-    },
-    {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
       "missing": [
         "source_hash_requalification",
@@ -4600,18 +3330,6 @@
       ],
       "raw_api_state": "documentation_or_tooling",
       "routine": "DQAGP"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQAGPE"
     },
     {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
@@ -4626,18 +3344,6 @@
       "routine": "DQAGS"
     },
     {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQAGSE"
-    },
-    {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
       "missing": [
         "source_hash_requalification",
@@ -4648,18 +3354,6 @@
       ],
       "raw_api_state": "documentation_or_tooling",
       "routine": "DQAWC"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQAWCE"
     },
     {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
@@ -4731,43 +3425,7 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQAWSE"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQC25C"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
       "routine": "DQC25F"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQC25S"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -4804,102 +3462,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DQFORM"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK15"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK15I"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK15W"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK21"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK31"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK41"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK51"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DQK61"
     },
     {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
@@ -7602,18 +6164,6 @@
       "routine": "QAGI"
     },
     {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QAGIE"
-    },
-    {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
       "missing": [
         "source_hash_requalification",
@@ -7624,18 +6174,6 @@
       ],
       "raw_api_state": "documentation_or_tooling",
       "routine": "QAGP"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QAGPE"
     },
     {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
@@ -7650,18 +6188,6 @@
       "routine": "QAGS"
     },
     {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QAGSE"
-    },
-    {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
       "missing": [
         "source_hash_requalification",
@@ -7672,18 +6198,6 @@
       ],
       "raw_api_state": "documentation_or_tooling",
       "routine": "QAWC"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QAWCE"
     },
     {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
@@ -7755,43 +6269,7 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "unsupported_callback_abi",
-      "routine": "QAWSE"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QC25C"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
       "routine": "QC25F"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QC25S"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -7828,102 +6306,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "QFORM"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK15"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK15I"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK15W"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK21"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK31"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK41"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK51"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "QK61"
     },
     {
       "declaration_status": "preexisting_family_declaration_requires_r1_review",
@@ -8439,30 +6821,6 @@
         "abi_profile_statement"
       ],
       "raw_api_state": "generated_abi_validated",
-      "routine": "RPQR79"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
-      "routine": "RPZERO"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "generated_abi_validated",
       "routine": "RSCO"
     },
     {
@@ -8498,18 +6856,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SBCG"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SBHIN"
     },
@@ -8524,42 +6870,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SBOLSM"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SCG"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SCGN"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SCGS"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -8918,18 +7228,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SGMRES"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "catalogue_only",
       "routine": "SHBMV"
     },
@@ -9074,18 +7372,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SIR"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "source_present_unbound",
       "routine": "SLADOC"
     },
@@ -9196,18 +7482,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SODS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "routine_docs",
-        "argument_docs",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SOMN"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -10628,9 +8902,9 @@
   ],
   "review_queue_policy": "Non-reviewed declarations remain queued rather than receiving inferred pointer semantics.",
   "reviewed_public_declarations": 173,
-  "routine_docs_present": 632,
-  "safety_sections_present": 632,
+  "routine_docs_present": 776,
+  "safety_sections_present": 776,
   "schema_id": "slatec-sys.raw-api.documentation-audit",
   "schema_version": "1.0.0",
-  "source_links_present": 632
+  "source_links_present": 776
 }

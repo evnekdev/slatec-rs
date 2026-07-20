@@ -4,6 +4,7 @@ use slatec_tools::all_feature_coverage;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::batch_a_api;
 use slatec_tools::batch_b_api;
+use slatec_tools::batch_c_api;
 use slatec_tools::blas1_concurrency;
 use slatec_tools::complete_corpus;
 use slatec_tools::error::{CorpusError, Result};
@@ -137,6 +138,8 @@ fn run() -> Result<()> {
             | "validate-raw-batch-a"
             | "generate-raw-batch-b"
             | "validate-raw-batch-b"
+            | "generate-raw-batch-c"
+            | "validate-raw-batch-c"
             | "generate-raw-api-inventory"
             | "validate-raw-api-inventory"
             | "generate-all-feature-coverage"
@@ -552,6 +555,28 @@ fn run() -> Result<()> {
             };
             println!(
                 "{}: {} retained identities, {} Batch B candidates ({})",
+                result.status, result.retained_identities, result.candidates, result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-raw-batch-c" | "validate-raw-batch-c" => {
+            let paths = batch_c_api::BatchCPaths {
+                catalogue_dir: &PathBuf::from("generated/slatec-routines"),
+                ffi_dir: &PathBuf::from("generated/ffi"),
+                ffi_inventory_dir: &options.ffi_inventory_dir,
+                raw_api_dir: &PathBuf::from("generated/raw-api"),
+                sys_dir: &PathBuf::from("crates/slatec-sys"),
+                src_dir: &PathBuf::from("crates/slatec-src"),
+                facade_dir: &PathBuf::from("crates/slatec"),
+                output_dir: &options.output_dir,
+            };
+            let result = if options.command == "generate-raw-batch-c" {
+                batch_c_api::generate(paths)?
+            } else {
+                batch_c_api::validate(paths)?
+            };
+            println!(
+                "{}: {} retained identities, {} Batch C candidates ({})",
                 result.status, result.retained_identities, result.candidates, result.semantic_hash
             );
             Ok(())
@@ -1110,7 +1135,7 @@ fn run() -> Result<()> {
             Ok(())
         }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-batch-b, validate-raw-batch-b, generate-raw-api-inventory, validate-raw-api-inventory, generate-all-feature-coverage, validate-all-feature-coverage, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-batch-b, validate-raw-batch-b, generate-raw-batch-c, validate-raw-batch-c, generate-raw-api-inventory, validate-raw-api-inventory, generate-all-feature-coverage, validate-all-feature-coverage, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }

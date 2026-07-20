@@ -85,11 +85,12 @@ tables are not treated as validated representations of a modern host.
 
 Generated declarations are split into feature-gated modules for numeric scalar
 subroutines, numeric array subroutines, scalar functions, complex arguments,
-logical values, and character values. Callbacks, complex- or
-character-returning functions, unresolved/conflicting interfaces,
-missing/ambiguous symbols, and selected infrastructure are kept in the compact
-review queue rather than guessed. Callback and infrastructure modules have no
-callable declarations.
+compiler-probed complex returns, logical values, and character values. Batch B
+separately promotes source-reconstructed callback interfaces; Batch C promotes
+eligible complex and simple flag-bearing declarations. Character-returning
+functions, unresolved/conflicting interfaces, missing/ambiguous symbols, and
+selected infrastructure remain in the compact review queue rather than being
+guessed.
 
 `crates/slatec-sys/build.rs` remains a no-op: Cargo never downloads or compiles
 Fortran implicitly. Objects, archives, authored probes, executables, and
@@ -98,9 +99,10 @@ symbol, confidence, review, and binding metadata is committed under
 `generated/ffi/`.
 
 The successful profile establishes evidence only for that GNU Fortran target.
-It does not prove safe Rust use, `COMMON` layout, individual callback
-signatures, complex/character return ABI, error semantics, thread safety,
-component boundaries, or general ABI correctness.
+It does not prove safe Rust use, `COMMON` layout, character return ABI, error
+semantics, thread safety, component boundaries, or general ABI correctness.
+Complex function returns are supported only where the additional controlled and
+selected-source GNU MinGW Rust probes recorded by Batch C pass.
 
 ## Local commands
 
@@ -165,12 +167,12 @@ Feature groups are deliberately confidence-scoped:
   arguments, after profile-specific validation;
 - `raw-ffi-all-validated` (and the compatibility alias `raw-ffi`): both groups.
 
-Callbacks, complex-returning functions, character-returning functions,
-unresolved/conflicting interfaces, and selected infrastructure remain outside
-every validated aggregate. Passing a batch is evidence for the exact GNU
-MinGW profile only; it does not establish a safe wrapper, callback signature,
-complex return convention, character result convention, thread safety, or
-general ABI portability.
+Character-returning functions, unresolved/conflicting interfaces, and selected
+infrastructure remain outside every validated aggregate. Callback declarations
+require Batch B source reconstruction; complex returns require the Batch C
+direct-return probe. Passing a batch is evidence for the exact GNU MinGW profile
+only; it does not establish a safe wrapper, character result convention, thread
+safety, or general ABI portability.
 
 ## Canonical raw API inventory (R1)
 

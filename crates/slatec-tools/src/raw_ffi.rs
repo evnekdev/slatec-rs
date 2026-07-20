@@ -170,10 +170,12 @@ struct AbiValidation {
     integer_real_double: String,
     logical: String,
     complex: String,
+    complex_return: String,
     character: String,
     callback: String,
     selected_numeric_rust: String,
     selected_complex_rust: String,
+    selected_complex_return_rust: String,
     selected_machine_error: String,
 }
 
@@ -1159,10 +1161,7 @@ fn classify(
         .function_result
         .as_ref()
         .and_then(|result| result.declared_type.as_deref());
-    if matches!(
-        result_type,
-        Some("COMPLEX") | Some("DOUBLE COMPLEX") | Some("CHARACTER")
-    ) {
+    if result_type == Some("CHARACTER") {
         return (
             "manual_review_required".to_owned(),
             None,
@@ -1174,6 +1173,16 @@ fn classify(
             "manual_review_required".to_owned(),
             None,
             vec!["RAW-FFI-PROFILE-UNVALIDATED".to_owned()],
+        );
+    }
+    if matches!(result_type, Some("COMPLEX") | Some("DOUBLE COMPLEX")) {
+        if abi.complex_return != "passed" || abi.selected_complex_return_rust != "passed" {
+            return manual_profile_review("RAW-FFI-COMPLEX-RETURN-ABI-UNVALIDATED");
+        }
+        return (
+            "generated_abi_sensitive".to_owned(),
+            Some("batch_complex_returns".to_owned()),
+            Vec::new(),
         );
     }
     if facts
@@ -1504,7 +1513,7 @@ fn outputs(
     );
     outputs.insert(
         "confidence-summary.json",
-        compact(&json!({"schema_id":"slatec-rs/raw-ffi-confidence-summary","schema_version":SCHEMA_VERSION,"snapshot_id":snapshot,"summary":summary,"profile_validation":{"abi_validated":abi.status,"machine_constants_validated":"validated_by_generated_runtime_profile_outputs","legacy_error_behavior_validated":"validated_by_generated_runtime_profile_outputs","fnlib_initialization_validated":"validated_by_generated_runtime_profile_outputs"},"abi_validation":{"status":abi.status,"integer_real_double":abi.integer_real_double,"logical":abi.logical,"complex":abi.complex,"character":abi.character,"callback":abi.callback,"selected_numeric_rust":abi.selected_numeric_rust,"selected_complex_rust":abi.selected_complex_rust,"selected_machine_error":abi.selected_machine_error,"selected_machine_error_scope":"ABI smoke only; numerical machine constants and legacy error levels are validated separately under generated/runtime-profile"},"confidence_classes":{"generated_standard":"numeric subroutine with observed symbol and validated basic GNU Fortran ABI","generated_abi_sensitive":"observed symbol and validated profile; module identifies the ABI-sensitive category","manual_review_required":"callback, unsupported return ABI, unresolved interface, or symbol ambiguity","unsupported":"selected source did not compile under this explicit profile","non_callable_infrastructure":"selected infrastructure unit, retained as corpus evidence but not emitted as a callable raw binding"}}))?,
+        compact(&json!({"schema_id":"slatec-rs/raw-ffi-confidence-summary","schema_version":SCHEMA_VERSION,"snapshot_id":snapshot,"summary":summary,"profile_validation":{"abi_validated":abi.status,"machine_constants_validated":"validated_by_generated_runtime_profile_outputs","legacy_error_behavior_validated":"validated_by_generated_runtime_profile_outputs","fnlib_initialization_validated":"validated_by_generated_runtime_profile_outputs"},"abi_validation":{"status":abi.status,"integer_real_double":abi.integer_real_double,"logical":abi.logical,"complex":abi.complex,"complex_return":abi.complex_return,"character":abi.character,"callback":abi.callback,"selected_numeric_rust":abi.selected_numeric_rust,"selected_complex_rust":abi.selected_complex_rust,"selected_complex_return_rust":abi.selected_complex_return_rust,"selected_machine_error":abi.selected_machine_error,"selected_machine_error_scope":"ABI smoke only; numerical machine constants and legacy error levels are validated separately under generated/runtime-profile"},"confidence_classes":{"generated_standard":"numeric subroutine with observed symbol and validated basic GNU Fortran ABI","generated_abi_sensitive":"observed symbol and validated profile; module identifies the ABI-sensitive category","manual_review_required":"callback, unsupported return ABI, unresolved interface, or symbol ambiguity","unsupported":"selected source did not compile under this explicit profile","non_callable_infrastructure":"selected infrastructure unit, retained as corpus evidence but not emitted as a callable raw binding"}}))?,
     );
     outputs.insert(
         "generation-summary.md",
@@ -1567,6 +1576,7 @@ fn generate_bindings(
         "batch_numeric_array_subroutines",
         "batch_scalar_functions",
         "batch_complex_arguments",
+        "batch_complex_returns",
         "batch_logical",
         "batch_character",
         "batch_callbacks",
@@ -1737,6 +1747,8 @@ fn rust_return_type(result: Option<&ResultFact>) -> Result<&'static str> {
         Some("INTEGER") => Ok("FortranInteger"),
         Some("REAL") => Ok("f32"),
         Some("DOUBLE PRECISION") => Ok("f64"),
+        Some("COMPLEX") => Ok("Complex32"),
+        Some("DOUBLE COMPLEX") => Ok("Complex64"),
         Some("LOGICAL") => Ok("FortranLogical"),
         _ => Err(CorpusError::Verification(
             "attempted to generate a binding for an unsupported function result".to_owned(),
@@ -1799,10 +1811,12 @@ fn run_abi_validation(
         integer_real_double: basic.clone(),
         logical: basic.clone(),
         complex: basic.clone(),
+        complex_return: basic.clone(),
         character: basic.clone(),
         callback: basic,
         selected_numeric_rust: "not_run".to_owned(),
         selected_complex_rust: "not_run".to_owned(),
+        selected_complex_return_rust: "not_run".to_owned(),
         selected_machine_error: "not_run".to_owned(),
     };
     if let Some(archive) = archive {
@@ -1821,6 +1835,14 @@ fn run_abi_validation(
             Some(archive),
             "selected_complex",
             selected_complex_rust(),
+        )?;
+        validation.selected_complex_return_rust = run_rust_probe(
+            &compiler_path,
+            workspace,
+            &object,
+            Some(archive),
+            "selected_complex_return",
+            selected_complex_return_rust(),
         )?;
         validation.selected_machine_error =
             run_fortran_runtime_probe(&compiler_path, workspace, archive)?;
@@ -1929,12 +1951,14 @@ fn run_fortran_runtime_probe(compiler: &Path, workspace: &Path, archive: &Path) 
 }
 
 fn abi_probe_fortran() -> &'static str {
-    "      SUBROUTINE SLATEC_PROBE_INTEGER(VALUE)\n      INTEGER VALUE\n      VALUE = 31415\n      END\n      SUBROUTINE SLATEC_PROBE_REAL(VALUE)\n      REAL VALUE\n      VALUE = VALUE * 2.0\n      END\n      DOUBLE PRECISION FUNCTION SLATEC_PROBE_DOUBLE(VALUE)\n      DOUBLE PRECISION VALUE\n      SLATEC_PROBE_DOUBLE = VALUE * 3.0D0\n      END\n      INTEGER FUNCTION SLATEC_PROBE_IFUNCTION(VALUE)\n      INTEGER VALUE\n      SLATEC_PROBE_IFUNCTION = VALUE + 7\n      END\n      REAL FUNCTION SLATEC_PROBE_RFUNCTION(VALUE)\n      REAL VALUE\n      SLATEC_PROBE_RFUNCTION = VALUE + 0.5\n      END\n      SUBROUTINE SLATEC_PROBE_LOGICAL(VALUE, RESULT)\n      LOGICAL VALUE\n      INTEGER RESULT\n      IF (VALUE) THEN\n        RESULT = 1\n      ELSE\n        RESULT = 0\n      END IF\n      END\n      SUBROUTINE SLATEC_PROBE_COMPLEX(VALUE)\n      COMPLEX VALUE\n      VALUE = VALUE * (1.0,2.0)\n      END\n      SUBROUTINE SLATEC_PROBE_CHARACTER(VALUE, RESULT)\n      CHARACTER*(*) VALUE\n      INTEGER RESULT\n      RESULT = LEN(VALUE)\n      END\n      SUBROUTINE SLATEC_PROBE_ARRAY(N, VALUES)\n      INTEGER N\n      DOUBLE PRECISION VALUES(N)\n      VALUES(1) = VALUES(1) + 1.0D0\n      END\n      SUBROUTINE SLATEC_PROBE_CALLBACK(F, X, RESULT)\n      DOUBLE PRECISION F, X, RESULT\n      EXTERNAL F\n      RESULT = F(X)\n      END\n"
+    "      SUBROUTINE SLATEC_PROBE_INTEGER(VALUE)\n      INTEGER VALUE\n      VALUE = 31415\n      END\n      SUBROUTINE SLATEC_PROBE_REAL(VALUE)\n      REAL VALUE\n      VALUE = VALUE * 2.0\n      END\n      DOUBLE PRECISION FUNCTION SLATEC_PROBE_DOUBLE(VALUE)\n      DOUBLE PRECISION VALUE\n      SLATEC_PROBE_DOUBLE = VALUE * 3.0D0\n      END\n      INTEGER FUNCTION SLATEC_PROBE_IFUNCTION(VALUE)\n      INTEGER VALUE\n      SLATEC_PROBE_IFUNCTION = VALUE + 7\n      END\n      REAL FUNCTION SLATEC_PROBE_RFUNCTION(VALUE)\n      REAL VALUE\n      SLATEC_PROBE_RFUNCTION = VALUE + 0.5\n      END\n      SUBROUTINE SLATEC_PROBE_LOGICAL(VALUE, RESULT)\n      LOGICAL VALUE\n      INTEGER RESULT\n      IF (VALUE) THEN\n        RESULT = 1\n      ELSE\n        RESULT = 0\n      END IF\n      END\n      LOGICAL FUNCTION SLATEC_PROBE_LOGICAL_RESULT(VALUE)\n      LOGICAL VALUE\n      SLATEC_PROBE_LOGICAL_RESULT = VALUE\n      END\n      SUBROUTINE SLATEC_PROBE_LOGICAL_ARRAY(VALUES)\n      LOGICAL VALUES(2)\n      VALUES(1) = .TRUE.\n      VALUES(2) = .FALSE.\n      END\n      SUBROUTINE SLATEC_PROBE_COMPLEX(VALUE)\n      COMPLEX VALUE\n      VALUE = VALUE * (1.0,2.0)\n      END\n      SUBROUTINE SLATEC_PROBE_DCOMPLEX(VALUE)\n      DOUBLE COMPLEX VALUE\n      VALUE = VALUE * (1.0D0,2.0D0)\n      END\n      COMPLEX FUNCTION SLATEC_PROBE_CRETURN(VALUE)\n      COMPLEX VALUE\n      SLATEC_PROBE_CRETURN = VALUE * (1.0,2.0)\n      END\n      DOUBLE COMPLEX FUNCTION SLATEC_PROBE_ZRETURN(VALUE)\n      DOUBLE COMPLEX VALUE\n      SLATEC_PROBE_ZRETURN = VALUE * (1.0D0,2.0D0)\n      END\n      SUBROUTINE SLATEC_PROBE_CHARACTER(VALUE, RESULT)\n      CHARACTER*(*) VALUE\n      INTEGER RESULT\n      RESULT = LEN(VALUE)\n      END\n      SUBROUTINE SLATEC_PROBE_CHARACTERS(A, VALUE, B, RESULT)\n      CHARACTER*1 A, B\n      INTEGER VALUE, RESULT\n      RESULT = VALUE + ICHAR(A) + ICHAR(B)\n      END\n      SUBROUTINE SLATEC_PROBE_ARRAY(N, VALUES)\n      INTEGER N\n      DOUBLE PRECISION VALUES(N)\n      VALUES(1) = VALUES(1) + 1.0D0\n      END\n      SUBROUTINE SLATEC_PROBE_CALLBACK(F, X, RESULT)\n      DOUBLE PRECISION F, X, RESULT\n      EXTERNAL F\n      RESULT = F(X)\n      END\n"
 }
 
 fn abi_probe_rust() -> String {
     r#"#[repr(C)]
 struct Complex32 { re: f32, im: f32 }
+#[repr(C)]
+struct Complex64 { re: f64, im: f64 }
 #[link(name = "gfortran")]
 unsafe extern "C" {
     fn slatec_probe_integer_(value: *mut i32);
@@ -1943,8 +1967,14 @@ unsafe extern "C" {
     fn slatec_probe_ifunction_(value: *mut i32) -> i32;
     fn slatec_probe_rfunction_(value: *mut f32) -> f32;
     fn slatec_probe_logical_(value: *mut i32, result: *mut i32);
+    fn slatec_probe_logical_result_(value: *mut i32) -> i32;
+    fn slatec_probe_logical_array_(values: *mut i32);
     fn slatec_probe_complex_(value: *mut Complex32);
+    fn slatec_probe_dcomplex_(value: *mut Complex64);
+    fn slatec_probe_creturn_(value: *mut Complex32) -> Complex32;
+    fn slatec_probe_zreturn_(value: *mut Complex64) -> Complex64;
     fn slatec_probe_character_(value: *mut core::ffi::c_char, result: *mut i32, length: usize);
+    fn slatec_probe_characters_(a: *mut core::ffi::c_char, value: *mut i32, b: *mut core::ffi::c_char, result: *mut i32, a_length: usize, b_length: usize);
     fn slatec_probe_array_(n: *mut i32, values: *mut f64);
     fn slatec_probe_callback_(callback: unsafe extern "C" fn(*const f64) -> f64, value: *mut f64, result: *mut f64);
 }
@@ -1956,8 +1986,14 @@ fn main() {
     let mut i = 5_i32; if unsafe { slatec_probe_ifunction_(&mut i) } != 12 { std::process::exit(5) }
     let mut r = 1.0_f32; if unsafe { slatec_probe_rfunction_(&mut r) } != 1.5 { std::process::exit(6) }
     let mut logical = 1_i32; let mut logical_result = 0_i32; unsafe { slatec_probe_logical_(&mut logical, &mut logical_result) }; if logical_result != 1 { std::process::exit(7) }
+    if unsafe { slatec_probe_logical_result_(&mut logical) } != 1 { std::process::exit(12) }
+    let mut logicals = [0_i32; 2]; unsafe { slatec_probe_logical_array_(logicals.as_mut_ptr()) }; if logicals != [1, 0] { std::process::exit(13) }
     let mut complex = Complex32 { re: 1.0, im: 2.0 }; unsafe { slatec_probe_complex_(&mut complex) }; if complex.re != -3.0 || complex.im != 4.0 { std::process::exit(8) }
+    let mut dcomplex = Complex64 { re: 1.0, im: 2.0 }; unsafe { slatec_probe_dcomplex_(&mut dcomplex) }; if dcomplex.re != -3.0 || dcomplex.im != 4.0 { std::process::exit(14) }
+    let creturn = unsafe { slatec_probe_creturn_(&mut complex) }; if creturn.re != -11.0 || creturn.im != -2.0 { std::process::exit(15) }
+    let zreturn = unsafe { slatec_probe_zreturn_(&mut dcomplex) }; if zreturn.re != -11.0 || zreturn.im != -2.0 { std::process::exit(16) }
     let mut text = [b'a' as core::ffi::c_char, b'b' as core::ffi::c_char, b'c' as core::ffi::c_char]; let mut length = 0_i32; unsafe { slatec_probe_character_(text.as_mut_ptr(), &mut length, 3) }; if length != 3 { std::process::exit(9) }
+    let mut a = b'A' as core::ffi::c_char; let mut b = b'B' as core::ffi::c_char; let mut ordinary = 5_i32; let mut character_result = 0_i32; unsafe { slatec_probe_characters_(&mut a, &mut ordinary, &mut b, &mut character_result, 1, 1) }; if character_result != 136 { std::process::exit(17) }
     let mut n = 2_i32; let mut values = [1.0_f64, 2.0]; unsafe { slatec_probe_array_(&mut n, values.as_mut_ptr()) }; if values[0] != 2.0 { std::process::exit(10) }
     let mut input = 2.0_f64; let mut result = 0.0_f64; unsafe { slatec_probe_callback_(plus_one, &mut input, &mut result) }; if result != 3.0 { std::process::exit(11) }
 }
@@ -1985,6 +2021,26 @@ struct Complex32 { re: f32, im: f32 }
 #[link(name = "gfortran")]
 unsafe extern "C" { fn cabs_(value: *mut Complex32) -> f32; }
 fn main() { let mut value = Complex32 { re: 3.0, im: 4.0 }; let result = unsafe { cabs_(&mut value) }; if result != 5.0 { std::process::exit(2) } }
+"#.to_owned()
+}
+
+fn selected_complex_return_rust() -> String {
+    r#"#[repr(C)]
+struct Complex32 { re: f32, im: f32 }
+#[link(name = "gfortran")]
+unsafe extern "C" {
+    fn cdotu_(n: *mut i32, x: *mut Complex32, incx: *mut i32, y: *mut Complex32, incy: *mut i32) -> Complex32;
+    fn cdcdot_(n: *mut i32, cb: *mut Complex32, x: *mut Complex32, incx: *mut i32, y: *mut Complex32, incy: *mut i32) -> Complex32;
+}
+fn main() {
+    let mut n = 1_i32; let mut inc = 1_i32;
+    let mut x = [Complex32 { re: 1.0, im: 2.0 }]; let mut y = [Complex32 { re: 3.0, im: 4.0 }];
+    let c = unsafe { cdotu_(&mut n, x.as_mut_ptr(), &mut inc, y.as_mut_ptr(), &mut inc) };
+    if c.re != -5.0 || c.im != 10.0 { std::process::exit(2) }
+    let mut cb = Complex32 { re: 0.0, im: 0.0 };
+    let z = unsafe { cdcdot_(&mut n, &mut cb, x.as_mut_ptr(), &mut inc, y.as_mut_ptr(), &mut inc) };
+    if z.re != -5.0 || z.im != 10.0 { std::process::exit(3) }
+}
 "#.to_owned()
 }
 
@@ -2094,10 +2150,12 @@ mod tests {
             integer_real_double: "passed".to_owned(),
             logical: "passed".to_owned(),
             complex: "passed".to_owned(),
+            complex_return: "passed".to_owned(),
             character: "passed".to_owned(),
             callback: "passed".to_owned(),
             selected_numeric_rust: "passed".to_owned(),
             selected_complex_rust: "passed".to_owned(),
+            selected_complex_return_rust: "passed".to_owned(),
             selected_machine_error: "passed".to_owned(),
         }
     }

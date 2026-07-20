@@ -90,6 +90,13 @@ raw-batch-b-link-tests = [
     "slatec-src/ode",
 ]
 raw-batch-b-native-tests = ["raw-batch-b-link-tests"]
+raw-batch-c-link-tests = [
+    "std",
+    "source-build",
+    "slatec-sys/all",
+    "slatec-src/batch-c-all",
+]
+raw-batch-c-native-tests = ["raw-batch-c-link-tests"]
 
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",

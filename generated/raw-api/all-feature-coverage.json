@@ -83,6 +83,11 @@
       },
       {
         "direct_member_of_all": false,
+        "feature": "raw-ffi-complex-returns",
+        "transitively_reachable_from_all": false
+      },
+      {
+        "direct_member_of_all": false,
         "feature": "raw-ffi-logical",
         "transitively_reachable_from_all": false
       },
@@ -402,6 +407,31 @@
         "direct_member_of_all": false,
         "feature": "raw-family-batch-b-ode",
         "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-c-blas",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-c-linear-algebra",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-c-special",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-c-nonlinear",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
+        "feature": "raw-family-batch-c-fishpack",
+        "transitively_reachable_from_all": true
       }
     ],
     "profile_only": [
@@ -455,6 +485,11 @@
     "batch-b-linear-algebra",
     "batch-b-ode",
     "batch-b-quadrature",
+    "batch-c-blas",
+    "batch-c-fishpack",
+    "batch-c-linear-algebra",
+    "batch-c-nonlinear",
+    "batch-c-special",
     "blas-level1",
     "blas-level2",
     "blas-level3",
@@ -516,6 +551,11 @@
     "batch-b-linear-algebra",
     "batch-b-ode",
     "batch-b-quadrature",
+    "batch-c-blas",
+    "batch-c-fishpack",
+    "batch-c-linear-algebra",
+    "batch-c-nonlinear",
+    "batch-c-special",
     "blas",
     "blas-level1",
     "blas-level2",
@@ -574,6 +614,11 @@
     "raw-family-batch-b-linear-algebra",
     "raw-family-batch-b-ode",
     "raw-family-batch-b-quadrature",
+    "raw-family-batch-c-blas",
+    "raw-family-batch-c-fishpack",
+    "raw-family-batch-c-linear-algebra",
+    "raw-family-batch-c-nonlinear",
+    "raw-family-batch-c-special",
     "raw-family-blas-level1",
     "raw-family-blas-level2",
     "raw-family-blas-level3",

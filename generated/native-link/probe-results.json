@@ -25,7 +25,7 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "known_archive_symbols": 1317,
           "observed": [],
           "passed": true,
           "rule": "requested symbol is retained"
@@ -68,6 +68,7 @@
             "I1MACH",
             "INITDS",
             "J4SAVE",
+            "RAND",
             "XERCNT",
             "XERHLT",
             "XERMSG",
@@ -90,7 +91,7 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "known_archive_symbols": 1317,
           "observed": [
             "DDOT"
           ],
@@ -123,6 +124,7 @@
             "I1MACH",
             "INITDS",
             "J4SAVE",
+            "RAND",
             "XERCNT",
             "XERHLT",
             "XERMSG",
@@ -155,6 +157,7 @@
             "I1MACH",
             "J4SAVE",
             "LSAME",
+            "RAND",
             "XERBLA",
             "XERCNT",
             "XERHLT",
@@ -188,6 +191,7 @@
             "I1MACH",
             "J4SAVE",
             "LSAME",
+            "RAND",
             "XERBLA",
             "XERCNT",
             "XERHLT",
@@ -211,13 +215,14 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "known_archive_symbols": 1317,
           "observed": [
             "FDUMP",
             "FZERO",
             "I1MACH",
             "J4SAVE",
             "R1MACH",
+            "RAND",
             "XERCNT",
             "XERHLT",
             "XERMSG",
@@ -240,7 +245,7 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "known_archive_symbols": 1317,
           "observed": [
             "COSGEN",
             "GENBUN",
@@ -269,7 +274,7 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "known_archive_symbols": 1317,
           "observed": [
             "COSQB",
             "COSQB1",
@@ -319,7 +324,7 @@
     {
       "assertions": [
         {
-          "known_archive_symbols": 623,
+          "known_archive_symbols": 1317,
           "observed": [
             "DDOT",
             "SAXPY"
@@ -376,6 +381,7 @@
             "I1MACH",
             "INITDS",
             "J4SAVE",
+            "RAND",
             "XERCNT",
             "XERHLT",
             "XERMSG",
@@ -444,6 +450,7 @@
             "I1MACH",
             "J4SAVE",
             "LSAME",
+            "RAND",
             "XERBLA",
             "XERCNT",
             "XERHLT",
@@ -477,6 +484,7 @@
             "I1MACH",
             "J4SAVE",
             "LSAME",
+            "RAND",
             "XERBLA",
             "XERCNT",
             "XERHLT",
@@ -544,6 +552,7 @@
             "I1MACH",
             "J4SAVE",
             "R1MACH",
+            "RAND",
             "XERCNT",
             "XERHLT",
             "XERMSG",
@@ -602,6 +611,7 @@
             "I1MACH",
             "INITDS",
             "J4SAVE",
+            "RAND",
             "XERCNT",
             "XERHLT",
             "XERMSG",

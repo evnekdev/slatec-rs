@@ -1,0 +1,879 @@
+{
+  "records": [
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::c0lgmc",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "c0lgmc_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "C0LGMC",
+      "source_hash": "d3a1d283ebb66b6ec0a062f53e8d6530555d4973c2ca2c6cacfa17d6357aeb04"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cacos",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cacos_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CACOS",
+      "source_hash": "fbd1baf1e982053b5dd6191a82527a251bf28629bc5b62d7f345b300968b8118"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cacosh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cacosh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CACOSH",
+      "source_hash": "9190ecb63bd2cb87ad7fdfc4d44ff39b82564a18f88fdc3f60921c71515afa48"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cairy",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cairy_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CAIRY",
+      "source_hash": "3af7629acad3d563fcb417444824744ecce5d37b9b318225439abb9f9220c007"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::casin",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "casin_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CASIN",
+      "source_hash": "a9e028358576f1af816ee55ee106fc8c2e64743c8b7dc166469f223de6798530"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::casinh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "casinh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CASINH",
+      "source_hash": "dcb026e214e1653f0f02fc66eec199ea9bec2e951228cd5d305c47d9c5edc86f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::catan",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "catan_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CATAN",
+      "source_hash": "645340b5af7f4d5b6255944234c6ec187d74c7f4a39b9e16b15e101f1f4624d7"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::catan2",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "catan2_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CATAN2",
+      "source_hash": "85f82bbd001f14b65f814ac4f22f45d2f2179ee4d327562520cf54bf3faacc59"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::catanh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "catanh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CATANH",
+      "source_hash": "612077084a1b2f474801b9c9302c6af6e0164e1689ea350ed6c8b6c4c9ad8d28"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbesh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbesh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBESH",
+      "source_hash": "10531064ead43b4bc92030601232861a7bfb656956432ea85ca3001c81535cd1"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbesi",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbesi_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBESI",
+      "source_hash": "e55624becdd69c802dd1e6ab6f81883e357b9e028c2bb0440ffe198ca006f887"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbesj",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbesj_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBESJ",
+      "source_hash": "703650d99d0cd218417c9df8f1f1354fa553e65bdd77b6fa8346b22a9e000968"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbesk",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbesk_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBESK",
+      "source_hash": "7a5ee76b933a97e54c1ce25377ea65580ec4f721103bc0e28e193480bd493bbe"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbesy",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbesy_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBESY",
+      "source_hash": "6907d6ca8897a72f129e604a89759f5b4a150add4df4ffe8945643adf7e7392f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbeta",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbeta_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBETA",
+      "source_hash": "767a2158da9699beea710c2eed471554782d91e6a2e86c76fe78d7d7db03bfc6"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cbiry",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cbiry_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBIRY",
+      "source_hash": "39ee04d9a0fbab92993a1a6d6bbdff91998bccafaa5ad99ac2b60c8a1c5c188c"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::pde::fishpack::complex::cblktr",
+      "declaration_feature": "batch-c-fishpack",
+      "native_symbol": "cblktr_",
+      "provider_feature": "batch-c-fishpack",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CBLKTR",
+      "source_hash": "34bdeeae64c2379ac2b5b47e9d9c47511eb68b4551da04e404aa6149901b9aba"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::ccbrt",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "ccbrt_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCBRT",
+      "source_hash": "4c979607940192ab2e58768d4c9f047e8c12fe2732c8b46d56aadd22721d65fe"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchdc",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cchdc_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCHDC",
+      "source_hash": "a5bca34459cd76b981f15e7d40d04e8e1831231ead7b3e96046d0915ec71416e"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchdd",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cchdd_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCHDD",
+      "source_hash": "5d68bb74309e1998b33f3358e7b6f253914057438e1a8fedddfe275e40ebc5e5"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchex",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cchex_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCHEX",
+      "source_hash": "d9209fad943efd6a0c2c54bd886e976b79030609e423a02fc4a95aebafd99e1a"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cchud",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cchud_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCHUD",
+      "source_hash": "e76865d85a289aec3303d29378714ce8de444572a86cc683151413f7daef5415"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::ccosh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "ccosh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCOSH",
+      "source_hash": "b87b06cf570d552325449063456fa8e91dc995cfdce8fce8eac01dd07abc5ae1"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::ccot",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "ccot_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CCOT",
+      "source_hash": "680c9efd94f674788b6c8da2efd59ab19224f6e3ac1f12269d63ebfb0f2dab3f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::cdcdot",
+      "declaration_feature": "batch-c-blas",
+      "native_symbol": "cdcdot_",
+      "provider_feature": "batch-c-blas",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CDCDOT",
+      "source_hash": "e005ea4248a742f5de1b8330b849106c40931fa8e9109c060c53194bb983d995"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::cdotc",
+      "declaration_feature": "batch-c-blas",
+      "native_symbol": "cdotc_",
+      "provider_feature": "batch-c-blas",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CDOTC",
+      "source_hash": "ec14a8ca9dfbc18a9e9728e39e4a9d87514f5cbb63a11781d28113d881a05289"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::blas::level1::cdotu",
+      "declaration_feature": "batch-c-blas",
+      "native_symbol": "cdotu_",
+      "provider_feature": "batch-c-blas",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CDOTU",
+      "source_hash": "720691230d2327a3750d6c43043c8f1ce82b0275201ad7530757a430327aef41"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cexprl",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cexprl_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CEXPRL",
+      "source_hash": "048006bb852faa460e1dc03579f7046ce046919f48291f778b214c40f37fa365"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cgamma",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cgamma_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGAMMA",
+      "source_hash": "5f7e6df9ddb2460c0f166198310609ee5de6d88aab0a714cee24cb890e2e936a"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cgamr",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cgamr_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGAMR",
+      "source_hash": "abb082a2293d5e9a58b7db3cce2f3c5b0102a83d4954b644eedadf973d100ffa"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgbco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGBCO",
+      "source_hash": "83768fe062fb81e199289c0b82ff0dafe9264aae73a69547f346c2b8a9cfa84b"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgbdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGBDI",
+      "source_hash": "422b833c8faeb523ae99b28e2dc0ef4dc595b52f85b02f05f40ae22cb5ecb98a"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbfa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgbfa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGBFA",
+      "source_hash": "1480bfb4557d03ee248a5527f1d471e7a4799844c13cbbf6aa9309baae2c7702"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgbsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgbsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGBSL",
+      "source_hash": "e1fef0ad885adbf7f37cc36e3dbe9dc3aef4fd0f479e8da4f161d31317f85a24"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgeco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgeco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGECO",
+      "source_hash": "36590b03a960704425d415898e530a68f0debead96b409b9c9fc648256add0b8"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgedi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgedi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGEDI",
+      "source_hash": "a4836b35ef76105f863fddfff8e7238c930cb6abe657a2efb7a1e3f557d21b9f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgefa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgefa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGEFA",
+      "source_hash": "084c44e20d78e83c25005e16e3d2833cdab3935a537b71e3488ea9925c8a3986"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgefs",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgefs_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGEFS",
+      "source_hash": "81924c96bb667c005c85a7f2093de4f73b29702daa1288242c870db6a089871e"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgeir",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgeir_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGEIR",
+      "source_hash": "f20a35c32bfe2abe01bd33a0686083de917b86a741aa40a06dfb4b02f58cfa8d"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgesl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgesl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGESL",
+      "source_hash": "377d784174138a5e6e77492132c74b34c58cd9b781da52131a8c7327e8a91b14"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cgtsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cgtsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CGTSL",
+      "source_hash": "109e7096d69cd3efc4e661e7e1d47f86b810b88b124346a4f7fa2dc95c77ddf9"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chico",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chico_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHICO",
+      "source_hash": "2488d8cffb4003f90f5018bdc8a39eb64ac28dc510960be4c25e63034cd00c17"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chidi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chidi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHIDI",
+      "source_hash": "d7b2be930c370d80dcf1204d408a646dc8372d1f11b717696657a0b7ebfcb103"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chifa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chifa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHIFA",
+      "source_hash": "dcc988a6b3f9297eed5d78fd80ed9d4ce3cc7ecdf3bd273c7b8f671f93a3fa3a"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chisl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chisl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHISL",
+      "source_hash": "ebb1a482311f90619132ad74e135d24916499d226910d1276839ced105a5c437"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chpco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHPCO",
+      "source_hash": "c3f497b726b21a1576738045eb7d0e8d5079f88aba89c4f70b5fc4689a5ab3f8"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chpdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHPDI",
+      "source_hash": "4205029f062f0a914a476f58daf30cbefdbca1222c680d4f8fef3ee0cd0852ab"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpfa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chpfa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHPFA",
+      "source_hash": "0d402037512d3906b419c2aecd5205c85c3f37e71a446c4f32356d85bd29db68"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::chpsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "chpsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CHPSL",
+      "source_hash": "3c9edc3f1713177fb9f6129143fcbd6a54884d6e84a7b67cc1606ae6d937fd51"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::clbeta",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "clbeta_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CLBETA",
+      "source_hash": "86be78fb8f448d16e89c07596b2e4a9d18cbcb7a2be90e9dd9707e2d2164e022"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::clngam",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "clngam_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CLNGAM",
+      "source_hash": "c3f41043151eb5b7fd2a3feed5eebbeb1290e3819fe1da8814bf04307addeaf1"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::clnrel",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "clnrel_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CLNREL",
+      "source_hash": "9bddebfb17e45e6fa067777e2bcc547b81c3bf0e58e1632286eaa34edf59e1a3"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::clog10",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "clog10_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CLOG10",
+      "source_hash": "94e77930b284d0d94eb7c5de2965038df97874e897bea9416a3800bd33ab341f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::pde::fishpack::complex::cmgnbn",
+      "declaration_feature": "batch-c-fishpack",
+      "native_symbol": "cmgnbn_",
+      "provider_feature": "batch-c-fishpack",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CMGNBN",
+      "source_hash": "d90dfb81074b2cf34af266ec88a8db535d14c663127e154f79a4d0461e0062d7"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cnbco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CNBCO",
+      "source_hash": "6dd2fc2ead364a54fb03b3e9af14ca5812835f24784485588fbfe1e47d89895f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cnbdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CNBDI",
+      "source_hash": "f512f6338e4329b3bf45ff7d79f8a941fe25c677a00735257e8a3e468d5e18ea"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbfa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cnbfa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CNBFA",
+      "source_hash": "110a2c9400bcae1b6fb7484b8b400c186b05853541c4886b8b1fd0651101bc08"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbfs",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cnbfs_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CNBFS",
+      "source_hash": "1ecd6de7dd90a3a64cfcc2754c9d7c8dce5ebe90cd58865e1e6474b395590953"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbir",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cnbir_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CNBIR",
+      "source_hash": "fbc324b409b03f6cb6a68c45ec75942459ddc7848b4fcc3e1baec5afb47be20b"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cnbsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cnbsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CNBSL",
+      "source_hash": "56d281f705686f819453aa1a69ec2f1dd80d148c0baf7605306e0bc669481c67"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpbco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPBCO",
+      "source_hash": "48b24ecec28c5b35ebf5cb15ece5ef015248aeef0deb2b747c9d2b353e046a35"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpbdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPBDI",
+      "source_hash": "b367559b46b021ebd9866f9ac40fa80f609626b6988cfd99c0e7d16e107a8020"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbfa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpbfa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPBFA",
+      "source_hash": "eae60728e72d85d12c736ef0c530454ce2ca56d73b42874edb2ccc4c24988610"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpbsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpbsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPBSL",
+      "source_hash": "0cf0ec581d76ac7c208d26fc2b49076d73f6d54b492e6513a6af2a9077fe677c"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpoco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpoco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPOCO",
+      "source_hash": "d4c3b8ea808eba35c6e3e2d413cee55668e1a968a9e5e545fd894a1be0f00eae"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpodi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpodi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPODI",
+      "source_hash": "f8d7734a5c1219330bc712ebb192475027b2020b8fbb95d9a4089383589b9fa9"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpofa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpofa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPOFA",
+      "source_hash": "2d069b95c5b6ad7ac9c26778a264dc03f14afb8dd1c72162795a85abcddb2e44"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpofs",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpofs_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPOFS",
+      "source_hash": "1d640db92b522c7f1ee773589b7039f4e81ca4279361c9e914a463e3ea95b60a"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cpoir",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cpoir_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPOIR",
+      "source_hash": "09219d0785459774300a5e6cad150b023fead837318def74de9bec1ff7ef83be"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cposl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cposl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPOSL",
+      "source_hash": "3647e1051c6a1cc969187721f0d656a2f31909221857d0673ca260599c5eea0c"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cppco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPPCO",
+      "source_hash": "9aec1b41e8f9b426389f3402b7992de5370de7dc5779db6ba43db32d3302af1f"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cppdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPPDI",
+      "source_hash": "a610e48125fdf8b6b7025a330c5420fdd0211324b895cc31088f069caa118e41"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppfa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cppfa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPPFA",
+      "source_hash": "40a8f00ad6a8d644c11daffa01f6a73bf7893d97f28b4e79a1a7cebf7c198002"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cppsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cppsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPPSL",
+      "source_hash": "35186ec5393643075877762a669d1c143f8177b0bf6932419f6baf475ce3220c"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::cpqr79",
+      "declaration_feature": "batch-c-nonlinear",
+      "native_symbol": "cpqr79_",
+      "provider_feature": "batch-c-nonlinear",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPQR79",
+      "source_hash": "d0986bc46418a96dfb6faa0371fd8186882b38fd75a2b49ce2c6d65643a936b8"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::cpsi",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "cpsi_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPSI",
+      "source_hash": "6651fde59d3825140b2b58aa34bcf7ae8850ea6784f670586026d61c95c0ae32"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cptsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cptsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPTSL",
+      "source_hash": "109179fb042754411cbdcb3e7d3980ba687d34aa12466cb12fa4de76038fc181"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::cpzero",
+      "declaration_feature": "batch-c-nonlinear",
+      "native_symbol": "cpzero_",
+      "provider_feature": "batch-c-nonlinear",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CPZERO",
+      "source_hash": "dc957dad2aaab08454bd429ba4b5c4d16c8c2c8aee7c76c9f27c638940b318ff"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cqrdc",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cqrdc_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CQRDC",
+      "source_hash": "e564a63405cec00847ce35260b4e52d94a8fa3c7dbd125d46216d600f4d4f5c1"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cqrsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cqrsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CQRSL",
+      "source_hash": "f76cdb4b81d6a1390f7de33fbe2fb4e6daa4c2c15fd0419015ee5f61b0e791d7"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csico",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "csico_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSICO",
+      "source_hash": "34adf32785356b38b42764b6c4864e5b2b16e143f2bd8620fede45e57e259cdc"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csidi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "csidi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSIDI",
+      "source_hash": "5dc4f6388714ed63f3585221ab5b8e86e2c85ea58e1e52ae6f673156db5efaeb"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csifa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "csifa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSIFA",
+      "source_hash": "eed850665c8298bd5873e04e82cae3f94759ef604261f33e24454601965b6d48"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::csinh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "csinh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSINH",
+      "source_hash": "c29c84f9c7975783b457eb75514e465d2530ddc1c095377f018166029b165c1a"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csisl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "csisl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSISL",
+      "source_hash": "b396b3bbaf07ae705d4adeae5f505033c5c65942117bab9e4155f55a2cf13df6"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cspco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSPCO",
+      "source_hash": "dffcd07b36d6eb37ea10656c78986e7222b4c3409d5ff18b85d8a624135a3010"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cspdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSPDI",
+      "source_hash": "bf4470270831e5b73f49029856203480c0d41ba20a18742d3df076c93a3c6f3b"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspfa",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cspfa_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSPFA",
+      "source_hash": "26236295c0be44b15705cd957e20bdae8b4d03e42c953b506baa79231a50918b"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::cspsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "cspsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSPSL",
+      "source_hash": "8e2cd4b97e68708dc8bfefaa1b5147f6752d500dc2ca476b927d58422f84d1d5"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::csvdc",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "csvdc_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CSVDC",
+      "source_hash": "a8660688897791fbb6e7f05dbc2c58b95769de96ff2336a2d26f9df3f5ccb184"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::ctan",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "ctan_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CTAN",
+      "source_hash": "b2c78e16b5d82b1e4b2568240545ef9613eab23c24f5f90489b17233aeff130e"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::special::complex::ctanh",
+      "declaration_feature": "batch-c-special",
+      "native_symbol": "ctanh_",
+      "provider_feature": "batch-c-special",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CTANH",
+      "source_hash": "7ee2add33d316d1bd2f98974669c273e1b411a2a3a82718d200e434073d86931"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrco",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "ctrco_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CTRCO",
+      "source_hash": "dcf081487436dd6cbe7242f49636aa20fc4ba9efd7f79e5d057b7bd5389baebe"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrdi",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "ctrdi_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CTRDI",
+      "source_hash": "4a357da9d696c0e60db11fcfbdefd5839272a6d18feff821d0333724c6dac9d7"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::linear_algebra::dense::complex::ctrsl",
+      "declaration_feature": "batch-c-linear-algebra",
+      "native_symbol": "ctrsl_",
+      "provider_feature": "batch-c-linear-algebra",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "CTRSL",
+      "source_hash": "99b6e8e1071bd942e327faaad85aa06cd735437ae8288849f98fede1c3bf9ebf"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::rpqr79",
+      "declaration_feature": "batch-c-nonlinear",
+      "native_symbol": "rpqr79_",
+      "provider_feature": "batch-c-nonlinear",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "RPQR79",
+      "source_hash": "90d572aa5e1df644b6f8266dcaa50f1b21026645a47eead8f3e294308643c243"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::complex::rpzero",
+      "declaration_feature": "batch-c-nonlinear",
+      "native_symbol": "rpzero_",
+      "provider_feature": "batch-c-nonlinear",
+      "provider_status": "source_closure_required_and_link_probed",
+      "routine": "RPZERO",
+      "source_hash": "6590b9b9bbec7e4cd22d960289ffb8daf8835f5551a658d24601d2506097a8a8"
+    }
+  ],
+  "schema_id": "slatec-sys.raw-api.batch-c-provider-reconciliation",
+  "schema_version": "1.0.0"
+}

@@ -2,19 +2,19 @@
   "families": [
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 249,
-      "historically_user_callable": 246,
+      "generated_abi_validated": 191,
+      "historically_user_callable": 174,
       "module": "linear_algebra::dense",
-      "promotion_score": 1088,
+      "promotion_score": 826,
       "safe_wrapper_audits": 3,
-      "unresolved_callbacks": 32
+      "unresolved_callbacks": 18
     },
     {
       "documentation_complete": 51,
-      "generated_abi_validated": 51,
-      "historically_user_callable": 51,
+      "generated_abi_validated": 54,
+      "historically_user_callable": 54,
       "module": "blas::level1",
-      "promotion_score": 735,
+      "promotion_score": 750,
       "safe_wrapper_audits": 18,
       "unresolved_callbacks": 0
     },
@@ -38,19 +38,19 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 153,
-      "historically_user_callable": 31,
-      "module": "special",
-      "promotion_score": 399,
+      "generated_abi_validated": 73,
+      "historically_user_callable": 73,
+      "module": "eigen::numerical",
+      "promotion_score": 365,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 73,
-      "historically_user_callable": 73,
-      "module": "eigen::numerical",
-      "promotion_score": 365,
+      "generated_abi_validated": 153,
+      "historically_user_callable": 1,
+      "module": "special",
+      "promotion_score": 309,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
@@ -70,6 +70,15 @@
       "module": "blas::level3",
       "promotion_score": 305,
       "safe_wrapper_audits": 8,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 58,
+      "historically_user_callable": 58,
+      "module": "linear_algebra::dense::complex",
+      "promotion_score": 290,
+      "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
     {
@@ -100,21 +109,39 @@
       "unresolved_callbacks": 0
     },
     {
-      "documentation_complete": 2,
-      "generated_abi_validated": 85,
-      "historically_user_callable": 6,
-      "module": "pde::fishpack",
-      "promotion_score": 167,
-      "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 9
-    },
-    {
       "documentation_complete": 0,
       "generated_abi_validated": 19,
       "historically_user_callable": 19,
       "module": "fftpack::numerical",
       "promotion_score": 159,
       "safe_wrapper_audits": 16,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 83,
+      "historically_user_callable": 4,
+      "module": "pde::fishpack",
+      "promotion_score": 157,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 9
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 17,
+      "historically_user_callable": 33,
+      "module": "quadrature",
+      "promotion_score": 153,
+      "safe_wrapper_audits": 20,
+      "unresolved_callbacks": 12
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 30,
+      "historically_user_callable": 30,
+      "module": "special::complex",
+      "promotion_score": 150,
+      "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
     {
@@ -129,11 +156,11 @@
     {
       "documentation_complete": 0,
       "generated_abi_validated": 82,
-      "historically_user_callable": 19,
+      "historically_user_callable": 16,
       "module": "ode",
-      "promotion_score": 124,
+      "promotion_score": 130,
       "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 21
+      "unresolved_callbacks": 18
     },
     {
       "documentation_complete": 0,
@@ -173,21 +200,12 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 17,
-      "historically_user_callable": 63,
-      "module": "quadrature",
-      "promotion_score": 93,
-      "safe_wrapper_audits": 20,
-      "unresolved_callbacks": 42
-    },
-    {
-      "documentation_complete": 0,
-      "generated_abi_validated": 19,
-      "historically_user_callable": 8,
-      "module": "nonlinear",
-      "promotion_score": 68,
-      "safe_wrapper_audits": 4,
-      "unresolved_callbacks": 2
+      "generated_abi_validated": 0,
+      "historically_user_callable": 30,
+      "module": "quadrature::callbacks",
+      "promotion_score": 90,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 4,
@@ -209,6 +227,15 @@
     },
     {
       "documentation_complete": 0,
+      "generated_abi_validated": 17,
+      "historically_user_callable": 6,
+      "module": "nonlinear",
+      "promotion_score": 58,
+      "safe_wrapper_audits": 4,
+      "unresolved_callbacks": 2
+    },
+    {
+      "documentation_complete": 0,
       "generated_abi_validated": 10,
       "historically_user_callable": 10,
       "module": "quadrature::numerical",
@@ -227,10 +254,19 @@
     },
     {
       "documentation_complete": 0,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 14,
+      "module": "linear_algebra::sparse::callbacks",
+      "promotion_score": 42,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
       "generated_abi_validated": 18,
-      "historically_user_callable": 3,
+      "historically_user_callable": 0,
       "module": "blas",
-      "promotion_score": 45,
+      "promotion_score": 36,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
@@ -263,6 +299,15 @@
     },
     {
       "documentation_complete": 0,
+      "generated_abi_validated": 4,
+      "historically_user_callable": 4,
+      "module": "nonlinear::complex",
+      "promotion_score": 20,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
       "generated_abi_validated": 2,
       "historically_user_callable": 2,
       "module": "nonlinear::numerical",
@@ -283,8 +328,17 @@
       "documentation_complete": 0,
       "generated_abi_validated": 2,
       "historically_user_callable": 2,
-      "module": "roots::polynomial",
+      "module": "pde::fishpack::complex",
       "promotion_score": 10,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 3,
+      "module": "ode::callbacks",
+      "promotion_score": 9,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },

@@ -14,6 +14,8 @@ pub mod callbacks;
 pub mod character;
 #[cfg(feature = "raw-ffi-complex-arguments")]
 pub mod complex_arguments;
+#[cfg(feature = "raw-ffi-complex-returns")]
+pub mod complex_returns;
 #[cfg(feature = "raw-ffi-infrastructure")]
 pub mod infrastructure;
 #[cfg(feature = "raw-ffi-logical")]

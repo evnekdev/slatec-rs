@@ -11,19 +11,20 @@ routine.
 
 | Domain alias | Narrow features |
 | --- | --- |
-| `blas` | `blas-level1`, `blas-level2`, `blas-level3` |
-| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `batch-a-special` |
+| `blas` | `blas-level1`, `blas-level2`, `blas-level3`, `batch-c-blas` |
+| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `batch-a-special`, `batch-c-special` |
 | `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive`, `batch-b-quadrature` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
-| `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check` |
+| `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check`, `batch-c-nonlinear` |
 | `ode` | `ode-sdrive-expert`, `batch-b-ode` |
 | DAE | `dassl` |
-| Cartesian PDE | `fishpack-cartesian-2d` |
+| Cartesian PDE | `fishpack-cartesian-2d`, `batch-c-fishpack` |
 | Structured 3D FISHPACK system | `fishpack-pois3d` |
 | `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
 | Batch A raw domains | `batch-a-linear-algebra`, `batch-a-eigen`, `batch-a-approximation`, `batch-a-statistics`, plus the Batch A members of `special`, `quadrature`, `nonlinear`, `ode`, `fftpack`, `fishpack`, and `interpolation` |
 | Batch B raw domains | `batch-b-quadrature`, `batch-b-linear-algebra`, `batch-b-ode` |
+| Batch C raw domains | `batch-c-blas`, `batch-c-linear-algebra`, `batch-c-special`, `batch-c-nonlinear`, `batch-c-fishpack` |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.

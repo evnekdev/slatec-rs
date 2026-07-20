@@ -5,15 +5,15 @@
   },
   "records": [
     {
-      "current_rust_path": "slatec_sys::generated::complex_arguments::cpzero",
-      "documentation_status": "not_documented",
+      "current_rust_path": "slatec_sys::nonlinear::complex::cpzero",
+      "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "none",
       "generated_declaration_status": "generated_abi_validated",
       "historical_role": "user_callable",
-      "intended_canonical_rust_path": "slatec_sys::roots::polynomial::cpzero",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::cpzero",
       "provider": "full-provider-b251ff51d9d23d05",
-      "provider_feature_status": "not_assigned",
-      "reviewed_declaration_status": "not_reviewed_by_raw_api_registry",
+      "provider_feature_status": "batch-c-nonlinear",
+      "reviewed_declaration_status": "batch_c_automated_public",
       "root_category": "polynomial-root routine",
       "routine": "CPZERO",
       "safe_wrapper_status": "not_safely_wrapped",
@@ -21,7 +21,7 @@
       "test_status": {
         "compile": "compiler_observed",
         "link": "passed",
-        "runtime": "passed"
+        "runtime": "representative_batch_smoke_only"
       }
     },
     {
@@ -65,15 +65,15 @@
       }
     },
     {
-      "current_rust_path": "slatec_sys::generated::complex_arguments::rpzero",
-      "documentation_status": "not_documented",
+      "current_rust_path": "slatec_sys::nonlinear::complex::rpzero",
+      "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "none",
       "generated_declaration_status": "generated_abi_validated",
       "historical_role": "user_callable",
-      "intended_canonical_rust_path": "slatec_sys::roots::polynomial::rpzero",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::rpzero",
       "provider": "full-provider-b9e8b033eaa7f5ac",
-      "provider_feature_status": "not_assigned",
-      "reviewed_declaration_status": "not_reviewed_by_raw_api_registry",
+      "provider_feature_status": "batch-c-nonlinear",
+      "reviewed_declaration_status": "batch_c_automated_public",
       "root_category": "polynomial-root routine",
       "routine": "RPZERO",
       "safe_wrapper_status": "not_safely_wrapped",
@@ -81,7 +81,7 @@
       "test_status": {
         "compile": "compiler_observed",
         "link": "passed",
-        "runtime": "passed"
+        "runtime": "representative_batch_smoke_only"
       }
     }
   ],

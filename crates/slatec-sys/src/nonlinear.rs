@@ -178,3 +178,9 @@ mod batch_a;
 /// Canonical source-verified Batch A numerical nonlinear declarations.
 #[cfg(feature = "raw-family-batch-a-nonlinear")]
 pub use batch_a::numerical;
+
+/// Complex polynomial and nonlinear-equation interfaces promoted by Batch C.
+#[cfg(feature = "raw-family-batch-c-nonlinear")]
+pub mod complex {
+    pub use crate::batch_c::nonlinear::*;
+}
