@@ -1,4 +1,5 @@
 use slatec_tools::acquire;
+use slatec_tools::agent_guidance;
 use slatec_tools::all_feature_coverage;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::blas1_concurrency;
@@ -1021,6 +1022,11 @@ fn run() -> Result<()> {
             println!("success: native-link audit validation passed");
             Ok(())
         }
+        "validate-agent-guidance" => {
+            agent_guidance::validate(&std::env::current_dir()?)?;
+            println!("success: agent guidance validation passed");
+            Ok(())
+        }
         "generate-linkage-metadata" => {
             let result = linkage::generate(
                 &PathBuf::from("."),
@@ -1133,5 +1139,5 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <...|generate-native-link-audit|validate-native-link-audit|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <...|generate-native-link-audit|validate-native-link-audit|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--batch NAME] [--offline]"
 }

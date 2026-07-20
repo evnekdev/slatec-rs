@@ -2,6 +2,7 @@
 #![recursion_limit = "256"]
 
 pub mod acquire;
+pub mod agent_guidance;
 pub mod all_feature_coverage;
 pub mod archive;
 pub mod blas1_concurrency;

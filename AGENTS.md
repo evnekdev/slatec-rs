@@ -1,6 +1,14 @@
 # Codex repository guide
 
+<!-- agent-rule: sys-provider-neutral -->
+<!-- agent-rule: all-declaration-only -->
+<!-- agent-rule: generated-no-hand-edit -->
+<!-- agent-rule: link-granularity -->
+<!-- agent-rule: honest-native-validation -->
+
 This file is a map, not the complete specification. Read the relevant linked documents before editing. More-specific `AGENTS.md` files under a directory override this file for that subtree.
+
+Every workspace crate needs a crate-local `AGENTS.md`; an exceptional path must be documented here with an `<!-- agent-guidance-exemption: crates/path -->` marker.
 
 ## Repository purpose
 
@@ -14,7 +22,8 @@ This file is a map, not the complete specification. Read the relevant linked doc
 - `generated`: committed deterministic evidence and generated outputs. Never hand-edit these files.
 - `docs`: architecture, API policy, validation evidence, and user documentation.
 
-Start with `docs/architecture/README.md` and `docs/agent/TASK-CHECKLIST.md`.
+Start with the [architecture index](docs/architecture/README.md), [repository map](docs/agent/REPOSITORY-MAP.md), and [task checklist](docs/agent/TASK-CHECKLIST.md).
+For how these documents apply to Codex tasks, read [Using Codex](docs/agent/USING-CODEX.md).
 
 ## Non-negotiable architecture rules
 
@@ -76,6 +85,9 @@ cargo test --doc --workspace
 ```
 
 Also run every generator validation, source-cache verification, native regression, feature/provider reconciliation, deterministic-regeneration, and package-content audit affected by the change.
+
+Run `cargo run -p slatec-tools --bin slatec-corpus -- validate-agent-guidance` whenever
+`AGENTS.md`, workspace membership, architecture navigation, or `docs/agent` files change.
 
 If a command cannot run because of unavailable source cache, compiler, target, credentials, network, or unpublished workspace dependencies, report the exact limitation and do not mark it passed.
 
