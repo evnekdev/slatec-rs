@@ -46,6 +46,15 @@
       "unresolved_callbacks": 0
     },
     {
+      "documentation_complete": 20,
+      "generated_abi_validated": 17,
+      "historically_user_callable": 33,
+      "module": "quadrature",
+      "promotion_score": 313,
+      "safe_wrapper_audits": 20,
+      "unresolved_callbacks": 12
+    },
+    {
       "documentation_complete": 0,
       "generated_abi_validated": 153,
       "historically_user_callable": 1,
@@ -128,21 +137,21 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 17,
-      "historically_user_callable": 33,
-      "module": "quadrature",
-      "promotion_score": 153,
-      "safe_wrapper_audits": 20,
-      "unresolved_callbacks": 12
-    },
-    {
-      "documentation_complete": 0,
       "generated_abi_validated": 30,
       "historically_user_callable": 30,
       "module": "special::complex",
       "promotion_score": 150,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 82,
+      "historically_user_callable": 16,
+      "module": "ode",
+      "promotion_score": 146,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 18
     },
     {
       "documentation_complete": 8,
@@ -155,39 +164,12 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 82,
-      "historically_user_callable": 16,
-      "module": "ode",
-      "promotion_score": 130,
-      "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 18
-    },
-    {
-      "documentation_complete": 0,
       "generated_abi_validated": 18,
       "historically_user_callable": 18,
       "module": "approximation::numerical",
       "promotion_score": 122,
       "safe_wrapper_audits": 8,
       "unresolved_callbacks": 0
-    },
-    {
-      "documentation_complete": 0,
-      "generated_abi_validated": 32,
-      "historically_user_callable": 6,
-      "module": "approximation",
-      "promotion_score": 106,
-      "safe_wrapper_audits": 6,
-      "unresolved_callbacks": 0
-    },
-    {
-      "documentation_complete": 0,
-      "generated_abi_validated": 50,
-      "historically_user_callable": 2,
-      "module": "optimization",
-      "promotion_score": 104,
-      "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 2
     },
     {
       "documentation_complete": 6,
@@ -197,6 +179,33 @@
       "promotion_score": 102,
       "safe_wrapper_audits": 6,
       "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 6,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 6,
+      "module": "least_squares",
+      "promotion_score": 90,
+      "safe_wrapper_audits": 6,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 4,
+      "generated_abi_validated": 17,
+      "historically_user_callable": 6,
+      "module": "nonlinear",
+      "promotion_score": 90,
+      "safe_wrapper_audits": 4,
+      "unresolved_callbacks": 2
+    },
+    {
+      "documentation_complete": 0,
+      "generated_abi_validated": 50,
+      "historically_user_callable": 0,
+      "module": "optimization",
+      "promotion_score": 90,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 2
     },
     {
       "documentation_complete": 0,
@@ -227,12 +236,12 @@
     },
     {
       "documentation_complete": 0,
-      "generated_abi_validated": 17,
-      "historically_user_callable": 6,
-      "module": "nonlinear",
-      "promotion_score": 58,
-      "safe_wrapper_audits": 4,
-      "unresolved_callbacks": 2
+      "generated_abi_validated": 32,
+      "historically_user_callable": 0,
+      "module": "approximation",
+      "promotion_score": 64,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
     },
     {
       "documentation_complete": 0,
@@ -277,6 +286,24 @@
       "module": "fftpack",
       "promotion_score": 33,
       "safe_wrapper_audits": 3,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 2,
+      "module": "dassl",
+      "promotion_score": 30,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 2,
+      "module": "linear_programming",
+      "promotion_score": 30,
+      "safe_wrapper_audits": 2,
       "unresolved_callbacks": 0
     },
     {
@@ -354,10 +381,10 @@
     {
       "documentation_complete": 0,
       "generated_abi_validated": 8,
-      "historically_user_callable": 2,
+      "historically_user_callable": 0,
       "module": "dae",
       "promotion_score": 0,
-      "safe_wrapper_audits": 2,
+      "safe_wrapper_audits": 0,
       "unresolved_callbacks": 6
     }
   ],

@@ -25,6 +25,7 @@ routine.
 | Batch A raw domains | `batch-a-linear-algebra`, `batch-a-eigen`, `batch-a-approximation`, `batch-a-statistics`, plus the Batch A members of `special`, `quadrature`, `nonlinear`, `ode`, `fftpack`, `fishpack`, and `interpolation` |
 | Batch B raw domains | `batch-b-quadrature`, `batch-b-linear-algebra`, `batch-b-ode` |
 | Batch C raw domains | `batch-c-blas`, `batch-c-linear-algebra`, `batch-c-special`, `batch-c-nonlinear`, `batch-c-fishpack` |
+| Batch D final closure | Reuses the existing mathematical declaration/provider features for 36 requalified drivers; adds no public `batch-d` feature |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.
@@ -180,6 +181,20 @@ stabilize canonical paths such as
 `slatec_sys::linear_algebra::sparse::callbacks::scg`, and
 `slatec_sys::ode::callbacks::derkf` within the generated evidence boundary.
 See [`raw-batch-b-callbacks.md`](raw-batch-b-callbacks.md).
+
+### Batch D requalified provider features
+
+Batch D introduces no public declaration aggregate named `batch-d`. Its 36
+requalified paths keep their existing mathematical features and provider
+closures: quadrature, nonlinear, least-squares, DASSL and expert S-drive ODE,
+and in-memory linear programming. This preserves direct raw usability while
+avoiding per-routine switches and provider duplication.
+
+The `slatec/raw-batch-d-link-tests` feature is test-only. It selects the
+existing declaration and source closures so the generated native link probe can
+reference every requalified symbol. It is not a public family feature and is
+not a member of `slatec-sys/all`. The complete mapping is generated in
+[`public-api-coverage.json`](../../generated/raw-api/public-api-coverage.json).
 
 ### Reviewed BLAS raw features
 

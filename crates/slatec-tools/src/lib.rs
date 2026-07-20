@@ -9,6 +9,7 @@ pub mod archive;
 pub mod batch_a_api;
 pub mod batch_b_api;
 pub mod batch_c_api;
+pub mod batch_d_api;
 pub mod blas1_concurrency;
 pub mod blas_api;
 pub mod complete_corpus;

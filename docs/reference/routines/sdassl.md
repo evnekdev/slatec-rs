@@ -57,16 +57,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
 - Generated raw declaration: `not_generated`
-- Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
-- Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `slatec_sys::dassl::sdassl`
-- Public declaration feature: `raw-ffi-callbacks`
-- `all`-feature reachability: `not_enabled_by_all`
+- Reviewed family declaration: `batch_d_public_driver`
+- Canonical Rust path: `slatec_sys::dassl::sdassl`
+- Current legacy Rust paths: `none`
+- Public declaration feature: `dassl`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `legacy_partial_rustdoc`
+- Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Link-test status: `passed`
+- Runtime-test status: `passed`
 - Safe-wrapper status: `slatec::dassl::DaeSession::<f32, F>::advance_to`
-- Exclusion or deferment reason: `pre-existing declaration remains deferred until the R1 source-hash, argument-documentation, and ABI review gate passes`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

@@ -7,6 +7,7 @@
 use crate::airy_api;
 use crate::all_feature_coverage;
 use crate::batch_a_api;
+use crate::batch_d_api;
 use crate::blas_api;
 use crate::error::{CorpusError, Result};
 use crate::hash;
@@ -92,6 +93,12 @@ struct AiryReviewPolicy {
 }
 
 #[derive(Clone, Debug)]
+struct BatchDReviewPolicy {
+    source_manifest_sha256: String,
+    documentation: Value,
+}
+
+#[derive(Clone, Debug)]
 struct BatchAPublic {
     source_hash: String,
     canonical_path: String,
@@ -126,6 +133,7 @@ struct Corrections {
     blas_policy: Option<BlasReviewPolicy>,
     special_foundations_policy: Option<SpecialFoundationsReviewPolicy>,
     airy_policy: Option<AiryReviewPolicy>,
+    batch_d_policy: Option<BatchDReviewPolicy>,
 }
 
 /// Generates all R1 raw API reports and rejects an inconsistent reviewed entry.
@@ -185,6 +193,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let blas_policy = corrections.blas_policy;
     let special_foundations_policy = corrections.special_foundations_policy;
     let airy_policy = corrections.airy_policy;
+    let batch_d_policy = corrections.batch_d_policy;
     let mut correction_by_name = BTreeMap::new();
     for correction in corrections.records {
         if correction_by_name
@@ -287,10 +296,21 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 &argument_order,
             )
         });
+        let automatic_batch_d_correction = batch_d_policy.as_ref().and_then(|policy| {
+            automatic_batch_d_correction(
+                policy,
+                catalogue_record,
+                &name,
+                &source_hash,
+                &argument_order,
+                &legacy_paths,
+            )
+        });
         let correction = correction
             .or(automatic_blas_correction.as_ref())
             .or(automatic_special_foundations_correction.as_ref())
-            .or(automatic_airy_correction.as_ref());
+            .or(automatic_airy_correction.as_ref())
+            .or(automatic_batch_d_correction.as_ref());
         if let Some(batch) = batch_a_public {
             if batch.source_hash != source_hash {
                 return Err(policy(&format!(
@@ -513,7 +533,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "canonical_rust_path": canonical_path,
             "intended_canonical_module": intended_module,
             "compatibility_paths": compatibility_paths,
-            "legacy_family_declaration_status":if is_reviewed { "compatibility_reexport" } else if legacy_paths.is_empty() { "not_present" } else { "preexisting_family_declaration_requires_r1_review" },
+            "legacy_family_declaration_status":if raw_state == "batch_d_public_driver" { "canonical_requalified_by_batch_d" } else if is_reviewed { "compatibility_reexport" } else if legacy_paths.is_empty() { "not_present" } else { "preexisting_family_declaration_requires_r1_review" },
             "legacy_rust_paths":reported_legacy_paths,
             "feature": feature,
             "all_feature_reachability": all_feature_reachability,
@@ -578,6 +598,15 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     if special_foundations_policy.is_some() || airy_policy.is_some() {
         write_special_module(paths.sys_dir, &output_records)?;
     }
+    if let Some(review_policy) = &batch_d_policy {
+        let actual = batch_d_api::source_manifest(&output_records);
+        if actual != review_policy.source_manifest_sha256 {
+            return Err(policy(&format!(
+                "Batch D legacy review is guarded by {}, but selected reviewed sources hash to {actual}",
+                review_policy.source_manifest_sha256
+            )));
+        }
+    }
     validate_reviewed(&output_records, &sys_features, &src_features, paths.sys_dir)?;
     validate_batch_a_public(&output_records, &sys_features, &src_features, paths.sys_dir)?;
     validate_bulk_public(&output_records, &sys_features, &src_features, paths.sys_dir)?;
@@ -605,7 +634,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         "schema_id":"slatec-sys.raw-api.routine-status",
         "schema_version":"1.0.0",
         "record_model":"exactly one record per retained catalogue identity",
-        "state_model":["reviewed_public_driver","reviewed_public_subsidiary","batch_a_public_driver","batch_b_public_driver","batch_c_public_driver","generated_candidate","generated_abi_validated","source_present_unbound","unsupported_callback_abi","unsupported_complex_return_abi","unsupported_character_return_abi","unsupported_entry_or_alternate_return","conflicting_interface","ambiguous_symbol","missing_symbol","not_independently_callable","runtime_or_machine_support","block_data","documentation_or_tooling","catalogue_only","external_dependency"],
+        "state_model":["reviewed_public_driver","reviewed_public_subsidiary","batch_a_public_driver","batch_b_public_driver","batch_c_public_driver","batch_d_public_driver","generated_candidate","generated_abi_validated","source_present_unbound","unsupported_callback_abi","unsupported_complex_return_abi","unsupported_character_return_abi","unsupported_entry_or_alternate_return","conflicting_interface","ambiguous_symbol","missing_symbol","not_independently_callable","runtime_or_machine_support","block_data","documentation_or_tooling","catalogue_only","external_dependency"],
         "records": output_records,
     });
     let validation_summary =
@@ -843,11 +872,29 @@ fn corrections(path: &Path) -> Result<Corrections> {
             })
         })
         .transpose()?;
+    let batch_d_policy = value
+        .get("family_reviews")
+        .and_then(Value::as_array)
+        .and_then(|reviews| {
+            reviews.iter().find(|review| {
+                review.get("family").and_then(Value::as_str) == Some("batch-d-legacy-public")
+            })
+        })
+        .map(|review| {
+            Ok::<BatchDReviewPolicy, CorpusError>(BatchDReviewPolicy {
+                source_manifest_sha256: string(review, "source_manifest_sha256")?,
+                documentation: review.get("documentation").cloned().ok_or_else(|| {
+                    policy("Batch D legacy family review lacks documentation evidence")
+                })?,
+            })
+        })
+        .transpose()?;
     Ok(Corrections {
         records,
         blas_policy,
         special_foundations_policy,
         airy_policy,
+        batch_d_policy,
     })
 }
 
@@ -1080,6 +1127,43 @@ fn automatic_airy_correction(
             .and_then(Value::as_str)
             .map(str::to_owned)
             .unwrap_or_else(|| "not_safely_wrapped".to_owned()),
+    })
+}
+
+fn automatic_batch_d_correction(
+    policy: &BatchDReviewPolicy,
+    catalogue_record: &Value,
+    routine: &str,
+    source_hash: &str,
+    arguments: &[String],
+    legacy_paths: &[String],
+) -> Option<Correction> {
+    let feature = batch_d_api::legacy_feature(routine)?;
+    let canonical_path = legacy_paths.first()?.clone();
+    let safe_wrapper_path = catalogue_record
+        .get("safe_api_paths")
+        .and_then(Value::as_array)
+        .and_then(|items| items.first())
+        .and_then(Value::as_str)?;
+    if field(catalogue_record, "historical_role") != "user_callable" || source_hash == "unavailable"
+    {
+        return None;
+    }
+    Some(Correction {
+        routine: routine.to_owned(),
+        source_hash: source_hash.to_owned(),
+        status: "batch_d_public_driver".to_owned(),
+        canonical_path,
+        compatibility_paths: Vec::new(),
+        feature: feature.to_owned(),
+        provider_feature: feature.to_owned(),
+        role: "historically_user_callable_driver".to_owned(),
+        source_file: field(catalogue_record, "source_file"),
+        arguments: arguments.to_vec(),
+        documentation: policy.documentation.clone(),
+        link_test_status: "passed".to_owned(),
+        runtime_test_status: "passed".to_owned(),
+        safe_wrapper_path: safe_wrapper_path.to_owned(),
     })
 }
 
@@ -1620,7 +1704,7 @@ fn validate_bulk_public(
         }
         if !matches!(
             state.as_str(),
-            "batch_b_public_driver" | "batch_c_public_driver"
+            "batch_b_public_driver" | "batch_c_public_driver" | "batch_d_public_driver"
         ) {
             continue;
         }
@@ -1635,13 +1719,23 @@ fn validate_bulk_public(
                 return Err(policy(&format!("bulk public {routine} lacks {key}")));
             }
         }
+        let expected_documentation = if state == "batch_d_public_driver" {
+            "complete_authored"
+        } else {
+            "complete_generated_abi_contract"
+        };
         if field(record, "symbol_status") != "observed_exactly_once"
             || field(record, "link_test_status") != "passed"
-            || field(record, "documentation_status") != "complete_generated_abi_contract"
-            || field(record, "argument_documentation_status") != "complete_generated_abi_contract"
+            || field(record, "documentation_status") != expected_documentation
+            || field(record, "argument_documentation_status") != expected_documentation
         {
             return Err(policy(&format!(
                 "bulk public {routine} lacks required symbol, link, or documentation evidence"
+            )));
+        }
+        if state == "batch_d_public_driver" && field(record, "runtime_test_status") != "passed" {
+            return Err(policy(&format!(
+                "Batch D public {routine} lacks existing native runtime evidence"
             )));
         }
         if !sys_features.contains(&field(record, "feature"))
@@ -1814,7 +1908,8 @@ fn coverage_summary(records: &[Value]) -> Value {
             "batch_a_public_declarations":"source-hash and ABI-fingerprint guarded public declarations generated under the Batch A policy; not hand-reviewed semantic contracts",
             "batch_b_public_declarations":"source-hash and callback-fingerprint guarded public declarations generated under the Batch B policy",
             "batch_c_public_declarations":"source-hash and compiler-probed ABI-fingerprint guarded public declarations generated under the Batch C policy",
-            "public_raw_declarations":"reviewed declarations plus Batch A, B, and C public declarations",
+            "batch_d_public_declarations":"pre-existing public family declarations requalified against selected source hashes, existing Rustdoc contracts, safe-wrapper audits, and native regression evidence under the Batch D policy",
+            "public_raw_declarations":"reviewed declarations plus Batch A, B, C, and D public declarations",
             "preexisting_family_declarations_pending_r1_review":"legacy family extern declarations that have not passed the R1 documentation and source-hash review gate",
             "provider_backed_callable_raw_routines":"records with a selected provider and an observed native symbol",
             "fully_documented_raw_routines":"public raw records with complete routine, argument, and Safety documentation under either the reviewed or Batch A generated-contract standard"
@@ -1830,6 +1925,7 @@ fn coverage_summary(records: &[Value]) -> Value {
             "batch_a_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_a_public_driver"),
             "batch_b_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_b_public_driver"),
             "batch_c_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_c_public_driver"),
+            "batch_d_public_declarations":count(&|r| field(r,"raw_api_state")=="batch_d_public_driver"),
             "public_raw_declarations":count(&|r| is_public_raw(r)),
             "provider_backed_callable_raw_routines":count(&|r| field(r,"symbol_status")=="observed_exactly_once" && field(r,"driver_role")!="runtime_support"),
             "link_tested_raw_routines":count(&|r| field(r,"link_test_status")=="passed"),
@@ -1847,7 +1943,10 @@ fn is_public_raw(record: &Value) -> bool {
     field(record, "reviewed_declaration_status").starts_with("reviewed_")
         || matches!(
             field(record, "raw_api_state").as_str(),
-            "batch_a_public_driver" | "batch_b_public_driver" | "batch_c_public_driver"
+            "batch_a_public_driver"
+                | "batch_b_public_driver"
+                | "batch_c_public_driver"
+                | "batch_d_public_driver"
         )
 }
 
@@ -1998,6 +2097,7 @@ fn documentation_audit(records: &[Value]) -> Value {
         "batch_a_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_a_public_driver").count(),
         "batch_b_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_b_public_driver").count(),
         "batch_c_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_c_public_driver").count(),
+        "batch_d_public_declarations":records.iter().filter(|record| field(record,"raw_api_state")=="batch_d_public_driver").count(),
         "routine_docs_present":public.iter().filter(|record| documentation_complete(record)).count(),
         "argument_docs_complete":public.iter().filter(|record| documentation_complete(record)).count(),
         "safety_sections_present":public.iter().filter(|record| record.pointer("/documentation_evidence/safety").and_then(Value::as_str).map(|value| !value.is_empty()).unwrap_or(false)).count(),
@@ -2209,6 +2309,7 @@ fn validation_markdown(coverage: &Value, audit: &Value, features: &Value, roots:
          | Batch A public declarations | {} |\n\
          | Batch B public declarations | {} |\n\
          | Batch C public declarations | {} |\n\
+         | Batch D requalified public declarations | {} |\n\
          | Total public raw declarations | {} |\n\
          | Provider-backed callable raw routines | {} |\n\
          | Link-tested raw routines | {} |\n\
@@ -2223,6 +2324,7 @@ fn validation_markdown(coverage: &Value, audit: &Value, features: &Value, roots:
         count("batch_a_public_declarations"),
         count("batch_b_public_declarations"),
         count("batch_c_public_declarations"),
+        count("batch_d_public_declarations"),
         count("public_raw_declarations"),
         count("provider_backed_callable_raw_routines"),
         count("link_tested_raw_routines"),

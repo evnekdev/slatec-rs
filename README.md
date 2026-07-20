@@ -97,6 +97,12 @@ interfaces. Compiler probes establish the supported GNU MinGW complex return,
 fixed `CHARACTER*1` hidden-length, and `LOGICAL` conventions; canonical paths
 stay in mathematical modules and no safe wrappers are added. See the
 [Batch C raw guide](docs/api/raw-batch-c-complex-character-logical.md).
+Batch D completes the disposition audit for all 1,517 retained identities. It
+requalifies 36 existing family declarations for 812 canonical public raw
+routines in total, classifies every non-public subsidiary, support unit,
+program, provider/symbol gap, and unsupported interface, and leaves zero
+unexplained identities. See the
+[final raw API coverage guide](docs/api/raw-api-final-coverage.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

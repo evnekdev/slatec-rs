@@ -2647,9 +2647,9 @@
       "routine": "DCOT"
     },
     {
-      "intended_canonical_module": "approximation",
+      "intended_canonical_module": "least_squares",
       "primary_family": "Approximation",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DCOV"
     },
     {
@@ -2701,9 +2701,9 @@
       "routine": "DDASLV"
     },
     {
-      "intended_canonical_module": "dae",
+      "intended_canonical_module": "dassl",
       "primary_family": "ODE solvers",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DDASSL"
     },
     {
@@ -2817,7 +2817,7 @@
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DDRIV3"
     },
     {
@@ -3445,15 +3445,15 @@
       "routine": "DNBSL"
     },
     {
-      "intended_canonical_module": "approximation",
+      "intended_canonical_module": "least_squares",
       "primary_family": "Approximation",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DNLS1"
     },
     {
-      "intended_canonical_module": "approximation",
+      "intended_canonical_module": "least_squares",
       "primary_family": "Approximation",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DNLS1E"
     },
     {
@@ -3465,13 +3465,13 @@
     {
       "intended_canonical_module": "nonlinear",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DNSQ"
     },
     {
       "intended_canonical_module": "nonlinear",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DNSQE"
     },
     {
@@ -3897,7 +3897,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAG"
     },
     {
@@ -3909,7 +3909,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAGI"
     },
     {
@@ -3921,7 +3921,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAGP"
     },
     {
@@ -3933,7 +3933,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAGS"
     },
     {
@@ -3945,7 +3945,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAWC"
     },
     {
@@ -3957,7 +3957,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAWF"
     },
     {
@@ -3969,7 +3969,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAWO"
     },
     {
@@ -3981,7 +3981,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQAWS"
     },
     {
@@ -4095,13 +4095,13 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQNC79"
     },
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DQNG"
     },
     {
@@ -4579,9 +4579,9 @@
       "routine": "DSPFA"
     },
     {
-      "intended_canonical_module": "optimization",
+      "intended_canonical_module": "linear_programming",
       "primary_family": "Optimization and least squares",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "DSPLP"
     },
     {
@@ -6453,7 +6453,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAG"
     },
     {
@@ -6465,7 +6465,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAGI"
     },
     {
@@ -6477,7 +6477,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAGP"
     },
     {
@@ -6489,7 +6489,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAGS"
     },
     {
@@ -6501,7 +6501,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAWC"
     },
     {
@@ -6513,7 +6513,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAWF"
     },
     {
@@ -6525,7 +6525,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAWO"
     },
     {
@@ -6537,7 +6537,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QAWS"
     },
     {
@@ -6639,13 +6639,13 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QNC79"
     },
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "QNG"
     },
     {
@@ -7237,9 +7237,9 @@
       "routine": "SCOPYM"
     },
     {
-      "intended_canonical_module": "approximation",
+      "intended_canonical_module": "least_squares",
       "primary_family": "Approximation",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SCOV"
     },
     {
@@ -7273,9 +7273,9 @@
       "routine": "SDASLV"
     },
     {
-      "intended_canonical_module": "dae",
+      "intended_canonical_module": "dassl",
       "primary_family": "ODE solvers",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SDASSL"
     },
     {
@@ -7353,7 +7353,7 @@
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SDRIV3"
     },
     {
@@ -7705,15 +7705,15 @@
       "routine": "SNBSL"
     },
     {
-      "intended_canonical_module": "approximation",
+      "intended_canonical_module": "least_squares",
       "primary_family": "Approximation",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SNLS1"
     },
     {
-      "intended_canonical_module": "approximation",
+      "intended_canonical_module": "least_squares",
       "primary_family": "Approximation",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SNLS1E"
     },
     {
@@ -7725,13 +7725,13 @@
     {
       "intended_canonical_module": "nonlinear",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SNSQ"
     },
     {
       "intended_canonical_module": "nonlinear",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SNSQE"
     },
     {
@@ -7843,9 +7843,9 @@
       "routine": "SPINIT"
     },
     {
-      "intended_canonical_module": "optimization",
+      "intended_canonical_module": "linear_programming",
       "primary_family": "Optimization and least squares",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "batch_d_public_driver",
       "routine": "SPLP"
     },
     {

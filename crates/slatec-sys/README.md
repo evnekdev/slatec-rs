@@ -58,6 +58,18 @@ strings and unresolved combined ABIs remain excluded. See the
 [Batch C guide](../../docs/api/raw-batch-c-complex-character-logical.md) and its
 deterministic reports under `generated/raw-api/`.
 
+## Batch D final disposition
+
+Batch D closes all 1,517 retained identities without forcing provider
+subsidiaries, runtime infrastructure, historical programs, or unresolved
+legacy callback conventions into the public API. It source-hash-requalifies 36
+pre-existing family declarations, bringing the canonical public total to 812,
+and assigns every other identity an evidence-backed terminal disposition.
+There are no duplicate declarations, new provider sources, shims, safe APIs, or
+numerical changes. See the
+[final coverage guide](../../docs/api/raw-api-final-coverage.md) and
+[`final-disposition.json`](../../generated/raw-api/final-disposition.json).
+
 ## Reviewed BLAS API
 
 R2A promotes the feasible, historically user-callable BLAS corpus to the

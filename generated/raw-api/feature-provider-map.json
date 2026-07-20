@@ -3062,8 +3062,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "least-squares-covariance",
+      "raw_declaration_feature": "least-squares-covariance",
       "routine": "DCOV",
       "safe_facade_feature": "not_assigned"
     },
@@ -3125,8 +3125,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "dassl",
+      "raw_declaration_feature": "dassl",
       "routine": "DDASSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -3258,8 +3258,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "DDRIV3",
       "safe_facade_feature": "not_assigned"
     },
@@ -3993,15 +3993,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "least-squares-nonlinear-expert",
+      "raw_declaration_feature": "least-squares-nonlinear-expert",
       "routine": "DNLS1",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "least-squares-nonlinear-easy",
+      "raw_declaration_feature": "least-squares-nonlinear-easy",
       "routine": "DNLS1E",
       "safe_facade_feature": "not_assigned"
     },
@@ -4014,15 +4014,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "nonlinear-expert",
+      "raw_declaration_feature": "nonlinear-expert",
       "routine": "DNSQ",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "nonlinear-easy",
+      "raw_declaration_feature": "nonlinear-easy",
       "routine": "DNSQE",
       "safe_facade_feature": "not_assigned"
     },
@@ -4518,8 +4518,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "DQAG",
       "safe_facade_feature": "not_assigned"
     },
@@ -4532,8 +4532,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "DQAGI",
       "safe_facade_feature": "not_assigned"
     },
@@ -4546,8 +4546,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-breakpoints",
+      "raw_declaration_feature": "quadrature-breakpoints",
       "routine": "DQAGP",
       "safe_facade_feature": "not_assigned"
     },
@@ -4560,8 +4560,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "DQAGS",
       "safe_facade_feature": "not_assigned"
     },
@@ -4574,8 +4574,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "DQAWC",
       "safe_facade_feature": "not_assigned"
     },
@@ -4588,8 +4588,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-fourier",
+      "raw_declaration_feature": "quadrature-fourier",
       "routine": "DQAWF",
       "safe_facade_feature": "not_assigned"
     },
@@ -4602,8 +4602,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-oscillatory",
+      "raw_declaration_feature": "quadrature-oscillatory",
       "routine": "DQAWO",
       "safe_facade_feature": "not_assigned"
     },
@@ -4616,8 +4616,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-weighted",
+      "raw_declaration_feature": "quadrature-weighted",
       "routine": "DQAWS",
       "safe_facade_feature": "not_assigned"
     },
@@ -4749,15 +4749,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-nonadaptive",
+      "raw_declaration_feature": "quadrature-nonadaptive",
       "routine": "DQNC79",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-nonadaptive",
+      "raw_declaration_feature": "quadrature-nonadaptive",
       "routine": "DQNG",
       "safe_facade_feature": "not_assigned"
     },
@@ -5316,8 +5316,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "optimization-linear-programming-in-memory",
+      "raw_declaration_feature": "optimization-linear-programming-in-memory",
       "routine": "DSPLP",
       "safe_facade_feature": "not_assigned"
     },
@@ -7500,8 +7500,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "QAG",
       "safe_facade_feature": "not_assigned"
     },
@@ -7514,8 +7514,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "QAGI",
       "safe_facade_feature": "not_assigned"
     },
@@ -7528,8 +7528,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-breakpoints",
+      "raw_declaration_feature": "quadrature-breakpoints",
       "routine": "QAGP",
       "safe_facade_feature": "not_assigned"
     },
@@ -7542,8 +7542,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "QAGS",
       "safe_facade_feature": "not_assigned"
     },
@@ -7556,8 +7556,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-basic",
+      "raw_declaration_feature": "quadrature-basic",
       "routine": "QAWC",
       "safe_facade_feature": "not_assigned"
     },
@@ -7570,8 +7570,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-fourier",
+      "raw_declaration_feature": "quadrature-fourier",
       "routine": "QAWF",
       "safe_facade_feature": "not_assigned"
     },
@@ -7584,8 +7584,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-oscillatory",
+      "raw_declaration_feature": "quadrature-oscillatory",
       "routine": "QAWO",
       "safe_facade_feature": "not_assigned"
     },
@@ -7598,8 +7598,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-weighted",
+      "raw_declaration_feature": "quadrature-weighted",
       "routine": "QAWS",
       "safe_facade_feature": "not_assigned"
     },
@@ -7717,15 +7717,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-nonadaptive",
+      "raw_declaration_feature": "quadrature-nonadaptive",
       "routine": "QNC79",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-nonadaptive",
+      "raw_declaration_feature": "quadrature-nonadaptive",
       "routine": "QNG",
       "safe_facade_feature": "not_assigned"
     },
@@ -8417,8 +8417,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "least-squares-covariance",
+      "raw_declaration_feature": "least-squares-covariance",
       "routine": "SCOV",
       "safe_facade_feature": "not_assigned"
     },
@@ -8459,8 +8459,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "dassl",
+      "raw_declaration_feature": "dassl",
       "routine": "SDASSL",
       "safe_facade_feature": "not_assigned"
     },
@@ -8550,8 +8550,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "SDRIV3",
       "safe_facade_feature": "not_assigned"
     },
@@ -8963,15 +8963,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "least-squares-nonlinear-expert",
+      "raw_declaration_feature": "least-squares-nonlinear-expert",
       "routine": "SNLS1",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "least-squares-nonlinear-easy",
+      "raw_declaration_feature": "least-squares-nonlinear-easy",
       "routine": "SNLS1E",
       "safe_facade_feature": "not_assigned"
     },
@@ -8984,15 +8984,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "nonlinear-expert",
+      "raw_declaration_feature": "nonlinear-expert",
       "routine": "SNSQ",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "nonlinear-easy",
+      "raw_declaration_feature": "nonlinear-easy",
       "routine": "SNSQE",
       "safe_facade_feature": "not_assigned"
     },
@@ -9124,8 +9124,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "optimization-linear-programming-in-memory",
+      "raw_declaration_feature": "optimization-linear-programming-in-memory",
       "routine": "SPLP",
       "safe_facade_feature": "not_assigned"
     },

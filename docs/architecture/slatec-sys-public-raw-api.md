@@ -31,6 +31,7 @@ runtime support, block data, documentation/tooling entries, external
 dependencies, and catalogue-only identities. The machine-readable enumeration
 is `reviewed_public_driver`, `reviewed_public_subsidiary`,
 `batch_a_public_driver`, `batch_b_public_driver`, `batch_c_public_driver`,
+`batch_d_public_driver`,
 `generated_candidate`, `generated_abi_validated`, `source_present_unbound`,
 `unsupported_callback_abi`, `unsupported_complex_return_abi`,
 `unsupported_character_return_abi`, `unsupported_entry_or_alternate_return`,
@@ -69,6 +70,13 @@ generated unsafe documentation, and bulk compile/link evidence. Complex returns
 use only the compiler-probed GNU MinGW convention; raw logical values remain
 explicit `i32` ABI values rather than Rust `bool`. See
 [Batch C complex and flag-bearing interfaces](../api/raw-batch-c-complex-character-logical.md).
+
+`batch_d_public_driver` requalifies a pre-existing mathematical-family
+declaration against its selected source hash, observed native symbol, existing
+unsafe Rustdoc and safe-wrapper audit, feature/provider mapping, and native
+family regressions. Batch D does not emit a second declaration. It also assigns
+one terminal disposition to every retained non-public identity; see the
+[final coverage and disposition guide](../api/raw-api-final-coverage.md).
 
 ## Canonical namespace
 
@@ -217,6 +225,9 @@ Batch C uses five coherent mathematical declaration/provider pairs:
 `batch-c-blas`, `batch-c-linear-algebra`, `batch-c-special`,
 `batch-c-nonlinear`, and `batch-c-fishpack`. Their exact source closures are
 generated from candidate roots and compiler-observed dependencies.
+Batch D reuses the existing declaration and provider family features for its 36
+requalified drivers. It creates no per-routine feature and does not expand a
+native source closure merely to increase the public count.
 
 The public `all` feature directly names every authored public mathematical
 family aggregate. It is declaration-only: provider/backend, profile-only,
@@ -253,6 +264,10 @@ Batch C additionally requires controlled and selected-source compiler probes
 for complex layout and returns, character hidden lengths, and logical values.
 Its validator rejects long strings, unresolved combinations, missing provider
 closure members, incompatible fingerprints, and duplicate canonical paths.
+The final Batch D validator additionally rejects missing or multiple terminal
+dispositions, duplicate symbols or public paths, public records without
+compile/link evidence, callable PROGRAM units, false missing-symbol link
+claims, evidence-free exclusions, and Batch A-C count regressions.
 
 ## Stability and transition policy
 
@@ -263,12 +278,12 @@ incorrect FFI declaration is a safety bug. The ABI-shaped
 `slatec_sys::generated` namespace remains available during 0.x, but is
 transitional, unstable, and never the sole stable path for a promoted routine.
 
-An excluded identity has a machine-readable reason. The R2 promotion queue is
-evidence-ranked in `promotion-priority.json`; R3 is reserved for callback
-drivers, R4 for exceptional return and CHARACTER/complex interfaces, and R5
-for the publication freeze audit. `roots-family-report.json` is the required
-pilot gap report; HWSCRT and POIS3D remain tracked reviewed drivers with their
-selected closures and native regression evidence.
+An excluded identity has a machine-readable reason and reopen condition. Batch
+D replaces an open-ended promotion queue with the final disposition reports:
+new source, provider, compiler, callback, or public-role evidence must
+explicitly reopen and regenerate a decision. `roots-family-report.json` remains
+the detailed roots evidence; HWSCRT and POIS3D remain tracked reviewed drivers
+with their selected closures and native regression evidence.
 
 ## BLAS R2A evidence and ABI boundary
 

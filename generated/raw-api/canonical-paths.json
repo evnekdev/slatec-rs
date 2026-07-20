@@ -4267,15 +4267,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::least_squares::dcov",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::approximation::dcov",
-      "intended_module": "approximation",
-      "legacy_rust_paths": [
-        "slatec_sys::least_squares::dcov"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::least_squares::dcov",
+      "intended_module": "least_squares",
+      "legacy_rust_paths": [],
       "routine": "DCOV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4352,15 +4350,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::dassl::ddassl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::dae::ddassl",
-      "intended_module": "dae",
-      "legacy_rust_paths": [
-        "slatec_sys::dassl::ddassl"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::dassl::ddassl",
+      "intended_module": "dassl",
+      "legacy_rust_paths": [],
       "routine": "DDASSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -4533,15 +4529,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::ddriv3",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::ode::ddriv3",
       "intended_module": "ode",
-      "legacy_rust_paths": [
-        "slatec_sys::ode::ddriv3"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DDRIV3",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -5564,26 +5558,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::least_squares::dnls1",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::approximation::dnls1",
-      "intended_module": "approximation",
-      "legacy_rust_paths": [
-        "slatec_sys::least_squares::dnls1"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::least_squares::dnls1",
+      "intended_module": "least_squares",
+      "legacy_rust_paths": [],
       "routine": "DNLS1",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::least_squares::dnls1e",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::approximation::dnls1e",
-      "intended_module": "approximation",
-      "legacy_rust_paths": [
-        "slatec_sys::least_squares::dnls1e"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::least_squares::dnls1e",
+      "intended_module": "least_squares",
+      "legacy_rust_paths": [],
       "routine": "DNLS1E",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level1::dnrm2",
@@ -5599,26 +5589,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::dnsq",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::nonlinear::dnsq",
       "intended_module": "nonlinear",
-      "legacy_rust_paths": [
-        "slatec_sys::nonlinear::dnsq"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DNSQ",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::dnsqe",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::nonlinear::dnsqe",
       "intended_module": "nonlinear",
-      "legacy_rust_paths": [
-        "slatec_sys::nonlinear::dnsqe"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DNSQE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6271,15 +6257,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqag",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqag",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqag"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6291,15 +6275,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqagi",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqagi",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqagi"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAGI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagie",
@@ -6311,15 +6293,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqagp",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqagp",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqagp"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAGP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagpe",
@@ -6331,15 +6311,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqags",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqags",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqags"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAGS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqagse",
@@ -6351,15 +6329,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqawc",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqawc",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqawc"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAWC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawce",
@@ -6371,15 +6347,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqawf",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqawf",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqawf"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAWF",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6391,15 +6365,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqawo",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqawo",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqawo"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAWO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -6411,15 +6383,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqaws",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqaws",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqaws"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQAWS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::dqawse",
@@ -6592,26 +6562,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqnc79",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqnc79",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqnc79"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQNC79",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dqng",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::dqng",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::dqng"
-      ],
+      "legacy_rust_paths": [],
       "routine": "DQNG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -7383,15 +7349,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_programming::dsplp",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::optimization::dsplp",
-      "intended_module": "optimization",
-      "legacy_rust_paths": [
-        "slatec_sys::linear_programming::dsplp"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::linear_programming::dsplp",
+      "intended_module": "linear_programming",
+      "legacy_rust_paths": [],
       "routine": "DSPLP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level2::dspmv",
@@ -10367,15 +10331,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qag",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qag",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qag"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10387,15 +10349,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qagi",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qagi",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qagi"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAGI",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagie",
@@ -10407,15 +10367,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qagp",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qagp",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qagp"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAGP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagpe",
@@ -10427,15 +10385,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qags",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qags",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qags"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAGS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::qagse",
@@ -10447,15 +10403,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qawc",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qawc",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qawc"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAWC",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::qawce",
@@ -10467,15 +10421,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qawf",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qawf",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qawf"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAWF",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10487,15 +10439,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qawo",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qawo",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qawo"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAWO",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -10507,15 +10457,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qaws",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qaws",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qaws"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QAWS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::quadrature::callbacks::qawse",
@@ -10662,26 +10610,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qnc79",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qnc79",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qnc79"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QNC79",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::qng",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::quadrature::qng",
       "intended_module": "quadrature",
-      "legacy_rust_paths": [
-        "slatec_sys::quadrature::qng"
-      ],
+      "legacy_rust_paths": [],
       "routine": "QNG",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11608,15 +11552,13 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::least_squares::scov",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::approximation::scov",
-      "intended_module": "approximation",
-      "legacy_rust_paths": [
-        "slatec_sys::least_squares::scov"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::least_squares::scov",
+      "intended_module": "least_squares",
+      "legacy_rust_paths": [],
       "routine": "SCOV",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11664,15 +11606,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::dassl::sdassl",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::dae::sdassl",
-      "intended_module": "dae",
-      "legacy_rust_paths": [
-        "slatec_sys::dassl::sdassl"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::dassl::sdassl",
+      "intended_module": "dassl",
+      "legacy_rust_paths": [],
       "routine": "SDASSL",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -11787,15 +11727,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::sdriv3",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::ode::sdriv3",
       "intended_module": "ode",
-      "legacy_rust_paths": [
-        "slatec_sys::ode::sdriv3"
-      ],
+      "legacy_rust_paths": [],
       "routine": "SDRIV3",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12362,26 +12300,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::least_squares::snls1",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::approximation::snls1",
-      "intended_module": "approximation",
-      "legacy_rust_paths": [
-        "slatec_sys::least_squares::snls1"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::least_squares::snls1",
+      "intended_module": "least_squares",
+      "legacy_rust_paths": [],
       "routine": "SNLS1",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::least_squares::snls1e",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::approximation::snls1e",
-      "intended_module": "approximation",
-      "legacy_rust_paths": [
-        "slatec_sys::least_squares::snls1e"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::least_squares::snls1e",
+      "intended_module": "least_squares",
+      "legacy_rust_paths": [],
       "routine": "SNLS1E",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::blas::level1::snrm2",
@@ -12397,26 +12331,22 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::snsq",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::nonlinear::snsq",
       "intended_module": "nonlinear",
-      "legacy_rust_paths": [
-        "slatec_sys::nonlinear::snsq"
-      ],
+      "legacy_rust_paths": [],
       "routine": "SNSQ",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::nonlinear::snsqe",
       "compatibility_paths": [],
       "intended_canonical_rust_path": "slatec_sys::nonlinear::snsqe",
       "intended_module": "nonlinear",
-      "legacy_rust_paths": [
-        "slatec_sys::nonlinear::snsqe"
-      ],
+      "legacy_rust_paths": [],
       "routine": "SNSQE",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -12583,15 +12513,13 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::linear_programming::splp",
       "compatibility_paths": [],
-      "intended_canonical_rust_path": "slatec_sys::optimization::splp",
-      "intended_module": "optimization",
-      "legacy_rust_paths": [
-        "slatec_sys::linear_programming::splp"
-      ],
+      "intended_canonical_rust_path": "slatec_sys::linear_programming::splp",
+      "intended_module": "linear_programming",
+      "legacy_rust_paths": [],
       "routine": "SPLP",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
