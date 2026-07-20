@@ -1,0 +1,48 @@
+{
+  "packages": [
+    {
+      "build_script": null,
+      "crate": "slatec",
+      "file_count": 300,
+      "forbidden_files": [],
+      "links": null,
+      "manifest": "crates/slatec/Cargo.toml",
+      "missing_required_files": [],
+      "result": "pass"
+    },
+    {
+      "build_script": null,
+      "crate": "slatec-core",
+      "file_count": 12,
+      "forbidden_files": [],
+      "links": null,
+      "manifest": "crates/slatec-core/Cargo.toml",
+      "missing_required_files": [],
+      "result": "pass"
+    },
+    {
+      "build_script": "build.rs",
+      "crate": "slatec-src",
+      "file_count": 26,
+      "forbidden_files": [],
+      "links": "slatec",
+      "manifest": "crates/slatec-src/Cargo.toml",
+      "missing_required_files": [],
+      "result": "pass"
+    },
+    {
+      "build_script": null,
+      "crate": "slatec-sys",
+      "file_count": 77,
+      "forbidden_files": [],
+      "links": null,
+      "manifest": "crates/slatec-sys/Cargo.toml",
+      "missing_required_files": [],
+      "result": "pass"
+    }
+  ],
+  "policy": "Packages must contain required Rust metadata and licenses and no caches, downloaded Fortran corpus, native objects, archives, executables, maps, logs, credentials, or local configuration.",
+  "result": "pass",
+  "schema_id": "slatec-rs.package-content-audit",
+  "schema_version": "1.0.0"
+}

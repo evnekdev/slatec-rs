@@ -1,0 +1,312 @@
+{
+  "records": [
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "BESI"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "BESJ"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "BESK"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "BESY"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "CBESH"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "CBESI"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "CBESJ"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "CBESK"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "CBESY"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DBESI"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DBESJ"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DBESK"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DBESY"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DEXINT"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "unbalanced_parentheses"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DQAWC"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "unbalanced_parentheses"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DQAWCE"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "unbalanced_parentheses"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DQK15I"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DXPMU"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DXQMU"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "DXQNU"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "EXINT"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "unbalanced_parentheses"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "QAWC"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "unbalanced_parentheses"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "QAWCE"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "unbalanced_parentheses"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "QK15I"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "SEPELI"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "SEPX4"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "XPMU"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "XQMU"
+    },
+    {
+      "public_raw": false,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "XQNU"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "ZBESH"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "ZBESI"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "ZBESJ"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "ZBESK"
+    },
+    {
+      "public_raw": true,
+      "quality_level": "mangled_source_prologue",
+      "reasons": [
+        "contains_unexplained_ellipsis"
+      ],
+      "recommended_action": "review selected source prose or add a source-hash-guarded authored correction",
+      "routine": "ZBESY"
+    }
+  ],
+  "schema_id": "slatec-rs.documentation-repair-candidates",
+  "schema_version": "1.0.0"
+}

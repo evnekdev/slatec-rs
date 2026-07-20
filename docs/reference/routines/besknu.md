@@ -1,6 +1,6 @@
 # BESKNU
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Special functions](../families/special-functions.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,44 @@ Abstract BESKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [Special functions](../families/special-functions.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `X` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | Abstract BESKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)/(X), I=1,N for non-negative orders FNU and positive X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `FNU` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | Abstract BESKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)/(X), I=1,N for non-negative orders FNU and positive X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KODE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The parameter KODE permits K/SUB(FNU+I-1)/(X) values or scaled values EXP(X)*K/SUB(FNU+I-1)/(X), I=1,N to be returned. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract BESKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)/(X), I=1,N for non-negative orders FNU and positive X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NZ` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

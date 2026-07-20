@@ -1,6 +1,6 @@
 # CVTCAT
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Documentation and source-processing tools](../families/documentation-and-source-processing-tools.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -45,22 +45,33 @@ Function to expand a GAMS category name by adding a zero before a one digit char
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `complete_unstructured`
+- Description provenance: `source_prologue`
+- Assessment: meaningful selected-source prose is available for this non-public identity
+- Dedicated family page: [Documentation and source-processing tools](../families/documentation-and-source-processing-tools.md)
+
+No independently callable argument list is present in the selected interface inventory for this identity.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `historical-program`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `not_assigned`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `no` (`missing_symbol`)
 - Documentation status: `not_documented`
 - Compile-test status: `not_compiled`
 - Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
 <!-- raw-api-status:end -->

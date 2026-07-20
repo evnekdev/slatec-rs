@@ -1,6 +1,6 @@
 # HSTART
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: ODE solvers](../families/ode-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,59 @@ HSTART computes a starting step size to be used in solving initial value problem
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `F` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | ********************************************************************** On Input you must provide the following F -- This is a subroutine of the form F(X,U,UPRIME,RPAR,IPAR) which defines the system of first order differential equations to be solved. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NEQ` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | For the given values of X and the vector U(*)=(U(1),U(2),...,U(NEQ)) , the subroutine must evaluate the NEQ components of the system of differential equations dU/DX=F(X,U) and store the derivatives in the array UPRIME(*), that is, UPRIME(I) = * dU(I)/DX * for equations I=1,...,NEQ. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `A` | input | `REAL` (`implicit_rule`) | `*mut f32` | scalar | HSTART computes a starting step size to be used in solving initial value problems in ordinary differential equations. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | B -- This is a value of the independent variable used to define the direction of integration. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Also see the discussion about the parameter SMALL.) Y(*) -- This is the vector of initial values of the NEQ solution components at the initial point A. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `YPRIME` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | YPRIME(*) -- This is the vector of derivatives of the NEQ solution components at the initial point A. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ETOL` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | (defined by the differential equations in subroutine F) ETOL -- This is the vector of error tolerances corresponding to the NEQ solution components. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `MORDER` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | MORDER -- This is the order of the formula which will be used by the initial value method for taking the first integration step. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `SMALL` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | Also see the discussion about the parameter SMALL.) Y(*) -- This is the vector of initial values of the NEQ solution components at the initial point A. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BIG` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | BIG -- This is a large positive machine dependent constant which is used for preventing machine overflows. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `SPY` | workspace | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. Leading dimension: not established Workspace: SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | required; null is not permitted for an ordinary Fortran actual argument |
+| `PV` | workspace | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. Leading dimension: not established Workspace: SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | required; null is not permitted for an ordinary Fortran actual argument |
+| `YP` | workspace | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. Leading dimension: not established Workspace: SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | required; null is not permitted for an ordinary Fortran actual argument |
+| `SF` | workspace | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. Leading dimension: not established Workspace: SPY(*),PV(*),YP(*),SF(*) -- These are real work arrays of length NEQ which provide the routine with needed storage space. | required; null is not permitted for an ordinary Fortran actual argument |
+| `RPAR` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | ********************************************************************** On Input you must provide the following F -- This is a subroutine of the form F(X,U,UPRIME,RPAR,IPAR) which defines the system of first order differential equations to be solved. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IPAR` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | ********************************************************************** On Input you must provide the following F -- This is a subroutine of the form F(X,U,UPRIME,RPAR,IPAR) which defines the system of first order differential equations to be solved. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `H` | output | `REAL` (`implicit_rule`) | `*mut f32` | scalar | ********************************************************************** On Output (after the return from HSTART), H -- Is an appropriate starting step size to be attempted by the differential equation method. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Callback contract
+
+Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `unsupported-abi`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-callbacks`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `callback ABI has compiler-shape evidence but no routine-specific callback contract`
 <!-- raw-api-status:end -->

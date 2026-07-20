@@ -1,6 +1,6 @@
 # BLKTR1
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: FISHPACK elliptic PDE solvers](../families/fishpack-elliptic-pde-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,57 @@ BLKTR1 solves the linear system set up by BLKTRI. B contains the roots of all th
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [FISHPACK elliptic PDE solvers](../families/fishpack-elliptic-pde-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `N` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AN` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BN` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CN` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `M` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | PRDCT is either PRODP or PROD depending on whether the boundary conditions in the M direction are periodic or not. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AM` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BM` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CM` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IDIMY` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (IDIMY, *) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | B contains the roots of all the B polynomials. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `W1` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | W1,W2,W3,WD,WW,WU are all working arrays. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `W2` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | W1,W2,W3,WD,WW,WU are all working arrays. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `W3` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | W1,W2,W3,WD,WW,WU are all working arrays. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WD` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | W1,W2,W3,WD,WW,WU are all working arrays. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WW` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | W1,W2,W3,WD,WW,WU are all working arrays. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WU` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | W1,W2,W3,WD,WW,WU are all working arrays. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `PRDCT` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | PRDCT is either PRODP or PROD depending on whether the boundary conditions in the M direction are periodic or not. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CPRDCT` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | CPRDCT is either CPRODP or CPROD which are the complex versions of PRODP and PROD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

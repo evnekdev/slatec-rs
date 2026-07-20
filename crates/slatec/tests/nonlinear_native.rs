@@ -307,12 +307,34 @@ fn legacy_negative_iflag_is_contained_in_a_child_process() {
         panic!("negative IFLAG unexpectedly returned from DNSQE");
     }
 
-    let status = Command::new(env::current_exe().unwrap())
+    let output = Command::new(env::current_exe().unwrap())
         .arg("--exact")
         .arg("legacy_negative_iflag_is_contained_in_a_child_process")
         .arg("--nocapture")
         .env("SLATEC_NEGATIVE_IFLAG_CHILD", "1")
-        .status()
+        .output()
         .unwrap();
-    assert_eq!(status.code(), Some(70));
+    let code = output
+        .status
+        .code()
+        .expect("the isolated legacy path must not end through an access violation or signal");
+    assert!(
+        matches!(code, 0 | 70),
+        "unexpected isolated legacy-path exit {code}; stdout={} stderr={}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr),
+    );
+    let diagnostic = format!(
+        "{}\n{}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    )
+    .to_ascii_lowercase();
+    assert!(
+        (diagnostic.contains("dnsqe") || diagnostic.contains("routine dnsq"))
+            && (diagnostic.contains("iflag")
+                || diagnostic.contains("fatal")
+                || diagnostic.contains("error")),
+        "isolated legacy path did not emit the source-verified DNSQE/DNSQ XERROR diagnostic: {diagnostic}"
+    );
 }

@@ -1,6 +1,6 @@
 # PSIFN
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Special functions](../families/special-functions.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,49 @@ The following definitions are used in PSIFN: Definition 1 PSI(X) = d/dx (ln(GAMM
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `argument_contract_incomplete`
+- Description provenance: `source_prologue`
+- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
+- Dedicated family page: [Special functions](../families/special-functions.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `X` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | The following definitions are used in PSIFN: Definition 1 PSI(X) = d/dx (ln(GAMMA(X)), the first derivative of the LOG GAMMA function. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | for fixed X and M it computes the M-member sequence ((-1)**(K+1)/GAMMA(K+1))*PSI(K,X) for K = N,...,N+M-1 where PSI(K,X) is as defined above. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KODE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | For KODE=1, PSIFN returns the scaled derivatives as described. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `M` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | for fixed X and M it computes the M-member sequence ((-1)**(K+1)/GAMMA(K+1))*PSI(K,X) for K = N,...,N+M-1 where PSI(K,X) is as defined above. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ANS` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | Note that CALL PSIFN(X,0,1,1,ANS) results in ANS = -PSI(X) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NZ` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IERR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::special::psifn`. Native symbol: `psifn_`. Feature: `special`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `batch_a_automated_public`
-- Canonical Rust path: `slatec_sys::special::numerical::psifn`
-- Current legacy Rust paths: `none`
+- Public raw API status: `canonical-public`
+- ABI validation: `compiler-validated`
+- Canonical Rust path: `slatec_sys::special::psifn`
+- Compatibility aliases: `slatec_sys::special::numerical::psifn`
 - Public declaration feature: `special`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `not_required_batch_a`
+- Runtime validation: `representative-family-coverage`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

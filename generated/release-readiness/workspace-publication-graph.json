@@ -1,0 +1,47 @@
+{
+  "coordinated_version": "0.1.0",
+  "dependency_edges": [
+    {
+      "dependency": "slatec-core",
+      "dependent": "slatec"
+    },
+    {
+      "dependency": "slatec-src",
+      "dependent": "slatec"
+    },
+    {
+      "dependency": "slatec-sys",
+      "dependent": "slatec"
+    },
+    {
+      "dependency": "slatec-sys",
+      "dependent": "slatec-core"
+    }
+  ],
+  "links_owners": [
+    {
+      "crate": "slatec-src",
+      "links": "slatec"
+    }
+  ],
+  "publication_layers": [
+    [
+      "slatec-src",
+      "slatec-sys"
+    ],
+    [
+      "slatec-core"
+    ],
+    [
+      "slatec"
+    ]
+  ],
+  "publishable_crates": [
+    "slatec",
+    "slatec-core",
+    "slatec-src",
+    "slatec-sys"
+  ],
+  "schema_id": "slatec-rs.workspace-publication-graph",
+  "schema_version": "1.0.0"
+}

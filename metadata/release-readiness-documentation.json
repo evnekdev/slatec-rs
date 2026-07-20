@@ -1,0 +1,20 @@
+{
+  "schema_id": "slatec-rs.release-readiness-documentation",
+  "schema_version": "1.0.0",
+  "records": [
+    {
+      "routine": "DCOPYM",
+      "source_hash": "c1bca9490721fb3ec904c0da73080807eae142f335476544d5f44ebacc6c9e52",
+      "description": "Copies a double-precision vector into another vector while negating each copied element.",
+      "provenance": "authored_override",
+      "clarification": "The selected source has no separable full-description field; this wording preserves the verified catalogue purpose without inferring argument semantics."
+    },
+    {
+      "routine": "SCOPYM",
+      "source_hash": "5a8a0f2c94484c90df24827b343e2e97e0851083f3be062537fc5d50607ce84b",
+      "description": "Copies a single-precision vector into another vector while negating each copied element.",
+      "provenance": "authored_override",
+      "clarification": "The selected source has no separable full-description field; this wording preserves the verified catalogue purpose without inferring argument semantics."
+    }
+  ]
+}

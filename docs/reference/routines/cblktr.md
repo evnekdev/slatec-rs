@@ -1,6 +1,6 @@
 # CBLKTR
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: FISHPACK elliptic PDE solvers](../families/fishpack-elliptic-pde-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -49,22 +49,57 @@ Subroutine CBLKTR is a complex version of subroutine BLKTRI. Both subroutines so
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `argument_contract_incomplete`
+- Description provenance: `source_prologue`
+- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
+- Dedicated family page: [FISHPACK elliptic PDE solvers](../families/fishpack-elliptic-pde-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `IFLG` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | * * * * * * * * * * On INPUT * * * * * * * * * * IFLG = 0 Initialization only. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NP` | workspace | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Certain quantities that depend on NP, N, AN, BN, and CN are computed and stored in the work array W. | none stated in the separable source sentence Leading dimension: not established Workspace: Certain quantities that depend on NP, N, AN, BN, and CN are computed and stored in the work array W. | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AN` | input | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BN` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CN` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `MP` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | MP = 0 If AM(1) and CM(M) are not zero, which corresponds to periodic boundary conditions. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `M` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AM` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BM` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CM` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IDIMY` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | IDIMY The row (or first) dimension of the two-dimensional array Y as it appears in the program calling BLKTRI. | IDIMY The row (or first) dimension of the two-dimensional array Y as it appears in the program calling BLKTRI. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | output | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 2; dimensions (IDIMY, *) | Both subroutines solve a system of linear equations of the form AN(J)*X(I,J-1) + AM(I)*X(I-1,J) + (BN(J)+BM(I))*X(I,J) + CN(J)*X(I,J+1) + CM(I)*X(I+1,J) = Y(I,J) For I = 1,2,...,M and J = 1,2,...,N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IERROR` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | IERROR An error flag that indicates invalid input parameters. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `W` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Certain quantities that depend on NP, N, AN, BN, and CN are computed and stored in the work array W. | none stated in the separable source sentence Leading dimension: not established Workspace: Certain quantities that depend on NP, N, AN, BN, and CN are computed and stored in the work array W. | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::pde::fishpack::complex::cblktr`. Native symbol: `cblktr_`. Feature: `fishpack-complex`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_i32,mut_i32,mut_f32_array_rank1,mut_f32_array_rank1,mut_f32_array_rank1,mut_i32,mut_i32,mut_complex32_array_rank1,mut_complex32_array_rank1,mut_complex32_array_rank1,mut_i32,mut_complex32_array_rank2,mut_i32,mut_f32_array_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `batch_c_automated_public`
+- Public raw API status: `canonical-public`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::pde::fishpack::complex::cblktr`
-- Current legacy Rust paths: `none`
-- Public declaration feature: `batch-c-fishpack`
+- Compatibility aliases: `none`
+- Public declaration feature: `fishpack-complex`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `representative_batch_smoke_only`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

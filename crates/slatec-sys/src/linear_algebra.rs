@@ -1,33 +1,88 @@
 //! Canonical generated raw linear-algebra declarations.
 //!
-//! Batch A owns the straightforward non-callback declarations. Batch B adds
-//! source-verified sparse iterative callback drivers under an explicit callback
-//! namespace.
-//! Batch C adds compiler-validated complex LINPACK interfaces.
+//! The namespace separates real and complex dense, banded, packed, sparse,
+//! iterative, and eigenproblem interfaces without exposing ABI-generation
+//! details.
 
-#[cfg(feature = "raw-family-batch-a-linear-algebra")]
+#[cfg(feature = "raw-family-linear-algebra-real")]
 #[path = "batch_a/linear_algebra.rs"]
-mod batch_a;
+mod canonical_bindings;
 
-#[cfg(feature = "raw-family-batch-b-linear-algebra")]
+#[cfg(feature = "raw-family-linear-algebra-eigen")]
+#[path = "batch_a/eigen.rs"]
+mod canonical_eigen_bindings;
+
+#[cfg(feature = "raw-family-linear-algebra-iterative")]
 #[path = "batch_b/linear_algebra.rs"]
-mod batch_b;
+mod callback_bindings;
 
 /// Dense real and complex linear-algebra interfaces.
 #[cfg(any(
-    feature = "raw-family-batch-a-linear-algebra",
-    feature = "raw-family-batch-c-linear-algebra"
+    feature = "raw-family-linear-algebra-real",
+    feature = "raw-family-linear-algebra-complex"
 ))]
 pub mod dense {
-    #[cfg(feature = "raw-family-batch-a-linear-algebra")]
-    pub use super::batch_a::dense::*;
+    #[cfg(feature = "raw-family-linear-algebra-real")]
+    pub use super::canonical_bindings::dense::*;
 
-    /// Complex LINPACK and related dense-system interfaces promoted by Batch C.
-    #[cfg(feature = "raw-family-batch-c-linear-algebra")]
+    /// Complex LINPACK and related dense-system interfaces.
+    #[cfg(feature = "raw-family-linear-algebra-complex")]
     pub mod complex {
-        pub use crate::batch_c::linear_algebra::*;
+        pub use crate::abi_bindings::linear_algebra::dense::*;
+
+        #[deprecated(note = "use `slatec_sys::linear_algebra::banded::complex`")]
+        pub use crate::abi_bindings::linear_algebra::banded::*;
+        #[deprecated(note = "use `slatec_sys::linear_algebra::packed::complex`")]
+        pub use crate::abi_bindings::linear_algebra::packed::*;
     }
 }
 
-#[cfg(feature = "raw-family-batch-b-linear-algebra")]
-pub use batch_b::sparse;
+/// Banded-storage linear systems.
+#[cfg(any(
+    feature = "raw-family-linear-algebra-real",
+    feature = "raw-family-linear-algebra-complex"
+))]
+pub mod banded {
+    #[cfg(feature = "raw-family-linear-algebra-real")]
+    pub use super::canonical_bindings::banded::*;
+
+    /// Complex banded-system interfaces.
+    #[cfg(feature = "raw-family-linear-algebra-complex")]
+    pub mod complex {
+        pub use crate::abi_bindings::linear_algebra::banded::*;
+    }
+}
+
+/// Packed-storage linear systems.
+#[cfg(any(
+    feature = "raw-family-linear-algebra-real",
+    feature = "raw-family-linear-algebra-complex"
+))]
+pub mod packed {
+    #[cfg(feature = "raw-family-linear-algebra-real")]
+    pub use super::canonical_bindings::packed::*;
+
+    /// Complex packed-system interfaces.
+    #[cfg(feature = "raw-family-linear-algebra-complex")]
+    pub mod complex {
+        pub use crate::abi_bindings::linear_algebra::packed::*;
+    }
+}
+
+/// Sparse and callback-driven iterative linear algebra.
+#[cfg(any(
+    feature = "raw-family-linear-algebra-real",
+    feature = "raw-family-linear-algebra-iterative"
+))]
+pub mod sparse {
+    #[cfg(feature = "raw-family-linear-algebra-real")]
+    pub use super::canonical_bindings::sparse::*;
+    #[cfg(feature = "raw-family-linear-algebra-iterative")]
+    pub use super::callback_bindings::sparse::*;
+}
+
+/// Eigenvalue and eigenvector routines.
+#[cfg(feature = "raw-family-linear-algebra-eigen")]
+pub mod eigen {
+    pub use super::canonical_eigen_bindings::*;
+}

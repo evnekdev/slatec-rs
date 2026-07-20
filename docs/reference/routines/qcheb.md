@@ -1,6 +1,6 @@
 # QCHEB
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Numerical quadrature](../families/numerical-quadrature.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -49,22 +49,42 @@ Chebyshev Series Expansion Standard Fortran Subroutine Real version PARAMETERS O
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [Numerical quadrature](../families/numerical-quadrature.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `X` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (11) | Chebyshev Series Expansion Standard Fortran Subroutine Real version PARAMETERS ON ENTRY X - Real Vector of dimension 11 containing the Values COS(K*PI/24), K = 1, ..., 11 FVAL - Real Vector of dimension 25 containing the function values at the points (B+A+(B-A)*COS(K*PI/24))/2, K = 0, ...,24, where (A,B) is the approximation interval. | Chebyshev Series Expansion Standard Fortran Subroutine Real version PARAMETERS ON ENTRY X - Real Vector of dimension 11 containing the Values COS(K*PI/24), K = 1, ..., 11 FVAL - Real Vector of dimension 25 containing the function values at the points (B+A+(B-A)*COS(K*PI/24))/2, K = 0, ...,24, where (A,B) is the approximation interval. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `FVAL` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (25) | Chebyshev Series Expansion Standard Fortran Subroutine Real version PARAMETERS ON ENTRY X - Real Vector of dimension 11 containing the Values COS(K*PI/24), K = 1, ..., 11 FVAL - Real Vector of dimension 25 containing the function values at the points (B+A+(B-A)*COS(K*PI/24))/2, K = 0, ...,24, where (A,B) is the approximation interval. | Chebyshev Series Expansion Standard Fortran Subroutine Real version PARAMETERS ON ENTRY X - Real Vector of dimension 11 containing the Values COS(K*PI/24), K = 1, ..., 11 FVAL - Real Vector of dimension 25 containing the function values at the points (B+A+(B-A)*COS(K*PI/24))/2, K = 0, ...,24, where (A,B) is the approximation interval. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CHEB12` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (13) | ON RETURN CHEB12 - Real Vector of dimension 13 containing the CHEBYSHEV coefficients for degree 12 CHEB24 - Real Vector of dimension 25 containing the CHEBYSHEV Coefficients for degree 24 | ON RETURN CHEB12 - Real Vector of dimension 13 containing the CHEBYSHEV coefficients for degree 12 CHEB24 - Real Vector of dimension 25 containing the CHEBYSHEV Coefficients for degree 24 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CHEB24` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (25) | ON RETURN CHEB12 - Real Vector of dimension 13 containing the CHEBYSHEV coefficients for degree 12 CHEB24 - Real Vector of dimension 25 containing the CHEBYSHEV Coefficients for degree 24 | ON RETURN CHEB12 - Real Vector of dimension 13 containing the CHEBYSHEV coefficients for degree 12 CHEB24 - Real Vector of dimension 25 containing the CHEBYSHEV Coefficients for degree 24 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

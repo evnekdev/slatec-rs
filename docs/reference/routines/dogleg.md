@@ -1,6 +1,6 @@
 # DOGLEG
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Nonlinear equations](../families/nonlinear-equations.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,47 @@ Given an M by N matrix A, an N by N nonsingular DIAGONAL matrix D, an M-vector B
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [Nonlinear equations](../families/nonlinear-equations.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Given an M by N matrix A, an N by N nonsingular DIAGONAL matrix D, an M-vector B, and a positive number DELTA, the problem is to determine the convex combination X of the Gauss-Newton and scaled gradient directions that minimizes (A*X - B) in the least squares sense, subject to the restriction that the Euclidean norm of D*X be at most DELTA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `R` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (LR) | That is, if A = Q*R, where Q has orthogonal columns and R is an upper triangular matrix, then DOGLEG expects the full upper triangle of R and the first N components of (Q TRANSPOSE)*B. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `LR` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The subroutine statement is SUBROUTINE DOGLEG(N,R,LR,DIAG,QTB,DELTA,X,WA1,WA2) where N is a positive integer input variable set to the order of R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `DIAG` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | The subroutine statement is SUBROUTINE DOGLEG(N,R,LR,DIAG,QTB,DELTA,X,WA1,WA2) where N is a positive integer input variable set to the order of R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `QTB` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | The subroutine statement is SUBROUTINE DOGLEG(N,R,LR,DIAG,QTB,DELTA,X,WA1,WA2) where N is a positive integer input variable set to the order of R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `DELTA` | input | `REAL` (`explicit`) | `*mut f32` | scalar | Given an M by N matrix A, an N by N nonsingular DIAGONAL matrix D, an M-vector B, and a positive number DELTA, the problem is to determine the convex combination X of the Gauss-Newton and scaled gradient directions that minimizes (A*X - B) in the least squares sense, subject to the restriction that the Euclidean norm of D*X be at most DELTA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `X` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | Given an M by N matrix A, an N by N nonsingular DIAGONAL matrix D, an M-vector B, and a positive number DELTA, the problem is to determine the convex combination X of the Gauss-Newton and scaled gradient directions that minimizes (A*X - B) in the least squares sense, subject to the restriction that the Euclidean norm of D*X be at most DELTA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WA1` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | The subroutine statement is SUBROUTINE DOGLEG(N,R,LR,DIAG,QTB,DELTA,X,WA1,WA2) where N is a positive integer input variable set to the order of R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WA2` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | The subroutine statement is SUBROUTINE DOGLEG(N,R,LR,DIAG,QTB,DELTA,X,WA1,WA2) where N is a positive integer input variable set to the order of R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

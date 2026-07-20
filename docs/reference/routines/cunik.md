@@ -1,6 +1,6 @@
 # CUNIK
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Special functions](../families/special-functions.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,49 @@ CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K F
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [Special functions](../families/special-functions.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `ZR` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `FNU` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IKFLG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IPMTR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | IPMTR=0 COMPUTES ALL PARAMETERS. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `TOL` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `INIT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `PHI` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ZETA1` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ZETA2` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `SUM` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | scalar | CUNIK COMPUTES PARAMETERS FOR THE UNIFORM ASYMPTOTIC EXPANSIONS OF THE I AND K FUNCTIONS ON IKFLG= 1 OR 2 RESPECTIVELY BY W(FNU,ZR) = PHI*EXP(ZETA)*SUM WHERE ZETA=-ZETA1 + ZETA2 OR ZETA1 - ZETA2 THE FIRST CALL MUST HAVE INIT=0. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `CWRK` | workspace | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (16) | CWRK IS A COMPLEX WORK ARRAY. | none stated in the separable source sentence Leading dimension: not established Workspace: CWRK IS A COMPLEX WORK ARRAY. | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-complex-arguments`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

@@ -1,344 +1,222 @@
 # `slatec-sys` public raw API
 
-## Goal and evidence boundary
+## Purpose and evidence boundary
 
-`slatec-sys` is the unsafe, profile-specific Rust boundary for feasible SLATEC
-program units. It does not download, compile, or bundle Fortran. A callable
-routine is only stable after the raw API inventory records a selected provider,
-source hash, native symbol, reviewed declaration, canonical Rust path, feature
-and provider feature, routine and argument documentation, and the required
-validation evidence.
+`slatec-sys` is the unsafe, provider-neutral Rust declaration layer for feasible
+SLATEC program units. It does not download, compile, bundle, select, or link a
+Fortran implementation. Provider selection belongs to `slatec-src` or to the
+final application.
 
-The generator creates exactly one record for every retained catalogue identity:
-[`generated/raw-api/routine-status.json`](../../generated/raw-api/routine-status.json).
-It replaces the ambiguous historical aggregate with separate,
-reproducible coverage metrics in
-[`coverage-summary.json`](../../generated/raw-api/coverage-summary.json).
+The authoritative inventory contains exactly one record for each of the 1,517
+retained identities. It distinguishes 812 canonical public raw routines from
+compatibility aliases, generated candidates, provider subsidiaries, support
+units, and permanent exclusions. Compatibility aliases are paths, not new
+functions. Current counts and evidence are generated under
+[`generated/raw-api`](../../generated/raw-api/) and
+[`generated/public-api`](../../generated/public-api/).
 
-The currently supported ABI is the observed GNU Fortran
-`x86_64-w64-mingw32` profile, exposed by
-`ffi-profile-gnu-mingw-x86_64`. It is not a portability promise. `INTEGER` and
-`LOGICAL` are `i32`; hidden CHARACTER lengths use `usize`; and the observed
-lowercase-underscore symbol spelling is part of the profile evidence.
+## Supported ABI profile
 
-## Status model
+The currently validated native profile is GNU Fortran on
+`x86_64-pc-windows-gnu`, selected by `ffi-profile-gnu-mingw-x86_64`.
+`INTEGER` and `LOGICAL` use 32-bit storage, `LOGICAL` is not Rust `bool`, hidden
+`CHARACTER` lengths use `usize`, and observed native names use the
+lowercase-underscore convention. Complex argument and return layouts and
+callback signatures are accepted only when compiler and selected-source
+evidence agree. This profile is not a portability promise.
 
-Every record has one `raw_api_state`. The finite states distinguish reviewed
-drivers and subsidiaries from generated candidates, ABI-validated generated
-declarations, source-present-but-unbound routines, callback and special-return
-ABI blockers, conflicting/ambiguous/missing symbols, non-callable subsidiaries,
-runtime support, block data, documentation/tooling entries, external
-dependencies, and catalogue-only identities. The machine-readable enumeration
-is `reviewed_public_driver`, `reviewed_public_subsidiary`,
-`batch_a_public_driver`, `batch_b_public_driver`, `batch_c_public_driver`,
-`batch_d_public_driver`,
-`generated_candidate`, `generated_abi_validated`, `source_present_unbound`,
-`unsupported_callback_abi`, `unsupported_complex_return_abi`,
-`unsupported_character_return_abi`, `unsupported_entry_or_alternate_return`,
-`conflicting_interface`, `ambiguous_symbol`, `missing_symbol`,
-`not_independently_callable`, `runtime_or_machine_support`, `block_data`,
-`documentation_or_tooling`, `catalogue_only`, and `external_dependency`.
+## One declaration owner
 
-`generated_abi_validated` says that a declaration shape belongs to a successful
-compiler/profile batch. It does **not** say that its callback lifetime, pointer
-semantics, workspace, error handling, or public documentation have been
-reviewed. Only the hash-guarded authored correction layer can emit
-`reviewed_public_driver` or `reviewed_public_subsidiary`.
-
-`batch_a_public_driver` is a separate, generated stability tier for a
-historically user-callable, non-callback numerical ABI. It has an exact source
-hash, parsed ABI fingerprint, observed symbol, canonical path, provider
-closure, generated argument/Safety contract, and bulk compile/link evidence.
-It is not hand-reviewed semantic documentation and is never counted as a
-`reviewed_*` declaration. The full policy and regeneration workflow are in
-[Batch A raw interfaces](../api/raw-batch-a.md).
-
-`batch_b_public_driver` is the matching generated stability tier for
-callback-bearing historically public routines whose outer ABI and callback ABI
-are both reconstructed from selected fixed-form source. It records callback
-fingerprints, forwarding evidence, canonical paths, features, source hashes,
-compile probes, and native link probes. It is still an unsafe raw tier: it does
-not create safe Rust closures, user-data trampolines, panic containment, or
-full semantic argument review. See
-[Batch B callback-bearing raw interfaces](../api/raw-batch-b-callbacks.md).
-
-`batch_c_public_driver` is the generated stability tier for complex numerical
-and simple flag-bearing interfaces. Promotion requires independent evidence for
-every complex, fixed `CHARACTER*1`, `LOGICAL`, and callback constituent, plus a
-selected source hash, unique symbol, canonical path, exact provider closure,
-generated unsafe documentation, and bulk compile/link evidence. Complex returns
-use only the compiler-probed GNU MinGW convention; raw logical values remain
-explicit `i32` ABI values rather than Rust `bool`. See
-[Batch C complex and flag-bearing interfaces](../api/raw-batch-c-complex-character-logical.md).
-
-`batch_d_public_driver` requalifies a pre-existing mathematical-family
-declaration against its selected source hash, observed native symbol, existing
-unsafe Rustdoc and safe-wrapper audit, feature/provider mapping, and native
-family regressions. Batch D does not emit a second declaration. It also assigns
-one terminal disposition to every retained non-public identity; see the
-[final coverage and disposition guide](../api/raw-api-final-coverage.md).
-
-## Canonical namespace
-
-The long-term taxonomy is:
+Every public native symbol has exactly one authoritative Rust `extern`
+declaration in a private implementation module. User-facing mathematical
+modules and deprecated compatibility namespaces only re-export that item:
 
 ```text
-blas                         linear_algebra::{dense,banded,packed,sparse}
-eigen                        roots::{scalar,polynomial}
-nonlinear                    least_squares
-optimization                 quadrature
-ode                           dae
-pde::fishpack                fftpack
-interpolation                approximation
-special                      statistics
-integral_equations           runtime
+private authoritative declaration
+            -> canonical mathematical re-export
+            -> optional deprecated compatibility re-export
 ```
 
-`module-taxonomy.json` maps every retained identity to one intended module.
-R1 creates only the namespaces needed for reviewed paths:
+Feature combinations control reachability, never declaration ownership. The
+same symbol cannot be rendered independently by a canonical module, an
+ABI-shaped compatibility module, or a compile probe. The generated
+[`ffi-declaration-ownership.json`](../../generated/public-api/ffi-declaration-ownership.json)
+records the declaration path, canonical path, aliases, ABI fingerprint, feature
+gates, and declaration count. Validation rejects duplicate link names,
+incompatible signatures, canonical or compatibility `extern` blocks, and
+aliases that inflate routine counts.
 
-```rust
-slatec_sys::roots::scalar::{fzero, dfzero}
-slatec_sys::pde::fishpack::{hwscrt, pois3d}
-```
+Complete routine documentation is attached to the authoritative declaration
+and rendered through the canonical re-export. Compatibility paths carry only
+their replacement guidance; they do not maintain a second ABI contract.
 
-R2A additionally establishes stable public BLAS paths:
+## Canonical mathematical namespace
 
-```rust
-slatec_sys::blas::level1::daxpy
-slatec_sys::blas::level2::dgemv
-slatec_sys::blas::level3::dgemm
-```
-
-R2B establishes reviewed scalar special-function paths without changing the
-existing safe facade:
-
-```rust
-slatec_sys::special::elementary::dlnrel
-slatec_sys::special::gamma::dgamma
-slatec_sys::special::beta::dbetai
-slatec_sys::special::error::derfc
-```
-
-R2C adds the reviewed real FNLIB Airy drivers under one canonical module:
-
-```rust
-slatec_sys::special::airy::{ai, aie, bi, bie, dai, daie, dbi, dbie}
-```
-
-The earlier `slatec_sys::families::special_airy::*` items remain compatibility
-re-exports of those declarations. Complex Amos Airy drivers and Airy
-subsidiaries are reported explicitly, but are not promoted by the real-scalar
-review.
-
-Batch A extends the existing taxonomy with generated canonical numerical
-submodules where required, including `linear_algebra::dense`, `eigen::numerical`,
-`quadrature::numerical`, `interpolation::numerical`, `fftpack::numerical`,
-`pde::fishpack::numerical`, `ode::numerical`, `approximation::numerical`,
-`statistics::numerical`, and `special::numerical`. The direct paths are stable
-within the Batch A evidence boundary; `generated::*` remains transitional.
-
-Batch B adds generated callback namespaces where the callback ABI has been
-source-reconstructed:
-
-```rust
-slatec_sys::quadrature::callbacks::qk15
-slatec_sys::linear_algebra::sparse::callbacks::scg
-slatec_sys::ode::callbacks::derkf
-```
-
-These paths are stable within the Batch B evidence boundary. They remain raw
-FFI declarations: a Rust callback must be ABI-compatible, must not unwind
-across native code, and must manage any captured state outside the declaration.
-
-Batch C adds `complex` submodules inside the established mathematical taxonomy,
-including `linear_algebra::dense::complex`, `special::complex`,
-`nonlinear::complex`, and `pde::fishpack::complex`, while complex BLAS entries
-remain at their conventional BLAS levels. The private generated owner is not a
-user-facing `batch_c` namespace.
-
-The complete feasible BLAS set is generated from the source-hash-guarded
-family-review policy rather than copied into hand-written `extern` blocks.
-Each canonical item re-exports the single ABI-shaped generated declaration;
-`slatec_sys::families::blas_level{1,2,3}` are compatibility re-exports of
-that same item. The public surface therefore has no duplicate declarations.
-The companion [`blas-family-report.json`](../../generated/raw-api/blas-family-report.json)
-records all retained BLAS classifications, including the Batch C promotion of
-complex-return functions, non-BLAS multiprecision subsidiaries, and
-catalogue-only entries.
-
-The legacy `slatec_sys::roots::{fzero,dfzero}`,
-`slatec_sys::fishpack_cartesian_2d::hwscrt`, and
-`slatec_sys::fishpack_pois3d::pois3d` paths are compatibility re-exports. A
-routine has one declaration: compatibility paths re-export it and never add a
-second `extern` item.
-
-Drivers are organized before subsidiaries. The recorded roles are historically
-user-callable driver, expert public primitive, internal subsidiary, shared
-utility, runtime support, and not independently callable. Future promoted
-subsidiaries belong below an explicit `subsidiary` namespace rather than beside
-principal drivers.
-
-## Documentation and correction contract
-
-Every reviewed raw declaration must have a one-sentence purpose, original
-routine name, precision, mathematical operation, selected source/provider,
-supported ABI profile, native symbol, complete argument list, I/O and mutation
-semantics, array extents and leading dimensions, workspace rules, callback
-contract where relevant, status meanings, global-state notes, and a `# Safety`
-section. Pointer arguments explicitly state nullability, readable/writable
-extent, direction, aliasing, and retention. Missing intent is recorded as
-unavailable rather than inferred from an argument name.
-
-Documentation fields record evidence as `source_prologue`,
-`executable_declaration`, `selected_provider_metadata`,
-`compiler_observation`, `authored_override`, `safe_wrapper_audit`, or
-`unavailable`. The deterministic correction registry is
-[`metadata/raw-api-corrections.json`](../../metadata/raw-api-corrections.json).
-It is intentionally small, keyed by stable identity and selected source SHA-256,
-and generation rejects it when the source hash or executable argument order
-changes.
-
-The deterministic documentation audit reports public extern declarations,
-routine and argument documentation, Safety sections, source links, ABI-profile
-statements, and exact missing fields. The raw API review queue is therefore a
-work plan, not generated prose with guessed semantics.
-
-## Features, providers, and validation
-
-The raw declaration feature in `slatec-sys`, the native closure feature in
-`slatec-src`, and an optional safe facade feature in `slatec` are joined in
-[`feature-provider-map.json`](../../generated/raw-api/feature-provider-map.json).
-Reviewed records fail validation when any required feature is absent. A raw
-consumer may use `slatec-sys` with an explicit external provider; `slatec-sys`
-does not select a backend implicitly.
-
-Batch A records the same raw/provider relationship using coherent
-`batch-a-*` closures. Those closure features are provider-only selectors; they
-do not turn the declaration-only `slatec-sys/all` feature into a native backend.
-Batch B records `batch-b-*` declaration features with matching coherent
-provider features for the source families that own the callbacks. The initial
-provider mapping is `batch-b-quadrature` to `slatec-src/quadrature`,
-`batch-b-linear-algebra` to `slatec-src/linear-algebra`, and `batch-b-ode` to
-`slatec-src/ode`.
-Batch C uses five coherent mathematical declaration/provider pairs:
-`batch-c-blas`, `batch-c-linear-algebra`, `batch-c-special`,
-`batch-c-nonlinear`, and `batch-c-fishpack`. Their exact source closures are
-generated from candidate roots and compiler-observed dependencies.
-Batch D reuses the existing declaration and provider family features for its 36
-requalified drivers. It creates no per-routine feature and does not expand a
-native source closure merely to increase the public count.
-
-The public `all` feature directly names every authored public mathematical
-family aggregate. It is declaration-only: provider/backend, profile-only,
-ABI-shaped generated, raw-family, compatibility, and test-only switches are
-not direct members. The generated
-[`all-feature-coverage.json`](../../generated/raw-api/all-feature-coverage.json)
-checks that the registry and Cargo feature graph have no missing or unexpected
-aggregate members. A reviewed record also states whether its declaration
-feature is transitively reached by `all`.
-
-Validation levels are separate: source/hash and catalogue checks, compiler and
-symbol observation, declaration signature audit, compile-only canonical-path
-imports, native link validation, runtime validation, and safe-wrapper tests.
-The R1 command is:
+Preferred paths describe mathematics, storage, or problem structure:
 
 ```text
-cargo run -p slatec-tools --bin slatec-corpus -- generate-raw-api-inventory --offline
-cargo run -p slatec-tools --bin slatec-corpus -- validate-raw-api-inventory --offline
+slatec_sys::blas::{level1,level2,level3}
+slatec_sys::linear_algebra::{dense,banded,packed,sparse,eigen}
+slatec_sys::roots::{scalar,polynomial}
+slatec_sys::nonlinear
+slatec_sys::least_squares
+slatec_sys::optimization
+slatec_sys::quadrature
+slatec_sys::ode
+slatec_sys::dae
+slatec_sys::pde::fishpack
+slatec_sys::fftpack
+slatec_sys::interpolation
+slatec_sys::approximation
+slatec_sys::special
+slatec_sys::statistics
+slatec_sys::integral_equations
+slatec_sys::runtime
 ```
 
-Validation rejects a reviewed entry lacking its source hash, unique observed
-symbol, executable argument order, ABI/profile evidence, unique canonical path,
-raw and provider feature, complete docs, or required link/runtime status.
-Batch A has an analogous validator for its narrower generated-contract bar,
-including candidate source-hash stability, canonical-path uniqueness, feature
-coverage, exact provider-closure membership, and every generated Rustdoc
-argument/Safety/source-link marker.
-Batch B validation adds callback-specific invariants: every promoted routine
-must have at least one callback ABI fingerprint, callback evidence must come
-from direct or forwarded source calls, unresolved or conflicting callback
-signatures are excluded, and the generated compile/link probes must import or
-reference every promoted canonical path.
-Batch C additionally requires controlled and selected-source compiler probes
-for complex layout and returns, character hidden lengths, and logical values.
-Its validator rejects long strings, unresolved combinations, missing provider
-closure members, incompatible fingerprints, and duplicate canonical paths.
-The final Batch D validator additionally rejects missing or multiple terminal
-dispositions, duplicate symbols or public paths, public records without
-compile/link evidence, callable PROGRAM units, false missing-symbol link
-claims, evidence-free exclusions, and Batch A-C count regressions.
+Storage classes `dense`, `banded`, `packed`, and `sparse` are siblings.
+Eigenvalue problems live under `linear_algebra::eigen`; meaningful subfamilies
+are introduced only when the corpus supports them. Empty navigation layers such
+as `numerical`, `general`, or `misc` are not canonical concepts.
 
-## Stability and transition policy
+Examples include:
 
-For `0.1.x`, reviewed canonical paths and routine names do not move. Features
-are additive where practical and path corrections retain compatibility
-re-exports. Evidence-proven ABI corrections may change a signature because an
-incorrect FFI declaration is a safety bug. The ABI-shaped
-`slatec_sys::generated` namespace remains available during 0.x, but is
-transitional, unstable, and never the sole stable path for a promoted routine.
+```rust
+slatec_sys::linear_algebra::eigen::imtql2
+slatec_sys::special::bessel::besj0
+slatec_sys::quadrature::avint
+slatec_sys::pde::fishpack::pois3d
+```
 
-An excluded identity has a machine-readable reason and reopen condition. Batch
-D replaces an open-ended promotion queue with the final disposition reports:
-new source, provider, compiler, callback, or public-role evidence must
-explicitly reopen and regenerate a decision. `roots-family-report.json` remains
-the detailed roots evidence; HWSCRT and POIS3D remain tracked reviewed drivers
-with their selected closures and native regression evidence.
+Every renamed pre-release path remains a deprecated re-export when it was an
+established user-visible path. A compatibility path always resolves to the same
+Rust item and native symbol as the canonical path.
 
-## BLAS R2A evidence and ABI boundary
+## Public status and role model
 
-The reviewed BLAS policy covers 121 historically user-callable subroutines
-whose GNU Fortran declaration shapes and native symbols were validated in the
-numeric-scalar, numeric-array, scalar-function, complex-argument, and
-CHARACTER ABI batches. The policy is keyed to a manifest of selected provider
-source hashes; any source drift stops regeneration before a reviewed path can
-be emitted.
+User-facing reports use stable status terms:
 
-BLAS character options are native one-byte CHARACTER buffers followed by the
-compiler-observed trailing hidden length values (`FortranCharacterLength`), in
-visible argument order. `Complex32` documents the selected GNU Fortran
-COMPLEX storage record. The three complex-return functions are deliberately
-outside the R2A reviewed tier; Batch C later declares them after establishing
-the correct Rust return ABI with controlled and selected-source probes.
-Routine documentation is generated from verified prologue facts plus a small
-authored BLAS operation template, and its audit checks every exported routine,
-argument, source link, ABI statement, and `# Safety` section.
+- `canonical-public`: callable raw routine with a canonical path and complete
+  required structural evidence;
+- `compatibility-alias`: deprecated path to a canonical item;
+- `internal-subsidiary`: provider routine not promoted as a principal API;
+- `support-routine`: runtime, error, machine, or block-data support;
+- `historical-program`: demonstration or historical driver not exposed as a
+  callable raw function;
+- `missing-symbol`: retained identity with no verified native symbol;
+- `unsupported-abi`: callable intent exists but the ABI cannot be represented
+  confidently on the supported profile.
 
-## Scalar special foundations R2B evidence and ABI boundary
+Internal generator provenance may retain finer historical classifications, but
+those values are not public API taxonomy.
 
-The source-hash-guarded R2B policy promotes exactly 40 feasible, historically
-user-callable scalar routines in four groups: elementary (12), gamma (18),
-beta (6), and error (4). Each re-exports one validated generated declaration
-under `slatec_sys::special::{elementary,gamma,beta,error}`; the former
-`families::special_*` paths remain compatibility re-exports, not second FFI
-declarations. The candidate report records every target routine, source hash,
-provider, symbol, prior family path, safe-wrapper audit, disposition, and
-deferment reason.
+Roles are recorded separately as historically user-callable driver, expert
+public primitive, internal subsidiary, shared utility, runtime support, or not
+independently callable. Drivers are prioritized in family navigation.
+Subsidiaries remain visually and structurally separate and are never hidden
+merely because no safe wrapper uses them.
 
-These are direct scalar-return functions for the supported GNU MinGW ABI;
-their scalar input pointers are non-null, readable, non-retained, and
-read-only. Documentation derives domain and XERROR facts from selected source
-prologues plus focused authored metadata. FNLIB saves initialization state and
-legacy error controls are process-global; the raw binding deliberately makes
-no thread-safety claim. `GAMR`/`DGAMR` additionally use XGETF/XSETF/XERCLR and
-must be serialized with other consumers of the legacy error runtime. Other
-special domains, complex returns, callback-bearing interfaces, and unresolved
-semantics remain unpromoted.
+## Generated and reviewed declarations
 
-## Real Airy R2C evidence and ABI boundary
+Compiler-observed generated candidates are factual ABI evidence, not a claim of
+semantic review. A routine becomes canonical public only after its selected
+provider, source hash, unique symbol, normalized signature, canonical path,
+feature, provider mapping, documentation, and required structural/link evidence
+pass validation.
 
-The source-hash-guarded R2C policy promotes exactly eight historically
-user-callable real FNLIB scalar functions: single- and double-precision Ai,
-Bi, and their exponentially scaled forms. Each accepts one real scalar by
-address and returns its real result directly under the observed GNU MinGW ABI.
-The generated Rustdoc records the selected source and symbol, scaling formula,
-XERROR range behavior for unscaled functions, FNLIB global-state caveat, and
-the complete raw pointer contract.
+`slatec_sys::generated` is a transitional ABI-shaped compatibility namespace.
+It remains available during the 0.x transition, but its paths are unstable
+unless separately promoted to a canonical mathematical module. It must never
+be the only path for a routine described as stable.
 
-The canonical `special::airy` declarations re-export the one existing
-compiler-observed `families::special_airy` declaration; no duplicate `extern`
-block is introduced. `airy-family-report.json` covers the eight reviewed real
-drivers alongside CAIRY/CBIRY/ZAIRY/ZBIRY and direct Airy helpers, which remain
-deferred pending their complex or subsidiary-contract review. The direct raw
-link probe imports all eight real symbols, while the safe facade keeps its
-existing public `slatec::special::airy` paths and serializes FNLIB calls.
+## Documentation contract
+
+Every canonical public raw routine records:
+
+- one-sentence purpose, meaningful description, original routine name,
+  precision, mathematical operation, selected provider, source hash, native
+  symbol, feature, supported ABI profile, and ABI fingerprint;
+- an ordered argument record with Fortran type, Rust raw type, scalar/array
+  shape, dimensions, direction, semantic description, ranges or options,
+  relationships, leading-dimension rules, workspace rules, and nullability;
+- a return-value section for functions and a callback contract where relevant;
+- mutation, aliasing, pointer-retention, global-state, serialization, status,
+  and error-code obligations; and
+- a `Safety` section.
+
+Compiler/interface facts are kept separate from source-prologue semantics.
+Unknown intent, aliasing, retention, workspace, or dimension relationships are
+reported explicitly and are never guessed from an argument name.
+
+Documentation quality is not a boolean. The generated levels are
+`complete_structured`, `complete_unstructured`, `purpose_only`,
+`argument_contract_incomplete`, `mangled_source_prologue`,
+`subsidiary_minimal`, `support_unit_minimal`, and `unavailable`. Public routines
+must have a meaningful description and a structured row for every argument;
+remaining source-semantic gaps stay visible in the review queue.
+
+Narrow authored corrections live in source-hash-guarded metadata. Generation
+rejects an override when the selected source hash changes. Large generated Rust
+or Markdown outputs are never edited by hand.
+
+## Features and providers
+
+Public `slatec-sys` features use mathematical family names and expose
+declarations only. `slatec-sys/all` is the additive declaration aggregate and
+does not select a provider. `slatec-src` owns provider selection and the Cargo
+`links = "slatec"` namespace; `slatec-sys` has no build script or `links`
+identity. A final application can instead provide compatible native symbols
+through an external backend.
+
+The feature/provider reconciliation joins raw declaration features, provider
+closure features, optional safe-facade features, and aggregate membership. It
+rejects missing or wrong closures, duplicate providers, orphan declaration
+features, and provider features with no public routine.
+
+## Validation levels
+
+Validation evidence is deliberately separated:
+
+1. catalogue identity, selected provider, and source-hash validation;
+2. compiler-observed program unit, ABI category, argument order, and symbol;
+3. unique authoritative extern ownership and ABI fingerprint;
+4. compile-only canonical and compatibility path checks across narrow, legacy,
+   combined, all-feature, and no-default-feature configurations;
+5. native link probes for provider-backed declarations;
+6. representative runtime tests and safe-wrapper regressions;
+7. routine, argument, callback, return, and Safety documentation audits;
+8. catalogue/export/family/alphabetical-index reconciliation;
+9. deterministic same-root and clean-root regeneration; and
+10. package-content, publication-graph, license-boundary, and downstream
+    consumer checks.
+
+No native command is reported as passed unless it ran in the stated
+environment. The GNU MinGW profile has the strongest native validation;
+portable CI exercises declaration, documentation, package, and provider-neutral
+checks without pretending to validate native numerical behavior.
+
+## Exclusions
+
+Every non-public retained identity has a terminal, machine-readable disposition
+and a reopen condition. Exclusions distinguish subsidiaries and support units
+from missing symbols, callback or special-return ABI blockers, entry or
+alternate-return interfaces, compiler-specific behavior, Fortran I/O, external
+dependencies, demonstrations, and catalogue-only records. New source,
+provider, compiler, role, or ABI evidence may reopen a decision; routine counts
+do not.
+
+## Stability and release policy
+
+For `0.1.x`, canonical reviewed paths and routine names should not move.
+Features are additive where practical, and path corrections retain deprecated
+compatibility re-exports. Evidence-proven signature corrections are permitted
+because an incorrect unsafe declaration is a safety and correctness bug.
+Generated implementation paths are not stable merely because they compile.
+
+Initial-release readiness requires all retained identities to reconcile, every
+canonical path to resolve to one authoritative declaration, all public argument
+rows and Safety contracts to pass audit, provider and package graphs to be
+coherent, generated artifacts to reproduce deterministically, package contents
+to exclude unresolved source and binary redistribution, and the documented
+portable and GNU MinGW validation matrices to pass. The release process does
+not imply that all raw routines have safe wrappers or runtime tests.

@@ -1055,16 +1055,16 @@ pub mod airy {
     pub use crate::families::special_airy::dbie;
 }
 
-#[cfg(feature = "raw-family-batch-a-special")]
+#[cfg(feature = "raw-family-special-real")]
 #[path = "batch_a/special.rs"]
-mod batch_a;
+mod canonical_bindings;
 
-/// Canonical source-verified Batch A special-function declarations.
-#[cfg(feature = "raw-family-batch-a-special")]
-pub use batch_a::numerical;
+/// Canonical source-verified real special-function declarations.
+#[cfg(feature = "raw-family-special-real")]
+pub use canonical_bindings::*;
 
-/// Complex special-function interfaces promoted by Batch C.
-#[cfg(feature = "raw-family-batch-c-special")]
+/// Complex-valued special-function interfaces.
+#[cfg(feature = "raw-family-special-complex")]
 pub mod complex {
-    pub use crate::batch_c::special::*;
+    pub use crate::abi_bindings::special::*;
 }

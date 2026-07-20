@@ -1,6 +1,6 @@
 # SEPELI
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: FISHPACK elliptic PDE solvers](../families/fishpack-elliptic-pde-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -49,22 +49,68 @@ Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), G
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `mangled_source_prologue`
+- Description provenance: `source_prologue`
+- Assessment: mechanical source-prologue checks found text that requires a documented repair or review
+- Dedicated family page: [FISHPACK elliptic PDE solvers](../families/fishpack-elliptic-pde-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `INTL` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IORDER` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `A` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `M` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `MBDCND` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BDA` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ALPHA` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BDB` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BETA` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `C` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `D` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NBDCND` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BDC` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `GAMA` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BDD` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `XNU` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `COFX` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `COFY` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `GRHS` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (IDMN, *) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `USOL` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (IDMN, *) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IDMN` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `W` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 | Dimension of BDA(N+1), BDB(N+1), BDC(M+1), BDD(M+1), Arguments USOL(IDMN,N+1), GRHS(IDMN,N+1), W (see argument list) Latest Revision March 1977 Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `PERTRB` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IERROR` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Callback contract
+
+Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `unsupported-abi`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-callbacks`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `callback ABI has compiler-shape evidence but no routine-specific callback contract`
 <!-- raw-api-status:end -->

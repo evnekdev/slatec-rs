@@ -8,8 +8,10 @@ use slatec_tools::batch_c_api;
 use slatec_tools::batch_d_api;
 use slatec_tools::blas1_concurrency;
 use slatec_tools::complete_corpus;
+use slatec_tools::eol_audit;
 use slatec_tools::error::{CorpusError, Result};
 use slatec_tools::extract;
+use slatec_tools::ffi_declaration_ownership;
 use slatec_tools::ffi_inventory;
 use slatec_tools::ffi_validation;
 use slatec_tools::full_corpus;
@@ -25,8 +27,13 @@ use slatec_tools::program_units;
 use slatec_tools::prologues;
 use slatec_tools::provider;
 use slatec_tools::public_module_roadmap;
+use slatec_tools::public_surface;
 use slatec_tools::raw_api_inventory;
 use slatec_tools::raw_ffi;
+use slatec_tools::registry_simulation;
+use slatec_tools::release_check;
+use slatec_tools::release_package;
+use slatec_tools::release_readiness;
 use slatec_tools::routine_catalogue;
 use slatec_tools::runtime_profile;
 use slatec_tools::runtime_storage_policy;
@@ -147,6 +154,16 @@ fn run() -> Result<()> {
             | "validate-raw-api-inventory"
             | "generate-all-feature-coverage"
             | "validate-all-feature-coverage"
+            | "generate-release-readiness"
+            | "validate-release-readiness"
+            | "generate-ffi-declaration-ownership"
+            | "validate-unique-ffi-declarations"
+            | "generate-public-surface-audit"
+            | "validate-public-surface-terminology"
+            | "validate-package-contents"
+            | "validate-eol"
+            | "release-check"
+            | "validate-registry-simulation"
     ) && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/raw-api");
@@ -663,6 +680,108 @@ fn run() -> Result<()> {
                 report["families_covered_by_all"]
                     .as_array()
                     .map_or(0, Vec::len)
+            );
+            Ok(())
+        }
+        "generate-release-readiness" | "validate-release-readiness" => {
+            let root = PathBuf::from(".");
+            let output = PathBuf::from("generated/release-readiness");
+            let result = if options.command == "generate-release-readiness" {
+                release_readiness::generate(&root, &output)?
+            } else {
+                release_readiness::validate(&root, &output)?
+            };
+            println!(
+                "{}: {} retained identities, {} canonical public routines, {} compatibility paths, {} families ({})",
+                result.status,
+                result.retained_identities,
+                result.public_raw_identities,
+                result.compatibility_paths,
+                result.family_count,
+                result.semantic_hash
+            );
+            Ok(())
+        }
+        "validate-package-contents" => {
+            let result = release_package::validate(
+                &PathBuf::from("."),
+                &PathBuf::from("generated/release-readiness"),
+            )?;
+            println!(
+                "{}: {} publishable crates, {} packages audited, {} publication layers ({})",
+                result.status,
+                result.publishable_crates,
+                result.packages_audited,
+                result.publication_layers,
+                result.semantic_hash
+            );
+            Ok(())
+        }
+        "validate-eol" => {
+            let result = eol_audit::validate(
+                &PathBuf::from("."),
+                &PathBuf::from("generated/release-readiness/eol-audit.json"),
+            )?;
+            println!(
+                "{}: {} tracked text files, {} changed text files, {} EOL violations ({})",
+                result.status,
+                result.tracked_text_files,
+                result.changed_text_files,
+                result.violations,
+                result.semantic_hash
+            );
+            Ok(())
+        }
+        "release-check" => release_check::run(
+            &PathBuf::from("."),
+            &PathBuf::from("generated/release-readiness/release-check.json"),
+        ),
+        "validate-registry-simulation" => {
+            let result = registry_simulation::validate(
+                &PathBuf::from("."),
+                &PathBuf::from(
+                    "generated/release-readiness/registry-only-downstream-simulation.json",
+                ),
+            )?;
+            println!(
+                "{}: {} local packages, {} downstream configurations ({})",
+                result.status,
+                result.local_packages,
+                result.downstream_configurations,
+                result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-ffi-declaration-ownership" | "validate-unique-ffi-declarations" => {
+            let root = PathBuf::from(".");
+            let output = PathBuf::from("generated/public-api");
+            let result = if options.command == "generate-ffi-declaration-ownership" {
+                ffi_declaration_ownership::generate(&root, &output)?
+            } else {
+                ffi_declaration_ownership::validate(&root, &output)?
+            };
+            println!(
+                "{}: {} public symbols, {} -> {} extern declarations, {} duplicate symbols remain ({})",
+                result.status,
+                result.native_symbols_audited,
+                result.extern_declarations_before,
+                result.extern_declarations_after,
+                result.duplicate_symbols_after,
+                result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-public-surface-audit" | "validate-public-surface-terminology" => {
+            let root = PathBuf::from(".");
+            let output = PathBuf::from("generated/public-api/public-surface-terminology.json");
+            let result = if options.command == "generate-public-surface-audit" {
+                public_surface::generate(&root, &output)?
+            } else {
+                public_surface::validate(&root, &output)?
+            };
+            println!(
+                "{}: {} public files scanned, {} terminology violations ({})",
+                result.status, result.files_scanned, result.violations, result.semantic_hash
             );
             Ok(())
         }

@@ -15,65 +15,31 @@ and subsidiaries, provider/link/runtime/documentation coverage, safe wrappers,
 and explicit exclusions. Its correction layer is source-hash guarded. See
 [`docs/architecture/slatec-sys-public-raw-api.md`](../../docs/architecture/slatec-sys-public-raw-api.md).
 
-## Batch A generated public raw API
+## Canonical generated raw API
 
-Batch A promotes the largest mechanically eligible group of historically
-user-callable, non-callback numerical interfaces. These canonical paths have
-an exact source hash, normalized ABI fingerprint, observed symbol, provider
-closure, bulk compile/link coverage, and generated conservative Rustdoc. They
-are not hand-reviewed semantic contracts, safe wrappers, or a numerical
-validation claim. Batch A itself defers callback, CHARACTER, complex-return,
-ambiguous, missing, and subsidiary interfaces; later batches promote only the
-subsets with additional evidence. See
-[`docs/api/raw-batch-a.md`](../../docs/api/raw-batch-a.md).
+The canonical surface contains 812 routines. Straightforward numerical
+interfaces are source-hash and compiler-ABI guarded; callback-bearing
+interfaces additionally carry source-reconstructed callback fingerprints; and
+complex, fixed `CHARACTER*1`, and `LOGICAL` interfaces use controlled GNU
+MinGW ABI probes. Long or variable strings and unresolved combined ABIs remain
+excluded.
 
-Use mathematical modules such as `special::numerical`,
-`quadrature::numerical`, `linear_algebra::dense`, and
-`interpolation::numerical`, not `generated::*`. A matching `batch-a-*`
-`slatec-src` provider feature selects the verified native closure; this crate
-itself stays provider-neutral.
+Use mathematical modules such as `special`, `quadrature`,
+`linear_algebra::{dense,banded,packed,sparse,eigen}`, `interpolation`, and
+`pde::fishpack`, not `generated::*`. Provider features use the same
+mathematical family names. The callback paths under `quadrature::callbacks`,
+`linear_algebra::sparse::callbacks`, and `ode::callbacks` remain unsafe raw
+callbacks rather than safe Rust closure wrappers.
 
-## Batch B generated callback raw API
-
-Batch B promotes 47 callback-bearing raw interfaces whose outer ABI and
-callback ABI are source-reconstructed from the selected provider cache. The
-new paths live under `quadrature::callbacks`,
-`linear_algebra::sparse::callbacks`, and `ode::callbacks`; enable
-`batch-b-quadrature`, `batch-b-linear-algebra`, `batch-b-ode`, or the matching
-broad mathematical family alias. These are still unsafe raw callbacks, not
-safe Rust closure wrappers. See
-[`docs/api/raw-batch-b-callbacks.md`](../../docs/api/raw-batch-b-callbacks.md).
-
-## Batch C complex and flag-bearing raw API
-
-Batch C promotes 97 complex numerical and simple flag-bearing declarations.
-The GNU MinGW profile probes `COMPLEX`/`DOUBLE COMPLEX` layout and direct
-function returns, trailing `usize` hidden lengths for fixed `CHARACTER*1`
-arguments, and `i32` Fortran `LOGICAL` values. Canonical paths remain grouped by
-mathematics, such as `blas::level1::cdotu`,
-`linear_algebra::dense::complex::cgefa`, and `special::complex::cairy`.
-
-These declarations are unsafe and compiler-profile-specific. Long or variable
-strings and unresolved combined ABIs remain excluded. See the
-[Batch C guide](../../docs/api/raw-batch-c-complex-character-logical.md) and its
-deterministic reports under `generated/raw-api/`.
-
-## Batch D final disposition
-
-Batch D closes all 1,517 retained identities without forcing provider
-subsidiaries, runtime infrastructure, historical programs, or unresolved
-legacy callback conventions into the public API. It source-hash-requalifies 36
-pre-existing family declarations, bringing the canonical public total to 812,
-and assigns every other identity an evidence-backed terminal disposition.
-There are no duplicate declarations, new provider sources, shims, safe APIs, or
-numerical changes. See the
+Every public and compatibility path re-exports the same authoritative extern
+item. The terminal disposition for all 1,517 retained identities is in the
 [final coverage guide](../../docs/api/raw-api-final-coverage.md) and
 [`final-disposition.json`](../../generated/raw-api/final-disposition.json).
 
-## Reviewed BLAS API
+## Canonical BLAS API
 
-R2A promotes the feasible, historically user-callable BLAS corpus to the
-stable canonical paths `slatec_sys::blas::level1`,
+The feasible, historically user-callable BLAS corpus uses the canonical paths
+`slatec_sys::blas::level1`,
 `slatec_sys::blas::level2`, and `slatec_sys::blas::level3`. Enable `blas` or
 one of `blas-level1`, `blas-level2`, and `blas-level3`; the corresponding
 `slatec-src` feature selects the native source closure when a source provider
@@ -83,14 +49,14 @@ is used. The compatibility modules
 For the supported GNU profile, CHARACTER selector arguments are passed as
 one-byte buffers followed by trailing `FortranCharacterLength` values. Complex
 arguments use the documented `Complex32` storage record. Complex-valued
-Fortran function returns (`CDCDOT`, `CDOTC`, and `CDOTU`) are available through
-Batch C after independent controlled and selected-source return-ABI probes. See
+Fortran function returns (`CDCDOT`, `CDOTC`, and `CDOTU`) are available after
+independent controlled and selected-source return-ABI probes. See
 [`docs/api/raw-blas.md`](../../docs/api/raw-blas.md) for direct-call examples
 and the full ABI contract.
 
-## Reviewed scalar special foundations
+## Scalar special foundations
 
-R2B promotes 40 historically user-callable scalar routines in the canonical
+Forty historically user-callable scalar routines use the canonical
 `slatec_sys::special::{elementary,gamma,beta,error}` modules. Enable the
 matching `special-*` feature or `special`; the previous
 `slatec_sys::families::special_{group}` paths remain compatibility re-exports.
@@ -103,9 +69,9 @@ raw callers must synchronize concurrent calls as needed. See
 [`docs/api/raw-special-foundations.md`](../../docs/api/raw-special-foundations.md)
 for direct-call and provider guidance.
 
-## Reviewed real Airy functions
+## Real Airy functions
 
-R2C promotes the eight real FNLIB Airy drivers at
+The eight real FNLIB Airy drivers are available at
 `slatec_sys::special::airy::{ai,aie,bi,bie,dai,daie,dbi,dbie}`. Enable
 `special-airy`; `slatec_sys::families::special_airy::*` remains a compatibility
 re-export. These unsafe scalar functions use the same direct GNU MinGW return
@@ -131,3 +97,11 @@ reports and the limits for external providers are documented in
 The safe facade has an additional operation-granularity policy; it does not
 change raw declaration or provider-feature semantics. See
 [`docs/architecture/safe-facade-link-granularity.md`](../../docs/architecture/safe-facade-link-granularity.md).
+
+## Packaging and support profile
+
+This crate ships declarations and generated Rust metadata only. It contains no
+downloaded SLATEC corpus, native object, archive, or provider selection and has
+no build script or Cargo `links` identity. `slatec-src` owns provider integration.
+GNU MinGW on `x86_64-pc-windows-gnu` is the strongest validated native ABI;
+other providers and platforms remain experimental until independently audited.

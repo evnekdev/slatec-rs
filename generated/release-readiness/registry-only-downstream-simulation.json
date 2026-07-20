@@ -1,0 +1,51 @@
+{
+  "downstream_configurations": [
+    {
+      "configuration": "raw-no-default",
+      "dependency": "slatec-sys = { version = \"=0.1.0\", default-features = false }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "raw-all-declarations",
+      "dependency": "slatec-sys = { version = \"=0.1.0\", default-features = false, features = [\"all\"] }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "external-provider-narrow",
+      "dependency": "slatec-src = { version = \"=0.1.0\", default-features = false, features = [\"external-backend\", \"special-gamma\"] }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "safe-no-default",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "safe-narrow-external",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"external-backend\", \"special-gamma\"] }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "compatibility-reexport",
+      "dependency": "slatec-sys = { version = \"=0.1.0\", default-features = false, features = [\"special-airy\"] }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
+    }
+  ],
+  "local_packages": [
+    "slatec-sys",
+    "slatec-src",
+    "slatec-core",
+    "slatec"
+  ],
+  "method": "cargo package archives installed into a Cargo directory source together with vendored registry dependencies",
+  "result": "pass",
+  "schema_id": "slatec-rs.registry-only-downstream-simulation",
+  "schema_version": "1.0.0",
+  "workspace_path_dependencies": 0
+}

@@ -8,7 +8,7 @@
 #[cfg(any(
     feature = "blas-level1",
     feature = "raw-family-blas-level1",
-    feature = "raw-family-batch-c-blas"
+    feature = "raw-family-blas-complex"
 ))]
 pub mod level1 {
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -1049,9 +1049,9 @@ pub mod level1 {
     #[doc(inline)]
     pub use crate::generated::blas::sswap;
 
-    /// Complex-return BLAS Level 1 functions promoted by Batch C.
-    #[cfg(feature = "raw-family-batch-c-blas")]
-    pub use crate::batch_c::blas::{cdcdot, cdotc, cdotu};
+    /// Complex-return BLAS Level 1 functions.
+    #[cfg(feature = "raw-family-blas-complex")]
+    pub use crate::abi_bindings::blas::{cdcdot, cdotc, cdotu};
 }
 
 /// Reviewed public BLAS Level 2 raw routines.

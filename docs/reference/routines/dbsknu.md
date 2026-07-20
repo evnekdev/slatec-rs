@@ -1,6 +1,6 @@
 # DBSKNU
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Special functions](../families/special-functions.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,44 @@ Abstract **** A DOUBLE PRECISION routine **** DBSKNU computes N member sequences
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [Special functions](../families/special-functions.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `X` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | Abstract **** A DOUBLE PRECISION routine **** DBSKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)/(X), I=1,N for non-negative orders FNU and positive X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `FNU` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | Abstract **** A DOUBLE PRECISION routine **** DBSKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)/(X), I=1,N for non-negative orders FNU and positive X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `KODE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The parameter KODE permits K/SUB(FNU+I-1)/(X) values or scaled values EXP(X)*K/SUB(FNU+I-1)/(X), I=1,N to be returned. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract **** A DOUBLE PRECISION routine **** DBSKNU computes N member sequences of K Bessel functions K/SUB(FNU+I-1)/(X), I=1,N for non-negative orders FNU and positive X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | Description of Arguments INPUT X,FNU are DOUBLE PRECISION X - X.GT.0.0D0 FNU - Order of initial K function, FNU.GE.0.0D0 N - Number of members of the sequence, N.GE.1 KODE - A parameter to indicate the scaling option KODE= 1 returns Y(I)= K/SUB(FNU+I-1)/(X) I=1,...,N = 2 returns Y(I)=EXP(X)*K/SUB(FNU+I-1)/(X) I=1,...,N OUTPUT Y is DOUBLE PRECISION Y - A vector whose first N components contain values for the sequence Y(I)= K/SUB(FNU+I-1)/(X), I=1,...,N or Y(I)=EXP(X)*K/SUB(FNU+I-1)/(X), I=1,...,N depending on KODE NZ - Number of components set to zero due to underflow, NZ= 0 , normal return NZ.NE.0 , first NZ components of Y set to zero due to underflow, Y(I)=0.0D0,I=1,...,NZ Error Conditions Improper input arguments - a fatal error Overflow - a fatal error Underflow with KODE=1 - a non-fatal error (NZ.NE.0) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NZ` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Description of Arguments INPUT X,FNU are DOUBLE PRECISION X - X.GT.0.0D0 FNU - Order of initial K function, FNU.GE.0.0D0 N - Number of members of the sequence, N.GE.1 KODE - A parameter to indicate the scaling option KODE= 1 returns Y(I)= K/SUB(FNU+I-1)/(X) I=1,...,N = 2 returns Y(I)=EXP(X)*K/SUB(FNU+I-1)/(X) I=1,...,N OUTPUT Y is DOUBLE PRECISION Y - A vector whose first N components contain values for the sequence Y(I)= K/SUB(FNU+I-1)/(X), I=1,...,N or Y(I)=EXP(X)*K/SUB(FNU+I-1)/(X), I=1,...,N depending on KODE NZ - Number of components set to zero due to underflow, NZ= 0 , normal return NZ.NE.0 , first NZ components of Y set to zero due to underflow, Y(I)=0.0D0,I=1,...,NZ Error Conditions Improper input arguments - a fatal error Overflow - a fatal error Underflow with KODE=1 - a non-fatal error (NZ.NE.0) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

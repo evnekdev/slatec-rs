@@ -11,21 +11,18 @@ routine.
 
 | Domain alias | Narrow features |
 | --- | --- |
-| `blas` | `blas-level1`, `blas-level2`, `blas-level3`, `batch-c-blas` |
-| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `batch-a-special`, `batch-c-special` |
-| `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive`, `batch-b-quadrature` |
+| `blas` | `blas-level1`, `blas-level2`, `blas-level3`, `blas-complex` |
+| `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `special-real`, `special-complex` |
+| `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive`, `quadrature-direct`, `quadrature-callbacks` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
-| `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check`, `batch-c-nonlinear` |
-| `ode` | `ode-sdrive-expert`, `batch-b-ode` |
+| `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check`, `nonlinear-jacobian`, `nonlinear-complex` |
+| `ode` | `ode-sdrive-expert`, `ode-integration`, `ode-callbacks` |
 | DAE | `dassl` |
-| Cartesian PDE | `fishpack-cartesian-2d`, `batch-c-fishpack` |
+| Cartesian PDE | `fishpack-cartesian-2d`, `fishpack-general`, `fishpack-complex` |
 | Structured 3D FISHPACK system | `fishpack-pois3d` |
 | `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
-| Batch A raw domains | `batch-a-linear-algebra`, `batch-a-eigen`, `batch-a-approximation`, `batch-a-statistics`, plus the Batch A members of `special`, `quadrature`, `nonlinear`, `ode`, `fftpack`, `fishpack`, and `interpolation` |
-| Batch B raw domains | `batch-b-quadrature`, `batch-b-linear-algebra`, `batch-b-ode` |
-| Batch C raw domains | `batch-c-blas`, `batch-c-linear-algebra`, `batch-c-special`, `batch-c-nonlinear`, `batch-c-fishpack` |
-| Batch D final closure | Reuses the existing mathematical declaration/provider features for 36 requalified drivers; adds no public `batch-d` feature |
+| Additional raw domains | `linear-algebra-real`, `linear-algebra-eigen`, `linear-algebra-iterative`, `linear-algebra-complex`, `approximation-core`, `statistics-core`, `interpolation-general`, `fftpack-extended-real`, and the family members listed above |
 
 `roots-polynomial` remains an explicit deferred empty family: no polynomial
 root wrapper is exposed until its interface validation gate is cleared.
@@ -155,24 +152,22 @@ They are not a promise of canonical family paths or provider closure. See
 [the raw API architecture](../architecture/slatec-sys-public-raw-api.md) for
 the reviewed-path and compatibility policy.
 
-### Batch A raw provider features
+### Canonical numerical provider features
 
-Batch A adds coherent `batch-a-*` declaration features in `slatec-sys` and
-matching source-closure features in `slatec-src`. They cover the generated
-canonical paths for straightforward historical numerical drivers; there is no
-feature per routine. They may be selected directly for a raw-only application,
-or through the relevant broad mathematical feature. The source closure is
-exactly derived from the promoted public symbols and their observed native
-dependencies. As with every raw declaration feature, `slatec-sys` alone
-selects no provider. See [`raw-batch-a.md`](raw-batch-a.md).
+Mathematical declaration features in `slatec-sys` have matching source-closure
+features in `slatec-src`. They cover canonical paths for straightforward
+historical numerical drivers without creating one feature per routine. A
+feature may be selected directly for a raw-only application or through its
+broad mathematical alias. The source closure is derived from public symbols
+and their observed native dependencies; `slatec-sys` alone selects no
+provider.
 
-### Batch B callback raw provider features
+### Callback-bearing raw provider features
 
-Batch B adds coherent callback-bearing declaration features in `slatec-sys`:
-`batch-b-quadrature`, `batch-b-linear-algebra`, and `batch-b-ode`. The matching
-verified source-provider features are the existing family closures in
-`slatec-src`: `quadrature`, `linear-algebra`, and `ode`. Broad mathematical
-aliases include the relevant Batch B declaration features, while
+The callback-bearing declaration features are `quadrature-callbacks`,
+`linear-algebra-iterative`, and `ode-callbacks`. Matching verified
+source-provider features use the same mathematical family names in
+`slatec-src`. Broad mathematical aliases include these declarations, while
 `slatec-sys/all` remains declaration-only and provider-neutral.
 
 These interfaces are raw callback ABIs, not safe closure wrappers. They
@@ -180,20 +175,17 @@ stabilize canonical paths such as
 `slatec_sys::quadrature::callbacks::dqk15`,
 `slatec_sys::linear_algebra::sparse::callbacks::scg`, and
 `slatec_sys::ode::callbacks::derkf` within the generated evidence boundary.
-See [`raw-batch-b-callbacks.md`](raw-batch-b-callbacks.md).
+### Requalified legacy provider features
 
-### Batch D requalified provider features
+The 36 requalified legacy paths keep their existing mathematical features and
+provider closures: quadrature, nonlinear, least-squares, DASSL and expert
+S-drive ODE, and in-memory linear programming. This preserves direct raw
+usability while avoiding per-routine switches and provider duplication.
 
-Batch D introduces no public declaration aggregate named `batch-d`. Its 36
-requalified paths keep their existing mathematical features and provider
-closures: quadrature, nonlinear, least-squares, DASSL and expert S-drive ODE,
-and in-memory linear programming. This preserves direct raw usability while
-avoiding per-routine switches and provider duplication.
-
-The `slatec/raw-batch-d-link-tests` feature is test-only. It selects the
-existing declaration and source closures so the generated native link probe can
-reference every requalified symbol. It is not a public family feature and is
-not a member of `slatec-sys/all`. The complete mapping is generated in
+The `slatec/raw-final-coverage-link-tests` feature is test-only. It selects
+the existing declaration and source closures so the generated native link
+probe can reference every requalified symbol. It is not a public family
+feature and is not a member of `slatec-sys/all`. The complete mapping is generated in
 [`public-api-coverage.json`](../../generated/raw-api/public-api-coverage.json).
 
 ### Reviewed BLAS raw features

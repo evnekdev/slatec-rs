@@ -102,7 +102,7 @@ pub fn render_module(records: &[Value]) -> String {
     for (level_number, routines) in [(1_u8, LEVEL1), (2, LEVEL2), (3, LEVEL3)] {
         let gate = if level_number == 1 {
             format!(
-                "#[cfg(any(\n    feature = \"blas-level{level_number}\",\n    feature = \"raw-family-blas-level{level_number}\",\n    feature = \"raw-family-batch-c-blas\"\n))]"
+                "#[cfg(any(\n    feature = \"blas-level{level_number}\",\n    feature = \"raw-family-blas-level{level_number}\",\n    feature = \"raw-family-blas-complex\"\n))]"
             )
         } else {
             format!(
@@ -130,7 +130,7 @@ pub fn render_module(records: &[Value]) -> String {
         }
         if level_number == 1 {
             output.push_str(
-                "    /// Complex-return BLAS Level 1 functions promoted by Batch C.\n    #[cfg(feature = \"raw-family-batch-c-blas\")]\n    pub use crate::batch_c::blas::{cdcdot, cdotc, cdotu};\n\n",
+                "    /// Complex-return BLAS Level 1 functions.\n    #[cfg(feature = \"raw-family-blas-complex\")]\n    pub use crate::abi_bindings::blas::{cdcdot, cdotc, cdotu};\n\n",
             );
         }
         if output.ends_with("\n\n") {
@@ -299,12 +299,18 @@ fn render_routine(output: &mut String, record: &Value, level_number: u8) {
 }
 
 fn generated_declaration(sys_dir: &Path, record: &Value) -> Result<String> {
-    let source = fs::read_to_string(sys_dir.join("src").join("generated").join(format!(
-        "{}.rs",
-        generated_module(&field(record, "generated_declaration_feature"))
-    )))?;
     let symbol = field(record, "native_symbol");
     let marker = format!("    #[link_name = \"{symbol}\"]");
+    let generated_dir = sys_dir.join("src").join("generated");
+    let authoritative = fs::read_to_string(generated_dir.join("blas.rs"))?;
+    let source = if authoritative.contains(&marker) {
+        authoritative
+    } else {
+        fs::read_to_string(generated_dir.join(format!(
+            "{}.rs",
+            generated_module(&field(record, "generated_declaration_feature"))
+        )))?
+    };
     let start = source.find(&marker).ok_or_else(|| {
         CorpusError::Verification(format!(
             "BLAS generated declaration for {} has no source marker {symbol}",

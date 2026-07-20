@@ -6,7 +6,7 @@
 //! lengths and LOGICAL scalar, array, and return conventions.
 
 #![cfg(all(
-    feature = "raw-batch-c-native-tests",
+    feature = "raw-complex-abi-native-tests",
     target_arch = "x86_64",
     target_env = "gnu",
     target_os = "windows"

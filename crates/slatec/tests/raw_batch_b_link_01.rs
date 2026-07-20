@@ -2,7 +2,7 @@
 //! Regenerate with `slatec-corpus generate-raw-batch-b --offline`.
 
 #![cfg(all(
-    feature = "raw-batch-b-link-tests",
+    feature = "raw-callback-link-tests",
     target_arch = "x86_64",
     target_env = "gnu",
     target_os = "windows"

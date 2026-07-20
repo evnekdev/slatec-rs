@@ -1,6 +1,6 @@
 # EZFFTB
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: FFTPACK transforms](../families/fftpack-transforms.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -49,22 +49,48 @@ Subroutine EZFFTB computes a real periodic sequence from its Fourier coefficient
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `argument_contract_incomplete`
+- Description provenance: `source_prologue`
+- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
+- Dedicated family page: [FFTPACK transforms](../families/fftpack-transforms.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `N` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Input Parameters N the length of the output array R. | Input Parameters N the length of the output array R. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `R` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | The transform is defined below at Output Parameter R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AZERO` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | scalar | AZERO the constant Fourier coefficient A,B arrays which contain the remaining Fourier coefficients. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `A` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Subroutine EZFFTB computes a real periodic sequence from its Fourier coefficients (Fourier synthesis). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | AZERO the constant Fourier coefficient A,B arrays which contain the remaining Fourier coefficients. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WSAVE` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | If N is odd, (N-1)/2 locations are required WSAVE a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB. | If N is odd, (N-1)/2 locations are required WSAVE a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB. Leading dimension: not established Workspace: If N is odd, (N-1)/2 locations are required WSAVE a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB. | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::fftpack::ezfftb`. Native symbol: `ezfftb_`. Feature: `fftpack`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_f32_ptr_rank1,mut_f32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `batch_a_automated_public`
-- Canonical Rust path: `slatec_sys::fftpack::numerical::ezfftb`
-- Current legacy Rust paths: `slatec_sys::fftpack::ezfftb`
+- Public raw API status: `canonical-public`
+- ABI validation: `compiler-validated`
+- Canonical Rust path: `slatec_sys::fftpack::ezfftb`
+- Compatibility aliases: `slatec_sys::fftpack::numerical::ezfftb`
 - Public declaration feature: `fftpack`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_generated_abi_contract`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `not_required_batch_a`
+- Runtime validation: `representative-family-coverage`
 - Safe-wrapper status: `slatec::fftpack::EasyRealFftPlan::backward`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

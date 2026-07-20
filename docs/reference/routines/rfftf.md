@@ -1,6 +1,6 @@
 # RFFTF
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: FFTPACK transforms](../families/fftpack-transforms.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,41 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 
 - Enriched from the 20-routine pilot; this catalogue is the canonical corpus view.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [FFTPACK transforms](../families/fftpack-transforms.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `N` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Input Arguments N the length of the array R to be transformed. | Input Arguments N the length of the array R to be transformed. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `R` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | The transform is defined below at output parameter R. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WSAVE` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | WSAVE a work array which must be dimensioned at least 2*N+15 in the program that calls RFFTF. | WSAVE a work array which must be dimensioned at least 2*N+15 in the program that calls RFFTF. Leading dimension: not established Workspace: WSAVE a work array which must be dimensioned at least 2*N+15 in the program that calls RFFTF. | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `preexisting_family_declaration_requires_r1_review`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `slatec_sys::fftpack::rfftf`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `legacy_partial_rustdoc`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `slatec::fftpack::RealFftPlan::forward`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

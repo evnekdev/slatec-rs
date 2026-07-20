@@ -1,6 +1,6 @@
 # DCOV
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Approximation](../families/approximation.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,59 @@ Calculate the covariance matrix for a nonlinear data fitting problem. It is inte
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `argument_contract_incomplete`
+- Description provenance: `source_prologue`
+- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
+- Dedicated family page: [Approximation](../families/approximation.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `FCN` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | The required external subroutine, FCN, is the same for all three codes, DCOV, DNLS1, and DNLS1E. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IOPT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `M` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `X` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `FVEC` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `R` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 2; dimensions (LDR, *) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `LDR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `INFO` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WA1` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WA2` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WA3` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WA4` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCOV(FCN,IOPT,M,N,X,FVEC,R,LDR,INFO, WA1,WA2,WA3,WA4) INTEGER IOPT,M,N,LDR,INFO DOUBLE PRECISION X(N),FVEC(M),R(LDR,N),WA1(N),WA2(N),WA3(N),WA4(M) EXTERNAL FCN 3. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Callback contract
+
+Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::least_squares::dcov`. Native symbol: `dcov_`. Feature: `least-squares-covariance`. Provider status: `selected_provider_verified`. ABI fingerprint: `unavailable`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `batch_d_public_driver`
+- Public raw API status: `canonical-public`
+- ABI validation: `pending`
 - Canonical Rust path: `slatec_sys::least_squares::dcov`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `least-squares-covariance`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `slatec::least_squares::covariance_from_expert_fit`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

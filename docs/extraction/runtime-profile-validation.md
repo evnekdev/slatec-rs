@@ -77,6 +77,14 @@ level-1 probe and every level-2 probe terminate. Potentially fatal cases are
 therefore tested only in child processes. Compact records retain exit status,
 outcome class, and hashes of captured output; detailed messages remain ignored.
 
+The nonlinear negative-`IFLAG` regression uses the same containment contract.
+The parent captures the child status and both output streams, requires the
+source-verified `DNSQE` driver / `DNSQ` XERROR diagnostic, accepts only the observed GNU
+runtime outcomes (the historical status-zero `STOP` or the profile `XERHLT`
+status 70), and rejects signals, access violations, illegal instructions, and
+ordinary Rust panic returns. No fixed exit number is treated as the safety
+contract; isolation and diagnostic evidence are.
+
 `J4SAVE` stores control flags, output-unit settings, and last-error state in a
 `SAVE`d array. `XERSVE` also maintains message counts. This state is
 process-global for the selected implementation. Runtime-profile tests and

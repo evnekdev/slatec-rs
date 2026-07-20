@@ -38,9 +38,9 @@
       "raw-family-nonlinear-easy", "raw-family-nonlinear-expert", "raw-family-nonlinear-jacobian-check",
       "raw-family-least-squares-nonlinear-easy", "raw-family-least-squares-nonlinear-expert", "raw-family-least-squares-covariance", "raw-family-least-squares-linear-nonnegative", "raw-family-least-squares-linear-bounded", "raw-family-least-squares-linear-constrained", "raw-family-least-squares-linear-bounded-constrained",
       "raw-family-ode-sdrive-expert", "raw-family-dassl", "raw-family-optimization-linear-programming-in-memory", "raw-family-fftpack-real", "raw-family-fftpack-complex", "raw-family-fishpack-cartesian-2d", "raw-family-fishpack-pois3d", "raw-family-banded-linear-systems", "raw-family-pchip", "raw-family-bspline", "raw-family-piecewise-polynomial",
-      "raw-family-batch-a-linear-algebra", "raw-family-batch-a-eigen", "raw-family-batch-a-special", "raw-family-batch-a-quadrature", "raw-family-batch-a-nonlinear", "raw-family-batch-a-ode", "raw-family-batch-a-fftpack", "raw-family-batch-a-fishpack", "raw-family-batch-a-interpolation", "raw-family-batch-a-approximation", "raw-family-batch-a-statistics",
-      "raw-family-batch-b-quadrature", "raw-family-batch-b-linear-algebra", "raw-family-batch-b-ode",
-      "raw-family-batch-c-blas", "raw-family-batch-c-linear-algebra", "raw-family-batch-c-special", "raw-family-batch-c-nonlinear", "raw-family-batch-c-fishpack"
+      "raw-family-linear-algebra-real", "raw-family-linear-algebra-eigen", "raw-family-special-real", "raw-family-quadrature-direct", "raw-family-nonlinear-jacobian", "raw-family-ode-integration", "raw-family-fftpack-extended-real", "raw-family-fishpack-general", "raw-family-interpolation-general", "raw-family-approximation-core", "raw-family-statistics-core",
+      "raw-family-quadrature-callbacks", "raw-family-linear-algebra-iterative", "raw-family-ode-callbacks",
+      "raw-family-blas-complex", "raw-family-linear-algebra-complex", "raw-family-special-complex", "raw-family-nonlinear-complex", "raw-family-fishpack-complex"
     ],
     "test_only": [],
     "compatibility_aliases": []

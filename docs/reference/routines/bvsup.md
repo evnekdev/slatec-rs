@@ -1,6 +1,6 @@
 # BVSUP
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: ODE solvers](../families/ode-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,60 @@ Solve a linear two-point boundary value problem using superposition coupled with
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `support_unit_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the support identity records its role, side-effect boundary, and non-public disposition
+- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `Y` | input | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (NROWY, *) | ********************************************************************** Subroutine BVSUP solves a LINEAR two-point boundary-value problem of the form dY/dX = MATRIX(X,U)*Y(X) + G(X,U) A*Y(Xinitial) = ALPHA , B*Y(Xfinal) = BETA Coupled with the solution of the initial value problem dU/dX = F(X,U) U(Xinitial) = ETA ********************************************************************** Abstract The method of solution uses superposition coupled with an orthonormalization procedure and a variable-step integration scheme. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NROWY` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | ********************************************************************** INPUT to BVSUP ********************************************************************** NROWY = Actual row dimension of Y in calling program. | ********************************************************************** INPUT to BVSUP ********************************************************************** NROWY = Actual row dimension of Y in calling program. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NCOMP` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | NCOMP NCOMP = Number of components per solution vector. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `XPTS` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | XPTS = Desired output points for solution. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NXPTS` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Xinitial = XPTS(1) Xfinal = XPTS(NXPTS) NXPTS = Number of output points A(NROWA,NCOMP) = Boundary condition matrix at Xinitial, must be contained in (NIC,NCOMP) sub-matrix. | Xinitial = XPTS(1) Xfinal = XPTS(NXPTS) NXPTS = Number of output points A(NROWA,NCOMP) = Boundary condition matrix at Xinitial, must be contained in (NIC,NCOMP) sub-matrix. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `A` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (NROWA, *) | ********************************************************************** Subroutine BVSUP solves a LINEAR two-point boundary-value problem of the form dY/dX = MATRIX(X,U)*Y(X) + G(X,U) A*Y(Xinitial) = ALPHA , B*Y(Xfinal) = BETA Coupled with the solution of the initial value problem dU/dX = F(X,U) U(Xinitial) = ETA ********************************************************************** Abstract The method of solution uses superposition coupled with an orthonormalization procedure and a variable-step integration scheme. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NROWA` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Xinitial = XPTS(1) Xfinal = XPTS(NXPTS) NXPTS = Number of output points A(NROWA,NCOMP) = Boundary condition matrix at Xinitial, must be contained in (NIC,NCOMP) sub-matrix. | Xinitial = XPTS(1) Xfinal = XPTS(NXPTS) NXPTS = Number of output points A(NROWA,NCOMP) = Boundary condition matrix at Xinitial, must be contained in (NIC,NCOMP) sub-matrix. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ALPHA` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | ********************************************************************** Subroutine BVSUP solves a LINEAR two-point boundary-value problem of the form dY/dX = MATRIX(X,U)*Y(X) + G(X,U) A*Y(Xinitial) = ALPHA , B*Y(Xfinal) = BETA Coupled with the solution of the initial value problem dU/dX = F(X,U) U(Xinitial) = ETA ********************************************************************** Abstract The method of solution uses superposition coupled with an orthonormalization procedure and a variable-step integration scheme. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NIC` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | NCOMP = NIC + NFC. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `B` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (NROWB, *) | ********************************************************************** Subroutine BVSUP solves a LINEAR two-point boundary-value problem of the form dY/dX = MATRIX(X,U)*Y(X) + G(X,U) A*Y(Xinitial) = ALPHA , B*Y(Xfinal) = BETA Coupled with the solution of the initial value problem dU/dX = F(X,U) U(Xinitial) = ETA ********************************************************************** Abstract The method of solution uses superposition coupled with an orthonormalization procedure and a variable-step integration scheme. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NROWB` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | B(NROWB,NCOMP) = Boundary condition matrix at Xfinal, must be contained in (NFC,NCOMP) sub-matrix. | B(NROWB,NCOMP) = Boundary condition matrix at Xfinal, must be contained in (NFC,NCOMP) sub-matrix. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `BETA` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | ********************************************************************** Subroutine BVSUP solves a LINEAR two-point boundary-value problem of the form dY/dX = MATRIX(X,U)*Y(X) + G(X,U) A*Y(Xinitial) = ALPHA , B*Y(Xfinal) = BETA Coupled with the solution of the initial value problem dU/dX = F(X,U) U(Xinitial) = ETA ********************************************************************** Abstract The method of solution uses superposition coupled with an orthonormalization procedure and a variable-step integration scheme. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NFC` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | NCOMP = NIC + NFC. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IGOFX` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | NFC = Number of boundary conditions at Xfinal IGOFX =0 -- The inhomogeneous term G(X) is identically zero. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RE` | output | `REAL` (`implicit_rule`) | `*mut f32` | scalar | RE = Relative error tolerance used by the integrator (see one of the integrators) AE = Absolute error tolerance used by the integrator (see one of the integrators) **NOTE- RE and AE should not both be zero. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `AE` | output | `REAL` (`implicit_rule`) | `*mut f32` | scalar | RE = Relative error tolerance used by the integrator (see one of the integrators) AE = Absolute error tolerance used by the integrator (see one of the integrators) **NOTE- RE and AE should not both be zero. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IFLAG` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | IFLAG = A status parameter used principally for output. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `WORK` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | WORK(NDW) = Floating point array used for internal storage. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NDW` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | WORK(NDW) = Floating point array used for internal storage. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IWORK` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | IWORK(NDIW) = Integer array used for internal storage. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NDIW` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | IWORK(NDIW) = Integer array used for internal storage. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NEQIVP` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | ALPHA(NIC+NEQIVP) = Boundary conditions at Xinitial. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_`
 <!-- raw-api-status:end -->

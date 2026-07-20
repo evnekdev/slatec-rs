@@ -171,16 +171,16 @@ unsafe extern "C" {
     );
 }
 
-#[cfg(feature = "raw-family-batch-a-nonlinear")]
+#[cfg(feature = "raw-family-nonlinear-jacobian")]
 #[path = "batch_a/nonlinear.rs"]
-mod batch_a;
+mod canonical_bindings;
 
-/// Canonical source-verified Batch A numerical nonlinear declarations.
-#[cfg(feature = "raw-family-batch-a-nonlinear")]
-pub use batch_a::numerical;
+/// Canonical source-verified Jacobian-check declarations.
+#[cfg(feature = "raw-family-nonlinear-jacobian")]
+pub use canonical_bindings::*;
 
-/// Complex polynomial and nonlinear-equation interfaces promoted by Batch C.
-#[cfg(feature = "raw-family-batch-c-nonlinear")]
+/// Complex polynomial and nonlinear-equation interfaces.
+#[cfg(feature = "raw-family-nonlinear-complex")]
 pub mod complex {
-    pub use crate::batch_c::nonlinear::*;
+    pub use crate::abi_bindings::nonlinear::*;
 }

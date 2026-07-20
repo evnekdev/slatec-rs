@@ -103,6 +103,7 @@ struct BatchAPublic {
     source_hash: String,
     canonical_path: String,
     canonical_module: String,
+    compatibility_paths: Vec<String>,
     feature: String,
     provider_feature: String,
     abi_class: String,
@@ -118,6 +119,7 @@ struct BulkPublic {
     source_hash: String,
     canonical_path: String,
     canonical_module: String,
+    compatibility_paths: Vec<String>,
     feature: String,
     provider_feature: String,
     abi_class: String,
@@ -392,6 +394,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .unwrap_or_else(|| "not_promoted".to_owned());
         let compatibility_paths = correction
             .map(|item| item.compatibility_paths.clone())
+            .or_else(|| batch_a_public.map(|item| item.compatibility_paths.clone()))
+            .or_else(|| bulk_public.map(|item| item.compatibility_paths.clone()))
             .unwrap_or_default();
         let reported_legacy_paths = if correction.is_some() {
             compatibility_paths.clone()
@@ -911,6 +915,7 @@ fn batch_a_candidates(path: &Path) -> Result<BTreeMap<String, BatchAPublic>> {
             source_hash: string(record, "source_hash")?,
             canonical_path: string(record, "canonical_rust_path")?,
             canonical_module: string(record, "canonical_module")?,
+            compatibility_paths: strings(record.get("compatibility_paths")),
             feature: string(record, "declaration_feature")?,
             provider_feature: string(record, "provider_feature")?,
             abi_class: string(record, "abi_class")?,
@@ -948,6 +953,7 @@ fn bulk_candidates(
             source_hash: string(record, "source_hash")?,
             canonical_path: string(record, "canonical_rust_path")?,
             canonical_module: string(record, "canonical_module")?,
+            compatibility_paths: strings(record.get("compatibility_paths")),
             feature: string(record, "declaration_feature")?,
             provider_feature: string(record, "provider_feature")?,
             abi_class: record
@@ -2306,10 +2312,10 @@ fn validation_markdown(coverage: &Value, audit: &Value, features: &Value, roots:
          | Retained identities | {} |\n\
          | Generated ABI-validated declarations | {} |\n\
          | Reviewed public raw declarations | {} |\n\
-         | Batch A public declarations | {} |\n\
-         | Batch B public declarations | {} |\n\
-         | Batch C public declarations | {} |\n\
-         | Batch D requalified public declarations | {} |\n\
+         | Generated canonical numerical declarations | {} |\n\
+         | Callback-bearing canonical declarations | {} |\n\
+         | ABI-sensitive canonical declarations | {} |\n\
+         | Requalified legacy declarations | {} |\n\
          | Total public raw declarations | {} |\n\
          | Provider-backed callable raw routines | {} |\n\
          | Link-tested raw routines | {} |\n\
@@ -2540,7 +2546,7 @@ fn write_special_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let path = sys_dir.join("src").join("special.rs");
     let mut rendered = special_foundations_api::render_module(records);
     rendered.push_str(
-        "\n#[cfg(feature = \"raw-family-batch-a-special\")]\n#[path = \"batch_a/special.rs\"]\nmod batch_a;\n\n/// Canonical source-verified Batch A special-function declarations.\n#[cfg(feature = \"raw-family-batch-a-special\")]\npub use batch_a::numerical;\n\n/// Complex special-function interfaces promoted by Batch C.\n#[cfg(feature = \"raw-family-batch-c-special\")]\npub mod complex {\n    pub use crate::batch_c::special::*;\n}\n",
+        "\n#[cfg(feature = \"raw-family-special-real\")]\n#[path = \"batch_a/special.rs\"]\nmod canonical_bindings;\n\n/// Canonical source-verified real special-function declarations.\n#[cfg(feature = \"raw-family-special-real\")]\npub use canonical_bindings::*;\n\n/// Complex-valued special-function interfaces.\n#[cfg(feature = \"raw-family-special-complex\")]\npub mod complex {\n    pub use crate::abi_bindings::special::*;\n}\n",
     );
     if fs::read_to_string(&path).ok().as_deref() != Some(rendered.as_str()) {
         fs::write(path, rendered)?;
@@ -2781,44 +2787,72 @@ fn routine_page_status(record: &Value) -> String {
     } else {
         "no"
     };
+    let public_status = match field(record, "raw_api_state").as_str() {
+        "reviewed_public_driver"
+        | "reviewed_public_subsidiary"
+        | "batch_a_public_driver"
+        | "batch_b_public_driver"
+        | "batch_c_public_driver"
+        | "batch_d_public_driver" => "canonical-public",
+        "source_present_unbound" | "catalogue_only" => "historical-program",
+        "missing_symbol" | "ambiguous_symbol" => "missing-symbol",
+        state if state.starts_with("unsupported_") => "unsupported-abi",
+        "runtime_or_machine_support" | "block_data" => "support-routine",
+        _ => "internal-subsidiary",
+    };
+    let abi_validation = match field(record, "signature_review_status").as_str() {
+        "authored_reviewed" => "authored-reviewed",
+        "profile_validated_not_semantically_reviewed" => "compiler-validated",
+        "not_applicable" => "not-applicable",
+        status if status.contains("source_hash") && status.contains("fingerprint") => {
+            "compiler-validated"
+        }
+        _ => "pending",
+    };
+    let runtime_validation = match field(record, "runtime_test_status").as_str() {
+        "passed" => "passed",
+        "not_required_batch_a" | "not_required" => "representative-family-coverage",
+        "not_recorded" => "not-recorded",
+        _ => "not-recorded",
+    };
+    let compatibility = record
+        .get("compatibility_paths")
+        .or_else(|| record.get("legacy_rust_paths"))
+        .and_then(Value::as_array)
+        .map(|paths| {
+            paths
+                .iter()
+                .filter_map(Value::as_str)
+                .collect::<Vec<_>>()
+                .join(", ")
+        })
+        .filter(|paths| !paths.is_empty())
+        .unwrap_or_else(|| "none".to_owned());
     format!(
         "{ROUTINE_STATUS_START}\n\
          ## Raw Rust API status\n\n\
          This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).\n\n\
-         - Generated raw declaration: `{}`\n\
-         - Reviewed family declaration: `{}`\n\
+         - Public raw API status: `{public_status}`\n\
+         - ABI validation: `{abi_validation}`\n\
         - Canonical Rust path: `{}`\n\
-        - Current legacy Rust paths: `{}`\n\
+        - Compatibility aliases: `{compatibility}`\n\
         - Public declaration feature: `{}`\n\
         - `all`-feature reachability: `{}`\n\
         - Provider-backed callable symbol: `{provider_backed}` (`{}`)\n\
          - Documentation status: `{}`\n\
          - Compile-test status: `{}`\n\
          - Link-test status: `{}`\n\
-         - Runtime-test status: `{}`\n\
+         - Runtime validation: `{runtime_validation}`\n\
          - Safe-wrapper status: `{}`\n\
          - Exclusion or deferment reason: `{}`\n\
          {ROUTINE_STATUS_END}",
-        field(record, "generated_declaration_status"),
-        field(record, "reviewed_declaration_status"),
         field(record, "canonical_rust_path"),
-        record
-            .get("legacy_rust_paths")
-            .and_then(Value::as_array)
-            .map(|paths| paths
-                .iter()
-                .filter_map(Value::as_str)
-                .collect::<Vec<_>>()
-                .join(", "))
-            .filter(|paths| !paths.is_empty())
-            .unwrap_or_else(|| "none".to_owned()),
         field(record, "feature"),
         field(record, "all_feature_reachability"),
         field(record, "symbol_status"),
         field(record, "documentation_status"),
         field(record, "compile_test_status"),
         field(record, "link_test_status"),
-        field(record, "runtime_test_status"),
         field(record, "safe_wrapper_status"),
         field(record, "exclusion_reason"),
     )

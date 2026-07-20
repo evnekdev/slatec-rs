@@ -72,37 +72,26 @@ Safe wrappers additionally preserve operation-level Rust/native closure
 boundaries on the supported source-build profile; the policy, limits, and
 safe/raw comparison reports are in
 [`docs/architecture/safe-facade-link-granularity.md`](docs/architecture/safe-facade-link-granularity.md).
-R2B additionally promotes 40 source-hash-reviewed scalar special functions at
+Forty source-hash-reviewed scalar special functions are available at
 `slatec_sys::special::{elementary,gamma,beta,error}` and adds the declaration-
 only `slatec-sys/all` aggregate. These unsafe direct bindings do not select a
 native provider; their XERROR/FNLIB and synchronization boundary is documented
 in [`docs/api/raw-special-foundations.md`](docs/api/raw-special-foundations.md).
-R2C promotes the eight real Airy drivers at `slatec_sys::special::airy`; their
+The eight real Airy drivers use `slatec_sys::special::airy`; their
 legacy `families::special_airy` paths remain re-exports, while complex Amos
 Airy interfaces remain explicitly deferred in
 [`docs/api/raw-special-airy.md`](docs/api/raw-special-airy.md).
-Batch A bulk-promotes the mechanically eligible, historically user-callable
-non-callback numerical raw interfaces at canonical mathematical paths. Each
-has source-hash, parsed-ABI, symbol, feature/provider-closure, and bulk
-compile/link evidence, but is intentionally not represented as a safe or
-hand-reviewed semantic API. See [`docs/api/raw-batch-a.md`](docs/api/raw-batch-a.md).
-Batch B bulk-promotes 47 callback-bearing raw interfaces after reconstructing
-their callback ABI and forwarding evidence from selected source. The new
-unsafe paths are under `slatec_sys::quadrature::callbacks`,
-`slatec_sys::linear_algebra::sparse::callbacks`, and
-`slatec_sys::ode::callbacks`; they are not safe closure wrappers. See
-[`docs/api/raw-batch-b-callbacks.md`](docs/api/raw-batch-b-callbacks.md).
-Batch C bulk-promotes 97 complex numerical and simple flag-bearing raw
-interfaces. Compiler probes establish the supported GNU MinGW complex return,
-fixed `CHARACTER*1` hidden-length, and `LOGICAL` conventions; canonical paths
-stay in mathematical modules and no safe wrappers are added. See the
-[Batch C raw guide](docs/api/raw-batch-c-complex-character-logical.md).
-Batch D completes the disposition audit for all 1,517 retained identities. It
-requalifies 36 existing family declarations for 812 canonical public raw
-routines in total, classifies every non-public subsidiary, support unit,
-program, provider/symbol gap, and unsupported interface, and leaves zero
-unexplained identities. See the
-[final raw API coverage guide](docs/api/raw-api-final-coverage.md).
+The canonical raw interface exposes 812 routines through mathematical modules.
+It accounts for all 1,517 retained corpus identities and preserves 662 former
+user-visible paths as compatibility re-exports after namespace normalization;
+the safe facade remains deliberately selective.
+That surface includes source-hash-guarded numerical declarations,
+source-reconstructed callback ABIs, and compiler-probed complex,
+`CHARACTER*1`, and `LOGICAL` interfaces. Every retained identity has an
+evidence-backed public, internal, support, historical, missing-symbol, or
+unsupported-ABI disposition. Canonical and compatibility paths re-export one
+authoritative extern declaration per native symbol. See the
+[raw API coverage guide](docs/api/raw-api-final-coverage.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.
 Historical machine templates are not treated as validated representations of a

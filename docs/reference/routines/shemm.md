@@ -1,6 +1,6 @@
 # SHEMM
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Linear algebra kernels](../families/linear-algebra-kernels.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -44,22 +44,33 @@ Description selected from `netlib_slatec_toc` using `TOC Section I/II purpose`; 
 
 - Catalogue identity has no reconciled source provider and remains visible for review.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `purpose_only`
+- Description provenance: `unavailable`
+- Assessment: only a verified concise purpose is available
+- Dedicated family page: [Linear algebra kernels](../families/linear-algebra-kernels.md)
+
+No independently callable argument list is present in the selected interface inventory for this identity.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `historical-program`
+- ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `not_assigned`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `no` (`missing_symbol`)
 - Documentation status: `not_documented`
 - Compile-test status: `not_compiled`
 - Link-test status: `not_tested`
-- Runtime-test status: `not_tested`
+- Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `catalogue identity has no selected executable provider`
 <!-- raw-api-status:end -->

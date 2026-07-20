@@ -1,7 +1,7 @@
 # Final raw API coverage and disposition
 
-Batch D completes the corpus-wide disposition audit for the unsafe
-`slatec-sys` interface. Complete means that every retained identity has one
+The corpus-wide disposition audit for the unsafe `slatec-sys` interface is
+complete. Complete means that every retained identity has one
 evidence-backed terminal disposition. It does not mean that every retained
 identity is a public Rust function or that every raw function has a safe
 wrapper.
@@ -17,9 +17,10 @@ and source-hash evidence. It does not create a parallel inventory.
 ## Final coverage
 
 The retained corpus has 1,517 identities. Of these, 812 have one canonical
-public raw path: 776 preserved from the reviewed and Batch A-C tiers and 36
-pre-existing family declarations requalified by Batch D. Those 812 identities
-also have 280 compatibility re-export paths. Compatibility names never create
+public raw path: 173 authored reviewed declarations, 459 generated numerical
+declarations, 47 callback-bearing declarations, 97 ABI-sensitive declarations,
+and 36 requalified legacy family declarations. Those 812 identities also have
+662 compatibility re-export paths. Compatibility names never create
 another `extern` declaration.
 
 The non-public remainder is classified as 530 provider subsidiaries, 79 raw
@@ -38,18 +39,17 @@ evidence and reopen condition for every permanent decision;
 `legacy-interface-audit.json` records COMMON relationships, fixed-form I/O,
 program units, and the dedicated BVSUP/DBVSUP audit.
 
-## Batch A-D policy
+## Declaration evidence policy
 
-- Batch A covers 459 mechanically eligible non-callback numerical interfaces.
-- Batch B covers 47 callback-bearing interfaces with reconstructed outer and
-  callback ABIs.
-- Batch C covers 97 complex numerical and simple `CHARACTER*1`/`LOGICAL`
-  interfaces with compiler-profile probes.
-- Batch D source-hash-requalifies 36 already-declared family drivers exercised
-  by existing safe-wrapper and native-family regressions, then assigns a
-  terminal disposition to every remaining identity.
+- 459 mechanically eligible non-callback numerical interfaces are guarded by
+  source hashes and compiler-observed ABI fingerprints.
+- 47 callback-bearing interfaces have reconstructed outer and callback ABIs.
+- 97 complex numerical and simple `CHARACTER*1`/`LOGICAL` interfaces have
+  compiler-profile probe evidence.
+- 36 already-declared family drivers are source-hash requalified against
+  existing safe-wrapper and native-family regressions.
 
-Batch D does not infer semantics from names, create safe closures, add source
+The disposition process does not infer semantics from names, create safe closures, add source
 providers, translate Fortran, or introduce duplicate declarations. No new shim
 was justified. A shim remains permissible only for a genuinely public and
 valuable interface whose direct ABI is impossible, when the transformation is
@@ -87,10 +87,10 @@ feature, while callers may instead supply a compatible external provider.
 `slatec-sys/all` continues to include every public mathematical family without
 selecting a backend.
 
-Compile validation checks each new Batch D canonical path. Native link probes
+Compile validation checks each requalified canonical path. Native link probes
 reference all 36 requalified symbols through the existing exact family source
 closures. Their runtime and numerical evidence is the already-maintained safe
-family regression coverage; Batch D adds no numerical operation. Permanent
+family regression coverage; disposition auditing adds no numerical operation. Permanent
 exclusions explicitly report non-applicable validation levels rather than
 claiming tests that did not run.
 
@@ -111,5 +111,5 @@ cargo run -p slatec-tools --bin slatec-corpus -- validate-final-raw-api-disposit
 The final validator rejects missing or duplicate dispositions, public records
 without canonical paths/features/providers/symbols/compile-link evidence,
 duplicate symbols or paths, callable PROGRAM units, false link claims for
-missing symbols, evidence-free permanent exclusions, and any Batch A-C count
-regression.
+missing symbols, evidence-free permanent exclusions, and any canonical
+classification-count regression.

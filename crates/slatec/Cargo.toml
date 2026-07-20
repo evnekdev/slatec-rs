@@ -5,8 +5,14 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+documentation = "https://docs.rs/slatec"
 description = "Safe Rust interface to selected SLATEC numerical routines"
 readme = "README.md"
+keywords = ["slatec", "numerics", "fortran", "scientific", "mathematics"]
+categories = ["science", "mathematics", "api-bindings"]
+include = ["src/**", "tests/**", "examples/**", "Cargo.toml", "README.md", "AGENTS.md", "LICENSE-*"]
 
 [package.metadata.docs.rs]
 default-features = false
@@ -79,9 +85,9 @@ special-raw-link-tests = ["special"]
 special-raw-native-tests = ["special-raw-link-tests"]
 raw-all-compile = ["slatec-sys/all"]
 raw-all-link-tests = ["raw-all-compile", "full"]
-raw-batch-a-link-tests = ["std", "source-build", "slatec-sys/all", "slatec-src/batch-a-all"]
-raw-batch-a-native-tests = ["raw-batch-a-link-tests"]
-raw-batch-b-link-tests = [
+raw-canonical-link-tests = ["std", "source-build", "slatec-sys/all", "slatec-src/canonical-numeric-provider"]
+raw-canonical-native-tests = ["raw-canonical-link-tests"]
+raw-callback-link-tests = [
     "std",
     "source-build",
     "slatec-sys/all",
@@ -89,15 +95,15 @@ raw-batch-b-link-tests = [
     "slatec-src/linear-algebra",
     "slatec-src/ode",
 ]
-raw-batch-b-native-tests = ["raw-batch-b-link-tests"]
-raw-batch-c-link-tests = [
+raw-callback-native-tests = ["raw-callback-link-tests"]
+raw-complex-abi-link-tests = [
     "std",
     "source-build",
     "slatec-sys/all",
-    "slatec-src/batch-c-all",
+    "slatec-src/complex-abi-provider",
 ]
-raw-batch-c-native-tests = ["raw-batch-c-link-tests"]
-raw-batch-d-link-tests = [
+raw-complex-abi-native-tests = ["raw-complex-abi-link-tests"]
+raw-final-coverage-link-tests = [
     "std",
     "source-build",
     "slatec-sys/all",
@@ -511,27 +517,27 @@ required-features = ["fftpack-complex"]
 
 [[example]]
 name = "fishpack_cartesian_2d"
-path = "../../examples/fishpack_cartesian_2d.rs"
+path = "examples/fishpack_cartesian_2d.rs"
 required-features = ["fishpack-cartesian-2d"]
 
 [[example]]
 name = "fishpack_pois3d"
-path = "../../examples/fishpack_pois3d.rs"
+path = "examples/fishpack_pois3d.rs"
 required-features = ["fishpack-pois3d"]
 
 [[example]]
 name = "banded_factor_and_solve"
-path = "../../examples/banded/factor_and_solve.rs"
+path = "examples/banded/factor_and_solve.rs"
 required-features = ["banded-linear-systems"]
 
 [[example]]
 name = "fftpack_complex_round_trip"
-path = "../../examples/fftpack/complex_round_trip.rs"
+path = "examples/fftpack/complex_round_trip.rs"
 required-features = ["fftpack-complex"]
 
 [[example]]
 name = "fftpack_complex_spectrum"
-path = "../../examples/fftpack/complex_spectrum.rs"
+path = "examples/fftpack/complex_spectrum.rs"
 required-features = ["fftpack-complex"]
 
 [[example]]
@@ -548,47 +554,47 @@ required-features = ["piecewise-polynomial"]
 
 [[example]]
 name = "piecewise_polynomial_from_pieces"
-path = "../../examples/piecewise_polynomial/from_pieces.rs"
+path = "examples/piecewise_polynomial/from_pieces.rs"
 required-features = ["piecewise-polynomial"]
 
 [[example]]
 name = "piecewise_polynomial_evaluate_derivatives"
-path = "../../examples/piecewise_polynomial/evaluate_derivatives.rs"
+path = "examples/piecewise_polynomial/evaluate_derivatives.rs"
 required-features = ["piecewise-polynomial"]
 
 [[example]]
 name = "piecewise_polynomial_integrate"
-path = "../../examples/piecewise_polynomial/integrate.rs"
+path = "examples/piecewise_polynomial/integrate.rs"
 required-features = ["piecewise-polynomial"]
 
 [[example]]
 name = "piecewise_polynomial_from_bspline"
-path = "../../examples/piecewise_polynomial/from_bspline.rs"
+path = "examples/piecewise_polynomial/from_bspline.rs"
 required-features = ["piecewise-polynomial", "bspline"]
 
 [[example]]
 name = "bspline_from_parts"
-path = "../../examples/bspline/from_parts.rs"
+path = "examples/bspline/from_parts.rs"
 required-features = ["bspline"]
 
 [[example]]
 name = "bspline_derivatives"
-path = "../../examples/bspline/derivatives.rs"
+path = "examples/bspline/derivatives.rs"
 required-features = ["bspline"]
 
 [[example]]
 name = "bspline_integrate"
-path = "../../examples/bspline/integrate.rs"
+path = "examples/bspline/integrate.rs"
 required-features = ["bspline"]
 
 [[example]]
 name = "bspline_interpolate"
-path = "../../examples/interpolation/bspline_interpolate.rs"
+path = "examples/interpolation/bspline_interpolate.rs"
 required-features = ["bspline"]
 
 [[example]]
 name = "bspline_interpolate_and_convert"
-path = "../../examples/interpolation/bspline_interpolate_and_convert.rs"
+path = "examples/interpolation/bspline_interpolate_and_convert.rs"
 required-features = ["bspline", "piecewise-polynomial"]
 
 [[example]]
@@ -597,10 +603,10 @@ required-features = ["special-scalar-expanded"]
 
 [[example]]
 name = "special_integrals"
-path = "../../examples/special/integrals.rs"
+path = "examples/special/integrals.rs"
 required-features = ["special-scalar-expanded"]
 
 [[example]]
 name = "special_elliptic"
-path = "../../examples/special/elliptic.rs"
+path = "examples/special/elliptic.rs"
 required-features = ["special-scalar-expanded"]

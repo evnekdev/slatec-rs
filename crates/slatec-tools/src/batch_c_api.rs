@@ -82,10 +82,10 @@ struct Candidate {
     abi_fingerprint: String,
     canonical_module: String,
     canonical_path: String,
+    compatibility_paths: Vec<String>,
     declaration_feature: String,
     provider_feature: String,
     binding_module: String,
-    binding_feature: String,
     arguments: Vec<Argument>,
     result: Option<FunctionResult>,
 }
@@ -141,7 +141,20 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
         )?;
         if classification["batch_c_eligibility"] == "eligible" {
             let interface = interface.expect("eligible Batch C record has an interface");
+            let (legacy_module, _) = legacy_canonical_module(record, &routine)?;
             let (canonical_module, declaration_feature) = canonical_module(record, &routine)?;
+            let canonical_path = format!(
+                "slatec_sys::{canonical_module}::{}",
+                routine.to_ascii_lowercase()
+            );
+            let legacy_path = format!(
+                "slatec_sys::{legacy_module}::{}",
+                routine.to_ascii_lowercase()
+            );
+            let compatibility_paths = (legacy_path != canonical_path)
+                .then_some(legacy_path)
+                .into_iter()
+                .collect();
             let binding_module = binding_module(&interface.batch)?;
             let candidate = Candidate {
                 routine: routine.clone(),
@@ -153,14 +166,11 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
                 kind: interface.kind.clone(),
                 abi_class: field(&classification, "combined_abi_class"),
                 abi_fingerprint: abi_fingerprint(&interface.kind, &args, result.as_ref()),
-                canonical_path: format!(
-                    "slatec_sys::{canonical_module}::{}",
-                    routine.to_ascii_lowercase()
-                ),
+                canonical_path,
+                compatibility_paths,
                 canonical_module,
                 provider_feature: declaration_feature.clone(),
                 declaration_feature,
-                binding_feature: format!("raw-ffi-{}", binding_module.replace('_', "-")),
                 binding_module,
                 arguments: args,
                 result,
@@ -708,15 +718,15 @@ fn classify(
     Ok((base, args, result))
 }
 
-fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
+fn legacy_canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
     let (module, feature) = match field(record, "primary_family").as_str() {
-        "Dense linear algebra" => ("linear_algebra::dense::complex", "batch-c-linear-algebra"),
-        "Linear algebra kernels" => ("blas::level1", "batch-c-blas"),
+        "Dense linear algebra" => ("linear_algebra::dense::complex", "linear-algebra-complex"),
+        "Linear algebra kernels" => ("blas::level1", "blas-complex"),
         "Special functions" | "Elementary and transcendental functions" => {
-            ("special::complex", "batch-c-special")
+            ("special::complex", "special-complex")
         }
-        "Nonlinear equations" => ("nonlinear::complex", "batch-c-nonlinear"),
-        "FISHPACK elliptic PDE solvers" => ("pde::fishpack::complex", "batch-c-fishpack"),
+        "Nonlinear equations" => ("nonlinear::complex", "nonlinear-complex"),
+        "FISHPACK elliptic PDE solvers" => ("pde::fishpack::complex", "fishpack-complex"),
         other => {
             return Err(policy(&format!(
                 "Batch C has no canonical module for {routine} ({other})"
@@ -724,6 +734,61 @@ fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
         }
     };
     Ok((module.to_owned(), feature.to_owned()))
+}
+
+fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
+    let (module, feature) = match field(record, "primary_family").as_str() {
+        "Dense linear algebra" => (
+            format!(
+                "linear_algebra::{}::complex",
+                linear_algebra_storage(record, routine)
+            ),
+            "linear-algebra-complex".to_owned(),
+        ),
+        "Linear algebra kernels" => ("blas::level1".to_owned(), "blas-complex".to_owned()),
+        "Special functions" | "Elementary and transcendental functions" => {
+            ("special::complex".to_owned(), "special-complex".to_owned())
+        }
+        "Nonlinear equations" => (
+            "nonlinear::complex".to_owned(),
+            "nonlinear-complex".to_owned(),
+        ),
+        "FISHPACK elliptic PDE solvers" => (
+            "pde::fishpack::complex".to_owned(),
+            "fishpack-complex".to_owned(),
+        ),
+        other => {
+            return Err(policy(&format!(
+                "Batch C has no normalized canonical module for {routine} ({other})"
+            )));
+        }
+    };
+    Ok((module, feature))
+}
+
+fn linear_algebra_storage(record: &Value, routine: &str) -> &'static str {
+    let purpose = field(record, "short_purpose").to_ascii_lowercase();
+    let stem = routine
+        .strip_prefix(['C', 'D', 'S', 'Z'])
+        .unwrap_or(routine);
+    if purpose.contains("sparse") {
+        "sparse"
+    } else if purpose.contains("packed")
+        || ["HP", "PP", "SP"]
+            .iter()
+            .any(|prefix| stem.starts_with(prefix))
+    {
+        "packed"
+    } else if purpose.contains("band")
+        || purpose.contains("tridiagonal")
+        || ["GB", "NB", "PB", "GT", "PT"]
+            .iter()
+            .any(|prefix| stem.starts_with(prefix))
+    {
+        "banded"
+    } else {
+        "dense"
+    }
 }
 
 fn binding_module(batch: &str) -> Result<String> {
@@ -745,23 +810,44 @@ fn write_canonical_modules(sys_dir: &Path, candidates: &[Candidate]) -> Result<(
     for candidate in candidates {
         let family = candidate
             .declaration_feature
-            .trim_start_matches("batch-c-")
+            .strip_suffix("-complex")
+            .unwrap_or(&candidate.declaration_feature)
             .replace('-', "_");
         families.entry(family).or_default().push(candidate);
     }
     let mut index = String::from(
-        "//! Generated Batch C declaration owners.\n//!\n//! Do not edit. Regenerate with `slatec-corpus generate-raw-batch-c --offline`.\n\n",
+        "//! Generated ABI-sensitive raw declaration owners.\n//!\n//! Do not edit this file directly.\n\n",
     );
     for (family, values) in &families {
-        let feature = family.replace('_', "-");
+        let feature = format!("{}-complex", family.replace('_', "-"));
         index.push_str(&format!(
-            "#[cfg(feature = \"raw-family-batch-c-{feature}\")]\npub(crate) mod {family};\n"
+            "#[cfg(feature = \"raw-family-{feature}\")]\npub(crate) mod {family};\n"
         ));
         let mut text = String::from(
-            "//! Generated Batch C canonical raw declarations.\n//!\n//! Do not edit. Regenerate with `slatec-corpus generate-raw-batch-c --offline`.\n\n",
+            "//! Generated canonical ABI-sensitive raw bindings.\n//!\n//! These declarations are organized by mathematical family. Do not edit this file directly.\n\n",
         );
-        for candidate in values {
-            render_candidate(&mut text, candidate);
+        if family == "linear_algebra" {
+            let mut by_storage = BTreeMap::<String, Vec<&Candidate>>::new();
+            for candidate in values {
+                let storage = candidate
+                    .canonical_module
+                    .strip_prefix("linear_algebra::")
+                    .and_then(|path| path.split("::").next())
+                    .unwrap_or("dense")
+                    .to_owned();
+                by_storage.entry(storage).or_default().push(candidate);
+            }
+            for (storage, candidates) in by_storage {
+                text.push_str(&format!("pub mod {storage} {{\n"));
+                for candidate in candidates {
+                    render_candidate(&mut text, candidate, "    ");
+                }
+                text.push_str("}\n\n");
+            }
+        } else {
+            for candidate in values {
+                render_candidate(&mut text, candidate, "");
+            }
         }
         fs::write(dir.join(format!("{family}.rs")), text)?;
     }
@@ -769,16 +855,22 @@ fn write_canonical_modules(sys_dir: &Path, candidates: &[Candidate]) -> Result<(
     format_generated_rust(&dir)
 }
 
-fn render_candidate(text: &mut String, candidate: &Candidate) {
-    text.push_str(&format!("// raw-api-routine: {}\n", candidate.routine));
-    render_docs(text, candidate);
+fn render_candidate(text: &mut String, candidate: &Candidate, indent: &str) {
     text.push_str(&format!(
-        "#[cfg(feature = \"{}\")]\n#[doc(inline)]\npub use crate::generated::{}::{};\n",
-        candidate.binding_feature,
-        candidate.binding_module,
+        "{indent}// raw-api-routine: {}\n",
+        candidate.routine
+    ));
+    // This private ABI-sensitive binding owner contains the one declaration.
+    // Transitional ABI-shaped modules are rewritten as re-exports by the
+    // declaration-ownership pass.
+    let inner = format!("{indent}    ");
+    text.push_str(&format!("{indent}unsafe extern \"C\" {{\n",));
+    render_docs(text, candidate, &inner);
+    text.push_str(&format!(
+        "{inner}#[link_name = \"{}\"]\n{inner}pub fn {}(",
+        candidate.native_symbol,
         candidate.routine.to_ascii_lowercase()
     ));
-    text.push_str(&format!("#[cfg(not(feature = \"{}\"))]\nunsafe extern \"C\" {{\n    #[link_name = \"{}\"]\n    pub fn {}(",candidate.binding_feature,candidate.native_symbol,candidate.routine.to_ascii_lowercase()));
     for (index, argument) in candidate.arguments.iter().enumerate() {
         if index > 0 {
             text.push_str(", ");
@@ -807,14 +899,14 @@ fn render_candidate(text: &mut String, candidate: &Candidate) {
     if let Some(result) = &candidate.result {
         text.push_str(&format!(" -> {}", rust_ffi_type(&result.declared_type)));
     }
-    text.push_str(";\n}\n\n");
+    text.push_str(&format!(";\n{indent}}}\n\n"));
 }
 
-fn render_docs(text: &mut String, candidate: &Candidate) {
-    text.push_str(&format!("/// {}\n", one_line(&candidate.purpose)));
-    text.push_str(&format!("///\n/// Original SLATEC routine `{}`; source: <{}>; source SHA-256: `{}`; native symbol: `{}`.\n",candidate.routine,candidate.source_url,candidate.source_hash,candidate.native_symbol));
+fn render_docs(text: &mut String, candidate: &Candidate, indent: &str) {
+    text.push_str(&format!("{indent}/// {}\n", one_line(&candidate.purpose)));
+    text.push_str(&format!("{indent}///\n{indent}/// Original SLATEC routine `{}`; source: <{}>; source SHA-256: `{}`; native symbol: `{}`.\n",candidate.routine,candidate.source_url,candidate.source_hash,candidate.native_symbol));
     text.push_str(&format!(
-        "/// Supported ABI: GNU MinGW `{TARGET}`; Batch C class `{}`; fingerprint `{}`.\n",
+        "{indent}/// Supported ABI: GNU MinGW `{TARGET}`; ABI class `{}`; fingerprint `{}`.\n",
         candidate.abi_class, candidate.abi_fingerprint
     ));
     if candidate
@@ -826,14 +918,14 @@ fn render_docs(text: &mut String, candidate: &Candidate) {
             .as_ref()
             .is_some_and(|r| is_complex(&r.declared_type))
     {
-        text.push_str("/// Complex values use `crate::Complex32` or `crate::Complex64` in real/imaginary order. Complex arguments are passed by pointer; complex function results use the compiler-probed direct aggregate-return convention.\n");
+        text.push_str(&format!("{indent}/// Complex values use `crate::Complex32` or `crate::Complex64` in real/imaginary order. Complex arguments are passed by pointer; complex function results use the compiler-probed direct aggregate-return convention.\n"));
     }
     if candidate
         .arguments
         .iter()
         .any(|a| a.declared_type == "CHARACTER")
     {
-        text.push_str("/// Every CHARACTER dummy is a one-byte buffer. Pass one trailing `crate::FortranCharacterLength` value of `1` per dummy, after all ordinary arguments and in visible dummy order.\n");
+        text.push_str(&format!("{indent}/// Every CHARACTER dummy is a one-byte buffer. Pass one trailing `crate::FortranCharacterLength` value of `1` per dummy, after all ordinary arguments and in visible dummy order.\n"));
     }
     if candidate
         .arguments
@@ -844,9 +936,11 @@ fn render_docs(text: &mut String, candidate: &Candidate) {
             .as_ref()
             .is_some_and(|r| r.declared_type == "LOGICAL")
     {
-        text.push_str("/// LOGICAL uses `crate::FortranLogical` (`i32`, false `0`, true `1`), never Rust `bool`; arrays use four-byte element stride.\n");
+        text.push_str(&format!("{indent}/// LOGICAL uses `crate::FortranLogical` (`i32`, false `0`, true `1`), never Rust `bool`; arrays use four-byte element stride.\n"));
     }
-    text.push_str("///\n/// # Arguments\n///\n");
+    text.push_str(&format!(
+        "{indent}///\n{indent}/// # Arguments\n{indent}///\n"
+    ));
     for argument in &candidate.arguments {
         let shape = if argument.dimensions.is_empty() {
             "scalar".to_owned()
@@ -861,11 +955,11 @@ fn render_docs(text: &mut String, candidate: &Candidate) {
         } else {
             String::new()
         };
-        text.push_str(&format!("/// - `{}`: Fortran `{}` {shape}.{extra} Null is not permitted; provide the complete source-defined readable/writable extent. Semantic intent, aliasing permission, and exact extent/workspace formulas remain source-prologue obligations. The native routine does not retain the pointer.\n",argument.name,argument.declared_type));
+        text.push_str(&format!("{indent}/// - `{}`: Fortran `{}` {shape}.{extra} Null is not permitted; provide the complete source-defined readable/writable extent. Semantic intent, aliasing permission, and exact extent/workspace formulas remain source-prologue obligations. The native routine does not retain the pointer.\n",argument.name,argument.declared_type));
     }
     if let Some(result) = &candidate.result {
         text.push_str(&format!(
-            "/// - Return: compiler-validated Fortran `{}` value",
+            "{indent}/// - Return: compiler-validated Fortran `{}` value",
             result.declared_type
         ));
         if result.declared_type == "CHARACTER" {
@@ -876,7 +970,7 @@ fn render_docs(text: &mut String, candidate: &Candidate) {
         }
         text.push_str(".\n");
     }
-    text.push_str("///\n/// # Safety\n///\n/// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact Batch B ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.\n");
+    text.push_str(&format!("{indent}///\n{indent}/// # Safety\n{indent}///\n{indent}/// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.\n"));
 }
 
 fn write_compile_probes(sys_dir: &Path, candidates: &[Candidate]) -> Result<()> {
@@ -906,7 +1000,7 @@ fn write_link_probes(facade_dir: &Path, candidates: &[Candidate]) -> Result<()> 
     fs::create_dir_all(&tests)?;
     for (index, chunk) in candidates.chunks(BATCH_SIZE).enumerate() {
         let mut text = String::from(
-            "//! Generated Batch C native-symbol link probe.\n\n#![cfg(feature = \"raw-batch-c-link-tests\")]\n\n#[test]\nfn links_batch_c_symbols() {\n",
+            "//! Generated Batch C native-symbol link probe.\n\n#![cfg(feature = \"raw-complex-abi-link-tests\")]\n\n#[test]\nfn links_batch_c_symbols() {\n",
         );
         for candidate in chunk {
             text.push_str(&format!(
@@ -926,7 +1020,7 @@ fn write_link_probes(facade_dir: &Path, candidates: &[Candidate]) -> Result<()> 
 fn candidate_json(candidate: &Candidate) -> Value {
     json!({
         "routine":candidate.routine,"source_hash":candidate.source_hash,"source_file":candidate.source_file,"source_url":candidate.source_url,"native_symbol":candidate.native_symbol,"program_unit_kind":candidate.kind,
-        "combined_abi_class":candidate.abi_class,"normalized_abi_fingerprint":candidate.abi_fingerprint,"canonical_module":candidate.canonical_module,"canonical_rust_path":candidate.canonical_path,
+        "combined_abi_class":candidate.abi_class,"normalized_abi_fingerprint":candidate.abi_fingerprint,"canonical_module":candidate.canonical_module,"canonical_rust_path":candidate.canonical_path,"compatibility_paths":candidate.compatibility_paths,
         "declaration_feature":candidate.declaration_feature,"provider_feature":candidate.provider_feature,"binding_module":candidate.binding_module,"binding_path":format!("crate::generated::{}::{}",candidate.binding_module,candidate.routine.to_ascii_lowercase()),
         "arguments":candidate.arguments.iter().map(|a|a.name.clone()).collect::<Vec<_>>(),"result_type":candidate.result.as_ref().map(|r|r.declared_type.clone()),
         "validation_statuses":["source_verified","abi_classified","complex_layout_validated","complex_return_validated","character_length_validated","logical_representation_validated","compile_validated","link_validated"],

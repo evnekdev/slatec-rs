@@ -1,6 +1,6 @@
 # SDASSL
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: ODE solvers](../families/ode-solvers.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,63 @@ This code solves a system of differential/algebraic equations of the form G(T,Y,
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `argument_contract_incomplete`
+- Description provenance: `source_prologue`
+- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
+- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `RES` | callback | `REAL` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NEQ` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `T` | input/output | `REAL` (`explicit`) | `*mut f32` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `Y` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `YPRIME` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `TOUT` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `INFO` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (15) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RTOL` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `ATOL` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IDID` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RWORK` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `LRW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `LIW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `RPAR` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IPAR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `JAC` | callback | `INTEGER` (`implicit_rule`) | `reviewed unsafe extern callback function pointer` | scalar | *Usage: EXTERNAL RES, JAC INTEGER NEQ, INFO(N), IDID, LRW, LIW, IWORK(LIW), IPAR REAL T, Y(NEQ), YPRIME(NEQ), TOUT, RTOL, ATOL, * RWORK(LRW), RPAR CALL SDASSL (RES, NEQ, T, Y, YPRIME, TOUT, INFO, RTOL, ATOL, * IDID, RWORK, LRW, IWORK, LIW, RPAR, IPAR, JAC) *Arguments: RES:EXT This is a subroutine which you provide to define the differential/algebraic system. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+
+### Callback contract
+
+Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+
+### ABI and safety
+
+Canonical path: `slatec_sys::dassl::sdassl`. Native symbol: `sdassl_`. Feature: `dassl`. Provider status: `selected_provider_verified`. ABI fingerprint: `unavailable`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `not_generated`
-- Reviewed family declaration: `batch_d_public_driver`
+- Public raw API status: `canonical-public`
+- ABI validation: `pending`
 - Canonical Rust path: `slatec_sys::dassl::sdassl`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `dassl`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

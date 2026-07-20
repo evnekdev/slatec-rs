@@ -10,669 +10,6 @@ use core::ffi::c_char;
 unsafe extern "C" {
     #[link_name = "aaaaaa_"]
     pub fn aaaaaa(ver: *mut c_char, character_length_1: FortranCharacterLength);
-    #[link_name = "cgbmv_"]
-    pub fn cgbmv(
-        trans: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kl: *mut FortranInteger,
-        ku: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        beta: *mut Complex32,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "cgemm_"]
-    pub fn cgemm(
-        transa: *mut c_char,
-        transb: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        beta: *mut Complex32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "cgemv_"]
-    pub fn cgemv(
-        trans: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        beta: *mut Complex32,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "chbmv_"]
-    pub fn chbmv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        beta: *mut Complex32,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "chemm_"]
-    pub fn chemm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        beta: *mut Complex32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "chemv_"]
-    pub fn chemv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        beta: *mut Complex32,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "cher_"]
-    pub fn cher(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "cher2_"]
-    pub fn cher2(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "cher2k_"]
-    pub fn cher2k(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        beta: *mut f32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "cherk_"]
-    pub fn cherk(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        beta: *mut f32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "chpmv_"]
-    pub fn chpmv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        ap: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        beta: *mut Complex32,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "chpr_"]
-    pub fn chpr(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        ap: *mut Complex32,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "chpr2_"]
-    pub fn chpr2(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        y: *mut Complex32,
-        incy: *mut FortranInteger,
-        ap: *mut Complex32,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "csymm_"]
-    pub fn csymm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        beta: *mut Complex32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "csyr2k_"]
-    pub fn csyr2k(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        beta: *mut Complex32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "csyrk_"]
-    pub fn csyrk(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        beta: *mut Complex32,
-        c: *mut Complex32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "ctbmv_"]
-    pub fn ctbmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "ctbsv_"]
-    pub fn ctbsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "ctpmv_"]
-    pub fn ctpmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        ap: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "ctpsv_"]
-    pub fn ctpsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        ap: *mut Complex32,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "ctrmm_"]
-    pub fn ctrmm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        transa: *mut c_char,
-        diag: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-        character_length_4: FortranCharacterLength,
-    );
-    #[link_name = "ctrmv_"]
-    pub fn ctrmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "ctrsm_"]
-    pub fn ctrsm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        transa: *mut c_char,
-        diag: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut Complex32,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        b: *mut Complex32,
-        ldb: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-        character_length_4: FortranCharacterLength,
-    );
-    #[link_name = "ctrsv_"]
-    pub fn ctrsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        a: *mut Complex32,
-        lda: *mut FortranInteger,
-        x: *mut Complex32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "dgbmv_"]
-    pub fn dgbmv(
-        trans: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kl: *mut FortranInteger,
-        ku: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        beta: *mut f64,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dgemm_"]
-    pub fn dgemm(
-        transa: *mut c_char,
-        transb: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        b: *mut f64,
-        ldb: *mut FortranInteger,
-        beta: *mut f64,
-        c: *mut f64,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "dgemv_"]
-    pub fn dgemv(
-        trans: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        beta: *mut f64,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dsbmv_"]
-    pub fn dsbmv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        beta: *mut f64,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dspmv_"]
-    pub fn dspmv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        ap: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        beta: *mut f64,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dspr_"]
-    pub fn dspr(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        ap: *mut f64,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dspr2_"]
-    pub fn dspr2(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        ap: *mut f64,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dsymm_"]
-    pub fn dsymm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        b: *mut f64,
-        ldb: *mut FortranInteger,
-        beta: *mut f64,
-        c: *mut f64,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "dsymv_"]
-    pub fn dsymv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        beta: *mut f64,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dsyr_"]
-    pub fn dsyr(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dsyr2_"]
-    pub fn dsyr2(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        y: *mut f64,
-        incy: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "dsyr2k_"]
-    pub fn dsyr2k(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        b: *mut f64,
-        ldb: *mut FortranInteger,
-        beta: *mut f64,
-        c: *mut f64,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "dsyrk_"]
-    pub fn dsyrk(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        beta: *mut f64,
-        c: *mut f64,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "dtbmv_"]
-    pub fn dtbmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "dtbsv_"]
-    pub fn dtbsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "dtpmv_"]
-    pub fn dtpmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        ap: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "dtpsv_"]
-    pub fn dtpsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        ap: *mut f64,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "dtrmm_"]
-    pub fn dtrmm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        transa: *mut c_char,
-        diag: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        b: *mut f64,
-        ldb: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-        character_length_4: FortranCharacterLength,
-    );
-    #[link_name = "dtrmv_"]
-    pub fn dtrmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "dtrsm_"]
-    pub fn dtrsm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        transa: *mut c_char,
-        diag: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f64,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        b: *mut f64,
-        ldb: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-        character_length_4: FortranCharacterLength,
-    );
-    #[link_name = "dtrsv_"]
-    pub fn dtrsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        a: *mut f64,
-        lda: *mut FortranInteger,
-        x: *mut f64,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
     #[link_name = "hpperm_"]
     pub fn hpperm(
         hx: *mut c_char,
@@ -696,311 +33,139 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
         character_length_2: FortranCharacterLength,
     );
-    #[link_name = "sgbmv_"]
-    pub fn sgbmv(
-        trans: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        kl: *mut FortranInteger,
-        ku: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        beta: *mut f32,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "sgemm_"]
-    pub fn sgemm(
-        transa: *mut c_char,
-        transb: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        b: *mut f32,
-        ldb: *mut FortranInteger,
-        beta: *mut f32,
-        c: *mut f32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "sgemv_"]
-    pub fn sgemv(
-        trans: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        beta: *mut f32,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "ssbmv_"]
-    pub fn ssbmv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        beta: *mut f32,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "sspmv_"]
-    pub fn sspmv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        ap: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        beta: *mut f32,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "sspr_"]
-    pub fn sspr(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        ap: *mut f32,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "sspr2_"]
-    pub fn sspr2(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        ap: *mut f32,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "ssymm_"]
-    pub fn ssymm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        b: *mut f32,
-        ldb: *mut FortranInteger,
-        beta: *mut f32,
-        c: *mut f32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "ssymv_"]
-    pub fn ssymv(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        beta: *mut f32,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "ssyr_"]
-    pub fn ssyr(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "ssyr2_"]
-    pub fn ssyr2(
-        uplo: *mut c_char,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        y: *mut f32,
-        incy: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-    );
-    #[link_name = "ssyr2k_"]
-    pub fn ssyr2k(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        b: *mut f32,
-        ldb: *mut FortranInteger,
-        beta: *mut f32,
-        c: *mut f32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "ssyrk_"]
-    pub fn ssyrk(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        beta: *mut f32,
-        c: *mut f32,
-        ldc: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-    );
-    #[link_name = "stbmv_"]
-    pub fn stbmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "stbsv_"]
-    pub fn stbsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        k: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "stpmv_"]
-    pub fn stpmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        ap: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "stpsv_"]
-    pub fn stpsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        ap: *mut f32,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "strmm_"]
-    pub fn strmm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        transa: *mut c_char,
-        diag: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        b: *mut f32,
-        ldb: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-        character_length_4: FortranCharacterLength,
-    );
-    #[link_name = "strmv_"]
-    pub fn strmv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
-    #[link_name = "strsm_"]
-    pub fn strsm(
-        side: *mut c_char,
-        uplo: *mut c_char,
-        transa: *mut c_char,
-        diag: *mut c_char,
-        m: *mut FortranInteger,
-        n: *mut FortranInteger,
-        alpha: *mut f32,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        b: *mut f32,
-        ldb: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-        character_length_4: FortranCharacterLength,
-    );
-    #[link_name = "strsv_"]
-    pub fn strsv(
-        uplo: *mut c_char,
-        trans: *mut c_char,
-        diag: *mut c_char,
-        n: *mut FortranInteger,
-        a: *mut f32,
-        lda: *mut FortranInteger,
-        x: *mut f32,
-        incx: *mut FortranInteger,
-        character_length_1: FortranCharacterLength,
-        character_length_2: FortranCharacterLength,
-        character_length_3: FortranCharacterLength,
-    );
 }
+
+// ffi-declaration-aliases:start
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::cgbmv`."]
+pub use crate::blas::level2::cgbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::cgemv`."]
+pub use crate::blas::level2::cgemv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::chbmv`."]
+pub use crate::blas::level2::chbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::chemv`."]
+pub use crate::blas::level2::chemv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::cher`."]
+pub use crate::blas::level2::cher;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::cher2`."]
+pub use crate::blas::level2::cher2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::chpmv`."]
+pub use crate::blas::level2::chpmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::chpr`."]
+pub use crate::blas::level2::chpr;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::chpr2`."]
+pub use crate::blas::level2::chpr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ctbmv`."]
+pub use crate::blas::level2::ctbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ctbsv`."]
+pub use crate::blas::level2::ctbsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ctpmv`."]
+pub use crate::blas::level2::ctpmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ctpsv`."]
+pub use crate::blas::level2::ctpsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ctrmv`."]
+pub use crate::blas::level2::ctrmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ctrsv`."]
+pub use crate::blas::level2::ctrsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dgbmv`."]
+pub use crate::blas::level2::dgbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dgemv`."]
+pub use crate::blas::level2::dgemv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dsbmv`."]
+pub use crate::blas::level2::dsbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dspmv`."]
+pub use crate::blas::level2::dspmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dspr`."]
+pub use crate::blas::level2::dspr;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dspr2`."]
+pub use crate::blas::level2::dspr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dsymv`."]
+pub use crate::blas::level2::dsymv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dsyr`."]
+pub use crate::blas::level2::dsyr;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dsyr2`."]
+pub use crate::blas::level2::dsyr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dtbmv`."]
+pub use crate::blas::level2::dtbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dtbsv`."]
+pub use crate::blas::level2::dtbsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dtpmv`."]
+pub use crate::blas::level2::dtpmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dtpsv`."]
+pub use crate::blas::level2::dtpsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dtrmv`."]
+pub use crate::blas::level2::dtrmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dtrsv`."]
+pub use crate::blas::level2::dtrsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sgbmv`."]
+pub use crate::blas::level2::sgbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sgemv`."]
+pub use crate::blas::level2::sgemv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ssbmv`."]
+pub use crate::blas::level2::ssbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sspmv`."]
+pub use crate::blas::level2::sspmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sspr`."]
+pub use crate::blas::level2::sspr;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sspr2`."]
+pub use crate::blas::level2::sspr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ssymv`."]
+pub use crate::blas::level2::ssymv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ssyr`."]
+pub use crate::blas::level2::ssyr;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::ssyr2`."]
+pub use crate::blas::level2::ssyr2;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::stbmv`."]
+pub use crate::blas::level2::stbmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::stbsv`."]
+pub use crate::blas::level2::stbsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::stpmv`."]
+pub use crate::blas::level2::stpmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::stpsv`."]
+pub use crate::blas::level2::stpsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::strmv`."]
+pub use crate::blas::level2::strmv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::strsv`."]
+pub use crate::blas::level2::strsv;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::cgemm`."]
+pub use crate::blas::level3::cgemm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::chemm`."]
+pub use crate::blas::level3::chemm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::cher2k`."]
+pub use crate::blas::level3::cher2k;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::cherk`."]
+pub use crate::blas::level3::cherk;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::csymm`."]
+pub use crate::blas::level3::csymm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::csyr2k`."]
+pub use crate::blas::level3::csyr2k;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::csyrk`."]
+pub use crate::blas::level3::csyrk;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::ctrmm`."]
+pub use crate::blas::level3::ctrmm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::ctrsm`."]
+pub use crate::blas::level3::ctrsm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::dgemm`."]
+pub use crate::blas::level3::dgemm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::dsymm`."]
+pub use crate::blas::level3::dsymm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::dsyr2k`."]
+pub use crate::blas::level3::dsyr2k;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::dsyrk`."]
+pub use crate::blas::level3::dsyrk;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::dtrmm`."]
+pub use crate::blas::level3::dtrmm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::dtrsm`."]
+pub use crate::blas::level3::dtrsm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::sgemm`."]
+pub use crate::blas::level3::sgemm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::ssymm`."]
+pub use crate::blas::level3::ssymm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::ssyr2k`."]
+pub use crate::blas::level3::ssyr2k;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::ssyrk`."]
+pub use crate::blas::level3::ssyrk;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::strmm`."]
+pub use crate::blas::level3::strmm;
+#[doc = "Transitional ABI-shaped alias; use `crate::blas::level3::strsm`."]
+pub use crate::blas::level3::strsm;
+// ffi-declaration-aliases:end

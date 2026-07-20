@@ -1,6 +1,6 @@
 # DXSET
 
-[Back to family index](../routines-by-family.md) · [Alphabetical index](../routines-alphabetical.md) · [Coverage](../routine-coverage.md)
+[Family: Arithmetic and extended-range arithmetic](../families/arithmetic-and-extended-range-arithmetic.md) | [All families](../routines-by-family.md) | [Alphabetical index](../routines-alphabetical.md) | [Coverage](../routine-coverage.md)
 
 ## Purpose
 
@@ -51,22 +51,43 @@ SUBROUTINE DXSET MUST BE CALLED PRIOR TO CALLING ANY OTHER EXTENDED-RANGE SUBROU
 
 Description selected from `canonical_source_prologue` using `PURPOSE`; confidence: `high`. External-reference statuses are generated offline from separately cached source files, directory indexes, and TOC evidence.
 
+<!-- release-readiness:start -->
+## Interface documentation quality
+
+- Evidence level: `subsidiary_minimal`
+- Description provenance: `source_prologue`
+- Assessment: the non-public subsidiary has purpose, role, source, and disposition evidence
+- Dedicated family page: [Arithmetic and extended-range arithmetic](../families/arithmetic-and-extended-range-arithmetic.md)
+
+### Arguments
+
+| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `IRAD` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | THE CONSTANTS ARE IRAD = THE INTERNAL BASE OF DOUBLE-PRECISION ARITHMETIC IN THE COMPUTER. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NRADPL` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | NRADPL = THE NUMBER OF RADIX PLACES CARRIED IN THE DOUBLE-PRECISION REPRESENTATION. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `DZERO` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DZERO = THE SMALLEST OF 1/DMIN, DMAX, DMAXLN WHERE DMIN = THE SMALLEST POSITIVE DOUBLE-PRECISION NUMBER OR AN UPPER BOUND TO THIS NUMBER, DMAX = THE LARGEST DOUBLE-PRECISION NUMBER OR A LOWER BOUND TO THIS NUMBER, DMAXLN = THE LARGEST DOUBLE-PRECISION NUMBER SUCH THAT LOG10(DMAXLN) CAN BE COMPUTED BY THE FORTRAN SYSTEM (ON MOST SYSTEMS DMAXLN = DMAX). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `NBITS` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | NBITS = THE NUMBER OF BITS (EXCLUSIVE OF SIGN) IN AN INTEGER COMPUTER WORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| `IERROR` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | THE SUBROUTINES CONTAINED IN THIS PACKAGE ARE SUBROUTINE DXADD USAGE CALL DXADD(X,IX,Y,IY,Z,IZ,IERROR) IF (IERROR.NE.0) RETURN FORMS THE EXTENDED-RANGE SUM (Z,IZ) = (X,IX) + (Y,IY). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+
+The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+<!-- release-readiness:end -->
+
 <!-- raw-api-status:start -->
 ## Raw Rust API status
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Generated raw declaration: `generated_abi_validated`
-- Reviewed family declaration: `not_reviewed_by_raw_api_registry`
+- Public raw API status: `internal-subsidiary`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Current legacy Rust paths: `none`
+- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-scalar-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
 - Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
-- Runtime-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
 - Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

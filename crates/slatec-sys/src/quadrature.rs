@@ -455,18 +455,18 @@ unsafe extern "C" {
     );
 }
 
-#[cfg(feature = "raw-family-batch-a-quadrature")]
+#[cfg(feature = "raw-family-quadrature-direct")]
 #[path = "batch_a/quadrature.rs"]
-mod batch_a;
+mod canonical_bindings;
 
-/// Canonical source-verified Batch A non-callback quadrature declarations.
-#[cfg(feature = "raw-family-batch-a-quadrature")]
-pub use batch_a::numerical;
+/// Canonical source-verified non-callback quadrature declarations.
+#[cfg(feature = "raw-family-quadrature-direct")]
+pub use canonical_bindings::*;
 
-#[cfg(feature = "raw-family-batch-b-quadrature")]
+#[cfg(feature = "raw-family-quadrature-callbacks")]
 #[path = "batch_b/quadrature.rs"]
-mod batch_b;
+mod callback_bindings;
 
-/// Canonical source-verified Batch B callback-bearing quadrature declarations.
-#[cfg(feature = "raw-family-batch-b-quadrature")]
-pub use batch_b::callbacks;
+/// Canonical source-verified callback-bearing quadrature declarations.
+#[cfg(feature = "raw-family-quadrature-callbacks")]
+pub use callback_bindings::callbacks;
