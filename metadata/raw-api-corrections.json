@@ -178,6 +178,22 @@
         "source_link": "selected_provider_metadata",
         "abi_profile": "compiler_observation"
       }
+    },
+    {
+      "family": "batch-d-legacy-public",
+      "source_manifest_sha256": "9adfa120d09c3465429649a33ffd3193f99dcd7916ec22a2071217671a8f0054",
+      "policy": "Batch D requalifies the 36 pre-existing public driver declarations already exercised by safe wrappers and native family regressions. The manifest binds each selected provider source hash; a source, feature, declaration, or path change requires an explicit re-audit.",
+      "documentation": {
+        "purpose": "source_prologue_and_existing_family_rustdoc",
+        "arguments": "existing_family_rustdoc_and_safe_wrapper_audit",
+        "array_extents": "source_prologue_and_existing_family_rustdoc",
+        "callbacks": "existing_reviewed_family_callback_aliases",
+        "status_codes": "source_prologue_and_safe_wrapper_audit",
+        "global_state": "existing_native_runtime_audit",
+        "safety": "existing_family_raw_safety_contract",
+        "source_link": "selected_provider_metadata",
+        "abi_profile": "compiler_observation"
+      }
     }
   ]
 }

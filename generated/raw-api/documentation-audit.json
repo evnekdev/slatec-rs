@@ -1,11 +1,12 @@
 {
-  "abi_profile_statements_present": 776,
-  "argument_docs_complete": 776,
+  "abi_profile_statements_present": 812,
+  "argument_docs_complete": 812,
   "batch_a_public_declarations": 459,
   "batch_b_public_declarations": 47,
   "batch_c_public_declarations": 97,
+  "batch_d_public_declarations": 36,
   "missing": [],
-  "public_extern_declarations": 776,
+  "public_extern_declarations": 812,
   "review_queue": [
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -1916,18 +1917,6 @@
       "routine": "DCOSH"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DCOV"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -1998,18 +1987,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DDASLV"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DDASSL"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2178,18 +2155,6 @@
       ],
       "raw_api_state": "source_present_unbound",
       "routine": "DDRIV2"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DDRIV3"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2828,54 +2793,6 @@
       "routine": "DMPAR"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DNLS1"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DNLS1E"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DNSQ"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DNSQE"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -3284,18 +3201,6 @@
       "routine": "DPSORT"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAG"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -3306,66 +3211,6 @@
       ],
       "raw_api_state": "unsupported_callback_abi",
       "routine": "DQAGE"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAGI"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAGP"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAGS"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAWC"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAWF"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3380,18 +3225,6 @@
       "routine": "DQAWFE"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAWO"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -3402,18 +3235,6 @@
       ],
       "raw_api_state": "unsupported_callback_abi",
       "routine": "DQAWOE"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQAWS"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3462,30 +3283,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DQFORM"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQNC79"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DQNG"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3726,18 +3523,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DSOSSL"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "DSPLP"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -6128,18 +5913,6 @@
       "routine": "PYTHAG"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAG"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -6150,66 +5923,6 @@
       ],
       "raw_api_state": "unsupported_callback_abi",
       "routine": "QAGE"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAGI"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAGP"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAGS"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAWC"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAWF"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -6224,18 +5937,6 @@
       "routine": "QAWFE"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAWO"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -6246,18 +5947,6 @@
       ],
       "raw_api_state": "unsupported_callback_abi",
       "routine": "QAWOE"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QAWS"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -6306,30 +5995,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "QFORM"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QNC79"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "QNG"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -6908,18 +6573,6 @@
       "routine": "SCOEF"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SCOV"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -6978,18 +6631,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SDASLV"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SDASSL"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -7122,18 +6763,6 @@
       ],
       "raw_api_state": "source_present_unbound",
       "routine": "SDRIV2"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SDRIV3"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -7424,54 +7053,6 @@
       "routine": "SMOUT"
     },
     {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SNLS1"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SNLS1E"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SNSQ"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SNSQE"
-    },
-    {
       "declaration_status": "not_reviewed_by_raw_api_registry",
       "missing": [
         "routine_docs",
@@ -7614,18 +7195,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SPINIT"
-    },
-    {
-      "declaration_status": "preexisting_family_declaration_requires_r1_review",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "documentation_or_tooling",
-      "routine": "SPLP"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -8902,9 +8471,9 @@
   ],
   "review_queue_policy": "Non-reviewed declarations remain queued rather than receiving inferred pointer semantics.",
   "reviewed_public_declarations": 173,
-  "routine_docs_present": 776,
-  "safety_sections_present": 776,
+  "routine_docs_present": 812,
+  "safety_sections_present": 812,
   "schema_id": "slatec-sys.raw-api.documentation-audit",
   "schema_version": "1.0.0",
-  "source_links_present": 776
+  "source_links_present": 812
 }

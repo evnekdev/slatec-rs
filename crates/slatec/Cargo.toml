@@ -97,6 +97,17 @@ raw-batch-c-link-tests = [
     "slatec-src/batch-c-all",
 ]
 raw-batch-c-native-tests = ["raw-batch-c-link-tests"]
+raw-batch-d-link-tests = [
+    "std",
+    "source-build",
+    "slatec-sys/all",
+    "slatec-src/quadrature",
+    "slatec-src/nonlinear",
+    "slatec-src/least-squares",
+    "slatec-src/ode-sdrive-expert",
+    "slatec-src/dassl",
+    "slatec-src/optimization-linear-programming-in-memory",
+]
 
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
