@@ -13,7 +13,6 @@
       "raw_size": {
         "bss_size": 624,
         "data_size": 132104,
-        "file_size": 4875123,
         "name": "raw_ddot_only",
         "text_size": 634296
       },
@@ -44,7 +43,6 @@
       "safe_size": {
         "bss_size": 624,
         "data_size": 132936,
-        "file_size": 1185261,
         "name": "safe_ddot_only",
         "text_size": 636808
       }
@@ -83,7 +81,6 @@
       "raw_size": {
         "bss_size": 4044,
         "data_size": 174064,
-        "file_size": 5484685,
         "name": "raw_dgemm_only",
         "text_size": 957208
       },
@@ -147,7 +144,6 @@
       "safe_size": {
         "bss_size": 4044,
         "data_size": 174992,
-        "file_size": 1718300,
         "name": "safe_dgemm_only",
         "text_size": 961176
       }
@@ -186,7 +182,6 @@
       "raw_size": {
         "bss_size": 4044,
         "data_size": 174064,
-        "file_size": 5483661,
         "name": "raw_dgemv_only",
         "text_size": 955992
       },
@@ -252,7 +247,6 @@
       "safe_size": {
         "bss_size": 4044,
         "data_size": 175088,
-        "file_size": 1717443,
         "name": "safe_dgemv_only",
         "text_size": 960344
       }
@@ -289,7 +283,6 @@
       "raw_size": {
         "bss_size": 624,
         "data_size": 132424,
-        "file_size": 4919470,
         "name": "raw_hwscrt_only",
         "text_size": 676168
       },
@@ -359,7 +352,6 @@
       "safe_size": {
         "bss_size": 656,
         "data_size": 135752,
-        "file_size": 1259796,
         "name": "safe_fishpack_hwscrt_only",
         "text_size": 694760
       }
@@ -396,7 +388,6 @@
       "raw_size": {
         "bss_size": 4012,
         "data_size": 174032,
-        "file_size": 5482349,
         "name": "raw_fzero_only",
         "text_size": 954904
       },
@@ -578,7 +569,6 @@
       "safe_size": {
         "bss_size": 4044,
         "data_size": 176112,
-        "file_size": 1743006,
         "name": "safe_roots_only",
         "text_size": 965272
       }
@@ -595,7 +585,6 @@
       "raw_size": {
         "bss_size": 624,
         "data_size": 132104,
-        "file_size": 4875661,
         "name": "raw_saxpy_only",
         "text_size": 634408
       },
@@ -626,7 +615,6 @@
       "safe_size": {
         "bss_size": 624,
         "data_size": 132968,
-        "file_size": 1186931,
         "name": "safe_saxpy_only",
         "text_size": 637384
       }
@@ -671,7 +659,6 @@
       "raw_size": {
         "bss_size": 4108,
         "data_size": 175472,
-        "file_size": 5488315,
         "name": "raw_dgamma_only",
         "text_size": 957784
       },
@@ -735,7 +722,6 @@
       "safe_size": {
         "bss_size": 4140,
         "data_size": 176080,
-        "file_size": 1719510,
         "name": "safe_special_only",
         "text_size": 960024
       }

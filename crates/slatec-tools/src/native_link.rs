@@ -186,8 +186,8 @@ pub fn generate(output_dir: &Path) -> Result<()> {
     )?;
     let pipeline = json!({
         "source_selection": "family-source-closure.json plus reviewed family overlay files",
-        "compiler_command": [compiler.display().to_string(), "-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c", "SOURCE", "-o", "OBJECT"],
-        "archive_commands": [[ar.display().to_string(), "cr", "ARCHIVE", "OBJECT..."], [ar.display().to_string(), "q", "ARCHIVE", "OBJECT..."], [ar.display().to_string(), "s", "ARCHIVE"]],
+        "compiler_command": ["gfortran", "-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c", "SOURCE", "-o", "OBJECT"],
+        "archive_commands": [[tool_name(&ar), "cr", "ARCHIVE", "OBJECT..."], [tool_name(&ar), "q", "ARCHIVE", "OBJECT..."], [tool_name(&ar), "s", "ARCHIVE"]],
         "rust_link_directives": ["cargo:rustc-link-search=native=OUT_DIR", "cargo:rustc-link-lib=static=slatec_family", "cargo:rustc-link-lib=static=gfortran", "cargo:rustc-link-lib=static=quadmath"],
         "partial_linking": false,
         "whole_archive": false,
@@ -197,14 +197,14 @@ pub fn generate(output_dir: &Path) -> Result<()> {
         "archive_bytes": fs::metadata(&archive)?.len(),
     });
     let toolchain = json!({
-        "compiler": compiler.display().to_string(),
+        "compiler": "gfortran",
         "compiler_version": first_line(&output_text(&compiler, &["--version"])?),
         "compiler_target": target.trim(),
-        "archiver": ar.display().to_string(),
+        "archiver": tool_name(&ar),
         "archiver_version": first_line(&output_text(&ar, &["--version"])?),
-        "nm": nm.display().to_string(),
+        "nm": tool_name(&nm),
         "size": size.display().to_string(),
-        "objdump": objdump.display().to_string(),
+        "objdump": tool_name(&objdump),
     });
     write_reports(
         output_dir,
@@ -783,7 +783,7 @@ fn build_probes(
             .iter()
             .all(|entry| entry["passed"] == Value::Bool(true));
         symbol_rows.push(json!({"name":spec.name,"defined_slatec_symbols":slatec,"archive_members_selected":selected_members,"imported_dlls":imported_dlls}));
-        size_rows.push(json!({"name":spec.name,"file_size":fs::metadata(&executable)?.len(),"text_size":text,"data_size":data,"bss_size":bss}));
+        size_rows.push(json!({"name":spec.name,"text_size":text,"data_size":data,"bss_size":bss}));
         rows.push(json!({"name":spec.name,"kind":spec.kind,"requested_symbols":spec.requested,"link_slatec_archive":spec.link_slatec,"assertions":assertions,"assertions_passed":passed}));
     }
     for (row, symbols, sizes) in cargo_probes(
@@ -1038,7 +1038,7 @@ fn cargo_probes(
         rows.push((
             json!({"name":name,"kind":kind,"requested_symbols":requested_for_cargo_probe(name),"link_slatec_archive":true,"assertions":assertions,"assertions_passed":passed}),
             json!({"name":name,"defined_slatec_symbols":slatec,"archive_members_selected":selected_from_map(&map,definitions),"defined_rust_symbols":rust,"rust_symbol_groups":rust_groups,"imported_dlls":dlls(objdump,&executable)?}),
-            json!({"name":name,"file_size":fs::metadata(&executable)?.len(),"text_size":text,"data_size":data,"bss_size":bss}),
+            json!({"name":name,"text_size":text,"data_size":data,"bss_size":bss}),
         ));
     }
     Ok(rows)
@@ -1196,13 +1196,12 @@ fn write_reports(
     )?;
     let comparison = probe["sizes"].as_array().unwrap();
     let mut text = String::from(
-        "# Native link probe comparison\n\nSizes are release-probe section measurements. They are diagnostic measurements, not exact-byte regression thresholds.\n\n| Probe | File bytes | .text | .data/.rdata | .bss |\n|---|---:|---:|---:|---:|\n",
+        "# Native link probe comparison\n\nSizes are release-probe section measurements. They are diagnostic measurements, not exact-byte regression thresholds. Executable file bytes are deliberately omitted because PE linker layout can vary by a few bytes between clean roots.\n\n| Probe | .text | .data/.rdata | .bss |\n|---|---:|---:|---:|\n",
     );
     for row in comparison {
         text.push_str(&format!(
-            "| {} | {} | {} | {} | {} |\n",
+            "| {} | {} | {} | {} |\n",
             row["name"].as_str().unwrap_or("?"),
-            row["file_size"],
             row["text_size"],
             row["data_size"],
             row["bss_size"]
@@ -1321,6 +1320,14 @@ fn env_path(name: &str) -> Result<PathBuf> {
         ))
     })
 }
+
+fn tool_name(path: &Path) -> String {
+    path.file_name()
+        .and_then(|name| name.to_str())
+        .unwrap_or("tool")
+        .to_owned()
+}
+
 fn sibling_tool(compiler: &Path, name: &str) -> PathBuf {
     compiler
         .parent()
