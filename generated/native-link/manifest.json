@@ -4,26 +4,26 @@
     "archive_bytes": 2800354,
     "archive_commands": [
       [
-        "C:\\gcc64\\bin\\ar.exe",
+        "ar.exe",
         "cr",
         "ARCHIVE",
         "OBJECT..."
       ],
       [
-        "C:\\gcc64\\bin\\ar.exe",
+        "ar.exe",
         "q",
         "ARCHIVE",
         "OBJECT..."
       ],
       [
-        "C:\\gcc64\\bin\\ar.exe",
+        "ar.exe",
         "s",
         "ARCHIVE"
       ]
     ],
     "archive_member_count": 662,
     "compiler_command": [
-      "C:\\gcc64\\bin\\x86_64-w64-mingw32-gfortran.exe",
+      "gfortran",
       "-x",
       "f77",
       "-std=legacy",
@@ -49,13 +49,13 @@
   "schema_version": "1.0.0",
   "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
   "toolchain": {
-    "archiver": "C:\\gcc64\\bin\\ar.exe",
+    "archiver": "ar.exe",
     "archiver_version": "GNU ar (Binutils for MinGW-W64 x86_64, built by Brecht Sanders, r1) 2.43",
-    "compiler": "C:\\gcc64\\bin\\x86_64-w64-mingw32-gfortran.exe",
+    "compiler": "gfortran",
     "compiler_target": "x86_64-w64-mingw32",
     "compiler_version": "GNU Fortran (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 14.2.0",
-    "nm": "C:\\gcc64\\bin\\nm.exe",
-    "objdump": "C:\\gcc64\\bin\\objdump.exe",
+    "nm": "nm.exe",
+    "objdump": "objdump.exe",
     "size": "C:\\gcc64\\bin\\size.exe"
   }
 }
