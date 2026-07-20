@@ -68,6 +68,10 @@ audit records actual member, symbol-closure, and release-binary evidence in
 [`generated/native-link/`](generated/native-link/) and documents source-backend
 limits and external-provider caveats in
 [`docs/architecture/native-link-granularity.md`](docs/architecture/native-link-granularity.md).
+Safe wrappers additionally preserve operation-level Rust/native closure
+boundaries on the supported source-build profile; the policy, limits, and
+safe/raw comparison reports are in
+[`docs/architecture/safe-facade-link-granularity.md`](docs/architecture/safe-facade-link-granularity.md).
 R2B additionally promotes 40 source-hash-reviewed scalar special functions at
 `slatec_sys::special::{elementary,gamma,beta,error}` and adds the declaration-
 only `slatec-sys/all` aggregate. These unsafe direct bindings do not select a

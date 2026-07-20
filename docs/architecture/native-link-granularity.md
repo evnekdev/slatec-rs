@@ -63,16 +63,11 @@ debug, user-specific RUSTFLAGS, LTO, stripping, panic, or linker settings have
 identical size behavior. The separate safe Cargo probes show the facade's
 actual feature/provider route.
 
-The current safe-facade probes are intentionally reported separately from the
-direct raw probes. They demonstrate that a safe family feature can retain a
-broader native closure than its one wrapper call: its Rust wrapper compilation
-unit can contain references to several raw declarations before archive
-extraction occurs. This is measured evidence, not a claim that the source
-archive coalesces objects or uses whole-archive linking. The narrow raw
-provider guarantee therefore applies to direct raw calls and to a Rust caller
-whose retained code references only those declarations. Further safe-wrapper
-codegen-unit isolation is a follow-up optimization and must not silently alter
-safe API or numerical behavior.
+Safe-facade closure is measured separately from direct raw closure. The former
+over-retention was caused by broad Rust codegen objects, not native archive
+coalescing. Safe wrapper isolation, its supported release-profile partitioning,
+and the required safe/raw probe pairs are documented in
+[safe-facade link granularity](safe-facade-link-granularity.md).
 
 ## Runtime and provider limits
 

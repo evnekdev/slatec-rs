@@ -12,3 +12,6 @@ while a final executable extracts only referenced member closures. This is
 measured by the deterministic reports under `generated/native-link/`; an
 external or system provider is not assumed to share those properties. See
 [`docs/architecture/native-link-granularity.md`](../../docs/architecture/native-link-granularity.md).
+Safe-wrapper module layout is audited separately and does not modify this
+provider's one-source-per-object archive construction; see
+[`docs/architecture/safe-facade-link-granularity.md`](../../docs/architecture/safe-facade-link-granularity.md).

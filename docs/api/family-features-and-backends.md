@@ -166,6 +166,16 @@ profile's native symbols themselves. The reconciliation report records this
 distinction per routine; source-provider selection is never an implicit side
 effect of enabling `slatec-sys`.
 
+## Safe-facade operation granularity
+
+Family features are not per-routine link switches. They expose coherent safe
+surfaces and source closures, while a real operation call selects only its
+checked wrapper and genuine native closure on the supported source-build
+profile. `full` remains clean when no operation is called. The deterministic
+safe/raw comparison reports, including link maps and Rust-symbol categories,
+are generated under `generated/native-link/`; see the
+[safe-facade policy](../architecture/safe-facade-link-granularity.md).
+
 ### Reviewed scalar-special raw features and `all`
 
 R2B promotes the scalar elementary, gamma, beta, and error foundations under

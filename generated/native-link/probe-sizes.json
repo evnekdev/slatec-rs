@@ -2,13 +2,6 @@
   "records": [
     {
       "bss_size": 624,
-      "data_size": 132040,
-      "file_size": 1178279,
-      "name": "all_no_call",
-      "text_size": 633192
-    },
-    {
-      "bss_size": 624,
       "data_size": 132104,
       "file_size": 4875661,
       "name": "all_saxpy_only",
@@ -19,6 +12,13 @@
       "data_size": 132072,
       "file_size": 4873449,
       "name": "baseline_no_slatec",
+      "text_size": 633240
+    },
+    {
+      "bss_size": 624,
+      "data_size": 132040,
+      "file_size": 1178768,
+      "name": "raw_all_no_call",
       "text_size": 633240
     },
     {
@@ -34,6 +34,20 @@
       "file_size": 5488315,
       "name": "raw_dgamma_only",
       "text_size": 957784
+    },
+    {
+      "bss_size": 4044,
+      "data_size": 174064,
+      "file_size": 5484685,
+      "name": "raw_dgemm_only",
+      "text_size": 957208
+    },
+    {
+      "bss_size": 4044,
+      "data_size": 174064,
+      "file_size": 5483661,
+      "name": "raw_dgemv_only",
+      "text_size": 955992
     },
     {
       "bss_size": 4012,
@@ -71,18 +85,60 @@
       "text_size": 634408
     },
     {
-      "bss_size": 3436,
-      "data_size": 175056,
-      "file_size": 1730949,
-      "name": "safe_blas_only",
-      "text_size": 972760
+      "bss_size": 624,
+      "data_size": 132040,
+      "file_size": 1180054,
+      "name": "safe_all_no_call",
+      "text_size": 633240
     },
     {
-      "bss_size": 4652,
-      "data_size": 185040,
-      "file_size": 1784080,
+      "bss_size": 624,
+      "data_size": 132936,
+      "file_size": 1185261,
+      "name": "safe_ddot_only",
+      "text_size": 636808
+    },
+    {
+      "bss_size": 4044,
+      "data_size": 174992,
+      "file_size": 1718300,
+      "name": "safe_dgemm_only",
+      "text_size": 961176
+    },
+    {
+      "bss_size": 4044,
+      "data_size": 175088,
+      "file_size": 1717443,
+      "name": "safe_dgemv_only",
+      "text_size": 960344
+    },
+    {
+      "bss_size": 656,
+      "data_size": 135752,
+      "file_size": 1259796,
+      "name": "safe_fishpack_hwscrt_only",
+      "text_size": 694760
+    },
+    {
+      "bss_size": 4044,
+      "data_size": 176112,
+      "file_size": 1743006,
+      "name": "safe_roots_only",
+      "text_size": 965272
+    },
+    {
+      "bss_size": 624,
+      "data_size": 132968,
+      "file_size": 1186931,
+      "name": "safe_saxpy_only",
+      "text_size": 637384
+    },
+    {
+      "bss_size": 4140,
+      "data_size": 176080,
+      "file_size": 1719510,
       "name": "safe_special_only",
-      "text_size": 1002008
+      "text_size": 960024
     }
   ],
   "schema_id": "slatec-rs/native-link-probe-sizes",

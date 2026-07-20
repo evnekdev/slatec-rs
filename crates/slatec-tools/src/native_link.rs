@@ -244,7 +244,22 @@ pub fn validate(output_dir: &Path) -> Result<()> {
             "native-link pipeline uses a forbidden coalescing mode".to_owned(),
         ));
     }
-    for name in ["all_no_call", "raw_saxpy_only", "raw_dgamma_only"] {
+    for name in [
+        "raw_all_no_call",
+        "safe_all_no_call",
+        "raw_saxpy_only",
+        "safe_saxpy_only",
+        "raw_ddot_only",
+        "safe_ddot_only",
+        "raw_dgemv_only",
+        "safe_dgemv_only",
+        "raw_dgemm_only",
+        "safe_dgemm_only",
+        "raw_dgamma_only",
+        "safe_special_only",
+        "safe_roots_only",
+        "safe_fishpack_hwscrt_only",
+    ] {
         let row = probe["records"]
             .as_array()
             .and_then(|rows| rows.iter().find(|row| row["name"] == name))
@@ -528,6 +543,57 @@ fn symbols(nm: &Path, object: &Path, defined: bool) -> Result<Vec<String>> {
     Ok(values)
 }
 
+/// Returns compact demangled Rust symbols retained in an executable.  This is
+/// deliberately a classification aid rather than a brittle full-symbol
+/// snapshot: compiler-generated hashes and standard-library symbols are
+/// excluded from committed evidence.
+fn demangled_rust_symbols(nm: &Path, object: &Path) -> Result<Vec<String>> {
+    let output = Command::new(nm)
+        .args(["-C", "-g", "--defined-only"])
+        .arg(object)
+        .output()?;
+    if !output.status.success() {
+        return Err(command_error("GNU nm Rust symbol inspection", output));
+    }
+    let mut values = String::from_utf8_lossy(&output.stdout)
+        .lines()
+        .filter_map(|line| line.split_once(" T ").map(|(_, symbol)| symbol.trim()))
+        .filter(|symbol| symbol.contains("slatec::") || symbol.contains("slatec_sys::"))
+        .map(str::to_owned)
+        .collect::<Vec<_>>();
+    values.sort();
+    values.dedup();
+    Ok(values)
+}
+
+fn rust_symbol_groups(symbols: &[String]) -> Value {
+    let mut safe_wrappers = Vec::new();
+    let mut raw_bindings = Vec::new();
+    let mut shared_helpers = Vec::new();
+    let mut unrelated = Vec::new();
+    for symbol in symbols {
+        if symbol.contains("slatec_sys::") {
+            raw_bindings.push(symbol.clone());
+        } else if symbol.contains("::validation::") || symbol.contains("::runtime::") {
+            shared_helpers.push(symbol.clone());
+        } else if symbol.contains("::blas::")
+            || symbol.contains("::special::")
+            || symbol.contains("::roots::")
+            || symbol.contains("::differential_equations::")
+        {
+            safe_wrappers.push(symbol.clone());
+        } else {
+            unrelated.push(symbol.clone());
+        }
+    }
+    json!({
+        "safe_wrappers": safe_wrappers,
+        "raw_binding_references": raw_bindings,
+        "shared_safety_or_runtime_helpers": shared_helpers,
+        "unclassified_slatec_symbols": unrelated,
+    })
+}
+
 fn sections(size: &Path, object: &Path) -> Result<(u64, u64, u64)> {
     let output = Command::new(size).args(["-A"]).arg(object).output()?;
     if !output.status.success() {
@@ -720,8 +786,16 @@ fn build_probes(
         size_rows.push(json!({"name":spec.name,"file_size":fs::metadata(&executable)?.len(),"text_size":text,"data_size":data,"bss_size":bss}));
         rows.push(json!({"name":spec.name,"kind":spec.kind,"requested_symbols":spec.requested,"link_slatec_archive":spec.link_slatec,"assertions":assertions,"assertions_passed":passed}));
     }
-    for (row, symbols, sizes) in cargo_probes(root, work, compiler, nm, size, objdump, all_slatec)?
-    {
+    for (row, symbols, sizes) in cargo_probes(
+        root,
+        work,
+        compiler,
+        nm,
+        size,
+        objdump,
+        all_slatec,
+        definitions,
+    )? {
         rows.push(row);
         symbol_rows.push(symbols);
         size_rows.push(sizes);
@@ -772,6 +846,20 @@ fn probe_specs() -> Vec<Probe> {
             source: RAW_SAXPY_DDOT,
         },
         Probe {
+            name: "raw_dgemv_only",
+            kind: "raw",
+            requested: &["DGEMV"],
+            link_slatec: true,
+            source: RAW_DGEMV,
+        },
+        Probe {
+            name: "raw_dgemm_only",
+            kind: "raw",
+            requested: &["DGEMM"],
+            link_slatec: true,
+            source: RAW_DGEMM,
+        },
+        Probe {
             name: "raw_dgamma_only",
             kind: "raw",
             requested: &["DGAMMA"],
@@ -811,11 +899,14 @@ fn probe_specs() -> Vec<Probe> {
 const RAW_SAXPY: &str = "unsafe extern \"C\" { fn saxpy_(n:*const i32,a:*const f32,x:*const f32,ix:*const i32,y:*mut f32,iy:*const i32); } fn main(){let n=2;let a=2.0;let x=[1.0,2.0];let mut y=[3.0,4.0];let one=1;unsafe{saxpy_(&n,&a,x.as_ptr(),&one,y.as_mut_ptr(),&one)};println!(\"{}\",std::hint::black_box(y[0]+y[1]));}";
 const RAW_DDOT: &str = "unsafe extern \"C\" { fn ddot_(n:*const i32,x:*const f64,ix:*const i32,y:*const f64,iy:*const i32)->f64; } fn main(){let n=2;let one=1;let x=[1.0,2.0];let y=[3.0,4.0];println!(\"{}\",std::hint::black_box(unsafe{ddot_(&n,x.as_ptr(),&one,y.as_ptr(),&one)}));}";
 const RAW_SAXPY_DDOT: &str = "unsafe extern \"C\" { fn saxpy_(n:*const i32,a:*const f32,x:*const f32,ix:*const i32,y:*mut f32,iy:*const i32); fn ddot_(n:*const i32,x:*const f64,ix:*const i32,y:*const f64,iy:*const i32)->f64; } fn main(){let n=1;let one=1;let a=2.0;let x=[1.0];let mut y=[3.0];unsafe{saxpy_(&n,&a,x.as_ptr(),&one,y.as_mut_ptr(),&one)};let dx=[1.0];let dy=[2.0];println!(\"{}\",std::hint::black_box(y[0] as f64+unsafe{ddot_(&n,dx.as_ptr(),&one,dy.as_ptr(),&one)}));}";
+const RAW_DGEMV: &str = "use core::ffi::c_char; unsafe extern \"C\" { fn dgemv_(t:*const c_char,m:*const i32,n:*const i32,a:*const f64,x:*const f64,ld:*const i32,v:*const f64,ix:*const i32,b:*const f64,y:*mut f64,iy:*const i32,l:usize); } fn main(){let t=b'N' as c_char;let m=1;let n=1;let one=1;let a=1.0;let b=0.0;let x=[2.0];let v=[3.0];let mut y=[0.0];unsafe{dgemv_(&t,&m,&n,&a,x.as_ptr(),&one,v.as_ptr(),&one,&b,y.as_mut_ptr(),&one,1)};println!(\"{}\",std::hint::black_box(y[0]));}";
+const RAW_DGEMM: &str = "use core::ffi::c_char; unsafe extern \"C\" { fn dgemm_(ta:*const c_char,tb:*const c_char,m:*const i32,n:*const i32,k:*const i32,a:*const f64,x:*const f64,lda:*const i32,y:*const f64,ldb:*const i32,b:*const f64,z:*mut f64,ldc:*const i32,la:usize,lb:usize); } fn main(){let t=b'N' as c_char;let one=1;let a=1.0;let b=0.0;let x=[2.0];let y=[3.0];let mut z=[0.0];unsafe{dgemm_(&t,&t,&one,&one,&one,&a,x.as_ptr(),&one,y.as_ptr(),&one,&b,z.as_mut_ptr(),&one,1,1)};println!(\"{}\",std::hint::black_box(z[0]));}";
 const RAW_DGAMMA: &str = "unsafe extern \"C\" { fn dgamma_(x:*const f64)->f64; } fn main(){let x=0.5;println!(\"{}\",std::hint::black_box(unsafe{dgamma_(&x)}));}";
 const RAW_FZERO: &str = "unsafe extern \"C\" { fn fzero_(); } fn main(){println!(\"{}\",std::hint::black_box(fzero_ as usize));}";
 const RAW_HWSCRT: &str = "unsafe extern \"C\" { fn hwscrt_(); } fn main(){println!(\"{}\",std::hint::black_box(hwscrt_ as usize));}";
 const RAW_POIS3D: &str = "unsafe extern \"C\" { fn pois3d_(); } fn main(){println!(\"{}\",std::hint::black_box(pois3d_ as usize));}";
 
+#[allow(clippy::too_many_arguments)]
 fn cargo_probes(
     root: &Path,
     work: &Path,
@@ -824,12 +915,31 @@ fn cargo_probes(
     size: &Path,
     objdump: &Path,
     all_slatec: &BTreeSet<String>,
+    definitions: &BTreeMap<String, Vec<String>>,
 ) -> Result<Vec<(Value, Value, Value)>> {
     let specs = [
         (
-            "safe_blas_only",
+            "safe_saxpy_only",
+            "link_blas_level1_saxpy",
+            "source-build,blas-level1",
+            "safe",
+        ),
+        (
+            "safe_ddot_only",
             "link_blas_level1",
             "source-build,blas-level1",
+            "safe",
+        ),
+        (
+            "safe_dgemv_only",
+            "link_blas_level2_gemv",
+            "source-build,blas-level2",
+            "safe",
+        ),
+        (
+            "safe_dgemm_only",
+            "link_blas_level3",
+            "source-build,blas-level3",
             "safe",
         ),
         (
@@ -839,9 +949,27 @@ fn cargo_probes(
             "safe",
         ),
         (
-            "all_no_call",
+            "safe_roots_only",
+            "link_roots_scalar",
+            "source-build,roots-scalar",
+            "safe",
+        ),
+        (
+            "safe_fishpack_hwscrt_only",
+            "fishpack_cartesian_2d",
+            "source-build,fishpack-cartesian-2d",
+            "safe",
+        ),
+        (
+            "raw_all_no_call",
             "raw_all_features_compile",
             "source-build,raw-all-link-tests",
+            "all-no-call",
+        ),
+        (
+            "safe_all_no_call",
+            "link_safe_all_no_call",
+            "source-build,full",
             "all-no-call",
         ),
     ];
@@ -849,6 +977,7 @@ fn cargo_probes(
     let mut rows = Vec::new();
     for (name, example, features, kind) in specs {
         let target_dir = work.join("cargo-probes").join(name);
+        let map = work.join("probes").join(format!("{name}.map"));
         let output = Command::new("cargo")
             .current_dir(root)
             .args([
@@ -868,6 +997,10 @@ fn cargo_probes(
             .arg(&target_dir)
             .env("SLATEC_SOURCE_CACHE", &cache)
             .env("SLATEC_GFORTRAN", compiler)
+            .env(
+                "RUSTFLAGS",
+                format!("-C link-arg=-Wl,-Map,{}", map.display()),
+            )
             .env("CARGO_TERM_COLOR", "never")
             .output()?;
         if !output.status.success() {
@@ -895,6 +1028,8 @@ fn cargo_probes(
             .intersection(all_slatec)
             .cloned()
             .collect::<BTreeSet<_>>();
+        let rust = demangled_rust_symbols(nm, &executable)?;
+        let rust_groups = rust_symbol_groups(&rust);
         let (text, data, bss) = sections(size, &executable)?;
         let assertions = probe_assertions(name, &slatec, all_slatec);
         let passed = assertions
@@ -902,7 +1037,7 @@ fn cargo_probes(
             .all(|entry| entry["passed"] == Value::Bool(true));
         rows.push((
             json!({"name":name,"kind":kind,"requested_symbols":requested_for_cargo_probe(name),"link_slatec_archive":true,"assertions":assertions,"assertions_passed":passed}),
-            json!({"name":name,"defined_slatec_symbols":slatec,"archive_members_selected":[],"imported_dlls":dlls(objdump,&executable)?}),
+            json!({"name":name,"defined_slatec_symbols":slatec,"archive_members_selected":selected_from_map(&map,definitions),"defined_rust_symbols":rust,"rust_symbol_groups":rust_groups,"imported_dlls":dlls(objdump,&executable)?}),
             json!({"name":name,"file_size":fs::metadata(&executable)?.len(),"text_size":text,"data_size":data,"bss_size":bss}),
         ));
     }
@@ -911,8 +1046,13 @@ fn cargo_probes(
 
 fn requested_for_cargo_probe(name: &str) -> &'static [&'static str] {
     match name {
-        "safe_blas_only" => &["DDOT"],
+        "safe_saxpy_only" => &["SAXPY"],
+        "safe_ddot_only" => &["DDOT"],
+        "safe_dgemv_only" => &["DGEMV"],
+        "safe_dgemm_only" => &["DGEMM"],
         "safe_special_only" => &["DGAMMA"],
+        "safe_roots_only" => &["FZERO"],
+        "safe_fishpack_hwscrt_only" => &["HWSCRT"],
         _ => &[],
     }
 }
@@ -947,10 +1087,10 @@ fn probe_assertions(name: &str, slatec: &BTreeSet<String>, all: &BTreeSet<String
     let contains = |s: &str| slatec.contains(s);
     let excludes = |xs: &[&str]| xs.iter().all(|s| !contains(s));
     match name {
-        "all_no_call" => vec![
+        "raw_all_no_call" | "safe_all_no_call" => vec![
             json!({"rule":"all no-call links no SLATEC implementation symbol","passed":slatec.is_empty(),"observed":slatec}),
         ],
-        "raw_saxpy_only" | "all_saxpy_only" => vec![
+        "raw_saxpy_only" | "all_saxpy_only" | "safe_saxpy_only" => vec![
             json!({"rule":"contains SAXPY","passed":contains("SAXPY")}),
             json!({"rule":"excludes unrelated BLAS, special, roots, and FISHPACK drivers","passed":excludes(&["SDOT","SNRM2","SGEMM","DGAMMA","FZERO","HWSCRT","POIS3D"]),"observed":slatec}),
         ],
@@ -958,14 +1098,37 @@ fn probe_assertions(name: &str, slatec: &BTreeSet<String>, all: &BTreeSet<String
             json!({"rule":"contains DGAMMA","passed":contains("DGAMMA")}),
             json!({"rule":"excludes unrelated BLAS, roots, and FISHPACK drivers","passed":excludes(&["SAXPY","DDOT","SGEMM","FZERO","HWSCRT","POIS3D"]),"observed":slatec}),
         ],
+        "safe_ddot_only" => vec![
+            json!({"rule":"contains DDOT","passed":contains("DDOT")} ),
+            json!({"rule":"excludes unrelated BLAS and other family drivers","passed":excludes(&["SAXPY","SDOT","SNRM2","SSCAL","SGEMM","DGAMMA","FZERO","HWSCRT","POIS3D"]),"observed":slatec}),
+        ],
+        "raw_dgemv_only" | "safe_dgemv_only" => vec![
+            json!({"rule":"contains DGEMV","passed":contains("DGEMV")} ),
+            json!({"rule":"excludes unrelated Level 2/3 and other family drivers","passed":excludes(&["SGEMV","DTRSV","SGEMM","DGEMM","SAXPY","DGAMMA","FZERO","HWSCRT"]),"observed":slatec}),
+        ],
+        "raw_dgemm_only" | "safe_dgemm_only" => vec![
+            json!({"rule":"contains DGEMM","passed":contains("DGEMM")} ),
+            json!({"rule":"excludes unrelated Level 2/3 and other family drivers","passed":excludes(&["SGEMM","DTRMM","DTRSM","DGEMV","SAXPY","DGAMMA","FZERO","HWSCRT"]),"observed":slatec}),
+        ],
+        "safe_special_only" => vec![
+            json!({"rule":"contains DGAMMA","passed":contains("DGAMMA")} ),
+            json!({"rule":"excludes unrelated BLAS, roots, and FISHPACK drivers","passed":excludes(&["SAXPY","DDOT","DGEMM","FZERO","HWSCRT","POIS3D"]),"observed":slatec}),
+        ],
+        "safe_roots_only" => vec![
+            json!({"rule":"contains FZERO","passed":contains("FZERO")} ),
+            json!({"rule":"excludes unrelated BLAS, special, and FISHPACK drivers","passed":excludes(&["SAXPY","DDOT","DGEMM","DGAMMA","HWSCRT","POIS3D"]),"observed":slatec}),
+        ],
+        "safe_fishpack_hwscrt_only" => vec![
+            json!({"rule":"contains HWSCRT","passed":contains("HWSCRT")} ),
+            json!({"rule":"excludes unrelated BLAS, special, roots, and POIS3D drivers","passed":excludes(&["SAXPY","DDOT","DGEMM","DGAMMA","FZERO","POIS3D"]),"observed":slatec}),
+        ],
         _ => {
             let requested = match name {
-                "raw_ddot_only" | "safe_blas_only" => "DDOT",
+                "raw_ddot_only" => "DDOT",
                 "raw_saxpy_ddot" => "SAXPY",
                 "raw_fzero_only" => "FZERO",
                 "raw_hwscrt_only" => "HWSCRT",
                 "raw_pois3d_only" => "POIS3D",
-                "safe_special_only" => "DGAMMA",
                 _ => "",
             };
             vec![
@@ -1047,7 +1210,103 @@ fn write_reports(
     }
     text.push_str("\nThe static GNU runtime is selected only when a referenced SLATEC member needs it; archive and runtime on-disk sizes are not final-executable contributions. Link maps in `target/native-link/probes` provide the per-probe selected-member evidence.\n\nDirect raw probes are the source-archive granularity regression baseline. Safe-facade probes are reported separately: a broad safe Rust compilation unit can retain a broader raw symbol set before the archive extractor runs, even though the Fortran archive itself remains one source per member. The symbol report makes that distinction explicit rather than treating safe-wrapper size as evidence of archive coalescing.\n");
     fs::write(output.join("probe-comparison.md"), text)?;
+    write_safe_facade_comparison(output, &probe)?;
     Ok(())
+}
+
+fn write_safe_facade_comparison(output: &Path, probe: &Value) -> Result<()> {
+    let records = probe["records"]
+        .as_array()
+        .ok_or_else(|| bad("probe records"))?;
+    let symbols = probe["symbols"]
+        .as_array()
+        .ok_or_else(|| bad("probe symbols"))?;
+    let sizes = probe["sizes"]
+        .as_array()
+        .ok_or_else(|| bad("probe sizes"))?;
+    let pairs = [
+        ("raw_saxpy_only", "safe_saxpy_only"),
+        ("raw_ddot_only", "safe_ddot_only"),
+        ("raw_dgemv_only", "safe_dgemv_only"),
+        ("raw_dgemm_only", "safe_dgemm_only"),
+        ("raw_dgamma_only", "safe_special_only"),
+        ("raw_fzero_only", "safe_roots_only"),
+        ("raw_hwscrt_only", "safe_fishpack_hwscrt_only"),
+    ];
+    let mut comparisons = Vec::new();
+    for (raw_name, safe_name) in pairs {
+        let Some(raw_symbols) = find_named(symbols, raw_name) else {
+            continue;
+        };
+        let Some(safe_symbols) = find_named(symbols, safe_name) else {
+            continue;
+        };
+        let raw_set = raw_symbols["defined_slatec_symbols"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .filter_map(Value::as_str)
+            .map(str::to_owned)
+            .collect::<BTreeSet<_>>();
+        let safe_set = safe_symbols["defined_slatec_symbols"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .filter_map(Value::as_str)
+            .map(str::to_owned)
+            .collect::<BTreeSet<_>>();
+        let safe_only = safe_set.difference(&raw_set).cloned().collect::<Vec<_>>();
+        comparisons.push(json!({
+            "raw_probe": raw_name,
+            "safe_probe": safe_name,
+            "raw_native_symbols": raw_set,
+            "safe_native_symbols": safe_set,
+            "safe_only_native_symbols": safe_only,
+            "safe_rust_symbols": safe_symbols["defined_rust_symbols"].clone(),
+            "safe_rust_symbol_groups": safe_symbols["rust_symbol_groups"].clone(),
+            "raw_selected_archive_members": raw_symbols["archive_members_selected"].clone(),
+            "safe_selected_archive_members": safe_symbols["archive_members_selected"].clone(),
+            "raw_size": find_named(sizes, raw_name).cloned().unwrap_or(Value::Null),
+            "safe_size": find_named(sizes, safe_name).cloned().unwrap_or(Value::Null),
+            "raw_assertions_passed": find_named(records, raw_name).map(|value| value["assertions_passed"].clone()).unwrap_or(Value::Null),
+            "safe_assertions_passed": find_named(records, safe_name).map(|value| value["assertions_passed"].clone()).unwrap_or(Value::Null),
+        }));
+    }
+    comparisons.sort_by(|left, right| {
+        left["safe_probe"]
+            .as_str()
+            .cmp(&right["safe_probe"].as_str())
+    });
+    write_json(
+        &output.join("safe-facade-comparison.json"),
+        &json!({
+            "schema_id": "slatec-rs/safe-facade-link-comparison",
+            "policy": "A safe call may retain its wrapper, checked-safety helpers, provider anchor, and genuine native closure, but not unrelated numerical operations merely because wrappers share a Rust compilation unit.",
+            "records": comparisons,
+        }),
+    )?;
+    let mut markdown = String::from(
+        "# Safe-facade versus raw link comparison\n\nThe raw row is the direct source-archive baseline. `safe-only` may contain checked wrapper/runtime support and genuine native dependencies; the native-symbol assertions reject unrelated numerical drivers. Link maps remain under ignored `target/native-link/probes`.\n\n| Safe probe | Raw probe | Raw native symbols | Safe native symbols | Safe-only native symbols | Assertions |\n|---|---|---:|---:|---:|---|\n",
+    );
+    for comparison in &comparisons {
+        let count = |field: &str| comparison[field].as_array().map_or(0, Vec::len);
+        markdown.push_str(&format!(
+            "| {} | {} | {} | {} | {} | {} |\n",
+            comparison["safe_probe"].as_str().unwrap_or("?"),
+            comparison["raw_probe"].as_str().unwrap_or("?"),
+            count("raw_native_symbols"),
+            count("safe_native_symbols"),
+            count("safe_only_native_symbols"),
+            comparison["safe_assertions_passed"],
+        ));
+    }
+    fs::write(output.join("safe-facade-comparison.md"), markdown)?;
+    Ok(())
+}
+
+fn find_named<'a>(rows: &'a [Value], name: &str) -> Option<&'a Value> {
+    rows.iter()
+        .find(|value| value["name"].as_str() == Some(name))
 }
 fn write_json(path: &Path, value: &Value) -> Result<()> {
     let mut bytes = serde_json::to_vec_pretty(value)?;

@@ -29,3 +29,9 @@ tar = "0.4"
 thiserror = "2"
 toml = "0.8"
 ureq = { version = "3", features = ["rustls"] }
+
+# The safe facade keeps raw references in operation-sized Rust modules.  A
+# high release codegen-unit count preserves those object boundaries for
+# the archive linker without enabling LTO or changing numerical code.
+[profile.release]
+codegen-units = 256
