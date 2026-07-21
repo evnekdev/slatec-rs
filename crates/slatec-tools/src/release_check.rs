@@ -128,11 +128,8 @@ fn execute(
     command: &mut Command,
 ) -> Result<()> {
     let mut retries = 0;
-    let mut stale_git_index_lock_recoveries = 0;
     let output = loop {
-        if recover_stale_git_index_lock(root, STALE_GIT_INDEX_LOCK_AGE)? {
-            stale_git_index_lock_recoveries += 1;
-        }
+        recover_stale_git_index_lock(root, STALE_GIT_INDEX_LOCK_AGE)?;
         let output = command.current_dir(root).output()?;
         let stderr = String::from_utf8_lossy(&output.stderr);
         if output.status.success()
@@ -150,8 +147,6 @@ fn execute(
         "check":label,
         "status":if output.status.success() { "pass" } else { "fail" },
         "exit_code":output.status.code(),
-        "transient_file_lock_retries":retries,
-        "stale_git_index_lock_recoveries":stale_git_index_lock_recoveries,
     }));
     if !output.status.success() {
         let report_note = write_report(output_path, records, "fail")
