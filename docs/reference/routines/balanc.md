@@ -8,7 +8,7 @@ Balance a real general matrix and isolate eigenvalues whenever possible.
 
 ## Description
 
-This subroutine is a translation of the ALGOL procedure BALANCE, NUM. MATH. 13, 293-304(1969) by Parlett and Reinsch. HANDBOOK FOR AUTO. COMP., Vol.II-LINEAR ALGEBRA, 315-326(1971). This subroutine balances a REAL matrix and isolates eigenvalues whenever possible. On INPUT NM must be set to the row dimension of the two-dimensional array parameter, A, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix A. N is an INTEGER variable. N must be less than or equal to NM. A contains the input matrix to be balanced. A is a two-dimensional REAL array, dimensioned A(NM,N). On OUTPUT A contains the balanced matrix. LOW and IGH are two INTEGER variables such that A(I,J) is equal to zero if (1) I is greater than J and (2) J=1,...,LOW-1 or I=IGH+1,...,N. SCALE contains information determining the permutations and scaling factors used. SCALE is a one-dimensional REAL array, dimensioned SCALE(N). Suppose that the principal submatrix in rows LOW through IGH has been balanced, that P(J) denotes the index interchanged with J during the permutation step, and that the elements of the diagonal matrix used are denoted by D(I,J). Then SCALE(J) = P(J), for J = 1,...,LOW-1 = D(J,J), J = LOW,...,IGH = P(J) J = IGH+1,...,N. The order in which the interchanges are made is N to IGH+1, then 1 TO LOW-1. Note that 1 is returned for IGH if IGH is zero formally. The ALGOL procedure EXC contained in BALANCE appears in BALANC in line. (Note that the ALGOL roles of identifiers K,L have been reversed.) Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine is a translation of the ALGOL procedure BALANCE, NUM. MATH. 13, 293-304(1969) by Parlett and Reinsch. HANDBOOK FOR AUTO. COMP., Vol.II-LINEAR ALGEBRA, 315-326(1971). This subroutine balances a REAL matrix and isolates eigenvalues whenever possible.
 
 ## Classification
 
@@ -51,20 +51,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BALANC](https://www.netlib.org/slatec/lin/balanc.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `LOW` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `IGH` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `SCALE` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. |
+| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | is a is a two-dimensional REAL array, dimensioned A(NM,N). two-dimensional REAL array, dimensioned A(NM,N). contains the balanced matrix. dimensional REAL array, dimensioned SCALE(N). Suppose that the principal submatrix in rows LOW through IGH has been balanced, that P(J) denotes the index interchanged with J during the permutation step, and that the elements of the diagonal matrix used are denoted by D(I,J).  Then |
+| 4 | `LOW` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are two INTEGER variables such that A(I,J) is equal to zero if (1) I is greater than J and 1 or I=IGH+1,...,N. 1 = D(J,J),      J = LOW,...,IGH = P(J)         J = IGH+1,...,N. The order in which the interchanges are made is N to IGH+1, 1. Note that 1 is returned for IGH if IGH is zero formally. The ALGOL procedure EXC contained in BALANCE appears in BALANC  in line.  (Note that the ALGOL roles of identifiers K,L have been reversed.) Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY |
+| 5 | `IGH` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are two INTEGER variables such that A(I,J) is equal to zero if (1) I is greater than J and |
+| 6 | `SCALE` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains information determining the permutations and dimensional REAL array, dimensioned SCALE(N). Suppose that the principal submatrix in rows LOW through IGH has been balanced, that P(J) denotes the index interchanged with J during the permutation step, and that the elements of the diagonal matrix used are denoted by D(I,J).  Then 1 = D(J,J),      J = LOW,...,IGH = P(J)         J = IGH+1,...,N. The order in which the interchanges are made is N to IGH+1, |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

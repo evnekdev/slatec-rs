@@ -51,18 +51,18 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SROTG](https://www.netlib.org/slatec/lin/srotg.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `SA` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `SB` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `SC` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Z**2)  and  SS=Z SC**2) Normally, the subprogram SROT(N,SX,INCX,SY,INCY,SC,SS) will next be called to apply the transformation to a 2 by N matrix. |
-| 4 | `SS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | SC**2) Normally, the subprogram SROT(N,SX,INCX,SY,INCY,SC,SS) will next be called to apply the transformation to a 2 by N matrix. |
+| 1 | `SA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar single precision result R |
+| 2 | `SB` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar single precision result Z |
+| 3 | `SC` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | single precision result If Z=1  set  SC=0.0  and  SS=1.0 Z**2)  and  SS=Z SC**2) Normally, the subprogram SROT(N,SX,INCX,SY,INCY,SC,SS) will next be called to apply the transformation to a 2 by N matrix. |
+| 4 | `SS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | single precision result Construct the Givens transformation ( SC  SS ) G = (        ) ,    SC**2 + SS**2 = 1 , SC ) which zeros the second entry of the 2-vector  (SA,SB)**T. The quantity R = (+/-)SQRT(SA**2 + SB**2) overwrites SA in storage.  The value of SB is overwritten by a value Z which If Z=1  set  SC=0.0  and  SS=1.0 SC**2) Normally, the subprogram SROT(N,SX,INCX,SY,INCY,SC,SS) will next be called to apply the transformation to a 2 by N matrix. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

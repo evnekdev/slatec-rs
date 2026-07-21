@@ -8,7 +8,7 @@ Factor a real symmetric matrix by elimination with symmetric pivoting.
 
 ## Description
 
-DSIFA factors a double precision symmetric matrix by elimination with symmetric pivoting. To solve A*X = B , follow DSIFA by DSISL. To compute INVERSE(A)*C , follow DSIFA by DSISL. To compute DETERMINANT(A) , follow DSIFA by DSIDI. To compute INERTIA(A) , follow DSIFA by DSIDI. To compute INVERSE(A) , follow DSIFA by DSIDI. On Entry A DOUBLE PRECISION(LDA,N) the symmetric matrix to be factored. Only the diagonal and upper triangle are used. LDA INTEGER the leading dimension of the array A . N INTEGER the order of the matrix A . On Return A a block diagonal matrix and the multipliers which were used to obtain it. The factorization can be written A = U*D*TRANS(U) where U is a product of permutation and unit upper triangular matrices, TRANS(U) is the transpose of U , and D is block diagonal with 1 by 1 and 2 by 2 blocks. KPVT INTEGER(N) an integer vector of pivot indices. INFO INTEGER = 0 normal value. = K if the K-th pivot block is singular. This is
+DSIFA factors a double precision symmetric matrix by elimination with symmetric pivoting.
 
 ## Classification
 
@@ -52,19 +52,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DSIFA](https://www.netlib.org/slatec/lin/dsifa.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDA, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `KPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDA, *) | B , follow DSIFA by DSISL. To compute  INVERSE(A)*C , follow DSIFA by DSISL. To compute  DETERMINANT(A) , follow DSIFA by DSIDI. To compute  INERTIA(A) , follow DSIFA by DSIDI. To compute  INVERSE(A) , follow DSIFA by DSIDI. On Entry DOUBLE PRECISION(LDA,N) the symmetric matrix to be factored. Only the diagonal and upper triangle are used. a block diagonal matrix and the multipliers which were used to obtain it. U*D*TRANS(U) where  U  is a product of permutation and unit upper triangular matrices, TRANS(U) is the transpose of  U , and  D  is block diagonal with 1 by 1 and 2 by 2 blocks. |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array  A . |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . On Return |
+| 4 | `KPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) an integer vector of pivot indices. |
+| 5 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 0  normal value. = K  if the K-th pivot block is singular.  This is not an error condition for this subroutine, but it does indicate that DSISL or DSIDI may divide by zero if called. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -78,7 +78,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-but it does indicate that DSISL or DSIDI may divide by zero if called.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

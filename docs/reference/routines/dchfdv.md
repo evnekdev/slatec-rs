@@ -8,7 +8,7 @@ Evaluate a cubic polynomial given in Hermite form and its first derivative at an
 
 ## Description
 
-DCHFDV: Cubic Hermite Function and Derivative Evaluator Evaluates the cubic polynomial determined by function values F1,F2 and derivatives D1,D2 on interval (X1,X2), together with its first derivative, at the points XE(J), J=1(1)NE. If only function values are required, use DCHFEV, instead. ---------------------------------------------------------------------- Calling sequence: INTEGER NE, NEXT(2), IERR DOUBLE PRECISION X1, X2, F1, F2, D1, D2, XE(NE), FE(NE), DE(NE) CALL DCHFDV (X1,X2, F1,F2, D1,D2, NE, XE, FE, DE, NEXT, IERR) Parameters: X1,X2 -- (input) endpoints of interval of definition of cubic.
+DCHFDV: Cubic Hermite Function and Derivative Evaluator Evaluates the cubic polynomial determined by function values
 
 ## Classification
 
@@ -52,26 +52,26 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DCHFDV](https://www.netlib.org/slatec/pchip/dchfdv.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `X2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `F1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `F2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `D1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `D2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `NE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `XE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `FE` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `DE` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `NEXT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (2) | Array argument classified by fixed-form executable read/write analysis. |
-| 12 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) endpoints of interval of definition of cubic. is returned in NEXT. |
+| 2 | `X2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) endpoints of interval of definition of cubic. is returned in NEXT. |
+| 3 | `F1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | and derivatives D1,D2 on interval (X1,X2), together with (input) values of function at X1 and X2, respectively. |
+| 4 | `F2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | and derivatives D1,D2 on interval (X1,X2), together with (input) values of function at X1 and X2, respectively. |
+| 5 | `D1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) values of derivative at X1 and X2, respectively. |
+| 6 | `D2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) values of derivative at X1 and X2, respectively. |
+| 7 | `NE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) number of evaluation points.  (Error return if .) |
+| 8 | `XE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1(1)NE. If only function values are required, use DCHFEV, instead. (input) real*8 array of points at which the functions are to be evaluated.  If any of the XE are outside the interval |
+| 9 | `FE` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (output) real*8 array of values of the cubic function defined by  X1,X2, F1,F2, D1,D2  at the points  XE. |
+| 10 | `DE` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (output) real*8 array of values of the first derivative of the same function at the points  XE. |
+| 11 | `NEXT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (2) | (output) integer array indicating number of extrapolation points: number of evaluation points to left of interval. number of evaluation points to right of interval. |
+| 12 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0  (no errors). "Recoverable" errors: 1  if NE.LT.1 . 2  if X1.EQ.X2 . (Output arrays have not been changed in either case.) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -85,7 +85,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-F1,F2 -- (input) values of function at X1 and X2, respectively. D1,D2 -- (input) values of derivative at X1 and X2, respectively. NE.LT.1 .) XE -- (input) real*8 array of points at which the functions are to be evaluated.  If any of the XE are outside the interval FE -- (output) real*8 array of values of the cubic function defined by  X1,X2, F1,F2, D1,D2  at the points  XE. DE -- (output) real*8 array of values of the first derivative of the same function at the points  XE. NEXT -- (output) integer array indicating number of extrapolation points: NEXT(1) = number of evaluation points to left of interval. NEXT(2) = number of evaluation points to right of interval. Normal return: IERR = -1  if NE.LT.1 . IERR = -2  if X1.EQ.X2 . (Output arrays have not been changed in either case.)
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

@@ -13,6 +13,7 @@
       "recommended_canonical_structure": "linear_algebra::banded",
       "routine_count": 52,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 52,
       "taxonomy_problems": "none: canonical paths are linear_algebra::banded"
     },
     {
@@ -28,6 +29,7 @@
       "recommended_canonical_structure": "interpolation",
       "routine_count": 50,
       "secondary_count": 2,
+      "semantic_contract_ready_for_rendered_audit": 48,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -43,6 +45,7 @@
       "recommended_canonical_structure": "dae",
       "routine_count": 2,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 2,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -58,6 +61,7 @@
       "recommended_canonical_structure": "fftpack",
       "routine_count": 19,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 19,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -73,6 +77,7 @@
       "recommended_canonical_structure": "fftpack; reserve fftpack::{real,complex} for a coordinated future path correction",
       "routine_count": 0,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 0,
       "taxonomy_problems": "historical generator family; no separate top-level canonical namespace is retained"
     },
     {
@@ -88,6 +93,7 @@
       "recommended_canonical_structure": "least_squares",
       "routine_count": 6,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 6,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -103,6 +109,7 @@
       "recommended_canonical_structure": "runtime",
       "routine_count": 0,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 0,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -118,6 +125,7 @@
       "recommended_canonical_structure": "least_squares",
       "routine_count": 6,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 6,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -133,6 +141,7 @@
       "recommended_canonical_structure": "optimization",
       "routine_count": 0,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 0,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -148,6 +157,7 @@
       "recommended_canonical_structure": "roots::complex",
       "routine_count": 4,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 4,
       "taxonomy_problems": "none: complex polynomial and scalar-root routines share the root-finding domain"
     },
     {
@@ -163,6 +173,7 @@
       "recommended_canonical_structure": "nonlinear::jacobian_check (shared diagnostic)",
       "routine_count": 2,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 2,
       "taxonomy_problems": "module is a shared diagnostic rather than a solver namespace"
     },
     {
@@ -178,6 +189,7 @@
       "recommended_canonical_structure": "ode",
       "routine_count": 7,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 7,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -193,6 +205,7 @@
       "recommended_canonical_structure": "interpolation",
       "routine_count": 67,
       "secondary_count": 19,
+      "semantic_contract_ready_for_rendered_audit": 48,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -208,6 +221,7 @@
       "recommended_canonical_structure": "pde::fishpack",
       "routine_count": 17,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 17,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -223,6 +237,7 @@
       "recommended_canonical_structure": "interpolation",
       "routine_count": 78,
       "secondary_count": 16,
+      "semantic_contract_ready_for_rendered_audit": 62,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -238,6 +253,7 @@
       "recommended_canonical_structure": "quadrature",
       "routine_count": 60,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 60,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -253,6 +269,7 @@
       "recommended_canonical_structure": "roots",
       "routine_count": 6,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 6,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -268,6 +285,7 @@
       "recommended_canonical_structure": "special::<meaningful-subfamily>",
       "routine_count": 175,
       "secondary_count": 0,
+      "semantic_contract_ready_for_rendered_audit": 175,
       "taxonomy_problems": "none: public paths are directly organized under special"
     }
   ],

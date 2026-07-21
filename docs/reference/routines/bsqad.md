@@ -8,7 +8,7 @@ Compute the integral of a K-th order B-spline using the B-representation.
 
 ## Description
 
-BSQAD computes the integral on (X1,X2) of a K-th order B-spline using the B-representation (T,BCOEF,N,K). Orders K as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use BFQAD with F(X) = 1.
+Abstract BSQAD computes the integral on (X1,X2) of a K-th order B-spline using the B-representation (T,BCOEF,N,K). Orders K as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use BFQAD with F(X) = 1.
 
 ## Classification
 
@@ -54,20 +54,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BSQAD](https://www.netlib.org/slatec/src/bsqad.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | knot array of length N+K |
+| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | knot array of length N+K .LE. X .LE. T(N+1) |
 | 2 | `BCOEF` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | B-spline coefficient array of length N |
 | 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | length of coefficient array |
-| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, 1 .LE. K .LE. 20 |
-| 5 | `X1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | end points of quadrature interval in T(K) .LE. X .LE. T(N+1) |
-| 6 | `X2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | end points of quadrature interval in T(K) .LE. X .LE. T(N+1) |
+| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | th order B-spline using the B-representation. th order B-spline using the B-representation (T,BCOEF,N,K).  Orders as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use BFQAD with F(X) = 1. order of B-spline, 1 .LE. K .LE. 20 .LE. X .LE. T(N+1) |
+| 5 | `X1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | th order B-spline using the B-representation (T,BCOEF,N,K).  Orders end points of quadrature interval in |
+| 6 | `X2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | th order B-spline using the B-representation (T,BCOEF,N,K).  Orders end points of quadrature interval in |
 | 7 | `BQUAD` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | integral of the B-spline over (X1,X2) |
 | 8 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work vector of length 3*K |
 
@@ -83,7 +83,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error
 
 ### Storage and workspace requirements
 

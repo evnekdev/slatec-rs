@@ -8,7 +8,7 @@ Initialize a real and an integer work array for RFFTF1 and RFFTB1.
 
 ## Description
 
-Subroutine RFFTI1 initializes the work arrays WA and IFAC which are used in both RFFTF1 and RFFTB1. The prime factorization of N and a tabulation of the trigonometric functions are computed and stored in IFAC and WA, respectively. Input Argument N the length of the sequence to be transformed. Output Arguments WA a real work array which must be dimensioned at least N. IFAC an integer work array which must be dimensioned at least 15. The same work arrays can be used for both RFFTF1 and RFFTB1 as long as N remains unchanged. Different WA and IFAC arrays are required for different values of N. The contents of WA and IFAC must not be changed between calls of RFFTF1 or RFFTB1.
+Subroutine RFFTI1 initializes the work arrays WA and IFAC which are used in both RFFTF1 and RFFTB1. The prime factorization of N and a tabulation of the trigonometric functions are computed and stored in
 
 ## Classification
 
@@ -51,17 +51,17 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [RFFTI1](https://www.netlib.org/slatec/fishfft/rffti1.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `WA` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 3 | `IFAC` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the sequence to be transformed. Output Arguments are required must not be changed between calls of RFFTF1 or RFFTB1. |
+| 2 | `WA` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real work array which must be dimensioned at least N. are required must not be changed between calls of RFFTF1 or RFFTB1. |
+| 3 | `IFAC` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | and WA, respectively. Input Argument an integer work array which must be dimensioned at least 15. The same work arrays can be used for both RFFTF1 and RFFTB1 as long are required must not be changed between calls of RFFTF1 or RFFTB1. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

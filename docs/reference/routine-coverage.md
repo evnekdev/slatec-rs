@@ -66,6 +66,12 @@ The former aggregate is retired because it conflated generated declarations, rev
 The definitions and exclusions are generated in [coverage-summary.json](../../generated/raw-api/coverage-summary.json) and [exclusion-report.json](../../generated/raw-api/exclusion-report.json).
 <!-- raw-api-coverage:end -->
 
+The fully documented count is calculated from the rendered canonical public
+rustdoc audit, not merely from generated routine-reference Markdown. See
+[rendered-rustdoc-audit.json](../../generated/slatec-routines/rendered-rustdoc-audit.json)
+for every function page, ABI argument list, source URL, and cross-surface
+comparison.
+
 ## Callback-bearing raw interfaces
 
 The callback-specific public raw tier is source-reconstructed and

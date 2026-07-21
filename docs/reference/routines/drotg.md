@@ -51,18 +51,18 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DROTG](https://www.netlib.org/slatec/lin/drotg.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `DA` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `DB` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `DC` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Z**2)  and  DS=Z DC**2) Normally, the subprogram DROT(N,DX,INCX,DY,INCY,DC,DS) will next be called to apply the transformation to a 2 by N matrix. |
-| 4 | `DS` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | DC**2) Normally, the subprogram DROT(N,DX,INCX,DY,INCY,DC,DS) will next be called to apply the transformation to a 2 by N matrix. |
+| 1 | `DA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision scalar double precision result R |
+| 2 | `DB` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision scalar double precision result Z |
+| 3 | `DC` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision result Z**2)  and  DS=Z DC**2) Normally, the subprogram DROT(N,DX,INCX,DY,INCY,DC,DS) will next be called to apply the transformation to a 2 by N matrix. |
+| 4 | `DS` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision result Construct the Givens transformation ( DC  DS ) G = (        ) ,    DC**2 + DS**2 = 1 , DC ) which zeros the second entry of the 2-vector  (DA,DB)**T . The quantity R = (+/-)SQRT(DA**2 + DB**2) overwrites DA in storage.  The value of DB is overwritten by a value Z which allows DC and DS to be recovered by the following algorithm. If Z=1  set  DC=0.0  and  DS=1.0 DC**2) Normally, the subprogram DROT(N,DX,INCX,DY,INCY,DC,DS) will next be called to apply the transformation to a 2 by N matrix. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

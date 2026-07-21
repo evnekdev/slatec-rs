@@ -8,7 +8,7 @@ Compute the eigenvalues and, optionally, the eigenvectors of a real symmetric ma
 
 ## Description
 
-SSPEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix stored in packed form. Call Sequence Parameters- (The values of parameters marked with * (star) will be changed by SSPEV.) A* REAL(N*(N+1)/2) real symmetric packed input matrix. Contains upper triangle and diagonal of A, by column (elements 11, 12, 22, 13, 23, 33, ...). N INTEGER set by the user to the order of the matrix A. E* REAL(N) on return from SSPEV, E contains the eigenvalues of A.
+SSPEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix stored in packed form. Call Sequence Parameters- (The values of parameters marked with * (star) will be changed by SSPEV.)
 
 ## Classification
 
@@ -52,22 +52,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SSPEV](https://www.netlib.org/slatec/lin/sspev.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDV, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 7 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N*(N+1)/2) real symmetric packed input matrix.  Contains upper triangle and diagonal of A, by column (elements 11, 12, 22, 13, 23, 33, ...). are stored in the first N columns of V.  See also INFO below. must be distinct arrays. Also, if LDA .GT. LDV, SSPEV changes all the elements of A thru column N.  If LDA < LDV, SSPEV changes all the elements of V through |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the order of the matrix A. are stored in the first N columns of V.  See also INFO below. LDV, only A(I,J) and V(I, J) for I,J = 1,...,N are changed by SSPEV. |
+| 3 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) on return from SSPEV, E contains the eigenvalues of A. |
+| 4 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDV, *) | REAL(LDV,N) on return from SSPEV, if the user has set JOB = 0        V is not referenced. is also set nonzero.  In that case, N must be .LE. LDV. If JOB is set to zero, LDV is not referenced. are referenced. = nonzero  eigenvalues and vectors to be calculated. must be distinct arrays. Also, if LDA .GT. LDV, SSPEV changes all the elements of A thru column N.  If LDA < LDV, SSPEV changes all the elements of V through |
+| 5 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to are referenced. = nonzero  eigenvalues and vectors to be calculated. |
+| 6 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(2N) temporary storage vector.  Contents changed by SSPEV. |
+| 7 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is also set nonzero.  In that case, N must be .LE. LDV. If JOB is set to zero, LDV is not referenced. INTEGER set by the user to = 0        eigenvalues only to be calculated by SSPEV. |
+| 8 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER on return from SSPEV, the value of INFO is = 0 for normal return. = K if the eigenvalue iteration fails to converge. Eigenvalues and vectors 1 through K-1 are correct. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -85,7 +85,7 @@ No. 1   recoverable  N is greater than LDV and JOB is nonzero No. 2   recoverabl
 
 ### Storage and workspace requirements
 
-`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`WORK`: REAL(2N) temporary storage vector.  Contents changed by SSPEV.
 
 ### Provider, ABI, and safety
 

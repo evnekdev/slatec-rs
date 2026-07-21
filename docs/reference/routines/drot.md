@@ -51,21 +51,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DROT](https://www.netlib.org/slatec/lin/drot.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for DY using LY and INCY. |
-| 2 | `DX` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for DY using LY and INCY. |
-| 3 | `INCX` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for DY using LY and INCY. |
-| 4 | `DY` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `DC` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `DS` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s) 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for DY using LY and INCY. |
+| 2 | `DX` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | double precision vector with N elements rotated vector DX (unchanged if N .LE. 0) 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for DY using LY and INCY. |
+| 3 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of DX 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for DY using LY and INCY. |
+| 4 | `DY` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | double precision vector with N elements rotated vector DY (unchanged if N .LE. 0) Multiply the 2 x 2 matrix  ( DC DS) times the 2 x N matrix (DX**T) |
+| 5 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of DY |
+| 6 | `DC` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | D.P. element of rotation matrix |
+| 7 | `DS` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | D.P. element of rotation matrix DC)                        (DY**T) where **T indicates transpose.  The elements of DX are in |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

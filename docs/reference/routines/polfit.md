@@ -8,7 +8,7 @@ Fit discrete data in a least squares sense by polynomials in one variable.
 
 ## Description
 
-Given a collection of points X(I) and a set of values Y(I) which correspond to some function or measurement at each of the X(I), subroutine POLFIT computes the weighted least-squares polynomial fits of all degrees up to some degree either specified by the user or determined by the routine. The fits thus obtained are in orthogonal polynomial form. Subroutine PVALUE may then be called to evaluate the fitted polynomials and any of their derivatives at any point. The subroutine PCOEF may be used to express the polynomial fits as powers of (X-C) for any specified point C. The parameters for POLFIT are
+Given a collection of points X(I) and a set of values Y(I) which correspond to some function or measurement at each of the X(I), subroutine POLFIT computes the weighted least-squares polynomial fits of all degrees up to some degree either specified by the user or determined by the routine. The fits thus obtained are in orthogonal polynomial form. Subroutine PVALUE may then be called to evaluate the fitted polynomials and any of their derivatives at any point. The subroutine PCOEF may be used to
 
 ## Classification
 
@@ -54,24 +54,24 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [POLFIT](https://www.netlib.org/slatec/src/polfit.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of data points.  The arrays X, Y and W must be dimensioned at least  N  (N .GE. 1). |
-| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | array of values of the independent variable.  These values may appear in any order and need not all be distinct. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of data points.  The arrays X, Y and W must be dimensioned at least  N  (N .GE. 1). .GE. 1 1  for  EPS .GE. 0. 2  for  EPS .LT. 0. |
+| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | C) for any specified point C. The parameters for  POLFIT  are array of values of the independent variable.  These values may appear in any order and need not all be distinct. C) using  PVALUE  and  PCOEF after just one call to  POLFIT . |
 | 3 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | array of corresponding function values. |
-| 4 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | array of positive values to be used as weights.  If W(1) is negative,  POLFIT  will set all the weights |
-| 5 | `MAXDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `NDEG` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | degree of the highest degree fit computed. |
-| 7 | `EPS` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `R` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 10 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | array of positive values to be used as weights.  If is negative,  POLFIT  will set all the weights to 1.0, which means unweighted least squares error will be minimized.  To minimize relative error, the user should set the weights to:  W(I) = 1.0/Y(I)**2, I = 1,...,N . 1.0  or  W(I) .GT. 0., I=1,...,N . 3 -- cannot satisfy the RMS error requirement with a polynomial of degree no greater than  MAXDEG .  Best fit found is of degree  MAXDEG . 4 -- cannot satisfy the test for significance using current value of  MAXDEG .  Statistically, the best fit found is of order  NORD .  (In this case, |
+| 5 | `MAXDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | maximum degree to be allowed for polynomial fit. negative integer less than  N. Note -- MAXDEG  cannot be equal to  N-1  when a statistical test is to be used for degree selection, i.e., when input value of  EPS  is negative. 1  for  EPS .GE. 0. 2  for  EPS .LT. 0. 1, or MAXDEG).  Using a higher value of may result in passing the test. |
+| 6 | `NDEG` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | degree of the highest degree fit computed. MAXDEG-2, .  Any or all of these fits can be evaluated or |
+| 7 | `EPS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | specifies the criterion to be used in determining the degree of fit to be computed. (1)  If  EPS  is input negative,  POLFIT  chooses the degree based on a statistical F test of significance.  One of three possible significance levels will be used:  .01, .05 or 1.0 , the routine will automatically select one of these levels based on the number of data points and the maximum degree to be considered.  If  EPS  is input as -.01, -.05, or -.10, a significance level of .01, .05, or .10, respectively, will be used. (2)  If  EPS  is set to 0.,  POLFIT  computes the polynomials of degrees 0 through  MAXDEG . (3)  If  EPS  is input positive,  EPS  is the RMS RMS error of the polynomial of degree  NDEG . |
+| 8 | `R` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | vector of dimension at least NDEG containing values of the fit of degree  NDEG  at each of the  X(I) . Except when the statistical test is used, these values are more accurate than results from subroutine PVALUE  normally are. |
+| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | error flag with the following possible values. 1 -- indicates normal execution, i.e., either (1)  the input value of  EPS  was negative, and the computed polynomial fit of degree  NDEG satisfies the specified F test, or (2)  the input value of  EPS  was 0., and the fits of all degrees up to  MAXDEG  are complete, or (3)  the input value of  EPS  was positive, and the polynomial of degree  NDEG  satisfies the RMS |
+| 10 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work and output array having at least 3N+3MAXDEG+3 locations Note - POLFIT  calculates all fits of degrees up to and including |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -85,11 +85,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-user should set the weights to:  W(I) = 1.0/Y(I)**2, I = 1,...,N . MAXDEG - maximum degree to be allowed for polynomial fit. MAXDEG  may be any non-negative integer less than  N. Note -- MAXDEG  cannot be equal to  N-1  when a statistical test is to be used for degree selection, i.e., when input value of  EPS  is negative. EPS -    specifies the criterion to be used in determining the degree of fit to be computed. (1)  If  EPS  is input negative,  POLFIT  chooses the degree based on a statistical F test of significance.  One of three possible significance levels will be used:  .01, .05 or .10.  If  EPS=-1.0 , the routine will automatically select one of these levels based on the number of data points and the maximum degree to be considered.  If  EPS  is input as -.01, -.05, or -.10, a significance level of .01, .05, or .10, respectively, will be used. (2)  If  EPS  is set to 0.,  POLFIT  computes the polynomials of degrees 0 through  MAXDEG . (3)  If  EPS  is input positive,  EPS  is the RMS fitted polynomial.  POLFIT  will increase the degree of fit until this criterion is met or until the maximum degree is reached. R -      vector of dimension at least NDEG containing values of the fit of degree  NDEG  at each of the  X(I) . Except when the statistical test is used, these values are more accurate than results from subroutine PVALUE  normally are. 1 -- indicates normal execution, i.e., either (1)  the input value of  EPS  was negative, and the computed polynomial fit of degree  NDEG satisfies the specified F test, or (2)  the input value of  EPS  was 0., and the fits of all degrees up to  MAXDEG  are complete, or (3)  the input value of  EPS  was positive, and the polynomial of degree  NDEG  satisfies the RMS 2 -- invalid input parameter.  At least one of the input parameters has an illegal value and must be corrected before  POLFIT  can proceed.  Valid input results when the following restrictions are observed N .GE. 1 0 .LE. MAXDEG .LE. N-1  for  EPS .GE. 0. 0 .LE. MAXDEG .LE. N-2  for  EPS .LT. 0. W(1)=-1.0  or  W(I) .GT. 0., I=1,...,N . polynomial of degree no greater than  MAXDEG .  Best fit found is of degree  MAXDEG . 4 -- cannot satisfy the test for significance using current value of  MAXDEG .  Statistically, the best fit found is of order  NORD .  (In this case, NDEG will have one of the values:  MAXDEG-2, MAXDEG-1, or MAXDEG).  Using a higher value of MAXDEG  may result in passing the test. A -      work and output array having at least 3N+3MAXDEG+3 locations Note - POLFIT  calculates all fits of degrees up to and including NDEG .  Any or all of these fits can be evaluated or expressed as powers of (X-C) using  PVALUE  and  PCOEF after just one call to  POLFIT .
+fitted polynomial.  POLFIT  will increase the degree of fit until this criterion is met or until the maximum degree is reached. 2 -- invalid input parameter.  At least one of the input parameters has an illegal value and must be corrected before  POLFIT  can proceed.  Valid input results when the following restrictions are observed
 
 ### Storage and workspace requirements
 
-`W`: array of positive values to be used as weights.  If W(1) is negative,  POLFIT  will set all the weights
+`W`: array of positive values to be used as weights.  If is negative,  POLFIT  will set all the weights to 1.0, which means unweighted least squares error will be minimized.  To minimize relative error, the user should set the weights to:  W(I) = 1.0/Y(I)**2, I = 1,...,N . 1.0  or  W(I) .GT. 0., I=1,...,N . 3 -- cannot satisfy the RMS error requirement with a polynomial of degree no greater than  MAXDEG .  Best fit found is of degree  MAXDEG . 4 -- cannot satisfy the test for significance using current value of  MAXDEG .  Statistically, the best fit found is of order  NORD .  (In this case,
 
 ### Provider, ABI, and safety
 

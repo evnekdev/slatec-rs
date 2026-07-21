@@ -12,6 +12,7 @@ use crate::FortranInteger;
 unsafe extern "C" {
     /// Initializes `WA[2*N]` and `IFAC[15]` for the CFFTF1/CFFTB1 pair.
     #[link_name = "cffti1_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cffti1.md"))]
     pub fn cffti1(n: *mut FortranInteger, wa: *mut f32, ifac: *mut FortranInteger);
 
     /// Computes the unnormalised forward complex transform in-place.
@@ -19,6 +20,7 @@ unsafe extern "C" {
     /// `c` and `ch` each contain `2*N` interleaved real words, `wa` is the
     /// initialized `2*N` word table, and `ifac` has 15 integer entries.
     #[link_name = "cfftf1_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cfftf1.md"))]
     pub fn cfftf1(
         n: *mut FortranInteger,
         c: *mut f32,
@@ -31,6 +33,7 @@ unsafe extern "C" {
     ///
     /// Buffer requirements match [`cfftf1`].
     #[link_name = "cfftb1_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cfftb1.md"))]
     pub fn cfftb1(
         n: *mut FortranInteger,
         c: *mut f32,

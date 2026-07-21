@@ -8,7 +8,7 @@ This routine computes modified Chebyshev moments. The K-th modified Chebyshev mo
 
 ## Description
 
-MODIFIED CHEBYSHEV MOMENTS STANDARD FORTRAN SUBROUTINE REAL VERSION PARAMETERS ALFA - Real Parameter in the weight function W(X), ALFA.GT.(-1) BETA - Real Parameter in the weight function W(X), BETA.GT.(-1) RI - Real Vector of dimension 25 RI(K) is the integral over (-1,1) of (1+X)**ALFA*T(K-1,X), K = 1, ..., 25. RJ - Real Vector of dimension 25 RJ(K) is the integral over (-1,1) of (1-X)**BETA*T(K-1,X), K = 1, ..., 25. RG - Real Vector of dimension 25 RG(K) is the integral over (-1,1) of (1+X)**ALFA*LOG((1+X)/2)*T(K-1,X), K = 1, ..., 25. RH - Real Vector of dimension 25 RH(K) is the integral over (-1,1) of (1-X)**BETA*LOG((1-X)/2)*T(K-1,X), K = 1, ..., 25. INTEGR - Integer Input parameter indicating the modified Moments to be computed INTEGR = 1 compute RI, RJ = 2 compute RI, RJ, RG = 3 compute RI, RJ, RH = 4 compute RI, RJ, RG, RH
+MODIFIED CHEBYSHEV MOMENTS STANDARD FORTRAN SUBROUTINE REAL VERSION PARAMETERS
 
 ## Classification
 
@@ -53,21 +53,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [QMOMO](https://www.netlib.org/slatec/src/qmomo.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `RI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `RJ` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `RG` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `RH` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real 1) 1,X), K = 1, ..., 25. 1,X), K = 1, ..., 25. |
+| 2 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real 1) K = 1, ..., 25. K = 1, ..., 25. |
+| 3 | `RI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
+| 4 | `RJ` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
+| 5 | `RG` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
+| 6 | `RH` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
+| 7 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Input parameter indicating the modified Moments to be computed 1 compute RI, RJ = 2 compute RI, RJ, RG = 3 compute RI, RJ, RH = 4 compute RI, RJ, RG, RH |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

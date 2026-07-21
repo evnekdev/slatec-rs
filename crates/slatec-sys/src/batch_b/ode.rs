@@ -38,6 +38,7 @@ pub mod callbacks {
         ///
         /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
         #[link_name = "ddeabm_"]
+        #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ddeabm.md"))]
         pub fn ddeabm(
             df: DDEABMDF,
             neq: *mut crate::FortranInteger,
@@ -91,6 +92,7 @@ pub mod callbacks {
         ///
         /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
         #[link_name = "dderkf_"]
+        #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dderkf.md"))]
         pub fn dderkf(
             df: DDERKFDF,
             neq: *mut crate::FortranInteger,
@@ -144,6 +146,7 @@ pub mod callbacks {
         ///
         /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
         #[link_name = "derkf_"]
+        #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/derkf.md"))]
         pub fn derkf(
             f: DERKFF,
             neq: *mut crate::FortranInteger,

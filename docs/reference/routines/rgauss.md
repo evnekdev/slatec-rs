@@ -8,7 +8,7 @@ Generate a normally distributed (Gaussian) random number.
 
 ## Description
 
-Generate a normally distributed random number, i.e., generate random numbers with a Gaussian distribution. These random numbers are not exceptionally good -- especially in the tails of the distribution, but this implementation is simple and suitable for most applications. See R. W. Hamming, Numerical Methods for Scientists and Engineers, McGraw-Hill, 1962, pages 34 and 389. Input Arguments -- XMEAN the mean of the Guassian distribution. SD the standard deviation of the Guassian function EXP (-1/2 * (X-XMEAN)**2 / SD**2)
+Generate a normally distributed random number, i.e., generate random numbers with a Gaussian distribution. These random numbers are not exceptionally good -- especially in the tails of the distribution, but this implementation is simple and suitable for most applications. See R. W. Hamming, Numerical Methods for Scientists and Engineers, McGraw-Hill, 1962, pages 34 and 389. Input Arguments --
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [RGAUSS](https://www.netlib.org/slatec/fnlib/rgauss.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `XMEAN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `SD` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `XMEAN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the mean of the Guassian distribution. |
+| 2 | `SD` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the standard deviation of the Guassian function EXP (-1/2 * (X-XMEAN)**2 / SD**2) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

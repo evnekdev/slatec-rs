@@ -8,7 +8,7 @@ Factor a complex Hermitian matrix stored in packed form by elimination with symm
 
 ## Description
 
-CHPCO factors a complex Hermitian matrix stored in packed form by elimination with symmetric pivoting and estimates the condition of the matrix. if RCOND is not needed, CHPFA is slightly faster. To solve A*X = B , follow CHPCO by CHPSL. To compute INVERSE(A)*C , follow CHPCO by CHPSL. To compute INVERSE(A) , follow CHPCO by CHPDI. To compute DETERMINANT(A) , follow CHPCO by CHPDI. To compute INERTIA(A), follow CHPCO by CHPDI. On Entry AP COMPLEX (N*(N+1)/2) the packed form of a Hermitian matrix A . The columns of the upper triangle are stored sequentially in a one-dimensional array of length N*(N+1)/2 . See comments below for details. N INTEGER the order of the matrix A .
+CHPCO factors a complex Hermitian matrix stored in packed form by elimination with symmetric pivoting and estimates the condition of the matrix. if RCOND is not needed, CHPFA is slightly faster. To solve A*X = B , follow CHPCO by CHPSL. To compute INVERSE(A)*C , follow CHPCO by CHPSL. To compute INVERSE(A) , follow CHPCO by CHPDI. To compute DETERMINANT(A) , follow CHPCO by CHPDI. To compute INERTIA(A), follow CHPCO by CHPDI. On Entry
 
 ## Classification
 
@@ -52,19 +52,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CHPCO](https://www.netlib.org/slatec/lin/chpco.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `AP` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | A(I,J) 10    CONTINUE 20 CONTINUE |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `KPVT` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `RCOND` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `Z` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | RCOND*NORM(A)*NORM(Z) . Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix. K = 0 DO 20 J = 1, N DO 10 I = 1, J K = K + 1 |
+| 1 | `AP` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX (N*(N+1)/2) the packed form of a Hermitian matrix  A .  The columns of the upper triangle are stored sequentially in a one-dimensional array of length  N*(N+1)/2 . See comments below for details. a block diagonal matrix and the multipliers which were used to obtain it stored in packed form. The factorization can be written  A = U*D*CTRANS(U) where  U  is a product of permutation and unit upper triangular matrices , CTRANS(U) is the conjugate transpose of  U , and  D  is block diagonal with 1 by 1 and 2 by 2 blocks. A(I,J) 10    CONTINUE 20 CONTINUE |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . |
+| 3 | `KPVT` | `output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) an integer vector of pivot indices. |
+| 4 | `RCOND` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | REAL an estimate of the reciprocal condition of  A . For the system  A*X = B , relative perturbations in  A  and  B  of size  EPSILON  may cause relative perturbations in  X  of size  EPSILON/RCOND . If  RCOND  is so small that the logical expression 1.0 + RCOND .EQ. 1.0 is true, then  A  may be singular to working precision.  In particular,  RCOND  is zero  if exact singularity is detected or the estimate underflows. |
+| 5 | `Z` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(N) a work vector whose contents are usually unimportant. If  A  is close to a singular matrix, then  Z  is an approximate null vector in the sense that RCOND*NORM(A)*NORM(Z) . Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix. K = 0 DO 20 J = 1, N DO 10 I = 1, J K = K + 1 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

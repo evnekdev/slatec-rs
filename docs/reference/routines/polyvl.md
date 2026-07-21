@@ -8,7 +8,7 @@ Calculate the value of a polynomial and its first NDER derivatives where the pol
 
 ## Description
 
-Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLYVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to POLINT. The variable N and the arrays X and C must not be altered between the call to POLINT and the call to POLYVL. Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable.
+Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLYVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to POLINT.
 
 ## Classification
 
@@ -53,23 +53,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [POLYVL](https://www.netlib.org/slatec/src/polyvl.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NDER` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of derivatives to be evaluated |
+| 1 | `NDER` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is .GT. 0. Note *** 0, neither YP nor WORK need to be dimensioned variables. 1, YP does not need to be a dimensioned variable. the number of derivatives to be evaluated 0, WORK does not need to be a dimensioned variable. |
 | 2 | `XX` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the argument at which the polynomial and its derivatives are to be evaluated. 1,...,NDER. |
 | 3 | `YFIT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | the value of the polynomial at XX |
-| 4 | `YP` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | the derivatives of the polynomial at XX.  The derivative of 1,...,NDER. |
-| 5 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ***** N, X, and C must not be altered between the call |
-| 6 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | *       to POLINT and the call to POLYVL. |
-| 7 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | ***** |
-| 8 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `YP` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | must be dimensioned by at least NDER the derivatives of the polynomial at XX.  The derivative of 1,...,NDER. |
+| 5 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | must not be altered between the call to POLINT and the call to POLYVL. Dimensioning Information ******* is .GT. 0. Note *** ***** must not be altered between the call |
+| 6 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | must not be altered between the call to POLINT and the call to POLYVL. Dimensioning Information ******* must be dimensioned by at least N (see the abstract ) must not be altered between the call *       to POLINT and the call to POLYVL. |
+| 7 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | must not be altered between the call to POLINT and the call to POLYVL. Dimensioning Information ******* must be dimensioned by at least N (see the abstract ) must not be altered between the call ***** |
+| 8 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is .GT. 0. Note *** this is an array to provide internal working storage for POLYVL.  It must be dimensioned by at least 2*N if NDER is |
+| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Output error flag with the following possible values. = 1  indicates normal execution Storage Parameters |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -83,11 +83,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-= 1  indicates normal execution Storage Parameters WORK  = this is an array to provide internal working storage for POLYVL.  It must be dimensioned by at least 2*N if NDER is .GT. 0.  If NDER=0, WORK does not need to be a dimensioned variable.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 
-`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`WORK`: is .GT. 0. Note *** this is an array to provide internal working storage for POLYVL.  It must be dimensioned by at least 2*N if NDER is
 
 ### Provider, ABI, and safety
 

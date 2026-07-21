@@ -29,6 +29,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/alnrel.md"))]
     pub use crate::families::special_elementary::alnrel;
 
     // raw-api-routine: CBRT
@@ -50,6 +51,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbrt.md"))]
     pub use crate::families::special_elementary::cbrt;
 
     // raw-api-routine: COSDG
@@ -71,6 +73,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosdg.md"))]
     pub use crate::families::special_elementary::cosdg;
 
     // raw-api-routine: DAWS
@@ -92,6 +95,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/daws.md"))]
     pub use crate::families::special_elementary::daws;
 
     // raw-api-routine: DCBRT
@@ -113,6 +117,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcbrt.md"))]
     pub use crate::families::special_elementary::dcbrt;
 
     // raw-api-routine: DCOSDG
@@ -134,6 +139,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcosdg.md"))]
     pub use crate::families::special_elementary::dcosdg;
 
     // raw-api-routine: DDAWS
@@ -155,6 +161,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ddaws.md"))]
     pub use crate::families::special_elementary::ddaws;
 
     // raw-api-routine: DEXPRL
@@ -176,6 +183,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dexprl.md"))]
     pub use crate::families::special_elementary::dexprl;
 
     // raw-api-routine: DLNREL
@@ -197,6 +205,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dlnrel.md"))]
     pub use crate::families::special_elementary::dlnrel;
 
     // raw-api-routine: DSINDG
@@ -218,6 +227,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsindg.md"))]
     pub use crate::families::special_elementary::dsindg;
 
     // raw-api-routine: EXPREL
@@ -239,6 +249,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/exprel.md"))]
     pub use crate::families::special_elementary::exprel;
 
     // raw-api-routine: SINDG
@@ -260,6 +271,7 @@ pub mod elementary {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sindg.md"))]
     pub use crate::families::special_elementary::sindg;
 }
 
@@ -285,6 +297,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/alngam.md"))]
     pub use crate::families::special_gamma::alngam;
 
     // raw-api-routine: BINOM
@@ -307,6 +320,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/binom.md"))]
     pub use crate::families::special_gamma::binom;
 
     // raw-api-routine: DBINOM
@@ -329,6 +343,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbinom.md"))]
     pub use crate::families::special_gamma::dbinom;
 
     // raw-api-routine: DFAC
@@ -350,6 +365,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dfac.md"))]
     pub use crate::families::special_gamma::dfac;
 
     // raw-api-routine: DGAMI
@@ -372,6 +388,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgami.md"))]
     pub use crate::families::special_gamma::dgami;
 
     // raw-api-routine: DGAMIC
@@ -394,6 +411,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgamic.md"))]
     pub use crate::families::special_gamma::dgamic;
 
     // raw-api-routine: DGAMIT
@@ -416,6 +434,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgamit.md"))]
     pub use crate::families::special_gamma::dgamit;
 
     // raw-api-routine: DGAMMA
@@ -437,6 +456,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgamma.md"))]
     pub use crate::families::special_gamma::dgamma;
 
     // raw-api-routine: DGAMR
@@ -458,6 +478,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgamr.md"))]
     pub use crate::families::special_gamma::dgamr;
 
     // raw-api-routine: DLNGAM
@@ -479,6 +500,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dlngam.md"))]
     pub use crate::families::special_gamma::dlngam;
 
     // raw-api-routine: DPSI
@@ -500,6 +522,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpsi.md"))]
     pub use crate::families::special_gamma::dpsi;
 
     // raw-api-routine: FAC
@@ -521,6 +544,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/fac.md"))]
     pub use crate::families::special_gamma::fac;
 
     // raw-api-routine: GAMI
@@ -543,6 +567,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gami.md"))]
     pub use crate::families::special_gamma::gami;
 
     // raw-api-routine: GAMIC
@@ -565,6 +590,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gamic.md"))]
     pub use crate::families::special_gamma::gamic;
 
     // raw-api-routine: GAMIT
@@ -587,6 +613,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gamit.md"))]
     pub use crate::families::special_gamma::gamit;
 
     // raw-api-routine: GAMMA
@@ -608,6 +635,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gamma.md"))]
     pub use crate::families::special_gamma::gamma;
 
     // raw-api-routine: GAMR
@@ -629,6 +657,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/gamr.md"))]
     pub use crate::families::special_gamma::gamr;
 
     // raw-api-routine: PSI
@@ -650,6 +679,7 @@ pub mod gamma {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/psi.md"))]
     pub use crate::families::special_gamma::psi;
 }
 
@@ -676,6 +706,7 @@ pub mod beta {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/albeta.md"))]
     pub use crate::families::special_beta::albeta;
 
     // raw-api-routine: BETA
@@ -698,6 +729,7 @@ pub mod beta {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/beta.md"))]
     pub use crate::families::special_beta::beta;
 
     // raw-api-routine: BETAI
@@ -721,6 +753,7 @@ pub mod beta {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/betai.md"))]
     pub use crate::families::special_beta::betai;
 
     // raw-api-routine: DBETA
@@ -743,6 +776,7 @@ pub mod beta {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbeta.md"))]
     pub use crate::families::special_beta::dbeta;
 
     // raw-api-routine: DBETAI
@@ -766,6 +800,7 @@ pub mod beta {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbetai.md"))]
     pub use crate::families::special_beta::dbetai;
 
     // raw-api-routine: DLBETA
@@ -788,6 +823,7 @@ pub mod beta {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dlbeta.md"))]
     pub use crate::families::special_beta::dlbeta;
 }
 
@@ -813,6 +849,7 @@ pub mod error {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/derf.md"))]
     pub use crate::families::special_error::derf;
 
     // raw-api-routine: DERFC
@@ -834,6 +871,7 @@ pub mod error {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/derfc.md"))]
     pub use crate::families::special_error::derfc;
 
     // raw-api-routine: ERF
@@ -855,6 +893,7 @@ pub mod error {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/erf.md"))]
     pub use crate::families::special_error::erf;
 
     // raw-api-routine: ERFC
@@ -876,6 +915,7 @@ pub mod error {
     /// # Safety
     /// Every argument pointer must be non-null, correctly aligned, and readable as its documented scalar type for the complete call; no pointer is retained and these functions have no output pointer. The caller must link a provider built for the documented GNU MinGW ABI and must not allow a panic or other unwinding to cross this FFI boundary. Stay inside the documented native domain and avoid inputs that can trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error controls are process-global; this raw declaration does not serialize calls, so callers must provide required process-wide synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/erfc.md"))]
     pub use crate::families::special_error::erfc;
 }
 
@@ -904,6 +944,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ai.md"))]
     pub use crate::families::special_airy::ai;
 
     // raw-api-routine: AIE
@@ -925,6 +966,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/aie.md"))]
     pub use crate::families::special_airy::aie;
 
     // raw-api-routine: BI
@@ -946,6 +988,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bi.md"))]
     pub use crate::families::special_airy::bi;
 
     // raw-api-routine: BIE
@@ -967,6 +1010,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bie.md"))]
     pub use crate::families::special_airy::bie;
 
     // raw-api-routine: DAI
@@ -988,6 +1032,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dai.md"))]
     pub use crate::families::special_airy::dai;
 
     // raw-api-routine: DAIE
@@ -1009,6 +1054,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/daie.md"))]
     pub use crate::families::special_airy::daie;
 
     // raw-api-routine: DBI
@@ -1030,6 +1076,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbi.md"))]
     pub use crate::families::special_airy::dbi;
 
     // raw-api-routine: DBIE
@@ -1051,6 +1098,7 @@ pub mod airy {
     /// # Safety
     /// `X` must be non-null, correctly aligned, and readable as the documented scalar type for the complete call. The pointer is input-only and is not retained. The caller must link a provider built for the documented GNU MinGW ABI, must not permit a panic or other unwinding across this FFI boundary, and must avoid input ranges that trigger fatal legacy XERROR behavior. FNLIB initialization and legacy error handling are process-global; this raw declaration does not serialize calls, so callers must provide any required synchronization.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbie.md"))]
     pub use crate::families::special_airy::dbie;
 }
 

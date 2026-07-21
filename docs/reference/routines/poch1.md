@@ -8,7 +8,7 @@ Calculate a generalization of Pochhammer's symbol starting from first order.
 
 ## Description
 
-Evaluate a generalization of Pochhammer's symbol for special situations that require especially accurate values when X is small in POCH1(A,X) = (POCH(A,X)-1)/X = (GAMMA(A+X)/GAMMA(A) - 1.0)/X . This specification is particularly suited for stably computing expressions such as (GAMMA(A+X)/GAMMA(A) - GAMMA(B+X)/GAMMA(B))/X = POCH1(A,X) - POCH1(B,X) Note that POCH1(A,0.0) = PSI(A) When ABS(X) is so small that substantial cancellation will occur if the straightforward formula is used, we use an expansion due to Fields and discussed by Y. L. Luke, The Special Functions and Their Approximations, Vol. 1, Academic Press, 1969, page 34. The ratio POCH(A,X) = GAMMA(A+X)/GAMMA(A) is written by Luke as (A+(X-1)/2)**X * polynomial in (A+(X-1)/2)**(-2) . In order to maintain significance in POCH1, we write for positive A (A+(X-1)/2)**X = EXP(X*LOG(A+(X-1)/2)) = EXP(Q) = 1.0 + Q*EXPREL(Q) . Likewise the polynomial is written POLY = 1.0 + X*POLY1(A,X) . Thus, POCH1(A,X) = (POCH(A,X) - 1) / X = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X)
+Evaluate a generalization of Pochhammer's symbol for special situations that require especially accurate values when X is small in
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [POCH1](https://www.netlib.org/slatec/fnlib/poch1.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)/X 1)/X 1.0)/X . 1.0)/X . This specification is particularly suited for stably computing This specification is particularly suited for stably computing expressions such as expressions such as GAMMA(B+X)/GAMMA(B))/X GAMMA(B+X)/GAMMA(B))/X POCH1(B,X) PSI(A) When ABS(X) is so small that substantial cancellation will occur if the straightforward formula is used, we  use an expansion due to Fields and discussed by Y. L. Luke, The Special Functions and Their Approximations, Vol. 1, Academic Press, 1969, page 34. GAMMA(A+X)/GAMMA(A) is written by Luke as 1)/2)**X * polynomial in (A+(X-1)/2)**(-2) . In order to maintain significance in POCH1, we write for positive A 1)/2)**X = EXP(X*LOG(A+(X-1)/2)) = EXP(Q) = 1.0 + Q*EXPREL(Q) . Likewise the polynomial is written POLY = 1.0 + X*POLY1(A,X) . Thus, 1) / X 1) / X = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) |
+| 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)/X 1)/X 1.0)/X . This specification is particularly suited for stably computing expressions such as GAMMA(B+X)/GAMMA(B))/X POCH1(B,X) GAMMA(A+X)/GAMMA(A) is written by Luke as 1)/2)**X * polynomial in (A+(X-1)/2)**(-2) . In order to maintain significance in POCH1, we write for positive A 1)/2)**X = EXP(X*LOG(A+(X-1)/2)) = EXP(Q) = 1.0 + Q*EXPREL(Q) . Likewise the polynomial is written POLY = 1.0 + X*POLY1(A,X) . Thus, 1) / X 1) / X = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

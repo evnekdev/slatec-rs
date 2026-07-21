@@ -51,20 +51,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SDSDOT](https://www.netlib.org/slatec/lin/sdsdot.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 of SX(LX+I*INCX)*SY(LY+I*INCY), |
-| 2 | `SB` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | 1 of SX(LX+I*INCX)*SY(LY+I*INCY), |
-| 3 | `SX` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `INCX` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | N)*INCX, and LY is defined in a similar way using INCY. |
-| 5 | `SY` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s) 1 of SX(LX+I*INCX)*SY(LY+I*INCY), |
+| 2 | `SB` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar to be added to inner product 1 of SX(LX+I*INCX)*SY(LY+I*INCY), |
+| 3 | `SX` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements |
+| 4 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SX N)*INCX, and LY is defined in a similar way using INCY. |
+| 5 | `SY` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements |
+| 6 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SY |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

@@ -8,7 +8,7 @@ Compute the exponential integral E1(X).
 
 ## Description
 
-DE1 calculates the double precision exponential integral, E1(X), for positive double precision argument X and the Cauchy principal value for negative X. If principal values are used everywhere, then, for all X, E1(X) = -Ei(-X) or Ei(X) = -E1(-X). Series for AE10 on the interval -3.12500E-02 to 0.
+DE1 calculates the double precision exponential integral, E1(X), for positive double precision argument X and the Cauchy principal value for negative X. If principal values are used everywhere, then, for all X,
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DE1](https://www.netlib.org/slatec/fnlib/de1.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Ei(-X) or E1(-X). Series for AE10       on the interval -3.12500E-02 to  0. with weighted error   4.62E-32 log weighted error  31.34 significant figures required  29.70 decimal places required  32.18 Series for AE11       on the interval -1.25000E-01 to -3.12500E-02 with weighted error   2.22E-32 log weighted error  31.65 significant figures required  30.75 decimal places required  32.54 Series for AE12       on the interval -2.50000E-01 to -1.25000E-01 with weighted error   5.19E-32 log weighted error  31.28 significant figures required  30.82 decimal places required  32.09 Series for E11        on the interval -4.00000E+00 to -1.00000E+00 with weighted error   8.49E-34 log weighted error  33.07 significant figures required  34.13 decimal places required  33.80 Series for E12        on the interval -1.00000E+00 to  1.00000E+00 with weighted error   8.08E-33 log weighted error  32.09 approx significant figures required  30.4 decimal places required  32.79 Series for AE13       on the interval  2.50000E-01 to  1.00000E+00 with weighted error   6.65E-32 log weighted error  31.18 significant figures required  30.69 decimal places required  32.03 Series for AE14       on the interval  0.          to  2.50000E-01 with weighted error   5.07E-32 log weighted error  31.30 significant figures required  30.40 decimal places required  32.20 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  29.70 decimal places required  32.18 Series for AE11       on the interval -1.25000E-01 to -3.12500E-02 significant figures required  30.75 decimal places required  32.54 Series for AE12       on the interval -2.50000E-01 to -1.25000E-01 significant figures required  30.82 decimal places required  32.09 Series for E11        on the interval -4.00000E+00 to -1.00000E+00 significant figures required  34.13 decimal places required  33.80 Series for E12        on the interval -1.00000E+00 to  1.00000E+00 approx significant figures required  30.4 decimal places required  32.79 Series for AE13       on the interval  2.50000E-01 to  1.00000E+00 significant figures required  30.69 decimal places required  32.03 Series for AE14       on the interval  0.          to  2.50000E-01 significant figures required  30.40 decimal places required  32.20
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

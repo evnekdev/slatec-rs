@@ -46,6 +46,7 @@ pub type NonlinearJacF32 = unsafe extern "C" fn(
 unsafe extern "C" {
     /// Original double-precision SLATEC nonlinear easy driver `DNSQE`.
     #[link_name = "dnsqe_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnsqe.md"))]
     pub fn dnsqe(
         function: NonlinearFnF64,
         jacobian: NonlinearJacF64,
@@ -62,6 +63,7 @@ unsafe extern "C" {
 
     /// Original single-precision SLATEC nonlinear easy driver `SNSQE`.
     #[link_name = "snsqe_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snsqe.md"))]
     pub fn snsqe(
         function: NonlinearFnF32,
         jacobian: NonlinearJacF32,
@@ -78,6 +80,7 @@ unsafe extern "C" {
 
     /// Original double-precision SLATEC expert Powell-hybrid driver `DNSQ`.
     #[link_name = "dnsq_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnsq.md"))]
     pub fn dnsq(
         function: NonlinearFnF64,
         jacobian: NonlinearJacF64,
@@ -110,6 +113,7 @@ unsafe extern "C" {
 
     /// Original single-precision SLATEC expert Powell-hybrid driver `SNSQ`.
     #[link_name = "snsq_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snsq.md"))]
     pub fn snsq(
         function: NonlinearFnF32,
         jacobian: NonlinearJacF32,
@@ -142,6 +146,7 @@ unsafe extern "C" {
 
     /// Original double-precision SLATEC Jacobian checker `DCKDER`.
     #[link_name = "dckder_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dckder.md"))]
     pub fn dckder(
         m: *mut FortranInteger,
         n: *mut FortranInteger,
@@ -157,6 +162,7 @@ unsafe extern "C" {
 
     /// Original single-precision SLATEC Jacobian checker `CHKDER`.
     #[link_name = "chkder_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chkder.md"))]
     pub fn chkder(
         m: *mut FortranInteger,
         n: *mut FortranInteger,

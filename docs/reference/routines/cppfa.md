@@ -8,7 +8,7 @@ Factor a complex Hermitian positive definite matrix stored in packed form.
 
 ## Description
 
-CPPFA factors a complex Hermitian positive definite matrix stored in packed form. CPPFA is usually called by CPPCO, but it can be called directly with a saving in time if RCOND is not needed. (Time for CPPCO) = (1 + 18/N)*(Time for CPPFA) . On Entry AP COMPLEX (N*(N+1)/2) the packed form of a Hermitian matrix A . The columns of the upper triangle are stored sequentially in a one-dimensional array of length N*(N+1)/2 . See comments below for details. N INTEGER the order of the matrix A . On Return AP an upper triangular matrix R , stored in packed form, so that A = CTRANS(R)*R . INFO INTEGER = 0 for normal return. = K If the leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix. K = 0 DO 20 J = 1, N DO 10 I = 1, J K = K + 1 AP(K) = A(I,J) 10 CONTINUE 20 CONTINUE
+CPPFA factors a complex Hermitian positive definite matrix stored in packed form. CPPFA is usually called by CPPCO, but it can be called directly with a saving in time if RCOND is not needed. (Time for CPPCO) = (1 + 18/N)*(Time for CPPFA) . On Entry
 
 ## Classification
 
@@ -52,17 +52,17 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CPPFA](https://www.netlib.org/slatec/lin/cppfa.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `AP` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `AP` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX (N*(N+1)/2) the packed form of a Hermitian matrix  A .  The columns of the upper triangle are stored sequentially in a one-dimensional array of length  N*(N+1)/2 . See comments below for details. an upper triangular matrix  R , stored in packed form, so that  A = CTRANS(R)*R . A(I,J) 10    CONTINUE 20 CONTINUE |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . On Return |
+| 3 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 0  for normal return. = K  If the leading minor of order  K  is not positive definite. Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix. K = 0 DO 20 J = 1, N DO 10 I = 1, J K = K + 1 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

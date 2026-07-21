@@ -48,6 +48,7 @@ unsafe extern "C" {
     /// covariance result on successful return. The declaration is unsafe
     /// because callers own the callback, all workspace, and XERROR state.
     #[link_name = "dcov_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcov.md"))]
     pub fn dcov(
         function: LeastSquaresFnF64,
         iopt: *mut FortranInteger,
@@ -70,6 +71,7 @@ unsafe extern "C" {
     /// [`LeastSquaresFnF32`] callback ABI and the same temporary-`X`, `IOPT`,
     /// `R`, `LDR`, and workspace contract.
     #[link_name = "scov_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scov.md"))]
     pub fn scov(
         function: LeastSquaresFnF32,
         iopt: *mut FortranInteger,
@@ -92,6 +94,7 @@ unsafe extern "C" {
     /// either `IOPT = 1` (forward differences) or `IOPT = 2` (dense user
     /// Jacobian), fixes `NPRINT = 0`, and supplies all documented work arrays.
     #[link_name = "dnls1_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnls1.md"))]
     pub fn dnls1(
         function: LeastSquaresFnF64,
         iopt: *mut FortranInteger,
@@ -126,6 +129,7 @@ unsafe extern "C" {
     /// This is the f32 counterpart of [`dnls1`], with the reviewed
     /// [`LeastSquaresFnF32`] callback ABI.
     #[link_name = "snls1_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snls1.md"))]
     pub fn snls1(
         function: LeastSquaresFnF32,
         iopt: *mut FortranInteger,
@@ -157,6 +161,7 @@ unsafe extern "C" {
 
     /// Original double-precision SLATEC easy driver `DNLS1E`.
     #[link_name = "dnls1e_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnls1e.md"))]
     pub fn dnls1e(
         function: LeastSquaresFnF64,
         iopt: *mut FortranInteger,
@@ -174,6 +179,7 @@ unsafe extern "C" {
 
     /// Original single-precision SLATEC easy driver `SNLS1E`.
     #[link_name = "snls1e_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snls1e.md"))]
     pub fn snls1e(
         function: LeastSquaresFnF32,
         iopt: *mut FortranInteger,

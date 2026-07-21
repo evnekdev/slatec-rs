@@ -8,7 +8,7 @@ Compute an M member sequence of exponential integrals E(N+K,X), K=0,1,...,M-1 fo
 
 ## Description
 
-DEXINT computes M member sequences of exponential integrals E(N+K,X), K=0,1,...,M-1 for N .GE. 1 and X .GE. 0. The exponential integral is defined by E(N,X)=integral on (1,infinity) of EXP(-XT)/T**N where X=0.0 and N=1 cannot occur simultaneously. Formulas and notation are found in the NBS Handbook of Mathematical Functions (ref. 1). The power series is implemented for X .LE. XCUT and the confluent hypergeometric representation E(A,X) = EXP(-X)*(X**(A-1))*U(A,A,X) is computed for X .GT. XCUT. Since sequences are computed in a stable fashion by recurring away from X, A is selected as the integer closest to X within the constraint N .LE. A .LE. N+M-1. For the U computation, A is further modified to be the nearest even integer. Indices are carried forward or backward by the two term recursion relation K*E(K+1,X) + X*E(K,X) = EXP(-X) once E(A,X) is computed. The U function is computed by means of the backward recursive Miller algorithm applied to the three term contiguous relation for U(A+K,A,X), K=0,1,... This produces accurate ratios and determines U(A+K,A,X), and hence E(A,X), to within a multiplicative constant C. Another contiguous relation applied to C*U(A,A,X) and C*U(A+1,A,X) gets C*U(A+1,A+1,X), a quantity proportional to E(A+1,X). The normalizing constant C is obtained from the two term recursion relation above with K=A. The maximum number of significant digits obtainable is the smaller of 14 and the number of digits carried in double precision arithmetic.
+DEXINT computes M member sequences of exponential integrals
 
 ## Classification
 
@@ -54,22 +54,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DEXINT](https://www.netlib.org/slatec/src/dexint.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 1 and  X .GE. 0.0 for N .GE. 2 1 and  X .GE. 0.0 for N .GE. 2 N       order of the first member of the sequence, N .GE. 1 N       order of the first member of the sequence, N .GE. 1 |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 and  X .GE. 0.0 for N .GE. 2 N       order of the first member of the sequence, N .GE. 1 |
-| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `TOL` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `EN` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
-| 8 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 1 for N .GE. 1 and X .GE. 0. 1 for N .GE. 1 and X .GE. 0.  The exponential integral is defined by XT)/T**N 0.0 and N=1 cannot occur simultaneously.  Formulas and notation are found in the NBS Handbook of Mathematical Functions (ref. 1). The power series is implemented for X .LE. XCUT and the confluent hypergeometric representation X)*(X**(A-1))*U(A,A,X) is computed for X .GT. XCUT.  Since sequences are computed in a stable fashion by recurring away from X, A is selected as the integer closest to X within the constraint N .LE. A .LE. X) X) X) once E(A,X) is computed.  The U function is computed by means once E(A,X) is computed.  The U function is computed by means once E(A,X) is computed.  The U function is computed by means of the backward recursive Miller algorithm applied to the of the backward recursive Miller algorithm applied to the of the backward recursive Miller algorithm applied to the 0,1,... This produces accurate ratios and determines U(A+K,A,X), and hence E(A,X), to within a multiplicative constant C. Another contiguous relation applied to C*U(A,A,X) and gets C*U(A+1,A+1,X), a quantity proportional to The normalizing constant C is obtained from the two term recursion relation above with K=A. The maximum number of significant digits obtainable is the smaller of 14 and the number of digits carried in double precision arithmetic. are double precision * 1 and  X .GE. 0.0 for N .GE. 2 1 and  X .GE. 0.0 for N .GE. 2 0.0 and N=1 is an error) 1. 1. 1. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 for N .GE. 1 and X .GE. 0. 1 for N .GE. 1 and X .GE. 0.  The exponential integral is defined by XT)/T**N 1.  For the U computation, A is further modified to be the nearest even integer.  Indices are carried forward or backward by the two term recursion relation 1 and  X .GE. 0.0 for N .GE. 2 order of the first member of the sequence, N .GE. 1 1. 1. 1,X) or EXP(X)*E(N+K-1,X), K=1,M depending on KODE |
+| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a selection parameter for scaled values 1. |
+| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 for N .GE. 1 and X .GE. 0. 1 for N .GE. 1 and X .GE. 0.  The exponential integral is defined by 1.  For the U computation, A is further modified to be the nearest even integer.  Indices are carried forward or backward by the two term recursion relation 1. 1. number of exponential integrals in the sequence, .GE. 1 |
+| 5 | `TOL` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | are double precision * relative accuracy wanted, ETOL .LE. TOL .LE. 0.1 ETOL is the larger of double precision unit roundoff = D1MACH(4) and 1.0D-18 Output    * EN is a double precision vector * |
+| 6 | `EN` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | a vector of dimension at least M containing values 1,X) or EXP(X)*E(N+K-1,X), K=1,M depending on KODE 0.0D0 , K=1,M returned on KODE=1 |
+| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | underflow indicator 0   a normal return M   X exceeds XLIM and an underflow occurs. |
+| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | error flag 0, normal return, computation completed 1, input error,   no computation 2, error,         no computation algorithm termination condition not met |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -83,7 +83,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-KODE    a selection parameter for scaled values KODE=1   returns        E(N+K,X), K=0,1,...,M-1. =2   returns EXP(X)*E(N+K,X), K=0,1,...,M-1. M       number of exponential integrals in the sequence, M .GE. 1 TOL     relative accuracy wanted, ETOL .LE. TOL .LE. 0.1 ETOL is the larger of double precision unit roundoff = D1MACH(4) and 1.0D-18 Output    * EN is a double precision vector * EN      a vector of dimension at least M containing values EN(K) = E(N+K-1,X) or EXP(X)*E(N+K-1,X), K=1,M depending on KODE NZ      underflow indicator NZ=0   a normal return NZ=M   X exceeds XLIM and an underflow occurs. EN(K)=0.0D0 , K=1,M returned on KODE=1 IERR=0, normal return, computation completed algorithm termination condition not met
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

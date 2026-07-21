@@ -5,6 +5,7 @@ use serde_json::json;
 use std::fs;
 use std::path::Path;
 use std::process::Command;
+use std::time::Duration;
 
 pub fn run(root: &Path, output_path: &Path) -> Result<()> {
     let executable = std::env::current_exe()?;
@@ -20,6 +21,7 @@ pub fn run(root: &Path, output_path: &Path) -> Result<()> {
         "validate-public-surface-terminology",
         "validate-release-readiness",
         "validate-public-api-semantic-review",
+        "validate-rendered-rustdoc-audit",
         "validate-package-contents",
         "validate-registry-simulation",
     ];
@@ -119,20 +121,37 @@ fn execute(
     label: &str,
     command: &mut Command,
 ) -> Result<()> {
-    let output = command.current_dir(root).output()?;
+    let mut retries = 0;
+    let output = loop {
+        let output = command.current_dir(root).output()?;
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        if output.status.success()
+            || retries == 4
+            || !(stderr.contains("user-mapped section open") || stderr.contains("os error 1224"))
+        {
+            break output;
+        }
+        retries += 1;
+        std::thread::sleep(Duration::from_millis(250));
+    };
     records.push(json!({
         "check":label,
         "status":if output.status.success() { "pass" } else { "fail" },
         "exit_code":output.status.code(),
+        "transient_file_lock_retries":retries,
     }));
     if !output.status.success() {
-        write_report(output_path, records, "fail")?;
+        let report_note = write_report(output_path, records, "fail")
+            .err()
+            .map(|error| format!("\nrelease-report write failed: {error}"))
+            .unwrap_or_default();
         let stderr = String::from_utf8_lossy(&output.stderr);
         let stdout = String::from_utf8_lossy(&output.stdout);
         return Err(policy(&format!(
-            "release check `{label}` failed\nstdout:\n{}\nstderr:\n{}",
+            "release check `{label}` failed\nstdout:\n{}\nstderr:\n{}{}",
             stdout.trim(),
-            stderr.trim()
+            stderr.trim(),
+            report_note
         )));
     }
     Ok(())
@@ -151,7 +170,9 @@ fn write_report(path: &Path, records: &[serde_json::Value], status: &str) -> Res
     if let Some(parent) = path.parent() {
         fs::create_dir_all(parent)?;
     }
-    fs::write(path, bytes)?;
+    if fs::read(path).ok().as_deref() != Some(bytes.as_slice()) {
+        fs::write(path, bytes)?;
+    }
     Ok(())
 }
 

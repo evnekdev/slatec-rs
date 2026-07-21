@@ -8,7 +8,7 @@ Set derivatives needed to determine the Hermite representation of the cubic spli
 
 ## Description
 
-DPCHSP: Piecewise Cubic Hermite Spline Computes the Hermite representation of the cubic spline inter- polant to the data given in X and F satisfying the boundary conditions specified by IC and VC. To facilitate two-dimensional applications, includes an increment between successive values of the F- and D-arrays. The resulting piecewise cubic Hermite function may be evaluated by DPCHFE or DPCHFD. NOTE: This is a modified version of C. de Boor's cubic spline routine CUBSPL. ---------------------------------------------------------------------- Calling sequence: PARAMETER (INCFD = ...) INTEGER IC(2), N, NWK, IERR DOUBLE PRECISION VC(2), X(N), F(INCFD,N), D(INCFD,N), WK(NWK) CALL DPCHSP (IC, VC, N, X, F, D, INCFD, WK, NWK, IERR) Parameters: IC -- (input) integer array of length 2 specifying desired boundary conditions: IC(1) = IBEG, desired condition at beginning of data. IC(2) = IEND, desired condition at end of data. IBEG = 0 to set D(1) so that the third derivative is con- tinuous at X(2). This is the "not a knot" condition provided by de Boor's cubic spline routine CUBSPL. < This is the default boundary condition. > IBEG = 1 if first derivative at X(1) is given in VC(1). IBEG = 2 if second derivative at X(1) is given in VC(1). IBEG = 3 to use the 3-point difference formula for D(1). (Reverts to the default b.c. if N.LT.3 .) IBEG = 4 to use the 4-point difference formula for D(1). (Reverts to the default b.c. if N.LT.4 .) NOTES:
+DPCHSP: Piecewise Cubic Hermite Spline Computes the Hermite representation of the cubic spline inter- polant to the data given in X and F satisfying the boundary conditions specified by IC and VC. To facilitate two-dimensional applications, includes an increment
 
 ## Classification
 
@@ -52,24 +52,24 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DPCHSP](https://www.netlib.org/slatec/pchip/dpchsp.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `IC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (2) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `VC` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (2) | Array argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `D` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `WK` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (2, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `NWK` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 10 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `IC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (2) | (input) integer array of length 2 specifying desired boundary conditions: IBEG, desired condition at beginning of data. IEND, desired condition at end of data. 1 or 2 . 1 or 2 . |
+| 2 | `VC` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (2) | 0. IEND may take on the same values as IBEG, but applied to 0. (input) real*8 array of length 2 specifying desired boundary values, as indicated above. 1 or 2 . 1 or 2 . |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 or 2, the value is given in VC(2). NOTES: 1. An error return is taken if IEND is out of range. 2. For the "natural" boundary condition, use IEND=2 and (input) number of data points.  (Error return if N.LT.2 .) |
+| 4 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1 or 2, the value is given in VC(2). NOTES: 1. An error return is taken if IEND is out of range. 2. For the "natural" boundary condition, use IEND=2 and (input) real*8 array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N. |
+| 5 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | and D-arrays. The resulting piecewise cubic Hermite function may be evaluated by DPCHFE or DPCHFD. NOTE:  This is a modified version of C. de Boor's cubic spline routine CUBSPL. (input) real*8 array of dependent variable values to be 1)*INCFD) is value corresponding to |
+| 6 | `D` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | tinuous at X(2).  This is the "not a knot" condition provided by de Boor's cubic spline routine CUBSPL. < This is the default boundary condition. > IBEG = 1  if first derivative at X(1) is given in VC(1). IBEG = 2  if second derivative at X(1) is given in VC(1). IBEG = 3  to use the 3-point difference formula for D(1). (Reverts to the default b.c. if N.LT.3 .) IBEG = 4  to use the 4-point difference formula for D(1). (Reverts to the default b.c. if N.LT.4 .) NOTES: 1. An error return is taken if IBEG is out of range. 2. For the "natural" boundary condition, use IBEG=2 and (output) real*8 array of derivative values at the data points.  These values will determine the cubic spline interpolant with the requested boundary conditions. The value corresponding to X(I) is stored in 1)*INCFD),  I=1(1)N. No other entries in D are changed. array has not been changed in any of these cases.) array may have been changed in this case.) (             Do **NOT** use it!                ) |
+| 7 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ...) INTEGER  IC(2), N, NWK, IERR DOUBLE PRECISION  VC(2), X(N), F(INCFD,N), D(INCFD,N), WK(NWK) CALL  DPCHSP (IC, VC, N, X, F, D, INCFD, WK, NWK, IERR) Parameters: (input) increment between successive values in F and D. This argument is provided primarily for 2-D applications. |
+| 8 | `WK` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (2, *) | (scratch) real*8 array of working storage. |
+| 9 | `NWK` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) length of work array. |
+| 10 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0  (no errors). "Recoverable" errors: 1  if N.LT.2 . 2  if INCFD.LT.1 . 3  if the X-array is not strictly increasing. 4  if IBEG.LT.0 or IBEG.GT.4 . 5  if IEND.LT.0 of IEND.GT.4 . 6  if both of the above are true. 7  if NWK is too small. NOTE:  The above errors are checked in the order listed, and following arguments have **NOT** been validated. 8  in case of trouble solving the linear system for the interior derivative values. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -83,7 +83,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-2. For the "natural" boundary condition, use IBEG=2 and VC(1)=0. IEND may take on the same values as IBEG, but applied to derivative at X(N).  In case IEND = 1 or 2, the value is given in VC(2). NOTES: 2. For the "natural" boundary condition, use IEND=2 and VC(2)=0. VC -- (input) real*8 array of length 2 specifying desired boundary values, as indicated above. VC(1) need be set only if IC(1) = 1 or 2 . VC(2) need be set only if IC(2) = 1 or 2 . X -- (input) real*8 array of independent variable values.  The elements of X must be strictly increasing: X(I-1) .LT. X(I),  I = 2(1)N. F -- (input) real*8 array of dependent variable values to be interpolated.  F(1+(I-1)*INCFD) is value corresponding to X(I). D -- (output) real*8 array of derivative values at the data points.  These values will determine the cubic spline interpolant with the requested boundary conditions. The value corresponding to X(I) is stored in D(1+(I-1)*INCFD),  I=1(1)N. No other entries in D are changed. INCFD -- (input) increment between successive values in F and D. This argument is provided primarily for 2-D applications. WK -- (scratch) real*8 array of working storage. NWK -- (input) length of work array. Normal return: IERR = -1  if N.LT.2 . IERR = -2  if INCFD.LT.1 . IERR = -3  if the X-array is not strictly increasing. IERR = -4  if IBEG.LT.0 or IBEG.GT.4 . IERR = -5  if IEND.LT.0 of IEND.GT.4 . IERR = -6  if both of the above are true. IERR = -7  if NWK is too small. and following arguments have **NOT** been validated. (The D-array has not been changed in any of these cases.) IERR = -8  in case of trouble solving the linear system for the interior derivative values. (The D-array may have been changed in this case.) (             Do **NOT** use it!                )
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

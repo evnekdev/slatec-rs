@@ -51,20 +51,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SROTM](https://www.netlib.org/slatec/lin/srotm.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
-| 2 | `SX` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
-| 3 | `INCX` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
-| 4 | `SY` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `SPARAM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (5) | element vector. SPARAM(1) is SFLAG described below. Locations 2-5 of SPARAM contain elements of the transformation matrix H described below. SFLAG, H has one of the following forms: SFLAG=-1.E0     SFLAG=0.E0        SFLAG=1.E0     SFLAG=-2.E0 (SH11  SH12)    (1.E0  SH12)    (SH11  1.E0)    (1.E0  0.E0) H=(          )    (          )    (          )    (          ) (SH21  SH22),   (SH21  1.E0),   (-1.E0 SH22),   (0.E0  1.E0). See SROTMG for a description of data storage in SPARAM. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s) 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
+| 2 | `SX` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements rotated vector (unchanged if N .LE. 0) 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
+| 3 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SX 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
+| 4 | `SY` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements rotated vector (unchanged if N .LE. 0) Apply the modified Givens transformation, H, to the 2 by N matrix , where **T indicates transpose.  The elements of SX are |
+| 5 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SY |
+| 6 | `SPARAM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (5) | element vector. SPARAM(1) is SFLAG described below. Locations 2-5 of SPARAM contain elements of the transformation matrix H described below. SFLAG=-1.E0     SFLAG=0.E0        SFLAG=1.E0     SFLAG=-2.E0 (SH11  SH12)    (1.E0  SH12)    (SH11  1.E0)    (1.E0  0.E0) H=(          )    (          )    (          )    (          ) (SH21  SH22),   (SH21  1.E0),   (-1.E0 SH22),   (0.E0  1.E0). See SROTMG for a description of data storage in SPARAM. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

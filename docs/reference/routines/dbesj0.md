@@ -8,7 +8,7 @@ Compute the Bessel function of the first kind of order zero.
 
 ## Description
 
-DBESJ0(X) calculates the double precision Bessel function of the first kind of order zero for double precision argument X. Series for BJ0 on the interval 0. to 1.60000E+01
+DBESJ0(X) calculates the double precision Bessel function of the first kind of order zero for double precision argument X. Series for BJ0 on the interval 0. to 1.60000E+01 with weighted error 4.39E-32 log weighted error 31.36 significant figures required 31.21 decimal places required 32.00
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBESJ0](https://www.netlib.org/slatec/fnlib/dbesj0.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the double precision Bessel function of the first kind of order zero for double precision argument X. Series for BJ0        on the interval  0.          to  1.60000E+01 with weighted error   4.39E-32 log weighted error  31.36 significant figures required  31.21 decimal places required  32.00 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  31.21 decimal places required  32.00
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

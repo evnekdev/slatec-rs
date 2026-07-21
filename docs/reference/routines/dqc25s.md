@@ -8,7 +8,7 @@ To compute I = Integral of F*W over (BL,BR), with error estimate, where the weig
 
 ## Description
 
-Integration rules for integrands having ALGEBRAICO-LOGARITHMIC end point singularities Standard fortran subroutine Double precision version PARAMETERS F - Double precision Function subprogram defining the integrand F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. A - Double precision Left end point of the original interval B - Double precision Right end point of the original interval, B.GT.A BL - Double precision Lower limit of integration, BL.GE.A BR - Double precision Upper limit of integration, BR.LE.B ALFA - Double precision PARAMETER IN THE WEIGHT FUNCTION BETA - Double precision Parameter in the weight function RI,RJ,RG,RH - Double precision Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) RESULT - Double precision Approximation to the integral RESULT is computed by using a generalized CLENSHAW-CURTIS method if B1 = A or BR = B. in all other cases the 15-POINT KRONROD RULE is applied, obtained by optimal addition of Abscissae to the 7-POINT GAUSS RULE. ABSERR - Double precision
+Integration rules for integrands having ALGEBRAICO-LOGARITHMIC end point singularities Standard fortran subroutine Double precision version PARAMETERS
 
 ## Classification
 
@@ -54,30 +54,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DQC25S](https://www.netlib.org/slatec/src/dqc25s.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Callback argument classified by fixed-form executable read/write analysis. |
-| 2 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `BL` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `BR` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `ALFA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `BETA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `RI` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `RJ` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `RG` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `RH` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 12 | `RESULT` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 13 | `ABSERR` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 14 | `RESASC` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 15 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 16 | `NEV` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Double precision Function subprogram defining the integrand The actual name for F needs to be declared E X T E R N A L  in the driver program. I/(B-A)) |
+| 2 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is a part of (A,B). Double precision Left end point of the original interval |
+| 3 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is a part of (A,B). Double precision Right end point of the original interval, B.GT.A X) |
+| 4 | `BL` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is a part of (A,B). Double precision Lower limit of integration, BL.GE.A |
+| 5 | `BR` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is a part of (A,B). Double precision Upper limit of integration, BR.LE.B |
+| 6 | `ALFA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision PARAMETER IN THE WEIGHT FUNCTION |
+| 7 | `BETA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Parameter in the weight function |
+| 8 | `RI` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Double precision Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 9 | `RJ` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Double precision Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 10 | `RG` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Double precision Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 11 | `RH` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (25) | Double precision Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 12 | `RESULT` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Approximation to the integral is computed by using a generalized CLENSHAW-CURTIS method if B1 = A or BR = B. in all other cases the 15-POINT KRONROD RULE is applied, obtained by optimal addition of Abscissae to the 7-POINT GAUSS RULE. |
+| 13 | `ABSERR` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
+| 14 | `RESASC` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision |
+| 15 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Which determines the weight function = 1   W(X) = (X-A)**ALFA*(B-X)**BETA = 2   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A) = 3   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(B-X) = 4   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A)* |
+| 16 | `NEV` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Number of integrand evaluations |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -91,7 +91,7 @@ Callback arguments must use the exact reviewed callback ABI, remain valid for th
 
 ### Error and status values
 
-estimate, where the weight function W has a singular behaviour of ALGEBRAICO-LOGARITHMIC type at the points A and/or B. (BL,BR) is a part of (A,B). which should equal or exceed ABS(I-RESULT) RESASC - Double precision Approximation to the integral of ABS(F*W-I/(B-A)) INTEGR - Integer Which determines the weight function = 1   W(X) = (X-A)**ALFA*(B-X)**BETA = 2   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A) = 3   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(B-X) = 4   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A)* LOG(B-X) NEV    - Integer Number of integrand evaluations
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

@@ -8,7 +8,7 @@ Compute the logarithm of the absolute value of the Gamma function.
 
 ## Description
 
-Evaluates the logarithm of the absolute value of the gamma function. X - input argument ALGAM - result SGNGAM - is set to the sign of GAMMA(X) and will be returned at +1.0 or -1.0.
+Evaluates the logarithm of the absolute value of the gamma function.
 
 ## Classification
 
@@ -52,17 +52,17 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [ALGAMS](https://www.netlib.org/slatec/fnlib/algams.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `ALGAM` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `SGNGAM` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | input argument |
+| 2 | `ALGAM` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | result |
+| 3 | `SGNGAM` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | is set to the sign of GAMMA(X) and will be returned at +1.0 or -1.0. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

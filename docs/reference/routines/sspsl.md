@@ -8,7 +8,7 @@ Solve a real symmetric system using the factors obtained from SSPFA.
 
 ## Description
 
-SSISL solves the real symmetric system A * X = B using the factors computed by SSPFA. On Entry AP REAL(N*(N+1)/2) the output from SSPFA. N INTEGER the order of the matrix A . KPVT INTEGER(N) the pivot vector from SSPFA. B REAL(N) the right hand side vector. On Return B the solution vector X .
+SSISL solves the real symmetric system A * X = B using the factors computed by SSPFA. On Entry
 
 ## Classification
 
@@ -52,18 +52,18 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SSPSL](https://www.netlib.org/slatec/lin/sspsl.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `AP` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `KPVT` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `AP` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N*(N+1)/2) the output from SSPFA. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . |
+| 3 | `KPVT` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) the pivot vector from SSPFA. |
+| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) the right hand side vector. On Return the solution vector  X . |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

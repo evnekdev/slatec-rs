@@ -8,7 +8,7 @@ Perform the singular value decomposition of a rectangular matrix.
 
 ## Description
 
-CSVDC is a subroutine to reduce a complex NxP matrix X by unitary transformations U and V to diagonal form. The diagonal elements S(I) are the singular values of X. The columns of U are the corresponding left singular vectors, and the columns of V the right singular vectors. On Entry X COMPLEX(LDX,P), where LDX .GE. N. X contains the matrix whose singular value decomposition is to be computed. X is destroyed by CSVDC. LDX INTEGER. LDX is the leading dimension of the array X. N INTEGER. N is the number of rows of the matrix X. P INTEGER. P is the number of columns of the matrix X. LDU INTEGER. LDU is the leading dimension of the array U (see below). LDV INTEGER. LDV is the leading dimension of the array V (see below). WORK COMPLEX(N). WORK is a scratch array. JOB INTEGER. JOB controls the computation of the singular vectors. It has the decimal expansion AB with the following meaning A .EQ. 0 Do not compute the left singular vectors. A .EQ. 1 Return the N left singular vectors in U. A .GE. 2 Return the first MIN(N,P) left singular vectors in U. B .EQ. 0 Do not compute the right singular vectors. B .EQ. 1 Return the right singular vectors in V. On Return S COMPLEX(MM), where MM = MIN(N+1,P). The first MIN(N,P) entries of S contain the singular values of X arranged in descending order of magnitude. E COMPLEX(P). E ordinarily contains zeros. However see the discussion of INFO for exceptions. U COMPLEX(LDU,K), where LDU .GE. N. If JOBA .EQ. 1 then K .EQ. N. If JOBA .GE. 2 then K .EQ. MIN(N,P). U contains the matrix of right singular vectors. U is not referenced if JOBA .EQ. 0. If N .LE. P or if JOBA .GT. 2, then U may be identified with X in the subroutine call. V COMPLEX(LDV,P), where LDV .GE. P. V contains the matrix of right singular vectors. V is not referenced if JOB .EQ. 0. If P .LE. N, then V may be identified with X in the subroutine call. INFO INTEGER. The singular values (and their corresponding singular vectors) S(INFO+1),S(INFO+2),...,S(M) are correct (here M=MIN(N,P)). Thus if INFO.EQ. 0, all the singular values and their vectors are correct. In any event, the matrix B = CTRANS(U)*X*V is the bidiagonal matrix with the elements of S on its diagonal and the elements of E on its super-diagonal (CTRANS(U) is the conjugate-transpose of U). Thus the singular values of X and B are the same.
+CSVDC is a subroutine to reduce a complex NxP matrix X by unitary transformations U and V to diagonal form. The diagonal elements S(I) are the singular values of X. The columns of U are the corresponding left singular vectors, and the columns of V the right singular vectors. On Entry
 
 ## Classification
 
@@ -52,27 +52,27 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CSVDC](https://www.netlib.org/slatec/lin/csvdc.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDX, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `S` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `E` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `U` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDU, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `LDU` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `V` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDV, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 11 | `WORK` | `workspace` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 12 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDX, *) | COMPLEX(LDX,P), where LDX .GE. N. contains the matrix whose singular value decomposition is to be computed.  X is destroyed by CSVDC. is the bidiagonal matrix with the elements of S on its diagonal and the |
+| 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array X. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the number of rows of the matrix X. contain the singular values of X arranged in descending order of magnitude. |
+| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the number of columns of the matrix X. contain the singular values of X arranged in descending order of magnitude. |
+| 5 | `S` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | MIN(N+1,P). contain the singular values of X arranged in descending order of magnitude. |
+| 6 | `E` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). ordinarily contains zeros.  However see the discussion of INFO for exceptions. diagonal (CTRANS(U) is the conjugate-transpose of U).  Thus the singular values of X and B are the same. |
+| 7 | `U` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDU, *) | COMPLEX(LDU,K), where LDU .GE. N.  If JOBA .EQ. 1 then K .EQ. N.  If JOBA .GE. 2 then K .EQ. MIN(N,P). contains the matrix of right singular vectors. is not referenced if JOBA .EQ. 0.  If N .LE. P or if JOBA .GT. 2, then U may be identified with X in the subroutine call. is the bidiagonal matrix with the elements of S on its diagonal and the |
+| 8 | `LDU` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array U (see below). |
+| 9 | `V` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDV, *) | COMPLEX(LDV,P), where LDV .GE. P. contains the matrix of right singular vectors. is not referenced if JOB .EQ. 0.  If P .LE. N, then V may be identified with X in the subroutine call. is the bidiagonal matrix with the elements of S on its diagonal and the |
+| 10 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array V (see below). |
+| 11 | `WORK` | `workspace` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(N). is a scratch array. |
+| 12 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. controls the computation of the singular vectors.  It has the decimal expansion AB with the following meaning A .EQ. 0    Do not compute the left singular vectors. A .EQ. 1    Return the N left singular vectors in U. A .GE. 2    Return the first MIN(N,P) left singular vectors in U. B .EQ. 0    Do not compute the right singular vectors. B .EQ. 1    Return the right singular vectors in V. On Return |
+| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. The singular values (and their corresponding singular vectors) S(INFO+1),S(INFO+2),...,S(M) are correct (here M=MIN(N,P)).  Thus if 0, all the singular values and their vectors are correct.  In any event, the matrix |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -90,7 +90,7 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`WORK`: COMPLEX(N). is a scratch array.
 
 ### Provider, ABI, and safety
 

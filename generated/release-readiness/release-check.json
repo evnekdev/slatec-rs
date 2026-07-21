@@ -3,112 +3,140 @@
     {
       "check": "validate-agent-guidance",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-raw-api-inventory",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-raw-batch-a",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-raw-batch-b",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-raw-batch-c",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 1
     },
     {
       "check": "validate-final-raw-api-disposition",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-all-feature-coverage",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-unique-ffi-declarations",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-public-surface-terminology",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-release-readiness",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-public-api-semantic-review",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 1
+    },
+    {
+      "check": "validate-rendered-rustdoc-audit",
+      "exit_code": 0,
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-package-contents",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-registry-simulation",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "formatting",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "workspace-check",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "strict-clippy",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "workspace-tests",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "strict-rustdoc",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "workspace-doctests",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "package-assembly",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "git-diff-check",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     },
     {
       "check": "eol-audit",
       "exit_code": 0,
-      "status": "pass"
+      "status": "pass",
+      "transient_file_lock_retries": 0
     }
   ],
   "native_scope": "portable checks only; GNU MinGW native regressions remain a separate required profile",

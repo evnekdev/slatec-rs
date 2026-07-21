@@ -8,7 +8,7 @@ Determine the number of terms needed in an orthogonal polynomial series so that 
 
 ## Description
 
-Initialize the orthogonal series, represented by the array OS, so
+Initialize the orthogonal series, represented by the array OS, so that INITDS is the number of terms needed to insure the error is no
 
 ## Classification
 
@@ -52,17 +52,17 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [INITDS](https://www.netlib.org/slatec/fnlib/initds.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `OS` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `NOS` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `ETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `OS` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | double precision array of NOS coefficients in an orthogonal series. |
+| 2 | `NOS` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of coefficients in OS. |
+| 3 | `ETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | tenth tenth machine precision. machine precision. Input Arguments -- Input Arguments -- single precision scalar containing requested accuracy of series. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -76,7 +76,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-larger than ETA.  Ordinarily, ETA will be chosen to be one-tenth machine precision. Input Arguments -- OS     double precision array of NOS coefficients in an orthogonal series. NOS    number of coefficients in OS. ETA    single precision scalar containing requested accuracy of series.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

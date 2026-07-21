@@ -8,7 +8,7 @@ Solve a tridiagonal linear system.
 
 ## Description
 
-SGTSL given a general tridiagonal matrix and a right hand side will find the solution. On Entry N INTEGER is the order of the tridiagonal matrix. C REAL(N) is the subdiagonal of the tridiagonal matrix. C(2) through C(N) should contain the subdiagonal. On output, C is destroyed. D REAL(N) is the diagonal of the tridiagonal matrix. On output, D is destroyed. E REAL(N) is the superdiagonal of the tridiagonal matrix. E(1) through E(N-1) should contain the superdiagonal. On output, E is destroyed. B REAL(N) is the right hand side vector. On Return B is the solution vector. INFO INTEGER = 0 normal value. = K if the K-th element of the diagonal becomes exactly zero. The subroutine returns when this is detected.
+SGTSL given a general tridiagonal matrix and a right hand side will find the solution. On Entry
 
 ## Classification
 
@@ -51,20 +51,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SGTSL](https://www.netlib.org/slatec/lin/sgtsl.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 3 | `D` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the order of the tridiagonal matrix. contain the subdiagonal. On output, C is destroyed. 1) should contain the superdiagonal. On output, E is destroyed. |
+| 2 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) is the subdiagonal of the tridiagonal matrix. contain the subdiagonal. contain the subdiagonal. On output, C is destroyed. On output, C is destroyed. |
+| 3 | `D` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) is the diagonal of the tridiagonal matrix. On output, D is destroyed. |
+| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) is the superdiagonal of the tridiagonal matrix. 1) should contain the superdiagonal. 1) should contain the superdiagonal. On output, E is destroyed. On output, E is destroyed. |
+| 5 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) is the right hand side vector. On Return is the solution vector. |
+| 6 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 0 normal value. = K if the K-th element of the diagonal becomes exactly zero.  The subroutine returns when this is detected. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

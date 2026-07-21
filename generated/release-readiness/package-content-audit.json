@@ -33,7 +33,7 @@
     {
       "build_script": null,
       "crate": "slatec-sys",
-      "file_count": 77,
+      "file_count": 889,
       "forbidden_files": [],
       "links": null,
       "manifest": "crates/slatec-sys/Cargo.toml",

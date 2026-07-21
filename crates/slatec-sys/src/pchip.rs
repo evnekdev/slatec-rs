@@ -9,6 +9,7 @@ use crate::{FortranInteger, FortranLogical};
 unsafe extern "C" {
     /// Constructs monotonicity-preserving single-precision Hermite derivatives.
     #[link_name = "pchim_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchim.md"))]
     pub fn pchim(
         n: *mut FortranInteger,
         x: *const f32,
@@ -19,6 +20,7 @@ unsafe extern "C" {
     );
     /// Constructs monotonicity-preserving double-precision Hermite derivatives.
     #[link_name = "dpchim_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchim.md"))]
     pub fn dpchim(
         n: *mut FortranInteger,
         x: *const f64,
@@ -29,6 +31,7 @@ unsafe extern "C" {
     );
     /// Constructs controlled monotone single-precision Hermite derivatives.
     #[link_name = "pchic_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchic.md"))]
     pub fn pchic(
         ic: *const FortranInteger,
         vc: *const f32,
@@ -44,6 +47,7 @@ unsafe extern "C" {
     );
     /// Constructs controlled monotone double-precision Hermite derivatives.
     #[link_name = "dpchic_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchic.md"))]
     pub fn dpchic(
         ic: *const FortranInteger,
         vc: *const f64,
@@ -59,6 +63,7 @@ unsafe extern "C" {
     );
     /// Constructs single-precision cubic-spline Hermite derivatives.
     #[link_name = "pchsp_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchsp.md"))]
     pub fn pchsp(
         ic: *const FortranInteger,
         vc: *const f32,
@@ -73,6 +78,7 @@ unsafe extern "C" {
     );
     /// Constructs double-precision cubic-spline Hermite derivatives.
     #[link_name = "dpchsp_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchsp.md"))]
     pub fn dpchsp(
         ic: *const FortranInteger,
         vc: *const f64,
@@ -87,6 +93,7 @@ unsafe extern "C" {
     );
     /// Evaluates a single-precision Hermite function.
     #[link_name = "pchfe_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchfe.md"))]
     pub fn pchfe(
         n: *mut FortranInteger,
         x: *const f32,
@@ -101,6 +108,7 @@ unsafe extern "C" {
     );
     /// Evaluates a double-precision Hermite function.
     #[link_name = "dpchfe_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchfe.md"))]
     pub fn dpchfe(
         n: *mut FortranInteger,
         x: *const f64,
@@ -115,6 +123,7 @@ unsafe extern "C" {
     );
     /// Evaluates a single-precision Hermite function and first derivative.
     #[link_name = "pchfd_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchfd.md"))]
     pub fn pchfd(
         n: *mut FortranInteger,
         x: *const f32,
@@ -130,6 +139,7 @@ unsafe extern "C" {
     );
     /// Evaluates a double-precision Hermite function and first derivative.
     #[link_name = "dpchfd_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchfd.md"))]
     pub fn dpchfd(
         n: *mut FortranInteger,
         x: *const f64,
@@ -145,6 +155,7 @@ unsafe extern "C" {
     );
     /// Integrates a single-precision Hermite curve over arbitrary limits.
     #[link_name = "pchia_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchia.md"))]
     pub fn pchia(
         n: *mut FortranInteger,
         x: *const f32,
@@ -158,6 +169,7 @@ unsafe extern "C" {
     ) -> f32;
     /// Integrates a double-precision Hermite curve over arbitrary limits.
     #[link_name = "dpchia_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchia.md"))]
     pub fn dpchia(
         n: *mut FortranInteger,
         x: *const f64,

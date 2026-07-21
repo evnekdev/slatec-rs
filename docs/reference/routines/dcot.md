@@ -8,7 +8,7 @@ Compute the cotangent.
 
 ## Description
 
-DCOT(X) calculates the double precision trigonometric cotangent for double precision argument X. X is in units of radians. Series for COT on the interval 0. to 6.25000E-02
+DCOT(X) calculates the double precision trigonometric cotangent for double precision argument X. X is in units of radians. Series for COT on the interval 0. to 6.25000E-02 with weighted error 5.52E-34 log weighted error 33.26 significant figures required 32.34 decimal places required 33.85
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DCOT](https://www.netlib.org/slatec/fnlib/dcot.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the double precision trigonometric cotangent is in units of radians. is in units of radians. Series for COT        on the interval  0.          to  6.25000E-02 Series for COT        on the interval  0.          to  6.25000E-02 with weighted error   5.52E-34 with weighted error   5.52E-34 log weighted error  33.26 log weighted error  33.26 significant figures required  32.34 significant figures required  32.34 decimal places required  33.85 decimal places required  33.85 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  32.34 decimal places required  33.85
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

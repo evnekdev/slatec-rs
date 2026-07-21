@@ -45,6 +45,7 @@ unsafe extern "C" {
     /// alive for the synchronous call; native code retains no pointer. The
     /// caller is responsible for serializing legacy SLATEC runtime use.
     #[link_name = "pois3d_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pois3d.md"))]
     pub fn pois3d(
         lperod: *const FortranInteger,
         l: *const FortranInteger,

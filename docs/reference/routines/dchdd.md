@@ -8,7 +8,7 @@ Downdate an augmented Cholesky decomposition or the triangular factor of an augm
 
 ## Description
 
-DCHDD downdates an augmented Cholesky decomposition or the triangular factor of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector X, a column vector Z, and a scalar Y, DCHDD determines an orthogonal matrix U and a scalar ZETA such that (R Z ) (RR ZZ) U * ( ) = ( ) , (0 ZETA) ( X Y) where RR is upper triangular. If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) removed. In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the downdated problem is SQRT(RHO**2 - ZETA**2). DCHDD will simultaneously downdate several triplets (Z,Y,RHO) along with R. For a less terse description of what DCHDD does and how it may be applied, see the LINPACK guide. The matrix U is determined as the product U(1)*...*U(P) where U(I) is a rotation in the (P+1,I)-plane of the form ( C(I) -S(I) ) ( ) . ( S(I) C(I) ) The rotations are chosen so that C(I) is double precision. The user is warned that a given downdating problem may be impossible to accomplish or may produce inaccurate results. For example, this can happen if X is near a vector whose removal will reduce the rank of R. Beware. On Entry R DOUBLE PRECISION(LDR,P), where LDR .GE. P. R contains the upper triangular matrix that is to be downdated. The part of R below the diagonal is not referenced. LDR INTEGER. LDR is the leading dimension of the array R. P INTEGER. P is the order of the matrix R. X DOUBLE PRECISION(P). X contains the row vector that is to be removed from R. X is not altered by DCHDD. Z DOUBLE PRECISION(LDZ,N)Z), where LDZ .GE. P. Z is an array of NZ P-vectors which are to be downdated along with R. LDZ INTEGER. LDZ is the leading dimension of the array Z. NZ INTEGER. NZ is the number of vectors to be downdated NZ may be zero, in which case Z, Y, and RHO are not referenced. Y DOUBLE PRECISION(NZ). Y contains the scalars for the downdating of the vectors Z. Y is not altered by DCHDD. RHO DOUBLE PRECISION(NZ). RHO contains the norms of the residual vectors that are to be downdated. On Return R Z contain the downdated quantities. RHO C DOUBLE PRECISION(P). C contains the cosines of the transforming rotations. S DOUBLE PRECISION(P). S contains the sines of the transforming rotations. INFO INTEGER. INFO is set as follows. INFO = 0 if the entire downdating was successful. INFO =-1 if R could not be downdated. in this case, all quantities are left unaltered. INFO = 1 if some RHO could not be downdated. The offending RHO's are set to -1.
+DCHDD downdates an augmented Cholesky decomposition or the triangular factor of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector X, a column vector Z, and a scalar Y, DCHDD determines an orthogonal matrix U and a scalar ZETA such that
 
 ## Classification
 
@@ -52,26 +52,26 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DCHDD](https://www.netlib.org/slatec/lin/dchdd.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `R` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDR, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `Z` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDZ, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `LDZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
-| 8 | `Y` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `RHO` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `C` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `S` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 12 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `R` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDR, *) | Z )     (RR  ZZ) U * (      )  =  (      ) , (0 ZETA)     ( X   Y) where RR is upper triangular.  If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) removed.  In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the downdated problem is DOUBLE PRECISION(LDR,P), where LDR .GE. P. contains the upper triangular matrix that is to be downdated.  The part of  R below the diagonal is not referenced. is not altered by DCHDD. |
+| 2 | `LDR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array R. |
+| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | plane of the form INTEGER. is the order of the matrix R. vectors which are to be downdated along with R. |
+| 4 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(P). contains the row vector that is to is not altered by DCHDD. |
+| 5 | `Z` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDZ, *) | DOUBLE PRECISION(LDZ,N)Z), where LDZ .GE. P. vectors which are to be downdated along with R. is not altered by DCHDD. contain the downdated quantities. |
+| 6 | `LDZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array Z. |
+| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | vectors which are to be downdated along with R. INTEGER. is the number of vectors to be downdated may be zero, in which case Z, Y, and RHO are not referenced. |
+| 8 | `Y` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(NZ). contains the scalars for the downdating is not altered by DCHDD. |
+| 9 | `RHO` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | ZETA**2).  DCHDD will simultaneously downdate several triplets (Z,Y,RHO) along with R. For a less terse description of what DCHDD does and how it may be applied, see the LINPACK guide. The matrix U is determined as the product U(1)*...*U(P) DOUBLE PRECISION(NZ). contains the norms of the residual vectors that are to be downdated. On Return |
+| 10 | `C` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | S(I)     ) (                    ) . ( S(I)       C(I)    ) The rotations are chosen so that C(I) is double precision. The user is warned that a given downdating problem may be impossible to accomplish or may produce inaccurate results.  For example, this can happen if X is near a vector whose removal will reduce the rank of R.  Beware. On Entry DOUBLE PRECISION(P). contains the cosines of the transforming rotations. |
+| 11 | `S` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(P). contains the sines of the transforming rotations. |
+| 12 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is set as follows. 0  if the entire downdating was successful. 1  if R could not be downdated. in this case, all quantities are left unaltered. 1  if some RHO could not be downdated.  The offending RHO's are set to -1. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

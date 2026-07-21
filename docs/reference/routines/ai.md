@@ -8,7 +8,7 @@ Evaluate the Airy function.
 
 ## Description
 
-AI(X) computes the Airy function Ai(X) Series for AIF on the interval -1.00000D+00 to 1.00000D+00
+AI(X) computes the Airy function Ai(X) Series for AIF on the interval -1.00000D+00 to 1.00000D+00 with weighted error 1.09E-19 log weighted error 18.96 significant figures required 17.76 decimal places required 19.44 Series for AIG on the interval -1.00000D+00 to 1.00000D+00 with weighted error 1.51E-17 log weighted error 16.82 significant figures required 15.19 decimal places required 17.27
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [AI](https://www.netlib.org/slatec/fnlib/ai.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | computes the Airy function Ai(X) Series for AIF        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.09E-19 log weighted error  18.96 significant figures required  17.76 decimal places required  19.44 Series for AIG        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.51E-17 log weighted error  16.82 significant figures required  15.19 decimal places required  17.27 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  17.76 decimal places required  19.44 Series for AIG        on the interval -1.00000D+00 to  1.00000D+00 significant figures required  15.19 decimal places required  17.27
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

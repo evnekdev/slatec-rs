@@ -8,7 +8,7 @@ Compute the exponentially scaled modified (hyperbolic) Bessel function of the fi
 
 ## Description
 
-DBSI0E(X) calculates the double precision exponentially scaled modified (hyperbolic) Bessel function of the first kind of order zero for double precision argument X. The result is the Bessel function I0(X) multiplied by EXP(-ABS(X)). Series for BI0 on the interval 0. to 9.00000E+00
+DBSI0E(X) calculates the double precision exponentially scaled modified (hyperbolic) Bessel function of the first kind of order zero for double precision argument X. The result is the Bessel function I0(X) multiplied by EXP(-ABS(X)). Series for BI0 on the interval 0. to 9.00000E+00 with weighted error 9.51E-34 log weighted error 33.02 significant figures required 33.31 decimal places required 33.65 Series for AI0 on the interval 1.25000E-01 to 3.33333E-01 with weighted error 2.74E-32 log weighted error 31.56 significant figures required 30.15 decimal places required 32.39 Series for AI02 on the interval 0. to 1.25000E-01 with weighted error 1.97E-32 log weighted error 31.71 significant figures required 30.15 decimal places required 32.63
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBSI0E](https://www.netlib.org/slatec/fnlib/dbsi0e.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the double precision exponentially scaled modified (hyperbolic) Bessel function of the first kind of order zero for double precision argument X.  The result is the Bessel ABS(X)). Series for BI0        on the interval  0.          to  9.00000E+00 with weighted error   9.51E-34 log weighted error  33.02 significant figures required  33.31 decimal places required  33.65 Series for AI0        on the interval  1.25000E-01 to  3.33333E-01 with weighted error   2.74E-32 log weighted error  31.56 significant figures required  30.15 decimal places required  32.39 Series for AI02       on the interval  0.          to  1.25000E-01 with weighted error   1.97E-32 log weighted error  31.71 significant figures required  30.15 decimal places required  32.63 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  33.31 decimal places required  33.65 Series for AI0        on the interval  1.25000E-01 to  3.33333E-01 significant figures required  30.15 decimal places required  32.39 Series for AI02       on the interval  0.          to  1.25000E-01 significant figures required  30.15 decimal places required  32.63
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

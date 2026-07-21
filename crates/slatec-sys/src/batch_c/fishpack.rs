@@ -32,6 +32,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cblktr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cblktr.md"))]
     pub fn cblktr(
         iflg: *mut crate::FortranInteger,
         np: *mut crate::FortranInteger,
@@ -77,6 +78,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cmgnbn_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cmgnbn.md"))]
     pub fn cmgnbn(
         nperod: *mut crate::FortranInteger,
         n: *mut crate::FortranInteger,

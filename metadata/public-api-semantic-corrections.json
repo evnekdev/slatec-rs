@@ -1,6 +1,169 @@
 {
   "schema_id": "slatec-rs.public-api-semantic-corrections",
-  "schema_version": "1.0.0",
-  "policy": "Corrections are deliberately narrow, source-hash guarded, and documentation-only. A correction may clarify a parsed field or argument contract but may not alter a Rust ABI signature, native symbol, provider closure, or final disposition.",
-  "records": []
+  "schema_version": "1.1.0",
+  "policy": "Corrections are deliberately narrow, source-hash guarded, and documentation-only. A correction may clarify a parsed field or argument contract but may not alter a Rust ABI signature, native symbol, provider closure, or final disposition. Reusable profiles override only the named argument rows and are materialized into the per-routine inventory after the referenced source hash is verified.",
+  "profiles": {
+    "dassl-driver-v1": {},
+    "bessel-scaled-sequence-v1": {
+      "arguments": {
+        "X": { "description": "Input evaluation point. `X` must be strictly positive; the returned sequence is evaluated at this point and native code does not modify it." },
+        "BKE": { "description": "Writable output array with at least `abs(NIN)` elements. On return `BKE[I]` holds `exp(X) * K_(XNU+I)(X)` for the requested order sequence; native code retains no pointer." }
+      }
+    },
+    "bessel-sequence-v1": {
+      "arguments": {
+        "X": { "description": "Input evaluation point. `X` must be strictly positive; native code does not modify it." },
+        "BK": { "description": "Writable output array with at least `abs(NIN)` elements. On return `BK[I]` holds the modified Bessel K value at order `XNU+I`; native code retains no pointer." }
+      }
+    },
+    "fishpack-block-tridiagonal-v1": {
+      "arguments": {
+        "MP": { "description": "Input M-direction coupling selector. `MP=0` requests the periodic coefficient case and requires the endpoint off-diagonal coefficients to be nonzero; `MP=1` selects the noncyclic endpoint case where those endpoint coefficients are zero." },
+        "IERROR": { "description": "Writable status output. `0` means success; `1` means `M < 5`; `2` means `N < 5`; `3` means `IDIMY < M`; `4` reports a coefficient-array failure; and `5` reports an invalid negative product in the tridiagonal coefficient condition. Except for `0`, no solution is produced." }
+      }
+    },
+    "complex-digamma-v1": {
+      "arguments": {
+        "ZIN": { "description": "Input complex argument to the digamma function. The routine evaluates the logarithmic derivative of gamma at this value; poles and values too near a negative integer can trigger the SLATEC error handler." }
+      }
+    },
+    "scaled-bessel-k1-v1": {
+      "arguments": {
+        "X": { "description": "Input positive double-precision argument. The function returns the exponentially scaled order-one modified Bessel K value at `X`; native code does not modify the scalar." }
+      }
+    },
+    "bounded-constrained-least-squares-v1": {
+      "arguments": {
+        "MROWS": { "description": "Number of rows in the least-squares block `[E:F]`. With accumulation option `IOPT(1)`, this is a writable returned count of accumulated rows; otherwise it is an input count used with `MDW`, `MCON`, and `NCOLS`." },
+        "RNORM": { "description": "Writable output for the Euclidean length of the final residual vector of the constrained least-squares problem." },
+        "RW": { "description": "Writable real workspace with at least `6*NCOLS + 5*MCON` elements. It is scratch storage for the bounded constrained solve and native code retains no pointer." }
+      }
+    },
+    "bounded-least-squares-v1": {
+      "arguments": {
+        "RNORM": { "description": "Writable output for the minimum residual-vector length. It is meaningful when the returned `MODE` reports a solution." }
+      }
+    },
+    "bspline-data-v1": {
+      "arguments": {
+        "XDATA": { "description": "Readable array of `NDATA` abscissae for the discrete observations. The selected source permits unsorted input; native code does not retain the pointer." },
+        "YDATA": { "description": "Readable array of `NDATA` ordinates paired with `XDATA`. These values are the observed data used in the weighted B-spline fit and are not retained." }
+      }
+    },
+    "ode-smooth-interpolant-v1": {
+      "arguments": {
+        "X": { "description": "Input current integration abscissa from `DSTEPS`. It and the history arguments must be from the same unmodified `DSTEPS` state." },
+        "Y": { "description": "Readable current solution vector from `DSTEPS`, with at least `NEQN` elements." },
+        "NEQN": { "description": "Input number of differential equations. It is the required length of `Y`, `YOUT`, and `YPOUT` and the first dimension of `PHI`." },
+        "KOLD": { "description": "Input interpolation order saved by `DSTEPS`. It controls how many columns of the `PHI` history are used and must be passed unchanged from that integrator state." },
+        "PHI": { "description": "Readable `DSTEPS` history matrix with Fortran shape `(NEQN, 16)`. It defines the local interpolation polynomial and must not be synthesized independently." },
+        "IVC": { "description": "Readable interpolation-cache control index supplied by `DSTEPS`; it selects cached data in `IV` and `OW` when the order changes." },
+        "IV": { "description": "Readable integer interpolation cache of length 10 supplied by `DSTEPS`. It is part of the persistent integrator state and must be passed unchanged." },
+        "KGI": { "description": "Readable `DSTEPS` interpolation-history order marker used to decide whether cached `GI` values apply." },
+        "GI": { "description": "Readable interpolation cache of length 11 supplied by `DSTEPS`. It stores precomputed integral factors and must remain consistent with `KGI` and `KOLD`." },
+        "ALPHA": { "description": "Readable `DSTEPS` coefficient array of length 12 used to reconstruct the interpolation factors." },
+        "OG": { "description": "Readable `DSTEPS` interpolation-history array of length 13 used when evaluating the local polynomial." },
+        "OW": { "description": "Readable `DSTEPS` interpolation-cache array of length 12. It is indexed through `IVC` and `IV` and is not independent workspace." },
+        "OX": { "description": "Readable previous integration abscissa from `DSTEPS`; together with `X` it defines the interpolation interval." },
+        "OY": { "description": "Readable previous solution vector from `DSTEPS`, with at least `NEQN` elements. It supplies the endpoint data for the smooth interpolant." }
+      }
+    },
+    "overdetermined-rank-work-v1": {
+      "arguments": {
+        "W": { "description": "Writable real work array for the rank-revealing QR solve. It requires `5*N` elements when `RE` and `AE` are scalar, `4*N` when either is vector-valued, and `3*N` when both are vector-valued. Its leading entries are persistent factorization state for an `INFO=1` continuation call." }
+      }
+    },
+    "underdetermined-rank-work-v1": {
+      "arguments": {
+        "W": { "description": "Writable real work array for the rank-revealing LQ solve. It requires `5*M` elements when `RE` and `AE` are scalar, `4*M` when either is vector-valued, and `3*M` when both are vector-valued. Its leading entries are persistent factorization state for an `INFO=1` continuation call." }
+      }
+    },
+    "modified-givens-double-v1": {
+      "arguments": {
+        "DY1": { "description": "Readable second component of the input two-vector used to construct the modified Givens transformation. The routine uses it to form the rotation but leaves this scalar unchanged." }
+      }
+    },
+    "modified-givens-single-v1": {
+      "arguments": {
+        "SY1": { "description": "Readable second component of the input two-vector used to construct the modified Givens transformation. The routine uses it to form the rotation but leaves this scalar unchanged." }
+      }
+    },
+    "slap-ilu-diagonal-v1": {
+      "arguments": {
+        "DINV": { "description": "Writable array of at least `N` entries. On return it stores the inverse diagonal factor `D^-1` from the no-fill incomplete LDU preconditioner; it is consumed by the related SLAP solve routines." }
+      }
+    },
+    "slap-lower-solve-v1": {
+      "arguments": {
+        "N": { "description": "Input order of the sparse linear system and required vector length." },
+        "X": { "description": "Writable output vector of length `N`. The interface computes the lower-triangular preconditioner solve `L^-1 * B` into this storage." },
+        "NELT": { "description": "Input number of stored nonzero entries in the sparse arrays `IA`, `JA`, and `A`." },
+        "IA": { "description": "Readable integer sparse-index array with at least `NELT` entries. Together with `JA` it describes the SLAP column-format matrix or preconditioner data." },
+        "JA": { "description": "Readable integer sparse-offset/index array with at least `NELT` entries as declared by this interface. Together with `IA` and `A` it identifies the SLAP column-format entries." },
+        "A": { "description": "Readable sparse value array with at least `NELT` entries, stored in the SLAP column format described by `IA` and `JA`." },
+        "ISYM": { "description": "Input sparse-storage symmetry flag. `0` means all nonzero entries are present; `1` means symmetric storage contains only the lower triangle." },
+        "RWORK": { "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it." }
+      }
+    },
+    "legendre-extended-range-v1": {
+      "arguments": {
+        "PQA": { "description": "Writable extended-range mantissa array. Together with `IPQA`, it returns the requested Legendre-function vector; element `I` represents `PQA[I] * radix^IPQA[I]`. Its required length is `MU2-MU1+1` or `NUDIFF+1`, according to the selected vector form." },
+        "IPQA": { "description": "Writable extended-range exponent array paired element-for-element with `PQA`. A zero entry means the corresponding value is directly representable in the routine precision; callers must inspect nonzero entries before treating `PQA` alone as the result." }
+      }
+    },
+    "legendre-rounding-estimate-v1": {
+      "arguments": {
+        "ISIG": { "description": "Writable output estimate of decimal digits lost to rounding in the extended-range normalized-Legendre calculation. Subtract it from the significant digits in the input argument to estimate retained result precision away from zeros." }
+      }
+    },
+    "rational-qr-selection-v1": {
+      "arguments": {
+        "TYPE": { "description": "Input logical selector. Set true to compute algebraically smallest eigenvalues and false to compute algebraically largest eigenvalues; it also determines the ordering of `W` and the sentinel stored in `E2(1)`." }
+      }
+    }
+  },
+  "records": [
+    { "routine": "DDASSL", "expected_source_hash": "a35cd787e50598e339855db136dc57d45398cf6ff1f55ad7e0b3bd7d3261616c", "documentation_profile": "dassl-driver-v1" },
+    { "routine": "SDASSL", "expected_source_hash": "232679a0e1702686e613a0d6b999a8f5b01ea1d922b60c07a930138cae35e353", "documentation_profile": "dassl-driver-v1" },
+    { "routine": "BESKES", "expected_source_hash": "53eec402255f34380bc74a4a2dee01aa831a78b9e866f9afbbe905f481288560", "documentation_profile": "bessel-scaled-sequence-v1" },
+    { "routine": "BESKS", "expected_source_hash": "3cf0986cfe49cd82066d76ee93198603a9eac98a3923583b8fea4209e88b0731", "documentation_profile": "bessel-sequence-v1" },
+    { "routine": "DBESKS", "expected_source_hash": "1ce727088d0206b58d4e0b4271144701964a9d4351fa7ff6f11ca9a294cbfa6a", "documentation_profile": "bessel-sequence-v1" },
+    { "routine": "BLKTRI", "expected_source_hash": "a6cd337d7100886e79d733f93d46a394798e815d3f9f45e94157a8bd21f0ae55", "documentation_profile": "fishpack-block-tridiagonal-v1" },
+    { "routine": "CBLKTR", "expected_source_hash": "34bdeeae64c2379ac2b5b47e9d9c47511eb68b4551da04e404aa6149901b9aba", "documentation_profile": "fishpack-block-tridiagonal-v1" },
+    { "routine": "CPSI", "expected_source_hash": "6651fde59d3825140b2b58aa34bcf7ae8850ea6784f670586026d61c95c0ae32", "documentation_profile": "complex-digamma-v1" },
+    { "routine": "DBSK1E", "expected_source_hash": "31d1a562e6b924b40fd5d89f3df5c16a45d2633901d0aeb65db9f6a89d30690d", "documentation_profile": "scaled-bessel-k1-v1" },
+    { "routine": "DBOCLS", "expected_source_hash": "7f1be034000b688296e98d22fd709009b2611d8029820c17298b5f8adc33ede4", "documentation_profile": "bounded-constrained-least-squares-v1" },
+    { "routine": "SBOCLS", "expected_source_hash": "4d6abd598e9f518d476100bde01f7a93789b32f0bfeccfdd7eb6aa6ad460eccf", "documentation_profile": "bounded-constrained-least-squares-v1" },
+    { "routine": "DBOLS", "expected_source_hash": "b1388a78d2449ef71af1bf1dce6caa8a1a05d87c17e3c69a4886e2c3341b39c5", "documentation_profile": "bounded-least-squares-v1" },
+    { "routine": "SBOLS", "expected_source_hash": "0c4d68dcd94ac73f584e77e0ea1d80793bff727696db099a49f601031623546e", "documentation_profile": "bounded-least-squares-v1" },
+    { "routine": "DEFC", "expected_source_hash": "5826b04f6ac673d07729a51d4826946cb83e3c8606ca3f6d59083670aaa02cee", "documentation_profile": "bspline-data-v1" },
+    { "routine": "DFC", "expected_source_hash": "2de7f862c84dde4fe915be130d442b17fe0c6dfe7c3100ab056640619465f77a", "documentation_profile": "bspline-data-v1" },
+    { "routine": "EFC", "expected_source_hash": "1ef9f5a057007b515aa0359d3d3dddb44cf5984f650ba72f2e6bba6090f855ad", "documentation_profile": "bspline-data-v1" },
+    { "routine": "FC", "expected_source_hash": "5533c50433d8220309ac74393e2e870fae92e9a30db5756c2fe96c1efb382c2a", "documentation_profile": "bspline-data-v1" },
+    { "routine": "DINTP", "expected_source_hash": "27696a822af767d33f3056666f48035d248ed4af24aa922e852107ce0e39b9cf", "documentation_profile": "ode-smooth-interpolant-v1" },
+    { "routine": "SINTRP", "expected_source_hash": "351ddc16aaf19c485e1c6438f359ee47944c6878fcfc83952cd40042a29c5a16", "documentation_profile": "ode-smooth-interpolant-v1" },
+    { "routine": "DLLSIA", "expected_source_hash": "506ec7840c09429199a4ef7a4ac69212020b25975b0073bed5b1d8d09d7b9318", "documentation_profile": "overdetermined-rank-work-v1" },
+    { "routine": "LLSIA", "expected_source_hash": "bbac31ef61a53adb3ede865bb0ab0bca04e2617cd0ae7a385b4bd84b4603316e", "documentation_profile": "overdetermined-rank-work-v1" },
+    { "routine": "DULSIA", "expected_source_hash": "0e7a2382b5e37679c2ceebf1e909dfe7ad0763d266f7002ed5e8ef8aa6b19d8d", "documentation_profile": "underdetermined-rank-work-v1" },
+    { "routine": "ULSIA", "expected_source_hash": "59759dab4b414280c01490eb29f8a066600d26a53cfb9aac2f6a600b0ff6f598", "documentation_profile": "underdetermined-rank-work-v1" },
+    { "routine": "DROTMG", "expected_source_hash": "8cedf83e93a4cd06de7699b98062b6ef0f7a72780afeefc0a909e554d0a27d0c", "documentation_profile": "modified-givens-double-v1" },
+    { "routine": "SROTMG", "expected_source_hash": "1ea404c262faabbb4d69852bcab4b466ba79d347bbcaea3070ea26ca25ea719a", "documentation_profile": "modified-givens-single-v1" },
+    { "routine": "DSILUS", "expected_source_hash": "93362e18f34b72ed76e7a19c55bba43d7f4157280c1700a30de77261e94a3596", "documentation_profile": "slap-ilu-diagonal-v1" },
+    { "routine": "SSILUS", "expected_source_hash": "a378c0135e7b105947f54213061e154a9e4a986f2539fb136ced22314ae4da39", "documentation_profile": "slap-ilu-diagonal-v1" },
+    { "routine": "DSLI", "expected_source_hash": "756ae3f8bc89348a36cb84a166f78aa49fb8fd277b6faab169c578c87ddeb9b9", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "DSLLTI", "expected_source_hash": "3e61f64b8cf8c55f8b0c63c24db5d6954ed787bc26c7bc5b750f34c296d5784f", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "DSLUI", "expected_source_hash": "52c2ac082e05eaecb8be452911484f0b890a1b7e90d491d029678d14934a1b3a", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "DSLUTI", "expected_source_hash": "5ac92c31f7b32672e6fb821df27e2f6dfe73f0c05c619df8b34c16310e9ce91a", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "DSMMTI", "expected_source_hash": "c0854ac7ecab5c410bc370596576531dad03409695bd1f28d179c9facfb2b3d6", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "SSLI", "expected_source_hash": "fc7fe16e02f86155e47f4b7df01bdbc04c3c2542a87f5e615f2bb0f83524ab0a", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "SSLLTI", "expected_source_hash": "f8b03227c265dabc9e9007f26790d2de48124820913f9e283d071c7b7212cd31", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "SSLUI", "expected_source_hash": "783430487252d4565a2947fc78ede5b259b2fa9c99d55c6bd24cd01ad9fd0d32", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "SSLUTI", "expected_source_hash": "c29126ff75c6d5c0c77fda882894c8d73e5474f983defe5984dfcb165101efd7", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "SSMMTI", "expected_source_hash": "956d3ac9567841141e7b0d49c34d7099860071300e5f112532d12f0dbc8d437e", "documentation_profile": "slap-lower-solve-v1" },
+    { "routine": "DXLEGF", "expected_source_hash": "ce6a5269db51e048a63fc573c957c8edcfeafd8f133b8777336c20736107da15", "documentation_profile": "legendre-extended-range-v1" },
+    { "routine": "XLEGF", "expected_source_hash": "98e95914aaab3cd603fded7c18bec23bab832a39bb9e919cf6dcdf88b79844b9", "documentation_profile": "legendre-extended-range-v1" },
+    { "routine": "DXNRMP", "expected_source_hash": "9423d4eaa59b3eaf509cb35f8a410c0b48caba5785bbee722ab77b38860e106e", "documentation_profile": "legendre-rounding-estimate-v1" },
+    { "routine": "XNRMP", "expected_source_hash": "a68b7fc766e6a0cb821c2df0778fd7289dfc61b2d703df2102eff568f5043b17", "documentation_profile": "legendre-rounding-estimate-v1" },
+    { "routine": "RATQR", "expected_source_hash": "afcbf7a5039c06c88a1a30784b7e5244af0c7477ba4a560330f32c433346a109", "documentation_profile": "rational-qr-selection-v1" }
+  ]
 }

@@ -8,7 +8,7 @@ Integrate a function tabulated at arbitrarily spaced abscissas using overlapping
 
 ## Description
 
-AVINT integrates a function tabulated at arbitrarily spaced abscissas. The limits of integration need not coincide with the tabulated abscissas. A method of overlapping parabolas fitted to the data is used provided that there are at least 3 abscissas between the limits of integration. AVINT also handles two special cases. If the limits of integration are equal, AVINT returns a result of zero regardless of the number of tabulated values. If there are only two function values, AVINT uses the trapezoid rule. Description of Parameters The user must dimension all arrays appearing in the call list X(N), Y(N).
+AVINT integrates a function tabulated at arbitrarily spaced abscissas. The limits of integration need not coincide with the tabulated abscissas. A method of overlapping parabolas fitted to the data is used provided that there are at least 3 abscissas between the limits of integration. AVINT also handles two special cases. If the limits of integration are equal, AVINT returns a result of zero regardless of the number of tabulated values. If there are only two function values, AVINT uses the trapezoid rule. Description of Parameters The user must dimension all arrays appearing in the call list
 
 ## Classification
 
@@ -54,17 +54,17 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [AVINT](https://www.netlib.org/slatec/src/avint.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | real array of abscissas, which must be in increasing order. |
+| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Y(N). real array of abscissas, which must be in increasing order. |
 | 2 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | real array of functional values. i.e., Y(I)=FUNC(X(I)). |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the integer number of function values supplied. XUP. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Y(N). the integer number of function values supplied. XUP. |
 | 4 | `XLO` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | XUP. real lower limit of integration. |
 | 5 | `XUP` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | real upper limit of integration. Must have XLO .LE. XUP. |
 | 6 | `ANS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | computed approximate value of integral 2,3,4,or 5. AVINT is documented completely in SC-M-69-335 Original program from "Numerical Integration" by Davis & Rabinowitz. Adaptation and modifications for Sandia Mathematical Program |

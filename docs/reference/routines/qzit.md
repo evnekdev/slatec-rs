@@ -8,7 +8,7 @@ The second step of the QZ algorithm for generalized eigenproblems. Accepts an up
 
 ## Description
 
-This subroutine is the second step of the QZ algorithm for solving generalized matrix eigenvalue problems, SIAM J. NUMER. ANAL. 10, 241-256(1973) by MOLER and STEWART, as modified in technical note NASA TN D-7305(1973) by WARD. This subroutine accepts a pair of REAL matrices, one of them in upper Hessenberg form and the other in upper triangular form. It reduces the Hessenberg matrix to quasi-triangular form using orthogonal transformations while maintaining the triangular form of the other matrix. It is usually preceded by QZHES and followed by QZVAL and, possibly, QZVEC. On Input NM must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM. A contains a real upper Hessenberg matrix. A is a two- dimensional REAL array, dimensioned A(NM,N). B contains a real upper triangular matrix. B is a two- dimensional REAL array, dimensioned B(NM,N). EPS1 is a tolerance used to determine negligible elements. EPS1 = 0.0 (or negative) may be input, in which case an element will be neglected only if it is less than roundoff
+This subroutine is the second step of the QZ algorithm for solving generalized matrix eigenvalue problems, SIAM J. NUMER. ANAL. 10, 241-256(1973) by MOLER and STEWART, as modified in technical note NASA TN D-7305(1973) by WARD. This subroutine accepts a pair of REAL matrices, one of them in upper Hessenberg form and the other in upper triangular form. It reduces the Hessenberg matrix to quasi-triangular form using orthogonal transformations while maintaining the triangular form of the other matrix. It is usually preceded by QZHES and followed by QZVAL and, possibly, QZVEC.
 
 ## Classification
 
@@ -51,22 +51,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [QZIT](https://www.netlib.org/slatec/lin/qzit.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `EPS1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `MATZ` | `input` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `Z` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. is used to store |
+| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). triangular form.  The elements below the first subdiagonal are still zero, and no two consecutive subdiagonal elements are nonzero. 1) nor A(J-1,J-2) has become zero after a total of 30*N iterations. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 4 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements is used to store system Routines - EISPACK Guide, Springer-Verlag, 1976. |
+| 5 | `EPS1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a tolerance used to determine negligible elements. 0.0 (or negative) may be input, in which case an element will be neglected only if it is less than roundoff times the norm of B for later use by  QZVAL  and  QZVEC. |
+| 6 | `MATZ` | `input` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | should be set to .TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to .FALSE. otherwise.  MATZ is a LOGICAL variable. |
+| 7 | `Z` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reduction by  QZHES, if performed, or else the identity matrix.  If MATZ has been set to .FALSE., dimensional REAL array, dimensional REAL array, dimensioned Z(NM,N). dimensioned Z(NM,N). contains the product of the right hand transformations (for both steps) if MATZ has been set to .TRUE. |
+| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -80,7 +80,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-positive, then an element will be considered negligible if it is less than EPS1 times the norm of its matrix.  A positive value of EPS1 may result in faster execution, but less accurate results.  EPS1 is a REAL variable. MATZ should be set to .TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to .FALSE. otherwise.  MATZ is a LOGICAL variable. Z contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reduction by  QZHES, if performed, or else the identity matrix.  If MATZ has been set to .FALSE., Z is not referenced.  Z is a two-dimensional REAL array, dimensioned Z(NM,N). On Output A has been reduced to quasi-triangular form.  The elements below the first subdiagonal are still zero, and no two consecutive subdiagonal elements are nonzero. B is still in upper triangular form, although its elements have been altered.  The location B(N,1) is used to store EPS1 times the norm of B for later use by  QZVAL  and  QZVEC. Z contains the product of the right hand transformations (for both steps) if MATZ has been set to .TRUE. IERR is an INTEGER flag set to Zero       for normal return, J          if neither A(J,J-1) nor A(J-1,J-2) has become zero after a total of 30*N iterations. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+positive, then an element will be considered negligible if it is less than EPS1 times the norm of its matrix.  A positive value of EPS1 may result in faster execution, but less accurate results.  EPS1 is a REAL variable.
 
 ### Storage and workspace requirements
 

@@ -8,7 +8,7 @@ Evaluate the Bairy function (the Airy function of the second kind).
 
 ## Description
 
-BI(X) calculates the Airy function of the second kind for real argument X. Series for BIF on the interval -1.00000D+00 to 1.00000D+00
+BI(X) calculates the Airy function of the second kind for real argument X. Series for BIF on the interval -1.00000D+00 to 1.00000D+00 with weighted error 1.88E-19 log weighted error 18.72 significant figures required 17.74 decimal places required 19.20 Series for BIG on the interval -1.00000D+00 to 1.00000D+00 with weighted error 2.61E-17 log weighted error 16.58 significant figures required 15.17 decimal places required 17.03 Series for BIF2 on the interval 1.00000D+00 to 8.00000D+00 with weighted error 1.11E-17 log weighted error 16.95 approx significant figures required 16.5 decimal places required 17.45 Series for BIG2 on the interval 1.00000D+00 to 8.00000D+00 with weighted error 1.19E-18 log weighted error 17.92 approx significant figures required 17.2 decimal places required 18.42
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BI](https://www.netlib.org/slatec/fnlib/bi.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | calculates the Airy function of the second kind for real argument X. Series for BIF        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.88E-19 log weighted error  18.72 significant figures required  17.74 decimal places required  19.20 Series for BIG        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   2.61E-17 log weighted error  16.58 significant figures required  15.17 decimal places required  17.03 Series for BIF2       on the interval  1.00000D+00 to  8.00000D+00 with weighted error   1.11E-17 log weighted error  16.95 approx significant figures required  16.5 decimal places required  17.45 Series for BIG2       on the interval  1.00000D+00 to  8.00000D+00 with weighted error   1.19E-18 log weighted error  17.92 approx significant figures required  17.2 decimal places required  18.42 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  17.74 decimal places required  19.20 Series for BIG        on the interval -1.00000D+00 to  1.00000D+00 significant figures required  15.17 decimal places required  17.03 Series for BIF2       on the interval  1.00000D+00 to  8.00000D+00 approx significant figures required  16.5 decimal places required  17.45 Series for BIG2       on the interval  1.00000D+00 to  8.00000D+00 approx significant figures required  17.2 decimal places required  18.42
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

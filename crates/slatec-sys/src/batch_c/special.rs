@@ -19,6 +19,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "c0lgmc_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/c0lgmc.md"))]
     pub fn c0lgmc(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -39,6 +40,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cacos_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cacos.md"))]
     pub fn cacos(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -59,6 +61,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cacosh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cacosh.md"))]
     pub fn cacosh(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -83,6 +86,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cairy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cairy.md"))]
     pub fn cairy(
         z: *mut crate::Complex32,
         id: *mut crate::FortranInteger,
@@ -110,6 +114,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "casin_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/casin.md"))]
     pub fn casin(zinp: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -130,6 +135,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "casinh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/casinh.md"))]
     pub fn casinh(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -150,6 +156,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "catan_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/catan.md"))]
     pub fn catan(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -171,6 +178,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "catan2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/catan2.md"))]
     pub fn catan2(csn: *mut crate::Complex32, ccs: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -191,6 +199,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "catanh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/catanh.md"))]
     pub fn catanh(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -217,6 +226,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbesh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbesh.md"))]
     pub fn cbesh(
         z: *mut crate::Complex32,
         fnu: *mut f32,
@@ -251,6 +261,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbesi_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbesi.md"))]
     pub fn cbesi(
         z: *mut crate::Complex32,
         fnu: *mut f32,
@@ -284,6 +295,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbesj_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbesj.md"))]
     pub fn cbesj(
         z: *mut crate::Complex32,
         fnu: *mut f32,
@@ -317,6 +329,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbesk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbesk.md"))]
     pub fn cbesk(
         z: *mut crate::Complex32,
         fnu: *mut f32,
@@ -351,6 +364,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbesy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbesy.md"))]
     pub fn cbesy(
         z: *mut crate::Complex32,
         fnu: *mut f32,
@@ -381,6 +395,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbeta_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbeta.md"))]
     pub fn cbeta(a: *mut crate::Complex32, b: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -404,6 +419,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cbiry_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbiry.md"))]
     pub fn cbiry(
         z: *mut crate::Complex32,
         id: *mut crate::FortranInteger,
@@ -430,6 +446,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "ccbrt_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ccbrt.md"))]
     pub fn ccbrt(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -450,6 +467,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "ccosh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ccosh.md"))]
     pub fn ccosh(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -470,6 +488,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "ccot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ccot.md"))]
     pub fn ccot(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -490,6 +509,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cexprl_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cexprl.md"))]
     pub fn cexprl(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -510,6 +530,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cgamma_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgamma.md"))]
     pub fn cgamma(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -530,6 +551,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cgamr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgamr.md"))]
     pub fn cgamr(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -551,6 +573,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "clbeta_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/clbeta.md"))]
     pub fn clbeta(a: *mut crate::Complex32, b: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -571,6 +594,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "clngam_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/clngam.md"))]
     pub fn clngam(zin: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -591,6 +615,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "clnrel_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/clnrel.md"))]
     pub fn clnrel(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -611,6 +636,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "clog10_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/clog10.md"))]
     pub fn clog10(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -631,6 +657,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cpsi_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cpsi.md"))]
     pub fn cpsi(zin: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -651,6 +678,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "csinh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csinh.md"))]
     pub fn csinh(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -671,6 +699,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "ctan_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctan.md"))]
     pub fn ctan(z: *mut crate::Complex32) -> crate::Complex32;
 }
 
@@ -691,5 +720,6 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "ctanh_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctanh.md"))]
     pub fn ctanh(z: *mut crate::Complex32) -> crate::Complex32;
 }

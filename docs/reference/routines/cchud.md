@@ -8,7 +8,7 @@ Update an augmented Cholesky decomposition of the triangular part of an augmente
 
 ## Description
 
-CCHUD updates an augmented Cholesky decomposition of the triangular part of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector X, a column vector Z, and a scalar Y, CCHUD determines a unitary matrix U and a scalar ZETA such that (R Z) (RR ZZ ) U * ( ) = ( ) , (X Y) ( 0 ZETA) where RR is upper triangular. If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) appended. In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the updated problem is SQRT(RHO**2 + ZETA**2). CCHUD will simultaneously update several triplets (Z,Y,RHO). For a less terse description of what CCHUD does and how it may be applied see the LINPACK Guide. The matrix U is determined as the product U(P)*...*U(1), where U(I) is a rotation in the (I,P+1) plane of the form ( (CI) S(I) ) ( ) . ( -CONJG(S(I)) (CI) ) The rotations are chosen so that C(I) is real. On Entry R COMPLEX(LDR,P), where LDR .GE. P. R contains the upper triangular matrix that is to be updated. The part of R below the diagonal is not referenced. LDR INTEGER. LDR is the leading dimension of the array R. P INTEGER. P is the order of the matrix R. X COMPLEX(P). X contains the row to be added to R. X is not altered by CCHUD. Z COMPLEX(LDZ,NZ), where LDZ .GE. P. Z is an array containing NZ P-vectors to be updated with R. LDZ INTEGER. LDZ is the leading dimension of the array Z. NZ INTEGER. NZ is the number of vectors to be updated NZ may be zero, in which case Z, Y, and RHO are not referenced. Y COMPLEX(NZ). Y contains the scalars for updating the vectors Z. Y is not altered by CCHUD. RHO REAL(NZ). RHO contains the norms of the residual vectors that are to be updated. If RHO(J) is negative, it is left unaltered. On Return RC RHO contain the updated quantities. Z C REAL(P). C contains the cosines of the transforming rotations. S COMPLEX(P). S contains the sines of the transforming rotations.
+CCHUD updates an augmented Cholesky decomposition of the triangular part of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector
 
 ## Classification
 
@@ -52,25 +52,25 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CCHUD](https://www.netlib.org/slatec/lin/cchud.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `R` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDR, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `X` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `Z` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDZ, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `LDZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
-| 8 | `Y` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `RHO` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `S` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `R` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDR, *) | Z)     (RR   ZZ ) U  * (    )  =  (        ) , COMPLEX(LDR,P), where LDR .GE. P. contains the upper triangular matrix that is to be updated.  The part of R below the diagonal is not referenced. |
+| 2 | `LDR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array R. |
+| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the order of the matrix R. vectors to be updated with R. |
+| 4 | `X` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | a column vector Z, and a scalar Y, CCHUD determines a unitary matrix U and a scalar ZETA such that Y)     ( 0  ZETA) where RR is upper triangular.  If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) appended.  In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the updated problem is COMPLEX(P). contains the row to be added to R.  X is not altered by CCHUD. |
+| 5 | `Z` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDZ, *) | COMPLEX(LDZ,NZ), where LDZ .GE. P. vectors to be updated with R. is not altered by CCHUD. |
+| 6 | `LDZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array Z. |
+| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | vectors to be updated with R. INTEGER. is the number of vectors to be updated may be zero, in which case Z, Y, and RHO are not referenced. |
+| 8 | `Y` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(NZ). contains the scalars for updating the vectors is not altered by CCHUD. |
+| 9 | `RHO` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | + ZETA**2).  CCHUD will simultaneously update several triplets (Z,Y,RHO). For a less terse description of what CCHUD does and how it may be applied see the LINPACK Guide. The matrix U is determined as the product U(P)*...*U(1), where U(I) is a rotation in the (I,P+1) plane of the form (     (CI)      S(I) ) (                    ) . ( -CONJG(S(I))  (CI) ) The rotations are chosen so that C(I) is real. On Entry REAL(NZ). contains the norms of the residual vectors that are to be updated.  If RHO(J) is negative, it is left unaltered. On Return RC contain the updated quantities. |
+| 10 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). contains the cosines of the transforming rotations. |
+| 11 | `S` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). contains the sines of the transforming rotations. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

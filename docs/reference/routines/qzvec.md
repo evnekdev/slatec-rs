@@ -8,7 +8,7 @@ The optional fourth step of the QZ algorithm for generalized eigenproblems. Acce
 
 ## Description
 
-This subroutine is the optional fourth step of the QZ algorithm for solving generalized matrix eigenvalue problems, SIAM J. NUMER. ANAL. 10, 241-256(1973) by MOLER and STEWART. This subroutine accepts a pair of REAL matrices, one of them in quasi-triangular form (in which each 2-by-2 block corresponds to a pair of complex eigenvalues) and the other in upper triangular form. It computes the eigenvectors of the triangular problem and transforms the results back to the original coordinate system. It is usually preceded by QZHES, QZIT, and QZVAL. On Input NM must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM. A contains a real upper quasi-triangular matrix. A is a two- dimensional REAL array, dimensioned A(NM,N). B contains a real upper triangular matrix. In addition, location B(N,1) contains the tolerance quantity (EPSB) computed and saved in QZIT. B is a two-dimensional REAL array, dimensioned B(NM,N). ALFR, ALFI, and BETA are one-dimensional REAL arrays with components whose ratios ((ALFR+I*ALFI)/BETA) are the generalized eigenvalues. They are usually obtained from QZVAL. They are dimensioned ALFR(N), ALFI(N), and BETA(N). Z contains the transformation matrix produced in the reductions by QZHES, QZIT, and QZVAL, if performed. If the eigenvectors of the triangular problem are desired, Z must contain the identity matrix. Z is a two-dimensional REAL array, dimensioned Z(NM,N). On Output A is unaltered. Its subdiagonal elements provide information about the storage of the complex eigenvectors. B has been destroyed. ALFR, ALFI, and BETA are unaltered. Z contains the real and imaginary parts of the eigenvectors. If ALFI(J) .EQ. 0.0, the J-th eigenvalue is real and the J-th column of Z contains its eigenvector. If ALFI(J) .NE. 0.0, the J-th eigenvalue is complex. If ALFI(J) .GT. 0.0, the eigenvalue is the first of a complex pair and the J-th and (J+1)-th columns of Z contain its eigenvector. If ALFI(J) .LT. 0.0, the eigenvalue is the second of a complex pair and the (J-1)-th and J-th columns of Z contain the conjugate of its eigenvector. Each eigenvector is normalized so that the modulus of its largest component is 1.0 . Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine is the optional fourth step of the QZ algorithm for solving generalized matrix eigenvalue problems, SIAM J. NUMER. ANAL. 10, 241-256(1973) by MOLER and STEWART. This subroutine accepts a pair of REAL matrices, one of them in quasi-triangular form (in which each 2-by-2 block corresponds to
 
 ## Classification
 
@@ -51,22 +51,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [QZVEC](https://www.netlib.org/slatec/lin/qzvec.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `ALFR` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `ALFI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `BETA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `Z` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. contains the tolerance quantity (EPSB) |
+| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | pair of complex eigenvalues) and the other in upper triangular form.  It computes the eigenvectors of the triangular problem and transforms the results back to the original coordinate system. It is usually preceded by  QZHES,  QZIT, and  QZVAL. triangular matrix.  A is a two- triangular matrix.  A is a two- dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). is unaltered.  Its subdiagonal elements provide information about the storage of the complex eigenvectors. th and (J+1)-th columns of Z contain its eigenvector. If ALFI(J) .LT. 0.0, the eigenvalue is the second of 1)-th and J-th columns of Z contain the conjugate of its eigenvector. Each eigenvector is normalized so that the modulus of its largest component is 1.0 . Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 4 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper triangular matrix.  In addition, contains the tolerance quantity (EPSB) dimensional REAL array, dimensioned B(NM,N). has been destroyed. system Routines - EISPACK Guide, Springer-Verlag, 1976. |
+| 5 | `ALFR` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays with are the generalized eigenvalues.  They are usually obtained from QZVAL.  They are dimensioned ALFR(N), ALFI(N), and BETA(N). are unaltered. |
+| 6 | `ALFI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays with are the generalized eigenvalues.  They are usually obtained from QZVAL.  They are dimensioned ALFR(N), ALFI(N), and BETA(N). are unaltered. th eigenvalue is real and the J-th column of Z contains its eigenvector. th eigenvalue is complex. If ALFI(J) .GT. 0.0, the eigenvalue is the first of |
+| 7 | `BETA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays with are the generalized eigenvalues.  They are usually obtained from QZVAL.  They are dimensioned ALFR(N), ALFI(N), and BETA(N). are unaltered. |
+| 8 | `Z` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the transformation matrix produced in the reductions by  QZHES,  QZIT, and  QZVAL,  if performed.  If the eigenvectors of the triangular problem are desired, Z must dimensional REAL array, dimensioned Z(NM,N). contains the real and imaginary parts of the eigenvectors. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

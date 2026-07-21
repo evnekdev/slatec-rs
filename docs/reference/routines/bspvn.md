@@ -8,7 +8,7 @@ Calculate the value of all (possibly) nonzero basis functions at X.
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos BSPVN is the BSPLVN routine of the reference. BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. X .LE. T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. ILEFT is such that T(ILEFT) .LE. X .LT. T(ILEFT+1). A call to INTRV(T,N+1,X,ILO,ILEFT, MFLAG) produces the proper ILEFT. BSPVN calculates using the basic algorithm needed in BSPVD. If only basis functions are desired, setting JHIGH=K and INDEX=1 can be faster than calling BSPVD, but extra coding is required for derivatives (INDEX=2) and BSPVD is set up for this purpose. Left limiting values are set up as described in BSPVD.
+Written by Carl de Boor and modified by D. E. Amos BSPVN is the BSPLVN routine of the reference. BSPVN calculates the value of all (possibly) nonzero basis
 
 ## Classification
 
@@ -54,20 +54,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BSPVN](https://www.netlib.org/slatec/src/bspvn.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K |
-| 2 | `JHIGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, 1 .LE. JHIGH .LE. K |
-| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | highest possible order |
-| 4 | `INDEX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with WORK, IWORK values saved for subsequent calls to BSPVN. 2. 1 exclusively, these are scratch variables and can be used for other purposes. |
-| 5 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | argument of basis functions, T(K) .LE. X .LE. T(N+1) |
-| 6 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that T(ILEFT) .LE. X .LT. T(ILEFT+1) |
+| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | IWORK is set inside the routine IWORK is set inside the routine knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K .LE. X .LE. T(N+1) .LE. X .LT. T(ILEFT+1) |
+| 2 | `JHIGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1)), where K and INDEX=1 can be faster than calling BSPVD, but extra coding is required for derivatives order of B-spline, 1 .LE. JHIGH .LE. K |
+| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IWORK is set inside the routine highest possible order .LE. X .LE. T(N+1) |
+| 4 | `INDEX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1)), where 1.  ILEFT is such that T(ILEFT) .LE. X .LT. T(ILEFT+1).  A call to INTRV(T,N+1,X,ILO,ILEFT, MFLAG) produces the proper ILEFT.  BSPVN calculates using the basic algorithm needed in BSPVD.  If only basis functions are 2) and BSPVD is set up for this purpose. Left limiting values are set up as described in BSPVD. INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with WORK, IWORK values saved for subsequent calls to BSPVN. 2. 1 exclusively, these are scratch variables and can be used for other purposes. |
+| 5 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)), where IWORK is set inside the routine argument of basis functions, |
+| 6 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that .LE. X .LT. T(ILEFT+1) |
 | 7 | `VNIKX` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | vector of length K for spline values. |
 | 8 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work vector of length 2*K |
 | 9 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a work parameter.  Both WORK and IWORK contain |
@@ -84,7 +84,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error.
 
 ### Storage and workspace requirements
 

@@ -8,7 +8,7 @@ Calculate the value and all derivatives of order less than NDERIV of all basis f
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPVD is the BSPLVD routine of the reference. DBSPVD calculates the value and all derivatives of order less than NDERIV of all basis functions which do not (possibly) vanish at X. ILEFT is input such that T(ILEFT) .LE. X .LT. T(ILEFT+1). A call to INTRV(T,N+1,X, ILO,ILEFT,MFLAG) will produce the proper ILEFT. The output of DBSPVD is a matrix VNIKX(I,J) of dimension at least (K,NDERIV) whose columns contain the K nonzero basis functions and their NDERIV-1 right derivatives at X, I=1,K, J=1,NDERIV. These basis functions have indices ILEFT-K+I, I=1,K, K .LE. ILEFT .LE. N. The nonzero part of the I-th basis function lies in (T(I),T(I+K)), I=1,N). If X=T(ILEFT+1) then VNIKX contains left limiting values (left derivatives) at T(ILEFT+1). In particular, ILEFT = N produces left limiting values at the right end point X=T(N+1). To obtain left limiting values at T(I), I=K+1,N+1, set X= next lower distinct knot, call INTRV to get ILEFT, set X=T(I), and then call DBSPVD.
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPVD is the BSPLVD routine of the reference. DBSPVD calculates the value and all derivatives of order less than NDERIV of all basis functions which do not
 
 ## Classification
 
@@ -54,22 +54,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBSPVD](https://www.netlib.org/slatec/src/dbspvd.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K |
-| 2 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K .GE. 1 |
-| 3 | `NDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of derivatives = NDERIV-1, 1 .LE. NDERIV .LE. K |
-| 4 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | argument of basis functions, T(K) .LE. X .LE. T(N+1) |
-| 5 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that T(ILEFT) .LE. X .LT.  T(ILEFT+1) |
-| 6 | `LDVNIK` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of matrix VNIKX Output     VNIKX,WORK are double precision |
-| 7 | `VNIKX` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDVNIK, *) | matrix of dimension at least (K,NDERIV) contain- ing the nonzero basis functions at X and their derivatives columnwise. |
-| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | a work vector of length (K+1)*(K+2)/2 |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | .LE. X .LT. T(ILEFT+1).  A call to INTRV(T,N+1,X, 1,N). 1,N). N produces left limiting values at the right end point are double precision knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K .LE. X .LE. T(N+1) .LE. X .LT.  T(ILEFT+1) |
+| 2 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | th basis 1,N). order of the B-spline, K .GE. 1 .LE. X .LE. T(N+1) |
+| 3 | `NDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | of all basis functions which do not vanish at X. 1 right derivatives at X, I=1,K, J=1,NDERIV. number of derivatives = NDERIV-1, 1 .LE. NDERIV .LE. K |
+| 4 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is input such that T(ILEFT+1) then VNIKX contains left limiting values T(N+1).  To obtain left limiting values at T(I), I=K+1,N+1, next lower distinct knot, call INTRV to get ILEFT, T(I), and then call DBSPVD. are double precision argument of basis functions, |
+| 5 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is input such that .LE. X .LT. T(ILEFT+1).  A call to INTRV(T,N+1,X, will produce the proper ILEFT.  The output of DBSPVD is a matrix VNIKX(I,J) of dimension at least (K,NDERIV) whose columns contain the K nonzero basis functions and K+I, I=1,K, th basis N N produces left limiting values at the right end point produces left limiting values at the right end point largest integer such that .LE. X .LT.  T(ILEFT+1) |
+| 6 | `LDVNIK` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of matrix VNIKX |
+| 7 | `VNIKX` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDVNIK, *) | are double precision matrix of dimension at least (K,NDERIV) contain- ing the nonzero basis functions at X and their derivatives columnwise. |
+| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision a work vector of length (K+1)*(K+2)/2 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -83,11 +83,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error
 
 ### Storage and workspace requirements
 
-`WORK`: a work vector of length (K+1)*(K+2)/2
+`WORK`: are double precision a work vector of length (K+1)*(K+2)/2
 
 ### Provider, ABI, and safety
 

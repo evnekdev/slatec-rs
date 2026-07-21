@@ -46,6 +46,7 @@ unsafe extern "C" {
     /// pointer may alias mutable storage in a way that violates Rust's aliasing
     /// rules. The caller must serialize use of legacy SLATEC runtime state.
     #[link_name = "dfzero_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dfzero.md"))]
     pub fn dfzero(
         function: RootFnF64,
         b: *mut f64,
@@ -85,6 +86,7 @@ unsafe extern "C" {
     /// pointer may alias mutable storage in a way that violates Rust's aliasing
     /// rules. The caller must serialize use of legacy SLATEC runtime state.
     #[link_name = "fzero_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/fzero.md"))]
     pub fn fzero(
         function: RootFnF32,
         b: *mut f32,

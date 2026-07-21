@@ -8,7 +8,7 @@ Initialize a work array for SINT.
 
 ## Description
 
-Subroutine SINTI initializes the array WSAVE which is used in subroutine SINT. The prime factorization of N together with a tabulation of the trigonometric functions are computed and stored in WSAVE. Input Parameter N the length of the sequence to be transformed. The method is most efficient when N+1 is a product of small primes. Output Parameter WSAVE a work array with at least INT(3.5*N+16) locations. Different WSAVE arrays are required for different values of N. The contents of WSAVE must not be changed between calls of SINT.
+Subroutine SINTI initializes the array WSAVE which is used in subroutine SINT. The prime factorization of N together with a tabulation of the trigonometric functions are computed and stored in WSAVE. Input Parameter
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SINTI](https://www.netlib.org/slatec/fishfft/sinti.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the sequence to be transformed.  The method is most efficient when N+1 is a product of small primes. Output Parameter must not be changed between calls of SINT. |
+| 2 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array with at least INT(3.5*N+16) locations. Different WSAVE arrays are required for different values must not be changed between calls of SINT. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -79,7 +79,7 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`WSAVE`: Workspace argument classified by fixed-form executable read/write analysis.
+`WSAVE`: a work array with at least INT(3.5*N+16) locations. Different WSAVE arrays are required for different values must not be changed between calls of SINT.
 
 ### Provider, ABI, and safety
 

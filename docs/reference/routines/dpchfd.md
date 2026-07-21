@@ -8,7 +8,7 @@ Evaluate a piecewise cubic Hermite function and its first derivative at an array
 
 ## Description
 
-DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, to- gether with its first derivative, at the points XE(J), J=1(1)NE. If only function values are required, use DPCHFE, instead. To provide compatibility with DPCHIM and DPCHIC, includes an increment between successive values of the F- and D-arrays. ---------------------------------------------------------------------- Calling sequence: PARAMETER (INCFD = ...) INTEGER N, NE, IERR DOUBLE PRECISION X(N), F(INCFD,N), D(INCFD,N), XE(NE), FE(NE), DE(NE) LOGICAL SKIP CALL DPCHFD (N, X, F, D, INCFD, SKIP, NE, XE, FE, DE, IERR) Parameters:
+DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator
 
 ## Classification
 
@@ -52,25 +52,25 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DPCHFD](https://www.netlib.org/slatec/pchip/dpchfd.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 3 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `D` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `SKIP` | `input-output` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `NE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `XE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `FE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `DE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) number of data points.  (Error return if N.LT.2 .) |
+| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (input) real*8 array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N. |
+| 3 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | and D-arrays. (input) real*8 array of function values.  F(1+(I-1)*INCFD) is the value corresponding to X(I). |
+| 4 | `D` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | (input) real*8 array of derivative values.  D(1+(I-1)*INCFD) is the value corresponding to X(I). |
+| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ...) INTEGER  N, NE, IERR DOUBLE PRECISION  X(N), F(INCFD,N), D(INCFD,N), XE(NE), FE(NE), (input) increment between successive values in F and D. |
+| 6 | `SKIP` | `input-output` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | (input/output) logical variable which should be set to .TRUE. if the user wishes to skip checks for validity of preceding parameters, or to .FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC). will be set to .TRUE. on normal return. |
+| 7 | `NE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | LOGICAL  SKIP CALL  DPCHFD (N, X, F, D, INCFD, SKIP, NE, XE, FE, DE, IERR) Parameters: (input) number of evaluation points.  (Error return if .) |
+| 8 | `XE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1(1)NE. If only function values are required, use DPCHFE, instead. To provide compatibility with DPCHIM and DPCHIC, includes an (input) real*8 array of points at which the functions are to be evaluated. NOTES: 1. The evaluation will be most efficient if the elements of XE are increasing relative to X; that is,   XE(J) .GE. X(I) implies    XE(K) .GE. X(I),  all K.GE.J . 2. If any of the XE are outside the interval [X(1),X(N)], values are extrapolated from the nearest extreme cubic, and a warning error is returned. |
+| 9 | `FE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (output) real*8 array of values of the cubic Hermite function defined by  N, X, F, D  at the points  XE. |
+| 10 | `DE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | LOGICAL  SKIP CALL  DPCHFD (N, X, F, D, INCFD, SKIP, NE, XE, FE, DE, IERR) Parameters: (output) real*8 array of values of the first derivative of the same function at the points  XE. |
+| 11 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0  (no errors). Warning error: means that extrapolation was performed at points. "Recoverable" errors: 1  if N.LT.2 . 2  if INCFD.LT.1 . 3  if the X-array is not strictly increasing. 4  if NE.LT.1 . (Output arrays have not been changed in any of these cases.) NOTE:  The above errors are checked in the order listed, and following arguments have **NOT** been validated. 5  if an error has occurred in the lower-level routine DCHFDV.  NB: this should never happen. Notify the author **IMMEDIATELY** if it does. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -84,7 +84,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-X -- (input) real*8 array of independent variable values.  The elements of X must be strictly increasing: X(I-1) .LT. X(I),  I = 2(1)N. F -- (input) real*8 array of function values.  F(1+(I-1)*INCFD) is the value corresponding to X(I). D -- (input) real*8 array of derivative values.  D(1+(I-1)*INCFD) is the value corresponding to X(I). INCFD -- (input) increment between successive values in F and D. SKIP -- (input/output) logical variable which should be set to .TRUE. if the user wishes to skip checks for validity of preceding parameters, or to .FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC). SKIP will be set to .TRUE. on normal return. NE.LT.1 .) XE -- (input) real*8 array of points at which the functions are to be evaluated. NOTES: 1. The evaluation will be most efficient if the elements of XE are increasing relative to X; that is,   XE(J) .GE. X(I) implies    XE(K) .GE. X(I),  all K.GE.J . 2. If any of the XE are outside the interval [X(1),X(N)], values are extrapolated from the nearest extreme cubic, FE -- (output) real*8 array of values of the cubic Hermite function defined by  N, X, F, D  at the points  XE. DE -- (output) real*8 array of values of the first derivative of the same function at the points  XE. Normal return: IERR.GT.0  means that extrapolation was performed at IERR points. IERR = -1  if N.LT.2 . IERR = -2  if INCFD.LT.1 . IERR = -3  if the X-array is not strictly increasing. IERR = -4  if NE.LT.1 . (Output arrays have not been changed in any of these cases.) and following arguments have **NOT** been validated. routine DCHFDV.  NB: this should never happen. Notify the author **IMMEDIATELY** if it does.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 
