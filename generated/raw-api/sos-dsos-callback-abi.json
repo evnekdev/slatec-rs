@@ -1,0 +1,53 @@
+{
+  "records": [
+    {
+      "arguments": [
+        {
+          "direction": "read-only callback view",
+          "extent": "NEQ elements",
+          "fortran_type": "DOUBLE PRECISION(*)",
+          "name": "X"
+        },
+        {
+          "direction": "input",
+          "fortran_type": "INTEGER",
+          "name": "K",
+          "range": "1..=NEQ (one-based equation index)"
+        }
+      ],
+      "callback_name": "FNC",
+      "callback_status": "reviewed_source_and_runtime_tested",
+      "executable_call_evidence": "DSOSEQ: F = FNC(X,K); FP = FNC(X,K)",
+      "fortran_kind": "scalar real function",
+      "return_abi": "direct scalar return; no hidden result argument",
+      "routine": "DSOS",
+      "rust_callback_type": "SosEquationF64"
+    },
+    {
+      "arguments": [
+        {
+          "direction": "read-only callback view",
+          "extent": "NEQ elements",
+          "fortran_type": "REAL(*)",
+          "name": "X"
+        },
+        {
+          "direction": "input",
+          "fortran_type": "INTEGER",
+          "name": "K",
+          "range": "1..=NEQ (one-based equation index)"
+        }
+      ],
+      "callback_name": "FNC",
+      "callback_status": "reviewed_source_and_runtime_tested",
+      "executable_call_evidence": "SOSEQS: F = FNC(X,K); FP = FNC(X,K)",
+      "fortran_kind": "scalar real function",
+      "return_abi": "direct scalar return; no hidden result argument",
+      "routine": "SOS",
+      "rust_callback_type": "SosEquationF32"
+    }
+  ],
+  "schema_id": "slatec-sys.sos-dsos-callback-abi",
+  "schema_version": "1.0.0",
+  "supported_abi_profile": "ffi-profile-gnu-mingw-x86_64"
+}

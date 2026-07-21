@@ -126,6 +126,74 @@
           "abi_profile": "compiler_observation"
         }
       }
+    },
+    {
+      "routine": "SOS",
+      "source_hash": "30674f2d020dfae1fedeae3e7f1ed333f41e64a14036f1b3cbaa4452f9ae5e84",
+      "source_file": "main-src/src/sos.f",
+      "review_status": "reviewed_public_driver",
+      "driver_role": "historically_user_callable_driver",
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::sos",
+      "feature": "nonlinear-systems",
+      "provider_feature": "nonlinear-systems",
+      "safe_wrapper_path": "not_safely_wrapped",
+      "link_test_status": "passed",
+      "runtime_test_status": "passed",
+      "arguments": ["FNC", "NEQ", "X", "RTOLX", "ATOLX", "TOLF", "IFLAG", "RW", "LRW", "IW", "LIW"],
+      "documentation": {
+        "purpose": "source_prologue",
+        "mathematical_operation": "source_prologue_and_authored_solver_contract",
+        "arguments": "source_prologue_and_executable_declaration",
+        "callback": "source_prologue_and_executable_callsite",
+        "workspace": "source_prologue",
+        "status_codes": "source_prologue",
+        "source_provider": "selected_provider_metadata",
+        "source_link": "https://www.netlib.org/slatec/src/sos.f",
+        "abi_profile": "compiler_observation",
+        "safety": "authored_source_hash_guarded_raw_safety_contract",
+        "provenance": {
+          "purpose": "source_prologue",
+          "arguments": "source_prologue_and_executable_declaration",
+          "callback": "source_prologue_and_executable_callsite",
+          "workspace": "source_prologue",
+          "status_codes": "source_prologue",
+          "abi_profile": "compiler_observation"
+        }
+      }
+    },
+    {
+      "routine": "DSOS",
+      "source_hash": "94f0ed896c0c1614997134726a4b6adee658fea43d98fd0142bbab2df82f9e21",
+      "source_file": "main-src/src/dsos.f",
+      "review_status": "reviewed_public_driver",
+      "driver_role": "historically_user_callable_driver",
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::dsos",
+      "feature": "nonlinear-systems",
+      "provider_feature": "nonlinear-systems",
+      "safe_wrapper_path": "not_safely_wrapped",
+      "link_test_status": "passed",
+      "runtime_test_status": "passed",
+      "arguments": ["FNC", "NEQ", "X", "RTOLX", "ATOLX", "TOLF", "IFLAG", "RW", "LRW", "IW", "LIW"],
+      "documentation": {
+        "purpose": "source_prologue",
+        "mathematical_operation": "source_prologue_and_authored_solver_contract",
+        "arguments": "source_prologue_and_executable_declaration",
+        "callback": "source_prologue_and_executable_callsite",
+        "workspace": "source_prologue",
+        "status_codes": "source_prologue",
+        "source_provider": "selected_provider_metadata",
+        "source_link": "https://www.netlib.org/slatec/src/dsos.f",
+        "abi_profile": "compiler_observation",
+        "safety": "authored_source_hash_guarded_raw_safety_contract",
+        "provenance": {
+          "purpose": "source_prologue",
+          "arguments": "source_prologue_and_executable_declaration",
+          "callback": "source_prologue_and_executable_callsite",
+          "workspace": "source_prologue",
+          "status_codes": "source_prologue",
+          "abi_profile": "compiler_observation"
+        }
+      }
     }
   ],
   "family_reviews": [

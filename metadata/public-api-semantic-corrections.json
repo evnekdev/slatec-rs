@@ -158,6 +158,21 @@
       "arguments": {
         "TYPE": { "description": "Input logical selector. Set true to compute algebraically smallest eigenvalues and false to compute algebraically largest eigenvalues; it also determines the ordering of `W` and the sentinel stored in `E2(1)`." }
       }
+    },
+    "sos-dsos-v1": {
+      "arguments": {
+        "FNC": { "description": "Synchronous scalar equation callback. It receives a readable length-`NEQ` current or finite-difference-perturbed solution vector and a one-based equation index `K` in `1..=NEQ`, then returns equation `K`; it must not retain pointers or unwind through Fortran." },
+        "NEQ": { "description": "Input number of equations and unknowns. It must be positive and is the required `X` length." },
+        "X": { "description": "Mutable length-`NEQ` solution vector. It supplies the initial estimate and is overwritten with the current iterate; the native finite-difference calculation temporarily perturbs components before callback evaluations." },
+        "RTOLX": { "description": "Input nonnegative relative solution-increment tolerance used with `ATOLX` in the componentwise convergence test." },
+        "ATOLX": { "description": "Input nonnegative absolute solution-increment tolerance. A positive value is useful when a solution component can be zero." },
+        "TOLF": { "description": "Input nonnegative residual tolerance. Residual convergence requires every equation residual magnitude to be at most `TOLF`; its value must match equation scaling." },
+        "IFLAG": { "description": "Input/output control and status integer. Input `0` uses defaults and input `-1` enables `IW(1..=2)` controls; on return it reports the documented convergence or error status." },
+        "RW": { "description": "Mutable real workspace of at least `1 + 6*NEQ + NEQ*(NEQ + 1)/2` elements. `RW(1)` receives the residual norm on return." },
+        "LRW": { "description": "Input declared length of `RW`; it must be at least `1 + 6*NEQ + NEQ*(NEQ + 1)/2`." },
+        "IW": { "description": "Mutable integer workspace of at least `3 + NEQ` elements. With input `IFLAG=-1`, `IW(1)=-1` requests iteration output and `IW(2)` supplies a positive iteration limit; `IW(3)` receives the iteration count." },
+        "LIW": { "description": "Input declared length of `IW`; it must be at least `3 + NEQ`." }
+      }
     }
   },
   "records": [
@@ -206,6 +221,8 @@
     { "routine": "DXNRMP", "expected_source_hash": "9423d4eaa59b3eaf509cb35f8a410c0b48caba5785bbee722ab77b38860e106e", "documentation_profile": "legendre-rounding-estimate-v1" },
     { "routine": "XNRMP", "expected_source_hash": "a68b7fc766e6a0cb821c2df0778fd7289dfc61b2d703df2102eff568f5043b17", "documentation_profile": "legendre-rounding-estimate-v1" },
     { "routine": "DLGAMS", "expected_source_hash": "beca401c91fed89b6d8b3588aa370c5b773daa57f6f2b639c2b1dfdfd50edaa7", "documentation_profile": "log-gamma-sign-v1", "reason": "The selected source documents the result at routine scope rather than as individual argument rows.", "evidence_lines": "DLGAMS selected source prologue lines 14-17", "reviewer_note": "M3 semantic review: DLGAM receives log(abs(gamma(X))) and SGNGAM follows the selected sign computation." },
-    { "routine": "RATQR", "expected_source_hash": "afcbf7a5039c06c88a1a30784b7e5244af0c7477ba4a560330f32c433346a109", "documentation_profile": "rational-qr-selection-v1" }
+    { "routine": "RATQR", "expected_source_hash": "afcbf7a5039c06c88a1a30784b7e5244af0c7477ba4a560330f32c433346a109", "documentation_profile": "rational-qr-selection-v1" },
+    { "routine": "SOS", "expected_source_hash": "30674f2d020dfae1fedeae3e7f1ed333f41e64a14036f1b3cbaa4452f9ae5e84", "documentation_profile": "sos-dsos-v1", "reason": "The selected source describes the callback and workspace relationship at routine scope; this source-hash-guarded profile materializes the exact reviewed argument contract.", "evidence_lines": "SOS selected source prologue lines 50-164 and SOSEQS executable callback call sites", "reviewer_note": "SOS callback ABI, workspace formulas, IFLAG values, and finite-difference callback behavior reviewed against sos.f and soseqs.f." },
+    { "routine": "DSOS", "expected_source_hash": "94f0ed896c0c1614997134726a4b6adee658fea43d98fd0142bbab2df82f9e21", "documentation_profile": "sos-dsos-v1", "reason": "The selected source describes the callback and workspace relationship at routine scope; this source-hash-guarded profile materializes the exact reviewed argument contract.", "evidence_lines": "DSOS selected source prologue lines 50-164 and DSOSEQ executable callback call sites", "reviewer_note": "DSOS callback ABI, workspace formulas, IFLAG values, and finite-difference callback behavior reviewed against dsos.f and dsoseq.f." }
   ]
 }

@@ -5266,11 +5266,11 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "intended_canonical_rust_path": "slatec_sys::nonlinear::dsos",
-      "intended_module": "nonlinear",
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::dsos",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::systems::dsos",
+      "intended_module": "nonlinear::systems",
       "routine": "DSOS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -9032,11 +9032,11 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
-      "intended_canonical_rust_path": "slatec_sys::nonlinear::sos",
-      "intended_module": "nonlinear",
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::sos",
+      "intended_canonical_rust_path": "slatec_sys::nonlinear::systems::sos",
+      "intended_module": "nonlinear::systems",
       "routine": "SOS",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",

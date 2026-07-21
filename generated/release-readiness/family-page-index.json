@@ -1,6 +1,6 @@
 {
   "family_pages": 20,
-  "public_routine_sum": 812,
+  "public_routine_sum": 814,
   "records": [
     {
       "family": "Approximation",
@@ -81,9 +81,9 @@
     },
     {
       "family": "Nonlinear equations",
-      "public_routines": 12,
+      "public_routines": 14,
       "retained_identities": 31,
-      "secondary_identities": 19,
+      "secondary_identities": 17,
       "slug": "nonlinear-equations"
     },
     {
@@ -146,5 +146,5 @@
   "retained_identity_sum": 1517,
   "schema_id": "slatec-rs.family-page-index",
   "schema_version": "1.0.0",
-  "secondary_identity_sum": 705
+  "secondary_identity_sum": 703
 }

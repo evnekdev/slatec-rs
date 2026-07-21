@@ -229,6 +229,11 @@
       },
       {
         "direct_member_of_all": false,
+        "feature": "raw-family-nonlinear-systems",
+        "transitively_reachable_from_all": true
+      },
+      {
+        "direct_member_of_all": false,
         "feature": "raw-family-least-squares-nonlinear-easy",
         "transitively_reachable_from_all": true
       },
@@ -482,6 +487,7 @@
     "nonlinear-expert",
     "nonlinear-jacobian",
     "nonlinear-jacobian-check",
+    "nonlinear-systems",
     "ode-callbacks",
     "ode-integration",
     "ode-sdrive-expert",
@@ -558,6 +564,7 @@
     "nonlinear-expert",
     "nonlinear-jacobian",
     "nonlinear-jacobian-check",
+    "nonlinear-systems",
     "ode",
     "ode-callbacks",
     "ode-integration",
@@ -607,6 +614,7 @@
     "raw-family-nonlinear-expert",
     "raw-family-nonlinear-jacobian",
     "raw-family-nonlinear-jacobian-check",
+    "raw-family-nonlinear-systems",
     "raw-family-ode-callbacks",
     "raw-family-ode-integration",
     "raw-family-ode-sdrive-expert",

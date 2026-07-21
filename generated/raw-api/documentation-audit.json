@@ -1,12 +1,12 @@
 {
-  "abi_profile_statements_present": 812,
-  "argument_docs_complete": 812,
+  "abi_profile_statements_present": 814,
+  "argument_docs_complete": 814,
   "batch_a_public_declarations": 459,
   "batch_b_public_declarations": 47,
   "batch_c_public_declarations": 97,
   "batch_d_public_declarations": 36,
   "missing": [],
-  "public_extern_declarations": 812,
+  "public_extern_declarations": 814,
   "review_queue": [
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -3487,18 +3487,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DSORT"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DSOS"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -7109,18 +7097,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "SOS"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SOSEQS"
     },
@@ -8470,10 +8446,10 @@
     }
   ],
   "review_queue_policy": "Non-reviewed declarations remain queued rather than receiving inferred pointer semantics.",
-  "reviewed_public_declarations": 173,
-  "routine_docs_present": 812,
-  "safety_sections_present": 812,
+  "reviewed_public_declarations": 175,
+  "routine_docs_present": 814,
+  "safety_sections_present": 814,
   "schema_id": "slatec-sys.raw-api.documentation-audit",
   "schema_version": "1.0.0",
-  "source_links_present": 812
+  "source_links_present": 814
 }

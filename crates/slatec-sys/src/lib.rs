@@ -342,6 +342,7 @@ public_binding_module!(
     feature = "raw-family-nonlinear-expert",
     feature = "raw-family-nonlinear-jacobian-check",
     feature = "raw-family-nonlinear-jacobian",
+    feature = "raw-family-nonlinear-systems",
     feature = "raw-family-nonlinear-complex"
 ))]
 public_binding_module!(

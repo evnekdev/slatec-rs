@@ -88,6 +88,22 @@ pub fn generate(root: &Path, output: &Path, provider_manifest: &Path) -> Result<
             .or_default()
             .insert(routine.to_owned());
     }
+    // Reviewed raw-only drivers do not necessarily have a safe wrapper to
+    // seed this graph. Their authored correction is the canonical review
+    // decision and provides the provider feature deliberately, so it is the
+    // authoritative source for the same object-level closure walk used above.
+    let corrections = read_json(&root.join("metadata/raw-api-corrections.json"))?;
+    for record in array_records(&corrections, "raw API corrections")? {
+        if string_field(record, "review_status")? != "reviewed_public_driver" {
+            continue;
+        }
+        let family = string_field(record, "provider_feature")?;
+        let routine = string_field(record, "routine")?;
+        family_symbols
+            .entry(family.to_owned())
+            .or_default()
+            .insert(routine.to_owned());
+    }
 
     let mut unit_to_source = BTreeMap::new();
     let mut source_details = BTreeMap::<String, SourceDetail>::new();

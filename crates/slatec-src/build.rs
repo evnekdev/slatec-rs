@@ -32,6 +32,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("NONLINEAR_EASY", "nonlinear-easy"),
     ("NONLINEAR_EXPERT", "nonlinear-expert"),
     ("NONLINEAR_JACOBIAN_CHECK", "nonlinear-jacobian-check"),
+    ("NONLINEAR_SYSTEMS", "nonlinear-systems"),
     ("ODE_SDRIVE_EXPERT", "ode-sdrive-expert"),
     ("DASSL", "dassl"),
     (

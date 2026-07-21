@@ -1,7 +1,7 @@
 {
   "counts": {
-    "complete-semantic-contract": 812,
-    "not-public": 705
+    "complete-semantic-contract": 814,
+    "not-public": 703
   },
   "mangled_candidate_flags_after": 0,
   "mangled_candidate_flags_before": 26,
@@ -9791,12 +9791,12 @@
     {
       "argument_count": 11,
       "description_provenance": "source_prologue",
-      "documentation_work_status": "support-interface-review",
+      "documentation_work_status": "rendered-rustdoc-semantic-audit-pending",
       "family": "Nonlinear equations",
       "mangled_reasons": [],
-      "public_raw": false,
-      "quality_level": "not-public",
-      "reason": "M3 completion threshold applies only to canonical public routines",
+      "public_raw": true,
+      "quality_level": "complete-semantic-contract",
+      "reason": "source-hash-guarded authored corrections and source evidence passed M3 semantic checks",
       "routine": "DSOS",
       "semantic_issues": [],
       "structured_argument_rows": 11
@@ -16785,12 +16785,12 @@
     {
       "argument_count": 11,
       "description_provenance": "source_prologue",
-      "documentation_work_status": "support-interface-review",
+      "documentation_work_status": "rendered-rustdoc-semantic-audit-pending",
       "family": "Nonlinear equations",
       "mangled_reasons": [],
-      "public_raw": false,
-      "quality_level": "not-public",
-      "reason": "M3 completion threshold applies only to canonical public routines",
+      "public_raw": true,
+      "quality_level": "complete-semantic-contract",
+      "reason": "source-hash-guarded authored corrections and source evidence passed M3 semantic checks",
       "routine": "SOS",
       "semantic_issues": [],
       "structured_argument_rows": 11

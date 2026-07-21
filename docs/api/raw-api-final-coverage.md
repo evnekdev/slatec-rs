@@ -16,7 +16,7 @@ and source-hash evidence. It does not create a parallel inventory.
 
 ## Final coverage
 
-The retained corpus has 1,517 identities. Of these, 812 have one canonical
+The retained corpus has 1,517 identities. Of these, 814 have one canonical
 public raw path: 173 authored reviewed declarations, 459 generated numerical
 declarations, 47 callback-bearing declarations, 97 ABI-sensitive declarations,
 and 36 requalified existing family declarations. Each public identity has one

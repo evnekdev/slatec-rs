@@ -8,7 +8,7 @@ a Fortran implementation. Provider selection belongs to `slatec-src` or to the
 final application.
 
 The authoritative inventory has one record for each of the 1,517 retained
-identities. It distinguishes 812 `canonical-public` routines from internal
+identities. It distinguishes 814 `canonical-public` routines from internal
 subsidiaries, support units, and evidence-backed exclusions. Current evidence
 is generated under [`generated/raw-api`](../../generated/raw-api/) and the
 direct public inventory is
@@ -146,7 +146,7 @@ conflicts, argument-contamination audit, status and workspace coverage, a
 deterministic manual sample, and the rendered rustdoc semantic audit. A public
 routine is complete only with argument-specific bounded evidence, source-first
 direction resolution, applicable status/workspace/callback semantics, and no
-detected contamination. The current validated result is 812 of 812 canonical
+detected contamination. The current validated result is 814 of 814 canonical
 public routines, zero unresolved direction conflicts, and zero contaminated
 public argument descriptions.
 

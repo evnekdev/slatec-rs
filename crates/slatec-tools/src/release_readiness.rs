@@ -215,9 +215,9 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
         .iter()
         .filter(|record| record.disposition == "canonical-public")
         .count();
-    if public != 812 {
+    if public != 814 {
         return Err(policy(&format!(
-            "expected 812 public raw identities, found {public}"
+            "expected 814 public raw identities, found {public}"
         )));
     }
     fs::create_dir_all(output_dir)?;
@@ -313,7 +313,7 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
         )));
     }
     let families = read_json(&output_dir.join("family-page-index.json"))?;
-    if families["public_routine_sum"].as_u64() != Some(812)
+    if families["public_routine_sum"].as_u64() != Some(814)
         || families["retained_identity_sum"].as_u64() != Some(1517)
     {
         return Err(policy("family-page counts do not reconcile"));

@@ -43,6 +43,22 @@ pub type NonlinearJacF32 = unsafe extern "C" fn(
     *mut FortranInteger,
 );
 
+/// GNU Fortran scalar equation callback used by the reviewed `SOS` driver.
+///
+/// `X` points to a readable length-`NEQ` iterate and `K` points to a
+/// one-based equation index in `1..=NEQ`. The callback returns equation `K`
+/// as a single-precision scalar and must not mutate or retain either pointer.
+#[cfg(feature = "raw-family-nonlinear-systems")]
+pub type SosEquationF32 = unsafe extern "C" fn(*const f32, *const FortranInteger) -> f32;
+
+/// GNU Fortran scalar equation callback used by the reviewed `DSOS` driver.
+///
+/// `X` points to a readable length-`NEQ` iterate and `K` points to a
+/// one-based equation index in `1..=NEQ`. The callback returns equation `K`
+/// as a double-precision scalar and must not mutate or retain either pointer.
+#[cfg(feature = "raw-family-nonlinear-systems")]
+pub type SosEquationF64 = unsafe extern "C" fn(*const f64, *const FortranInteger) -> f64;
+
 unsafe extern "C" {
     /// Original double-precision SLATEC nonlinear easy driver `DNSQE`.
     #[link_name = "dnsqe_"]
@@ -175,6 +191,76 @@ unsafe extern "C" {
         mode: *mut FortranInteger,
         error: *mut f32,
     );
+
+    /// Original single-precision SLATEC nonlinear-system driver `SOS`.
+    ///
+    /// The verified selected source is <https://www.netlib.org/slatec/src/sos.f>.
+    /// Arguments: `FNC`, `NEQ`, `X`, `RTOLX`, `ATOLX`, `TOLF`, `IFLAG`, `RW`,
+    /// `LRW`, `IW`, and `LIW`. See the generated canonical contract for the
+    /// exact callback, workspace, tolerance, and status requirements.
+    ///
+    /// # Safety
+    ///
+    /// `FNC` must use [`SosEquationF32`], remain valid synchronously, and not
+    /// unwind. All scalar pointers must be non-null and mutable where passed;
+    /// `X` has `NEQ` writable elements, `RW` has at least
+    /// `1 + 6*NEQ + NEQ*(NEQ + 1)/2` writable elements, and `IW` has at least
+    /// `3 + NEQ` writable elements. The arrays must not alias incompatibly and
+    /// the caller serializes legacy native runtime access.
+    #[cfg(feature = "raw-family-nonlinear-systems")]
+    #[link_name = "sos_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sos.md"))]
+    pub fn sos(
+        function: SosEquationF32,
+        equation_count: *mut FortranInteger,
+        solution: *mut f32,
+        relative_x_tolerance: *mut f32,
+        absolute_x_tolerance: *mut f32,
+        residual_tolerance: *mut f32,
+        status: *mut FortranInteger,
+        real_workspace: *mut f32,
+        real_workspace_length: *mut FortranInteger,
+        integer_workspace: *mut FortranInteger,
+        integer_workspace_length: *mut FortranInteger,
+    );
+
+    /// Original double-precision SLATEC nonlinear-system driver `DSOS`.
+    ///
+    /// The verified selected source is <https://www.netlib.org/slatec/src/dsos.f>.
+    /// Arguments: `FNC`, `NEQ`, `X`, `RTOLX`, `ATOLX`, `TOLF`, `IFLAG`, `RW`,
+    /// `LRW`, `IW`, and `LIW`. See the generated canonical contract for the
+    /// exact callback, workspace, tolerance, and status requirements.
+    ///
+    /// # Safety
+    ///
+    /// `FNC` must use [`SosEquationF64`], remain valid synchronously, and not
+    /// unwind. All scalar pointers must be non-null and mutable where passed;
+    /// `X` has `NEQ` writable elements, `RW` has at least
+    /// `1 + 6*NEQ + NEQ*(NEQ + 1)/2` writable elements, and `IW` has at least
+    /// `3 + NEQ` writable elements. The arrays must not alias incompatibly and
+    /// the caller serializes legacy native runtime access.
+    #[cfg(feature = "raw-family-nonlinear-systems")]
+    #[link_name = "dsos_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsos.md"))]
+    pub fn dsos(
+        function: SosEquationF64,
+        equation_count: *mut FortranInteger,
+        solution: *mut f64,
+        relative_x_tolerance: *mut f64,
+        absolute_x_tolerance: *mut f64,
+        residual_tolerance: *mut f64,
+        status: *mut FortranInteger,
+        real_workspace: *mut f64,
+        real_workspace_length: *mut FortranInteger,
+        integer_workspace: *mut FortranInteger,
+        integer_workspace_length: *mut FortranInteger,
+    );
+}
+
+/// Canonical reviewed raw SLATEC nonlinear-system drivers.
+#[cfg(feature = "raw-family-nonlinear-systems")]
+pub mod systems {
+    pub use super::{dsos, sos, SosEquationF32, SosEquationF64};
 }
 
 #[cfg(feature = "raw-family-nonlinear-jacobian")]

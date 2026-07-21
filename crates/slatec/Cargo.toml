@@ -135,7 +135,7 @@ roots-scalar = [
 roots-native-tests = ["roots", "quadrature"]
 roots-polynomial = ["alloc", "slatec-src/roots-polynomial"]
 
-nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check"]
+nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check", "nonlinear-systems"]
 nonlinear-easy = [
     "std",
     "blas-level1-validation",
@@ -154,6 +154,13 @@ nonlinear-jacobian-check = [
     "slatec-sys/raw-family-nonlinear-jacobian-check",
     "slatec-src/nonlinear-jacobian-check",
 ]
+nonlinear-systems = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/nonlinear-systems",
+    "slatec-src/nonlinear-systems",
+]
+nonlinear-systems-native-tests = ["nonlinear-systems"]
 nonlinear-native-tests = ["nonlinear", "quadrature", "roots-scalar"]
 
 ode = ["ode-sdrive-expert"]

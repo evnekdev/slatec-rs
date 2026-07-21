@@ -9029,6 +9029,33 @@
       "selected_direction": "output"
     },
     {
+      "argument": "IFLAG",
+      "conflict": "selected source says `output` while executable dataflow is `input-output`; selected source direction is retained",
+      "direction_evidence": "selected_source_status_contract",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "DSOS",
+      "selected_direction": "status-output"
+    },
+    {
+      "argument": "IW",
+      "conflict": "selected source says `input` while executable dataflow is `input-output`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "DSOS",
+      "selected_direction": "input"
+    },
+    {
+      "argument": "X",
+      "conflict": "selected source says `output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "DSOS",
+      "selected_direction": "output"
+    },
+    {
       "argument": "AP",
       "conflict": "selected source says `input-output` while executable dataflow is `input`; selected source direction is retained",
       "direction_evidence": "selected_source_explicit_direction",
@@ -15093,6 +15120,33 @@
       "resolved": true,
       "routine": "SOMN",
       "selected_direction": "workspace-output"
+    },
+    {
+      "argument": "IFLAG",
+      "conflict": "selected source says `output` while executable dataflow is `input-output`; selected source direction is retained",
+      "direction_evidence": "selected_source_status_contract",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "SOS",
+      "selected_direction": "status-output"
+    },
+    {
+      "argument": "IW",
+      "conflict": "selected source says `input` while executable dataflow is `input-output`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "SOS",
+      "selected_direction": "input"
+    },
+    {
+      "argument": "X",
+      "conflict": "selected source says `output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "SOS",
+      "selected_direction": "output"
     },
     {
       "argument": "ABD",

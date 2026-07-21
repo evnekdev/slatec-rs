@@ -788,49 +788,47 @@
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "called by selected-source routines",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "Nonlinear equations",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [
         "SOSEQS"
       ],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "nonlinear solver role reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/sos.f",
       "provider_symbol": "sos_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "Nonlinear equations",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "nonlinear::systems",
       "routine": "SOS",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "artifact verification failed: SOS callback FNC has no direct or forwarded call evidence",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "called by selected-source routines",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "Nonlinear equations",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [
         "DSOSEQ"
       ],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "nonlinear solver role reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/dsos.f",
       "provider_symbol": "dsos_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "Nonlinear equations",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "nonlinear::systems",
       "routine": "DSOS",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "artifact verification failed: DSOS callback FNC has no direct or forwarded call evidence",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {

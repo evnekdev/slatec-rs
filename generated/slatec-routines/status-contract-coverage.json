@@ -1895,6 +1895,13 @@
     },
     {
       "applicable": true,
+      "argument": "IFLAG",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "DSOS"
+    },
+    {
+      "applicable": true,
       "argument": "INFO",
       "coverage_status": "complete",
       "documented_values": [
@@ -4485,6 +4492,13 @@
     },
     {
       "applicable": true,
+      "argument": "IFLAG",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "SOS"
+    },
+    {
+      "applicable": true,
       "argument": "INFO",
       "coverage_status": "complete",
       "documented_values": [
@@ -5017,5 +5031,5 @@
   ],
   "schema_id": "slatec-rs.status-contract-coverage",
   "schema_version": "1.0.0",
-  "status_arguments": 152
+  "status_arguments": 154
 }

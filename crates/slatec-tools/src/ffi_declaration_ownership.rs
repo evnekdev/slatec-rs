@@ -104,7 +104,11 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
                     .cloned()
                     .or_else(|| generated_file(&record.generated_feature).map(str::to_owned))
             };
-            if let Some(file) = alias_file {
+            // SOS/DSOS are newly promoted canonical raw paths. Their prior
+            // callback batch was never a supported public route, so adding a
+            // transitional alias would manufacture the compatibility surface
+            // that this promotion deliberately avoids.
+            if let Some(file) = alias_file.filter(|_| generated_alias_allowed(&record.routine)) {
                 aliases.entry(file).or_default().push(Alias {
                     routine: record.routine.clone(),
                     canonical_path: record.canonical_path.clone(),
@@ -348,9 +352,9 @@ fn public_records(root: &Path) -> Result<Vec<PublicRecord>> {
         });
     }
     records.sort_by(|left, right| left.routine.cmp(&right.routine));
-    if records.len() != 812 {
+    if records.len() != 814 {
         return Err(policy(&format!(
-            "expected 812 public routines, found {}",
+            "expected 814 public routines, found {}",
             records.len()
         )));
     }
@@ -441,6 +445,10 @@ fn remove_declarations(content: &str, symbols: BTreeSet<String>) -> Result<Strin
         )));
     }
     Ok(output)
+}
+
+fn generated_alias_allowed(routine: &str) -> bool {
+    !matches!(routine, "SOS" | "DSOS")
 }
 
 fn append_aliases(mut content: String, mut aliases: Vec<Alias>) -> String {

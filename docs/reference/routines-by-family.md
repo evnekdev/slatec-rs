@@ -15,7 +15,7 @@ This branching overview covers the complete retained catalogue. Each dedicated f
 | [FISHPACK elliptic PDE solvers](families/fishpack-elliptic-pde-solvers.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 17 | 107 |
 | [Interpolation](families/interpolation.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 26 | 31 |
 | [Linear algebra kernels](families/linear-algebra-kernels.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 124 | 167 |
-| [Nonlinear equations](families/nonlinear-equations.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 12 | 31 |
+| [Nonlinear equations](families/nonlinear-equations.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 14 | 31 |
 | [Numerical quadrature](families/numerical-quadrature.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 60 | 89 |
 | [ODE solvers](families/ode-solvers.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 9 | 132 |
 | [Optimization and least squares](families/optimization-and-least-squares.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 2 | 57 |

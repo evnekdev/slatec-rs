@@ -199,6 +199,15 @@
       "unresolved_callbacks": 0
     },
     {
+      "documentation_complete": 4,
+      "generated_abi_validated": 17,
+      "historically_user_callable": 4,
+      "module": "nonlinear",
+      "promotion_score": 94,
+      "safe_wrapper_audits": 4,
+      "unresolved_callbacks": 0
+    },
+    {
       "documentation_complete": 6,
       "generated_abi_validated": 0,
       "historically_user_callable": 6,
@@ -206,15 +215,6 @@
       "promotion_score": 90,
       "safe_wrapper_audits": 6,
       "unresolved_callbacks": 0
-    },
-    {
-      "documentation_complete": 4,
-      "generated_abi_validated": 17,
-      "historically_user_callable": 6,
-      "module": "nonlinear",
-      "promotion_score": 90,
-      "safe_wrapper_audits": 4,
-      "unresolved_callbacks": 2
     },
     {
       "documentation_complete": 0,
@@ -321,6 +321,15 @@
       "historically_user_callable": 5,
       "module": "statistics",
       "promotion_score": 25,
+      "safe_wrapper_audits": 0,
+      "unresolved_callbacks": 0
+    },
+    {
+      "documentation_complete": 2,
+      "generated_abi_validated": 0,
+      "historically_user_callable": 2,
+      "module": "nonlinear::systems",
+      "promotion_score": 22,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0
     },
