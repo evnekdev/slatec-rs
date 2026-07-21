@@ -8,64 +8,71 @@ This canonical unsafe binding exposes original SLATEC routine `QZVAL`. Its docum
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. contains the tolerance quantity (EPSB) is unaltered. and ALFI(N). is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. contains the tolerance quantity (EPSB) is unaltered. and ALFI(N). not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). triangular matrix.  A is a two- triangular matrix.  A is a two- dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). triangular matrix in triangular matrix in which all nonzero subdiagonal elements correspond to pairs which all nonzero subdiagonal elements correspond to pairs of complex eigenvalues. of complex eigenvalues. dimensional REAL array, dimensioned BETA(N). triangular matrix.  A is a two- triangular matrix.  A is a two- dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). triangular matrix in triangular matrix in which all nonzero subdiagonal elements correspond to pairs which all nonzero subdiagonal elements correspond to pairs of complex eigenvalues. of complex eigenvalues. dimensional REAL array, dimensioned BETA(N). not applicable or not stated by selected source not a workspace argument
+is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM.
 
-## 4. `B`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains a real upper triangular matrix.  In addition, contains the tolerance quantity (EPSB) dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements is unaltered. system Routines - EISPACK Guide, Springer-Verlag, 1976. contains a real upper triangular matrix.  In addition, contains the tolerance quantity (EPSB) dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements is unaltered. system Routines - EISPACK Guide, Springer-Verlag, 1976. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `ALFR`
+contains a real upper quasi-triangular matrix. A is a two- dimensional REAL array, dimensioned A(NM,N).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations.  Non-zero values of ALFI occur in pairs, the first member positive and the second negative. dimensional REAL arrays, dimensioned and ALFI(N). contain the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations.  Non-zero values of ALFI occur in pairs, the first member positive and the second negative. dimensional REAL arrays, dimensioned and ALFI(N). not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 6. `ALFI`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations.  Non-zero values of ALFI occur in pairs, the first member positive and the second negative. dimensional REAL arrays, dimensioned contain the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations.  Non-zero values of ALFI occur in pairs, the first member positive and the second negative. dimensional REAL arrays, dimensioned not applicable or not stated by selected source not a workspace argument
+contains a real upper triangular matrix. In addition, location B(N,1) contains the tolerance quantity (EPSB) computed and saved in QZIT. B is a two-dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements have been altered. B(N,1) is unaltered.
 
-## 7. `BETA`
+## `ALFR`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the diagonal elements of the corresponding B, normalized to be real and non-negative.  The generalized eigenvalues are then the ratios ((ALFR+I*ALFI)/BETA). dimensional REAL array, dimensioned BETA(N). contains the diagonal elements of the corresponding B, normalized to be real and non-negative.  The generalized eigenvalues are then the ratios ((ALFR+I*ALFI)/BETA). dimensional REAL array, dimensioned BETA(N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `MATZ`
+the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations. Non-zero values of ALFI occur in pairs, the first member positive and the second negative. one-dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N).
 
-input `scalar` argument; Fortran declaration `LOGICAL`, Rust ABI type `*mut crate::FortranLogical`, and scalar. should be set to .TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to .FALSE. otherwise.  MATZ is a LOGICAL variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ALFI`
 
-## 9. `Z`
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reductions by  QZHES  and  QZIT,  if performed, or else the identity matrix.  If MATZ has been set dimensional REAL dimensional REAL array, dimensioned Z(NM,N). array, dimensioned Z(NM,N). contains the product of the right hand transformations (for all three steps) if MATZ has been set to .TRUE. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reductions by  QZHES  and  QZIT,  if performed, or else the identity matrix.  If MATZ has been set dimensional REAL dimensional REAL array, dimensioned Z(NM,N). array, dimensioned Z(NM,N). contains the product of the right hand transformations (for all three steps) if MATZ has been set to .TRUE. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations. Non-zero values of ALFI occur in pairs, the first member positive and the second negative. one-dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N).
+
+## `BETA`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the diagonal elements of the corresponding B, normalized to be real and non-negative. The generalized eigenvalues are then the ratios ((ALFR+I*ALFI)/BETA). is a one-dimensional REAL array, dimensioned BETA(N).
+
+## `MATZ`
+
+**Direction:** `input`. **Fortran type:** `LOGICAL`. **Rust ABI type:** `*mut crate::FortranLogical`. **Shape:** scalar.
+
+should be set to. TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to. FALSE. otherwise. MATZ is a LOGICAL variable.
+
+## `Z`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the product of the right hand transformations (for all three steps) if MATZ has been set to. TRUE. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `B`: not a workspace argument
 - `ALFR`: not a workspace argument
 - `ALFI`: not a workspace argument
 - `BETA`: not a workspace argument
-- `MATZ`: not a workspace argument
 - `Z`: not a workspace argument
 
 # ABI notes

@@ -1,6 +1,6 @@
 # Purpose
 
-Evaluate the incomplete gamma function defined by
+Evaluate the incomplete gamma function defined by DGAMI = integral from T = 0 to X of EXP(-T) * T**(A-1.0) . DGAMI is evaluated for positive values of A and non-negative values of X. A slight deterioration of 2 or 3 digits accuracy will occur when DGAMI is very large or very small, because logarithmic variables are used. The function and both arguments are double precision.
 
 # Description
 
@@ -8,30 +8,21 @@ This canonical unsafe binding exposes original SLATEC routine `DGAMI`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. negative values of X.  A slight deterioration of 2 or 3 digits accuracy will occur when DGAMI is very large or very small, because logarithmic variables are used.  The function and both arguments are double precision. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `X`
+Input value at which the source-defined function is evaluated: Evaluate the incomplete Gamma function
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. T) * T**(A-1.0) . not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Evaluate the incomplete Gamma function
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `A`: not a workspace argument
-- `X`: not a workspace argument
 
 # ABI notes
 

@@ -8,50 +8,51 @@ This canonical unsafe binding exposes original SLATEC routine `REDUC`. Its docum
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A and B, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A and B, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A and B, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrices A and B.  If the Cholesky should be prefixed is an INTEGER variable. is negative, the diagonal elements of L. is not positive definite. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). is an INTEGER variable. contain the real symmetric input matrices.  Only the full upper triangles of the matrices need be supplied. If N is negative, the strict lower triangle of B contains, instead, the strict lower triangle of its Cholesky factor L. dimensional REAL arrays, dimensioned A(NM,N) and B(NM,N). dimensional REAL array, dimensioned DL(N). contains in its full lower triangle the full lower triangle of the symmetric matrix derived from the reduction to the standard form.  The strict upper triangle of A is unaltered. is an INTEGER variable. contain the real symmetric input matrices.  Only the full upper triangles of the matrices need be supplied. If N is negative, the strict lower triangle of B contains, instead, the strict lower triangle of its Cholesky factor L. dimensional REAL arrays, dimensioned A(NM,N) and B(NM,N). dimensional REAL array, dimensioned DL(N). contains in its full lower triangle the full lower triangle of the symmetric matrix derived from the reduction to the standard form.  The strict upper triangle of A is unaltered. not applicable or not stated by selected source not a workspace argument
+is the order of the matrices A and B. If the Cholesky factor L of B is already available, N should be prefixed with a minus sign. N is an INTEGER variable.
 
-## 4. `B`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). should be prefixed contain the real symmetric input matrices.  Only the full upper triangles of the matrices need be supplied. If N is negative, the strict lower triangle of B contains, instead, the strict lower triangle of its Cholesky factor L. dimensional REAL arrays, dimensioned A(NM,N) and B(NM,N). contains in its strict lower triangle the strict lower triangle of its Cholesky factor L.  The full upper triangle of B is unaltered. is not positive definite. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY system Routines - EISPACK Guide, Springer-Verlag, 1976. should be prefixed contain the real symmetric input matrices.  Only the full upper triangles of the matrices need be supplied. If N is negative, the strict lower triangle of B contains, instead, the strict lower triangle of its Cholesky factor L. dimensional REAL arrays, dimensioned A(NM,N) and B(NM,N). contains in its strict lower triangle the strict lower triangle of its Cholesky factor L.  The full upper triangle of B is unaltered. is not positive definite. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY system Routines - EISPACK Guide, Springer-Verlag, 1976. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `DL`
+the real symmetric input matrices. Only the full upper triangles of the matrices need be supplied. If N is negative, the strict lower triangle of B contains, instead, the strict lower triangle of its Cholesky factor L. two-dimensional REAL arrays, dimensioned A(NM,N) and B(NM,N). DL contains, if N is negative, the diagonal elements of L. contains in its full lower triangle the full lower triangle of the symmetric matrix derived from the reduction to the standard form.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). is negative, the diagonal elements of L. dimensional REAL array, dimensioned DL(N). contains the diagonal elements of L. is negative, the diagonal elements of L. dimensional REAL array, dimensioned DL(N). contains the diagonal elements of L. not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 6. `IERR`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, not stated by selected source not applicable or not stated by selected source not a workspace argument
+the real symmetric input matrices. Only the full upper triangles of the matrices need be supplied. If N is negative, the strict lower triangle of B contains, instead, the strict lower triangle of its Cholesky factor L. two-dimensional REAL arrays, dimensioned A(NM,N) and B(NM,N). DL contains, if N is negative, the diagonal elements of L. contains in its strict lower triangle the strict lower triangle of its Cholesky factor L.
+
+## `DL`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+is a one-dimensional REAL array, dimensioned DL(N). contains the diagonal elements of L.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, 7*N+1 if B is not positive definite. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `B`: not a workspace argument
 - `DL`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

@@ -1,6 +1,6 @@
 # Purpose
 
-Evaluate a generalization of Pochhammer's symbol for special situations that require especially accurate values when X is small in
+Evaluate a generalization of Pochhammer's symbol for special situations that require especially accurate values when X is small in POCH1(A,X) = (POCH(A,X)-1)/X = (GAMMA(A+X)/GAMMA(A) - 1.0)/X . This specification is particularly suited for stably computing expressions such as (GAMMA(A+X)/GAMMA(A) - GAMMA(B+X)/GAMMA(B))/X = POCH1(A,X) - POCH1(B,X) Note that POCH1(A,0.0) = PSI(A) When ABS(X) is so small that substantial cancellation will occur if the straightforward formula is used, we use an expansion due to Fields and discussed by Y. L. Luke, The Special Functions and Their Approximations, Vol. 1, Academic Press, 1969, page 34. The ratio POCH(A,X) = GAMMA(A+X)/GAMMA(A) is written by Luke as (A+(X-1)/2)**X * polynomial in (A+(X-1)/2)**(-2) . In order to maintain significance in POCH1, we write for positive A
 
 # Description
 
@@ -8,30 +8,21 @@ This canonical unsafe binding exposes original SLATEC routine `POCH1`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. 1)/X 1)/X 1.0)/X . 1.0)/X . This specification is particularly suited for stably computing This specification is particularly suited for stably computing expressions such as expressions such as GAMMA(B+X)/GAMMA(B))/X GAMMA(B+X)/GAMMA(B))/X POCH1(B,X) PSI(A) When ABS(X) is so small that substantial cancellation will occur if the straightforward formula is used, we  use an expansion due to Fields and discussed by Y. L. Luke, The Special Functions and Their Approximations, Vol. 1, Academic Press, 1969, page 34. GAMMA(A+X)/GAMMA(A) is written by Luke as 1)/2)**X * polynomial in (A+(X-1)/2)**(-2) . In order to maintain significance in POCH1, we write for positive A 1)/2)**X = EXP(X*LOG(A+(X-1)/2)) = EXP(Q) = 1.0 + Q*EXPREL(Q) . Likewise the polynomial is written POLY = 1.0 + X*POLY1(A,X) . Thus, 1) / X 1) / X = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `X`
+Input value at which the source-defined function is evaluated: Calculate a generalization of Pochhammer's symbol starting from first order
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. 1)/X 1)/X 1.0)/X . This specification is particularly suited for stably computing expressions such as GAMMA(B+X)/GAMMA(B))/X POCH1(B,X) GAMMA(A+X)/GAMMA(A) is written by Luke as 1)/2)**X * polynomial in (A+(X-1)/2)**(-2) . In order to maintain significance in POCH1, we write for positive A 1)/2)**X = EXP(X*LOG(A+(X-1)/2)) = EXP(Q) = 1.0 + Q*EXPREL(Q) . Likewise the polynomial is written POLY = 1.0 + X*POLY1(A,X) . Thus, 1) / X 1) / X = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+EXP(X*LOG(A+(X-1)/2)) = EXP(Q) = 1. 0 + Q*EXPREL(Q). Likewise the polynomial is written POLY = 1. 0 + X*POLY1(A,X). Thus, POCH1(A,X) = (POCH(A,X) - 1) / X = EXPREL(Q)*(Q/X + Q*POLY1(A,X)) + POLY1(A,X).
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32,mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `A`: not a workspace argument
-- `X`: not a workspace argument
 
 # ABI notes
 

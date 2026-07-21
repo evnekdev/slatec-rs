@@ -8,82 +8,95 @@ This canonical unsafe binding exposes original SLATEC routine `INVIT`. Its docum
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A and Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. are necessary to store the eigenvectors corresponding to the specified eigenvalues (in this case, M is equal to the number of columns of Z containing eigenvectors already computed), -K         if the iteration corresponding to the K-th value fails (if this occurs more than once, K is the index of the last occurrence); the corresponding columns of Z are set to zero vectors, if both error situations occur. and RV2(N). The ALGOL procedure GUESSVEC appears in INVIT in-line. Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Calls CDIV for complex division. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. are necessary to store the eigenvectors corresponding to the specified eigenvalues (in this case, M is equal to the number of columns of Z containing eigenvectors already computed), -K         if the iteration corresponding to the K-th value fails (if this occurs more than once, K is the index of the last occurrence); the corresponding columns of Z are set to zero vectors, if both error situations occur. and RV2(N). The ALGOL procedure GUESSVEC appears in INVIT in-line. Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Calls CDIV for complex division. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional dimensional dimensional REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). is an INTEGER variable. are unaltered. dimensional REAL array, dimensioned Z(NM,MM). dimensional REAL array used for temporary storage. This array holds the triangularized form of the upper Hessenberg matrix used in the inverse iteration process. dimensional dimensional dimensional REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). is an INTEGER variable. are unaltered. dimensional REAL array, dimensioned Z(NM,MM). dimensional REAL array used for temporary storage. This array holds the triangularized form of the upper Hessenberg matrix used in the inverse iteration process. not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `WR`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain the real and imaginary parts, respectively, of the eigenvalues of the Hessenberg matrix.  The eigenvalues must be stored in a manner identical to that output by subroutine  HQR,  which recognizes possible splitting of the dimensional REAL arrays, dimensioned WR(N) and WI(N). may have been altered since close eigenvalues are perturbed slightly in searching for independent eigenvectors. contain the real and imaginary parts, respectively, of the eigenvalues of the Hessenberg matrix.  The eigenvalues must be stored in a manner identical to that output by subroutine  HQR,  which recognizes possible splitting of the dimensional REAL arrays, dimensioned WR(N) and WI(N). may have been altered since close eigenvalues are perturbed slightly in searching for independent eigenvectors. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `WI`
+contains the upper Hessenberg matrix. A is a two-dimensional REAL array, dimensioned A(NM,N). unaltered. WR may have been altered since close eigenvalues are perturbed slightly in searching for independent eigenvectors. SELECT may have been altered. If the elements corresponding to a pair of conjugate complex eigenvalues were each initially set to.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain the real and imaginary parts, respectively, of the eigenvalues of the Hessenberg matrix.  The eigenvalues must be stored in a manner identical to that output by subroutine  HQR,  which recognizes possible splitting of the dimensional REAL arrays, dimensioned WR(N) and WI(N). are unaltered. contain the real and imaginary parts, respectively, of the eigenvalues of the Hessenberg matrix.  The eigenvalues must be stored in a manner identical to that output by subroutine  HQR,  which recognizes possible splitting of the dimensional REAL arrays, dimensioned WR(N) and WI(N). are unaltered. not applicable or not stated by selected source not a workspace argument
+## `WR`
 
-## 6. `SELECT`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `LOGICAL`, Rust ABI type `*mut crate::FortranLogical`, and rank 1; dimensions (N). specifies the eigenvectors to be found. The eigenvector corresponding to the J-th eigenvalue is is a is a one-dimensional LOGICAL array, dimensioned SELECT(N). one-dimensional LOGICAL array, dimensioned SELECT(N). may have been altered.  If the elements corresponding to a pair of conjugate complex eigenvalues were each initially set to .TRUE., the program resets the second of the two elements to .FALSE. specifies the eigenvectors to be found. The eigenvector corresponding to the J-th eigenvalue is is a is a one-dimensional LOGICAL array, dimensioned SELECT(N). one-dimensional LOGICAL array, dimensioned SELECT(N). may have been altered.  If the elements corresponding to a pair of conjugate complex eigenvalues were each initially set to .TRUE., the program resets the second of the two elements to .FALSE. not applicable or not stated by selected source not a workspace argument
+the real and imaginary parts, respectively, of the eigenvalues of the Hessenberg matrix. The eigenvalues must be stored in a manner identical to that output by subroutine HQR, which recognizes possible splitting of the matrix. WR and WI are one-dimensional REAL arrays, dimensioned WR(N) and WI(N).
 
-## 7. `MM`
+## `WI`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. should be set to an upper bound for the number of columns required to store the eigenvectors to be found. NOTE that two columns are required to store the eigenvector corresponding to a complex eigenvalue.  One column is required to store the eigenvector corresponding is an INTEGER variable. are necessary to store the eigenvectors corresponding to the specified eigenvalues (in this case, M is equal to the number of columns of Z containing eigenvectors already computed), -K         if the iteration corresponding to the K-th value fails (if this occurs more than once, K is the index of the last occurrence); the corresponding columns of Z are set to zero vectors, not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `M`
+the real and imaginary parts, respectively, of the eigenvalues of the Hessenberg matrix. The eigenvalues must be stored in a manner identical to that output by subroutine HQR, which recognizes possible splitting of the matrix. WR and WI are one-dimensional REAL arrays, dimensioned WR(N) and WI(N). unaltered. WR may have been altered since close eigenvalues are perturbed slightly in searching for independent eigenvectors. SELECT may have been altered.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of columns actually used to store the eigenvectors.  M is an INTEGER variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SELECT`
 
-## 9. `Z`
+**Direction:** `input`. **Fortran type:** `LOGICAL`. **Rust ABI type:** `*mut crate::FortranLogical`. **Shape:** rank 1; dimensions (N).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the real and imaginary parts of the eigenvectors. The eigenvectors are packed into the columns of Z starting at the first column.  If the next selected eigenvalue is real, the next column of Z contains its eigenvector.  If the eigenvalue is complex, the next two columns of Z contain the real and imaginary parts of its eigenvector, with the real part first.  The eigenvectors are normalized so that the component of largest magnitude is 1. Any vector which fails dimensional REAL array, dimensioned Z(NM,MM). are necessary to store the eigenvectors corresponding to the specified eigenvalues (in this case, M is equal to the number of columns of Z containing eigenvectors already computed), -K         if the iteration corresponding to the K-th value fails (if this occurs more than once, K is the index of the last occurrence); the corresponding columns of Z are set to zero vectors, contains the real and imaginary parts of the eigenvectors. The eigenvectors are packed into the columns of Z starting at the first column.  If the next selected eigenvalue is real, the next column of Z contains its eigenvector.  If the eigenvalue is complex, the next two columns of Z contain the real and imaginary parts of its eigenvector, with the real part first.  The eigenvectors are normalized so that the component of largest magnitude is 1. Any vector which fails dimensional REAL array, dimensioned Z(NM,MM). are necessary to store the eigenvectors corresponding to the specified eigenvalues (in this case, M is equal to the number of columns of Z containing eigenvectors already computed), -K         if the iteration corresponding to the K-th value fails (if this occurs more than once, K is the index of the last occurrence); the corresponding columns of Z are set to zero vectors, not applicable or not stated by selected source not a workspace argument
+specifies the eigenvectors to be found. The eigenvector corresponding to the J-th eigenvalue is specified by setting SELECT(J) to. TRUE. SELECT is a one-dimensional LOGICAL array, dimensioned SELECT(N).
 
-## 10. `IERR`
+## `MM`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `RM1`
+should be set to an upper bound for the number of columns required to store the eigenvectors to be found. NOTE that two columns are required to store the eigenvector corresponding to a complex eigenvalue. One column is required to store the eigenvector corresponding to a real eigenvalue. MM is an INTEGER variable.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (N, *). dimensional REAL array used for temporary storage. This array holds the triangularized form of the upper Hessenberg matrix used in the inverse iteration process. is dimensioned RM1(N,N). dimensional REAL array used for temporary storage. This array holds the triangularized form of the upper Hessenberg matrix used in the inverse iteration process. is dimensioned RM1(N,N). not applicable or not stated by selected source not a workspace argument
+## `M`
 
-## 12. `RV1`
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). dimensional REAL arrays used for temporary storage.  They hold the approximate eigenvectors during the are dimensioned and RV2(N). The ALGOL procedure GUESSVEC appears in INVIT in-line. Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Calls CDIV for complex division. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY dimensional REAL arrays used for temporary storage.  They hold the approximate eigenvectors during the are dimensioned and RV2(N). The ALGOL procedure GUESSVEC appears in INVIT in-line. Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Calls CDIV for complex division. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the number of columns actually used to store the eigenvectors. M is an INTEGER variable.
 
-## 13. `RV2`
+## `Z`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). dimensional REAL arrays used for temporary storage.  They hold the approximate eigenvectors during the are dimensioned dimensional REAL arrays used for temporary storage.  They hold the approximate eigenvectors during the are dimensioned not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the real and imaginary parts of the eigenvectors. The eigenvectors are packed into the columns of Z starting at the first column. If the next selected eigenvalue is real, the next column of Z contains its eigenvector. If the eigenvalue is complex, the next two columns of Z contain the real and imaginary parts of its eigenvector, with the real part first. The eigenvectors are normalized so that the component of largest magnitude is 1. Any vector which fails the acceptance test is set to zero.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, -(2*N+1) if more than MM columns of Z are necessary to store the eigenvectors corresponding to the specified eigenvalues (in this case, M is equal to the number of columns of Z containing eigenvectors already computed), -K if the iteration corresponding to the K-th value fails (if this occurs more than once, K is the index of the last occurrence); the corresponding columns of Z are set to zero vectors, -(N+K) if both error situations occur.
+
+## `RM1`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (N, *).
+
+is a two-dimensional REAL array used for temporary storage. This array holds the triangularized form of the upper Hessenberg matrix used in the inverse iteration process. is dimensioned RM1(N,N).
+
+## `RV1`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+one-dimensional REAL arrays used for temporary storage. They hold the approximate eigenvectors during the inverse iteration process. RV1 and RV2 are dimensioned RV1(N) and RV2(N). The ALGOL procedure GUESSVEC appears in INVIT in-line. Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Calls CDIV for complex division.
+
+## `RV2`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+one-dimensional REAL arrays used for temporary storage. They hold the approximate eigenvectors during the inverse iteration process. RV1 and RV2 are dimensioned RV1(N) and RV2(N). The ALGOL procedure GUESSVEC appears in INVIT in-line. Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Calls CDIV for complex division.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `WR`: not a workspace argument
 - `WI`: not a workspace argument
 - `SELECT`: not a workspace argument
-- `MM`: not a workspace argument
-- `M`: not a workspace argument
 - `Z`: not a workspace argument
-- `IERR`: not a workspace argument
 - `RM1`: not a workspace argument
 - `RV1`: not a workspace argument
 - `RV2`: not a workspace argument

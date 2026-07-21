@@ -8,7 +8,7 @@ To compute I = Integral of F*W over (A,B) with error estimate, where W(X) = 1/(X
 
 ## Description
 
-Integration rules for the computation of CAUCHY PRINCIPAL VALUE integrals Standard fortran subroutine Real version PARAMETERS
+Integration rules for the computation of CAUCHY PRINCIPAL VALUE integrals Standard fortran subroutine Real version
 
 ## Classification
 
@@ -54,24 +54,24 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QC25C](https://www.netlib.org/slatec/src/qc25c.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Real Function subprogram defining the integrand function The actual name for F needs to be declared E X T E R N A L  in the driver program. |
-| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Left end point of the integration interval |
-| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Right end point of the integration interval, B.GT.A |
-| 4 | `C` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameter in the WEIGHT function |
-| 5 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral is computed by using a generalized Clenshaw-Curtis method if C lies within ten percent of the integration interval. In the other case the 15-point Kronrod rule obtained by optimal addition of abscissae to the 7-point Gauss rule, is applied. |
-| 6 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
-| 7 | `KRUL` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Key which is decreased by 1 if the 15-point Gauss-Kronrod scheme has been used |
-| 8 | `NEVAL` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Number of integrand evaluations |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
+| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Left end point of the integration interval. |
+| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Right end point of the integration interval, B. GT. A. |
+| 4 | `C` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameter in the WEIGHT function. |
+| 5 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral is computed by using a generalized Clenshaw-Curtis method if C lies within ten percent of the integration interval. In the other case the 15-point Kronrod rule obtained by optimal addition of abscissae to the 7-point Gauss rule, is applied. |
+| 6 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT). |
+| 7 | `KRUL` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Key which is decreased by 1 if the 15-point Gauss-Kronrod scheme has been used. |
+| 8 | `NEVAL` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of integrand evaluations. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -80,14 +80,6 @@ This is a Fortran subroutine and has no direct return value; outputs are documen
 ### Callback contract
 
 Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

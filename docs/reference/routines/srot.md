@@ -51,39 +51,31 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SROT](https://www.netlib.org/slatec/lin/srot.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s) 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
-| 2 | `SX` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements rotated vector SX (unchanged if N .LE. 0) 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
-| 3 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SX 1, where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
-| 4 | `SY` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements rotated vector SY (unchanged if N .LE. 0) Multiply the 2 x 2 matrix  ( SC SS) times the 2 x N matrix (SX**T) |
-| 5 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SY |
-| 6 | `SC` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | element of rotation matrix |
-| 7 | `SS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | element of rotation matrix SC)                        (SY**T) where **T indicates transpose.  The elements of SX are in |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s). |
+| 2 | `SX` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements rotated vector SX (unchanged if N. LE. 0). |
+| 3 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SX. |
+| 4 | `SY` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | single precision vector with N elements rotated vector SY (unchanged if N. LE. 0) Multiply the 2 x 2 matrix ( SC SS) times the 2 x N matrix (SX**T) (-SS SC) (SY**T) where **T indicates transpose. The elements of SX are in SX(LX+I*INCX), I = 0 to N-1, where LX = 1 if INCX. GE. 0, else LX = 1+(1-N)*INCX, and similarly for SY using LY and INCY. |
+| 5 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of SY. |
+| 6 | `SC` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | element of rotation matrix. |
+| 7 | `SS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | element of rotation matrix. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

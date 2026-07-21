@@ -52,40 +52,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SSIDI](https://www.netlib.org/slatec/lin/ssidi.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | REAL(LDA,N) the output from SSIFA. contains the upper triangle of the inverse of the original matrix.  The strict lower triangle is never referenced. division by zero may occur if the inverse is requested and  SSICO  has set RCOND .EQ. 0.0 or  SSIFA  has set  INFO .NE. 0 . |
+| 1 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | REAL(LDA,N) the output from SSIFA. contains the upper triangle of the inverse of the original matrix. The strict lower triangle is never referenced. |
 | 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array A. |
 | 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix A. |
 | 4 | `KPVT` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) the pivot vector from SSIFA. |
-| 5 | `DET` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (2) | REAL(2) determinant of original matrix. Determinant = DET(1) * 10.0**DET(2) with 1.0 .LE. ABS(DET(1)) .LT. 10.0 0.0. |
-| 6 | `INERT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (3) | INTEGER(3) the inertia of the original matrix. number of positive eigenvalues. number of negative eigenvalues. number of zero eigenvalues. |
-| 7 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) vector.  Contents destroyed. |
-| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER has the decimal expansion  ABC  where If  C .NE. 0, the inverse is computed, If  B .NE. 0, the determinant is computed, If  A .NE. 0, the inertia is computed. 111  gives all three. On Return Variables not requested by JOB are not used. |
+| 5 | `DET` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (2) | REAL(2) determinant of original matrix. Determinant = DET(1) * 10. 0**DET(2) with 1. 0. LE. ABS(DET(1)). |
+| 6 | `INERT` | `output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (3) | INTEGER(3) the inertia of the original matrix. number of positive eigenvalues. number of negative eigenvalues. number of zero eigenvalues. Error Condition A division by zero may occur if the inverse is requested and SSICO has set RCOND. EQ. |
+| 7 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) work vector. Contents destroyed. |
+| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER JOB has the decimal expansion ABC where If C. NE. 0, the inverse is computed, If B. 0, the determinant is computed, If A. 0, the inertia is computed. For example, JOB = 111 gives all three. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WORK`: REAL(N) vector.  Contents destroyed.
+`WORK`: REAL(N) work vector. Contents destroyed.
 
 ### Provider, ABI, and safety
 

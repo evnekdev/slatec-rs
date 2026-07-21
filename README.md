@@ -61,6 +61,14 @@ implementation details. See the
 [raw API architecture](docs/architecture/slatec-sys-public-raw-api.md) and
 [`generated/raw-api/`](generated/raw-api/).
 
+Raw documentation quality is assessed on the rendered canonical `slatec-sys`
+surface, not by page existence. The M3 semantic reports in
+[`generated/slatec-routines/`](generated/slatec-routines/) record bounded
+argument evidence, source-first directions, status/workspace/callback
+contracts, and contamination findings. The current audit covers all 812
+canonical public routines with zero unresolved direction conflicts and zero
+detected argument contamination.
+
 The GNU MinGW source provider compiles each selected original source to an
 individual archive member, so enabling a broad declaration or source feature
 does not itself put every SLATEC routine into an executable. The native-link

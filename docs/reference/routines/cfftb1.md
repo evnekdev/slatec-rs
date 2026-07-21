@@ -8,7 +8,7 @@ Compute the unnormalized inverse of CFFTF1.
 
 ## Description
 
-Subroutine CFFTB1 computes the backward complex discrete Fourier transform (the Fourier synthesis). Equivalently, CFFTB1 computes a complex periodic sequence from its Fourier coefficients. The transform is defined below at output parameter C. A call of CFFTF1 followed by a call of CFFTB1 will multiply the sequence by N.
+Subroutine CFFTB1 computes the backward complex discrete Fourier transform (the Fourier synthesis). Equivalently, CFFTB1 computes a complex periodic sequence from its Fourier coefficients. The transform is defined below at output parameter C. A call of CFFTF1 followed by a call of CFFTB1 will multiply the sequence by N. The arrays WA and IFAC which are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC).
 
 ## Classification
 
@@ -52,37 +52,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CFFTB1](https://www.netlib.org/slatec/fishfft/cfftb1.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the complex sequence C.  The method is more efficient when N is the product of small primes. contains the sequence |
-| 2 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the sequence 1,...,N the sum from K=1,...,N of 1)*(K-1)*2*PI/N) where I=SQRT(-1) |
-| 3 | `CH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real work array of length at least 2*N |
-| 4 | `WA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). a real work array which must be dimensioned at least 2*N. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1 |
-| 5 | `IFAC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). an integer work array which must be dimensioned at least 15. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1 |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the complex sequence C. The method is more efficient when N is the product of small primes. |
+| 2 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a complex array of length N which contains the sequence For J=1,. ,N the sum from K=1,. ,N of C(K)*EXP(I*(J-1)*(K-1)*2*PI/N) where I=SQRT(-1) NOTE: WA and IFAC contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1. |
+| 3 | `CH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real work array of length at least 2*N. |
+| 4 | `WA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real work array which must be dimensioned at least 2*N. |
+| 5 | `IFAC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | an integer work array which must be dimensioned at least 15. The WA and IFAC arrays must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

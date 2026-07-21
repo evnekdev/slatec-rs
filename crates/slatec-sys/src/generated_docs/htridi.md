@@ -8,54 +8,60 @@ This canonical unsafe binding exposes original SLATEC routine `HTRIDI`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, AR and AI, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, AR and AI, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, AR and AI, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (AR,AI).  N is an INTEGER variable. N must be less than or equal to NM. 1 positions.  E(1) is set to zero. (AR,AI).  N is an INTEGER variable. N must be less than or equal to NM. 1 positions.  E(1) is set to zero. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `AR`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain the real and imaginary parts, respectively, of the complex Hermitian input matrix.  Only the lower dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). formations used in the reduction in the strict lower triangle of AR and the full lower triangle of AI.  The rest of the matrices are unaltered. contain the real and imaginary parts, respectively, of the complex Hermitian input matrix.  Only the lower dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). formations used in the reduction in the strict lower triangle of AR and the full lower triangle of AI.  The rest of the matrices are unaltered. not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A=(AR,AI). N is an INTEGER variable. N must be less than or equal to NM.
 
-## 4. `AI`
+## `AR`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain the real and imaginary parts, respectively, of the complex Hermitian input matrix.  Only the lower dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). formations used in the reduction in the strict lower triangle of AR and the full lower triangle of AI.  The rest of the matrices are unaltered. contain the real and imaginary parts, respectively, of the complex Hermitian input matrix.  Only the lower dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). formations used in the reduction in the strict lower triangle of AR and the full lower triangle of AI.  The rest of the matrices are unaltered. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `D`
+the real and imaginary parts, respectively, of the complex Hermitian input matrix. Only the lower triangle of the matrix need be supplied. AR and AI are two- dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). some information about the unitary trans- formations used in the reduction in the strict lower triangle of AR and the full lower triangle of AI. The rest of the matrices are unaltered.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the diagonal elements of the real symmetric dimensional REAL array, dimensioned D(N). contains the diagonal elements of the real symmetric dimensional REAL array, dimensioned D(N). not applicable or not stated by selected source not a workspace argument
+## `AI`
 
-## 6. `E`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the subdiagonal elements of the real tridiagonal dimensional REAL array, dimensioned E(N). contains the subdiagonal elements of the real tridiagonal dimensional REAL array, dimensioned E(N). not applicable or not stated by selected source not a workspace argument
+the real and imaginary parts, respectively, of the complex Hermitian input matrix. Only the lower triangle of the matrix need be supplied. AR and AI are two- dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). some information about the unitary trans- formations used in the reduction in the strict lower triangle of AR and the full lower triangle of AI. The rest of the matrices are unaltered.
 
-## 7. `E2`
+## `D`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the squares of the corresponding elements of E. is set to zero.  E2 may coincide with E if the squares dimensional REAL array, dimensioned E2(N). contains the squares of the corresponding elements of E. is set to zero.  E2 may coincide with E if the squares dimensional REAL array, dimensioned E2(N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `TAU`
+contains the diagonal elements of the real symmetric tridiagonal matrix. D is a one-dimensional REAL array, dimensioned D(N).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (2, *). contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+## `E`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the subdiagonal elements of the real tridiagonal matrix in its last N-1 positions. E(1) is set to zero. is a one-dimensional REAL array, dimensioned E(N).
+
+## `E2`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the squares of the corresponding elements of E. is set to zero. E2 may coincide with E if the squares are not needed. E2 is a one-dimensional REAL array, dimensioned E2(N).
+
+## `TAU`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (2, *).
+
+contains further information about the transformations. is a one-dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `AR`: not a workspace argument
 - `AI`: not a workspace argument
 - `D`: not a workspace argument

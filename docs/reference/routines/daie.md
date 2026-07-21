@@ -52,33 +52,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DAIE](https://www.netlib.org/slatec/fnlib/daie.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the Airy function or the exponentially scaled Airy function depending on the value of the argument.  The function and argument are both double precision. Evaluate AI(X) for X .LE. 0.0 and AI(X)*EXP(ZETA) where ZETA = 2/3 * X**(3/2)  for X .GE. 0.0 Series for AIF        on the interval -1.00000E+00 to  1.00000E+00 with weighted error   8.37E-33 log weighted error  32.08 significant figures required  30.87 decimal places required  32.63 Series for AIG        on the interval -1.00000E+00 to  1.00000E+00 with weighted error   7.47E-34 log weighted error  33.13 significant figures required  31.50 decimal places required  33.68 Series for AIP1       on the interval  1.25000E-01 to  1.00000E+00 with weighted error   3.69E-32 log weighted error  31.43 significant figures required  29.55 decimal places required  32.31 Series for AIP2       on the interval  0.          to  1.25000E-01 with weighted error   3.48E-32 log weighted error  31.46 significant figures required  28.74 decimal places required  32.24 |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input value at which the source-defined function is evaluated: Calculate the Airy function for a negative argument and an exponentially scaled Airy function for a non-negative argument |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

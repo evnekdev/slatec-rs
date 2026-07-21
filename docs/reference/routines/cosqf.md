@@ -52,35 +52,27 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [COSQF](https://www.netlib.org/slatec/fishfft/cosqf.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the array X to be transformed.  The method is most efficient when N is a product of small primes. |
-| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an array which contains the sequence to be transformed 1,...,N X(1) plus the sum from K=2 to K=N of 1)*(K-1)*PI/(2*N)) A call of COSQF followed by a call of COSQB will multiply the sequence X by 4*N. Therefore COSQB is the unnormalized inverse of COSQF. |
-| 3 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array which must be dimensioned at least 3*N+15 in the program that calls COSQF.  The WSAVE array must be initialized by calling subroutine COSQI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COSQF or COSQB. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the array X to be transformed. The method is most efficient when N is a product of small primes. |
+| 2 | `X` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an array which contains the sequence to be transformed For I=1,. ,N X(1) plus the sum from K=2 to K=N of 2*X(K)*COS((2*I-1)*(K-1)*PI/(2*N)) A call of COSQF followed by a call of COSQB will multiply the sequence X by 4*N. Therefore COSQB is the unnormalized inverse of COSQF. |
+| 3 | `WSAVE` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array which must be dimensioned at least 3*N+15 in the program that calls COSQF. The WSAVE array must be initialized by calling subroutine COSQI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COSQF or COSQB. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WSAVE`: a work array which must be dimensioned at least 3*N+15 in the program that calls COSQF.  The WSAVE array must be initialized by calling subroutine COSQI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COSQF or COSQB.
+`WSAVE`: a work array which must be dimensioned at least 3*N+15 in the program that calls COSQF. The WSAVE array must be initialized by calling subroutine COSQI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COSQF or COSQB.
 
 ### Provider, ABI, and safety
 

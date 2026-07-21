@@ -8,7 +8,7 @@ Compute the B-representation of a spline which interpolates given data.
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos BINTK is the SPLINT routine of the reference. BINTK produces the B-spline coefficients, BCOEF, of the B-spline of order K with knots T(I), I=1,...,N+K, which
+Written by Carl de Boor and modified by D. E. Amos BINTK is the SPLINT routine of the reference. BINTK produces the B-spline coefficients, BCOEF, of the B-spline of order K with knots T(I), I=1,...,N+K, which takes on the value Y(I) at X(I), I=1,...,N. The spline or any of its derivatives can be evaluated by calls to BVALU. The I-th equation of the linear system A*BCOEF = B for the coefficients of the interpolant enforces interpolation at X(I)), I=1,...,N. Hence, B(I) = Y(I), all I, and A is a band matrix with 2K-1 bands if A is invertible. The matrix A is generated row by row and stored, diagonal by diagonal, in the rows of Q, with the main diagonal going into row K. The banded system is then solved by a call to BNFAC (which constructs the triangular factorization for A and stores it again in Q), followed by a call to BNSLV (which then obtains the solution BCOEF by substitution). BNFAC does no pivoting, since the total positivity of the matrix A makes this unnecessary. The linear system to be solved is (theoretically) invertible if and only if
 
 ## Classification
 
@@ -54,38 +54,36 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [BINTK](https://www.netlib.org/slatec/src/bintk.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,...,N.  The spline or any of its derivatives can be evaluated by calls to BVALU. The I-th equation of the linear system A*BCOEF = B for the coefficients of the interpolant enforces interpolation at 1,...,N.  Hence, B(I) = Y(I), all I, and A is a band matrix with 2K-1 bands if A is invertible. The matrix A is generated row by row and stored, diagonal by diagonal, in the rows of Q, with the main diagonal going into row K. The banded system is then solved by a call to BNFAC (which constructs the triangular factorization for A and stores it again in Q), followed by a call to BNSLV (which then obtains the solution BCOEF by substitution). BNFAC does no pivoting, since the total positivity of the matrix A makes this unnecessary.  The linear system to be solved is (theoretically) invertible if and only if vector of length N containing data point abscissa in strictly increasing order. K knots (not nec- essarily X(I)) values) interior to (X(1),X(N)) 1,...,N with the same abscissa can be obtained by loading YY into BCOEF and then executing |
-| 2 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,...,N.  The spline or any of its derivatives can be evaluated by calls to BVALU. The I-th equation of the linear system A*BCOEF = B for the coefficients of the interpolant enforces interpolation at corresponding vector of length N containing data point ordinates. |
-| 3 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | .LT. X(I)) .LT. T(I+K),        all I. Equality is permitted on the left for I=1 and on the right knot vector of length N+K since T(1),..,T(K) .LE. X(1) and T(N+1),..,T(N+K) |
-| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are used at X(1) or X(N).  Otherwise, violation of this condition is certain to lead to an error. K knots (not nec- K knots (not nec- essarily X(I)) values) interior to (X(1),X(N)) essarily X(I)) values) interior to (X(1),X(N)) number of data points, N .GE. K |
-| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are used at X(1) or X(N).  Otherwise, violation of this condition is certain to lead to an error. order of the spline, K .GE. 1 |
-| 6 | `BCOEF` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a vector of length N containing the B-spline coefficients |
-| 7 | `Q` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work vector of length (2*K-1)*N, containing the triangular factorization of the coefficient matrix of the linear system being solved.  The coefficients for the interpolant of an 1,N,K-1,K-1,BCOEF) |
-| 8 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work vector of length 2*K |
+| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | vector of length N containing data point abscissa in strictly increasing order. |
+| 2 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | corresponding vector of length N containing data point ordinates. |
+| 3 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | LT. X(I)). T(I+K), all I. Equality is permitted on the left for I=1 and on the right for I=N when K knots are used at X(1) or X(N). Otherwise, violation of this condition is certain to lead to an error. knot vector of length N+K since T(1),. |
+| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of data points, N. GE. K. |
+| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the spline, K. GE. 1. |
+| 6 | `BCOEF` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a vector of length N containing the B-spline coefficients. |
+| 7 | `Q` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work vector of length (2*K-1)*N, containing the triangular factorization of the coefficient matrix of the linear system being solved. The coefficients for the interpolant of an additional data set (X(I)),YY(I)), I=1,. ,N with the same abscissa can be obtained by loading YY into BCOEF and then executing CALL BNSLV (Q,2K-1,N,K-1,K-1,BCOEF). |
+| 8 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work vector of length 2*K. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
 
 ### Error and status values
 
 Improper  input is a fatal error Singular system of equations is a fatal error
 
 ### Storage and workspace requirements
+
+`Q`: a work vector of length (2*K-1)*N, containing the triangular factorization of the coefficient matrix of the linear system being solved. The coefficients for the interpolant of an additional data set (X(I)),YY(I)), I=1,...,N with the same abscissa can be obtained by loading YY into BCOEF and then executing CALL BNSLV (Q,2K-1,N,K-1,K-1,BCOEF)
 
 `WORK`: work vector of length 2*K
 

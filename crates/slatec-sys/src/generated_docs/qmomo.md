@@ -1,6 +1,6 @@
 # Purpose
 
-MODIFIED CHEBYSHEV MOMENTS STANDARD FORTRAN SUBROUTINE REAL VERSION PARAMETERS
+MODIFIED CHEBYSHEV MOMENTS STANDARD FORTRAN SUBROUTINE REAL VERSION
 
 # Description
 
@@ -8,55 +8,58 @@ This canonical unsafe binding exposes original SLATEC routine `QMOMO`. Its docum
 
 # Arguments
 
-## 1. `ALFA`
+## `ALFA`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real 1) 1,X), K = 1, ..., 25. 1,X), K = 1, ..., 25. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `BETA`
+Parameter in the weight function W(X), ALFA. GT. (-1).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real 1) K = 1, ..., 25. K = 1, ..., 25. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `BETA`
 
-## 3. `RI`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (25). Real Vector of dimension 25 1,1) of Real Vector of dimension 25 1,1) of not applicable or not stated by selected source not a workspace argument
+Parameter in the weight function W(X), BETA. GT. (-1).
 
-## 4. `RJ`
+## `RI`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (25). Real Vector of dimension 25 1,1) of Real Vector of dimension 25 1,1) of not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (25).
 
-## 5. `RG`
+Vector of dimension 25 is the integral over (-1,1) of (1+X)**ALFA*T(K-1,X), K = 1,. , 25.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (25). Real Vector of dimension 25 1,1) of Real Vector of dimension 25 1,1) of not applicable or not stated by selected source not a workspace argument
+## `RJ`
 
-## 6. `RH`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (25).
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (25). Real Vector of dimension 25 1,1) of Real Vector of dimension 25 1,1) of not applicable or not stated by selected source not a workspace argument
+Vector of dimension 25 is the integral over (-1,1) of (1-X)**BETA*T(K-1,X), K = 1,. , 25.
 
-## 7. `INTEGR`
+## `RG`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Input parameter indicating the modified Moments to be computed 1 compute RI, RJ = 2 compute RI, RJ, RG = 3 compute RI, RJ, RH = 4 compute RI, RJ, RG, RH not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (25).
+
+Vector of dimension 25 is the integral over (-1,1) of (1+X)**ALFA*LOG((1+X)/2)*T(K-1,X), K = 1,. , 25.
+
+## `RH`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (25).
+
+Vector of dimension 25 is the integral over (-1,1) of (1-X)**BETA*LOG((1-X)/2)*T(K-1,X), K = 1,. , 25.
+
+## `INTEGR`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Input parameter indicating the modified Moments to be computed 1 compute RI, RJ = 2 compute RI, RJ, RG = 3 compute RI, RJ, RH = 4 compute RI, RJ, RG, RH.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `ALFA`: not a workspace argument
-- `BETA`: not a workspace argument
 - `RI`: not a workspace argument
 - `RJ`: not a workspace argument
 - `RG`: not a workspace argument
 - `RH`: not a workspace argument
-- `INTEGR`: not a workspace argument
 
 # ABI notes
 

@@ -8,7 +8,7 @@ Perform the singular value decomposition of a rectangular matrix.
 
 ## Description
 
-SSVDC is a subroutine to reduce a real NxP matrix X by orthogonal transformations U and V to diagonal form. The elements S(I) are
+SSVDC is a subroutine to reduce a real NxP matrix X by orthogonal transformations U and V to diagonal form. The elements S(I) are the singular values of X. The columns of U are the corresponding left singular vectors, and the columns of V the right singular vectors. On Entry
 
 ## Classification
 
@@ -52,41 +52,33 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SSVDC](https://www.netlib.org/slatec/lin/ssvdc.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDX, *) | are the corresponding left singular vectors, and the columns of V the right singular vectors. On Entry REAL(LDX,P), where LDX .GE. N. contains the matrix whose singular value decomposition is to be computed.  X is destroyed by SSVDC. is the bidiagonal matrix with the elements of S on its diagonal and the |
+| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDX, *) | REAL(LDX,P), where LDX. GE. N. contains the matrix whose singular value decomposition is to be computed. X is destroyed by SSVDC. |
 | 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the leading dimension of the array X. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the number of rows of the matrix X. contain the singular values of X arranged in descending order of magnitude. |
-| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the number of columns of the matrix X. contain the singular values of X arranged in descending order of magnitude. |
-| 5 | `S` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | MIN(N+1,P). contain the singular values of X arranged in descending order of magnitude. |
-| 6 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). ordinarily contains zeros.  However, see the discussion of INFO for exceptions. diagonal (TRANS(U) is the transpose of U).  Thus the singular values of X and B are the same. |
-| 7 | `U` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDU, *) | are the corresponding left singular vectors, and the columns of V the right singular vectors. On Entry REAL(LDU,K), where LDU .GE. N.  If JOBA .EQ. 1, then K .EQ. N.  If JOBA .GE. 2 , then K .EQ. MIN(N,P). contains the matrix of right singular vectors. is not referenced if JOBA .EQ. 0.  If N .LE. P or if JOBA .EQ. 2, then U may be identified with X in the subroutine call. is the bidiagonal matrix with the elements of S on its diagonal and the |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the number of rows of the matrix X. |
+| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the number of columns of the matrix X. |
+| 5 | `S` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(MM), where MM=MIN(N+1,P). The first MIN(N,P) entries of S contain the singular values of X arranged in descending order of magnitude. |
+| 6 | `E` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). E ordinarily contains zeros. However, see the discussion of INFO for exceptions. |
+| 7 | `U` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDU, *) | REAL(LDU,K), where LDU. GE. N. If JOBA. EQ. 1, then K. |
 | 8 | `LDU` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the leading dimension of the array U. (See below). |
-| 9 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDV, *) | REAL(LDV,P), where LDV .GE. P. contains the matrix of right singular vectors. is not referenced if JOB .EQ. 0.  If P .LE. N, then V may be identified with X in the subroutine call. is the bidiagonal matrix with the elements of S on its diagonal and the |
+| 9 | `V` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDV, *) | REAL(LDV,P), where LDV. GE. P. contains the matrix of right singular vectors. is not referenced if JOB. EQ. |
 | 10 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER is the leading dimension of the array V. (See below). |
-| 11 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) is a scratch array. |
-| 12 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER controls the computation of the singular vectors.  It has the decimal expansion AB with the following meaning A .EQ. 0  Do not compute the left singular vectors. A .EQ. 1  Return the N left singular vectors in U. A .GE. 2  Return the first MIN(N,P) singular vectors in U. B .EQ. 0  Do not compute the right singular vectors. B .EQ. 1  Return the right singular vectors in V. On Return |
-| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. the singular values (and their corresponding singular vectors) S(INFO+1),S(INFO+2),...,S(M) are correct (here M=MIN(N,P)).  Thus if .EQ. 0, all the singular values and their vectors are correct.  In any event, the matrix |
+| 11 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) is a scratch array. |
+| 12 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER JOB controls the computation of the singular vectors. It has the decimal expansion AB with the following meaning A. EQ. 0 Do not compute the left singular A. 1 Return the N left singular vectors in U. A. |
+| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. the singular values (and their corresponding singular vectors) S(INFO+1),S(INFO+2),. ,S(M) are correct (here M=MIN(N,P)). Thus if. EQ. 0, all the singular values and their vectors are correct. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

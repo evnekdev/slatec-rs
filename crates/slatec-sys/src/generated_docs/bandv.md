@@ -1,6 +1,6 @@
 # Purpose
 
-This subroutine finds those eigenvectors of a REAL SYMMETRIC BAND matrix corresponding to specified eigenvalues, using inverse iteration. The subroutine may also be used to solve systems
+This subroutine finds those eigenvectors of a REAL SYMMETRIC BAND matrix corresponding to specified eigenvalues, using inverse iteration. The subroutine may also be used to solve systems of linear equations with a symmetric or non-symmetric band coefficient matrix.
 
 # Description
 
@@ -8,78 +8,87 @@ This canonical unsafe binding exposes original SLATEC routine `BANDV`. Its docum
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A and Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. MB positions of the first column, MB positions of the second column, further subdiagonals similarly, and finally its principal diagonal in the N positions of column MB. If the subroutine is being used to solve systems of linear equations and the coefficient matrix is not symmetric, A is 1 instead with lower triangle as above and with 1 positions of 2 positions of column MB+2, further superdiagonals similarly, MB positions of the last column.  Contents of storage locations 1). is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. MB positions of the first column, MB positions of the second column, further subdiagonals similarly, and finally its principal diagonal in the N positions of column MB. If the subroutine is being used to solve systems of linear equations and the coefficient matrix is not symmetric, A is 1 instead with lower triangle as above and with 1 positions of 2 positions of column MB+2, further superdiagonals similarly, MB positions of the last column.  Contents of storage locations 1). not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `MBW`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of columns of the array A used to store the band matrix.  If the matrix is symmetric, MBW is its (half) band width, denoted MB and defined as the number of adjacent diagonals, including the principal diagonal, required to specify the non-zero portion of the lower triangle of the matrix.  If the subroutine is being used to solve systems of linear equations and the coefficient matrix is not symmetric, it must however have the same number of adjacent diagonals above the main diagonal as below, and in this 1.  MBW is an INTEGER variable.  MB must not be greater than N. is the number of columns of the array A used to store the band matrix.  If the matrix is symmetric, MBW is its (half) band width, denoted MB and defined as the number of adjacent diagonals, including the principal diagonal, required to specify the non-zero portion of the lower triangle of the matrix.  If the subroutine is being used to solve systems of linear equations and the coefficient matrix is not symmetric, it must however have the same number of adjacent diagonals above the main diagonal as below, and in this 1.  MBW is an INTEGER variable.  MB must not be greater than N. not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `A`
+## `MBW`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). symmetric band coefficient matrix. contains the lower triangle of the symmetric band input matrix stored as an N by MB array.  Its lowest subdiagonal dimensional dimensional REAL array, dimensioned A(NM,MBW). REAL array, dimensioned A(NM,MBW). W(J)*I)*X(J)=B(J), where I is the identity dimensional REAL array, dimensioned W(M). dimensional REAL array, dimensioned Z(NM,M). are unaltered. W(M)*I is available, upon return, as the product of the first N elements of RV. symmetric band coefficient matrix. contains the lower triangle of the symmetric band input matrix stored as an N by MB array.  Its lowest subdiagonal dimensional dimensional REAL array, dimensioned A(NM,MBW). REAL array, dimensioned A(NM,MBW). W(J)*I)*X(J)=B(J), where I is the identity dimensional REAL array, dimensioned W(M). dimensional REAL array, dimensioned Z(NM,M). are unaltered. W(M)*I is available, upon return, as the product of the first N elements of RV. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `E21`
+is the number of columns of the array A used to store the band matrix. If the matrix is symmetric, MBW is its (half) band width, denoted MB and defined as the number of adjacent diagonals, including the principal diagonal, required to specify the non-zero portion of the lower triangle of the matrix. If the subroutine is being used to solve systems of linear equations and the coefficient matrix is not symmetric, it must however have the same number of adjacent diagonals above the main diagonal as below, and in this case, MBW=2*MB-1. MBW is an INTEGER variable. MB must not be greater than N.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. specifies the ordering of the eigenvalues and contains 0.0E0 if the eigenvalues are in ascending order, or 2.0E0 if the eigenvalues are in descending order. If the subroutine is being used to solve systems of linear equations, E21 should be set to 1.0E0 if the coefficient matrix is symmetric and to -1.0E0 if not.  E21 is a REAL variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 6. `M`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of specified eigenvalues or the number of systems of linear equations.  M is an INTEGER variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+contains the lower triangle of the symmetric band input matrix stored as an N by MB array. Its lowest subdiagonal is stored in the last N+1-MB positions of the first column, its next subdiagonal in the last N+2-MB positions of the second column, further subdiagonals similarly, and finally its principal diagonal in the N positions of column MB. If the subroutine is being used to solve systems of linear equations and the coefficient matrix is not symmetric, A is N by 2*MB-1 instead with lower triangle as above and with its first superdiagonal stored in the first N-1 positions of column MB+1, its second superdiagonal in the first N-2 positions of column MB+2, further superdiagonals similarly, and finally its highest superdiagonal in the first N+1-MB positions of the last column. Contents of storage locations not part of the matrix are arbitrary. A is a two-dimensional REAL array, dimensioned A(NM,MBW). unaltered.
 
-## 7. `W`
+## `E21`
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the M eigenvalues in ascending or descending order. If the subroutine is being used to solve systems of linear 1,2,...,M. dimensional REAL array, dimensioned W(M). are unaltered. contains the M eigenvalues in ascending or descending order. If the subroutine is being used to solve systems of linear 1,2,...,M. dimensional REAL array, dimensioned W(M). are unaltered. not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `Z`
+specifies the ordering of the eigenvalues and contains 0. 0E0 if the eigenvalues are in ascending order, or 2. 0E0 if the eigenvalues are in descending order. If the subroutine is being used to solve systems of linear equations, E21 should be set to 1. 0E0 if the coefficient matrix is symmetric and to -1. 0E0 if not.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). 1,2,...,M), if the subroutine is used to solve systems of linear equations. dimensional REAL array, dimensioned Z(NM,M). contains the associated set of orthogonal eigenvectors. Any vector which fails to converge is set to zero.  If the subroutine is used to solve systems of linear equations, 1,2,...,M). 1,2,...,M), if the subroutine is used to solve systems of linear equations. dimensional REAL array, dimensioned Z(NM,M). contains the associated set of orthogonal eigenvectors. Any vector which fails to converge is set to zero.  If the subroutine is used to solve systems of linear equations, 1,2,...,M). not applicable or not stated by selected source not a workspace argument
+## `M`
 
-## 9. `IERR`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, -J         if the eigenvector corresponding to the J-th eigenvalue fails to converge, or if the J-th system of linear equations is nearly singular. not stated by selected source not applicable or not stated by selected source not a workspace argument
+is the number of specified eigenvalues or the number of systems of linear equations. M is an INTEGER variable.
 
-## 10. `NV`
+## `W`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. must be set to the dimension of the array parameter RV as declared in the calling program dimension statement. is an INTEGER variable. 1). 1). must be set to the dimension of the array parameter RV as declared in the calling program dimension statement. is an INTEGER variable. 1). 1). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 11. `RV`
+contains the M eigenvalues in ascending or descending order. If the subroutine is being used to solve systems of linear equations (A-W(J)*I)*X(J)=B(J), where I is the identity matrix, W(J) should be set accordingly, for J=1,2,. ,M. is a one-dimensional REAL array, dimensioned W(M). unaltered.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are temporary storage arrays.  If the subroutine is being used to solve systems of linear equations, the dimensional REAL arrays.  Note that RV 1). are temporary storage arrays.  If the subroutine is being used to solve systems of linear equations, the dimensional REAL arrays.  Note that RV 1). not applicable or not stated by selected source not a workspace argument
+## `Z`
 
-## 12. `RV6`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are temporary storage arrays.  If the subroutine is being used to solve systems of linear equations, the dimensional REAL arrays.  Note that RV is dimensioned RV6(N). Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY are temporary storage arrays.  If the subroutine is being used to solve systems of linear equations, the dimensional REAL arrays.  Note that RV is dimensioned RV6(N). Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+contains the constant matrix columns (B(J),J=1,2,. ,M), if the subroutine is used to solve systems of linear equations. is a two-dimensional REAL array, dimensioned Z(NM,M). contains the associated set of orthogonal eigenvectors. Any vector which fails to converge is set to zero. If the subroutine is used to solve systems of linear equations, contains the solution matrix columns (X(J),J=1,2,.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, -J if the eigenvector corresponding to the J-th eigenvalue fails to converge, or if the J-th system of linear equations is nearly singular.
+
+## `NV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+must be set to the dimension of the array parameter RV as declared in the calling program dimension statement. is an INTEGER variable.
+
+## `RV`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+temporary storage arrays. If the subroutine is being used to solve systems of linear equations, the determinant (up to sign) of A-W(M)*I is available, upon return, as the product of the first N elements of RV. one-dimensional REAL arrays. Note that RV is dimensioned RV(NV), where NV must be at least N*(2*MB-1).
+
+## `RV6`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+temporary storage arrays. If the subroutine is being used to solve systems of linear equations, the determinant (up to sign) of A-W(M)*I is available, upon return, as the product of the first N elements of RV. one-dimensional REAL arrays. Note that RV is dimensioned RV(NV), where NV must be at least N*(2*MB-1). is dimensioned RV6(N). Questions and comments should be directed to B.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
-- `MBW`: not a workspace argument
 - `A`: not a workspace argument
-- `E21`: not a workspace argument
-- `M`: not a workspace argument
-- `W`: contains the M eigenvalues in ascending or descending order. If the subroutine is being used to solve systems of linear 1,2,...,M. dimensional REAL array, dimensioned W(M). are unaltered.
+- `W`: not a workspace argument
 - `Z`: not a workspace argument
-- `IERR`: not a workspace argument
-- `NV`: not a workspace argument
 - `RV`: not a workspace argument
 - `RV6`: not a workspace argument
 

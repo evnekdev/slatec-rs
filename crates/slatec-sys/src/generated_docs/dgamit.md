@@ -1,6 +1,6 @@
 # Purpose
 
-Evaluate Tricomi's incomplete Gamma function defined by
+Evaluate Tricomi's incomplete Gamma function defined by DGAMIT = X**(-A)/GAMMA(A) * integral from 0 to X of EXP(-T) * T**(A-1.) for A .GT. 0.0 and by analytic continuation for A .LE. 0.0. GAMMA(X) is the complete gamma function of X. DGAMIT is evaluated for arbitrary real values of A and for non- negative values of X (even though DGAMIT is defined for X .LT. 0.0), except that for X = 0 and A .LE. 0.0, DGAMIT is infinite, which is a fatal error. The function and both arguments are DOUBLE PRECISION. A slight deterioration of 2 or 3 digits accuracy will occur when DGAMIT is very large or very small in absolute value, because log- arithmic variables are used. Also, if the parameter A is very close to a negative integer (but not a negative integer), there is a loss of accuracy, which is reported if the result is less than half machine precision.
 
 # Description
 
@@ -8,30 +8,21 @@ This canonical unsafe binding exposes original SLATEC routine `DGAMIT`. Its docu
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. 1.) for A .GT. 0.0 and by analytic continuation for A .LE. 0.0. negative values of X (even though DGAMIT is defined for X .LT. slight deterioration of 2 or 3 digits accuracy will occur when DGAMIT is very large or very small in absolute value, because log- arithmic variables are used.  Also, if the parameter  A  is very close to a negative integer (but not a negative integer), there is loss of accuracy, which is reported if the result is less than half machine precision. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `X`
+Input value at which the source-defined function is evaluated: Calculate Tricomi's form of the incomplete Gamma function
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. A)/GAMMA(A) * integral from 0 to X of EXP(-T) * is the complete gamma function of X. 0 and A .LE. 0.0, DGAMIT is infinite, which is a fatal error. The function and both arguments are DOUBLE PRECISION. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Calculate Tricomi's form of the incomplete Gamma function
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `A`: not a workspace argument
-- `X`: not a workspace argument
 
 # ABI notes
 

@@ -8,7 +8,7 @@ Compute a sequence of modified Bessel functions of the third kind of fractional 
 
 ## Description
 
-BESKS computes a sequence of modified Bessel functions of the third
+BESKS computes a sequence of modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, XNU lies in (-1,1), and I = 0, 1, ... , NIN - 1, if NIN is positive and I = 0, 1, ... , NIN + 1, if NIN is negative. On return, the vector BK(.) Contains the results at X for order starting at XNU.
 
 ## Classification
 
@@ -52,36 +52,28 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [BESKS](https://www.netlib.org/slatec/fnlib/besks.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `XNU` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1,1), 1,1), |
+| 1 | `XNU` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input fractional starting order. `XNU` must lie strictly between -1 and 1. |
 | 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input evaluation point. `X` must be strictly positive; native code does not modify it. |
-| 3 | `NIN` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1, if NIN is positive and I = 0, 1, ... , is negative.  On return, the vector BK(.) Contains is negative.  On return, the vector BK(.) Contains the results at X for order starting at XNU. the results at X for order starting at XNU. |
+| 3 | `NIN` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input nonzero signed sequence length. `abs(NIN)` is the required result-array length; a positive value advances the order and a negative value steps it downward from `XNU`. |
 | 4 | `BK` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Writable output array with at least `abs(NIN)` elements. On return `BK[I]` holds the modified Bessel K value at order `XNU+I`; native code retains no pointer. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

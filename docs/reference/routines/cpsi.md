@@ -52,8 +52,8 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [CPSI](https://www.netlib.org/slatec/fnlib/cpsi.f)
 
 ### Arguments
@@ -62,23 +62,11 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `ZIN` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | Input complex argument to the digamma function. The routine evaluates the logarithmic derivative of gamma at this value; poles and values too near a negative integer can trigger the SLATEC error handler. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:complex32(mut_complex32)`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

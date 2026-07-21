@@ -54,23 +54,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DQNC79](https://www.netlib.org/slatec/src/dqnc79.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `FUN` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | are DOUBLE PRECISION * name of external function to be integrated.  This name must be in an EXTERNAL statement in your calling program.  You must write a Fortran function to evaluate This should be of the form DOUBLE PRECISION FUNCTION FUN (X) C C     X can vary from A to B C     FUN(X) should be finite for all X on interval. C ... RETURN END |
-| 2 | `A` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | point adaptive Newton-Cotes point adaptive Newton-Cotes quadrature rule. quadrature rule. are DOUBLE PRECISION * lower limit of integration are too nearly equal to are too nearly equal to allow normal integration.  ANS is set to zero. allow normal integration.  ANS is set to zero. - Abnormal code - Abnormal code 2  ANS probably does not meet requested error tolerance. 2  ANS probably does not meet requested error tolerance. |
-| 3 | `B` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | are DOUBLE PRECISION * upper limit of integration (may be less than A) are too nearly equal to are too nearly equal to allow normal integration.  ANS is set to zero. allow normal integration.  ANS is set to zero. - Abnormal code - Abnormal code 2  ANS probably does not meet requested error tolerance. 2  ANS probably does not meet requested error tolerance. |
-| 4 | `ERR` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | are DOUBLE PRECISION * is a requested error tolerance.  Normally, pick a value 8. |
-| 5 | `ANS` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | computed value of the integral.  Hopefully, ANS is accurate to within ERR * integral of ABS(FUN(X)). |
-| 6 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a status code - Normal codes 1  ANS most likely meets requested error tolerance. |
-| 7 | `K` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of function evaluations actually used to do the integration.  A value of K .GT. 1000 indicates a difficult problem; other programs may be more efficient. DQNC79 will gracefully give up if K exceeds 2000. |
+| 1 | `FUN` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | name of external function to be integrated. This name must be in an EXTERNAL statement in your calling program. You must write a Fortran function to evaluate This should be of the form DOUBLE PRECISION FUNCTION FUN (X) C X can vary from A to B C FUN(X) should be finite for all X on interval. FUN =. RETURN END. |
+| 2 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | lower limit of integration. |
+| 3 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | upper limit of integration (may be less than A). |
+| 4 | `ERR` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is a requested error tolerance. Normally, pick a value 0. LT. ERR. 1. 0D-8. |
+| 5 | `ANS` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | computed value of the integral. Hopefully, ANS is accurate to within ERR * integral of ABS(FUN(X)). |
+| 6 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a status code - Normal codes 1 ANS most likely meets requested error tolerance. -1 A equals B, or A and B are too nearly equal to allow normal integration. ANS is set to zero. - Abnormal code 2 ANS probably does not meet requested error tolerance. |
+| 7 | `K` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of function evaluations actually used to do the integration. A value of K. GT. 1000 indicates a difficult problem; other programs may be more efficient. DQNC79 will gracefully give up if K exceeds 2000. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -79,14 +79,6 @@ This is a Fortran subroutine and has no direct return value; outputs are documen
 ### Callback contract
 
 Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

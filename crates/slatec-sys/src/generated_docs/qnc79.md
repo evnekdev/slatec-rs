@@ -8,33 +8,47 @@ This canonical unsafe binding exposes original SLATEC routine `QNC79`. Its docum
 
 # Arguments
 
-## 1. `FUN`
+## `FUN`
 
-callback `callback` argument; Fortran declaration `REAL`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. name of external function to be integrated.  This name must be in an EXTERNAL statement in your calling program.  You must write a Fortran function to evaluate This should be of the form REAL FUNCTION FUN (X) C C     X can vary from A to B C     FUN(X) should be finite for all X on interval. C ... RETURN END The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. name of external function to be integrated.  This name must be in an EXTERNAL statement in your calling program.  You must write a Fortran function to evaluate This should be of the form REAL FUNCTION FUN (X) C C     X can vary from A to B C     FUN(X) should be finite for all X on interval. C ... RETURN END not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `REAL`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 2. `A`
+name of external function to be integrated. This name must be in an EXTERNAL statement in your calling program. You must write a Fortran function to evaluate This should be of the form REAL FUNCTION FUN (X) C X can vary from A to B C FUN(X) should be finite for all X on interval. FUN =. RETURN END. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. point adaptive Newton-Cotes point adaptive Newton-Cotes quadrature rule. quadrature rule. lower limit of integration are too nearly equal to are too nearly equal to allow normal integration.  ANS is set to zero. allow normal integration.  ANS is set to zero. - Abnormal code - Abnormal code 2  ANS probably does not meet requested error tolerance. 2  ANS probably does not meet requested error tolerance. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `B`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. upper limit of integration (may be less than A) are too nearly equal to are too nearly equal to allow normal integration.  ANS is set to zero. allow normal integration.  ANS is set to zero. - Abnormal code - Abnormal code 2  ANS probably does not meet requested error tolerance. 2  ANS probably does not meet requested error tolerance. not stated by selected source not applicable or not stated by selected source not a workspace argument
+lower limit of integration.
 
-## 4. `ERR`
+## `B`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is a requested error tolerance.  Normally, pick a value 3. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `ANS`
+upper limit of integration (may be less than A).
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. computed value of the integral.  Hopefully, ANS is accurate to within ERR * integral of ABS(FUN(X)). not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ERR`
 
-## 6. `IERR`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. a status code - Normal codes 1  ANS most likely meets requested error tolerance. not stated by selected source not applicable or not stated by selected source not a workspace argument
+is a requested error tolerance. Normally, pick a value 0. LT. ERR. 1. 0E-3.
 
-## 7. `K`
+## `ANS`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. the number of function evaluations actually used to do the integration.  A value of K .GT. 1000 indicates a difficult problem; other programs may be more efficient. QNC79 will gracefully give up if K exceeds 2000. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+computed value of the integral. Hopefully, ANS is accurate to within ERR * integral of ABS(FUN(X)).
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+a status code - Normal codes 1 ANS most likely meets requested error tolerance. -1 A equals B, or A and B are too nearly equal to allow normal integration. ANS is set to zero. - Abnormal code 2 ANS probably does not meet requested error tolerance.
+
+## `K`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+the number of function evaluations actually used to do the integration. A value of K. GT. 1000 indicates a difficult problem; other programs may be more efficient. QNC79 will gracefully give up if K exceeds 2000.
 
 # Return value
 
@@ -42,21 +56,7 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `FUN`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `ERR`: not a workspace argument
-- `ANS`: not a workspace argument
-- `IERR`: not a workspace argument
-- `K`: not a workspace argument
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # ABI notes
 

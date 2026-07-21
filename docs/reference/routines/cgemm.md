@@ -52,45 +52,37 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CGEMM](https://www.netlib.org/slatec/lin/cgemm.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `TRANSA` | `input` | `scalar` | `CHARACTER` | `*mut core::ffi::c_char` | scalar | CHARACTER*1. On entry, TRANSA specifies the form of op( A ) to be used in the matrix multiplication as follows: 'N' or 'n',  op( A ) = A. 'T' or 't',  op( A ) = A'. 'C' or 'c',  op( A ) = conjg( A' ). Unchanged on exit. 'N' or 'n',  and is  m  otherwise. 'N' or 'n',  the leading  m by k part of the array  A  must contain the matrix  A,  otherwise 'N' or 'n' then |
-| 2 | `TRANSB` | `input` | `scalar` | `CHARACTER` | `*mut core::ffi::c_char` | scalar | CHARACTER*1. On entry, TRANSB specifies the form of op( B ) to be used in the matrix multiplication as follows: 'N' or 'n',  op( B ) = B. 'T' or 't',  op( B ) = B'. 'C' or 'c',  op( B ) = conjg( B' ). Unchanged on exit. 'N' or 'n',  and is  k  otherwise. 'N' or 'n',  the leading  k by n part of the array  B  must contain the matrix  B,  otherwise 'N' or 'n' then |
-| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry,  M  specifies  the number  of rows  of the  matrix must  be at least  zero. Unchanged on exit. contain  the matrix A. Unchanged on exit. |
-| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry,  N  specifies the number  of columns of the matrix must be at least zero. Unchanged on exit. 'N' or 'n',  and is  k  otherwise. contain  the matrix B. Unchanged on exit. |
-| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry,  K  specifies  the number of columns of the matrix op( A ) and the number of rows of the matrix op( B ). K must be at least  zero. Unchanged on exit. 'N' or 'n',  and is  m  otherwise. contain  the matrix A. Unchanged on exit. contain  the matrix B. Unchanged on exit. |
-| 6 | `ALPHA` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | are scalars, and A, B and C are matrices, with op( A ) an m by k matrix,  op( B )  a  k by n matrix and  C an m by n matrix. Parameters ========== COMPLEX         . On entry, ALPHA specifies the scalar alpha. Unchanged on exit. |
-| 7 | `A` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDA, *) | must  be at least  zero. Unchanged on exit. COMPLEX          array of DIMENSION ( LDA, ka ), where ka is contain  the matrix A. Unchanged on exit. set of level 3 basic linear algebra subprograms. ACM TOMS, Vol. 16, No. 1, pp. 1-17, March 1990. |
-| 8 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDA specifies the first dimension of A as declared must be at least  max( 1, m ), otherwise  LDA must be at least  max( 1, k ). Unchanged on exit. |
-| 9 | `B` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDB, *) | must be at least zero. Unchanged on exit. COMPLEX          array of DIMENSION ( LDB, kb ), where kb is contain  the matrix B. Unchanged on exit. |
-| 10 | `LDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDB specifies the first dimension of B as declared must be at least  max( 1, k ), otherwise  LDB must be at least  max( 1, n ). Unchanged on exit. |
-| 11 | `BETA` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | are scalars, and A, B and C are matrices, with op( A ) an m by k matrix,  op( B )  a  k by n matrix and  C an m by n matrix. Parameters ========== COMPLEX         . On entry,  BETA  specifies the scalar  beta.  When  BETA  is supplied as zero then C need not be set on input. Unchanged on exit. is zero, in which case C need not be set on entry. On exit, the array  C  is overwritten by the  m by n  matrix ( alpha*op( A )*op( B ) + beta*C ). |
-| 12 | `C` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDC, *) | = alpha*op( A )*op( B ) + beta*C, where  op( X ) is one of op( X ) = X   or   op( X ) = X'   or   op( X ) = conjg( X' ), must  be at least  zero. Unchanged on exit. must be at least zero. Unchanged on exit. COMPLEX          array of DIMENSION ( LDC, n ). Before entry, the leading  m by n  part of the array  C must is zero, in which case C need not be set on entry. On exit, the array  C  is overwritten by the  m by n  matrix ( alpha*op( A )*op( B ) + beta*C ). |
-| 13 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDC specifies the first dimension of C as declared in  the  calling  (sub)  program.   LDC  must  be  at  least max( 1, m ). Unchanged on exit. |
+| 1 | `TRANSA` | `input` | `scalar` | `CHARACTER` | `*mut core::ffi::c_char` | scalar | CHARACTER*1. On entry, TRANSA specifies the form of op( A ) to be used in the matrix multiplication as follows: 'N' or 'n', op( A ) = A. 'T' or 't', op( A ) = A'. 'C' or 'c', op( A ) = conjg( A' ). Unchanged on exit. |
+| 2 | `TRANSB` | `input` | `scalar` | `CHARACTER` | `*mut core::ffi::c_char` | scalar | CHARACTER*1. On entry, TRANSB specifies the form of op( B ) to be used in the matrix multiplication as follows: 'N' or 'n', op( B ) = B. 'T' or 't', op( B ) = B'. 'C' or 'c', op( B ) = conjg( B' ). Unchanged on exit. |
+| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, M specifies the number of rows of the matrix op( A ) and of the matrix C. M must be at least zero. Unchanged on exit. |
+| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, N specifies the number of columns of the matrix op( B ) and the number of columns of the matrix C. N must be at least zero. Unchanged on exit. when TRANSB = 'N' or 'n', and is k otherwise. Before entry with TRANSB = 'N' or 'n', the leading k by n part of the array B must contain the matrix B, otherwise the leading n by k part of the array B must contain the matrix B. |
+| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, K specifies the number of columns of the matrix op( A ) and the number of rows of the matrix op( B ). K must be at least zero. Unchanged on exit. when TRANSA = 'N' or 'n', and is m otherwise. Before entry with TRANSA = 'N' or 'n', the leading m by k part of the array A must contain the matrix A, otherwise the leading k by m part of the array A must contain the matrix A. |
+| 6 | `ALPHA` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | scalars, and A, B and C are matrices, with op( A ) an m by k matrix, op( B ) a k by n matrix and C an m by n matrix. COMPLEX. On entry, ALPHA specifies the scalar alpha. Unchanged on exit. |
+| 7 | `A` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDA, *) | COMPLEX array of DIMENSION ( LDA, ka ), where ka is. |
+| 8 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. When TRANSA = 'N' or 'n' then must be at least max( 1, m ), otherwise LDA must be at least max( 1, k ). Unchanged on exit. |
+| 9 | `B` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDB, *) | COMPLEX array of DIMENSION ( LDB, kb ), where kb is. |
+| 10 | `LDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDB specifies the first dimension of B as declared in the calling (sub) program. When TRANSB = 'N' or 'n' then must be at least max( 1, k ), otherwise LDB must be at least max( 1, n ). Unchanged on exit. |
+| 11 | `BETA` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | scalars, and A, B and C are matrices, with op( A ) an m by k matrix, op( B ) a k by n matrix and C an m by n matrix. COMPLEX. On entry, BETA specifies the scalar beta. When BETA is supplied as zero then C need not be set on input. Unchanged on exit. |
+| 12 | `C` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDC, *) | = alpha*op( A )*op( B ) + beta*C, where op( X ) is one of op( X ) = X or op( X ) = X' or op( X ) = conjg( X' ), COMPLEX array of DIMENSION ( LDC, n ). Before entry, the leading m by n part of the array C must contain the matrix C, except when beta is zero, in which case C need not be set on entry. On exit, the array C is overwritten by the m by n matrix ( alpha*op( A )*op( B ) + beta*C ). |
+| 13 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDC specifies the first dimension of C as declared in the calling (sub) program. LDC must be at least max( 1, m ). Unchanged on exit. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

@@ -54,41 +54,39 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SGEEV](https://www.netlib.org/slatec/src/sgeev.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(LDA,N) real nonsymmetric input matrix. are stored in the first N columns of V.  See also INFO below. (Note that if the input matrix A is nearly degenerate, must be distinct arrays. Also, if LDA .GT. LDV, SGEEV changes all the elements of A thru column N.  If LDA < LDV, SGEEV changes all the elements of V through |
-| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the leading dimension of the real array A. LDV, only A(I,J) and V(I, J) for I,J = 1,...,N are changed by SGEEV. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the order of the matrices A and V, and the number of elements in E. are stored in the first N columns of V.  See also INFO below. (Note that if the input matrix A is nearly degenerate, LDV, only A(I,J) and V(I, J) for I,J = 1,...,N are changed by SGEEV. by N input elements have been changed. No. 5  warning      LDA < LDV, elements of V other than the x N output elements have been changed. |
-| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | COMPLEX(N) on return from SGEEV, E contains the eigenvalues of A. |
-| 5 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | COMPLEX(LDV,N) on return from SGEEV, if the user has set JOB = 0        V is not referenced. may be badly conditioned, i.e., may have nearly dependent columns.) is also set nonzero.  In that case, N must be .LE. LDV. If JOB is set to zero, LDV is not referenced. is referenced. = nonzero  eigenvalues and vectors to be calculated. must be distinct arrays. Also, if LDA .GT. LDV, SGEEV changes all the elements of A thru column N.  If LDA < LDV, SGEEV changes all the elements of V through |
-| 6 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to is referenced. = nonzero  eigenvalues and vectors to be calculated. |
-| 7 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(2N) temporary storage vector.  Contents changed by SGEEV. |
-| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is also set nonzero.  In that case, N must be .LE. LDV. If JOB is set to zero, LDV is not referenced. INTEGER set by the user to = 0        eigenvalues only to be calculated by SGEEV. |
-| 9 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER on return from SGEEV the value of INFO is = 0  normal return, calculation successful. = K  if the eigenvalue iteration fails to converge, eigenvalues K+1 through N are correct, but no eigenvectors were computed even if they were requested (JOB nonzero). |
+| 1 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(LDA,N) real nonsymmetric input matrix. |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the leading dimension of the real array A. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the order of the matrices A and V, and the number of elements in E. |
+| 4 | `E` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | COMPLEX(N) on return from SGEEV, E contains the eigenvalues of A. See also INFO below. |
+| 5 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | COMPLEX(LDV,N) on return from SGEEV, if the user has set JOB = 0 V is not referenced. = nonzero the N eigenvectors of A are stored in the first N columns of V. See also INFO below. (Note that if the input matrix A is nearly degenerate, V may be badly conditioned, i. e. , may have nearly dependent columns. |
+| 6 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the leading dimension of the array V if JOB is also set nonzero. In that case, N must be. LE. LDV. If JOB is set to zero, LDV is not referenced. |
+| 7 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(2N) temporary storage vector. Contents changed by SGEEV. |
+| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to = 0 eigenvalues only to be calculated by SGEEV. Neither V nor LDV is referenced. = nonzero eigenvalues and vectors to be calculated. In this case, A & V must be distinct arrays. Also, if LDA. GT. |
+| 9 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER on return from SGEEV the value of INFO is = 0 normal return, calculation successful. = K if the eigenvalue iteration fails to converge, eigenvalues K+1 through N are correct, but no eigenvectors were computed even if they were requested (JOB nonzero). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-No. 1  recoverable  N is greater than LDA No. 2  recoverable  N is less than one. No. 3  recoverable  JOB is nonzero and N is greater than LDV No. 4  warning      LDA > LDV, elements of A other than the
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 normal return, calculation successful. = K if the eigenvalue iteration fails to converge, eigenvalues K+1 through N are correct, but no eigenvectors were computed even if they were requested (JOB nonzero). No. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one. No. 3 recoverable JOB is nonzero and N is greater than LDV No. 4 warning LDA > LDV, elements of A other than the N by N input elements have been changed. No. 5 warning LDA < LDV, elements of V other than the N x N output elements have been changed. |
 
 ### Storage and workspace requirements
 
-`WORK`: REAL(2N) temporary storage vector.  Contents changed by SGEEV.
+`WORK`: REAL(2N) temporary storage vector. Contents changed by SGEEV.
 
 ### Provider, ABI, and safety
 

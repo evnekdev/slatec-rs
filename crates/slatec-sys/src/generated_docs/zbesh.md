@@ -1,6 +1,6 @@
 # Purpose
 
-A DOUBLE PRECISION ROUTINE***
+A DOUBLE PRECISION ROUTINE*** On KODE=1, ZBESH computes an N member sequence of complex Hankel (Bessel) functions CY(L)=H(M,FNU+L-1,Z) for super- script M=1 or 2, real nonnegative orders FNU+L-1, L=1,..., N, and complex nonzero Z in the cut plane -pi<arg(Z)<=pi where Z=ZR+i*ZI. On KODE=2, CBESH returns the scaled CY(L) = H(M,FNU+L-1,Z)*exp(-(3-2*M)*Z*i), i**2=-1 which removes the exponential behavior in both the upper and lower half planes. Definitions and notation are found in the NBS Handbook of Mathematical Functions (Ref. 1).
 
 # Description
 
@@ -8,70 +8,82 @@ This canonical unsafe binding exposes original SLATEC routine `ZBESH`. Its docum
 
 # Arguments
 
-## 1. `ZR`
+## `ZR`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. DOUBLE PRECISION real part of nonzero argument Z not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `ZI`
+DOUBLE PRECISION real part of nonzero argument Z.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. DOUBLE PRECISION imag part of nonzero argument Z not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ZI`
 
-## 3. `FNU`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. 1,Z) for super- 1, L=1,..., 1,Z)*exp(-(3-2*M)*Z*i),  i**2=-1 which removes the exponential behavior in both the upper and lower half planes.  Definitions and notation are found in the NBS Handbook of Mathematical Functions (Ref. 1). DOUBLE PRECISION initial order, FNU>=0 1,Z), L=1,...,N =2  returns 1,Z)*exp(-(3-2M)*Z*i), 1 too large) 1 is large) 1 is too large) 1 is large, losses of significance by argument reduction occur. Consequently, if either one exceeds U1=SQRT(0.5/UR), then losses exceeding half precision are likely and an error flag 1 is restricted by MIN(U2,U3).  In IEEE arithmetic, U1,U2, and U3 approximate 2.0E+3, 4.2E+6, 2.1E+9 in single precision and 4.7E+7, 2.3E+15 and 2.1E+9 in double precision.  This makes U2 limiting in single precision and U3 limiting in double precision.  This means that one can expect to retain, in the worst cases on IEEE machines, no digits in single pre- cision and only 6 digits in double precision.  Similar con- siderations hold for other machines. The approximate relative error in the magnitude of a complex Bessel function can be expressed as P*10**S where P=MAX(UNIT ROUNDOFF,1.0E-18) is the nominal precision and 10**S repre- sents the increase in error due to argument reduction in the elementary functions.  Here, S=MAX(1,ABS(LOG10(ABS(Z))), MAX(1,ABS(EXPONENT OF ABS(Z),ABS(EXPONENT OF FNU)) ).  However, the phase angle may have only absolute accuracy.  This is most likely to occur when one component (in magnitude) is larger than the other by several orders of magnitude.  If one component is 10**K larger than the other, then one can expect only MAX(ABS(LOG10(P))-K, 0) significant digits; or, stated another way, when K exceeds the exponent of P, no significant digits remain in the smaller component.  However, the phase angle retains absolute accuracy because, in complex arithmetic with precision P, the smaller component will not (as a rule) decrease below P times the magnitude of the larger component.  In these extreme cases, the principal phase angle is on the order of +P, -P, PI/2-P, or -PI/2+P. 1,Z) for super- 1, L=1,..., 1,Z)*exp(-(3-2*M)*Z*i),  i**2=-1 which removes the exponential behavior in both the upper and lower half planes.  Definitions and notation are found in the NBS Handbook of Mathematical Functions (Ref. 1). DOUBLE PRECISION initial order, FNU>=0 1,Z), L=1,...,N =2  returns 1,Z)*exp(-(3-2M)*Z*i), 1 too large) 1 is large) 1 is too large) 1 is large, losses of significance by argument reduction occur. Consequently, if either one exceeds U1=SQRT(0.5/UR), then losses exceeding half precision are likely and an error flag 1 is restricted by MIN(U2,U3).  In IEEE arithmetic, U1,U2, and U3 approximate 2.0E+3, 4.2E+6, 2.1E+9 in single precision and 4.7E+7, 2.3E+15 and 2.1E+9 in double precision.  This makes U2 limiting in single precision and U3 limiting in double precision.  This means that one can expect to retain, in the worst cases on IEEE machines, no digits in single pre- cision and only 6 digits in double precision.  Similar con- siderations hold for other machines. The approximate relative error in the magnitude of a complex Bessel function can be expressed as P*10**S where P=MAX(UNIT ROUNDOFF,1.0E-18) is the nominal precision and 10**S repre- sents the increase in error due to argument reduction in the elementary functions.  Here, S=MAX(1,ABS(LOG10(ABS(Z))), MAX(1,ABS(EXPONENT OF ABS(Z),ABS(EXPONENT OF FNU)) ).  However, the phase angle may have only absolute accuracy.  This is most likely to occur when one component (in magnitude) is larger than the other by several orders of magnitude.  If one component is 10**K larger than the other, then one can expect only MAX(ABS(LOG10(P))-K, 0) significant digits; or, stated another way, when K exceeds the exponent of P, no significant digits remain in the smaller component.  However, the phase angle retains absolute accuracy because, in complex arithmetic with precision P, the smaller component will not (as a rule) decrease below P times the magnitude of the larger component.  In these extreme cases, the principal phase angle is on the order of +P, -P, PI/2-P, or -PI/2+P. not applicable or not stated by selected source not a workspace argument
+DOUBLE PRECISION imag part of nonzero argument Z.
 
-## 4. `KODE`
+## `FNU`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1, ZBESH computes an N member sequence of complex A parameter to indicate the scaling option 1  returns not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 5. `M`
+DOUBLE PRECISION initial order, FNU>=0.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1 or 2, real nonnegative orders a=b, b+1,... where b>0, and nonzero complex argument z.  A scaling option is available to help avoid overflow. 1,Z) for super- 1, L=1,..., 1,Z)*exp(-(3-2*M)*Z*i),  i**2=-1 which removes the exponential behavior in both the upper and lower half planes.  Definitions and notation are found in the NBS Handbook of Mathematical Functions (Ref. 1). 1,Z), L=1,...,N =2  returns 1,Z)*exp(-(3-2M)*Z*i), Superscript of Hankel function, M=1 or 2 2 and Im(Z)<0, then a*t)*K(a,z*exp(-t)) t = (3-2*m)*i*pi/2 where the K Bessel function is computed as described in the prologue to CBESK. Exponential decay of H(m,a,z) occurs in the upper half z 1 and the lower half z plane for m=2.  Exponential growth occurs in the complementary half planes.  Scaling by exp(-(3-2*m)*z*i) removes the exponential behavior in the whole z plane as z goes to infinity. For negative orders, the formula a,z) = H(m,a,z)*exp((3-2*m)*a*pi*i) can be used. In most complex variable computation, one must evaluate ele- 1 or 2, real nonnegative orders a=b, b+1,... where b>0, and nonzero complex argument z.  A scaling option is available to help avoid overflow. 1,Z) for super- 1, L=1,..., 1,Z)*exp(-(3-2*M)*Z*i),  i**2=-1 which removes the exponential behavior in both the upper and lower half planes.  Definitions and notation are found in the NBS Handbook of Mathematical Functions (Ref. 1). 1,Z), L=1,...,N =2  returns 1,Z)*exp(-(3-2M)*Z*i), Superscript of Hankel function, M=1 or 2 2 and Im(Z)<0, then a*t)*K(a,z*exp(-t)) t = (3-2*m)*i*pi/2 where the K Bessel function is computed as described in the prologue to CBESK. Exponential decay of H(m,a,z) occurs in the upper half z 1 and the lower half z plane for m=2.  Exponential growth occurs in the complementary half planes.  Scaling by exp(-(3-2*m)*z*i) removes the exponential behavior in the whole z plane as z goes to infinity. For negative orders, the formula a,z) = H(m,a,z)*exp((3-2*m)*a*pi*i) can be used. In most complex variable computation, one must evaluate ele- not applicable or not stated by selected source not a workspace argument
+## `KODE`
 
-## 6. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. pi<arg(Z)<=pi where Z=ZR+i*ZI.  On KODE=2, CBESH returns the scaled functions Number of terms in the sequence, N>=1 1 too large) 1 is large) 1 is too large) 1 is large, losses of significance by argument reduction occur. Consequently, if either one exceeds U1=SQRT(0.5/UR), then losses exceeding half precision are likely and an error flag 1 is restricted by MIN(U2,U3).  In IEEE arithmetic, U1,U2, and U3 approximate 2.0E+3, 4.2E+6, 2.1E+9 in single precision and 4.7E+7, 2.3E+15 and 2.1E+9 in double precision.  This makes U2 limiting in single precision and U3 limiting in double precision.  This means that one can expect to retain, in the worst cases on IEEE machines, no digits in single pre- cision and only 6 digits in double precision.  Similar con- siderations hold for other machines. The approximate relative error in the magnitude of a complex Bessel function can be expressed as P*10**S where P=MAX(UNIT ROUNDOFF,1.0E-18) is the nominal precision and 10**S repre- sents the increase in error due to argument reduction in the elementary functions.  Here, S=MAX(1,ABS(LOG10(ABS(Z))), not stated by selected source not applicable or not stated by selected source not a workspace argument
+A parameter to indicate the scaling option 1 returns CY(L)=H(M,FNU+L-1,Z), L=1,. ,N =2 returns CY(L)=H(M,FNU+L-1,Z)*exp(-(3-2M)*Z*i),.
 
-## 7. `CYR`
+## `M`
 
-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). DOUBLE PRECISION real part of result vector not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `CYI`
+Superscript of Hankel function, M=1 or 2.
 
-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). DOUBLE PRECISION imag part of result vector not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 9. `NZ`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Number of underflows set to zero 0    Normal return 0 for NZ values of L (if M=1 and plementary half planes, the underflows may not be in an uninterrupted sequence) not stated by selected source not applicable or not stated by selected source not a workspace argument
+Number of terms in the sequence, N>=1.
 
-## 10. `IERR`
+## `CYR`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Error flag COMPUTATION COMPLETED NO COMPUTATION NO COMPUTATION COMPUTATION COMPLETED (Result has half precision or less NO COMPUTATION (Result has no precision because NO COMPUTATION (Termination condition not met) Long Description: The computation is carried out by the formula 18) is double precision unit roundoff limited to 18 digits precision.  Also, if either is larger than U2=0.5/UR, then all significance is 4.  In order to use the INT function, arguments must be further restricted not to exceed the largest machine Error flag COMPUTATION COMPLETED NO COMPUTATION NO COMPUTATION COMPUTATION COMPLETED (Result has half precision or less NO COMPUTATION (Result has no precision because NO COMPUTATION (Termination condition not met) Long Description: The computation is carried out by the formula 18) is double precision unit roundoff limited to 18 digits precision.  Also, if either is larger than U2=0.5/UR, then all significance is 4.  In order to use the INT function, arguments must be further restricted not to exceed the largest machine not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+DOUBLE PRECISION real part of result vector.
+
+## `CYI`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+DOUBLE PRECISION imag part of result vector.
+
+## `NZ`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Number of underflows set to zero NZ=0 Normal return NZ>0 CY(L)=0 for NZ values of L (if M=1 and Im(Z)>0 or if M=2 and Im(Z)<0, then CY(L)=0 for L=1,. ,NZ; in the com- plementary half planes, the underflows may not be in an uninterrupted sequence).
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Error flag 0 Normal return - COMPUTATION COMPLETED 1 Input error - NO COMPUTATION 2 Overflow - NO COMPUTATION (abs(Z) too small and/or FNU+N-1 too large) 3 Precision warning - COMPUTATION COMPLETED (Result has half precision or less because abs(Z) or FNU+N-1 is large) 4 Precision error - NO COMPUTATION (Result has no precision because abs(Z) or FNU+N-1 is too large) 5 Algorithmic error - NO COMPUTATION (Termination condition not met).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `NZ` | `0` | Normal return for NZ values of L (if M=1 and |
+| `NZ` | `2` | and Im(Z)<0, then |
+| `NZ` | `0` | for L=1,...,NZ; in the com- plementary half planes, the underflows may not be in an uninterrupted sequence) |
 
 # Workspace and array requirements
 
-- `ZR`: not a workspace argument
-- `ZI`: not a workspace argument
-- `FNU`: not a workspace argument
-- `KODE`: not a workspace argument
-- `M`: not a workspace argument
-- `N`: not a workspace argument
 - `CYR`: not a workspace argument
 - `CYI`: not a workspace argument
-- `NZ`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

@@ -8,7 +8,7 @@ Implement forward recursion on the three term recursion relation for a sequence 
 
 ## Description
 
-BESK implements forward recursion on the three term recursion relation for a sequence of non-negative order Bessel
+BESK implements forward recursion on the three term recursion relation for a sequence of non-negative order Bessel functions K/sub(FNU+I-1)/(X), or scaled Bessel functions EXP(X)*K/sub(FNU+I-1)/(X), I=1,...,N for real X .GT. 0.0E0 and non-negative orders FNU. If FNU .LT. NULIM, orders FNU and FNU+1 are obtained from BESKNU to start the recursion. If
 
 ## Classification
 
@@ -54,38 +54,38 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [BESK](https://www.netlib.org/slatec/src/besk.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)/(X), I=1,...,N for real, positive negative orders FNU. 1)/(X), I=1,...,N for real X .GT. 0.0E0 and non-negative orders FNU.  If FNU .LT. NULIM, orders FNU and X .GT. 0.0E0 1)/(X), 1)/(X), I=1,...,N depending on KODE |
-| 2 | `FNU` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)/(X), or scaled Bessel functions 1)/(X), I=1,...,N for real, positive 1)/(X), or scaled Bessel functions 1)/(X), I=1,...,N for real X .GT. 0.0E0 and non-negative orders FNU.  If FNU .LT. NULIM, orders FNU and are obtained from BESKNU to start the recursion.  If .GE. NULIM, the uniform asymptotic expansion is used for is 35 or is 35 or order of the initial K function, FNU .GE. 0.0E0 1)/(X), 1)/(X), 1)/(X), I=1,...,N  or 1)/(X), I=1,...,N depending on KODE |
-| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a parameter to indicate the scaling option 1)/(X), 1)/(X), 1, a non-fatal error (NZ .NE. 0) |
-| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 or N .GE. 2.  Under and overflow tests are made on the leading term of the asymptotic expansion before any extensive computation is done. number of members in the sequence, N .GE. 1 M. Temme, On the numerical evaluation of the modified Bessel function of the third kind, Journal of Computational Physics 19, (1975), pp. 324-337. |
-| 5 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1)/(X), 1)/(X), a vector whose first n components contain values for the sequence 1)/(X), I=1,...,N  or 1)/(X), I=1,...,N depending on KODE 0.0E0, I=1,...,NZ |
-| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of components of Y set to zero due to 0   , normal return, computation completed .NE. 0, first NZ components of Y set to zero |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | X. GT. 0. 0E0. |
+| 2 | `FNU` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | GE. NULIM, the uniform asymptotic expansion is used for orders FNU and FNU+1 to start the recursion. NULIM is 35 or 70 depending on whether N=1 or N. 2. Under and overflow tests are made on the leading term of the asymptotic expansion before any extensive computation is done. order of the initial K function, FNU. |
+| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a parameter to indicate the scaling option 1 returns Y(I)= K/sub(FNU+I-1)/(X), I=1,. ,N 2 returns Y(I)=EXP(X)*K/sub(FNU+I-1)/(X),. |
+| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of members in the sequence, N. GE. 1. |
+| 5 | `Y` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a vector whose first n components contain values for the sequence K/sub(FNU+I-1)/(X), I=1,. ,N or EXP(X)*K/sub(FNU+I-1)/(X), I=1,. ,N depending on KODE. |
+| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of components of Y set to zero due to underflow with KODE=1, NZ=0 , normal return, computation completed. NE. 0, first NZ components of Y set to zero due to underflow, Y(I)=0. 0E0, I=1,. ,NZ. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-Improper input arguments - a fatal error Overflow - a fatal error
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `NZ` | `1` | , |
+| `NZ` | `0` | , normal return, computation completed .0E0, I=1,...,NZ Improper input arguments - a fatal error Overflow - a fatal error |
+| `NZ` | `1` | - a non-fatal error (NZ .NE. 0) |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

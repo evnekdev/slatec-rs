@@ -52,35 +52,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [DLGAMS](https://www.netlib.org/slatec/fnlib/dlgams.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the double precision natural logarithm of the absolute value of the Gamma function for double precision argument X and stores the result in double precision argument DLGAM. |
-| 2 | `DLGAM` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the double precision natural logarithm of the absolute value of the Gamma function for double precision argument X and stores the result in double precision argument DLGAM. |
-| 3 | `SGNGAM` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | calculates the double precision natural logarithm of the absolute value of the Gamma function for double precision argument X and stores the result in double precision argument DLGAM. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input double-precision argument at which the logarithm of the absolute gamma value is evaluated. |
+| 2 | `DLGAM` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Writable output for the natural logarithm of the absolute value of the gamma function at `X`. |
+| 3 | `SGNGAM` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Writable output sign of the gamma function at `X`; the selected implementation returns either 1 or -1. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

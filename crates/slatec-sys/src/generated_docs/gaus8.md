@@ -8,50 +8,45 @@ This canonical unsafe binding exposes original SLATEC routine `GAUS8`. Its docum
 
 # Arguments
 
-## 1. `FUN`
+## `FUN`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. name of external function to be integrated.  This name must be in an EXTERNAL statement in the calling program. must be a REAL function of one REAL argument.  The value of the argument to FUN is the variable of integration which ranges from A to B. Usually, smaller values for ERR yield more accuracy and require more function evaluations. name of external function to be integrated.  This name must be in an EXTERNAL statement in the calling program. must be a REAL function of one REAL argument.  The value of the argument to FUN is the variable of integration which ranges from A to B. Usually, smaller values for ERR yield more accuracy and require more function evaluations. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `A`
+name of external function to be integrated. This name must be in an EXTERNAL statement in the calling program. must be a REAL function of one REAL argument. The value of the argument to FUN is the variable of integration which ranges from A to B. Usually, smaller values for ERR yield more accuracy and require more function evaluations. A negative value for ERR causes an estimate of the absolute error in ANS to be returned in ERR.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. lower limit of integration negative value for ERR causes an estimate of the absolute error in ANS to be returned in ERR.  Note that B. are too nearly equal to allow normal integration.  ANS is set to zero. --Abnormal code 2 ANS probably does not meet requested error tolerance. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `B`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. upper limit of integration (may be less than A) are too nearly equal to allow normal integration.  ANS is set to zero. --Abnormal code 2 ANS probably does not meet requested error tolerance. not stated by selected source not applicable or not stated by selected source not a workspace argument
+lower limit of integration B. -1 A and B are too nearly equal to allow normal integration. ANS is set to zero. --Abnormal code 2 ANS probably does not meet requested error tolerance.
 
-## 4. `ERR`
+## `B`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is a requested pseudorelative error tolerance.  Normally pick a value of ABS(ERR) so that STOL .LT. ABS(ERR) .LE. 1.0E-3 where STOL is the single precision unit roundoff R1MACH(4).  ANS will normally have no more error than times the integral of the absolute value of must be a variable (not a constant) in this case. Note also that the user must reset the value of ERR before making any more calls that use the variable ERR. will be an estimate of the absolute error in ANS if the is unchanged if is unchanged if negative.)  The estimated is a requested pseudorelative error tolerance.  Normally pick a value of ABS(ERR) so that STOL .LT. ABS(ERR) .LE. 1.0E-3 where STOL is the single precision unit roundoff R1MACH(4).  ANS will normally have no more error than times the integral of the absolute value of must be a variable (not a constant) in this case. Note also that the user must reset the value of ERR before making any more calls that use the variable ERR. will be an estimate of the absolute error in ANS if the is unchanged if is unchanged if negative.)  The estimated not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `ANS`
+upper limit of integration (may be less than A).
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. computed value of integral not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ERR`
 
-## 6. `IERR`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. a status code --Normal codes 1 ANS most likely meets requested error tolerance, not stated by selected source not applicable or not stated by selected source not a workspace argument
+is a requested pseudorelative error tolerance. Normally pick a value of ABS(ERR) so that STOL. LT. ABS(ERR). LE. 1.
+
+## `ANS`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+computed value of integral.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+a status code --Normal codes 1 ANS most likely meets requested error tolerance,.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-not be used as a correction to the computed integral.
-
-# Workspace and array requirements
-
-- `FUN`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `ERR`: not a workspace argument
-- `ANS`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

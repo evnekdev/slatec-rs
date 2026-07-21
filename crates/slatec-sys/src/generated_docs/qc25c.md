@@ -1,6 +1,6 @@
 # Purpose
 
-Integration rules for the computation of CAUCHY PRINCIPAL VALUE integrals Standard fortran subroutine Real version PARAMETERS
+Integration rules for the computation of CAUCHY PRINCIPAL VALUE integrals Standard fortran subroutine Real version
 
 # Description
 
@@ -8,37 +8,53 @@ This canonical unsafe binding exposes original SLATEC routine `QC25C`. Its docum
 
 # Arguments
 
-## 1. `F`
+## `F`
 
-callback `callback` argument; Fortran declaration `REAL`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. Real Function subprogram defining the integrand function The actual name for F needs to be declared E X T E R N A L  in the driver program. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `REAL`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 2. `A`
+Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Left end point of the integration interval not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `B`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Right end point of the integration interval, B.GT.A not stated by selected source not applicable or not stated by selected source not a workspace argument
+Left end point of the integration interval.
 
-## 4. `C`
+## `B`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Parameter in the WEIGHT function not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `RESULT`
+Right end point of the integration interval, B. GT. A.
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Approximation to the integral is computed by using a generalized Clenshaw-Curtis method if C lies within ten percent of the integration interval. In the other case the 15-point Kronrod rule obtained by optimal addition of abscissae to the 7-point Gauss rule, is applied. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 6. `ABSERR`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) not stated by selected source not applicable or not stated by selected source not a workspace argument
+Parameter in the WEIGHT function.
 
-## 7. `KRUL`
+## `RESULT`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Key which is decreased by 1 if the 15-point Gauss-Kronrod scheme has been used not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `NEVAL`
+Approximation to the integral is computed by using a generalized Clenshaw-Curtis method if C lies within ten percent of the integration interval. In the other case the 15-point Kronrod rule obtained by optimal addition of abscissae to the 7-point Gauss rule, is applied.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Number of integrand evaluations not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ABSERR`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT).
+
+## `KRUL`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Key which is decreased by 1 if the 15-point Gauss-Kronrod scheme has been used.
+
+## `NEVAL`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Number of integrand evaluations.
 
 # Return value
 
@@ -46,22 +62,7 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `F`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `C`: not a workspace argument
-- `RESULT`: not a workspace argument
-- `ABSERR`: not a workspace argument
-- `KRUL`: not a workspace argument
-- `NEVAL`: not a workspace argument
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # ABI notes
 

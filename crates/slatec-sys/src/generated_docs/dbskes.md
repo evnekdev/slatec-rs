@@ -1,6 +1,6 @@
 # Purpose
 
-DBSKES(XNU,X,NIN,BKE) computes a double precision sequence of exponentially scaled modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, XNU lies in (-1,1), and I = 0, 1, ... , NIN - 1, if NIN is positive and I = 0, -1, ... , NIN + 1, if NIN is negative. On return, the vector BKE(.) contains the results at X for order starting at XNU. XNU, X, and BKE are double precision. NIN is integer.
+DBSKES(XNU,X,NIN,BKE) computes a double precision sequence of exponentially scaled modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, XNU lies in (-1,1), and I = 0, 1, ... , NIN - 1, if NIN is positive and I = 0, -1, ... , NIN + 1, if NIN is negative. On return, the vector BKE(.) contains the results at X for order starting at XNU.
 
 # Description
 
@@ -8,39 +8,36 @@ This canonical unsafe binding exposes original SLATEC routine `DBSKES`. Its docu
 
 # Arguments
 
-## 1. `XNU`
+## `XNU`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. computes a double precision sequence of exponentially scaled modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, 1,1), and I = 0, 1, ... , NIN - 1, if NIN is positive is integer. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `X`
+Input fractional starting order. `XNU` must lie strictly between -1 and 1.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. computes a double precision sequence of exponentially scaled modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, is integer. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 3. `NIN`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. computes a double precision sequence of exponentially scaled modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, is negative.  On return, the is negative.  On return, the vector BKE(.) contains the results at X for order starting at XNU. vector BKE(.) contains the results at X for order starting at XNU. is integer. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Input evaluation point. `X` must be strictly positive; the returned sequence is evaluated at this point and native code does not modify it.
 
-## 4. `BKE`
+## `NIN`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). computes a double precision sequence of exponentially scaled modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, is integer. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Input nonzero signed sequence length. `abs(NIN)` is the required result-array length; a positive value advances the order and a negative value steps it downward from `XNU`.
+
+## `BKE`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+Writable output array with at least `abs(NIN)` elements. On return `BKE\[I\]` holds `exp(X) * K_(XNU+I)(X)` for the requested order sequence; native code retains no pointer.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `XNU`: not a workspace argument
-- `X`: not a workspace argument
-- `NIN`: not a workspace argument
 - `BKE`: not a workspace argument
 
 # ABI notes

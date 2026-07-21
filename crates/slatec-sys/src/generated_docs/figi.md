@@ -8,55 +8,58 @@ This canonical unsafe binding exposes original SLATEC routine `FIGI`. Its docume
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameter, T, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameter, T, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameter, T, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix T.  N is an INTEGER variable. must be less than or equal to NM. 1 positions of the first column, its diagonal in the N positions of the second column, 1 positions of are arbitrary. 1 positions.  E(1) is not set. 1,3) is negative and a symmetric matrix cannot be produced with FIGI, is zero with one factor non-zero.  In this case, the eigenvectors of the symmetric matrix are not simply related to those of  T  and should not be sought. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY is the order of the matrix T.  N is an INTEGER variable. must be less than or equal to NM. 1 positions of the first column, its diagonal in the N positions of the second column, 1 positions of are arbitrary. 1 positions.  E(1) is not set. 1,3) is negative and a symmetric matrix cannot be produced with FIGI, is zero with one factor non-zero.  In this case, the eigenvectors of the symmetric matrix are not simply related to those of  T  and should not be sought. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `T`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, 3). contains the nonsymmetric matrix.  Its subdiagonal is are arbitrary. are arbitrary. dimensional REAL array, dimensioned T(NM,3). is unaltered. 1,3) is negative and a symmetric 1,3) is negative and a symmetric matrix cannot be produced with FIGI, matrix cannot be produced with FIGI, is zero with one factor is zero with one factor non-zero.  In this case, the eigenvectors of non-zero.  In this case, the eigenvectors of the symmetric matrix are not simply related the symmetric matrix are not simply related to those of  T  and should not be sought. to those of  T  and should not be sought. Questions and comments should be directed to B. S. Garbow, Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains the nonsymmetric matrix.  Its subdiagonal is are arbitrary. are arbitrary. dimensional REAL array, dimensioned T(NM,3). is unaltered. 1,3) is negative and a symmetric 1,3) is negative and a symmetric matrix cannot be produced with FIGI, matrix cannot be produced with FIGI, is zero with one factor is zero with one factor non-zero.  In this case, the eigenvectors of non-zero.  In this case, the eigenvectors of the symmetric matrix are not simply related the symmetric matrix are not simply related to those of  T  and should not be sought. to those of  T  and should not be sought. Questions and comments should be directed to B. S. Garbow, Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the order of the matrix T. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `D`
+## `T`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the diagonal elements of the tridiagonal symmetric dimensional REAL array, dimensioned D(N). contains the diagonal elements of the tridiagonal symmetric dimensional REAL array, dimensioned D(N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, 3).
 
-## 5. `E`
+contains the nonsymmetric matrix. Its subdiagonal is stored in the last N-1 positions of the first column, its diagonal in the N positions of the second column, and its superdiagonal in the first N-1 positions of the third column. T(1,1) and T(N,3) are arbitrary. is a two-dimensional REAL array, dimensioned T(NM,3). is unaltered.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the subdiagonal elements of the tridiagonal dimensional REAL array, dimensioned E(N). are not needed. contains the subdiagonal elements of the tridiagonal dimensional REAL array, dimensioned E(N). are not needed. not applicable or not stated by selected source not a workspace argument
+## `D`
 
-## 6. `E2`
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the squares of the corresponding elements of E. are not needed. dimensional REAL array, dimensioned E2(N). contains the squares of the corresponding elements of E. are not needed. dimensional REAL array, dimensioned E2(N). not applicable or not stated by selected source not a workspace argument
+contains the diagonal elements of the tridiagonal symmetric matrix. D is a one-dimensional REAL array, dimensioned D(N).
 
-## 7. `IERR`
+## `E`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the subdiagonal elements of the tridiagonal symmetric matrix in its last N-1 positions. E(1) is not set. is a one-dimensional REAL array, dimensioned E(N).
+
+## `E2`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the squares of the corresponding elements of E. E2 may coincide with E if the squares are not needed. is a one-dimensional REAL array, dimensioned E2(N).
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, N+I if T(I,1)*T(I-1,3) is negative and a symmetric matrix cannot be produced with FIGI, -(3*N+I) if T(I,1)*T(I-1,3) is zero with one factor non-zero. In this case, the eigenvectors of the symmetric matrix are not simply related to those of T and should not be sought. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `T`: not a workspace argument
 - `D`: not a workspace argument
 - `E`: not a workspace argument
 - `E2`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

@@ -200,6 +200,28 @@ transitional ABI-shaped path until it has a reviewed canonical mathematical
 path. Hash-guarded corrections in `metadata/raw-api-corrections.json` supply
 only reviewed facts that cannot safely be inferred from executable source.
 
+## Semantic documentation quality (M3)
+
+The raw inventory answers ABI and provider questions; it is not by itself a
+semantic-documentation completion claim. M3 joins its canonical public records
+with selected source prologues and a source-hash-guarded correction layer in
+`metadata/public-api-semantic-corrections.json`. It emits the frozen baseline,
+final semantic records, direction conflicts, contamination audit,
+status/workspace coverage, manual sample, and rendered-rustdoc semantic audit
+under `generated/slatec-routines/`.
+
+Run the deterministic semantic generation and gate locally with:
+
+```text
+cargo run -p slatec-tools --bin slatec-corpus -- generate-semantic-documentation-quality --offline
+cargo run -p slatec-tools --bin slatec-corpus -- validate-semantic-documentation-quality --offline
+```
+
+A precision sibling can supply missing prose only when routine kind, formal
+names and order, shapes, and callback structure match. Any recorded transfer
+is checked again during validation. The rendered audit is the release-gating
+surface; routine-reference Markdown is supporting evidence only.
+
 ## Batch A generated public raw interface promotion
 
 Batch A reuses this normalized interface inventory rather than creating a

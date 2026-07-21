@@ -54,41 +54,43 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [DXLEGF](https://www.netlib.org/slatec/src/dxlegf.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `DNU1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 0.5; |
-| 2 | `NUDIFF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | negative; 0 or MU2 = MU1. |
-| 3 | `MU1` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | negative; |
-| 4 | `MU2` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is INTEGER and greater than or equal to MU1; MU1+1 or NUDIFF+1. Where possible, DXLEGF returns IPQA(I) as zero. In this case the value of the Legendre function is contained entirely in PQA(I), so it can be used in subsequent computations without further consideration of extended-range arithmetic. If IPQA(I) is nonzero, then the value of the Legendre function is not representable in floating-point because of underflow or overflow. The program that calls DXLEGF must test IPQA(I) to ensure correct usage. |
-| 5 | `THETA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | open interval (0,PI/2]; |
-| 6 | `ID` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is INTEGER and equal to 1, 2, 3 or 4; 1 and NUDIFF=0, a vector of type 1a above is computed with NU=DNU1. 1 and MU1=MU2, a vector of type 1b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. 2 and NUDIFF=0, a vector of type 2a above is computed with NU=DNU1. 2 and MU1=MU2, a vector of type 2b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. 3 and NUDIFF=0, a vector of type 3a above is computed with NU=DNU1. 3 and MU1=MU2, a vector of type 3b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. 4 and NUDIFF=0, a vector of type 4a above is computed with NU=DNU1. 4 and MU1=MU2, a vector of type 4b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). The |
+| 1 | `DNU1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is DOUBLE PRECISION and greater than or equal to -0. 5;. |
+| 2 | `NUDIFF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is INTEGER and non-negative;. |
+| 3 | `MU1` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is INTEGER and non-negative;. |
+| 4 | `MU2` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is INTEGER and greater than or equal to MU1;. |
+| 5 | `THETA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | is DOUBLE PRECISION and in the half-open interval (0,PI/2];. |
+| 6 | `ID` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is INTEGER and equal to 1, 2, 3 or 4; and additionally either NUDIFF = 0 or MU2 = MU1. If ID=1 and NUDIFF=0, a vector of type 1a above is computed with NU=DNU1. If ID=1 and MU1=MU2, a vector of type 1b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=2 and NUDIFF=0, a vector of type 2a above is computed If ID=2 and MU1=MU2, a vector of type 2b above is computed If ID=3 and NUDIFF=0, a vector of type 3a above is computed If ID=3 and MU1=MU2, a vector of type 3b above is computed If ID=4 and NUDIFF=0, a vector of type 4a above is computed If ID=4 and MU1=MU2, a vector of type 4b above is computed In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). The length of this vector is either MU2-MU1+1 or NUDIFF+1. Where possible, DXLEGF returns IPQA(I) as zero. |
 | 7 | `PQA` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Writable extended-range mantissa array. Together with `IPQA`, it returns the requested Legendre-function vector; element `I` represents `PQA[I] * radix^IPQA[I]`. Its required length is `MU2-MU1+1` or `NUDIFF+1`, according to the selected vector form. |
 | 8 | `IPQA` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Writable extended-range exponent array paired element-for-element with `PQA`. A zero entry means the corresponding value is directly representable in the routine precision; callers must inspect nonzero entries before treating `PQA` alone as the result. |
-| 9 | `IERROR` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0 0 when control returns to the calling routine. If an error is detected, when control returns to the calling routine. If an error is detected, is returned as nonzero. The calling routine must check the value of IERROR. 210 or 211, invalid input was provided to DXLEGF. 201,202,203, or 204, invalid input was provided to DXSET. 205 or 206, an internal consistency error occurred in DXSET (probably due to a software malfunction in the library routine I1MACH). range number was detected in DXADJ. range number was detected in DXC210. |
+| 9 | `IERROR` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an error indicator. If no errors are detected, IERROR=0 when control returns to the calling routine. If an error is detected, is returned as nonzero. The calling routine must check the value of IERROR. If IERROR=210 or 211, invalid input was provided to DXLEGF. If IERROR=201,202,203, or 204, invalid input was provided to DXSET. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IERROR` | `210` | or 211, invalid input was provided to DXLEGF. |
+| `IERROR` | `201` | ,202,203, or 204, invalid input was provided to DXSET. |
+| `IERROR` | `205` | or 206, an internal consistency error occurred in DXSET (probably due to a software malfunction in the library routine I1MACH). |
+| `IERROR` | `207` | , an overflow or underflow of an extended-range number was detected in DXADJ. |
+| `IERROR` | `208` | , an overflow or underflow of an extended-range number was detected in DXC210. SEE ALSO DXSET |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

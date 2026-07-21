@@ -8,7 +8,7 @@ Evaluate the definite integral of a piecewise cubic Hermite function over an arb
 
 ## Description
 
-DPCHIA: Piecewise Cubic Hermite Integrator, Arbitrary limits Evaluates the definite integral of the cubic Hermite function defined by N, X, F, D over the interval [A, B]. To provide compatibility with DPCHIM and DPCHIC, includes an
+DPCHIA: Piecewise Cubic Hermite Integrator, Arbitrary limits Evaluates the definite integral of the cubic Hermite function defined by N, X, F, D over the interval [A, B]. To provide compatibility with DPCHIM and DPCHIC, includes an increment between successive values of the F- and D-arrays. Calling sequence: PARAMETER (INCFD = ...) INTEGER N, IERR DOUBLE PRECISION X(N), F(INCFD,N), D(INCFD,N), A, B DOUBLE PRECISION VALUE, DPCHIA LOGICAL SKIP VALUE = DPCHIA (N, X, F, D, INCFD, SKIP, A, B, IERR)
 
 ## Classification
 
@@ -52,41 +52,33 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DPCHIA](https://www.netlib.org/slatec/pchip/dpchia.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) number of data points.  (Error return if N.LT.2 .) However, the resulting integral value will be highly suspect, if not. |
-| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (input) real*8 array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N. However, the resulting integral value However, the resulting integral value will be highly suspect, if not. will be highly suspect, if not. |
-| 3 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | and D-arrays. (input) real*8 array of function values.  F(1+(I-1)*INCFD) is the value corresponding to X(I). |
-| 4 | `D` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | (input) real*8 array of derivative values.  D(1+(I-1)*INCFD) is the value corresponding to X(I). |
-| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ...) INTEGER  N, IERR DOUBLE PRECISION  X(N), F(INCFD,N), D(INCFD,N), A, B DOUBLE PRECISION  VALUE, DPCHIA LOGICAL  SKIP VALUE = DPCHIA (N, X, F, D, INCFD, SKIP, A, B, IERR) Parameters: VALUE -- (output) value of the requested integral. (input) increment between successive values in F and D. |
-| 6 | `SKIP` | `input-output` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | (input/output) logical variable which should be set to .TRUE. if the user wishes to skip checks for validity of preceding parameters, or to .FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC). will be set to .TRUE. on return with IERR.GE.0 . |
-| 7 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) the limits of integration. NOTE:  There is no requirement that [A,B] be contained in contains data interval or the intervals do not intersect at all.) "Recoverable" errors: |
-| 8 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) the limits of integration. NOTE:  There is no requirement that [A,B] be contained in contains data interval or the intervals do not intersect at all.) "Recoverable" errors: |
-| 9 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0  (no errors). Warning errors: 1  if  A  is outside the interval [X(1),X(N)]. 2  if  B  is outside the interval [X(1),X(N)]. 3  if both of the above are true.  (Note that this 1  if N.LT.2 . 2  if INCFD.LT.1 . 3  if the X-array is not strictly increasing. (VALUE will be zero in any of these cases.) NOTE:  The above errors are checked in the order listed, and following arguments have **NOT** been validated. 4  in case of an error return from DPCHID (which should never occur). |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) number of data points. (Error return if N. LT. 2. ). |
+| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (input) real*8 array of independent variable values. The elements of X must be strictly increasing:. LT. X(I), I = 2(1)N. (Error return if not. ). |
+| 3 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | (input) real*8 array of function values. F(1+(I-1)*INCFD) is the value corresponding to X(I). |
+| 4 | `D` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | (input) real*8 array of derivative values. D(1+(I-1)*INCFD) is the value corresponding to X(I). |
+| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) increment between successive values in F and D. (Error return if INCFD. LT. 1. ). |
+| 6 | `SKIP` | `output` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | (input/output) logical variable which should be set to. TRUE. if the user wishes to skip checks for validity of preceding parameters, or to. FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC). |
+| 7 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) the limits of integration. NOTE: There is no requirement that [A,B] be contained in [X(1),X(N)]. However, the resulting integral value will be highly suspect, if not. |
+| 8 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (input) the limits of integration. NOTE: There is no requirement that [A,B] be contained in [X(1),X(N)]. However, the resulting integral value will be highly suspect, if not. |
+| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0 (no errors). Warning errors: 1 if A is outside the interval [X(1),X(N)]. 2 if B is outside the interval [X(1),X(N)]. 3 if both of the above are true. (Note that this means that either [A,B] contains data interval or the intervals do not intersect at all. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:f64(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_f64_ptr_rank2,mut_i32,mut_fortran_logical_i32,mut_f64,mut_f64,mut_i32)`.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

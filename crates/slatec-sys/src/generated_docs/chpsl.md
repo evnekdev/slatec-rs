@@ -8,38 +8,37 @@ This canonical unsafe binding exposes original SLATEC routine `CHPSL`. Its docum
 
 # Arguments
 
-## 1. `AP`
+## `AP`
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N*(N+1)/2) the output from CHPFA. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-## 2. `N`
+COMPLEX(N*(N+1)/2) the output from CHPFA.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `KPVT`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(N) the pivot vector from CHPFA. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the order of the matrix A.
 
-## 4. `B`
+## `KPVT`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) the right hand side vector. On Return the solution vector  X . not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+INTEGER(N) the pivot vector from CHPFA.
+
+## `B`
+
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+COMPLEX(N) the right hand side vector. the solution vector X. Error Condition A division by zero may occur if CHPCO has set RCOND. EQ. 0. 0 or CHPFA has set INFO.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-A division by zero may occur if  CHPCO  has set RCOND .EQ. 0.0 or  CHPFA  has set INFO .NE. 0  . To compute  INVERSE(A) * C  where  C  is a matrix with  P  columns CALL CHPFA(AP,N,KVPT,INFO) IF (INFO .NE. 0) GO TO ... DO 10 J = 1, P CALL CHPSL(AP,N,KVPT,C(1,J)) 10 CONTINUE
-
 # Workspace and array requirements
 
 - `AP`: not a workspace argument
-- `N`: not a workspace argument
 - `KPVT`: not a workspace argument
 - `B`: not a workspace argument
 

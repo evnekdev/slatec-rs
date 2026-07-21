@@ -1,6 +1,6 @@
 # Purpose
 
-Abstract **** a double precision routine ****
+Abstract **** a double precision routine **** DPPQAD computes the integral on (X1,X2) of a K-th order B-spline using the piecewise polynomial representation (C,XI,LXI,K). Here the Taylor expansion about the left end point XI(J) of the J-th interval is integrated and evaluated on subintervals of (X1,X2) which are formed by included break points. Integration outside (XI(1),XI(LXI+1)) is permitted.
 
 # Description
 
@@ -8,60 +8,63 @@ This canonical unsafe binding exposes original SLATEC routine `DPPQAD`. Its docu
 
 # Arguments
 
-## 1. `LDC`
+## `LDC`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. leading dimension of matrix C, LDC .GE. K leading dimension of matrix C, LDC .GE. K leading dimension of matrix C, LDC .GE. K not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `C`
+leading dimension of matrix C, LDC. GE. K.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (LDC, *). Here the Taylor expansion about the left are double precision right Taylor derivatives at XI(J), I=1,K , J=1,LXI not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 3. `XI`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (LDC, *).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). Here the Taylor expansion about the left th interval is integrated and are double precision break point array of length LXI+1 .LE. X .LE. XI(LXI+1) Output     PQUAD is double precision Here the Taylor expansion about the left th interval is integrated and are double precision break point array of length LXI+1 .LE. X .LE. XI(LXI+1) Output     PQUAD is double precision not applicable or not stated by selected source not a workspace argument
+right Taylor derivatives at XI(J), I=1,K , J=1,LXI.
 
-## 4. `LXI`
+## `XI`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Here the Taylor expansion about the left number of polynomial pieces not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-## 5. `K`
+break point array of length LXI+1. LE. X. XI(LXI+1) Output PQUAD is double precision.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. th order B-spline using the piecewise polynomial (PP) representation. th order B-spline using the piecewise polynomial representation Here the Taylor expansion about the left order of B-spline, K .GE. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `LXI`
 
-## 6. `X1`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. th order B-spline using the piecewise polynomial (PP) representation. th order B-spline using the piecewise polynomial representation are formed by included break points.  Integration outside (XI(1),XI(LXI+1)) is permitted. are double precision end points of quadrature interval, normally in not stated by selected source not applicable or not stated by selected source not a workspace argument
+number of polynomial pieces.
 
-## 7. `X2`
+## `K`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. th order B-spline using the piecewise polynomial (PP) representation. th order B-spline using the piecewise polynomial representation are formed by included break points.  Integration outside (XI(1),XI(LXI+1)) is permitted. are double precision end points of quadrature interval, normally in not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `PQUAD`
+order of B-spline, K. GE. 1.
 
-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. integral of the PP representation over (X1,X2) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X1`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+end points of quadrature interval, normally in.
+
+## `X2`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+end points of quadrature interval, normally in.
+
+## `PQUAD`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+integral of the PP representation over (X1,X2).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-Improper input is a fatal error
 
 # Workspace and array requirements
 
 - `LDC`: not a workspace argument
 - `C`: not a workspace argument
 - `XI`: not a workspace argument
-- `LXI`: not a workspace argument
-- `K`: not a workspace argument
-- `X1`: not a workspace argument
-- `X2`: not a workspace argument
-- `PQUAD`: not a workspace argument
 
 # ABI notes
 

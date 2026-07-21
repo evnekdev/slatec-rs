@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `DBESK0`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. calculates the double precision modified (hyperbolic) Bessel function of the third kind of order zero for double precision argument X.  The argument must be greater than zero but not so large that the result underflows. Series for BK0        on the interval  0.          to  4.00000E+00 with weighted error   3.08E-33 log weighted error  32.51 significant figures required  32.05 decimal places required  33.11 calculates the double precision modified (hyperbolic) Bessel function of the third kind of order zero for double precision argument X.  The argument must be greater than zero but not so large that the result underflows. Series for BK0        on the interval  0.          to  4.00000E+00 with weighted error   3.08E-33 log weighted error  32.51 significant figures required  32.05 decimal places required  33.11 not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the modified (hyperbolic) Bessel function of the third kind of order zero
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f64(mut_f64)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

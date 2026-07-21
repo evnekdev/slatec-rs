@@ -8,64 +8,67 @@ This canonical unsafe binding exposes original SLATEC routine `BQR`. Its documen
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameter, A, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. MB positions of the first column, MB positions of the second column, further subdiagonals similarly, and finally its principal diagonal in the N positions of the last column. Contents of storages not part of the matrix are arbitrary. On a subsequent call, its output contents from the previous 1, but 1, but is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. MB positions of the first column, MB positions of the second column, further subdiagonals similarly, and finally its principal diagonal in the N positions of the last column. Contents of storages not part of the matrix are arbitrary. On a subsequent call, its output contents from the previous 1, but 1, but not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `MB`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the (half) band width of the matrix, defined as the number of adjacent diagonals, including the principal diagonal, required to specify the non-zero portion of the lower triangle of the matrix.  MB is an INTEGER variable. must be less than or equal to N on first call. 3), used for temporary storage.  The 3), used for temporary storage.  The 2) locations correspond to the ALGOL array B, 1) locations correspond to the ALGOL array H, MB) locations correspond to the MB 1) ALGOL array U. should not be altered even when it exceeds the current N. Calls PYTHAG(A,B) for SQRT(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY is the (half) band width of the matrix, defined as the number of adjacent diagonals, including the principal diagonal, required to specify the non-zero portion of the lower triangle of the matrix.  MB is an INTEGER variable. must be less than or equal to N on first call. 3), used for temporary storage.  The 3), used for temporary storage.  The 2) locations correspond to the ALGOL array B, 1) locations correspond to the ALGOL array H, MB) locations correspond to the MB 1) ALGOL array U. should not be altered even when it exceeds the current N. Calls PYTHAG(A,B) for SQRT(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, Applied Mathematics Division, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `A`
+## `MB`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the lower triangle of the symmetric band input matrix stored as an N by MB array.  Its lowest subdiagonal dimensional REAL array, dimensional REAL array, dimensioned A(NM,MB). dimensioned A(NM,MB). contains the transformed band matrix.  The matrix A+TI derived from the output parameters is similar to the input A+TI to within rounding errors.  Its last row and column are null (if IERR is zero). is zero), where I is the identity matrix. dimensional REAL array of dimension NV which is 1, but contains the lower triangle of the symmetric band input matrix stored as an N by MB array.  Its lowest subdiagonal dimensional REAL array, dimensional REAL array, dimensioned A(NM,MB). dimensioned A(NM,MB). contains the transformed band matrix.  The matrix A+TI derived from the output parameters is similar to the input A+TI to within rounding errors.  Its last row and column are null (if IERR is zero). is zero), where I is the identity matrix. dimensional REAL array of dimension NV which is 1, but not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `T`
+is the (half) band width of the matrix, defined as the number of adjacent diagonals, including the principal diagonal, required to specify the non-zero portion of the lower triangle of the matrix. MB is an INTEGER variable. must be less than or equal to N on first call. should not be altered even when it exceeds the current N. Calls PYTHAG(A,B) for SQRT(A**2 + B**2). Questions and comments should be directed to B.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. specifies the shift (of eigenvalues) applied to the diagonal of A in forming the input matrix. What is actually determined is the eigenvalue of A+TI (I is the identity matrix) nearest to T.  On a subsequent call, the output value of T from the previous call should be passed if the next nearest eigenvalue is sought.  T is a REAL variable. is zero), where I is the identity matrix. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 6. `R`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. should be specified as zero on the first call, and as its output value from the previous call on a subsequent call. It is used to determine when the last row and column of the transformed band matrix can be regarded as negligible. is a REAL variable. contains the maximum of its input value and the norm of the last column of the input matrix A. not stated by selected source not applicable or not stated by selected source not a workspace argument
+contains the lower triangle of the symmetric band input matrix stored as an N by MB array. Its lowest subdiagonal is stored in the last N+1-MB positions of the first column, its next subdiagonal in the last N+2-MB positions of the second column, further subdiagonals similarly, and finally its principal diagonal in the N positions of the last column. Contents of storages not part of the matrix are arbitrary. On a subsequent call, its output contents from the previous call should be passed. A is a two-dimensional REAL array, dimensioned A(NM,MB). contains the transformed band matrix.
 
-## 7. `IERR`
+## `T`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is zero), where I is the identity matrix. is an INTEGER flag set to Zero       for normal return, J          if the J-th eigenvalue has not been determined after a total of 30 iterations. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `NV`
+specifies the shift (of eigenvalues) applied to the diagonal of A in forming the input matrix. What is actually determined is the eigenvalue of A+TI (I is the identity matrix) nearest to T. On a subsequent call, the output value of T from the previous call should be passed if the next nearest eigenvalue is sought. T is a REAL variable. contains the computed eigenvalue of A+TI (if IERR is zero), where I is the identity matrix.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. must be set to the dimension of the array parameter RV as declared in the calling program dimension statement. is an INTEGER variable. must be set to the dimension of the array parameter RV as declared in the calling program dimension statement. is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+## `R`
 
-## 9. `RV`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). dimensional REAL array of dimension NV which is dimensional REAL array of dimension NV which is not applicable or not stated by selected source not a workspace argument
+should be specified as zero on the first call, and as its output value from the previous call on a subsequent call. It is used to determine when the last row and column of the transformed band matrix can be regarded as negligible. is a REAL variable. contains the maximum of its input value and the norm of the last column of the input matrix A.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, J if the J-th eigenvalue has not been determined after a total of 30 iterations.
+
+## `NV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+must be set to the dimension of the array parameter RV as declared in the calling program dimension statement. is an INTEGER variable.
+
+## `RV`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+is a one-dimensional REAL array of dimension NV which is at least (2*MB**2+4*MB-3), used for temporary storage. The first (3*MB-2) locations correspond to the ALGOL array B, the next (2*MB-1) locations correspond to the ALGOL array H, and the final (2*MB**2-MB) locations correspond to the MB by (2*MB-1) ALGOL array U. NOTE. For a subsequent call, N should be replaced by N-1, but.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
-- `MB`: not a workspace argument
 - `A`: not a workspace argument
-- `T`: not a workspace argument
-- `R`: not a workspace argument
-- `IERR`: not a workspace argument
-- `NV`: not a workspace argument
 - `RV`: not a workspace argument
 
 # ABI notes

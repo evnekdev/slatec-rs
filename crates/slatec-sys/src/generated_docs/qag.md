@@ -1,111 +1,103 @@
 # Purpose
 
-Computation of a definite integral Standard fortran subroutine Real version
+Approximates a definite integral over `(A, B)` with an adaptive Gauss-Kronrod rule. This is the original single precision QUADPACK driver `QAG`.
 
 # Description
 
-This canonical unsafe binding exposes original SLATEC routine `QAG`. Its documented behavior is taken from the selected, source-hash-verified provider prologue; the exact implementation source is [QAG](https://www.netlib.org/slatec/src/qag.f).
+`QAG` repeatedly evaluates `F` and subdivides `(A, B)` until the requested absolute or relative accuracy is met, or it reports the limiting condition through `IER`. The selected source is [QAG](https://www.netlib.org/slatec/src/qag.f).
 
 # Arguments
 
-## 1. `F`
+## `F`
 
-callback `callback` argument; Fortran declaration `REAL`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. Real Function subprogram defining the integrand Function F(X). The actual name for F needs to be Declared E X T E R N A L in the driver program. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. The synchronous `IntegrandF32` integrand receives one readable `f32` abscissa and returns its function value. It must remain valid through the call, must not retain the pointer, and **must not unwind** through Fortran.
 
-## 2. `A`
+## `A`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Lower limit of integration KRONROD PAIR is used with 7 - 15 POINTS If KEY.LT.2, 10 - 21 POINTS If KEY = 2, 15 - 31 POINTS If KEY = 3, 20 - 41 POINTS If KEY = 4, 25 - 51 POINTS If KEY = 5, 30 - 61 POINTS If KEY.GT.5. ON RETURN LIMIT.GE.1. LAST If not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Lower integration limit.
 
-## 3. `B`
+## `B`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Upper limit of integration LIMIT.GE.1. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Upper integration limit.
 
-## 4. `EPSABS`
+## `EPSABS`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Absolute accuracy requested AND not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Requested absolute accuracy.
 
-## 5. `EPSREL`
+## `EPSREL`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Relative accuracy requested If  EPSABS.LE.0 28), 28)) OR LIMIT.LT.1 OR LENW.LT.LIMIT*4. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Requested relative accuracy. When `EPSABS <= 0`, it must be at least `max(50 * relative_machine_accuracy, 0.5e-28)` in the routine precision, otherwise `IER=6`.
 
-## 6. `KEY`
+## `KEY`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer for choice of local integration rule not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Selects the local Gauss-Kronrod pair: `< 2` selects 7/15 points; `2`, `3`, `4`, and `5` select 10/21, 15/31, 20/41, and 25/51 points; `> 5` selects 30/61 points.
 
-## 7. `RESULT`
+## `RESULT`
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Approximation to the integral are set to zero. EXCEPT when LENW is invalid, IWORK(1), not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. Approximation to the requested integral.
 
-## 8. `ABSERR`
+## `ABSERR`
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Estimate of the modulus of the absolute error, Which should EQUAL or EXCEED ABS(I-RESULT) are set to zero. EXCEPT when LENW is invalid, IWORK(1), not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. Estimate of the absolute error; it is intended to satisfy `ABSERR >= abs(I - RESULT)`.
 
-## 9. `NEVAL`
+## `NEVAL`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Number of integrand evaluations are set to zero. EXCEPT when LENW is invalid, IWORK(1), not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. Number of integrand evaluations.
 
-## 10. `IER`
+## `IER`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 6. Integer 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. Abnormal termination of the routine The estimates for RESULT and ERROR are Less reliable. It is assumed that the requested accuracy has not been achieved. 1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of 6. 6. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `status-output`. Completion and error indicator; see **Status and error values**.
 
-## 11. `LIMIT`
+## `LIMIT`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (and taking the according dimension adjustments into account). HOWEVER, If this yield no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (I.E. SINGULARITY, DISCONTINUITY WITHIN THE INTERVAL) One will probably gain from splitting up the interval at this point and calling the INTEGRATOR on the SUBRANGES. If possible, AN APPROPRIATE SPECIAL-PURPOSE INTEGRATOR should be used which is designed for handling the type of difficulty involved. = 2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. = 3 Extremely bad integrand behaviour occurs at some points of the integration interval. = 6 The input is invalid, because and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and to B. DIMENSIONING PARAMETERS Integer Dimensioning parameter for IWORK determines the maximum number of subintervals in the partition of the given integration interval 6. , WORK(LIMIT*3+IWORK(K)) LAST otherwise LAST otherwise contain the contain the right end points, right end points, ..., WORK(LIMIT*2+LAST) contain the integral approximations over the subintervals, ..., WORK(LIMIT*3+LAST) contain the error estimates. (and taking the according dimension adjustments into account). HOWEVER, If this yield no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (I.E. SINGULARITY, DISCONTINUITY WITHIN THE INTERVAL) One will probably gain from splitting up the interval at this point and calling the INTEGRATOR on the SUBRANGES. If possible, AN APPROPRIATE SPECIAL-PURPOSE INTEGRATOR should be used which is designed for handling the type of difficulty involved. = 2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. = 3 Extremely bad integrand behaviour occurs at some points of the integration interval. = 6 The input is invalid, because and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and to B. DIMENSIONING PARAMETERS Integer Dimensioning parameter for IWORK determines the maximum number of subintervals in the partition of the given integration interval 6. , WORK(LIMIT*3+IWORK(K)) LAST otherwise LAST otherwise contain the contain the right end points, right end points, ..., WORK(LIMIT*2+LAST) contain the integral approximations over the subintervals, ..., WORK(LIMIT*3+LAST) contain the error estimates. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Maximum number of subintervals; `LIMIT >= 1`. It is also the required minimum length of `IWORK`.
 
-## 12. `LENW`
+## `LENW`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Dimensioning parameter for work must be at least LIMIT*4. IF LENW.LT.LIMIT*4, the routine will end with Integer Dimensioning parameter for work must be at least LIMIT*4. IF LENW.LT.LIMIT*4, the routine will end with not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. Declared length of `WORK`; `LENW >= 4 * LIMIT`.
 
-## 13. `LAST`
+## `LAST`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. are set to zero. EXCEPT when LENW is invalid, IWORK(1), Integer On return, LAST equals the number of subintervals produced in the subdivision process, which determines the number of significant elements actually in the WORK ARRAYS. LAST otherwise contain the left end points of the subintervals in the partition of contain the right end points, not stated by selected source not applicable or not stated by selected source
+**Direction:** `output`. Number of subintervals produced. It determines the number of significant entries in the workspace segments.
 
-## 14. `IWORK`
+## `IWORK`
 
-workspace `workspace` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). Integer Vector of dimension at least limit, the first K elements of which contain pointers to the error estimates over the subintervals, such that , WORK(LIMIT*3+IWORK(K)) Integer Vector of dimension at least limit, the first K elements of which contain pointers to the error estimates over the subintervals, such that , WORK(LIMIT*3+IWORK(K)) not applicable or not stated by selected source
+**Direction:** `workspace-output`. Integer array of at least `LIMIT` elements. Its first `K` entries order subinterval error estimates, where `K=LAST` when `LAST <= LIMIT/2 + 2`, otherwise `K=LIMIT + 1 - LAST`.
 
-## 15. `WORK`
+## `WORK`
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and to B. DIMENSIONING PARAMETERS ARRAYS , WORK(LIMIT*3+IWORK(K)) Real Vector of dimension at least LENW on return contain the left end contain the left end points of the subintervals in the partition of points of the subintervals in the partition of contain the contain the right end points, right end points, ..., WORK(LIMIT*2+LAST) contain the integral approximations over the subintervals, ..., WORK(LIMIT*3+LAST) contain the error estimates. and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and to B. DIMENSIONING PARAMETERS ARRAYS , WORK(LIMIT*3+IWORK(K)) Real Vector of dimension at least LENW on return contain the left end contain the left end points of the subintervals in the partition of points of the subintervals in the partition of contain the contain the right end points, right end points, ..., WORK(LIMIT*2+LAST) contain the integral approximations over the subintervals, ..., WORK(LIMIT*3+LAST) contain the error estimates. not applicable or not stated by selected source
+**Direction:** `workspace-output`. `f32` array of at least `LENW` elements. On return its four `LIMIT`-strided segments hold left endpoints, right endpoints, subintegral estimates, and error estimates for the first `LAST` subintervals.
 
 # Return value
 
-This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
+This Fortran subroutine has no direct return value. It returns the integral estimate, error estimate, evaluation count, status, and subdivision state through mutable arguments.
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
+`F` is invoked synchronously using the reviewed `IntegrandF32` ABI. It may read its one scalar input only for the duration of the call and **must not panic or unwind** across the native boundary.
 
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| `IER` | Meaning |
+| ---: | --- |
+| `0` | Normal, reliable completion; the requested accuracy is assumed achieved. |
+| `1` | The maximum number of subdivisions was reached. Increasing `LIMIT` may help. |
+| `2` | Roundoff prevented the requested tolerance from being achieved. |
+| `3` | Extremely bad integrand behavior occurred within the integration interval. |
+| `6` | Invalid input: tolerance, `LIMIT`, or `LENW` constraints were violated. `RESULT`, `ABSERR`, `NEVAL`, and `LAST` are zeroed as documented by the source. |
 
 # Workspace and array requirements
 
-- `F`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `EPSABS`: not a workspace argument
-- `EPSREL`: not a workspace argument
-- `KEY`: not a workspace argument
-- `RESULT`: not a workspace argument
-- `ABSERR`: not a workspace argument
-- `NEVAL`: not a workspace argument
-- `IER`: not a workspace argument
-- `LIMIT`: not a workspace argument
-- `LENW`: not a workspace argument
-- `LAST`: are set to zero. EXCEPT when LENW is invalid, IWORK(1), Integer On return, LAST equals the number of subintervals produced in the subdivision process, which determines the number of significant elements actually in the WORK ARRAYS. LAST otherwise contain the left end points of the subintervals in the partition of contain the right end points,
-- `IWORK`: Integer Vector of dimension at least limit, the first K elements of which contain pointers to the error estimates over the subintervals, such that , WORK(LIMIT*3+IWORK(K))
-- `WORK`: and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and to B. DIMENSIONING PARAMETERS ARRAYS , WORK(LIMIT*3+IWORK(K)) Real Vector of dimension at least LENW on return contain the left end contain the left end points of the subintervals in the partition of points of the subintervals in the partition of contain the contain the right end points, right end points, ..., WORK(LIMIT*2+LAST) contain the integral approximations over the subintervals, ..., WORK(LIMIT*3+LAST) contain the error estimates.
+`IWORK` length is at least `LIMIT`; `WORK` length is at least `LENW`, with `LENW >= 4 * LIMIT`. `WORK(1..LAST)`, `WORK(LIMIT+1..LIMIT+LAST)`, `WORK(2*LIMIT+1..2*LIMIT+LAST)`, and `WORK(3*LIMIT+1..3*LIMIT+LAST)` respectively hold the left endpoints, right endpoints, subintegral estimates, and error estimates.
 
 # ABI notes
 
 - Canonical Rust path: `slatec_sys::quadrature::qag`
 - Original SLATEC routine: `QAG`
 - Native symbol: `qag_`
-- ABI fingerprint: `unavailable`
+- Precision: single precision
 - Exact Netlib source file: [QAG](https://www.netlib.org/slatec/src/qag.f)
 
 # Safety
 
-Every raw pointer must be non-null unless this argument contract expressly permits null, correctly aligned, and valid for its documented readable or writable extent. Preserve Fortran column-major layout, length, leading-dimension, workspace, callback-lifetime, aliasing, and provider-runtime requirements. The native routine does not retain ordinary argument pointers beyond this call.
+All scalar pointers and the `IWORK`/`WORK` arrays must be non-null, aligned, and valid for the documented extent. The output and workspace arguments are mutated; do not create aliases that violate Rust or the native routine's assumptions. Preserve the required workspace layout, callback lifetime, and no-unwind rule.

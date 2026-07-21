@@ -8,76 +8,96 @@ This canonical unsafe binding exposes original SLATEC routine `CSVDC`. Its docum
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDX, *). COMPLEX(LDX,P), where LDX .GE. N. contains the matrix whose singular value decomposition is to be computed.  X is destroyed by CSVDC. is the bidiagonal matrix with the elements of S on its diagonal and the not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDX, *).
 
-## 2. `LDX`
+COMPLEX(LDX,P), where LDX. GE. N. contains the matrix whose singular value decomposition is to be computed. X is destroyed by CSVDC.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the leading dimension of the array X. INTEGER. is the leading dimension of the array X. INTEGER. is the leading dimension of the array X. not a workspace argument
+## `LDX`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the number of rows of the matrix X. contain the singular values of X arranged in descending order of magnitude. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. is the leading dimension of the array X.
 
-## 4. `P`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the number of columns of the matrix X. contain the singular values of X arranged in descending order of magnitude. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `S`
+INTEGER. is the number of rows of the matrix X.
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). MIN(N+1,P). contain the singular values of X arranged in descending order of magnitude. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `P`
 
-## 6. `E`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(P). ordinarily contains zeros.  However see the discussion of INFO for exceptions. diagonal (CTRANS(U) is the conjugate-transpose of U).  Thus the singular values of X and B are the same. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. is the number of columns of the matrix X.
 
-## 7. `U`
+## `S`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDU, *). COMPLEX(LDU,K), where LDU .GE. N.  If JOBA .EQ. 1 then K .EQ. N.  If JOBA .GE. 2 then K .EQ. MIN(N,P). contains the matrix of right singular vectors. is not referenced if JOBA .EQ. 0.  If N .LE. P or if JOBA .GT. 2, then U may be identified with X in the subroutine call. is the bidiagonal matrix with the elements of S on its diagonal and the not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `LDU`
+COMPLEX(MM), where MM = MIN(N+1,P). The first MIN(N,P) entries of S contain the singular values of X arranged in descending order of magnitude.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the leading dimension of the array U (see below). INTEGER. is the leading dimension of the array U (see below). INTEGER. is the leading dimension of the array U (see below). not a workspace argument
+## `E`
 
-## 9. `V`
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDV, *). COMPLEX(LDV,P), where LDV .GE. P. contains the matrix of right singular vectors. is not referenced if JOB .EQ. 0.  If P .LE. N, then V may be identified with X in the subroutine call. is the bidiagonal matrix with the elements of S on its diagonal and the not stated by selected source not applicable or not stated by selected source not a workspace argument
+COMPLEX(P). E ordinarily contains zeros. However see the discussion of INFO for exceptions.
 
-## 10. `LDV`
+## `U`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the leading dimension of the array V (see below). INTEGER. is the leading dimension of the array V (see below). INTEGER. is the leading dimension of the array V (see below). not a workspace argument
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDU, *).
 
-## 11. `WORK`
+COMPLEX(LDU,K), where LDU. GE. N. If JOBA. EQ. 1 then K.
 
-workspace `workspace` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N). is a scratch array. not stated by selected source not applicable or not stated by selected source
+## `LDU`
 
-## 12. `JOB`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. controls the computation of the singular vectors.  It has the decimal expansion AB with the following meaning A .EQ. 0    Do not compute the left singular vectors. A .EQ. 1    Return the N left singular vectors in U. A .GE. 2    Return the first MIN(N,P) left singular vectors in U. B .EQ. 0    Do not compute the right singular vectors. B .EQ. 1    Return the right singular vectors in V. On Return not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. is the leading dimension of the array U (see below).
 
-## 13. `INFO`
+## `V`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. The singular values (and their corresponding singular vectors) S(INFO+1),S(INFO+2),...,S(M) are correct (here M=MIN(N,P)).  Thus if 0, all the singular values and their vectors are correct.  In any event, the matrix not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDV, *).
+
+COMPLEX(LDV,P), where LDV. GE. P. contains the matrix of right singular vectors. is not referenced if JOB. EQ.
+
+## `LDV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. is the leading dimension of the array V (see below).
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+COMPLEX(N). is a scratch array.
+
+## `JOB`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. JOB controls the computation of the singular vectors. It has the decimal expansion AB with the following meaning A. EQ. 0 Do not compute the left singular A. 1 Return the N left singular vectors in U.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. The singular values (and their corresponding singular vectors) S(INFO+1),S(INFO+2),. ,S(M) are correct (here M=MIN(N,P)). Thus if INFO. EQ. 0, all the singular values and their vectors are correct.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+`INFO` is a documented status output; its bounded argument contract states the available source semantics.
 
 # Workspace and array requirements
 
 - `X`: not a workspace argument
 - `LDX`: not a workspace argument
-- `N`: not a workspace argument
-- `P`: not a workspace argument
 - `S`: not a workspace argument
 - `E`: not a workspace argument
 - `U`: not a workspace argument
@@ -85,8 +105,6 @@ The selected source has no separate status-code section. Status output arguments
 - `V`: not a workspace argument
 - `LDV`: not a workspace argument
 - `WORK`: COMPLEX(N). is a scratch array.
-- `JOB`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

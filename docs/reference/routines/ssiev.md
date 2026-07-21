@@ -54,39 +54,37 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SSIEV](https://www.netlib.org/slatec/src/ssiev.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | REAL (LDA,N) real symmetric input matrix. Only the diagonal and upper triangle of A must be input, as SSIEV copies the upper triangle to the lower. 1,..N, and J=I,. are stored in its first N columns.  See also INFO below. |
+| 1 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | REAL (LDA,N) real symmetric input matrix. Only the diagonal and upper triangle of A must be input, as SSIEV copies the upper triangle to the lower. That is, the user must define A(I,J), I=1,. N, and J=I,. ,N. On return from SSIEV, if the user has set JOB = 0 the lower triangle of A has been altered. |
 | 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the leading dimension of the array A. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | On return from SSIEV, if the user has set JOB = 0        the lower triangle of A has been altered. are stored in its first N columns.  See also INFO below. INTEGER set by the user to the order of the matrix A and the number of elements in E. |
-| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL (N) on return from SSIEV, E contains the N eigenvalues of A.  See also INFO below. |
-| 5 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL (2*N) temporary storage vector.  Contents changed by SSIEV. |
-| 6 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by user on input = 0         only calculate eigenvalues of A. = nonzero   calculate eigenvalues and eigenvectors of A. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by the user to the order of the matrix A and the number of elements in E. |
+| 4 | `E` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL (N) on return from SSIEV, E contains the N eigenvalues of A. See also INFO below. |
+| 5 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL (2*N) temporary storage vector. Contents changed by SSIEV. |
+| 6 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER set by user on input = 0 only calculate eigenvalues of A. = nonzero calculate eigenvalues and eigenvectors of A. |
 | 7 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER on return from SSIEV, the value of INFO is = 0 for normal return. = K if the eigenvalue iteration fails to converge. eigenvalues and vectors 1 through K-1 are correct. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-No. 1   recoverable  N is greater than LDA No. 2   recoverable  N is less than one
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 for normal return. = K if the eigenvalue iteration fails to converge. eigenvalues and vectors 1 through K-1 are correct. No. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one |
 
 ### Storage and workspace requirements
 
-`WORK`: REAL (2*N) temporary storage vector.  Contents changed by SSIEV.
+`WORK`: REAL (2*N) temporary storage vector. Contents changed by SSIEV.
 
 ### Provider, ABI, and safety
 

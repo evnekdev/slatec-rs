@@ -54,38 +54,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DP1VLU](https://www.netlib.org/slatec/src/dp1vlu.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the degree of polynomial to be evaluated.  L  may be any non-negative integer which is less than or equal to  NDEG , the highest degree polynomial provided by  DPOLFT . must be dimensioned at least  NDER  in the calling program. |
-| 2 | `NDER` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | of its derivatives, at a specified point.  Computationally stable recurrence relations are used to perform this task. The parameters for  DP1VLU  are Input -- ALL TYPE REAL variables are DOUBLE PRECISION the number of derivatives to be evaluated.  NDER may be 0 or any positive value.  If NDER is less than 0, it will be treated as 0. |
+| 1 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the degree of polynomial to be evaluated. L may be any non-negative integer which is less than or equal to NDEG , the highest degree polynomial provided by DPOLFT. |
+| 2 | `NDER` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | of its derivatives, at a specified point. Computationally stable recurrence relations are used to perform this task. The parameters for DP1VLU are the number of derivatives to be evaluated. NDER may be 0 or any positive value. If NDER is less than 0, it will be treated as 0. |
 | 3 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | the argument at which the polynomial and its derivatives are to be evaluated. |
-| 4 | `YFIT` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | value of the fitting polynomial of degree  L  at  X |
-| 5 | `YP` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | array containing the first through  NDER  derivatives must be dimensioned at least  NDER  in the calling program. |
-| 6 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | work and output array containing values from last call to  DPOLFT . Output -- ALL TYPE REAL variables are DOUBLE PRECISION |
+| 4 | `YFIT` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | value of the fitting polynomial of degree L at X. |
+| 5 | `YP` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | array containing the first through NDER derivatives of the polynomial of degree L. YP must be dimensioned at least NDER in the calling program. |
+| 6 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | work and output array containing values from last call to DPOLFT. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

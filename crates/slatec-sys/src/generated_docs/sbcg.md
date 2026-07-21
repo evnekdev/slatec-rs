@@ -1,6 +1,6 @@
 # Purpose
 
-Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, ITOL, ITMAX INTEGER ITER, IERR, IUNIT, IWORK(USER DEFINED) REAL B(N), X(N), A(NELT), TOL, ERR, R(N), Z(N), P(N) REAL RR(N), ZZ(N), PP(N), DZ(N) REAL RWORK(USER DEFINED) EXTERNAL MATVEC, MTTVEC, MSOLVE, MTSOLV CALL SBCG(N, B, X, NELT, IA, JA, A, ISYM, MATVEC, MTTVEC, $ MSOLVE, MTSOLV, ITOL, TOL, ITMAX, ITER, ERR, IERR, IUNIT, $ R, Z, P, RR, ZZ, PP, DZ, RWORK, IWORK) This routine does not care what matrix data structure is used for A and M. It simply calls MATVEC, MTTVEC, MSOLVE, MTSOLV routines, with arguments as above. The user could write any
+Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, ITOL, ITMAX INTEGER ITER, IERR, IUNIT, IWORK(USER DEFINED) REAL B(N), X(N), A(NELT), TOL, ERR, R(N), Z(N), P(N) REAL RR(N), ZZ(N), PP(N), DZ(N) REAL RWORK(USER DEFINED) EXTERNAL MATVEC, MTTVEC, MSOLVE, MTSOLV CALL SBCG(N, B, X, NELT, IA, JA, A, ISYM, MATVEC, MTTVEC, $ MSOLVE, MTSOLV, ITOL, TOL, ITMAX, ITER, ERR, IERR, IUNIT, $ R, Z, P, RR, ZZ, PP, DZ, RWORK, IWORK) This routine does not care what matrix data structure is used for A and M. It simply calls MATVEC, MTTVEC, MSOLVE, MTSOLV routines, with arguments as above. The user could write any type of structure, and appropriate MATVEC, MSOLVE, MTTVEC, and MTSOLV routines. It is assumed that A is stored in the IA, JA, A arrays in some fashion and that M (or INV(M)) is stored in IWORK and RWORK in some fashion. The SLAP routines SSDBCG and SSLUBC are examples of this procedure. Two examples of matrix data structures are the: 1) SLAP Triad format and 2) SLAP Column format. =================== S L A P Triad format =================== In this format only the non-zeros are stored. They may appear in *ANY* order. The user supplies three arrays of length NELT, where NELT is the number of non-zeros in the matrix: (IA(NELT), JA(NELT), A(NELT)). For each non-zero the user puts the row and column index of that matrix element in the IA and JA arrays. The value of the non-zero matrix element is placed in the corresponding location of the A array. This is an extremely easy data structure to generate. On the other hand it is not too efficient on vector computers for the iterative solution of linear systems. Hence, SLAP changes this input data structure to the SLAP Column format for the iteration (but does not change it back). Here is an example of the SLAP Triad storage format for a 5x5 Matrix. Recall that the entries may appear in any order. 5x5 Matrix SLAP Triad format for 5x5 matrix on left. 1 2 3 4 5 6 7 8 9 10 11 |11 12 0 0 15| A: 51 12 11 33 15 53 55 22 35 44 21 |21 22 0 0 0| IA: 5 1 1 3 1 5 5 2 3 4 2 | 0 0 33 0 35| JA: 1 2 1 3 5 3 5 2 5 4 1 | 0 0 0 44 0| |51 0 53 0 55| =================== S L A P Column format ================== In this format the non-zeros are stored counting down columns (except for the diagonal entry, which must appear first in each "column") and are stored in the real array A. In other words, for each column in the matrix put the diagonal entry in A. Then put in the other non-zero elements going down the column (except the diagonal) in order. The IA array holds the row index for each non-zero. The JA array holds the offsets into the IA, A arrays for the beginning of each column. That is, IA(JA(ICOL)), A(JA(ICOL)) points to the beginning of the ICOL-th column in IA and A. IA(JA(ICOL+1)-1), A(JA(ICOL+1)-1) points to the end of the ICOL-th column. Note that we always have JA(N+1) = NELT+1, where N is the number of columns in the matrix and
 
 # Description
 
@@ -8,117 +8,173 @@ This canonical unsafe binding exposes original SLATEC routine `SBCG`. Its docume
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer Order of the Matrix. hand side vector, and Z is the solution upon return.  NELT,  IA, JA, A hand side vector, and ZZ is the solution upon return.  NELT, IA, JA, A is the number of columns in the matrix and not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `B`
+Order of the Matrix.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). IN       Real B(N). Right-hand side vector. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 3. `X`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). INOUT    Real X(N). On input X is your initial guess for solution vector. On output X is the final approximate solution. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external  in The name of the MTTVEC routine must be declared external  in the calling program.  The calling sequence to MTTVEC is  the the calling program.  The calling sequence to MTTVEC is  the INOUT    Real X(N). On input X is your initial guess for solution vector. On output X is the final approximate solution. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external  in The name of the MTTVEC routine must be declared external  in the calling program.  The calling sequence to MTTVEC is  the the calling program.  The calling sequence to MTTVEC is  the not applicable or not stated by selected source not a workspace argument
+B(N). Right-hand side vector.
 
-## 4. `NELT`
+## `X`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Number of Non-Zeros stored in A. zeros in the zeros in the matrix:  (IA(NELT), JA(NELT),  A(NELT)).  For each  non-zero matrix:  (IA(NELT), JA(NELT),  A(NELT)).  For each  non-zero the  user puts   the row  and  column index   of that matrix the  user puts   the row  and  column index   of that matrix is the number of columns in the matrix and zeros in the matrix. Here is an example of the  SLAP Column  storage format for a not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
 
-## 5. `IA`
+X(N). On input X is your initial guess for solution vector. On output X is the final approximate solution.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (NELT). IN       Integer IA(NELT). JA, A  arrays in some fashion and  that M (or INV(M)) is stored  in  IWORK  and  RWORK   in  some fashion.   The SLAP routines SSDBCG and SSLUBC are examples of this procedure. Two  examples  of  matrix  data structures  are the: 1) SLAP Triad  format and 2) SLAP Column format. =================== S L A P Triad format =================== In  this   format only the  non-zeros are  stored.  They may appear  in *ANY* order.   The user  supplies three arrays of zero matrix  element is  placed in  the corresponding location of the A  array.  This is  an extremely easy data  structure to generate.  On  the other hand it  is  not too  efficient  on vector  computers   for the  iterative  solution  of  linear systems.  Hence, SLAP  changes this input  data structure to the SLAP   Column  format for the  iteration (but   does not change it back). Here is an example of the  SLAP Triad   storage format for a 5x5 Matrix.  Recall that the entries may appear in any order. 5x5 Matrix      SLAP Triad format for 5x5 matrix on left. 1  2  3  4  5  6  7  8  9 10 11 5  1  1  3  1  5  5  2  3  4  2 zero. The JA array holds the offsets into the IA, A arrays for the beginning   of   each  column.      That is,   IA(JA(ICOL)), 1), A(JA(ICOL+1)-1)  points to the 1), A(JA(ICOL+1)-1)  points to the end of the ICOL-th column.  Note that we always have JA(N+1) end of the ICOL-th column.  Note that we always have JA(N+1) denotes the end of a column): 5x5 Matrix      SLAP Column format for 5x5 matrix on left. 1  2  3    4  5    6  7    8    9 10 11 1  2  5 |  2  1 |  3  5 |  4 |  5  1  3 not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `NELT`
 
-## 6. `JA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (NELT). IN       Integer JA(NELT). zero matrix  element is  placed in  the corresponding location of the A  array.  This is  an extremely easy data  structure to generate.  On  the other hand it  is  not too  efficient  on vector  computers   for the  iterative  solution  of  linear systems.  Hence, SLAP  changes this input  data structure to the SLAP   Column  format for the  iteration (but   does not change it back). Here is an example of the  SLAP Triad   storage format for a 5x5 Matrix.  Recall that the entries may appear in any order. 5x5 Matrix      SLAP Triad format for 5x5 matrix on left. 1  2  3  4  5  6  7  8  9 10 11 1  2  1  3  5  3  5  2  5  4  1 | 0  0  0 44  0| |51  0 53  0 55| =================== S L A P Column format ================== In  this format   the non-zeros are    stored counting  down columns (except  for the diagonal  entry, which must  appear first in each "column") and are  stored in the real array A. In other words,  for  each column    in the matrix   put the th column in 1), A(JA(ICOL+1)-1)  points to the end of the ICOL-th column.  Note that we always have JA(N+1) 1  4  6    8  9   12 | 0  0  0 44  0| |51  0 53  0 55| Cautions: This routine will attempt to write to the Fortran logical output IN       Integer JA(NELT). zero matrix  element is  placed in  the corresponding location of the A  array.  This is  an extremely easy data  structure to generate.  On  the other hand it  is  not too  efficient  on vector  computers   for the  iterative  solution  of  linear systems.  Hence, SLAP  changes this input  data structure to the SLAP   Column  format for the  iteration (but   does not change it back). Here is an example of the  SLAP Triad   storage format for a 5x5 Matrix.  Recall that the entries may appear in any order. 5x5 Matrix      SLAP Triad format for 5x5 matrix on left. 1  2  3  4  5  6  7  8  9 10 11 1  2  1  3  5  3  5  2  5  4  1 | 0  0  0 44  0| |51  0 53  0 55| =================== S L A P Column format ================== In  this format   the non-zeros are    stored counting  down columns (except  for the diagonal  entry, which must  appear first in each "column") and are  stored in the real array A. In other words,  for  each column    in the matrix   put the th column in 1), A(JA(ICOL+1)-1)  points to the end of the ICOL-th column.  Note that we always have JA(N+1) 1  4  6    8  9   12 | 0  0  0 44  0| |51  0 53  0 55| Cautions: This routine will attempt to write to the Fortran logical output not applicable or not stated by selected source not a workspace argument
+Integer. Number of Non-Zeros stored in A. is the number of non-zeros in the matrix. Here is an example of the SLAP Column storage format for a 5x5 Matrix (in the A and IA arrays '|' denotes the end of a column): 5x5 Matrix SLAP Column format for 5x5 matrix on left. 1 2 3 4 5 6 7 8 9 10 11 |11 12 0 0 15| A: 11 21 51 | 22 12 | 33 53 | 44 | 55 15 35 |21 22 0 0 0| IA: 1 2 5 | 2 1 | 3 5 | 4 | 5 1 3 | 0 0 33 0 35| JA: 1 4 6 8 9 12 | 0 0 0 44 0| |51 0 53 0 55| Cautions: This routine will attempt to write to the Fortran logical output unit IUNIT, if IUNIT. ne.
 
-## 7. `A`
+## `IA`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (NELT). Symmetric linear system  Ax = b using the Preconditioned BiConjugate Gradient method. IN       Real A(NELT). These arrays contain the matrix data structure for A. It could take any form.  See "Description", below, for more details. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external  in The name of the MTTVEC routine must be declared external  in the calling program.  The calling sequence to MTTVEC is  the the calling program.  The calling sequence to MTTVEC is  the R  for Z R  for Z given R with the preconditioning matrix M (M is supplied via given R with the preconditioning matrix M (M is supplied via RR for RR for 51 12 11 33 15 53 55 22 35 44 21 zero elements going   down the  column (except  the  diagonal) in th column in 1), A(JA(ICOL+1)-1)  points to the end of the ICOL-th column.  Note that we always have JA(N+1) denotes the end of a column): 5x5 Matrix      SLAP Column format for 5x5 matrix on left. 1  2  3    4  5    6  7    8    9 10 11 11 21 51 | 22 12 | 33 53 | 44 | 55 15 35 zero value for IUNIT.  This routine does zero IUNIT unit number. Symmetric linear system  Ax = b using the Preconditioned BiConjugate Gradient method. IN       Real A(NELT). These arrays contain the matrix data structure for A. It could take any form.  See "Description", below, for more details. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external  in The name of the MTTVEC routine must be declared external  in the calling program.  The calling sequence to MTTVEC is  the the calling program.  The calling sequence to MTTVEC is  the R  for Z R  for Z given R with the preconditioning matrix M (M is supplied via given R with the preconditioning matrix M (M is supplied via RR for RR for 51 12 11 33 15 53 55 22 35 44 21 zero elements going   down the  column (except  the  diagonal) in th column in 1), A(JA(ICOL+1)-1)  points to the end of the ICOL-th column.  Note that we always have JA(N+1) denotes the end of a column): 5x5 Matrix      SLAP Column format for 5x5 matrix on left. 1  2  3    4  5    6  7    8    9 10 11 11 21 51 | 22 12 | 33 53 | 44 | 55 15 35 zero value for IUNIT.  This routine does zero IUNIT unit number. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (NELT).
 
-## 8. `ISYM`
+IA(NELT).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Flag to indicate symmetric storage format. zero entries of the matrix are stored. 1, the matrix is symmetric, and only the upper or lower triangle of the matrix is stored. see Description, below.  RWORK is a  real array that can be used to  pass   necessary  preconditioning     information and/or see Description, below.  RWORK is a  real array that can be used to  pass   necessary  preconditioning     information and/or not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `JA`
 
-## 9. `MATVEC`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (NELT).
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. Name of a routine which  performs the matrix vector multiply operation  Y = A*X  given A and X.  The  name of  the MATVEC routine must  be declared external  in the  calling program. CALL MATVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A*X upon return,  X is an input  vector.  NELT, IA,  JA,  A and  ISYM define the SLAP matrix data structure: see Description,below. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. EXT      External. Name of a routine which  performs the matrix vector multiply operation  Y = A*X  given A and X.  The  name of  the MATVEC routine must  be declared external  in the  calling program. CALL MATVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A*X upon return,  X is an input  vector.  NELT, IA,  JA,  A and  ISYM define the SLAP matrix data structure: see Description,below. not applicable or not stated by selected source not a workspace argument
+JA(NELT).
 
-## 10. `MTTVEC`
+## `A`
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. Name of a routine which performs the matrix transpose vector CALL MTTVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N  is the number  of unknowns, Y is the   product A'*X upon return, X is an input vector.  NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description,below. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (NELT).
 
-## 11. `MSOLVE`
+A(NELT). These arrays contain the matrix data structure for A. It could take any form. See "Description", below, for more details.
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) is an integer work array for the same purpose as RWORK. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source
+## `ISYM`
 
-## 12. `MTSOLV`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. CALL MTSOLV(N, RR, ZZ, NELT, IA, JA, A, ISYM, RWORK, IWORK) is an integer work array for the same purpose as RWORK. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source
+Integer. Flag to indicate symmetric storage format. If ISYM=0, all non-zero entries of the matrix are stored. If ISYM=1, the matrix is symmetric, and only the upper or lower triangle of the matrix is stored.
 
-## 13. `ITOL`
+## `MATVEC`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Flag to indicate type of convergence criterion. norm of the residual divided by the 2-norm of the right-hand side is less than TOL. norm of M-inv times the residual divided by the 2-norm of M-inv times the right hand 11 is often useful for checking and comparing different routines.  For this case, the user must supply the "exact" solution or a very accurate approximation (one with an error much less than TOL) through a common block, COMMON /SSLBLK/ SOLN( ) norm of the difference between the iterative approximation and the user-supplied solution divided by the 2-norm of the user-supplied solution is less than TOL.  Note that this requires the user to set up the "COMMON /SSLBLK/ SOLN(LENGTH)" in the calling routine. The routine with this declaration should be loaded before the stop test so that the correct length is used by the loader. This procedure is not standard Fortran and may not work correctly on your system (although it has worked on every system the authors have tried).  If ITOL is not 11 then this common block is indeed standard Fortran. IN       Integer. Flag to indicate type of convergence criterion. norm of the residual divided by the 2-norm of the right-hand side is less than TOL. norm of M-inv times the residual divided by the 2-norm of M-inv times the right hand 11 is often useful for checking and comparing different routines.  For this case, the user must supply the "exact" solution or a very accurate approximation (one with an error much less than TOL) through a common block, COMMON /SSLBLK/ SOLN( ) norm of the difference between the iterative approximation and the user-supplied solution divided by the 2-norm of the user-supplied solution is less than TOL.  Note that this requires the user to set up the "COMMON /SSLBLK/ SOLN(LENGTH)" in the calling routine. The routine with this declaration should be loaded before the stop test so that the correct length is used by the loader. This procedure is not standard Fortran and may not work correctly on your system (although it has worked on every system the authors have tried).  If ITOL is not 11 then this common block is indeed standard Fortran. not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 14. `TOL`
+External. Name of a routine which performs the matrix vector multiply operation Y = A*X given A and X. The name of the MATVEC routine must be declared external in the calling program. The calling sequence of MATVEC is: CALL MATVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A*X upon return, X is an input vector. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description,below. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. inv is the inverse of the diagonal of A. INOUT    Real. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MTTVEC`
 
-## 15. `ITMAX`
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Maximum number of iterations. if convergence criterion could not be achieved in iterations. not stated by selected source not applicable or not stated by selected source not a workspace argument
+External. Name of a routine which performs the matrix transpose vector multiply y = A'*X given A and X (where ' denotes transpose). The name of the MTTVEC routine must be declared external in the calling program. The calling sequence to MTTVEC is the same as that for MTTVEC, viz. : CALL MTTVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A'*X upon return, X is an input vector. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description,below. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-## 16. `ITER`
+## `MSOLVE`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. OUT      Integer. Number of iterations required to reach convergence, or not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 17. `ERR`
+External. Name of a routine which solves a linear system MZ = R for Z given R with the preconditioning matrix M (M is supplied via. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. OUT      Real. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MTSOLV`
 
-## 18. `IERR`
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 4.) OUT      Integer. Return error flag. 0 => All went well. 1 => Insufficient space allocated for WORK or IWORK. 2 => Method failed to converge in ITMAX steps. 3 => Error in user input. Check input values of N, ITOL. 4 => User error tolerance set too tight. Reset to 500*R1MACH(3).  Iteration proceeded. 5 => Preconditioning matrix, M, is not positive definite.  (r,z) < 0. 6 => Matrix A is not positive definite.  (p,Ap) < 0. not stated by selected source not applicable or not stated by selected source not a workspace argument
+External. Name of a routine which solves a linear system M'ZZ = RR for ZZ given RR with the preconditioning matrix M (M is supplied via RWORK and IWORK arrays). The name of the MTSOLV routine must be declared external in the calling program. The call- ing sequence to MTSOLV is: CALL MTSOLV(N, RR, ZZ, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, RR is the right-hand side vector, and ZZ is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a real array that can be used to pass necessary preconditioning information and/or workspace to MTSOLV. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-## 19. `IUNIT`
+## `ITOL`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Unit number on which to write the error at each iteration, if this is desired for monitoring convergence.  If unit number is 0, no writing will occur. must make sure that must make sure that this logical unit is attached to a file or terminal before calling this logical unit is attached to a file or terminal before calling IN       Integer. Unit number on which to write the error at each iteration, if this is desired for monitoring convergence.  If unit number is 0, no writing will occur. must make sure that must make sure that this logical unit is attached to a file or terminal before calling this logical unit is attached to a file or terminal before calling not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 20. `R`
+Integer. Flag to indicate type of convergence criterion. If ITOL=1, iteration stops when the 2-norm of the residual divided by the 2-norm of the right-hand side is less than TOL. If ITOL=2, iteration stops when the 2-norm of M-inv times the residual divided by the 2-norm of M-inv times the right hand side is less than TOL, where M-inv is the inverse of the diagonal of A. 11 is often useful for checking and comparing different routines. For this case, the user must supply the "exact" solution or a very accurate approximation (one with an error much less than TOL) through a common block, COMMON /SSLBLK/ SOLN( ) If ITOL=11, iteration stops when the 2-norm of the difference between the iterative approximation and the user-supplied solution divided by the 2-norm of the user-supplied solution is less than TOL.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). hand side vector, and Z is the solution upon return.  NELT,  IA, JA, A WORK     Real R(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `TOL`
 
-## 21. `Z`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). WORK     Real Z(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+Real. Convergence criterion, as described above. (Reset if IERR=4. ).
 
-## 22. `P`
+## `ITMAX`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). WORK     Real P(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 23. `RR`
+Integer. Maximum number of iterations.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). is supplied via RWORK and IWORK arrays).  The name of the MTSOLV routine must be declared external in the calling program.  The call- hand side vector, and ZZ is the solution upon return.  NELT, IA, JA, A WORK     Real RR(N). is supplied via RWORK and IWORK arrays).  The name of the MTSOLV routine must be declared external in the calling program.  The call- hand side vector, and ZZ is the solution upon return.  NELT, IA, JA, A WORK     Real RR(N). not applicable or not stated by selected source
+## `ITER`
 
-## 24. `ZZ`
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). RR for is supplied via RWORK and IWORK arrays).  The name of the MTSOLV routine must be declared external in the calling program.  The call- WORK     Real ZZ(N). RR for is supplied via RWORK and IWORK arrays).  The name of the MTSOLV routine must be declared external in the calling program.  The call- WORK     Real ZZ(N). not applicable or not stated by selected source
+Integer. Number of iterations required to reach convergence, or ITMAX+1 if convergence criterion could not be achieved in ITMAX iterations.
 
-## 25. `PP`
+## `ERR`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). WORK     Real PP(N). 155. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 26. `DZ`
+Real. Error estimate of error in final approximate solution, as defined by ITOL.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). WORK     Real DZ(N). Real arrays used for workspace. not stated by selected source not applicable or not stated by selected source
+## `IERR`
 
-## 27. `RWORK`
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). and IWORK arrays).   The name  of  the MSOLVE routine must be declared  external  in the  calling   program.   The WORK     Real RWORK(USER DEFINED). Real array that can be used for workspace in MSOLVE and MTSOLV. and IWORK arrays).   The name  of  the MSOLVE routine must be declared  external  in the  calling   program.   The WORK     Real RWORK(USER DEFINED). Real array that can be used for workspace in MSOLVE and MTSOLV. not applicable or not stated by selected source
+Integer. Return error flag. 0 => All went well. 1 => Insufficient space allocated for WORK or IWORK. 2 => Method failed to converge in ITMAX steps. 3 => Error in user input.
 
-## 28. `IWORK`
+## `IUNIT`
 
-workspace `workspace` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). is an integer work array for the same purpose as RWORK. is an integer work array for the same purpose as RWORK. WORK     Integer IWORK(USER DEFINED). Integer array that can be used for workspace in MSOLVE and MTSOLV. not stated by selected source not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Integer. Unit number on which to write the error at each iteration, if this is desired for monitoring convergence. If unit number is 0, no writing will occur.
+
+## `R`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+R(N).
+
+## `Z`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+Z(N).
+
+## `P`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+P(N).
+
+## `RR`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+RR(N).
+
+## `ZZ`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+ZZ(N).
+
+## `PP`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+PP(N).
+
+## `DZ`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
+
+DZ(N). arrays used for workspace.
+
+## `RWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence of MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector, and Z is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a real array that can be used to pass necessary preconditioning information and/or workspace to MSOLVE. IWORK is an integer work array for the same purpose as RWORK.
+
+## `IWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+IWORK(USER DEFINED). array that can be used for workspace in MSOLVE and MTSOLV.
 
 # Return value
 
@@ -126,42 +182,24 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
-
-# Status and error values
-
-defined by ITOL.
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `B`: not a workspace argument
 - `X`: not a workspace argument
-- `NELT`: not a workspace argument
 - `IA`: not a workspace argument
 - `JA`: not a workspace argument
 - `A`: not a workspace argument
-- `ISYM`: not a workspace argument
-- `MATVEC`: not a workspace argument
-- `MTTVEC`: not a workspace argument
-- `MSOLVE`: EXT      External. CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) is an integer work array for the same purpose as RWORK.
-- `MTSOLV`: EXT      External. CALL MTSOLV(N, RR, ZZ, NELT, IA, JA, A, ISYM, RWORK, IWORK) is an integer work array for the same purpose as RWORK.
-- `ITOL`: not a workspace argument
-- `TOL`: not a workspace argument
-- `ITMAX`: not a workspace argument
-- `ITER`: not a workspace argument
-- `ERR`: not a workspace argument
-- `IERR`: not a workspace argument
-- `IUNIT`: not a workspace argument
 - `R`: not a workspace argument
 - `Z`: not a workspace argument
 - `P`: not a workspace argument
-- `RR`: is supplied via RWORK and IWORK arrays).  The name of the MTSOLV routine must be declared external in the calling program.  The call- hand side vector, and ZZ is the solution upon return.  NELT, IA, JA, A WORK     Real RR(N).
-- `ZZ`: RR for is supplied via RWORK and IWORK arrays).  The name of the MTSOLV routine must be declared external in the calling program.  The call- WORK     Real ZZ(N).
+- `RR`: not a workspace argument
+- `ZZ`: not a workspace argument
 - `PP`: not a workspace argument
-- `DZ`: WORK     Real DZ(N). Real arrays used for workspace.
-- `RWORK`: and IWORK arrays).   The name  of  the MSOLVE routine must be declared  external  in the  calling   program.   The WORK     Real RWORK(USER DEFINED). Real array that can be used for workspace in MSOLVE and MTSOLV.
-- `IWORK`: is an integer work array for the same purpose as RWORK. is an integer work array for the same purpose as RWORK. WORK     Integer IWORK(USER DEFINED). Integer array that can be used for workspace in MSOLVE and MTSOLV.
+- `DZ`: DZ(N). arrays used for workspace.
+- `RWORK`: and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence of MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector, and Z is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a real array that can be used to pass necessary preconditioning information and/or workspace to MSOLVE. IWORK is an integer work array for the same purpose as RWORK.
+- `IWORK`: IWORK(USER DEFINED). array that can be used for workspace in MSOLVE and MTSOLV.
 
 # ABI notes
 

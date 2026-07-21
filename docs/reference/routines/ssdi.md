@@ -8,7 +8,7 @@ Diagonal Matrix Vector Multiply. Routine to calculate the product X = DIAG*B, wh
 
 ## Description
 
-Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) REAL B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL SSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) This routine is supplied with the SLAP package to perform the MSOLVE operation for iterative drivers that require diagonal Scaling (e.g., SSDCG, SSDBCG). It conforms to the SLAP MSOLVE CALLING CONVENTION and hence does not require an interface routine as do some of the other pre- conditioners supplied with SLAP.
+Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) REAL B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL SSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) This routine is supplied with the SLAP package to perform the MSOLVE operation for iterative drivers that require diagonal Scaling (e.g., SSDCG, SSDBCG). It conforms to the SLAP MSOLVE CALLING CONVENTION and hence does not require an interface routine as do some of the other pre- conditioners supplied with SLAP. SEE ALSO SSDS, SSD2S
 
 ## Classification
 
@@ -51,44 +51,36 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SSDI](https://www.netlib.org/slatec/lin/ssdi.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IN       Integer Order of the Matrix. |
-| 2 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | IN       Real B(N). Vector to multiply the diagonal by. by.  This array must be set by the user or by a call to the SLAP routine SSDS or SSD2S.  The length of RWORK must be >= IWORK(4)+N. conditioner setup routines SSDS or SSD2S. |
-| 3 | `X` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | DIAG*B, where DIAG is a diagonal matrix. OUT      Real X(N). Result of DIAG*B. |
-| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | DUMMY    Integer. |
-| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | DUMMY    Integer IA(NELT). |
-| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | DUMMY    Integer JA(NELT). |
-| 7 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NELT) | DUMMY    Real A(NELT). |
-| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | DUMMY    Integer. These are for compatibility with SLAP MSOLVE calling sequence. |
-| 9 | `RWORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | IN       Real RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale |
-| 10 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (10) | IN       Integer IWORK(10). holds the offset into RWORK for the diagonal matrix |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Order of the Matrix. |
+| 2 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | B(N). Vector to multiply the diagonal by. |
+| 3 | `X` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | X(N). Result of DIAG*B. |
+| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | DUMMY Integer. |
+| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | DUMMY Integer IA(NELT). |
+| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | DUMMY Integer JA(NELT). |
+| 7 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NELT) | DUMMY Real A(NELT). |
+| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | DUMMY Integer. These are for compatibility with SLAP MSOLVE calling sequence. |
+| 9 | `RWORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale B by. This array must be set by the user or by a call to the SLAP routine SSDS or SSD2S. The length of RWORK must be >= IWORK(4)+N. |
+| 10 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (10) | IWORK(10). IWORK(4) holds the offset into RWORK for the diagonal matrix to scale B by. This is usually set up by the SLAP pre- conditioner setup routines SSDS or SSD2S. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`RWORK`: IN       Real RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale
+`RWORK`: RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale B by. This array must be set by the user or by a call to the SLAP routine SSDS or SSD2S. The length of RWORK must be >= IWORK(4)+N.
 
-`IWORK`: IN       Integer IWORK(10). holds the offset into RWORK for the diagonal matrix
+`IWORK`: Integer IWORK(10). IWORK(4) holds the offset into RWORK for the diagonal matrix to scale B by. This is usually set up by the SLAP pre- conditioner setup routines SSDS or SSD2S.
 
 ### Provider, ABI, and safety
 

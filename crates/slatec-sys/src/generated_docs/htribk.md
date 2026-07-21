@@ -8,58 +8,63 @@ This canonical unsafe binding exposes original SLATEC routine `HTRIBK`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, AR, AI, ZR, and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. and AI(NM,N). dimensional array parameters, AR, AI, ZR, and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. and AI(NM,N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, AR, AI, ZR, and ZI, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. and AI(NM,N). is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. and AI(NM,N). not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `AR`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain some information about the unitary transformations used in the reduction by  HTRIDI  in the strict lower triangle of AR and the full lower triangle of dimensional REAL arrays, dimensioned and AI(NM,N). contain some information about the unitary transformations used in the reduction by  HTRIDI  in the strict lower triangle of AR and the full lower triangle of dimensional REAL arrays, dimensioned and AI(NM,N). not applicable or not stated by selected source not a workspace argument
+is the order of the matrix. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `AI`
+## `AR`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain some information about the unitary transformations used in the reduction by  HTRIDI  in the strict lower triangle of AR and the full lower triangle of The remaining upper parts of the matrices are arbitrary. dimensional REAL arrays, dimensioned contain some information about the unitary transformations used in the reduction by  HTRIDI  in the strict lower triangle of AR and the full lower triangle of The remaining upper parts of the matrices are arbitrary. dimensional REAL arrays, dimensioned not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `TAU`
+some information about the unitary transformations used in the reduction by HTRIDI in the strict lower triangle of AR and the full lower triangle of two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (2, *). contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). not applicable or not stated by selected source not a workspace argument
+## `AI`
 
-## 6. `M`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of eigenvectors to be back transformed. is an INTEGER variable. are immaterial.  ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and is the number of eigenvectors to be back transformed. is an INTEGER variable. are immaterial.  ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and not applicable or not stated by selected source not a workspace argument
+some information about the unitary transformations used in the reduction by HTRIDI in the strict lower triangle of AR and the full lower triangle of The remaining upper parts of the matrices are arbitrary. two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N).
 
-## 7. `ZR`
+## `TAU`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the eigenvectors to be back transformed in its first contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Note that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains the eigenvectors to be back transformed in its first contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Note that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (2, *).
 
-## 8. `ZI`
+contains further information about the transformations. is a one-dimensional REAL array, dimensioned TAU(2,N).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). are immaterial.  ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Note that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY are immaterial.  ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Note that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+## `M`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is the number of eigenvectors to be back transformed. is an INTEGER variable.
+
+## `ZR`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the eigenvectors to be back transformed in its first M columns. The contents of ZI are immaterial. ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Note that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S.
+
+## `ZI`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Note that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `AR`: not a workspace argument
 - `AI`: not a workspace argument
 - `TAU`: not a workspace argument
-- `M`: not a workspace argument
 - `ZR`: not a workspace argument
 - `ZI`: not a workspace argument
 

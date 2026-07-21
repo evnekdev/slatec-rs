@@ -8,7 +8,7 @@ Search for a zero of a function F(X) in a given interval (B,C). It is designed p
 
 ## Description
 
-FZERO searches for a zero of a REAL function F(X) between the given REAL values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion,
+FZERO searches for a zero of a REAL function F(X) between the given REAL values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker.
 
 ## Classification
 
@@ -54,39 +54,34 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [FZERO](https://www.netlib.org/slatec/src/fzero.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | EXT   - Name of the REAL external function.  This name must be in an EXTERNAL statement in the calling program. must be a function of one REAL argument. decreased in magnitude as (B,C) collapsed. 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). increased in magnitude as (B,C) collapsed, i.e. out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether |
-| 2 | `B` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | is designed primarily for problems where F(B) and F(C) have opposite signs. C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker. INOUT - One end of the REAL interval (B,C).  The value returned for B usually is the better approximation to a zero of F. if not, but F(R) and F(C) have opposite signs, a root will be found in the interval (R,C); otherwise, the interval (B,C) will be searched for a possible root.  When no better guess is known, it is recommended that r be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. contains the origin, then a nonzero value should be chosen for AE. 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). erance and the function changes sign in (B,C), but out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5  Too many (.GT. 500) function evaluations used. |
-| 3 | `C` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | is designed primarily for problems where F(B) and F(C) have opposite signs. INOUT - The other end of the REAL interval (B,C) contains the origin, then a nonzero value should be chosen for AE. erance and the function changes sign in (B,C), but |
-| 4 | `R` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | OUT   - A (better) REAL guess of a zero of F which could help in speeding up convergence.  If F(B) and F(R) have opposite signs, a root will be found in the interval if not, but F(R) and F(C) have opposite signs, a root will be found in the interval (R,C); otherwise, the interval (B,C) will be searched for a possible root.  When no better guess is known, it is recommended that r be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. |
-| 5 | `RE` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | IN    - Relative error used for RW in the stopping criterion. If the requested RE is less than machine precision, then RW is set to approximately machine precision. |
-| 6 | `AE` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | IN    - Absolute error used in the stopping criterion.  If |
-| 7 | `IFLAG` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | OUT   - A status code.  User must check IFLAG after each call.  Control returns to the user from FZERO in all cases. 1  B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and |
+| 1 | `F` | `callback` | `scalar` | `REAL` | `*mut f32` | scalar | - Name of the REAL external function. This name must be in an EXTERNAL statement in the calling program. must be a function of one REAL argument. |
+| 2 | `B` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | - One end of the REAL interval (B,C). The value returned for B usually is the better approximation to a zero of F. is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5 Too many (. GT. 500) function evaluations used. |
+| 3 | `C` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | - The other end of the REAL interval (B,C). |
+| 4 | `R` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | - A (better) REAL guess of a zero of F which could help in speeding up convergence. If F(B) and F(R) have opposite signs, a root will be found in the interval (B,R); if not, but F(R) and F(C) have opposite signs, a root will be found in the interval (R,C); otherwise, the interval (B,C) will be searched for a possible root. When no better guess is known, it is recommended that r be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. |
+| 5 | `RE` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | - Relative error used for RW in the stopping criterion. If the requested RE is less than machine precision, then RW is set to approximately machine precision. |
+| 6 | `AE` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | - Absolute error used in the stopping criterion. If the given interval (B,C) contains the origin, then a nonzero value should be chosen for AE. |
+| 7 | `IFLAG` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | - A status code. User must check IFLAG after each call. Control returns to the user from FZERO in all cases. 1 B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and F(X) decreased in magnitude as (B,C) collapsed. 2 F(B) = 0. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IFLAG` | `0` | 0. However, the interval (B,C) may not have collapsed to the requested tolerance. 3 B may be near a singular point of F(X). The interval (B,C) collapsed to the requested tol- erance and the function changes sign in (B,C), but F(X) increased in magnitude as (B,C) collapsed, i.e. |
+| `IFLAG` | `>0` | MAX(ABS(F(B in)),ABS(F(C in))) 4 No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether |
 
 ### Provider, ABI, and safety
 

@@ -1,6 +1,6 @@
 # Purpose
 
-DPCHSP: Piecewise Cubic Hermite Spline Computes the Hermite representation of the cubic spline inter- polant to the data given in X and F satisfying the boundary conditions specified by IC and VC. To facilitate two-dimensional applications, includes an increment
+DPCHSP: Piecewise Cubic Hermite Spline Computes the Hermite representation of the cubic spline inter- polant to the data given in X and F satisfying the boundary conditions specified by IC and VC. To facilitate two-dimensional applications, includes an increment between successive values of the F- and D-arrays. The resulting piecewise cubic Hermite function may be evaluated by DPCHFE or DPCHFD. NOTE: This is a modified version of C. de Boor's cubic spline routine CUBSPL. Calling sequence: PARAMETER (INCFD = ...) INTEGER IC(2), N, NWK, IERR DOUBLE PRECISION VC(2), X(N), F(INCFD,N), D(INCFD,N), WK(NWK) CALL DPCHSP (IC, VC, N, X, F, D, INCFD, WK, NWK, IERR)
 
 # Description
 
@@ -8,70 +8,78 @@ This canonical unsafe binding exposes original SLATEC routine `DPCHSP`. Its docu
 
 # Arguments
 
-## 1. `IC`
+## `IC`
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (2). (input) integer array of length 2 specifying desired boundary conditions: IBEG, desired condition at beginning of data. IEND, desired condition at end of data. 1 or 2 . 1 or 2 . (input) integer array of length 2 specifying desired boundary conditions: IBEG, desired condition at beginning of data. IEND, desired condition at end of data. 1 or 2 . 1 or 2 . not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (2).
 
-## 2. `VC`
+(input) integer array of length 2 specifying desired boundary conditions: IBEG, desired condition at beginning of data. IEND, desired condition at end of data. IBEG = 0 to set D(1) so that the third derivative is con- tinuous at X(2). This is the "not a knot" condition provided by de Boor's cubic spline routine CUBSPL. < This is the default boundary condition. > IBEG = 1 if first derivative at X(1) is given in VC(1).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (2). 0. IEND may take on the same values as IBEG, but applied to 0. (input) real*8 array of length 2 specifying desired boundary values, as indicated above. 1 or 2 . 1 or 2 . 0. IEND may take on the same values as IBEG, but applied to 0. (input) real*8 array of length 2 specifying desired boundary values, as indicated above. 1 or 2 . 1 or 2 . not applicable or not stated by selected source not a workspace argument
+## `VC`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (2).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1 or 2, the value is given in VC(2). NOTES: 1. An error return is taken if IEND is out of range. 2. For the "natural" boundary condition, use IEND=2 and (input) number of data points.  (Error return if N.LT.2 .) not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) real*8 array of length 2 specifying desired boundary values, as indicated above. VC(1) need be set only if IC(1) = 1 or 2. VC(2) need be set only if IC(2) = 1 or 2.
 
-## 4. `X`
+## `N`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). 1 or 2, the value is given in VC(2). NOTES: 1. An error return is taken if IEND is out of range. 2. For the "natural" boundary condition, use IEND=2 and (input) real*8 array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `F`
+(input) number of data points. (Error return if N. LT. 2. ).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (INCFD, *). and D-arrays. The resulting piecewise cubic Hermite function may be evaluated by DPCHFE or DPCHFD. NOTE:  This is a modified version of C. de Boor's cubic spline routine CUBSPL. (input) real*8 array of dependent variable values to be 1)*INCFD) is value corresponding to not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 6. `D`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (INCFD, *). tinuous at X(2).  This is the "not a knot" condition provided by de Boor's cubic spline routine CUBSPL. < This is the default boundary condition. > IBEG = 1  if first derivative at X(1) is given in VC(1). IBEG = 2  if second derivative at X(1) is given in VC(1). IBEG = 3  to use the 3-point difference formula for D(1). (Reverts to the default b.c. if N.LT.3 .) IBEG = 4  to use the 4-point difference formula for D(1). (Reverts to the default b.c. if N.LT.4 .) NOTES: 1. An error return is taken if IBEG is out of range. 2. For the "natural" boundary condition, use IBEG=2 and (output) real*8 array of derivative values at the data points.  These values will determine the cubic spline interpolant with the requested boundary conditions. The value corresponding to X(I) is stored in 1)*INCFD),  I=1(1)N. No other entries in D are changed. array has not been changed in any of these cases.) array may have been changed in this case.) (             Do **NOT** use it!                ) not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) real*8 array of independent variable values. The elements of X must be strictly increasing:. LT. X(I), I = 2(1)N. (Error return if not. ).
 
-## 7. `INCFD`
+## `F`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. ...) INTEGER  IC(2), N, NWK, IERR DOUBLE PRECISION  VC(2), X(N), F(INCFD,N), D(INCFD,N), WK(NWK) CALL  DPCHSP (IC, VC, N, X, F, D, INCFD, WK, NWK, IERR) Parameters: (input) increment between successive values in F and D. This argument is provided primarily for 2-D applications. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (INCFD, *).
 
-## 8. `WK`
+(input) real*8 array of dependent variable values to be interpolated. F(1+(I-1)*INCFD) is value corresponding to.
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (2, *). (scratch) real*8 array of working storage. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `D`
 
-## 9. `NWK`
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (INCFD, *).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (input) length of work array. (input) length of work array. not applicable or not stated by selected source
+(output) real*8 array of derivative values at the data points. These values will determine the cubic spline interpolant with the requested boundary conditions. The value corresponding to X(I) is stored in I=1(1)N. No other entries in D are changed.
 
-## 10. `IERR`
+## `INCFD`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (output) error flag. Normal return: 0  (no errors). "Recoverable" errors: 1  if N.LT.2 . 2  if INCFD.LT.1 . 3  if the X-array is not strictly increasing. 4  if IBEG.LT.0 or IBEG.GT.4 . 5  if IEND.LT.0 of IEND.GT.4 . 6  if both of the above are true. 7  if NWK is too small. NOTE:  The above errors are checked in the order listed, and following arguments have **NOT** been validated. 8  in case of trouble solving the linear system for the interior derivative values. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+(input) increment between successive values in F and D. This argument is provided primarily for 2-D applications. (Error return if INCFD. LT. 1. ).
+
+## `WK`
+
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (2, *).
+
+(scratch) real*8 array of working storage.
+
+## `NWK`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+(input) length of work array. (Error return if NWK. LT. 2*N. ).
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+(output) error flag. Normal return: 0 (no errors). "Recoverable" errors: -1 if N. LT. 2. -2 if INCFD.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `IC`: not a workspace argument
 - `VC`: not a workspace argument
-- `N`: not a workspace argument
 - `X`: not a workspace argument
 - `F`: not a workspace argument
 - `D`: not a workspace argument
-- `INCFD`: not a workspace argument
 - `WK`: not a workspace argument
-- `NWK`: (input) length of work array.
-- `IERR`: not a workspace argument
 
 # ABI notes
 

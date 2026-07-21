@@ -1,6 +1,6 @@
 # Purpose
 
-Written by Carl de Boor and modified by D. E. Amos BSPDR is the BSPLDR routine of the reference. BSPDR uses the B-representation (T,A,N,K) to construct a divided difference table ADIF preparatory to a (right) derivative calculation in BSPEV. The lower triangular matrix ADIF is stored in vector AD by columns. The arrays are related by
+Written by Carl de Boor and modified by D. E. Amos BSPDR is the BSPLDR routine of the reference. BSPDR uses the B-representation (T,A,N,K) to construct a divided difference table ADIF preparatory to a (right) derivative calculation in BSPEV. The lower triangular matrix ADIF is stored in vector AD by columns. The arrays are related by ADIF(I,J) = AD(I-J+1 + (2*N-J+2)*(J-1)/2) I = J,N , J = 1,NDERIV .
 
 # Description
 
@@ -8,49 +8,50 @@ This canonical unsafe binding exposes original SLATEC routine `BSPDR`. Its docum
 
 # Arguments
 
-## 1. `T`
+## `T`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). knot vector of length N+K knot vector of length N+K not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 2. `A`
+knot vector of length N+K.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). B-spline coefficient vector of length N B-spline coefficient vector of length N not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of B-spline coefficients K NDERIV+1)*NDERIV/2 for input to BSPEV not stated by selected source not applicable or not stated by selected source not a workspace argument
+B-spline coefficient vector of length N.
 
-## 4. `K`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. order of the spline, K .GE. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `NDERIV`
+number of B-spline coefficients sum of knot multiplicities-K.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of derivatives, 1 .LE. NDERIV .LE. K. th derivative = function value not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `K`
 
-## 6. `AD`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). J+1 + (2*N-J+2)*(J-1)/2) I = J,N , J = 1,NDERIV . table of differences in a vector of length J+1 + (2*N-J+2)*(J-1)/2) I = J,N , J = 1,NDERIV . table of differences in a vector of length not applicable or not stated by selected source not a workspace argument
+order of the spline, K. GE. 1.
+
+## `NDERIV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+number of derivatives, 1. LE. NDERIV. K. 1 gives the zero-th derivative = function value.
+
+## `AD`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+table of differences in a vector of length (2*N-NDERIV+1)*NDERIV/2 for input to BSPEV.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-Improper input is a fatal error
-
 # Workspace and array requirements
 
 - `T`: not a workspace argument
 - `A`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
-- `NDERIV`: not a workspace argument
 - `AD`: not a workspace argument
 
 # ABI notes

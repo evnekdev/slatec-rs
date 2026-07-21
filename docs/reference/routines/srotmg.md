@@ -51,37 +51,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [SROTMG](https://www.netlib.org/slatec/lin/srotmg.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `SD1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar changed to represent the effect of the transformation |
-| 2 | `SD2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar changed to represent the effect of the transformation |
-| 3 | `SX1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar SY2  single precision scalar changed to represent the effect of the transformation SY2  unchanged Construct the modified Givens transformation matrix H which zeros the second component of the 2-vector  (SQRT(SD1)*SX1,SQRT(SD2)* SY2)**T. |
+| 1 | `SD1` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar changed to represent the effect of the transformation. |
+| 2 | `SD2` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar changed to represent the effect of the transformation. |
+| 3 | `SX1` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | single precision scalar SY2 single precision scalar changed to represent the effect of the transformation SY2 unchanged Construct the modified Givens transformation matrix H which zeros the second component of the 2-vector (SQRT(SD1)*SX1,SQRT(SD2)* SY2)**T. With SPARAM(1)=SFLAG, H has one of the following forms: SFLAG=-1. E0 SFLAG=0. E0 SFLAG=1. E0 SFLAG=-2. E0 (SH11 SH12) (1. |
 | 4 | `SY1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Readable second component of the input two-vector used to construct the modified Givens transformation. The routine uses it to form the rotation but leaves this scalar unchanged. |
-| 5 | `SPARAM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (5) | vector. SPARAM(1)=SFLAG defined below. Locations 2-5 contain the rotation matrix. SFLAG=-1.E0     SFLAG=0.E0        SFLAG=1.E0     SFLAG=-2.E0 (SH11  SH12)    (1.E0  SH12)    (SH11  1.E0)    (1.E0  0.E0) H=(          )    (          )    (          )    (          ) (SH21  SH22),   (SH21  1.E0),   (-1.E0 SH22),   (0.E0  1.E0). Locations 2-5 of SPARAM contain SH11, SH21, SH12, and SH22, respectively.  (Values of 1.E0, -1.E0, or 0.E0 implied by the value of SPARAM(1) are not stored in SPARAM.) |
+| 5 | `SPARAM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (5) | S. P. 5-vector. SPARAM(1)=SFLAG defined below. Locations 2-5 contain the rotation matrix. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

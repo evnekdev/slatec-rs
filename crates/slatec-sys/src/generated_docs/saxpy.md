@@ -8,50 +8,50 @@ This canonical unsafe binding exposes original SLATEC routine `SAXPY`. Its docum
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of elements in input vector(s) 1, replace  SY(LY+I*INCY) with SA*SX(LX+I*INCX) + not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `SA`
+number of elements in input vector(s).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. single precision scalar multiplier not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SA`
 
-## 3. `SX`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). single precision vector with N elements not stated by selected source not applicable or not stated by selected source not a workspace argument
+single precision scalar multiplier.
 
-## 4. `INCX`
+## `SX`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of SX N)*INCX, and LY is defined in a similar way using INCY. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 5. `SY`
+single precision vector with N elements.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). single precision vector with N elements single precision result (unchanged if N .LE. 0) Overwrite single precision SY with single precision SA*SX +SY. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `INCX`
 
-## 6. `INCY`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of SY not stated by selected source not applicable or not stated by selected source not a workspace argument
+storage spacing between elements of SX.
+
+## `SY`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+single precision vector with N elements single precision result (unchanged if N. LE. 0) Overwrite single precision SY with single precision SA*SX +SY. For I = 0 to N-1, replace SY(LY+I*INCY) with SA*SX(LX+I*INCX) + where LX = 1 if INCX. GE. 0, else LX = 1+(1-N)*INCX, and LY is defined in a similar way using INCY.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+storage spacing between elements of SY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
-- `SA`: not a workspace argument
 - `SX`: not a workspace argument
-- `INCX`: not a workspace argument
 - `SY`: not a workspace argument
-- `INCY`: not a workspace argument
 
 # ABI notes
 

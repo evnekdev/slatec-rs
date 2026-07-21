@@ -1,6 +1,6 @@
 # Purpose
 
-Written by Carl de Boor and modified by D. E. Amos BVALU is the BVALUE function of the reference. BVALU evaluates the B-representation (T,A,N,K) of a B-spline
+Written by Carl de Boor and modified by D. E. Amos BVALU is the BVALUE function of the reference. BVALU evaluates the B-representation (T,A,N,K) of a B-spline at X for the function value on IDERIV = 0 or any of its derivatives on IDERIV = 1,2,...,K-1. Right limiting values (right derivatives) are returned except at the right end point X=T(N+1) where left limiting values are computed. The spline is defined on T(K) .LE. X .LE. T(N+1). BVALU returns a fatal error message when X is outside of this interval. To compute left derivatives or left limiting values at a knot T(I), replace N by I-1 and set X=T(I), I=K+1,N+1. BVALU calls INTRV
 
 # Description
 
@@ -8,60 +8,63 @@ This canonical unsafe binding exposes original SLATEC routine `BVALU`. Its docum
 
 # Arguments
 
-## 1. `T`
+## `T`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). 1 and set X=T(I), I=K+1,N+1. BVALU calls INTRV knot vector of length N+K 1 and set X=T(I), I=K+1,N+1. BVALU calls INTRV knot vector of length N+K not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 2. `A`
+knot vector of length N+K.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). is outside of this interval. To compute left derivatives or left limiting values at a B-spline coefficient vector of length N is outside of this interval. To compute left derivatives or left limiting values at a B-spline coefficient vector of length N not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1 and set X=T(I), I=K+1,N+1. BVALU calls INTRV number of B-spline coefficients K not stated by selected source not applicable or not stated by selected source not a workspace argument
+B-spline coefficient vector of length N.
 
-## 4. `K`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1.  Right limiting values (right derivatives) are returned except at the right end order of the B-spline, K .GE. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `IDERIV`
+number of B-spline coefficients sum of knot multiplicities-K.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 0 or any of its 1.  Right limiting values (right derivatives) are returned except at the right end order of the derivative, 0 .LE. IDERIV .LE. K-1 spline value not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `K`
 
-## 6. `X`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. 0 or any of its T(N+1) where left limiting values are computed.  The spline is defined on T(K) .LE. X .LE. T(N+1).  BVALU returns is outside of this interval. To compute left derivatives or left limiting values at a argument, T(K) .LE. X .LE. T(N+1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+order of the B-spline, K. GE. 1.
 
-## 7. `INBV`
+## `IDERIV`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. an initialization parameter which must be set to 1 the first time BVALU is called. INBV contains information for efficient process- ing after the initial call and INBV must not be changed by the user.  Distinct splines require distinct INBV parameters. an initialization parameter which must be set to 1 the first time BVALU is called. INBV contains information for efficient process- ing after the initial call and INBV must not be changed by the user.  Distinct splines require distinct INBV parameters. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `WORK`
+order of the derivative, 0. LE. IDERIV. K-1 0 returns the B-spline value.
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). work vector of length 3*K. BVALU   - value of the IDERIV-th derivative at X work vector of length 3*K. BVALU   - value of the IDERIV-th derivative at X not applicable or not stated by selected source
+## `X`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+argument, T(K). LE. X. T(N+1).
+
+## `INBV`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+an initialization parameter which must be set to 1 the first time BVALU is called. INBV contains information for efficient process- ing after the initial call and INBV must not be changed by the user. Distinct splines require distinct INBV parameters.
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+work vector of length 3*K. BVALU - value of the IDERIV-th derivative at X.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32_ptr_rank1)`. It has no separate Rust `Result` status channel.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-An improper input is a fatal error
-
 # Workspace and array requirements
 
 - `T`: not a workspace argument
 - `A`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
-- `IDERIV`: not a workspace argument
-- `X`: not a workspace argument
-- `INBV`: not a workspace argument
-- `WORK`: work vector of length 3*K. BVALU   - value of the IDERIV-th derivative at X
+- `WORK`: work vector of length 3*K. BVALU - value of the IDERIV-th derivative at X
 
 # ABI notes
 

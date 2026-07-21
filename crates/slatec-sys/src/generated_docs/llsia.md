@@ -1,6 +1,6 @@
 # Purpose
 
-LLSIA computes the least squares solution(s) to the problem AX=B where A is an M by N matrix with M.GE.N and B is the M by NB matrix of right hand sides. User input bounds on the uncertainty in the elements of A are used to detect numerical rank deficiency. The algorithm employs a row and column pivot strategy to minimize the growth of uncertainty and round-off errors. LLSIA requires (MDA+6)*N + (MDB+1)*NB + M dimensioned space * WARNING - All input arrays are changed on exit. * * SUBROUTINE LLSIA(A,MDA,M,N,B,MDB,NB,RE,AE,KEY,MODE,NP, 1 KRANK,KSURE,RNORM,W,LW,IWORK,LIW,INFO)
+LLSIA computes the least squares solution(s) to the problem AX=B where A is an M by N matrix with M.GE.N and B is the M by NB matrix of right hand sides. User input bounds on the uncertainty in the elements of A are used to detect numerical rank deficiency. The algorithm employs a row and column pivot strategy to minimize the growth of uncertainty and round-off errors. LLSIA requires (MDA+6)*N + (MDB+1)*NB + M dimensioned space WARNING - All input arrays are changed on exit. * SUBROUTINE LLSIA(A,MDA,M,N,B,MDB,NB,RE,AE,KEY,MODE,NP, 1 KRANK,KSURE,RNORM,W,LW,IWORK,LIW,INFO)
 
 # Description
 
@@ -8,120 +8,146 @@ This canonical unsafe binding exposes original SLATEC routine `LLSIA`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (MDA, *). B, with MDA the must be between 0 and 1. A minimum of 10*machine precision will be enforced. must be greater than or equal to 0. rithm will use that value for each column of A. The parameter key indicates whether scalars or vectors are being input. Contains the upper triangular part of the reduced matrix and the transformation information. It togeth with the first N elements of WORK (see below) completely specify the QR factorization of A. B, with MDA the must be between 0 and 1. A minimum of 10*machine precision will be enforced. must be greater than or equal to 0. rithm will use that value for each column of A. The parameter key indicates whether scalars or vectors are being input. Contains the upper triangular part of the reduced matrix and the transformation information. It togeth with the first N elements of WORK (see below) completely specify the QR factorization of A. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (MDA, *).
 
-## 2. `MDA`
+Linear coefficient matrix of AX=B, with MDA the Contains the upper triangular part of the reduced matrix and the transformation information. It togeth with the first N elements of WORK (see below) completely specify the QR factorization of A.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. actual first dimension of A in the calling program. actual first dimension of A in the calling program. not applicable or not stated by selected source not a workspace argument
+## `MDA`
 
-## 3. `M`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. actual first dimension of A in the calling program. is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). Must have MDA.GE.M and M.GE.N. 0, B is never accessed. * locations contain the order in which the rows of A were used. actual first dimension of A in the calling program. is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). Must have MDA.GE.M and M.GE.N. 0, B is never accessed. * locations contain the order in which the rows of A were used. not applicable or not stated by selected source not a workspace argument
+actual first dimension of A in the calling program.
 
-## 4. `N`
+## `M`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. actual first dimension of A in the calling program. contain the order in which the columns of A were used. The next actual first dimension of A in the calling program. contain the order in which the columns of A were used. The next not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `B`
+actual first dimension of A in the calling program. is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). Must have MDA. GE.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (MDB, *). Right hand side(s), with MDB the actual first is the number of M by 1 right hand sides. Must have Contains the N by NB solution matrix for X. AX(I), I=1,NB. WORK()        The first N locations of WORK contain values necessary to reproduce the Householder transformation. Right hand side(s), with MDB the actual first is the number of M by 1 right hand sides. Must have Contains the N by NB solution matrix for X. AX(I), I=1,NB. WORK()        The first N locations of WORK contain values necessary to reproduce the Householder transformation. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 6. `MDB`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of M by 1 right hand sides. Must have 0, B is never accessed. * is the number of M by 1 right hand sides. Must have 0, B is never accessed. * not applicable or not stated by selected source not a workspace argument
+actual first dimension of A in the calling program.
 
-## 7. `NB`
+## `B`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the is the number of M by 1 right hand sides. Must have number of M by 1 right hand sides. Must have 0, B is never accessed. * is the is the number of M by 1 right hand sides. Must have number of M by 1 right hand sides. Must have 0, B is never accessed. * not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (MDB, *).
 
-## 8. `RE`
+Right hand side(s), with MDB the actual first Contains the N by NB solution matrix for X.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are what make this             * code significantly different from               * other linear least squares solvers.             * However, the inexperienced user is              * 0.,AE=0.,KEY=0.               * * is a vector of length N such that RE(I) is is a vector of length N such that RE(I) is the maximum relative uncertainty in column I of the maximum relative uncertainty in column I of must be between 0 and 1. A minimum of 10*machine precision will be enforced. or AE have been specified as vectors, dimension WORK 4*N. If both RE and AE have been specified as vectors, dimension WORK 3*N. are not accessed. are what make this             * code significantly different from               * other linear least squares solvers.             * However, the inexperienced user is              * 0.,AE=0.,KEY=0.               * * is a vector of length N such that RE(I) is is a vector of length N such that RE(I) is the maximum relative uncertainty in column I of the maximum relative uncertainty in column I of must be between 0 and 1. A minimum of 10*machine precision will be enforced. or AE have been specified as vectors, dimension WORK 4*N. If both RE and AE have been specified as vectors, dimension WORK 3*N. are not accessed. not applicable or not stated by selected source not a workspace argument
+## `MDB`
 
-## 9. `AE`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are what make this             * code significantly different from               * other linear least squares solvers.             * However, the inexperienced user is              * is a vector of length N such that AE(I) is is a vector of length N such that AE(I) is the maximum absolute uncertainty in column I of the maximum absolute uncertainty in column I of must be greater than or equal to 0. are not accessed. are what make this             * code significantly different from               * other linear least squares solvers.             * However, the inexperienced user is              * is a vector of length N such that AE(I) is is a vector of length N such that AE(I) is the maximum absolute uncertainty in column I of the maximum absolute uncertainty in column I of must be greater than or equal to 0. are not accessed. not applicable or not stated by selected source not a workspace argument
+dimension of B in the calling program. NB is the number of M by 1 right hand sides. Must have MDB. GE. M. If NB = 0, B is never accessed.
 
-## 10. `KEY`
+## `NB`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. For ease of use, RE and AE may be input as either 0     RE scalar  AE scalar 1     RE vector  AE scalar 2     RE scalar  AE vector 3     RE vector  AE vector are not accessed. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `MODE`
+dimension of B in the calling program. NB is the number of M by 1 right hand sides. Must have MDB. GE. M. If NB = 0, B is never accessed.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The integer mode indicates how the routine is to react if rank deficiency is detected. 0 return immediately, no solution 1 compute truncated solution 2 compute minimal length solution 0 The integer mode indicates how the routine is to react if rank deficiency is detected. 0 return immediately, no solution 1 compute truncated solution 2 compute minimal length solution 0 not applicable or not stated by selected source not a workspace argument
+## `RE`
 
-## 12. `NP`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The first NP columns of A will not be interchanged with other columns even though the pivot strategy would suggest otherwise. 0. WORK()        A real work array dimensioned 5*N.  However, if are not accessed. The first NP columns of A will not be interchanged with other columns even though the pivot strategy would suggest otherwise. 0. WORK()        A real work array dimensioned 5*N.  However, if are not accessed. not applicable or not stated by selected source
+RE() is a vector of length N such that RE(I) is the maximum relative uncertainty in column I of the matrix A. The values of RE() must be between 0 and 1. A minimum of 10*machine precision will be enforced.
 
-## 13. `KRANK`
+## `AE`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The numerical rank of A,  based upon the relative and absolute bounds on uncertainty, is bounded above by KRANK and below by KSURE. The algorithm returns a solution based on KRANK. KSURE provides an indication of the precision of the rank. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 14. `KSURE`
+AE() is a vector of length N such that AE(I) is the maximum absolute uncertainty in column I of the matrix A. The values of AE() must be greater than or equal to 0.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The numerical rank of A,  based upon the relative and absolute bounds on uncertainty, is bounded above by KRANK and below by KSURE. The algorithm returns a solution based on KRANK. KSURE provides an indication of the precision of the rank. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `KEY`
 
-## 15. `RNORM`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Contains the Euclidean length of the NB residual Contains the Euclidean length of the NB residual not applicable or not stated by selected source not a workspace argument
+For ease of use, RE and AE may be input as either vectors or scalars. If a scalar is input, the algo- rithm will use that value for each column of A. The parameter key indicates whether scalars or vectors are being input. 0 RE scalar AE scalar 1 RE vector AE scalar 2 RE scalar AE vector 3 RE vector AE vector.
 
-## 16. `W`
+## `MODE`
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Writable real work array for the rank-revealing QR solve. It requires `5*N` elements when `RE` and `AE` are scalar, `4*N` when either is vector-valued, and `3*N` when both are vector-valued. Its leading entries are persistent factorization state for an `INFO=1` continuation call. not stated by selected source not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 17. `LW`
+The integer mode indicates how the routine is to react if rank deficiency is detected. If MODE = 0 return immediately, no solution 1 compute truncated solution 2 compute minimal length solution The inexperienced user is advised to set MODE=0.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Actual dimension of WORK IWORK, LIW, and the first 2*N locations of WORK as output by the original call to LLSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK Actual dimension of WORK IWORK, LIW, and the first 2*N locations of WORK as output by the original call to LLSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK not applicable or not stated by selected source not a workspace argument
+## `NP`
 
-## 18. `IWORK`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-workspace `workspace` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). Integer work array dimensioned at least N+M. contain the order in which the columns of A were used. The next Integer work array dimensioned at least N+M. contain the order in which the columns of A were used. The next not applicable or not stated by selected source
+The first NP columns of A will not be interchanged with other columns even though the pivot strategy would suggest otherwise. The inexperienced user is advised to set NP=0. WORK() A real work array dimensioned 5*N. However, if RE or AE have been specified as vectors, dimension WORK 4*N. If both RE and AE have been specified as vectors, dimension WORK 3*N.
 
-## 19. `LIW`
+## `KRANK`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Actual dimension of IWORK. Actual dimension of IWORK. not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 20. `INFO`
+The numerical rank of A, based upon the relative and absolute bounds on uncertainty, is bounded above by KRANK and below by KSURE. The algorithm returns a solution based on KRANK. KSURE provides an indication of the precision of the rank.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Is a flag which provides for the efficient solution of subsequent problems involving the same A but different B. 0 original call 1 subsequent calls On subsequent calls, the user must supply A, KRANK, Flag to indicate status of computation on completion -1   Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length solution 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank Is a flag which provides for the efficient solution of subsequent problems involving the same A but different B. 0 original call 1 subsequent calls On subsequent calls, the user must supply A, KRANK, Flag to indicate status of computation on completion -1   Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length solution 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank not applicable or not stated by selected source not a workspace argument
+## `KSURE`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+The numerical rank of A, based upon the relative and absolute bounds on uncertainty, is bounded above by KRANK and below by KSURE. The algorithm returns a solution based on KRANK. KSURE provides an indication of the precision of the rank.
+
+## `RNORM`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+Contains the Euclidean length of the NB residual vectors B(I)-AX(I), I=1,NB. WORK() The first N locations of WORK contain values necessary to reproduce the Householder transformation.
+
+## `W`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+Writable real work array for the rank-revealing QR solve. It requires `5*N` elements when `RE` and `AE` are scalar, `4*N` when either is vector-valued, and `3*N` when both are vector-valued. Its leading entries are persistent factorization state for an `INFO=1` continuation call.
+
+## `LW`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Actual dimension of WORK.
+
+## `IWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+work array dimensioned at least N+M. The first N locations contain the order in which the columns of A were used. The next M locations contain the order in which the rows of A were used.
+
+## `LIW`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Actual dimension of IWORK.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Is a flag which provides for the efficient solution of subsequent problems involving the same A but different B. If INFO = 0 original call INFO = 1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*N locations of WORK as output by the original call to LLSIA. MODE must be equal to the value of MODE in the original call. If MODE. LT. 2, only the first N locations of WORK are accessed.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 original call |
+| `INFO` | `1` | 1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*N locations of WORK as output by the original call to LLSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK are accessed. AE, RE, KEY, and NP are not accessed. -1 Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length solution 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank |
 
 # Workspace and array requirements
 
 - `A`: not a workspace argument
-- `MDA`: not a workspace argument
-- `M`: not a workspace argument
-- `N`: not a workspace argument
 - `B`: not a workspace argument
-- `MDB`: not a workspace argument
-- `NB`: not a workspace argument
 - `RE`: not a workspace argument
 - `AE`: not a workspace argument
-- `KEY`: not a workspace argument
-- `MODE`: not a workspace argument
-- `NP`: The first NP columns of A will not be interchanged with other columns even though the pivot strategy would suggest otherwise. 0. WORK()        A real work array dimensioned 5*N.  However, if are not accessed.
-- `KRANK`: not a workspace argument
-- `KSURE`: not a workspace argument
 - `RNORM`: not a workspace argument
 - `W`: Writable real work array for the rank-revealing QR solve. It requires `5*N` elements when `RE` and `AE` are scalar, `4*N` when either is vector-valued, and `3*N` when both are vector-valued. Its leading entries are persistent factorization state for an `INFO=1` continuation call.
-- `LW`: not a workspace argument
-- `IWORK`: Integer work array dimensioned at least N+M. contain the order in which the columns of A were used. The next
-- `LIW`: not a workspace argument
-- `INFO`: not a workspace argument
+- `IWORK`: work array dimensioned at least N+M. The first N locations contain the order in which the columns of A were used. The next M locations contain the order in which the rows of A were used.
 
 # ABI notes
 

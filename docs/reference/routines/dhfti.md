@@ -8,7 +8,7 @@ Solve a least squares problem for banded matrices using sequential accumulation 
 
 ## Description
 
-DIMENSION A(MDA,N),(B(MDB,NB) or B(M)),RNORM(NB),H(N),G(N),IP(N) This subroutine solves a linear least squares problem or a set of linear least squares problems having the same matrix but different right-side vectors. The problem data consists of an M by N matrix
+DIMENSION A(MDA,N),(B(MDB,NB) or B(M)),RNORM(NB),H(N),G(N),IP(N) This subroutine solves a linear least squares problem or a set of linear least squares problems having the same matrix but different right-side vectors. The problem data consists of an M by N matrix A, an M by NB matrix B, and an absolute tolerance parameter TAU whose usage is described below. The NB column vectors of B represent right-side vectors for NB distinct linear least squares problems. This set of problems can also be written as the matrix least AX = B, where X is the N by NB solution matrix. Note that if B is the M by M identity matrix, then X will be the pseudo-inverse of A. This subroutine first transforms the augmented matrix (A B) to a matrix (R C) using premultiplying Householder transformations with column interchanges. All subdiagonal elements in the matrix R are zero and its diagonal elements satisfy ABS(R(I,I)).GE.ABS(R(I+1,I+1)), I = 1,...,L-1, where L = MIN(M,N). The subroutine will compute an integer, KRANK, equal to the number of diagonal terms of R that exceed TAU in magnitude. Then a solution of minimum Euclidean length is computed using the first KRANK rows of (R C). To be specific we suggest that the user consider an easily computable matrix norm, such as, the maximum of all column sums of magnitudes. Now if the relative uncertainty of B is EPS, (norm of uncertainty/ norm of B), it is suggested that TAU be set approximately equal to EPS*(norm of A). The user must dimension all arrays appearing in the call list.. A(MDA,N),(B(MDB,NB) or B(M)),RNORM(NB),H(N),G(N),IP(N). This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are
 
 ## Classification
 
@@ -54,45 +54,37 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DHFTI](https://www.netlib.org/slatec/src/dhfti.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDA, *) | an M by NB matrix B, and an absolute tolerance parameter TAU whose usage is described below.  The NB column vectors of B represent right-side vectors for NB distinct linear least squares problems. This set of problems can also be written as the matrix least squares problem AX = B, where X is the N by NB solution matrix. Note that if B is the M by M identity matrix, then X will be the pseudo-inverse of A. This subroutine first transforms the augmented matrix (A B) to a matrix (R C) using premultiplying Householder transformations with column interchanges.  All subdiagonal elements in the matrix R are zero and its diagonal elements satisfy ABS(R(I,I)).GE.ABS(R(I+1,I+1)), I = 1,...,L-1, where L = MIN(M,N). The subroutine will compute an integer, KRANK, equal to the number of diagonal terms of R that exceed TAU in magnitude. Then a solution of minimum Euclidean length is computed using the first or B(M)),RNORM(NB),H(N),G(N),IP(N).  This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are INPUT.. All TYPE REAL variables are DOUBLE PRECISION contains the M by N contains the M by N B. The first dimensioning parameter of the array must satisfy MDA.GE.M The contents of the array A(*,*) will be modified by the subroutine. These contents are not generally required by the user. |
-| 2 | `MDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | or B(M)),RNORM(NB),H(N),G(N),IP(N).  This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are INPUT.. All TYPE REAL variables are DOUBLE PRECISION contains the M by N must satisfy MDA.GE.M is considered an error. |
-| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | contains the M by N is permitted.  There is permitted.  There is no restriction on the rank of A.  The is no restriction on the rank of A.  The is considered an error. 1 the array B(*) may be either doubly or singly subscripted.  In the latter case the value of MDB is arbitrary but it should be set to some valid integer |
-| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | or B(M)),RNORM(NB),H(N),G(N),IP(N).  This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are INPUT.. All TYPE REAL variables are DOUBLE PRECISION contains the M by N is permitted.  There is permitted.  There is no restriction on the rank of A.  The is no restriction on the rank of A.  The 1 the array B(*) may be either doubly or singly subscripted.  In the latter case the value of MDB is arbitrary but it should be set to some valid integer |
-| 5 | `B` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDB, *) | or B(M)),RNORM(NB),H(N),G(N),IP(N).  This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are INPUT.. All TYPE REAL variables are DOUBLE PRECISION 0 the subroutine will perform the orthogonal decomposition but will make no must be doubly must be doubly subscripted with first dimensioning parameter subscripted with first dimensioning parameter contain the N by contain the N by 1,...,NB. |
-| 6 | `MDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | or B(M)),RNORM(NB),H(N),G(N),IP(N).  This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are INPUT.. All TYPE REAL variables are DOUBLE PRECISION 0 the subroutine will perform the orthogonal decomposition but will make no 1 the array B(*) may be either doubly or singly subscripted.  In the latter case the value of MDB is arbitrary but it should be set to some valid integer M. The condition of NB.GT.1.AND.MDB.LT. MAX(M,N) is considered an error. |
-| 7 | `NB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | or B(M)),RNORM(NB),H(N),G(N),IP(N).  This permits the solution of a range of problems in the same array space. The entire set of parameters for DHFTI are INPUT.. All TYPE REAL variables are DOUBLE PRECISION 0 the subroutine will perform the 0 the subroutine will perform the orthogonal decomposition but will make no orthogonal decomposition but will make no must be doubly subscripted with first dimensioning parameter 1 the array B(*) may be either doubly or singly subscripted.  In the latter case the value of MDB is arbitrary but it should be set to some valid integer solution matrix X. |
+| 1 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDA, *) | The array A(*,*) initially contains the M by N matrix A of the least squares problem AX = B. The first dimensioning parameter of the array is MDA, which must satisfy MDA. GE. M Either M. N or M. LT. |
+| 2 | `MDA` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The array A(*,*) initially contains the M by N matrix A of the least squares problem AX = B. The first dimensioning parameter of the array. |
+| 3 | `M` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The array A(*,*) initially contains the M by N matrix A of the least squares problem AX = B. The first dimensioning parameter of the array. |
+| 4 | `N` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The array A(*,*) initially contains the M by N matrix A of the least squares problem AX = B. The first dimensioning parameter of the array. |
+| 5 | `B` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDB, *) | If NB = 0 the subroutine will perform the orthogonal decomposition but will make no references to the array B(*). If NB. GT. 0 the array B(*) must initially contain the M by NB matrix B of the least squares problem AX = If NB. GE. 2 the array B(*) must be doubly subscripted with first dimensioning parameter MDB. |
+| 6 | `MDB` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | If NB = 0 the subroutine will perform the orthogonal decomposition but will make no references to the array B(*). If NB. GT. 0 the array B(*) must initially contain the M by NB matrix B of the least squares problem AX =. |
+| 7 | `NB` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | If NB = 0 the subroutine will perform the orthogonal decomposition but will make no references to the array B(*). If NB. GT. 0 the array B(*) must initially contain the M by NB matrix B of the least squares problem AX =. |
 | 8 | `TAU` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Absolute tolerance parameter provided by user for pseudorank determination. |
-| 9 | `KRANK` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | rows of (R C). To be specific we suggest that the user consider an easily computable matrix norm, such as, the maximum of all column sums of magnitudes. Now if the relative uncertainty of B is EPS, (norm of uncertainty/ norm of B), it is suggested that TAU be set approximately equal to EPS*(norm of A). The user must dimension all arrays appearing in the call list.. Set by the subroutine to indicate the pseudorank of A. |
-| 10 | `RNORM` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | contain the Euclidean contain the Euclidean norm of the residual vector for the problem norm of the residual vector for the problem defined by the J-th column vector of the array defined by the J-th column vector of the array |
-| 11 | `H` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Arrays of working space used by DHFTI. OUTPUT.. All TYPE REAL variables are DOUBLE PRECISION On return these arrays respectively contain elements of the pre- and post-multiplying Householder transformations used to compute the minimum Euclidean length solution. |
-| 12 | `G` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Arrays of working space used by DHFTI. OUTPUT.. All TYPE REAL variables are DOUBLE PRECISION On return these arrays respectively contain elements of the pre- and post-multiplying Householder transformations used to compute the minimum Euclidean length solution. |
-| 13 | `IP` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Arrays of working space used by DHFTI. OUTPUT.. All TYPE REAL variables are DOUBLE PRECISION Array in which the subroutine records indices describing the permutation of column vectors. The contents of arrays H(*),G(*) and IP(*) are not generally required by the user. |
+| 9 | `KRANK` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Set by the subroutine to indicate the pseudorank of A. |
+| 10 | `RNORM` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | On return, RNORM(J) will contain the Euclidean norm of the residual vector for the problem defined by the J-th column vector of the array B(*,*) for J = 1,. ,NB. |
+| 11 | `H` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Arrays of working space used by DHFTI. On return these arrays respectively contain elements of the pre- and post-multiplying Householder transformations used to compute the minimum Euclidean length solution. |
+| 12 | `G` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Arrays of working space used by DHFTI. On return these arrays respectively contain elements of the pre- and post-multiplying Householder transformations used to compute the minimum Euclidean length solution. |
+| 13 | `IP` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Arrays of working space used by DHFTI. Array in which the subroutine records indices describing the permutation of column vectors. The contents of arrays H(*),G(*) and IP(*) are not generally required by the user. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

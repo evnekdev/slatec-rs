@@ -1,6 +1,6 @@
 # Purpose
 
-ERFC(X) calculates the single precision complementary error function for single precision argument X. Series for ERF on the interval 0. to 1.00000D+00 with weighted error 7.10E-18 log weighted error 17.15 significant figures required 16.31 decimal places required 17.71 Series for ERFC on the interval 0. to 2.50000D-01 with weighted error 4.81E-17 log weighted error 16.32 approx significant figures required 15.0 Series for ERC2 on the interval 2.50000D-01 to 1.00000D+00 with weighted error 5.22E-17 log weighted error 16.28 approx significant figures required 15.0 decimal places required 16.96
+ERFC(X) calculates the single precision complementary error function for single precision argument X. Series for ERF on the interval 0. to 1.00000D+00 with weighted error 7.10E-18 log weighted error 17.15 significant figures required 16.31 decimal places required 17.71 Series for ERFC on the interval 0. to 2.50000D-01 with weighted error 4.81E-17 log weighted error 16.32 approx significant figures required 15.0 Series for ERC2 on the interval 2.50000D-01 to 1.00000D+00 with weighted error 5.22E-17 log weighted error 16.28 decimal places required 16.96
 
 # Description
 
@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `ERFC`. Its docume
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. calculates the single precision complementary error function for single precision argument X. Series for ERF        on the interval  0.          to  1.00000D+00 with weighted error   7.10E-18 log weighted error  17.15 significant figures required  16.31 decimal places required  17.71 Series for ERFC       on the interval  0.          to  2.50000D-01 with weighted error   4.81E-17 log weighted error  16.32 approx significant figures required  15.0 Series for ERC2       on the interval  2.50000D-01 to  1.00000D+00 with weighted error   5.22E-17 log weighted error  16.28 approx significant figures required  15.0 decimal places required  16.96 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the complementary error function
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

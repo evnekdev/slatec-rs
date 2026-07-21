@@ -8,7 +8,7 @@ The routine calculates an approximation result to a given Fourier integral I=Int
 
 ## Description
 
-Computation of Fourier integrals Standard fortran subroutine Double precision version PARAMETERS ON ENTRY
+Computation of Fourier integrals Standard fortran subroutine Double precision version
 
 ## Classification
 
@@ -54,32 +54,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DQAWF](https://www.netlib.org/slatec/src/dqawf.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Double precision Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
-| 2 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Lower limit of integration 1)C,A+KC) where C = (2*INT(ABS(OMEGA))+1)*PI/ABS(OMEGA), FOR K = 1, 2, ..., LST. One can allow more cycles by increasing the value of LIMLST (and taking the according dimension adjustments into account). Examine the array IWORK which contains the error flags on the cycles, in order to look for eventual local integration difficulties. If the position of a local difficulty can be determined (e.g. singularity, discontinuity within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges. = 4 The extrapolation table constructed for convergence acceleration of the series formed by the integral contributions over the cycles, does not converge to within the requested accuracy. |
-| 3 | `OMEGA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Parameter in the integrand WEIGHT function 0 and INTEGR = 1, The integral is calculated by means of DQAGIE, 0, then LST is set to 1. |
-| 4 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Indicates which of the WEIGHT functions is used 1      W(X) = COS(OMEGA*X) 2      W(X) = SIN(OMEGA*X) IF INTEGR.NE.1.AND.INTEGR.NE.2, the routine AND INTEGR.NE.2) or |
-| 5 | `EPSABS` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Absolute accuracy requested, EPSABS.GT.0. 6. ON RETURN or LIMLST.LT.1 or |
-| 6 | `RESULT` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Approximation to the integral are set to zero. = 7 Bad integrand behaviour occurs within one or more of the cycles. Location and on this interval is the best which can be obtained. = 5 The integral over the K th cycle is probably divergent or slowly convergent. It must be noted that divergence can occur with any other value of |
-| 7 | `ABSERR` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Estimate of the modulus of the absolute error, Which should equal or exceed ABS(I-RESULT) are set to zero. = 7 Bad integrand behaviour occurs within one or more of the cycles. Location and |
-| 8 | `NEVAL` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Number of integrand evaluations are set to zero. = 7 Bad integrand behaviour occurs within one or more of the cycles. Location and |
-| 9 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 6. 6. ON RETURN Integer 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved. 1 Maximum number of cycles allowed has been achieved, i.e. of subintervals 1, it is advised to examine the array IWORK which contains the error flags on the cycles. = 6 The input is invalid because IWORK(1) (with meaning as described 6. 6. 6. 6. |
-| 10 | `LIMLST` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | or MAXP1.LT.1 or Integer gives an upper bound on the number of cycles, LIMLST.GE.3. 6. ..., WORK(LIMLST+LST) contain the error estimates over the cycles. further elements of WORK have no specific meaning for the user. |
-| 11 | `LST` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are set to zero. = 7 Bad integrand behaviour occurs within one or more of the cycles. Location and is the number of cycles actually needed (see below). Integer On return, LST indicates the number of cycles actually needed for the integration. contain the integral approximations over the cycles, |
-| 12 | `LENIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | or MAXP1.LT.1 or LIMLST) /2) has been achieved on the K th cycle. = 2 Occurrence of roundoff error is detected and prevents the tolerance imposed on the K th cycle, from being achieved on this cycle. = 3 Extremely bad integrand behaviour occurs at some points of the K th cycle. = 4 The integration procedure over the K th cycle does not converge (to within the required accuracy) due to roundoff in the extrapolation procedure invoked on this cycle. It is assumed that the Integer Dimensioning parameter for IWORK. On entry, LIMLST)/2 equals the maximum number of subintervals allowed in the partition of each cycle, LENIW.GE.(LIMLST+2). If LENIW.LT.(LIMLST+2), the routine will end with |
-| 13 | `MAXP1` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer gives an upper bound on the number of Chebyshev moments which can be stored, i.e. for the intervals of lengths ABS(B-A)*2**(-L), 2, MAXP1.GE.1. 6. |
-| 14 | `LENW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Dimensioning parameter for WORK must be at least LENIW*2+MAXP1*25. If LENW.LT.(LENIW*2+MAXP1*25), the routine will |
-| 15 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | is the number of cycles actually needed (see below). 1 The maximum number of 1). DIMENSIONING PARAMETERS Integer Vector of dimension at least LENIW 1, 2, ..., LST contain the error flags on the cycles. |
-| 16 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | ARRAYS Double precision Vector of dimension at least On return, contain the integral contain the integral approximations over the cycles, approximations over the cycles, ..., WORK(LIMLST+LST) contain the error estimates over the cycles. further elements of WORK have no specific meaning for the user. |
+| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
+| 2 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Lower limit of integration. |
+| 3 | `OMEGA` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Parameter in the integrand WEIGHT function. |
+| 4 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Indicates which of the WEIGHT functions is used 1 W(X) = COS(OMEGA*X) 2 W(X) = SIN(OMEGA*X) IF INTEGR. NE. 1. AND. INTEGR. 2, the routine will end with IER = 6. |
+| 5 | `EPSABS` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Absolute accuracy requested, EPSABS. GT. 0. If EPSABS. LE. 0, the routine will end with IER = 6. |
+| 6 | `RESULT` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Approximation to the integral. |
+| 7 | `ABSERR` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Estimate of the modulus of the absolute error, Which should equal or exceed ABS(I-RESULT). |
+| 8 | `NEVAL` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of integrand evaluations. |
+| 9 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IER = 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. IER. GT. 0 Abnormal termination of the routine. The estimates for integral and error are less reliable. |
+| 10 | `LIMLST` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | gives an upper bound on the number of cycles, LIMLST. GE. 3. If LIMLST. LT. 3, the routine will end with IER = 6. |
+| 11 | `LST` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | On return, LST indicates the number of cycles actually needed for the integration. If OMEGA = 0, then LST is set to 1. |
+| 12 | `LENIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer. |
+| 13 | `MAXP1` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | gives an upper bound on the number of Chebyshev moments which can be stored, i. e. for the intervals of lengths ABS(B-A)*2**(-L), L = 0,1,. , MAXP1-2, MAXP1. GE. 1. |
+| 14 | `LENW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | must be at least LENIW*2+MAXP1*25. If LENW. LT. (LENIW*2+MAXP1*25), the routine will end with IER = 6. |
+| 15 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Vector of dimension at least LENIW On return, IWORK(K) FOR K = 1, 2,. , LST contain the error flags on the cycles. |
+| 16 | `WORK` | `workspace-output` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Vector of dimension at least. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -91,13 +91,28 @@ Callback arguments must use the exact reviewed callback ABI, remain valid for th
 
 ### Error and status values
 
-If OMEGA.NE.0
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IER` | `0` | 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. |
+| `IER` | `>0` | Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved. If OMEGA.NE.0 |
+| `IER` | `1` | 1 Maximum number of cycles allowed has been achieved, i.e. of subintervals (A+(K-1)C,A+KC) where C = (2*INT(ABS(OMEGA))+1)*PI/ABS(OMEGA), 1, 2, ..., LST. One can allow more cycles by increasing the value of LIMLST (and taking the according dimension adjustments into account). Examine the array IWORK which contains the error flags on the cycles, in order to look for eventual local integration difficulties. If the position of a local difficulty can be determined (e.g. singularity, discontinuity within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges. |
+| `IER` | `4` | 4 The extrapolation table constructed for convergence acceleration of the series formed by the integral contributions over the cycles, does not converge to within the requested accuracy. |
+| `IER` | `1` | 1, it is advised to examine the array IWORK which contains the error flags on the cycles. |
+| `IER` | `6` | 6 The input is invalid because (INTEGR.NE.1 AND INTEGR.NE.2) or EPSABS.LE.0 or LIMLST.LT.1 or LENIW.LT.(LIMLST+2) or MAXP1.LT.1 or LENW.LT.(LENIW*2+MAXP1*25). RESULT, ABSERR, NEVAL, LST are set to zero. |
+| `IER` | `7` | 7 Bad integrand behaviour occurs within one or more of the cycles. Location and type of the difficulty involved can be determined from the first LST elements of vector IWORK. Here LST is the number of cycles actually needed (see below). |
+| `IER` | `1` | 1 The maximum number of subdivisions (=(LENIW-LIMLST) /2) has been achieved on the K th cycle. |
+| `IER` | `2` | 2 Occurrence of roundoff error is detected and prevents the tolerance imposed on the K th cycle, from being achieved on this cycle. |
+| `IER` | `3` | 3 Extremely bad integrand behaviour occurs at some points of the K th cycle. |
+| `IER` | `4` | 4 The integration procedure over the K th cycle does not converge (to within the required accuracy) due to roundoff in the extrapolation procedure invoked on this cycle. It is assumed that the result on this interval is the best which can be obtained. |
+| `IER` | `5` | 5 The integral over the K th cycle is probably divergent or slowly convergent. It must be noted that divergence can occur with any other value of IWORK(K). |
+| `IER` | `0` | 0 and INTEGR = 1, The integral is calculated by means of DQAGIE, and IER = IWORK(1) (with meaning as described |
+| `IER` | `1` | 1). |
 
 ### Storage and workspace requirements
 
-`IWORK`: is the number of cycles actually needed (see below). 1 The maximum number of 1). DIMENSIONING PARAMETERS Integer Vector of dimension at least LENIW 1, 2, ..., LST contain the error flags on the cycles.
+`IWORK`: Integer Vector of dimension at least LENIW On return, IWORK(K) FOR K = 1, 2, ..., LST contain the error flags on the cycles.
 
-`WORK`: ARRAYS Double precision Vector of dimension at least On return, contain the integral contain the integral approximations over the cycles, approximations over the cycles, ..., WORK(LIMLST+LST) contain the error estimates over the cycles. further elements of WORK have no specific meaning for the user.
+`WORK`: Double precision Vector of dimension at least
 
 ### Provider, ABI, and safety
 

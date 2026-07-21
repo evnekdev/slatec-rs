@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `DBI`. Its documen
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. calculates the double precision Airy function of the second kind for double precision argument X. Series for BIF        on the interval -1.00000E+00 to  1.00000E+00 with weighted error   1.45E-32 log weighted error  31.84 significant figures required  30.85 decimal places required  32.40 Series for BIG        on the interval -1.00000E+00 to  1.00000E+00 with weighted error   1.29E-33 log weighted error  32.89 significant figures required  31.48 decimal places required  33.45 Series for BIF2       on the interval  1.00000E+00 to  8.00000E+00 with weighted error   6.08E-32 log weighted error  31.22 approx significant figures required  30.8 decimal places required  31.80 Series for BIG2       on the interval  1.00000E+00 to  8.00000E+00 with weighted error   4.91E-33 log weighted error  32.31 approx significant figures required  31.6 decimal places required  32.90 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Evaluate the Bairy function (the Airy function of the second kind)
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

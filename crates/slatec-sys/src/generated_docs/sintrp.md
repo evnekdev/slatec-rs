@@ -8,104 +8,123 @@ This canonical unsafe binding exposes original SLATEC routine `SINTRP`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Input current integration abscissa from `DSTEPS`. It and the history arguments must be from the same unmodified `DSTEPS` state. Input current integration abscissa from `DSTEPS`. It and the history arguments must be from the same unmodified `DSTEPS` state. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `Y`
+Input current integration abscissa from `DSTEPS`. It and the history arguments must be from the same unmodified `DSTEPS` state.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Readable current solution vector from `DSTEPS`, with at least `NEQN` elements. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `Y`
 
-## 3. `XOUT`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. by evaluating the polynomial there.  Information defining this polynomial is passed from  STEPS  so  SINTRP  cannot be used alone. Subroutine STEPS is completely explained and documented in the text, "Computer Solution of Ordinary Differential Equations, the Initial Value Problem"  by L. F. Shampine and M. K. Gordon. Input to SINTRP -- The user provides storage in the calling program for the arrays in the call list DIMENSION Y(NEQN),YOUT(NEQN),YPOUT(NEQN),PHI(NEQN,16),OY(NEQN) AND ALPHA(12),OG(13),OW(12),GI(11),IV(10) and defines point at which solution is desired. The remaining parameters are defined in  STEPS  and passed to SINTRP  from that subroutine Output from  SINTRP -- by evaluating the polynomial there.  Information defining this polynomial is passed from  STEPS  so  SINTRP  cannot be used alone. Subroutine STEPS is completely explained and documented in the text, "Computer Solution of Ordinary Differential Equations, the Initial Value Problem"  by L. F. Shampine and M. K. Gordon. Input to SINTRP -- The user provides storage in the calling program for the arrays in the call list DIMENSION Y(NEQN),YOUT(NEQN),YPOUT(NEQN),PHI(NEQN,16),OY(NEQN) AND ALPHA(12),OG(13),OW(12),GI(11),IV(10) and defines point at which solution is desired. The remaining parameters are defined in  STEPS  and passed to SINTRP  from that subroutine Output from  SINTRP -- not applicable or not stated by selected source not a workspace argument
+Readable current solution vector from `DSTEPS`, with at least `NEQN` elements.
 
-## 4. `YOUT`
+## `XOUT`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). solution at  XOUT not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `YPOUT`
+by evaluating the polynomial there. Information defining this polynomial is passed from STEPS so SINTRP cannot be used alone. Subroutine STEPS is completely explained and documented in the text, "Computer Solution of Ordinary Differential Equations, the Initial Value Problem" by L. F. Shampine and M. K.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). derivative of solution at  XOUT The remaining parameters are returned unaltered from their input values.  Integration with  STEPS  may be continued. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `YOUT`
 
-## 6. `NEQN`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Input number of differential equations. It is the required length of `Y`, `YOUT`, and `YPOUT` and the first dimension of `PHI`. Input number of differential equations. It is the required length of `Y`, `YOUT`, and `YPOUT` and the first dimension of `PHI`. not applicable or not stated by selected source not a workspace argument
+solution at XOUT.
 
-## 7. `KOLD`
+## `YPOUT`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Input interpolation order saved by `DSTEPS`. It controls how many columns of the `PHI` history are used and must be passed unchanged from that integrator state. Input interpolation order saved by `DSTEPS`. It controls how many columns of the `PHI` history are used and must be passed unchanged from that integrator state. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `PHI`
+derivative of solution at XOUT The remaining parameters are returned unaltered from their input values. Integration with STEPS may be continued.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NEQN, 16). Readable `DSTEPS` history matrix with Fortran shape `(NEQN, 16)`. It defines the local interpolation polynomial and must not be synthesized independently. Readable `DSTEPS` history matrix with Fortran shape `(NEQN, 16)`. It defines the local interpolation polynomial and must not be synthesized independently. not applicable or not stated by selected source not a workspace argument
+## `NEQN`
 
-## 9. `IVC`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Readable interpolation-cache control index supplied by `DSTEPS`; it selects cached data in `IV` and `OW` when the order changes. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Input number of differential equations. It is the required length of `Y`, `YOUT`, and `YPOUT` and the first dimension of `PHI`.
 
-## 10. `IV`
+## `KOLD`
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (10). Readable integer interpolation cache of length 10 supplied by `DSTEPS`. It is part of the persistent integrator state and must be passed unchanged. Readable integer interpolation cache of length 10 supplied by `DSTEPS`. It is part of the persistent integrator state and must be passed unchanged. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `KGI`
+Input interpolation order saved by `DSTEPS`. It controls how many columns of the `PHI` history are used and must be passed unchanged from that integrator state.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Readable `DSTEPS` interpolation-history order marker used to decide whether cached `GI` values apply. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `PHI`
 
-## 12. `GI`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NEQN, 16).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (11). Readable interpolation cache of length 11 supplied by `DSTEPS`. It stores precomputed integral factors and must remain consistent with `KGI` and `KOLD`. Readable interpolation cache of length 11 supplied by `DSTEPS`. It stores precomputed integral factors and must remain consistent with `KGI` and `KOLD`. not applicable or not stated by selected source not a workspace argument
+Readable `DSTEPS` history matrix with Fortran shape `(NEQN, 16)`. It defines the local interpolation polynomial and must not be synthesized independently.
 
-## 13. `ALPHA`
+## `IVC`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (12). Readable `DSTEPS` coefficient array of length 12 used to reconstruct the interpolation factors. Readable `DSTEPS` coefficient array of length 12 used to reconstruct the interpolation factors. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 14. `OG`
+Readable interpolation-cache control index supplied by `DSTEPS`; it selects cached data in `IV` and `OW` when the order changes.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (13). Readable `DSTEPS` interpolation-history array of length 13 used when evaluating the local polynomial. Readable `DSTEPS` interpolation-history array of length 13 used when evaluating the local polynomial. not applicable or not stated by selected source not a workspace argument
+## `IV`
 
-## 15. `OW`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (10).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (12). Readable `DSTEPS` interpolation-cache array of length 12. It is indexed through `IVC` and `IV` and is not independent workspace. Readable `DSTEPS` interpolation-cache array of length 12. It is indexed through `IVC` and `IV` and is not independent workspace. not applicable or not stated by selected source
+Readable integer interpolation cache of length 10 supplied by `DSTEPS`. It is part of the persistent integrator state and must be passed unchanged.
 
-## 16. `OX`
+## `KGI`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Readable previous integration abscissa from `DSTEPS`; together with `X` it defines the interpolation interval. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 17. `OY`
+Readable `DSTEPS` interpolation-history order marker used to decide whether cached `GI` values apply.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Readable previous solution vector from `DSTEPS`, with at least `NEQN` elements. It supplies the endpoint data for the smooth interpolant. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `GI`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (11).
+
+Readable interpolation cache of length 11 supplied by `DSTEPS`. It stores precomputed integral factors and must remain consistent with `KGI` and `KOLD`.
+
+## `ALPHA`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (12).
+
+Readable `DSTEPS` coefficient array of length 12 used to reconstruct the interpolation factors.
+
+## `OG`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (13).
+
+Readable `DSTEPS` interpolation-history array of length 13 used when evaluating the local polynomial.
+
+## `OW`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (12).
+
+Readable `DSTEPS` interpolation-cache array of length 12. It is indexed through `IVC` and `IV` and is not independent workspace.
+
+## `OX`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Readable previous integration abscissa from `DSTEPS`; together with `X` it defines the interpolation interval.
+
+## `OY`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+Readable previous solution vector from `DSTEPS`, with at least `NEQN` elements. It supplies the endpoint data for the smooth interpolant.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `X`: not a workspace argument
 - `Y`: not a workspace argument
-- `XOUT`: not a workspace argument
 - `YOUT`: not a workspace argument
 - `YPOUT`: not a workspace argument
-- `NEQN`: not a workspace argument
-- `KOLD`: not a workspace argument
 - `PHI`: not a workspace argument
-- `IVC`: not a workspace argument
 - `IV`: not a workspace argument
-- `KGI`: not a workspace argument
 - `GI`: not a workspace argument
 - `ALPHA`: not a workspace argument
 - `OG`: not a workspace argument
 - `OW`: Readable `DSTEPS` interpolation-cache array of length 12. It is indexed through `IVC` and `IV` and is not independent workspace.
-- `OX`: not a workspace argument
 - `OY`: not a workspace argument
 
 # ABI notes

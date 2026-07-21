@@ -1,6 +1,6 @@
 # Purpose
 
-BESK1E(X) computes the exponentially scaled modified (hyperbolic) Bessel function of third kind of order one for real argument X .GT. 0.0, i.e., EXP(X)*K1(X). Series for BK1 on the interval 0. to 4.00000D+00 with weighted error 7.02E-18 log weighted error 17.15 significant figures required 16.73 decimal places required 17.67 Series for AK1 on the interval 1.25000D-01 to 5.00000D-01 with weighted error 6.06E-17 log weighted error 16.22 significant figures required 15.41 decimal places required 16.83 Series for AK12 on the interval 0. to 1.25000D-01 with weighted error 2.58E-17 log weighted error 16.59 significant figures required 15.22 decimal places required 17.16
+BESK1E(X) computes the exponentially scaled modified (hyperbolic) Bessel function of third kind of order one for real argument
 
 # Description
 
@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `BESK1E`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. computes the exponentially scaled modified (hyperbolic) Bessel function of third kind of order one for real argument .GT. 0.0, i.e., EXP(X)*K1(X). Series for BK1        on the interval  0.          to  4.00000D+00 with weighted error   7.02E-18 log weighted error  17.15 significant figures required  16.73 decimal places required  17.67 Series for AK1        on the interval  1.25000D-01 to  5.00000D-01 with weighted error   6.06E-17 log weighted error  16.22 significant figures required  15.41 decimal places required  16.83 Series for AK12       on the interval  0.          to  1.25000D-01 with weighted error   2.58E-17 log weighted error  16.59 significant figures required  15.22 decimal places required  17.16 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+GT. 0. 0, i. e. , EXP(X)*K1(X). Series for BK1 on the interval 0.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

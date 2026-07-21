@@ -8,7 +8,7 @@ This routine computes modified Chebyshev moments. The K-th modified Chebyshev mo
 
 ## Description
 
-MODIFIED CHEBYSHEV MOMENTS STANDARD FORTRAN SUBROUTINE REAL VERSION PARAMETERS
+MODIFIED CHEBYSHEV MOMENTS STANDARD FORTRAN SUBROUTINE REAL VERSION
 
 ## Classification
 
@@ -53,39 +53,31 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QMOMO](https://www.netlib.org/slatec/src/qmomo.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real 1) 1,X), K = 1, ..., 25. 1,X), K = 1, ..., 25. |
-| 2 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real 1) K = 1, ..., 25. K = 1, ..., 25. |
-| 3 | `RI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
-| 4 | `RJ` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
-| 5 | `RG` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
-| 6 | `RH` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Vector of dimension 25 1,1) of |
-| 7 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Input parameter indicating the modified Moments to be computed 1 compute RI, RJ = 2 compute RI, RJ, RG = 3 compute RI, RJ, RH = 4 compute RI, RJ, RG, RH |
+| 1 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameter in the weight function W(X), ALFA. GT. (-1). |
+| 2 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameter in the weight function W(X), BETA. GT. (-1). |
+| 3 | `RI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Vector of dimension 25 is the integral over (-1,1) of (1+X)**ALFA*T(K-1,X), K = 1,. , 25. |
+| 4 | `RJ` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Vector of dimension 25 is the integral over (-1,1) of (1-X)**BETA*T(K-1,X), K = 1,. , 25. |
+| 5 | `RG` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Vector of dimension 25 is the integral over (-1,1) of (1+X)**ALFA*LOG((1+X)/2)*T(K-1,X), K = 1,. , 25. |
+| 6 | `RH` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Vector of dimension 25 is the integral over (-1,1) of (1-X)**BETA*LOG((1-X)/2)*T(K-1,X), K = 1,. , 25. |
+| 7 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input parameter indicating the modified Moments to be computed 1 compute RI, RJ = 2 compute RI, RJ, RG = 3 compute RI, RJ, RH = 4 compute RI, RJ, RG, RH. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

@@ -1,6 +1,6 @@
 # Purpose
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPEV is the BSPLEV routine of the reference. DBSPEV calculates the value of the spline and its derivatives
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPEV is the BSPLEV routine of the reference. DBSPEV calculates the value of the spline and its derivatives at X from the B-representation (T,A,N,K) and returns them in SVALUE(I),I=1,NDERIV, T(K) .LE. X .LE. T(N+1). AD(I) can be the B-spline coefficients A(I), I=1,N) if NDERIV=1. Otherwise
 
 # Description
 
@@ -8,65 +8,70 @@ This canonical unsafe binding exposes original SLATEC routine `DBSPEV`. Its docu
 
 # Arguments
 
-## 1. `T`
+## `T`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). 1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN are double precision knot vector of length N+K 1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN are double precision knot vector of length N+K not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-## 2. `AD`
+knot vector of length N+K.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). must be computed before hand by a call to DBSPDR (T,A,N,K, T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a are double precision vector of length (2*N-NDERIV+1)*NDERIV/2 containing the difference table from DBSPDR. must be computed before hand by a call to DBSPDR (T,A,N,K, T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a are double precision vector of length (2*N-NDERIV+1)*NDERIV/2 containing the difference table from DBSPDR. not applicable or not stated by selected source not a workspace argument
+## `AD`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN number of B-spline coefficients K not stated by selected source not applicable or not stated by selected source not a workspace argument
+must be computed before hand by a call to DBSPDR (T,A,N,K, If X=T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a knot T(I), replace N by I-1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN vector of length (2*N-NDERIV+1)*NDERIV/2 containing the difference table from DBSPDR.
 
-## 4. `K`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. order of the B-spline, K .GE. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `NDERIV`
+number of B-spline coefficients sum of knot multiplicities-K.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a number of derivatives, 1 .LE. NDERIV .LE. K. th derivative = function value 1 derivatives in the remaining components. T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a number of derivatives, 1 .LE. NDERIV .LE. K. th derivative = function value 1 derivatives in the remaining components. not applicable or not stated by selected source not a workspace argument
+## `K`
 
-## 6. `X`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. representation (T,A,N,K) and returns them in T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a are double precision argument, T(K) .LE. X .LE. T(N+1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+order of the B-spline, K. GE. 1.
 
-## 7. `INEV`
+## `NDERIV`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. an initialization parameter which must be set to 1 the first time DBSPEV is called. INEV contains information for efficient process- ing after the initial call and INEV must not be changed by the user.  Distinct splines require distinct INEV parameters. an initialization parameter which must be set to 1 the first time DBSPEV is called. INEV contains information for efficient process- ing after the initial call and INEV must not be changed by the user.  Distinct splines require distinct INEV parameters. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `SVALUE`
+If X=T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a knot T(I), replace N by I-1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN number of derivatives, 1. LE. NDERIV. K.
 
-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). 1,NDERIV, T(K) .LE. X .LE. T(N+1).  AD(I) can be the B-spline coefficients A(I), I=1,N) if NDERIV=1.  Otherwise are double precision vector of length NDERIV containing the spline 1 derivatives in the remaining components. 1,NDERIV, T(K) .LE. X .LE. T(N+1).  AD(I) can be the B-spline coefficients A(I), I=1,N) if NDERIV=1.  Otherwise are double precision vector of length NDERIV containing the spline 1 derivatives in the remaining components. not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 9. `WORK`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-workspace `workspace` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). are double precision work vector of length 3*K are double precision work vector of length 3*K not applicable or not stated by selected source
+argument, T(K). LE. X. T(N+1).
+
+## `INEV`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+an initialization parameter which must be set to 1 the first time DBSPEV is called. Output SVALUE,WORK are double precision INEV contains information for efficient process- ing after the initial call and INEV must not be changed by the user. Distinct splines require distinct INEV parameters.
+
+## `SVALUE`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+vector of length NDERIV containing the spline value in SVALUE(1) and the NDERIV-1 derivatives in the remaining components.
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+work vector of length 3*K.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-Improper input is a fatal error.
-
 # Workspace and array requirements
 
 - `T`: not a workspace argument
 - `AD`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
-- `NDERIV`: not a workspace argument
-- `X`: not a workspace argument
-- `INEV`: not a workspace argument
 - `SVALUE`: not a workspace argument
-- `WORK`: are double precision work vector of length 3*K
+- `WORK`: work vector of length 3*K
 
 # ABI notes
 

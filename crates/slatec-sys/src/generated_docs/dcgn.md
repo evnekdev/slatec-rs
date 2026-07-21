@@ -1,6 +1,6 @@
 # Purpose
 
-Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, ITOL, ITMAX INTEGER ITER, IERR, IUNIT, IWORK(USER DEFINED) DOUBLE PRECISION B(N), X(N), A(NELT), TOL, ERR, R(N), Z(N) DOUBLE PRECISION P(N), ATP(N), ATZ(N), DZ(N), ATDZ(N) DOUBLE PRECISION RWORK(USER DEFINED) EXTERNAL MATVEC, MTTVEC, MSOLVE CALL DCGN(N, B, X, NELT, IA, JA, A, ISYM, MATVEC, MTTVEC, $ MSOLVE, ITOL, TOL, ITMAX, ITER, ERR, IERR, IUNIT, R, $ Z, P, ATP, ATZ, DZ, ATDZ, RWORK, IWORK) This routine applies the preconditioned conjugate gradient
+Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, ITOL, ITMAX INTEGER ITER, IERR, IUNIT, IWORK(USER DEFINED) DOUBLE PRECISION B(N), X(N), A(NELT), TOL, ERR, R(N), Z(N) DOUBLE PRECISION P(N), ATP(N), ATZ(N), DZ(N), ATDZ(N) DOUBLE PRECISION RWORK(USER DEFINED) EXTERNAL MATVEC, MTTVEC, MSOLVE CALL DCGN(N, B, X, NELT, IA, JA, A, ISYM, MATVEC, MTTVEC, $ MSOLVE, ITOL, TOL, ITMAX, ITER, ERR, IERR, IUNIT, R, $ Z, P, ATP, ATZ, DZ, ATDZ, RWORK, IWORK) This routine applies the preconditioned conjugate gradient (PCG) method to a non-symmetric system of equations Ax=b. To do this the normal equations are solved: AA' y = b, where x = A'y. In PCG method the iteration count is determined by condition -1 number of the matrix (M A). In the situation where the normal equations are used to solve a non-symmetric system the condition number depends on AA' and should therefore be much worse than that of A. This is the conventional wisdom. When one has a good preconditioner for AA' this may not hold. The latter is the situation when DCGN should be tried. If one is trying to solve a symmetric system, SCG should be used instead. This routine does not care what matrix data structure is used for A and M. It simply calls MATVEC, MTTVEC and MSOLVE routines, with arguments as described above. The user could write any type of structure, and appropriate MATVEC, MTTVEC and MSOLVE routines. It is assumed that A is stored in the IA, JA, A arrays in some fashion and that M (or INV(M)) is stored in IWORK and RWORK) in some fashion. The SLAP routines SSDCGN and SSLUCN are examples of this procedure. Two examples of matrix data structures are the: 1) SLAP Triad format and 2) SLAP Column format. =================== S L A P Triad format =================== In this format only the non-zeros are stored. They may appear in *ANY* order. The user supplies three arrays of length NELT, where NELT is the number of non-zeros in the matrix: (IA(NELT), JA(NELT), A(NELT)). For each non-zero the user puts the row and column index of that matrix element in the IA and JA arrays. The value of the non-zero matrix element is placed in the corresponding location of the A array. This is an extremely easy data structure to generate. On the other hand it is not too efficient on vector computers for the iterative solution of linear systems. Hence, SLAP changes this input data structure to the SLAP Column format for the iteration (but does not change it back). Here is an example of the SLAP Triad storage format for a 5x5 Matrix. Recall that the entries may appear in any order. 5x5 Matrix SLAP Triad format for 5x5 matrix on left. 1 2 3 4 5 6 7 8 9 10 11 |11 12 0 0 15| A: 51 12 11 33 15 53 55 22 35 44 21 |21 22 0 0 0| IA: 5 1 1 3 1 5 5 2 3 4 2 | 0 0 33 0 35| JA: 1 2 1 3 5 3 5 2 5 4 1 | 0 0 0 44 0| |51 0 53 0 55| =================== S L A P Column format ================== In this format the non-zeros are stored counting down columns (except for the diagonal entry, which must appear first in each "column") and are stored in the double pre- cision array A. In other words, for each column in the matrix first put the diagonal entry in A. Then put in the other non-zero elements going down the column (except the diagonal) in order. The IA array holds the row index for each non-zero. The JA array holds the offsets into the IA,
 
 # Description
 
@@ -8,113 +8,167 @@ This canonical unsafe binding exposes original SLATEC routine `DCGN`. Its docume
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer Order of the Matrix. hand side vector and Z is the solution upon return.  NELT, IA, JA, A and NELT+1, where N is the number of columns not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `B`
+Order of the Matrix.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). IN       Double Precision B(N). Right-hand side vector. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 3. `X`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). INOUT    Double Precision X(N). On input X is your initial guess for solution vector. On output X is the final approximate solution. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external in The name of the MTTVEC routine must be declared external in the calling program.  The calling sequence to MTTVEC is the the calling program.  The calling sequence to MTTVEC is the INOUT    Double Precision X(N). On input X is your initial guess for solution vector. On output X is the final approximate solution. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external in The name of the MTTVEC routine must be declared external in the calling program.  The calling sequence to MTTVEC is the the calling program.  The calling sequence to MTTVEC is the not applicable or not stated by selected source not a workspace argument
+Double Precision B(N). Right-hand side vector.
 
-## 4. `NELT`
+## `X`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Number of Non-Zeros stored in A. zeros in the zeros in the matrix:  (IA(NELT), JA(NELT),  A(NELT)).  For each  non-zero matrix:  (IA(NELT), JA(NELT),  A(NELT)).  For each  non-zero the  user puts   the row  and  column index   of that matrix the  user puts   the row  and  column index   of that matrix zeros  in the matrix. Here is an example of the  SLAP Column  storage format for a not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
 
-## 5. `IA`
+Double Precision X(N). On input X is your initial guess for solution vector. On output X is the final approximate solution.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (NELT). IN       Integer IA(NELT). JA, A  arrays in some fashion and  that M (or INV(M)) is stored  in  IWORK  and  RWORK)  in  some fashion.   The SLAP routines SSDCGN and SSLUCN are examples of this procedure. Two  examples  of  matrix  data structures  are the: 1) SLAP Triad  format and 2) SLAP Column format. =================== S L A P Triad format =================== In  this   format only the  non-zeros are  stored.  They may appear  in *ANY* order.   The user  supplies three arrays of zero matrix  element is  placed in  the corresponding location of the A  array.  This is  an extremely easy data  structure to generate.  On  the other hand it  is  not too  efficient  on vector  computers   for the  iterative  solution  of  linear systems.  Hence, SLAP  changes this input  data structure to the SLAP   Column  format for the  iteration (but   does not change it back). Here is an example of the  SLAP Triad   storage format for a 5x5 Matrix.  Recall that the entries may appear in any order. 5x5 Matrix      SLAP Triad format for 5x5 matrix on left. 1  2  3  4  5  6  7  8  9 10 11 5  1  1  3  1  5  5  2  3  4  2 1), A(JA(ICOL+1)-1) 1), A(JA(ICOL+1)-1) are  the last elements of the ICOL-th column.   Note that we are  the last elements of the ICOL-th column.   Note that we denotes the end of a column): 5x5 Matrix      SLAP Column format for 5x5 matrix on left. 1  2  3    4  5    6  7    8    9 10 11 1  2  5 |  2  1 |  3  5 |  4 |  5  1  3 not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `NELT`
 
-## 6. `JA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (NELT). IN       Integer JA(NELT). zero matrix  element is  placed in  the corresponding location of the A  array.  This is  an extremely easy data  structure to generate.  On  the other hand it  is  not too  efficient  on vector  computers   for the  iterative  solution  of  linear systems.  Hence, SLAP  changes this input  data structure to the SLAP   Column  format for the  iteration (but   does not change it back). Here is an example of the  SLAP Triad   storage format for a 5x5 Matrix.  Recall that the entries may appear in any order. 5x5 Matrix      SLAP Triad format for 5x5 matrix on left. 1  2  3  4  5  6  7  8  9 10 11 1  2  1  3  5  3  5  2  5  4  1 | 0  0  0 44  0| |51  0 53  0 55| =================== S L A P Column format ================== In  this format   the non-zeros are    stored counting  down columns (except  for the diagonal  entry, which must  appear first  in each "column") and are  stored in the  double pre- cision array  A. In  other  words,  for each  column  in the matrix  first put  the diagonal entry in A.  Then put in the other non-zero  elements going  down the column  (except the diagonal)  in order.  The IA array  holds the  row index for each non-zero.  The JA array  holds the offsets into the IA, 1), A(JA(ICOL+1)-1) are  the last elements of the ICOL-th column.   Note that we NELT+1, where N is the number of columns 1  4  6    8  9   12 | 0  0  0 44  0| |51  0 53  0 55| Cautions: This routine will attempt to write to the Fortran logical output IN       Integer JA(NELT). zero matrix  element is  placed in  the corresponding location of the A  array.  This is  an extremely easy data  structure to generate.  On  the other hand it  is  not too  efficient  on vector  computers   for the  iterative  solution  of  linear systems.  Hence, SLAP  changes this input  data structure to the SLAP   Column  format for the  iteration (but   does not change it back). Here is an example of the  SLAP Triad   storage format for a 5x5 Matrix.  Recall that the entries may appear in any order. 5x5 Matrix      SLAP Triad format for 5x5 matrix on left. 1  2  3  4  5  6  7  8  9 10 11 1  2  1  3  5  3  5  2  5  4  1 | 0  0  0 44  0| |51  0 53  0 55| =================== S L A P Column format ================== In  this format   the non-zeros are    stored counting  down columns (except  for the diagonal  entry, which must  appear first  in each "column") and are  stored in the  double pre- cision array  A. In  other  words,  for each  column  in the matrix  first put  the diagonal entry in A.  Then put in the other non-zero  elements going  down the column  (except the diagonal)  in order.  The IA array  holds the  row index for each non-zero.  The JA array  holds the offsets into the IA, 1), A(JA(ICOL+1)-1) are  the last elements of the ICOL-th column.   Note that we NELT+1, where N is the number of columns 1  4  6    8  9   12 | 0  0  0 44  0| |51  0 53  0 55| Cautions: This routine will attempt to write to the Fortran logical output not applicable or not stated by selected source not a workspace argument
+Integer. Number of Non-Zeros stored in A.
 
-## 7. `A`
+## `IA`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). b  using the Preconditioned Conjugate Gradient method applied to the normal equations  AA'y = b, x=A'y. IN       Double Precision A(NELT). These arrays contain the matrix data structure for A. It could take any form.  See "Description", below, for more details. zero, denotes that A is zero, denotes that A is symmetric and only the lower or upper triangle is stored. symmetric and only the lower or upper triangle is stored. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external in The name of the MTTVEC routine must be declared external in the calling program.  The calling sequence to MTTVEC is the the calling program.  The calling sequence to MTTVEC is the zero, denotes that A is zero, denotes that A is symmetric and only the lower or upper triangle is stored. symmetric and only the lower or upper triangle is stored. R for R for symmetric system of equations Ax=b. To do this the normal equations are solved: AA' y  = b, where  x  = A'y. In PCG method the iteration count is determined by condition -1 number of the  matrix (M  A).   In the  situation where  the symmetric system the condition number depends on  AA' and should therefore be much worse than that of A.  This is the conventional wisdom. When one has a good preconditioner for AA' this may not hold. The latter is the situation when DCGN should be tried. If one is trying to solve  a symmetric system, SCG should be used instead. This routine does  not care  what matrix data   structure is used for A and M.  It simply calls MATVEC, MTTVEC and MSOLVE routines, with arguments as described above.  The user could write any type of structure, and  appropriate MATVEC, MTTVEC and MSOLVE routines.  It is assumed  that A is stored in the 51 12 11 33 15 53 55 22 35 44 21 arrays  for  the  beginning  of  each  column.  That  is, 1), A(JA(ICOL+1)-1) are  the last elements of the ICOL-th column.   Note that we denotes the end of a column): 5x5 Matrix      SLAP Column format for 5x5 matrix on left. 1  2  3    4  5    6  7    8    9 10 11 11 21 51 | 22 12 | 33 53 | 44 | 55 15 35 zero value for IUNIT.  This routine does zero IUNIT unit number. b  using the Preconditioned Conjugate Gradient method applied to the normal equations  AA'y = b, x=A'y. IN       Double Precision A(NELT). These arrays contain the matrix data structure for A. It could take any form.  See "Description", below, for more details. zero, denotes that A is zero, denotes that A is symmetric and only the lower or upper triangle is stored. symmetric and only the lower or upper triangle is stored. denotes transpose). denotes transpose). The name of the MTTVEC routine must be declared external in The name of the MTTVEC routine must be declared external in the calling program.  The calling sequence to MTTVEC is the the calling program.  The calling sequence to MTTVEC is the zero, denotes that A is zero, denotes that A is symmetric and only the lower or upper triangle is stored. symmetric and only the lower or upper triangle is stored. R for R for symmetric system of equations Ax=b. To do this the normal equations are solved: AA' y  = b, where  x  = A'y. In PCG method the iteration count is determined by condition -1 number of the  matrix (M  A).   In the  situation where  the symmetric system the condition number depends on  AA' and should therefore be much worse than that of A.  This is the conventional wisdom. When one has a good preconditioner for AA' this may not hold. The latter is the situation when DCGN should be tried. If one is trying to solve  a symmetric system, SCG should be used instead. This routine does  not care  what matrix data   structure is used for A and M.  It simply calls MATVEC, MTTVEC and MSOLVE routines, with arguments as described above.  The user could write any type of structure, and  appropriate MATVEC, MTTVEC and MSOLVE routines.  It is assumed  that A is stored in the 51 12 11 33 15 53 55 22 35 44 21 arrays  for  the  beginning  of  each  column.  That  is, 1), A(JA(ICOL+1)-1) are  the last elements of the ICOL-th column.   Note that we denotes the end of a column): 5x5 Matrix      SLAP Column format for 5x5 matrix on left. 1  2  3    4  5    6  7    8    9 10 11 11 21 51 | 22 12 | 33 53 | 44 | 55 15 35 zero value for IUNIT.  This routine does zero IUNIT unit number. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (NELT).
 
-## 8. `ISYM`
+IA(NELT). the first elements of the ICOL- th column in IA and A, and IA(JA(ICOL+1)-1), A(JA(ICOL+1)-1) are the last elements of the ICOL-th column. Note that we always have JA(N+1)=NELT+1, where N is the number of columns in the matrix and NELT is the number of non-zeros in the matrix. Here is an example of the SLAP Column storage format for a 5x5 Matrix (in the A and IA arrays '|' denotes the end of a column): 5x5 Matrix SLAP Column format for 5x5 matrix on left. 1 2 3 4 5 6 7 8 9 10 11 |11 12 0 0 15| A: 11 21 51 | 22 12 | 33 53 | 44 | 55 15 35 |21 22 0 0 0| IA: 1 2 5 | 2 1 | 3 5 | 4 | 5 1 3 | 0 0 33 0 35| JA: 1 4 6 8 9 12 | 0 0 0 44 0| |51 0 53 0 55| Cautions: This routine will attempt to write to the Fortran logical output unit IUNIT, if IUNIT. ne.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Flag to indicate symmetric storage format. zero entries of the matrix are stored. 1, the matrix is symmetric, and only the upper or lower triangle of the matrix is stored. zero, denotes that A is symmetric and only the lower or upper triangle is stored. zero, denotes that A is symmetric and only the lower or upper triangle is stored. is a double precision array that can be used to pass necessary preconditioning information not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `JA`
 
-## 9. `MATVEC`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (NELT).
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. Name of a routine which performs the matrix vector multiply y = A*X given A and X.  The name of the MATVEC routine must be declared external in the calling program.  The calling CALL MATVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A*X upon return X is an input vector, NELT is the number of non-zeros in the SLAP-Column IA, JA, A storage for the matrix CALL MTTVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A'*X upon return X is an input vector, NELT is the number of non-zeros in the SLAP-Column IA, JA, A storage for the matrix The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. EXT      External. Name of a routine which performs the matrix vector multiply y = A*X given A and X.  The name of the MATVEC routine must be declared external in the calling program.  The calling CALL MATVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A*X upon return X is an input vector, NELT is the number of non-zeros in the SLAP-Column IA, JA, A storage for the matrix CALL MTTVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A'*X upon return X is an input vector, NELT is the number of non-zeros in the SLAP-Column IA, JA, A storage for the matrix not applicable or not stated by selected source not a workspace argument
+JA(NELT).
 
-## 10. `MTTVEC`
+## `A`
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. Name of a routine which performs the matrix transpose vector The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
 
-## 11. `MSOLVE`
+Double Precision A(NELT). These arrays contain the matrix data structure for A. It could take any form. See "Description", below, for more details. a flag which, if non-zero, denotes that A is symmetric and only the lower or upper triangle is stored. arrays for the beginning of each column.
 
-callback `callback` argument; Fortran declaration `INTEGER`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. EXT      External. CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) is an integer work array for the same purpose as RWORK. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source
+## `ISYM`
 
-## 12. `ITOL`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Flag to indicate type of convergence criterion. norm of the residual divided by the 2-norm of the right-hand side is less than TOL. norm of M-inv times the residual divided by the 2-norm of M-inv times the right hand 11 is often useful for checking and comparing different routines.  For this case, the user must supply the "exact" solution or a very accurate approximation (one with an error much less than TOL) through a common block, COMMON /DSLBLK/ SOLN( ) norm of the difference between the iterative approximation and the user-supplied solution divided by the 2-norm of the user-supplied solution is less than TOL.  Note that this requires the user to set up the "COMMON /DSLBLK/ SOLN(LENGTH)" in the calling routine. The routine with this declaration should be loaded before the stop test so that the correct length is used by the loader. This procedure is not standard Fortran and may not work correctly on your system (although it has worked on every system the authors have tried).  If ITOL is not 11 then this common block is indeed standard Fortran. IN       Integer. Flag to indicate type of convergence criterion. norm of the residual divided by the 2-norm of the right-hand side is less than TOL. norm of M-inv times the residual divided by the 2-norm of M-inv times the right hand 11 is often useful for checking and comparing different routines.  For this case, the user must supply the "exact" solution or a very accurate approximation (one with an error much less than TOL) through a common block, COMMON /DSLBLK/ SOLN( ) norm of the difference between the iterative approximation and the user-supplied solution divided by the 2-norm of the user-supplied solution is less than TOL.  Note that this requires the user to set up the "COMMON /DSLBLK/ SOLN(LENGTH)" in the calling routine. The routine with this declaration should be loaded before the stop test so that the correct length is used by the loader. This procedure is not standard Fortran and may not work correctly on your system (although it has worked on every system the authors have tried).  If ITOL is not 11 then this common block is indeed standard Fortran. not applicable or not stated by selected source not a workspace argument
+Integer. Flag to indicate symmetric storage format. If ISYM=0, all non-zero entries of the matrix are stored. If ISYM=1, the matrix is symmetric, and only the upper or lower triangle of the matrix is stored. a flag which, if non-zero, denotes that A is symmetric and only the lower or upper triangle is stored. are defined as above.
 
-## 13. `TOL`
+## `MATVEC`
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. inv is the inverse of the diagonal of A. INOUT    Double Precision. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 14. `ITMAX`
+External. Name of a routine which performs the matrix vector multiply y = A*X given A and X. The name of the MATVEC routine must be declared external in the calling program. The calling sequence to MATVEC is: CALL MATVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A*X upon return X is an input vector, NELT is the number of non-zeros in the SLAP-Column IA, JA, A storage for the matrix. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Maximum number of iterations. if convergence criterion could not be achieved in iterations. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MTTVEC`
 
-## 15. `ITER`
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. OUT      Integer. Number of iterations required to reach convergence, or not stated by selected source not applicable or not stated by selected source not a workspace argument
+External. Name of a routine which performs the matrix transpose vector multiply y = A'*X given A and X (where ' denotes transpose). The name of the MTTVEC routine must be declared external in the calling program. The calling sequence to MTTVEC is the same as that for MATVEC, viz. : CALL MTTVEC( N, X, Y, NELT, IA, JA, A, ISYM ) Where N is the number of unknowns, Y is the product A'*X upon return X is an input vector, NELT is the number of non-zeros in the SLAP-Column IA, JA, A storage for the matrix. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-## 16. `ERR`
+## `MSOLVE`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. OUT      Double Precision. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `INTEGER`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 17. `IERR`
+External. Name of a routine which solves a linear system MZ = R for Z given R with the preconditioning matrix M (M is supplied via RWORK and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence to MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector and Z is the solution upon return. NELT, IA, JA, A and. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 4.) OUT      Integer. Return error flag. 0 => All went well. 1 => Insufficient space allocated for WORK or IWORK. 2 => Method failed to converge in ITMAX steps. 3 => Error in user input. Check input values of N, ITOL. 4 => User error tolerance set too tight. Reset to 500*D1MACH(3).  Iteration proceeded. 5 => Preconditioning matrix, M, is not positive definite.  (r,z) < 0. 6 => Matrix A is not positive definite.  (p,Ap) < 0. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ITOL`
 
-## 18. `IUNIT`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN       Integer. Unit number on which to write the error at each iteration, if this is desired for monitoring convergence.  If unit number is 0, no writing will occur. must make sure that must make sure that this logical unit is attached to a file or terminal before calling this logical unit is attached to a file or terminal before calling IN       Integer. Unit number on which to write the error at each iteration, if this is desired for monitoring convergence.  If unit number is 0, no writing will occur. must make sure that must make sure that this logical unit is attached to a file or terminal before calling this logical unit is attached to a file or terminal before calling not applicable or not stated by selected source not a workspace argument
+Integer. Flag to indicate type of convergence criterion. If ITOL=1, iteration stops when the 2-norm of the residual divided by the 2-norm of the right-hand side is less than TOL. If ITOL=2, iteration stops when the 2-norm of M-inv times the residual divided by the 2-norm of M-inv times the right hand side is less than TOL, where M-inv is the inverse of the diagonal of A. 11 is often useful for checking and comparing different routines. For this case, the user must supply the "exact" solution or a very accurate approximation (one with an error much less than TOL) through a common block, COMMON /DSLBLK/ SOLN( ) If ITOL=11, iteration stops when the 2-norm of the difference between the iterative approximation and the user-supplied solution divided by the 2-norm of the user-supplied solution is less than TOL.
 
-## 19. `R`
+## `TOL`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). is supplied via hand side vector and Z is the solution upon return.  NELT, IA, JA, A and WORK     Double Precision R(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 20. `Z`
+Double Precision. Convergence criterion, as described above. (Reset if IERR=4. ).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). is supplied via WORK     Double Precision Z(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ITMAX`
 
-## 21. `P`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). WORK     Double Precision P(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+Integer. Maximum number of iterations.
 
-## 22. `ATP`
+## `ITER`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). WORK     Double Precision ATP(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 23. `ATZ`
+Integer. Number of iterations required to reach convergence, or ITMAX+1 if convergence criterion could not be achieved in ITMAX iterations.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). WORK     Double Precision ATZ(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ERR`
 
-## 24. `DZ`
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). WORK     Double Precision DZ(N). not stated by selected source not applicable or not stated by selected source not a workspace argument
+Double Precision. Error estimate of error in final approximate solution, as defined by ITOL.
 
-## 25. `ATDZ`
+## `IERR`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (N). WORK     Double Precision ATDZ(N). Double Precision arrays used for workspace. not stated by selected source not applicable or not stated by selected source
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 26. `RWORK`
+Integer. Return error flag. 0 => All went well. 1 => Insufficient space allocated for WORK or IWORK. 2 => Method failed to converge in ITMAX steps. 3 => Error in user input.
 
-workspace `workspace` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). and IWORK arrays).  The name of the MSOLVE routine must be declared external in the calling program.  The calling is a double precision array that can be used to pass necessary preconditioning information WORK     Double Precision RWORK(USER DEFINED). Double Precision array that can be used by  MSOLVE. and IWORK arrays).  The name of the MSOLVE routine must be declared external in the calling program.  The calling is a double precision array that can be used to pass necessary preconditioning information WORK     Double Precision RWORK(USER DEFINED). Double Precision array that can be used by  MSOLVE. not applicable or not stated by selected source
+## `IUNIT`
 
-## 27. `IWORK`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-workspace `workspace` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). is an integer work array for the same purpose as RWORK. WORK     Integer IWORK(USER DEFINED). Integer array that can be used by  MSOLVE. not stated by selected source not applicable or not stated by selected source
+Integer. Unit number on which to write the error at each iteration, if this is desired for monitoring convergence. If unit number is 0, no writing will occur.
+
+## `R`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision R(N).
+
+## `Z`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision Z(N).
+
+## `P`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision P(N).
+
+## `ATP`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision ATP(N).
+
+## `ATZ`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision ATZ(N).
+
+## `DZ`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision DZ(N).
+
+## `ATDZ`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (N).
+
+Double Precision ATDZ(N). Double Precision arrays used for workspace.
+
+## `RWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+Double Precision RWORK(USER DEFINED). Double Precision array that can be used by MSOLVE.
+
+## `IWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+IWORK(USER DEFINED). array that can be used by MSOLVE. Integer IWORK(USER DEFINED). Integer array that can be used by MSOLVE.
 
 # Return value
 
@@ -122,41 +176,24 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
-
-# Status and error values
-
-defined by ITOL.
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `B`: not a workspace argument
 - `X`: not a workspace argument
-- `NELT`: not a workspace argument
 - `IA`: not a workspace argument
 - `JA`: not a workspace argument
 - `A`: not a workspace argument
-- `ISYM`: not a workspace argument
-- `MATVEC`: not a workspace argument
-- `MTTVEC`: not a workspace argument
-- `MSOLVE`: EXT      External. CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) is an integer work array for the same purpose as RWORK.
-- `ITOL`: not a workspace argument
-- `TOL`: not a workspace argument
-- `ITMAX`: not a workspace argument
-- `ITER`: not a workspace argument
-- `ERR`: not a workspace argument
-- `IERR`: not a workspace argument
-- `IUNIT`: not a workspace argument
 - `R`: not a workspace argument
 - `Z`: not a workspace argument
 - `P`: not a workspace argument
 - `ATP`: not a workspace argument
 - `ATZ`: not a workspace argument
 - `DZ`: not a workspace argument
-- `ATDZ`: WORK     Double Precision ATDZ(N). Double Precision arrays used for workspace.
-- `RWORK`: and IWORK arrays).  The name of the MSOLVE routine must be declared external in the calling program.  The calling is a double precision array that can be used to pass necessary preconditioning information WORK     Double Precision RWORK(USER DEFINED). Double Precision array that can be used by  MSOLVE.
-- `IWORK`: is an integer work array for the same purpose as RWORK. WORK     Integer IWORK(USER DEFINED). Integer array that can be used by  MSOLVE.
+- `ATDZ`: Double Precision ATDZ(N). Double Precision arrays used for workspace.
+- `RWORK`: Double Precision RWORK(USER DEFINED). Double Precision array that can be used by MSOLVE.
+- `IWORK`: Integer IWORK(USER DEFINED). Integer array that can be used by MSOLVE.
 
 # ABI notes
 

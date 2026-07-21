@@ -1,6 +1,6 @@
 # Purpose
 
-Evaluate a form of Spence's function defined by
+Evaluate a form of Spence's function defined by integral from 0 to X of -LOG(1-Y)/Y DY. For ABS(X) .LE. 1, the uniformly convergent expansion SPENC = sum K=1,infinity X**K / K**2 is valid. Spence's function can be used to evaluate much more general integral forms. For example, integral from 0 to Z of LOG(A*X+B)/(C*X+D) DX = LOG(ABS(B-A*D/C))*LOG(ABS(A*(C*X+D)/(A*D-B*C)))/C - SPENC (A*(C*Z+D)/(A*D-B*C)) / C. Ref -- K. Mitchell, Philosophical Magazine, 40, p. 351 (1949). Stegun and Abromowitz, AMS 55, p. 1004. Series for SPEN on the interval 0. to 5.00000D-01 with weighted error 6.82E-17 log weighted error 16.17 significant figures required 15.22 decimal places required 16.81
 
 # Description
 
@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `SPENC`. Its docum
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. LOG(1-Y)/Y  DY. For ABS(X) .LE. 1, the uniformly convergent expansion SPENC = sum K=1,infinity  X**K / K**2     is valid. Spence's function can be used to evaluate much more general integral forms.  For example, - SPENC (A*(C*Z+D)/(A*D-B*C)) / C. Ref -- K. Mitchell, Philosophical Magazine, 40, p. 351 (1949). Stegun and Abromowitz, AMS 55, p. 1004. Series for SPEN       on the interval  0.          to  5.00000D-01 with weighted error   6.82E-17 log weighted error  16.17 significant figures required  15.22 decimal places required  16.81 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute a form of Spence's integral due to K. Mitchell
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

@@ -1,6 +1,6 @@
 # Purpose
 
-This subroutine is a translation of a complex analogue of the ALGOL procedure TRED3, NUM. MATH. 11, 181-195(1968) by Martin, Reinsch, and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 212-226(1971). This subroutine reduces a COMPLEX HERMITIAN matrix, stored as
+This subroutine is a translation of a complex analogue of the ALGOL procedure TRED3, NUM. MATH. 11, 181-195(1968) by Martin, Reinsch, and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 212-226(1971). This subroutine reduces a COMPLEX HERMITIAN matrix, stored as a single square array, to a real symmetric tridiagonal matrix using unitary similarity transformations.
 
 # Description
 
@@ -8,50 +8,54 @@ This canonical unsafe binding exposes original SLATEC routine `HTRID3`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameter, A, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. 1 positions.  E(1) is set to zero. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. 1 positions.  E(1) is set to zero. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). single square array, to a real symmetric tridiagonal matrix using unitary similarity transformations. contains the lower triangle of the complex Hermitian input matrix.  The real parts of the matrix elements are stored in the full lower triangle of A, and the imaginary parts are stored in the transposed positions of the strict upper triangle of A.  No storage is required for the zero dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). contains some information about the unitary transformations used in the reduction. dimensional REAL array, dimensioned D(N). dimensional REAL array, dimensioned E(N). dimensional REAL array, dimensioned E2(N). dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY single square array, to a real symmetric tridiagonal matrix using unitary similarity transformations. contains the lower triangle of the complex Hermitian input matrix.  The real parts of the matrix elements are stored in the full lower triangle of A, and the imaginary parts are stored in the transposed positions of the strict upper triangle of A.  No storage is required for the zero dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). contains some information about the unitary transformations used in the reduction. dimensional REAL array, dimensioned D(N). dimensional REAL array, dimensioned E(N). dimensional REAL array, dimensioned E2(N). dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the order of the matrix. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `D`
+## `A`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the diagonal elements of the real symmetric dimensional REAL array, dimensioned D(N). contains the diagonal elements of the real symmetric dimensional REAL array, dimensioned D(N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `E`
+contains the lower triangle of the complex Hermitian input matrix. The real parts of the matrix elements are stored in the full lower triangle of A, and the imaginary parts are stored in the transposed positions of the strict upper triangle of A. No storage is required for the zero imaginary parts of the diagonal elements. A is a two- dimensional REAL array, dimensioned A(NM,N). contains some information about the unitary transformations used in the reduction.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the subdiagonal elements of the real tridiagonal dimensional REAL array, dimensioned E(N). contains the subdiagonal elements of the real tridiagonal dimensional REAL array, dimensioned E(N). not applicable or not stated by selected source not a workspace argument
+## `D`
 
-## 6. `E2`
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the squares of the corresponding elements of E. is set to zero.  E2 may coincide with E if the squares dimensional REAL array, dimensioned E2(N). contains the squares of the corresponding elements of E. is set to zero.  E2 may coincide with E if the squares dimensional REAL array, dimensioned E2(N). not applicable or not stated by selected source not a workspace argument
+contains the diagonal elements of the real symmetric tridiagonal matrix. D is a one-dimensional REAL array, dimensioned D(N).
 
-## 7. `TAU`
+## `E`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (2, *). contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the subdiagonal elements of the real tridiagonal matrix in its last N-1 positions. E(1) is set to zero. is a one-dimensional REAL array, dimensioned E(N).
+
+## `E2`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the squares of the corresponding elements of E. is set to zero. E2 may coincide with E if the squares are not needed. E2 is a one-dimensional REAL array, dimensioned E2(N).
+
+## `TAU`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (2, *).
+
+contains further information about the transformations. is a one-dimensional REAL array, dimensioned TAU(2,N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `D`: not a workspace argument
 - `E`: not a workspace argument

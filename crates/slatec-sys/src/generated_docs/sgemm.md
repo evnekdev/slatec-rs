@@ -8,83 +8,94 @@ This canonical unsafe binding exposes original SLATEC routine `SGEMM`. Its docum
 
 # Arguments
 
-## 1. `TRANSA`
+## `TRANSA`
 
-input `scalar` argument; Fortran declaration `CHARACTER`, Rust ABI type `*mut core::ffi::c_char`, and scalar. CHARACTER*1. On entry, TRANSA specifies the form of op( A ) to be used in the matrix multiplication as follows: 'N' or 'n',  op( A ) = A. 'T' or 't',  op( A ) = A'. 'C' or 'c',  op( A ) = A'. Unchanged on exit. 'N' or 'n',  and is  m  otherwise. 'N' or 'n',  the leading  m by k part of the array  A  must contain the matrix  A,  otherwise 'N' or 'n' then CHARACTER*1. On entry, TRANSA specifies the form of op( A ) to be used in the matrix multiplication as follows: 'N' or 'n',  op( A ) = A. 'T' or 't',  op( A ) = A'. 'C' or 'c',  op( A ) = A'. Unchanged on exit. 'N' or 'n',  and is  m  otherwise. 'N' or 'n',  the leading  m by k part of the array  A  must contain the matrix  A,  otherwise 'N' or 'n' then not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `CHARACTER`. **Rust ABI type:** `*mut core::ffi::c_char`. **Shape:** scalar.
 
-## 2. `TRANSB`
+CHARACTER*1. On entry, TRANSA specifies the form of op( A ) to be used in the matrix multiplication as follows: 'N' or 'n', op( A ) = A. 'T' or 't', op( A ) = A'. 'C' or 'c', op( A ) = A'. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `CHARACTER`, Rust ABI type `*mut core::ffi::c_char`, and scalar. CHARACTER*1. On entry, TRANSB specifies the form of op( B ) to be used in the matrix multiplication as follows: 'N' or 'n',  op( B ) = B. 'T' or 't',  op( B ) = B'. 'C' or 'c',  op( B ) = B'. Unchanged on exit. 'N' or 'n',  and is  k  otherwise. 'N' or 'n',  the leading  k by n part of the array  B  must contain the matrix  B,  otherwise 'N' or 'n' then CHARACTER*1. On entry, TRANSB specifies the form of op( B ) to be used in the matrix multiplication as follows: 'N' or 'n',  op( B ) = B. 'T' or 't',  op( B ) = B'. 'C' or 'c',  op( B ) = B'. Unchanged on exit. 'N' or 'n',  and is  k  otherwise. 'N' or 'n',  the leading  k by n part of the array  B  must contain the matrix  B,  otherwise 'N' or 'n' then not applicable or not stated by selected source not a workspace argument
+## `TRANSB`
 
-## 3. `M`
+**Direction:** `input`. **Fortran type:** `CHARACTER`. **Rust ABI type:** `*mut core::ffi::c_char`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry,  M  specifies  the number  of rows  of the  matrix must  be at least  zero. Unchanged on exit. contain  the matrix A. Unchanged on exit. INTEGER. On entry,  M  specifies  the number  of rows  of the  matrix must  be at least  zero. Unchanged on exit. contain  the matrix A. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+CHARACTER*1. On entry, TRANSB specifies the form of op( B ) to be used in the matrix multiplication as follows: 'N' or 'n', op( B ) = B. 'T' or 't', op( B ) = B'. 'C' or 'c', op( B ) = B'. Unchanged on exit.
 
-## 4. `N`
+## `M`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry,  N  specifies the number  of columns of the matrix must be at least zero. Unchanged on exit. 'N' or 'n',  and is  k  otherwise. contain  the matrix B. Unchanged on exit. INTEGER. On entry,  N  specifies the number  of columns of the matrix must be at least zero. Unchanged on exit. 'N' or 'n',  and is  k  otherwise. contain  the matrix B. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `K`
+INTEGER. On entry, M specifies the number of rows of the matrix op( A ) and of the matrix C. M must be at least zero. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry,  K  specifies  the number of columns of the matrix op( A ) and the number of rows of the matrix op( B ). K must be at least  zero. Unchanged on exit. 'N' or 'n',  and is  m  otherwise. contain  the matrix A. Unchanged on exit. contain  the matrix B. Unchanged on exit. INTEGER. On entry,  K  specifies  the number of columns of the matrix op( A ) and the number of rows of the matrix op( B ). K must be at least  zero. Unchanged on exit. 'N' or 'n',  and is  m  otherwise. contain  the matrix A. Unchanged on exit. contain  the matrix B. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 6. `ALPHA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. are scalars, and A, B and C are matrices, with op( A ) an m by k matrix,  op( B )  a  k by n matrix and  C an m by n matrix. Parameters ========== REAL            . On entry, ALPHA specifies the scalar alpha. Unchanged on exit. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, N specifies the number of columns of the matrix op( B ) and the number of columns of the matrix C. N must be at least zero. Unchanged on exit. when TRANSB = 'N' or 'n', and is k otherwise. Before entry with TRANSB = 'N' or 'n', the leading k by n part of the array B must contain the matrix B, otherwise the leading n by k part of the array B must contain the matrix B.
 
-## 7. `A`
+## `K`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDA, *). must  be at least  zero. Unchanged on exit. REAL             array of DIMENSION ( LDA, ka ), where ka is contain  the matrix A. Unchanged on exit. set of level 3 basic linear algebra subprograms. ACM TOMS, Vol. 16, No. 1, pp. 1-17, March 1990. must  be at least  zero. Unchanged on exit. REAL             array of DIMENSION ( LDA, ka ), where ka is contain  the matrix A. Unchanged on exit. set of level 3 basic linear algebra subprograms. ACM TOMS, Vol. 16, No. 1, pp. 1-17, March 1990. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `LDA`
+INTEGER. On entry, K specifies the number of columns of the matrix op( A ) and the number of rows of the matrix op( B ). K must be at least zero. Unchanged on exit. when TRANSA = 'N' or 'n', and is m otherwise. Before entry with TRANSA = 'N' or 'n', the leading m by k part of the array A must contain the matrix A, otherwise the leading k by m part of the array A must contain the matrix A.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, LDA specifies the first dimension of A as declared must be at least  max( 1, m ), otherwise  LDA must be at least  max( 1, k ). Unchanged on exit. INTEGER. On entry, LDA specifies the first dimension of A as declared must be at least  max( 1, m ), otherwise  LDA must be at least  max( 1, k ). Unchanged on exit. INTEGER. On entry, LDA specifies the first dimension of A as declared must be at least  max( 1, m ), otherwise  LDA must be at least  max( 1, k ). Unchanged on exit. not a workspace argument
+## `ALPHA`
 
-## 9. `B`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDB, *). must be at least zero. Unchanged on exit. REAL             array of DIMENSION ( LDB, kb ), where kb is contain  the matrix B. Unchanged on exit. must be at least zero. Unchanged on exit. REAL             array of DIMENSION ( LDB, kb ), where kb is contain  the matrix B. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+scalars, and A, B and C are matrices, with op( A ) an m by k matrix, op( B ) a k by n matrix and C an m by n matrix. REAL. On entry, ALPHA specifies the scalar alpha. Unchanged on exit.
 
-## 10. `LDB`
+## `A`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, LDB specifies the first dimension of B as declared must be at least  max( 1, k ), otherwise  LDB must be at least  max( 1, n ). Unchanged on exit. INTEGER. On entry, LDB specifies the first dimension of B as declared must be at least  max( 1, k ), otherwise  LDB must be at least  max( 1, n ). Unchanged on exit. INTEGER. On entry, LDB specifies the first dimension of B as declared must be at least  max( 1, k ), otherwise  LDB must be at least  max( 1, n ). Unchanged on exit. not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 11. `BETA`
+REAL array of DIMENSION ( LDA, ka ), where ka is.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. are scalars, and A, B and C are matrices, with op( A ) an m by k matrix,  op( B )  a  k by n matrix and  C an m by n matrix. Parameters ========== REAL            . On entry,  BETA  specifies the scalar  beta.  When  BETA  is supplied as zero then C need not be set on input. Unchanged on exit. is zero, in which case C need not be set on entry. On exit, the array  C  is overwritten by the  m by n  matrix ( alpha*op( A )*op( B ) + beta*C ). not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `LDA`
 
-## 12. `C`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDC, *). = alpha*op( A )*op( B ) + beta*C, where  op( X ) is one of op( X ) = X   or   op( X ) = X', must  be at least  zero. Unchanged on exit. must be at least zero. Unchanged on exit. REAL             array of DIMENSION ( LDC, n ). Before entry, the leading  m by n  part of the array  C must is zero, in which case C need not be set on entry. On exit, the array  C  is overwritten by the  m by n  matrix ( alpha*op( A )*op( B ) + beta*C ). = alpha*op( A )*op( B ) + beta*C, where  op( X ) is one of op( X ) = X   or   op( X ) = X', must  be at least  zero. Unchanged on exit. must be at least zero. Unchanged on exit. REAL             array of DIMENSION ( LDC, n ). Before entry, the leading  m by n  part of the array  C must is zero, in which case C need not be set on entry. On exit, the array  C  is overwritten by the  m by n  matrix ( alpha*op( A )*op( B ) + beta*C ). not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. When TRANSA = 'N' or 'n' then must be at least max( 1, m ), otherwise LDA must be at least max( 1, k ). Unchanged on exit.
 
-## 13. `LDC`
+## `B`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, LDC specifies the first dimension of C as declared in  the  calling  (sub)  program.   LDC  must  be  at  least max( 1, m ). Unchanged on exit. INTEGER. On entry, LDC specifies the first dimension of C as declared in  the  calling  (sub)  program.   LDC  must  be  at  least max( 1, m ). Unchanged on exit. INTEGER. On entry, LDC specifies the first dimension of C as declared in  the  calling  (sub)  program.   LDC  must  be  at  least max( 1, m ). Unchanged on exit. not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDB, *).
+
+REAL array of DIMENSION ( LDB, kb ), where kb is.
+
+## `LDB`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, LDB specifies the first dimension of B as declared in the calling (sub) program. When TRANSB = 'N' or 'n' then must be at least max( 1, k ), otherwise LDB must be at least max( 1, n ). Unchanged on exit.
+
+## `BETA`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+scalars, and A, B and C are matrices, with op( A ) an m by k matrix, op( B ) a k by n matrix and C an m by n matrix. REAL. On entry, BETA specifies the scalar beta. When BETA is supplied as zero then C need not be set on input. Unchanged on exit.
+
+## `C`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDC, *).
+
+= alpha*op( A )*op( B ) + beta*C, where op( X ) is one of op( X ) = X or op( X ) = X', REAL array of DIMENSION ( LDC, n ). Before entry, the leading m by n part of the array C must contain the matrix C, except when beta is zero, in which case C need not be set on entry. On exit, the array C is overwritten by the m by n matrix ( alpha*op( A )*op( B ) + beta*C ).
+
+## `LDC`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, LDC specifies the first dimension of C as declared in the calling (sub) program. LDC must be at least max( 1, m ). Unchanged on exit.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `TRANSA`: not a workspace argument
-- `TRANSB`: not a workspace argument
-- `M`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
-- `ALPHA`: not a workspace argument
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
 - `B`: not a workspace argument
 - `LDB`: not a workspace argument
-- `BETA`: not a workspace argument
 - `C`: not a workspace argument
 - `LDC`: not a workspace argument
 

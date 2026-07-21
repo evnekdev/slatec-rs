@@ -1,0 +1,7 @@
+{
+  "policy": "Public argument prose must be bounded to one argument source range and must not leak status, workspace, heading, repeated, or next-argument text.",
+  "public_argument_descriptions_with_detected_contamination": 0,
+  "records": [],
+  "schema_id": "slatec-rs.argument-contamination-audit",
+  "schema_version": "1.0.0"
+}

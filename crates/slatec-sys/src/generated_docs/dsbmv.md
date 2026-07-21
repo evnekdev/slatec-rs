@@ -8,75 +8,82 @@ This canonical unsafe binding exposes original SLATEC routine `DSBMV`. Its docum
 
 # Arguments
 
-## 1. `UPLO`
+## `UPLO`
 
-input `scalar` argument; Fortran declaration `CHARACTER`, Rust ABI type `*mut core::ffi::c_char`, and scalar. CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the band matrix A is being supplied as follows: 'U' or 'u'   The upper triangular part of A is being supplied. 'L' or 'l'   The lower triangular part of A is being supplied. Unchanged on exit. 'U' or 'u', the leading ( k + 1 ) 'L' or 'l', the leading ( k + 1 ) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `CHARACTER`. **Rust ABI type:** `*mut core::ffi::c_char`. **Shape:** scalar.
 
-## 2. `N`
+CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the band matrix A is being supplied as follows: 'U' or 'u' The upper triangular part of A is being supplied. 'L' or 'l' The lower triangular part of A is Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. diagonals. diagonals. Parameters Parameters ========== ========== INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit. contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row contain the lower triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the array A is not referenced. The following program segment will transfer the lower triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = 1 - J DO 10, I = J, MIN( N, J + K ) 1 )*abs( INCX ) ). Before entry, the incremented array X must contain the vector x. Unchanged on exit. 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the diagonals. diagonals. Parameters Parameters ========== ========== INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit. contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row contain the lower triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the array A is not referenced. The following program segment will transfer the lower triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = 1 - J DO 10, I = J, MIN( N, J + K ) 1 )*abs( INCX ) ). Before entry, the incremented array X must contain the vector x. Unchanged on exit. 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `K`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. diagonals. Parameters ========== INTEGER. diagonals of the must satisfy  0 .le. K. Unchanged on exit. diagonal starting at position 2 in row k, and so on. The top left k by k triangle of the array A is not referenced. The following program segment will transfer the upper triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N J DO 10, I = MAX( 1, J - K ), J diagonals. Parameters ========== INTEGER. diagonals of the must satisfy  0 .le. K. Unchanged on exit. diagonal starting at position 2 in row k, and so on. The top left k by k triangle of the array A is not referenced. The following program segment will transfer the upper triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N J DO 10, I = MAX( 1, J - K ), J not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit.
 
-## 4. `ALPHA`
+## `K`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. are scalars, x and y are n element vectors and DOUBLE PRECISION. On entry, ALPHA specifies the scalar alpha. Unchanged on exit. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `A`
+INTEGER. On entry, K specifies the number of super-diagonals of the matrix A. K must satisfy 0. le. K. Unchanged on exit.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (LDA, *). diagonals. Parameters ========== must satisfy  0 .le. K. Unchanged on exit. DOUBLE PRECISION array of DIMENSION ( LDA, n ). contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row matrix( I, J ) 10    CONTINUE 20 CONTINUE contain the lower triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the array A is not referenced. The following program segment will transfer the lower triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = 1 - J DO 10, I = J, MIN( N, J + K ) matrix( I, J ) 10    CONTINUE 20 CONTINUE Unchanged on exit. diagonals. Parameters ========== must satisfy  0 .le. K. Unchanged on exit. DOUBLE PRECISION array of DIMENSION ( LDA, n ). contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row matrix( I, J ) 10    CONTINUE 20 CONTINUE contain the lower triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the array A is not referenced. The following program segment will transfer the lower triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = 1 - J DO 10, I = J, MIN( N, J + K ) matrix( I, J ) 10    CONTINUE 20 CONTINUE Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `ALPHA`
 
-## 6. `LDA`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least ( k + 1 ). Unchanged on exit. INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least ( k + 1 ). Unchanged on exit. INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least ( k + 1 ). Unchanged on exit. not a workspace argument
+DOUBLE PRECISION. On entry, ALPHA specifies the scalar alpha. Unchanged on exit.
 
-## 7. `X`
+## `A`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). DOUBLE PRECISION array of DIMENSION at least must not be zero. Unchanged on exit. DOUBLE PRECISION array of DIMENSION at least must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 8. `INCX`
+is an n by n symmetric band matrix, with k super-diagonals. DOUBLE PRECISION array of DIMENSION ( LDA, n ). Before entry with UPLO = 'U' or 'u', the leading ( k + 1 ) by n part of the array A must contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row ( k + 1 ) of the array, the first super-diagonal starting at position 2 in row k, and so on. The top left k by k triangle of the array A is not referenced. The following program segment will transfer the upper triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = K + 1 - J DO 10, I = MAX( 1, J - K ), J matrix( I, J ) 10 CONTINUE 20 CONTINUE Before entry with UPLO = 'L' or 'l', the leading ( k + 1 ) by n part of the array A must contain the lower triangular column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the The following program segment will transfer the lower M = 1 - J DO 10, I = J, MIN( N, J + K ) Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `LDA`
 
-## 9. `BETA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. are scalars, x and y are n element vectors and DOUBLE PRECISION. On entry, BETA specifies the scalar beta. Unchanged on exit. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least ( k + 1 ). Unchanged on exit.
 
-## 10. `Y`
+## `X`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). = alpha*A*x + beta*y, DOUBLE PRECISION array of DIMENSION at least is overwritten by the updated vector y. is overwritten by the updated vector y. must not be zero. Unchanged on exit. = alpha*A*x + beta*y, DOUBLE PRECISION array of DIMENSION at least is overwritten by the updated vector y. is overwritten by the updated vector y. must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-## 11. `INCY`
+DOUBLE PRECISION array of DIMENSION at least ( 1 + ( n - 1 )*abs( INCX ) ). Before entry, the incremented array X must contain the vector x. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `INCX`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, INCX specifies the increment for the elements of X. INCX must not be zero. Unchanged on exit.
+
+## `BETA`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+DOUBLE PRECISION. On entry, BETA specifies the scalar beta. Unchanged on exit.
+
+## `Y`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+= alpha*A*x + beta*y, where alpha and beta are scalars, x and y are n element vectors and DOUBLE PRECISION array of DIMENSION at least ( 1 + ( n - 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the vector y. On exit, Y is overwritten by the updated vector y.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, INCY specifies the increment for the elements of Y. INCY must not be zero. Unchanged on exit.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `UPLO`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
-- `ALPHA`: not a workspace argument
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
 - `X`: not a workspace argument
-- `INCX`: not a workspace argument
-- `BETA`: not a workspace argument
 - `Y`: not a workspace argument
-- `INCY`: not a workspace argument
 
 # ABI notes
 

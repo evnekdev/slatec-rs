@@ -1,6 +1,6 @@
 # Purpose
 
-Subroutine CFFTF1 computes the forward complex discrete Fourier transform (the Fourier analysis). Equivalently, CFFTF1 computes the Fourier coefficients of a complex periodic sequence. The transform is defined below at output parameter C. The transform is not normalized. To obtain a normalized transform the output must be divided by N. Otherwise a call of CFFTF1 followed by a call of CFFTB1 will multiply the sequence by N.
+Subroutine CFFTF1 computes the forward complex discrete Fourier transform (the Fourier analysis). Equivalently, CFFTF1 computes the Fourier coefficients of a complex periodic sequence. The transform is defined below at output parameter C. The transform is not normalized. To obtain a normalized transform the output must be divided by N. Otherwise a call of CFFTF1 followed by a call of CFFTB1 will multiply the sequence by N. The arrays WA and IFAC which are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC).
 
 # Description
 
@@ -8,45 +8,46 @@ This canonical unsafe binding exposes original SLATEC routine `CFFTF1`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. the length of the complex sequence C.  The method is more efficient when N is the product of small primes. contains the sequence the length of the complex sequence C.  The method is more efficient when N is the product of small primes. contains the sequence not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `C`
+the length of the complex sequence C. The method is more efficient when N is the product of small primes.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the sequence 1,...,N the sum from K=1,...,N of I*(J-1)*(K-1)*2*PI/N) where I=SQRT(-1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 3. `CH`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). a real work array of length at least 2*N a real work array of length at least 2*N not applicable or not stated by selected source
+a complex array of length N which contains the sequence For J=1,. ,N the sum from K=1,. ,N of C(K)*EXP(-I*(J-1)*(K-1)*2*PI/N) where I=SQRT(-1) NOTE: WA and IFAC contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1.
 
-## 4. `WA`
+## `CH`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). a real work array which must be dimensioned at least 2*N. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1 are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). a real work array which must be dimensioned at least 2*N. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1 not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 5. `IFAC`
+a real work array of length at least 2*N.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). an integer work array which must be dimensioned at least 15. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1 are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). an integer work array which must be dimensioned at least 15. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1 not applicable or not stated by selected source
+## `WA`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+a real work array which must be dimensioned at least 2*N.
+
+## `IFAC`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+an integer work array which must be dimensioned at least 15. The WA and IFAC arrays must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `C`: not a workspace argument
-- `CH`: a real work array of length at least 2*N
-- `WA`: are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). a real work array which must be dimensioned at least 2*N. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1
-- `IFAC`: are used by subroutine CFFTB1 must be initialized by calling subroutine CFFTI1 (N, WA, IFAC). an integer work array which must be dimensioned at least 15. must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1. contain initialization calculations which must not be destroyed between calls of subroutine CFFTF1 or CFFTB1
+- `CH`: a real work array of length at least 2*N.
+- `WA`: a real work array which must be dimensioned at least 2*N.
+- `IFAC`: an integer work array which must be dimensioned at least 15. The WA and IFAC arrays must be initialized by calling subroutine CFFTI1 (N, WA, IFAC), and different WA and IFAC arrays must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WA and IFAC arrays can be used by CFFTF1 and CFFTB1.
 
 # ABI notes
 

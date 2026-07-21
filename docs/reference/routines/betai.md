@@ -8,7 +8,7 @@ Calculate the incomplete Beta function.
 
 ## Description
 
-BETAI calculates the REAL incomplete beta function. The incomplete beta function ratio is the probability that a random variable from a beta distribution having parameters PIN and
+BETAI calculates the REAL incomplete beta function. The incomplete beta function ratio is the probability that a random variable from a beta distribution having parameters PIN and QIN will be less than or equal to X. -- Input Arguments -- All arguments are REAL.
 
 ## Classification
 
@@ -52,35 +52,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [BETAI](https://www.netlib.org/slatec/fnlib/betai.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | must be in (0,1) inclusive. must be in (0,1) inclusive. |
-| 2 | `PIN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | must be .GT. 0.0. must be .GT. 0.0. |
-| 3 | `QIN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | will be less than or equal to X. -- Input Arguments -- All arguments are REAL. must be .GT. 0.0. must be .GT. 0.0. |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | upper limit of integration. X must be in (0,1) inclusive. |
+| 2 | `PIN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | first beta distribution parameter. PIN must be. GT. 0. |
+| 3 | `QIN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | second beta distribution parameter. QIN must be. GT. 0. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

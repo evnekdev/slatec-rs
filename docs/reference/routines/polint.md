@@ -8,7 +8,7 @@ Produce the polynomial which interpolates a set of discrete data points.
 
 ## Description
 
-Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLINT is designed to produce the polynomial which
+Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLINT is designed to produce the polynomial which interpolates the data (X(I),Y(I)), I=1,...,N. POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients.
 
 ## Classification
 
@@ -54,36 +54,28 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [POLINT](https://www.netlib.org/slatec/src/polint.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of data points  (N .GE. 1) |
-| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,...,N.  POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients. Formal Parameters the array of abscissas (all of which must be distinct) must be dimensioned at least N in the calling program. |
-| 3 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,...,N.  POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients. Formal Parameters the array of ordinates must be dimensioned at least N in the calling program. |
-| 4 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an array of information used by subroutines Dimensioning Information  ******* must be dimensioned at least N in the calling program. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of data points (N. GE. 1). |
+| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | the array of abscissas (all of which must be distinct). |
+| 3 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | the array of ordinates. |
+| 4 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an array of information used by subroutines Dimensioning Information ******* Arrays X,Y, and C must be dimensioned at least N in the calling program. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

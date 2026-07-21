@@ -8,53 +8,56 @@ This canonical unsafe binding exposes original SLATEC routine `HTRIB3`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A, ZR, and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A, ZR, and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A, ZR, and ZI, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains some information about the unitary transformations dimensional dimensional REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned TAU(2,N). contains some information about the unitary transformations dimensional dimensional REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned TAU(2,N). not applicable or not stated by selected source not a workspace argument
+is the order of the matrix. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `TAU`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (2, *). contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). contains further information about the transformations. dimensional REAL array, dimensioned TAU(2,N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `M`
+contains some information about the unitary transformations used in the reduction by HTRID3. A is a two-dimensional REAL array, dimensioned A(NM,N).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of eigenvectors to be back transformed. is an INTEGER variable. are immaterial.  ZR and not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `TAU`
 
-## 6. `ZR`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (2, *).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the eigenvectors to be back transformed in its contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. NOTE that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains the eigenvectors to be back transformed in its contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. NOTE that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+contains further information about the transformations. is a one-dimensional REAL array, dimensioned TAU(2,N).
 
-## 7. `ZI`
+## `M`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). are immaterial.  ZR and dimensional REAL arrays, dimensioned ZR(NM,M) and contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. NOTE that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY are immaterial.  ZR and dimensional REAL arrays, dimensioned ZR(NM,M) and contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. NOTE that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is the number of eigenvectors to be back transformed. is an INTEGER variable.
+
+## `ZR`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the eigenvectors to be back transformed in its first M columns. The contents of ZI are immaterial. ZR and the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. NOTE that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S.
+
+## `ZI`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+are two-dimensional REAL arrays, dimensioned ZR(NM,M) and the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. NOTE that the last component of each returned vector is real and that vector Euclidean norms are preserved. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `TAU`: not a workspace argument
-- `M`: not a workspace argument
 - `ZR`: not a workspace argument
 - `ZI`: not a workspace argument
 

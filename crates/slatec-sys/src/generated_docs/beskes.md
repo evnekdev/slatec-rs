@@ -1,6 +1,6 @@
 # Purpose
 
-BESKES computes a sequence of exponentially scaled (i.e., multipled by EXP(X)) modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0,
+BESKES computes a sequence of exponentially scaled (i.e., multipled by EXP(X)) modified Bessel functions of the third kind of order XNU + I at X, where X .GT. 0, XNU lies in (-1,1), and I = 0, 1, ... , NIN - 1, if NIN is positive and I = 0, -1, ... , NIN + 1, if NIN is negative. On return, the vector BKE(.) contains the results at X for order starting at XNU.
 
 # Description
 
@@ -8,39 +8,36 @@ This canonical unsafe binding exposes original SLATEC routine `BESKES`. Its docu
 
 # Arguments
 
-## 1. `XNU`
+## `XNU`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. 1,1), and I = 0, 1, ... , NIN - 1, if NIN is positive not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `X`
+Input fractional starting order. `XNU` must lie strictly between -1 and 1.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Input evaluation point. `X` must be strictly positive; the returned sequence is evaluated at this point and native code does not modify it. Input evaluation point. `X` must be strictly positive; the returned sequence is evaluated at this point and native code does not modify it. not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 3. `NIN`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is negative.  On return, the is negative.  On return, the vector BKE(.) contains the results at X for order starting at XNU. vector BKE(.) contains the results at X for order starting at XNU. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Input evaluation point. `X` must be strictly positive; the returned sequence is evaluated at this point and native code does not modify it.
 
-## 4. `BKE`
+## `NIN`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Writable output array with at least `abs(NIN)` elements. On return `BKE\[I\]` holds `exp(X) * K_(XNU+I)(X)` for the requested order sequence; native code retains no pointer. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Input nonzero signed sequence length. `abs(NIN)` is the required result-array length; a positive value advances the order and a negative value steps it downward from `XNU`.
+
+## `BKE`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+Writable output array with at least `abs(NIN)` elements. On return `BKE\[I\]` holds `exp(X) * K_(XNU+I)(X)` for the requested order sequence; native code retains no pointer.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `XNU`: not a workspace argument
-- `X`: not a workspace argument
-- `NIN`: not a workspace argument
 - `BKE`: not a workspace argument
 
 # ABI notes

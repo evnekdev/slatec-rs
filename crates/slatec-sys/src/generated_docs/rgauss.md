@@ -8,30 +8,21 @@ This canonical unsafe binding exposes original SLATEC routine `RGAUSS`. Its docu
 
 # Arguments
 
-## 1. `XMEAN`
+## `XMEAN`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. the mean of the Guassian distribution. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `SD`
+the mean of the Guassian distribution.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. the standard deviation of the Guassian function EXP (-1/2 * (X-XMEAN)**2 / SD**2) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SD`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+the standard deviation of the Guassian function EXP (-1/2 * (X-XMEAN)**2 / SD**2).
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32,mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `XMEAN`: not a workspace argument
-- `SD`: not a workspace argument
 
 # ABI notes
 

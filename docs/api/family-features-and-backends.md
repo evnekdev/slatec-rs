@@ -131,6 +131,15 @@ slatec = { version = "0.1", default-features = false, features = ["external-back
 
 ## Raw API feature reconciliation
 
+Semantic completion is independently release-gated on the rendered canonical
+`slatec-sys` item. The M3 reports distinguish a generated or ABI-validated
+declaration from a `complete-semantic-contract`: every argument must have
+bounded semantic evidence, source intent controls direction, and applicable
+status, workspace, and callback rules must be rendered without contaminated
+prologue fragments. See
+[`semantic-quality-final.json`](../../generated/slatec-routines/semantic-quality-final.json)
+and [`rendered-rustdoc-semantic-audit.json`](../../generated/slatec-routines/rendered-rustdoc-semantic-audit.json).
+
 `slatec-sys` is usable directly with its reviewed raw-family feature and a
 matching `slatec-src` provider feature, or with an externally managed native
 link. The feature name names the Rust declaration surface; the provider

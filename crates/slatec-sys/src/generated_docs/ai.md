@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `AI`. Its document
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. computes the Airy function Ai(X) Series for AIF        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.09E-19 log weighted error  18.96 significant figures required  17.76 decimal places required  19.44 Series for AIG        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.51E-17 log weighted error  16.82 significant figures required  15.19 decimal places required  17.27 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Evaluate the Airy function
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

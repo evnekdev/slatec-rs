@@ -8,64 +8,71 @@ This canonical unsafe binding exposes original SLATEC routine `BSPPP`. Its docum
 
 # Arguments
 
-## 1. `T`
+## `T`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). knot vector of length N+K knot vector of length N+K not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 2. `A`
+knot vector of length N+K.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). B-spline coefficient vector of length N B-spline coefficient vector of length N not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of B-spline coefficients K not stated by selected source not applicable or not stated by selected source not a workspace argument
+B-spline coefficient vector of length N.
 
-## 4. `K`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. order of the B-spline, K .GE. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `LDC`
+number of B-spline coefficients sum of knot multiplicities-K.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. leading dimension of C, LDC .GE. K leading dimension of C, LDC .GE. K leading dimension of C, LDC .GE. K not a workspace argument
+## `K`
 
-## 6. `C`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDC, *). matrix of dimension at least (K,LXI) containing right derivatives at break points matrix of dimension at least (K,LXI) containing right derivatives at break points not applicable or not stated by selected source not a workspace argument
+order of the B-spline, K. GE. 1.
 
-## 7. `XI`
+## `LDC`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). 1,K, J=1,LXI.  Function PPVAL 1,K, J=1,LXI.  Function PPVAL makes this evaluation at a specified point X in makes this evaluation at a specified point X in .LE. X .LE. XI(LXI(1) .LE. X .LE. XI+1) XI break point vector of length LXI+1 1,K, J=1,LXI.  Function PPVAL 1,K, J=1,LXI.  Function PPVAL makes this evaluation at a specified point X in makes this evaluation at a specified point X in .LE. X .LE. XI(LXI(1) .LE. X .LE. XI+1) XI break point vector of length LXI+1 not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `LXI`
+leading dimension of C, LDC. GE. K.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of break points, LXI .LE. N-K+1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 9. `WORK`
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDC, *).
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). work vector of length K*(N+3) work vector of length K*(N+3) not applicable or not stated by selected source
+matrix of dimension at least (K,LXI) containing right derivatives at break points.
+
+## `XI`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+LE. X. XI(J+1), I=1,K, J=1,LXI. Function PPVAL makes this evaluation at a specified point X in. XI(LXI(1). XI+1) XI break point vector of length LXI+1.
+
+## `LXI`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+number of break points, LXI. LE. N-K+1.
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+work vector of length K*(N+3).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-Improper input is a fatal error
-
 # Workspace and array requirements
 
 - `T`: not a workspace argument
 - `A`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
 - `LDC`: not a workspace argument
 - `C`: not a workspace argument
 - `XI`: not a workspace argument
-- `LXI`: not a workspace argument
 - `WORK`: work vector of length K*(N+3)
 
 # ABI notes

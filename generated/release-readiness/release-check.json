@@ -28,7 +28,7 @@
       "check": "validate-raw-batch-c",
       "exit_code": 0,
       "status": "pass",
-      "transient_file_lock_retries": 1
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-final-raw-api-disposition",
@@ -64,7 +64,7 @@
       "check": "validate-public-api-semantic-review",
       "exit_code": 0,
       "status": "pass",
-      "transient_file_lock_retries": 1
+      "transient_file_lock_retries": 0
     },
     {
       "check": "validate-rendered-rustdoc-audit",
