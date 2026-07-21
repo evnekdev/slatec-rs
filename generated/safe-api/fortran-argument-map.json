@@ -5711,6 +5711,130 @@
       ]
     },
     {
+      "rust_path": "slatec::nonlinear::solve_scalar_equations",
+      "fortran_routine": "DSOS",
+      "program_unit_id": "full-provider-c7940f9631450261",
+      "arguments": [
+        {
+          "rust": "fnc",
+          "fortran": "FNC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "neq",
+          "fortran": "NEQ",
+          "transformation": "pass"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rtolx",
+          "fortran": "RTOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "atolx",
+          "fortran": "ATOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tolf",
+          "fortran": "TOLF",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IFLAG",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "RW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "lrw",
+          "fortran": "LRW",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::nonlinear::solve_scalar_equations_f32",
+      "fortran_routine": "SOS",
+      "program_unit_id": "full-provider-9cf0accfaa43bb5a",
+      "arguments": [
+        {
+          "rust": "fnc",
+          "fortran": "FNC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "neq",
+          "fortran": "NEQ",
+          "transformation": "pass"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rtolx",
+          "fortran": "RTOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "atolx",
+          "fortran": "ATOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tolf",
+          "fortran": "TOLF",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IFLAG",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "RW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "lrw",
+          "fortran": "LRW",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::nonlinear::solve_system",
       "fortran_routine": "DNSQE",
       "program_unit_id": "full-provider-8bc6c085f4ef6b2e",
@@ -6399,6 +6523,438 @@
           "rust": null,
           "fortran": "WA4",
           "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::ComplexDriv1Session::integrate_to",
+      "fortran_routine": "CDRIV1",
+      "program_unit_id": "full-provider-d786596f8e33653f",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::ComplexDriv2Session::integrate_to_with_events",
+      "fortran_routine": "CDRIV2",
+      "program_unit_id": "full-provider-a0b24b5043a52ad6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "nroot",
+          "fortran": "NROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ewt",
+          "fortran": "EWT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mint",
+          "fortran": "MINT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "pass"
+        },
+        {
+          "rust": "g",
+          "fortran": "G",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv1Session::<f32>::integrate_to",
+      "fortran_routine": "SDRIV1",
+      "program_unit_id": "full-provider-434b7acc9ea23338",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv1Session::<f64>::integrate_to",
+      "fortran_routine": "DDRIV1",
+      "program_unit_id": "full-provider-83170f334d0d68a8",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv2Session::<f32>::integrate_to_with_events",
+      "fortran_routine": "SDRIV2",
+      "program_unit_id": "full-provider-2de3f93dcb2a644e",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "nroot",
+          "fortran": "NROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ewt",
+          "fortran": "EWT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mint",
+          "fortran": "MINT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "pass"
+        },
+        {
+          "rust": "g",
+          "fortran": "G",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv2Session::<f64>::integrate_to_with_events",
+      "fortran_routine": "DDRIV2",
+      "program_unit_id": "full-provider-7e657082e96474b6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "nroot",
+          "fortran": "NROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ewt",
+          "fortran": "EWT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mint",
+          "fortran": "MINT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "pass"
+        },
+        {
+          "rust": "g",
+          "fortran": "G",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
         }
       ]
     },
@@ -7938,6 +8494,73 @@
           "rust": null,
           "fortran": "WORK",
           "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_piecewise_polynomial",
+      "fortran_routine": "DPFQAD",
+      "program_unit_id": "full-provider-8319889b2bfafb4d",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "pass"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "pass"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": "id",
+          "fortran": "ID",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x1",
+          "fortran": "X1",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x2",
+          "fortran": "X2",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tol",
+          "fortran": "TOL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "quad",
+          "fortran": "QUAD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "pass"
         }
       ]
     },

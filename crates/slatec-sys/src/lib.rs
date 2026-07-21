@@ -290,7 +290,8 @@ mod bspline;
     feature = "raw-family-interpolation-general"
 ))]
 #[path = "piecewise_polynomial.rs"]
-mod piecewise_polynomial;
+/// Canonical raw PP-form evaluation, integration, and conversion declarations.
+pub mod piecewise_polynomial;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///

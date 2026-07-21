@@ -43,6 +43,7 @@ use slatec_tools::safe_banded;
 use slatec_tools::safe_bounded_constrained_linear_least_squares;
 use slatec_tools::safe_bounded_linear_least_squares;
 use slatec_tools::safe_bspline;
+use slatec_tools::safe_callback_drivers;
 use slatec_tools::safe_constrained_linear_least_squares;
 use slatec_tools::safe_dassl;
 use slatec_tools::safe_fftpack;
@@ -304,6 +305,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-api-docs"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-safe-callback-driver-plan"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -1040,6 +1046,11 @@ fn run() -> Result<()> {
                 "success: snapshot {} ({}); wrappers {}",
                 result.snapshot_id, result.semantic_hash, result.wrapper_count,
             );
+            Ok(())
+        }
+        "generate-safe-callback-driver-plan" => {
+            let result = safe_callback_drivers::generate(&options.output_dir)?;
+            println!("success: callback-driver plan ({})", result.semantic_hash);
             Ok(())
         }
         "generate-safe-dassl-metadata" => {

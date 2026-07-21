@@ -18,6 +18,7 @@ where
     Ok((invocation.value, invocation.failure))
 }
 
+#[allow(dead_code)] // DPFQAD is f64-only; sibling quadrature features use this adapter.
 pub(crate) fn with_f32<F, R>(
     callback: F,
     native_call: impl FnOnce(IntegrandF32) -> R,

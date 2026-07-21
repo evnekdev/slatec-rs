@@ -52,6 +52,7 @@ pub mod safe_banded;
 pub mod safe_bounded_constrained_linear_least_squares;
 pub mod safe_bounded_linear_least_squares;
 pub mod safe_bspline;
+pub mod safe_callback_drivers;
 pub mod safe_constrained_linear_least_squares;
 pub mod safe_dassl;
 pub mod safe_fftpack;

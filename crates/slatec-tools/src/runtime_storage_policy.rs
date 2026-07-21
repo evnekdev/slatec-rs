@@ -54,6 +54,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     projections.extend(crate::safe_pois3d::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
+    projections.extend(crate::safe_callback_drivers::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
     // stale broad record with the focused record for the same safe function,
     // rather than emitting duplicate roadmap/concurrency rows.
@@ -647,6 +648,23 @@ fn native_origin_source_statuses() -> Result<BTreeMap<String, NativeSourceStatus
             storage: format!(
                 "focused_special_source_and_link_audit:{}:SAVE_DATA_and_XERROR_conservative",
                 string(source, "path")?
+            ),
+            mutable: true,
+            status: "complete_mutable_state_found".to_owned(),
+        });
+    }
+    // Callback-driver wrappers were reviewed after the broad native-origin
+    // archive audit. Their exact provider closures are hash guarded in the
+    // family manifest and were source-built and link-tested as a focused set.
+    // Keep the conservative serialized status until a later broad scan records
+    // the same entries, rather than accepting a missing ownership projection.
+    for source in crate::safe_callback_drivers::focused_native_sources()? {
+        let id = string(&source, "id")?.to_owned();
+        output.entry(id).or_insert(NativeSourceStatus {
+            source_file: string(&source, "path")?.to_owned(),
+            storage: format!(
+                "focused_callback_driver_source_build_and_link_audit:{}:XERROR_and_callback_dispatch_serialized",
+                string(&source, "path")?
             ),
             mutable: true,
             status: "complete_mutable_state_found".to_owned(),
@@ -1865,7 +1883,7 @@ mod tests {
             .iter()
             .filter(|record| record[2].as_str() == Some("ode-sdrive-expert"))
             .collect::<Vec<_>>();
-        assert_eq!(ode.len(), 2);
+        assert_eq!(ode.len(), 8);
         assert!(ode.iter().all(|record| {
             record[3].as_str() == Some("SerializedGlobal")
                 && record[4].as_str() == Some("process_global")

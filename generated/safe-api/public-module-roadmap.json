@@ -1,22 +1,22 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 243,
+  "safe_function_count": 253,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 183
+    "std": 193
   },
   "status_totals": {
     "Deferred": 3,
-    "Implemented": 30,
+    "Implemented": 32,
     "Partial": 15,
     "Planned": 17
   },
   "stability_totals": {
     "Frozen": 10,
     "Provisional": 3,
-    "Reserved": 62
+    "Reserved": 64
   },
   "frozen_high_level_paths": [
     "roadmap",
@@ -607,6 +607,25 @@
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {
+      "canonical_grouped_module_path": "integration::quadrature::piecewise_polynomial",
+      "module_file": "crates/slatec/src/quadrature/piecewise_polynomial.rs",
+      "stability": "Reserved",
+      "status": "Implemented",
+      "cargo_feature": "quadrature-piecewise-polynomial",
+      "current_implementation_module": "crate::quadrature",
+      "compatibility_path": "slatec::quadrature",
+      "safe_native_families": [
+        "quadrature-piecewise-polynomial"
+      ],
+      "precision_coverage": "f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
+      "evidence_source": "generated/safe-api/function-index.json"
+    },
+    {
       "canonical_grouped_module_path": "integration::integral_equations",
       "module_file": "crates/slatec/src/integration/integral_equations.rs",
       "stability": "Reserved",
@@ -712,6 +731,25 @@
       ],
       "precision_coverage": "f32,f64",
       "runtime_level": "alloc",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
+      "evidence_source": "generated/safe-api/function-index.json"
+    },
+    {
+      "canonical_grouped_module_path": "equations::nonlinear::scalar_equations",
+      "module_file": "crates/slatec/src/nonlinear/systems.rs",
+      "stability": "Reserved",
+      "status": "Implemented",
+      "cargo_feature": "nonlinear-systems",
+      "current_implementation_module": "crate::nonlinear",
+      "compatibility_path": "slatec::nonlinear",
+      "safe_native_families": [
+        "nonlinear-systems"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
       "concurrency_classification": "SerializedGlobal",
       "status_rationale": "The reviewed initial safe scope is public.",
       "blocker": "None for the documented initial scope.",

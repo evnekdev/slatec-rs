@@ -115,6 +115,7 @@ raw-final-coverage-link-tests = [
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
     "quadrature-oscillatory", "quadrature-fourier", "quadrature-nonadaptive",
+    "quadrature-piecewise-polynomial",
 ]
 quadrature-common = ["std", "blas-level1-validation"]
 quadrature-basic = ["quadrature-common", "slatec-sys/raw-family-quadrature-basic", "slatec-src/quadrature-basic"]
@@ -123,6 +124,12 @@ quadrature-weighted = ["quadrature-common", "slatec-sys/raw-family-quadrature-we
 quadrature-oscillatory = ["quadrature-common", "slatec-sys/raw-family-quadrature-oscillatory", "slatec-src/quadrature-oscillatory"]
 quadrature-fourier = ["quadrature-common", "slatec-sys/raw-family-quadrature-fourier", "slatec-src/quadrature-fourier"]
 quadrature-nonadaptive = ["quadrature-common", "slatec-sys/raw-family-quadrature-nonadaptive", "slatec-src/quadrature-nonadaptive"]
+quadrature-piecewise-polynomial = [
+    "quadrature-common",
+    "piecewise-polynomial",
+    "slatec-sys/quadrature-callbacks",
+    "slatec-src/quadrature-callbacks",
+]
 quadrature-native-tests = ["quadrature"]
 
 roots = ["roots-scalar", "roots-polynomial"]
@@ -167,6 +174,7 @@ ode = ["ode-sdrive-expert"]
 ode-sdrive-expert = [
     "std",
     "blas-level1-validation",
+    "dep:num-complex",
     "slatec-sys/raw-family-ode-sdrive-expert",
     "slatec-src/ode-sdrive-expert",
 ]
@@ -510,6 +518,15 @@ required-features = ["least-squares-linear-bounded-constrained"]
 [[example]]
 name = "link_ode_sdrive"
 required-features = ["ode-sdrive-expert"]
+
+[[example]]
+name = "callback_driver_expansion"
+required-features = ["quadrature-piecewise-polynomial", "nonlinear-systems", "ode-sdrive-expert"]
+
+[[test]]
+name = "callback_driver_expansion"
+path = "tests/callback_driver_expansion.rs"
+required-features = ["quadrature-piecewise-polynomial", "nonlinear-systems", "ode-sdrive-expert"]
 
 [[example]]
 name = "link_dassl"

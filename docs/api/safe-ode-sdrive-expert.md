@@ -1,14 +1,14 @@
 # Safe SDRIVE expert ODE sessions
 
-`slatec::ode` is an opt-in safe facade over the original SLATEC `SDRIV3`
-(single precision) and `DDRIV3` (double precision) expert drivers. Enable it
-with:
+`slatec::ode` is an opt-in safe facade over the reviewed original SLATEC
+`SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`, `CDRIV1`/`CDRIV2`, `SDRIV3`, and
+`DDRIV3` drivers. Enable it with:
 
 ```text
 cargo add slatec --no-default-features --features std,external-backend,ode-sdrive-expert
 ```
 
-The only supported public model is the real explicit initial-value problem
+Every reviewed session solves an explicit initial-value problem
 
 ```text
 y'(t) = f(t, y),  y(t0) = y0.
@@ -25,11 +25,20 @@ The session is not cloneable and does not expose native work arrays. It may
 advance only in the direction established by the first `integrate_to` call.
 The first and subsequent calls use `NTASK=3`, exact-target mode.
 
-The supported native controls are `MINT=1` Adams or `MINT=2` BDF,
+`OdeSession` supports the expert controls `MINT=1` Adams or `MINT=2` BDF,
 `MITER=0` functional iteration, `IMPL=0`, and `NROOT=0`. This preserves an
 RHS-only scope. Roots/events, Jacobians, finite-difference Jacobian control,
 mass matrices, implicit forms, DAEs, dense output, and interpolation remain
-deferred.
+deferred for that expert-session surface.
+
+`Driv1Session<f32>` and `Driv1Session<f64>` own the documented convenience
+driver work history for `SDRIV1` and `DDRIV1`. `Driv2Session` adds a typed
+`DrivMethod`, constant error-weight validation, and an optional indexed root
+callback. `ComplexDriv1Session` and `ComplexDriv2Session` provide the same
+owned model for the reviewed complex single-precision drivers, using public
+`OdeComplex32`. Root callbacks receive a zero-based index and return a real
+scalar. The new sessions reject a direction reversal and become terminal after
+a contained callback failure, just like `OdeSession`.
 
 ## Callback containment
 
@@ -82,6 +91,8 @@ Optional adapters can be added separately later. This safe family requires
 `std`, an explicit native backend, and the validated GNU MinGW profile. The
 source backend is offline-only and does not download or commit SLATEC source.
 
-See the checked examples in [`examples/ode`](../../examples/ode) and the
-deterministic `generated/safe-api/ode-sdrive-*.json` records for exact raw,
-workspace, status, callback, concurrency, and source-closure evidence.
+See the checked examples in [`examples/ode`](../../examples/ode), the
+[callback-driver guide](safe-callback-drivers.md), and deterministic
+`generated/safe-api/ode-sdrive-*.json` plus
+`generated/safe-api/callback-driver-*.json` records for exact raw, workspace,
+status, callback, concurrency, and source-closure evidence.

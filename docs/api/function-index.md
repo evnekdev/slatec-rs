@@ -121,12 +121,20 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::linear_programming::LinearProgram::<f64>::solve` | `DSPLP` | linear programming | f64 | sparse in-memory linear programming with variable and row-activity bounds | `std` | `optimization-linear-programming-in-memory` | [sparse in-memory linear programming](../../examples/linear_programming/basic.rs) |
 | `slatec::nonlinear::check_jacobian` | `DCKDER` | nonlinear | f64 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::check_jacobian_f32` | `CHKDER` | nonlinear | f32 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
+| `slatec::nonlinear::solve_scalar_equations` | `DSOS` | nonlinear | f64 | scalar-equation nonlinear-system solving | `std` | `nonlinear-systems` | [FnMut(&[f64],usize)->f64](../../examples/nonlinear/scalar_equations.rs) |
+| `slatec::nonlinear::solve_scalar_equations_f32` | `SOS` | nonlinear | f32 | scalar-equation nonlinear-system solving | `std` | `nonlinear-systems` | [FnMut(&[f32],usize)->f32](../../examples/nonlinear/scalar_equations.rs) |
 | `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
 | `slatec::nonlinear::solve_system_expert` | `DNSQ` | nonlinear | f64 | expert finite-difference nonlinear-system solving | `std` | `nonlinear-expert` | [expert finite-difference nonlinear system](../../examples/nonlinear/solve_system_expert.rs) |
 | `slatec::nonlinear::solve_system_expert_f32` | `SNSQ` | nonlinear | f32 | expert finite-difference nonlinear-system solving | `std` | `nonlinear-expert` | [expert finite-difference nonlinear system](../../examples/nonlinear/solve_system_expert.rs) |
 | `slatec::nonlinear::solve_system_f32` | `SNSQE` | nonlinear | f32 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system_f32.rs) |
 | `slatec::nonlinear::solve_system_with_jacobian` | `DNSQ` | nonlinear | f64 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
 | `slatec::nonlinear::solve_system_with_jacobian_f32` | `SNSQ` | nonlinear | f32 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
+| `slatec::ode::ComplexDriv1Session::integrate_to` | `CDRIV1` | ordinary differential equations | Complex32/f32 time | complex RHS closure | `std` | `ode-sdrive-expert` | [complex RHS closure](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::ComplexDriv2Session::integrate_to_with_events` | `CDRIV2` | ordinary differential equations | Complex32/f32 time | complex RHS plus indexed real root closure | `std` | `ode-sdrive-expert` | [complex RHS plus indexed real root closure](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv1Session::<f32>::integrate_to` | `SDRIV1` | ordinary differential equations | f32 | FnMut(f32,&[f32],&mut[f32]) | `std` | `ode-sdrive-expert` | [FnMut(f32,&[f32],&mut[f32])](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv1Session::<f64>::integrate_to` | `DDRIV1` | ordinary differential equations | f64 | FnMut(f64,&[f64],&mut[f64]) | `std` | `ode-sdrive-expert` | [FnMut(f64,&[f64],&mut[f64])](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv2Session::<f32>::integrate_to_with_events` | `SDRIV2` | ordinary differential equations | f32 | RHS plus indexed root closure | `std` | `ode-sdrive-expert` | [RHS plus indexed root closure](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv2Session::<f64>::integrate_to_with_events` | `DDRIV2` | ordinary differential equations | f64 | RHS plus indexed root closure | `std` | `ode-sdrive-expert` | [RHS plus indexed root closure](../../examples/ode/callback_drivers.rs) |
 | `slatec::ode::OdeSession::<f32, F, E>::integrate_to` | `SDRIV3` | ordinary differential equations | f32 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/harmonic_oscillator.rs) |
 | `slatec::ode::OdeSession::<f64, F, E>::integrate_to` | `DDRIV3` | ordinary differential equations | f64 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/exponential_decay.rs) |
 | `slatec::pchip::PiecewiseCubicHermite::evaluate_into` | `PCHFE` | piecewise cubic Hermite interpolation | f32/f64 | evaluate a piecewise-cubic Hermite curve | `std` | `pchip` | [piecewise-cubic Hermite value evaluation](../../examples/pchip/monotone.rs) |
@@ -149,6 +157,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::quadrature::integrate_non_adaptive_f32` | `QNG` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-nonadaptive` | [finite_non_adaptive](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_oscillatory` | `DQAWO` | quadrature | f64 | finite oscillatory integration | `std` | `quadrature-oscillatory` | [finite_oscillatory](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_oscillatory_f32` | `QAWO` | quadrature | f32 | finite oscillatory integration | `std` | `quadrature-oscillatory` | [finite_oscillatory](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_piecewise_polynomial` | `DPFQAD` | quadrature | f64 | piecewise-polynomial weighted quadrature | `std` | `quadrature-piecewise-polynomial` | [FnMut(f64)->f64](../../examples/quadrature/piecewise_polynomial.rs) |
 | `slatec::quadrature::integrate_principal_value` | `DQAWC` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_principal_value_f32` | `QAWC` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_singular` | `DQAGS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
@@ -283,6 +292,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate`
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `CBRT` -> `slatec::special::elementary::cbrt_f32`
+- `CDRIV1` -> `slatec::ode::ComplexDriv1Session::integrate_to`
+- `CDRIV2` -> `slatec::ode::ComplexDriv2Session::integrate_to_with_events`
 - `CFFTB1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::backward`
 - `CFFTF1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::forward`
 - `CFFTI1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::new`
@@ -333,6 +344,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DDAWS` -> `slatec::special::elementary::dawson`
 - `DDOT` -> `slatec::blas::level1::ddot`
 - `DDOT` -> `slatec::blas::level1::ddot_strided`
+- `DDRIV1` -> `slatec::ode::Driv1Session::<f64>::integrate_to`
+- `DDRIV2` -> `slatec::ode::Driv2Session::<f64>::integrate_to_with_events`
 - `DDRIV3` -> `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
 - `DE1` -> `slatec::special::integrals::exponential_integral_e1`
 - `DEI` -> `slatec::special::integrals::exponential_integral_ei`
@@ -365,6 +378,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DNSQ` -> `slatec::nonlinear::solve_system_expert`
 - `DNSQ` -> `slatec::nonlinear::solve_system_with_jacobian`
 - `DNSQE` -> `slatec::nonlinear::solve_system`
+- `DPFQAD` -> `slatec::quadrature::integrate_piecewise_polynomial`
 - `DPSI` -> `slatec::special::gamma::digamma`
 - `DQAG` -> `slatec::quadrature::integrate`
 - `DQAGI` -> `slatec::quadrature::integrate_infinite`
@@ -385,6 +399,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DSCAL` -> `slatec::blas::level1::dscal`
 - `DSCAL` -> `slatec::blas::level1::dscal_strided`
 - `DSINDG` -> `slatec::special::elementary::sin_degrees`
+- `DSOS` -> `slatec::nonlinear::solve_scalar_equations`
 - `DSPENC` -> `slatec::special::scalar_expanded::spence_integral`
 - `DSPLP` -> `slatec::linear_programming::LinearProgram::<f64>::solve`
 - `DSWAP` -> `slatec::blas::level1::dswap`
@@ -460,6 +475,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SDASSL` -> `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - `SDOT` -> `slatec::blas::level1::sdot`
 - `SDOT` -> `slatec::blas::level1::sdot_strided`
+- `SDRIV1` -> `slatec::ode::Driv1Session::<f32>::integrate_to`
+- `SDRIV2` -> `slatec::ode::Driv2Session::<f32>::integrate_to_with_events`
 - `SDRIV3` -> `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
 - `SGBCO` -> `slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate`
 - `SGBDI` -> `slatec::linear_algebra::banded::BandLu32::scaled_determinant`
@@ -482,6 +499,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SNSQ` -> `slatec::nonlinear::solve_system_expert_f32`
 - `SNSQ` -> `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `SNSQE` -> `slatec::nonlinear::solve_system_f32`
+- `SOS` -> `slatec::nonlinear::solve_scalar_equations_f32`
 - `SPENC` -> `slatec::special::scalar_expanded::spence_integral_f32`
 - `SPLP` -> `slatec::linear_programming::LinearProgram::<f32>::solve`
 - `SROT` -> `slatec::blas::level1::srot`
@@ -671,6 +689,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_non_adaptive_f32` — validated scalar numerical function
 - `slatec::quadrature::integrate_oscillatory` — finite oscillatory integration
 - `slatec::quadrature::integrate_oscillatory_f32` — finite oscillatory integration
+- `slatec::quadrature::integrate_piecewise_polynomial` — piecewise-polynomial weighted quadrature
 - `slatec::quadrature::integrate_principal_value` — validated scalar numerical function
 - `slatec::quadrature::integrate_principal_value_f32` — validated scalar numerical function
 - `slatec::quadrature::integrate_singular` — validated scalar numerical function
@@ -689,6 +708,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 - `slatec::nonlinear::check_jacobian` — componentwise Jacobian consistency checking
 - `slatec::nonlinear::check_jacobian_f32` — componentwise Jacobian consistency checking
+- `slatec::nonlinear::solve_scalar_equations` — scalar-equation nonlinear-system solving
+- `slatec::nonlinear::solve_scalar_equations_f32` — scalar-equation nonlinear-system solving
 - `slatec::nonlinear::solve_system` — finite-difference nonlinear-system solving
 - `slatec::nonlinear::solve_system_expert` — expert finite-difference nonlinear-system solving
 - `slatec::nonlinear::solve_system_expert_f32` — expert finite-difference nonlinear-system solving
@@ -724,6 +745,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### ordinary differential equations
 
+- `slatec::ode::ComplexDriv1Session::integrate_to` — complex RHS closure
+- `slatec::ode::ComplexDriv2Session::integrate_to_with_events` — complex RHS plus indexed real root closure
+- `slatec::ode::Driv1Session::<f32>::integrate_to` — FnMut(f32,&[f32],&mut[f32])
+- `slatec::ode::Driv1Session::<f64>::integrate_to` — FnMut(f64,&[f64],&mut[f64])
+- `slatec::ode::Driv2Session::<f32>::integrate_to_with_events` — RHS plus indexed root closure
+- `slatec::ode::Driv2Session::<f64>::integrate_to_with_events` — RHS plus indexed root closure
 - `slatec::ode::OdeSession::<f32, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
 - `slatec::ode::OdeSession::<f64, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
 
@@ -903,12 +930,20 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32`
 - `slatec::linear_programming::LinearProgram::<f32>::solve`
 - `slatec::linear_programming::LinearProgram::<f64>::solve`
+- `slatec::nonlinear::solve_scalar_equations`
+- `slatec::nonlinear::solve_scalar_equations_f32`
 - `slatec::nonlinear::solve_system`
 - `slatec::nonlinear::solve_system_expert`
 - `slatec::nonlinear::solve_system_expert_f32`
 - `slatec::nonlinear::solve_system_f32`
 - `slatec::nonlinear::solve_system_with_jacobian`
 - `slatec::nonlinear::solve_system_with_jacobian_f32`
+- `slatec::ode::ComplexDriv1Session::integrate_to`
+- `slatec::ode::ComplexDriv2Session::integrate_to_with_events`
+- `slatec::ode::Driv1Session::<f32>::integrate_to`
+- `slatec::ode::Driv1Session::<f64>::integrate_to`
+- `slatec::ode::Driv2Session::<f32>::integrate_to_with_events`
+- `slatec::ode::Driv2Session::<f64>::integrate_to_with_events`
 - `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
 - `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
 - `slatec::pchip::PiecewiseCubicHermite::evaluate_into`
@@ -931,6 +966,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_non_adaptive_f32`
 - `slatec::quadrature::integrate_oscillatory`
 - `slatec::quadrature::integrate_oscillatory_f32`
+- `slatec::quadrature::integrate_piecewise_polynomial`
 - `slatec::quadrature::integrate_principal_value`
 - `slatec::quadrature::integrate_principal_value_f32`
 - `slatec::quadrature::integrate_singular`

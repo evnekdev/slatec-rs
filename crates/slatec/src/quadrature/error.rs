@@ -7,6 +7,8 @@ pub enum IntegrationError {
     InvalidBounds,
     /// Absolute or relative tolerances violate the driver's contract.
     InvalidTolerance,
+    /// A requested PP derivative is outside the checked polynomial order.
+    InvalidDerivativeOrder,
     /// A breakpoint is non-finite, outside the open interval, or at an endpoint.
     InvalidBreakpoint {
         /// Position in the caller's breakpoint slice.
@@ -74,6 +76,12 @@ impl fmt::Display for IntegrationError {
         match self {
             Self::InvalidBounds => write!(formatter, "integration bounds are invalid"),
             Self::InvalidTolerance => write!(formatter, "integration tolerances are invalid"),
+            Self::InvalidDerivativeOrder => {
+                write!(
+                    formatter,
+                    "piecewise-polynomial derivative order is invalid"
+                )
+            }
             Self::InvalidBreakpoint { index, value } => {
                 write!(formatter, "breakpoint {index} is invalid: {value}")
             }

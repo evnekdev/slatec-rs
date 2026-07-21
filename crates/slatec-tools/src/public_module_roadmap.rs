@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 244;
+const SAFE_FUNCTION_TARGET: usize = 253;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -29,11 +29,13 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "quadrature-oscillatory",
     "quadrature-fourier",
     "quadrature-nonadaptive",
+    "quadrature-piecewise-polynomial",
     "roots-scalar",
     "roots-polynomial",
     "nonlinear-easy",
     "nonlinear-expert",
     "nonlinear-jacobian-check",
+    "nonlinear-systems",
     "least-squares-nonlinear-easy",
     "least-squares-nonlinear-expert",
     "least-squares-covariance",
@@ -581,6 +583,18 @@ fn leaves() -> Vec<LeafSpec> {
             "SerializedGlobal",
             &["slatec::quadrature::integrate_non_adaptive"]
         ),
+        implemented!(
+            "integration::quadrature::piecewise_polynomial",
+            "crates/slatec/src/quadrature/piecewise_polynomial.rs",
+            "quadrature-piecewise-polynomial",
+            "crate::quadrature",
+            "slatec::quadrature",
+            "quadrature-piecewise-polynomial",
+            "f64",
+            "std",
+            "SerializedGlobal",
+            &["slatec::quadrature::integrate_piecewise_polynomial"]
+        ),
         planned!(
             "integration::integral_equations",
             "crates/slatec/src/integration/integral_equations.rs",
@@ -648,6 +662,18 @@ fn leaves() -> Vec<LeafSpec> {
             "alloc",
             "SerializedGlobal",
             &["slatec::nonlinear::check_jacobian"]
+        ),
+        implemented!(
+            "equations::nonlinear::scalar_equations",
+            "crates/slatec/src/nonlinear/systems.rs",
+            "nonlinear-systems",
+            "crate::nonlinear",
+            "slatec::nonlinear",
+            "nonlinear-systems",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            &["slatec::nonlinear::solve_scalar_equations"]
         ),
         implemented!(
             "least_squares::nonlinear::easy",
@@ -1022,6 +1048,11 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "quadrature-piecewise-polynomial",
+            grouped_paths: &["integration::quadrature::piecewise_polynomial"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "roots-scalar",
             grouped_paths: &["equations::roots::scalar"],
             evidence_source: "crates/slatec/Cargo.toml",
@@ -1044,6 +1075,11 @@ fn features() -> Vec<FeatureRecord> {
         FeatureRecord {
             cargo_feature: "nonlinear-jacobian-check",
             grouped_paths: &["equations::nonlinear::jacobian_check"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
+            cargo_feature: "nonlinear-systems",
+            grouped_paths: &["equations::nonlinear::scalar_equations"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
@@ -1156,7 +1192,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         .len();
     if safe_function_count != SAFE_FUNCTION_TARGET {
         return Err(policy(
-            "safe-function count changed during documentation-only milestone",
+            "safe-function count differs from the reviewed safe surface",
         ));
     }
     let capability_counts = capability["capabilities"]
@@ -1174,7 +1210,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 184),
+            ("std".to_owned(), 193),
         ])
     {
         return Err(policy(

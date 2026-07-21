@@ -165,10 +165,10 @@ const CANDIDATES: &[Candidate] = &[
         "MSTATE and WORK/IWORK persist",
         "XERROR; driver state in caller arrays",
         "none",
-        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,6_callback_abort,12_failure",
-        "LENW>=16*N+50; LENIW>=50",
-        "deferred",
-        "convenience_adapter_lacks_full_typed_controls"
+        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,5_callback_abort,6_interpolated,7_failure",
+        "LENW>=N*N+11*N+300; IWORK is private to the native adapter",
+        "reviewed_safe_session",
+        "owned_safe_session_with_scoped_Rust_callback"
     ),
     candidate!(
         "DDRIV1",
@@ -181,10 +181,10 @@ const CANDIDATES: &[Candidate] = &[
         "MSTATE and WORK/IWORK persist",
         "XERROR; driver state in caller arrays",
         "none",
-        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,6_callback_abort,12_failure",
-        "LENW>=16*N+50; LENIW>=50",
-        "deferred",
-        "convenience_adapter_lacks_full_typed_controls"
+        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,5_callback_abort,6_interpolated,7_failure",
+        "LENW>=N*N+11*N+300; IWORK is private to the native adapter",
+        "reviewed_safe_session",
+        "owned_safe_session_with_scoped_Rust_callback"
     ),
     candidate!(
         "SDRIV2",
@@ -197,10 +197,10 @@ const CANDIDATES: &[Candidate] = &[
         "MSTATE and WORK/IWORK persist",
         "XERROR; driver state in caller arrays",
         "none; sample program only prints",
-        "MSTATE adds root_return=5_and_G_abort=7",
-        "LENW>=16*N+2*NROOT+250; LENIW>=50",
-        "deferred",
-        "root_protocol_is_less_complete_than_expert_driver"
+        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,5_root,6_RHS_abort,7_root_abort,8_interpolated,9_failure",
+        "LENW>=16*N+2*NROOT+250 (Adams), N*N+10*N+2*NROOT+250 (Gear), or N*N+17*N+2*NROOT+250 (Automatic); LENIW>=50 (Adams) or N+50",
+        "reviewed_safe_session",
+        "owned_safe_session_with_indexed_zero_based_roots"
     ),
     candidate!(
         "DDRIV2",
@@ -213,10 +213,10 @@ const CANDIDATES: &[Candidate] = &[
         "MSTATE and WORK/IWORK persist",
         "XERROR; driver state in caller arrays",
         "none; sample program only prints",
-        "MSTATE adds root_return=5_and_G_abort=7",
-        "LENW>=16*N+2*NROOT+250; LENIW>=50",
-        "deferred",
-        "root_protocol_is_less_complete_than_expert_driver"
+        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,5_root,6_RHS_abort,7_root_abort,8_interpolated,9_failure",
+        "LENW>=16*N+2*NROOT+250 (Adams), N*N+10*N+2*NROOT+250 (Gear), or N*N+17*N+2*NROOT+250 (Automatic); LENIW>=50 (Adams) or N+50",
+        "reviewed_safe_session",
+        "owned_safe_session_with_indexed_zero_based_roots"
     ),
     candidate!(
         "SDRIV3",
@@ -230,7 +230,7 @@ const CANDIDATES: &[Candidate] = &[
         "no_COMMON_or_SAVE_in_driver; XERROR",
         "none",
         "NSTATE=2_success,3_work,4_tolerance,5_root,6..10_callback_abort,11_interpolated,12_failure",
-        "documented_mode_dependent; SDRIV1 gives 16*N+50 baseline; exact SDRIV3 formula selected by MINT/MITER/IMPL",
+        "documented_mode_dependent; SDRIV1 gives N*N+11*N+300 baseline; exact SDRIV3 formula selected by MINT/MITER/IMPL",
         "recommended",
         "only_f32_f64_RHS_only_first_scope_with_owned_session_and_panic_contained_trampolines"
     ),
@@ -246,7 +246,7 @@ const CANDIDATES: &[Candidate] = &[
         "no_COMMON_or_SAVE_in_driver; XERROR",
         "none",
         "NSTATE=2_success,3_work,4_tolerance,5_root,6..10_callback_abort,11_interpolated,12_failure",
-        "documented_mode_dependent; DDRIV1 gives 16*N+50 baseline; exact DDRIV3 formula selected by MINT/MITER/IMPL",
+        "documented_mode_dependent; DDRIV1 gives N*N+11*N+300 baseline; exact DDRIV3 formula selected by MINT/MITER/IMPL",
         "recommended",
         "only_f32_f64_RHS_only_first_scope_with_owned_session_and_panic_contained_trampolines"
     ),
@@ -261,10 +261,10 @@ const CANDIDATES: &[Candidate] = &[
         "MSTATE and caller work arrays persist",
         "XERROR",
         "none",
-        "same_SDRIV1_status_model",
-        "complex_work_formula_in_source",
-        "deferred",
-        "future_real_f32_f64_family_excludes_complex_API"
+        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,5_callback_abort,6_interpolated,7_failure",
+        "LENW>=N*N+11*N+300",
+        "reviewed_safe_session",
+        "owned_safe_session_with_explicit_Complex32_conversion"
     ),
     candidate!(
         "CDRIV2",
@@ -277,10 +277,10 @@ const CANDIDATES: &[Candidate] = &[
         "MSTATE and caller work arrays persist",
         "XERROR",
         "none",
-        "same_SDRIV2_status_model",
-        "complex_work_formula_in_source",
-        "deferred",
-        "future_real_f32_f64_family_excludes_complex_API"
+        "MSTATE=2_success,3_excess_work,4_tolerance_adjusted,5_root,6_RHS_abort,7_root_abort,8_interpolated,9_failure",
+        "LENW>=16*N+2*NROOT+250 (Adams), N*N+10*N+2*NROOT+250 (Gear), or N*N+17*N+2*NROOT+250 (Automatic); LENIW>=50 (Adams) or N+50",
+        "reviewed_safe_session",
+        "owned_safe_session_with_explicit_Complex32_conversion_and_indexed_zero_based_roots"
     ),
     candidate!(
         "CDRIV3",
