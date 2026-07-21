@@ -8,7 +8,7 @@ Find the zeros of a polynomial with complex coefficients.
 
 ## Description
 
-Abstract This routine computes all zeros of a polynomial of degree NDEG with complex coefficients by computing the eigenvalues of the companion matrix.
+This routine computes all zeros of a polynomial of degree NDEG with complex coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list COEFF(NDEG+1), ROOT(NDEG), WORK(2*NDEG*(NDEG+1))
 
 ## Classification
 
@@ -54,26 +54,45 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Nonlinear equations](../families/nonlinear-equations.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [CPQR79](https://www.netlib.org/slatec/src/cpqr79.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `NDEG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract This routine computes all zeros of a polynomial of degree NDEG with complex coefficients by computing the eigenvalues of the companion matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `COEFF` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ROOT` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `NDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `COEFF` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 3 | `ROOT` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::nonlinear::complex::cpqr79`. Native symbol: `cpqr79_`. Feature: `nonlinear-complex`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_complex32_array_rank1,mut_complex32_array_rank1,mut_i32,mut_f32_array_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+- Normal Code 0  means the roots were computed. - Abnormal Codes 1  more than 30 QR iterations on some eigenvalue of the companion matrix 2  COEFF(1)=0.0 3  NDEG is invalid (less than or equal to 0)
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::roots::complex::cpqr79`. Native symbol: `cpqr79_`. Declaration feature: `nonlinear-complex`. Provider feature: `nonlinear-complex`. ABI fingerprint: `subroutine:void(mut_i32,mut_complex32_array_rank1,mut_complex32_array_rank1,mut_i32,mut_f32_array_rank1)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -83,8 +102,7 @@ This generated status is evidence only; see the [authoritative inventory](../../
 
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
-- Canonical Rust path: `slatec_sys::nonlinear::complex::cpqr79`
-- Compatibility aliases: `none`
+- Canonical Rust path: `slatec_sys::roots::complex::cpqr79`
 - Public declaration feature: `nonlinear-complex`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

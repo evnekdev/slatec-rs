@@ -3,19 +3,25 @@
 //! Regenerate with `slatec-corpus generate-linkage-metadata --offline`.
 #![allow(clippy::missing_safety_doc, unused_imports)]
 
-/// Compatibility re-exports for the canonical reviewed BLAS Level 1 namespace.
+/// Private declaration forwarding for the canonical ABI-sensitive blas namespace.
+#[cfg(feature = "raw-family-blas-complex")]
+pub mod blas_complex {
+    pub use crate::abi_bindings::blas::*;
+}
+
+/// Private declaration forwarding for the canonical reviewed BLAS Level 1 namespace.
 #[cfg(feature = "raw-family-blas-level1")]
 pub mod blas_level1 {
     pub use crate::blas::level1::*;
 }
 
-/// Compatibility re-exports for the canonical reviewed BLAS Level 2 namespace.
+/// Private declaration forwarding for the canonical reviewed BLAS Level 2 namespace.
 #[cfg(feature = "raw-family-blas-level2")]
 pub mod blas_level2 {
     pub use crate::blas::level2::*;
 }
 
-/// Compatibility re-exports for the canonical reviewed BLAS Level 3 namespace.
+/// Private declaration forwarding for the canonical reviewed BLAS Level 3 namespace.
 #[cfg(feature = "raw-family-blas-level3")]
 pub mod blas_level3 {
     pub use crate::blas::level3::*;
@@ -125,6 +131,12 @@ pub mod special_beta {
         #[link_name = "dlbeta_"]
         pub fn dlbeta(a: *mut f64, b: *mut f64) -> f64;
     }
+}
+
+/// Private declaration forwarding for the canonical ABI-sensitive special namespace.
+#[cfg(feature = "raw-family-special-complex")]
+pub mod special_complex {
+    pub use crate::abi_bindings::special::*;
 }
 
 /// Reviewed declarations required by `special-elementary`.

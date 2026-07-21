@@ -19,6 +19,7 @@ pub fn run(root: &Path, output_path: &Path) -> Result<()> {
         "validate-unique-ffi-declarations",
         "validate-public-surface-terminology",
         "validate-release-readiness",
+        "validate-public-api-semantic-review",
         "validate-package-contents",
         "validate-registry-simulation",
     ];

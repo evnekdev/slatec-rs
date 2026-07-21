@@ -8,7 +8,7 @@ Compute the eigenvalues and eigenvectors of a real upper Hessenberg matrix using
 
 ## Description
 
-This subroutine is a translation of the ALGOL procedure HQR2, NUM. MATH. 16, 181-204(1970) by Peters and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 372-395(1971). This subroutine finds the eigenvalues and eigenvectors of a REAL UPPER Hessenberg matrix by the QR method. The eigenvectors of a REAL GENERAL matrix can also be found if ELMHES and ELTRAN or ORTHES and ORTRAN have been used to reduce this general matrix to Hessenberg form and to accumulate the similarity transformations. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix H. N is an INTEGER variable. N must be less than or equal to NM. LOW and IGH are two INTEGER variables determined by the balancing subroutine BALANC. If BALANC has not been used, set LOW=1 and IGH equal to the order of the matrix, N. H contains the upper Hessenberg matrix. H is a two-dimensional REAL array, dimensioned H(NM,N). Z contains the transformation matrix produced by ELTRAN after the reduction by ELMHES, or by ORTRAN after the reduction by ORTHES, if performed. If the eigenvectors of the Hessenberg matrix are desired, Z must contain the identity matrix. Z is a two-dimensional REAL array, dimensioned Z(NM,M). On OUTPUT H has been destroyed. WR and WI contain the real and imaginary parts, respectively, of the eigenvalues. The eigenvalues are unordered except that complex conjugate pairs of values appear consecutively with the eigenvalue having the positive imaginary part first. If an error exit is made, the eigenvalues should be correct for indices IERR+1, IERR+2, ..., N. WR and WI are onedimensional REAL arrays, dimensioned WR(N) and WI(N). Z contains the real and imaginary parts of the eigenvectors. If the J-th eigenvalue is real, the J-th column of Z contains its eigenvector. If the J-th eigenvalue is complex with positive imaginary part, the J-th and (J+1)-th columns of Z contain the real and imaginary parts of its eigenvector. The eigenvectors are unnormalized. If an error exit is made, none of the eigenvectors has been found. IERR is an INTEGER flag set to Zero for normal return, J if the J-th eigenvalue has not been determined after a total of 30*N iterations. The eigenvalues should be correct for indices IERR+1, IERR+2, ..., N, but no eigenvectors are computed. Calls CDIV for complex division. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY
+This subroutine is a translation of the ALGOL procedure HQR2, NUM. MATH. 16, 181-204(1970) by Peters and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 372-395(1971). This subroutine finds the eigenvalues and eigenvectors of a REAL UPPER Hessenberg matrix by the QR method. The eigenvectors of a REAL GENERAL matrix can also be found if ELMHES and ELTRAN or ORTHES and ORTRAN have been used to reduce this general matrix to Hessenberg form and to accumulate the similarity transformations. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix H. N is an INTEGER variable. N must be less than or equal to NM. LOW and IGH are two INTEGER variables determined by the balancing subroutine BALANC. If BALANC has not been used, set LOW=1 and IGH equal to the order of the matrix, N. H contains the upper Hessenberg matrix. H is a two-dimensional REAL array, dimensioned H(NM,N). Z contains the transformation matrix produced by ELTRAN after the reduction by ELMHES, or by ORTRAN after the reduction by ORTHES, if performed. If the eigenvectors of the Hessenberg matrix are desired, Z must contain the identity matrix. Z is a two-dimensional REAL array, dimensioned Z(NM,M). On OUTPUT H has been destroyed. WR and WI contain the real and imaginary parts, respectively, of the eigenvalues. The eigenvalues are unordered except that complex conjugate pairs of values appear consecutively with the eigenvalue having the positive imaginary part first.
 
 ## Classification
 
@@ -52,30 +52,49 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Eigenvalue problems](../families/eigenvalue-problems.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [HQR2](https://www.netlib.org/slatec/lin/hqr2.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `NM` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. | On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | N is the order of the matrix H. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LOW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | LOW and IGH are two INTEGER variables determined by the balancing subroutine BALANC. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IGH` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | LOW and IGH are two INTEGER variables determined by the balancing subroutine BALANC. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `H` | output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (NM, *) | On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. | On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WR` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | WR and WI contain the real and imaginary parts, respectively, of the eigenvalues. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WI` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | WR and WI contain the real and imaginary parts, respectively, of the eigenvalues. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `Z` | output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (NM, *) | On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. | On INPUT NM must be set to the row dimension of the two-dimensional array parameters, H and Z, as declared in the calling program dimension statement. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | If an error exit is made, the eigenvalues should be correct for indices IERR+1, IERR+2, ..., N. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `LOW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `IGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `H` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 6 | `WR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 7 | `WI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 8 | `Z` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::eigen::hqr2`. Native symbol: `hqr2_`. Feature: `eigen`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank2,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+for indices IERR+1, IERR+2, ..., N.  WR and WI are one- dimensional REAL arrays, dimensioned WR(N) and WI(N). Z contains the real and imaginary parts of the eigenvectors. If the J-th eigenvalue is real, the J-th column of Z contains its eigenvector.  If the J-th eigenvalue is complex with positive imaginary part, the J-th and (J+1)-th columns of Z contain the real and imaginary parts of its eigenvector.  The eigenvectors are unnormalized.  If an IERR is an INTEGER flag set to Zero       for normal return, J          if the J-th eigenvalue has not been determined after a total of 30*N iterations. The eigenvalues should be correct for indices IERR+1, IERR+2, ..., N, but no eigenvectors are computed. Calls CDIV for complex division. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::eigen::hqr2`. Native symbol: `hqr2_`. Declaration feature: `eigen`. Provider feature: `linear-algebra-eigen`. ABI fingerprint: `subroutine:void(mut_i32,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank2,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -86,7 +105,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::eigen::hqr2`
-- Compatibility aliases: `slatec_sys::eigen::numerical::hqr2`
 - Public declaration feature: `eigen`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

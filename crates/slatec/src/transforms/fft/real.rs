@@ -2,7 +2,7 @@
 //!
 //! # Status: Implemented
 //!
-//! Enable `fftpack-real`. The compatibility path is `crate::fftpack`.
+//! Enable `fftpack-real`.
 
 #[cfg(feature = "fftpack-real")]
 pub use crate::fftpack::*;

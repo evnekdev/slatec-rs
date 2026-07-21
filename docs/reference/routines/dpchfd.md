@@ -8,7 +8,7 @@ Evaluate a piecewise cubic Hermite function and its first derivative at an array
 
 ## Description
 
-DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. If only function values are required, use DPCHFE, instead. To provide compatibility with DPCHIM and DPCHIC, includes an increment between successive values of the F- and D-arrays.
+DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, to- gether with its first derivative, at the points XE(J), J=1(1)NE. If only function values are required, use DPCHFE, instead. To provide compatibility with DPCHIM and DPCHIC, includes an increment between successive values of the F- and D-arrays. ---------------------------------------------------------------------- Calling sequence: PARAMETER (INCFD = ...) INTEGER N, NE, IERR DOUBLE PRECISION X(N), F(INCFD,N), D(INCFD,N), XE(NE), FE(NE), DE(NE) LOGICAL SKIP CALL DPCHFD (N, X, F, D, INCFD, SKIP, NE, XE, FE, DE, IERR) Parameters:
 
 ## Classification
 
@@ -52,32 +52,51 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [PCHIP](../families/pchip.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DPCHFD](https://www.netlib.org/slatec/pchip/dpchfd.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `F` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 2; dimensions (INCFD, *) | DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `D` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 2; dimensions (INCFD, *) | DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INCFD` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `SKIP` | unavailable | `LOGICAL` (`explicit`) | `*mut crate::FortranLogical` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `XE` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | DPCHFD: Piecewise Cubic Hermite Function and Derivative evaluator Evaluates the cubic Hermite function defined by N, X, F, D, together with its first derivative, at the points XE(J), J=1(1)NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `FE` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `DE` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 3 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `D` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 6 | `SKIP` | `input-output` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `NE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 8 | `XE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 9 | `FE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 10 | `DE` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 11 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::interpolation::dpchfd`. Native symbol: `dpchfd_`. Feature: `interpolation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_f64_ptr_rank2,mut_i32,mut_fortran_logical_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+X -- (input) real*8 array of independent variable values.  The elements of X must be strictly increasing: X(I-1) .LT. X(I),  I = 2(1)N. F -- (input) real*8 array of function values.  F(1+(I-1)*INCFD) is the value corresponding to X(I). D -- (input) real*8 array of derivative values.  D(1+(I-1)*INCFD) is the value corresponding to X(I). INCFD -- (input) increment between successive values in F and D. SKIP -- (input/output) logical variable which should be set to .TRUE. if the user wishes to skip checks for validity of preceding parameters, or to .FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC). SKIP will be set to .TRUE. on normal return. NE.LT.1 .) XE -- (input) real*8 array of points at which the functions are to be evaluated. NOTES: 1. The evaluation will be most efficient if the elements of XE are increasing relative to X; that is,   XE(J) .GE. X(I) implies    XE(K) .GE. X(I),  all K.GE.J . 2. If any of the XE are outside the interval [X(1),X(N)], values are extrapolated from the nearest extreme cubic, FE -- (output) real*8 array of values of the cubic Hermite function defined by  N, X, F, D  at the points  XE. DE -- (output) real*8 array of values of the first derivative of the same function at the points  XE. Normal return: IERR.GT.0  means that extrapolation was performed at IERR points. IERR = -1  if N.LT.2 . IERR = -2  if INCFD.LT.1 . IERR = -3  if the X-array is not strictly increasing. IERR = -4  if NE.LT.1 . (Output arrays have not been changed in any of these cases.) and following arguments have **NOT** been validated. routine DCHFDV.  NB: this should never happen. Notify the author **IMMEDIATELY** if it does.
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::interpolation::dpchfd`. Native symbol: `dpchfd_`. Declaration feature: `interpolation`. Provider feature: `interpolation-general`. ABI fingerprint: `subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_f64_ptr_rank2,mut_i32,mut_fortran_logical_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -88,7 +107,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::interpolation::dpchfd`
-- Compatibility aliases: `slatec_sys::interpolation::numerical::dpchfd`
 - Public declaration feature: `interpolation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

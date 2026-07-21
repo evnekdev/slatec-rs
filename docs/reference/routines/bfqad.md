@@ -91,7 +91,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `unsupported-abi`
 - ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-callbacks`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

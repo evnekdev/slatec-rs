@@ -2,7 +2,7 @@
 //!
 //! Every matrix is a column-major slice with explicit leading dimension.
 
-use slatec_sys::families::blas_level3 as raw;
+use slatec_sys::blas::level3 as raw;
 
 use super::super::validation::{
     count, gemm_stored_shapes, input_pointer, output_pointer, triangular_order, validate_matrix,

@@ -29,12 +29,6 @@
       "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"external-backend\", \"special-gamma\"] }",
       "result": "pass",
       "workspace_path_dependencies": 0
-    },
-    {
-      "configuration": "compatibility-reexport",
-      "dependency": "slatec-sys = { version = \"=0.1.0\", default-features = false, features = [\"special-airy\"] }",
-      "result": "pass",
-      "workspace_path_dependencies": 0
     }
   ],
   "local_packages": [

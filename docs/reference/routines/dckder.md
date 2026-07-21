@@ -8,7 +8,7 @@ Check the gradients of M nonlinear functions in N variables, evaluated at a poin
 
 ## Description
 
-This subroutine is a companion routine to DNSQ and DNSQE. It may be used to check the coding of the Jacobian calculation. SUBROUTINE DCKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. The user must call DCKDER twice, first with MODE = 1 and then with MODE = 2. MODE = 1. On input, X must contain the point of evaluation. On output, XP is set to a neighboring point. MODE = 2. On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated at X, and FVECP must contain the functions evaluated at XP. On output, ERR contains measures of correctness of the respective gradients. The subroutine does not perform reliably if cancellation or rounding errors cause a severe loss of significance in the evaluation of a function. Therefore, none of the components of X should be unusually small (in particular, zero) or any other value which may cause loss of significance. The SUBROUTINE statement is SUBROUTINE DCKDER(M,N,X,FVEC,FJAC,LDFJAC,XP,FVECP,MODE,ERR) where M is a positive integer input variable set to the number of functions. N is a positive integer input variable set to the number of variables. X is an input array of length N. FVEC is an array of length M. On input when MODE = 2, FVEC must contain the functions evaluated at X. FJAC is an M by N array. On input when MODE = 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. LDFJAC is a positive integer input parameter not less than M which specifies the leading dimension of the array FJAC. XP is an array of length N. On output when MODE = 1, XP is set to a neighboring point of X. FVECP is an array of length M. On input when MODE = 2, FVECP must contain the functions evaluated at XP. MODE is an integer input variable set to 1 on the first call and 2 on the second. Other values of MODE are equivalent to MODE = 1. ERR is an array of length M. On output when MODE = 2, ERR contains measures of correctness of the respective gradients. If there is no severe loss of significance, then if ERR(I) is 1.0 the I-th gradient is correct, while if ERR(I) is 0.0 the I-th gradient is incorrect. For values of ERR between 0.0 and 1.0, the categorization is less certain. In general, a value of ERR(I) greater than 0.5 indicates that the I-th gradient is probably correct, while a value of ERR(I) less than 0.5 indicates that the I-th gradient is probably incorrect.
+This subroutine is a companion routine to DNSQ and DNSQE. It may be used to check the coding of the Jacobian calculation. SUBROUTINE DCKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. The user must call DCKDER twice, first with MODE = 1 and then with MODE = 2. MODE = 1. On input, X must contain the point of evaluation. On output, XP is set to a neighboring point. MODE = 2. On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated at X, and FVECP must contain the functions evaluated at XP. On output, ERR contains measures of correctness of the respective gradients. The subroutine does not perform reliably if cancellation or
 
 ## Classification
 
@@ -54,31 +54,50 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `complete_structured`
-- Description provenance: `source_prologue`
-- Assessment: the selected source supplies a meaningful description and separable evidence for every argument
-- Dedicated family page: [Nonlinear equations](../families/nonlinear-equations.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DCKDER](https://www.netlib.org/slatec/src/dckder.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `M` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | SUBROUTINE DCKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | SUBROUTINE DCKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `FVEC` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated at X, and FVECP must contain the functions evaluated at XP. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `FJAC` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 2; dimensions (LDFJAC, *) | On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated at X, and FVECP must contain the functions evaluated at XP. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDFJAC` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The SUBROUTINE statement is SUBROUTINE DCKDER(M,N,X,FVEC,FJAC,LDFJAC,XP,FVECP,MODE,ERR) where M is a positive integer input variable set to the number of functions. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `XP` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | On output, XP is set to a neighboring point. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `FVECP` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated at X, and FVECP must contain the functions evaluated at XP. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MODE` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The user must call DCKDER twice, first with MODE = 1 and then with MODE = 2. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ERR` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | On output, ERR contains measures of correctness of the respective gradients. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `FVEC` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 5 | `FJAC` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDFJAC, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 6 | `LDFJAC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `XP` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 8 | `FVECP` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 9 | `MODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 10 | `ERR` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::nonlinear::jacobian_check::dckder`. Native symbol: `dckder_`. Feature: `nonlinear`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+evaluation of a function. Therefore, none of the components of X should be unusually small (in particular, zero) or any other value which may cause loss of significance. The SUBROUTINE statement is SUBROUTINE DCKDER(M,N,X,FVEC,FJAC,LDFJAC,XP,FVECP,MODE,ERR) where M is a positive integer input variable set to the number of functions. N is a positive integer input variable set to the number of variables. X is an input array of length N. FVEC is an array of length M. On input when MODE = 2, FVEC must contain the functions evaluated at X. FJAC is an M by N array. On input when MODE = 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. LDFJAC is a positive integer input parameter not less than M which specifies the leading dimension of the array FJAC. XP is an array of length N. On output when MODE = 1, XP is set to a neighboring point of X. FVECP is an array of length M. On input when MODE = 2, FVECP must contain the functions evaluated at XP. MODE is an integer input variable set to 1 on the first call and 2 on the second. Other values of MODE are equivalent to MODE = 1. ERR is an array of length M. On output when MODE = 2, ERR contains measures of correctness of the respective gradients. If there is no severe loss of significance, then if ERR(I) is 1.0 the I-th gradient is correct, while if ERR(I) is 0.0 the I-th gradient is incorrect. For values of ERR between 0.0 and 1.0, the categorization is less certain. In general, a value of ERR(I) greater than 0.5 indicates that the I-th gradient is probably correct, while a value of ERR(I) less than 0.5 indicates that the I-th gradient is probably incorrect.
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::nonlinear::jacobian_check::dckder`. Native symbol: `dckder_`. Declaration feature: `nonlinear`. Provider feature: `nonlinear-jacobian`. ABI fingerprint: `subroutine:void(mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -89,7 +108,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::nonlinear::jacobian_check::dckder`
-- Compatibility aliases: `slatec_sys::nonlinear::numerical::dckder`
 - Public declaration feature: `nonlinear`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

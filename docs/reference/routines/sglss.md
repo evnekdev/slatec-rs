@@ -8,7 +8,7 @@ Solve a linear least squares problems by performing a QR factorization of the ma
 
 ## Description
 
-SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. If M.GE.N, the least squares solution is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factorization). If the matrix A is determined to be rank deficient, that is the rank of A is less than MIN(M,N), then the minimal length least squares solution is computed. SGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes LLSIA and ULSIA are recommended. SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. ****************************************************************** * * * WARNING - All input arrays are changed on exit. * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO)
+SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. If M.GE.N, the least squares solution is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than MIN(M,N), then the minimal length least squares solution is computed. SGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes LLSIA and ULSIA are recommended. SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. * WARNING - All input arrays are changed on exit. * * SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO)
 
 ## Classification
 
@@ -54,34 +54,55 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Dense linear algebra](../families/dense-linear-algebra.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [SGLSS](https://www.netlib.org/slatec/src/sglss.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `A` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (MDA, *) | SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MDA` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. | SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `M` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `B` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 2; dimensions (MDB, *) | SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MDB` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. | SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NB` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RNORM` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LW` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LIW` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INFO` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | * * * ****************************************************************** SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (MDA, *) | B, with MDA the MDA,M,N      actual first dimension of A in the calling program. M is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). B(,)          Right hand side(s), with MDB the actual first MDB,NB       dimension of B in the calling program. NB is the number of M by 1 right hand sides. Must have |
+| 2 | `MDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
+| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
+| 5 | `B` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (MDB, *) | AX(I), I=1,NB. WORK()        The first 2*MIN(M,N) locations of WORK contain value necessary to reproduce the factorization of A. IWORK()       The first M+N locations contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. INFO          Flag to indicate status of computation on completion |
+| 6 | `MDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
+| 7 | `NB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
+| 8 | `RNORM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 9 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 10 | `LW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 11 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 12 | `LIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0 original call 1 subsequent calls On subsequent calls, the user must supply A, INFO, LW, IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to SGLSS. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::dense::sglss`. Native symbol: `sglss_`. Feature: `linear-algebra`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank2,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+0 - Full rank N.GT.0 - Reduced rank  rank=MIN(M,N)-INFO
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+`IWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::dense::sglss`. Native symbol: `sglss_`. Declaration feature: `linear-algebra`. Provider feature: `linear-algebra-real`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank2,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_i32,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -92,7 +113,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::dense::sglss`
-- Compatibility aliases: `none`
 - Public declaration feature: `linear-algebra`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

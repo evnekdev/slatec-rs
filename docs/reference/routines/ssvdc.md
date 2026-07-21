@@ -52,34 +52,53 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Dense linear algebra](../families/dense-linear-algebra.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [SSVDC](https://www.netlib.org/slatec/lin/ssvdc.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `X` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (LDX, *) | SSVDC is a subroutine to reduce a real NxP matrix X by orthogonal transformations U and V to diagonal form. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDX` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On Entry X REAL(LDX,P), where LDX .GE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `P` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On Entry X REAL(LDX,P), where LDX .GE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `S` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | The elements S(I) are the singular values of X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `E` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | E REAL(P). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `U` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (LDU, *) | SSVDC is a subroutine to reduce a real NxP matrix X by orthogonal transformations U and V to diagonal form. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDU` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | LDU INTEGER LDU is the leading dimension of the array U. | LDU INTEGER LDU is the leading dimension of the array U. Leading dimension: LDU INTEGER LDU is the leading dimension of the array U. Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `V` | input/output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (LDV, *) | SSVDC is a subroutine to reduce a real NxP matrix X by orthogonal transformations U and V to diagonal form. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDV` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | LDV INTEGER LDV is the leading dimension of the array V. | LDV INTEGER LDV is the leading dimension of the array V. Leading dimension: LDV INTEGER LDV is the leading dimension of the array V. Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | input | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | WORK REAL(N) work is a scratch array. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JOB` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | JOB INTEGER JOB controls the computation of the singular vectors. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INFO` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | However, see the discussion of INFO for exceptions. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `X` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDX, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `S` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 6 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 7 | `U` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDU, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 8 | `LDU` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 9 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDV, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 10 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 11 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 12 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::dense::ssvdc`. Native symbol: `ssvdc_`. Feature: `linear-algebra`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::dense::ssvdc`. Native symbol: `ssvdc_`. Declaration feature: `linear-algebra`. Provider feature: `linear-algebra-real`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank1,mut_i32,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -90,7 +109,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::dense::ssvdc`
-- Compatibility aliases: `none`
 - Public declaration feature: `linear-algebra`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

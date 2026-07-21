@@ -8,7 +8,7 @@ Compute the coefficients of the polynomial fit (including Hermite polynomial fit
 
 ## Description
 
-Written by Robert E. Huddleston, Sandia Laboratories, Livermore Abstract Subroutine POLCOF computes the coefficients of the polynomial fit (including Hermite polynomial fits ) produced by a previous call to POLINT. The coefficients of the polynomial, expanded about XX, are stored in the array D. The expansion is of the form P(Z) = D(1) + D(2)*(Z-XX) +D(3)*((Z-XX)**2) + ... + D(N)*((Z-XX)**(N-1)). Between the call to POLINT and the call to POLCOF the variable N and the arrays X and C must not be altered. ***** INPUT PARAMETERS XX - The point about which the Taylor expansion is to be made. N - **** * N, X, and C must remain unchanged between the X - * call to POLINT or the call to POLCOF. C - **** ***** OUTPUT PARAMETER D - The array of coefficients for the Taylor expansion as explained in the abstract ***** STORAGE PARAMETER WORK - This is an array to provide internal working storage. It must be dimensioned by at least 2*N in the calling program. **** Note - There are two methods for evaluating the fit produced by POLINT. You may call POLYVL to perform the task, or you may call POLCOF to obtain the coefficients of the Taylor expansion and then write your own evaluation scheme. Due to the inherent errors in the computations of the Taylor expansion from the Newton coefficients produced by POLINT, much more accuracy may be expected by calling POLYVL as opposed to writing your own scheme.
+Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLCOF computes the coefficients of the polynomial fit (including Hermite polynomial fits ) produced by a previous call to POLINT. The coefficients of the polynomial, expanded about XX, are stored in the array D. The expansion is of the form P(Z) = D(1) + D(2)*(Z-XX) +D(3)*((Z-XX)**2) + ... + D(N)*((Z-XX)**(N-1)). Between the call to POLINT and the call to POLCOF the variable N and the arrays X and C must not be altered.
 
 ## Classification
 
@@ -53,27 +53,46 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Interpolation](../families/interpolation.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [POLCOF](https://www.netlib.org/slatec/src/polcof.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `XX` | input | `REAL` (`implicit_rule`) | `*mut f32` | scalar | The coefficients of the polynomial, expanded about XX, are stored in the array D. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | + D(N)*((Z-XX)**(N-1)). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | input | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Between the call to POLINT and the call to POLCOF the variable N and the arrays X and C must not be altered. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `C` | input | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | Between the call to POLINT and the call to POLCOF the variable N and the arrays X and C must not be altered. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `D` | output | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | The coefficients of the polynomial, expanded about XX, are stored in the array D. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `REAL` (`implicit_rule`) | `*mut f32` | rank 1; dimensions (*) | C - **** ***** OUTPUT PARAMETER D - The array of coefficients for the Taylor expansion as explained in the abstract ***** STORAGE PARAMETER WORK - This is an array to provide internal working storage. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `XX` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | The point about which the Taylor expansion is to be made. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | **** N, X, and C must remain unchanged between the |
+| 3 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | *     call to POLINT or the call to POLCOF. |
+| 4 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | **** OUTPUT PARAMETER |
+| 5 | `D` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | The array of coefficients for the Taylor expansion as explained in the abstract STORAGE PARAMETER |
+| 6 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | This is an array to provide internal working storage. It must be dimensioned by at least 2*N in the calling program. Note - There are two methods for evaluating the fit produced by POLINT. You may call POLYVL to perform the task, or you may call POLCOF to obtain the coefficients of the Taylor expansion and |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::interpolation::polcof`. Native symbol: `polcof_`. Feature: `interpolation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+in the computations of the Taylor expansion from the Newton coefficients produced by POLINT, much more accuracy may be expected by calling POLYVL as opposed to writing your own scheme.
+
+### Storage and workspace requirements
+
+`WORK`: This is an array to provide internal working storage. It must be dimensioned by at least 2*N in the calling program. Note - There are two methods for evaluating the fit produced by POLINT. You may call POLYVL to perform the task, or you may call POLCOF to obtain the coefficients of the Taylor expansion and
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::interpolation::polcof`. Native symbol: `polcof_`. Declaration feature: `interpolation`. Provider feature: `interpolation-general`. ABI fingerprint: `subroutine:void(mut_f32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank1)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -84,7 +103,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::interpolation::polcof`
-- Compatibility aliases: `slatec_sys::interpolation::numerical::polcof`
 - Public declaration feature: `interpolation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

@@ -1,4 +1,4 @@
-use slatec_sys::families::blas_level1 as raw;
+use slatec_sys::blas::level1 as raw;
 
 use super::super::{BlasError, validation};
 use super::audited_candidate_call;

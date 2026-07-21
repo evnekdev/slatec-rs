@@ -106,11 +106,6 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"external-backend\", \"special-gamma\"] }",
             source: "fn main() { let _ = slatec::special::gamma::gamma(1.0_f64); }\n",
         },
-        Consumer {
-            name: "compatibility-reexport",
-            dependency: "slatec-sys = { version = \"=0.1.0\", default-features = false, features = [\"special-airy\"] }",
-            source: "#[allow(deprecated)] fn main() { let canonical = slatec_sys::special::airy::ai as *const (); let legacy = slatec_sys::families::special_airy::ai as *const (); assert_eq!(canonical, legacy); }\n",
-        },
     ];
     let consumer_root = simulation.join("consumers");
     let mut records = Vec::new();

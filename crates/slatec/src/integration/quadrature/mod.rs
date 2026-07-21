@@ -2,7 +2,6 @@
 //!
 //! # Status: Implemented
 //!
-//! The compatibility path is `crate::quadrature`.
 
 /// Basic adaptive finite and infinite integration.
 pub mod basic;

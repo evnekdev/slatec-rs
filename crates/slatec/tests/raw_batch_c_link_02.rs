@@ -4,5 +4,5 @@
 
 #[test]
 fn links_batch_c_symbols() {
-    let _ = slatec_sys::nonlinear::complex::rpzero as *const ();
+    let _ = slatec_sys::roots::complex::rpzero as *const ();
 }

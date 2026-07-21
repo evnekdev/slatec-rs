@@ -88,8 +88,7 @@ const MACHINE_SUPPORT: &[&str] = &["D1MACH", "DCHKW", "I1MACH", "R1MACH", "SCHKW
 const RUNTIME_SUPPORT: &[&str] = &["LSAME", "NUMXER"];
 
 const DISPOSITIONS: &[&str] = &[
-    "public-raw",
-    "public-compatibility-alias",
+    "canonical-public",
     "raw-internal",
     "provider-subsidiary",
     "runtime-support",
@@ -294,7 +293,6 @@ fn build(paths: &BatchDPaths<'_>) -> Result<Artifacts> {
         } else {
             "selected_provider_verified"
         };
-        let alias_paths = alias_paths(record);
         final_records.push(json!({
             "routine":routine,
             "source_file":field(record,"source_file"),
@@ -305,7 +303,6 @@ fn build(paths: &BatchDPaths<'_>) -> Result<Artifacts> {
             "historical_role":field(record,"historical_role"),
             "current_raw_status":field(record,"raw_api_state"),
             "canonical_rust_path":field(record,"canonical_rust_path"),
-            "compatibility_paths":alias_paths,
             "feature":field(record,"feature"),
             "provider_feature":field(record,"provider_feature"),
             "abi_classification":abi_record.map(|item| field(item,"abi_class")).unwrap_or_else(|| "not_available".to_owned()),
@@ -410,7 +407,7 @@ fn build(paths: &BatchDPaths<'_>) -> Result<Artifacts> {
             "files":files.keys().cloned().collect::<Vec<_>>(),
         }))?,
     );
-    let public = count_disposition(&final_records, "public-raw");
+    let public = count_disposition(&final_records, "canonical-public");
     let unexplained = summary
         .pointer("/counts/identities_remaining_unexplained")
         .and_then(Value::as_u64)
@@ -430,7 +427,7 @@ fn disposition(record: &Value) -> String {
     let state = field(record, "raw_api_state");
     let routine = field(record, "routine");
     if is_public_state(&state) {
-        return "public-raw".to_owned();
+        return "canonical-public".to_owned();
     }
     if field(record, "program_unit_kind") == "program" {
         return "demonstration-program".to_owned();
@@ -496,13 +493,13 @@ fn reason(
 ) -> Vec<String> {
     let routine = field(record, "routine");
     match disposition {
-        "public-raw" if field(record, "raw_api_state") == "batch_d_public_driver" => vec![
+        "canonical-public" if field(record, "raw_api_state") == "batch_d_public_driver" => vec![
             "existing mathematical-family declaration".to_owned(),
             "selected source hash and compiler-observed symbol".to_owned(),
             "safe-wrapper audit and native family regression".to_owned(),
             "Batch D canonical-path and native-link probe".to_owned(),
         ],
-        "public-raw" => vec![format!(
+        "canonical-public" => vec![format!(
             "preserved prior {} disposition",
             field(record, "raw_api_state")
         )],
@@ -571,7 +568,9 @@ fn evidence_sources(record: &Value, disposition: &str) -> Vec<String> {
         sources.insert("generated/program-units/program-units.json".to_owned());
         sources.insert("generated/program-units/entry-points.json".to_owned());
     }
-    if disposition == "public-raw" && field(record, "raw_api_state") == "batch_d_public_driver" {
+    if disposition == "canonical-public"
+        && field(record, "raw_api_state") == "batch_d_public_driver"
+    {
         sources.insert("metadata/raw-api-corrections.json".to_owned());
     }
     if matches!(field(record, "routine").as_str(), "BVSUP" | "DBVSUP") {
@@ -589,7 +588,7 @@ fn reopen_condition(disposition: &str) -> &'static str {
             "only a rights-cleared selected provider with reproducible source, symbol, and closure evidence"
         }
         "catalogue-only" => "only a verified callable source provider for this exact identity",
-        "public-raw" => "not applicable; ABI corrections remain evidence-driven safety fixes",
+        "canonical-public" => "not applicable; ABI corrections remain evidence-driven safety fixes",
         _ => "reopen only if authoritative source, role, or provider evidence changes",
     }
 }
@@ -629,7 +628,7 @@ fn validate_record(
     src_features: &BTreeSet<String>,
 ) -> Result<()> {
     let routine = field(record, "routine");
-    if disposition == "public-raw" {
+    if disposition == "canonical-public" {
         for key in ["canonical_rust_path", "feature", "provider_feature"] {
             let value = field(record, key);
             if value.is_empty() || matches!(value.as_str(), "not_promoted" | "not_assigned") {
@@ -666,7 +665,7 @@ fn validate_record(
             )));
         }
     }
-    if field(record, "program_unit_kind") == "program" && disposition == "public-raw" {
+    if field(record, "program_unit_kind") == "program" && disposition == "canonical-public" {
         return Err(policy(&format!("PROGRAM unit {routine} became public")));
     }
     if disposition == "missing-symbol" && field(record, "link_test_status") == "passed" {
@@ -685,7 +684,7 @@ fn summary(records: &[Value]) -> Value {
             json!(count_disposition(records, disposition)),
         );
     }
-    let public = count_disposition(records, "public-raw");
+    let public = count_disposition(records, "canonical-public");
     let batch_d = records
         .iter()
         .filter(|record| field(record, "current_raw_status") == "batch_d_public_driver")
@@ -699,15 +698,6 @@ fn summary(records: &[Value]) -> Value {
     counts.insert(
         "public_raw_identities_after_batch_d".to_owned(),
         json!(public),
-    );
-    counts.insert(
-        "public_compatibility_aliases".to_owned(),
-        json!(
-            records
-                .iter()
-                .map(|record| alias_paths(record).len())
-                .sum::<usize>()
-        ),
     );
     counts.insert("identities_with_approved_shims".to_owned(), json!(0));
     counts.insert("identities_remaining_unexplained".to_owned(), json!(0));
@@ -780,7 +770,7 @@ fn validate_aggregate(records: &[Value], summary: &Value) -> Result<()> {
                 )));
             }
         }
-        if field(record, "final_disposition") == "public-raw" {
+        if field(record, "final_disposition") == "canonical-public" {
             if matches!(
                 field(record, "public_role").as_str(),
                 "internal_subsidiary" | "runtime_support" | "not_independently_callable"
@@ -802,13 +792,6 @@ fn validate_aggregate(records: &[Value], summary: &Value) -> Result<()> {
                 return Err(policy(&format!(
                     "duplicate canonical public path {canonical}"
                 )));
-            }
-            for alias in alias_paths(record) {
-                if !paths.insert(alias.clone()) {
-                    return Err(policy(&format!(
-                        "duplicate public compatibility path {alias}"
-                    )));
-                }
             }
         }
         if is_permanent_exclusion(&disposition)
@@ -871,12 +854,11 @@ fn validate_aggregate(records: &[Value], summary: &Value) -> Result<()> {
 fn public_coverage(records: &[Value]) -> Value {
     let public = records
         .iter()
-        .filter(|record| field(record, "final_disposition") == "public-raw")
+        .filter(|record| field(record, "final_disposition") == "canonical-public")
         .map(|record| {
             json!({
                 "routine":field(record,"routine"),
                 "canonical_rust_path":field(record,"canonical_rust_path"),
-                "compatibility_paths":record.get("compatibility_paths").cloned().unwrap_or_else(|| json!([])),
                 "feature":field(record,"feature"),
                 "provider_feature":field(record,"provider_feature"),
                 "promotion_state":field(record,"current_raw_status"),
@@ -970,7 +952,6 @@ fn summary_markdown(summary: &Value) -> String {
 - Public raw identities before Batch D: {}\n\
 - New Batch D public declarations: {}\n\
 - Public raw identities after Batch D: {} ({}% of retained identities)\n\
-- Public compatibility paths: {}\n\
 - Provider subsidiaries: {}\n\
 - Raw-internal identities: {}\n\
 - Runtime/error/machine support: {}/{}/{}\n\
@@ -993,7 +974,6 @@ Complete means every retained identity has one evidence-backed terminal disposit
         summary["percentages"]["retained_identities_public"]
             .as_str()
             .unwrap_or("0"),
-        value("public_compatibility_aliases"),
         value("provider_subsidiary"),
         value("raw_internal"),
         value("runtime_support"),
@@ -1053,21 +1033,6 @@ fn link_probe(records: &[Value]) -> String {
     }
     output.push_str("}\n");
     output
-}
-
-fn alias_paths(record: &Value) -> Vec<String> {
-    let canonical = field(record, "canonical_rust_path");
-    let mut paths = BTreeSet::new();
-    for key in ["compatibility_paths", "legacy_rust_paths"] {
-        if let Some(items) = record.get(key).and_then(Value::as_array) {
-            for item in items.iter().filter_map(Value::as_str) {
-                if item != canonical {
-                    paths.insert(item.to_owned());
-                }
-            }
-        }
-    }
-    paths.into_iter().collect()
 }
 
 fn common_blocks(path: &Path) -> Result<BTreeMap<String, Vec<String>>> {

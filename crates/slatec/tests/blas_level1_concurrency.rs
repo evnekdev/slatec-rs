@@ -12,8 +12,8 @@
 use std::sync::{Arc, Barrier};
 use std::time::Duration;
 
-use slatec::blas::level1::*;
 use slatec::blas1_concurrency_test_support::{reset, snapshot};
+use slatec::linear_algebra::blas::level1::*;
 use slatec::native_serialization_test_support as hosted;
 use slatec::ode::{OdeOptions, OdeSession, OdeTolerance, OdeTolerances};
 

@@ -8,7 +8,7 @@ Compute the eigenvalues and, optionally, the eigenvectors of a real symmetric ma
 
 ## Description
 
-Abstract SSIEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix. Call Sequence Parameters(The values of parameters marked with * (star) will be changed by SSIEV.) A* REAL (LDA,N) real symmetric input matrix. Only the diagonal and upper triangle of A must be input, as SSIEV copies the upper triangle to the lower. That is, the user must define A(I,J), I=1,..N, and J=I,. ..,N. On return from SSIEV, if the user has set JOB = 0 the lower triangle of A has been altered. = nonzero the N eigenvectors of A are stored in its first N columns. See also INFO below. LDA INTEGER set by the user to the leading dimension of the array A. N INTEGER set by the user to the order of the matrix A and the number of elements in E. E* REAL (N) on return from SSIEV, E contains the N eigenvalues of A. See also INFO below. WORK* REAL (2*N) temporary storage vector. Contents changed by SSIEV. JOB INTEGER set by user on input = 0 only calculate eigenvalues of A. = nonzero calculate eigenvalues and eigenvectors of A. INFO* INTEGER on return from SSIEV, the value of INFO is = 0 for normal return. = K if the eigenvalue iteration fails to converge. eigenvalues and vectors 1 through K-1 are correct. Error MessagesNo. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one
+SSIEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix. Call Sequence Parameters- (The values of parameters marked with * (star) will be changed by SSIEV.) A* REAL (LDA,N) real symmetric input matrix. Only the diagonal and upper triangle of A must be input, as SSIEV copies the upper triangle to the lower. That is, the user must define A(I,J), I=1,..N, and J=I,. ..,N. On return from SSIEV, if the user has set JOB = 0 the lower triangle of A has been altered. = nonzero the N eigenvectors of A are stored in its first N columns. See also INFO below. LDA INTEGER set by the user to the leading dimension of the array A. N INTEGER set by the user to the order of the matrix A and the number of elements in E. E* REAL (N) on return from SSIEV, E contains the N eigenvalues of A. See also INFO below. WORK* REAL (2*N) temporary storage vector. Contents changed by SSIEV. JOB INTEGER set by user on input = 0 only calculate eigenvalues of A. = nonzero calculate eigenvalues and eigenvectors of A. INFO* INTEGER on return from SSIEV, the value of INFO is = 0 for normal return. = K if the eigenvalue iteration fails to converge. eigenvalues and vectors 1 through K-1 are correct.
 
 ## Classification
 
@@ -54,28 +54,47 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `complete_structured`
-- Description provenance: `source_prologue`
-- Assessment: the selected source supplies a meaningful description and separable evidence for every argument
-- Dedicated family page: [Eigenvalue problems](../families/eigenvalue-problems.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [SSIEV](https://www.netlib.org/slatec/src/ssiev.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `A` | output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (LDA, *) | Abstract SSIEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDA` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Call Sequence Parameters(The values of parameters marked with * (star) will be changed by SSIEV.) A* REAL (LDA,N) real symmetric input matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Call Sequence Parameters(The values of parameters marked with * (star) will be changed by SSIEV.) A* REAL (LDA,N) real symmetric input matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `E` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | N INTEGER set by the user to the order of the matrix A and the number of elements in E. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | WORK* REAL (2*N) temporary storage vector. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JOB` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On return from SSIEV, if the user has set JOB = 0 the lower triangle of A has been altered. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INFO` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | See also INFO below. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 5 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 6 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::eigen::ssiev`. Native symbol: `ssiev_`. Feature: `eigen`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+No. 1   recoverable  N is greater than LDA No. 2   recoverable  N is less than one
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::eigen::ssiev`. Native symbol: `ssiev_`. Declaration feature: `eigen`. Provider feature: `linear-algebra-eigen`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -86,7 +105,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::eigen::ssiev`
-- Compatibility aliases: `slatec_sys::eigen::numerical::ssiev`
 - Public declaration feature: `eigen`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

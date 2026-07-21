@@ -1591,7 +1591,7 @@
       "routine": "CPPSL"
     },
     {
-      "intended_canonical_module": "nonlinear::complex",
+      "intended_canonical_module": "roots::complex",
       "primary_family": "Nonlinear equations",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPQR79"
@@ -1633,7 +1633,7 @@
       "routine": "CPTSL"
     },
     {
-      "intended_canonical_module": "nonlinear::complex",
+      "intended_canonical_module": "roots::complex",
       "primary_family": "Nonlinear equations",
       "promotion_state": "batch_c_public_driver",
       "routine": "CPZERO"
@@ -6963,7 +6963,7 @@
     {
       "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "generated_abi_validated",
       "routine": "RFFTB"
     },
     {
@@ -6975,7 +6975,7 @@
     {
       "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "generated_abi_validated",
       "routine": "RFFTF"
     },
     {
@@ -6987,7 +6987,7 @@
     {
       "intended_canonical_module": "fftpack",
       "primary_family": "FFTPACK transforms",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "generated_abi_validated",
       "routine": "RFFTI"
     },
     {
@@ -7027,13 +7027,13 @@
       "routine": "RKFAB"
     },
     {
-      "intended_canonical_module": "nonlinear::complex",
+      "intended_canonical_module": "roots::complex",
       "primary_family": "Nonlinear equations",
       "promotion_state": "batch_c_public_driver",
       "routine": "RPQR79"
     },
     {
-      "intended_canonical_module": "nonlinear::complex",
+      "intended_canonical_module": "roots::complex",
       "primary_family": "Nonlinear equations",
       "promotion_state": "batch_c_public_driver",
       "routine": "RPZERO"
@@ -8811,13 +8811,13 @@
     {
       "intended_canonical_module": "runtime",
       "primary_family": "Error handling",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "runtime_or_machine_support",
       "routine": "XGETF"
     },
     {
       "intended_canonical_module": "runtime",
       "primary_family": "Error handling",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "runtime_or_machine_support",
       "routine": "XGETUA"
     },
     {
@@ -8895,13 +8895,13 @@
     {
       "intended_canonical_module": "runtime",
       "primary_family": "Error handling",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "runtime_or_machine_support",
       "routine": "XSETF"
     },
     {
       "intended_canonical_module": "runtime",
       "primary_family": "Error handling",
-      "promotion_state": "documentation_or_tooling",
+      "promotion_state": "runtime_or_machine_support",
       "routine": "XSETUA"
     },
     {

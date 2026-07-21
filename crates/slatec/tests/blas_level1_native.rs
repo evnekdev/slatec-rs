@@ -14,7 +14,7 @@
 //! cargo test -p slatec --features blas-level1-native-tests --target x86_64-pc-windows-gnu
 //! ```
 
-use slatec::blas::level1::*;
+use slatec::linear_algebra::blas::level1::*;
 
 fn assert_close_f64(actual: f64, expected: f64) {
     assert!(

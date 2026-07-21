@@ -8,7 +8,7 @@ Diagonal Matrix Vector Multiply. Routine to calculate the product X = DIAG*B, wh
 
 ## Description
 
-*Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. B :IN Double Precision B(N). Vector to multiply the diagonal by. X :OUT Double Precision X(N). Result of DIAG*B. NELT :DUMMY Integer. IA :DUMMY Integer IA(NELT). JA :DUMMY Integer JA(NELT). A :DUMMY Double Precision A(NELT). ISYM :DUMMY Integer. These are for compatibility with SLAP MSOLVE calling sequence. RWORK :IN Double Precision RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale B by. This array must be set by the user or by a call to the SLAP routine DSDS or DSD2S. The length of RWORK must be >= IWORK(4)+N. IWORK :IN Integer IWORK(10). IWORK(4) holds the offset into RWORK for the diagonal matrix to scale B by. This is usually set up by the SLAP preconditioner setup routines DSDS or DSD2S. *Description: This routine is supplied with the SLAP package to perform the MSOLVE operation for iterative drivers that require diagonal Scaling (e.g., DSDCG, DSDBCG). It conforms to the SLAP MSOLVE CALLING CONVENTION and hence does not require an interface routine as do some of the other preconditioners supplied with SLAP.
+Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) This routine is supplied with the SLAP package to perform the MSOLVE operation for iterative drivers that require diagonal Scaling (e.g., DSDCG, DSDBCG). It conforms to the SLAP MSOLVE CALLING CONVENTION and hence does not require an interface routine as do some of the other pre- conditioners supplied with SLAP.
 
 ## Classification
 
@@ -51,31 +51,52 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Linear algebra kernels](../families/linear-algebra-kernels.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DSDI](https://www.netlib.org/slatec/lin/dsdi.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `B` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (N) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (N) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NELT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IA` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JA` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `A` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (NELT) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ISYM` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RWORK` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (10) | *Usage: INTEGER N, NELT, IA(NELT), JA(NELT), ISYM, IWORK(10) DOUBLE PRECISION B(N), X(N), A(NELT), RWORK(USER DEFINED) CALL DSDI (N, B, X, NELT, IA, JA, A, ISYM, RWORK, IWORK) *Arguments: N :IN Integer Order of the Matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `B` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (N) | conditioner setup routines DSDS or DSD2S. |
+| 3 | `X` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (N) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
+| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
+| 7 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
+| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 9 | `RWORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 10 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (10) | Workspace argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::blas::level1::dsdi`. Native symbol: `dsdi_`. Feature: `blas-level1`. Provider status: `selected_provider_verified`. ABI fingerprint: `unavailable`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+
+### Storage and workspace requirements
+
+`RWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+`IWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::blas::level1::dsdi`. Native symbol: `dsdi_`. Declaration feature: `blas-level1`. Provider feature: `blas-level1`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -86,7 +107,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `pending`
 - Canonical Rust path: `slatec_sys::blas::level1::dsdi`
-- Compatibility aliases: `slatec_sys::families::blas_level1::dsdi`
 - Public declaration feature: `blas-level1`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

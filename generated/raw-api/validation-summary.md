@@ -16,8 +16,8 @@ This report is generated from exactly one status record per retained catalogue i
 | Link-tested raw routines | 1371 |
 | Runtime-tested raw routines | 768 |
 | Fully documented raw routines | 812 |
-| Explicit exclusions | 130 |
+| Explicit exclusions | 134 |
 
-Documentation audit: 812 public declarations, 0 public records missing fields, 705 queued declarations. Feature/provider reconciliation: `passed`. Roots report entries: 4.
+Documentation audit: 812 public declarations, 0 public records missing fields, 705 queued declarations. Feature/provider reconciliation: `passed`. Roots report entries: 6.
 
 The `slatec_sys::generated` namespace remains transitional, ABI-shaped generated access and is not a stable public namespace.

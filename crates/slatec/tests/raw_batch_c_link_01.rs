@@ -78,10 +78,10 @@ fn links_batch_c_symbols() {
     let _ = slatec_sys::linear_algebra::packed::complex::cppdi as *const ();
     let _ = slatec_sys::linear_algebra::packed::complex::cppfa as *const ();
     let _ = slatec_sys::linear_algebra::packed::complex::cppsl as *const ();
-    let _ = slatec_sys::nonlinear::complex::cpqr79 as *const ();
+    let _ = slatec_sys::roots::complex::cpqr79 as *const ();
     let _ = slatec_sys::special::complex::cpsi as *const ();
     let _ = slatec_sys::linear_algebra::banded::complex::cptsl as *const ();
-    let _ = slatec_sys::nonlinear::complex::cpzero as *const ();
+    let _ = slatec_sys::roots::complex::cpzero as *const ();
     let _ = slatec_sys::linear_algebra::dense::complex::cqrdc as *const ();
     let _ = slatec_sys::linear_algebra::dense::complex::cqrsl as *const ();
     let _ = slatec_sys::linear_algebra::dense::complex::csico as *const ();
@@ -99,5 +99,5 @@ fn links_batch_c_symbols() {
     let _ = slatec_sys::linear_algebra::dense::complex::ctrco as *const ();
     let _ = slatec_sys::linear_algebra::dense::complex::ctrdi as *const ();
     let _ = slatec_sys::linear_algebra::dense::complex::ctrsl as *const ();
-    let _ = slatec_sys::nonlinear::complex::rpqr79 as *const ();
+    let _ = slatec_sys::roots::complex::rpqr79 as *const ();
 }

@@ -8,7 +8,7 @@ Compute normalized Legendre polynomials and associated Legendre functions.
 
 ## Description
 
-XLEGF: Extended-range Single-precision Legendre Functions A feature of the XLEGF subroutine for Legendre functions is the use of extended-range arithmetic, a software extension of ordinary floating-point arithmetic that greatly increases the exponent range of the representable numbers. This avoids the need for scaling the solutions to lie within the exponent range of the most restrictive manufacturer's hardware. The increased exponent range is achieved by allocating an integer storage location together with each floating-point storage location. The interpretation of the pair (X,I) where X is floating-point and I is integer is X*(IR**I) where IR is the internal radix of the computer arithmetic. This subroutine computes one of the following vectors: 1. Legendre function of the first kind of negative order, either a. P(-MU1,NU,X), P(-MU1-1,NU,X), ..., P(-MU2,NU,X) or b. P(-MU,NU1,X), P(-MU,NU1+1,X), ..., P(-MU,NU2,X) 2. Legendre function of the second kind, either a. Q(MU1,NU,X), Q(MU1+1,NU,X), ..., Q(MU2,NU,X) or b. Q(MU,NU1,X), Q(MU,NU1+1,X), ..., Q(MU,NU2,X) 3. Legendre function of the first kind of positive order, either a. P(MU1,NU,X), P(MU1+1,NU,X), ..., P(MU2,NU,X) or b. P(MU,NU1,X), P(MU,NU1+1,X), ..., P(MU,NU2,X) 4. Normalized Legendre polynomials, either a. PN(MU1,NU,X), PN(MU1+1,NU,X), ..., PN(MU2,NU,X) or b. PN(MU,NU1,X), PN(MU,NU1+1,X), ..., PN(MU,NU2,X) where X = COS(THETA). The input values to XLEGF are DNU1, NUDIFF, MU1, MU2, THETA, and ID. These must satisfy DNU1 is REAL and greater than or equal to -0.5; NUDIFF is INTEGER and non-negative; MU1 is INTEGER and non-negative; MU2 is INTEGER and greater than or equal to MU1; THETA is REAL and in the half-open interval (0,PI/2]; ID is INTEGER and equal to 1, 2, 3 or 4; and additionally either NUDIFF = 0 or MU2 = MU1. If ID=1 and NUDIFF=0, a vector of type 1a above is computed with NU=DNU1. If ID=1 and MU1=MU2, a vector of type 1b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=2 and NUDIFF=0, a vector of type 2a above is computed with NU=DNU1. If ID=2 and MU1=MU2, a vector of type 2b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=3 and NUDIFF=0, a vector of type 3a above is computed with NU=DNU1. If ID=3 and MU1=MU2, a vector of type 3b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=4 and NUDIFF=0, a vector of type 4a above is computed with NU=DNU1. If ID=4 and MU1=MU2, a vector of type 4b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). The length of this vector is either MU2-MU1+1 or NUDIFF+1. Where possible, XLEGF returns IPQA(I) as zero. In this case the value of the Legendre function is contained entirely in PQA(I), so it can be used in subsequent computations without further consideration of extended-range arithmetic. If IPQA(I) is nonzero, then the value of the Legendre function is not representable in floating-point because of underflow or overflow. The program that calls XLEGF must test IPQA(I) to ensure correct usage. IERROR is an error indicator. If no errors are detected, IERROR=0 when control returns to the calling routine. If an error is detected, IERROR is returned as nonzero. The calling routine must check the value of IERROR. If IERROR=110 or 111, invalid input was provided to XLEGF. If IERROR=101,102,103, or 104, invalid input was provided to XSET. If IERROR=105 or 106, an internal consistency error occurred in XSET (probably due to a software malfunction in the library routine I1MACH). If IERROR=107, an overflow or underflow of an extended-range number was detected in XADJ. If IERROR=108, an overflow or underflow of an extended-range number was detected in XC210.
+XLEGF: Extended-range Single-precision Legendre Functions A feature of the XLEGF subroutine for Legendre functions is the use of extended-range arithmetic, a software extension of ordinary floating-point arithmetic that greatly increases the exponent range of the representable numbers. This avoids the need for scaling the solutions to lie within the exponent range of the most restrictive manufacturer's hardware. The increased exponent range is achieved by allocating an integer storage location together with each floating-point storage location. The interpretation of the pair (X,I) where X is floating-point and I is integer is X*(IR**I) where IR is the internal radix of the computer arithmetic. This subroutine computes one of the following vectors: 1. Legendre function of the first kind of negative order, either a. P(-MU1,NU,X), P(-MU1-1,NU,X), ..., P(-MU2,NU,X) or b. P(-MU,NU1,X), P(-MU,NU1+1,X), ..., P(-MU,NU2,X) 2. Legendre function of the second kind, either a. Q(MU1,NU,X), Q(MU1+1,NU,X), ..., Q(MU2,NU,X) or b. Q(MU,NU1,X), Q(MU,NU1+1,X), ..., Q(MU,NU2,X) 3. Legendre function of the first kind of positive order, either a. P(MU1,NU,X), P(MU1+1,NU,X), ..., P(MU2,NU,X) or b. P(MU,NU1,X), P(MU,NU1+1,X), ..., P(MU,NU2,X) 4. Normalized Legendre polynomials, either a. PN(MU1,NU,X), PN(MU1+1,NU,X), ..., PN(MU2,NU,X) or b. PN(MU,NU1,X), PN(MU,NU1+1,X), ..., PN(MU,NU2,X) where X = COS(THETA). The input values to XLEGF are DNU1, NUDIFF, MU1, MU2, THETA, and ID. These must satisfy DNU1 is REAL and greater than or equal to -0.5; NUDIFF is INTEGER and non-negative; MU1 is INTEGER and non-negative; MU2 is INTEGER and greater than or equal to MU1; THETA is REAL and in the half-open interval (0,PI/2]; ID is INTEGER and equal to 1, 2, 3 or 4; and additionally either NUDIFF = 0 or MU2 = MU1. If ID=1 and NUDIFF=0, a vector of type 1a above is computed with NU=DNU1. If ID=1 and MU1=MU2, a vector of type 1b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=2 and NUDIFF=0, a vector of type 2a above is computed with NU=DNU1. If ID=2 and MU1=MU2, a vector of type 2b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=3 and NUDIFF=0, a vector of type 3a above is computed with NU=DNU1. If ID=3 and MU1=MU2, a vector of type 3b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=4 and NUDIFF=0, a vector of type 4a above is computed with NU=DNU1. If ID=4 and MU1=MU2, a vector of type 4b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). The length of this vector is either MU2-MU1+1 or NUDIFF+1. Where possible, XLEGF returns IPQA(I) as zero. In this case the value of the Legendre function is contained entirely in PQA(I), so it can be used in subsequent computations without further consideration of extended-range arithmetic. If IPQA(I) is nonzero, then the value of the Legendre function is not representable in floating-point because of underflow or overflow. The program that calls XLEGF must test IPQA(I) to ensure correct usage.
 
 ## Classification
 
@@ -54,30 +54,49 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Special functions](../families/special-functions.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [XLEGF](https://www.netlib.org/slatec/src/xlegf.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `DNU1` | input | `REAL` (`explicit`) | `*mut f32` | scalar | The input values to XLEGF are DNU1, NUDIFF, MU1, MU2, THETA, and ID. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NUDIFF` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | The input values to XLEGF are DNU1, NUDIFF, MU1, MU2, THETA, and ID. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MU1` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | P(-MU1,NU,X), P(-MU1-1,NU,X), ..., P(-MU2,NU,X) or b. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MU2` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | P(-MU1,NU,X), P(-MU1-1,NU,X), ..., P(-MU2,NU,X) or b. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `THETA` | input | `REAL` (`explicit`) | `*mut f32` | scalar | PN(MU,NU1,X), PN(MU,NU1+1,X), ..., PN(MU,NU2,X) where X = COS(THETA). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ID` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | The input values to XLEGF are DNU1, NUDIFF, MU1, MU2, THETA, and ID. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `PQA` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IPQA` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERROR` | input | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | IERROR is an error indicator. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `DNU1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `NUDIFF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `MU1` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `MU2` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `THETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 6 | `ID` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `PQA` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 8 | `IPQA` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 9 | `IERROR` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::special::xlegf`. Native symbol: `xlegf_`. Feature: `special`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+XSET (probably due to a software malfunction in the library routine I1MACH). was detected in XADJ. was detected in XC210.
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::special::xlegf`. Native symbol: `xlegf_`. Declaration feature: `special`. Provider feature: `special-real`. ABI fingerprint: `subroutine:void(mut_f32,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32_ptr_rank1,mut_i32_ptr_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -88,7 +107,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::special::xlegf`
-- Compatibility aliases: `slatec_sys::special::numerical::xlegf`
 - Public declaration feature: `special`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

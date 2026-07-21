@@ -22,6 +22,5 @@ Fortran file names, raw FFI batches, or Cargo feature names.
   metadata, not automatic public namespaces. In particular,
   `special-scalar-expanded` maps to mathematical integral and elliptic leaves.
 
-Existing public paths are compatibility paths. New APIs should normally use
-the grouped domain tree after a reviewed source, ABI, workspace, state, and
-error-contract audit.
+Public APIs use the grouped domain tree after a reviewed source, ABI,
+workspace, state, and error-contract audit.

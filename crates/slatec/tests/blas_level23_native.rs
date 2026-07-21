@@ -9,9 +9,9 @@
 //! validation. This target is intentionally not part of ordinary source-only
 //! CI.
 
-use slatec::blas::level2::*;
-use slatec::blas::level3::*;
-use slatec::blas::{Diagonal, Side, Transpose, Triangle};
+use slatec::linear_algebra::blas::level2::*;
+use slatec::linear_algebra::blas::level3::*;
+use slatec::linear_algebra::blas::{Diagonal, Side, Transpose, Triangle};
 
 fn close_f64(actual: f64, expected: f64) {
     assert!(

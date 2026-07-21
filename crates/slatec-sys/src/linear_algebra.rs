@@ -29,11 +29,6 @@ pub mod dense {
     #[cfg(feature = "raw-family-linear-algebra-complex")]
     pub mod complex {
         pub use crate::abi_bindings::linear_algebra::dense::*;
-
-        #[deprecated(note = "use `slatec_sys::linear_algebra::banded::complex`")]
-        pub use crate::abi_bindings::linear_algebra::banded::*;
-        #[deprecated(note = "use `slatec_sys::linear_algebra::packed::complex`")]
-        pub use crate::abi_bindings::linear_algebra::packed::*;
     }
 }
 

@@ -8,7 +8,7 @@ Compute the largest integer ILEFT in 1 .LE. ILEFT .LE. LXT such that XT(ILEFT) .
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DINTRV is the INTERV routine of the reference. DINTRV computes the largest integer ILEFT in 1 .LE. ILEFT .LE. LXT such that XT(ILEFT) .LE. X where XT(*) is a subdivision of the X interval. Precisely, X .LT. XT(1) 1 -1 if XT(I) .LE. X .LT. XT(I+1) then ILEFT=I , MFLAG=0 XT(LXT) .LE. X LXT 1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. Description of Arguments Input XT,X are double precision XT - XT is a knot or break point vector of length LXT LXT - length of the XT vector X - argument ILO - an initialization parameter which must be set to 1 the first time the spline array XT is processed by DINTRV.
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DINTRV is the INTERV routine of the reference. DINTRV computes the largest integer ILEFT in 1 .LE. ILEFT .LE. LXT such that XT(ILEFT) .LE. X where XT(*) is a subdivision of the X interval. Precisely, X .LT. XT(1) 1 -1 if XT(I) .LE. X .LT. XT(I+1) then ILEFT=I , MFLAG=0 XT(LXT) .LE. X LXT 1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT.
 
 ## Classification
 
@@ -53,27 +53,46 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Interpolation](../families/interpolation.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DINTRV](https://www.netlib.org/slatec/src/dintrv.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `XT` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | LXT such that XT(ILEFT) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LXT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | LXT such that XT(ILEFT) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | X where XT(*) is a subdivision of the X interval. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ILO` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Description of Arguments Input XT,X are double precision XT - XT is a knot or break point vector of length LXT LXT - length of the XT vector X - argument ILO - an initialization parameter which must be set to 1 the first time the spline array XT is processed by DINTRV. | Description of Arguments Input XT,X are double precision XT - XT is a knot or break point vector of length LXT LXT - length of the XT vector X - argument ILO - an initialization parameter which must be set to 1 the first time the spline array XT is processed by DINTRV. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ILEFT` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | DINTRV computes the largest integer ILEFT in 1 .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MFLAG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | XT(I+1) then ILEFT=I , MFLAG=0 XT(LXT) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `XT` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | XT is a knot or break point vector of length LXT |
+| 2 | `LXT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | length of the XT vector |
+| 3 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | argument |
+| 4 | `ILO` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time the spline array XT is processed by DINTRV. ILO contains information for efficient process- ing after the initial call and ILO must not be changed by the user.  Distinct splines require distinct ILO parameters. |
+| 5 | `ILEFT` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer satisfying XT(ILEFT) .LE. X |
+| 6 | `MFLAG` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | signals when X lies out of bounds |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::interpolation::dintrv`. Native symbol: `dintrv_`. Feature: `interpolation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_f64,mut_i32,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+None
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::interpolation::dintrv`. Native symbol: `dintrv_`. Declaration feature: `interpolation`. Provider feature: `interpolation-general`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_f64,mut_i32,mut_i32,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -84,7 +103,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::interpolation::dintrv`
-- Compatibility aliases: `slatec_sys::interpolation::numerical::dintrv`
 - Public declaration feature: `interpolation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

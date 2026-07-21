@@ -2,8 +2,7 @@
 
 - Retained identities: 1517
 - Canonical public raw identities: 812
-- Compatibility re-export paths: 662
 - Inconsistencies: 0
 - Result: `pass`
 
-The cross-check joins catalogue identity, final disposition, authoritative extern ownership, canonical path, compatibility aliases, routine and family pages, alphabetical index membership, feature, provider, native symbol, precision, ABI fingerprint, and structured documentation status.
+The cross-check joins catalogue identity, final disposition, authoritative extern ownership, one canonical path, routine and family pages, alphabetical index membership, feature, provider, native symbol, precision, ABI fingerprint, and structured documentation status.

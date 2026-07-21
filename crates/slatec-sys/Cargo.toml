@@ -19,19 +19,9 @@ include = ["src/**", "tests/**", "Cargo.toml", "README.md", "AGENTS.md", "LICENS
 [features]
 default = []
 ffi-profile-gnu-mingw-x86_64 = []
-raw-ffi = ["raw-ffi-all-validated"]
-raw-ffi-basic = [
-    "raw-ffi-numeric-scalar-subroutines",
-    "raw-ffi-numeric-array-subroutines",
-    "raw-ffi-scalar-functions",
-]
-raw-ffi-abi-sensitive = [
-    "raw-ffi-complex-arguments",
-    "raw-ffi-complex-returns",
-    "raw-ffi-logical",
-    "raw-ffi-character",
-]
-raw-ffi-all-validated = ["raw-ffi-basic", "raw-ffi-abi-sensitive"]
+# Private implementation gates for ABI-shaped declaration owners. They are not
+# documented as public API features; canonical mathematical features select the
+# reviewed declaration surface.
 raw-ffi-numeric-scalar-subroutines = ["ffi-profile-gnu-mingw-x86_64", "all"]
 raw-ffi-numeric-array-subroutines = ["ffi-profile-gnu-mingw-x86_64", "all"]
 raw-ffi-scalar-functions = ["ffi-profile-gnu-mingw-x86_64", "all"]

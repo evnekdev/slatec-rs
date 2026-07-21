@@ -4,5 +4,5 @@
 
 #[test]
 fn imports_batch_c_paths() {
-    let _ = slatec_sys::nonlinear::complex::rpzero as *const ();
+    let _ = slatec_sys::roots::complex::rpzero as *const ();
 }

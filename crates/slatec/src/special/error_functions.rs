@@ -1,6 +1,6 @@
 //! Error functions from the validated SLATEC FNLIB runtime.
 
-use slatec_sys::families::special_error as raw;
+use slatec_sys::special::error as raw;
 
 use super::{SpecialFunctionError, runtime};
 

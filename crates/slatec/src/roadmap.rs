@@ -54,7 +54,6 @@
 //!
 //! Future milestones should first complete focused native inventories and
 //! state/ABI audits, then add an explicit feature, source closure, safe API,
-//! tests, and metadata. Existing compatibility paths remain available and no
-//! removal schedule is established. The generated files
+//! tests, and metadata. The generated files
 //! `public-module-roadmap.json` and `public-module-tree.md` provide the
 //! detailed feature, blocker, and next-milestone records.

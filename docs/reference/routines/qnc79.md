@@ -8,7 +8,7 @@ Integrate a function using a 7-point adaptive Newton-Cotes quadrature rule.
 
 ## Description
 
-Abstract QNC79 is a general purpose program for evaluation of one dimensional integrals of user defined functions. QNC79 will pick its own points for evaluation of the integrand and these will vary from problem to problem. Thus, QNC79 is not designed to integrate over data sets. Moderately smooth integrands will be integrated efficiently and reliably. For problems with strong singularities, oscillations etc., the user may wish to use more sophisticated routines such as those in QUADPACK. One measure of the reliability of QNC79 is the output parameter K, giving the number of integrand evaluations that were needed. Description of Arguments
+QNC79 is a general purpose program for evaluation of one dimensional integrals of user defined functions. QNC79 will pick its own points for evaluation of the integrand and these will vary from problem to problem. Thus, QNC79 is not designed to integrate over data sets. Moderately smooth integrands will be integrated efficiently and reliably. For problems with strong singularities, oscillations etc., the user may wish to use more sophis- ticated routines such as those in QUADPACK. One measure of the reliability of QNC79 is the output parameter K, giving the number of integrand evaluations that were needed.
 
 ## Classification
 
@@ -54,32 +54,47 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Numerical quadrature](../families/numerical-quadrature.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [QNC79](https://www.netlib.org/slatec/src/qnc79.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `FUN` | callback | `REAL` (`explicit`) | `reviewed unsafe extern callback function pointer` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `A` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | Abstract QNC79 is a general purpose program for evaluation of one dimensional integrals of user defined functions. | Abstract QNC79 is a general purpose program for evaluation of one dimensional integrals of user defined functions. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `B` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ERR` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ANS` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `K` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | One measure of the reliability of QNC79 is the output parameter K, giving the number of integrand evaluations that were needed. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `FUN` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | name of external function to be integrated.  This name must be in an EXTERNAL statement in your calling program.  You must write a Fortran function to evaluate FUN.  This should be of the form REAL FUNCTION FUN (X) C C     X can vary from A to B C     FUN(X) should be finite for all X on interval. C ... RETURN END |
+| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | lower limit of integration |
+| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | upper limit of integration (may be less than A) |
+| 4 | `ERR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `ANS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | computed value of the integral.  Hopefully, ANS is accurate to within ERR * integral of ABS(FUN(X)). |
+| 6 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a status code - Normal codes |
+| 7 | `K` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+
+### Return value
+
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
 ### Callback contract
 
-Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
 
-### ABI and safety
+### Error and status values
 
-Canonical path: `slatec_sys::quadrature::qnc79`. Native symbol: `qnc79_`. Feature: `quadrature-nonadaptive`. Provider status: `selected_provider_verified`. ABI fingerprint: `unavailable`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+0 .LT. ERR .LT. 1.0E-3. -1  A equals B, or A and B are too nearly equal to allow normal integration.  ANS is set to zero. - Abnormal code K    - the number of function evaluations actually used to do the integration.  A value of K .GT. 1000 indicates a difficult problem; other programs may be more efficient. QNC79 will gracefully give up if K exceeds 2000.
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::quadrature::qnc79`. Native symbol: `qnc79_`. Declaration feature: `quadrature-nonadaptive`. Provider feature: `quadrature-nonadaptive`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -90,7 +105,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `pending`
 - Canonical Rust path: `slatec_sys::quadrature::qnc79`
-- Compatibility aliases: `none`
 - Public declaration feature: `quadrature-nonadaptive`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

@@ -8,7 +8,7 @@ Compute the determinant and inverse of a complex symmetric matrix using the fact
 
 ## Description
 
-CSIDI computes the determinant and inverse of a complex symmetric matrix using the factors from CSIFA. On Entry A COMPLEX(LDA,N) the output from CSIFA. LDA INTEGER the leading dimension of the array A . N INTEGER the order of the matrix A . KVPT INTEGER(N) the pivot vector from CSIFA. WORK COMPLEX(N) work vector. Contents destroyed. JOB INTEGER JOB has the decimal expansion AB where If B .NE. 0, the inverse is computed, If A .NE. 0, the determinant is computed, For example, JOB = 11 gives both. On Return Variables not requested by JOB are not used. A contains the upper triangle of the inverse of the original matrix. The strict lower triangle is never referenced. DET COMPLEX(2) determinant of original matrix. Determinant = DET(1) * 10.0**DET(2) with 1.0 .LE. ABS(DET(1)) .LT. 10.0 or DET(1) = 0.0. Error Condition A division by zero may occur if the inverse is requested and CSICO has set RCOND .EQ. 0.0 or CSIFA has set INFO .NE. 0 .
+CSIDI computes the determinant and inverse of a complex symmetric matrix using the factors from CSIFA. On Entry A COMPLEX(LDA,N) the output from CSIFA. LDA INTEGER the leading dimension of the array A . N INTEGER the order of the matrix A . KVPT INTEGER(N) the pivot vector from CSIFA. WORK COMPLEX(N) work vector. Contents destroyed. JOB INTEGER JOB has the decimal expansion AB where If B .NE. 0, the inverse is computed, If A .NE. 0, the determinant is computed, For example, JOB = 11 gives both. On Return Variables not requested by JOB are not used. A contains the upper triangle of the inverse of the original matrix. The strict lower triangle is never referenced. DET COMPLEX(2) determinant of original matrix. Determinant = DET(1) * 10.0**DET(2) with 1.0 .LE. ABS(DET(1)) .LT. 10.0 or DET(1) = 0.0.
 
 ## Classification
 
@@ -52,28 +52,47 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Dense linear algebra](../families/dense-linear-algebra.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [CSIDI](https://www.netlib.org/slatec/lin/csidi.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `A` | input/output | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 2; dimensions (LDA, *) | CSIDI computes the determinant and inverse of a complex symmetric matrix using the factors from CSIFA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDA` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On Entry A COMPLEX(LDA,N) the output from CSIFA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On Entry A COMPLEX(LDA,N) the output from CSIFA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `KPVT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `DET` | output | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (2) | DET COMPLEX(2) determinant of original matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | input | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | WORK COMPLEX(N) work vector. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JOB` | input/output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | JOB INTEGER JOB has the decimal expansion AB where If B .NE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `A` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDA, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `KPVT` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 5 | `DET` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (2) | Array argument classified by fixed-form executable read/write analysis. |
+| 6 | `WORK` | `workspace` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 7 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::dense::complex::csidi`. Native symbol: `csidi_`. Feature: `linear-algebra-complex`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_complex32_array_rank2,mut_i32,mut_i32,mut_i32_array_rank1,mut_complex32_array_rank1,mut_complex32_array_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+A division by zero may occur if the inverse is requested and  CSICO  has set RCOND .EQ. 0.0 or  CSIFA  has set  INFO .NE. 0 .
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::dense::complex::csidi`. Native symbol: `csidi_`. Declaration feature: `linear-algebra-complex`. Provider feature: `linear-algebra-complex`. ABI fingerprint: `subroutine:void(mut_complex32_array_rank2,mut_i32,mut_i32,mut_i32_array_rank1,mut_complex32_array_rank1,mut_complex32_array_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -84,7 +103,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::dense::complex::csidi`
-- Compatibility aliases: `none`
 - Public declaration feature: `linear-algebra-complex`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

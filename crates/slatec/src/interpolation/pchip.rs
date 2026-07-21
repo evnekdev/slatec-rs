@@ -2,7 +2,7 @@
 //!
 //! # Status: Implemented
 //!
-//! Enable `pchip`. The compatibility path is `crate::pchip`.
+//! Enable `pchip`.
 
 #[cfg(feature = "pchip")]
 pub use crate::pchip::*;

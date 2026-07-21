@@ -31,7 +31,6 @@ struct PublicRecord {
     routine: String,
     native_symbol: String,
     canonical_path: String,
-    compatibility_paths: Vec<String>,
     feature: String,
     generated_feature: String,
     generated_status: String,
@@ -178,11 +177,11 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
             "native_symbol":record.native_symbol,
             "authoritative_declaration_path":owner.map(|item| format!("crates/slatec-sys/src/{}:{}", item.relative_path, item.line)).unwrap_or_else(|| "missing".to_owned()),
             "canonical_public_path":record.canonical_path,
-            "compatibility_paths":record.compatibility_paths,
             "extern_declaration_count":declarations.len(),
-            "reexport_count":1 + record.compatibility_paths.len() + usize::from(generated_alias_present(&sys_src, &record.routine, &record.canonical_path)?),
+            "public_path_count":1,
+            "private_generated_reexport_present":generated_alias_present(&sys_src, &record.routine, &record.canonical_path)?,
             "abi_fingerprint":record.abi_fingerprint,
-            "feature_gates":{"canonical":record.feature,"legacy_generated":record.generated_feature},
+            "feature_gates":{"canonical":record.feature,"private_declaration":record.generated_feature},
             "consistency_status":if declarations.len() == 1 && signatures.len() == 1 {"consistent"} else {"invalid"},
         }));
     }
@@ -209,7 +208,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
     let report = serde_json::json!({
         "schema_id":"slatec-sys.public-api.ffi-declaration-ownership",
         "schema_version":1,
-        "policy":"Every public native symbol has exactly one private authoritative extern declaration; canonical and compatibility paths are re-exports of that item.",
+        "policy":"Every public native symbol has exactly one private authoritative extern declaration and one canonical public mathematical path. ABI-shaped re-exports are private implementation details.",
         "counts":{
             "public_routines":public.len(),
             "native_symbols_audited":public_symbols.len(),
@@ -226,7 +225,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
     fs::create_dir_all(output_dir)?;
     write_json(&output_dir.join("ffi-declaration-ownership.json"), &report)?;
     let summary = format!(
-        "# FFI declaration ownership\n\n- Public routines: {}\n- Native symbols audited: {}\n- Public extern declarations before consolidation: {}\n- Public extern declarations after consolidation: {}\n- Duplicate public symbols before: {}\n- Duplicate public symbols after: {}\n- ABI-shaped generated re-exports: {}\n- ABI conflicts: {}\n- Result: pass\n",
+        "# FFI declaration ownership\n\n- Canonical public routines: {}\n- Native symbols audited: {}\n- Extern declarations before ownership consolidation: {}\n- Extern declarations after ownership consolidation: {}\n- Duplicate symbols before: {}\n- Duplicate symbols after: {}\n- Private declaration re-exports: {}\n- ABI conflicts: {}\n- Result: pass\n",
         public.len(),
         public_symbols.len(),
         conceptual_before,
@@ -259,9 +258,9 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
 pub fn validate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
     let mut result = generate(root, output_dir)?;
     let source = fs::read_to_string(root.join("crates/slatec-sys/src/lib.rs"))?;
-    if !source.contains("#[path = \"generated_compat.rs\"]\npub mod generated;") {
+    if !source.contains("#[path = \"generated_compat.rs\"]\nmod generated;") {
         return Err(policy(
-            "the ABI-shaped generated module must re-export a private declaration layer",
+            "the ABI-shaped generated module must remain private",
         ));
     }
     for path in rust_files(&root.join("crates/slatec-sys/src"))? {
@@ -270,6 +269,38 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<OwnershipResult> {
             return Err(policy(&format!(
                 "{} contains a complementary cfg declaration branch",
                 path.display()
+            )));
+        }
+        if content.contains("#[deprecated") {
+            return Err(policy(&format!(
+                "{} exposes an unreleased deprecation attribute",
+                path.display()
+            )));
+        }
+        if content.contains("pub mod numerical") {
+            return Err(policy(&format!(
+                "{} exposes an unreleased numerical compatibility namespace",
+                path.display()
+            )));
+        }
+    }
+    let root_source = fs::read_to_string(root.join("crates/slatec-sys/src/lib.rs"))?;
+    for module in [
+        "generated",
+        "families",
+        "special_scalar_expanded",
+        "fftpack_complex",
+        "fishpack_cartesian_2d",
+        "fishpack_pois3d",
+        "banded",
+        "pchip",
+        "bspline",
+        "piecewise_polynomial",
+        "eigen",
+    ] {
+        if root_source.contains(&format!("pub mod {module}")) {
+            return Err(policy(&format!(
+                "slatec-sys exposes the unreleased development module `{module}`"
             )));
         }
     }
@@ -295,7 +326,7 @@ fn public_records(root: &Path) -> Result<Vec<PublicRecord>> {
         .as_array()
         .ok_or_else(|| policy("final-disposition records are missing"))?
     {
-        if field(record, "final_disposition") != "public-raw" {
+        if field(record, "final_disposition") != "canonical-public" {
             continue;
         }
         let routine = field(record, "routine");
@@ -306,13 +337,6 @@ fn public_records(root: &Path) -> Result<Vec<PublicRecord>> {
             routine,
             native_symbol: field(record, "native_symbol").to_ascii_lowercase(),
             canonical_path: field(record, "canonical_rust_path"),
-            compatibility_paths: record["compatibility_paths"]
-                .as_array()
-                .into_iter()
-                .flatten()
-                .filter_map(Value::as_str)
-                .map(str::to_owned)
-                .collect(),
             feature: field(record, "feature"),
             generated_feature: field(status, "generated_declaration_feature"),
             generated_status: field(status, "generated_declaration_status"),

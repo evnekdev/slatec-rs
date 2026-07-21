@@ -8,7 +8,7 @@ Calculate the value of all (possibly) nonzero basis functions at X.
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPVN is the BSPLVN routine of the reference. DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. X .LE. T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. ILEFT is such that T(ILEFT) .LE. X .LT. T(ILEFT+1). A call to DINTRV(T,N+1,X,ILO,ILEFT,MFLAG) produces the proper ILEFT. DBSPVN calculates using the basic algorithm needed in DBSPVD. If only basis functions are desired, setting JHIGH=K and INDEX=1 can be faster than calling DBSPVD, but extra coding is required for derivatives (INDEX=2) and DBSPVD is set up for this purpose. Left limiting values are set up as described in DBSPVD. Description of Arguments Input T,X are double precision T - knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K JHIGH - order of B-spline, 1 .LE. JHIGH .LE. K K - highest possible order INDEX - INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with work, IWORK values saved for subsequent calls to DBSPVN. X - argument of basis functions, T(K) .LE. X .LE. T(N+1) ILEFT - largest integer such that T(ILEFT) .LE. X .LT. T(ILEFT+1) Output VNIKX, WORK are double precision VNIKX - vector of length K for spline values. WORK - a work vector of length 2*K IWORK - a work parameter. Both WORK and IWORK contain information necessary to continue for INDEX = 2. When INDEX = 1 exclusively, these are scratch variables and can be used for other purposes. Error Conditions Improper input is a fatal error.
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPVN is the BSPLVN routine of the reference. DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. X .LE. T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. ILEFT is such that T(ILEFT) .LE. X .LT. T(ILEFT+1). A call to DINTRV(T,N+1,X,ILO,ILEFT,MFLAG) produces the proper ILEFT. DBSPVN calculates using the basic algorithm needed in DBSPVD. If only basis functions are desired, setting JHIGH=K and INDEX=1 can be faster than calling DBSPVD, but extra coding is required for derivatives (INDEX=2) and DBSPVD is set up for this purpose. Left limiting values are set up as described in DBSPVD.
 
 ## Classification
 
@@ -54,30 +54,51 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Interpolation](../families/interpolation.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DBSPVN](https://www.netlib.org/slatec/src/dbspvn.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `T` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JHIGH` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `K` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INDEX` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ILEFT` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | ILEFT is such that T(ILEFT) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `VNIKX` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | T(ILEFT+1) Output VNIKX, WORK are double precision VNIKX - vector of length K for spline values. | T(ILEFT+1) Output VNIKX, WORK are double precision VNIKX - vector of length K for spline values. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | K K - highest possible order INDEX - INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with work, IWORK values saved for subsequent calls to DBSPVN. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K |
+| 2 | `JHIGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, 1 .LE. JHIGH .LE. K |
+| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | highest possible order |
+| 4 | `INDEX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with work, IWORK values saved for subsequent calls to DBSPVN. 2. 1 exclusively, these are scratch variables and can be used for other purposes. |
+| 5 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | argument of basis functions, T(K) .LE. X .LE. T(N+1) |
+| 6 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that T(ILEFT) .LE. X .LT.  T(ILEFT+1) Output     VNIKX, WORK are double precision |
+| 7 | `VNIKX` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | vector of length K for spline values. |
+| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | a work vector of length 2*K |
+| 9 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a work parameter.  Both WORK and IWORK contain |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::interpolation::dbspvn`. Native symbol: `dbspvn_`. Feature: `interpolation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+
+### Storage and workspace requirements
+
+`WORK`: a work vector of length 2*K
+
+`IWORK`: a work parameter.  Both WORK and IWORK contain
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::interpolation::dbspvn`. Native symbol: `dbspvn_`. Declaration feature: `interpolation`. Provider feature: `interpolation-general`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -88,7 +109,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::interpolation::dbspvn`
-- Compatibility aliases: `slatec_sys::interpolation::numerical::dbspvn`
 - Public declaration feature: `interpolation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

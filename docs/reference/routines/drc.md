@@ -8,7 +8,7 @@ Calculate a double precision approximation to DRC(X,Y) = Integral from zero to i
 
 ## Description
 
-1. DRC Standard FORTRAN function routine Double precision version The routine calculates an approximation result to DRC(X,Y) = integral from zero to infinity of -1/2 -1 (1/2)(t+X) (t+Y) dt, where X is nonnegative and Y is positive. The duplication theorem is iterated until the variables are nearly equal, and the function is then expanded in Taylor series to fifth order. Logarithmic, inverse circular, and inverse hyperbolic functions can be expressed in terms of DRC. 2. Calling Sequence DRC( X, Y, IER ) Parameters On Entry Values assigned by the calling routine X - Double precision, nonnegative variable Y - Double precision, positive variable On Return (values assigned by the DRC routine) DRC - Double precision approximation to the integral IER - Integer to indicate normal or abnormal termination. IER = 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. IER > 0 Abnormal termination of the routine X and Y are unaltered. 3. Error messages Value of IER assigned by the DRC routine Value assigned Error message printed IER = 1 X.LT.0.0D0.OR.Y.LE.0.0D0 = 2 X+Y.LT.LOLIM = 3 MAX(X,Y) .GT. UPLIM 4. Control parameters Values of LOLIM, UPLIM, and ERRTOL are set by the routine. LOLIM and UPLIM determine the valid range of X and Y LOLIM - Lower limit of valid arguments Not less than 5 * (machine minimum) . UPLIM - Upper limit of valid arguments Not greater than (machine maximum) / 5 . Acceptable values for: LOLIM UPLIM IBM 360/370 SERIES : 3.0D-78 1.0D+75 CDC 6000/7000 SERIES : 1.0D-292 1.0D+321 UNIVAC 1100 SERIES : 1.0D-307 1.0D+307 CRAY : 2.3D-2466 1.0D+2465 VAX 11 SERIES : 1.5D-38 3.0D+37 ERRTOL determines the accuracy of the answer The value assigned by the routine will result in solution precision within 1-2 decimals of "machine precision". ERRTOL - relative error due to truncation is less than 16 * ERRTOL ** 6 / (1 - 2 * ERRTOL). The accuracy of the computed approximation to the integral can be controlled by choosing the value of ERRTOL. Truncation of a Taylor series after terms of fifth order introduces an error less than the amount shown in the second column of the following table for each value of ERRTOL in the first column. In addition to the truncation error there will be round-off error, but in practice the total error from both sources is usually less than the amount given in the table. Sample choices: ERRTOL Relative truncation error less than 1.0D-3 2.0D-17 3.0D-3 2.0D-14 1.0D-2 2.0D-11 3.0D-2 2.0D-8 1.0D-1 2.0D-5 Decreasing ERRTOL by a factor of 10 yields six more decimal digits of accuracy at the expense of one or two more iterations of the duplication theorem. *Long Description: DRC special comments Check: DRC(X,X+Z) + DRC(Y,Y+Z) = DRC(0,Z) where X, Y, and Z are positive and X * Y = Z * Z On Input: X, and Y are the variables in the integral DRC(X,Y). On Output: X and Y are unaltered. DRC(0,1/4)=DRC(1/16,1/8)=PI=3.14159... DRC(9/4,2)=LN(2) ******************************************************** WARNING: Changes in the program may improve speed at the expense of robustness. Special functions via DRC LN X X .GT. 0 2 LN(X) = (X-1) DRC(((1+X)/2) , X ) ARCSIN X -1 .LE. X .LE. 1 2 ARCSIN X = X DRC (1-X ,1 ) ARCCOS X 0 .LE. X .LE. 1 2 2 ARCCOS X = SQRT(1-X ) DRC(X ,1 ) ARCTAN X -INF .LT. X .LT. +INF 2 ARCTAN X = X DRC(1,1+X ) ARCCOT X 0 .LE. X .LT. INF 2 2 ARCCOT X = DRC(X ,X +1 ) ARCSINH X -INF .LT. X .LT. +INF 2 ARCSINH X = X DRC(1+X ,1 ) ARCCOSH X X .GE. 1 2 2 ARCCOSH X = SQRT(X -1) DRC(X ,1 ) ARCTANH X -1 .LT. X .LT. 1 2 ARCTANH X = X DRC(1,1-X ) ARCCOTH X X .GT. 1 2 2 ARCCOTH X = DRC(X ,X -1 )
+1. DRC Standard FORTRAN function routine Double precision version The routine calculates an approximation result to DRC(X,Y) = integral from zero to infinity of -1/2 -1 (1/2)(t+X) (t+Y) dt, where X is nonnegative and Y is positive. The duplication theorem is iterated until the variables are nearly equal, and the function is then expanded in Taylor series to fifth order. Logarithmic, inverse circular, and inverse hyper- bolic functions can be expressed in terms of DRC. 2. Calling Sequence DRC( X, Y, IER ) Parameters On Entry Values assigned by the calling routine X - Double precision, nonnegative variable Y - Double precision, positive variable On Return (values assigned by the DRC routine) DRC - Double precision approximation to the integral IER - Integer to indicate normal or abnormal termination. IER = 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. IER > 0 Abnormal termination of the routine X and Y are unaltered.
 
 ## Classification
 
@@ -54,28 +54,43 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `complete_structured`
-- Description provenance: `source_prologue`
-- Assessment: the selected source supplies a meaningful description and separable evidence for every argument
-- Dedicated family page: [Special functions](../families/special-functions.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DRC](https://www.netlib.org/slatec/src/drc.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `X` | input/output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DRC Standard FORTRAN function routine Double precision version The routine calculates an approximation result to DRC(X,Y) = integral from zero to infinity of -1/2 -1 (1/2)(t+X) (t+Y) dt, where X is nonnegative and Y is positive. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `Y` | input/output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DRC Standard FORTRAN function routine Double precision version The routine calculates an approximation result to DRC(X,Y) = integral from zero to infinity of -1/2 -1 (1/2)(t+X) (t+Y) dt, where X is nonnegative and Y is positive. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IER` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Calling Sequence DRC( X, Y, IER ) Parameters On Entry Values assigned by the calling routine X - Double precision, nonnegative variable Y - Double precision, positive variable On Return (values assigned by the DRC routine) DRC - Double precision approximation to the integral IER - Integer to indicate normal or abnormal termination. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `Y` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
-The Fortran function returns `*mut f64` through the compiler-validated ABI recorded by the authoritative declaration fingerprint `function:f64(mut_f64,mut_f64,mut_i32)`.
+This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:f64(mut_f64,mut_f64,mut_i32)`.
 
-### ABI and safety
+### Callback contract
 
-Canonical path: `slatec_sys::special::drc`. Native symbol: `drc_`. Feature: `special`. Provider status: `selected_provider_verified`. ABI fingerprint: `function:f64(mut_f64,mut_f64,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This interface declares no callback argument.
+
+### Error and status values
+
+Value of IER assigned by the DRC routine IER = 1                X.LT.0.0D0.OR.Y.LE.0.0D0 = 2                X+Y.LT.LOLIM = 3                MAX(X,Y) .GT. UPLIM 4.     Control parameters Values of LOLIM, UPLIM, and ERRTOL are set by the routine. LOLIM and UPLIM determine the valid range of X and Y LOLIM  - Lower limit of valid arguments Not less  than 5 * (machine minimum)  . UPLIM  - Upper limit of valid arguments Not greater than (machine maximum) / 5 . Acceptable values for:   LOLIM       UPLIM IBM 360/370 SERIES   :   3.0D-78     1.0D+75 CDC 6000/7000 SERIES :   1.0D-292    1.0D+321 UNIVAC 1100 SERIES   :   1.0D-307    1.0D+307 CRAY                 :   2.3D-2466   1.0D+2465 VAX 11 SERIES        :   1.5D-38     3.0D+37 ERRTOL determines the accuracy of the answer The value assigned by the routine will result in solution precision within 1-2 decimals of "machine precision". 16 * ERRTOL ** 6 / (1 - 2 * ERRTOL). The accuracy of the computed approximation to the inte- gral can be controlled by choosing the value of ERRTOL. Truncation of a Taylor series after terms of fifth order second column of the following table for each value of ERRTOL in the first column.  In addition to the trunca- than the amount given in the table. Sample choices:  ERRTOL   Relative truncation 1.0D-3    2.0D-17 3.0D-3    2.0D-14 1.0D-2    2.0D-11 3.0D-2    2.0D-8 1.0D-1    2.0D-5 Decreasing ERRTOL by a factor of 10 yields six more decimal digits of accuracy at the expense of one or two more iterations of the duplication theorem. Long Description: DRC special comments Check: DRC(X,X+Z) + DRC(Y,Y+Z) = DRC(0,Z) where X, Y, and Z are positive and X * Y = Z * Z On Input: X, and Y are the variables in the integral DRC(X,Y). On Output: X and Y are unaltered. DRC(0,1/4)=DRC(1/16,1/8)=PI=3.14159... DRC(9/4,2)=LN(2) WARNING: Changes in the program may improve speed at the expense of robustness. -------------------------------------------------------------------- Special functions via DRC LN X                X .GT. 0
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::special::drc`. Native symbol: `drc_`. Declaration feature: `special`. Provider feature: `special-real`. ABI fingerprint: `function:f64(mut_f64,mut_f64,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -86,7 +101,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::special::drc`
-- Compatibility aliases: `slatec_sys::special::numerical::drc`
 - Public declaration feature: `special`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

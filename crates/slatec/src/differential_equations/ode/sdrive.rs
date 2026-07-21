@@ -2,7 +2,7 @@
 //!
 //! # Status: Implemented
 //!
-//! Enable `ode-sdrive-expert`. The compatibility path is `crate::ode`.
+//! Enable `ode-sdrive-expert`.
 
 #[cfg(feature = "ode-sdrive-expert")]
 pub use crate::ode::*;

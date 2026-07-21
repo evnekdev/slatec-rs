@@ -8,7 +8,7 @@ Compute the determinant and inverse of a real symmetric positive definite matrix
 
 ## Description
 
-DPPDI computes the determinant and inverse of a double precision symmetric positive definite matrix using the factors computed by DPPCO or DPPFA . On Entry AP DOUBLE PRECISION (N*(N+1)/2) the output from DPPCO or DPPFA. N INTEGER the order of the matrix A . JOB INTEGER = 11 both determinant and inverse. = 01 inverse only. = 10 determinant only. On Return AP the upper triangular half of the inverse . The strict lower triangle is unaltered. DET DOUBLE PRECISION(2) determinant of original matrix if requested. Otherwise not referenced. DETERMINANT = DET(1) * 10.0**DET(2) with 1.0 .LE. DET(1) .LT. 10.0 or DET(1) .EQ. 0.0 . Error Condition A division by zero will occur if the input factor contains a zero on the diagonal and the inverse is requested. It will not occur if the subroutines are called correctly and if DPOCO or DPOFA has set INFO .EQ. 0 .
+DPPDI computes the determinant and inverse of a double precision symmetric positive definite matrix using the factors computed by DPPCO or DPPFA . On Entry AP DOUBLE PRECISION (N*(N+1)/2) the output from DPPCO or DPPFA. N INTEGER the order of the matrix A . JOB INTEGER = 11 both determinant and inverse. = 01 inverse only. = 10 determinant only. On Return AP the upper triangular half of the inverse . The strict lower triangle is unaltered. DET DOUBLE PRECISION(2) determinant of original matrix if requested. Otherwise not referenced. DETERMINANT = DET(1) * 10.0**DET(2) with 1.0 .LE. DET(1) .LT. 10.0 or DET(1) .EQ. 0.0 .
 
 ## Classification
 
@@ -52,25 +52,44 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `complete_structured`
-- Description provenance: `source_prologue`
-- Assessment: the selected source supplies a meaningful description and separable evidence for every argument
-- Dedicated family page: [Dense linear algebra](../families/dense-linear-algebra.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DPPDI](https://www.netlib.org/slatec/lin/dppdi.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `AP` | input/output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | On Entry AP DOUBLE PRECISION (N*(N+1)/2) the output from DPPCO or DPPFA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | On Entry AP DOUBLE PRECISION (N*(N+1)/2) the output from DPPCO or DPPFA. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `DET` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (2) | DET DOUBLE PRECISION(2) determinant of original matrix if requested. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JOB` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | JOB INTEGER = 11 both determinant and inverse. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `AP` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `DET` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (2) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::packed::dppdi`. Native symbol: `dppdi_`. Feature: `linear-algebra`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+A division by zero will occur if the input factor contains a zero on the diagonal and the inverse is requested. It will not occur if the subroutines are called correctly and if DPOCO or DPOFA has set INFO .EQ. 0 .
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::packed::dppdi`. Native symbol: `dppdi_`. Declaration feature: `linear-algebra`. Provider feature: `linear-algebra-real`. ABI fingerprint: `subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -81,7 +100,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::packed::dppdi`
-- Compatibility aliases: `slatec_sys::linear_algebra::dense::dppdi`
 - Public declaration feature: `linear-algebra`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

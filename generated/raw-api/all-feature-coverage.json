@@ -39,28 +39,7 @@
   ],
   "families_missing_from_all": [],
   "intentionally_excluded_feature_classes": {
-    "compatibility_aliases": [],
     "internal_abi_shape": [
-      {
-        "direct_member_of_all": false,
-        "feature": "raw-ffi",
-        "transitively_reachable_from_all": false
-      },
-      {
-        "direct_member_of_all": false,
-        "feature": "raw-ffi-basic",
-        "transitively_reachable_from_all": false
-      },
-      {
-        "direct_member_of_all": false,
-        "feature": "raw-ffi-abi-sensitive",
-        "transitively_reachable_from_all": false
-      },
-      {
-        "direct_member_of_all": false,
-        "feature": "raw-ffi-all-validated",
-        "transitively_reachable_from_all": false
-      },
       {
         "direct_member_of_all": false,
         "feature": "raw-ffi-numeric-scalar-subroutines",
@@ -443,7 +422,7 @@
     ],
     "test_only": []
   },
-  "policy": "all directly names every authored public mathematical family aggregate. It never directly names provider, profile-only, raw ABI-shape, raw-family, test-only, or compatibility features; legitimate public family dependencies remain visible in the transitive closure.",
+  "policy": "all directly names every authored public mathematical family aggregate. It never directly names provider, profile-only, raw ABI-shape, raw-family, or test-only implementation features; legitimate public family dependencies remain visible in the transitive closure.",
   "provider_features_intentionally_excluded": [
     "source-build",
     "prebuilt",

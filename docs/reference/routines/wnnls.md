@@ -8,7 +8,7 @@ Solve a linearly constrained least squares problem with equality constraints and
 
 ## Description
 
-Abstract This subprogram solves a linearly constrained least squares problem. Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. This subroutine solves the problem EX = F, (equations to be exactly satisfied) AX = B, (equations to be approximately satisfied, in the least squares sense) subject to components L+1,...,N nonnegative Any values ME.GE.0, MA.GE.0 and 0.LE. L .LE.N are permitted. The problem is reposed as problem WNNLS (WT*E)X = (WT*F) ( A) ( B), (least squares) subject to components L+1,...,N nonnegative. The subprogram chooses the heavy weight (or penalty parameter) WT. The parameters for WNNLS are
+This subprogram solves a linearly constrained least squares problem. Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. This subroutine solves the problem EX = F, (equations to be exactly satisfied) AX = B, (equations to be approximately satisfied, in the least squares sense) subject to components L+1,...,N nonnegative Any values ME.GE.0, MA.GE.0 and 0.LE. L .LE.N are permitted. The problem is reposed as problem WNNLS (WT*E)X = (WT*F) ( A) ( B), (least squares) subject to components L+1,...,N nonnegative. The subprogram chooses the heavy weight (or penalty parameter) WT. The parameters for WNNLS are
 
 ## Classification
 
@@ -54,33 +54,56 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Approximation](../families/approximation.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [WNNLS](https://www.netlib.org/slatec/src/wnnls.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `W` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (MDW, *) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MDW` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ME` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. | Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MA` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. | Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. | Suppose there are given matrices E and A of respective dimensions ME by N and MA by N, and vectors F and B of respective lengths ME and MA. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `L` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | This subroutine solves the problem EX = F, (equations to be exactly satisfied) AX = B, (equations to be approximately satisfied, in the least squares sense) subject to components L+1,...,N nonnegative Any values ME.GE.0, MA.GE.0 and 0.LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `PRGOPT` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | The problem is reposed as problem WNNLS (WT*E)X = (WT*F) ( A) ( B), (least squares) subject to components L+1,...,N nonnegative. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RNORM` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MODE` | unavailable | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 2; dimensions (MDW, *) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 2 | `MDW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `ME` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `MA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `N` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | L)) exceeded. Nearly all problems should complete in fewer than this number of iterations. An approximate solution and its corresponding residual vector length are in X(*) and RNORM. |
+| 6 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `PRGOPT` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 8 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 9 | `RNORM` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 10 | `MODE` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0  Subprogram completed successfully. = 1  Max. number of iterations (equal to |
+| 11 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 12 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::approximation::wnnls`. Native symbol: `wnnls_`. Feature: `approximation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32,mut_i32,mut_i32_ptr_rank1,mut_f32_ptr_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+The array W(*,*) contains the matrices and vectors (E  F) (A  B) in rows and columns 1,...,M and 1,...,N+1 respectively.  Columns 1,...,L correspond to unconstrained variables X(1),...,X(L).  The remaining variables are constrained to be nonnegative. The condition L.LT.0 or L.GT.N is PRGOPT(*)    This real-valued array is the option vector. If the user is satisfied with the nominal subprogram features set PRGOPT(1)=1 (or PRGOPT(1)=1.0) Otherwise PRGOPT(*) is a linked list consisting of groups of data of the following form LINK KEY DATA SET The parameters LINK and KEY are each one word. The DATA SET can be comprised of several words. The number of items depends on the value of KEY. The value of LINK points to the first entry of the next group of data within PRGOPT(*).  The exception is when there are no more options to change.  In that case LINK=1 and the values KEY and DATA SET are not referenced. The general layout of PRGOPT(*) is as follows. ...PRGOPT(1)=LINK1 (link to first entry of next group) .  PRGOPT(2)=KEY1 (key to the option change) .  PRGOPT(3)=DATA VALUE (data value for this change) .       . .       . .       . ...PRGOPT(LINK1)=LINK2 (link to the first entry of .                       next group) .  PRGOPT(LINK1+1)=KEY2 (key to the option change) .  PRGOPT(LINK1+2)=DATA VALUE ...     . .       . .       . ...PRGOPT(LINK)=1 (no more options to change) This helps prevent using invalid but positive values of LINK that will probably extend beyond the program limits of PRGOPT(*). Unrecognized values of KEY are ignored.  The order of the options is arbitrary and any number of options can be changed with the following restriction.  To prevent cycling in the processing of the option array a count of the number of options changed is maintained. message is printed and the subprogram returns. OPTIONS.. KEY=6 Scale the nonzero columns of the entire data matrix (E) (A) to have length one. The DATA SET for this option is a single value.  It must be nonzero if unit length column scaling is desired. KEY=7 Scale columns of the entire data matrix (E) (A) with a user-provided diagonal matrix. The DATA SET for this option consists of the N diagonal scaling factors, one for each matrix column. KEY=8 Change the rank determination tolerance from the nominal value of SQRT(SRELPR).  This quantity can be no smaller than SRELPR, The arithmetic- storage precision.  The quantity used here is internally restricted to be at least SRELPR.  The DATA SET for this option is the new tolerance. KEY=9 Change the blow-up parameter from the nominal value of SQRT(SRELPR).  The reciprocal of this parameter is used in rejecting solution components as too large when a variable is first brought into the active set.  Too large means that the proposed component times the reciprocal of the parameter is not less than the ratio of the norms of the right-side vector and the data matrix. This parameter can be no smaller than SRELPR, the arithmetic-storage precision. For example, suppose we want to provide a diagonal matrix to scale the problem matrix and change the tolerance used for determining linear dependence of dropped col vectors.  For these options the dimensions of PRGOPT(*) must be at least N+6.  The FORTRAN statements defining these options would be as follows. PRGOPT(1)=N+3 (link to entry N+3 in PRGOPT(*)) PRGOPT(2)=7 (user-provided scaling key) CALL SCOPY(N,D,1,PRGOPT(3),1) (copy the N scaling factors from a user array called D(*) into PRGOPT(3)-PRGOPT(N+2)) PRGOPT(N+3)=N+6 (link to entry N+6 of PRGOPT(*)) PRGOPT(N+4)=8 (linear dependence tolerance key) PRGOPT(N+5)=... (new value of the tolerance) PRGOPT(N+6)=1 (no more options to change) IWORK(1),    The amounts of working storage actually allocated IWORK(2)     for the working arrays WORK(*) and IWORK(*), respectively.  These quantities are compared with the actual amounts of storage needed for WNNLS( ). Insufficient storage allocated for either WORK(*) was included in WNNLS( ) because miscalculating the storage formulas for WORK(*) and IWORK(*) might very well lead to subtle and hard-to-find The length of WORK(*) must be at least LW = ME+MA+5*N This test will not be made if IWORK(1).LE.0. The length of IWORK(*) must be at least LIW = ME+MA+N This test will not be made if IWORK(2).LE.0. processing subprogram, XERMSG( ). User-designated Working arrays.. WORK(*)      A real-valued working array of length at least M + 5*N. IWORK(*)     An integer-valued working array of length at least M+N.
+
+### Storage and workspace requirements
+
+`W`: Workspace argument classified by fixed-form executable read/write analysis.
+
+`IWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::approximation::wnnls`. Native symbol: `wnnls_`. Declaration feature: `approximation`. Provider feature: `approximation-core`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32,mut_i32,mut_i32_ptr_rank1,mut_f32_ptr_rank1)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -91,7 +114,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::approximation::wnnls`
-- Compatibility aliases: `slatec_sys::approximation::numerical::wnnls`
 - Public declaration feature: `approximation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

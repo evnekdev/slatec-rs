@@ -15,7 +15,7 @@ pub struct ReleaseReadinessResult {
     pub status: String,
     pub retained_identities: usize,
     pub public_raw_identities: usize,
-    pub compatibility_paths: usize,
+    pub canonical_paths: usize,
     pub family_count: usize,
     pub semantic_hash: String,
     pub output_dir: PathBuf,
@@ -50,7 +50,6 @@ struct RoutineDoc {
     description_provenance: String,
     canonical_path: String,
     disposition: String,
-    compatibility_paths: Vec<String>,
     arguments: Vec<Argument>,
     return_type: Option<String>,
     precision: String,
@@ -147,7 +146,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
             });
         }
         enrich_arguments(&mut routine_arguments, &description);
-        let public = field(final_record, "final_disposition") == "public-raw";
+        let public = field(final_record, "final_disposition") == "canonical-public";
         let mangled_reasons = mangled_by_routine
             .get(&routine)
             .cloned()
@@ -191,7 +190,6 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
             description_provenance: provenance.to_owned(),
             canonical_path: canonical_path.clone(),
             disposition: field(final_record, "final_disposition"),
-            compatibility_paths: strings(final_record, "compatibility_paths"),
             arguments: routine_arguments,
             return_type: results_by_unit.get(provider_id).cloned(),
             precision: field(record, "precision"),
@@ -215,18 +213,13 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
 
     let public = docs
         .iter()
-        .filter(|record| record.disposition == "public-raw")
+        .filter(|record| record.disposition == "canonical-public")
         .count();
     if public != 812 {
         return Err(policy(&format!(
             "expected 812 public raw identities, found {public}"
         )));
     }
-    let compatibility_paths = docs
-        .iter()
-        .map(|record| record.compatibility_paths.len())
-        .sum::<usize>();
-
     fs::create_dir_all(output_dir)?;
     let family_count = write_family_docs(root, &docs)?;
     write_routine_docs(root, &docs)?;
@@ -235,18 +228,17 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
         &docs,
         catalogue_records.len(),
         public,
-        compatibility_paths,
         &ownership_by_routine,
     )?;
     for (name, value) in &outputs {
         write_json(&output_dir.join(name), value)?;
     }
     write_scoped_outputs(root, &outputs)?;
+    remove_obsolete_outputs(root)?;
     write_summary(
         &output_dir.join("release-readiness-summary.md"),
         catalogue_records.len(),
         public,
-        compatibility_paths,
         family_count,
         &outputs,
     )?;
@@ -259,7 +251,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
         status: "generated".to_owned(),
         retained_identities: catalogue_records.len(),
         public_raw_identities: public,
-        compatibility_paths,
+        canonical_paths: public,
         family_count,
         semantic_hash: hash::bytes(&semantic_bytes),
         output_dir: output_dir.to_path_buf(),
@@ -270,8 +262,7 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<ReleaseReadinessResult
     let mut result = generate(root, output_dir)?;
     let taxonomy = read_json(&output_dir.join("module-taxonomy-validation.json"))?;
     for key in [
-        "canonical_numerical_segments",
-        "canonical_top_level_eigen_paths",
+        "forbidden_canonical_namespace_paths",
         "duplicate_canonical_paths",
         "missing_canonical_paths",
     ] {
@@ -336,12 +327,11 @@ fn evidence(
     docs: &[RoutineDoc],
     retained: usize,
     public: usize,
-    compatibility_paths: usize,
     ownership: &BTreeMap<String, &Value>,
 ) -> Result<BTreeMap<String, Value>> {
     let canonical = docs
         .iter()
-        .filter(|record| record.disposition == "public-raw")
+        .filter(|record| record.disposition == "canonical-public")
         .collect::<Vec<_>>();
     let mut paths = BTreeSet::new();
     let mut duplicates = BTreeSet::new();
@@ -350,26 +340,13 @@ fn evidence(
             duplicates.insert(record.canonical_path.clone());
         }
     }
-    let migrations = canonical
-        .iter()
-        .map(|record| {
-            json!({
-                "routine": record.routine,
-                "canonical_path": record.canonical_path,
-                "compatibility_paths": record.compatibility_paths,
-                "compatibility_policy": "deprecated_reexport",
-                "storage_class": record.storage_class,
-                "operation_class": record.operation_class,
-            })
-        })
-        .collect::<Vec<_>>();
     let quality_records = docs
         .iter()
         .map(|record| {
             json!({
                 "routine":record.routine,
                 "family":record.family,
-                "public_raw":record.disposition == "public-raw",
+                "public_raw":record.disposition == "canonical-public",
                 "quality_level":record.quality,
                 "reason":record.quality_reason,
                 "description_provenance":record.description_provenance,
@@ -383,13 +360,12 @@ fn evidence(
     for record in docs {
         *quality_counts.entry(record.quality.clone()).or_default() += 1;
     }
-    let numerical = canonical
+    let forbidden_namespace_paths = canonical
         .iter()
-        .filter(|record| record.canonical_path.contains("::numerical::"))
-        .count();
-    let top_eigen = canonical
-        .iter()
-        .filter(|record| record.canonical_path.starts_with("slatec_sys::eigen::"))
+        .filter(|record| {
+            record.canonical_path.contains("::numerical::")
+                || record.canonical_path.starts_with("slatec_sys::eigen::")
+        })
         .count();
     let missing = canonical
         .iter()
@@ -405,7 +381,7 @@ fn evidence(
             }).count();
             json!({
                 "routine":record.routine,
-                "public_raw":record.disposition == "public-raw",
+                "public_raw":record.disposition == "canonical-public",
                 "argument_count":record.arguments.len(),
                 "structured_rows":record.arguments.len(),
                 "arguments_with_separable_semantics":complete_semantics,
@@ -421,7 +397,7 @@ fn evidence(
             record.arguments.iter().map(|argument| {
                 json!({
                     "routine":record.routine,
-                    "public_raw":record.disposition == "public-raw",
+                    "public_raw":record.disposition == "canonical-public",
                     "name":argument.name,
                     "fortran_type":argument.declared_type,
                     "rust_raw_type":argument.rust_type,
@@ -442,7 +418,7 @@ fn evidence(
     let mut crosscheck_records = Vec::with_capacity(docs.len());
     let mut gaps = Vec::new();
     for record in docs {
-        let public_raw = record.disposition == "public-raw";
+        let public_raw = record.disposition == "canonical-public";
         let owner = ownership.get(&record.routine).copied();
         let actual_export_found = owner.is_some();
         let export_matches = owner.is_some_and(|owner| {
@@ -495,7 +471,6 @@ fn evidence(
             "historical_role":record.role,
             "final_disposition":record.disposition,
             "canonical_rust_path":record.canonical_path,
-            "compatibility_paths":record.compatibility_paths,
             "actual_export_found":actual_export_found,
             "authoritative_export_matches":export_matches,
             "document_page_found":document_page_found,
@@ -533,7 +508,7 @@ fn evidence(
         .filter(|record| !record.mangled_reasons.is_empty())
         .map(|record| json!({
             "routine":record.routine,
-            "public_raw":record.disposition == "public-raw",
+            "public_raw":record.disposition == "canonical-public",
             "reasons":record.mangled_reasons,
             "quality_level":record.quality,
             "recommended_action":"review selected source prose or add a source-hash-guarded authored correction",
@@ -547,7 +522,7 @@ fn evidence(
     for record in docs {
         let counts = family_records.entry(record.family.clone()).or_default();
         counts.1 += 1;
-        if record.disposition == "public-raw" {
+        if record.disposition == "canonical-public" {
             counts.0 += 1;
         }
     }
@@ -580,7 +555,6 @@ fn evidence(
                 "retained_identities":retained,
                 "final_disposition_identities":docs.len(),
                 "public_raw_identities":public,
-                "compatibility_paths":compatibility_paths,
                 "catalogue_only_missing_from_disposition":[],
                 "duplicate_routine_identities":[],
                 "inconsistencies":gaps.len(),
@@ -595,15 +569,6 @@ fn evidence(
                 "schema_version":"1.0.0",
                 "gap_count":gaps.len(),
                 "records":gaps,
-            }),
-        ),
-        (
-            "canonical-path-migrations.json".to_owned(),
-            json!({
-                "schema_id":"slatec-rs.canonical-path-migrations",
-                "schema_version":"1.0.0",
-                "policy":"Each public raw routine has one canonical mathematical path. Former public paths remain deprecated re-exports.",
-                "records":migrations,
             }),
         ),
         (
@@ -678,13 +643,11 @@ fn evidence(
                 "schema_id":"slatec-rs.module-taxonomy-validation",
                 "schema_version":"1.0.0",
                 "canonical_public_paths":canonical.len(),
-                "canonical_numerical_segments":numerical,
-                "canonical_top_level_eigen_paths":top_eigen,
+                "forbidden_canonical_namespace_paths":forbidden_namespace_paths,
                 "duplicate_canonical_paths":duplicates.len(),
                 "duplicate_paths":duplicates,
                 "missing_canonical_paths":missing.len(),
                 "missing_routines":missing,
-                "compatibility_paths":compatibility_paths,
             }),
         ),
     ]);
@@ -706,15 +669,15 @@ fn write_family_docs(root: &Path, docs: &[RoutineDoc]) -> Result<usize> {
     );
     for (family, records) in &mut families {
         records.sort_by(|left, right| {
-            let left_public = left.disposition == "public-raw";
-            let right_public = right.disposition == "public-raw";
+            let left_public = left.disposition == "canonical-public";
+            let right_public = right.disposition == "canonical-public";
             right_public
                 .cmp(&left_public)
                 .then_with(|| left.routine.cmp(&right.routine))
         });
         let public = records
             .iter()
-            .filter(|record| record.disposition == "public-raw")
+            .filter(|record| record.disposition == "canonical-public")
             .count();
         let family_slug = slug(family);
         index.push_str(&format!(
@@ -731,10 +694,10 @@ fn write_family_docs(root: &Path, docs: &[RoutineDoc]) -> Result<usize> {
         );
         for record in records
             .iter()
-            .filter(|record| record.disposition == "public-raw")
+            .filter(|record| record.disposition == "canonical-public")
         {
             page.push_str(&format!(
-                "<tr><td><a href=\"../routines/{}.md\"><code>{}</code></a></td><td>{}</td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>public-raw</code></td><td><code>{}</code></td><td><code>{}</code></td></tr>\n",
+                "<tr><td><a href=\"../routines/{}.md\"><code>{}</code></a></td><td>{}</td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>canonical-public</code></td><td><code>{}</code></td><td><code>{}</code></td></tr>\n",
                 record.routine.to_ascii_lowercase(),
                 html(&record.routine),
                 html(&record.purpose),
@@ -749,7 +712,7 @@ fn write_family_docs(root: &Path, docs: &[RoutineDoc]) -> Result<usize> {
         page.push_str("</tbody>\n</table>\n\n## Internal, support, and historical identities\n\nThese records remain part of the retained catalogue but are not additional public raw routines.\n\n<table>\n<thead><tr><th>Routine</th><th>Purpose</th><th>Role</th><th>Precision</th><th>Storage/problem class</th><th>Operation</th><th>Final disposition</th><th>Documentation quality</th></tr></thead>\n<tbody>\n");
         for record in records
             .iter()
-            .filter(|record| record.disposition != "public-raw")
+            .filter(|record| record.disposition != "canonical-public")
         {
             page.push_str(&format!(
                 "<tr class=\"routine-secondary\" style=\"opacity:0.76\"><td><a href=\"../routines/{}.md\"><code>{}</code></a></td><td>{}</td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td><td><code>{}</code></td></tr>\n",
@@ -831,7 +794,7 @@ fn routine_block(record: &RoutineDoc) -> String {
     if record.arguments.iter().any(|argument| argument.external) {
         block.push_str("\n### Callback contract\n\nProcedure arguments use the exact reviewed `unsafe extern \"C\"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.\n");
     }
-    if record.disposition == "public-raw" {
+    if record.disposition == "canonical-public" {
         block.push_str(&format!(
             "\n### ABI and safety\n\nCanonical path: `{}`. Native symbol: `{}`. Feature: `{}`. Provider status: `{}`. ABI fingerprint: `{}`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.\n",
             record.canonical_path,
@@ -1230,7 +1193,6 @@ fn write_scoped_outputs(root: &Path, outputs: &BTreeMap<String, Value>) -> Resul
     let routine_evidence = root.join("generated/slatec-routines");
     for name in [
         "catalogue-sys-crosscheck.json",
-        "canonical-path-migrations.json",
         "documentation-export-gaps.json",
         "module-taxonomy-validation.json",
     ] {
@@ -1247,14 +1209,11 @@ fn write_scoped_outputs(root: &Path, outputs: &BTreeMap<String, Value>) -> Resul
     }
     let crosscheck = &outputs["catalogue-sys-crosscheck.json"];
     let crosscheck_summary = format!(
-        "# Catalogue-to-`slatec-sys` cross-check\n\n- Retained identities: {}\n- Canonical public raw identities: {}\n- Compatibility re-export paths: {}\n- Inconsistencies: {}\n- Result: `{}`\n\nThe cross-check joins catalogue identity, final disposition, authoritative extern ownership, canonical path, compatibility aliases, routine and family pages, alphabetical index membership, feature, provider, native symbol, precision, ABI fingerprint, and structured documentation status.\n",
+        "# Catalogue-to-`slatec-sys` cross-check\n\n- Retained identities: {}\n- Canonical public raw identities: {}\n- Inconsistencies: {}\n- Result: `{}`\n\nThe cross-check joins catalogue identity, final disposition, authoritative extern ownership, one canonical path, routine and family pages, alphabetical index membership, feature, provider, native symbol, precision, ABI fingerprint, and structured documentation status.\n",
         crosscheck["retained_identities"]
             .as_u64()
             .unwrap_or_default(),
         crosscheck["public_raw_identities"]
-            .as_u64()
-            .unwrap_or_default(),
-        crosscheck["compatibility_paths"]
             .as_u64()
             .unwrap_or_default(),
         crosscheck["inconsistencies"].as_u64().unwrap_or_default(),
@@ -1285,6 +1244,14 @@ fn write_scoped_outputs(root: &Path, outputs: &BTreeMap<String, Value>) -> Resul
         &routine_evidence.join("documentation-quality-summary.md"),
         quality_summary.as_bytes(),
     )?;
+    Ok(())
+}
+
+fn remove_obsolete_outputs(root: &Path) -> Result<()> {
+    let path = root.join("generated/public-api/canonical-path-migrations.json");
+    if path.exists() {
+        fs::remove_file(path)?;
+    }
     Ok(())
 }
 
@@ -1381,17 +1348,13 @@ fn write_summary(
     path: &Path,
     retained: usize,
     public: usize,
-    compatibility: usize,
     families: usize,
     outputs: &BTreeMap<String, Value>,
 ) -> Result<()> {
     let taxonomy = &outputs["module-taxonomy-validation.json"];
     let text = format!(
-        "# API quality and release readiness\n\n- Retained identities: {retained}\n- Canonical public raw routines: {public}\n- Deprecated compatibility paths: {compatibility}\n- Dedicated mathematical family pages: {families}\n- Canonical paths containing `::numerical::`: {}\n- Canonical paths under top-level `slatec_sys::eigen`: {}\n- Duplicate canonical paths: {}\n- Unexplained catalogue/sys identities: 0\n\nGenerated evidence distinguishes interface facts, source prose, and authored clarifications. It never upgrades unknown argument semantics based only on parameter names.\n",
-        taxonomy["canonical_numerical_segments"]
-            .as_u64()
-            .unwrap_or_default(),
-        taxonomy["canonical_top_level_eigen_paths"]
+        "# API quality and release readiness\n\n- Retained identities: {retained}\n- Canonical public raw routines: {public}\n- Dedicated mathematical family pages: {families}\n- Forbidden canonical namespace paths: {}\n- Duplicate canonical paths: {}\n- Unexplained catalogue/sys identities: 0\n\nGenerated evidence distinguishes interface facts, source prose, and authored clarifications. It never upgrades unknown argument semantics based only on parameter names.\n",
+        taxonomy["forbidden_canonical_namespace_paths"]
             .as_u64()
             .unwrap_or_default(),
         taxonomy["duplicate_canonical_paths"]

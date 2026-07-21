@@ -206,8 +206,7 @@ pub fn family_report(records: &[Value]) -> Value {
                 "canonical_provider":field(record,"canonical_provider"),
                 "source_hash":field(record,"source_hash"),
                 "native_symbol":field(record,"native_symbol"),
-                "generated_declaration_path":generated_path(record),
-                "existing_family_declaration_paths":record.get("legacy_rust_paths").cloned().unwrap_or_else(|| json!([])),
+                "private_declaration_owner":generated_owner(record),
                 "safe_wrapper_status":field(record,"safe_wrapper_status"),
                 "feature":field(record,"feature"),
                 "provider_feature":field(record,"provider_feature"),
@@ -348,19 +347,20 @@ fn generated_module(feature: &str) -> &'static str {
     }
 }
 
-fn generated_path(record: &Value) -> String {
+fn generated_owner(record: &Value) -> String {
     let feature = field(record, "generated_declaration_feature");
     match feature.as_str() {
         "raw-ffi-numeric-scalar-subroutines"
         | "raw-ffi-numeric-array-subroutines"
         | "raw-ffi-scalar-functions"
         | "raw-ffi-complex-arguments"
-        | "raw-ffi-character" => format!(
-            "slatec_sys::generated::{}::{}",
-            generated_module(&feature),
-            field(record, "routine").to_ascii_lowercase()
-        ),
-        _ => "not_generated".to_owned(),
+        | "raw-ffi-character" => {
+            format!(
+                "private ABI declaration module `{}`",
+                generated_module(&feature)
+            )
+        }
+        _ => "not generated".to_owned(),
     }
 }
 

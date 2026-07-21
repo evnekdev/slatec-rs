@@ -35,6 +35,7 @@ pub mod policy;
 pub mod program_units;
 pub mod prologues;
 pub mod provider;
+pub mod public_api_semantic_review;
 pub mod public_module_roadmap;
 pub mod public_surface;
 pub mod raw_api_inventory;

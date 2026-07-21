@@ -56,8 +56,8 @@ ABI-sensitive and unresolved interfaces remain gated for review. See
 
 The raw public API is governed by a separate canonical inventory. It records one
 status per retained routine and distinguishes generated declarations from
-ABI-validated and reviewed paths; the ABI-shaped `slatec_sys::generated`
-namespace is transitional rather than stable. See the
+ABI-validated and reviewed paths; ABI-shaped declaration modules are private
+implementation details. See the
 [raw API architecture](docs/architecture/slatec-sys-public-raw-api.md) and
 [`generated/raw-api/`](generated/raw-api/).
 
@@ -77,20 +77,18 @@ Forty source-hash-reviewed scalar special functions are available at
 only `slatec-sys/all` aggregate. These unsafe direct bindings do not select a
 native provider; their XERROR/FNLIB and synchronization boundary is documented
 in [`docs/api/raw-special-foundations.md`](docs/api/raw-special-foundations.md).
-The eight real Airy drivers use `slatec_sys::special::airy`; their
-legacy `families::special_airy` paths remain re-exports, while complex Amos
+The eight real Airy drivers use `slatec_sys::special::airy`, while complex Amos
 Airy interfaces remain explicitly deferred in
 [`docs/api/raw-special-airy.md`](docs/api/raw-special-airy.md).
 The canonical raw interface exposes 812 routines through mathematical modules.
-It accounts for all 1,517 retained corpus identities and preserves 662 former
-user-visible paths as compatibility re-exports after namespace normalization;
-the safe facade remains deliberately selective.
+It accounts for all 1,517 retained corpus identities with one public Rust path
+per public routine; the safe facade remains deliberately selective.
 That surface includes source-hash-guarded numerical declarations,
 source-reconstructed callback ABIs, and compiler-probed complex,
 `CHARACTER*1`, and `LOGICAL` interfaces. Every retained identity has an
 evidence-backed public, internal, support, historical, missing-symbol, or
-unsupported-ABI disposition. Canonical and compatibility paths re-export one
-authoritative extern declaration per native symbol. See the
+unsupported-ABI disposition. Each canonical path re-exports one authoritative
+extern declaration per native symbol. See the
 [raw API coverage guide](docs/api/raw-api-final-coverage.md).
 Native archive construction and raw-binding validation are explicit, local
 operations; ordinary Cargo builds and CI never compile or download Fortran.

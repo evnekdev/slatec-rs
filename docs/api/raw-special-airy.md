@@ -10,9 +10,7 @@ slatec_sys::special::airy::{ai, aie, bi, bie, dai, daie, dbi, dbie}
 
 Enable `slatec-sys` feature `special-airy` and link a compatible provider. The
 matching source-provider feature is `slatec-src/special-airy`; enabling either
-raw declaration feature never selects a provider on its own. The former
-`slatec_sys::families::special_airy::*` paths remain compatibility re-exports,
-not duplicate declarations.
+raw declaration feature never selects a provider on its own.
 
 ```rust,no_run
 let mut x = 0.0_f64;

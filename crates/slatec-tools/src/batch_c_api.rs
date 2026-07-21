@@ -82,7 +82,6 @@ struct Candidate {
     abi_fingerprint: String,
     canonical_module: String,
     canonical_path: String,
-    compatibility_paths: Vec<String>,
     declaration_feature: String,
     provider_feature: String,
     binding_module: String,
@@ -141,20 +140,11 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
         )?;
         if classification["batch_c_eligibility"] == "eligible" {
             let interface = interface.expect("eligible Batch C record has an interface");
-            let (legacy_module, _) = legacy_canonical_module(record, &routine)?;
             let (canonical_module, declaration_feature) = canonical_module(record, &routine)?;
             let canonical_path = format!(
                 "slatec_sys::{canonical_module}::{}",
                 routine.to_ascii_lowercase()
             );
-            let legacy_path = format!(
-                "slatec_sys::{legacy_module}::{}",
-                routine.to_ascii_lowercase()
-            );
-            let compatibility_paths = (legacy_path != canonical_path)
-                .then_some(legacy_path)
-                .into_iter()
-                .collect();
             let binding_module = binding_module(&interface.batch)?;
             let candidate = Candidate {
                 routine: routine.clone(),
@@ -167,7 +157,6 @@ pub fn generate(paths: BatchCPaths<'_>) -> Result<BatchCResult> {
                 abi_class: field(&classification, "combined_abi_class"),
                 abi_fingerprint: abi_fingerprint(&interface.kind, &args, result.as_ref()),
                 canonical_path,
-                compatibility_paths,
                 canonical_module,
                 provider_feature: declaration_feature.clone(),
                 declaration_feature,
@@ -718,25 +707,14 @@ fn classify(
     Ok((base, args, result))
 }
 
-fn legacy_canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
-    let (module, feature) = match field(record, "primary_family").as_str() {
-        "Dense linear algebra" => ("linear_algebra::dense::complex", "linear-algebra-complex"),
-        "Linear algebra kernels" => ("blas::level1", "blas-complex"),
-        "Special functions" | "Elementary and transcendental functions" => {
-            ("special::complex", "special-complex")
-        }
-        "Nonlinear equations" => ("nonlinear::complex", "nonlinear-complex"),
-        "FISHPACK elliptic PDE solvers" => ("pde::fishpack::complex", "fishpack-complex"),
-        other => {
-            return Err(policy(&format!(
-                "Batch C has no canonical module for {routine} ({other})"
-            )));
-        }
-    };
-    Ok((module.to_owned(), feature.to_owned()))
-}
-
 fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
+    // CPZERO/RPZERO find polynomial zeros and CPQR79/RPQR79 calculate
+    // polynomial roots. Their historical source directory classified them
+    // with nonlinear equations, but their independently callable
+    // mathematical contract is root finding.
+    if matches!(routine, "CPQR79" | "CPZERO" | "RPQR79" | "RPZERO") {
+        return Ok(("roots::complex".to_owned(), "nonlinear-complex".to_owned()));
+    }
     let (module, feature) = match field(record, "primary_family").as_str() {
         "Dense linear algebra" => (
             format!(
@@ -1020,7 +998,7 @@ fn write_link_probes(facade_dir: &Path, candidates: &[Candidate]) -> Result<()> 
 fn candidate_json(candidate: &Candidate) -> Value {
     json!({
         "routine":candidate.routine,"source_hash":candidate.source_hash,"source_file":candidate.source_file,"source_url":candidate.source_url,"native_symbol":candidate.native_symbol,"program_unit_kind":candidate.kind,
-        "combined_abi_class":candidate.abi_class,"normalized_abi_fingerprint":candidate.abi_fingerprint,"canonical_module":candidate.canonical_module,"canonical_rust_path":candidate.canonical_path,"compatibility_paths":candidate.compatibility_paths,
+        "combined_abi_class":candidate.abi_class,"normalized_abi_fingerprint":candidate.abi_fingerprint,"canonical_module":candidate.canonical_module,"canonical_rust_path":candidate.canonical_path,
         "declaration_feature":candidate.declaration_feature,"provider_feature":candidate.provider_feature,"binding_module":candidate.binding_module,"binding_path":format!("crate::generated::{}::{}",candidate.binding_module,candidate.routine.to_ascii_lowercase()),
         "arguments":candidate.arguments.iter().map(|a|a.name.clone()).collect::<Vec<_>>(),"result_type":candidate.result.as_ref().map(|r|r.declared_type.clone()),
         "validation_statuses":["source_verified","abi_classified","complex_layout_validated","complex_return_validated","character_length_validated","logical_representation_validated","compile_validated","link_validated"],

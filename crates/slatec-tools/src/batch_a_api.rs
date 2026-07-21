@@ -76,7 +76,6 @@ struct Candidate {
     abi_fingerprint: String,
     canonical_module: String,
     canonical_path: String,
-    compatibility_paths: Vec<String>,
     declaration_feature: String,
     provider_feature: String,
     binding_module: String,
@@ -185,20 +184,11 @@ pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
                         .ok_or_else(|| policy("Batch A function refers to a missing result"))
                 })
                 .transpose()?;
-            let (legacy_module, _) = legacy_canonical_module(record, &routine)?;
             let (canonical_module, declaration_feature) = canonical_module(record, &routine)?;
             let canonical_path = format!(
                 "slatec_sys::{canonical_module}::{}",
                 routine.to_ascii_lowercase()
             );
-            let legacy_path = format!(
-                "slatec_sys::{legacy_module}::{}",
-                routine.to_ascii_lowercase()
-            );
-            let compatibility_paths = (legacy_path != canonical_path)
-                .then_some(legacy_path)
-                .into_iter()
-                .collect();
             let binding_module = binding_module(&interface.batch)?;
             let binding_path = legacy
                 .get(&routine)
@@ -206,7 +196,7 @@ pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
                 .map(|path| path.replacen("slatec_sys::", "crate::", 1))
                 .unwrap_or_else(|| {
                     format!(
-                        "crate::generated::{binding_module}::{}",
+                        "crate::generated_ffi::{binding_module}::{}",
                         routine.to_ascii_lowercase()
                     )
                 });
@@ -229,7 +219,6 @@ pub fn generate(paths: BatchAPaths<'_>) -> Result<BatchAResult> {
                 abi_fingerprint: abi_fingerprint(&interface.kind, &args, result.as_ref()),
                 canonical_module,
                 canonical_path,
-                compatibility_paths,
                 declaration_feature: declaration_feature.clone(),
                 provider_feature: provider_feature(&declaration_feature)?.to_owned(),
                 binding_module,
@@ -635,30 +624,6 @@ fn public_role(record: &Value) -> (String, Option<String>) {
     ("principal_public_routine".to_owned(), None)
 }
 
-fn legacy_canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
-    let value = match field(record, "primary_family").as_str() {
-        "Dense linear algebra" => ("linear_algebra::dense", "linear-algebra"),
-        "Eigenvalue problems" => ("eigen::numerical", "eigen"),
-        "Elementary and transcendental functions" | "Special functions" => {
-            ("special::numerical", "special")
-        }
-        "FFTPACK transforms" => ("fftpack::numerical", "fftpack"),
-        "FISHPACK elliptic PDE solvers" => ("pde::fishpack::numerical", "fishpack"),
-        "Interpolation" | "PCHIP" => ("interpolation::numerical", "interpolation"),
-        "Numerical quadrature" => ("quadrature::numerical", "quadrature"),
-        "Nonlinear equations" => ("nonlinear::numerical", "nonlinear"),
-        "ODE solvers" => ("ode::numerical", "ode"),
-        "Approximation" => ("approximation::numerical", "approximation"),
-        "Probability and statistics" => ("statistics::numerical", "statistics"),
-        other => {
-            return Err(policy(&format!(
-                "Batch A has no canonical public taxonomy mapping for {routine} ({other})"
-            )));
-        }
-    };
-    Ok((value.0.to_owned(), value.1.to_owned()))
-}
-
 fn canonical_module(record: &Value, routine: &str) -> Result<(String, String)> {
     let value = match field(record, "primary_family").as_str() {
         "Dense linear algebra" => (
@@ -847,7 +812,6 @@ fn candidate_json(candidate: &Candidate) -> Value {
         "normalized_abi_fingerprint":candidate.abi_fingerprint,
         "canonical_module":candidate.canonical_module,
         "canonical_rust_path":candidate.canonical_path,
-        "compatibility_paths":candidate.compatibility_paths,
         "declaration_feature":candidate.declaration_feature,
         "provider_feature":candidate.provider_feature,
         "binding_module":candidate.binding_module,
@@ -886,20 +850,6 @@ fn write_canonical_modules(sys_dir: &Path, candidates: &[Candidate]) -> Result<(
             let canonical_parts =
                 relative_module_parts(&candidate.canonical_module, integration_root)?;
             tree.insert(&canonical_parts, candidate);
-            for compatibility in &candidate.compatibility_paths {
-                let compatibility_module = compatibility
-                    .strip_prefix("slatec_sys::")
-                    .and_then(|path| path.rsplit_once("::").map(|(module, _)| module))
-                    .ok_or_else(|| policy("Batch A compatibility path is malformed"))?;
-                let old_root = match feature.as_str() {
-                    "eigen" => "eigen",
-                    _ => integration_root,
-                };
-                let old_parts = relative_module_parts(compatibility_module, old_root)?;
-                if feature != "eigen" {
-                    tree.insert_alias(&old_parts, &canonical_parts, candidate);
-                }
-            }
         }
         let mut text = GENERATED_HEADER.to_owned();
         text.push_str(&format!(
@@ -918,7 +868,6 @@ fn write_canonical_modules(sys_dir: &Path, candidates: &[Candidate]) -> Result<(
 #[derive(Default)]
 struct ModuleNode<'a> {
     entries: Vec<&'a Candidate>,
-    aliases: Vec<(String, &'a Candidate)>,
     children: BTreeMap<String, ModuleNode<'a>>,
 }
 
@@ -934,41 +883,11 @@ impl<'a> ModuleNode<'a> {
         }
     }
 
-    fn insert_alias(
-        &mut self,
-        old_parts: &[String],
-        canonical_parts: &[String],
-        candidate: &'a Candidate,
-    ) {
-        if let Some((first, rest)) = old_parts.split_first() {
-            self.children
-                .entry(first.clone())
-                .or_default()
-                .insert_alias(rest, canonical_parts, candidate);
-        } else {
-            let mut path = "super::".repeat(old_parts.len().max(1));
-            if !canonical_parts.is_empty() {
-                path.push_str(&canonical_parts.join("::"));
-                path.push_str("::");
-            }
-            path.push_str(&candidate.routine.to_ascii_lowercase());
-            self.aliases.push((path, candidate));
-        }
-    }
-
     fn render(&self, text: &mut String, indent: &str) {
         let mut entries = self.entries.clone();
         entries.sort_by_key(|candidate| candidate.routine.as_str());
         for candidate in entries {
             render_candidate(text, candidate, indent);
-        }
-        let mut aliases = self.aliases.clone();
-        aliases.sort_by_key(|(_, candidate)| candidate.routine.as_str());
-        for (path, candidate) in aliases {
-            text.push_str(&format!(
-                "{indent}#[deprecated(note = \"use `{}`\")]\n{indent}pub use {path};\n\n",
-                candidate.canonical_path
-            ));
         }
         for (module, child) in &self.children {
             text.push_str(&format!("{indent}pub mod {module} {{\n"));
@@ -1075,7 +994,7 @@ fn render_candidate(text: &mut String, candidate: &Candidate, indent: &str) {
         "{indent}// raw-api-routine: {}\n",
         candidate.routine
     ));
-    if candidate.binding_path.starts_with("crate::generated::") {
+    if candidate.binding_path.starts_with("crate::generated_ffi::") {
         // This private mathematical binding owner contains the one FFI
         // declaration. Transitional ABI-shaped modules are rewritten as
         // re-exports by the declaration-ownership pass.

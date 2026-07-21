@@ -2,9 +2,9 @@
 //! rejected before the original FNLIB implementation is entered.
 
 #[cfg(feature = "special-beta")]
-use slatec_sys::families::special_beta as beta_raw;
+use slatec_sys::special::beta as beta_raw;
 #[cfg(feature = "special-gamma")]
-use slatec_sys::families::special_gamma as gamma_raw;
+use slatec_sys::special::gamma as gamma_raw;
 
 use super::super::{SpecialFunctionError, runtime};
 

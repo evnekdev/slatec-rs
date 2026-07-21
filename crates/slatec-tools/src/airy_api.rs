@@ -116,7 +116,6 @@ pub fn family_report(records: &[Value]) -> Value {
                 "native_symbol":field(record,"native_symbol"),
                 "generated_declaration_status":field(record,"generated_declaration_status"),
                 "reviewed_declaration_status":field(record,"reviewed_declaration_status"),
-                "current_rust_paths":record.get("legacy_rust_paths").cloned().unwrap_or_else(|| json!([])),
                 "canonical_rust_path":field(record,"canonical_rust_path"),
                 "provider_feature":field(record,"provider_feature"),
                 "documentation_status":field(record,"documentation_status"),

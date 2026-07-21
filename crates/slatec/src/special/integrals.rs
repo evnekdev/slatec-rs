@@ -9,7 +9,7 @@ pub mod spence;
 /// Trigonometric-integral placeholder.
 pub mod trigonometric;
 
-use slatec_sys::families::special_integrals as raw;
+use slatec_sys::special as raw;
 
 use super::{SpecialFunctionError, runtime};
 

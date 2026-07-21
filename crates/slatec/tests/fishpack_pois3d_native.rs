@@ -394,7 +394,7 @@ fn raw_contract_reports_the_documented_coefficient_statuses() {
     // intentionally inconsistent cyclic arrays make POIS3D stop at IERROR=9
     // before attempting a numerical solve.
     unsafe {
-        slatec_sys::fishpack_pois3d::pois3d(
+        slatec_sys::pde::fishpack::pois3d(
             &lperod,
             &l,
             &c1,
@@ -422,7 +422,7 @@ fn raw_contract_reports_the_documented_coefficient_statuses() {
     // SAFETY: this call has the same valid storage, but intentionally violates
     // only the documented noncyclic endpoint condition.
     unsafe {
-        slatec_sys::fishpack_pois3d::pois3d(
+        slatec_sys::pde::fishpack::pois3d(
             &lperod,
             &l,
             &c1,

@@ -328,7 +328,7 @@
       "documentation_complete": 0,
       "generated_abi_validated": 4,
       "historically_user_callable": 4,
-      "module": "nonlinear::complex",
+      "module": "roots::complex",
       "promotion_score": 20,
       "safe_wrapper_audits": 0,
       "unresolved_callbacks": 0

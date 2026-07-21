@@ -185,6 +185,26 @@ fn forbidden_term(line: &str) -> Option<String> {
             return Some(term);
         }
     }
+    for term in [
+        "#[deprecated",
+        "compatibility re-export",
+        "compatibility alias",
+        "compatibility-only",
+        "deprecated path",
+        "deprecated compatibility",
+        "previous canonical path",
+        "migration from old namespace",
+        "slatec_sys::generated",
+        "slatec_sys::families",
+        "special_scalar_expanded",
+        "nonlinear::complex",
+        "::numerical::",
+        "slatec_sys::eigen::",
+    ] {
+        if lower.contains(term) {
+            return Some(term.to_owned());
+        }
+    }
     None
 }
 
@@ -198,9 +218,9 @@ fn contains_term(line: &str, term: &str) -> bool {
 }
 
 fn historical_path(root: &Path, path: &Path) -> bool {
-    path.strip_prefix(root).ok().is_some_and(|relative| {
-        slash_path(relative).starts_with("docs/history/raw-api-milestones/")
-    })
+    path.strip_prefix(root)
+        .ok()
+        .is_some_and(|relative| slash_path(relative).starts_with("docs/history/"))
 }
 
 fn slash_path(path: &Path) -> String {

@@ -19,9 +19,8 @@ and source-hash evidence. It does not create a parallel inventory.
 The retained corpus has 1,517 identities. Of these, 812 have one canonical
 public raw path: 173 authored reviewed declarations, 459 generated numerical
 declarations, 47 callback-bearing declarations, 97 ABI-sensitive declarations,
-and 36 requalified legacy family declarations. Those 812 identities also have
-662 compatibility re-export paths. Compatibility names never create
-another `extern` declaration.
+and 36 requalified existing family declarations. Each public identity has one
+canonical path and one authoritative `extern` declaration.
 
 The non-public remainder is classified as 530 provider subsidiaries, 79 raw
 internal units, 2 runtime support units, 17 error support units, 5 machine
@@ -32,8 +31,9 @@ exclusion. The selected retained identities contain no callable `BLOCK DATA`,
 complex, COMMON-data, Fortran-I/O, or compiler-specific ABI after public-role
 classification. Zero identities remain unexplained.
 
-`public-api-coverage.json` lists canonical paths, compatibility paths, raw
-features, and provider features. `permanent-exclusions.json` supplies the
+`canonical-public-api.json` lists canonical paths, raw features, provider
+features, ABI fingerprints, documentation pages, and Netlib sources.
+`permanent-exclusions.json` supplies the
 evidence and reopen condition for every permanent decision;
 `provider-gaps.json` separates selected-source symbol gaps; and
 `legacy-interface-audit.json` records COMMON relationships, fixed-form I/O,

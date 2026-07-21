@@ -18,7 +18,6 @@ use slatec::special::{
     airy::*, bessel::*, elementary::*, error_functions::*, gamma::*, integrals::*,
     scalar_expanded::*,
 };
-use slatec_sys::generated::scalar_functions as raw;
 
 fn close(actual: f64, expected: f64, tolerance: f64) {
     assert!(
@@ -222,19 +221,19 @@ fn contained_invalid_raw_calls_use_the_profile_fatal_status() {
         match case.as_str() {
             "gamma" => {
                 let mut x = 0.0;
-                unsafe { raw::dgamma(&mut x) };
+                unsafe { slatec_sys::special::gamma::dgamma(&mut x) };
             }
             "e1" => {
                 let mut x = 0.0;
-                unsafe { raw::de1(&mut x) };
+                unsafe { slatec_sys::special::de1(&mut x) };
             }
             "k0" => {
                 let mut x = 0.0;
-                unsafe { raw::dbesk0(&mut x) };
+                unsafe { slatec_sys::special::bessel::dbesk0(&mut x) };
             }
             "log1p" => {
                 let mut x = -1.0;
-                unsafe { raw::dlnrel(&mut x) };
+                unsafe { slatec_sys::special::elementary::dlnrel(&mut x) };
             }
             _ => panic!("unknown child case {case}"),
         }

@@ -58,9 +58,9 @@ The former aggregate is retired because it conflated generated declarations, rev
 | Link-tested raw routines | 1371 |
 | Runtime-tested raw routines | 768 |
 | Fully documented raw routines | 812 |
-| Pre-existing family declarations pending R1 review | 143 |
+| Pre-existing family declarations pending R1 review | 1344 |
 | Safely wrapped routines | 210 |
-| Explicitly excluded routines | 130 |
+| Explicitly excluded routines | 134 |
 | Unclassified routines | 0 |
 
 The definitions and exclusions are generated in [coverage-summary.json](../../generated/raw-api/coverage-summary.json) and [exclusion-report.json](../../generated/raw-api/exclusion-report.json).

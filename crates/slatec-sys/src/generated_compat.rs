@@ -1,7 +1,7 @@
-//! Transitional ABI-shaped compatibility re-exports.
+//! Private ABI-shaped declaration forwarding.
 //!
-//! Prefer canonical mathematical modules. This module never owns an FFI
-//! declaration; it only re-exports items from the private declaration layer.
+//! This module never owns an FFI declaration; it only forwards items from the
+//! private declaration layer for internal canonical modules.
 
 #![allow(unused_imports)]
 

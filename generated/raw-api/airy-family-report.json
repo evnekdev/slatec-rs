@@ -88,9 +88,6 @@
       "canonical_provider": "full-provider-c70e2a1f4c42951f",
       "canonical_rust_path": "slatec_sys::special::airy::ai",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::ai"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -114,9 +111,6 @@
       "canonical_provider": "full-provider-d879e285d4a9dea9",
       "canonical_rust_path": "slatec_sys::special::airy::aie",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::aie"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -140,9 +134,6 @@
       "canonical_provider": "full-provider-69fc1b8a6fdbbe85",
       "canonical_rust_path": "slatec_sys::special::airy::bi",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::bi"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -166,9 +157,6 @@
       "canonical_provider": "full-provider-207c5e6b0575db12",
       "canonical_rust_path": "slatec_sys::special::airy::bie",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::bie"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -192,7 +180,6 @@
       "canonical_provider": "full-provider-ebad90d679c49d18",
       "canonical_rust_path": "slatec_sys::special::complex::cairy",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "complex argument, result, scaling, and status-code contracts are outside the reviewed real-scalar ABI policy",
       "final_disposition": "deferred ABI-sensitive complex Airy driver",
@@ -216,7 +203,6 @@
       "canonical_provider": "full-provider-ec2f796dcf216303",
       "canonical_rust_path": "slatec_sys::special::complex::cbiry",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "complex argument, result, scaling, and status-code contracts are outside the reviewed real-scalar ABI policy",
       "final_disposition": "deferred ABI-sensitive complex Airy driver",
@@ -240,7 +226,6 @@
       "canonical_provider": "full-provider-5bba4f6d13209273",
       "canonical_rust_path": "not_promoted",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "not_documented",
       "exclusion_or_deferment_reason": "internal Airy helper or Amos subsidiary; no independent public-contract review is claimed",
       "final_disposition": "deferred Airy subsidiary",
@@ -264,9 +249,6 @@
       "canonical_provider": "full-provider-ae0fc8344c988f89",
       "canonical_rust_path": "slatec_sys::special::airy::dai",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::dai"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -290,9 +272,6 @@
       "canonical_provider": "full-provider-c599169a8f7e8e11",
       "canonical_rust_path": "slatec_sys::special::airy::daie",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::daie"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -316,9 +295,6 @@
       "canonical_provider": "full-provider-15a5a34d05239dcc",
       "canonical_rust_path": "slatec_sys::special::airy::dbi",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::dbi"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -342,9 +318,6 @@
       "canonical_provider": "full-provider-3b7c3a2e59d914d7",
       "canonical_rust_path": "slatec_sys::special::airy::dbie",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [
-        "slatec_sys::families::special_airy::dbie"
-      ],
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "final_disposition": "reviewed real scalar public driver",
@@ -368,7 +341,6 @@
       "canonical_provider": "full-provider-916d144c17e4ced3",
       "canonical_rust_path": "not_promoted",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "not_documented",
       "exclusion_or_deferment_reason": "internal Airy helper or Amos subsidiary; no independent public-contract review is claimed",
       "final_disposition": "deferred Airy subsidiary",
@@ -392,7 +364,6 @@
       "canonical_provider": "full-provider-5de53fe2c5295dea",
       "canonical_rust_path": "not_promoted",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "not_documented",
       "exclusion_or_deferment_reason": "internal Airy helper or Amos subsidiary; no independent public-contract review is claimed",
       "final_disposition": "deferred Airy subsidiary",
@@ -416,7 +387,6 @@
       "canonical_provider": "full-provider-090cf6a6ff6d95eb",
       "canonical_rust_path": "not_promoted",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "not_documented",
       "exclusion_or_deferment_reason": "internal Airy helper or Amos subsidiary; no independent public-contract review is claimed",
       "final_disposition": "deferred Airy subsidiary",
@@ -440,7 +410,6 @@
       "canonical_provider": "full-provider-b6af2ef317543815",
       "canonical_rust_path": "not_promoted",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "not_documented",
       "exclusion_or_deferment_reason": "internal Airy helper or Amos subsidiary; no independent public-contract review is claimed",
       "final_disposition": "deferred Airy subsidiary",
@@ -464,7 +433,6 @@
       "canonical_provider": "full-provider-2657fa0952402e91",
       "canonical_rust_path": "not_promoted",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "not_documented",
       "exclusion_or_deferment_reason": "internal Airy helper or Amos subsidiary; no independent public-contract review is claimed",
       "final_disposition": "deferred Airy subsidiary",
@@ -488,7 +456,6 @@
       "canonical_provider": "full-provider-4973086d08138446",
       "canonical_rust_path": "slatec_sys::special::zairy",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "complex argument, result, scaling, and status-code contracts are outside the reviewed real-scalar ABI policy",
       "final_disposition": "deferred ABI-sensitive complex Airy driver",
@@ -512,7 +479,6 @@
       "canonical_provider": "full-provider-40bee2f40af39215",
       "canonical_rust_path": "slatec_sys::special::zbiry",
       "compile_test_status": "compiler_observed",
-      "current_rust_paths": [],
       "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "complex argument, result, scaling, and status-code contracts are outside the reviewed real-scalar ABI policy",
       "final_disposition": "deferred ABI-sensitive complex Airy driver",

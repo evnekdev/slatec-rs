@@ -2,7 +2,7 @@
 //!
 //! # Status: Implemented
 //!
-//! Enable `dassl`. The compatibility path is `crate::dassl`.
+//! Enable `dassl`.
 
 #[cfg(feature = "dassl")]
 pub use crate::dassl::*;

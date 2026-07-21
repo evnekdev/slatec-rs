@@ -53,10 +53,9 @@ and complex storage.
 
 ## Boundary and exclusions
 
-The canonical declarations are re-exported at the legacy compatibility paths
-`slatec_sys::families::blas_level1`, `blas_level2`, and `blas_level3`; no
-second `extern` declaration is created. `slatec_sys::generated` remains
-transitional and is not a stable raw namespace.
+Each BLAS routine has one canonical mathematical path and one authoritative
+`extern` declaration. ABI-shaped declaration modules are private implementation
+details.
 
 `CDCDOT`, `CDOTC`, and `CDOTU` are complex-valued Fortran functions exposed
 after controlled and selected-source Rust probes established the

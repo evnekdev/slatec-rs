@@ -26,6 +26,7 @@ use slatec_tools::policy::Policy;
 use slatec_tools::program_units;
 use slatec_tools::prologues;
 use slatec_tools::provider;
+use slatec_tools::public_api_semantic_review;
 use slatec_tools::public_module_roadmap;
 use slatec_tools::public_surface;
 use slatec_tools::raw_api_inventory;
@@ -156,6 +157,8 @@ fn run() -> Result<()> {
             | "validate-all-feature-coverage"
             | "generate-release-readiness"
             | "validate-release-readiness"
+            | "generate-public-api-semantic-review"
+            | "validate-public-api-semantic-review"
             | "generate-ffi-declaration-ownership"
             | "validate-unique-ffi-declarations"
             | "generate-public-surface-audit"
@@ -692,12 +695,30 @@ fn run() -> Result<()> {
                 release_readiness::validate(&root, &output)?
             };
             println!(
-                "{}: {} retained identities, {} canonical public routines, {} compatibility paths, {} families ({})",
+                "{}: {} retained identities, {} canonical public routines, {} canonical paths, {} families ({})",
                 result.status,
                 result.retained_identities,
                 result.public_raw_identities,
-                result.compatibility_paths,
+                result.canonical_paths,
                 result.family_count,
+                result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-public-api-semantic-review" | "validate-public-api-semantic-review" => {
+            let root = PathBuf::from(".");
+            let output = PathBuf::from("generated/release-readiness");
+            let result = if options.command == "generate-public-api-semantic-review" {
+                public_api_semantic_review::generate(&root, &output)?
+            } else {
+                public_api_semantic_review::validate(&root, &output)?
+            };
+            println!(
+                "{}: {} retained identities, {} public routines, {} exact public Netlib links ({})",
+                result.status,
+                result.retained_identities,
+                result.public_routines,
+                result.exact_public_links,
                 result.semantic_hash
             );
             Ok(())

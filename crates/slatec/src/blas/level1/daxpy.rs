@@ -1,4 +1,4 @@
-use slatec_sys::families::blas_level1 as raw;
+use slatec_sys::blas::level1 as raw;
 
 use super::super::{BlasError, validation};
 use super::audited_candidate_call;
@@ -7,8 +7,8 @@ use validation::{count, increment, input_pointer, matching_lengths, output_point
 /// Performs `y = alpha * x + y` using unit stride.
 ///
 /// ```no_run
-/// # fn main() -> Result<(), slatec::blas::BlasError> {
-/// use slatec::blas::level1::daxpy;
+/// # fn main() -> Result<(), slatec::linear_algebra::blas::BlasError> {
+/// use slatec::linear_algebra::blas::level1::daxpy;
 /// let mut y = [4.0, 5.0, 6.0];
 /// daxpy(2.0, &[1.0, 2.0, 3.0], &mut y)?;
 /// assert_eq!(y, [6.0, 9.0, 12.0]);

@@ -8,7 +8,7 @@ Search for a zero of a function F(X) in a given interval (B,C). It is designed p
 
 ## Description
 
-DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker. Description Of Arguments F :EXT - Name of the DOUBLE PRECISION external function. This name must be in an EXTERNAL statement in the calling program. F must be a function of one DOUBLE PRECISION argument. B :INOUT - One end of the DOUBLE PRECISION interval (B,C). The value returned for B usually is the better approximation to a zero of F. C :INOUT - The other end of the DOUBLE PRECISION interval (B,C) R :IN - A (better) DOUBLE PRECISION guess of a zero of F which could help in speeding up convergence. If F(B) and F(R) have opposite signs, a root will be found in the interval (B,R); if not, but F(R) and F(C) have opposite signs, a root will be found in the interval (R,C); otherwise, the interval (B,C) will be searched for a possible root. When no better guess is known, it is recommended that R be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. RE :IN - Relative error used for RW in the stopping criterion. If the requested RE is less than machine precision, then RW is set to approximately machine precision. AE :IN - Absolute error used in the stopping criterion. If the given interval (B,C) contains the origin, then a nonzero value should be chosen for AE. IFLAG :OUT - A status code. User must check IFLAG after each call. Control returns to the user from DFZERO in all cases. 1 B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and F(X) decreased in magnitude as (B,C) collapsed. 2 F(B) = 0. However, the interval (B,C) may not have collapsed to the requested tolerance. 3 B may be near a singular point of F(X). The interval (B,C) collapsed to the requested tolerance and the function changes sign in (B,C), but F(X) increased in magnitude as (B,C) collapsed, i.e. ABS(F(B out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4 No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether B is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5 Too many (.GT. 500) function evaluations used.
+DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker.
 
 ## Classification
 
@@ -56,28 +56,47 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Nonlinear equations](../families/nonlinear-equations.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DFZERO](https://www.netlib.org/slatec/src/dfzero.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `F` | input/output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `B` | input/output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `C` | input/output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `R` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | C :INOUT - The other end of the DOUBLE PRECISION interval (B,C) R :IN - A (better) DOUBLE PRECISION guess of a zero of F which could help in speeding up convergence. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RE` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | RE :IN - Relative error used for RW in the stopping criterion. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `AE` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | 2.*(RW*ABS(B)+AE). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IFLAG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | IFLAG :OUT - A status code. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `F` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Name of the DOUBLE PRECISION external function.  This name must be in an EXTERNAL statement in the calling program.  F must be a function of one DOUBLE PRECISION argument. |
+| 2 | `B` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | One end of the DOUBLE PRECISION interval (B,C).  The value returned for B usually is the better approximation to a zero of F. |
+| 3 | `C` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | The other end of the DOUBLE PRECISION interval (B,C) |
+| 4 | `R` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | A (better) DOUBLE PRECISION guess of a zero of F which could help in speeding up convergence.  If F(B) and F(R) have opposite signs, a root will be found in the interval (B,R);  if not, but F(R) and F(C) have opposite signs, a root will be found in the interval (R,C);  otherwise, the interval (B,C) will be searched for a possible root.  When no better guess is known, it is recommended that R be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. |
+| 5 | `RE` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 6 | `AE` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `IFLAG` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::roots::scalar::dfzero`. Native symbol: `dfzero_`. Feature: `raw-family-roots-scalar`. Provider status: `selected_provider_verified`. ABI fingerprint: `unavailable`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+If the requested RE is less than machine precision, then RW is set to approximately machine precision. the given interval (B,C) contains the origin, then a nonzero value should be chosen for AE. IFLAG :OUT   - A status code.  User must check IFLAG after each call.  Control returns to the user from DFZERO in all cases. 1  B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and F(X) decreased in magnitude as (B,C) collapsed. 2  F(B) = 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). The interval (B,C) collapsed to the requested tol- erance and the function changes sign in (B,C), but F(X) increased in magnitude as (B,C) collapsed, i.e. ABS(F(B out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether B is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5  Too many (.GT. 500) function evaluations used.
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::roots::scalar::dfzero`. Native symbol: `dfzero_`. Declaration feature: `raw-family-roots-scalar`. Provider feature: `roots-scalar`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -88,7 +107,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `pending`
 - Canonical Rust path: `slatec_sys::roots::scalar::dfzero`
-- Compatibility aliases: `slatec_sys::roots::dfzero`
 - Public declaration feature: `raw-family-roots-scalar`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

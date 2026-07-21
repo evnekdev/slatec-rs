@@ -106,11 +106,3 @@ unsafe extern "C" {
         oy: *mut f32,
     );
 }
-
-pub mod numerical {
-    #[deprecated(note = "use `slatec_sys::ode::dintp`")]
-    pub use super::dintp;
-
-    #[deprecated(note = "use `slatec_sys::ode::sintrp`")]
-    pub use super::sintrp;
-}

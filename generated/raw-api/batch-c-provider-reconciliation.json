@@ -667,7 +667,7 @@
       "source_hash": "35186ec5393643075877762a669d1c143f8177b0bf6932419f6baf475ce3220c"
     },
     {
-      "canonical_rust_path": "slatec_sys::nonlinear::complex::cpqr79",
+      "canonical_rust_path": "slatec_sys::roots::complex::cpqr79",
       "declaration_feature": "nonlinear-complex",
       "native_symbol": "cpqr79_",
       "provider_feature": "nonlinear-complex",
@@ -694,7 +694,7 @@
       "source_hash": "109179fb042754411cbdcb3e7d3980ba687d34aa12466cb12fa4de76038fc181"
     },
     {
-      "canonical_rust_path": "slatec_sys::nonlinear::complex::cpzero",
+      "canonical_rust_path": "slatec_sys::roots::complex::cpzero",
       "declaration_feature": "nonlinear-complex",
       "native_symbol": "cpzero_",
       "provider_feature": "nonlinear-complex",
@@ -856,7 +856,7 @@
       "source_hash": "99b6e8e1071bd942e327faaad85aa06cd735437ae8288849f98fede1c3bf9ebf"
     },
     {
-      "canonical_rust_path": "slatec_sys::nonlinear::complex::rpqr79",
+      "canonical_rust_path": "slatec_sys::roots::complex::rpqr79",
       "declaration_feature": "nonlinear-complex",
       "native_symbol": "rpqr79_",
       "provider_feature": "nonlinear-complex",
@@ -865,7 +865,7 @@
       "source_hash": "90d572aa5e1df644b6f8266dcaa50f1b21026645a47eead8f3e294308643c243"
     },
     {
-      "canonical_rust_path": "slatec_sys::nonlinear::complex::rpzero",
+      "canonical_rust_path": "slatec_sys::roots::complex::rpzero",
       "declaration_feature": "nonlinear-complex",
       "native_symbol": "rpzero_",
       "provider_feature": "nonlinear-complex",

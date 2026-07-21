@@ -76,13 +76,12 @@ The table reports compiler/interface facts separately from source-prologue seman
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
 - Public raw API status: `internal-subsidiary`
-- ABI validation: `pending`
+- ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-array-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `legacy_partial_rustdoc`
+- Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `passed`
 - Runtime validation: `passed`

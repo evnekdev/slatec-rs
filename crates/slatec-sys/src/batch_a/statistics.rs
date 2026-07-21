@@ -127,20 +127,3 @@ unsafe extern "C" {
     #[link_name = "runif_"]
     pub fn runif(t: *mut f32, n: *mut crate::FortranInteger) -> f32;
 }
-
-pub mod numerical {
-    #[deprecated(note = "use `slatec_sys::statistics::cv`")]
-    pub use super::cv;
-
-    #[deprecated(note = "use `slatec_sys::statistics::dcv`")]
-    pub use super::dcv;
-
-    #[deprecated(note = "use `slatec_sys::statistics::rand`")]
-    pub use super::rand;
-
-    #[deprecated(note = "use `slatec_sys::statistics::rgauss`")]
-    pub use super::rgauss;
-
-    #[deprecated(note = "use `slatec_sys::statistics::runif`")]
-    pub use super::runif;
-}

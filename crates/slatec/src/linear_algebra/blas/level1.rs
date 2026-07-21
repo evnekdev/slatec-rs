@@ -2,7 +2,7 @@
 //!
 //! # Status: Implemented
 //!
-//! Enable `blas-level1`. The compatibility path is `crate::blas::level1`.
+//! Enable `blas-level1`.
 
 #[cfg(feature = "blas-level1")]
 pub use crate::blas::level1::*;

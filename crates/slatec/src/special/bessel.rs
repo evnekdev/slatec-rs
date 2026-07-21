@@ -1,6 +1,6 @@
 //! Scalar real Bessel functions with explicit scaled and unscaled names.
 
-use slatec_sys::families::special_bessel as raw;
+use slatec_sys::special::bessel as raw;
 
 use super::{SpecialFunctionError, runtime};
 

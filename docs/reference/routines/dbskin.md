@@ -8,7 +8,7 @@ Compute repeated integrals of the K-zero Bessel function.
 
 ## Description
 
-The following definitions are used in DBSKIN: Definition 1 KI(0,X) = K-zero Bessel function. Definition 2 KI(N,X) = Bickley Function = integral from X to infinity of KI(N-1,t)dt for X .ge. 0 and N = 1,2,... _____________________________________________________________________ DBSKIN computes a sequence of Bickley functions (repeated integrals of the K0 Bessel function); i.e. for fixed X and N and for K=1,..., DBSKIN computes the sequence Y(K) = KI(N+K-1,X) for KODE=1 or Y(K) = EXP(X)*KI(N+K-1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). INPUT X is DOUBLE PRECISION X - Argument, X .ge. 0.0D0 N - Order of first member of the sequence N .ge. 0 KODE - Selection parameter KODE = 1 returns Y(K)= KI(N+K-1,X), K=1,M = 2 returns Y(K)=EXP(X)*KI(N+K-1,X), K=1,M M - Number of members in the sequence, M.ge.1 OUTPUT Y is a DOUBLE PRECISION VECTOR Y - A vector of dimension at least M containing the sequence selected by KODE. NZ - Underflow flag NZ = 0 means computation completed = 1 means an exponential underflow occurred on KODE=1. Y(K)=0.0D0, K=1,...,M is returned KODE=1 AND Y(K)=0.0E0, K=1,...,M IS RETURNED IERR - Error flag IERR=0, Normal return, computation completed IERR=1, Input error, no computation IERR=2, Error, no computation Algorithm termination condition not met The nominal computational accuracy is the maximum of unit roundoff (=D1MACH(4)) and 1.0D-18 since critical constants are given to only 18 digits. BSKIN is the single precision version of DBSKIN. *Long Description: Numerical recurrence on (L-1)*KI(L,X) = X(KI(L-3,X) - KI(L-1,X)) + (L-2)*KI(L-2,X) is stable where recurrence is carried forward or backward away from INT(X+0.5). The power series for indices 0,1 and 2 on 0.le.X.le.2 starts a stable recurrence for indices greater than 2. If N is sufficiently large (N.gt.NLIM), the uniform asymptotic expansion for N to INFINITY is more economical. On X.gt.2 the recursion is started by evaluating the uniform expansion for the three members whose indices are closest to INT(X+0.5) within the set N,...,N+M-1. Forward recurrence, backward recurrence or both complete the sequence depending on the relation of INT(X+0.5) to the indices N,...,N+M-1.
+The following definitions are used in DBSKIN: Definition 1 KI(0,X) = K-zero Bessel function. Definition 2 KI(N,X) = Bickley Function = integral from X to infinity of KI(N-1,t)dt for X .ge. 0 and N = 1,2,... _____________________________________________________________________ DBSKIN computes a sequence of Bickley functions (repeated integrals of the K0 Bessel function); i.e. for fixed X and N and for K=1,..., DBSKIN computes the sequence Y(K) = KI(N+K-1,X) for KODE=1 or Y(K) = EXP(X)*KI(N+K-1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). INPUT X is DOUBLE PRECISION X - Argument, X .ge. 0.0D0 N - Order of first member of the sequence N .ge. 0 KODE - Selection parameter KODE = 1 returns Y(K)= KI(N+K-1,X), K=1,M = 2 returns Y(K)=EXP(X)*KI(N+K-1,X), K=1,M M - Number of members in the sequence, M.ge.1 OUTPUT Y is a DOUBLE PRECISION VECTOR Y - A vector of dimension at least M containing the sequence selected by KODE. NZ - Underflow flag NZ = 0 means computation completed = 1 means an exponential underflow occurred on KODE=1. Y(K)=0.0D0, K=1,...,M is returned KODE=1 AND Y(K)=0.0E0, K=1,...,M IS RETURNED
 
 ## Classification
 
@@ -54,28 +54,47 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Special functions](../families/special-functions.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DBSKIN](https://www.netlib.org/slatec/src/dbskin.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `X` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | The following definitions are used in DBSKIN: Definition 1 KI(0,X) = K-zero Bessel function. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Definition 2 KI(N,X) = Bickley Function = integral from X to infinity of KI(N-1,t)dt for X .ge. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `KODE` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | for fixed X and N and for K=1,..., DBSKIN computes the sequence Y(K) = KI(N+K-1,X) for KODE=1 or Y(K) = EXP(X)*KI(N+K-1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `M` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | 0 KODE - Selection parameter KODE = 1 returns Y(K)= KI(N+K-1,X), K=1,M = 2 returns Y(K)=EXP(X)*KI(N+K-1,X), K=1,M M - Number of members in the sequence, M.ge.1 OUTPUT Y is a DOUBLE PRECISION VECTOR Y - A vector of dimension at least M containing the sequence selected by KODE. | 0 KODE - Selection parameter KODE = 1 returns Y(K)= KI(N+K-1,X), K=1,M = 2 returns Y(K)=EXP(X)*KI(N+K-1,X), K=1,M M - Number of members in the sequence, M.ge.1 OUTPUT Y is a DOUBLE PRECISION VECTOR Y - A vector of dimension at least M containing the sequence selected by KODE. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `Y` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | for fixed X and N and for K=1,..., DBSKIN computes the sequence Y(K) = KI(N+K-1,X) for KODE=1 or Y(K) = EXP(X)*KI(N+K-1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NZ` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | NZ - Underflow flag NZ = 0 means computation completed = 1 means an exponential underflow occurred on KODE=1. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Y(K)=0.0D0, K=1,...,M is returned KODE=1 AND Y(K)=0.0E0, K=1,...,M IS RETURNED IERR - Error flag IERR=0, Normal return, computation completed IERR=1, Input error, no computation IERR=2, Error, no computation Algorithm termination condition not met The nominal computational accuracy is the maximum of unit roundoff (=D1MACH(4)) and 1.0D-18 since critical constants are given to only 18 digits. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `Y` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 7 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::special::dbskin`. Native symbol: `dbskin_`. Feature: `special`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f64,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+IERR=0, Normal return, computation completed Algorithm termination condition not met The nominal computational accuracy is the maximum of unit roundoff (=D1MACH(4)) and 1.0D-18 since critical constants are given to only 18 digits. BSKIN is the single precision version of DBSKIN. Long Description: Numerical recurrence on (L-1)*KI(L,X) = X(KI(L-3,X) - KI(L-1,X)) + (L-2)*KI(L-2,X) is stable where recurrence is carried forward or backward away from INT(X+0.5).  The power series for indices 0,1 and 2 on 0.le.X.le.2 starts a stable recurrence for indices greater than 2.  If N is sufficiently large (N.gt.NLIM), the uniform asymptotic expansion for N to INFINITY is more economical.  On X.gt.2 the recursion is started by evaluating the uniform expansion for the three members whose indices are closest to INT(X+0.5) within the set N,...,N+M-1.  Forward recurrence, backward recurrence or both complete the sequence depending on the relation of INT(X+0.5) to the indices N,...,N+M-1.
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::special::dbskin`. Native symbol: `dbskin_`. Declaration feature: `special`. Provider feature: `special-real`. ABI fingerprint: `subroutine:void(mut_f64,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_i32,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -86,7 +105,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::special::dbskin`
-- Compatibility aliases: `slatec_sys::special::numerical::dbskin`
 - Public declaration feature: `special`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

@@ -2,7 +2,6 @@
 //!
 //! # Status: Implemented
 //!
-//! The compatibility path is `crate::nonlinear`.
 
 /// Easy finite-difference nonlinear systems.
 pub mod easy;

@@ -1,6 +1,6 @@
 //! Checked Chebyshev-series evaluation over the SLATEC `[-1, 1]` contract.
 
-use slatec_sys::families::special_polynomials as raw;
+use slatec_sys::special as raw;
 
 use crate::special::{SpecialFunctionError, runtime};
 

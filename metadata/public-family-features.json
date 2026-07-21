@@ -1,7 +1,7 @@
 {
   "schema_id": "slatec-sys.public-family-feature-registry",
   "schema_version": "1.0.0",
-  "policy": "Every public mathematical family aggregate must be listed here and be transitively reachable from slatec-sys feature all. Internal ABI batches, raw family implementation gates, profile gates, test-only gates, and compatibility aliases are deliberately not direct members of all.",
+  "policy": "Every public mathematical family aggregate must be listed here and be transitively reachable from slatec-sys feature all. Internal ABI batches, raw family implementation gates, profile gates, and test-only gates are deliberately not direct members of all.",
   "public_family_aggregates": [
     "blas",
     "special",
@@ -24,7 +24,6 @@
   "feature_classes": {
     "profile_only": ["ffi-profile-gnu-mingw-x86_64"],
     "internal_abi_shape": [
-      "raw-ffi", "raw-ffi-basic", "raw-ffi-abi-sensitive", "raw-ffi-all-validated",
       "raw-ffi-numeric-scalar-subroutines", "raw-ffi-numeric-array-subroutines",
       "raw-ffi-scalar-functions", "raw-ffi-complex-arguments", "raw-ffi-complex-returns", "raw-ffi-logical",
       "raw-ffi-character", "raw-ffi-quadrature", "raw-ffi-roots", "raw-ffi-nonlinear",
@@ -42,7 +41,6 @@
       "raw-family-quadrature-callbacks", "raw-family-linear-algebra-iterative", "raw-family-ode-callbacks",
       "raw-family-blas-complex", "raw-family-linear-algebra-complex", "raw-family-special-complex", "raw-family-nonlinear-complex", "raw-family-fishpack-complex"
     ],
-    "test_only": [],
-    "compatibility_aliases": []
+    "test_only": []
   }
 }

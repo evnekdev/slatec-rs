@@ -8,7 +8,7 @@ Compute the exponential integral E1(X).
 
 ## Description
 
-DE1 calculates the double precision exponential integral, E1(X), for positive double precision argument X and the Cauchy principal value for negative X. If principal values are used everywhere, then, for all X, E1(X) = -Ei(-X) or Ei(X) = -E1(-X). Series for AE10 on the interval -3.12500E-02 to 0. with weighted error 4.62E-32 log weighted error 31.34 significant figures required 29.70 decimal places required 32.18 Series for AE11 on the interval -1.25000E-01 to -3.12500E-02 with weighted error 2.22E-32 log weighted error 31.65 significant figures required 30.75 decimal places required 32.54 Series for AE12 on the interval -2.50000E-01 to -1.25000E-01 with weighted error 5.19E-32 log weighted error 31.28 significant figures required 30.82 decimal places required 32.09 Series for E11 on the interval -4.00000E+00 to -1.00000E+00 with weighted error 8.49E-34 log weighted error 33.07 significant figures required 34.13 decimal places required 33.80 Series for E12 on the interval -1.00000E+00 to 1.00000E+00 with weighted error 8.08E-33 log weighted error 32.09 approx significant figures required 30.4 decimal places required 32.79 Series for AE13 on the interval 2.50000E-01 to 1.00000E+00 with weighted error 6.65E-32 log weighted error 31.18 significant figures required 30.69 decimal places required 32.03 Series for AE14 on the interval 0. to 2.50000E-01 with weighted error 5.07E-32 log weighted error 31.30 significant figures required 30.40 decimal places required 32.20
+DE1 calculates the double precision exponential integral, E1(X), for positive double precision argument X and the Cauchy principal value for negative X. If principal values are used everywhere, then, for all X, E1(X) = -Ei(-X) or Ei(X) = -E1(-X). Series for AE10 on the interval -3.12500E-02 to 0.
 
 ## Classification
 
@@ -52,26 +52,41 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Special functions](../families/special-functions.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DE1](https://www.netlib.org/slatec/fnlib/de1.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `X` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DE1 calculates the double precision exponential integral, E1(X), for positive double precision argument X and the Cauchy principal value for negative X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
-The Fortran function returns `*mut f64` through the compiler-validated ABI recorded by the authoritative declaration fingerprint `function:f64(mut_f64)`.
+This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:f64(mut_f64)`.
 
-### ABI and safety
+### Callback contract
 
-Canonical path: `slatec_sys::special::de1`. Native symbol: `de1_`. Feature: `special`. Provider status: `selected_provider_verified`. ABI fingerprint: `function:f64(mut_f64)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This interface declares no callback argument.
+
+### Error and status values
+
+significant figures required  29.70 decimal places required  32.18 Series for AE11       on the interval -1.25000E-01 to -3.12500E-02 significant figures required  30.75 decimal places required  32.54 Series for AE12       on the interval -2.50000E-01 to -1.25000E-01 significant figures required  30.82 decimal places required  32.09 Series for E11        on the interval -4.00000E+00 to -1.00000E+00 significant figures required  34.13 decimal places required  33.80 Series for E12        on the interval -1.00000E+00 to  1.00000E+00 approx significant figures required  30.4 decimal places required  32.79 Series for AE13       on the interval  2.50000E-01 to  1.00000E+00 significant figures required  30.69 decimal places required  32.03 Series for AE14       on the interval  0.          to  2.50000E-01 significant figures required  30.40 decimal places required  32.20
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::special::de1`. Native symbol: `de1_`. Declaration feature: `special`. Provider feature: `special-real`. ABI fingerprint: `function:f64(mut_f64)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -82,7 +97,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::special::de1`
-- Compatibility aliases: `slatec_sys::special::numerical::de1`
 - Public declaration feature: `special`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

@@ -16,12 +16,7 @@
 //! numerical feature: [`linear_algebra`], [`special`], [`integration`],
 //! [`equations`], [`least_squares`], [`differential_equations`],
 //! [`optimization`], [`transforms`], and [`interpolation`]. See [`roadmap`]
-//! for status, feature, runtime, and compatibility information.
-//!
-//! Existing paths such as `blas`, `quadrature`, and `nonlinear` remain
-//! supported compatibility paths. The grouped paths are the preferred
-//! organization for new documentation and future additions; no removal
-//! schedule is established.
+//! for status, feature, and runtime information.
 //!
 //! # Features and documentation
 //!
@@ -101,7 +96,7 @@ static SLATEC_IMPLEMENTATION_PROVIDER: fn() = slatec_src::ensure_linked;
     feature = "blas-level2",
     feature = "blas-level3"
 ))]
-pub mod blas;
+mod blas;
 
 /// Special functions, including feature-gated scalar FNLIB facades.
 ///
