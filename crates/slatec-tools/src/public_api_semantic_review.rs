@@ -1509,6 +1509,8 @@ fn resolved_cached_source_path(
     let evidence = root.join(evidence_path);
     resolve_cached_source_locations(
         evidence,
+        semantic_evidence_cache_dir(root).as_deref(),
+        evidence_path,
         &semantic_source_cache_dir(root),
         provider_source_path,
     )
@@ -1516,14 +1518,37 @@ fn resolved_cached_source_path(
 
 fn resolve_cached_source_locations(
     evidence: PathBuf,
+    evidence_cache: Option<&Path>,
+    evidence_path: &str,
     source_cache: &Path,
     provider_source_path: &str,
 ) -> Option<PathBuf> {
     if evidence.is_file() {
         return Some(evidence);
     }
+    if let Some(cache) = evidence_cache {
+        let relative = Path::new(evidence_path)
+            .strip_prefix("evidence/full-corpus/audit-input/directories")
+            .ok()?;
+        let cached_evidence = cache.join(relative);
+        if cached_evidence.is_file() {
+            return Some(cached_evidence);
+        }
+    }
     let cached_source = source_cache.join(provider_source_path);
     cached_source.is_file().then_some(cached_source)
+}
+
+fn semantic_evidence_cache_dir(root: &Path) -> Option<PathBuf> {
+    std::env::var_os("SLATEC_EVIDENCE_CACHE")
+        .map(PathBuf::from)
+        .map(|path| {
+            if path.is_absolute() {
+                path
+            } else {
+                root.join(path)
+            }
+        })
 }
 
 fn semantic_source_cache_dir(root: &Path) -> PathBuf {
@@ -4492,8 +4517,30 @@ mod tests {
         assert_eq!(
             resolve_cached_source_locations(
                 temporary.path().join("evidence/missing-acosh.f"),
+                None,
+                "evidence/missing-acosh.f",
                 &cache,
                 "fnlib/acosh.f"
+            ),
+            Some(source)
+        );
+    }
+
+    #[test]
+    fn source_resolution_uses_external_full_evidence_cache() {
+        let temporary = tempfile::tempdir().unwrap();
+        let evidence_cache = temporary.path().join("full-evidence-cache");
+        let source = evidence_cache.join("src/files/avint.f");
+        fs::create_dir_all(source.parent().unwrap()).unwrap();
+        fs::write(&source, b"C AVINT\n").unwrap();
+
+        assert_eq!(
+            resolve_cached_source_locations(
+                temporary.path().join("missing-evidence-file"),
+                Some(&evidence_cache),
+                "evidence/full-corpus/audit-input/directories/src/files/avint.f",
+                &temporary.path().join("selected-source-cache"),
+                "src/avint.f"
             ),
             Some(source)
         );
