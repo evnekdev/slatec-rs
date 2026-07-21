@@ -248,14 +248,16 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
     let mut source_bytes = BTreeMap::<String, Vec<u8>>::new();
     for record in catalogue {
         let routine = field(record, "normalized_name");
+        let cached_path = record
+            .pointer("/official_documentation/netlib_source_url/cached_path")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let source_path =
+            resolved_cached_source_path(root, cached_path, &field(record, "source_file"));
         let mut link = source_link_record(root, record)?;
         link["public_routine"] = Value::Bool(public_names.contains(&routine));
-        if let Some(path) = link
-            .get("cached_path")
-            .and_then(Value::as_str)
-            .filter(|path| !path.is_empty())
-        {
-            if let Ok(bytes) = fs::read(root.join(path)) {
+        if let Some(path) = source_path {
+            if let Ok(bytes) = fs::read(path) {
                 source_bytes.insert(routine.clone(), bytes);
             }
         }
@@ -1442,8 +1444,9 @@ fn source_link_record(root: &Path, record: &Value) -> Result<Value> {
         && url.starts_with("https://www.netlib.org/")
         && url.ends_with(".f")
     {
-        let path = root.join(cached_path);
-        if path.is_file() {
+        if let Some(path) =
+            resolved_cached_source_path(root, cached_path, &field(record, "source_file"))
+        {
             let bytes = fs::read(&path)?;
             if hash::bytes(&bytes) == expected_hash {
                 verified = "verified_source_hash";
@@ -1471,6 +1474,48 @@ fn source_link_record(root: &Path, record: &Value) -> Result<Value> {
         "public_routine":false,
         "unavailable_reason":reason,
     }))
+}
+
+/// Resolves a verified selected-source input without changing the stable,
+/// repository-relative evidence path emitted in reports. A clean worktree may
+/// supply the separately acquired `SLATEC_SOURCE_CACHE`; the selected source
+/// hash remains the authority for accepting either location.
+fn resolved_cached_source_path(
+    root: &Path,
+    evidence_path: &str,
+    provider_source_path: &str,
+) -> Option<PathBuf> {
+    let evidence = root.join(evidence_path);
+    resolve_cached_source_locations(
+        evidence,
+        &semantic_source_cache_dir(root),
+        provider_source_path,
+    )
+}
+
+fn resolve_cached_source_locations(
+    evidence: PathBuf,
+    source_cache: &Path,
+    provider_source_path: &str,
+) -> Option<PathBuf> {
+    if evidence.is_file() {
+        return Some(evidence);
+    }
+    let cached_source = source_cache.join(provider_source_path);
+    cached_source.is_file().then_some(cached_source)
+}
+
+fn semantic_source_cache_dir(root: &Path) -> PathBuf {
+    std::env::var_os("SLATEC_SOURCE_CACHE")
+        .map(PathBuf::from)
+        .map(|path| {
+            if path.is_absolute() {
+                path
+            } else {
+                root.join(path)
+            }
+        })
+        .unwrap_or_else(|| root.join("target/slatec-source-cache"))
 }
 
 fn arguments_by_routine(value: &Value) -> Result<BTreeMap<String, Vec<Argument>>> {
@@ -4413,6 +4458,24 @@ mod tests {
         let output = temporary.path().join("report.md");
         write_markdown(&output, "# Report\r\n\r\n").unwrap();
         assert_eq!(std::fs::read(&output).unwrap(), b"# Report\n");
+    }
+
+    #[test]
+    fn source_resolution_uses_verified_cache_when_evidence_is_not_in_worktree() {
+        let temporary = tempfile::tempdir().unwrap();
+        let cache = temporary.path().join("source-cache");
+        let source = cache.join("fnlib/acosh.f");
+        fs::create_dir_all(source.parent().unwrap()).unwrap();
+        fs::write(&source, b"C ACOSH\n").unwrap();
+
+        assert_eq!(
+            resolve_cached_source_locations(
+                temporary.path().join("evidence/missing-acosh.f"),
+                &cache,
+                "fnlib/acosh.f"
+            ),
+            Some(source)
+        );
     }
 
     #[test]
