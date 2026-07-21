@@ -8,7 +8,7 @@ Find the zeros of a polynomial with real coefficients.
 
 ## Description
 
-This routine computes all zeros of a polynomial of degree NDEG with real coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list
+This routine computes all zeros of a polynomial of degree NDEG with real coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list COEFF(NDEG+1), ROOT(NDEG), WORK(NDEG*(NDEG+2))
 
 ## Classification
 
@@ -54,37 +54,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [RPQR79](https://www.netlib.org/slatec/src/rpqr79.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ROOT(NDEG), WORK(NDEG*(NDEG+2)) degree of polynomial |
-| 2 | `COEFF` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | ROOT(NDEG), WORK(NDEG*(NDEG+2)) REAL coefficients in descending order.  i.e., P(Z)= COEFF(1)*(Z**NDEG) + COEFF(NDEG)*Z + COEFF(NDEG+1) 0.0 3  NDEG is invalid (less than or equal to 0) |
-| 3 | `ROOT` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX vector of roots |
-| 4 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Output Error Code - Normal Code 0  means the roots were computed. - Abnormal Codes 1  more than 30 QR iterations on some eigenvalue of the companion matrix |
-| 5 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL work array of dimension at least NDEG*(NDEG+2) |
+| 1 | `NDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | degree of polynomial. |
+| 2 | `COEFF` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL coefficients in descending order. i. e. , P(Z)= COEFF(1)*(Z**NDEG) + COEFF(NDEG)*Z + COEFF(NDEG+1). |
+| 3 | `ROOT` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX vector of roots. |
+| 4 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Output Error Code - Normal Code 0 means the roots were computed. - Abnormal Codes 1 more than 30 QR iterations on some eigenvalue of the companion matrix 2 COEFF(1)=0. 0 3 NDEG is invalid (less than or equal to 0). |
+| 5 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL work array of dimension at least NDEG*(NDEG+2). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WORK`: REAL work array of dimension at least NDEG*(NDEG+2)
+`WORK`: REAL work array of dimension at least NDEG*(NDEG+2).
 
 ### Provider, ABI, and safety
 

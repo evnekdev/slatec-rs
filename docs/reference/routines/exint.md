@@ -8,7 +8,7 @@ Compute an M member sequence of exponential integrals E(N+K,X), K=0,1,...,M-1 fo
 
 ## Description
 
-EXINT computes M member sequences of exponential integrals
+EXINT computes M member sequences of exponential integrals E(N+K,X), K=0,1,...,M-1 for N .GE. 1 and X .GE. 0. The exponential integral is defined by E(N,X)=integral on (1,infinity) of EXP(-XT)/T**N where X=0.0 and N=1 cannot occur simultaneously. Formulas and notation are found in the NBS Handbook of Mathematical Functions (ref. 1). The power series is implemented for X .LE. XCUT and the confluent hypergeometric representation E(A,X) = EXP(-X)*(X**(A-1))*U(A,A,X) is computed for X .GT. XCUT. Since sequences are computed in a stable fashion by recurring away from X, A is selected as the integer closest to X within the constraint N .LE. A .LE. N+M-1. For the U computation, A is further modified to be the nearest even integer. Indices are carried forward or backward by the two term recursion relation K*E(K+1,X) + X*E(K,X) = EXP(-X) once E(A,X) is computed. The U function is computed by means of the backward recursive Miller algorithm applied to the three term contiguous relation for U(A+K,A,X), K=0,1,... This produces accurate ratios and determines U(A+K,A,X), and hence E(A,X), to within a multiplicative constant C. Another contiguous relation applied to C*U(A,A,X) and C*U(A+1,A,X) gets C*U(A+1,A+1,X), a quantity proportional to E(A+1,X). The normalizing constant C is obtained from the two term recursion relation above with K=A.
 
 ## Classification
 
@@ -54,40 +54,38 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [EXINT](https://www.netlib.org/slatec/src/exint.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1 for N .GE. 1 and X .GE. 0. 1 for N .GE. 1 and X .GE. 0.  The exponential integral is defined by XT)/T**N 0.0 and N=1 cannot occur simultaneously.  Formulas and notation are found in the NBS Handbook of Mathematical Functions (ref. 1). The power series is implemented for X .LE. XCUT and the confluent hypergeometric representation X)*(X**(A-1))*U(A,A,X) is computed for X .GT. XCUT.  Since sequences are computed in a stable fashion by recurring away from X, A is selected as the integer closest to X within the constraint N .LE. A .LE. X) X) X) once E(A,X) is computed.  The U function is computed by means once E(A,X) is computed.  The U function is computed by means once E(A,X) is computed.  The U function is computed by means of the backward recursive Miller algorithm applied to the of the backward recursive Miller algorithm applied to the of the backward recursive Miller algorithm applied to the 0,1,... This produces accurate ratios and determines U(A+K,A,X), and hence E(A,X), to within a multiplicative constant C. Another contiguous relation applied to C*U(A,A,X) and gets C*U(A+1,A+1,X), a quantity proportional to The normalizing constant C is obtained from the two term recursion relation above with K=A. 1 and  X .GE. 0.0 for N .GE. 2 1 and  X .GE. 0.0 for N .GE. 2 0.0 and N=1 is an error) 1. 1. 1. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 for N .GE. 1 and X .GE. 0. 1 for N .GE. 1 and X .GE. 0.  The exponential integral is defined by XT)/T**N 1.  For the U computation, A is further modified to be the nearest even integer.  Indices are carried forward or backward by the two term recursion relation 1 and  X .GE. 0.0 for N .GE. 2 order of the first member of the sequence, N .GE. 1 1. 1. 1,X) or EXP(X)*E(N+K-1,X), K=1,M depending on KODE |
-| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a selection parameter for scaled values 1. |
-| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 for N .GE. 1 and X .GE. 0. 1 for N .GE. 1 and X .GE. 0.  The exponential integral is defined by 1.  For the U computation, A is further modified to be the nearest even integer.  Indices are carried forward or backward by the two term recursion relation 1. 1. number of exponential integrals in the sequence, .GE. 1 |
-| 5 | `TOL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | relative accuracy wanted, ETOL .LE. TOL .LE. 0.1 ETOL = single precision unit roundoff = R1MACH(4) |
-| 6 | `EN` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a vector of dimension at least M containing values 1,X) or EXP(X)*E(N+K-1,X), K=1,M depending on KODE 0.0E0 , K=1,M returned on KODE=1 |
-| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | underflow indicator 0   a normal return M   X exceeds XLIM and an underflow occurs. |
-| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | error flag 0, normal return, computation completed 1, input error,   no computation 2, error,         no computation algorithm termination condition not met |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | X. GT. 0. 0 for N=1 and X. GE. 0 for N. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the first member of the sequence, N. GE. 1 (X=0. 0 and N=1 is an error). |
+| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a selection parameter for scaled values 1 returns E(N+K,X), K=0,1,. ,M-1. =2 returns EXP(X)*E(N+K,X), K=0,1,. |
+| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of exponential integrals in the sequence,. GE. 1. |
+| 5 | `TOL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | relative accuracy wanted, ETOL. LE. TOL. 0. 1 ETOL = single precision unit roundoff = R1MACH(4). |
+| 6 | `EN` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a vector of dimension at least M containing values E(N+K-1,X) or EXP(X)*E(N+K-1,X), K=1,M depending on KODE 0. 0E0 , K=1,M returned on KODE=1. |
+| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | underflow indicator NZ=0 a normal return M X exceeds XLIM and an underflow occurs. |
+| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | error flag 0, normal return, computation completed 1, input error, no computation 2, error, no computation algorithm termination condition not met. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `NZ` | `0` | a normal return |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

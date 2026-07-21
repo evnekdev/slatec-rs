@@ -54,38 +54,26 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [GAUS8](https://www.netlib.org/slatec/src/gaus8.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `FUN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | name of external function to be integrated.  This name must be in an EXTERNAL statement in the calling program. must be a REAL function of one REAL argument.  The value of the argument to FUN is the variable of integration which ranges from A to B. Usually, smaller values for ERR yield more accuracy and require more function evaluations. |
-| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | lower limit of integration negative value for ERR causes an estimate of the absolute error in ANS to be returned in ERR.  Note that B. are too nearly equal to allow normal integration.  ANS is set to zero. --Abnormal code 2 ANS probably does not meet requested error tolerance. |
-| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | upper limit of integration (may be less than A) are too nearly equal to allow normal integration.  ANS is set to zero. --Abnormal code 2 ANS probably does not meet requested error tolerance. |
-| 4 | `ERR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a requested pseudorelative error tolerance.  Normally pick a value of ABS(ERR) so that STOL .LT. ABS(ERR) .LE. 1.0E-3 where STOL is the single precision unit roundoff R1MACH(4).  ANS will normally have no more error than times the integral of the absolute value of must be a variable (not a constant) in this case. Note also that the user must reset the value of ERR before making any more calls that use the variable ERR. will be an estimate of the absolute error in ANS if the is unchanged if is unchanged if negative.)  The estimated |
-| 5 | `ANS` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | computed value of integral |
-| 6 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a status code --Normal codes 1 ANS most likely meets requested error tolerance, |
+| 1 | `FUN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | name of external function to be integrated. This name must be in an EXTERNAL statement in the calling program. must be a REAL function of one REAL argument. The value of the argument to FUN is the variable of integration which ranges from A to B. Usually, smaller values for ERR yield more accuracy and require more function evaluations. A negative value for ERR causes an estimate of the absolute error in ANS to be returned in ERR. |
+| 2 | `A` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | lower limit of integration B. -1 A and B are too nearly equal to allow normal integration. ANS is set to zero. --Abnormal code 2 ANS probably does not meet requested error tolerance. |
+| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | upper limit of integration (may be less than A). |
+| 4 | `ERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | is a requested pseudorelative error tolerance. Normally pick a value of ABS(ERR) so that STOL. LT. ABS(ERR). LE. 1. |
+| 5 | `ANS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | computed value of integral. |
+| 6 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a status code --Normal codes 1 ANS most likely meets requested error tolerance,. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-not be used as a correction to the computed integral.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

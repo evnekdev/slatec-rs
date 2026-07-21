@@ -53,8 +53,8 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [DINTP](https://www.netlib.org/slatec/src/dintp.f)
 
 ### Arguments
@@ -63,9 +63,9 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input current integration abscissa from `DSTEPS`. It and the history arguments must be from the same unmodified `DSTEPS` state. |
 | 2 | `Y` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Readable current solution vector from `DSTEPS`, with at least `NEQN` elements. |
-| 3 | `XOUT` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | by evaluating the polynomial there.  Information defining this polynomial is passed from  DSTEPS  so  DINTP  cannot be used alone. Subroutine DSTEPS is completely explained and documented in the text "Computer Solution of Ordinary Differential Equations, the Initial Value Problem"  by L. F. Shampine and M. K. Gordon. Input to DINTP -- The user provides storage in the calling program for the arrays in the call list DIMENSION Y(NEQN),YOUT(NEQN),YPOUT(NEQN),PHI(NEQN,16),OY(NEQN) AND ALPHA(12),OG(13),OW(12),GI(11),IV(10) and defines point at which solution is desired. The remaining parameters are defined in  DSTEPS  and passed to DINTP  from that subroutine Output from  DINTP -- |
-| 4 | `YOUT` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | solution at  XOUT |
-| 5 | `YPOUT` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | derivative of solution at  XOUT The remaining parameters are returned unaltered from their input values.  Integration with  DSTEPS  may be continued. |
+| 3 | `XOUT` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | by evaluating the polynomial there. Information defining this polynomial is passed from DSTEPS so DINTP cannot be used alone. Subroutine DSTEPS is completely explained and documented in the text "Computer Solution of Ordinary Differential Equations, the Initial Value Problem" by L. F. Shampine and M. K. |
+| 4 | `YOUT` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | solution at XOUT. |
+| 5 | `YPOUT` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | derivative of solution at XOUT The remaining parameters are returned unaltered from their input values. Integration with DSTEPS may be continued. |
 | 6 | `NEQN` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input number of differential equations. It is the required length of `Y`, `YOUT`, and `YPOUT` and the first dimension of `PHI`. |
 | 7 | `KOLD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input interpolation order saved by `DSTEPS`. It controls how many columns of the `PHI` history are used and must be passed unchanged from that integrator state. |
 | 8 | `PHI` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (NEQN, 16) | Readable `DSTEPS` history matrix with Fortran shape `(NEQN, 16)`. It defines the local interpolation polynomial and must not be synthesized independently. |
@@ -79,23 +79,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 | 16 | `OX` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Readable previous integration abscissa from `DSTEPS`; together with `X` it defines the interpolation interval. |
 | 17 | `OY` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Readable previous solution vector from `DSTEPS`, with at least `NEQN` elements. It supplies the endpoint data for the smooth interpolant. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

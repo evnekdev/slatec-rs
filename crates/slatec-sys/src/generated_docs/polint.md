@@ -1,6 +1,6 @@
 # Purpose
 
-Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLINT is designed to produce the polynomial which
+Written by Robert E. Huddleston, Sandia Laboratories, Livermore Subroutine POLINT is designed to produce the polynomial which interpolates the data (X(I),Y(I)), I=1,...,N. POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients.
 
 # Description
 
@@ -8,37 +8,36 @@ This canonical unsafe binding exposes original SLATEC routine `POLINT`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. the number of data points  (N .GE. 1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `X`
+the number of data points (N. GE. 1).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). 1,...,N.  POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients. Formal Parameters the array of abscissas (all of which must be distinct) must be dimensioned at least N in the calling program. 1,...,N.  POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients. Formal Parameters the array of abscissas (all of which must be distinct) must be dimensioned at least N in the calling program. not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 3. `Y`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). 1,...,N.  POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients. Formal Parameters the array of ordinates must be dimensioned at least N in the calling program. 1,...,N.  POLINT sets up information in the array C which can be used by subroutine POLYVL to evaluate the polynomial and its derivatives and by subroutine POLCOF to produce the coefficients. Formal Parameters the array of ordinates must be dimensioned at least N in the calling program. not applicable or not stated by selected source not a workspace argument
+the array of abscissas (all of which must be distinct).
 
-## 4. `C`
+## `Y`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). an array of information used by subroutines Dimensioning Information  ******* must be dimensioned at least N in the calling program. an array of information used by subroutines Dimensioning Information  ******* must be dimensioned at least N in the calling program. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+the array of ordinates.
+
+## `C`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+an array of information used by subroutines Dimensioning Information ******* Arrays X,Y, and C must be dimensioned at least N in the calling program.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `X`: not a workspace argument
 - `Y`: not a workspace argument
 - `C`: not a workspace argument

@@ -8,7 +8,7 @@ To compute I = Integral of F*W over (A,B), with error estimate J = Integral of A
 
 ## Description
 
-Integration rules Standard fortran subroutine Real version PARAMETERS ON ENTRY
+Integration rules Standard fortran subroutine Real version
 
 ## Classification
 
@@ -54,29 +54,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QK15W](https://www.netlib.org/slatec/src/qk15w.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Real Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. I/(B-A)) |
-| 2 | `W` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Real Function subprogram defining the integrand WEIGHT function W(X). The actual name for W needs to be declared E X T E R N A L in the calling program. |
-| 3 | `P1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameters in the WEIGHT function |
-| 4 | `P2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameters in the WEIGHT function |
-| 5 | `P3` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameters in the WEIGHT function |
-| 6 | `P4` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameters in the WEIGHT function |
-| 7 | `KP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Key for indicating the type of WEIGHT function |
-| 8 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Lower limit of integration |
-| 9 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Upper limit of integration ON RETURN |
-| 10 | `RESULT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral I point Kronrod rule (RESK) obtained by optimal addition of abscissae to the 7-point Gauss rule (RESG). |
-| 11 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
-| 12 | `RESABS` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral of ABS(F) |
-| 13 | `RESASC` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
+| 2 | `W` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand WEIGHT function W(X). The actual name for W needs to be declared E X T E R N A L in the calling program. |
+| 3 | `P1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameters in the WEIGHT function. |
+| 4 | `P2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameters in the WEIGHT function. |
+| 5 | `P3` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameters in the WEIGHT function. |
+| 6 | `P4` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameters in the WEIGHT function. |
+| 7 | `KP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Key for indicating the type of WEIGHT function. |
+| 8 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Lower limit of integration. |
+| 9 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Upper limit of integration. |
+| 10 | `RESULT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral I is computed by applying the 15-point Kronrod rule (RESK) obtained by optimal addition of abscissae to the 7-point Gauss rule (RESG). |
+| 11 | `ABSERR` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT). |
+| 12 | `RESABS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral of ABS(F). |
+| 13 | `RESASC` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral of ABS(F-I/(B-A)). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -85,14 +85,6 @@ This is a Fortran subroutine and has no direct return value; outputs are documen
 ### Callback contract
 
 Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

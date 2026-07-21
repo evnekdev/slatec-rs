@@ -8,7 +8,7 @@ The optional fourth step of the QZ algorithm for generalized eigenproblems. Acce
 
 ## Description
 
-This subroutine is the optional fourth step of the QZ algorithm for solving generalized matrix eigenvalue problems, SIAM J. NUMER. ANAL. 10, 241-256(1973) by MOLER and STEWART. This subroutine accepts a pair of REAL matrices, one of them in quasi-triangular form (in which each 2-by-2 block corresponds to
+This subroutine is the optional fourth step of the QZ algorithm for solving generalized matrix eigenvalue problems, SIAM J. NUMER. ANAL. 10, 241-256(1973) by MOLER and STEWART. This subroutine accepts a pair of REAL matrices, one of them in quasi-triangular form (in which each 2-by-2 block corresponds to a pair of complex eigenvalues) and the other in upper triangular form. It computes the eigenvectors of the triangular problem and transforms the results back to the original coordinate system. It is usually preceded by QZHES, QZIT, and QZVAL.
 
 ## Classification
 
@@ -51,40 +51,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QZVEC](https://www.netlib.org/slatec/lin/qzvec.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. contains the tolerance quantity (EPSB) |
-| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | pair of complex eigenvalues) and the other in upper triangular form.  It computes the eigenvectors of the triangular problem and transforms the results back to the original coordinate system. It is usually preceded by  QZHES,  QZIT, and  QZVAL. triangular matrix.  A is a two- triangular matrix.  A is a two- dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). is unaltered.  Its subdiagonal elements provide information about the storage of the complex eigenvectors. th and (J+1)-th columns of Z contain its eigenvector. If ALFI(J) .LT. 0.0, the eigenvalue is the second of 1)-th and J-th columns of Z contain the conjugate of its eigenvector. Each eigenvector is normalized so that the modulus of its largest component is 1.0 . Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
-| 4 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper triangular matrix.  In addition, contains the tolerance quantity (EPSB) dimensional REAL array, dimensioned B(NM,N). has been destroyed. system Routines - EISPACK Guide, Springer-Verlag, 1976. |
-| 5 | `ALFR` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays with are the generalized eigenvalues.  They are usually obtained from QZVAL.  They are dimensioned ALFR(N), ALFI(N), and BETA(N). are unaltered. |
-| 6 | `ALFI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays with are the generalized eigenvalues.  They are usually obtained from QZVAL.  They are dimensioned ALFR(N), ALFI(N), and BETA(N). are unaltered. th eigenvalue is real and the J-th column of Z contains its eigenvector. th eigenvalue is complex. If ALFI(J) .GT. 0.0, the eigenvalue is the first of |
-| 7 | `BETA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays with are the generalized eigenvalues.  They are usually obtained from QZVAL.  They are dimensioned ALFR(N), ALFI(N), and BETA(N). are unaltered. |
-| 8 | `Z` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the transformation matrix produced in the reductions by  QZHES,  QZIT, and  QZVAL,  if performed.  If the eigenvectors of the triangular problem are desired, Z must dimensional REAL array, dimensioned Z(NM,N). contains the real and imaginary parts of the eigenvectors. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM. |
+| 3 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper quasi-triangular matrix. A is a two- dimensional REAL array, dimensioned A(NM,N). is unaltered. Its subdiagonal elements provide information about the storage of the complex eigenvectors. B has been destroyed. |
+| 4 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper triangular matrix. In addition, location B(N,1) contains the tolerance quantity (EPSB) computed and saved in QZIT. B is a two-dimensional REAL array, dimensioned B(NM,N). |
+| 5 | `ALFR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | one-dimensional REAL arrays with components whose ratios ((ALFR+I*ALFI)/BETA) are the generalized eigenvalues. They are usually obtained from QZVAL. They are dimensioned ALFR(N), ALFI(N), and BETA(N). unaltered. |
+| 6 | `ALFI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | one-dimensional REAL arrays with components whose ratios ((ALFR+I*ALFI)/BETA) are the generalized eigenvalues. They are usually obtained from QZVAL. They are dimensioned ALFR(N), ALFI(N), and BETA(N). unaltered. |
+| 7 | `BETA` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | one-dimensional REAL arrays with components whose ratios ((ALFR+I*ALFI)/BETA) are the generalized eigenvalues. They are usually obtained from QZVAL. They are dimensioned ALFR(N), ALFI(N), and BETA(N). unaltered. |
+| 8 | `Z` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the transformation matrix produced in the reductions by QZHES, QZIT, and QZVAL, if performed. If the eigenvectors of the triangular problem are desired, Z must contain the identity matrix. Z is a two-dimensional REAL array, dimensioned Z(NM,N). contains the real and imaginary parts of the eigenvectors. If ALFI(J). EQ. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

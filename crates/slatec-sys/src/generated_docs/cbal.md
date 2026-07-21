@@ -8,54 +8,56 @@ This canonical unsafe binding exposes original SLATEC routine `CBAL`. Its docume
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, AR and AI, as declared in the calling program dimension statement.  NM is an INTEGER variable. and AI(NM,N). dimensional array parameters, AR and AI, as declared in the calling program dimension statement.  NM is an INTEGER variable. and AI(NM,N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, AR and AI, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (AR,AI).  N is an INTEGER variable.  N must be less than or equal to NM. and AI(NM,N). (AR,AI).  N is an INTEGER variable.  N must be less than or equal to NM. and AI(NM,N). not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `AR`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain the real and imaginary parts, respectively, of the complex matrix to be balanced. dimensional REAL arrays, dimensioned and AI(NM,N). contain the real and imaginary parts, respectively, of the balanced matrix. contain the real and imaginary parts, respectively, of the complex matrix to be balanced. dimensional REAL arrays, dimensioned and AI(NM,N). contain the real and imaginary parts, respectively, of the balanced matrix. not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A=(AR,AI). N is an INTEGER variable. N must be less than or equal to NM.
 
-## 4. `AI`
+## `AR`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain the real and imaginary parts, respectively, of the complex matrix to be balanced. dimensional REAL arrays, dimensioned contain the real and imaginary parts, respectively, of the balanced matrix. contain the real and imaginary parts, respectively, of the complex matrix to be balanced. dimensional REAL arrays, dimensioned contain the real and imaginary parts, respectively, of the balanced matrix. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `LOW`
+the real and imaginary parts, respectively, of the complex matrix to be balanced. two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). respectively, of the balanced matrix.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. are two INTEGER variables such that AR(I,J) and AI(I,J) are equal to zero if (1) I is greater than J and 1 or I=IGH+1,...,N. 1 = D(J,J)       J = LOW,...,IGH = P(J)         J = IGH+1,...,N. The order in which the interchanges are made is N to IGH+1, 1. Note that 1 is returned for IGH if IGH is zero formally. The ALGOL procedure EXC contained in CBALANCE appears in CBAL  in line.  (Note that the ALGOL roles of identifiers K,L have been reversed.) Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `AI`
 
-## 6. `IGH`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. are two INTEGER variables such that AR(I,J) and AI(I,J) are equal to zero if (1) I is greater than J and not stated by selected source not applicable or not stated by selected source not a workspace argument
+the real and imaginary parts, respectively, of the complex matrix to be balanced. two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). respectively, of the balanced matrix.
 
-## 7. `SCALE`
+## `LOW`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains information determining the permutations and dimensional REAL array, dimensioned SCALE(N). Suppose that the principal submatrix in rows LOW through IGH has been balanced, that P(J) denotes the index interchanged with J during the permutation step, and that the elements of the diagonal matrix used are denoted by D(I,J).  Then 1 = D(J,J)       J = LOW,...,IGH = P(J)         J = IGH+1,...,N. The order in which the interchanges are made is N to IGH+1, contains information determining the permutations and dimensional REAL array, dimensioned SCALE(N). Suppose that the principal submatrix in rows LOW through IGH has been balanced, that P(J) denotes the index interchanged with J during the permutation step, and that the elements of the diagonal matrix used are denoted by D(I,J).  Then 1 = D(J,J)       J = LOW,...,IGH = P(J)         J = IGH+1,...,N. The order in which the interchanges are made is N to IGH+1, not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+two INTEGER variables such that AR(I,J) and AI(I,J) are equal to zero if (1) I is greater than J and (2) J=1,. ,LOW-1 or I=IGH+1,. ,N.
+
+## `IGH`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+two INTEGER variables such that AR(I,J) and AI(I,J) are equal to zero if (1) I is greater than J and (2) J=1,. ,LOW-1 or I=IGH+1,. ,N.
+
+## `SCALE`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains information determining the permutations and scaling factors used. SCALE is a one-dimensional REAL array, dimensioned SCALE(N). Suppose that the principal submatrix in rows LOW through IGH has been balanced, that P(J) denotes the index interchanged with J during the permutation step, and that the elements of the diagonal matrix used are denoted by D(I,J). Then P(J), for J = 1,. ,LOW-1 = D(J,J) J = LOW,. ,IGH = P(J) J = IGH+1,.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `AR`: not a workspace argument
 - `AI`: not a workspace argument
-- `LOW`: not a workspace argument
-- `IGH`: not a workspace argument
 - `SCALE`: not a workspace argument
 
 # ABI notes

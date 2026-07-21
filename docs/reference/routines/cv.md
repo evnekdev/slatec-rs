@@ -8,7 +8,7 @@ Evaluate the variance function of the curve obtained by the constrained B-spline
 
 ## Description
 
-CV( ) is a companion function subprogram for FC( ). The documentation for FC( ) has complete usage instructions. CV( ) is used to evaluate the variance function of the curve obtained by the constrained B-spline fitting subprogram, FC( ). The variance function defines the square of the probable error of the fitted curve at any point, XVAL. One can use the square root of this variance function to determine a probable error band around the fitted curve. CV( ) is used after a call to FC( ). MODE, an input variable to FC( ), is used to indicate if the variance function is desired. In order to use CV( ), MODE must equal 2 or 4 on input to FC( ). MODE is also used as an output flag from FC( ). Check to make sure that MODE = 0 after calling FC( ), indicating a successful constrained curve fit. The array SDDATA, as input to FC( ), must also be defined with the standard deviation or uncertainty of the Y values to use CV( ). To evaluate the variance function after calling FC( ) as stated above, use CV( ) as shown here VAR=CV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by
+CV( ) is a companion function subprogram for FC( ). The documentation for FC( ) has complete usage instructions. CV( ) is used to evaluate the variance function of the curve obtained by the constrained B-spline fitting subprogram, FC( ). The variance function defines the square of the probable error of the fitted curve at any point, XVAL. One can use the square root of this variance function to determine a probable error band around the fitted curve. CV( ) is used after a call to FC( ). MODE, an input variable to FC( ), is used to indicate if the variance function is desired. In order to use CV( ), MODE must equal 2 or 4 on input to FC( ). MODE is also used as an output flag from FC( ). Check to make sure that MODE = 0 after calling FC( ), indicating a successful constrained curve fit. The array SDDATA, as input to FC( ), must also be defined with the standard deviation or uncertainty of the Y values to use CV( ). To evaluate the variance function after calling FC( ) as stated above, use CV( ) as shown here VAR=CV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/MAX(NDATA-N,1) where N = NBKPT - NORD. The vector B(XVAL) is the B-spline basis function values at X=XVAL. The covariance matrix, C, of the solution coefficients accounts only for the least squares equations and the explicitly stated equality constraints. This fact must be considered when interpreting the variance function from a data fitting problem that has inequality constraints on the fitted curve. All the variables in the calling sequence for CV( ) are used in FC( ) except the variable XVAL. Do not change the values of these variables between the call to FC( ) and the use of CV( ). The following is a brief description of the variables
 
 ## Classification
 
@@ -54,39 +54,31 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CV](https://www.netlib.org/slatec/src/cv.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `XVAL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | N,1) N,1) spline basis function values at The covariance matrix, C, of the solution coefficients accounts only for the least squares equations and the explicitly stated equality constraints.  This fact must be considered when interpreting the variance function from a data fitting problem that has inequality constraints on the fitted curve. All the variables in the calling sequence for CV( ) are used in FC( ) except the variable XVAL.  Do not change the values of these variables between the call to FC( ) and the use of CV( ). The following is a brief description of the variables The point where the variance is desired. |
-| 2 | `NDATA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | N,1) The number of discrete (X,Y) pairs for which FC( ) calculated a piece-wise polynomial curve. |
-| 3 | `NCONST` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | spline in FC( ). |
-| 4 | `NORD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | spline used in FC( ). The value of NORD must satisfy 1 < NORD < 20 . (The order of the spline is one more than the degree of the piece-wise polynomial defined on each interval.  This is consistent with the B-spline package convention.  For wise cubics.) 1 and I=NBKPT-NORD+2,...,NBKPT, are required by FC( ) to compute the functions used to fit the data. |
-| 5 | `NBKPT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | NORD. The number of knots in the array BKPT(*). The value of NBKPT must satisfy NBKPT .GE. 2*NORD. NORD+1).  The additional end knots |
-| 6 | `BKPT` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NBKPT) | The real array of knots.  Normally the problem data interval will be included between the limits BKPT(NORD) NORD+1).  The additional end knots 1 and I=NBKPT-NORD+2,...,NBKPT, are required by FC( ) to compute the functions used to fit the data. |
-| 7 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Real work array as used in FC( ).  See FC( ) for the must not must not be modified by the user if the variance function is be modified by the user if the variance function is desired. desired. |
+| 1 | `XVAL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | The point where the variance is desired. |
+| 2 | `NDATA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The number of discrete (X,Y) pairs for which FC( ) calculated a piece-wise polynomial curve. |
+| 3 | `NCONST` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The number of conditions that constrained the B-spline in FC( ). |
+| 4 | `NORD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The order of the B-spline used in FC( ). The value of NORD must satisfy 1 < NORD < 20. (The order of the spline is one more than the degree of the piece-wise polynomial defined on each interval. This is consistent with the B-spline package convention. For example, NORD=4 when we are using piece-wise cubics. ). |
+| 5 | `NBKPT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The number of knots in the array BKPT(*). The value of NBKPT must satisfy NBKPT. GE. 2*NORD. BKPT(*) The real array of knots. Normally the problem data interval will be included between the limits BKPT(NORD) and BKPT(NBKPT-NORD+1). |
+| 6 | `BKPT` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NBKPT) | Input value at which the source-defined function is evaluated: Evaluate the variance function of the curve obtained by the constrained B-spline fitting subprogram FC |
+| 7 | `W` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work array as used in FC( ). See FC( ) for the required length of W(*). The contents of W(*) must not be modified by the user if the variance function is desired. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:f32(mut_f32,mut_i32,mut_i32,mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1)`.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-`W`: Real work array as used in FC( ).  See FC( ) for the must not must not be modified by the user if the variance function is be modified by the user if the variance function is desired. desired.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

@@ -8,30 +8,25 @@ This canonical unsafe binding exposes original SLATEC routine `SINTI`. Its docum
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. the length of the sequence to be transformed.  The method is most efficient when N+1 is a product of small primes. Output Parameter must not be changed between calls of SINT. the length of the sequence to be transformed.  The method is most efficient when N+1 is a product of small primes. Output Parameter must not be changed between calls of SINT. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `WSAVE`
+the length of the sequence to be transformed. The method is most efficient when N+1 is a product of small primes. Output Parameter.
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). a work array with at least INT(3.5*N+16) locations. Different WSAVE arrays are required for different values must not be changed between calls of SINT. a work array with at least INT(3.5*N+16) locations. Different WSAVE arrays are required for different values must not be changed between calls of SINT. not applicable or not stated by selected source
+## `WSAVE`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+a work array with at least INT(3. 5*N+16) locations. Different WSAVE arrays are required for different values of N. The contents of WSAVE must not be changed between calls of SINT.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
-- `WSAVE`: a work array with at least INT(3.5*N+16) locations. Different WSAVE arrays are required for different values must not be changed between calls of SINT.
+- `WSAVE`: a work array with at least INT(3. 5*N+16) locations. Different WSAVE arrays are required for different values of N. The contents of WSAVE must not be changed between calls of SINT.
 
 # ABI notes
 

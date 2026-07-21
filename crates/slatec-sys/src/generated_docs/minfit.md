@@ -1,6 +1,6 @@
 # Purpose
 
-This subroutine is a translation of the ALGOL procedure MINFIT, NUM. MATH. 14, 403-420(1970) by Golub and Reinsch. HANDBOOK FOR AUTO. COMP., VOL II-LINEAR ALGEBRA, 134-151(1971). This subroutine determines, towards the solution of the linear T system AX=B, the singular value decomposition A=USV of a real T
+This subroutine is a translation of the ALGOL procedure MINFIT, NUM. MATH. 14, 403-420(1970) by Golub and Reinsch. HANDBOOK FOR AUTO. COMP., VOL II-LINEAR ALGEBRA, 134-151(1971). This subroutine determines, towards the solution of the linear system AX=B, the singular value decomposition A=USV of a real M by N rectangular matrix, forming U B rather than U. Householder bidiagonalization and a variant of the QR algorithm are used.
 
 # Description
 
@@ -8,64 +8,69 @@ This canonical unsafe binding exposes original SLATEC routine `MINFIT`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A and B, as declared in the calling program dimension statement.  Note that NM must be at least is an INTEGER variable. dimensional array parameters, A and B, as declared in the calling program dimension statement.  Note that NM must be at least is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `M`
+must be set to the row dimension of the two-dimensional array parameters, A and B, as declared in the calling program dimension statement. Note that NM must be at least as large as the maximum of M and N. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. by N rectangular matrix, forming U B rather than U.  Householder bidiagonalization and a variant of the QR algorithm are used. is an INTEGER variable. is the number of rows of A and B.  M is an INTEGER variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `M`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER variable. is the number of columns of A and the order of V.  N is an INTEGER variable. negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T is an INTEGER variable. is the number of columns of A and the order of V.  N is an INTEGER variable. negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T not applicable or not stated by selected source not a workspace argument
+is the number of rows of A and B. M is an INTEGER variable.
 
-## 4. `A`
+## `N`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the rectangular coefficient matrix of the system. dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,IP). has been overwritten by the matrix V (orthogonal) of the decomposition in its first N rows and columns.  If an dimensional REAL array, dimensioned W(N). T dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains the rectangular coefficient matrix of the system. dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,IP). has been overwritten by the matrix V (orthogonal) of the decomposition in its first N rows and columns.  If an dimensional REAL array, dimensioned W(N). T dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `W`
+is the number of columns of A and the order of V. N is an INTEGER variable.
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T not applicable or not stated by selected source
+## `A`
 
-## 6. `IP`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of columns of B.  IP can be zero. not stated by selected source not applicable or not stated by selected source not a workspace argument
+contains the rectangular coefficient matrix of the system. is a two-dimensional REAL array, dimensioned A(NM,N).
 
-## 7. `B`
+## `W`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, IP). contains the constant column matrix of the system if IP is dimensional REAL array, dimensioned B(NM,IP). dimensional REAL array, dimensioned B(NM,IP). is made, is made, T T the rows of U B corresponding to indices of correct singular the rows of U B corresponding to indices of correct singular values should be correct. values should be correct. system Routines - EISPACK Guide, Springer-Verlag, 1976. contains the constant column matrix of the system if IP is dimensional REAL array, dimensioned B(NM,IP). dimensional REAL array, dimensioned B(NM,IP). is made, is made, T T the rows of U B corresponding to indices of correct singular the rows of U B corresponding to indices of correct singular values should be correct. values should be correct. system Routines - EISPACK Guide, Springer-Verlag, 1976. not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `IERR`
+contains the N (non-negative) singular values of A (the diagonal elements of S). They are unordered. If an error exit is made, the singular values should be correct for indices IERR+1, IERR+2,. , N. W is a one-dimensional REAL array, dimensioned W(N). B has been overwritten by U B.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional dimensional REAL array, dimensioned W(N). REAL array, dimensioned W(N). T T is an INTEGER flag set to Zero       for normal return, K          if the K-th singular value has not been determined after 30 iterations. The singular values should be correct for indices IERR+1, IERR+2, ..., N. dimensional dimensional REAL array, dimensioned W(N). REAL array, dimensioned W(N). T T is an INTEGER flag set to Zero       for normal return, K          if the K-th singular value has not been determined after 30 iterations. The singular values should be correct for indices IERR+1, IERR+2, ..., N. not applicable or not stated by selected source not a workspace argument
+## `IP`
 
-## 9. `RV1`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the number of columns of B. IP can be zero.
+
+## `B`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, IP).
+
+contains the constant column matrix of the system if IP is not zero. Otherwise, B is not referenced. B is a two- dimensional REAL array, dimensioned B(NM,IP).
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, K if the K-th singular value has not been determined after 30 iterations. The singular values should be correct for indices IERR+1, IERR+2,. , N.
+
+## `RV1`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+is a one-dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-indices of correct singular values should be correct.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `M`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
-- `W`: negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T
-- `IP`: not a workspace argument
+- `W`: not a workspace argument
 - `B`: not a workspace argument
-- `IERR`: not a workspace argument
 - `RV1`: not a workspace argument
 
 # ABI notes

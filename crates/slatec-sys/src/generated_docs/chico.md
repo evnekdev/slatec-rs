@@ -1,6 +1,6 @@
 # Purpose
 
-CHICO factors a complex Hermitian matrix by elimination with symmetric pivoting and estimates the condition of the matrix. If RCOND is not needed, CHIFA is slightly faster.
+CHICO factors a complex Hermitian matrix by elimination with symmetric pivoting and estimates the condition of the matrix. If RCOND is not needed, CHIFA is slightly faster. To solve A*X = B , follow CHICO by CHISL. To compute INVERSE(A)*C , follow CHICO by CHISL. To compute INVERSE(A) , follow CHICO by CHIDI. To compute DETERMINANT(A) , follow CHICO by CHIDI. To compute INERTIA(A), follow CHICO by CHIDI. On Entry
 
 # Description
 
@@ -8,49 +8,51 @@ This canonical unsafe binding exposes original SLATEC routine `CHICO`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). metric pivoting and estimate the condition of the matrix. B , follow CHICO by CHISL. To compute  INVERSE(A)*C , follow CHICO by CHISL. To compute  INVERSE(A) , follow CHICO by CHIDI. To compute  DETERMINANT(A) , follow CHICO by CHIDI. To compute  INERTIA(A), follow CHICO by CHIDI. On Entry COMPLEX(LDA, N) the Hermitian matrix to be factored. Only the diagonal and upper triangle are used. a block diagonal matrix and the multipliers which were used to obtain it. U*D*CTRANS(U) where  U  is a product of permutation and unit upper triangular matrices , CTRANS(U) is the conjugate transpose of  U , and  D  is block diagonal with 1 by 1 and 2 by 2 blocks. B , relative perturbations in  A  and  B  of size  EPSILON  may cause relative perturbations in  X  of size  EPSILON/RCOND . If  RCOND  is so small that the logical expression 1.0 + RCOND .EQ. 1.0 is true, then  A  may be singular to working precision.  In particular,  RCOND  is zero  if exact singularity is detected or the estimate underflows. work vector whose contents are usually unimportant. If  A  is close to a singular matrix, then  Z  is an approximate null vector in the sense that RCOND*NORM(A)*NORM(Z) . not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA, N) the Hermitian matrix to be factored. Only the diagonal and upper triangle are used. a block diagonal matrix and the multipliers which were used to obtain it. The factorization can be written A = U*D*CTRANS(U) where U is a product of permutation and unit upper triangular matrices , CTRANS(U) is the conjugate transpose of U , and D is block diagonal with 1 by 1 and 2 by 2 blocks.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array A.
 
-## 4. `KPVT`
+## `N`
 
-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(N) an integer vector of pivot indices. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `RCOND`
+INTEGER the order of the matrix A.
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. REAL an estimate of the reciprocal condition of  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `KPVT`
 
-## 6. `Z`
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
 
-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) RCOND*NORM(A)*NORM(Z) . not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER(N) an integer vector of pivot indices.
+
+## `RCOND`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+REAL an estimate of the reciprocal condition of A. For the system A*X = B , relative perturbations in A and B of size EPSILON may cause relative perturbations in X of size EPSILON/RCOND. If RCOND is so small that the logical expression 1. 0 + RCOND. EQ. 1.
+
+## `Z`
+
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+COMPLEX(N) a work vector whose contents are usually unimportant. If A is close to a singular matrix, then Z is an approximate null vector in the sense that NORM(A*Z) = RCOND*NORM(A)*NORM(Z).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
 - `KPVT`: not a workspace argument
-- `RCOND`: not a workspace argument
 - `Z`: not a workspace argument
 
 # ABI notes

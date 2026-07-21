@@ -1,6 +1,6 @@
 # Purpose
 
-Evaluate the complementary incomplete gamma function
+Evaluate the complementary incomplete gamma function GAMIC = integral from X to infinity of EXP(-T) * T**(A-1.) . GAMIC is evaluated for arbitrary real values of A and for non- negative values of X (even though GAMIC is defined for X .LT. 0.0), except that for X = 0 and A .LE. 0.0, GAMIC is undefined. GAMIC, A, and X are REAL. A slight deterioration of 2 or 3 digits accuracy will occur when GAMIC is very large or very small in absolute value, because log- arithmic variables are used. Also, if the parameter A is very close to a negative integer (but not a negative integer), there is a loss of accuracy, which is reported if the result is less than half machine precision.
 
 # Description
 
@@ -8,30 +8,21 @@ This canonical unsafe binding exposes original SLATEC routine `GAMIC`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. negative values of X (even though GAMIC is defined for X .LT. are REAL. slight deterioration of 2 or 3 digits accuracy will occur when GAMIC is very large or very small in absolute value, because log- arithmic variables are used.  Also, if the parameter A is very close is a loss is a loss of accuracy, which is reported if the result is less than half of accuracy, which is reported if the result is less than half machine precision. machine precision. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `X`
+Input value at which the source-defined function is evaluated: Calculate the complementary incomplete Gamma function
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. T) * T**(A-1.)  . 0 and A .LE. 0.0, GAMIC is undefined. are REAL. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Calculate the complementary incomplete Gamma function
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `A`: not a workspace argument
-- `X`: not a workspace argument
 
 # ABI notes
 

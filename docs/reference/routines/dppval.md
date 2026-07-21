@@ -8,7 +8,7 @@ Calculate the value of the IDERIV-th derivative of the B-spline from the PP-repr
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DPPVAL is the PPVALU function of the reference.
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DPPVAL is the PPVALU function of the reference. DPPVAL calculates (at X) the value of the IDERIV-th derivative of the B-spline from the PP-representation (C,XI,LXI,K). The Taylor expansion about XI(J) for X in the interval XI(J) .LE. X .LT. XI(J+1) is evaluated, J=1,LXI. Right limiting values at X=XI(J) are obtained. DPPVAL will extrapolate beyond XI(1) and XI(LXI+1). To obtain left limiting values (left derivatives) at XI(J) replace LXI by J-1 and set X=XI(J),J=2,LXI+1.
 
 ## Classification
 
@@ -54,40 +54,36 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DPPVAL](https://www.netlib.org/slatec/src/dppval.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C matrix, LDC .GE. K |
-| 2 | `C` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDC, *) | The Taylor expansion about XI(J) for X in are double precision matrix of dimension at least (K,LXI) containing right derivatives at break points XI(*). |
-| 3 | `XI` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | The Taylor expansion about XI(J) for X in 1,LXI. 1,LXI. are double precision break point vector of length LXI+1 |
-| 4 | `LXI` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The Taylor expansion about XI(J) for X in 1 and set X=XI(J),J=2,LXI+1. number of polynomial pieces |
-| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | The Taylor expansion about XI(J) for X in order of B-spline, K .GE. 1 |
-| 6 | `IDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | th derivative of the B-spline from the PP-representation. th derivative of the B-spline from the PP-representation order of the derivative, 0 .LE. IDERIV .LE. K-1 spline value |
-| 7 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | th derivative of the B-spline from the PP-representation 1,LXI. XI(J) are obtained.  DPPVAL will extrapolate beyond XI(1) and XI(LXI+1). To obtain left limiting values (left derivatives) at XI(J) are double precision argument, XI(1) .LE. X .LE. XI(LXI+1) |
-| 8 | `INPPV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time DPPVAL is called. Output     DPPVAL is double precision INPPV contains information for efficient process- ing after the initial call and INPPV must not be changed by the user.  Distinct splines require distinct INPPV parameters. DPPVAL  - value of the IDERIV-th derivative at X |
+| 1 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C matrix, LDC. GE. K. |
+| 2 | `C` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDC, *) | matrix of dimension at least (K,LXI) containing right derivatives at break points XI(*). |
+| 3 | `XI` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | break point vector of length LXI+1. |
+| 4 | `LXI` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of polynomial pieces. |
+| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, K. GE. 1. |
+| 6 | `IDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the derivative, 0. LE. IDERIV. K-1 0 gives the B-spline value. |
+| 7 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | argument, XI(1). LE. X. XI(LXI+1). |
+| 8 | `INPPV` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time DPPVAL is called. Output DPPVAL is double precision INPPV contains information for efficient process- ing after the initial call and INPPV must not be changed by the user. Distinct splines require distinct INPPV parameters. DPPVAL - value of the IDERIV-th derivative at X. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:f64(mut_i32,mut_f64_ptr_rank2,mut_f64_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f64,mut_i32)`.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
 Improper input is a fatal error
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

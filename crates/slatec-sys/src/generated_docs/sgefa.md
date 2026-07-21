@@ -8,45 +8,51 @@ This canonical unsafe binding exposes original SLATEC routine `SGEFA`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDA, *). REAL(LDA, N) the matrix to be factored. an upper triangular matrix and the multipliers which were used to obtain it. L*U , where L  is a product of permutation and unit lower triangular matrices and  U  is upper triangular. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+REAL(LDA, N) the matrix to be factored. an upper triangular matrix and the multipliers which were used to obtain it. The factorization can be written A = L*U , where L is a product of permutation and unit lower triangular matrices and U is upper triangular.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . On Return not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array A.
 
-## 4. `IPVT`
+## `N`
 
-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(N) an integer vector of pivot indices. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `INFO`
+INTEGER the order of the matrix A.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER = 0  normal value. = K  if  U(K,K) .EQ. 0.0 .  This is not an error condition for this subroutine, but it does indicate that SGESL or SGEDI will divide by zero if called.  Use  RCOND  in SGECO for a reliable indication of singularity. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `IPVT`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+INTEGER(N) an integer vector of pivot indices.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER = 0 normal value. = K if U(K,K). EQ. 0. This is not an error condition for this subroutine, but it does indicate that SGESL or SGEDI will divide by zero if called. Use RCOND in SGECO for a reliable indication of singularity.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that SGESL or SGEDI will divide by zero if called. Use RCOND in SGECO for a reliable indication of singularity. |
 
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
 - `IPVT`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

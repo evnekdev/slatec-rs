@@ -8,53 +8,56 @@ This canonical unsafe binding exposes original SLATEC routine `CGBDI`. Its docum
 
 # Arguments
 
-## 1. `ABD`
+## `ABD`
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). COMPLEX(LDA, N) the output from CGBCO or CGBFA. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA, N) the output from CGBCO or CGBFA.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  ABD . INTEGER the leading dimension of the array  ABD . INTEGER the leading dimension of the array  ABD . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the original matrix. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array ABD.
 
-## 4. `ML`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER number of diagonals below the main diagonal. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `MU`
+INTEGER the order of the original matrix.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER number of diagonals above the main diagonal. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ML`
 
-## 6. `IPVT`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(N) the pivot vector from CGBCO or CGBFA. On Return not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER number of diagonals below the main diagonal.
 
-## 7. `DET`
+## `MU`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (2). COMPLEX(2) determinant of original matrix. Determinant = DET(1) * 10.0**DET(2) with  1.0 .LE. CABS1(DET(1)) .LT. 10.0 0.0 . not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER number of diagonals above the main diagonal.
+
+## `IPVT`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+INTEGER(N) the pivot vector from CGBCO or CGBFA.
+
+## `DET`
+
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (2).
+
+COMPLEX(2) determinant of original matrix. Determinant = DET(1) * 10. 0**DET(2) with 1. 0. LE. CABS1(DET(1)).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `ABD`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
-- `ML`: not a workspace argument
-- `MU`: not a workspace argument
 - `IPVT`: not a workspace argument
 - `DET`: not a workspace argument
 

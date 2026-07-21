@@ -1,6 +1,6 @@
 # Purpose
 
-Initialize the orthogonal series, represented by the array OS, so that INITDS is the number of terms needed to insure the error is no
+Initialize the orthogonal series, represented by the array OS, so that INITDS is the number of terms needed to insure the error is no larger than ETA. Ordinarily, ETA will be chosen to be one-tenth machine precision. Input Arguments --
 
 # Description
 
@@ -8,35 +8,31 @@ This canonical unsafe binding exposes original SLATEC routine `INITDS`. Its docu
 
 # Arguments
 
-## 1. `OS`
+## `OS`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). double precision array of NOS coefficients in an orthogonal series. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-## 2. `NOS`
+double precision array of NOS coefficients in an orthogonal series.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of coefficients in OS. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `NOS`
 
-## 3. `ETA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. tenth tenth machine precision. machine precision. Input Arguments -- Input Arguments -- single precision scalar containing requested accuracy of series. not stated by selected source not applicable or not stated by selected source not a workspace argument
+number of coefficients in OS.
+
+## `ETA`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+single precision scalar containing requested accuracy of series.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:i32(mut_f64_ptr_rank1,mut_i32,mut_f32)`. It has no separate Rust `Result` status channel.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `OS`: not a workspace argument
-- `NOS`: not a workspace argument
-- `ETA`: not a workspace argument
 
 # ABI notes
 

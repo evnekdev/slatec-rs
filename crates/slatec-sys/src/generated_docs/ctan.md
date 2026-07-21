@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `CTAN`. Its docume
 
 # Arguments
 
-## 1. `Z`
+## `Z`
 
-input `scalar` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and scalar. calculates the complex trigonometric tangent of complex is in units of radians. is in units of radians. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the complex tangent
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:complex32(mut_complex32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `Z`: not a workspace argument
 
 # ABI notes
 

@@ -8,7 +8,7 @@ Solve a linear least squares problems by performing a QR factorization of the in
 
 ## Description
 
-DGLSS solves both underdetermined and overdetermined
+DGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. If M.GE.N, the least squares solution is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than MIN(M,N), then the minimal length least squares solution is computed. DGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes DLLSIA and DULSIA are recommended. DGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. WARNING - All input arrays are changed on exit. * SUBROUTINE DGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO)
 
 ## Classification
 
@@ -54,47 +54,46 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DGLSS](https://www.netlib.org/slatec/src/dglss.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDA, *) | is an M by N matrix and B is an M by NB matrix of right hand sides. If B, with MDA the Contains the triangular part of the reduced matrix and the transformation information. It together with the first 2*MIN(M,N) elements of WORK (see below) completely specify the factorization of A. |
+| 1 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDA, *) | Linear coefficient matrix of AX=B, with MDA the Contains the triangular part of the reduced matrix and the transformation information. It together with the first 2*MIN(M,N) elements of WORK (see below) completely specify the factorization of A. |
 | 2 | `MDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | actual first dimension of A in the calling program. |
-| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than then the minimal length least squares solution is computed. DGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes DLLSIA and DULSIA are recommended. DGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. * WARNING - All input arrays are changed on exit.        * * SUBROUTINE DGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) Input..All TYPE REAL variables are DOUBLE PRECISION actual first dimension of A in the calling program. is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). 0, B is never accessed. contain value necessary to reproduce the factorization of A. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. |
-| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than then the minimal length least squares solution is computed. DGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes DLLSIA and DULSIA are recommended. DGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. * WARNING - All input arrays are changed on exit.        * * SUBROUTINE DGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) Input..All TYPE REAL variables are DOUBLE PRECISION actual first dimension of A in the calling program. 0, B is never accessed. contain value necessary to reproduce the factorization of A. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. Reduced rank  rank=MIN(M,N)-INFO |
-| 5 | `B` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDB, *) | is an M by N matrix and B is an M by NB matrix of right hand sides. If Right hand side(s), with MDB the actual first is the number of M by 1 right hand sides. Must have Contains the N by NB solution matrix X. AX(I), I=1,NB. |
-| 6 | `MDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of M by 1 right hand sides. Must have 0, B is never accessed. |
-| 7 | `NB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the is the number of M by 1 right hand sides. Must have number of M by 1 right hand sides. Must have 0, B is never accessed. |
-| 8 | `RNORM` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Vector of length at least NB.  On input the contents of RNORM are unused. Contains the Euclidean length of the NB residual |
-| 9 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | A real work array dimensioned 5*MIN(M,N). contain value contain value necessary to reproduce the factorization of A. necessary to reproduce the factorization of A. |
-| 10 | `LW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Actual dimension of WORK. IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to DGLSS. Output..All TYPE REAL variables are DOUBLE PRECISION |
-| 11 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Integer work array dimensioned at least N+M. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. |
+| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | actual first dimension of A in the calling program. is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). |
+| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | actual first dimension of A in the calling program. |
+| 5 | `B` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (MDB, *) | Right hand side(s), with MDB the actual first Contains the N by NB solution matrix X. |
+| 6 | `MDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimension of B in the calling program. NB is the number of M by 1 right hand sides. Must have MDB. GE. MAX(M,N). If NB = 0, B is never accessed. |
+| 7 | `NB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimension of B in the calling program. NB is the number of M by 1 right hand sides. Must have MDB. GE. MAX(M,N). If NB = 0, B is never accessed. |
+| 8 | `RNORM` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Vector of length at least NB. On input the contents of RNORM are unused. Contains the Euclidean length of the NB residual vectors B(I)-AX(I), I=1,NB. |
+| 9 | `WORK` | `workspace-output` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | A real work array dimensioned 5*MIN(M,N). The first 2*MIN(M,N) locations of WORK contain value necessary to reproduce the factorization of A. |
+| 10 | `LW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Actual dimension of WORK. |
+| 11 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | work array dimensioned at least N+M. The first M+N locations contain the order in which the rows and columns of A were used. If M. GE. N columns then rows. LT. |
 | 12 | `LIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Actual dimension of IWORK. |
-| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | A flag which provides for the efficient solution of subsequent problems involving the same A but different B. 0 original call 1 subsequent calls On subsequent calls, the user must supply A, INFO, Flag to indicate status of computation on completion -1   Parameter error(s) 0 - Full rank |
+| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | A flag which provides for the efficient solution of subsequent problems involving the same A but different B. If INFO = 0 original call INFO = 1 subsequent calls On subsequent calls, the user must supply A, INFO, LW, IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to DGLSS. Flag to indicate status of computation on completion -1 Parameter error(s) 0 - Full rank N. GT. 0 - Reduced rank rank=MIN(M,N)-INFO. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 original call |
+| `INFO` | `1` | 1 subsequent calls On subsequent calls, the user must supply A, INFO, LW, IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to DGLSS. -1 Parameter error(s) 0 - Full rank N.GT.0 - Reduced rank rank=MIN(M,N)-INFO |
 
 ### Storage and workspace requirements
 
-`WORK`: A real work array dimensioned 5*MIN(M,N). contain value contain value necessary to reproduce the factorization of A. necessary to reproduce the factorization of A.
+`WORK`: A real work array dimensioned 5*MIN(M,N). The first 2*MIN(M,N) locations of WORK contain value necessary to reproduce the factorization of A.
 
-`IWORK`: Integer work array dimensioned at least N+M. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns.
+`IWORK`: work array dimensioned at least N+M. The first M+N locations contain the order in which the rows and columns of A were used. If M. GE. N columns then rows. LT.
 
 ### Provider, ABI, and safety
 

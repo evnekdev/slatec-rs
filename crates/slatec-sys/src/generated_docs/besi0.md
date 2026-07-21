@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `BESI0`. Its docum
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. computes the modified (hyperbolic) Bessel function of the first kind of order zero and real argument X. Series for BI0        on the interval  0.          to  9.00000D+00 with weighted error   2.46E-18 log weighted error  17.61 significant figures required  17.90 decimal places required  18.15 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the hyperbolic Bessel function of the first kind of order zero
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

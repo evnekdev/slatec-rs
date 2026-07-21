@@ -1,6 +1,6 @@
 # Purpose
 
-Written by Carl de Boor and modified by D. E. Amos PPVAL is the PPVALU function of the reference.
+Written by Carl de Boor and modified by D. E. Amos PPVAL is the PPVALU function of the reference. PPVAL calculates (at X) the value of the IDERIV-th derivative of the B-spline from the PP-representation (C,XI,LXI,K). The Taylor expansion about XI(J) for X in the interval XI(J) .LE. X .LT. XI(J+1) is evaluated, J=1,LXI. Right limiting values at X=XI(J) are obtained. PPVAL will extrapolate beyond XI(1) and XI(LXI+1). To obtain left limiting values (left derivatives) at XI(J), replace LXI by J-1 and set X=XI(J),J=2,LXI+1.
 
 # Description
 
@@ -8,60 +8,63 @@ This canonical unsafe binding exposes original SLATEC routine `PPVAL`. Its docum
 
 # Arguments
 
-## 1. `LDC`
+## `LDC`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. leading dimension of C matrix, LDC .GE. K leading dimension of C matrix, LDC .GE. K leading dimension of C matrix, LDC .GE. K not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `C`
+leading dimension of C matrix, LDC. GE. K.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDC, *). The Taylor expansion about XI(J) for X in matrix of dimension at least (K,LXI) containing right derivatives at break points XI(*). The Taylor expansion about XI(J) for X in matrix of dimension at least (K,LXI) containing right derivatives at break points XI(*). not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 3. `XI`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDC, *).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). The Taylor expansion about XI(J) for X in 1,LXI. 1,LXI. break point vector of length LXI+1 The Taylor expansion about XI(J) for X in 1,LXI. 1,LXI. break point vector of length LXI+1 not applicable or not stated by selected source not a workspace argument
+matrix of dimension at least (K,LXI) containing right derivatives at break points XI(*).
 
-## 4. `LXI`
+## `XI`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The Taylor expansion about XI(J) for X in 1 and set X=XI(J),J=2,LXI+1. number of polynomial pieces not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 5. `K`
+break point vector of length LXI+1.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The Taylor expansion about XI(J) for X in order of B-spline, K .GE. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `LXI`
 
-## 6. `IDERIV`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. th derivative of the B-spline from the PP-representation. th derivative of the B-spline from the PP-representation order of the derivative, 0 .LE. IDERIV .LE. K-1 spline value not stated by selected source not applicable or not stated by selected source not a workspace argument
+number of polynomial pieces.
 
-## 7. `X`
+## `K`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. th derivative of the B-spline from the PP-representation 1,LXI. XI(J) are obtained.  PPVAL will extrapolate beyond XI(1) and XI(LXI+1). To obtain left limiting values (left derivatives) at XI(J), argument, XI(1) .LE. X .LE. XI(LXI+1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `INPPV`
+order of B-spline, K. GE. 1.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. an initialization parameter which must be set to 1 the first time PPVAL is called. INPPV contains information for efficient process- ing after the initial call and INPPV must not be changed by the user.  Distinct splines require distinct INPPV parameters. PPVAL   - value of the IDERIV-th derivative at X an initialization parameter which must be set to 1 the first time PPVAL is called. INPPV contains information for efficient process- ing after the initial call and INPPV must not be changed by the user.  Distinct splines require distinct INPPV parameters. PPVAL   - value of the IDERIV-th derivative at X not applicable or not stated by selected source not a workspace argument
+## `IDERIV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+order of the derivative, 0. LE. IDERIV. K-1 0 gives the B-spline value.
+
+## `X`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+argument, XI(1). LE. X. XI(LXI+1).
+
+## `INPPV`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+an initialization parameter which must be set to 1 the first time PPVAL is called. INPPV contains information for efficient process- ing after the initial call and INPPV must not be changed by the user. Distinct splines require distinct INPPV parameters. PPVAL - value of the IDERIV-th derivative at X.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_i32,mut_f32_ptr_rank2,mut_f32_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-Improper input is a fatal error
 
 # Workspace and array requirements
 
 - `LDC`: not a workspace argument
 - `C`: not a workspace argument
 - `XI`: not a workspace argument
-- `LXI`: not a workspace argument
-- `K`: not a workspace argument
-- `IDERIV`: not a workspace argument
-- `X`: not a workspace argument
-- `INPPV`: not a workspace argument
 
 # ABI notes
 

@@ -51,42 +51,34 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CORTB](https://www.netlib.org/slatec/lin/cortb.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, AR, AI, ZR, and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
-| 2 | `LOW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are two INTEGER variables determined by the balancing subroutine  CBAL.  If  CBAL  has not been used, 1 and IGH equal to the order of the matrix. are used.  ORTR and ORTI are one-dimensional REAL arrays, dimensioned ORTR(IGH) and |
-| 3 | `IGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are two INTEGER variables determined by the balancing subroutine  CBAL.  If  CBAL  has not been used, are used.  ORTR and ORTI are one-dimensional REAL arrays, dimensioned ORTR(IGH) and |
-| 4 | `AR` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | formations used in the reduction by  CORTH  in their dimensional REAL arrays, dimensioned AR(NM,IGH) and AI(NM,IGH). |
-| 5 | `AI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | formations used in the reduction by  CORTH  in their dimensional REAL arrays, dimensioned AR(NM,IGH) and AI(NM,IGH). |
-| 6 | `ORTR` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain further information about the unitary transformations used in the reduction by  CORTH.  Only and ORTI have been altered. Note that CORTB preserves vector Euclidean norms. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
-| 7 | `ORTI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain further information about the unitary transformations used in the reduction by  CORTH.  Only |
-| 8 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (ZR,ZI) to be back transformed. is an INTEGER variable. dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). |
-| 9 | `ZR` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. |
-| 10 | `ZI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | must be set to the row dimension of the two-dimensional array parameters, AR, AI, ZR, and ZI, as declared in the calling program dimension statement. NM is an INTEGER variable. |
+| 2 | `LOW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | two INTEGER variables determined by the balancing subroutine CBAL. If CBAL has not been used, set LOW=1 and IGH equal to the order of the matrix. |
+| 3 | `IGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | two INTEGER variables determined by the balancing subroutine CBAL. If CBAL has not been used, set LOW=1 and IGH equal to the order of the matrix. |
+| 4 | `AR` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | information about the unitary trans- formations used in the reduction by CORTH in their strict lower triangles. AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,IGH) and AI(NM,IGH). |
+| 5 | `AI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | information about the unitary trans- formations used in the reduction by CORTH in their strict lower triangles. AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,IGH) and AI(NM,IGH). |
+| 6 | `ORTR` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | further information about the unitary transformations used in the reduction by CORTH. Only elements LOW through IGH are used. ORTR and ORTI are one-dimensional REAL arrays, dimensioned ORTR(IGH) and. |
+| 7 | `ORTI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | further information about the unitary transformations used in the reduction by CORTH. Only elements LOW through IGH are used. ORTR and ORTI are one-dimensional REAL arrays, dimensioned ORTR(IGH) and. |
+| 8 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of columns of Z=(ZR,ZI) to be back transformed. is an INTEGER variable. |
+| 9 | `ZR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first M columns. ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). of the transformed eigenvectors in their first M columns. ORTR and ORTI have been altered. Note that CORTB preserves vector Euclidean norms. Questions and comments should be directed to B. |
+| 10 | `ZI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first M columns. ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). of the transformed eigenvectors in their first M columns. ORTR and ORTI have been altered. Note that CORTB preserves vector Euclidean norms. Questions and comments should be directed to B. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

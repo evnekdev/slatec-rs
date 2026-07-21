@@ -1,6 +1,6 @@
 # Purpose
 
-Integration rules Standard fortran subroutine Real version PARAMETERS ON ENTRY
+Integration rules Standard fortran subroutine Real version
 
 # Description
 
@@ -8,57 +8,83 @@ This canonical unsafe binding exposes original SLATEC routine `QK15W`. Its docum
 
 # Arguments
 
-## 1. `F`
+## `F`
 
-callback `callback` argument; Fortran declaration `REAL`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. Real Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. I/(B-A)) The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `REAL`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 2. `W`
+Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-callback `callback` argument; Fortran declaration `REAL`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. Real Function subprogram defining the integrand WEIGHT function W(X). The actual name for W needs to be declared E X T E R N A L in the calling program. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `W`
 
-## 3. `P1`
+**Direction:** `callback`. **Fortran type:** `REAL`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Parameters in the WEIGHT function not stated by selected source not applicable or not stated by selected source not a workspace argument
+Function subprogram defining the integrand WEIGHT function W(X). The actual name for W needs to be declared E X T E R N A L in the calling program. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-## 4. `P2`
+## `P1`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Parameters in the WEIGHT function not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `P3`
+Parameters in the WEIGHT function.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Parameters in the WEIGHT function not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `P2`
 
-## 6. `P4`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Parameters in the WEIGHT function not stated by selected source not applicable or not stated by selected source not a workspace argument
+Parameters in the WEIGHT function.
 
-## 7. `KP`
+## `P3`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Key for indicating the type of WEIGHT function not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `A`
+Parameters in the WEIGHT function.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Lower limit of integration not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `P4`
 
-## 9. `B`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Upper limit of integration ON RETURN not stated by selected source not applicable or not stated by selected source not a workspace argument
+Parameters in the WEIGHT function.
 
-## 10. `RESULT`
+## `KP`
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Approximation to the integral I point Kronrod rule (RESK) obtained by optimal addition of abscissae to the 7-point Gauss rule (RESG). not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `ABSERR`
+Key for indicating the type of WEIGHT function.
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 12. `RESABS`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real Approximation to the integral of ABS(F) not stated by selected source not applicable or not stated by selected source not a workspace argument
+Lower limit of integration.
 
-## 13. `RESASC`
+## `B`
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. Real not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Upper limit of integration.
+
+## `RESULT`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Approximation to the integral I is computed by applying the 15-point Kronrod rule (RESK) obtained by optimal addition of abscissae to the 7-point Gauss rule (RESG).
+
+## `ABSERR`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT).
+
+## `RESABS`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Approximation to the integral of ABS(F).
+
+## `RESASC`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Approximation to the integral of ABS(F-I/(B-A)).
 
 # Return value
 
@@ -66,27 +92,7 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `F`: not a workspace argument
-- `W`: not a workspace argument
-- `P1`: not a workspace argument
-- `P2`: not a workspace argument
-- `P3`: not a workspace argument
-- `P4`: not a workspace argument
-- `KP`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `RESULT`: not a workspace argument
-- `ABSERR`: not a workspace argument
-- `RESABS`: not a workspace argument
-- `RESASC`: not a workspace argument
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # ABI notes
 

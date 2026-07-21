@@ -8,70 +8,78 @@ This canonical unsafe binding exposes original SLATEC routine `RGG`. Its documen
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. is greater than NM, is greater than NM, J          if the J-th eigenvalue has not been J          if the J-th eigenvalue has not been determined after a total of 30*N iterations. determined after a total of 30*N iterations. The eigenvalues should be correct for indices The eigenvalues should be correct for indices is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. is greater than NM, is greater than NM, J          if the J-th eigenvalue has not been J          if the J-th eigenvalue has not been determined after a total of 30*N iterations. determined after a total of 30*N iterations. The eigenvalues should be correct for indices The eigenvalues should be correct for indices not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional dimensional dimensional dimensional REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). dimensional dimensional REAL array, dimensioned B(NM,N). REAL array, dimensioned B(NM,N). and B have been destroyed. dimensional REAL array, dimensioned BETA(N). dimensional REAL array, dimensioned Z(NM,N). dimensional dimensional dimensional dimensional REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). REAL array, dimensioned A(NM,N). dimensional dimensional REAL array, dimensioned B(NM,N). REAL array, dimensioned B(NM,N). and B have been destroyed. dimensional REAL array, dimensioned BETA(N). dimensional REAL array, dimensioned Z(NM,N). not applicable or not stated by selected source not a workspace argument
+is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM.
 
-## 4. `B`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional dimensional REAL array, dimensioned B(NM,N). REAL array, dimensioned B(NM,N). system Routines - EISPACK Guide, Springer-Verlag, 1976. dimensional dimensional REAL array, dimensioned B(NM,N). REAL array, dimensioned B(NM,N). system Routines - EISPACK Guide, Springer-Verlag, 1976. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `ALFR`
+contains a real general matrix. A is a two-dimensional REAL array, dimensioned A(NM,N).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain the real and imaginary parts, respectively, of the numerators of the eigenvalues. dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N). contain the real and imaginary parts, respectively, of the numerators of the eigenvalues. dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N). not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 6. `ALFI`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain the real and imaginary parts, respectively, of the numerators of the eigenvalues. dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N). contain the real and imaginary parts, respectively, of the numerators of the eigenvalues. dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N). not applicable or not stated by selected source not a workspace argument
+contains a real general matrix. B is a two-dimensional REAL array, dimensioned B(NM,N).
 
-## 7. `BETA`
+## `ALFR`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the denominators of the eigenvalues, which are thus given by the ratios  (ALFR+I*ALFI)/BETA. Complex conjugate pairs of eigenvalues appear consecutively with the eigenvalue having the positive imaginary part first. dimensional REAL array, dimensioned BETA(N). contains the denominators of the eigenvalues, which are thus given by the ratios  (ALFR+I*ALFI)/BETA. Complex conjugate pairs of eigenvalues appear consecutively with the eigenvalue having the positive imaginary part first. dimensional REAL array, dimensioned BETA(N). not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `MATZ`
+the real and imaginary parts, respectively, of the numerators of the eigenvalues. one-dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER variable set equal to zero if only eigenvalues are desired.  Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors. th eigenvalue is real, the J-th column of  Z  contains its eigenvector.  If the J-th eigenvalue is complex with positive imaginary part, the J-th and (J+1)-th columns of  Z  contain the real and imaginary parts of its eigenvector.  The conjugate of this vector is the eigenvector for the conjugate eigenvalue. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ALFI`
 
-## 9. `Z`
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the real and imaginary parts of the eigenvectors dimensional REAL array, dimensioned Z(NM,N). contains the real and imaginary parts of the eigenvectors dimensional REAL array, dimensioned Z(NM,N). not applicable or not stated by selected source not a workspace argument
+the real and imaginary parts, respectively, of the numerators of the eigenvalues. one-dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N).
 
-## 10. `IERR`
+## `BETA`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, IERR+2, ..., N, but no eigenvectors are computed. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+contains the denominators of the eigenvalues, which are thus given by the ratios (ALFR+I*ALFI)/BETA. Complex conjugate pairs of eigenvalues appear consecutively with the eigenvalue having the positive imaginary part first. is a one-dimensional REAL array, dimensioned BETA(N).
+
+## `MATZ`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER variable set equal to zero if only eigenvalues are desired. Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors.
+
+## `Z`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the real and imaginary parts of the eigenvectors if MATZ is not zero. If the J-th eigenvalue is real, the J-th column of Z contains its eigenvector. If the J-th eigenvalue is complex with positive imaginary part, the J-th and (J+1)-th columns of Z contain the real and imaginary parts of its eigenvector. The conjugate of this vector is the eigenvector for the conjugate eigenvalue. is a two-dimensional REAL array, dimensioned Z(NM,N).
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, 10*N if N is greater than NM, J if the J-th eigenvalue has not been determined after a total of 30*N iterations. The eigenvalues should be correct for indices IERR+1, IERR+2,. , N, but no eigenvectors are computed. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `B`: not a workspace argument
 - `ALFR`: not a workspace argument
 - `ALFI`: not a workspace argument
 - `BETA`: not a workspace argument
-- `MATZ`: not a workspace argument
 - `Z`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

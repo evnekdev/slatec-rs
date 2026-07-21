@@ -1,6 +1,6 @@
 # Purpose
 
-Abstract BSQAD computes the integral on (X1,X2) of a K-th order B-spline using the B-representation (T,BCOEF,N,K). Orders K as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use BFQAD with F(X) = 1.
+BSQAD computes the integral on (X1,X2) of a K-th order B-spline using the B-representation (T,BCOEF,N,K). Orders K as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use BFQAD with F(X) = 1.
 
 # Description
 
@@ -8,59 +8,62 @@ This canonical unsafe binding exposes original SLATEC routine `BSQAD`. Its docum
 
 # Arguments
 
-## 1. `T`
+## `T`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). knot array of length N+K .LE. X .LE. T(N+1) knot array of length N+K .LE. X .LE. T(N+1) not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 2. `BCOEF`
+knot array of length N+K. LE. X. T(N+1).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). B-spline coefficient array of length N B-spline coefficient array of length N not applicable or not stated by selected source not a workspace argument
+## `BCOEF`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. length of coefficient array length of coefficient array not applicable or not stated by selected source not a workspace argument
+B-spline coefficient array of length N.
 
-## 4. `K`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. th order B-spline using the B-representation. th order B-spline using the B-representation (T,BCOEF,N,K).  Orders as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use BFQAD with F(X) = 1. order of B-spline, 1 .LE. K .LE. 20 .LE. X .LE. T(N+1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `X1`
+length of coefficient array.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. th order B-spline using the B-representation (T,BCOEF,N,K).  Orders end points of quadrature interval in not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `K`
 
-## 6. `X2`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. th order B-spline using the B-representation (T,BCOEF,N,K).  Orders end points of quadrature interval in not stated by selected source not applicable or not stated by selected source not a workspace argument
+order of B-spline, 1. LE. K. 20.
 
-## 7. `BQUAD`
+## `X1`
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. integral of the B-spline over (X1,X2) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `WORK`
+end points of quadrature interval in.
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). work vector of length 3*K work vector of length 3*K not applicable or not stated by selected source
+## `X2`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+end points of quadrature interval in.
+
+## `BQUAD`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+integral of the B-spline over (X1,X2).
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+work vector of length 3*K.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-Improper input is a fatal error
-
 # Workspace and array requirements
 
 - `T`: not a workspace argument
 - `BCOEF`: not a workspace argument
-- `N`: not a workspace argument
-- `K`: not a workspace argument
-- `X1`: not a workspace argument
-- `X2`: not a workspace argument
-- `BQUAD`: not a workspace argument
 - `WORK`: work vector of length 3*K
 
 # ABI notes

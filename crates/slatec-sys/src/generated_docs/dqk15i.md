@@ -1,6 +1,6 @@
 # Purpose
 
-Integration Rule Standard Fortran subroutine Double precision version PARAMETERS ON ENTRY
+Integration Rule Standard Fortran subroutine Double precision version
 
 # Description
 
@@ -8,41 +8,59 @@ This canonical unsafe binding exposes original SLATEC routine `DQK15I`. Its docu
 
 # Arguments
 
-## 1. `F`
+## `F`
 
-callback `callback` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. Double precision Function subprogram defining the integrand FUNCTION F(X). The actual name for F needs to be Declared E X T E R N A L in the calling program. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 2. `BOUN`
+Function subprogram defining the integrand FUNCTION F(X). The actual name for F needs to be Declared E X T E R N A L in the calling program. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Finite bound of original integration not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `BOUN`
 
-## 3. `INF`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. +2) Integer 1, the original interval is (-INFINITY,BOUND), +1, the original interval is (BOUND,+INFINITY), +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). not stated by selected source not applicable or not stated by selected source not a workspace argument
+Finite bound of original integration Range (SET TO ZERO IF INF = +2).
 
-## 4. `A`
+## `INF`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B). Double precision Lower limit for integration over subrange of (0,1) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `B`
+If INF = -1, the original interval is (-INFINITY,BOUND), If INF = +1, the original interval is (BOUND,+INFINITY), If INF = +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY).
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B). Double precision Upper limit for integration over subrange of (0,1) ON RETURN not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 6. `RESULT`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Approximation to the integral I POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). not stated by selected source not applicable or not stated by selected source not a workspace argument
+Lower limit for integration over subrange of (0,1).
 
-## 7. `ABSERR`
+## `B`
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 8. `RESABS`
+Upper limit for integration over subrange of (0,1).
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Approximation to the integral J not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `RESULT`
 
-## 9. `RESASC`
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B) not stated by selected source not applicable or not stated by selected source not a workspace argument
+Approximation to the integral I is computed by applying the 15-POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG).
+
+## `ABSERR`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT).
+
+## `RESABS`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Approximation to the integral J.
+
+## `RESASC`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B).
 
 # Return value
 
@@ -50,23 +68,7 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `F`: not a workspace argument
-- `BOUN`: not a workspace argument
-- `INF`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `RESULT`: not a workspace argument
-- `ABSERR`: not a workspace argument
-- `RESABS`: not a workspace argument
-- `RESASC`: not a workspace argument
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # ABI notes
 

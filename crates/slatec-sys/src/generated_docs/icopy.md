@@ -8,45 +8,44 @@ This canonical unsafe binding exposes original SLATEC routine `ICOPY`. Its docum
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of elements in input vector(s) 1, copy  IX(LX+I*INCX) to IY(LY+I*INCY), not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `IX`
+number of elements in input vector(s).
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). integer vector with N elements not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `IX`
 
-## 3. `INCX`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of IX N)*INCX, and LY is defined in a similar way using INCY. not stated by selected source not applicable or not stated by selected source not a workspace argument
+integer vector with N elements.
 
-## 4. `IY`
+## `INCX`
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). integer vector with N elements copy of vector IX (unchanged if N .LE. 0) Copy integer IX to integer IY. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `INCY`
+storage spacing between elements of IX.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of IY not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `IY`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+integer vector with N elements copy of vector IX (unchanged if N. LE. 0) Copy integer IX to integer IY. For I = 0 to N-1, copy IX(LX+I*INCX) to IY(LY+I*INCY), where LX = 1 if INCX. GE. 0, else LX = 1+(1-N)*INCX, and LY is defined in a similar way using INCY.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+storage spacing between elements of IY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `IX`: not a workspace argument
-- `INCX`: not a workspace argument
 - `IY`: not a workspace argument
-- `INCY`: not a workspace argument
 
 # ABI notes
 

@@ -1,6 +1,6 @@
 # Purpose
 
-DPCHIA: Piecewise Cubic Hermite Integrator, Arbitrary limits Evaluates the definite integral of the cubic Hermite function defined by N, X, F, D over the interval \[A, B\]. To provide compatibility with DPCHIM and DPCHIC, includes an
+DPCHIA: Piecewise Cubic Hermite Integrator, Arbitrary limits Evaluates the definite integral of the cubic Hermite function defined by N, X, F, D over the interval \[A, B\]. To provide compatibility with DPCHIM and DPCHIC, includes an increment between successive values of the F- and D-arrays. Calling sequence: PARAMETER (INCFD = ...) INTEGER N, IERR DOUBLE PRECISION X(N), F(INCFD,N), D(INCFD,N), A, B DOUBLE PRECISION VALUE, DPCHIA LOGICAL SKIP VALUE = DPCHIA (N, X, F, D, INCFD, SKIP, A, B, IERR)
 
 # Description
 
@@ -8,65 +8,69 @@ This canonical unsafe binding exposes original SLATEC routine `DPCHIA`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (input) number of data points.  (Error return if N.LT.2 .) However, the resulting integral value will be highly suspect, if not. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `X`
+(input) number of data points. (Error return if N. LT. 2. ).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). (input) real*8 array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N. However, the resulting integral value However, the resulting integral value will be highly suspect, if not. will be highly suspect, if not. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 3. `F`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (INCFD, *). and D-arrays. (input) real*8 array of function values.  F(1+(I-1)*INCFD) is the value corresponding to X(I). not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) real*8 array of independent variable values. The elements of X must be strictly increasing:. LT. X(I), I = 2(1)N. (Error return if not. ).
 
-## 4. `D`
+## `F`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (INCFD, *). (input) real*8 array of derivative values.  D(1+(I-1)*INCFD) is the value corresponding to X(I). not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (INCFD, *).
 
-## 5. `INCFD`
+(input) real*8 array of function values. F(1+(I-1)*INCFD) is the value corresponding to X(I).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. ...) INTEGER  N, IERR DOUBLE PRECISION  X(N), F(INCFD,N), D(INCFD,N), A, B DOUBLE PRECISION  VALUE, DPCHIA LOGICAL  SKIP VALUE = DPCHIA (N, X, F, D, INCFD, SKIP, A, B, IERR) Parameters: VALUE -- (output) value of the requested integral. (input) increment between successive values in F and D. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `D`
 
-## 6. `SKIP`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (INCFD, *).
 
-input-output `scalar` argument; Fortran declaration `LOGICAL`, Rust ABI type `*mut crate::FortranLogical`, and scalar. (input/output) logical variable which should be set to .TRUE. if the user wishes to skip checks for validity of preceding parameters, or to .FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC). will be set to .TRUE. on return with IERR.GE.0 . not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) real*8 array of derivative values. D(1+(I-1)*INCFD) is the value corresponding to X(I).
 
-## 7. `A`
+## `INCFD`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. (input) the limits of integration. NOTE:  There is no requirement that \[A,B\] be contained in contains data interval or the intervals do not intersect at all.) "Recoverable" errors: not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `B`
+(input) increment between successive values in F and D. (Error return if INCFD. LT. 1. ).
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. (input) the limits of integration. NOTE:  There is no requirement that \[A,B\] be contained in contains data interval or the intervals do not intersect at all.) "Recoverable" errors: not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SKIP`
 
-## 9. `IERR`
+**Direction:** `output`. **Fortran type:** `LOGICAL`. **Rust ABI type:** `*mut crate::FortranLogical`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (output) error flag. Normal return: 0  (no errors). Warning errors: 1  if  A  is outside the interval \[X(1),X(N)\]. 2  if  B  is outside the interval \[X(1),X(N)\]. 3  if both of the above are true.  (Note that this 1  if N.LT.2 . 2  if INCFD.LT.1 . 3  if the X-array is not strictly increasing. (VALUE will be zero in any of these cases.) NOTE:  The above errors are checked in the order listed, and following arguments have **NOT** been validated. 4  in case of an error return from DPCHID (which should never occur). not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input/output) logical variable which should be set to. TRUE. if the user wishes to skip checks for validity of preceding parameters, or to. FALSE. otherwise. This will save time in case these checks have already been performed (say, in DPCHIM or DPCHIC).
+
+## `A`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+(input) the limits of integration. NOTE: There is no requirement that \[A,B\] be contained in \[X(1),X(N)\]. However, the resulting integral value will be highly suspect, if not.
+
+## `B`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+(input) the limits of integration. NOTE: There is no requirement that \[A,B\] be contained in \[X(1),X(N)\]. However, the resulting integral value will be highly suspect, if not.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+(output) error flag. Normal return: 0 (no errors). Warning errors: 1 if A is outside the interval \[X(1),X(N)\]. 2 if B is outside the interval \[X(1),X(N)\]. 3 if both of the above are true. (Note that this means that either \[A,B\] contains data interval or the intervals do not intersect at all.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f64(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_f64_ptr_rank2,mut_i32,mut_fortran_logical_i32,mut_f64,mut_f64,mut_i32)`. It has no separate Rust `Result` status channel.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `X`: not a workspace argument
 - `F`: not a workspace argument
 - `D`: not a workspace argument
-- `INCFD`: not a workspace argument
-- `SKIP`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

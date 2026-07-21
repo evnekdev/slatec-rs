@@ -8,50 +8,58 @@ This canonical unsafe binding exposes original SLATEC routine `CGTSL`. Its docum
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER is the order of the tridiagonal matrix. contain the subdiagonal. On output C is destroyed. 1) should contain the superdiagonal. On output E is destroyed. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `C`
+INTEGER is the order of the tridiagonal matrix.
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) is the subdiagonal of the tridiagonal matrix. contain the subdiagonal. contain the subdiagonal. On output C is destroyed. On output C is destroyed. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 3. `D`
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) is the diagonal of the tridiagonal matrix. On output D is destroyed. not stated by selected source not applicable or not stated by selected source not a workspace argument
+COMPLEX(N) is the subdiagonal of the tridiagonal matrix. C(2) through C(N) should contain the subdiagonal. On output C is destroyed.
 
-## 4. `E`
+## `D`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) is the superdiagonal of the tridiagonal matrix. 1) should contain the superdiagonal. 1) should contain the superdiagonal. On output E is destroyed. On output E is destroyed. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-## 5. `B`
+COMPLEX(N) is the diagonal of the tridiagonal matrix. On output D is destroyed.
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) is the right hand side vector. On Return is the solution vector. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `E`
 
-## 6. `INFO`
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER = 0 normal value. = K if the K-th element of the diagonal becomes exactly zero.  The subroutine returns when this is detected. not stated by selected source not applicable or not stated by selected source not a workspace argument
+COMPLEX(N) is the superdiagonal of the tridiagonal matrix. E(1) through E(N-1) should contain the superdiagonal. On output E is destroyed.
+
+## `B`
+
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+COMPLEX(N) is the right hand side vector. is the solution vector.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER = 0 normal value. = K if the K-th element of the diagonal becomes exactly zero. The subroutine returns when this is detected.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 normal value. = K if the K-th element of the diagonal becomes exactly zero. The subroutine returns when this is detected. |
 
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `C`: not a workspace argument
 - `D`: not a workspace argument
 - `E`: not a workspace argument
 - `B`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

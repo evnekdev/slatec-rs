@@ -8,7 +8,7 @@ Update the Cholesky factorization A=TRANS(R)*R of a positive definite matrix A o
 
 ## Description
 
-DCHEX updates the Cholesky factorization A = TRANS(R)*R of a positive definite matrix A of order P under diagonal permutations of the form TRANS(E)*A*E where E is a permutation matrix. Specifically, given an upper triangular matrix R and a permutation matrix E (which is specified by K, L, and JOB), DCHEX determines an orthogonal matrix U such that
+DCHEX updates the Cholesky factorization A = TRANS(R)*R of a positive definite matrix A of order P under diagonal permutations of the form TRANS(E)*A*E where E is a permutation matrix. Specifically, given an upper triangular matrix R and a permutation matrix E (which is specified by K, L, and JOB), DCHEX determines an orthogonal matrix U such that U*R*E = RR, where RR is upper triangular. At the users option, the transformation U will be multiplied into the array Z. If A = TRANS(X)*X, so that R is the triangular part of the QR factorization of X, then RR is the triangular part of the QR factorization of X*E, i.e. X with its columns permuted. For a less terse description of what DCHEX does and how it may be applied, see the LINPACK guide. The matrix Q is determined as the product U(L-K)*...*U(1) of plane rotations of the form ( C(I) S(I) ) ( ) , ( -S(I) C(I) ) where C(I) is double precision. The rows these rotations operate on are described below. There are two types of permutations, which are determined by the value of JOB. 1. Right circular shift (JOB = 1). The columns are rearranged in the following order. 1,...,K-1,L,K,K+1,...,L-1,L+1,...,P. U is the product of L-K rotations U(I), where U(I) acts in the (L-I,L-I+1)-plane. 2. Left circular shift (JOB = 2). 1,...,K-1,K+1,K+2,...,L,K,L+1,...,P. acts in the (K+I-1,K+I)-plane. On Entry
 
 ## Classification
 
@@ -52,43 +52,35 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DCHEX](https://www.netlib.org/slatec/lin/dchex.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `R` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDR, *) | RR, where RR is upper triangular.  At the users option, the transformation U will be multiplied into the array Z. If A = TRANS(X)*X, so that R is the triangular part of the QR factorization of X, then RR is the triangular part of the QR factorization of X*E, i.e. X with its columns permuted. For a less terse description of what DCHEX does and how it may be applied, see the LINPACK guide. DOUBLE PRECISION(LDR,P), where LDR .GE. P. contains the upper triangular factor that is to be updated.  Elements of R below the diagonal are not referenced. contains the updated factor. |
+| 1 | `R` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDR, *) | DOUBLE PRECISION(LDR,P), where LDR. GE. P. contains the upper triangular factor that is to be updated. Elements of R below the diagonal are not referenced. contains the updated factor. |
 | 2 | `LDR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array R. |
-| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the order of the matrix R. vectors into which the transformation U is multiplied.  Z is |
-| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1,L,K,K+1,...,L-1,L+1,...,P. 1,K+1,K+2,...,L,K,L+1,...,P. 1,K+I)-plane. On Entry INTEGER. is the first column to be permuted. |
-| 5 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | K)*...*U(1) of plane rotations of the form (    C(I)       S(I) ) (                    ) , (    -S(I)      C(I) ) where C(I) is double precision.  The rows these rotations operate on are described below. There are two types of permutations, which are determined by the value of JOB. K rotations U(I), where U(I) I,L-I+1)-plane. K rotations U(I), where U(I) INTEGER. is the last column to be permuted. must be strictly greater than K. |
-| 6 | `Z` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDZ, *) | DOUBLE PRECISION(LDZ,N)Z), where LDZ .GE. P. vectors into which the transformation U is multiplied.  Z is contains the updated matrix Z. |
+| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the order of the matrix R. |
+| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the first column to be permuted. |
+| 5 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the last column to be permuted. must be strictly greater than K. |
+| 6 | `Z` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDZ, *) | DOUBLE PRECISION(LDZ,N)Z), where LDZ. GE. P. is an array of NZ P-vectors into which the transformation U is multiplied. Z is not referenced if NZ = 0. contains the updated matrix Z. |
 | 7 | `LDZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array Z. |
-| 8 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | vectors into which the transformation U is multiplied.  Z is 0. INTEGER. is the number of columns of the matrix Z. |
-| 9 | `C` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(P). contains the cosines of the transforming rotations. |
-| 10 | `S` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(P). contains the sines of the transforming rotations. |
-| 11 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1). The columns are rearranged in the following order. 2). The columns are rearranged in the following order INTEGER. determines the type of permutation. 1  right circular shift. 2  left circular shift. On Return |
+| 8 | `NZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the number of columns of the matrix Z. |
+| 9 | `C` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(P). contains the cosines of the transforming rotations. |
+| 10 | `S` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | DOUBLE PRECISION(P). contains the sines of the transforming rotations. |
+| 11 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. JOB determines the type of permutation. 1 right circular shift. 2 left circular shift. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

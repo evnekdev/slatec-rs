@@ -8,55 +8,62 @@ This canonical unsafe binding exposes original SLATEC routine `CCHDC`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). COMPLEX(LDA,P). contains the matrix whose decomposition is to be computed.  Only the upper half of A need be stored. The lower part of The array A is not referenced. is not referenced if contains in its upper half the Cholesky factor contains in its upper half the Cholesky factor of the matrix A as it has been permuted by pivoting. of the matrix A as it has been permuted by pivoting. th position, provided pivoting was requested. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA,P). contains the matrix whose decomposition is to be computed. Only the upper half of A need be stored. The lower part of The array A is not referenced. A contains in its upper half the Cholesky factor of the matrix A as it has been permuted by pivoting.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the leading dimension of the array A. INTEGER. is the leading dimension of the array A. INTEGER. is the leading dimension of the array A. not a workspace argument
+## `LDA`
 
-## 3. `P`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the order of the matrix. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. is the leading dimension of the array A.
 
-## 4. `WORK`
+## `P`
 
-workspace `workspace` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX. is a work array. not stated by selected source not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `JPVT`
+INTEGER. is the order of the matrix.
 
-input-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(P). contains integers that control the selection of the pivot elements, if pivoting has been requested. Each diagonal element A(K,K) is placed in one of three classes according to the value of JPVT(K)). If JPVT(K)) .GT. 0, then X(K) is an initial element. If JPVT(K)) .EQ. 0, then X(K) is a free element. If JPVT(K)) .LT. 0, then X(K) is a final element. Before the decomposition is computed, initial elements are moved by symmetric row and column interchanges to the beginning of the array A and final elements to the end.  Both initial and final elements are frozen in place during the computation and only free elements are moved.  At the K-th stage of the reduction, if A(K,K) is occupied by a free element it is interchanged with the largest free element is not referenced if contains the index of the diagonal element contains the index of the diagonal element not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `WORK`
 
-## 6. `JOB`
+**Direction:** `workspace-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. .EQ. 0. INTEGER. is an integer that initiates column pivoting. IF JOB .EQ. 0, no pivoting is done. IF JOB .NE. 0, pivoting is done. On Return not stated by selected source not applicable or not stated by selected source not a workspace argument
+COMPLEX. is a work array.
 
-## 7. `INFO`
+## `JPVT`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. contains the index of the last positive diagonal element of the Cholesky factor. P is the normal return. For pivoting with positive semidefinite matrices INFO will in general be less than P.  However, INFO may be greater than the rank of A, since rounding error can cause an otherwise zero element to be positive.  Indefinite systems will always cause to be less than P. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+INTEGER(P). contains integers that control the selection of the pivot elements, if pivoting has been requested. Each diagonal element A(K,K) is placed in one of three classes according to the value of JPVT(K)). If JPVT(K)). GT. 0, then X(K) is an initial element.
+
+## `JOB`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+EQ. 0. INTEGER. is an integer that initiates column pivoting. IF JOB. 0, no pivoting is done.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+contains the index of the last positive diagonal element of the Cholesky factor. For positive definite matrices INFO = P is the normal return. For pivoting with positive semidefinite matrices INFO will in general be less than P. However, INFO may be greater than the rank of A, since rounding error can cause an otherwise zero element to be positive. Indefinite systems will always cause INFO to be less than P.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+`INFO` is a documented status output; its bounded argument contract states the available source semantics.
 
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `P`: not a workspace argument
 - `WORK`: COMPLEX. is a work array.
 - `JPVT`: not a workspace argument
-- `JOB`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

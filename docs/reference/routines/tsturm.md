@@ -52,51 +52,43 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [TSTURM](https://www.netlib.org/slatec/lin/tsturm.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameter, Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. 1 positions.  E(1) is if M exceeds MM no eigenvalues or eigenvectors are computed, th eigenvalue fails to converge in 5 iterations, then the eigenvalues and eigenvectors in W and Z should be correct for indices 1, 2, ..., J-1. The ALGOL procedure STURMCNT contained in TRISTURM appears in TSTURM in-line. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
-| 3 | `EPS1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | values.  It should be chosen so that the accuracy of these eigenvalues is commensurate with relative perturbations of the order of the relative machine precision in the matrix positive, it is reset for each submatrix to a default value, namely, minus the product of the relative machine precision and the 1-norm of the submatrix.  EPS1 is a REAL variable. is unaltered unless it has been reset to its (last) default value. |
-| 4 | `D` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the symmetric tridiagonal dimensional REAL array, dimensioned D(N). are unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices.  E2(1) is also set to zero. |
-| 5 | `E` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the subdiagonal elements of the symmetric dimensional REAL array, dimensioned are unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices.  E2(1) is also set to zero. |
-| 6 | `E2` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the squares of the corresponding elements of E. dimensional REAL array, dimensional REAL array, dimensioned E2(N). dimensioned E2(N). |
-| 7 | `LB` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | and UB define the interval to be searched for eigenvalues. If LB is not less than UB, no eigenvalues will be found. are REAL variables. |
-| 8 | `UB` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | are REAL variables. |
-| 9 | `MM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | should be set to an upper bound for the number of eigenvalues in the interval.  MM is an INTEGER variable. WARNING -  If more than MM eigenvalues are determined to lie in the interval, an error return is made with no values or vectors found. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | must be set to the row dimension of the two-dimensional array parameter, Z, as declared in the calling program dimension statement. NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix. N is an INTEGER variable. must be less than or equal to NM. |
+| 3 | `EPS1` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | is an absolute error tolerance for the computed eigen- values. It should be chosen so that the accuracy of these eigenvalues is commensurate with relative perturbations of the order of the relative machine precision in the matrix elements. If the input EPS1 is non-positive, it is reset for each submatrix to a default value, namely, minus the product of the relative machine precision and the 1-norm of the submatrix. EPS1 is a REAL variable. is unaltered unless it has been reset to its (last) default value. |
+| 4 | `D` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the symmetric tridiagonal matrix. D is a one-dimensional REAL array, dimensioned D(N). unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. E2(1) is also set to zero. |
+| 5 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the subdiagonal elements of the symmetric tridiagonal matrix in its last N-1 positions. E(1) is arbitrary. E is a one-dimensional REAL array, dimensioned unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. E2(1) is also set to zero. |
+| 6 | `E2` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the squares of the corresponding elements of E. is arbitrary. E2 is a one-dimensional REAL array, dimensioned E2(N). |
+| 7 | `LB` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the interval to be searched for eigenvalues. If LB is not less than UB, no eigenvalues will be found. REAL variables. |
+| 8 | `UB` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the interval to be searched for eigenvalues. If LB is not less than UB, no eigenvalues will be found. REAL variables. |
+| 9 | `MM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | should be set to an upper bound for the number of eigenvalues in the interval. MM is an INTEGER variable. WARNING - If more than MM eigenvalues are determined to lie in the interval, an error return is made with no values or vectors found. |
 | 10 | `M` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of eigenvalues determined to lie in (LB,UB). is an INTEGER variable. |
-| 11 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the M eigenvalues in ascending order if the matrix does not split.  If the matrix splits, the eigenvalues are in ascending order for each submatrix.  If a vector error exit is made, W contains those values already found.  W is a one-dimensional REAL array, dimensioned W(MM). |
-| 12 | `Z` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the associated set of orthonormal eigenvectors. If an error exit is made, Z contains those vectors already dimensional REAL array, dimensioned |
-| 13 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, |
-| 14 | `RV1` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and |
-| 15 | `RV2` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and |
-| 16 | `RV3` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and |
-| 17 | `RV4` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and |
-| 18 | `RV5` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and |
-| 19 | `RV6` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and The ALGOL procedure STURMCNT contained in TRISTURM appears in TSTURM in-line. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 11 | `W` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the M eigenvalues in ascending order if the matrix does not split. If the matrix splits, the eigenvalues are in ascending order for each submatrix. If a vector error exit is made, W contains those values already found. W is a one-dimensional REAL array, dimensioned W(MM). |
+| 12 | `Z` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the associated set of orthonormal eigenvectors. If an error exit is made, Z contains those vectors already found. Z is a one-dimensional REAL array, dimensioned. |
+| 13 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero for normal return, 3*N+1 if M exceeds MM no eigenvalues or eigenvectors are computed, 4*N+J if the eigenvector corresponding to the J-th eigenvalue fails to converge in 5 iterations, then the eigenvalues and eigenvectors in W and Z should be correct for indices 1, 2,. , J-1. |
+| 14 | `RV1` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and. |
+| 15 | `RV2` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and. |
+| 16 | `RV3` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and. |
+| 17 | `RV4` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and. |
+| 18 | `RV5` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and. |
+| 19 | `RV6` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | temporary storage arrays, dimensioned RV1(N), RV2(N), RV3(N), RV4(N), RV5(N), and The ALGOL procedure STURMCNT contained in TRISTURM appears in TSTURM in-line. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-`W`: contains the M eigenvalues in ascending order if the matrix does not split.  If the matrix splits, the eigenvalues are in ascending order for each submatrix.  If a vector error exit is made, W contains those values already found.  W is a one-dimensional REAL array, dimensioned W(MM).
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

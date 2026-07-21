@@ -52,38 +52,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [EZFFTB](https://www.netlib.org/slatec/fishfft/ezfftb.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is most efficient when N is the product of small primes. are required. are required. 1)/2 locations are required 1)/2 locations are required N/2 1)/2 1)/2 Then for I=1,...,N Then for I=1,...,N where where ALPHA(K) = SQRT(A(K)*A(K)+B(K)*B(K)) |
-| 2 | `R` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is most efficient when N is the product of small primes. N/2 AZERO plus the sum from K=1 to K=KMAX of KMAX to K=KMAX of 1 to K=KMAX of |
-| 3 | `AZERO` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the constant Fourier coefficient 1 to K=KMAX of |
-| 4 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the remaining Fourier coefficients. These arrays are not destroyed. The length of these arrays depends on whether N is even or odd. must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. 1)*2*PI/N)+B(K)*SIN(K*(I-1)*2*PI/N) Complex Notation ************************** For J=1,...,N B(K))   for K=1,...,KMAX C(-K) = CONJG(C(K)) C(0) = AZERO and I=SQRT(-1) Amplitude - Phase Notation *********************** For I=1,...,N |
-| 5 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the remaining Fourier coefficients. These arrays are not destroyed. The length of these arrays depends on whether N is even or odd. |
-| 6 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the output array R. The method is most efficient when N is the product of small primes. |
+| 2 | `R` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | if N is even, define KMAX=N/2 if N is odd, define KMAX=(N-1)/2 Then for I=1,. ,N AZERO plus the sum from K=1 to K=KMAX of A(K)*COS(K*(I-1)*2*PI/N)+B(K)*SIN(K*(I-1)*2*PI/N) Complex Notation ************************** For J=1,. ,N R(J) equals the sum from K=-KMAX to K=KMAX of C(K)*EXP(I*K*(J-1)*2*PI/N) where C(K) =. 5*CMPLX(A(K),-B(K)) for K=1,. ,KMAX C(-K) = CONJG(C(K)) C(0) = AZERO and I=SQRT(-1) Amplitude - Phase Notation *********************** For I=1,. ,N R(I) equals AZERO plus the sum from K=1 to K=KMAX of ALPHA(K)*COS(K*(I-1)*2*PI/N+BETA(K)) ALPHA(K) = SQRT(A(K)*A(K)+B(K)*B(K)) COS(BETA(K))=A(K)/ALPHA(K) SIN(BETA(K))=-B(K)/ALPHA(K). |
+| 3 | `AZERO` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the constant Fourier coefficient. |
+| 4 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | arrays which contain the remaining Fourier coefficients. These arrays are not destroyed. The length of these arrays depends on whether N is even or odd. If N is even, N/2 locations are required. If N is odd, (N-1)/2 locations are required. |
+| 5 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | arrays which contain the remaining Fourier coefficients. These arrays are not destroyed. The length of these arrays depends on whether N is even or odd. If N is even, N/2 locations are required. If N is odd, (N-1)/2 locations are required. |
+| 6 | `WSAVE` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB. The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WSAVE`: must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.
+`WSAVE`: a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB. The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.
 
 ### Provider, ABI, and safety
 

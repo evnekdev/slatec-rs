@@ -159,6 +159,8 @@ fn run() -> Result<()> {
             | "validate-release-readiness"
             | "generate-public-api-semantic-review"
             | "validate-public-api-semantic-review"
+            | "generate-semantic-documentation-quality"
+            | "validate-semantic-documentation-quality"
             | "generate-rendered-rustdoc-audit"
             | "validate-rendered-rustdoc-audit"
             | "generate-ffi-declaration-ownership"
@@ -707,10 +709,16 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
-        "generate-public-api-semantic-review" | "validate-public-api-semantic-review" => {
+        "generate-public-api-semantic-review"
+        | "validate-public-api-semantic-review"
+        | "generate-semantic-documentation-quality"
+        | "validate-semantic-documentation-quality" => {
             let root = PathBuf::from(".");
             let output = PathBuf::from("generated/release-readiness");
-            let result = if options.command == "generate-public-api-semantic-review" {
+            let result = if matches!(
+                options.command.as_str(),
+                "generate-public-api-semantic-review" | "generate-semantic-documentation-quality"
+            ) {
                 public_api_semantic_review::generate(&root, &output)?
             } else {
                 public_api_semantic_review::validate(&root, &output)?
@@ -733,14 +741,14 @@ fn run() -> Result<()> {
                 public_api_semantic_review::validate_rendered_rustdoc_audit(&root)?
             };
             println!(
-                "{}: {} canonical pages, {} complete structured, {} semantic review required",
+                "{}: {} canonical pages, {} complete semantic contracts, {} semantic review required",
                 if options.command == "generate-rendered-rustdoc-audit" {
                     "generated"
                 } else {
                     "validated"
                 },
                 report["summary"]["rendered_rustdoc_pages_found"],
-                report["summary"]["complete_structured"],
+                report["summary"]["complete_semantic_contracts"],
                 report["summary"]["routines_with_generic_or_unreviewed_contracts"],
             );
             Ok(())
@@ -1325,7 +1333,7 @@ fn run() -> Result<()> {
             Ok(())
         }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-batch-b, validate-raw-batch-b, generate-raw-batch-c, validate-raw-batch-c, generate-raw-api-inventory, validate-raw-api-inventory, generate-final-raw-api-disposition, validate-final-raw-api-disposition, generate-all-feature-coverage, validate-all-feature-coverage, generate-public-api-semantic-review, validate-public-api-semantic-review, generate-rendered-rustdoc-audit, validate-rendered-rustdoc-audit, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-pchip-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-batch-b, validate-raw-batch-b, generate-raw-batch-c, validate-raw-batch-c, generate-raw-api-inventory, validate-raw-api-inventory, generate-final-raw-api-disposition, validate-final-raw-api-disposition, generate-all-feature-coverage, validate-all-feature-coverage, generate-public-api-semantic-review, validate-public-api-semantic-review, generate-semantic-documentation-quality, validate-semantic-documentation-quality, generate-rendered-rustdoc-audit, validate-rendered-rustdoc-audit, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }

@@ -8,7 +8,7 @@ Compute the inner product of two vectors with extended precision accumulation an
 
 ## Description
 
-Compute the dot product of 2 complex vectors, CX and CY, e.g.
+Compute the dot product of 2 complex vectors, CX and CY, e.g. CX DOT CY, or, CXconjugate DOT CY. The real and imaginary parts of CX and CY are converted to double precision, the dot product accumulation is done in double precision and the output is given as 2 double precision numbers, corresponding to the real and imaginary part of the result.
 
 ## Classification
 
@@ -51,40 +51,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DCDOT](https://www.netlib.org/slatec/lin/dcdot.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of complex components of CX and CY. Complex arrays of length N. |
-| 2 | `FM` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | =+1.0   compute CX DOT CY. =-1.0   compute CXconjugate DOT CY. |
-| 3 | `CX` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | DOT CY, or, CXconjugate DOT CY.  The real and imaginary are converted to double precision, the dot product accumulation is done in double precision and the output is given as 2 double precision numbers, corresponding to the real and imaginary part of the result. |
-| 4 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (Integer)   Spacing of elements of CX to use |
-| 5 | `CY` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | are converted to double precision, the dot product accumulation is done in double precision and the output is given as 2 double precision numbers, corresponding to the real and imaginary part of the result. Complex arrays of length N. |
-| 6 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (Integer)   Spacing of elements of CY to use. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of complex components of CX and CY. |
+| 2 | `FM` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | =+1. 0 compute CX DOT CY. =-1. 0 compute CXconjugate DOT CY. |
+| 3 | `CX` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Complex arrays of length N. |
+| 4 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (Integer) Spacing of elements of CX to use. |
+| 5 | `CY` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Complex arrays of length N. |
+| 6 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (Integer) Spacing of elements of CY to use. |
 | 7 | `DCR` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (Double Precision) Real part of dot product. |
 | 8 | `DCI` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | (Double Precision) Imaginary part of dot product. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

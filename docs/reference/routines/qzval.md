@@ -51,41 +51,33 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QZVAL](https://www.netlib.org/slatec/lin/qzval.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. contains the tolerance quantity (EPSB) is unaltered. and ALFI(N). |
-| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | triangular matrix.  A is a two- triangular matrix.  A is a two- dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). triangular matrix in triangular matrix in which all nonzero subdiagonal elements correspond to pairs which all nonzero subdiagonal elements correspond to pairs of complex eigenvalues. of complex eigenvalues. dimensional REAL array, dimensioned BETA(N). |
-| 4 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper triangular matrix.  In addition, contains the tolerance quantity (EPSB) dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements is unaltered. system Routines - EISPACK Guide, Springer-Verlag, 1976. |
-| 5 | `ALFR` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations.  Non-zero values of ALFI occur in pairs, the first member positive and the second negative. dimensional REAL arrays, dimensioned and ALFI(N). |
-| 6 | `ALFI` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations.  Non-zero values of ALFI occur in pairs, the first member positive and the second negative. dimensional REAL arrays, dimensioned |
-| 7 | `BETA` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the corresponding B, normalized to be real and non-negative.  The generalized eigenvalues are then the ratios ((ALFR+I*ALFI)/BETA). dimensional REAL array, dimensioned BETA(N). |
-| 8 | `MATZ` | `input` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | should be set to .TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to .FALSE. otherwise.  MATZ is a LOGICAL variable. |
-| 9 | `Z` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reductions by  QZHES  and  QZIT,  if performed, or else the identity matrix.  If MATZ has been set dimensional REAL dimensional REAL array, dimensioned Z(NM,N). array, dimensioned Z(NM,N). contains the product of the right hand transformations (for all three steps) if MATZ has been set to .TRUE. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM. |
+| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper quasi-triangular matrix. A is a two- dimensional REAL array, dimensioned A(NM,N). |
+| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains a real upper triangular matrix. In addition, location B(N,1) contains the tolerance quantity (EPSB) computed and saved in QZIT. B is a two-dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements have been altered. B(N,1) is unaltered. |
+| 5 | `ALFR` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations. Non-zero values of ALFI occur in pairs, the first member positive and the second negative. one-dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N). |
+| 6 | `ALFI` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | the real and imaginary parts of the diagonal elements of the triangular matrix that would be obtained if A were reduced completely to triangular form by unitary transformations. Non-zero values of ALFI occur in pairs, the first member positive and the second negative. one-dimensional REAL arrays, dimensioned ALFR(N) and ALFI(N). |
+| 7 | `BETA` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the corresponding B, normalized to be real and non-negative. The generalized eigenvalues are then the ratios ((ALFR+I*ALFI)/BETA). is a one-dimensional REAL array, dimensioned BETA(N). |
+| 8 | `MATZ` | `input` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | should be set to. TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to. FALSE. otherwise. MATZ is a LOGICAL variable. |
+| 9 | `Z` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the product of the right hand transformations (for all three steps) if MATZ has been set to. TRUE. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

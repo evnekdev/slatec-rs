@@ -1,6 +1,6 @@
 # Purpose
 
-DPOSL solves the double precision symmetric positive definite
+DPOSL solves the double precision symmetric positive definite system A * X = B using the factors computed by DPOCO or DPOFA. On Entry
 
 # Description
 
@@ -8,39 +8,38 @@ This canonical unsafe binding exposes original SLATEC routine `DPOSL`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (LDA, *). B using the factors computed by DPOCO or DPOFA. On Entry DOUBLE PRECISION(LDA, N) the output from DPOCO or DPOFA. division by zero will occur if the input factor contains zero on the diagonal.  Technically this indicates singularity, but it is usually caused by improper subroutine arguments.  It will not occur if the subroutines are called correctly and  INFO .EQ. 0 . To compute  INVERSE(A) * C  where  C  is a matrix with  P  columns CALL DPOCO(A,LDA,N,RCOND,Z,INFO) IF (RCOND is too small .OR. INFO .NE. 0) GO TO ... DO 10 J = 1, P CALL DPOSL(A,LDA,N,C(1,J)) 10 CONTINUE not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+DOUBLE PRECISION(LDA, N) the output from DPOCO or DPOFA.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array A.
 
-## 4. `B`
+## `N`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). DOUBLE PRECISION(N) the right hand side vector. On Return the solution vector  X . not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER the order of the matrix A.
+
+## `B`
+
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+DOUBLE PRECISION(N) the right hand side vector. the solution vector X. Error Condition A division by zero will occur if the input factor contains a zero on the diagonal. Technically this indicates singularity, but it is usually caused by improper subroutine arguments. It will not occur if the subroutines are called correctly and INFO. EQ.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
 - `B`: not a workspace argument
 
 # ABI notes

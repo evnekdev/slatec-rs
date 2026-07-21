@@ -1,6 +1,6 @@
 # Purpose
 
-Complex Givens transformation Construct the Givens transformation
+Complex Givens transformation Construct the Givens transformation (C S) G = ( ), C**2 + ABS(S)**2 =1, (-S C) which zeros the second entry of the complex 2-vector (CA,CB)**T The quantity CA/ABS(CA)*NORM(CA,CB) overwrites CA in storage.
 
 # Description
 
@@ -8,40 +8,33 @@ This canonical unsafe binding exposes original SLATEC routine `CROTG`. Its docum
 
 # Arguments
 
-## 1. `CA`
+## `CA`
 
-input `scalar` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and scalar. (Complex) (Complex)      CA/ABS(CA)*NORM(CA,CB) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** scalar.
 
-## 2. `CB`
+(Complex) (Complex) CA/ABS(CA)*NORM(CA,CB).
 
-input `scalar` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and scalar. (Complex) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `CB`
 
-## 3. `C`
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. S) G  =  (      ),  C**2 + ABS(S)**2 =1, (Real) not stated by selected source not applicable or not stated by selected source not a workspace argument
+(Complex).
 
-## 4. `S`
+## `C`
 
-output `scalar` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and scalar. C) which zeros the second entry of the complex 2-vector (CA,CB)**T The quantity CA/ABS(CA)*NORM(CA,CB) overwrites CA in storage. (Complex) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+(Real).
+
+## `S`
+
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** scalar.
+
+(Complex).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `CA`: not a workspace argument
-- `CB`: not a workspace argument
-- `C`: not a workspace argument
-- `S`: not a workspace argument
 
 # ABI notes
 

@@ -52,33 +52,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DAWS](https://www.netlib.org/slatec/fnlib/daws.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | calculates Dawson's integral for real argument X. Series for DAW        on the interval  0.          to  1.00000D+00 with weighted error   3.83E-17 log weighted error  16.42 significant figures required  15.78 decimal places required  16.97 Series for DAW2       on the interval  0.          to  1.60000D+01 with weighted error   5.17E-17 log weighted error  16.29 significant figures required  15.90 decimal places required  17.02 Series for DAWA       on the interval  0.          to  6.25000D-02 with weighted error   2.24E-17 log weighted error  16.65 significant figures required  14.73 decimal places required  17.36 |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input value at which the source-defined function is evaluated: Compute Dawson's function |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

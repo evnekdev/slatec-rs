@@ -54,33 +54,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [BSPPP](https://www.netlib.org/slatec/src/bsppp.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | knot vector of length N+K |
-| 2 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | B-spline coefficient vector of length N |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of B-spline coefficients K |
-| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K .GE. 1 |
-| 5 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C, LDC .GE. K |
-| 6 | `C` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDC, *) | matrix of dimension at least (K,LXI) containing right derivatives at break points |
-| 7 | `XI` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,K, J=1,LXI.  Function PPVAL 1,K, J=1,LXI.  Function PPVAL makes this evaluation at a specified point X in makes this evaluation at a specified point X in .LE. X .LE. XI(LXI(1) .LE. X .LE. XI+1) XI break point vector of length LXI+1 |
-| 8 | `LXI` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of break points, LXI .LE. N-K+1 |
-| 9 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work vector of length K*(N+3) |
+| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | knot vector of length N+K. |
+| 2 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | B-spline coefficient vector of length N. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of B-spline coefficients sum of knot multiplicities-K. |
+| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K. GE. 1. |
+| 5 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C, LDC. GE. K. |
+| 6 | `C` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDC, *) | matrix of dimension at least (K,LXI) containing right derivatives at break points. |
+| 7 | `XI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | LE. X. XI(J+1), I=1,K, J=1,LXI. Function PPVAL makes this evaluation at a specified point X in. XI(LXI(1). XI+1) XI break point vector of length LXI+1. |
+| 8 | `LXI` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of break points, LXI. LE. N-K+1. |
+| 9 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work vector of length K*(N+3). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
 
 ### Error and status values
 

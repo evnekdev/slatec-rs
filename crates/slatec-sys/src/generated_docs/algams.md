@@ -8,35 +8,27 @@ This canonical unsafe binding exposes original SLATEC routine `ALGAMS`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. input argument not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `ALGAM`
+input argument.
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. result not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ALGAM`
 
-## 3. `SGNGAM`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is set to the sign of GAMMA(X) and will be returned at +1.0 or -1.0. not stated by selected source not applicable or not stated by selected source not a workspace argument
+result.
+
+## `SGNGAM`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+is set to the sign of GAMMA(X) and will be returned at +1. 0 or -1. 0.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
-- `ALGAM`: not a workspace argument
-- `SGNGAM`: not a workspace argument
 
 # ABI notes
 

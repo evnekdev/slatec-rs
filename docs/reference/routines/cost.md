@@ -8,7 +8,7 @@ Compute the cosine transform of a real, even sequence.
 
 ## Description
 
-Subroutine COST computes the discrete Fourier cosine transform of an even sequence X(I). The transform is defined below at output parameter X. COST is the unnormalized inverse of itself since a call of COST followed by another call of COST will multiply the input sequence
+Subroutine COST computes the discrete Fourier cosine transform of an even sequence X(I). The transform is defined below at output parameter X. COST is the unnormalized inverse of itself since a call of COST followed by another call of COST will multiply the input sequence X by 2*(N-1). The transform is defined below at output parameter X. The array WSAVE which is used by subroutine COST must be initialized by calling subroutine COSTI(N,WSAVE).
 
 ## Classification
 
@@ -52,35 +52,27 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [COST](https://www.netlib.org/slatec/fishfft/cost.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1).  The transform is defined below at output parameter X. The array WSAVE which is used by subroutine COST must be initialized by calling subroutine COSTI(N,WSAVE). must be greater than 1. must be greater than 1. 1 is a product of small primes. 1 1). Hence COST is the unnormalized inverse of itself. |
-| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1).  The transform is defined below at output parameter X. The array WSAVE which is used by subroutine COST must be initialized by calling subroutine COSTI(N,WSAVE). must be greater than 1. an array which contains the sequence to be transformed 1,...,N 1)**(I-1)*X(N) 1)**(I-1)*X(N) 1)*(I-1)*PI/(N-1)) A call of COST followed by another call of 1). Hence COST is the unnormalized inverse of itself. |
-| 3 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array which must be dimensioned at least 3*N+15 in the program that calls COST.  The WSAVE array must be initialized by calling subroutine COSTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COST. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the sequence X. N must be greater than 1. The method is most efficient when N-1 is a product of small primes. |
+| 2 | `X` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an array which contains the sequence to be transformed For I=1,. ,N X(1)+(-1)**(I-1)*X(N) + the sum from K=2 to K=N-1 2*X(K)*COS((K-1)*(I-1)*PI/(N-1)) A call of COST followed by another call of COST will multiply the sequence X by 2*(N-1). Hence COST is the unnormalized inverse of itself. |
+| 3 | `WSAVE` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array which must be dimensioned at least 3*N+15 in the program that calls COST. The WSAVE array must be initialized by calling subroutine COSTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COST. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WSAVE`: a work array which must be dimensioned at least 3*N+15 in the program that calls COST.  The WSAVE array must be initialized by calling subroutine COSTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COST.
+`WSAVE`: a work array which must be dimensioned at least 3*N+15 in the program that calls COST. The WSAVE array must be initialized by calling subroutine COSTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COST.
 
 ### Provider, ABI, and safety
 

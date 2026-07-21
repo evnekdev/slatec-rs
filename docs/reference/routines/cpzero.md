@@ -8,7 +8,7 @@ Find the zeros of a polynomial with complex coefficients.
 
 ## Description
 
-Find the zeros of the complex polynomial
+Find the zeros of the complex polynomial P(Z)= A(1)*Z**N + A(2)*Z**(N-1) +...+ A(N+1)
 
 ## Classification
 
@@ -54,38 +54,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CPZERO](https://www.netlib.org/slatec/src/cpzero.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `IN` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | degree of P(Z) |
-| 2 | `A` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | 1) +...+ A(N+1) 1) +...+ A(N+1) complex vector containing coefficients of P(Z), i) 0.0 or N=0 on input If IFLG .EQ. 2 on return, the program failed to converge after 25*N iterations.  Best current estimates of the zeros are in R(I).  Error bounds are not calculated. |
-| 3 | `R` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | N word complex vector containing initial estimates for zeros if these are known. contains estimates of the zeros WARNING ****** If estimates are input, they must be separated, that is, distinct or not repeated. Ith zero, |
-| 4 | `T` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | 4(N+1) word array used for temporary storage |
-| 5 | `IFLG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | flag to indicate if initial estimates of zeros are input. If IFLG .EQ. 0, no estimates are input. contains estimates of the zeros WARNING ****** If estimates are input, they must be separated, that is, distinct or not repeated. error diagnostic 0.0 or N=0 on input If IFLG .EQ. 2 on return, the program failed to converge after 25*N iterations.  Best current estimates of the zeros are in R(I).  Error bounds are not calculated. |
-| 6 | `S` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an N word array bound for R(I) . |
+| 1 | `IN` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | degree of P(Z). |
+| 2 | `A` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | complex vector containing coefficients of P(Z), coefficient of Z**(N+1-i). |
+| 3 | `R` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | N word complex vector containing initial estimates for zeros if these are known. Ith zero,. |
+| 4 | `T` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | 4(N+1) word array used for temporary storage. |
+| 5 | `IFLG` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | flag to indicate if initial estimates of zeros are input. If IFLG. EQ. 0, no estimates are input. NE. 0, the vector R contains estimates of the zeros WARNING ****** If estimates are input, they must be separated, that is, distinct or not repeated. |
+| 6 | `S` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | an N word array bound for R(I). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-If IFLG .EQ. 0 on return, all is well
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

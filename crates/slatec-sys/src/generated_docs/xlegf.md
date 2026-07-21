@@ -8,65 +8,78 @@ This canonical unsafe binding exposes original SLATEC routine `XLEGF`. Its docum
 
 # Arguments
 
-## 1. `DNU1`
+## `DNU1`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. 0.5; not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `NUDIFF`
+is REAL and greater than or equal to -0. 5;.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. negative; 0 or MU2 = MU1. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `NUDIFF`
 
-## 3. `MU1`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. negative; not stated by selected source not applicable or not stated by selected source not a workspace argument
+is INTEGER and non-negative;.
 
-## 4. `MU2`
+## `MU1`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is INTEGER and greater than or equal to MU1; MU1+1 or NUDIFF+1. Where possible, XLEGF returns IPQA(I) as zero. In this case the value of the Legendre function is contained entirely in PQA(I), so it can be used in subsequent computations without further consideration of extended-range arithmetic. If IPQA(I) is nonzero, then the value of the Legendre function is not representable in floating-point because of underflow or overflow. The program that calls XLEGF must test IPQA(I) to ensure correct usage. is INTEGER and greater than or equal to MU1; MU1+1 or NUDIFF+1. Where possible, XLEGF returns IPQA(I) as zero. In this case the value of the Legendre function is contained entirely in PQA(I), so it can be used in subsequent computations without further consideration of extended-range arithmetic. If IPQA(I) is nonzero, then the value of the Legendre function is not representable in floating-point because of underflow or overflow. The program that calls XLEGF must test IPQA(I) to ensure correct usage. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `THETA`
+is INTEGER and non-negative;.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. open interval (0,PI/2\]; not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MU2`
 
-## 6. `ID`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is INTEGER and equal to 1, 2, 3 or 4; 1 and NUDIFF=0, a vector of type 1a above is computed with NU=DNU1. 1 and MU1=MU2, a vector of type 1b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. 2 and NUDIFF=0, a vector of type 2a above is computed with NU=DNU1. 2 and MU1=MU2, a vector of type 2b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. 3 and NUDIFF=0, a vector of type 3a above is computed with NU=DNU1. 3 and MU1=MU2, a vector of type 3b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. 4 and NUDIFF=0, a vector of type 4a above is computed with NU=DNU1. 4 and MU1=MU2, a vector of type 4b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). The not stated by selected source not applicable or not stated by selected source not a workspace argument
+is INTEGER and greater than or equal to MU1;.
 
-## 7. `PQA`
+## `THETA`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Writable extended-range mantissa array. Together with `IPQA`, it returns the requested Legendre-function vector; element `I` represents `PQA\[I\] * radix^IPQA\[I\]`. Its required length is `MU2-MU1+1` or `NUDIFF+1`, according to the selected vector form. Writable extended-range mantissa array. Together with `IPQA`, it returns the requested Legendre-function vector; element `I` represents `PQA\[I\] * radix^IPQA\[I\]`. Its required length is `MU2-MU1+1` or `NUDIFF+1`, according to the selected vector form. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `IPQA`
+is REAL and in the half-open interval (0,PI/2\];.
 
-input-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). Writable extended-range exponent array paired element-for-element with `PQA`. A zero entry means the corresponding value is directly representable in the routine precision; callers must inspect nonzero entries before treating `PQA` alone as the result. Writable extended-range exponent array paired element-for-element with `PQA`. A zero entry means the corresponding value is directly representable in the routine precision; callers must inspect nonzero entries before treating `PQA` alone as the result. not applicable or not stated by selected source not a workspace argument
+## `ID`
 
-## 9. `IERROR`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 0 0 when control returns to the calling routine. If an error is detected, when control returns to the calling routine. If an error is detected, is returned as nonzero. The calling routine must check the value of IERROR. 110 or 111, invalid input was provided to XLEGF. 101,102,103, or 104, invalid input was provided to XSET. 105 or 106, an internal consistency error occurred in XSET (probably due to a software malfunction in the library routine I1MACH). range number was detected in XADJ. range number was detected in XC210. 0 0 when control returns to the calling routine. If an error is detected, when control returns to the calling routine. If an error is detected, is returned as nonzero. The calling routine must check the value of IERROR. 110 or 111, invalid input was provided to XLEGF. 101,102,103, or 104, invalid input was provided to XSET. 105 or 106, an internal consistency error occurred in XSET (probably due to a software malfunction in the library routine I1MACH). range number was detected in XADJ. range number was detected in XC210. not applicable or not stated by selected source not a workspace argument
+is INTEGER and equal to 1, 2, 3 or 4; and additionally either NUDIFF = 0 or MU2 = MU1. If ID=1 and NUDIFF=0, a vector of type 1a above is computed with NU=DNU1. If ID=1 and MU1=MU2, a vector of type 1b above is computed with NU1=DNU1, NU2=DNU1+NUDIFF and MU=MU1. If ID=2 and NUDIFF=0, a vector of type 2a above is computed If ID=2 and MU1=MU2, a vector of type 2b above is computed If ID=3 and NUDIFF=0, a vector of type 3a above is computed If ID=3 and MU1=MU2, a vector of type 3b above is computed If ID=4 and NUDIFF=0, a vector of type 4a above is computed If ID=4 and MU1=MU2, a vector of type 4b above is computed In each case the vector of computed Legendre function values is returned in the extended-range vector (PQA(I),IPQA(I)). The length of this vector is either MU2-MU1+1 or NUDIFF+1. Where possible, XLEGF returns IPQA(I) as zero.
+
+## `PQA`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+Writable extended-range mantissa array. Together with `IPQA`, it returns the requested Legendre-function vector; element `I` represents `PQA\[I\] * radix^IPQA\[I\]`. Its required length is `MU2-MU1+1` or `NUDIFF+1`, according to the selected vector form.
+
+## `IPQA`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+Writable extended-range exponent array paired element-for-element with `PQA`. A zero entry means the corresponding value is directly representable in the routine precision; callers must inspect nonzero entries before treating `PQA` alone as the result.
+
+## `IERROR`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an error indicator. If no errors are detected, IERROR=0 when control returns to the calling routine. If an error is detected, is returned as nonzero. The calling routine must check the value of IERROR. If IERROR=110 or 111, invalid input was provided to XLEGF. If IERROR=101,102,103, or 104, invalid input was provided to XSET.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IERROR` | `110` | or 111, invalid input was provided to XLEGF. |
+| `IERROR` | `101` | ,102,103, or 104, invalid input was provided to XSET. |
+| `IERROR` | `105` | or 106, an internal consistency error occurred in XSET (probably due to a software malfunction in the library routine I1MACH). |
+| `IERROR` | `107` | , an overflow or underflow of an extended-range number was detected in XADJ. |
+| `IERROR` | `108` | , an overflow or underflow of an extended-range number was detected in XC210. SEE ALSO XSET |
 
 # Workspace and array requirements
 
-- `DNU1`: not a workspace argument
-- `NUDIFF`: not a workspace argument
-- `MU1`: not a workspace argument
-- `MU2`: not a workspace argument
-- `THETA`: not a workspace argument
-- `ID`: not a workspace argument
 - `PQA`: not a workspace argument
 - `IPQA`: not a workspace argument
-- `IERROR`: not a workspace argument
 
 # ABI notes
 

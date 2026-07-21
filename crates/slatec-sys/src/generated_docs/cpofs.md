@@ -1,6 +1,6 @@
 # Purpose
 
-Subroutine CPOFS solves a positive definite symmetric NxN system of complex linear equations using LINPACK subroutines CPOCO and CPOSL. That is, if A is an NxN complex positive definite symmetric matrix and if X and B
+Subroutine CPOFS solves a positive definite symmetric NxN system of complex linear equations using LINPACK subroutines CPOCO and CPOSL. That is, if A is an NxN complex positive definite symmetric matrix and if X and B are complex N-vectors, then CPOFS solves the equation A*X=B. Care should be taken not to use CPOFS with a non-Hermitian matrix. The matrix A is first factored into upper and lower tri- angular matrices R and R-TRANSPOSE. These factors are used to find the solution vector X. An approximate condition number is calculated to provide a rough estimate of the number of digits of accuracy in the computed solution. If the equation A*X=B is to be solved for more than one vector B, the factoring of a does not need to be performed again and the option to only solve (ITASK .GT. 1) will be faster for the succeeding solutions. In this case, the contents of A, LDA, and N must not have been altered by the user following factorization (ITASK=1). IND will not be changed by CPOFS in this case. Argument Description ***
 
 # Description
 
@@ -8,55 +8,69 @@ This canonical unsafe binding exposes original SLATEC routine `CPOFS`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). B. Hermitian matrix. angular matrices R and R-TRANSPOSE.  These factors are used to find the solution vector X.  An approximate condition number is calculated to provide a rough estimate of the number of digits of accuracy in the computed solution. B is to be solved for more than one vector B, the factoring of a does not need to be performed again and the option to only solve (ITASK .GT. 1) will be faster for the succeeding solutions.  In this case, the contents of A, COMPLEX(LDA,N) on entry, the doubly subscripted array with dimension TRANSPOSE) * R . must be greater B. on return, V contains the solution vector, X . singly subscripted array of dimension at least N. B. Hermitian matrix. angular matrices R and R-TRANSPOSE.  These factors are used to find the solution vector X.  An approximate condition number is calculated to provide a rough estimate of the number of digits of accuracy in the computed solution. B is to be solved for more than one vector B, the factoring of a does not need to be performed again and the option to only solve (ITASK .GT. 1) will be faster for the succeeding solutions.  In this case, the contents of A, COMPLEX(LDA,N) on entry, the doubly subscripted array with dimension TRANSPOSE) * R . must be greater B. on return, V contains the solution vector, X . singly subscripted array of dimension at least N. not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA,N) on entry, the doubly subscripted array with dimension (LDA,N) which contains the coefficient matrix. Only the upper triangle, including the diagonal, of the coefficient matrix need be entered and will subse- quently be referenced and changed by the routine. on return, contains in its upper triangle an upper triangular matrix R such that A = (R-TRANSPOSE) * R.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. must not have been altered by the user following contains the coefficient matrix.  Only the upper triangle, including the diagonal, of the coefficient matrix need be entered and will subse- quently be referenced and changed by the routine. on return, contains in its upper triangle an upper INTEGER must not have been altered by the user following contains the coefficient matrix.  Only the upper triangle, including the diagonal, of the coefficient matrix need be entered and will subse- quently be referenced and changed by the routine. on return, contains in its upper triangle an upper INTEGER must not have been altered by the user following contains the coefficient matrix.  Only the upper triangle, including the diagonal, of the coefficient matrix need be entered and will subse- quently be referenced and changed by the routine. on return, contains in its upper triangle an upper INTEGER not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. vectors, then CPOFS solves the equation must not have been altered by the user following contains the coefficient matrix.  Only the upper triangle, including the diagonal, of the coefficient matrix need be entered and will subse- quently be referenced and changed by the routine. on return, contains in its upper triangle an upper 1) INTEGER must be greater vectors, then CPOFS solves the equation must not have been altered by the user following contains the coefficient matrix.  Only the upper triangle, including the diagonal, of the coefficient matrix need be entered and will subse- quently be referenced and changed by the routine. on return, contains in its upper triangle an upper 1) INTEGER must be greater not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array A. LDA must be great- er than or equal to N. (terminal error message IND=-1).
 
-## 4. `V`
+## `N`
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) on entry the singly subscripted array(vector) of di- mension N which contains the right hand side B of a not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `ITASK`
+INTEGER the order of the matrix A. N must be greater than or equal to 1. (terminal error message IND=-2).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1).  IND will not be changed by CPOFS in this case. Argument Description *** INTEGER 1, the matrix A is factored and then the linear equation is solved. if ITASK .GT. 1, the equation is solved using the existing factored matrix A. 3 is printed. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `V`
 
-## 6. `IND`
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1) 2) 3 is printed. INTEGER GT. 0  IND is a rough estimate of the number of digits of accuracy in the solution, X. LT. 0  see error message corresponding to IND below. 1  terminal   N is greater than LDA. 2  terminal   N is less than 1. 3  terminal   ITASK is less than 1. 4  terminal   The matrix A is computationally singular or is not positive definite.  A solution has not been computed. 10 warning    The solution has no apparent significance. The solution may be inaccurate or the matrix A may be poorly scaled. NOTE-  The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which LEVEL=1 (recoverable) and IFLAG=2 .  LEVEL=0 for warning error messages from XERMSG.  Unless the user provides otherwise, an error message will be printed followed by an abort. not stated by selected source not applicable or not stated by selected source not a workspace argument
+COMPLEX(N) on entry the singly subscripted array(vector) of di- mension N which contains the right hand side B of a system of simultaneous linear equations A*X=B. on return, V contains the solution vector, X.
 
-## 7. `WORK`
+## `ITASK`
 
-workspace `workspace` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) not stated by selected source not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER if ITASK = 1, the matrix A is factored and then the linear equation is solved. if ITASK. GT. 1, the equation is solved using the existing factored matrix A. LT. 1, then terminal error message IND=-3 is printed.
+
+## `IND`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER GT. 0 IND is a rough estimate of the number of digits of accuracy in the solution, X. LT. 0 see error message corresponding to IND below.
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+COMPLEX(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed. COMPLEX(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed. IND=-10 warning The solution has no apparent significance. The solution may be inaccurate or the matrix A may be poorly scaled. NOTE- The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which LEVEL=1 (recoverable) and IFLAG=2 . LEVEL=0 for warning error messages from XERMSG. Unless the user provides otherwise, an error message will be printed followed by an abort.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IND` | `-1` | terminal N is greater than LDA. |
+| `IND` | `-2` | terminal N is less than 1. |
+| `IND` | `-3` | terminal ITASK is less than 1. |
+| `IND` | `-4` | terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed. |
+| `IND` | `-10` | warning The solution has no apparent significance. The solution may be inaccurate or the matrix A may be poorly scaled. NOTE- The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which |
+| `IND` | `1` | (recoverable) and IFLAG=2 . LEVEL=0 for warning error messages from XERMSG. Unless the user provides otherwise, an error message will be printed followed by an abort. |
 
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
 - `V`: not a workspace argument
-- `ITASK`: not a workspace argument
-- `IND`: not a workspace argument
-- `WORK`: COMPLEX(N)
+- `WORK`: COMPLEX(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed. IND=-10 warning The solution has no apparent significance. The solution may be inaccurate or the matrix A may be poorly scaled. NOTE- The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which LEVEL=1 (recoverable) and IFLAG=2 . LEVEL=0 for warning error messages from XERMSG. Unless the user provides otherwise, an error message will be printed followed by an abort.
 
 # ABI notes
 

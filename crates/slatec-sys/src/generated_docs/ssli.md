@@ -8,69 +8,78 @@ This canonical unsafe binding exposes original SLATEC routine `SSLI`. Its docume
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Input order of the sparse linear system and required vector length. Input order of the sparse linear system and required vector length. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `B`
+Input order of the sparse linear system and required vector length.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). X. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 3. `X`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (N). Writable output vector of length `N`. The interface computes the lower-triangular preconditioner solve `L^-1 * B` into this storage. Writable output vector of length `N`. The interface computes the lower-triangular preconditioner solve `L^-1 * B` into this storage. not applicable or not stated by selected source not a workspace argument
+Readable right-hand-side vector of length `N` for the SLAP lower-triangular preconditioner solve. The computed vector is returned through `X`, not by retaining `B`.
 
-## 4. `NELT`
+## `X`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Input number of stored nonzero entries in the sparse arrays `IA`, `JA`, and `A`. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (N).
 
-## 5. `IA`
+Writable output vector of length `N`. The interface computes the lower-triangular preconditioner solve `L^-1 * B` into this storage.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (NELT). Readable integer sparse-index array with at least `NELT` entries. Together with `JA` it describes the SLAP column-format matrix or preconditioner data. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `NELT`
 
-## 6. `JA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (NELT). Readable integer sparse-offset/index array with at least `NELT` entries as declared by this interface. Together with `IA` and `A` it identifies the SLAP column-format entries. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Input number of stored nonzero entries in the sparse arrays `IA`, `JA`, and `A`.
 
-## 7. `A`
+## `IA`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (NELT). Readable sparse value array with at least `NELT` entries, stored in the SLAP column format described by `IA` and `JA`. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (NELT).
 
-## 8. `ISYM`
+Readable integer sparse-index array with at least `NELT` entries. Together with `JA` it describes the SLAP column-format matrix or preconditioner data.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Input sparse-storage symmetry flag. `0` means all nonzero entries are present; `1` means symmetric storage contains only the lower triangle. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `JA`
 
-## 9. `RWORK`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (NELT).
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it. not stated by selected source not applicable or not stated by selected source Caller-provided workspace; required extent is governed by the selected source and related size arguments.
+Readable integer sparse-offset/index array with at least `NELT` entries as declared by this interface. Together with `IA` and `A` it identifies the SLAP column-format entries.
 
-## 10. `IWORK`
+## `A`
 
-workspace `workspace` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (10). NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. See the DESCRIPTION of SSLI2 for details. not stated by selected source not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (NELT).
+
+Readable sparse value array with at least `NELT` entries, stored in the SLAP column format described by `IA` and `JA`.
+
+## `ISYM`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Input sparse-storage symmetry flag. `0` means all nonzero entries are present; `1` means symmetric storage contains only the lower triangle.
+
+## `RWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.
+
+## `IWORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (10).
+
+NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. See the DESCRIPTION of SSLI2 for details.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `B`: not a workspace argument
 - `X`: not a workspace argument
-- `NELT`: not a workspace argument
 - `IA`: not a workspace argument
 - `JA`: not a workspace argument
 - `A`: not a workspace argument
-- `ISYM`: not a workspace argument
-- `RWORK`: Caller-provided workspace; required extent is governed by the selected source and related size arguments.
+- `RWORK`: not applicable or not stated by selected source
 - `IWORK`: NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. See the DESCRIPTION of SSLI2 for details.
 
 # ABI notes

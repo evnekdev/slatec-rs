@@ -8,7 +8,7 @@ Compute a simplified real, periodic, fast Fourier forward transform.
 
 ## Description
 
-Subroutine EZFFTF computes the Fourier coefficients of a real periodic sequence (Fourier analysis). The transform is defined
+Subroutine EZFFTF computes the Fourier coefficients of a real periodic sequence (Fourier analysis). The transform is defined below at Output Parameters AZERO, A and B. EZFFTF is a simplified but slower version of RFFTF.
 
 ## Classification
 
@@ -52,38 +52,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [EZFFTF](https://www.netlib.org/slatec/fishfft/ezfftf.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the array R to be transformed.  The method is most efficient when N is the product of small primes. contains the sequence to be transformed.  R is not destroyed. 0. and A(N/2) is the sum from I=1 to 0. and A(N/2) is the sum from I=1 to 1)**(I-1)*R(I)/N 1 1 1)/2 1)/2 then for  K=1,...,KMAX then for  K=1,...,KMAX 1)*2*PI/N) 1)*2*PI/N) |
-| 2 | `R` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the sequence to be transformed.  R is not destroyed. 1)*2*PI/N) 1)*2*PI/N) |
-| 3 | `AZERO` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | is a simplified but slower version of RFFTF. 1 to I=N of R(I)/N |
-| 4 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is a simplified but slower version of RFFTF. contains the sequence to be transformed.  R is not destroyed. must be dimensioned at least 3*N+15 in the program that calls EZFFTF.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. 0. and A(N/2) is the sum from I=1 to 1 to I=N of changing dummy array size declarations (1) to (*), |
-| 5 | `B` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is a simplified but slower version of RFFTF. 0. and A(N/2) is the sum from I=1 to 0. and A(N/2) is the sum from I=1 to 1 to I=N of changing references to intrinsic function FLOAT to REAL. 881128  Modified by Dick Valent to meet prologue standards. 890531  Changed all specific intrinsics to generic.  (WRB) 890531  REVISION DATE from Version 3.2 891214  Prologue converted to Version 4.0 format.  (BAB) 920501  Reformatted the REFERENCES section.  (WRB) |
-| 6 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | must be dimensioned at least 3*N+15 in the program that calls EZFFTF.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the array R to be transformed. The method is most efficient when N is the product of small primes. |
+| 2 | `R` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real array of length N which contains the sequence to be transformed. R is not destroyed. |
+| 3 | `AZERO` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | the sum from I=1 to I=N of R(I)/N. |
+| 4 | `A` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | for N even B(N/2)=0. and A(N/2) is the sum from I=1 to I=N of (-1)**(I-1)*R(I)/N for N even define KMAX=N/2-1 for N odd define KMAX=(N-1)/2 then for K=1,. ,KMAX A(K) equals the sum from I=1 to I=N of 2. /N*R(I)*COS(K*(I-1)*2*PI/N) B(K) equals the sum from I=1 to I=N of 2. /N*R(I)*SIN(K*(I-1)*2*PI/N). |
+| 5 | `B` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | for N even B(N/2)=0. and A(N/2) is the sum from I=1 to I=N of (-1)**(I-1)*R(I)/N for N even define KMAX=N/2-1 for N odd define KMAX=(N-1)/2 then for K=1,. ,KMAX A(K) equals the sum from I=1 to I=N of 2. /N*R(I)*COS(K*(I-1)*2*PI/N) B(K) equals the sum from I=1 to I=N of 2. /N*R(I)*SIN(K*(I-1)*2*PI/N). |
+| 6 | `WSAVE` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTF. The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WSAVE`: must be dimensioned at least 3*N+15 in the program that calls EZFFTF.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.
+`WSAVE`: a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTF. The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.
 
 ### Provider, ABI, and safety
 

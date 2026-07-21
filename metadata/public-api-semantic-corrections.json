@@ -1,18 +1,41 @@
 {
   "schema_id": "slatec-rs.public-api-semantic-corrections",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "policy": "Corrections are deliberately narrow, source-hash guarded, and documentation-only. A correction may clarify a parsed field or argument contract but may not alter a Rust ABI signature, native symbol, provider closure, or final disposition. Reusable profiles override only the named argument rows and are materialized into the per-routine inventory after the referenced source hash is verified.",
   "profiles": {
     "dassl-driver-v1": {},
+    "quadpack-basic-v1": {
+      "arguments": {
+        "F": { "description": "Synchronous integrand callback. It receives one integration abscissa and returns the function value; it must remain valid for the call, must not retain the native pointer, and must not unwind through Fortran." },
+        "A": { "description": "Input lower limit of integration." },
+        "B": { "description": "Input upper limit of integration." },
+        "EPSABS": { "description": "Input requested absolute integration accuracy." },
+        "EPSREL": { "description": "Input requested relative integration accuracy. When EPSABS is nonpositive, the source minimum relative tolerance applies." },
+        "KEY": { "description": "Input selector for the local Gauss-Kronrod integration rule." },
+        "RESULT": { "description": "Writable output approximation to the integral." },
+        "ABSERR": { "description": "Writable output estimate of the absolute integration error; it is intended to bound abs(I-RESULT)." },
+        "NEVAL": { "description": "Writable output number of integrand evaluations." },
+        "IER": { "description": "Writable completion and error indicator. Its documented values are rendered in the status table." },
+        "LIMIT": { "description": "Input maximum number of subintervals and minimum required IWORK length. LIMIT must be at least 1." },
+        "LENW": { "description": "Input declared WORK length. LENW must be at least 4*LIMIT." },
+        "LAST": { "description": "Writable output number of subintervals produced; it determines the significant entries in IWORK and WORK." },
+        "IWORK": { "description": "Writable integer workspace of at least LIMIT elements. Its leading entries order subinterval error estimates as specified by the selected source." },
+        "WORK": { "description": "Writable real workspace of at least LENW elements. Its four LIMIT-strided segments hold left endpoints, right endpoints, subintegral estimates, and error estimates." }
+      }
+    },
     "bessel-scaled-sequence-v1": {
       "arguments": {
+        "XNU": { "description": "Input fractional starting order. `XNU` must lie strictly between -1 and 1." },
         "X": { "description": "Input evaluation point. `X` must be strictly positive; the returned sequence is evaluated at this point and native code does not modify it." },
+        "NIN": { "description": "Input nonzero signed sequence length. `abs(NIN)` is the required result-array length; a positive value advances the order and a negative value steps it downward from `XNU`." },
         "BKE": { "description": "Writable output array with at least `abs(NIN)` elements. On return `BKE[I]` holds `exp(X) * K_(XNU+I)(X)` for the requested order sequence; native code retains no pointer." }
       }
     },
     "bessel-sequence-v1": {
       "arguments": {
+        "XNU": { "description": "Input fractional starting order. `XNU` must lie strictly between -1 and 1." },
         "X": { "description": "Input evaluation point. `X` must be strictly positive; native code does not modify it." },
+        "NIN": { "description": "Input nonzero signed sequence length. `abs(NIN)` is the required result-array length; a positive value advances the order and a negative value steps it downward from `XNU`." },
         "BK": { "description": "Writable output array with at least `abs(NIN)` elements. On return `BK[I]` holds the modified Bessel K value at order `XNU+I`; native code retains no pointer." }
       }
     },
@@ -41,13 +64,16 @@
     },
     "bounded-least-squares-v1": {
       "arguments": {
+        "MDW": { "description": "Input leading dimension of `W`. It must satisfy `MDW >= MROWS`; smaller values are input errors." },
         "RNORM": { "description": "Writable output for the minimum residual-vector length. It is meaningful when the returned `MODE` reports a solution." }
       }
     },
     "bspline-data-v1": {
       "arguments": {
         "XDATA": { "description": "Readable array of `NDATA` abscissae for the discrete observations. The selected source permits unsorted input; native code does not retain the pointer." },
-        "YDATA": { "description": "Readable array of `NDATA` ordinates paired with `XDATA`. These values are the observed data used in the weighted B-spline fit and are not retained." }
+        "YDATA": { "description": "Readable array of `NDATA` ordinates paired with `XDATA`. These values are the observed data used in the weighted B-spline fit and are not retained." },
+        "COEFF": { "direction": "output", "description": "Writable B-spline coefficient array. When `MDEOUT=1`, it receives the `NBKPT-NORD` fitted coefficients; when the fit is incomplete or invalid, the selected source sets its entries to zero." },
+        "W": { "direction": "workspace-output", "description": "Persistent work array whose allocated length is supplied by `LW`. Its contents must not be modified by the caller between `MDEIN=1,2,2,...` calls; its leading `(NBKPT-NORD+3)*(NORD+1)` entries can be passed to `DFC` as an old problem when `MDEOUT` is 1 or 2." }
       }
     },
     "ode-smooth-interpolant-v1": {
@@ -96,6 +122,7 @@
     "slap-lower-solve-v1": {
       "arguments": {
         "N": { "description": "Input order of the sparse linear system and required vector length." },
+        "B": { "description": "Readable right-hand-side vector of length `N` for the SLAP lower-triangular preconditioner solve. The computed vector is returned through `X`, not by retaining `B`." },
         "X": { "description": "Writable output vector of length `N`. The interface computes the lower-triangular preconditioner solve `L^-1 * B` into this storage." },
         "NELT": { "description": "Input number of stored nonzero entries in the sparse arrays `IA`, `JA`, and `A`." },
         "IA": { "description": "Readable integer sparse-index array with at least `NELT` entries. Together with `JA` it describes the SLAP column-format matrix or preconditioner data." },
@@ -113,7 +140,18 @@
     },
     "legendre-rounding-estimate-v1": {
       "arguments": {
+        "DARG": { "direction": "input", "description": "Input real argument. With `MODE=1` it is the Legendre argument and must lie in [-1,1]; with `MODE=2` it is an angle strictly between -pi and pi and the routine uses its cosine." },
+        "SARG": { "direction": "input", "description": "Input real argument. With `MODE=1` it is the Legendre argument and must lie in [-1,1]; with `MODE=2` it is an angle strictly between -pi and pi and the routine uses its cosine." },
+        "DPN": { "direction": "output", "description": "Writable extended-range mantissa array. Together with `IPN`, element `I` represents the normalized Legendre value for order `MU1+I-1` in the selected extended-range representation." },
+        "SPN": { "direction": "output", "description": "Writable extended-range mantissa array. Together with `IPN`, element `I` represents the normalized Legendre value for order `MU1+I-1` in the selected extended-range representation." },
         "ISIG": { "description": "Writable output estimate of decimal digits lost to rounding in the extended-range normalized-Legendre calculation. Subtract it from the significant digits in the input argument to estimate retained result precision away from zeros." }
+      }
+    },
+    "log-gamma-sign-v1": {
+      "arguments": {
+        "X": { "direction": "input", "description": "Input double-precision argument at which the logarithm of the absolute gamma value is evaluated." },
+        "DLGAM": { "direction": "output", "description": "Writable output for the natural logarithm of the absolute value of the gamma function at `X`." },
+        "SGNGAM": { "direction": "output", "description": "Writable output sign of the gamma function at `X`; the selected implementation returns either 1 or -1." }
       }
     },
     "rational-qr-selection-v1": {
@@ -125,9 +163,12 @@
   "records": [
     { "routine": "DDASSL", "expected_source_hash": "a35cd787e50598e339855db136dc57d45398cf6ff1f55ad7e0b3bd7d3261616c", "documentation_profile": "dassl-driver-v1" },
     { "routine": "SDASSL", "expected_source_hash": "232679a0e1702686e613a0d6b999a8f5b01ea1d922b60c07a930138cae35e353", "documentation_profile": "dassl-driver-v1" },
+    { "routine": "DQAG", "expected_source_hash": "7c97d47e9b4d531aa3e3cbca77dc730d7b537a21c4802fe473ee43b76b579666", "documentation_profile": "quadpack-basic-v1", "reason": "The selected QUADPACK prologue intentionally interleaves output, error, dimensioning, and workspace paragraphs; the profile preserves their verified semantics without cross-contamination.", "evidence_lines": "DQAG selected source prologue lines 22-136", "reviewer_note": "M3 semantic review: arguments, IER values, and four WORK segments checked against dqag.f." },
+    { "routine": "QAG", "expected_source_hash": "6a2f6dfc498feebc93a871943aa679a5fabaf10446f2f6cb015e9fd5d787416a", "documentation_profile": "quadpack-basic-v1", "reason": "Precision sibling of DQAG with the same verified call contract; the profile records only semantics common to signatures with matching argument order and shapes.", "evidence_lines": "QAG selected source prologue lines 22-136; DQAG precision-sibling comparison", "reviewer_note": "M3 semantic review: single-precision signature and callback structure match QAG source exactly." },
     { "routine": "BESKES", "expected_source_hash": "53eec402255f34380bc74a4a2dee01aa831a78b9e866f9afbbe905f481288560", "documentation_profile": "bessel-scaled-sequence-v1" },
     { "routine": "BESKS", "expected_source_hash": "3cf0986cfe49cd82066d76ee93198603a9eac98a3923583b8fea4209e88b0731", "documentation_profile": "bessel-sequence-v1" },
     { "routine": "DBESKS", "expected_source_hash": "1ce727088d0206b58d4e0b4271144701964a9d4351fa7ff6f11ca9a294cbfa6a", "documentation_profile": "bessel-sequence-v1" },
+    { "routine": "DBSKES", "expected_source_hash": "b451a5573c72e6944ca6dcee64e347312cdebd641403494bdd3b640710a33f90", "documentation_profile": "bessel-scaled-sequence-v1", "reason": "The selected source states the sequence contract in one routine-level paragraph rather than argument rows.", "evidence_lines": "DBSKES selected source prologue lines 15-20", "reviewer_note": "M3 semantic review: starting order, signed count, and scaled sequence result checked against dbskes.f." },
     { "routine": "BLKTRI", "expected_source_hash": "a6cd337d7100886e79d733f93d46a394798e815d3f9f45e94157a8bd21f0ae55", "documentation_profile": "fishpack-block-tridiagonal-v1" },
     { "routine": "CBLKTR", "expected_source_hash": "34bdeeae64c2379ac2b5b47e9d9c47511eb68b4551da04e404aa6149901b9aba", "documentation_profile": "fishpack-block-tridiagonal-v1" },
     { "routine": "CPSI", "expected_source_hash": "6651fde59d3825140b2b58aa34bcf7ae8850ea6784f670586026d61c95c0ae32", "documentation_profile": "complex-digamma-v1" },
@@ -164,6 +205,7 @@
     { "routine": "XLEGF", "expected_source_hash": "98e95914aaab3cd603fded7c18bec23bab832a39bb9e919cf6dcdf88b79844b9", "documentation_profile": "legendre-extended-range-v1" },
     { "routine": "DXNRMP", "expected_source_hash": "9423d4eaa59b3eaf509cb35f8a410c0b48caba5785bbee722ab77b38860e106e", "documentation_profile": "legendre-rounding-estimate-v1" },
     { "routine": "XNRMP", "expected_source_hash": "a68b7fc766e6a0cb821c2df0778fd7289dfc61b2d703df2102eff568f5043b17", "documentation_profile": "legendre-rounding-estimate-v1" },
+    { "routine": "DLGAMS", "expected_source_hash": "beca401c91fed89b6d8b3588aa370c5b773daa57f6f2b639c2b1dfdfd50edaa7", "documentation_profile": "log-gamma-sign-v1", "reason": "The selected source documents the result at routine scope rather than as individual argument rows.", "evidence_lines": "DLGAMS selected source prologue lines 14-17", "reviewer_note": "M3 semantic review: DLGAM receives log(abs(gamma(X))) and SGNGAM follows the selected sign computation." },
     { "routine": "RATQR", "expected_source_hash": "afcbf7a5039c06c88a1a30784b7e5244af0c7477ba4a560330f32c433346a109", "documentation_profile": "rational-qr-selection-v1" }
   ]
 }

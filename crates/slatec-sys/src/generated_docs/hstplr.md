@@ -1,6 +1,6 @@
 # Purpose
 
-HSTPLR solves the standard five-point finite difference approximation on a staggered grid to the Helmholtz equation in polar coordinates
+HSTPLR solves the standard five-point finite difference approximation on a staggered grid to the Helmholtz equation in polar coordinates (1/R)(d/DR)(R(dU/DR)) + (1/R**2)(d/dTHETA)(dU/dTHETA) + LAMBDA*U = F(R,THETA) * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * Parameter Description * * * * * * * * * *
 
 # Description
 
@@ -8,110 +8,145 @@ This canonical unsafe binding exposes original SLATEC routine `HSTPLR`. Its docu
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. must be less than B and must be less than B and negative. dimensional array of length N that specifies the boundary values (if any) of the solution at R = A.  When MBDCND = 1 or 2, dimensional array of length N that specifies the boundary values of the solution at R = B.  When MBDCND = 1,4, or 5, specifies the boundary values of the solution at THETA = C.   When NBDCND = 1 or 2, dimensional array of length M that specifies the boundary values of the solution at THETA = D.  When NBDCND = 1 or 4, dimensional array that specifies the values of the right side of the Helmholtz equation.  For I=1,2,...,M and J=1,2,...,N dimensional array that must be provided by the user for work space.  W may require up to 13M + 4N + M*INT(log2(N)) locations.  The actual number of locations used is computed by HSTPLR and is returned in the location W(1). stant, calculated and subtracted from F, which ensures stant, calculated and subtracted from F, which ensures that a solution exists.  HSTPLR then computes this that a solution exists.  HSTPLR then computes this solution, which is a least squares solution to the solution, which is a least squares solution to the original approximation.  This solution plus any constant is also original approximation.  This solution plus any constant is also solution; hence, the solution is not unique.  The value of meaningful solution has been obtained. must be less than B and must be less than B and negative. dimensional array of length N that specifies the boundary values (if any) of the solution at R = A.  When MBDCND = 1 or 2, dimensional array of length N that specifies the boundary values of the solution at R = B.  When MBDCND = 1,4, or 5, specifies the boundary values of the solution at THETA = C.   When NBDCND = 1 or 2, dimensional array of length M that specifies the boundary values of the solution at THETA = D.  When NBDCND = 1 or 4, dimensional array that specifies the values of the right side of the Helmholtz equation.  For I=1,2,...,M and J=1,2,...,N dimensional array that must be provided by the user for work space.  W may require up to 13M + 4N + M*INT(log2(N)) locations.  The actual number of locations used is computed by HSTPLR and is returned in the location W(1). stant, calculated and subtracted from F, which ensures stant, calculated and subtracted from F, which ensures that a solution exists.  HSTPLR then computes this that a solution exists.  HSTPLR then computes this solution, which is a least squares solution to the solution, which is a least squares solution to the original approximation.  This solution plus any constant is also original approximation.  This solution plus any constant is also solution; hence, the solution is not unique.  The value of meaningful solution has been obtained. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `B`
+The range of R, i. e. A. LE. R. B.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. must be less than B and A)/M.  M must be greater than 2. must be less than B and A)/M.  M must be greater than 2. not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 3. `M`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The number of grid points in the interval (A,B).  The grid points in the R-direction are given by R(I) = A + (I-0.5)DR for A)/M.  M must be greater than 2. specifies the boundary values of the solution at THETA = C.   When NBDCND = 1 or 2, J=1,2,...,N. are listed in the table below. The solution process employed results in a loss of no more than four significant digits for N and M as large as 64.  More detailed information about accuracy can be found in the documentation for subroutine POISTG which is the routine that actually solves the finite difference equations. N)    MBDCND    NBDCND    T(MSECS) The number of grid points in the interval (A,B).  The grid points in the R-direction are given by R(I) = A + (I-0.5)DR for A)/M.  M must be greater than 2. specifies the boundary values of the solution at THETA = C.   When NBDCND = 1 or 2, J=1,2,...,N. are listed in the table below. The solution process employed results in a loss of no more than four significant digits for N and M as large as 64.  More detailed information about accuracy can be found in the documentation for subroutine POISTG which is the routine that actually solves the finite difference equations. N)    MBDCND    NBDCND    T(MSECS) not applicable or not stated by selected source not a workspace argument
+The range of R, i. e. A. LE. R. B.
 
-## 4. `MBDCND`
+## `M`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Indicates the type of boundary conditions at R = A and R = B. = 1  If the solution is specified at R = A and R = B. = 2  If the solution is specified at R = A and the derivative of the solution with respect to R is specified at R = B. (see note 1 below) = 3  If the derivative of the solution with respect to R is specified at R = A (see note 2 below) and R = B. = 4  If the derivative of the solution with respect to R is specified at R = A (see note 2 below) and the solution is specified at R = B. = 5  If the solution is unspecified at R = A = 0 and the solution is specified at R = B. = 6  If the solution is unspecified at R = A = 0 and the derivative of the solution with respect to R is specified at R = B. NOTE 1:  If A = 0, MBDCND = 2, and NBDCND = 0 or 3, the system of equations to be solved is singular.  The unique solution is determined by extrapolation to the specification of U(0,THETA(1)).  But in this case the right side of the system will be perturbed by the constant PERTRB. NOTE 2:  If A = 0, do not use MBDCND = 3 or 4, but instead use 1,2,5, or 6. 3 or 4, 5 or 6, BDA is a dummy variable. 2,3, or 6, 1 or 2. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `BDA`
+The number of grid points in the interval (A,B). The grid points in the R-direction are given by R(I) = A + (I-0. 5)DR for I=1,2,. ,M where DR =(B-A)/M. M must be greater than 2.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). U(A,THETA(J)) ,          J=1,2,...,N. (d/dR)U(A,THETA(J)) ,    J=1,2,...,N. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MBDCND`
 
-## 6. `BDB`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). U(B,THETA(J)) ,          J=1,2,...,N. (d/dR)U(B,THETA(J)) ,    J=1,2,...,N. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Indicates the type of boundary conditions at R = A and R = B. = 1 If the solution is specified at R = A and R = B. = 2 If the solution is specified at R = A and the derivative of the solution with respect to R is specified at R = B. (see note 1 below) = 3 If the derivative of the solution with respect to R is specified at R = A (see note 2 below) and R = B. = 4 If the derivative of the solution with respect to R is specified at R = A (see note 2 below) and the solution is = 5 If the solution is unspecified at R = A = 0 and the solution = 6 If the solution is unspecified at R = A = 0 and the NOTE 1: If A = 0, MBDCND = 2, and NBDCND = 0 or 3, the system of equations to be solved is singular. The unique solution is determined by extrapolation to the specification of U(0,THETA(1)).
 
-## 7. `C`
+## `BDA`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. must be less must be less than D. than D. must be less must be less than D. than D. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `D`
+A one-dimensional array of length N that specifies the boundary values (if any) of the solution at R = A. When MBDCND = 1 or 2, U(A,THETA(J)) , J=1,2,. ,N. When MBDCND = 3 or 4, (d/dR)U(A,THETA(J)) , J=1,2,. When MBDCND = 5 or 6, BDA is a dummy variable.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. + (1/R**2)(d/dTHETA)(dU/dTHETA) + LAMBDA*U = F(R,THETA) * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *    Parameter Description     * * * * * * * * * * must be less than D. C)/N.  N must be greater than 2. + (1/R**2)(d/dTHETA)(dU/dTHETA) + LAMBDA*U = F(R,THETA) * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *    Parameter Description     * * * * * * * * * * must be less than D. C)/N.  N must be greater than 2. not applicable or not stated by selected source not a workspace argument
+## `BDB`
 
-## 9. `N`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The number of unknowns in the interval (C,D).  The unknowns in the THETA-direction are given by THETA(J) = C + (J-0.5)DT, C)/N.  N must be greater than 2. are listed in are listed in the table below. the table below. The solution process employed results in a loss The solution process employed results in a loss of no more than four significant digits for N and M of no more than four significant digits for N and M as large as 64.  More detailed information about as large as 64.  More detailed information about accuracy can be found in the documentation for accuracy can be found in the documentation for subroutine POISTG which is the routine that subroutine POISTG which is the routine that actually solves the finite difference equations. actually solves the finite difference equations. The number of unknowns in the interval (C,D).  The unknowns in the THETA-direction are given by THETA(J) = C + (J-0.5)DT, C)/N.  N must be greater than 2. are listed in are listed in the table below. the table below. The solution process employed results in a loss The solution process employed results in a loss of no more than four significant digits for N and M of no more than four significant digits for N and M as large as 64.  More detailed information about as large as 64.  More detailed information about accuracy can be found in the documentation for accuracy can be found in the documentation for subroutine POISTG which is the routine that subroutine POISTG which is the routine that actually solves the finite difference equations. actually solves the finite difference equations. not applicable or not stated by selected source not a workspace argument
+A one-dimensional array of length N that specifies the boundary values of the solution at R = B. When MBDCND = 1,4, or 5, U(B,THETA(J)) , J=1,2,. ,N. When MBDCND = 2,3, or 6, (d/dR)U(B,THETA(J)) , J=1,2,.
 
-## 10. `NBDCND`
+## `C`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Indicates the type of boundary conditions at THETA = C and THETA = D. = 0  If the solution is periodic in THETA, i.e. U(I,J) = U(I,N+J). = 1  If the solution is specified at THETA = C and THETA = D (see note below). = 2  If the solution is specified at THETA = C and the derivative of the solution with respect to THETA is specified at THETA = D (see note below). = 3  If the derivative of the solution with respect to THETA is specified at THETA = C and THETA = D. = 4  If the derivative of the solution with respect to THETA is specified at THETA = C and the solution is specified at THETA = d (see note below). NOTE:  When NBDCND = 1, 2, or 4, do not use MBDCND = 5 or 6 (the former indicates that the solution is specified at R =  0; the latter indicates the solution is unspecified at R = 0).  Use 3 or 4, 0, BDC is a dummy variable. 2 or 3, 0, BDD is a dummy variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 11. `BDC`
+The range of THETA, i. e. C. LE. THETA. D.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). U(R(I),C) ,              I=1,2,...,M. (d/dTHETA)U(R(I),C),     I=1,2,...,M. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `D`
 
-## 12. `BDD`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). U(R(I),D) ,              I=1,2,...,M. (d/dTHETA)U(R(I),D) ,    I=1,2,...,M. not stated by selected source not applicable or not stated by selected source not a workspace argument
+The range of THETA, i. e. C. LE. THETA. D.
 
-## 13. `ELMBDA`
+## `N`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. The constant LAMBDA in the Helmholtz equation.  If LAMBDA is greater than 0, a solution may not exist.  However, HSTPLR will attempt to find a solution. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 14. `F`
+The number of unknowns in the interval (C,D). The unknowns in the THETA-direction are given by THETA(J) = C + (J-0. 5)DT, J=1,2,. ,N, where DT = (D-C)/N. N must be greater than 2.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (IDIMF, *). F(R(I),THETA(J)) . must be dimensioned at least M X N. must be at least M. Contains the solution U(I,J) of the finite difference approximation for the grid point (R(I),THETA(J)) for F(R(I),THETA(J)) . must be dimensioned at least M X N. must be at least M. Contains the solution U(I,J) of the finite difference approximation for the grid point (R(I),THETA(J)) for not applicable or not stated by selected source not a workspace argument
+## `NBDCND`
 
-## 15. `IDIMF`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. The row (or first) dimension of the array F as it appears in the program calling HSTPLR.  This parameter is used to specify the must be at least M. The row (or first) dimension of the array F as it appears in the program calling HSTPLR.  This parameter is used to specify the must be at least M. The row (or first) dimension of the array F as it appears in the program calling HSTPLR.  This parameter is used to specify the must be at least M. not a workspace argument
+Indicates the type of boundary conditions at THETA = C and THETA = D. = 0 If the solution is periodic in THETA, i. e. U(I,J) = U(I,N+J). = 1 If the solution is specified at THETA = C and THETA = D (see note below). = 2 If the solution is specified at THETA = C and the derivative of the solution with respect to THETA is specified at = 3 If the derivative of the solution with respect to THETA is specified at THETA = C and THETA = D.
 
-## 16. `PERTRB`
+## `BDC`
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. If a combination of periodic, derivative, or unspecified boundary conditions is specified for a Poisson equation stant, calculated and subtracted from F, which ensures that a solution exists.  HSTPLR then computes this solution, which is a least squares solution to the original approximation.  This solution plus any constant is also should be small compared to the right side F. Otherwise, a solution is obtained to an essentially different problem.  This comparison should always be made to insure that not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 17. `IERROR`
+A one dimensional array of length M that specifies the boundary values of the solution at THETA = C. When NBDCND = 1 or 2, U(R(I),C) , I=1,2,. ,M. When NBDCND = 3 or 4, (d/dTHETA)U(R(I),C), I=1,2,. When NBDCND = 0, BDC is a dummy variable.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. An error flag that indicates invalid input parameters. Except for numbers 0 and 11, a solution is not attempted. =  0  No error =  1  A .LT. 0 =  2  A .GE. B =  3  MBDCND .LT. 1 or MBDCND .GT. 6 =  4  C .GE. D =  5  N .LE. 2 =  6  NBDCND .LT. 0 or NBDCND .GT. 4 =  7  A = 0 and MBDCND = 3 or 4 =  8  A .GT. 0 and MBDCND .GE. 5 =  9  MBDCND .GE. 5 and NBDCND .NE. 0 or 3 = 10  IDIMF .LT. M = 11  LAMBDA .GT. 0 = 12  M .LE. 2 Since this is the only means of indicating a possibly incorrect call to HSTPLR, the user should test IERROR after the call. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `BDD`
 
-## 18. `W`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the required length of W. Long Description: * * * * * *   Program Specifications    * * * * * * * * * * * * Dimension of   BDA(N),BDB(N),BDC(M),BDD(M),F(IDIMF,N), Arguments      W(see ARGUMENT LIST) Latest         June 1, 1977 Revision Subprograms    HSTPLR,POISTG,POSTG2,GENBUN,POISD2,POISN2,POISP2, Required       COSGEN,MERGE,TRIX,TRI3,PIMACH Special        NONE Conditions Common         NONE Blocks I/O            NONE Precision      Single Specialist     Roland Sweet Language       FORTRAN contains the required length of W. Long Description: * * * * * *   Program Specifications    * * * * * * * * * * * * Dimension of   BDA(N),BDB(N),BDC(M),BDD(M),F(IDIMF,N), Arguments      W(see ARGUMENT LIST) Latest         June 1, 1977 Revision Subprograms    HSTPLR,POISTG,POSTG2,GENBUN,POISD2,POISN2,POISP2, Required       COSGEN,MERGE,TRIX,TRI3,PIMACH Special        NONE Conditions Common         NONE Blocks I/O            NONE Precision      Single Specialist     Roland Sweet Language       FORTRAN not applicable or not stated by selected source
+A one-dimensional array of length M that specifies the boundary values of the solution at THETA = D. When NBDCND = 1 or 4, U(R(I),D) , I=1,2,. ,M. When NBDCND = 2 or 3, (d/dTHETA)U(R(I),D) , I=1,2,. When NBDCND = 0, BDD is a dummy variable.
+
+## `ELMBDA`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+The constant LAMBDA in the Helmholtz equation. If LAMBDA is greater than 0, a solution may not exist. However, HSTPLR will attempt to find a solution.
+
+## `F`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (IDIMF, *).
+
+A two-dimensional array that specifies the values of the right side of the Helmholtz equation. For I=1,2,. ,M and J=1,2,. ,N F(R(I),THETA(J)). must be dimensioned at least M X N. Contains the solution U(I,J) of the finite difference approximation for the grid point (R(I),THETA(J)) for I=1,2,.
+
+## `IDIMF`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+The row (or first) dimension of the array F as it appears in the program calling HSTPLR. This parameter is used to specify the variable dimension of F. IDIMF must be at least M.
+
+## `PERTRB`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+If a combination of periodic, derivative, or unspecified boundary conditions is specified for a Poisson equation (LAMBDA = 0), a solution may not exist. PERTRB is a con- stant, calculated and subtracted from F, which ensures that a solution exists. HSTPLR then computes this solution, which is a least squares solution to the original approximation. This solution plus any constant is also a solution; hence, the solution is not unique. The value of should be small compared to the right side F. Otherwise, a solution is obtained to an essentially different problem.
+
+## `IERROR`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+An error flag that indicates invalid input parameters. Except for numbers 0 and 11, a solution is not attempted. = 0 No error = 1 A. LT. 0 = 2 A. GE.
+
+## `W`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+A one-dimensional array that must be provided by the user for work space. W may require up to 13M + 4N + M*INT(log2(N)) locations. The actual number of locations used is computed by HSTPLR and is returned in the location W(1). contains the required length of W.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IERROR` | `0` | 0 No error |
+| `IERROR` | `1` | 1 A .LT. 0 |
+| `IERROR` | `2` | 2 A .GE. B |
+| `IERROR` | `3` | 3 MBDCND .LT. 1 or MBDCND .GT. 6 |
+| `IERROR` | `4` | 4 C .GE. D |
+| `IERROR` | `5` | 5 N .LE. 2 |
+| `IERROR` | `6` | 6 NBDCND .LT. 0 or NBDCND .GT. 4 |
+| `IERROR` | `7` | 7 A = 0 and MBDCND = 3 or 4 |
+| `IERROR` | `8` | 8 A .GT. 0 and MBDCND .GE. 5 |
+| `IERROR` | `9` | 9 MBDCND .GE. 5 and NBDCND .NE. 0 or 3 |
+| `IERROR` | `10` | 10 IDIMF .LT. M |
+| `IERROR` | `11` | 11 LAMBDA .GT. 0 |
+| `IERROR` | `12` | 12 M .LE. 2 Since this is the only means of indicating a possibly incorrect call to HSTPLR, the user should test IERROR after the call. |
 
 # Workspace and array requirements
 
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `M`: not a workspace argument
-- `MBDCND`: not a workspace argument
 - `BDA`: not a workspace argument
 - `BDB`: not a workspace argument
-- `C`: not a workspace argument
-- `D`: not a workspace argument
-- `N`: not a workspace argument
-- `NBDCND`: not a workspace argument
 - `BDC`: not a workspace argument
 - `BDD`: not a workspace argument
-- `ELMBDA`: not a workspace argument
 - `F`: not a workspace argument
 - `IDIMF`: not a workspace argument
-- `PERTRB`: not a workspace argument
-- `IERROR`: not a workspace argument
-- `W`: contains the required length of W. Long Description: * * * * * *   Program Specifications    * * * * * * * * * * * * Dimension of   BDA(N),BDB(N),BDC(M),BDD(M),F(IDIMF,N), Arguments      W(see ARGUMENT LIST) Latest         June 1, 1977 Revision Subprograms    HSTPLR,POISTG,POSTG2,GENBUN,POISD2,POISN2,POISP2, Required       COSGEN,MERGE,TRIX,TRI3,PIMACH Special        NONE Conditions Common         NONE Blocks I/O            NONE Precision      Single Specialist     Roland Sweet Language       FORTRAN
+- `W`: not a workspace argument
 
 # ABI notes
 

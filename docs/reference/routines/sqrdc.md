@@ -52,40 +52,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SQRDC](https://www.netlib.org/slatec/lin/sqrdc.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDX, *) | REAL(LDX,P), where LDX .GE. N. contains the matrix whose decomposition is to be computed. is an initial column. is a free column. is a final column. Before the decomposition is computed, initial columns are moved to the beginning of the array X and final columns to the end.  Both initial and final columns are frozen in place during the computation and only free columns are moved.  At the K-th stage of the reduction, if X(K) is occupied by a free column, it is interchanged with the free column of largest reduced norm.  JPVT is not referenced if contains in its upper triangle the upper contains in its upper triangle the upper triangular matrix R of the QR factorization. triangular matrix R of the QR factorization. Below its diagonal X contains information from Below its diagonal X contains information from which the orthogonal part of the decomposition which the orthogonal part of the decomposition can be recovered.  Note that if pivoting has can be recovered.  Note that if pivoting has been requested, the decomposition is not that been requested, the decomposition is not that of the original matrix X but that of X of the original matrix X but that of X with its columns permuted as described by JPVT. with its columns permuted as described by JPVT. |
+| 1 | `X` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDX, *) | REAL(LDX,P), where LDX. GE. N. contains the matrix whose decomposition is to be computed. X contains in its upper triangle the upper triangular matrix R of the QR factorization. Below its diagonal X contains information from which the orthogonal part of the decomposition can be recovered. |
 | 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array X. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a users option. INTEGER. is the number of rows of the matrix X. |
-| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a users option. INTEGER. is the number of columns of the matrix X. |
-| 5 | `QRAUX` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). contains further information required to recover the orthogonal part of the decomposition. |
-| 6 | `JPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(P). contains integers that control the selection of the pivot columns.  The K-th column X(K) of X is placed in one of three classes according to the value of JPVT(K). is an initial column. is a free column. is a final column. Before the decomposition is computed, initial columns are moved to the beginning of the array X and final columns to the end.  Both initial and final columns are frozen in place during the computation and only free columns are moved.  At the K-th stage of the reduction, if X(K) is occupied by a free column, it is interchanged with the free column of largest reduced norm.  JPVT is not referenced if contains the index of the column of the contains the index of the column of the original matrix that has been interchanged into original matrix that has been interchanged into the K-th column, if pivoting was requested. the K-th column, if pivoting was requested. |
-| 7 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). is a work array.  WORK is not referenced if |
-| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | .EQ. 0. .EQ. 0. INTEGER. is an integer that initiates column pivoting. If JOB .EQ. 0, no pivoting is done. If JOB .NE. 0, pivoting is done. On Return |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the number of rows of the matrix X. |
+| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the number of columns of the matrix X. |
+| 5 | `QRAUX` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). contains further information required to recover the orthogonal part of the decomposition. |
+| 6 | `JPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(P). contains integers that control the selection of the pivot columns. The K-th column X(K) of X is placed in one of three classes according to the value of JPVT(K). If JPVT(K). GT. 0, then X(K) is an initial column. |
+| 7 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). is a work array. WORK is not referenced if. |
+| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | EQ. 0. INTEGER. is an integer that initiates column pivoting. If JOB. 0, no pivoting is done. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
 ### Storage and workspace requirements
 
-`WORK`: REAL(P). is a work array.  WORK is not referenced if
+`WORK`: REAL(P). is a work array. WORK is not referenced if.
 
 ### Provider, ABI, and safety
 

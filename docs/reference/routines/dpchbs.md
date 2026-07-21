@@ -8,7 +8,7 @@ Piecewise Cubic Hermite to B-Spline converter.
 
 ## Description
 
-Usage: INTEGER N, INCFD, KNOTYP, NKNOTS, NDIM, KORD, IERR DPCHBS computes the B-spline representation of the PCH function determined by N,X,F,D. To be compatible with the rest of PCHIP, DPCHBS includes INCFD, the increment between successive values of
+Usage: INTEGER N, INCFD, KNOTYP, NKNOTS, NDIM, KORD, IERR PARAMETER (INCFD = ...) DOUBLE PRECISION X(nmax), F(INCFD,nmax), D(INCFD,nmax), T(2*nmax+4), BCOEF(2*nmax) CALL DPCHBS (N, X, F, D, INCFD, KNOTYP, NKNOTS, T, BCOEF, NDIM, KORD, IERR) DPCHBS computes the B-spline representation of the PCH function determined by N,X,F,D. To be compatible with the rest of PCHIP, DPCHBS includes INCFD, the increment between successive values of the F- and D-arrays. The output is the B-representation for the function: NKNOTS, T, BCOEF, NDIM, KORD. Caution: Since it is assumed that the input PCH function has been computed by one of the other routines in the package PCHIP, input arguments N, X, INCFD are **not** checked for validity. Restrictions/assumptions: 1. N.GE.2 . (not checked) 2. X(i).LT.X(i+1), i=1,...,N . (not checked) 3. INCFD.GT.0 . (not checked) 4. KNOTYP.LE.2 . (error return if not)
 
 ## Classification
 
@@ -52,44 +52,36 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DPCHBS](https://www.netlib.org/slatec/pchip/dpchbs.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IN  is the number of data points, N.ge.2 .  (not checked) X(N-1)). X(N-1)). X(1))  . Here M=NDIM=2*N. If the input value of KNOTYP is negative, however, it is assumed that NKNOTS and T were set in a previous call. This option is provided for improved efficiency when used in a parametric setting. are **not** checked for validity. Restrictions/assumptions: 1. N.GE.2 .  (not checked) |
-| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | IN  is the real array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N.   (not checked) nmax, the dimension of X, must be .ge.N. (X(2)-X(1))  ; X(N-1)). X(N-1)). (X(N)-X(N-1)); X(1))  . X(1))  . Here M=NDIM=2*N. Here M=NDIM=2*N. If the input value of KNOTYP is negative, however, it is If the input value of KNOTYP is negative, however, it is assumed that NKNOTS and T were set in a previous call. assumed that NKNOTS and T were set in a previous call. This option is provided for improved efficiency when used This option is provided for improved efficiency when used in a parametric setting. in a parametric setting. values and the boundary knots set as indicated above. If KNOTYP.LT.0, it is assumed that T was set by a previous call to DPCHBS.  (This routine does **not** verify that T forms a legitimate knot sequence.) are **not** checked for validity. Restrictions/assumptions: 1. N.GE.2 .  (not checked) 1,...,N .  (not checked) 1,...,N .  (not checked) 3. INCFD.GT.0 .  (not checked) 3. INCFD.GT.0 .  (not checked) 4. KNOTYP.LE.2 .  (error return if not) 4. KNOTYP.LE.2 .  (error return if not) |
-| 3 | `F` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | IN  is the real array of dependent variable values. 1)*INCFD) is the value corresponding to X(I). nmax, the second dimension of F, must be .ge.N. subscripted arrays. and D-arrays. The output is the B-representation for the function:  NKNOTS, T, Fortran 77, in the strict sense, but it works on all systems on which DPCHBS has been tested. |
-| 4 | `D` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | IN  is the real array of derivative values at the data points. 1)*INCFD) is the value corresponding to X(I). nmax, the second dimension of D, must be .ge.N. subscripted arrays. Fortran 77, in the strict sense, but it works on all systems on which DPCHBS has been tested. |
-| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ...) DOUBLE PRECISION  X(nmax), F(INCFD,nmax), D(INCFD,nmax), IN  is the increment between successive values in F and D. This argument is provided primarily for 2-D applications. It may have the value 1 for one-dimensional applications, are **not** checked for validity. Restrictions/assumptions: 1. N.GE.2 .  (not checked) patible with the rest of PCHIP. 900410  Converted prologue to SLATEC 4.0 format. 900410  Added calls to XERMSG and changed constant 3. to 3 to reduce single/double differences. 900411  Added reference. 900430  Produced double precision version. 900501  Corrected declarations. 930317  Minor cosmetic changes.  (FNF) 930514  Corrected problems with dimensioning of arguments and clarified DESCRIPTION.  (FNF) 930604  Removed  NKNOTS from DPCHKT call list.  (FNF) |
-| 6 | `KNOTYP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IN  is a flag to control the knot sequence. The knot sequence T is normally computed from X by putting a double knot at each X and setting the end knot pairs Quadruple knots at X(1) and X(N).  (default) Replicate lengths of extreme subintervals: Periodic placement of boundary knots: is an input variable, and an |
-| 7 | `NKNOTS` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INOUT  is the number of knots. If KNOTYP.GE.0, then NKNOTS will be set to NDIM+4. is an input variable, and an NDIM+4 = 2*N+4 .  (error return if not) |
-| 8 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | BCOEF(2*nmax) CALL DPCHBS (N, X, F, D, INCFD, KNOTYP, NKNOTS, T, BCOEF, (X(2)-X(1))  ; (X(2)-X(1))  ; X(N-1)). X(N-1)). (X(N)-X(N-1)); (X(N)-X(N-1)); X(1))  . X(1))  . Here M=NDIM=2*N. Here M=NDIM=2*N. If the input value of KNOTYP is negative, however, it is If the input value of KNOTYP is negative, however, it is assumed that NKNOTS and T were set in a previous call. assumed that NKNOTS and T were set in a previous call. This option is provided for improved efficiency when used This option is provided for improved efficiency when used in a parametric setting. in a parametric setting. INOUT  is the array of 2*N+4 knots for the B-representation. If KNOTYP.GE.0, T will be returned by DPCHBS with the T(2*k) = X(k), k=1,...,N .  (not checked) Indicates this applies only if KNOTYP.LT.0 . Portability: Argument INCFD is used only to cause the compiler to generate efficient code for the subscript expressions (1+(I-1)*INCFD) . The normal usage, in which DPCHBS is called with one-dimensional |
-| 9 | `BCOEF` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | OUT  is the array of 2*N B-spline coefficients. NDIM, KORD. Caution: Since it is assumed that the input PCH function has been computed by one of the other routines in the package PCHIP, |
-| 10 | `NDIM` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | KORD, IERR) OUT  is the dimension of the B-spline space.  (Set to 2*N.) |
-| 11 | `KORD` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | OUT  is the order of the B-spline.  (Set to 4.) |
-| 12 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | OUT  is an error flag. Normal return: 0  (no errors). "Recoverable" errors: 4  if KNOTYP.GT.2 . 5  if KNOTYP.LT.0 and NKNOTS.NE.(2*N+4). |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of data points, N. ge. 2. (not checked). |
+| 2 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | is the real array of independent variable values. The elements of X must be strictly increasing:. LT. X(I), I = 2(1)N. (not checked) nmax, the dimension of X, must be. ge. |
+| 3 | `F` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | is the real array of dependent variable values. is the value corresponding to X(I). nmax, the second dimension of F, must be. ge. N. |
+| 4 | `D` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (INCFD, *) | is the real array of derivative values at the data points. is the value corresponding to X(I). nmax, the second dimension of D, must be. ge. N. |
+| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the increment between successive values in F and D. This argument is provided primarily for 2-D applications. It may have the value 1 for one-dimensional applications, in which case F and D may be singly-subscripted arrays. |
+| 6 | `KNOTYP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a flag to control the knot sequence. The knot sequence T is normally computed from X by putting a double knot at each X and setting the end knot pairs according to the value of KNOTYP: 0: Quadruple knots at X(1) and X(N). (default) 1: Replicate lengths of extreme subintervals: 2: Periodic placement of boundary knots:. |
+| 7 | `NKNOTS` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of knots. If KNOTYP. GE. 0, then NKNOTS will be set to NDIM+4. LT. 0, then NKNOTS is an input variable, and an error return will be taken if it is not equal to NDIM+4. |
+| 8 | `T` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | (X(2)-X(1)) ; T(M+3) = X(N) + (X(N)-X(N-1)). (X(N)-X(N-1)); T(M+3) = X(N) + (X(2)-X(1)). Here M=NDIM=2*N. If the input value of KNOTYP is negative, however, it is assumed that NKNOTS and T were set in a previous call. This option is provided for improved efficiency when used in a parametric setting. is the array of 2*N+4 knots for the B-representation. |
+| 9 | `BCOEF` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | is the array of 2*N B-spline coefficients. |
+| 10 | `NDIM` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the dimension of the B-spline space. (Set to 2*N. ). |
+| 11 | `KORD` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the B-spline. (Set to 4. ). |
+| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an error flag. Normal return: 0 (no errors). "Recoverable" errors: -4 if KNOTYP. GT. 2. -5 if KNOTYP. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

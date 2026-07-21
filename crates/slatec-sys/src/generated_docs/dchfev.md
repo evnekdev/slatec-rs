@@ -1,6 +1,6 @@
 # Purpose
 
-DCHFEV: Cubic Hermite Function EValuator Evaluates the cubic polynomial determined by function values
+DCHFEV: Cubic Hermite Function EValuator Evaluates the cubic polynomial determined by function values F1,F2 and derivatives D1,D2 on interval (X1,X2) at the points XE(J), J=1(1)NE. Calling sequence: INTEGER NE, NEXT(2), IERR DOUBLE PRECISION X1, X2, F1, F2, D1, D2, XE(NE), FE(NE) CALL DCHFEV (X1,X2, F1,F2, D1,D2, NE, XE, FE, NEXT, IERR)
 
 # Description
 
@@ -8,75 +8,81 @@ This canonical unsafe binding exposes original SLATEC routine `DCHFEV`. Its docu
 
 # Arguments
 
-## 1. `X1`
+## `X1`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. (input) endpoints of interval of definition of cubic. is returned in NEXT. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `X2`
+(input) endpoints of interval of definition of cubic. (Error return if X1. EQ. X2. ).
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. (input) endpoints of interval of definition of cubic. is returned in NEXT. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X2`
 
-## 3. `F1`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. and derivatives D1,D2 on interval (X1,X2) at the points (input) values of function at X1 and X2, respectively. not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) endpoints of interval of definition of cubic. (Error return if X1. EQ. X2. ).
 
-## 4. `F2`
+## `F1`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. and derivatives D1,D2 on interval (X1,X2) at the points (input) values of function at X1 and X2, respectively. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 5. `D1`
+(input) values of function at X1 and X2, respectively.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. (input) values of derivative at X1 and X2, respectively. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `F2`
 
-## 6. `D2`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. (input) values of derivative at X1 and X2, respectively. not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) values of function at X1 and X2, respectively.
 
-## 7. `NE`
+## `D1`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (input) number of evaluation points.  (Error return if .) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 8. `XE`
+(input) values of derivative at X1 and X2, respectively.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). 1(1)NE. (input) real*8 array of points at which the function is to be evaluated.  If any of the XE are outside the interval not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `D2`
 
-## 9. `FE`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). (output) real*8 array of values of the cubic function defined by  X1,X2, F1,F2, D1,D2  at the points  XE. array has not been changed in either case.) not stated by selected source not applicable or not stated by selected source not a workspace argument
+(input) values of derivative at X1 and X2, respectively.
 
-## 10. `NEXT`
+## `NE`
 
-input-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (2). (output) integer array indicating number of extrapolation points: number of evaluation points to left of interval. number of evaluation points to right of interval. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `IERR`
+(input) number of evaluation points. (Error return if NE. LT. 1. ).
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (output) error flag. Normal return: 0  (no errors). "Recoverable" errors: 1  if NE.LT.1 . 2  if X1.EQ.X2 . not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `XE`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+(input) real*8 array of points at which the function is to be evaluated. If any of the XE are outside the interval \[X1,X2\], a warning error is returned in NEXT.
+
+## `FE`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+(output) real*8 array of values of the cubic function defined by X1,X2, F1,F2, D1,D2 at the points XE.
+
+## `NEXT`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (2).
+
+(output) integer array indicating number of extrapolation points: number of evaluation points to left of interval. number of evaluation points to right of interval.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+(output) error flag. Normal return: 0 (no errors). "Recoverable" errors: -1 if NE. LT. 1. -2 if X1.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `X1`: not a workspace argument
-- `X2`: not a workspace argument
-- `F1`: not a workspace argument
-- `F2`: not a workspace argument
-- `D1`: not a workspace argument
-- `D2`: not a workspace argument
-- `NE`: not a workspace argument
 - `XE`: not a workspace argument
 - `FE`: not a workspace argument
 - `NEXT`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

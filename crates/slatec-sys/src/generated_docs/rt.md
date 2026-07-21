@@ -8,60 +8,64 @@ This canonical unsafe binding exposes original SLATEC routine `RT`. Its document
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameter, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameter, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameter, A and Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. 1 positions of the first column, the diagonal elements in the second column, and the superdiagonal elements in the 1 positions of the third column.  Elements A(1,1) and dimensional REAL array, dimensioned A(NM,3). is greater than NM, is greater than NM, 1,3) is negative, zero, is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. 1 positions of the first column, the diagonal elements in the second column, and the superdiagonal elements in the 1 positions of the third column.  Elements A(1,1) and dimensional REAL array, dimensioned A(NM,3). is greater than NM, is greater than NM, 1,3) is negative, zero, not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, 3). contains the special real tridiagonal matrix in its first three columns.  The subdiagonal elements are stored in the dimensional REAL array, dimensional REAL array, dimensional REAL array, dimensioned A(NM,3). dimensioned A(NM,3). dimensioned A(NM,3). dimensional REAL array, dimensioned Z(NM,N). 1,3) is negative, 1,3) is negative, dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains the special real tridiagonal matrix in its first three columns.  The subdiagonal elements are stored in the dimensional REAL array, dimensional REAL array, dimensional REAL array, dimensioned A(NM,3). dimensioned A(NM,3). dimensioned A(NM,3). dimensional REAL array, dimensioned Z(NM,N). 1,3) is negative, 1,3) is negative, dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `W`
+## `A`
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). is a is a one-dimensional REAL array, dimensioned W(N). one-dimensional REAL array, dimensioned W(N). is a is a one-dimensional REAL array, dimensioned W(N). one-dimensional REAL array, dimensioned W(N). not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, 3).
 
-## 5. `MATZ`
+contains the special real tridiagonal matrix in its first three columns. The subdiagonal elements are stored in the last N-1 positions of the first column, the diagonal elements in the second column, and the superdiagonal elements in the first N-1 positions of the third column. Elements A(1,1) and are arbitrary. A is a two-dimensional REAL array, dimensioned A(NM,3).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER variable set equal to zero if only eigenvalues are desired.  Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors. zero; J          if the J-th eigenvalue has not been determined after 30 iterations. The eigenvalues and eigenvectors in the W and Z arrays should be correct for indices not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `W`
 
-## 6. `Z`
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional REAL array, dimensioned Z(NM,N). dimensional REAL array, dimensioned Z(NM,N). not applicable or not stated by selected source not a workspace argument
+contains the eigenvalues in ascending order. W is a one-dimensional REAL array, dimensioned W(N).
 
-## 7. `FV1`
+## `MATZ`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `IERR`
+is an INTEGER variable set equal to zero if only eigenvalues are desired. Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, 1. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `Z`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the eigenvectors if MATZ is not zero. The eigen- vectors are not normalized. Z is a two-dimensional REAL array, dimensioned Z(NM,N).
+
+## `FV1`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+is a one-dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, 10*N if N is greater than NM, N+J if A(J,1)*A(J-1,3) is negative, 2*N+J if the product is zero with one factor non-zero, and MATZ is non-zero; J if the J-th eigenvalue has not been determined after 30 iterations. The eigenvalues and eigenvectors in the W and Z arrays should be correct for indices 1, 2,. , IERR-1.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
-- `W`: is a is a one-dimensional REAL array, dimensioned W(N). one-dimensional REAL array, dimensioned W(N).
-- `MATZ`: not a workspace argument
+- `W`: not a workspace argument
 - `Z`: not a workspace argument
 - `FV1`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

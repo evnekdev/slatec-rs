@@ -1,6 +1,6 @@
 # Purpose
 
-Subroutine DPOLVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to DPLINT.
+Subroutine DPOLVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to DPLINT. The variable N and the arrays X and C must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information *******
 
 # Description
 
@@ -8,65 +8,70 @@ This canonical unsafe binding exposes original SLATEC routine `DPOLVL`. Its docu
 
 # Arguments
 
-## 1. `NDER`
+## `NDER`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is .GT. 0. Note *** 0, neither YP nor WORK need to be dimensioned variables. 1, YP does not need to be a dimensioned variable. the number of derivatives to be evaluated 0, WORK does not need to be a dimensioned variable. is .GT. 0. Note *** 0, neither YP nor WORK need to be dimensioned variables. 1, YP does not need to be a dimensioned variable. the number of derivatives to be evaluated 0, WORK does not need to be a dimensioned variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `XX`
+the number of derivatives to be evaluated.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. the argument at which the polynomial and its derivatives are to be evaluated. 1,...,NDER. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `XX`
 
-## 3. `YFIT`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. the value of the polynomial at XX not stated by selected source not applicable or not stated by selected source not a workspace argument
+the argument at which the polynomial and its derivatives are to be evaluated.
 
-## 4. `YP`
+## `YFIT`
 
-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). must be dimensioned by at least NDER the derivatives of the polynomial at XX.  The derivative of 1,...,NDER. must be dimensioned by at least NDER the derivatives of the polynomial at XX.  The derivative of 1,...,NDER. not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 5. `N`
+the value of the polynomial at XX.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* is .GT. 0. Note *** ***** must not be altered between the call must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* is .GT. 0. Note *** ***** must not be altered between the call not applicable or not stated by selected source not a workspace argument
+## `YP`
 
-## 6. `X`
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* must be dimensioned by at least N (see the abstract ) must not be altered between the call *       to DPLINT and the call to DPOLVL. must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* must be dimensioned by at least N (see the abstract ) must not be altered between the call *       to DPLINT and the call to DPOLVL. not applicable or not stated by selected source not a workspace argument
+must be dimensioned by at least NDER the derivatives of the polynomial at XX. The derivative of order J at XX is stored in YP(J) , J = 1,. ,NDER.
 
-## 7. `C`
+## `N`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* must be dimensioned by at least N (see the abstract ) must not be altered between the call ***** must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* must be dimensioned by at least N (see the abstract ) must not be altered between the call ***** not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `WORK`
+***** N, X, and C must not be altered between the call.
 
-workspace `workspace` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). is .GT. 0. Note *** this is an array to provide internal working storage for DPOLVL.  It must be dimensioned by at least 2*N if NDER is is .GT. 0. Note *** this is an array to provide internal working storage for DPOLVL.  It must be dimensioned by at least 2*N if NDER is not applicable or not stated by selected source
+## `X`
 
-## 9. `IERR`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Output error flag with the following possible values. = 1  indicates normal execution Storage Parameters not stated by selected source not applicable or not stated by selected source not a workspace argument
+must be dimensioned by at least N (see the abstract ) * to DPLINT and the call to DPOLVL.
+
+## `C`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+must be dimensioned by at least N (see the abstract ) *****.
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+must be dimensioned by at least 2*N if NDER is. GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable. this is an array to provide internal working storage for DPOLVL. must be dimensioned by at least 2*N if NDER is .GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable. this is an array to provide internal working storage for DPOLVL. It must be dimensioned by at least 2*N if NDER is .GT. 0. If NDER=0, WORK does not need to be a dimensioned
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Output error flag with the following possible values. = 1 indicates normal execution.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NDER`: not a workspace argument
-- `XX`: not a workspace argument
-- `YFIT`: not a workspace argument
 - `YP`: not a workspace argument
-- `N`: not a workspace argument
 - `X`: not a workspace argument
 - `C`: not a workspace argument
-- `WORK`: is .GT. 0. Note *** this is an array to provide internal working storage for DPOLVL.  It must be dimensioned by at least 2*N if NDER is
-- `IERR`: not a workspace argument
+- `WORK`: must be dimensioned by at least 2*N if NDER is .GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable. this is an array to provide internal working storage for DPOLVL. It must be dimensioned by at least 2*N if NDER is .GT. 0. If NDER=0, WORK does not need to be a dimensioned
 
 # ABI notes
 

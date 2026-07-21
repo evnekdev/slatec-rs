@@ -8,35 +8,27 @@ This canonical unsafe binding exposes original SLATEC routine `DLGAMS`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. calculates the double precision natural logarithm of the absolute value of the Gamma function for double precision argument X and stores the result in double precision argument DLGAM. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `DLGAM`
+Input double-precision argument at which the logarithm of the absolute gamma value is evaluated.
 
-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. calculates the double precision natural logarithm of the absolute value of the Gamma function for double precision argument X and stores the result in double precision argument DLGAM. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `DLGAM`
 
-## 3. `SGNGAM`
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. calculates the double precision natural logarithm of the absolute value of the Gamma function for double precision argument X and stores the result in double precision argument DLGAM. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Writable output for the natural logarithm of the absolute value of the gamma function at `X`.
+
+## `SGNGAM`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Writable output sign of the gamma function at `X`; the selected implementation returns either 1 or -1.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
-- `DLGAM`: not a workspace argument
-- `SGNGAM`: not a workspace argument
 
 # ABI notes
 

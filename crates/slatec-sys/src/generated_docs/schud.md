@@ -1,6 +1,6 @@
 # Purpose
 
-SCHUD updates an augmented Cholesky decomposition of the triangular part of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector
+SCHUD updates an augmented Cholesky decomposition of the triangular part of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector X, a column vector Z, and a scalar Y, SCHUD determines a unitary matrix U and a scalar ZETA such that (R Z) (RR ZZ ) U * ( ) = ( ) , (X Y) ( 0 ZETA) where RR is upper triangular. If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) appended. In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the updated problem is SQRT(RHO**2 + ZETA**2). SCHUD will simultaneously update several triplets (Z,Y,RHO). For a less terse description of what SCHUD does and how it may be applied, see the LINPACK guide. The matrix U is determined as the product U(P)*...*U(1), where U(I) is a rotation in the (I,P+1) plane of the form ( C(I) S(I) ) ( ) . ( -S(I) C(I) ) The rotations are chosen so that C(I) is real. On Entry
 
 # Description
 
@@ -8,71 +8,83 @@ This canonical unsafe binding exposes original SLATEC routine `SCHUD`. Its docum
 
 # Arguments
 
-## 1. `R`
+## `R`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDR, *). Z)     (RR   ZZ ) U  * (    )  =  (        ) , REAL(LDR,P), where LDR .GE. P. contains the upper triangular matrix that is to be updated.  The part of R below the diagonal is not referenced. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDR, *).
 
-## 2. `LDR`
+REAL(LDR,P), where LDR. GE. P. contains the upper triangular matrix that is to be updated. The part of R below the diagonal is not referenced.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the leading dimension of the array R. INTEGER. is the leading dimension of the array R. INTEGER. is the leading dimension of the array R. not a workspace argument
+## `LDR`
 
-## 3. `P`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the order of the matrix R. vectors to be updated with R. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. is the leading dimension of the array R.
 
-## 4. `X`
+## `P`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). a column vector Z, and a scalar Y, SCHUD determines a unitary matrix U and a scalar ZETA such that Y)     ( 0  ZETA) where RR is upper triangular.  If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) appended.  In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the updated problem is REAL(P). contains the row to be added to R.  X is not altered by SCHUD. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `Z`
+INTEGER. is the order of the matrix R.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDZ, *). REAL(LDZ,NZ), where LDZ .GE. P. vectors to be updated with R. is not altered by SCHUD. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 6. `LDZ`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. is the leading dimension of the array Z. INTEGER. is the leading dimension of the array Z. INTEGER. is the leading dimension of the array Z. not a workspace argument
+REAL(P). contains the row to be added to R. X is not altered by SCHUD.
 
-## 7. `NZ`
+## `Z`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. vectors to be updated with R. INTEGER. is the number of vectors to be updated. may be zero, in which case Z, Y, and RHO are not referenced. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDZ, *).
 
-## 8. `Y`
+REAL(LDZ,NZ), where LDZ. GE. P. is an array containing NZ P-vectors to be updated with R. not altered by SCHUD.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). REAL(NZ). contains the scalars for updating the vectors is not altered by SCHUD. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `LDZ`
 
-## 9. `RHO`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). + ZETA**2).  SCHUD will simultaneously update several triplets (Z,Y,RHO). For a less terse description of what SCHUD does and how it may be applied, see the LINPACK guide. The matrix U is determined as the product U(P)*...*U(1), where U(I) is a rotation in the (I,P+1) plane of the form (     C(I)      S(I) ) (                    ) . (    -S(I)      C(I) ) The rotations are chosen so that C(I) is real. On Entry REAL(NZ). contains the norms of the residual vectors that are to be updated.  If RHO(J) is negative, it is left unaltered. On Return RC contain the updated quantities. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. is the leading dimension of the array Z.
 
-## 10. `C`
+## `NZ`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). REAL(P). contains the cosines of the transforming rotations. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `S`
+INTEGER. is the number of vectors to be updated. NZ may be zero, in which case Z, Y, and RHO are not referenced.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). REAL(P). contains the sines of the transforming rotations. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `Y`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL(NZ). contains the scalars for updating the vectors not altered by SCHUD.
+
+## `RHO`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL(NZ). contains the norms of the residual vectors that are to be updated. If RHO(J) is negative, it is left unaltered. contain the updated quantities.
+
+## `C`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL(P). contains the cosines of the transforming rotations.
+
+## `S`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL(P). contains the sines of the transforming rotations.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `R`: not a workspace argument
 - `LDR`: not a workspace argument
-- `P`: not a workspace argument
 - `X`: not a workspace argument
 - `Z`: not a workspace argument
 - `LDZ`: not a workspace argument
-- `NZ`: not a workspace argument
 - `Y`: not a workspace argument
 - `RHO`: not a workspace argument
 - `C`: not a workspace argument

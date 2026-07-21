@@ -8,7 +8,7 @@ Factor a complex Hermitian matrix by elimination (symmetric pivoting).
 
 ## Description
 
-CHIFA factors a complex Hermitian matrix by elimination with symmetric pivoting.
+CHIFA factors a complex Hermitian matrix by elimination with symmetric pivoting. To solve A*X = B , follow CHIFA by CHISL. To compute INVERSE(A)*C , follow CHIFA by CHISL. To compute DETERMINANT(A) , follow CHIFA by CHIDI. To compute INERTIA(A) , follow CHIFA by CHIDI. To compute INVERSE(A) , follow CHIFA by CHIDI. On Entry
 
 ## Classification
 
@@ -52,37 +52,35 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CHIFA](https://www.netlib.org/slatec/lin/chifa.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDA, *) | B , follow CHIFA by CHISL. To compute  INVERSE(A)*C , follow CHIFA by CHISL. To compute  DETERMINANT(A) , follow CHIFA by CHIDI. To compute  INERTIA(A) , follow CHIFA by CHIDI. To compute  INVERSE(A) , follow CHIFA by CHIDI. On Entry COMPLEX(LDA,N) the Hermitian matrix to be factored. Only the diagonal and upper triangle are used. a block diagonal matrix and the multipliers which were used to obtain it. U*D*CTRANS(U) where  U  is a product of permutation and unit upper triangular matrices , CTRANS(U) is the conjugate transpose of  U , and  D  is block diagonal with 1 by 1 and 2 by 2 blocks. |
-| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array  A . |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . On Return |
-| 4 | `KPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) an integer vector of pivot indices. |
-| 5 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 0  normal value. = K  if the K-th pivot block is singular.  This is not an error condition for this subroutine, but it does indicate that CHISL or CHIDI may divide by zero if called. |
+| 1 | `A` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDA, *) | COMPLEX(LDA,N) the Hermitian matrix to be factored. Only the diagonal and upper triangle are used. a block diagonal matrix and the multipliers which were used to obtain it. The factorization can be written A = U*D*CTRANS(U) where U is a product of permutation and unit upper triangular matrices , CTRANS(U) is the conjugate transpose of U , and D is block diagonal with 1 by 1 and 2 by 2 blocks. |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array A. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix A. |
+| 4 | `KPVT` | `output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) an integer vector of pivot indices. |
+| 5 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that CHISL or CHIDI may divide by zero if called. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that CHISL or CHIDI may divide by zero if called. |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

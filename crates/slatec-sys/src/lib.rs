@@ -15,7 +15,14 @@
 //! not public API paths. The source-hash-guarded raw API inventory defines
 //! reviewed status, documentation, and validation coverage. An
 //! evidence-proven ABI correction may change an unsafe signature, because an
-//! incorrect FFI declaration is a safety bug.
+//! incorrect FFI declaration is a safety bug. Generated implementation access
+//! is transitional and unstable unless a declaration is re-exported from its
+//! canonical mathematical module.
+//!
+//! Semantic documentation completion is evaluated on the rendered canonical
+//! item, not on a generated fragment. Its source-first direction evidence,
+//! argument-contamination checks, and applicable callback/status/workspace
+//! contracts are recorded under `generated/slatec-routines` in the workspace.
 
 /// GNU Fortran default `INTEGER` after the supported profile probe.
 #[cfg(feature = "ffi-profile-gnu-mingw-x86_64")]

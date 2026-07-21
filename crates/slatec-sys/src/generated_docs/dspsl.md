@@ -8,38 +8,37 @@ This canonical unsafe binding exposes original SLATEC routine `DSPSL`. Its docum
 
 # Arguments
 
-## 1. `AP`
+## `AP`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). DOUBLE PRECISION(N*(N+1)/2) the output from DSPFA. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-## 2. `N`
+DOUBLE PRECISION(N*(N+1)/2) the output from DSPFA.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `KPVT`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(N) the pivot vector from DSPFA. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the order of the matrix A.
 
-## 4. `B`
+## `KPVT`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). DOUBLE PRECISION(N) the right hand side vector. On Return the solution vector  X . not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+INTEGER(N) the pivot vector from DSPFA.
+
+## `B`
+
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+DOUBLE PRECISION(N) the right hand side vector. the solution vector X. Error Condition A division by zero may occur if DSPCO has set RCOND. EQ. 0. 0 or DSPFA has set INFO.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-A division by zero may occur if  DSPCO  has set RCOND .EQ. 0.0 or  DSPFA  has set INFO .NE. 0  . To compute  INVERSE(A) * C  where  C  is a matrix with  P  columns CALL DSPFA(AP,N,KPVT,INFO) IF (INFO .NE. 0) GO TO ... DO 10 J = 1, P CALL DSPSL(AP,N,KPVT,C(1,J)) 10 CONTINUE
-
 # Workspace and array requirements
 
 - `AP`: not a workspace argument
-- `N`: not a workspace argument
 - `KPVT`: not a workspace argument
 - `B`: not a workspace argument
 

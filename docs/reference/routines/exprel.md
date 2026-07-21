@@ -52,33 +52,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [EXPREL](https://www.netlib.org/slatec/fnlib/exprel.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)/X. 1.0) / X.   For small ABS(X) the 1.0) / X.   For small ABS(X) the Taylor series is used.  If X is negative, the reflection formula Taylor series is used.  If X is negative, the reflection formula EXP(X) * EXPREL(ABS(X)) may be used.  This reflection formula will be of use when the evaluation for small ABS(X) is done by Chebyshev series rather than Taylor series.  EXPREL and X are single precision. |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input value at which the source-defined function is evaluated: Calculate the relative error exponential (EXP(X)-1)/X |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

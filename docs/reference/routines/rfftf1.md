@@ -8,7 +8,7 @@ Compute the forward transform of a real, periodic sequence.
 
 ## Description
 
-Subroutine RFFTF1 computes the Fourier coefficients of a real periodic sequence (Fourier analysis). The transform is defined below at output parameter C.
+Subroutine RFFTF1 computes the Fourier coefficients of a real periodic sequence (Fourier analysis). The transform is defined below at output parameter C. The arrays WA and IFAC which are used by subroutine RFFTB1 must be initialized by calling subroutine RFFTI1. Input Arguments
 
 ## Classification
 
@@ -52,37 +52,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [RFFTF1](https://www.netlib.org/slatec/fishfft/rfftf1.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the array R to be transformed.  The method is most efficient when N is a product of small primes. may change so long as different work arrays are provided. contains the sequence to be transformed. N/2; if N is odd set L = (N+1)/2 then for K = 2,...,L If N is even the sum from I = 1 to I = N of |
-| 2 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the sequence to be transformed. the sum from I=1 to I=N of R(I) the sum from I=1 to I=N of R(I) 2) = the sum from I = 1 to I = N of 1)*(I-1)*2*PI/N) 1) = the sum from I = 1 to I = N of If N is even the sum from I = 1 to I = N of Notes:  This transform is unnormalized since a call of RFFTF1 followed by a call of RFFTB1 will multiply the input sequence by N. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the length of the array R to be transformed. The method is most efficient when N is a product of small primes. N may change so long as different work arrays are provided. |
+| 2 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real array of length N which contains the sequence to be transformed. the sum from I=1 to I=N of R(I) If N is even set L = N/2; if N is odd set L = (N+1)/2 then for K = 2,. ,L the sum from I = 1 to I = N of C(I)*COS((K-1)*(I-1)*2*PI/N) -C(I)*SIN((K-1)*(I-1)*2*PI/N) (-1)**(I-1)*C(I) Notes: This transform is unnormalized since a call of RFFTF1 followed by a call of RFFTB1 will multiply the input sequence by N. |
 | 3 | `CH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real work array of length at least N. |
-| 4 | `WA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are used by subroutine RFFTB1 must be initialized by calling subroutine RFFTI1. Input Arguments a real work array which must be dimensioned at least N. must be initialized by calling must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by RFFTF1 and RFFTB1. Output Argument contain initialization calculations which must not be destroyed between calls of subroutine RFFTF1 or RFFTB1. |
-| 5 | `IFAC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | are used by subroutine RFFTB1 must be initialized by calling subroutine RFFTI1. Input Arguments an integer work array which must be dimensioned at least 15. must be initialized by calling must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first.  The same WA and IFAC arrays can be used by RFFTF1 and RFFTB1. Output Argument contain initialization calculations which must not be destroyed between calls of subroutine RFFTF1 or RFFTB1. |
+| 4 | `WA` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a real work array which must be dimensioned at least N. initialization calculations which must not be destroyed between calls of subroutine RFFTF1 or RFFTB1. |
+| 5 | `IFAC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | an integer work array which must be dimensioned at least 15. The WA and IFAC arrays must be initialized by calling subroutine RFFTI1, and different WA and IFAC arrays must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WA and IFAC arrays can be used by RFFTF1 and RFFTB1. Output Argument initialization calculations which must not be destroyed between calls of subroutine RFFTF1 or. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

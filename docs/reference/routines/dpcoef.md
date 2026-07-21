@@ -8,7 +8,7 @@ Convert the DPOLFT coefficients to Taylor series form.
 
 ## Description
 
-DPOLFT computes the least squares polynomial fit of degree L as
+DPOLFT computes the least squares polynomial fit of degree L as a sum of orthogonal polynomials. DPCOEF changes this fit to its Taylor expansion about any point C , i.e. writes the polynomial as a sum of powers of (X-C). Taking C=0. gives the polynomial in powers of X, but a suitable non-zero C often leads to polynomials which are better scaled and more accurately evaluated. The parameters for DPCOEF are
 
 ## Classification
 
@@ -54,36 +54,28 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DPCOEF](https://www.netlib.org/slatec/src/dpcoef.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Indicates the degree of polynomial to be changed to its Taylor expansion.  To obtain the Taylor coefficients in reverse order, input  L  as the negative of the degree desired.  The absolute value of L  must be less than or equal to NDEG, the highest degree polynomial fitted by  DPOLFT . |
+| 1 | `L` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Indicates the degree of polynomial to be changed to its Taylor expansion. To obtain the Taylor coefficients in reverse order, input L as the negative of the degree desired. The absolute value of L must be less than or equal to NDEG, the highest degree polynomial fitted by DPOLFT. |
 | 2 | `C` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | The point about which the Taylor expansion is to be made. |
-| 3 | `TC` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Vector containing the first LL+1 Taylor coefficients where LL=ABS(L).  If  L.GT.0 , the coefficients are in the usual Taylor series order, i.e. C) + ... + TC(N+1)*(X-C)**N C) + ... + TC(N+1)*(X-C)**N If L .LT. 0, the coefficients are in reverse order, If L .LT. 0, the coefficients are in reverse order, i.e. i.e. C)**N + ... + TC(N)*(X-C) + TC(N+1) |
-| 4 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | sum of orthogonal polynomials.  DPCOEF  changes this fit to its Taylor expansion about any point  C , i.e. writes the polynomial C).  Taking  C=0.  gives the polynomial zero  C  often leads to polynomials which are better scaled and more accurately evaluated. The parameters for  DPCOEF  are INPUT -- All TYPE REAL variables are DOUBLE PRECISION Work and output array containing values from last call to  DPOLFT . OUTPUT -- All TYPE REAL variables are DOUBLE PRECISION |
+| 3 | `TC` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Vector containing the first LL+1 Taylor coefficients where LL=ABS(L). If L. GT. 0 , the coefficients are in the usual Taylor series order, i. e. P(X) = TC(1) + TC(2)*(X-C) +. |
+| 4 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Work and output array containing values from last call to DPOLFT. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

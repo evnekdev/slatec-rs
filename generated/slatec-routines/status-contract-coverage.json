@@ -1,0 +1,5021 @@
+{
+  "complete_status_contracts": 133,
+  "records": [
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ", normal return, computation completed",
+          "source_end_line": 58,
+          "source_start_line": 58,
+          "value": "0"
+        }
+      ],
+      "routine": "BESI"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ", normal return, computation completed",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "0"
+        }
+      ],
+      "routine": "BESJ"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ",",
+          "source_end_line": 48,
+          "source_start_line": 48,
+          "value": "1"
+        },
+        {
+          "meaning": ", normal return, computation completed .0E0, I=1,...,NZ Improper input arguments - a fatal error Overflow - a fatal error",
+          "source_end_line": 55,
+          "source_start_line": 49,
+          "value": "0"
+        },
+        {
+          "meaning": "- a non-fatal error (NZ .NE. 0)",
+          "source_end_line": 56,
+          "source_start_line": 56,
+          "value": "1"
+        }
+      ],
+      "routine": "BESK"
+    },
+    {
+      "applicable": true,
+      "argument": "IND",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "BISECT"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 109,
+          "source_start_line": 109,
+          "value": "0"
+        },
+        {
+          "meaning": "1 M is less than 5.",
+          "source_end_line": 110,
+          "source_start_line": 110,
+          "value": "1"
+        },
+        {
+          "meaning": "2 N is less than 5.",
+          "source_end_line": 111,
+          "source_start_line": 111,
+          "value": "2"
+        },
+        {
+          "meaning": "3 IDIMY is less than M.",
+          "source_end_line": 112,
+          "source_start_line": 112,
+          "value": "3"
+        },
+        {
+          "meaning": "4 BLKTRI failed while computing results that depend on the coefficient arrays AN, BN, CN. Check these arrays.",
+          "source_end_line": 114,
+          "source_start_line": 113,
+          "value": "4"
+        },
+        {
+          "meaning": "5 AN(J)*CN(J-1) is less than 0 for some J. Possible reasons for this condition are 1. The arrays AN and CN are not correct. 2. Too large a grid spacing was used in the discretization of the elliptic equation. 3. The linear equations resulted from a partial differential equation which was not elliptic.",
+          "source_end_line": 121,
+          "source_start_line": 115,
+          "value": "5"
+        }
+      ],
+      "routine": "BLKTRI"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 means computation completed = M means an exponential underflow occurred on",
+          "source_end_line": 46,
+          "source_start_line": 45,
+          "value": "0"
+        }
+      ],
+      "routine": "BSKIN"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return",
+          "source_end_line": 42,
+          "source_start_line": 42,
+          "value": "0"
+        },
+        {
+          "meaning": "AI=0 due to underflow in",
+          "source_end_line": 44,
+          "source_start_line": 43,
+          "value": "1"
+        }
+      ],
+      "routine": "CAIRY"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return for NZ values of L (if M=1 and",
+          "source_end_line": 45,
+          "source_start_line": 44,
+          "value": "0"
+        },
+        {
+          "meaning": "and Im(Z)<0, then",
+          "source_end_line": 46,
+          "source_start_line": 46,
+          "value": "2"
+        }
+      ],
+      "routine": "CBESH"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return , L=N-NZ+1,...,N",
+          "source_end_line": 41,
+          "source_start_line": 40,
+          "value": "0"
+        }
+      ],
+      "routine": "CBESI"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return , L=N-NZ+1,...,N",
+          "source_end_line": 43,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "CBESJ"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return for NZ values of L (if Re(Z)>0 for L=1,...,NZ; in the complementary half plane the underflows may not be in an uninterrupted sequence)",
+          "source_end_line": 46,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "CBESK"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return for NZ values of L, usually on",
+          "source_end_line": 46,
+          "source_start_line": 45,
+          "value": "0"
+        }
+      ],
+      "routine": "CBESY"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 110,
+          "source_start_line": 110,
+          "value": "0"
+        },
+        {
+          "meaning": "1 M is less than 5.",
+          "source_end_line": 111,
+          "source_start_line": 111,
+          "value": "1"
+        },
+        {
+          "meaning": "2 N is less than 5.",
+          "source_end_line": 112,
+          "source_start_line": 112,
+          "value": "2"
+        },
+        {
+          "meaning": "3 IDIMY is less than M.",
+          "source_end_line": 113,
+          "source_start_line": 113,
+          "value": "3"
+        },
+        {
+          "meaning": "4 BLKTRI failed while computing results that depend on the coefficient arrays AN, BN, CN. Check these arrays.",
+          "source_end_line": 115,
+          "source_start_line": 114,
+          "value": "4"
+        },
+        {
+          "meaning": "5 AN(J)*CN(J-1) is less than 0 for some J. Possible reasons for this condition are 1. The arrays AN and CN are not correct. 2. Too large a grid spacing was used in the discretization of the elliptic equation. 3. The linear equations resulted from a partial differential equation which was not elliptic.",
+          "source_end_line": 122,
+          "source_start_line": 116,
+          "value": "5"
+        }
+      ],
+      "routine": "CBLKTR"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "CCHDC"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 if the entire downdating was successful.",
+          "source_end_line": 106,
+          "source_start_line": 105,
+          "value": "0"
+        },
+        {
+          "meaning": "if R could not be downdated. in this case, all quantities are left unaltered.",
+          "source_end_line": 110,
+          "source_start_line": 108,
+          "value": "-1"
+        },
+        {
+          "meaning": "1 if some RHO could not be downdated. The offending RHO's are set to -1.",
+          "source_end_line": 114,
+          "source_start_line": 112,
+          "value": "1"
+        }
+      ],
+      "routine": "CCHDD"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that CGBSL will divide by zero if called. Use RCOND in CGBCO for a reliable indication of singularity. Band Storage If A is a band matrix, the following program segment will set up the input.",
+          "source_end_line": 63,
+          "source_start_line": 53,
+          "value": "0"
+        }
+      ],
+      "routine": "CGBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal return, calculation successful. = K if the eigenvalue iteration fails to converge, eigenvalues K+1 through N are correct, but no eigenvectors were computed even if they were requested (JOB nonzero). No. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one. No. 3 recoverable JOB is nonzero and N is greater than LDV No. 4 warning LDA > LDV, elements of A other than the N by N input elements have been changed No. 5 warning LDA < LDV, elements of V other than the N by N output elements have been changed",
+          "source_end_line": 84,
+          "source_start_line": 71,
+          "value": "0"
+        }
+      ],
+      "routine": "CGEEV"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that CGESL or CGEDI will divide by zero if called. Use RCOND in CGECO for a reliable indication of singularity.",
+          "source_end_line": 47,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "CGEFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th element of the diagonal becomes exactly zero. The subroutine returns when this is detected.",
+          "source_end_line": 45,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "CGTSL"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal return, calculation successful. = K if the eigenvalue iteration fails to converge, eigenvalues (and eigenvectors if requested) 1 through K-1 are correct. No. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one. No. 3 recoverable JOB is nonzero and N is greater than LDV No. 4 warning LDA > LDV, elements of A other than the N by N input elements have been changed No. 5 warning LDA < LDV, elements of V other than the N by N output elements have been changed No. 6 recoverable nonreal element on diagonal of A.",
+          "source_end_line": 87,
+          "source_start_line": 74,
+          "value": "0"
+        }
+      ],
+      "routine": "CHIEV"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that CHISL or CHIDI may divide by zero if called.",
+          "source_end_line": 52,
+          "source_start_line": 48,
+          "value": "0"
+        }
+      ],
+      "routine": "CHIFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that CHPSL or CHPDI may divide by zero if called. Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix.",
+          "source_end_line": 59,
+          "source_start_line": 48,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 62,
+          "source_start_line": 60,
+          "value": "1"
+        }
+      ],
+      "routine": "CHPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 97,
+          "source_start_line": 97,
+          "value": "0"
+        },
+        {
+          "meaning": "1 M .LE. 2",
+          "source_end_line": 98,
+          "source_start_line": 98,
+          "value": "1"
+        },
+        {
+          "meaning": "2 N .LE. 2",
+          "source_end_line": 99,
+          "source_start_line": 99,
+          "value": "2"
+        },
+        {
+          "meaning": "3 IDIMY .LT. M",
+          "source_end_line": 100,
+          "source_start_line": 100,
+          "value": "3"
+        },
+        {
+          "meaning": "4 NPEROD .LT. 0 or NPEROD .GT. 4",
+          "source_end_line": 101,
+          "source_start_line": 101,
+          "value": "4"
+        },
+        {
+          "meaning": "5 MPEROD .LT. 0 or MPEROD .GT. 1",
+          "source_end_line": 102,
+          "source_start_line": 102,
+          "value": "5"
+        },
+        {
+          "meaning": "6 A(I) .NE. C(1) or C(I) .NE. C(1) or B(I) .NE. B(1) for",
+          "source_end_line": 103,
+          "source_start_line": 103,
+          "value": "6"
+        },
+        {
+          "meaning": ",2,...,M.",
+          "source_end_line": 104,
+          "source_start_line": 104,
+          "value": "1"
+        },
+        {
+          "meaning": "7 A(1) .NE. 0 or C(M) .NE. 0 and MPEROD = 1",
+          "source_end_line": 105,
+          "source_start_line": 105,
+          "value": "7"
+        }
+      ],
+      "routine": "CMGNBN"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "normal value =K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that CNBSL will divide by zero if called. Use RCOND in CNBCO for a reliable indication of singularity. Band Storage If A is a band matrix, the following program segment will set up the input.",
+          "source_end_line": 66,
+          "source_start_line": 56,
+          "value": "0"
+        }
+      ],
+      "routine": "CNBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Band Storage If A is a Hermitian positive definite band matrix, the following program segment will set up the input.",
+          "source_end_line": 75,
+          "source_start_line": 68,
+          "value": "0"
+        }
+      ],
+      "routine": "CPBCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the leading minor of order K is not positive definite. Band Storage If A is a Hermitian positive definite band matrix, the following program segment will set up the input.",
+          "source_end_line": 52,
+          "source_start_line": 45,
+          "value": "0"
+        }
+      ],
+      "routine": "CPBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.",
+          "source_end_line": 64,
+          "source_start_line": 62,
+          "value": "0"
+        }
+      ],
+      "routine": "CPOCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.",
+          "source_end_line": 41,
+          "source_start_line": 39,
+          "value": "0"
+        }
+      ],
+      "routine": "CPOFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix.",
+          "source_end_line": 70,
+          "source_start_line": 61,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 73,
+          "source_start_line": 71,
+          "value": "1"
+        }
+      ],
+      "routine": "CPPCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K If the leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a Hermitian matrix.",
+          "source_end_line": 48,
+          "source_start_line": 38,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 51,
+          "source_start_line": 49,
+          "value": "1"
+        }
+      ],
+      "routine": "CPPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "CQRSL"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that CSISL or CSIDI may divide by zero if called.",
+          "source_end_line": 51,
+          "source_start_line": 47,
+          "value": "0"
+        }
+      ],
+      "routine": "CSIFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that CSPSL or CSPDI may divide by zero if called. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 58,
+          "source_start_line": 47,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 61,
+          "source_start_line": 59,
+          "value": "1"
+        }
+      ],
+      "routine": "CSPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "CSVDC"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "CTRDI"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "CTRSL"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ", normal return, computation completed",
+          "source_end_line": 62,
+          "source_start_line": 62,
+          "value": "0"
+        }
+      ],
+      "routine": "DBESI"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ", normal return, computation completed",
+          "source_end_line": 53,
+          "source_start_line": 53,
+          "value": "0"
+        }
+      ],
+      "routine": "DBESJ"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ",",
+          "source_end_line": 52,
+          "source_start_line": 52,
+          "value": "1"
+        },
+        {
+          "meaning": ", normal return, computation completed .0D0, I=1,...,NZ Improper input arguments - a fatal error Overflow - a fatal error",
+          "source_end_line": 59,
+          "source_start_line": 53,
+          "value": "0"
+        },
+        {
+          "meaning": "- a non-fatal error (NZ .NE. 0)",
+          "source_end_line": 60,
+          "source_start_line": 60,
+          "value": "1"
+        }
+      ],
+      "routine": "DBESK"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "DCHDC"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 if the entire downdating was successful.",
+          "source_end_line": 106,
+          "source_start_line": 105,
+          "value": "0"
+        },
+        {
+          "meaning": "if R could not be downdated. in this case, all quantities are left unaltered.",
+          "source_end_line": 110,
+          "source_start_line": 108,
+          "value": "-1"
+        },
+        {
+          "meaning": "1 if some RHO could not be downdated. The offending RHO's are set to -1.",
+          "source_end_line": 114,
+          "source_start_line": 112,
+          "value": "1"
+        }
+      ],
+      "routine": "DCHDD"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "a normal return",
+          "source_end_line": 71,
+          "source_start_line": 71,
+          "value": "0"
+        }
+      ],
+      "routine": "DEXINT"
+    },
+    {
+      "applicable": true,
+      "argument": "IFLAG",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0. However, the interval (B,C) may not have collapsed to the requested tolerance. 3 B may be near a singular point of F(X). The interval (B,C) collapsed to the requested tol- erance and the function changes sign in (B,C), but F(X) increased in magnitude as (B,C) collapsed, i.e.",
+          "source_end_line": 70,
+          "source_start_line": 64,
+          "value": "0"
+        },
+        {
+          "meaning": "MAX(ABS(F(B in)),ABS(F(C in))) 4 No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether",
+          "source_end_line": 75,
+          "source_start_line": 71,
+          "value": ">0"
+        }
+      ],
+      "routine": "DFZERO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that DGBSL will divide by zero if called. Use RCOND in DGBCO for a reliable indication of singularity. Band Storage If A is a band matrix, the following program segment will set up the input.",
+          "source_end_line": 63,
+          "source_start_line": 53,
+          "value": "0"
+        }
+      ],
+      "routine": "DGBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that DGESL or DGEDI will divide by zero if called. Use RCOND in DGECO for a reliable indication of singularity.",
+          "source_end_line": 47,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "DGEFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 original call",
+          "source_end_line": 76,
+          "source_start_line": 76,
+          "value": "0"
+        },
+        {
+          "meaning": "1 subsequent calls On subsequent calls, the user must supply A, INFO, LW, IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to DGLSS. -1 Parameter error(s) 0 - Full rank N.GT.0 - Reduced rank rank=MIN(M,N)-INFO",
+          "source_end_line": 107,
+          "source_start_line": 77,
+          "value": "1"
+        }
+      ],
+      "routine": "DGLSS"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th element of the diagonal becomes exactly zero. The subroutine returns when this is detected.",
+          "source_end_line": 45,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "DGTSL"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 original call",
+          "source_end_line": 103,
+          "source_start_line": 103,
+          "value": "0"
+        },
+        {
+          "meaning": "1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*N locations of WORK as output by the original call to DLLSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK are accessed. AE, RE, KEY, and NP are not accessed. -1 Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length solution 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank",
+          "source_end_line": 146,
+          "source_start_line": 104,
+          "value": "1"
+        }
+      ],
+      "routine": "DLLSIA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "normal value =K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that DNBSL will divide by zero if called. Use RCOND in DNBCO for a reliable indication of singularity. Band Storage If A is a band matrix, the following program segment will set up the input.",
+          "source_end_line": 66,
+          "source_start_line": 56,
+          "value": "0"
+        }
+      ],
+      "routine": "DNBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Band Storage If A is a symmetric positive definite band matrix, the following program segment will set up the input.",
+          "source_end_line": 75,
+          "source_start_line": 68,
+          "value": "0"
+        }
+      ],
+      "routine": "DPBCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the leading minor of order K is not positive definite. Band Storage If A is a symmetric positive definite band matrix, the following program segment will set up the input.",
+          "source_end_line": 52,
+          "source_start_line": 45,
+          "value": "0"
+        }
+      ],
+      "routine": "DPBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.",
+          "source_end_line": 64,
+          "source_start_line": 62,
+          "value": "0"
+        }
+      ],
+      "routine": "DPOCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.",
+          "source_end_line": 42,
+          "source_start_line": 40,
+          "value": "0"
+        }
+      ],
+      "routine": "DPOFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 71,
+          "source_start_line": 62,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 74,
+          "source_start_line": 72,
+          "value": "1"
+        }
+      ],
+      "routine": "DPPCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 48,
+          "source_start_line": 38,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 51,
+          "source_start_line": 49,
+          "value": "1"
+        }
+      ],
+      "routine": "DPPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 70,
+          "source_start_line": 68,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine The estimates for RESULT and ERROR are Less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 74,
+          "source_start_line": 71,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). HOWEVER, If this yield no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (I.E. SINGULARITY, DISCONTINUITY WITHIN THE INTERVAL) One will probably gain from splitting up the interval at this point and calling the INTEGRATOR on the SUBRANGES. If possible, AN APPROPRIATE SPECIAL-PURPOSE INTEGRATOR should be used which is designed for handling the type of difficulty involved.",
+          "source_end_line": 92,
+          "source_start_line": 76,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 95,
+          "source_start_line": 93,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 98,
+          "source_start_line": 96,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 AND EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) OR LIMIT.LT.1 OR LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. EXCEPT when LENW is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B. 6.",
+          "source_end_line": 122,
+          "source_start_line": 99,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAG"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 68,
+          "source_start_line": 66,
+          "value": "0"
+        },
+        {
+          "meaning": "abnormal termination of the routine. The estimates for result and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 72,
+          "source_start_line": 69,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 90,
+          "source_start_line": 74,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 94,
+          "source_start_line": 91,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 97,
+          "source_start_line": 95,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is assumed that the requested tolerance cannot be achieved, and that the returned RESULT is the best which can be obtained.",
+          "source_end_line": 103,
+          "source_start_line": 98,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 107,
+          "source_start_line": 104,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1 or LENIW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LIMIT or LENIW is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to ZERO, WORK(1) is set to A and WORK(LIMIT+1) to B.",
+          "source_end_line": 116,
+          "source_start_line": 108,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAGI"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 69,
+          "source_start_line": 67,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for result and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 73,
+          "source_start_line": 70,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 91,
+          "source_start_line": 75,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 95,
+          "source_start_line": 92,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 98,
+          "source_start_line": 96,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is assumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 104,
+          "source_start_line": 99,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 108,
+          "source_start_line": 105,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28), RESULT, ABSERR, NEVAL, LAST, RLIST(1), ELIST(1) and IORD(1) are set to zero. ALIST(1) and BLIST(1) are set to 0 and 1 respectively.",
+          "source_end_line": 115,
+          "source_start_line": 109,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAGIE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 77,
+          "source_start_line": 75,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. it is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 81,
+          "source_start_line": 78,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. one can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (i.e. SINGULARITY, DISCONTINUITY within the interval), it should be supplied to the routine as an element of the vector points. If necessary an appropriate special-purpose integrator must be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 98,
+          "source_start_line": 83,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 102,
+          "source_start_line": 99,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 105,
+          "source_start_line": 103,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned RESULT is the best which can be obtained.",
+          "source_end_line": 112,
+          "source_start_line": 106,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. it must be noted that divergence can occur with any other value",
+          "source_end_line": 115,
+          "source_start_line": 113,
+          "value": "5"
+        },
+        {
+          "meaning": ".",
+          "source_end_line": 116,
+          "source_start_line": 116,
+          "value": ">0"
+        },
+        {
+          "meaning": "6 The input is invalid because NPTS2.LT.2 or break points are specified outside the integration range or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENIW or LENW or NPTS2 is invalid, IWORK(1), IWORK(LIMIT+1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) WORK(1) is set to A and WORK(LIMIT+1) to B (where LIMIT = (LENIW-NPTS2)/2).",
+          "source_end_line": 129,
+          "source_start_line": 117,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAGP"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 68,
+          "source_start_line": 68,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 84,
+          "source_start_line": 82,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 88,
+          "source_start_line": 85,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (i.e. SINGULARITY, DISCONTINUITY within the interval), it should be supplied to the routine as an element of the vector points. If necessary an appropriate special-purpose integrator must be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 105,
+          "source_start_line": 90,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 109,
+          "source_start_line": 106,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs At some points of the integration interval.",
+          "source_end_line": 112,
+          "source_start_line": 110,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 118,
+          "source_start_line": 113,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value",
+          "source_end_line": 121,
+          "source_start_line": 119,
+          "value": "5"
+        },
+        {
+          "meaning": ".",
+          "source_end_line": 122,
+          "source_start_line": 122,
+          "value": ">0"
+        },
+        {
+          "meaning": "6 The input is invalid because NPTS2.LT.2 or Break points are specified outside the integration range or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.NPTS2. RESULT, ABSERR, NEVAL, LAST, RLIST(1), and ELIST(1) are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 132,
+          "source_start_line": 123,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAGPE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 63,
+          "source_start_line": 61,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 67,
+          "source_start_line": 64,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT (and taking the according dimension adjustments into account. However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (E.G. SINGULARITY, DISCONTINUITY WITHIN THE INTERVAL) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 85,
+          "source_start_line": 69,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 89,
+          "source_start_line": 86,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 92,
+          "source_start_line": 90,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the Extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 98,
+          "source_start_line": 93,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 102,
+          "source_start_line": 99,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 AND EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28) OR LIMIT.LT.1 OR LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LIMIT or LENW is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) TO B.",
+          "source_end_line": 111,
+          "source_start_line": 103,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAGS"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 66,
+          "source_start_line": 64,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 70,
+          "source_start_line": 67,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. singularity, discontinuity within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 88,
+          "source_start_line": 72,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 92,
+          "source_start_line": 89,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 95,
+          "source_start_line": 93,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 102,
+          "source_start_line": 96,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 106,
+          "source_start_line": 103,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28). RESULT, ABSERR, NEVAL, LAST, RLIST(1), IORD(1) and ELIST(1) are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 113,
+          "source_start_line": 107,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAGSE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6 .",
+          "source_end_line": 44,
+          "source_start_line": 44,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 68,
+          "source_start_line": 66,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 72,
+          "source_start_line": 69,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges.",
+          "source_end_line": 87,
+          "source_start_line": 74,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 90,
+          "source_start_line": 88,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 93,
+          "source_start_line": 91,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because C = A or C = B or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1 or LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENW or LIMIT is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B. 6.",
+          "source_end_line": 117,
+          "source_start_line": 94,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAWC"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 44,
+          "source_start_line": 44,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 72,
+          "source_start_line": 70,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 76,
+          "source_start_line": 73,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT. However, if this yields no improvement it is advised to analyze the the integrand, in order to determine the the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges.",
+          "source_end_line": 90,
+          "source_start_line": 78,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 93,
+          "source_start_line": 91,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some interior points of the integration interval.",
+          "source_end_line": 96,
+          "source_start_line": 94,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because C = A or C = B or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1. RESULT, ABSERR, NEVAL, RLIST(1), ELIST(1), IORD(1) and LAST are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 105,
+          "source_start_line": 97,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAWCE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 67,
+          "source_start_line": 65,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved. If OMEGA.NE.0",
+          "source_end_line": 73,
+          "source_start_line": 68,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of cycles allowed has been achieved, i.e. of subintervals (A+(K-1)C,A+KC) where C = (2*INT(ABS(OMEGA))+1)*PI/ABS(OMEGA), 1, 2, ..., LST. One can allow more cycles by increasing the value of LIMLST (and taking the according dimension adjustments into account). Examine the array IWORK which contains the error flags on the cycles, in order to look for eventual local integration difficulties. If the position of a local difficulty can be determined (e.g. singularity, discontinuity within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges.",
+          "source_end_line": 91,
+          "source_start_line": 74,
+          "value": "1"
+        },
+        {
+          "meaning": "4 The extrapolation table constructed for convergence acceleration of the series formed by the integral contributions over the cycles, does not converge to within the requested accuracy.",
+          "source_end_line": 96,
+          "source_start_line": 92,
+          "value": "4"
+        },
+        {
+          "meaning": "1, it is advised to examine the array IWORK which contains the error flags on the cycles.",
+          "source_end_line": 99,
+          "source_start_line": 97,
+          "value": "1"
+        },
+        {
+          "meaning": "6 The input is invalid because (INTEGR.NE.1 AND INTEGR.NE.2) or EPSABS.LE.0 or LIMLST.LT.1 or LENIW.LT.(LIMLST+2) or MAXP1.LT.1 or LENW.LT.(LENIW*2+MAXP1*25). RESULT, ABSERR, NEVAL, LST are set to zero.",
+          "source_end_line": 106,
+          "source_start_line": 100,
+          "value": "6"
+        },
+        {
+          "meaning": "7 Bad integrand behaviour occurs within one or more of the cycles. Location and type of the difficulty involved can be determined from the first LST elements of vector IWORK. Here LST is the number of cycles actually needed (see below).",
+          "source_end_line": 112,
+          "source_start_line": 107,
+          "value": "7"
+        },
+        {
+          "meaning": "1 The maximum number of subdivisions (=(LENIW-LIMLST) /2) has been achieved on the K th cycle.",
+          "source_end_line": 116,
+          "source_start_line": 113,
+          "value": "1"
+        },
+        {
+          "meaning": "2 Occurrence of roundoff error is detected and prevents the tolerance imposed on the K th cycle, from being achieved on this cycle.",
+          "source_end_line": 121,
+          "source_start_line": 117,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the K th cycle.",
+          "source_end_line": 124,
+          "source_start_line": 122,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The integration procedure over the K th cycle does not converge (to within the required accuracy) due to roundoff in the extrapolation procedure invoked on this cycle. It is assumed that the result on this interval is the best which can be obtained.",
+          "source_end_line": 134,
+          "source_start_line": 125,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral over the K th cycle is probably divergent or slowly convergent. It must be noted that divergence can occur with any other value of IWORK(K).",
+          "source_end_line": 140,
+          "source_start_line": 135,
+          "value": "5"
+        },
+        {
+          "meaning": "0 and INTEGR = 1, The integral is calculated by means of DQAGIE, and IER = IWORK(1) (with meaning as described",
+          "source_end_line": 143,
+          "source_start_line": 141,
+          "value": "0"
+        },
+        {
+          "meaning": "1).",
+          "source_end_line": 144,
+          "source_start_line": 144,
+          "value": "1"
+        }
+      ],
+      "routine": "DQAWF"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 75,
+          "source_start_line": 73,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 79,
+          "source_start_line": 76,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved (= LENIW/2). One can allow more subdivisions by increasing the value of LENIW (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used which is designed for handling the type of difficulty involved.",
+          "source_end_line": 98,
+          "source_start_line": 81,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 102,
+          "source_start_line": 99,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some interior points of the integration interval.",
+          "source_end_line": 105,
+          "source_start_line": 103,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved due to roundoff in the extrapolation table, and that the returned result is the best which can be obtained.",
+          "source_end_line": 112,
+          "source_start_line": 106,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 116,
+          "source_start_line": 113,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or (INTEGR.NE.1 AND INTEGR.NE.2), or LENIW.LT.2 OR MAXP1.LT.1 or LENW.LT.LENIW*2+MAXP1*25. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENIW, MAXP1 or LENW are invalid, WORK(LIMIT*2+1), WORK(LIMIT*3+1), IWORK(1), IWORK(LIMIT+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B.",
+          "source_end_line": 128,
+          "source_start_line": 117,
+          "value": "6"
+        }
+      ],
+      "routine": "DQAWO"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 52,
+          "source_start_line": 47,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 85,
+          "source_start_line": 83,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine The estimates for the integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 89,
+          "source_start_line": 86,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand, in order to determine the integration difficulties which prevent the requested tolerance from being achieved. In case of a jump discontinuity or a local singularity of algebraico-logarithmic type at one or more interior points of the integration range, one should proceed by splitting up the interval at these points and calling the integrator on the subranges.",
+          "source_end_line": 106,
+          "source_start_line": 91,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 109,
+          "source_start_line": 107,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 112,
+          "source_start_line": 110,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because B.LE.A or ALFA.LE.(-1) or BETA.LE.(-1) or",
+          "source_end_line": 114,
+          "source_start_line": 113,
+          "value": "6"
+        },
+        {
+          "meaning": "or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.2 or LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENW or LIMIT is invalid IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B.",
+          "source_end_line": 123,
+          "source_start_line": 115,
+          "value": ">0"
+        }
+      ],
+      "routine": "DQAWS"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 53,
+          "source_start_line": 48,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 91,
+          "source_start_line": 89,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for the integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 95,
+          "source_start_line": 92,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT. However, if this yields no improvement, it is advised to analyze the integrand in order to determine the integration difficulties which prevent the requested tolerance from being achieved. In case of a jump DISCONTINUITY or a local SINGULARITY of algebraico-logarithmic type at one or more interior points of the integration range, one should proceed by splitting up the interval at these points and calling the integrator on the subranges.",
+          "source_end_line": 111,
+          "source_start_line": 97,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 114,
+          "source_start_line": 112,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 117,
+          "source_start_line": 115,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because B.LE.A or ALFA.LE.(-1) or BETA.LE.(-1), or",
+          "source_end_line": 119,
+          "source_start_line": 118,
+          "value": "6"
+        },
+        {
+          "meaning": ", or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28), or LIMIT.LT.2. RESULT, ABSERR, NEVAL, RLIST(1), ELIST(1), IORD(1) and LAST are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 127,
+          "source_start_line": 120,
+          "value": ">0"
+        }
+      ],
+      "routine": "DQAWSE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Abnormal termination of the routine. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 69,
+          "source_start_line": 67,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 The maximum number of steps has been executed. The integral is probably too difficult to be calculated by DQNG.",
+          "source_end_line": 73,
+          "source_start_line": 71,
+          "value": "1"
+        },
+        {
+          "meaning": "6 The input is invalid, because EPSABS.LE.0 AND EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28). RESULT, ABSERR and NEVAL are set to zero.",
+          "source_end_line": 77,
+          "source_start_line": 74,
+          "value": "6"
+        }
+      ],
+      "routine": "DQNG"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "DQRSL"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "No errors.",
+          "source_end_line": 47,
+          "source_start_line": 47,
+          "value": "0"
+        },
+        {
+          "meaning": "Either L2.LT.ABS(M2) or L3.LT.ABS(M3).",
+          "source_end_line": 48,
+          "source_start_line": 48,
+          "value": "1"
+        },
+        {
+          "meaning": "Either L2+ABS(M2) or L3+ABS(M3) non-integer.",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "2"
+        },
+        {
+          "meaning": "L1MAX-L1MIN not an integer.",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "3"
+        },
+        {
+          "meaning": "L1MAX less than L1MIN.",
+          "source_end_line": 51,
+          "source_start_line": 51,
+          "value": "4"
+        },
+        {
+          "meaning": "NDIM less than L1MAX-L1MIN+1.",
+          "source_end_line": 52,
+          "source_start_line": 52,
+          "value": "5"
+        }
+      ],
+      "routine": "DRC3JJ"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "No errors.",
+          "source_end_line": 47,
+          "source_start_line": 47,
+          "value": "0"
+        },
+        {
+          "meaning": "Either L1.LT.ABS(M1) or L1+ABS(M1) non-integer.",
+          "source_end_line": 48,
+          "source_start_line": 48,
+          "value": "1"
+        },
+        {
+          "meaning": "ABS(L1-L2).LE.L3.LE.L1+L2 not satisfied.",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "2"
+        },
+        {
+          "meaning": "L1+L2+L3 not an integer.",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "3"
+        },
+        {
+          "meaning": "M2MAX-M2MIN not an integer.",
+          "source_end_line": 51,
+          "source_start_line": 51,
+          "value": "4"
+        },
+        {
+          "meaning": "M2MAX less than M2MIN.",
+          "source_end_line": 52,
+          "source_start_line": 52,
+          "value": "5"
+        },
+        {
+          "meaning": "NDIM less than M2MAX-M2MIN+1.",
+          "source_end_line": 53,
+          "source_start_line": 53,
+          "value": "6"
+        }
+      ],
+      "routine": "DRC3JM"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "No errors.",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "0"
+        },
+        {
+          "meaning": "L2+L3+L5+L6 or L4+L2+L6 not an integer.",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "1"
+        },
+        {
+          "meaning": "L4, L2, L6 triangular condition not satisfied.",
+          "source_end_line": 51,
+          "source_start_line": 51,
+          "value": "2"
+        },
+        {
+          "meaning": "L4, L5, L3 triangular condition not satisfied.",
+          "source_end_line": 52,
+          "source_start_line": 52,
+          "value": "3"
+        },
+        {
+          "meaning": "L1MAX-L1MIN not an integer.",
+          "source_end_line": 53,
+          "source_start_line": 53,
+          "value": "4"
+        },
+        {
+          "meaning": "L1MAX less than L1MIN.",
+          "source_end_line": 54,
+          "source_start_line": 54,
+          "value": "5"
+        },
+        {
+          "meaning": "NDIM less than L1MAX-L1MIN+1.",
+          "source_end_line": 55,
+          "source_start_line": 55,
+          "value": "6"
+        }
+      ],
+      "routine": "DRC6J"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that DSISL or DSIDI may divide by zero if called.",
+          "source_end_line": 52,
+          "source_start_line": 48,
+          "value": "0"
+        }
+      ],
+      "routine": "DSIFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that DSPSL or DSPDI may divide by zero if called. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 59,
+          "source_start_line": 48,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 62,
+          "source_start_line": 60,
+          "value": "1"
+        }
+      ],
+      "routine": "DSPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "the solution has been computed. In this case X(J)=PRIMAL(J) and W(I)=PRIMAL(I+NVARS). The dual variables for the equations A*x=w are in the array DUALS(I)=dual for equation number I. The dual value for the component X(J) that has an upper or lower bound (or both) is returned in The integer flag INFO indicates why DSPLP( ) has returned to the CALCULATE VAL, THE MINIMAL VALUE OF THE OBJECTIVE FUNCTION. VAL=DDOT(NVARS,COSTS,1,PRIMAL,1) STOP END |End of Example of Usage | |Usage of DSPLP( ) Subprogram Options.| Users frequently have a large variety of requirements for linear optimization software. Allowing for these varied requirements is at cross purposes with the desire to keep the usage of DSPLP( ) as simple as possible. One solution to this dilemma is as follows. (1) Provide a version of DSPLP( ) that solves a wide class of problems and is easy to use. (2) Identify parameters within DSPLP() that certain users may want to change. (3) Provide a means of changing any selected number of these parameters that does not require changing all of them. Changing selected parameters is done by requiring that the user provide an option array, PRGOPT(*), to DSPLP( ). The contents of PRGOPT(*) inform DSPLP( ) of just those options that are going to be modified within the total set of possible parameters that can be modified. The array PRGOPT(*) is a linked list consisting of groups of data of the following form LINK KEY SWITCH data set that describe the desired options. The parameters LINK, KEY and switch are each one word and are always required. The data set can be comprised of several words or can be empty. The number of words in the data set for each option depends on the value of the parameter KEY. The value of LINK points to the first entry of the next group of data within PRGOPT(*). The exception is when there are no more and the values for KEY, SWITCH and data set are not referenced. The general layout of",
+          "source_end_line": 960,
+          "source_start_line": 263,
+          "value": "1"
+        },
+        {
+          "meaning": ".",
+          "source_end_line": 1171,
+          "source_start_line": 1171,
+          "value": "-17"
+        },
+        {
+          "meaning": "option is off; no checking of the data matrix is done",
+          "source_end_line": 1172,
+          "source_start_line": 1172,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on; checking is done. data set =ASMALL ABIG",
+          "source_end_line": 1175,
+          "source_start_line": 1173,
+          "value": "1"
+        },
+        {
+          "meaning": "checking if the residuals are feasible. Normally, TOLLS=RELPR, where RELPR is the machine precision.",
+          "source_end_line": 1180,
+          "source_start_line": 1176,
+          "value": "5"
+        },
+        {
+          "meaning": "option is off; TOLLS=RELPR.",
+          "source_end_line": 1181,
+          "source_start_line": 1181,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on. data set =TOLLS",
+          "source_end_line": 1183,
+          "source_start_line": 1182,
+          "value": "1"
+        },
+        {
+          "meaning": "columns to enter the basis. Normally, DSPLP( ) uses the steepest edge pricing strategy which is the best local move. The steepest edge pricing strategy generally uses fewer iterations than the minimum reduced cost pricing, but each iteration costs more in the number of calculations done. The steepest edge pricing is considered to be more efficient. However, this is very problem dependent. That is why DSPLP( ) provides the option of either pricing strategy.",
+          "source_end_line": 1194,
+          "source_start_line": 1184,
+          "value": "4"
+        },
+        {
+          "meaning": "option is off; steepest option edge pricing is used.",
+          "source_end_line": 1195,
+          "source_start_line": 1195,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on; minimum reduced cost pricing is used. data set =empty",
+          "source_end_line": 1197,
+          "source_start_line": 1196,
+          "value": "1"
+        },
+        {
+          "meaning": "recalculating the error in the primal solution. Normally, MXITBR is set to 10. The error in the primal solution is used to monitor the error in solving the linear system. This is an expensive calculation and every tenth iteration is generally often enough.",
+          "source_end_line": 1204,
+          "source_start_line": 1198,
+          "value": "3"
+        },
+        {
+          "meaning": "option is off; MXITBR=10.",
+          "source_end_line": 1205,
+          "source_start_line": 1205,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on. data set =MXITBR",
+          "source_end_line": 1207,
+          "source_start_line": 1206,
+          "value": "1"
+        },
+        {
+          "meaning": "(at most) to be found at each iteration of choosing a variable to enter the basis. Normally NPP is set to NVARS which implies that all of the reduced costs are computed at each such step. This \"partial pricing\" may very well increase the total number of iterations required. However it decreases the number of calculations at each iteration. therefore the effect on overall efficiency is quite problem-dependent.",
+          "source_end_line": 1219,
+          "source_start_line": 1208,
+          "value": "4"
+        },
+        {
+          "meaning": "option is off; NPP=NVARS",
+          "source_end_line": 1221,
+          "source_start_line": 1221,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on. data set =NPP",
+          "source_end_line": 1223,
+          "source_start_line": 1222,
+          "value": "1"
+        },
+        {
+          "meaning": "error estimates for the primal and dual linear algebraic systems",
+          "source_end_line": 1227,
+          "source_start_line": 1224,
+          "value": "4"
+        },
+        {
+          "meaning": "1.D0, but in some environments it may be necessary to reset PHI to the range 0.001-0.01. This is particularly important for machines with short word lengths.",
+          "source_end_line": 1230,
+          "source_start_line": 1228,
+          "value": "1"
+        },
+        {
+          "meaning": "0 option is off; PHI=1.D0.",
+          "source_end_line": 1232,
+          "source_start_line": 1232,
+          "value": "0"
+        },
+        {
+          "meaning": "1 option is on. Data Set = PHI",
+          "source_end_line": 1234,
+          "source_start_line": 1233,
+          "value": "1"
+        },
+        {
+          "meaning": "with the DSPLP() package, for passing a standard Fortran two- dimensional array containing the constraint matrix. Thus the sub- program DFULMT must be declared in a Fortran EXTERNAL statement. The two-dimensional array is passed as the argument DATTRV. The information about the array and problem dimensions are passed in the option array PRGOPT(*). It is an error if DFULMT() is used and this information is not passed in PRGOPT(*).",
+          "source_end_line": 1244,
+          "source_start_line": 1235,
+          "value": "4"
+        },
+        {
+          "meaning": "0 option is off; this is an error is DFULMT() is used.",
+          "source_end_line": 1247,
+          "source_start_line": 1246,
+          "value": "0"
+        },
+        {
+          "meaning": "1 option is on. Data Set = IA = row dimension of two-dimensional array.",
+          "source_end_line": 1249,
+          "source_start_line": 1248,
+          "value": "1"
+        }
+      ],
+      "routine": "DSPLP"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "DSVDC"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "DTRDI"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "DTRSL"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 original call",
+          "source_end_line": 106,
+          "source_start_line": 106,
+          "value": "0"
+        },
+        {
+          "meaning": "1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*M locations of WORK as output by the original call to DULSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK are accessed. AE, RE, KEY, and NP are not accessed. -1 Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length least squares sol 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank",
+          "source_end_line": 153,
+          "source_start_line": 107,
+          "value": "1"
+        }
+      ],
+      "routine": "DULSIA"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "or 211, invalid input was provided to DXLEGF.",
+          "source_end_line": 99,
+          "source_start_line": 99,
+          "value": "210"
+        },
+        {
+          "meaning": ",202,203, or 204, invalid input was provided to DXSET.",
+          "source_end_line": 100,
+          "source_start_line": 100,
+          "value": "201"
+        },
+        {
+          "meaning": "or 206, an internal consistency error occurred in DXSET (probably due to a software malfunction in the library routine I1MACH).",
+          "source_end_line": 103,
+          "source_start_line": 101,
+          "value": "205"
+        },
+        {
+          "meaning": ", an overflow or underflow of an extended-range number was detected in DXADJ.",
+          "source_end_line": 105,
+          "source_start_line": 104,
+          "value": "207"
+        },
+        {
+          "meaning": ", an overflow or underflow of an extended-range number was detected in DXC210. SEE ALSO DXSET",
+          "source_end_line": 109,
+          "source_start_line": 106,
+          "value": "208"
+        }
+      ],
+      "routine": "DXLEGF"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "when control returns to the calling routine. If an error is detected, IERROR is returned as nonzero. The calling routine must check the value of IERROR.",
+          "source_end_line": 102,
+          "source_start_line": 100,
+          "value": "0"
+        },
+        {
+          "meaning": "or 213, invalid input was provided to DXNRMP.",
+          "source_end_line": 104,
+          "source_start_line": 104,
+          "value": "212"
+        },
+        {
+          "meaning": ",202,203, or 204, invalid input was provided to DXSET.",
+          "source_end_line": 106,
+          "source_start_line": 105,
+          "value": "201"
+        },
+        {
+          "meaning": "or 206, an internal consistency error occurred in DXSET (probably due to a software malfunction in the",
+          "source_end_line": 108,
+          "source_start_line": 107,
+          "value": "205"
+        }
+      ],
+      "routine": "DXNRMP"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "a normal return",
+          "source_end_line": 66,
+          "source_start_line": 66,
+          "value": "0"
+        }
+      ],
+      "routine": "EXINT"
+    },
+    {
+      "applicable": true,
+      "argument": "IFLAG",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0. However, the interval (B,C) may not have collapsed to the requested tolerance. 3 B may be near a singular point of F(X). The interval (B,C) collapsed to the requested tol- erance and the function changes sign in (B,C), but F(X) increased in magnitude as (B,C) collapsed, i.e.",
+          "source_end_line": 69,
+          "source_start_line": 63,
+          "value": "0"
+        },
+        {
+          "meaning": "MAX(ABS(F(B in)),ABS(F(C in))) 4 No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether",
+          "source_end_line": 74,
+          "source_start_line": 70,
+          "value": ">0"
+        }
+      ],
+      "routine": "FZERO"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 98,
+          "source_start_line": 98,
+          "value": "0"
+        },
+        {
+          "meaning": "1 M .LE. 2",
+          "source_end_line": 99,
+          "source_start_line": 99,
+          "value": "1"
+        },
+        {
+          "meaning": "2 N .LE. 2",
+          "source_end_line": 100,
+          "source_start_line": 100,
+          "value": "2"
+        },
+        {
+          "meaning": "3 IDIMY .LT. M",
+          "source_end_line": 101,
+          "source_start_line": 101,
+          "value": "3"
+        },
+        {
+          "meaning": "4 NPEROD .LT. 0 or NPEROD .GT. 4",
+          "source_end_line": 102,
+          "source_start_line": 102,
+          "value": "4"
+        },
+        {
+          "meaning": "5 MPEROD .LT. 0 or MPEROD .GT. 1",
+          "source_end_line": 103,
+          "source_start_line": 103,
+          "value": "5"
+        },
+        {
+          "meaning": "6 A(I) .NE. C(1) or C(I) .NE. C(1) or B(I) .NE. B(1) for",
+          "source_end_line": 104,
+          "source_start_line": 104,
+          "value": "6"
+        },
+        {
+          "meaning": ",2,...,M.",
+          "source_end_line": 105,
+          "source_start_line": 105,
+          "value": "1"
+        },
+        {
+          "meaning": "7 A(1) .NE. 0 or C(M) .NE. 0 and MPEROD = 1",
+          "source_end_line": 106,
+          "source_start_line": 106,
+          "value": "7"
+        }
+      ],
+      "routine": "GENBUN"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 174,
+          "source_start_line": 174,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .GE. B",
+          "source_end_line": 176,
+          "source_start_line": 176,
+          "value": "1"
+        },
+        {
+          "meaning": "2 MBDCND .LT. 0 or MBDCND .GT. 4",
+          "source_end_line": 178,
+          "source_start_line": 178,
+          "value": "2"
+        },
+        {
+          "meaning": "3 C .GE. D",
+          "source_end_line": 180,
+          "source_start_line": 180,
+          "value": "3"
+        },
+        {
+          "meaning": "4 N .LE. 2",
+          "source_end_line": 182,
+          "source_start_line": 182,
+          "value": "4"
+        },
+        {
+          "meaning": "5 NBDCND .LT. 0 or NBDCND .GT. 4",
+          "source_end_line": 184,
+          "source_start_line": 184,
+          "value": "5"
+        },
+        {
+          "meaning": "6 LAMBDA .GT. 0",
+          "source_end_line": 186,
+          "source_start_line": 186,
+          "value": "6"
+        },
+        {
+          "meaning": "7 IDIMF .LT. M",
+          "source_end_line": 188,
+          "source_start_line": 188,
+          "value": "7"
+        },
+        {
+          "meaning": "8 M .LE. 2 Since this is the only means of indicating a possibly incorrect call to HSTCRT, the user should test IERROR after the call.",
+          "source_end_line": 194,
+          "source_start_line": 190,
+          "value": "8"
+        }
+      ],
+      "routine": "HSTCRT"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 268,
+          "source_start_line": 268,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .LT. 0 or B .GT. PI",
+          "source_end_line": 270,
+          "source_start_line": 270,
+          "value": "1"
+        },
+        {
+          "meaning": "2 A .GE. B",
+          "source_end_line": 272,
+          "source_start_line": 272,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND .LT. 1 or MBDCND .GT. 9",
+          "source_end_line": 274,
+          "source_start_line": 274,
+          "value": "3"
+        },
+        {
+          "meaning": "4 C .LT. 0",
+          "source_end_line": 276,
+          "source_start_line": 276,
+          "value": "4"
+        },
+        {
+          "meaning": "5 C .GE. D",
+          "source_end_line": 278,
+          "source_start_line": 278,
+          "value": "5"
+        },
+        {
+          "meaning": "6 NBDCND .LT. 1 or NBDCND .GT. 6",
+          "source_end_line": 280,
+          "source_start_line": 280,
+          "value": "6"
+        },
+        {
+          "meaning": "7 N .LT. 5",
+          "source_end_line": 282,
+          "source_start_line": 282,
+          "value": "7"
+        },
+        {
+          "meaning": "8 NBDCND = 5 or 6 and MBDCND = 1, 2, 4, 5, or 7",
+          "source_end_line": 284,
+          "source_start_line": 284,
+          "value": "8"
+        },
+        {
+          "meaning": "9 C .GT. 0 and NBDCND .GE. 5",
+          "source_end_line": 286,
+          "source_start_line": 286,
+          "value": "9"
+        },
+        {
+          "meaning": "10 ELMBDA .GT. 0",
+          "source_end_line": 288,
+          "source_start_line": 288,
+          "value": "10"
+        },
+        {
+          "meaning": "11 IDIMF .LT. M",
+          "source_end_line": 290,
+          "source_start_line": 290,
+          "value": "11"
+        },
+        {
+          "meaning": "12 M .LT. 5",
+          "source_end_line": 292,
+          "source_start_line": 292,
+          "value": "12"
+        },
+        {
+          "meaning": "13 A = 0 and MBDCND =1,2,3,4,7 or 8",
+          "source_end_line": 294,
+          "source_start_line": 294,
+          "value": "13"
+        },
+        {
+          "meaning": "14 B = PI and MBDCND .LE. 6",
+          "source_end_line": 296,
+          "source_start_line": 296,
+          "value": "14"
+        },
+        {
+          "meaning": "15 A .GT. 0 and MBDCND = 5, 6, or 9",
+          "source_end_line": 298,
+          "source_start_line": 298,
+          "value": "15"
+        },
+        {
+          "meaning": "16 B .LT. PI and MBDCND .GE. 7",
+          "source_end_line": 300,
+          "source_start_line": 300,
+          "value": "16"
+        },
+        {
+          "meaning": "17 LAMBDA .NE. 0 and NBDCND .GE. 5 Since this is the only means of indicating a possibly incorrect call to HSTCSP, the user should test IERROR after the call.",
+          "source_end_line": 306,
+          "source_start_line": 302,
+          "value": "17"
+        }
+      ],
+      "routine": "HSTCSP"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 201,
+          "source_start_line": 201,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .LT. 0",
+          "source_end_line": 203,
+          "source_start_line": 203,
+          "value": "1"
+        },
+        {
+          "meaning": "2 A .GE. B",
+          "source_end_line": 205,
+          "source_start_line": 205,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND .LT. 1 or MBDCND .GT. 6",
+          "source_end_line": 207,
+          "source_start_line": 207,
+          "value": "3"
+        },
+        {
+          "meaning": "4 C .GE. D",
+          "source_end_line": 209,
+          "source_start_line": 209,
+          "value": "4"
+        },
+        {
+          "meaning": "5 N .LE. 2",
+          "source_end_line": 211,
+          "source_start_line": 211,
+          "value": "5"
+        },
+        {
+          "meaning": "6 NBDCND .LT. 0 or NBDCND .GT. 4",
+          "source_end_line": 213,
+          "source_start_line": 213,
+          "value": "6"
+        },
+        {
+          "meaning": "7 A = 0 and MBDCND = 1,2,3, or 4",
+          "source_end_line": 215,
+          "source_start_line": 215,
+          "value": "7"
+        },
+        {
+          "meaning": "8 A .GT. 0 and MBDCND .GE. 5",
+          "source_end_line": 217,
+          "source_start_line": 217,
+          "value": "8"
+        },
+        {
+          "meaning": "9 M .LE. 2",
+          "source_end_line": 219,
+          "source_start_line": 219,
+          "value": "9"
+        },
+        {
+          "meaning": "10 IDIMF .LT. M",
+          "source_end_line": 221,
+          "source_start_line": 221,
+          "value": "10"
+        },
+        {
+          "meaning": "11 LAMBDA .GT. 0",
+          "source_end_line": 223,
+          "source_start_line": 223,
+          "value": "11"
+        },
+        {
+          "meaning": "12 A=0, MBDCND .GE. 5, ELMBDA .NE. 0 Since this is the only means of indicating a possibly incorrect call to HSTCYL, the user should test IERROR after the call.",
+          "source_end_line": 229,
+          "source_start_line": 225,
+          "value": "12"
+        }
+      ],
+      "routine": "HSTCYL"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 203,
+          "source_start_line": 203,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .LT. 0",
+          "source_end_line": 205,
+          "source_start_line": 205,
+          "value": "1"
+        },
+        {
+          "meaning": "2 A .GE. B",
+          "source_end_line": 207,
+          "source_start_line": 207,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND .LT. 1 or MBDCND .GT. 6",
+          "source_end_line": 209,
+          "source_start_line": 209,
+          "value": "3"
+        },
+        {
+          "meaning": "4 C .GE. D",
+          "source_end_line": 211,
+          "source_start_line": 211,
+          "value": "4"
+        },
+        {
+          "meaning": "5 N .LE. 2",
+          "source_end_line": 213,
+          "source_start_line": 213,
+          "value": "5"
+        },
+        {
+          "meaning": "6 NBDCND .LT. 0 or NBDCND .GT. 4",
+          "source_end_line": 215,
+          "source_start_line": 215,
+          "value": "6"
+        },
+        {
+          "meaning": "7 A = 0 and MBDCND = 3 or 4",
+          "source_end_line": 217,
+          "source_start_line": 217,
+          "value": "7"
+        },
+        {
+          "meaning": "8 A .GT. 0 and MBDCND .GE. 5",
+          "source_end_line": 219,
+          "source_start_line": 219,
+          "value": "8"
+        },
+        {
+          "meaning": "9 MBDCND .GE. 5 and NBDCND .NE. 0 or 3",
+          "source_end_line": 221,
+          "source_start_line": 221,
+          "value": "9"
+        },
+        {
+          "meaning": "10 IDIMF .LT. M",
+          "source_end_line": 223,
+          "source_start_line": 223,
+          "value": "10"
+        },
+        {
+          "meaning": "11 LAMBDA .GT. 0",
+          "source_end_line": 225,
+          "source_start_line": 225,
+          "value": "11"
+        },
+        {
+          "meaning": "12 M .LE. 2 Since this is the only means of indicating a possibly incorrect call to HSTPLR, the user should test IERROR after the call.",
+          "source_end_line": 231,
+          "source_start_line": 227,
+          "value": "12"
+        }
+      ],
+      "routine": "HSTPLR"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 246,
+          "source_start_line": 246,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .LT. 0 or B .GT. PI",
+          "source_end_line": 248,
+          "source_start_line": 248,
+          "value": "1"
+        },
+        {
+          "meaning": "2 A .GE. B",
+          "source_end_line": 250,
+          "source_start_line": 250,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND .LT. 1 or MBDCND .GT. 9",
+          "source_end_line": 252,
+          "source_start_line": 252,
+          "value": "3"
+        },
+        {
+          "meaning": "4 C .GE. D",
+          "source_end_line": 254,
+          "source_start_line": 254,
+          "value": "4"
+        },
+        {
+          "meaning": "5 N .LE. 2",
+          "source_end_line": 256,
+          "source_start_line": 256,
+          "value": "5"
+        },
+        {
+          "meaning": "6 NBDCND .LT. 0 or NBDCND .GT. 4",
+          "source_end_line": 258,
+          "source_start_line": 258,
+          "value": "6"
+        },
+        {
+          "meaning": "7 A .GT. 0 and MBDCND = 5, 6, or 9",
+          "source_end_line": 260,
+          "source_start_line": 260,
+          "value": "7"
+        },
+        {
+          "meaning": "8 A = 0 and MBDCND = 3, 4, or 8",
+          "source_end_line": 262,
+          "source_start_line": 262,
+          "value": "8"
+        },
+        {
+          "meaning": "9 B .LT. PI and MBDCND .GE. 7",
+          "source_end_line": 264,
+          "source_start_line": 264,
+          "value": "9"
+        },
+        {
+          "meaning": "10 B = PI and MBDCND = 2,3, or 6",
+          "source_end_line": 266,
+          "source_start_line": 266,
+          "value": "10"
+        },
+        {
+          "meaning": "11 MBDCND .GE. 5 and NDBCND = 1, 2, or 4",
+          "source_end_line": 268,
+          "source_start_line": 268,
+          "value": "11"
+        },
+        {
+          "meaning": "12 IDIMF .LT. M",
+          "source_end_line": 270,
+          "source_start_line": 270,
+          "value": "12"
+        },
+        {
+          "meaning": "13 M .LE. 2",
+          "source_end_line": 272,
+          "source_start_line": 272,
+          "value": "13"
+        },
+        {
+          "meaning": "14 LAMBDA .GT. 0 Since this is the only means of indicating a possibly incorrect call to HSTSSP, the user should test IERROR after the call.",
+          "source_end_line": 278,
+          "source_start_line": 274,
+          "value": "14"
+        }
+      ],
+      "routine": "HSTSSP"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 261,
+          "source_start_line": 261,
+          "value": "0"
+        },
+        {
+          "meaning": "1 XS .GE. XF",
+          "source_end_line": 262,
+          "source_start_line": 262,
+          "value": "1"
+        },
+        {
+          "meaning": "2 L .LT. 5",
+          "source_end_line": 263,
+          "source_start_line": 263,
+          "value": "2"
+        },
+        {
+          "meaning": "3 LBDCND .LT. 0 .OR. LBDCND .GT. 4",
+          "source_end_line": 264,
+          "source_start_line": 264,
+          "value": "3"
+        },
+        {
+          "meaning": "4 YS .GE. YF",
+          "source_end_line": 265,
+          "source_start_line": 265,
+          "value": "4"
+        },
+        {
+          "meaning": "5 M .LT. 5",
+          "source_end_line": 266,
+          "source_start_line": 266,
+          "value": "5"
+        },
+        {
+          "meaning": "6 MBDCND .LT. 0 .OR. MBDCND .GT. 4",
+          "source_end_line": 267,
+          "source_start_line": 267,
+          "value": "6"
+        },
+        {
+          "meaning": "7 ZS .GE. ZF",
+          "source_end_line": 268,
+          "source_start_line": 268,
+          "value": "7"
+        },
+        {
+          "meaning": "8 N .LT. 5",
+          "source_end_line": 269,
+          "source_start_line": 269,
+          "value": "8"
+        },
+        {
+          "meaning": "9 NBDCND .LT. 0 .OR. NBDCND .GT. 4",
+          "source_end_line": 270,
+          "source_start_line": 270,
+          "value": "9"
+        },
+        {
+          "meaning": "10 LDIMF .LT. L+1",
+          "source_end_line": 271,
+          "source_start_line": 271,
+          "value": "10"
+        },
+        {
+          "meaning": "11 MDIMF .LT. M+1",
+          "source_end_line": 272,
+          "source_start_line": 272,
+          "value": "11"
+        },
+        {
+          "meaning": "12 LAMBDA .GT. 0 Since this is the only means of indicating a possibly incorrect call to HW3CRT, the user should test IERROR after the call.",
+          "source_end_line": 276,
+          "source_start_line": 273,
+          "value": "12"
+        }
+      ],
+      "routine": "HW3CRT"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 184,
+          "source_start_line": 184,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .GE. B.",
+          "source_end_line": 185,
+          "source_start_line": 185,
+          "value": "1"
+        },
+        {
+          "meaning": "2 MBDCND .LT. 0 or MBDCND .GT. 4 .",
+          "source_end_line": 186,
+          "source_start_line": 186,
+          "value": "2"
+        },
+        {
+          "meaning": "3 C .GE. D.",
+          "source_end_line": 187,
+          "source_start_line": 187,
+          "value": "3"
+        },
+        {
+          "meaning": "4 N .LE. 3",
+          "source_end_line": 188,
+          "source_start_line": 188,
+          "value": "4"
+        },
+        {
+          "meaning": "5 NBDCND .LT. 0 or NBDCND .GT. 4 .",
+          "source_end_line": 189,
+          "source_start_line": 189,
+          "value": "5"
+        },
+        {
+          "meaning": "6 LAMBDA .GT. 0 .",
+          "source_end_line": 190,
+          "source_start_line": 190,
+          "value": "6"
+        },
+        {
+          "meaning": "7 IDIMF .LT. M+1 .",
+          "source_end_line": 191,
+          "source_start_line": 191,
+          "value": "7"
+        },
+        {
+          "meaning": "8 M .LE. 3 Since this is the only means of indicating a possibly incorrect call to HWSCRT, the user should test IERROR after the call.",
+          "source_end_line": 195,
+          "source_start_line": 192,
+          "value": "8"
+        }
+      ],
+      "routine": "HWSCRT"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "1 TS.LT.0. or TF.GT.PI",
+          "source_end_line": 256,
+          "source_start_line": 256,
+          "value": "1"
+        },
+        {
+          "meaning": "2 TS.GE.TF",
+          "source_end_line": 257,
+          "source_start_line": 257,
+          "value": "2"
+        },
+        {
+          "meaning": "3 M.LT.5",
+          "source_end_line": 258,
+          "source_start_line": 258,
+          "value": "3"
+        },
+        {
+          "meaning": "4 MBDCND.LT.1 or MBDCND.GT.9",
+          "source_end_line": 259,
+          "source_start_line": 259,
+          "value": "4"
+        },
+        {
+          "meaning": "5 RS.LT.0",
+          "source_end_line": 260,
+          "source_start_line": 260,
+          "value": "5"
+        },
+        {
+          "meaning": "6 RS.GE.RF",
+          "source_end_line": 261,
+          "source_start_line": 261,
+          "value": "6"
+        },
+        {
+          "meaning": "7 N.LT.5",
+          "source_end_line": 262,
+          "source_start_line": 262,
+          "value": "7"
+        },
+        {
+          "meaning": "8 NBDCND.LT.1 or NBDCND.GT.6",
+          "source_end_line": 263,
+          "source_start_line": 263,
+          "value": "8"
+        },
+        {
+          "meaning": "9 ELMBDA.GT.0",
+          "source_end_line": 264,
+          "source_start_line": 264,
+          "value": "9"
+        },
+        {
+          "meaning": "10 IDIMF.LT.M+1",
+          "source_end_line": 265,
+          "source_start_line": 265,
+          "value": "10"
+        },
+        {
+          "meaning": "11 ELMBDA.NE.0 and MBDCND.GE.5",
+          "source_end_line": 266,
+          "source_start_line": 266,
+          "value": "11"
+        },
+        {
+          "meaning": "12 ELMBDA.NE.0 and NBDCND equals 5 or 6",
+          "source_end_line": 267,
+          "source_start_line": 267,
+          "value": "12"
+        },
+        {
+          "meaning": "13 MBDCND equals 5,6 or 9 and TS.NE.0",
+          "source_end_line": 268,
+          "source_start_line": 268,
+          "value": "13"
+        },
+        {
+          "meaning": "14 MBDCND.GE.7 and TF.NE.PI",
+          "source_end_line": 269,
+          "source_start_line": 269,
+          "value": "14"
+        },
+        {
+          "meaning": "15 TS.EQ.0 and MBDCND equals 3,4 or 8",
+          "source_end_line": 270,
+          "source_start_line": 270,
+          "value": "15"
+        },
+        {
+          "meaning": "16 TF.EQ.PI and MBDCND equals 2,3 or 6",
+          "source_end_line": 271,
+          "source_start_line": 271,
+          "value": "16"
+        },
+        {
+          "meaning": "17 NBDCND.GE.5 and RS.NE.0",
+          "source_end_line": 272,
+          "source_start_line": 272,
+          "value": "17"
+        },
+        {
+          "meaning": "18 NBDCND.GE.5 and MBDCND equals 1,2,4,5 or 7 Since this is the only means of indicating a possibly incorrect call to HWSCSP, the user should test IERROR after a call.",
+          "source_end_line": 276,
+          "source_start_line": 273,
+          "value": "18"
+        }
+      ],
+      "routine": "HWSCSP"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 195,
+          "source_start_line": 195,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .LT. 0 .",
+          "source_end_line": 196,
+          "source_start_line": 196,
+          "value": "1"
+        },
+        {
+          "meaning": "2 A .GE. B.",
+          "source_end_line": 197,
+          "source_start_line": 197,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND .LT. 1 or MBDCND .GT. 6 .",
+          "source_end_line": 198,
+          "source_start_line": 198,
+          "value": "3"
+        },
+        {
+          "meaning": "4 C .GE. D.",
+          "source_end_line": 199,
+          "source_start_line": 199,
+          "value": "4"
+        },
+        {
+          "meaning": "5 N .LE. 3",
+          "source_end_line": 200,
+          "source_start_line": 200,
+          "value": "5"
+        },
+        {
+          "meaning": "6 NBDCND .LT. 0 or NBDCND .GT. 4 .",
+          "source_end_line": 201,
+          "source_start_line": 201,
+          "value": "6"
+        },
+        {
+          "meaning": "7 A = 0, MBDCND = 3 or 4 .",
+          "source_end_line": 202,
+          "source_start_line": 202,
+          "value": "7"
+        },
+        {
+          "meaning": "8 A .GT. 0, MBDCND .GE. 5 .",
+          "source_end_line": 203,
+          "source_start_line": 203,
+          "value": "8"
+        },
+        {
+          "meaning": "9 A = 0, LAMBDA .NE. 0, MBDCND .GE. 5 .",
+          "source_end_line": 204,
+          "source_start_line": 204,
+          "value": "9"
+        },
+        {
+          "meaning": "10 IDIMF .LT. M+1 .",
+          "source_end_line": 205,
+          "source_start_line": 205,
+          "value": "10"
+        },
+        {
+          "meaning": "11 LAMBDA .GT. 0 .",
+          "source_end_line": 206,
+          "source_start_line": 206,
+          "value": "11"
+        },
+        {
+          "meaning": "12 M .LE. 3 Since this is the only means of indicating a possibly incorrect call to HWSCYL, the user should test IERROR after the call.",
+          "source_end_line": 210,
+          "source_start_line": 207,
+          "value": "12"
+        }
+      ],
+      "routine": "HWSCYL"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error.",
+          "source_end_line": 205,
+          "source_start_line": 205,
+          "value": "0"
+        },
+        {
+          "meaning": "1 A .LT. 0 .",
+          "source_end_line": 206,
+          "source_start_line": 206,
+          "value": "1"
+        },
+        {
+          "meaning": "2 A .GE. B.",
+          "source_end_line": 207,
+          "source_start_line": 207,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND .LT. 1 or MBDCND .GT. 6 .",
+          "source_end_line": 208,
+          "source_start_line": 208,
+          "value": "3"
+        },
+        {
+          "meaning": "4 C .GE. D.",
+          "source_end_line": 209,
+          "source_start_line": 209,
+          "value": "4"
+        },
+        {
+          "meaning": "5 N .LE. 3",
+          "source_end_line": 210,
+          "source_start_line": 210,
+          "value": "5"
+        },
+        {
+          "meaning": "6 NBDCND .LT. 0 or .GT. 4 .",
+          "source_end_line": 211,
+          "source_start_line": 211,
+          "value": "6"
+        },
+        {
+          "meaning": "7 A = 0, MBDCND = 3 or 4 .",
+          "source_end_line": 212,
+          "source_start_line": 212,
+          "value": "7"
+        },
+        {
+          "meaning": "8 A .GT. 0, MBDCND .GE. 5 .",
+          "source_end_line": 213,
+          "source_start_line": 213,
+          "value": "8"
+        },
+        {
+          "meaning": "9 MBDCND .GE. 5, NBDCND .NE. 0 and NBDCND .NE. 3 .",
+          "source_end_line": 214,
+          "source_start_line": 214,
+          "value": "9"
+        },
+        {
+          "meaning": "10 IDIMF .LT. M+1 .",
+          "source_end_line": 215,
+          "source_start_line": 215,
+          "value": "10"
+        },
+        {
+          "meaning": "11 LAMBDA .GT. 0 .",
+          "source_end_line": 216,
+          "source_start_line": 216,
+          "value": "11"
+        },
+        {
+          "meaning": "12 M .LE. 3 Since this is the only means of indicating a possibly incorrect call to HWSPLR, the user should test IERROR after the call.",
+          "source_end_line": 220,
+          "source_start_line": 217,
+          "value": "12"
+        }
+      ],
+      "routine": "HWSPLR"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 247,
+          "source_start_line": 247,
+          "value": "0"
+        },
+        {
+          "meaning": "1 TS.LT.0 or TF.GT.PI",
+          "source_end_line": 248,
+          "source_start_line": 248,
+          "value": "1"
+        },
+        {
+          "meaning": "2 TS.GE.TF",
+          "source_end_line": 249,
+          "source_start_line": 249,
+          "value": "2"
+        },
+        {
+          "meaning": "3 MBDCND.LT.1 or MBDCND.GT.9",
+          "source_end_line": 250,
+          "source_start_line": 250,
+          "value": "3"
+        },
+        {
+          "meaning": "4 PS.LT.0 or PS.GT.PI+PI",
+          "source_end_line": 251,
+          "source_start_line": 251,
+          "value": "4"
+        },
+        {
+          "meaning": "5 PS.GE.PF",
+          "source_end_line": 252,
+          "source_start_line": 252,
+          "value": "5"
+        },
+        {
+          "meaning": "6 N.LT.5",
+          "source_end_line": 253,
+          "source_start_line": 253,
+          "value": "6"
+        },
+        {
+          "meaning": "7 M.LT.5",
+          "source_end_line": 254,
+          "source_start_line": 254,
+          "value": "7"
+        },
+        {
+          "meaning": "8 NBDCND.LT.0 or NBDCND.GT.4",
+          "source_end_line": 255,
+          "source_start_line": 255,
+          "value": "8"
+        },
+        {
+          "meaning": "9 ELMBDA.GT.0",
+          "source_end_line": 256,
+          "source_start_line": 256,
+          "value": "9"
+        },
+        {
+          "meaning": "10 IDIMF.LT.M+1",
+          "source_end_line": 257,
+          "source_start_line": 257,
+          "value": "10"
+        },
+        {
+          "meaning": "11 NBDCND equals 1,2 or 4 and MBDCND.GE.5",
+          "source_end_line": 258,
+          "source_start_line": 258,
+          "value": "11"
+        },
+        {
+          "meaning": "12 TS.EQ.0 and MBDCND equals 3,4 or 8",
+          "source_end_line": 259,
+          "source_start_line": 259,
+          "value": "12"
+        },
+        {
+          "meaning": "13 TF.EQ.PI and MBDCND equals 2,3 or 6",
+          "source_end_line": 260,
+          "source_start_line": 260,
+          "value": "13"
+        },
+        {
+          "meaning": "14 MBDCND equals 5,6 or 9 and TS.NE.0",
+          "source_end_line": 261,
+          "source_start_line": 261,
+          "value": "14"
+        },
+        {
+          "meaning": "15 MBDCND.GE.7 and TF.NE.PI Since this is the only means of indicating a possibly incorrect call to HWSSSP, the user should test IERROR after a call.",
+          "source_end_line": 265,
+          "source_start_line": 262,
+          "value": "15"
+        }
+      ],
+      "routine": "HWSSSP"
+    },
+    {
+      "applicable": true,
+      "argument": "IND",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "IMTQLV"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 original call",
+          "source_end_line": 103,
+          "source_start_line": 103,
+          "value": "0"
+        },
+        {
+          "meaning": "1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*N locations of WORK as output by the original call to LLSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK are accessed. AE, RE, KEY, and NP are not accessed. -1 Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length solution 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank",
+          "source_end_line": 146,
+          "source_start_line": 104,
+          "value": "1"
+        }
+      ],
+      "routine": "LLSIA"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 113,
+          "source_start_line": 113,
+          "value": "0"
+        },
+        {
+          "meaning": "1 If LPEROD .LT. 0 or .GT. 4",
+          "source_end_line": 114,
+          "source_start_line": 114,
+          "value": "1"
+        },
+        {
+          "meaning": "2 If L .LT. 3",
+          "source_end_line": 115,
+          "source_start_line": 115,
+          "value": "2"
+        },
+        {
+          "meaning": "3 If MPEROD .LT. 0 or .GT. 4",
+          "source_end_line": 116,
+          "source_start_line": 116,
+          "value": "3"
+        },
+        {
+          "meaning": "4 If M .LT. 3",
+          "source_end_line": 117,
+          "source_start_line": 117,
+          "value": "4"
+        },
+        {
+          "meaning": "5 If NPEROD .LT. 0 or .GT. 1",
+          "source_end_line": 118,
+          "source_start_line": 118,
+          "value": "5"
+        },
+        {
+          "meaning": "6 If N .LT. 3",
+          "source_end_line": 119,
+          "source_start_line": 119,
+          "value": "6"
+        },
+        {
+          "meaning": "7 If LDIMF .LT. L",
+          "source_end_line": 120,
+          "source_start_line": 120,
+          "value": "7"
+        },
+        {
+          "meaning": "8 If MDIMF .LT. M",
+          "source_end_line": 121,
+          "source_start_line": 121,
+          "value": "8"
+        },
+        {
+          "meaning": "9 If A(K) .NE. C(1) or C(K) .NE. C(1) or B(I) .NE.B(1)",
+          "source_end_line": 122,
+          "source_start_line": 122,
+          "value": "9"
+        },
+        {
+          "meaning": ",2,...,N.",
+          "source_end_line": 123,
+          "source_start_line": 123,
+          "value": "1"
+        },
+        {
+          "meaning": "10 If NPEROD = 1 and A(1) .NE. 0 or C(N) .NE. 0 Since this is the only means of indicating a possibly incorrect call to POIS3D, the user should test IERROR after the call.",
+          "source_end_line": 128,
+          "source_start_line": 124,
+          "value": "10"
+        }
+      ],
+      "routine": "POIS3D"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 No error",
+          "source_end_line": 92,
+          "source_start_line": 92,
+          "value": "0"
+        },
+        {
+          "meaning": "1 If M .LE. 2",
+          "source_end_line": 93,
+          "source_start_line": 93,
+          "value": "1"
+        },
+        {
+          "meaning": "2 If N .LE. 2",
+          "source_end_line": 94,
+          "source_start_line": 94,
+          "value": "2"
+        },
+        {
+          "meaning": "3 IDIMY .LT. M",
+          "source_end_line": 95,
+          "source_start_line": 95,
+          "value": "3"
+        },
+        {
+          "meaning": "4 If NPEROD .LT. 1 or NPEROD .GT. 4",
+          "source_end_line": 96,
+          "source_start_line": 96,
+          "value": "4"
+        },
+        {
+          "meaning": "5 If MPEROD .LT. 0 or MPEROD .GT. 1",
+          "source_end_line": 97,
+          "source_start_line": 97,
+          "value": "5"
+        },
+        {
+          "meaning": "6 If MPEROD = 0 and",
+          "source_end_line": 98,
+          "source_start_line": 98,
+          "value": "6"
+        }
+      ],
+      "routine": "POISTG"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": ".0, K=1,...,NZ",
+          "source_end_line": 60,
+          "source_start_line": 60,
+          "value": "0"
+        }
+      ],
+      "routine": "PSIFN"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 70,
+          "source_start_line": 68,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine The estimates for RESULT and ERROR are Less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 74,
+          "source_start_line": 71,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). HOWEVER, If this yield no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (I.E. SINGULARITY, DISCONTINUITY WITHIN THE INTERVAL) One will probably gain from splitting up the interval at this point and calling the INTEGRATOR on the SUBRANGES. If possible, AN APPROPRIATE SPECIAL-PURPOSE INTEGRATOR should be used which is designed for handling the type of difficulty involved.",
+          "source_end_line": 92,
+          "source_start_line": 76,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 95,
+          "source_start_line": 93,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 98,
+          "source_start_line": 96,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 AND EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) OR LIMIT.LT.1 OR LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. EXCEPT when LENW is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B. 6.",
+          "source_end_line": 122,
+          "source_start_line": 99,
+          "value": "6"
+        }
+      ],
+      "routine": "QAG"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 68,
+          "source_start_line": 66,
+          "value": "0"
+        },
+        {
+          "meaning": "abnormal termination of the routine. The estimates for result and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 72,
+          "source_start_line": 69,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 90,
+          "source_start_line": 74,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 94,
+          "source_start_line": 91,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 97,
+          "source_start_line": 95,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is assumed that the requested tolerance cannot be achieved, and that the returned RESULT is the best which can be obtained.",
+          "source_end_line": 103,
+          "source_start_line": 98,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 107,
+          "source_start_line": 104,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1 or LENIW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LIMIT or LENIW is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to ZERO, WORK(1) is set to A and WORK(LIMIT+1) to B.",
+          "source_end_line": 116,
+          "source_start_line": 108,
+          "value": "6"
+        }
+      ],
+      "routine": "QAGI"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 69,
+          "source_start_line": 67,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for result and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 73,
+          "source_start_line": 70,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 91,
+          "source_start_line": 75,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 95,
+          "source_start_line": 92,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 98,
+          "source_start_line": 96,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is assumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 104,
+          "source_start_line": 99,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 108,
+          "source_start_line": 105,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28), RESULT, ABSERR, NEVAL, LAST, RLIST(1), ELIST(1) and IORD(1) are set to zero. ALIST(1) and BLIST(1) are set to 0 and 1 respectively.",
+          "source_end_line": 115,
+          "source_start_line": 109,
+          "value": "6"
+        }
+      ],
+      "routine": "QAGIE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 77,
+          "source_start_line": 75,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. it is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 81,
+          "source_start_line": 78,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. one can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (i.e. SINGULARITY, DISCONTINUITY within the interval), it should be supplied to the routine as an element of the vector points. If necessary an appropriate special-purpose integrator must be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 98,
+          "source_start_line": 83,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 102,
+          "source_start_line": 99,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 105,
+          "source_start_line": 103,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned RESULT is the best which can be obtained.",
+          "source_end_line": 112,
+          "source_start_line": 106,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. it must be noted that divergence can occur with any other value",
+          "source_end_line": 115,
+          "source_start_line": 113,
+          "value": "5"
+        },
+        {
+          "meaning": ".",
+          "source_end_line": 116,
+          "source_start_line": 116,
+          "value": ">0"
+        },
+        {
+          "meaning": "6 The input is invalid because NPTS2.LT.2 or break points are specified outside the integration range or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENIW or LENW or NPTS2 is invalid, IWORK(1), IWORK(LIMIT+1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) WORK(1) is set to A and WORK(LIMIT+1) to B (where LIMIT = (LENIW-NPTS2)/2).",
+          "source_end_line": 129,
+          "source_start_line": 117,
+          "value": "6"
+        }
+      ],
+      "routine": "QAGP"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 68,
+          "source_start_line": 68,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 84,
+          "source_start_line": 82,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 88,
+          "source_start_line": 85,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (i.e. SINGULARITY, DISCONTINUITY within the interval), it should be supplied to the routine as an element of the vector points. If necessary an appropriate special-purpose integrator must be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 105,
+          "source_start_line": 90,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 109,
+          "source_start_line": 106,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs At some points of the integration interval.",
+          "source_end_line": 112,
+          "source_start_line": 110,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 118,
+          "source_start_line": 113,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value",
+          "source_end_line": 121,
+          "source_start_line": 119,
+          "value": "5"
+        },
+        {
+          "meaning": ".",
+          "source_end_line": 122,
+          "source_start_line": 122,
+          "value": ">0"
+        },
+        {
+          "meaning": "6 The input is invalid because NPTS2.LT.2 or Break points are specified outside the integration range or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.NPTS2. RESULT, ABSERR, NEVAL, LAST, RLIST(1), and ELIST(1) are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 132,
+          "source_start_line": 123,
+          "value": "6"
+        }
+      ],
+      "routine": "QAGPE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 63,
+          "source_start_line": 61,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 67,
+          "source_start_line": 64,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT (and taking the according dimension adjustments into account. However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 85,
+          "source_start_line": 69,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 89,
+          "source_start_line": 86,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 92,
+          "source_start_line": 90,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the Extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 98,
+          "source_start_line": 93,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 102,
+          "source_start_line": 99,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 AND EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28) OR LIMIT.LT.1 OR LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LIMIT or LENW is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) TO B.",
+          "source_end_line": 111,
+          "source_start_line": 103,
+          "value": "6"
+        }
+      ],
+      "routine": "QAGS"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 66,
+          "source_start_line": 64,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 70,
+          "source_start_line": 67,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. singularity, discontinuity within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved.",
+          "source_end_line": 88,
+          "source_start_line": 72,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 92,
+          "source_start_line": 89,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 95,
+          "source_start_line": 93,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained.",
+          "source_end_line": 102,
+          "source_start_line": 96,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 106,
+          "source_start_line": 103,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28). RESULT, ABSERR, NEVAL, LAST, RLIST(1), IORD(1) and ELIST(1) are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 113,
+          "source_start_line": 107,
+          "value": "6"
+        }
+      ],
+      "routine": "QAGSE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6 .",
+          "source_end_line": 44,
+          "source_start_line": 44,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 68,
+          "source_start_line": 66,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 72,
+          "source_start_line": 69,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges.",
+          "source_end_line": 87,
+          "source_start_line": 74,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 90,
+          "source_start_line": 88,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 93,
+          "source_start_line": 91,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because C = A or C = B or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1 or LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENW or LIMIT is invalid, IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B. 6.",
+          "source_end_line": 117,
+          "source_start_line": 94,
+          "value": "6"
+        }
+      ],
+      "routine": "QAWC"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 44,
+          "source_start_line": 44,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 72,
+          "source_start_line": 70,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 76,
+          "source_start_line": 73,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT. However, if this yields no improvement it is advised to analyze the the integrand, in order to determine the the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges.",
+          "source_end_line": 90,
+          "source_start_line": 78,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 93,
+          "source_start_line": 91,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some interior points of the integration interval.",
+          "source_end_line": 96,
+          "source_start_line": 94,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because C = A or C = B or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1. RESULT, ABSERR, NEVAL, RLIST(1), ELIST(1), IORD(1) and LAST are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 105,
+          "source_start_line": 97,
+          "value": "6"
+        }
+      ],
+      "routine": "QAWCE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 68,
+          "source_start_line": 66,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved. If OMEGA.NE.0",
+          "source_end_line": 74,
+          "source_start_line": 69,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of cycles allowed has been achieved, i.e. of subintervals (A+(K-1)C,A+KC) where C = (2*INT(ABS(OMEGA))+1)*PI/ABS(OMEGA), 1, 2, ..., LST. One can allow more cycles by increasing the value of LIMLST (and taking the according dimension adjustments into account). Examine the array IWORK which contains the error flags on the cycles, in order to look for eventual local integration difficulties. If the position of a local difficulty can be determined (e.g. singularity, discontinuity within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges.",
+          "source_end_line": 92,
+          "source_start_line": 75,
+          "value": "1"
+        },
+        {
+          "meaning": "4 The extrapolation table constructed for convergence acceleration of the series formed by the integral contributions over the cycles, does not converge to within the requested accuracy.",
+          "source_end_line": 97,
+          "source_start_line": 93,
+          "value": "4"
+        },
+        {
+          "meaning": "1, it is advised to examine the array IWORK which contains the error flags on the cycles.",
+          "source_end_line": 100,
+          "source_start_line": 98,
+          "value": "1"
+        },
+        {
+          "meaning": "6 The input is invalid because (INTEGR.NE.1 AND INTEGR.NE.2) or EPSABS.LE.0 or LIMLST.LT.1 or LENIW.LT.(LIMLST+2) or MAXP1.LT.1 or LENW.LT.(LENIW*2+MAXP1*25). RESULT, ABSERR, NEVAL, LST are set to zero.",
+          "source_end_line": 107,
+          "source_start_line": 101,
+          "value": "6"
+        },
+        {
+          "meaning": "7 Bad integrand behaviour occurs within one or more of the cycles. Location and type of the difficulty involved can be determined from the first LST elements of vector IWORK. Here LST is the number of cycles actually needed (see below).",
+          "source_end_line": 113,
+          "source_start_line": 108,
+          "value": "7"
+        },
+        {
+          "meaning": "1 The maximum number of subdivisions (=(LENIW-LIMLST) /2) has been achieved on the K th cycle.",
+          "source_end_line": 117,
+          "source_start_line": 114,
+          "value": "1"
+        },
+        {
+          "meaning": "2 Occurrence of roundoff error is detected and prevents the tolerance imposed on the K th cycle, from being achieved on this cycle.",
+          "source_end_line": 122,
+          "source_start_line": 118,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the K th cycle.",
+          "source_end_line": 125,
+          "source_start_line": 123,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The integration procedure over the K th cycle does not converge (to within the required accuracy) due to roundoff in the extrapolation procedure invoked on this cycle. It is assumed that the result on this interval is the best which can be obtained.",
+          "source_end_line": 135,
+          "source_start_line": 126,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral over the K th cycle is probably divergent or slowly convergent. It must be noted that divergence can occur with any other value of IWORK(K).",
+          "source_end_line": 141,
+          "source_start_line": 136,
+          "value": "5"
+        },
+        {
+          "meaning": "0 and INTEGR = 1, The integral is calculated by means of DQAGIE, and IER = IWORK(1) (with meaning as described",
+          "source_end_line": 144,
+          "source_start_line": 142,
+          "value": "0"
+        },
+        {
+          "meaning": "1).",
+          "source_end_line": 145,
+          "source_start_line": 145,
+          "value": "1"
+        }
+      ],
+      "routine": "QAWF"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 75,
+          "source_start_line": 73,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine. The estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 79,
+          "source_start_line": 76,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved(= LENIW/2). One can allow more subdivisions by increasing the value of LENIW (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used which is designed for handling the type of difficulty involved.",
+          "source_end_line": 98,
+          "source_start_line": 81,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated.",
+          "source_end_line": 102,
+          "source_start_line": 99,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some interior points of the integration interval.",
+          "source_end_line": 105,
+          "source_start_line": 103,
+          "value": "3"
+        },
+        {
+          "meaning": "4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is presumed that the requested tolerance cannot be achieved due to roundoff in the extrapolation table, and that the returned result is the best which can be obtained.",
+          "source_end_line": 112,
+          "source_start_line": 106,
+          "value": "4"
+        },
+        {
+          "meaning": "5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER.",
+          "source_end_line": 116,
+          "source_start_line": 113,
+          "value": "5"
+        },
+        {
+          "meaning": "6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or (INTEGR.NE.1 AND INTEGR.NE.2), or LENIW.LT.2 OR MAXP1.LT.1 or LENW.LT.LENIW*2+MAXP1*25. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENIW, MAXP1 or LENW are invalid, WORK(LIMIT*2+1), WORK(LIMIT*3+1), IWORK(1), IWORK(LIMIT+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B.",
+          "source_end_line": 128,
+          "source_start_line": 117,
+          "value": "6"
+        }
+      ],
+      "routine": "QAWO"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 52,
+          "source_start_line": 47,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 85,
+          "source_start_line": 83,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine The estimates for the integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 89,
+          "source_start_line": 86,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand, in order to determine the integration difficulties which prevent the requested tolerance from being achieved. In case of a jump discontinuity or a local singularity of algebraico-logarithmic type at one or more interior points of the integration range, one should proceed by splitting up the interval at these points and calling the integrator on the subranges.",
+          "source_end_line": 106,
+          "source_start_line": 91,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 109,
+          "source_start_line": 107,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 112,
+          "source_start_line": 110,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because B.LE.A or ALFA.LE.(-1) or BETA.LE.(-1) or",
+          "source_end_line": 114,
+          "source_start_line": 113,
+          "value": "6"
+        },
+        {
+          "meaning": "or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.2 or LENW.LT.LIMIT*4. RESULT, ABSERR, NEVAL, LAST are set to zero. Except when LENW or LIMIT is invalid IWORK(1), WORK(LIMIT*2+1) and WORK(LIMIT*3+1) are set to zero, WORK(1) is set to A and WORK(LIMIT+1) to B.",
+          "source_end_line": 123,
+          "source_start_line": 115,
+          "value": ">0"
+        }
+      ],
+      "routine": "QAWS"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "6.",
+          "source_end_line": 53,
+          "source_start_line": 48,
+          "value": "6"
+        },
+        {
+          "meaning": "0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved.",
+          "source_end_line": 91,
+          "source_start_line": 89,
+          "value": "0"
+        },
+        {
+          "meaning": "Abnormal termination of the routine the estimates for the integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 95,
+          "source_start_line": 92,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT. However, if this yields no improvement, it is advised to analyze the integrand in order to determine the integration difficulties which prevent the requested tolerance from being achieved. In case of a jump DISCONTINUITY or a local SINGULARITY of algebraico-logarithmic type at one or more interior points of the integration range, one should proceed by splitting up the interval at these points and calling the integrator on the subranges.",
+          "source_end_line": 111,
+          "source_start_line": 97,
+          "value": "1"
+        },
+        {
+          "meaning": "2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved.",
+          "source_end_line": 114,
+          "source_start_line": 112,
+          "value": "2"
+        },
+        {
+          "meaning": "3 Extremely bad integrand behaviour occurs at some points of the integration interval.",
+          "source_end_line": 117,
+          "source_start_line": 115,
+          "value": "3"
+        },
+        {
+          "meaning": "6 The input is invalid, because B.LE.A or ALFA.LE.(-1) or BETA.LE.(-1), or",
+          "source_end_line": 119,
+          "source_start_line": 118,
+          "value": "6"
+        },
+        {
+          "meaning": ", or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28), or LIMIT.LT.2. RESULT, ABSERR, NEVAL, RLIST(1), ELIST(1), IORD(1) and LAST are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively.",
+          "source_end_line": 127,
+          "source_start_line": 120,
+          "value": ">0"
+        }
+      ],
+      "routine": "QAWSE"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Abnormal termination of the routine. It is assumed that the requested accuracy has not been achieved.",
+          "source_end_line": 69,
+          "source_start_line": 67,
+          "value": ">0"
+        },
+        {
+          "meaning": "1 The maximum number of steps has been executed. The integral is probably too difficult to be calculated by DQNG.",
+          "source_end_line": 73,
+          "source_start_line": 71,
+          "value": "1"
+        },
+        {
+          "meaning": "6 The input is invalid, because EPSABS.LE.0 AND EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28). RESULT, ABSERR and NEVAL are set to zero.",
+          "source_end_line": 77,
+          "source_start_line": 74,
+          "value": "6"
+        }
+      ],
+      "routine": "QNG"
+    },
+    {
+      "applicable": true,
+      "argument": "IND",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "RATQR"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "No errors.",
+          "source_end_line": 46,
+          "source_start_line": 46,
+          "value": "0"
+        },
+        {
+          "meaning": "Either L2.LT.ABS(M2) or L3.LT.ABS(M3).",
+          "source_end_line": 47,
+          "source_start_line": 47,
+          "value": "1"
+        },
+        {
+          "meaning": "Either L2+ABS(M2) or L3+ABS(M3) non-integer.",
+          "source_end_line": 48,
+          "source_start_line": 48,
+          "value": "2"
+        },
+        {
+          "meaning": "L1MAX-L1MIN not an integer.",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "3"
+        },
+        {
+          "meaning": "L1MAX less than L1MIN.",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "4"
+        },
+        {
+          "meaning": "NDIM less than L1MAX-L1MIN+1.",
+          "source_end_line": 51,
+          "source_start_line": 51,
+          "value": "5"
+        }
+      ],
+      "routine": "RC3JJ"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "No errors.",
+          "source_end_line": 46,
+          "source_start_line": 46,
+          "value": "0"
+        },
+        {
+          "meaning": "Either L1.LT.ABS(M1) or L1+ABS(M1) non-integer.",
+          "source_end_line": 47,
+          "source_start_line": 47,
+          "value": "1"
+        },
+        {
+          "meaning": "ABS(L1-L2).LE.L3.LE.L1+L2 not satisfied.",
+          "source_end_line": 48,
+          "source_start_line": 48,
+          "value": "2"
+        },
+        {
+          "meaning": "L1+L2+L3 not an integer.",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "3"
+        },
+        {
+          "meaning": "M2MAX-M2MIN not an integer.",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "4"
+        },
+        {
+          "meaning": "M2MAX less than M2MIN.",
+          "source_end_line": 51,
+          "source_start_line": 51,
+          "value": "5"
+        },
+        {
+          "meaning": "NDIM less than M2MAX-M2MIN+1.",
+          "source_end_line": 52,
+          "source_start_line": 52,
+          "value": "6"
+        }
+      ],
+      "routine": "RC3JM"
+    },
+    {
+      "applicable": true,
+      "argument": "IER",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "No errors.",
+          "source_end_line": 49,
+          "source_start_line": 49,
+          "value": "0"
+        },
+        {
+          "meaning": "L2+L3+L5+L6 or L4+L2+L6 not an integer.",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "1"
+        },
+        {
+          "meaning": "L4, L2, L6 triangular condition not satisfied.",
+          "source_end_line": 51,
+          "source_start_line": 51,
+          "value": "2"
+        },
+        {
+          "meaning": "L4, L5, L3 triangular condition not satisfied.",
+          "source_end_line": 52,
+          "source_start_line": 52,
+          "value": "3"
+        },
+        {
+          "meaning": "L1MAX-L1MIN not an integer.",
+          "source_end_line": 53,
+          "source_start_line": 53,
+          "value": "4"
+        },
+        {
+          "meaning": "L1MAX less than L1MIN.",
+          "source_end_line": 54,
+          "source_start_line": 54,
+          "value": "5"
+        },
+        {
+          "meaning": "NDIM less than L1MAX-L1MIN+1.",
+          "source_end_line": 55,
+          "source_start_line": 55,
+          "value": "6"
+        }
+      ],
+      "routine": "RC6J"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "SCHDC"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 if the entire downdating was successful.",
+          "source_end_line": 106,
+          "source_start_line": 105,
+          "value": "0"
+        },
+        {
+          "meaning": "if R could not be downdated. In this case, all quantities are left unaltered.",
+          "source_end_line": 110,
+          "source_start_line": 108,
+          "value": "-1"
+        },
+        {
+          "meaning": "1 if some RHO could not be downdated. The offending RHOs are set to -1.",
+          "source_end_line": 114,
+          "source_start_line": 112,
+          "value": "1"
+        }
+      ],
+      "routine": "SCHDD"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that SGBSL will divide by zero if called. Use RCOND in SBGCO for a reliable indication of singularity. Band Storage If A is a band matrix, the following program segment will set up the input.",
+          "source_end_line": 63,
+          "source_start_line": 53,
+          "value": "0"
+        }
+      ],
+      "routine": "SGBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal return, calculation successful. = K if the eigenvalue iteration fails to converge, eigenvalues K+1 through N are correct, but no eigenvectors were computed even if they were requested (JOB nonzero). No. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one. No. 3 recoverable JOB is nonzero and N is greater than LDV No. 4 warning LDA > LDV, elements of A other than the N by N input elements have been changed. No. 5 warning LDA < LDV, elements of V other than the N x N output elements have been changed.",
+          "source_end_line": 84,
+          "source_start_line": 71,
+          "value": "0"
+        }
+      ],
+      "routine": "SGEEV"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that SGESL or SGEDI will divide by zero if called. Use RCOND in SGECO for a reliable indication of singularity.",
+          "source_end_line": 47,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "SGEFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 original call",
+          "source_end_line": 76,
+          "source_start_line": 76,
+          "value": "0"
+        },
+        {
+          "meaning": "1 subsequent calls On subsequent calls, the user must supply A, INFO, LW, IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to SGLSS. -1 Parameter error(s) 0 - Full rank N.GT.0 - Reduced rank rank=MIN(M,N)-INFO",
+          "source_end_line": 107,
+          "source_start_line": 77,
+          "value": "1"
+        }
+      ],
+      "routine": "SGLSS"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th element of the diagonal becomes exactly zero. The subroutine returns when this is detected.",
+          "source_end_line": 45,
+          "source_start_line": 42,
+          "value": "0"
+        }
+      ],
+      "routine": "SGTSL"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "normal value =K if U(K,K) .EQ. 0.0 . This is not an error condition for this subroutine, but it does indicate that SNBSL will divide by zero if called. Use RCOND in SNBCO for a reliable indication of singularity. Band Storage If A is a band matrix, the following program segment will set up the input.",
+          "source_end_line": 66,
+          "source_start_line": 56,
+          "value": "0"
+        }
+      ],
+      "routine": "SNBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Band Storage If A is a symmetric positive definite band matrix, the following program segment will set up the input.",
+          "source_end_line": 74,
+          "source_start_line": 67,
+          "value": "0"
+        }
+      ],
+      "routine": "SPBCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the leading minor of order K is not positive definite. Band Storage If A is a symmetric positive definite band matrix, the following program segment will set up the input.",
+          "source_end_line": 52,
+          "source_start_line": 45,
+          "value": "0"
+        }
+      ],
+      "routine": "SPBFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "the solution has been computed. In this case X(J)=PRIMAL(J) and W(I)=PRIMAL(I+NVARS). The dual variables for the equations A*x=w are in the array DUALS(I)=dual for equation number I. The dual value for the component X(J) that has an upper or lower bound (or both) is returned in The integer flag INFO indicates why SPLP( ) has returned to the CALCULATE VAL, THE MINIMAL VALUE OF THE OBJECTIVE FUNCTION. VAL=SDOT(NVARS,COSTS,1,PRIMAL,1) STOP END |End of Example of Usage | |Usage of SPLP( ) Subprogram Options.| Users frequently have a large variety of requirements for linear optimization software. Allowing for these varied requirements is at cross purposes with the desire to keep the usage of SPLP( ) as simple as possible. One solution to this dilemma is as follows. (1) Provide a version of SPLP( ) that solves a wide class of problems and is easy to use. (2) Identify parameters within SPLP() that certain users may want to change. (3) Provide a means of changing any selected number of these parameters that does not require changing all of them. Changing selected parameters is done by requiring that the user provide an option array, PRGOPT(*), to SPLP( ). The contents of PRGOPT(*) inform SPLP( ) of just those options that are going to be modified within the total set of possible parameters that can be modified. The array PRGOPT(*) is a linked list consisting of groups of data of the following form LINK KEY SWITCH data set that describe the desired options. The parameters LINK, KEY and switch are each one word and are always required. The data set can be comprised of several words or can be empty. The number of words in the data set for each option depends on the value of the parameter KEY. The value of LINK points to the first entry of the next group of data within PRGOPT(*). The exception is when there are no more and the values for KEY, SWITCH and data set are not referenced. The general layout of",
+          "source_end_line": 960,
+          "source_start_line": 263,
+          "value": "1"
+        },
+        {
+          "meaning": ".",
+          "source_end_line": 1171,
+          "source_start_line": 1171,
+          "value": "-17"
+        },
+        {
+          "meaning": "option is off; no checking of the data matrix is done",
+          "source_end_line": 1172,
+          "source_start_line": 1172,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on; checking is done. data set =ASMALL ABIG",
+          "source_end_line": 1175,
+          "source_start_line": 1173,
+          "value": "1"
+        },
+        {
+          "meaning": "checking if the residuals are feasible. Normally, TOLLS=RELPR, where RELPR is the machine precision.",
+          "source_end_line": 1180,
+          "source_start_line": 1176,
+          "value": "5"
+        },
+        {
+          "meaning": "option is off; TOLLS=RELPR.",
+          "source_end_line": 1181,
+          "source_start_line": 1181,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on. data set =TOLLS",
+          "source_end_line": 1183,
+          "source_start_line": 1182,
+          "value": "1"
+        },
+        {
+          "meaning": "columns to enter the basis. Normally, SPLP( ) uses the steepest edge pricing strategy which is the best local move. The steepest edge pricing strategy generally uses fewer iterations than the minimum reduced cost pricing, but each iteration costs more in the number of calculations done. The steepest edge pricing is considered to be more efficient. However, this is very problem dependent. That is why SPLP( ) provides the option of either pricing strategy.",
+          "source_end_line": 1194,
+          "source_start_line": 1184,
+          "value": "4"
+        },
+        {
+          "meaning": "option is off; steepest option edge pricing is used.",
+          "source_end_line": 1195,
+          "source_start_line": 1195,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on; minimum reduced cost pricing is used. data set =empty",
+          "source_end_line": 1197,
+          "source_start_line": 1196,
+          "value": "1"
+        },
+        {
+          "meaning": "recalculating the error in the primal solution. Normally, MXITBR is set to 10. The error in the primal solution is used to monitor the error in solving the linear system. This is an expensive calculation and every tenth iteration is generally often enough.",
+          "source_end_line": 1204,
+          "source_start_line": 1198,
+          "value": "3"
+        },
+        {
+          "meaning": "option is off; MXITBR=10.",
+          "source_end_line": 1205,
+          "source_start_line": 1205,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on. data set =MXITBR",
+          "source_end_line": 1207,
+          "source_start_line": 1206,
+          "value": "1"
+        },
+        {
+          "meaning": "(at most) to be found at each iteration of choosing a variable to enter the basis. Normally NPP is set to NVARS which implies that all of the reduced costs are computed at each such step. This \"partial pricing\" may very well increase the total number of iterations required. However it decreases the number of calculations at each iteration. therefore the effect on overall efficiency is quite problem-dependent.",
+          "source_end_line": 1219,
+          "source_start_line": 1208,
+          "value": "4"
+        },
+        {
+          "meaning": "option is off; NPP=NVARS",
+          "source_end_line": 1221,
+          "source_start_line": 1221,
+          "value": "0"
+        },
+        {
+          "meaning": "option is on. data set =NPP",
+          "source_end_line": 1223,
+          "source_start_line": 1222,
+          "value": "1"
+        },
+        {
+          "meaning": "error estimates for the primal and dual linear algebraic systems",
+          "source_end_line": 1227,
+          "source_start_line": 1224,
+          "value": "4"
+        },
+        {
+          "meaning": "1.E0, but in some environments it may be necessary to reset PHI to the range 0.001-0.01. This is particularly important for machines with short word lengths.",
+          "source_end_line": 1230,
+          "source_start_line": 1228,
+          "value": "1"
+        },
+        {
+          "meaning": "0 option is off; PHI=1.E0.",
+          "source_end_line": 1232,
+          "source_start_line": 1232,
+          "value": "0"
+        },
+        {
+          "meaning": "1 option is on. Data Set = PHI",
+          "source_end_line": 1234,
+          "source_start_line": 1233,
+          "value": "1"
+        },
+        {
+          "meaning": "with the SPLP() package, for passing a standard Fortran two- dimensional array containing the constraint matrix. Thus the sub- program FULMAT must be declared in a Fortran EXTERNAL statement. The two-dimensional array is passed as the argument DATTRV. The information about the array and problem dimensions are passed in the option array PRGOPT(*). It is an error if FULMAT() is used and this information is not passed in PRGOPT(*).",
+          "source_end_line": 1244,
+          "source_start_line": 1235,
+          "value": "4"
+        },
+        {
+          "meaning": "0 option is off; this is an error is FULMAT() is used.",
+          "source_end_line": 1247,
+          "source_start_line": 1246,
+          "value": "0"
+        },
+        {
+          "meaning": "1 option is on. Data Set = IA = row dimension of two-dimensional array.",
+          "source_end_line": 1249,
+          "source_start_line": 1248,
+          "value": "1"
+        }
+      ],
+      "routine": "SPLP"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.",
+          "source_end_line": 64,
+          "source_start_line": 62,
+          "value": "0"
+        }
+      ],
+      "routine": "SPOCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.",
+          "source_end_line": 41,
+          "source_start_line": 39,
+          "value": "0"
+        }
+      ],
+      "routine": "SPOFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 71,
+          "source_start_line": 62,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 74,
+          "source_start_line": 72,
+          "value": "1"
+        }
+      ],
+      "routine": "SPPCO"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the leading minor of order K is not positive definite. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 48,
+          "source_start_line": 38,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 51,
+          "source_start_line": 49,
+          "value": "1"
+        }
+      ],
+      "routine": "SPPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "SQRSL"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the eigenvalue iteration fails to converge. eigenvalues and vectors 1 through K-1 are correct. No. 1 recoverable N is greater than LDA No. 2 recoverable N is less than one",
+          "source_end_line": 65,
+          "source_start_line": 58,
+          "value": "0"
+        }
+      ],
+      "routine": "SSIEV"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that SSISL or SSIDI may divide by zero if called.",
+          "source_end_line": 52,
+          "source_start_line": 48,
+          "value": "0"
+        }
+      ],
+      "routine": "SSIFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 for normal return. = K if the eigenvalue iteration fails to converge. Eigenvalues and vectors 1 through K-1 are correct. No. 1 recoverable N is greater than LDV and JOB is nonzero No. 2 recoverable N is less than one",
+          "source_end_line": 72,
+          "source_start_line": 65,
+          "value": "0"
+        }
+      ],
+      "routine": "SSPEV"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 normal value. = K if the K-th pivot block is singular. This is not an error condition for this subroutine, but it does indicate that SSPSL or SSPDI may divide by zero if called. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix.",
+          "source_end_line": 59,
+          "source_start_line": 48,
+          "value": "0"
+        },
+        {
+          "meaning": "1, N 1, J K = K + 1",
+          "source_end_line": 62,
+          "source_start_line": 60,
+          "value": "1"
+        }
+      ],
+      "routine": "SSPFA"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "SSVDC"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "STRDI"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "STRSL"
+    },
+    {
+      "applicable": true,
+      "argument": "IND",
+      "coverage_status": "not_stated_by_source",
+      "documented_values": [],
+      "routine": "TRIDIB"
+    },
+    {
+      "applicable": true,
+      "argument": "INFO",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "0 original call",
+          "source_end_line": 106,
+          "source_start_line": 106,
+          "value": "0"
+        },
+        {
+          "meaning": "1 subsequent calls On subsequent calls, the user must supply A, KRANK, LW, IWORK, LIW, and the first 2*M locations of WORK as output by the original call to ULSIA. MODE must be equal to the value of MODE in the original call. If MODE.LT.2, only the first N locations of WORK are accessed. AE, RE, KEY, and NP are not accessed. -1 Parameter error(s) 0 - Rank deficient, no solution 1 - Rank deficient, truncated solution 2 - Rank deficient, minimal length least squares sol 3 - Numerical rank 0, zero solution 4 - Rank .LT. NP 5 - Full rank",
+          "source_end_line": 153,
+          "source_start_line": 107,
+          "value": "1"
+        }
+      ],
+      "routine": "ULSIA"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "or 111, invalid input was provided to XLEGF.",
+          "source_end_line": 99,
+          "source_start_line": 99,
+          "value": "110"
+        },
+        {
+          "meaning": ",102,103, or 104, invalid input was provided to XSET.",
+          "source_end_line": 100,
+          "source_start_line": 100,
+          "value": "101"
+        },
+        {
+          "meaning": "or 106, an internal consistency error occurred in XSET (probably due to a software malfunction in the library routine I1MACH).",
+          "source_end_line": 103,
+          "source_start_line": 101,
+          "value": "105"
+        },
+        {
+          "meaning": ", an overflow or underflow of an extended-range number was detected in XADJ.",
+          "source_end_line": 105,
+          "source_start_line": 104,
+          "value": "107"
+        },
+        {
+          "meaning": ", an overflow or underflow of an extended-range number was detected in XC210. SEE ALSO XSET",
+          "source_end_line": 109,
+          "source_start_line": 106,
+          "value": "108"
+        }
+      ],
+      "routine": "XLEGF"
+    },
+    {
+      "applicable": true,
+      "argument": "IERROR",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "when control returns to the calling routine. If an error is detected, IERROR is returned as nonzero. The calling routine must check the value of IERROR.",
+          "source_end_line": 102,
+          "source_start_line": 100,
+          "value": "0"
+        },
+        {
+          "meaning": "or 113, invalid input was provided to XNRMP.",
+          "source_end_line": 104,
+          "source_start_line": 104,
+          "value": "112"
+        },
+        {
+          "meaning": ",102,103, or 104, invalid input was provided to XSET.",
+          "source_end_line": 106,
+          "source_start_line": 105,
+          "value": "101"
+        },
+        {
+          "meaning": "or 106, an internal consistency error occurred in XSET (probably due to a software malfunction in the",
+          "source_end_line": 108,
+          "source_start_line": 107,
+          "value": "105"
+        }
+      ],
+      "routine": "XNRMP"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return",
+          "source_end_line": 45,
+          "source_start_line": 45,
+          "value": "0"
+        },
+        {
+          "meaning": "AI=0 due to underflow in",
+          "source_end_line": 47,
+          "source_start_line": 46,
+          "value": "1"
+        }
+      ],
+      "routine": "ZAIRY"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return for NZ values of L (if M=1 and",
+          "source_end_line": 49,
+          "source_start_line": 48,
+          "value": "0"
+        },
+        {
+          "meaning": "and Im(Z)<0, then",
+          "source_end_line": 50,
+          "source_start_line": 50,
+          "value": "2"
+        },
+        {
+          "meaning": "for L=1,...,NZ; in the com- plementary half planes, the underflows may not be in an uninterrupted sequence)",
+          "source_end_line": 53,
+          "source_start_line": 51,
+          "value": "0"
+        }
+      ],
+      "routine": "ZBESH"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return , L=N-NZ+1,...,N",
+          "source_end_line": 45,
+          "source_start_line": 44,
+          "value": "0"
+        }
+      ],
+      "routine": "ZBESI"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return , L=N-NZ+1,...,N",
+          "source_end_line": 47,
+          "source_start_line": 46,
+          "value": "0"
+        }
+      ],
+      "routine": "ZBESJ"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return for NZ values of L (if Re(Z)>0 for L=1,...,NZ; in the complementary half plane the underflows may not be in an uninterrupted sequence)",
+          "source_end_line": 49,
+          "source_start_line": 45,
+          "value": "0"
+        }
+      ],
+      "routine": "ZBESK"
+    },
+    {
+      "applicable": true,
+      "argument": "NZ",
+      "coverage_status": "complete",
+      "documented_values": [
+        {
+          "meaning": "Normal return for NZ values of L, usually on",
+          "source_end_line": 51,
+          "source_start_line": 50,
+          "value": "0"
+        }
+      ],
+      "routine": "ZBESY"
+    }
+  ],
+  "schema_id": "slatec-rs.status-contract-coverage",
+  "schema_version": "1.0.0",
+  "status_arguments": 152
+}

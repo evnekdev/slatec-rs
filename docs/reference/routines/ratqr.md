@@ -52,44 +52,36 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
 - Exact Netlib source: [RATQR](https://www.netlib.org/slatec/lin/ratqr.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix.  N is an INTEGER variable. 1 positions.  E(1) is 1 positions.  E2(1) is arbitrary.  E2 is a one- dimensional REAL array, dimensioned E2(N). is set to 1 and  TYPE  to .TRUE. when the matrix is NOT positive definite, or th eigenvalue are NOT monotone increasing, where K refers to the last such occurrence. Note that subroutine TRIDIB is generally faster and more accurate than RATQR if the eigenvalues are clustered. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
-| 2 | `EPS1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a theoretical absolute error tolerance for the positive, or indeed smaller than its default value, it is reset at each iteration to the respective default value, namely, the product of the relative machine precision and the magnitude of the current eigenvalue iterate.  The theoretical absolute is a REAL variable. is a REAL variable. is unaltered unless it has been reset to its (last) default value. dimensional REAL array, dimensioned BD(N).  BD need not be distinct from E2. |
-| 3 | `D` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the symmetric tridiagonal dimensional REAL array, dimensioned D(N). are unaltered (unless W overwrites D). Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices.  E2(1) is set to 0.0e0 if the smallest eigenvalues have been found, and to 2.0e0 if the largest eigenvalues have been found.  E2 is otherwise unaltered (unless overwritten by BD). |
-| 4 | `E` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the subdiagonal elements of the symmetric dimensional REAL array, dimensioned are unaltered (unless W overwrites D). Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices.  E2(1) is set to 0.0e0 if the smallest eigenvalues have been found, and to 2.0e0 if the largest eigenvalues have been found.  E2 is otherwise unaltered (unless overwritten by BD). |
-| 5 | `E2` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the squares of the corresponding elements of E in |
-| 6 | `M` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of eigenvalues to be found.  M is an INTEGER variable. is greater than N, |
-| 7 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the M algebraically smallest eigenvalues in ascending order, or the M largest eigenvalues in descending order.  If an error exit is made because of an incorrect specification of IDEF, no eigenvalues are found.  If the Newton iterates for a particular eigenvalue are not monotone, the best estimate obtained is returned and IERR is set. dimensional REAL array, dimensioned W(N).  W need not be distinct from D. 1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc. |
-| 8 | `IND` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | contains in its first M positions the submatrix indices dimensional INTEGER array, dimensioned IND(N). |
-| 9 | `BD` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains refined bounds for the theoretical errors of the corresponding eigenvalues in W.  These bounds are usually dimensional REAL array, dimensioned BD(N).  BD need not be distinct from E2. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix. N is an INTEGER variable. |
+| 2 | `EPS1` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | is a theoretical absolute error tolerance for the computed eigenvalues. If the input EPS1 is non-positive, or indeed smaller than its default value, it is reset at each iteration to the respective default value, namely, the product of the relative machine precision and the magnitude of the current eigenvalue iterate. The theoretical absolute error in the K-th eigenvalue is usually not greater than K times EPS1. EPS1 is a REAL variable. is unaltered unless it has been reset to its (last) default value. |
+| 3 | `D` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the symmetric tridiagonal matrix. D is a one-dimensional REAL array, dimensioned D(N). unaltered (unless W overwrites D). Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. E2(1) is set to 0. 0e0 if the smallest eigenvalues have been found, and to 2. |
+| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the subdiagonal elements of the symmetric tridiagonal matrix in its last N-1 positions. E(1) is arbitrary. E is a one-dimensional REAL array, dimensioned unaltered (unless W overwrites D). Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. E2(1) is set to 0. 0e0 if the smallest eigenvalues have been found, and to 2. |
+| 5 | `E2` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the squares of the corresponding elements of E in its last N-1 positions. E2(1) is arbitrary. E2 is a one- dimensional REAL array, dimensioned E2(N). |
+| 6 | `M` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of eigenvalues to be found. M is an INTEGER variable. is greater than N, 5*N+K if successive iterates to the K-th eigenvalue are NOT monotone increasing, where K refers to the last such occurrence. Note that subroutine TRIDIB is generally faster and more accurate than RATQR if the eigenvalues are clustered. Questions and comments should be directed to B. S. |
+| 7 | `W` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the M algebraically smallest eigenvalues in ascending order, or the M largest eigenvalues in descending order. If an error exit is made because of an incorrect specification of IDEF, no eigenvalues are found. If the Newton iterates for a particular eigenvalue are not monotone, the best estimate obtained is returned and IERR is set. is a one-dimensional REAL array, dimensioned W(N). W need not be distinct from D. |
+| 8 | `IND` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | contains in its first M positions the submatrix indices associated with the corresponding eigenvalues in W -- 1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc. is an one-dimensional INTEGER array, dimensioned IND(N). |
+| 9 | `BD` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains refined bounds for the theoretical errors of the corresponding eigenvalues in W. These bounds are usually within the tolerance specified by EPS1. BD is a one- dimensional REAL array, dimensioned BD(N). BD need not be distinct from E2. |
 | 10 | `TYPE` | `input` | `scalar` | `LOGICAL` | `*mut crate::FortranLogical` | scalar | Input logical selector. Set true to compute algebraically smallest eigenvalues and false to compute algebraically largest eigenvalues; it also determines the ordering of `W` and the sentinel stored in `E2(1)`. |
-| 11 | `IDEF` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | should be set to 1 if the input matrix is known to be positive definite, to -1 if the input matrix is known to be negative definite, and to 0 otherwise.  IDEF is an INTEGER variable. is set to 1 and  TYPE  to .TRUE. when the matrix is NOT positive definite, or 1 and  TYPE  to .FALSE. when the matrix is NOT negative definite, no eigenvalues are computed, or |
-| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, |
+| 11 | `IDEF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | should be set to 1 if the input matrix is known to be positive definite, to -1 if the input matrix is known to be negative definite, and to 0 otherwise. IDEF is an INTEGER variable. |
+| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero for normal return, 6*N+1 if IDEF is set to 1 and TYPE to. TRUE. when the matrix is NOT positive definite, or if IDEF is set to -1 and TYPE to. FALSE. when the matrix is NOT negative definite, no eigenvalues are computed, or. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-`W`: contains the M algebraically smallest eigenvalues in ascending order, or the M largest eigenvalues in descending order.  If an error exit is made because of an incorrect specification of IDEF, no eigenvalues are found.  If the Newton iterates for a particular eigenvalue are not monotone, the best estimate obtained is returned and IERR is set. dimensional REAL array, dimensioned W(N).  W need not be distinct from D. 1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

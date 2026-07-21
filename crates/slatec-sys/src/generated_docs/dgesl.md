@@ -1,6 +1,6 @@
 # Purpose
 
-DGESL solves the double precision system
+DGESL solves the double precision system A * X = B or TRANS(A) * X = B using the factors computed by DGECO or DGEFA. On Entry
 
 # Description
 
@@ -8,50 +8,52 @@ This canonical unsafe binding exposes original SLATEC routine `DGESL`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (LDA, *). B or TRANS(A)*X=B using the factors computed by DGECO or DGEFA. B  or  TRANS(A) * X = B using the factors computed by DGECO or DGEFA. On Entry DOUBLE PRECISION(LDA, N) the output from DGECO or DGEFA. is the transpose. On Return division by zero will occur if the input factor contains a zero on the diagonal.  Technically this indicates singularity but it is often caused by improper arguments or improper setting of LDA .  It will not occur if the subroutines are called correctly and if DGECO has set RCOND .GT. 0.0 or DGEFA has set INFO .EQ. 0 . To compute  INVERSE(A) * C  where  C  is a matrix with  P  columns CALL DGECO(A,LDA,N,IPVT,RCOND,Z) IF (RCOND is too small) GO TO ... DO 10 J = 1, P CALL DGESL(A,LDA,N,IPVT,C(1,J),0) 10 CONTINUE not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+DOUBLE PRECISION(LDA, N) the output from DGECO or DGEFA.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array A.
 
-## 4. `IPVT`
+## `N`
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). INTEGER(N) the pivot vector from DGECO or DGEFA. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `B`
+INTEGER the order of the matrix A.
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). DOUBLE PRECISION(N) the right hand side vector. the solution vector  X . not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `IPVT`
 
-## 6. `JOB`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER = 0         to solve  A*X = B , = nonzero   to solve  TRANS(A)*X = B  where not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER(N) the pivot vector from DGECO or DGEFA.
+
+## `B`
+
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+DOUBLE PRECISION(N) the right hand side vector. the solution vector X. Error Condition A division by zero will occur if the input factor contains a zero on the diagonal. Technically this indicates singularity but it is often caused by improper arguments or improper setting of LDA. It will not occur if the subroutines are called correctly and if DGECO has set RCOND. GT.
+
+## `JOB`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER = 0 to solve A*X = B , = nonzero to solve TRANS(A)*X = B where TRANS(A) is the transpose.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
 - `IPVT`: not a workspace argument
 - `B`: not a workspace argument
-- `JOB`: not a workspace argument
 
 # ABI notes
 

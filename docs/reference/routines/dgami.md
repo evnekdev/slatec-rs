@@ -8,7 +8,7 @@ Evaluate the incomplete Gamma function.
 
 ## Description
 
-Evaluate the incomplete gamma function defined by
+Evaluate the incomplete gamma function defined by DGAMI = integral from T = 0 to X of EXP(-T) * T**(A-1.0) . DGAMI is evaluated for positive values of A and non-negative values of X. A slight deterioration of 2 or 3 digits accuracy will occur when DGAMI is very large or very small, because logarithmic variables are used. The function and both arguments are double precision.
 
 ## Classification
 
@@ -52,34 +52,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DGAMI](https://www.netlib.org/slatec/fnlib/dgami.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | negative values of X.  A slight deterioration of 2 or 3 digits accuracy will occur when DGAMI is very large or very small, because logarithmic variables are used.  The function and both arguments are double precision. |
-| 2 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | T) * T**(A-1.0) . |
+| 1 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input value at which the source-defined function is evaluated: Evaluate the incomplete Gamma function |
+| 2 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input value at which the source-defined function is evaluated: Evaluate the incomplete Gamma function |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

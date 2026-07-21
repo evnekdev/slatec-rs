@@ -8,75 +8,82 @@ This canonical unsafe binding exposes original SLATEC routine `DGEMV`. Its docum
 
 # Arguments
 
-## 1. `TRANS`
+## `TRANS`
 
-input `scalar` argument; Fortran declaration `CHARACTER`, Rust ABI type `*mut core::ffi::c_char`, and scalar. CHARACTER*1. On entry, TRANS specifies the operation to be performed as follows: = alpha*A*x + beta*y. = alpha*A'*x + beta*y. = alpha*A'*x + beta*y. Unchanged on exit. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `CHARACTER`. **Rust ABI type:** `*mut core::ffi::c_char`. **Shape:** scalar.
 
-## 2. `M`
+CHARACTER*1. On entry, TRANS specifies the operation to be performed as follows: = alpha*A*x + beta*y. 'T' or 't' y := alpha*A'*x + beta*y. 'C' or 'c' y := alpha*A'*x + beta*y. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. by n matrix. Parameters ========== INTEGER. On entry, M specifies the number of rows of the matrix A. must be at least zero. Unchanged on exit. 1 )*abs( INCX ) ) otherwise. Before entry, the incremented array X must contain the vector x. Unchanged on exit. 1 )*abs( INCY ) ) when TRANS = 'N' or 'n' and at least by n matrix. Parameters ========== INTEGER. On entry, M specifies the number of rows of the matrix A. must be at least zero. Unchanged on exit. 1 )*abs( INCX ) ) otherwise. Before entry, the incremented array X must contain the vector x. Unchanged on exit. 1 )*abs( INCY ) ) when TRANS = 'N' or 'n' and at least not applicable or not stated by selected source not a workspace argument
+## `M`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. = alpha*A*x + beta*y. = alpha*A*x + beta*y. INTEGER. On entry, N specifies the number of columns of the matrix A. must be at least zero. Unchanged on exit. 1 )*abs( INCX ) ) when TRANS = 'N' or 'n' and at least 1 )*abs( INCY ) ) otherwise. = alpha*A*x + beta*y. = alpha*A*x + beta*y. INTEGER. On entry, N specifies the number of columns of the matrix A. must be at least zero. Unchanged on exit. 1 )*abs( INCX ) ) when TRANS = 'N' or 'n' and at least 1 )*abs( INCY ) ) otherwise. not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, M specifies the number of rows of the matrix A. must be at least zero. Unchanged on exit.
 
-## 4. `ALPHA`
+## `N`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is an DOUBLE PRECISION. On entry, ALPHA specifies the scalar alpha. Unchanged on exit. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `A`
+= alpha*A*x + beta*y. INTEGER. On entry, N specifies the number of columns of the matrix A. must be at least zero. Unchanged on exit.
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 2; dimensions (LDA, *). is an DOUBLE PRECISION array of DIMENSION ( LDA, n ). Before entry, the leading m by n part of the array A must contain the matrix of coefficients. Unchanged on exit. is an DOUBLE PRECISION array of DIMENSION ( LDA, n ). Before entry, the leading m by n part of the array A must contain the matrix of coefficients. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `ALPHA`
 
-## 6. `LDA`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least max( 1, m ). Unchanged on exit. INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least max( 1, m ). Unchanged on exit. INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least max( 1, m ). Unchanged on exit. not a workspace argument
+DOUBLE PRECISION. On entry, ALPHA specifies the scalar alpha. Unchanged on exit.
 
-## 7. `X`
+## `A`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). is an DOUBLE PRECISION array of DIMENSION at least must not be zero. Unchanged on exit. is an DOUBLE PRECISION array of DIMENSION at least must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 8. `INCX`
+DOUBLE PRECISION array of DIMENSION ( LDA, n ). Before entry, the leading m by n part of the array A must contain the matrix of coefficients. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `LDA`
 
-## 9. `BETA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is an DOUBLE PRECISION. On entry, BETA specifies the scalar beta. When BETA is supplied as zero then Y need not be set on input. Unchanged on exit. zero, the incremented array Y not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least max( 1, m ). Unchanged on exit.
 
-## 10. `Y`
+## `X`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). = alpha*A*x + beta*y,   or   y := alpha*A'*x + beta*y, is an = alpha*A*x + beta*y. = alpha*A'*x + beta*y. = alpha*A'*x + beta*y. Unchanged on exit. DOUBLE PRECISION array of DIMENSION at least is overwritten by the is overwritten by the updated vector y. updated vector y. must not be zero. Unchanged on exit. = alpha*A*x + beta*y,   or   y := alpha*A'*x + beta*y, is an = alpha*A*x + beta*y. = alpha*A'*x + beta*y. = alpha*A'*x + beta*y. Unchanged on exit. DOUBLE PRECISION array of DIMENSION at least is overwritten by the is overwritten by the updated vector y. updated vector y. must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-## 11. `INCY`
+DOUBLE PRECISION array of DIMENSION at least ( 1 + ( n - 1 )*abs( INCX ) ) when TRANS = 'N' or 'n' and at least ( 1 + ( m - 1 )*abs( INCX ) ) otherwise. Before entry, the incremented array X must contain the vector x. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `INCX`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, INCX specifies the increment for the elements of X. INCX must not be zero. Unchanged on exit.
+
+## `BETA`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+DOUBLE PRECISION. On entry, BETA specifies the scalar beta. When BETA is supplied as zero then Y need not be set on input. Unchanged on exit.
+
+## `Y`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+= alpha*A*x + beta*y, or y := alpha*A'*x + beta*y, where alpha and beta are scalars, x and y are vectors and A is an m by n matrix. = alpha*A*x + beta*y. DOUBLE PRECISION array of DIMENSION at least ( 1 + ( m - 1 )*abs( INCY ) ) when TRANS = 'N' or 'n' and at least ( 1 + ( n - 1 )*abs( INCY ) ) otherwise. Before entry with BETA non-zero, the incremented array Y must contain the vector y. On exit, Y is overwritten by the updated vector y.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, INCY specifies the increment for the elements of Y. INCY must not be zero. Unchanged on exit.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `TRANS`: not a workspace argument
-- `M`: not a workspace argument
-- `N`: not a workspace argument
-- `ALPHA`: not a workspace argument
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
 - `X`: not a workspace argument
-- `INCX`: not a workspace argument
-- `BETA`: not a workspace argument
 - `Y`: not a workspace argument
-- `INCY`: not a workspace argument
 
 # ABI notes
 

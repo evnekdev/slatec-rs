@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `COT`. Its documen
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is in is in is in units of radians. units of radians. units of radians. Series for COT        on the interval  0.          to  6.25000D-02 Series for COT        on the interval  0.          to  6.25000D-02 Series for COT        on the interval  0.          to  6.25000D-02 with weighted error   3.76E-17 with weighted error   3.76E-17 with weighted error   3.76E-17 log weighted error  16.42 log weighted error  16.42 log weighted error  16.42 significant figures required  15.51 significant figures required  15.51 significant figures required  15.51 decimal places required  16.88 decimal places required  16.88 decimal places required  16.88 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the cotangent
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

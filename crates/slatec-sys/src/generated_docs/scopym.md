@@ -8,45 +8,44 @@ This canonical unsafe binding exposes original SLATEC routine `SCOPYM`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Number of elements in vector(s) 1, copy  -SX(LX+I*INCX) to SY(LY+I*INCY), where LX=1 if not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `SX`
+Number of elements in vector(s).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Real vector with N elements 1, copy  -SX(LX+I*INCX) to SY(LY+I*INCY), where LX=1 if not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SX`
 
-## 3. `INCX`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Storage spacing between elements of SX N)*INCX, and LY is defined in a similar way using INCY. not stated by selected source not applicable or not stated by selected source not a workspace argument
+vector with N elements.
 
-## 4. `SY`
+## `INCX`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). Real negative copy of SX SX  *** 1, copy  -SX(LX+I*INCX) to SY(LY+I*INCY), where LX=1 if not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `INCY`
+Storage spacing between elements of SX. GE. 0, else LX = 1+(1-N)*INCX, and LY is defined in a similar way using INCY.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Storage spacing between elements of SY not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SY`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+negative copy of SX.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Storage spacing between elements of SY Note that SY = -SX *** Copy negative of real SX to real SY. For I=0 to N-1, copy -SX(LX+I*INCX) to SY(LY+I*INCY), where LX=1 if.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `SX`: not a workspace argument
-- `INCX`: not a workspace argument
 - `SY`: not a workspace argument
-- `INCY`: not a workspace argument
 
 # ABI notes
 

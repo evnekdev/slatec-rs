@@ -8,49 +8,49 @@ This canonical unsafe binding exposes original SLATEC routine `TRBAK3`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameter, Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameter, Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameter, Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. is the order of the matrix.  N is an INTEGER variable. must be less than or equal to NM. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `NV`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER variable set equal to the dimension of the must not be less than  N*(N+1)/2. is an INTEGER variable set equal to the dimension of the must not be less than  N*(N+1)/2. not applicable or not stated by selected source not a workspace argument
+is the order of the matrix. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `A`
+## `NV`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). must not be less than  N*(N+1)/2. contains information about the orthogonal transformations used in the reduction by  TRED3  in its first N*(N+1)/2 dimensional REAL array, dimensioned dimensional REAL array, dimensioned dimensional REAL array, dimensioned Z(NM,M). must not be less than  N*(N+1)/2. contains information about the orthogonal transformations used in the reduction by  TRED3  in its first N*(N+1)/2 dimensional REAL array, dimensioned dimensional REAL array, dimensioned dimensional REAL array, dimensioned Z(NM,M). not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `M`
+is an INTEGER variable set equal to the dimension of the array A as specified in the calling program. NV must not be less than N*(N+1)/2.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the number of columns of Z to be back transformed. is an INTEGER variable. dimensional REAL array, dimensioned Z(NM,M). is the number of columns of Z to be back transformed. is an INTEGER variable. dimensional REAL array, dimensioned Z(NM,M). not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 6. `Z`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains the eigenvectors to be back transformed in its dimensional REAL array, dimensioned Z(NM,M). contains the transformed eigenvectors in its first M columns. Note that TRBAK3 preserves vector Euclidean norms. Questions and comments should be directed to b. s. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains the eigenvectors to be back transformed in its dimensional REAL array, dimensioned Z(NM,M). contains the transformed eigenvectors in its first M columns. Note that TRBAK3 preserves vector Euclidean norms. Questions and comments should be directed to b. s. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+contains information about the orthogonal transformations used in the reduction by TRED3 in its first N*(N+1)/2 positions. A is a one-dimensional REAL array, dimensioned.
+
+## `M`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is the number of columns of Z to be back transformed. is an INTEGER variable.
+
+## `Z`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the eigenvectors to be back transformed in its first M columns. Z is a two-dimensional REAL array, dimensioned Z(NM,M). contains the transformed eigenvectors in its first M columns. Note that TRBAK3 preserves vector Euclidean norms. Questions and comments should be directed to b. s.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
-- `NV`: not a workspace argument
 - `A`: not a workspace argument
-- `M`: not a workspace argument
 - `Z`: not a workspace argument
 
 # ABI notes

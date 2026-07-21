@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `BESK1`. Its docum
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. computes the modified (hyperbolic) Bessel function of third kind of order one for real argument X, where X .GT. 0. Series for BK1        on the interval  0.          to  4.00000D+00 with weighted error   7.02E-18 log weighted error  17.15 significant figures required  16.73 decimal places required  17.67 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the modified (hyperbolic) Bessel function of the third kind of order one
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f32(mut_f32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

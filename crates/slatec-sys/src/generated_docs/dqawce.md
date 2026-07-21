@@ -1,6 +1,6 @@
 # Purpose
 
-Computation of a CAUCHY PRINCIPAL VALUE Standard fortran subroutine Double precision version PARAMETERS ON ENTRY
+Computation of a CAUCHY PRINCIPAL VALUE Standard fortran subroutine Double precision version
 
 # Description
 
@@ -8,73 +8,107 @@ This canonical unsafe binding exposes original SLATEC routine `DQAWCE`. Its docu
 
 # Arguments
 
-## 1. `F`
+## `F`
 
-callback `callback` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. Double precision Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 2. `A`
+Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Lower limit of integration not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `B`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Upper limit of integration not stated by selected source not applicable or not stated by selected source not a workspace argument
+Lower limit of integration.
 
-## 4. `C`
+## `B`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Parameter in the WEIGHT function, C.NE.A, C.NE.B A OR C = B, the routine will end with A or C = B or not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 5. `EPSABS`
+Upper limit of integration.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Absolute accuracy requested and not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `C`
 
-## 6. `EPSREL`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Relative accuracy requested If  EPSABS.LE.0 28), 28)) or LIMIT.LT.1. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Parameter in the WEIGHT function, C. NE. A, C. B If C = A OR C = B, the routine will end with IER = 6.
 
-## 7. `LIMIT`
+## `EPSABS`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Gives an upper bound on the number of subintervals in the partition of (A,B), LIMIT.GE.1 ON RETURN However, if this yields no improvement it is advised to analyze the the integrand, in order to determine the the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges. = 2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved. = 3 Extremely bad integrand behaviour occurs at some interior points of the integration interval. = 6 The input is invalid, because LAST LAST otherwise, form a decreasing sequence otherwise, form a decreasing sequence not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 8. `RESULT`
+Absolute accuracy requested.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Approximation to the integral ABSERR, NEVAL, RLIST(1), ELIST(1), not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `EPSREL`
 
-## 9. `ABSERR`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. Double precision Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) not stated by selected source not applicable or not stated by selected source not a workspace argument
+Relative accuracy requested If EPSABS. LE. 0 and EPSREL. LT. MAX(50*REL. MACH.
 
-## 10. `NEVAL`
+## `LIMIT`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Integer Number of integrand evaluations not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 11. `IER`
+Gives an upper bound on the number of subintervals in the partition of (A,B), LIMIT. GE. 1.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 6. 6. Integer 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved. 1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `RESULT`
 
-## 12. `ALIST`
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). Double precision Vector of dimension at least LIMIT, the first Double precision Vector of dimension at least LIMIT, the first not applicable or not stated by selected source not a workspace argument
+Approximation to the integral.
 
-## 13. `BLIST`
+## `ABSERR`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). Double precision Vector of dimension at least LIMIT, the first Double precision Vector of dimension at least LIMIT, the first not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 14. `RLIST`
+Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT).
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). Double precision Vector of dimension at least LIMIT, the first Double precision Vector of dimension at least LIMIT, the first not applicable or not stated by selected source not a workspace argument
+## `NEVAL`
 
-## 15. `ELIST`
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). Double precision Vector of dimension LIMIT, the first  LAST elements of which are the moduli of the absolute LAST LAST Double precision Vector of dimension LIMIT, the first  LAST elements of which are the moduli of the absolute LAST LAST not applicable or not stated by selected source not a workspace argument
+Number of integrand evaluations.
 
-## 16. `IORD`
+## `IER`
 
-input-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively. Integer Vector of dimension at least LIMIT, the first K elements of which are pointers to the error estimates over the subintervals, so that LAST LAST are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively. Integer Vector of dimension at least LIMIT, the first K elements of which are pointers to the error estimates over the subintervals, so that LAST LAST not applicable or not stated by selected source not a workspace argument
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 17. `LAST`
+IER = 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. IER. GT. 0 Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively. elements of which are the left end points of the subintervals in the partition of the given integration range (A,B) elements of which are the right end points of the subintervals in the partition of the given integration range (A,B) elements of which are the integral approximations on the subintervals LAST otherwise, form a decreasing sequence Integer Number of subintervals actually produced in the subdivision process not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ALIST`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+Vector of dimension at least LIMIT, the first.
+
+## `BLIST`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+Vector of dimension at least LIMIT, the first.
+
+## `RLIST`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+Vector of dimension at least LIMIT, the first.
+
+## `ELIST`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+Vector of dimension LIMIT, the first LAST elements of which are the moduli of the absolute error estimates on the subintervals.
+
+## `IORD`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+Vector of dimension at least LIMIT, the first K elements of which are pointers to the error estimates over the subintervals, so that ELIST(IORD(1)),. , ELIST(IORD(K)) with K = LAST If LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise, form a decreasing sequence.
+
+## `LAST`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+elements of which are the left end points of the subintervals in the partition of the given integration range (A,B) elements of which are the right elements of which are the integral approximations on the subintervals Integer Number of subintervals actually produced in the subdivision process.
 
 # Return value
 
@@ -82,31 +116,27 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IER` | `6` | 6. |
+| `IER` | `0` | 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. |
+| `IER` | `>0` | Abnormal termination of the routine the estimates for integral and error are less reliable. It is assumed that the requested accuracy has not been achieved. |
+| `IER` | `1` | 1 Maximum number of subdivisions allowed has been achieved. One can allow more sub- divisions by increasing the value of LIMIT. However, if this yields no improvement it is advised to analyze the the integrand, in order to determine the the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling appropriate integrators on the subranges. |
+| `IER` | `2` | 2 The occurrence of roundoff error is detec- ted, which prevents the requested tolerance from being achieved. |
+| `IER` | `3` | 3 Extremely bad integrand behaviour occurs at some interior points of the integration interval. |
+| `IER` | `6` | 6 The input is invalid, because C = A or C = B or (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28)) or LIMIT.LT.1. RESULT, ABSERR, NEVAL, RLIST(1), ELIST(1), IORD(1) and LAST are set to zero. ALIST(1) and BLIST(1) are set to A and B respectively. |
 
 # Workspace and array requirements
 
-- `F`: not a workspace argument
-- `A`: not a workspace argument
-- `B`: not a workspace argument
-- `C`: not a workspace argument
-- `EPSABS`: not a workspace argument
-- `EPSREL`: not a workspace argument
-- `LIMIT`: not a workspace argument
-- `RESULT`: not a workspace argument
-- `ABSERR`: not a workspace argument
-- `NEVAL`: not a workspace argument
-- `IER`: not a workspace argument
 - `ALIST`: not a workspace argument
 - `BLIST`: not a workspace argument
 - `RLIST`: not a workspace argument
 - `ELIST`: not a workspace argument
 - `IORD`: not a workspace argument
-- `LAST`: not a workspace argument
 
 # ABI notes
 

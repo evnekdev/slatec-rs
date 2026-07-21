@@ -8,45 +8,50 @@ This canonical unsafe binding exposes original SLATEC routine `CPBFA`. Its docum
 
 # Arguments
 
-## 1. `ABD`
+## `ABD`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). COMPLEX(LDA, N) the matrix to be factored.  The columns of the upper triangle are stored in the columns of ABD and the diagonals of the upper triangle are stored in the rows of ABD .  See the comments below for details. an upper triangular matrix  R , stored in band form, so that  A = CTRANS(R)*R . A(I,J) 10    CONTINUE 20 CONTINUE not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA, N) the matrix to be factored. The columns of the upper triangle are stored in the columns of ABD and the diagonals of the upper triangle are stored in the rows of ABD. See the comments below for details. an upper triangular matrix R , stored in band form, so that A = CTRANS(R)*R. A(I,J) 10 CONTINUE 20 CONTINUE.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  ABD . must be .GE. M + 1 . INTEGER the leading dimension of the array  ABD . must be .GE. M + 1 . INTEGER the leading dimension of the array  ABD . must be .GE. M + 1 . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array ABD. must be. GE. M + 1.
 
-## 4. `M`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the number of diagonals above the main diagonal. 0 .LE. M .LT. N . On Return (band width above diagonal) DO 20 J = 1, N I1 = MAX(1, J-M) DO 10 I = I1, J K = I-J+M+1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `INFO`
+INTEGER the order of the matrix A.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER = 0  for normal return. = K  if the leading minor of order  K  is not positive definite. Band Storage If  A  is a Hermitian positive definite band matrix, the following program segment will set up the input. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `M`
+
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER the number of diagonals above the main diagonal. 0. LE. M. LT. N.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER = 0 for normal return. = K if the leading minor of order K is not positive definite. Band Storage If A is a Hermitian positive definite band matrix, the following program segment will set up the input.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 for normal return. = K if the leading minor of order K is not positive definite. Band Storage If A is a Hermitian positive definite band matrix, the following program segment will set up the input. |
 
 # Workspace and array requirements
 
 - `ABD`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
-- `M`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

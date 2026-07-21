@@ -8,7 +8,7 @@ Compute the B-representation of a cubic spline which interpolates given data.
 
 ## Description
 
-BINT4 computes the B representation (T,BCOEF,N,K) of a
+BINT4 computes the B representation (T,BCOEF,N,K) of a cubic spline (K=4) which interpolates data (X(I)),Y(I))), I=1,NDATA. Parameters IBCL, IBCR, FBCL, FBCR allow the specification of the spline first or second derivative at both X(1) and X(NDATA). When this data is not specified by the problem, it is common practice to use a natural spline by setting second derivatives at X(1) and X(NDATA) to zero (IBCL=IBCR=2,FBCL=FBCR=0.0). The spline is defined on
 
 ## Classification
 
@@ -54,37 +54,33 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [BINT4](https://www.netlib.org/slatec/src/bint4.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is not specified is not specified by the problem, it is common practice to use a natural by the problem, it is common practice to use a natural spline by setting second derivatives at X(1) and X(NDATA) spline by setting second derivatives at X(1) and X(NDATA) is anticipated, the is anticipated, the is unique for given boundary conditions. X vector of abscissae of length NDATA, distinct and in increasing order to FBCL = 2 constrain the second derivative at to FBCL to FBCR to FBCR are knot values to the right of X(NDATA) in increasing order to be supplied by the user |
-| 2 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Y vector of ordinates of length NDATA |
-| 3 | `NDATA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Parameters IBCL, IBCR, FBCL, FBCR allow the specification of the spline first or second derivative at is not specified by the problem, it is common practice to use a natural spline by setting second derivatives at X(1) and X(NDATA) is anticipated, the number of data points, NDATA .GE. 2 to FBCR to FBCR |
-| 4 | `IBCL` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IBCR=2,FBCL=FBCR=0.0).  The spline is defined on selection parameter for left boundary condition 1 constrain the first derivative at |
-| 5 | `IBCR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | selection parameter for right boundary condition 1 constrain first derivative at 2 constrain second derivative at |
-| 6 | `FBCL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | left boundary values governed by IBCL |
-| 7 | `FBCR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | right boundary values governed by IBCR |
-| 8 | `KNTOPT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | knot selection parameter 1 sets knot multiplicity at T(4) and 3, then W(1),W(2),W(3) are knot values to |
-| 9 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | .LE. X .LE. T(N+1) with (ordered) interior knots at X(I)) X(1) and the knots T(N+2), T(N+3), T(N+4) X(NDATA) in increasing order.  If T(2)=T(3)=T(4)=X(1) and T(N+2)=T(N+3)=T(N+4)= X(NDATA) can be specified by KNTOPT=1.  KNTOPT=2 selects a knot placement for T(1), T(2), T(3) to make the X(1) and similarly for X(NDATA).  KNTOPT=3 X(NDATA).  KNTOPT=3 X(NDATA).  KNTOPT=3 X(NDATA).  KNTOPT=3 allows the user to make his own selection, in increasing allows the user to make his own selection, in increasing allows the user to make his own selection, in increasing allows the user to make his own selection, in increasing order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), T(N+4) to the right of X(NDATA) in the work array is unique is unique for given boundary conditions. for given boundary conditions. to 4 = 2 sets a symmetric placement of knots about T(4) and T(N+1) = 3 sets TNP)=WNP) and T(N+1+I)=w(3+I),I=1,3 where WNP),I=1,6 is supplied by the user knot array of length N+4 |
-| 10 | `BCOEF` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | B-spline coefficient array of length N |
-| 11 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | NDATA+2.  The knots T(1), T(2), T(3) lie to X(NDATA) in increasing order.  If X(NDATA) can be specified by KNTOPT=1.  KNTOPT=2 selects a knot placement for T(1), T(2), T(3) to make the X(NDATA).  KNTOPT=3 X(NDATA).  KNTOPT=3 X(NDATA).  KNTOPT=3 X(NDATA).  KNTOPT=3 allows the user to make his own selection, in increasing allows the user to make his own selection, in increasing allows the user to make his own selection, in increasing allows the user to make his own selection, in increasing order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), order, for T(1), T(2), T(3) to the left of X(1) and T(N+2), T(N+4) to the right of X(NDATA) in the work array is unique for given boundary conditions. to 4 = 2 sets a symmetric placement of knots about T(4) and T(N+1) = 3 sets TNP)=WNP) and T(N+1+I)=w(3+I),I=1,3 where WNP),I=1,6 is supplied by the user number of coefficients, N=NDATA+2 |
-| 12 | `K` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 4) which interpolates data (X(I)),Y(I))), order of spline, K=4 |
-| 13 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 2; dimensions (5, *) | through W(6).  In any case, the interpolation on work array of dimension at least 5*(NDATA+2) are knot are knot are knot values to the right of X(NDATA) in increasing values to the right of X(NDATA) in increasing values to the right of X(NDATA) in increasing order to be supplied by the user order to be supplied by the user order to be supplied by the user |
+| 1 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | X vector of abscissae of length NDATA, distinct and in increasing order. |
+| 2 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Y vector of ordinates of length NDATA. |
+| 3 | `NDATA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of data points, NDATA. GE. 2. |
+| 4 | `IBCL` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | selection parameter for left boundary condition 1 constrain the first derivative at X(1) to FBCL = 2 constrain the second derivative at. |
+| 5 | `IBCR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | selection parameter for right boundary condition 1 constrain first derivative at X(NDATA) to FBCR 2 constrain second derivative at. |
+| 6 | `FBCL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | left boundary values governed by IBCL. |
+| 7 | `FBCR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | right boundary values governed by IBCR. |
+| 8 | `KNTOPT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | knot selection parameter 1 sets knot multiplicity at T(4) and T(N+1) to 4 = 2 sets a symmetric placement of knots about T(4) and T(N+1) = 3 sets TNP)=WNP) and T(N+1+I)=w(3+I),I=1,3 where WNP),I=1,6 is supplied by the user. |
+| 9 | `T` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | LE. X. T(N+1) with (ordered) interior knots at X(I)) values where N=NDATA+2. The knots T(1), T(2), T(3) lie to the left of T(4)=X(1) and the knots T(N+2), T(N+3), T(N+4) lie to the right of T(N+1)=X(NDATA) in increasing order. If no extrapolation outside (X(1),X(NDATA)) is anticipated, the knots T(1)=T(2)=T(3)=T(4)=X(1) and T(N+2)=T(N+3)=T(N+4)= X(NDATA) can be specified by KNTOPT=1. KNTOPT=2 selects a knot placement for T(1), T(2), T(3) to make the first 7 knots symmetric about T(4)=X(1) and similarly for T(N+2), T(N+3), T(N+4) about T(N+1)=X(NDATA). |
+| 10 | `BCOEF` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | B-spline coefficient array of length N. |
+| 11 | `N` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of coefficients, N=NDATA+2. |
+| 12 | `K` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of spline, K=4. |
+| 13 | `W` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 2; dimensions (5, *) | work array of dimension at least 5*(NDATA+2) if KNTOPT=3, then W(1),W(2),W(3) are knot values to the left of X(1) and W(4),W(5),W(6) are knot values to the right of X(NDATA) in increasing order to be supplied by the user. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
 
 ### Error and status values
 
@@ -92,7 +88,7 @@ Improper  input is a fatal error Singular system of equations is a fatal error
 
 ### Storage and workspace requirements
 
-`W`: through W(6).  In any case, the interpolation on work array of dimension at least 5*(NDATA+2) are knot are knot are knot values to the right of X(NDATA) in increasing values to the right of X(NDATA) in increasing values to the right of X(NDATA) in increasing order to be supplied by the user order to be supplied by the user order to be supplied by the user
+`W`: work array of dimension at least 5*(NDATA+2) if KNTOPT=3, then W(1),W(2),W(3) are knot values to the left of X(1) and W(4),W(5),W(6) are knot values to the right of X(NDATA) in increasing order to be supplied by the user.
 
 ### Provider, ABI, and safety
 

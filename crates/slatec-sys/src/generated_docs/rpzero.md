@@ -1,6 +1,6 @@
 # Purpose
 
-Find the zeros of the real polynomial
+Find the zeros of the real polynomial P(X)= A(1)*X**N + A(2)*X**(N-1) +...+ A(N+1)
 
 # Description
 
@@ -8,49 +8,51 @@ This canonical unsafe binding exposes original SLATEC routine `RPZERO`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1) +...+ A(N+1) 1) +...+ A(N+1) degree of P(X) I) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `A`
+degree of P(X).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). 1) +...+ A(N+1) 1) +...+ A(N+1) real vector containing coefficients of P(X), I) 0.0 or N=0 on input. If IFLG .EQ. 2 on return, the program failed to converge after 25*N iterations.  Best current estimates of the zeros are in R(I).  Error bounds are not calculated. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `A`
 
-## 3. `R`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). N word complex vector containing initial estimates for zeros if these are known. contains estimates of the zeros Warning ****** If estimates are input, they must be separated; that is, distinct or not repeated. ith zero, N word complex vector containing initial estimates for zeros if these are known. contains estimates of the zeros Warning ****** If estimates are input, they must be separated; that is, distinct or not repeated. ith zero, not applicable or not stated by selected source not a workspace argument
+real vector containing coefficients of P(X), coefficient of X**(N+1-I).
 
-## 4. `T`
+## `R`
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). 6(N+1) word array used for temporary storage not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-## 5. `IFLG`
+N word complex vector containing initial estimates for zeros if these are known. ith zero,.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. flag to indicate if initial estimates of zeros are input. If IFLG .EQ. 0, no estimates are input. contains estimates of the zeros Warning ****** If estimates are input, they must be separated; that is, distinct or not repeated. error diagnostic 0.0 or N=0 on input. If IFLG .EQ. 2 on return, the program failed to converge after 25*N iterations.  Best current estimates of the zeros are in R(I).  Error bounds are not calculated. flag to indicate if initial estimates of zeros are input. If IFLG .EQ. 0, no estimates are input. contains estimates of the zeros Warning ****** If estimates are input, they must be separated; that is, distinct or not repeated. error diagnostic 0.0 or N=0 on input. If IFLG .EQ. 2 on return, the program failed to converge after 25*N iterations.  Best current estimates of the zeros are in R(I).  Error bounds are not calculated. not applicable or not stated by selected source not a workspace argument
+## `T`
 
-## 6. `S`
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). an N word array bound for R(I) . not stated by selected source not applicable or not stated by selected source not a workspace argument
+6(N+1) word array used for temporary storage.
+
+## `IFLG`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+flag to indicate if initial estimates of zeros are input. If IFLG. EQ. 0, no estimates are input. NE. 0, the vector R contains estimates of the zeros Warning ****** If estimates are input, they must be separated; that is, distinct or not repeated.
+
+## `S`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+an N word array bound for R(I).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-If IFLG .EQ. 0 on return, all is well.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `R`: not a workspace argument
 - `T`: not a workspace argument
-- `IFLG`: not a workspace argument
 - `S`: not a workspace argument
 
 # ABI notes

@@ -51,35 +51,27 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SCNRM2](https://www.netlib.org/slatec/lin/scnrm2.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s) vector stored in CX with storage increment INCX. 0. must be .GE. 1 Four phase method using two built-in constants that are hopefully applicable to all machines. CUTLO = maximum of  SQRT(U/EPS)  over all known machines. CUTHI = minimum of  SQRT(V)      over all known machines. where EPS = smallest no. such that EPS + 1. .GT. 1. U   = smallest positive no.   (underflow limit) V   = largest  no.            (overflow  limit) Brief outline of algorithm. Phase 1 scans zero components. Move to phase 2 when a component is nonzero and .LE. CUTLO Move to phase 3 when a component is .GT. CUTLO Move to phase 4 when a component is .GE. CUTHI/M where M = N for X() real and M = 2*N for complex. Values for CUTLO and CUTHI. From the environmental parameters listed in the IMSL converter document the limiting values are as follows: CUTLO, S.P.   U/EPS = 2**(-102) for  Honeywell.  Close seconds are Univac and DEC at 2**(-103) Thus CUTLO = 2**(-51) = 4.44089E-16 CUTHI, S.P.   V = 2**127 for Univac, Honeywell, and DEC. Thus CUTHI = 2**(63.5) = 1.30438E19 CUTLO, D.P.   U/EPS = 2**(-67) for Honeywell and DEC. Thus CUTLO = 2**(-33.5) = 8.23181D-11 CUTHI, D.P.   same as S.P.  CUTHI = 1.30438D19 DATA CUTLO, CUTHI /8.232D-11,  1.304D19/ DATA CUTLO, CUTHI /4.441E-16,  1.304E19/ |
-| 2 | `CX` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | complex vector with N elements |
-| 3 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of CX must be .GE. 1 Four phase method using two built-in constants that are hopefully applicable to all machines. CUTLO = maximum of  SQRT(U/EPS)  over all known machines. CUTHI = minimum of  SQRT(V)      over all known machines. where EPS = smallest no. such that EPS + 1. .GT. 1. U   = smallest positive no.   (underflow limit) V   = largest  no.            (overflow  limit) Brief outline of algorithm. Phase 1 scans zero components. Move to phase 2 when a component is nonzero and .LE. CUTLO Move to phase 3 when a component is .GT. CUTLO Move to phase 4 when a component is .GE. CUTHI/M where M = N for X() real and M = 2*N for complex. Values for CUTLO and CUTHI. From the environmental parameters listed in the IMSL converter document the limiting values are as follows: CUTLO, S.P.   U/EPS = 2**(-102) for  Honeywell.  Close seconds are Univac and DEC at 2**(-103) Thus CUTLO = 2**(-51) = 4.44089E-16 CUTHI, S.P.   V = 2**127 for Univac, Honeywell, and DEC. Thus CUTHI = 2**(63.5) = 1.30438E19 CUTLO, D.P.   U/EPS = 2**(-67) for Honeywell and DEC. Thus CUTLO = 2**(-33.5) = 8.23181D-11 CUTHI, D.P.   same as S.P.  CUTHI = 1.30438D19 DATA CUTLO, CUTHI /8.232D-11,  1.304D19/ DATA CUTLO, CUTHI /4.441E-16,  1.304E19/ |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s). |
+| 2 | `CX` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | complex vector with N elements. |
+| 3 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of CX. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

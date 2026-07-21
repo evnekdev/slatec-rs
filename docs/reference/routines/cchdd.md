@@ -8,7 +8,7 @@ Downdate an augmented Cholesky decomposition or the triangular factor of an augm
 
 ## Description
 
-CCHDD downdates an augmented Cholesky decomposition or the triangular factor of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector X, a column vector Z, and a scalar Y, CCHDD determines a unitary matrix U and a scalar ZETA such that
+CCHDD downdates an augmented Cholesky decomposition or the triangular factor of an augmented QR decomposition. Specifically, given an upper triangular matrix R of order P, a row vector X, a column vector Z, and a scalar Y, CCHDD determines a unitary matrix U and a scalar ZETA such that (R Z ) (RR ZZ) U * ( ) = ( ) , (0 ZETA) ( X Y) where RR is upper triangular. If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) removed. In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the downdated problem is SQRT(RHO**2 - ZETA**2). CCHDD will simultaneously downdate several triplets (Z,Y,RHO) along with R. For a less terse description of what CCHDD does and how it may be applied, see the LINPACK Guide. The matrix U is determined as the product U(1)*...*U(P) where U(I) is a rotation in the (P+1,I)-plane of the form ( C(I) -CONJG(S(I)) ) ( ) . ( S(I) C(I) ) the rotations are chosen so that C(I) is real. The user is warned that a given downdating problem may be impossible to accomplish or may produce inaccurate results. For example, this can happen if X is near a vector whose removal will reduce the rank of R. Beware. On Entry
 
 ## Classification
 
@@ -52,44 +52,44 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [CCHDD](https://www.netlib.org/slatec/lin/cchdd.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `R` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDR, *) | Z )     (RR  ZZ) U * (      )  =  (      ) , (0 ZETA)     ( X   Y) where RR is upper triangular.  If R and Z have been obtained from the factorization of a least squares problem, then RR and ZZ are the factors corresponding to the problem with the observation (X,Y) removed.  In this case, if RHO is the norm of the residual vector, then the norm of the residual vector of the downdated problem is COMPLEX(LDR,P), where LDR .GE. P. contains the upper triangular matrix that is to be downdated.  The part of R below the diagonal is not referenced. is not altered by CCHDD. |
+| 1 | `R` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDR, *) | COMPLEX(LDR,P), where LDR. GE. P. contains the upper triangular matrix that is to be downdated. The part of R below the diagonal is not referenced. |
 | 2 | `LDR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array R. |
-| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | plane of the form INTEGER. is the order of the matrix R. vectors which are to be downdated along with R. |
-| 4 | `X` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). contains the row vector that is to is not altered by CCHDD. |
-| 5 | `Z` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDZ, *) | COMPLEX(LDZ,NZ), where LDZ .GE. P. vectors which are to be downdated along with R. is not altered by CCHDD. contain the downdated quantities. |
+| 3 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the order of the matrix R. |
+| 4 | `X` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). contains the row vector that is to be removed from R. X is not altered by CCHDD. |
+| 5 | `Z` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDZ, *) | COMPLEX(LDZ,NZ), where LDZ. GE. P. is an array of NZ P-vectors which are to be downdated along with R. contain the downdated quantities. |
 | 6 | `LDZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array Z. |
-| 7 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | vectors which are to be downdated along with R. INTEGER. is the number of vectors to be downdated may be zero, in which case Z, Y, and RHO are not referenced. |
-| 8 | `Y` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(NZ). contains the scalars for the downdating is not altered by CCHDD. |
-| 9 | `RHO` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | ZETA**2).  CCHDD will simultaneously downdate several triplets (Z,Y,RHO) along with R. For a less terse description of what CCHDD does and how it may be applied, see the LINPACK Guide. The matrix U is determined as the product U(1)*...*U(P) REAL(NZ). contains the norms of the residual vectors that are to be downdated. On Return |
-| 10 | `C` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | CONJG(S(I)) ) (                    ) . ( S(I)       C(I)    ) the rotations are chosen so that C(I) is real. The user is warned that a given downdating problem may be impossible to accomplish or may produce inaccurate results.  For example, this can happen if X is near a vector whose removal will reduce the rank of R.  Beware. On Entry REAL(P). contains the cosines of the transforming rotations. |
-| 11 | `S` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). contains the sines of the transforming rotations. |
-| 12 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is set as follows. 0  if the entire downdating was successful. 1  if R could not be downdated. in this case, all quantities are left unaltered. 1  if some RHO could not be downdated.  The offending RHO's are set to -1. |
+| 7 | `NZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the number of vectors to be downdated NZ may be zero, in which case Z, Y, and RHO are not referenced. |
+| 8 | `Y` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(NZ). contains the scalars for the downdating of the vectors Z. Y is not altered by CCHDD. |
+| 9 | `RHO` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(NZ). contains the norms of the residual vectors that are to be downdated. |
+| 10 | `C` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(P). contains the cosines of the transforming rotations. |
+| 11 | `S` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). contains the sines of the transforming rotations. |
+| 12 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is set as follows. INFO = 0 if the entire downdating was successful. INFO =-1 if R could not be downdated. in this case, all quantities are left unaltered. INFO = 1 if some RHO could not be downdated. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 if the entire downdating was successful. |
+| `INFO` | `-1` | if R could not be downdated. in this case, all quantities are left unaltered. |
+| `INFO` | `1` | 1 if some RHO could not be downdated. The offending RHO's are set to -1. |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

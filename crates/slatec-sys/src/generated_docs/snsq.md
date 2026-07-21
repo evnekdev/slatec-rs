@@ -1,6 +1,6 @@
 # Purpose
 
-1. Purpose.
+1. Purpose. The purpose of SNSQ is to find a zero of a system of N non- linear functions in N variables by a modification of the Powell hybrid method. The user must provide a subroutine which calcu- lates the functions. The user has the option of either to provide a subroutine which calculates the Jacobian or to let the code calculate it by a forward-difference approximation. This code is the combination of the MINPACK codes (Argonne) HYBRD and HYBRDJ. 2. Subroutine and Type Statements. SUBROUTINE SNSQ(FCN,JAC,IOPT,N,X,FVEC,FJAC,LDFJAC,XTOL,MAXFEV,
 
 # Description
 
@@ -8,113 +8,167 @@ This canonical unsafe binding exposes original SLATEC routine `SNSQ`. Its docume
 
 # Arguments
 
-## 1. `FCN`
+## `FCN`
 
-callback `callback` argument; Fortran declaration `REAL`, Rust ABI type `reviewed unsafe extern callback function pointer`, and scalar. supplied subroutine which calculates the functions.  FCN must be declared in an EXTERNAL statement in the user calling program, and should be written as follows. SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG REAL X(N),FVEC(N) 0 are made. is set as follows. The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran. supplied subroutine which calculates the functions.  FCN must be declared in an EXTERNAL statement in the user calling program, and should be written as follows. SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG REAL X(N),FVEC(N) 0 are made. is set as follows. not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `REAL`. **Rust ABI type:** `reviewed unsafe extern callback function pointer`. **Shape:** scalar.
 
-## 2. `JAC`
+is the name of the user-supplied subroutine which calculates the functions. FCN must be declared in an EXTERNAL statement in the user calling program, and should be written as follows. SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG REAL X(N),FVEC(N) Calculate the functions at X and return this vector in FVEC. RETURN END The value of IFLAG should not be changed by FCN unless the user wants to terminate execution of SNSQ. In this case, set IFLAG to a negative integer. The callback is synchronous, must remain valid for the complete native call, obey the reviewed ABI and documented array extents, may not retain caller pointers, and must not unwind into Fortran.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. supplied subroutine which calculates 2, then the code will approximate the Jacobian by forward-differencing. is set as follows. 2, then NJEV is set to zero.) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `JAC`
 
-## 3. `IOPT`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1, then JAC must be declared in an EXTERNAL statement in the user calling program, and should be written as follows. SUBROUTINE JAC(N,X,FVEC,FJAC,LDFJAC,IFLAG) INTEGER N,LDFJAC,IFLAG REAL X(N),FVEC(N),FJAC(LDFJAC,N) 2, JAC can be ignored (treat it as a dummy argument). is an input variable which specifies how the Jacobian will 1, then the user must supply the 2, then the code will approximate the Jacobian by forward-differencing. 1, set ML to at 1, set MU to at 1, then 2, then NJEV is set to zero.) 2, then the validity of the answer can be checked, for example, by rerunning SNSQ with a tighter tolerance. Convergence Test.  If ENORM(Z) denotes the Euclidean norm of a vector Z and D is the diagonal matrix whose entries are 1 and 200*(N+1) for IOPT=2. If the number of calls to FCN reaches MAXFEV, then this indicates that the routine is converging very slowly as 1).  Unless FCN and JAC can be evaluated quickly, the timing of SNSQ will be strongly influenced by the time spent in FCN and JAC. Storage.  SNSQ requires (3*N**2 + 17*N)/2 single precision storage locations, in addition to the storage required by the program.  There are no internally declared storage arrays. 7. Example. The problem is to determine the values of X(1), X(2), ..., X(9), which solve the system of tridiagonal equations 2 1, then JAC must be declared in an EXTERNAL statement in the user calling program, and should be written as follows. SUBROUTINE JAC(N,X,FVEC,FJAC,LDFJAC,IFLAG) INTEGER N,LDFJAC,IFLAG REAL X(N),FVEC(N),FJAC(LDFJAC,N) 2, JAC can be ignored (treat it as a dummy argument). is an input variable which specifies how the Jacobian will 1, then the user must supply the 2, then the code will approximate the Jacobian by forward-differencing. 1, set ML to at 1, set MU to at 1, then 2, then NJEV is set to zero.) 2, then the validity of the answer can be checked, for example, by rerunning SNSQ with a tighter tolerance. Convergence Test.  If ENORM(Z) denotes the Euclidean norm of a vector Z and D is the diagonal matrix whose entries are 1 and 200*(N+1) for IOPT=2. If the number of calls to FCN reaches MAXFEV, then this indicates that the routine is converging very slowly as 1).  Unless FCN and JAC can be evaluated quickly, the timing of SNSQ will be strongly influenced by the time spent in FCN and JAC. Storage.  SNSQ requires (3*N**2 + 17*N)/2 single precision storage locations, in addition to the storage required by the program.  There are no internally declared storage arrays. 7. Example. The problem is to determine the values of X(1), X(2), ..., X(9), which solve the system of tridiagonal equations 2 not applicable or not stated by selected source not a workspace argument
+is the name of the user-supplied subroutine which calculates the Jacobian. If IOPT=1, then JAC must be declared in an EXTERNAL statement in the user calling program, and should be written as follows. SUBROUTINE JAC(N,X,FVEC,FJAC,LDFJAC,IFLAG) INTEGER N,LDFJAC,IFLAG REAL X(N),FVEC(N),FJAC(LDFJAC,N) Calculate the Jacobian at X and return this matrix in FJAC. FVEC contains the function values at X and should not be altered. RETURN END The value of IFLAG should not be changed by JAC unless the user wants to terminate execution of SNSQ. In this case, set IFLAG to a negative integer.
 
-## 4. `N`
+## `IOPT`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. linear functions in N variables by a modification of the Powell hybrid method.  The user must provide a subroutine which calcu- lates the functions.  The user has the option of either to provide a subroutine which calculates the Jacobian or to let the code calculate it by a forward-difference approximation. This code is the combination of the MINPACK codes (Argonne) HYBRD and HYBRDJ. 2. Subroutine and Type Statements. SUBROUTINE SNSQ(FCN,JAC,IOPT,N,X,FVEC,FJAC,LDFJAC,XTOL,MAXFEV, EXTERNAL FCN,JAC EXTERNAL FCN,JAC EXTERNAL FCN,JAC EXTERNAL FCN,JAC 3. Parameters. 3. Parameters. 3. Parameters. 3. Parameters. Parameters designated as input parameters must be specified on Parameters designated as input parameters must be specified on Parameters designated as input parameters must be specified on Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters entry to SNSQ and are not changed on exit, while parameters entry to SNSQ and are not changed on exit, while parameters entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry designated as output parameters need not be specified on entry designated as output parameters need not be specified on entry designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. and are set to appropriate values on exit from SNSQ. and are set to appropriate values on exit from SNSQ. and are set to appropriate values on exit from SNSQ. is a positive integer input variable set to the number of functions and variables. contain an initial estimate of the solution vector.  On output, X contains the final estimate of the solution vector. contains the functions evaluated at the output X. contains the orthogonal contains the orthogonal matrix Q produced by the QR factorization of the final approx- matrix Q produced by the QR factorization of the final approx- imate Jacobian. imate Jacobian. 1. 1. 1 (see below), DIAG is contains the vector (Q TRANSPOSE)*FVEC. 1 and 200*(N+1) for IOPT=2. If the number of calls to FCN reaches MAXFEV, then this indicates that the routine is converging very slowly as 9 C C     The following starting values provide a rough solution. C DO 10 J = 1, 9 X(K+1) linear functions in N variables by a modification of the Powell hybrid method.  The user must provide a subroutine which calcu- lates the functions.  The user has the option of either to provide a subroutine which calculates the Jacobian or to let the code calculate it by a forward-difference approximation. This code is the combination of the MINPACK codes (Argonne) HYBRD and HYBRDJ. 2. Subroutine and Type Statements. SUBROUTINE SNSQ(FCN,JAC,IOPT,N,X,FVEC,FJAC,LDFJAC,XTOL,MAXFEV, EXTERNAL FCN,JAC EXTERNAL FCN,JAC EXTERNAL FCN,JAC EXTERNAL FCN,JAC 3. Parameters. 3. Parameters. 3. Parameters. 3. Parameters. Parameters designated as input parameters must be specified on Parameters designated as input parameters must be specified on Parameters designated as input parameters must be specified on Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters entry to SNSQ and are not changed on exit, while parameters entry to SNSQ and are not changed on exit, while parameters entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry designated as output parameters need not be specified on entry designated as output parameters need not be specified on entry designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. and are set to appropriate values on exit from SNSQ. and are set to appropriate values on exit from SNSQ. and are set to appropriate values on exit from SNSQ. is a positive integer input variable set to the number of functions and variables. contain an initial estimate of the solution vector.  On output, X contains the final estimate of the solution vector. contains the functions evaluated at the output X. contains the orthogonal contains the orthogonal matrix Q produced by the QR factorization of the final approx- matrix Q produced by the QR factorization of the final approx- imate Jacobian. imate Jacobian. 1. 1. 1 (see below), DIAG is contains the vector (Q TRANSPOSE)*FVEC. 1 and 200*(N+1) for IOPT=2. If the number of calls to FCN reaches MAXFEV, then this indicates that the routine is converging very slowly as 9 C C     The following starting values provide a rough solution. C DO 10 J = 1, 9 X(K+1) not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `X`
+is an input variable which specifies how the Jacobian will be calculated. If IOPT=1, then the user must supply the Jacobian through the subroutine JAC. If IOPT=2, then the code will approximate the Jacobian by forward-differencing.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain an initial contain an initial estimate of the solution vector.  On output, X contains the estimate of the solution vector.  On output, X contains the final estimate of the solution vector. final estimate of the solution vector. nates when the test is satisfied.  If the convergence parameter is less than the machine precision (as defined by the function R1MACH(4)), then SNSQ only attempts to satisfy the test defined by the machine precision.  Further progress is not usually possible. The test assumes that the functions are reasonably well behaved, and, if the Jacobian is supplied by the user, that the functions and the Jacobian are coded consistently.  If these conditions are not satisfied, then SNSQ may incorrectly indicate conver- gence.  The coding of the Jacobian can be checked by the XSOL)) .LE. XTOL*ENORM(D*XSOL). -2*X(2)                   = -1 -2*X(2)                   = -1 + (3-2*X(I))*X(I)         -2*X(I+1) = -1, I=2-8 + (3-2*X(9))*X(9) = -1 C     ********** PROGRAM TEST C C     Driver for SNSQ example. C INTEGER J,IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,LR, NWRITE REAL XTOL,EPSFCN,FACTOR,FNORM REAL X(9),FVEC(9),DIAG(9),FJAC(9,9),R(45),QTF(9), 1.E0 10    CONTINUE C 1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15.7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.7)) END SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG REAL X(N),FVEC(N) INTEGER K REAL ONE,TEMP,TEMP1,TEMP2,THREE,TWO,ZERO DATA ZERO,ONE,TWO,THREE /0.E0,1.E0,2.E0,3.E0/ C IF (IFLAG .NE. 0) GO TO 5 C C     Insert print statements here when NPRINT is positive. C RETURN 5 CONTINUE DO 10 K = 1, N TEMP = (THREE - TWO*X(K))*X(K) TEMP1 = ZERO 1) TEMP2 = ZERO not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 6. `FVEC`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contains the function values at X and should not be altered. contains the functions evaluated at the output X. is set to 2.  This situation should be unusual because, as indicated below, lack of good progress is usually diagnosed earlier by SNSQ, TEMP1 - TWO*TEMP2 + ONE 10    CONTINUE RETURN END Results obtained with different compilers or machines may be slightly different. FINAL L2 NORM OF THE RESIDUALS  0.1192636E-07 NUMBER OF FUNCTION EVALUATIONS        14 EXIT PARAMETER                         1 FINAL APPROXIMATE SOLUTION -0.5706545E+00 -0.6816283E+00 -0.7017325E+00 -0.7042129E+00 -0.7013690E+00 -0.6918656E+00 -0.6657920E+00 -0.5960342E+00 -0.4164121E+00 not stated by selected source not applicable or not stated by selected source not a workspace argument
+is a positive integer input variable set to the number of functions and variables.
 
-## 7. `FJAC`
+## `X`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (LDFJAC, *). contains the function values at X and should not be altered. contains the orthogonal matrix Q produced by the QR factorization of the final approx- imate Jacobian. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 8. `LDFJAC`
+is an array of length N. On input, X must contain an initial estimate of the solution vector. On output, X contains the final estimate of the solution vector. -1. E0 10 CONTINUE LDFJAC = 9 LR = 45 C Set XTOL to the square root of the machine precision. C Unless high precision solutions are required, C this is the recommended setting.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is a positive integer input variable not less than N which specifies the leading dimension of the array FJAC. 9 is a positive integer input variable not less than N which specifies the leading dimension of the array FJAC. 9 is a positive integer input variable not less than N which specifies the leading dimension of the array FJAC. 9 not a workspace argument
+## `FVEC`
 
-## 9. `XTOL`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. negative input variable.  Termination occurs when the relative error between two consecutive iterates is at most Therefore, XTOL measures the relative error desired in the approximate solution.  Section 4 contains more details about XTOL. This parameter is used in a test which makes a comparison K), then the larger components of D*X have K significant decimal digits and .LT. 0.E0, or MAXFEV .LE. 0, or ML .LT. 0, or MU .LT. 0, or FACTOR .LE. 0.E0, or LR .LT. (N*(N+1))/2. Arithmetic Interrupts.  If these interrupts occur in the FCN subroutine during an early stage of the computation, they may be caused by an unacceptable choice of X by SNSQ.  In this case, it may be possible to remedy the situation by rerunning SNSQ with a smaller value of FACTOR. Excessive Number of Function Evaluations.  A reasonable value SQRT(R1MACH(4)) C negative input variable.  Termination occurs when the relative error between two consecutive iterates is at most Therefore, XTOL measures the relative error desired in the approximate solution.  Section 4 contains more details about XTOL. This parameter is used in a test which makes a comparison K), then the larger components of D*X have K significant decimal digits and .LT. 0.E0, or MAXFEV .LE. 0, or ML .LT. 0, or MU .LT. 0, or FACTOR .LE. 0.E0, or LR .LT. (N*(N+1))/2. Arithmetic Interrupts.  If these interrupts occur in the FCN subroutine during an early stage of the computation, they may be caused by an unacceptable choice of X by SNSQ.  In this case, it may be possible to remedy the situation by rerunning SNSQ with a smaller value of FACTOR. Excessive Number of Function Evaluations.  A reasonable value SQRT(R1MACH(4)) C not applicable or not stated by selected source not a workspace argument
+is an output array of length N which contains the functions evaluated at the output X. TEMP - TEMP1 - TWO*TEMP2 + ONE 10 CONTINUE RETURN END Results obtained with different compilers or machines may be slightly different. FINAL L2 NORM OF THE RESIDUALS 0. 1192636E-07 NUMBER OF FUNCTION EVALUATIONS 14 EXIT PARAMETER 1 FINAL APPROXIMATE SOLUTION -0. 5706545E+00 -0. 6816283E+00 -0.
 
-## 10. `MAXFEV`
+## `FJAC`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is a positive integer input variable.  Termination occurs when the number of calls to FCN is at least MAXFEV by the end of an iteration. 1 and 200*(N+1) for IOPT=2. If the number of calls to FCN reaches MAXFEV, then this indicates that the routine is converging very slowly as 2000 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (LDFJAC, *).
 
-## 11. `ML`
+is an output N by N array which contains the orthogonal matrix Q produced by the QR factorization of the final approx- imate Jacobian.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. negative integer input variable which specifies the number of subdiagonals within the band of the Jacobian matrix. 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `LDFJAC`
 
-## 12. `MU`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. negative integer input variable which specifies the number of superdiagonals within the band of the Jacobian 1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+is a positive integer input variable not less than N which specifies the leading dimension of the array FJAC.
 
-## 13. `EPSFCN`
+## `XTOL`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is an input variable used in determining a suitable step for the forward-difference approximation.  This approximation assumes that the relative errors in the functions are of the sion, it is assumed that the relative errors in the functions sion, it is assumed that the relative errors in the functions can be ignored (treat it as a dummy argument). 0.E0 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 14. `DIAG`
+is a non-negative input variable. Termination occurs when the relative error between two consecutive iterates is at most Therefore, XTOL measures the relative error desired in the approximate solution. Section 4 contains more details about XTOL. This parameter is used in a test which makes a comparison between the approximation X and a solution XSOL. SNSQ termi- nates when the test is satisfied. If the convergence parameter is less than the machine precision (as defined by the function R1MACH(4)), then SNSQ only attempts to satisfy the test defined by the machine precision.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). 1 (see below), DIAG is are equivalent tee that 1.E0 20    CONTINUE not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MAXFEV`
 
-## 15. `MODE`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. 1 (see below), DIAG is 2, DIAG must contain positive entries that serve as implicit (multiplicative) scale factors for the variables. 1, the variables 1, the variables are equivalent 1. 2 DO 20 J = 1, 9 1 (see below), DIAG is 2, DIAG must contain positive entries that serve as implicit (multiplicative) scale factors for the variables. 1, the variables 1, the variables are equivalent 1. 2 DO 20 J = 1, 9 not applicable or not stated by selected source not a workspace argument
+is a positive integer input variable. Termination occurs when the number of calls to FCN is at least MAXFEV by the end of an iteration. INFO = 3 XTOL is too small. No further improvement in the approximate solution X is possible. INFO = 4 iteration is not making good progress, as measured by the improvement from the last five Jacobian eval- uations. INFO = 5 iteration is not making good progress, as measured by the improvement from the last ten iterations.
 
-## 16. `FACTOR`
+## `ML`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. tial step bound.  This bound is set to the product of FACTOR and the Euclidean norm of DIAG*X if nonzero, or else to FACTOR itself.  In most cases FACTOR should lie in the interval (.1,100.).  100. is a generally recommended value. 1.E2 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 17. `NPRINT`
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is a non-negative integer input variable which specifies the number of subdiagonals within the band of the Jacobian matrix. If the Jacobian is not banded or IOPT=1, set ML to at least N - 1.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an integer input variable that enables controlled printing of iterates if it is positive.  In this case, FCN is called with IFLAG = 0 at the beginning of the first iteration and every NPRINT iteration thereafter and immediately prior to return, with X and FVEC available for printing. Appropriate print statements must be added to FCN(see example).  If NPRINT 0 C CALL SNSQ(FCN,JAC,IOPT,N,X,FVEC,FJAC,LDFJAC,XTOL,MAXFEV,ML,MU, is an integer input variable that enables controlled printing of iterates if it is positive.  In this case, FCN is called with IFLAG = 0 at the beginning of the first iteration and every NPRINT iteration thereafter and immediately prior to return, with X and FVEC available for printing. Appropriate print statements must be added to FCN(see example).  If NPRINT 0 C CALL SNSQ(FCN,JAC,IOPT,N,X,FVEC,FJAC,LDFJAC,XTOL,MAXFEV,ML,MU, not applicable or not stated by selected source not a workspace argument
+## `MU`
 
-## 18. `INFO`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an integer output variable.  If the user has terminated execution, INFO is set to the (negative) value of IFLAG.  See is set as follows. 0  improper input parameters. 1  relative error between two consecutive iterates is at most XTOL. 2  number of calls to FCN has reached or exceeded 3  XTOL is too small.  No further improvement in the approximate solution X is possible. 4  iteration is not making good progress, as measured by the improvement from the last five Jacobian eval- uations. 5  iteration is not making good progress, as measured by the improvement from the last ten iterations. Sections 4 and 5 contain more details about INFO. nents of D*X may have large relative errors, but the fast rate of convergence of SNSQ usually avoids this possibility. Unless high precision solutions are required, the recommended value for XTOL is the square root of the machine precision. 5. Unsuccessful Completion. Unsuccessful termination of SNSQ can be due to improper input parameters, arithmetic interrupts, an excessive number of func- tion evaluations, or lack of good progress. Improper Input Parameters.  INFO is set to 0 if IOPT .LT. 1, or IOPT .GT. 2, or N .LE. 0, or LDFJAC .LT. N, or is set to 2.  This situation should be unusual because, as indicated below, lack of good progress is usually diagnosed earlier by SNSQ, 4 or INFO = 5. Lack of Good Progress.  SNSQ searches for a zero of the system by minimizing the sum of the squares of the functions.  In so doing, it can become trapped in a region where the minimum does not correspond to a zero of the system and, in this situ- ation, the iteration eventually fails to make good progress. In particular, this will happen if the system does not have a zero.  If the system has a zero, rerunning SNSQ from a dif- ferent starting point may be helpful. 6. Characteristics of the Algorithm. SNSQ is a modification of the Powell hybrid method.  Two of its main characteristics involve the choice of the correction as a convex combination of the Newton and scaled gradient directions, and the updating of the Jacobian by the rank-1 method of Broy- den.  The choice of the correction guarantees (under reasonable conditions) global convergence for starting points far from the solution and a fast rate of convergence.  The Jacobian is calculated at the starting point by either the user-supplied subroutine or a forward-difference approximation, but it is not recalculated until the rank-1 method fails to produce satis- factory progress. Timing.  The time required by SNSQ to solve a given problem depends on N, the behavior of the functions, the accuracy requested, and the starting point.  The number of arithmetic operations needed by SNSQ is about 11.5*(N**2) to process each evaluation of the functions (call to FCN) and 1.3*(N**3) to process each evaluation of the Jacobian (call to JAC, 1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15.7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.7)) END SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG REAL X(N),FVEC(N) INTEGER K REAL ONE,TEMP,TEMP1,TEMP2,THREE,TWO,ZERO DATA ZERO,ONE,TWO,THREE /0.E0,1.E0,2.E0,3.E0/ C IF (IFLAG .NE. 0) GO TO 5 C C     Insert print statements here when NPRINT is positive. C RETURN 5 CONTINUE DO 10 K = 1, N TEMP = (THREE - TWO*X(K))*X(K) TEMP1 = ZERO not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is a non-negative integer input variable which specifies the number of superdiagonals within the band of the Jacobian matrix. If the Jacobian is not banded or IOPT=1, set MU to at least N - 1.
 
-## 19. `NFEV`
+## `EPSFCN`
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an integer output variable set to the number of calls to 1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15.7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.7)) END SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG REAL X(N),FVEC(N) INTEGER K REAL ONE,TEMP,TEMP1,TEMP2,THREE,TWO,ZERO DATA ZERO,ONE,TWO,THREE /0.E0,1.E0,2.E0,3.E0/ C IF (IFLAG .NE. 0) GO TO 5 C C     Insert print statements here when NPRINT is positive. C RETURN 5 CONTINUE DO 10 K = 1, N TEMP = (THREE - TWO*X(K))*X(K) TEMP1 = ZERO not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 20. `NJEV`
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an input variable used in determining a suitable step for the forward-difference approximation. This approximation assumes that the relative errors in the functions are of the order of EPSFCN. If EPSFCN is less than the machine preci- sion, it is assumed that the relative errors in the functions are of the order of the machine precision. If IOPT=1, then EPSFCN can be ignored (treat it as a dummy argument). 0. E0 MODE = 2 DO 20 J = 1, 9.
 
-input-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an integer output variable set to the number of calls to not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `DIAG`
 
-## 21. `R`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (LR). INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), contains the upper triangular matrix produced by the QR factorization of the final approximate Jacobian, stored rowwise. FNORM = ENORM(N,FVEC) not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an array of length N. If MODE = 1 (see below), DIAG is internally set. If MODE = 2, DIAG must contain positive entries that serve as implicit (multiplicative) scale factors for the variables. 1. E0 20 CONTINUE.
 
-## 22. `LR`
+## `MODE`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), contains the upper triangular matrix produced by the QR factorization of the final approximate Jacobian, stored rowwise. is a positive integer input variable not less than 45 C C     Set XTOL to the square root of the machine precision. C     Unless high precision solutions are required, C     this is the recommended setting. C FNORM = ENORM(N,FVEC) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 23. `QTF`
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an integer input variable. If MODE = 1, the variables will be scaled internally. If MODE = 2, the scaling is speci- fied by the input DIAG. Other values of MODE are equivalent to MODE = 1.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), contains the vector (Q TRANSPOSE)*FVEC. FNORM = ENORM(N,FVEC) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `FACTOR`
 
-## 24. `WA1`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) not applicable or not stated by selected source
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is a positive input variable used in determining the ini- tial step bound. This bound is set to the product of FACTOR and the Euclidean norm of DIAG*X if nonzero, or else to FACTOR itself. In most cases FACTOR should lie in the interval (. 1,100. ). 100.
 
-## 25. `WA2`
+## `NPRINT`
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) not applicable or not stated by selected source
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 26. `WA3`
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an integer input variable that enables controlled printing of iterates if it is positive. In this case, FCN is called with IFLAG = 0 at the beginning of the first iteration and every NPRINT iteration thereafter and immediately prior to return, with X and FVEC available for printing. Appropriate print statements must be added to FCN(see example). If NPRINT is not positive, no special calls of FCN with IFLAG = 0 are made.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) not applicable or not stated by selected source
+## `INFO`
 
-## 27. `WA4`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC) not applicable or not stated by selected source
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an integer output variable. If the user has terminated execution, INFO is set to the (negative) value of IFLAG. See description of FCN and JAC. Otherwise, INFO is set as follows. INFO = 0 improper input parameters. INFO = 1 relative error between two consecutive iterates is at most XTOL.
+
+## `NFEV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an integer output variable set to the number of calls to.
+
+## `NJEV`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an integer output variable set to the number of calls to.
+
+## `R`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (LR).
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an output array of length LR which contains the upper triangular matrix produced by the QR factorization of the final approximate Jacobian, stored rowwise. FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15. 7)) END SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG INTEGER K REAL ONE,TEMP,TEMP1,TEMP2,THREE,TWO,ZERO DATA ZERO,ONE,TWO,THREE /0. E0,1. E0,2.
+
+## `LR`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is a positive integer input variable not less than (N*(N+1))/2. FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15. 7)) END SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG INTEGER K REAL ONE,TEMP,TEMP1,TEMP2,THREE,TWO,ZERO DATA ZERO,ONE,TWO,THREE /0. E0,1. E0,2.
+
+## `QTF`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), is an output array of length N which contains the vector (Q TRANSPOSE)*FVEC. FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15. 7)) END SUBROUTINE FCN(N,X,FVEC,IFLAG) INTEGER N,IFLAG INTEGER K REAL ONE,TEMP,TEMP1,TEMP2,THREE,TWO,ZERO DATA ZERO,ONE,TWO,THREE /0. E0,1. E0,2.
+
+## `WA1`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
+
+## `WA2`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
+
+## `WA3`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
+
+## `WA4`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
 
 # Return value
 
@@ -122,41 +176,33 @@ This is a Fortran subroutine and has no direct return value. Its results, status
 
 # Callback contract
 
-Callback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.
+Each callback uses its exact reviewed Rust function-pointer ABI, is invoked synchronously, must remain valid for the complete native call, must satisfy the documented scalar and array extents, must not retain caller pointers, and **must not unwind** through Fortran.
 
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 improper input parameters. |
+| `INFO` | `1` | 1 relative error between two consecutive iterates is at most XTOL. |
+| `INFO` | `2` | 2 number of calls to FCN has reached or exceeded |
+| `INFO` | `3` | 3 XTOL is too small. No further improvement in the approximate solution X is possible. |
+| `INFO` | `4` | 4 iteration is not making good progress, as measured by the improvement from the last five Jacobian eval- uations. |
+| `INFO` | `5` | 5 iteration is not making good progress, as measured by the improvement from the last ten iterations. Sections 4 and 5 contain more details about INFO. nents of D*X may have large relative errors, but the fast rate of convergence of SNSQ usually avoids this possibility. Unless high precision solutions are required, the recommended value for XTOL is the square root of the machine precision. 5. Unsuccessful Completion. Unsuccessful termination of SNSQ can be due to improper input parameters, arithmetic interrupts, an excessive number of func- tion evaluations, or lack of good progress. Improper Input Parameters. INFO is set to 0 if IOPT .LT. 1, |
+| `INFO` | `>0` | 2, or N .LE. 0, or LDFJAC .LT. N, or |
 
 # Workspace and array requirements
 
-- `FCN`: not a workspace argument
-- `JAC`: not a workspace argument
-- `IOPT`: not a workspace argument
-- `N`: not a workspace argument
 - `X`: not a workspace argument
 - `FVEC`: not a workspace argument
 - `FJAC`: not a workspace argument
 - `LDFJAC`: not a workspace argument
-- `XTOL`: not a workspace argument
-- `MAXFEV`: not a workspace argument
-- `ML`: not a workspace argument
-- `MU`: not a workspace argument
-- `EPSFCN`: not a workspace argument
 - `DIAG`: not a workspace argument
-- `MODE`: not a workspace argument
-- `FACTOR`: not a workspace argument
-- `NPRINT`: not a workspace argument
-- `INFO`: not a workspace argument
-- `NFEV`: not a workspace argument
-- `NJEV`: not a workspace argument
 - `R`: not a workspace argument
-- `LR`: not a workspace argument
 - `QTF`: not a workspace argument
-- `WA1`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC)
-- `WA2`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC)
-- `WA3`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC)
-- `WA4`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC 3. Parameters. Parameters designated as input parameters must be specified on entry to SNSQ and are not changed on exit, while parameters designated as output parameters need not be specified on entry and are set to appropriate values on exit from SNSQ. are work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH EXTERNAL FCN DATA NWRITE /6/ C FNORM = ENORM(N,FVEC)
+- `WA1`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
+- `WA2`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
+- `WA3`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
+- `WA4`: INTEGER IOPT,N,MAXFEV,ML,MU,MODE,NPRINT,INFO,NFEV,LDFJAC,NJEV,LR REAL XTOL,EPSFCN,FACTOR REAL X(N),FVEC(N),DIAG(N),FJAC(LDFJAC,N),R(LR),QTF(N), EXTERNAL FCN,JAC work arrays of length N. 4. Successful Completion. The accuracy of SNSQ is controlled by the convergence parameter REAL ENORM,R1MACH DATA NWRITE /6/ IOPT = 2 N = 9 C The following starting values provide a rough solution. DO 10 J = 1, 9 FNORM = ENORM(N,FVEC) WRITE (NWRITE,1000) FNORM,NFEV,INFO,(X(J),J=1,N) STOP 1000 FORMAT (5X,' FINAL L2 NORM OF THE RESIDUALS',E15. 7 // 5X,' NUMBER OF FUNCTION EVALUATIONS',I10 // 5X,' EXIT PARAMETER',16X,I10 // 5X,' FINAL APPROXIMATE SOLUTION' // (5X,3E15.
 
 # ABI notes
 

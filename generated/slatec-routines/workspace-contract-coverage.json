@@ -1,0 +1,2630 @@
+{
+  "complete_workspace_contracts": 167,
+  "records": [
+    {
+      "coverage_status": "complete",
+      "routine": "BINT4",
+      "workspace_arguments": [
+        {
+          "argument": "W",
+          "coverage_status": "complete",
+          "description": "work array of dimension at least 5*(NDATA+2) if KNTOPT=3, then W(1),W(2),W(3) are knot values to the left of X(1) and W(4),W(5),W(6) are knot values to the right of X(NDATA) in increasing order to be supplied by the user.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BINTK",
+      "workspace_arguments": [
+        {
+          "argument": "Q",
+          "coverage_status": "complete",
+          "description": "a work vector of length (2*K-1)*N, containing the triangular factorization of the coefficient matrix of the linear system being solved. The coefficients for the interpolant of an additional data set (X(I)),YY(I)), I=1,. ,N with the same abscissa can be obtained by loading YY into BCOEF and then executing CALL BNSLV (Q,2K-1,N,K-1,K-1,BCOEF).",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 2*K.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BSPEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 3*K.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BSPPP",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length K*(N+3).",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BSPVD",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "a work vector of length (K+1)*(K+2)/2.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BSPVN",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "a work vector of length 2*K.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "a work parameter. Both WORK and IWORK contain information necessary to continue for INDEX = 2. When INDEX = 1 exclusively, these are scratch variables and can be used for other purposes.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BSQAD",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 3*K.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "BVALU",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 3*K. BVALU - value of the IDERIV-th derivative at X.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CBESY",
+      "workspace_arguments": [
+        {
+          "argument": "CWRK",
+          "coverage_status": "complete",
+          "description": "A work vector of type COMPLEX and dimension N.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CCHDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX. is a work array.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CGEDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CGEEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(3N) temporary storage vector. Contents changed by CGEEV.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CGEFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) a singly subscripted array of dimension at least N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CGEIR",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N*(N+1)) a singly subscripted array of dimension at least N*(N+1).",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than one. IND=-3 terminal ITASK is less than one. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CHIDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CHIEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(4N) temporary storage vector. Contents changed by CHIEV.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CHPDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) work vector. Contents ignored.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CNBFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) a singly subscripted array of dimension at least N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CNBIR",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N*(NC+1)) a singly subscripted array of dimension at least.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "COSQB",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls COSQB. The WSAVE array must be initialized by calling subroutine COSQI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COSQB or COSQF.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "COSQF",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls COSQF. The WSAVE array must be initialized by calling subroutine COSQI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COSQF or COSQB.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "COSQI",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15. The same work array can be used for both COSQF1 and COSQB1 as long as N remains unchanged. Different WSAVE arrays are required for different values of N. The contents of must not be changed between calls of COSQF1 or COSQB1.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "COST",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls COST. The WSAVE array must be initialized by calling subroutine COSTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of COST.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "COSTI",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15. Different WSAVE arrays are required for different values of N. The contents of WSAVE must not be changed between calls of COST.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CPOFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CPOIR",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N*(N+1)) a singly subscripted array of dimension at least N*(N+1). Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than one. IND=-3 terminal ITASK is less than one. IND=-4 terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CPQR79",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL work array of dimension at least 2*NDEG*(NDEG+1).",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CQRDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(P). is a work array. WORK is not referenced if.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CSIDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CSPDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N) work vector. Contents ignored.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CSVDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "COMPLEX(N). is a scratch array.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence of MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector, and Z is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a double precision array that can be used to pass necessary preconditioning information and/ or workspace to MSOLVE. IWORK is an integer work array for the same purpose as RWORK.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE and MTSOLV.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBINT4",
+      "workspace_arguments": [
+        {
+          "argument": "W",
+          "coverage_status": "complete",
+          "description": "work array of dimension at least 5*(NDATA+2) If KNTOPT=3, then W(1),W(2),W(3) are knot values to the left of X(1) and W(4),W(5),W(6) are knot values to the right of X(NDATA) in increasing order to be supplied by the user Output T,BCOEF are double precision.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBINTK",
+      "workspace_arguments": [
+        {
+          "argument": "Q",
+          "coverage_status": "complete",
+          "description": "a work vector of length (2*K-1)*N, containing the triangular factorization of the coefficient matrix of the linear system being solved. The coefficients for the interpolant of an additional data set (X(I),YY(I)), I=1,. ,N with the same abscissa can be obtained by loading YY into BCOEF and then executing CALL DBNSLV (Q,2K-1,N,K-1,K-1,BCOEF).",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 2*K.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBSPEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 3*K.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBSPPP",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length K*(N+3).",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBSPVD",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "a work vector of length (K+1)*(K+2)/2.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBSPVN",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "a work vector of length 2*K.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "a work parameter. Both WORK and IWORK contain information necessary to continue for INDEX = 2. When INDEX = 1 exclusively, these are scratch variables and can be used for other purposes.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBSQAD",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 3*K.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DBVALU",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "work vector of length 3*K. DBVALU - value of the IDERIV-th derivative at X.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(USER DEFINED). Double Precision array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DCGN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(USER DEFINED). Double Precision array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DCGS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence of MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector, and Z is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a double precision array that can be used to pass necessary preconditioning information and/ or workspace to MSOLVE. IWORK is an integer work array for the same purpose as RWORK.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DCHDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION. is a work array.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DDASSL",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "A real work array of length LRW which provides the code with needed storage space. HMAX **** HO **** Dimension this real work array of length LRW in your calling program.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "An integer work array of length LIW which provides the code with needed storage space. ML MU **** MAXORD **** Dimension this integer work array of length LIW in your calling program.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DDEABM",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space. Dimension this DOUBLE PRECISION work array of length LRW in your calling program. If you have set INFO(4)=0, you can ignore this optional input parameter. Otherwise you must define a stopping point TSTOP by setting RWORK(1) = TSTOP. (for some problems it may not be permissible to integrate past a point TSTOP because a discontinuity occurs there or the solution or its derivative is not defined beyond TSTOP. ) Contain information which is usually of no interest to the user but necessary for subsequent calls.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag. Dimension this INTEGER work array of length LIW in your calling program. Contain information which is usually of no interest to the user but necessary for subsequent calls. However, you may find use for.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DDERKF",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(*) is a DOUBLE PRECISION work array of length LRW which provides the code with needed storage space.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DDRIV3",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "is an array of LENW double precision words used internally for temporary storage. The user must allocate space for this array in the calling program by a statement such as DOUBLE PRECISION WORK(. ) The following table gives the required minimum value for the length of WORK, depending on the value of IMPL and.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "is an integer array of length LENIW used internally for temporary storage. The user must allocate space for this array in the calling program by a statement such as INTEGER IWORK(. ) The length of IWORK should be at least 50 if MITER is 0 or 3, or N+50 if MITER is 1, 2, 4, or 5, or MINT is 3, and LENIW should be set to the value used. The contents of IWORK should not be disturbed between calls to DDRIV3.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DERKF",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(*) is a REAL work array of length LRW which provides the code with needed storage space.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DGEDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DGEFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N) a singly subscripted array of dimension at least N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DGLSS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "A real work array dimensioned 5*MIN(M,N). The first 2*MIN(M,N) locations of WORK contain value necessary to reproduce the factorization of A.",
+          "source_section": "input-output"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "work array dimensioned at least N+M. The first M+N locations contain the order in which the rows and columns of A were used. If M. GE. N columns then rows. LT.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DGMRES",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(USER DEFINED). Double Precision array that can be used for workspace in.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DIR",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(USER DEFINED). Double Precision array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DLLSIA",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "work array dimensioned at least N+M. The first N locations contain the order in which the columns of A were used. The next M locations contain the order in which the rows of A were used.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DNBFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N) a singly subscripted array of dimension at least N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DNLS1",
+      "workspace_arguments": [
+        {
+          "argument": "WA1",
+          "coverage_status": "complete",
+          "description": "work arrays of length N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "WA2",
+          "coverage_status": "complete",
+          "description": "work arrays of length N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "WA3",
+          "coverage_status": "complete",
+          "description": "work arrays of length N.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DOMN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(USER DEFINED). Double Precision array that can be used for workspace in.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DPOFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 Terminal N is greater than LDA. IND=-2 Terminal N is less than 1. IND=-3 Terminal ITASK is less than 1. IND=-4 Terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DPOLCF",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "This is an array to provide internal working storage. It must be dimensioned by at least 2*N in the calling program. Note - There are two methods for evaluating the fit produced by DPLINT. You may call DPOLVL to perform the task, or you may call DPOLCF to obtain the coefficients of the Taylor expansion and then write your own evaluation scheme. Due to the inherent errors in the computations of the Taylor expansion from the Newton coefficients produced by DPLINT, much more accuracy may be expected by calling DPOLVL as opposed to writing your own scheme.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DPOLVL",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "must be dimensioned by at least 2*N if NDER is. GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable. this is an array to provide internal working storage for DPOLVL.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAG",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Writable integer workspace of at least LIMIT elements. Its leading entries order subinterval error estimates as specified by the selected source.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Writable real workspace of at least LENW elements. Its four LIMIT-strided segments hold left endpoints, right endpoints, subintegral estimates, and error estimates.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAGI",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAGP",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENIW. on return, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise IWORK(LIMIT+1),. ,IWORK(LIMIT+LAST) Contain the subdivision levels of the subintervals, i.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAGS",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST IF LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAWC",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAWF",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENIW On return, IWORK(K) FOR K = 1, 2,. , LST contain the error flags on the cycles.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAWO",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENIW on return, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with LIMIT = LENW/2 , and K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise. Furthermore, IWORK(LIMIT+1),. , IWORK(LIMIT+ LAST) indicate the subdivision levels of the subintervals, such that IWORK(LIMIT+I) = L means that the subinterval numbered I is of length ABS(B-A)*2**(1-L).",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQAWS",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DQRDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(P). is a work array. WORK is not referenced if.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDBCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user:.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the double precision workspace, Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDCGN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDCGS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDGMR",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array of size LENW.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED >= 30). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale B by. This array must be set by the user or by a call to the SLAP routine DSDS or DSD2S. The length of RWORK must be >= IWORK(4)+N.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(10). IWORK(4) holds the offset into RWORK for the diagonal matrix to scale B by. This is usually set up by the SLAP pre- conditioner setup routines DSDS or DSD2S.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSDOMN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSGS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSICCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSIDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSILUR",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSJAC",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the double precision workspace, RWORK. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. See the DESCRIPTION of DSLI2 for details.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLLTI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. Starting location of DINV in RWORK. See the DESCRIPTION of DLLTI2 for details.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUBC",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUCN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUCS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace. NL is the number of non-zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. NL is the number of non- zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUGM",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array of size LENW.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Starting location of IL in IWORK. Starting location of JL in IWORK. Starting location of IU in IWORK. Starting location of JU in IWORK. Starting location of L in RWORK. Starting location of DINV in RWORK.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUOM",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Double Precision RWORK(LENW). Double Precision array used for workspace. NL is the number of non-zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW) Integer array used for workspace. NL is the number of non- zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Double Precision workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSLUTI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Starting location of IL in IWORK. Starting location of JL in IWORK. Starting location of IU in IWORK. Starting location of JU in IWORK. Starting location of L in RWORK. Starting location of DINV in RWORK.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSMMTI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Starting location of IL in IWORK. Starting location of JL in IWORK. Starting location of IU in IWORK. Starting location of JU in IWORK. Starting location of L in RWORK. Starting location of DINV in RWORK.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSPDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N) work vector. Contents ignored.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSPLP",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "EXTERNAL DUSRMT The dimensions of PRGOPT(*) and DATTRV(*) must be at least 1. The exact lengths will be determined by user-required options and data transferred to the subprogram DUSRMT( ). The values of LW and LIW, the lengths of the arrays WORK(*) and IWORK(*), must satisfy the inequalities MRELAS=3 NVARS=3 DEFINE THE ARRAY COSTS(*) FOR THE OBJECTIVE FUNCTION. COSTS(01)=1. COSTS(02)=1. COSTS(03)=1.",
+          "source_section": "input-output"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "EXTERNAL DUSRMT The dimensions of PRGOPT(*) and DATTRV(*) must be at least 1. The exact lengths will be determined by user-required options and data transferred to the subprogram DUSRMT( ). The values of LW and LIW, the lengths of the arrays WORK(*) and IWORK(*), must satisfy the inequalities The arrays WORK(*) and IWORK(*) are respectively floating point and type INTEGER working arrays for DSPLP( ) and its subprograms. The lengths of these arrays are respectively LW and LIW. These parameters must satisfy the inequalities noted above under the heading \"Fortran Declarations Required:\" It is an error if either value is too small. |Input/Output files required:| Fortran unit 1 is used by DSPLP( ) to store the sparse matrix A out of high-speed memory.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DSVDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "DOUBLE PRECISION(N). is a scratch array.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DULSIA",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "work array dimensioned at least N+M. The first N locations contain the order in which the columns of A were used. The next M locations contain the order in which the rows of A were used.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DWNNLS",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "The amounts of working storage actually allocated for the working arrays WORK(*) and IWORK(*), respectively. These quantities are compared with the actual amounts of storage needed for DWNNLS( ). Insufficient storage allocated for either WORK(*) or IWORK(*) is considered an error. This feature was included in DWNNLS( ) because miscalculating the storage formulas for WORK(*) and IWORK(*) might very well lead to subtle and hard-to-find execution errors. The length of WORK(*) must be at least LW = ME+MA+5*N This test will not be made if IWORK(1). LE.",
+          "source_section": "input-output"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "A double precision working array of length at least M + 5*N.",
+          "source_section": "on_return"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "EZFFTB",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB. The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "EZFFTF",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTF. The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "EZFFTI",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15. The same work array can be used for both EZFFTF and EZFFTB as long as N remains unchanged. Different WSAVE arrays are required for different values of N.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "LLSIA",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "work array dimensioned at least N+M. The first N locations contain the order in which the columns of A were used. The next M locations contain the order in which the rows of A were used.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "POLCOF",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "This is an array to provide internal working storage. It must be dimensioned by at least 2*N in the calling program. Note - There are two methods for evaluating the fit produced by POLINT. You may call POLYVL to perform the task, or you may call POLCOF to obtain the coefficients of the Taylor expansion and then write your own evaluation scheme. Due to the inherent errors in the computations of the Taylor expansion from the Newton coefficients produced by POLINT, much more accuracy may be expected by calling POLYVL as opposed to writing your own scheme.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "POLYVL",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "must be dimensioned by at least 2*N if NDER is. GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable. this is an array to provide internal working storage for POLYVL.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAG",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Writable integer workspace of at least LIMIT elements. Its leading entries order subinterval error estimates as specified by the selected source.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Writable real workspace of at least LENW elements. Its four LIMIT-strided segments hold left endpoints, right endpoints, subintegral estimates, and error estimates.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAGI",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAGP",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENIW. on return, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise IWORK(LIMIT+1),. ,IWORK(LIMIT+LAST) Contain the subdivision levels of the subintervals, i.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAGS",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST IF LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAWC",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAWF",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENIW On return, IWORK(K) FOR K = 1, 2,. , LST contain the error flags on the cycles.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAWO",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENIW on return, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. WORK(LIMIT*3+IWORK(K)) form a decreasing sequence, with LIMIT = LENW/2 , and K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise. Furthermore, IWORK(LIMIT+1),. , IWORK(LIMIT+ LAST) indicate the subdivision levels of the subintervals, such that IWORK(LIMIT+I) = L means that the subinterval numbered I is of length ABS(B-A)*2**(1-L).",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension at least LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "QAWS",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension LIMIT, the first K elements of which contain pointers to the error estimates over the subintervals, such that WORK(LIMIT*3+IWORK(1)),. , WORK(LIMIT*3+IWORK(K)) form a decreasing sequence with K = LAST if LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise.",
+          "source_section": "workspace"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Vector of dimension LENW.",
+          "source_section": "workspace"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "RPQR79",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL work array of dimension at least NDEG*(NDEG+2).",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SBCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence of MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector, and Z is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a real array that can be used to pass necessary preconditioning information and/or workspace to MSOLVE. IWORK is an integer work array for the same purpose as RWORK.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE and MTSOLV.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SCGN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SCGS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "and IWORK arrays). The name of the MSOLVE routine must be declared external in the calling program. The calling sequence of MSOLVE is: CALL MSOLVE(N, R, Z, NELT, IA, JA, A, ISYM, RWORK, IWORK) Where N is the number of unknowns, R is the right-hand side vector, and Z is the solution upon return. NELT, IA, JA, A and ISYM define the SLAP matrix data structure: see Description, below. RWORK is a real array that can be used to pass necessary preconditioning information and/or workspace to MSOLVE. IWORK is an integer work array for the same purpose as RWORK.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SCHDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL. is a work array.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SDASSL",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "A real work array of length LRW which provides the code with needed storage space. HMAX **** HO **** Dimension this real work array of length LRW in your calling program.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "An integer work array of length LIW which provides the code with needed storage space. ML MU **** MAXORD **** Dimension this integer work array of length LIW in your calling program.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SDRIV3",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "is an array of LENW real words used internally for temporary storage. The user must allocate space for this array in the calling program by a statement such as REAL WORK(. ) The following table gives the required minimum value for the length of WORK, depending on the value of IMPL and.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "is an integer array of length LENIW used internally for temporary storage. The user must allocate space for this array in the calling program by a statement such as INTEGER IWORK(. ) The length of IWORK should be at least 50 if MITER is 0 or 3, or N+50 if MITER is 1, 2, 4, or 5, or MINT is 3, and LENIW should be set to the value used. The contents of IWORK should not be disturbed between calls to SDRIV3.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SGEDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SGEEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(2N) temporary storage vector. Contents changed by SGEEV.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SGEFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) a singly subscripted array of dimension at least N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SGEIR",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N*(N+1)) a singly subscripted array of dimension at least N*(N+1).",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than one. IND=-3 terminal ITASK is less than one. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SGLSS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "A real work array dimensioned 5*MIN(M,N). The first 2*MIN(M,N) locations of WORK contain value necessary to reproduce the factorization of A.",
+          "source_section": "input-output"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "work array dimensioned at least N+M. The first M+N locations contain the order in which the rows and columns of A were used. If M. GE. N columns then rows. LT.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SGMRES",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SINQB",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls SINQB. The WSAVE array must be initialized by calling subroutine SINQI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of SINQB or SINQF.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SINQF",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15 in the program that calls SINQF. The WSAVE array must be initialized by calling subroutine SINQI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of SINQF or SINQB.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SINQI",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array which must be dimensioned at least 3*N+15. The same work array can be used for both SINQF and SINQB as long as N remains unchanged. Different WSAVE arrays are required for different values of N. The contents of must not be changed between calls of SINQF or SINQB.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SINT",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array with dimension at least INT(3. 5*N+16) in the program that calls SINT. The WSAVE array must be initialized by calling subroutine SINTI(N,WSAVE), and a different WSAVE array must be used for each different value of N. This initialization does not have to be repeated so long as N remains unchanged. Thus subsequent transforms can be obtained faster than the first. contains initialization calculations which must not be destroyed between calls of SINT.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SINTI",
+      "workspace_arguments": [
+        {
+          "argument": "WSAVE",
+          "coverage_status": "complete",
+          "description": "a work array with at least INT(3. 5*N+16) locations. Different WSAVE arrays are required for different values of N. The contents of WSAVE must not be changed between calls of SINT.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SIR",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used by MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SNBFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) a singly subscripted array of dimension at least N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal the matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SNBIR",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N*(NC+1)) a singly subscripted array of dimension at least.",
+          "source_section": "description"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal the matrix A is computationally singular. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SNLS1",
+      "workspace_arguments": [
+        {
+          "argument": "WA1",
+          "coverage_status": "complete",
+          "description": "work arrays of length N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "WA2",
+          "coverage_status": "complete",
+          "description": "work arrays of length N.",
+          "source_section": "description"
+        },
+        {
+          "argument": "WA3",
+          "coverage_status": "complete",
+          "description": "work arrays of length N.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SOMN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED). array that can be used for workspace in MSOLVE.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SPLP",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "EXTERNAL USRMAT The dimensions of PRGOPT(*) and DATTRV(*) must be at least 1. The exact lengths will be determined by user-required options and data transferred to the subprogram USRMAT( ). The values of LW and LIW, the lengths of the arrays WORK(*) and IWORK(*), must satisfy the inequalities MRELAS=3 NVARS=3 DEFINE THE ARRAY COSTS(*) FOR THE OBJECTIVE FUNCTION. COSTS(01)=1. COSTS(02)=1. COSTS(03)=1.",
+          "source_section": "input-output"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "EXTERNAL USRMAT The dimensions of PRGOPT(*) and DATTRV(*) must be at least 1. The exact lengths will be determined by user-required options and data transferred to the subprogram USRMAT( ). The values of LW and LIW, the lengths of the arrays WORK(*) and IWORK(*), must satisfy the inequalities The arrays WORK(*) and IWORK(*) are respectively floating point and type INTEGER working arrays for SPLP( ) and its subprograms. The lengths of these arrays are respectively LW and LIW. These parameters must satisfy the inequalities noted above under the heading \"Fortran Declarations Required:\" It is an error if either value is too small. |Input/Output files required:| Fortran unit 1 is used by SPLP( ) to store the sparse matrix A out of high-speed memory.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SPOFS",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 Terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SPOIR",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N*(N+1)) a singly subscripted array of dimension at least N*(N+1). Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than one. IND=-3 terminal ITASK is less than one. IND=-4 Terminal The matrix A is computationally singular or is not positive definite. A solution has not been computed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SQRDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(P). is a work array. WORK is not referenced if.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDBCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the real workspace, RWORK. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDCGN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDCGS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDGMR",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array of size LENW.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(USER DEFINED >= 30). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale B by. This array must be set by the user or by a call to the SLAP routine SSDS or SSD2S. The length of RWORK must be >= IWORK(4)+N.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(10). IWORK(4) holds the offset into RWORK for the diagonal matrix to scale B by. This is usually set up by the SLAP pre- conditioner setup routines SSDS or SSD2S.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSDOMN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSGS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSICCG",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSIDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) work vector. Contents destroyed.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSIEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL (2*N) temporary storage vector. Contents changed by SSIEV.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSILUR",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSJAC",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the real workspace, RWORK. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. See the DESCRIPTION of SSLI2 for details.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLLTI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. Starting location of DINV in RWORK. See the DESCRIPTION of SLLTI2 for details.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUBC",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUCN",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUCS",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace. NL is the number of non- zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). array used for workspace. NL is the number of non- zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUGM",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array of size LENW.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW). Used to hold pointers into the RWORK array. Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Starting location of IL in IWORK. Starting location of JL in IWORK. Starting location of IU in IWORK. Starting location of JU in IWORK. Starting location of L in RWORK. Starting location of DINV in RWORK.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUOM",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "RWORK(LENW). array used for workspace. NL is the number of non- zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "IWORK(LENIW) Integer array used for workspace. NL is the number of non- zeros in the lower triangle of the matrix (including the diagonal). NU is the number of non-zeros in the upper Upon return the following locations of IWORK hold information which may be of use to the user: Amount of Integer workspace actually used. IWORK(10) Amount of Real workspace actually used.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSLUTI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Starting location of IL in IWORK. Starting location of JL in IWORK. Starting location of IU in IWORK. Starting location of JU in IWORK. Starting location of L in RWORK. Starting location of DINV in RWORK.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSMMTI",
+      "workspace_arguments": [
+        {
+          "argument": "RWORK",
+          "coverage_status": "complete",
+          "description": "Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it.",
+          "source_section": "not_stated_by_source"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Starting location of IL in IWORK. Starting location of JL in IWORK. Starting location of IU in IWORK. Starting location of JU in IWORK. Starting location of L in RWORK. Starting location of DINV in RWORK.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSPDI",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) work vector. Contents ignored.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSPEV",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(2N) temporary storage vector. Contents changed by SSPEV.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SSVDC",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "REAL(N) is a scratch array.",
+          "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "ULSIA",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "work array dimensioned at least N+M. The first N locations contain the order in which the columns of A were used. The next M locations contain the order in which the rows of A were used.",
+          "source_section": "input-output"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "WNNLS",
+      "workspace_arguments": [
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "The amounts of working storage actually allocated for the working arrays WORK(*) and IWORK(*), respectively. These quantities are compared with the actual amounts of storage needed for WNNLS( ). Insufficient storage allocated for either WORK(*) or IWORK(*) is considered an error. This feature was included in WNNLS( ) because miscalculating the storage formulas for WORK(*) and IWORK(*) might very well lead to subtle and hard-to-find execution errors. The length of WORK(*) must be at least LW = ME+MA+5*N This test will not be made if IWORK(1). LE.",
+          "source_section": "input-output"
+        },
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "A real-valued working array of length at least M + 5*N.",
+          "source_section": "on_return"
+        }
+      ]
+    }
+  ],
+  "routines_with_workspace_contracts": 167,
+  "schema_id": "slatec-rs.workspace-contract-coverage",
+  "schema_version": "1.0.0"
+}

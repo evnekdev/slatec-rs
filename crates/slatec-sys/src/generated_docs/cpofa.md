@@ -8,40 +8,44 @@ This canonical unsafe binding exposes original SLATEC routine `CPOFA`. Its docum
 
 # Arguments
 
-## 1. `A`
+## `A`
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). COMPLEX(LDA, N) the Hermitian matrix to be factored.  Only the diagonal and upper triangle are used. CTRANS(R)*R where  CTRANS(R)  is the conjugate CTRANS(R)*R where  CTRANS(R)  is the conjugate transpose.  The strict lower triangle is unaltered. transpose.  The strict lower triangle is unaltered. If  INFO .NE. 0 , the factorization is not complete. If  INFO .NE. 0 , the factorization is not complete. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA, N) the Hermitian matrix to be factored. Only the diagonal and upper triangle are used. an upper triangular matrix R so that A = CTRANS(R)*R where CTRANS(R) is the conjugate transpose. The strict lower triangle is unaltered. If INFO. NE.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . INTEGER the leading dimension of the array  A . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . On Return not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array A.
 
-## 4. `INFO`
+## `N`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER = 0  for normal return. = K  signals an error condition.  The leading minor of order  K  is not positive definite. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER the order of the matrix A.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER = 0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. |
 
 # Workspace and array requirements
 
 - `A`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

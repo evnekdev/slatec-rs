@@ -1,6 +1,6 @@
 # Purpose
 
-SSPR2 performs the symmetric rank 2 operation A := alpha*x*y' + alpha*y*x' + A,
+SSPR2 performs the symmetric rank 2 operation A := alpha*x*y' + alpha*y*x' + A, where alpha is a scalar, x and y are n element vectors and A is an n by n symmetric matrix, supplied in packed form.
 
 # Description
 
@@ -8,59 +8,62 @@ This canonical unsafe binding exposes original SLATEC routine `SSPR2`. Its docum
 
 # Arguments
 
-## 1. `UPLO`
+## `UPLO`
 
-input `scalar` argument; Fortran declaration `CHARACTER`, Rust ABI type `*mut core::ffi::c_char`, and scalar. CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the matrix A is supplied in the packed 'U' or 'u'   The upper triangular part of A is supplied in AP. 'L' or 'l'   The lower triangular part of A is supplied in AP. Unchanged on exit. 'U' or 'u', the array AP must contain the upper triangular part of the symmetric matrix packed sequentially, column by column, so that AP( 1 ) 'L' or 'l', the array AP must contain the lower triangular part of the symmetric matrix packed sequentially, column by column, so that AP( 1 ) CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the matrix A is supplied in the packed 'U' or 'u'   The upper triangular part of A is supplied in AP. 'L' or 'l'   The lower triangular part of A is supplied in AP. Unchanged on exit. 'U' or 'u', the array AP must contain the upper triangular part of the symmetric matrix packed sequentially, column by column, so that AP( 1 ) 'L' or 'l', the array AP must contain the lower triangular part of the symmetric matrix packed sequentially, column by column, so that AP( 1 ) not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `CHARACTER`. **Rust ABI type:** `*mut core::ffi::c_char`. **Shape:** scalar.
 
-## 2. `N`
+CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the matrix A is supplied in the packed array AP as follows: 'U' or 'u' The upper triangular part of A is supplied in AP. 'L' or 'l' The lower triangular part of A is Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. by n symmetric matrix, supplied in packed form. Parameters ========== INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit. 1)*abs( INCX)). Before entry, the incremented array X must contain the n element vector x. Unchanged on exit. 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the n element vector y. Unchanged on exit. by n symmetric matrix, supplied in packed form. Parameters ========== INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit. 1)*abs( INCX)). Before entry, the incremented array X must contain the n element vector x. Unchanged on exit. 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the n element vector y. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `ALPHA`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. are n element vectors and A is an REAL            . On entry, ALPHA specifies the scalar alpha. Unchanged on exit. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit.
 
-## 4. `X`
+## `ALPHA`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are n element vectors and A is an REAL             array of dimension at least must not be zero. Unchanged on exit. are n element vectors and A is an REAL             array of dimension at least must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `INCX`
+REAL. On entry, ALPHA specifies the scalar alpha. Unchanged on exit.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+## `X`
 
-## 6. `Y`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). are n element vectors and A is an REAL             array of dimension at least must not be zero. Unchanged on exit. are n element vectors and A is an REAL             array of dimension at least must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+REAL array of dimension at least ( 1 + ( n - 1)*abs( INCX)). Before entry, the incremented array X must contain the n element vector x. Unchanged on exit.
 
-## 7. `INCY`
+## `INCX`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 8. `AP`
+INTEGER. On entry, INCX specifies the increment for the elements of X. INCX must not be zero. Unchanged on exit.
 
-input-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). REAL             array of DIMENSION at least ( ( n*( n + 1 ) )/2 ). contain a( 1, 2 ) contain a( 1, 2 ) and a( 2, 2 ) respectively, and so on. On exit, the array and a( 2, 2 ) respectively, and so on. On exit, the array is overwritten by the upper triangular part of the updated matrix. contain a( 2, 1 ) contain a( 2, 1 ) and a( 3, 1 ) respectively, and so on. On exit, the array and a( 3, 1 ) respectively, and so on. On exit, the array is overwritten by the lower triangular part of the updated matrix. REAL             array of DIMENSION at least ( ( n*( n + 1 ) )/2 ). contain a( 1, 2 ) contain a( 1, 2 ) and a( 2, 2 ) respectively, and so on. On exit, the array and a( 2, 2 ) respectively, and so on. On exit, the array is overwritten by the upper triangular part of the updated matrix. contain a( 2, 1 ) contain a( 2, 1 ) and a( 3, 1 ) respectively, and so on. On exit, the array and a( 3, 1 ) respectively, and so on. On exit, the array is overwritten by the lower triangular part of the updated matrix. not applicable or not stated by selected source not a workspace argument
+## `Y`
+
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL array of dimension at least ( 1 + ( n - 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the n element vector y. Unchanged on exit.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER. On entry, INCY specifies the increment for the elements of Y. INCY must not be zero. Unchanged on exit.
+
+## `AP`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL array of DIMENSION at least ( ( n*( n + 1 ) )/2 ). Before entry with UPLO = 'U' or 'u', the array AP must contain the upper triangular part of the symmetric matrix packed sequentially, column by column, so that AP( 1 ) contains a( 1, 1 ), AP( 2 ) and AP( 3 ) contain a( 1, 2 ) and a( 2, 2 ) respectively, and so on. On exit, the array is overwritten by the upper triangular part of the updated matrix. Before entry with UPLO = 'L' or 'l', the array AP must contain the lower triangular part of the symmetric matrix contains a( 1, 1 ), AP( 2 ) and AP( 3 ) contain a( 2, 1 ) and a( 3, 1 ) respectively, and so on. On exit, the array is overwritten by the lower triangular part of the.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `UPLO`: not a workspace argument
-- `N`: not a workspace argument
-- `ALPHA`: not a workspace argument
 - `X`: not a workspace argument
-- `INCX`: not a workspace argument
 - `Y`: not a workspace argument
-- `INCY`: not a workspace argument
 - `AP`: not a workspace argument
 
 # ABI notes

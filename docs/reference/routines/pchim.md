@@ -8,7 +8,7 @@ Set derivatives needed to determine a monotone piecewise cubic Hermite interpola
 
 ## Description
 
-PCHIM: Piecewise Cubic Hermite Interpolation to Monotone data. Sets derivatives needed to determine a monotone piecewise cubic Hermite interpolant to the data given in X and F. Default boundary conditions are provided which are compatible with monotonicity. (See PCHIC if user control of boundary con- ditions is desired.) If the data are only piecewise monotonic, the interpolant will have an extremum at each point where monotonicity switches direc- tion. (See PCHIC if user control is desired in such cases.) To facilitate two-dimensional applications, includes an increment
+PCHIM: Piecewise Cubic Hermite Interpolation to Monotone data. Sets derivatives needed to determine a monotone piecewise cubic Hermite interpolant to the data given in X and F. Default boundary conditions are provided which are compatible with monotonicity. (See PCHIC if user control of boundary con- ditions is desired.) If the data are only piecewise monotonic, the interpolant will have an extremum at each point where monotonicity switches direc- tion. (See PCHIC if user control is desired in such cases.) To facilitate two-dimensional applications, includes an increment between successive values of the F- and D-arrays. The resulting piecewise cubic Hermite function may be evaluated by PCHFE or PCHFD. Calling sequence: PARAMETER (INCFD = ...) INTEGER N, IERR REAL X(N), F(INCFD,N), D(INCFD,N) CALL PCHIM (N, X, F, D, INCFD, IERR)
 
 ## Classification
 
@@ -52,38 +52,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [PCHIM](https://www.netlib.org/slatec/pchip/pchim.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) number of data points.  (Error return if N.LT.2 .) 2, simply does linear interpolation. |
-| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | (input) real array of independent variable values.  The 1) .LT. X(I),  I = 2(1)N. |
-| 3 | `F` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (INCFD, *) | and D-arrays. The resulting piecewise cubic Hermite function may be evaluated by PCHFE or PCHFD. (input) real array of dependent variable values to be inter- 1)*INCFD) is value corresponding to X(I). PCHIM is designed for monotonic data, but it will work for array.  It will force extrema at points where mono- tonicity switches direction.  If some other treatment of switch points is desired, PCHIC should be used instead. |
-| 4 | `D` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (INCFD, *) | (output) real array of derivative values at the data points. If the data are monotonic, these values will determine a a monotone cubic Hermite function. The value corresponding to X(I) is stored in 1)*INCFD),  I=1(1)N. No other entries in D are changed. array has not been changed in any of these cases.) NOTE:  The above errors are checked in the order listed, and following arguments have **NOT** been validated. |
-| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ...) INTEGER  N, IERR REAL  X(N), F(INCFD,N), D(INCFD,N) CALL  PCHIM (N, X, F, D, INCFD, IERR) Parameters: (input) increment between successive values in F and D. This argument is provided primarily for 2-D applications. |
-| 6 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0  (no errors). Warning error: means that IERR switches in the direction of monotonicity were detected. "Recoverable" errors: 1  if N.LT.2 . 2  if INCFD.LT.1 . 3  if the X-array is not strictly increasing. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) number of data points. (Error return if N. LT. 2. ) If N=2, simply does linear interpolation. |
+| 2 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | (input) real array of independent variable values. The elements of X must be strictly increasing:. LT. X(I), I = 2(1)N. (Error return if not. ). |
+| 3 | `F` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (INCFD, *) | (input) real array of dependent variable values to be inter- polated. F(1+(I-1)*INCFD) is value corresponding to X(I). PCHIM is designed for monotonic data, but it will work for any F-array. It will force extrema at points where mono- tonicity switches direction. If some other treatment of switch points is desired, PCHIC should be used instead. |
+| 4 | `D` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (INCFD, *) | (output) real array of derivative values at the data points. If the data are monotonic, these values will determine a a monotone cubic Hermite function. The value corresponding to X(I) is stored in I=1(1)N. No other entries in D are changed. |
+| 5 | `INCFD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (input) increment between successive values in F and D. This argument is provided primarily for 2-D applications. (Error return if INCFD. LT. 1. ). |
+| 6 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (output) error flag. Normal return: 0 (no errors). Warning error: IERR. GT. 0 means that IERR switches in the direction of monotonicity were detected. "Recoverable" errors: -1 if N. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

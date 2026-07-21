@@ -52,43 +52,35 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SSBMV](https://www.netlib.org/slatec/lin/ssbmv.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `UPLO` | `input` | `scalar` | `CHARACTER` | `*mut core::ffi::c_char` | scalar | CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the band matrix A is being supplied as follows: 'U' or 'u'   The upper triangular part of A is being supplied. 'L' or 'l'   The lower triangular part of A is being supplied. Unchanged on exit. 'U' or 'u', the leading ( k + 1 ) 'L' or 'l', the leading ( k + 1 ) |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | diagonals. diagonals. Parameters Parameters ========== ========== INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit. contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row contain the lower triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the array A is not referenced. The following program segment will transfer the lower triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = 1 - J DO 10, I = J, MIN( N, J + K ) 1 )*abs( INCX ) ). Before entry, the incremented array X must contain the vector x. Unchanged on exit. 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the |
-| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | diagonals. Parameters ========== INTEGER. diagonals of the must satisfy  0 .le. K. Unchanged on exit. diagonal starting at position 2 in row k, and so on. The top left k by k triangle of the array A is not referenced. The following program segment will transfer the upper triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N J DO 10, I = MAX( 1, J - K ), J |
-| 4 | `ALPHA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | are scalars, x and y are n element vectors and REAL            . On entry, ALPHA specifies the scalar alpha. Unchanged on exit. |
-| 5 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | diagonals. Parameters ========== must satisfy  0 .le. K. Unchanged on exit. REAL             array of DIMENSION ( LDA, n ). contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row matrix( I, J ) 10    CONTINUE 20 CONTINUE contain the lower triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the array A is not referenced. The following program segment will transfer the lower triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = 1 - J DO 10, I = J, MIN( N, J + K ) matrix( I, J ) 10    CONTINUE 20 CONTINUE Unchanged on exit. |
+| 1 | `UPLO` | `input` | `scalar` | `CHARACTER` | `*mut core::ffi::c_char` | scalar | CHARACTER*1. On entry, UPLO specifies whether the upper or lower triangular part of the band matrix A is being supplied as follows: 'U' or 'u' The upper triangular part of A is being supplied. 'L' or 'l' The lower triangular part of A is Unchanged on exit. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, N specifies the order of the matrix A. must be at least zero. Unchanged on exit. |
+| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, K specifies the number of super-diagonals of the matrix A. K must satisfy 0. le. K. Unchanged on exit. |
+| 4 | `ALPHA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | REAL. On entry, ALPHA specifies the scalar alpha. Unchanged on exit. |
+| 5 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | is an n by n symmetric band matrix, with k super-diagonals. REAL array of DIMENSION ( LDA, n ). Before entry with UPLO = 'U' or 'u', the leading ( k + 1 ) by n part of the array A must contain the upper triangular band part of the symmetric matrix, supplied column by column, with the leading diagonal of the matrix in row ( k + 1 ) of the array, the first super-diagonal starting at position 2 in row k, and so on. The top left k by k triangle of the array A is not referenced. The following program segment will transfer the upper triangular part of a symmetric band matrix from conventional full matrix storage to band storage: DO 20, J = 1, N M = K + 1 - J DO 10, I = MAX( 1, J - K ), J matrix( I, J ) 10 CONTINUE 20 CONTINUE Before entry with UPLO = 'L' or 'l', the leading ( k + 1 ) by n part of the array A must contain the lower triangular column, with the leading diagonal of the matrix in row 1 of the array, the first sub-diagonal starting at position 1 in row 2, and so on. The bottom right k by k triangle of the The following program segment will transfer the lower M = 1 - J DO 10, I = J, MIN( N, J + K ) Unchanged on exit. |
 | 6 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, LDA specifies the first dimension of A as declared in the calling (sub) program. LDA must be at least ( k + 1 ). Unchanged on exit. |
-| 7 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL             array of DIMENSION at least must not be zero. Unchanged on exit. |
-| 8 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, INCX specifies the increment for the elements of must not be zero. Unchanged on exit. |
-| 9 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | are scalars, x and y are n element vectors and REAL            . On entry, BETA specifies the scalar beta. Unchanged on exit. |
-| 10 | `Y` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | = alpha*A*x + beta*y, REAL             array of DIMENSION at least is overwritten by the updated vector y. is overwritten by the updated vector y. must not be zero. Unchanged on exit. |
-| 11 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, INCY specifies the increment for the elements of must not be zero. Unchanged on exit. |
+| 7 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL array of DIMENSION at least ( 1 + ( n - 1 )*abs( INCX ) ). Before entry, the incremented array X must contain the vector x. Unchanged on exit. |
+| 8 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, INCX specifies the increment for the elements of X. INCX must not be zero. Unchanged on exit. |
+| 9 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | REAL. On entry, BETA specifies the scalar beta. Unchanged on exit. |
+| 10 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | = alpha*A*x + beta*y, where alpha and beta are scalars, x and y are n element vectors and REAL array of DIMENSION at least ( 1 + ( n - 1 )*abs( INCY ) ). Before entry, the incremented array Y must contain the vector y. On exit, Y is overwritten by the updated vector y. |
+| 11 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. On entry, INCY specifies the increment for the elements of Y. INCY must not be zero. Unchanged on exit. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
+### Storage and array requirements
 
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

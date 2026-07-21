@@ -8,40 +8,37 @@ This canonical unsafe binding exposes original SLATEC routine `CSSCAL`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of elements in input vector(s) 1, replace CX(IX+I*INCX) with  SA * CX(IX+I*INCX), not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `SA`
+number of elements in input vector(s).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. single precision scale factor not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SA`
 
-## 3. `CX`
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). complex vector with N elements scaled result (unchanged if N .LE. 0) Replace complex CX by (single precision SA) * (complex CX) not stated by selected source not applicable or not stated by selected source not a workspace argument
+single precision scale factor.
 
-## 4. `INCX`
+## `CX`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of CX N)*INCX. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+complex vector with N elements scaled result (unchanged if N. LE. 0) Replace complex CX by (single precision SA) * (complex CX) For I = 0 to N-1, replace CX(IX+I*INCX) with SA * CX(IX+I*INCX), where IX = 1 if INCX. GE. 0, else IX = 1+(1-N)*INCX.
+
+## `INCX`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+storage spacing between elements of CX.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
-- `SA`: not a workspace argument
 - `CX`: not a workspace argument
-- `INCX`: not a workspace argument
 
 # ABI notes
 

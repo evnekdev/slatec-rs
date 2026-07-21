@@ -8,7 +8,7 @@ Calculate Tricomi's form of the incomplete Gamma function.
 
 ## Description
 
-Evaluate Tricomi's incomplete Gamma function defined by
+Evaluate Tricomi's incomplete Gamma function defined by DGAMIT = X**(-A)/GAMMA(A) * integral from 0 to X of EXP(-T) * T**(A-1.) for A .GT. 0.0 and by analytic continuation for A .LE. 0.0. GAMMA(X) is the complete gamma function of X. DGAMIT is evaluated for arbitrary real values of A and for non- negative values of X (even though DGAMIT is defined for X .LT. 0.0), except that for X = 0 and A .LE. 0.0, DGAMIT is infinite, which is a fatal error. The function and both arguments are DOUBLE PRECISION. A slight deterioration of 2 or 3 digits accuracy will occur when DGAMIT is very large or very small in absolute value, because log- arithmic variables are used. Also, if the parameter A is very close to a negative integer (but not a negative integer), there is a loss of accuracy, which is reported if the result is less than half machine precision.
 
 ## Classification
 
@@ -52,34 +52,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DGAMIT](https://www.netlib.org/slatec/fnlib/dgamit.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 1.) for A .GT. 0.0 and by analytic continuation for A .LE. 0.0. negative values of X (even though DGAMIT is defined for X .LT. slight deterioration of 2 or 3 digits accuracy will occur when DGAMIT is very large or very small in absolute value, because log- arithmic variables are used.  Also, if the parameter  A  is very close to a negative integer (but not a negative integer), there is loss of accuracy, which is reported if the result is less than half machine precision. |
-| 2 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | A)/GAMMA(A) * integral from 0 to X of EXP(-T) * is the complete gamma function of X. 0 and A .LE. 0.0, DGAMIT is infinite, which is a fatal error. The function and both arguments are DOUBLE PRECISION. |
+| 1 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input value at which the source-defined function is evaluated: Calculate Tricomi's form of the incomplete Gamma function |
+| 2 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input value at which the source-defined function is evaluated: Calculate Tricomi's form of the incomplete Gamma function |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

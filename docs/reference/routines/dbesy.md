@@ -8,7 +8,7 @@ Implement forward recursion on the three term recursion relation for a sequence 
 
 ## Description
 
-Abstract **** a double precision routine **** DBESY implements forward recursion on the three term recursion relation for a sequence of non-negative order Bessel
+Abstract **** a double precision routine **** DBESY implements forward recursion on the three term recursion relation for a sequence of non-negative order Bessel functions Y/sub(FNU+I-1)/(X), I=1,N for real X .GT. 0.0D0 and non-negative orders FNU. If FNU .LT. NULIM, orders FNU and FNU+1 are obtained from DBSYNU which computes by a power series for X .LE. 2, the K Bessel function of an imaginary argument for 2 .LT. X .LE. 20 and the asymptotic expansion for
 
 ## Classification
 
@@ -54,36 +54,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DBESY](https://www.netlib.org/slatec/src/dbesy.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | negative orders FNU. .GT. 20. If FNU .GE. NULIM, the uniform asymptotic expansion is coded in DASYJY for orders FNU and FNU+1 to start the recursion. X .GT. 0.0D0 |
-| 2 | `FNU` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 1)/(X), I=1,...,N for real, positive 1)/(X), I=1,N for real X .GT. 0.0D0 and non-negative orders FNU.  If FNU .LT. NULIM, orders FNU and are obtained from DBSYNU which computes by a power series for X .LE. 2, the K Bessel function of an imaginary argument for 2 .LT. X .LE. 20 and the asymptotic expansion for order of the initial Y function, FNU .GE. 0.0D0 1)/(X), I=1,N. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 or N .GE. 2.  An overflow test is made on the leading term of the asymptotic expansion before any extensive computation is done. The maximum number of significant digits obtainable is the smaller of 14 and the number of digits carried in double precision arithmetic. number of members in the sequence, N .GE. 1 M. Temme, On the numerical evaluation of the modified Bessel function of the third kind, Journal of Computational Physics 19, (1975), pp. 324-337. M. Temme, On the numerical evaluation of the ordinary Bessel function of the second kind, Journal of Computational Physics 21, (1976), pp. 343-350. |
-| 4 | `Y` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1)/(X), I=1,...,N for real, positive 1)/(X), I=1,N for real X .GT. 0.0D0 and non-negative orders FNU.  If FNU .LT. NULIM, orders FNU and a vector whose first N components contain values 1)/(X), I=1,N. 1)/(X), I=1,N. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | GT. 20. If FNU. GE. NULIM, the uniform asymptotic expansion is coded in DASYJY for orders FNU and FNU+1 to start the recursion. NULIM is 70 or 100 depending on whether N=1 or N. |
+| 2 | `FNU` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | order of the initial Y function, FNU. GE. 0. 0D0. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of members in the sequence, N. GE. 1. |
+| 4 | `Y` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | a vector whose first N components contain values for the sequence Y(I)=Y/sub(FNU+I-1)/(X), I=1,N. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
 Improper input arguments - a fatal error Overflow - a fatal error
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

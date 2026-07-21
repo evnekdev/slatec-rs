@@ -8,7 +8,7 @@ The original (infinite integration range is mapped onto the interval (0,1) and (
 
 ## Description
 
-Integration Rule Standard Fortran subroutine Real version PARAMETERS ON ENTRY
+Integration Rule Standard Fortran subroutine Real version
 
 ## Classification
 
@@ -54,25 +54,25 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QK15I](https://www.netlib.org/slatec/src/qk15i.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Real Function subprogram defining the integrand FUNCTION F(X). The actual name for F needs to be Declared E X T E R N A L in the calling program. |
-| 2 | `BOUN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Finite bound of original integration |
-| 3 | `INF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | +2) Integer 1, the original interval is (-INFINITY,BOUND), +1, the original interval is (BOUND,+INFINITY), +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). |
-| 4 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B). Real Lower limit for integration over subrange of (0,1) |
-| 5 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (0,1). it is the purpose to compute I = Integral of transformed integrand over (A,B), J = Integral of ABS(Transformed Integrand) over (A,B). Real Upper limit for integration over subrange of (0,1) ON RETURN |
-| 6 | `RESULT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral I POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). |
-| 7 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) |
-| 8 | `RESABS` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral J |
-| 9 | `RESASC` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B) |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand FUNCTION F(X). The actual name for F needs to be Declared E X T E R N A L in the calling program. |
+| 2 | `BOUN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Finite bound of original integration Range (SET TO ZERO IF INF = +2). |
+| 3 | `INF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | If INF = -1, the original interval is (-INFINITY,BOUND), If INF = +1, the original interval is (BOUND,+INFINITY), If INF = +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). |
+| 4 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Lower limit for integration over subrange of (0,1). |
+| 5 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Upper limit for integration over subrange of (0,1). |
+| 6 | `RESULT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral I is computed by applying the 15-POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). |
+| 7 | `ABSERR` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT). |
+| 8 | `RESABS` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral J. |
+| 9 | `RESASC` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -81,14 +81,6 @@ This is a Fortran subroutine and has no direct return value; outputs are documen
 ### Callback contract
 
 Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

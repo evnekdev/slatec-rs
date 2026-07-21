@@ -8,55 +8,57 @@ This canonical unsafe binding exposes original SLATEC routine `DQDOTI`. Its docu
 
 # Arguments
 
-## 1. `N`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. number of elements in input vector(s) 1 of not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `DB`
+number of elements in input vector(s).
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. double precision scalar to be added to inner product 1 of not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `DB`
 
-## 3. `QC`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (30). extended precision scalar to be added extended precision result D.P. dot product with extended precision accumulation (and result) 1 of is an extended precision result which can be used as input to DQDOTA, not stated by selected source not applicable or not stated by selected source not a workspace argument
+double precision scalar to be added to inner product.
 
-## 4. `DX`
+## `QC`
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). double precision vector with N elements is an extended precision result which can be used as input to DQDOTA, not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (30).
 
-## 5. `INCX`
+extended precision scalar to be added extended precision result D. P. dot product with extended precision accumulation (and result) QC and DQDOTI are set = DB + sum for I = 0 to N-1 of DX(LX+I*INCX) * DY(LY+I*INCY), where QC is an extended precision result which can be used as input to DQDOTA, and LX = 1 if INCX. GE. 0, else LX = (-INCX)*N, and LY is defined in a similar way using INCY. The MP package by Richard P.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of DX is an extended precision result which can be used as input to DQDOTA, INCX)*N, and LY is defined in a similar way using INCY.  The MP package by Richard P. Brent is used for the extended precision arithmetic. Fred T. Krogh,  JPL,  1977,  June 1 The common block for the MP package is named MPCOM.  If local variable I1 is zero, DQDOTI calls MPBLAS to initialize the MP package and reset I1 to 1. The argument QC(*), and the local variables QX and QY are INTEGER arrays of size 30.  See the comments in the routine MPBLAS for the reason for this choice. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `DX`
 
-## 6. `DY`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
 
-input `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (*). double precision vector with N elements is an extended precision result which can be used as input to DQDOTA, not stated by selected source not applicable or not stated by selected source not a workspace argument
+double precision vector with N elements.
 
-## 7. `INCY`
+## `INCX`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. storage spacing between elements of DY is an extended precision result which can be used as input to DQDOTA, not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+storage spacing between elements of DX.
+
+## `DY`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (*).
+
+double precision vector with N elements.
+
+## `INCY`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+storage spacing between elements of DY.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `N`: not a workspace argument
-- `DB`: not a workspace argument
 - `QC`: not a workspace argument
 - `DX`: not a workspace argument
-- `INCX`: not a workspace argument
 - `DY`: not a workspace argument
-- `INCY`: not a workspace argument
 
 # ABI notes
 

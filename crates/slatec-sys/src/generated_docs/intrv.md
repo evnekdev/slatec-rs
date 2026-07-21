@@ -1,6 +1,6 @@
 # Purpose
 
-Written by Carl de Boor and modified by D. E. Amos INTRV is the INTERV routine of the reference. INTRV computes the largest integer ILEFT in 1 .LE. ILEFT .LE.
+Written by Carl de Boor and modified by D. E. Amos INTRV is the INTERV routine of the reference. INTRV computes the largest integer ILEFT in 1 .LE. ILEFT .LE. LXT such that XT(ILEFT) .LE. X where XT(*) is a subdivision of the X interval. Precisely,
 
 # Description
 
@@ -8,50 +8,49 @@ This canonical unsafe binding exposes original SLATEC routine `INTRV`. Its docum
 
 # Arguments
 
-## 1. `XT`
+## `XT`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). is a subdivision is a subdivision of the X interval. of the X interval. is a subdivision of is a subdivision of the X interval.  Precisely, the X interval.  Precisely, 1 I  , MFLAG=0 I  , MFLAG=0 .LE. X                         LXT        1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. XT is a knot or break point vector of length LXT is a subdivision is a subdivision of the X interval. of the X interval. is a subdivision of is a subdivision of the X interval.  Precisely, the X interval.  Precisely, 1 I  , MFLAG=0 I  , MFLAG=0 .LE. X                         LXT        1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. XT is a knot or break point vector of length LXT not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
 
-## 2. `LXT`
+LE. X LXT 1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. XT is a knot or break point vector of length LXT.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is a subdivision of the X interval.  Precisely, .LE. X                         LXT        1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. length of the XT vector is a subdivision of the X interval.  Precisely, .LE. X                         LXT        1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. length of the XT vector not applicable or not stated by selected source not a workspace argument
+## `LXT`
 
-## 3. `X`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is a subdivision of the X interval. is a subdivision of the X interval.  Precisely, 1 I  , MFLAG=0 argument not stated by selected source not applicable or not stated by selected source not a workspace argument
+length of the XT vector.
 
-## 4. `ILO`
+## `X`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. an initialization parameter which must be set to 1 the first time the spline array XT is processed by INTRV. ILO contains information for efficient process- ing after the initial call, and ILO must not be changed by the user.  Distinct splines require distinct ILO parameters. an initialization parameter which must be set to 1 the first time the spline array XT is processed by INTRV. ILO contains information for efficient process- ing after the initial call, and ILO must not be changed by the user.  Distinct splines require distinct ILO parameters. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 5. `ILEFT`
+LT. XT(1) 1 -1 if XT(I). LE. X. XT(I+1) then ILEFT=I , MFLAG=0 argument.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is a subdivision of the X interval. is a subdivision of the X interval.  Precisely, I  , MFLAG=0 largest integer satisfying XT(ILEFT) .LE. X not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `ILO`
 
-## 6. `MFLAG`
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. signals when X lies out of bounds not stated by selected source not applicable or not stated by selected source not a workspace argument
+an initialization parameter which must be set to 1 the first time the spline array XT is processed by INTRV. ILO contains information for efficient process- ing after the initial call, and ILO must not be changed by the user. Distinct splines require distinct ILO parameters.
+
+## `ILEFT`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+largest integer satisfying XT(ILEFT). LE. X.
+
+## `MFLAG`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+signals when X lies out of bounds.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-None
-
 # Workspace and array requirements
 
 - `XT`: not a workspace argument
-- `LXT`: not a workspace argument
-- `X`: not a workspace argument
-- `ILO`: not a workspace argument
-- `ILEFT`: not a workspace argument
-- `MFLAG`: not a workspace argument
 
 # ABI notes
 

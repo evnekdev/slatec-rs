@@ -1,6 +1,6 @@
 # Purpose
 
-This routine computes all zeros of a polynomial of degree NDEG with complex coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list
+This routine computes all zeros of a polynomial of degree NDEG with complex coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list COEFF(NDEG+1), ROOT(NDEG), WORK(2*NDEG*(NDEG+1))
 
 # Description
 
@@ -8,45 +8,45 @@ This canonical unsafe binding exposes original SLATEC routine `CPQR79`. Its docu
 
 # Arguments
 
-## 1. `NDEG`
+## `NDEG`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. ROOT(NDEG), WORK(2*NDEG*(NDEG+1)) degree of polynomial not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `COEFF`
+degree of polynomial.
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). ROOT(NDEG), WORK(2*NDEG*(NDEG+1)) COMPLEX coefficients in descending order.  i.e., P(Z)= COEFF(1)*(Z**NDEG) + COEFF(NDEG)*Z + COEFF(NDEG+1) 0.0 3  NDEG is invalid (less than or equal to 0) not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `COEFF`
 
-## 3. `ROOT`
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX vector of roots not stated by selected source not applicable or not stated by selected source not a workspace argument
+COMPLEX coefficients in descending order. i. e. , P(Z)= COEFF(1)*(Z**NDEG) + COEFF(NDEG)*Z + COEFF(NDEG+1).
 
-## 4. `IERR`
+## `ROOT`
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. Output Error Code - Normal Code 0  means the roots were computed. - Abnormal Codes 1  more than 30 QR iterations on some eigenvalue of the companion matrix not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
 
-## 5. `WORK`
+COMPLEX vector of roots.
 
-workspace `workspace` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). REAL work array of dimension at least 2*NDEG*(NDEG+1) REAL work array of dimension at least 2*NDEG*(NDEG+1) not applicable or not stated by selected source
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Output Error Code - Normal Code 0 means the roots were computed. - Abnormal Codes 1 more than 30 QR iterations on some eigenvalue of the companion matrix 2 COEFF(1)=0. 0 3 NDEG is invalid (less than or equal to 0).
+
+## `WORK`
+
+**Direction:** `workspace-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+REAL work array of dimension at least 2*NDEG*(NDEG+1).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NDEG`: not a workspace argument
 - `COEFF`: not a workspace argument
 - `ROOT`: not a workspace argument
-- `IERR`: not a workspace argument
-- `WORK`: REAL work array of dimension at least 2*NDEG*(NDEG+1)
+- `WORK`: REAL work array of dimension at least 2*NDEG*(NDEG+1).
 
 # ABI notes
 

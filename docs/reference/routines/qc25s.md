@@ -8,7 +8,7 @@ To compute I = Integral of F*W over (BL,BR), with error estimate, where the weig
 
 ## Description
 
-Integration rules for integrands having ALGEBRAICO-LOGARITHMIC end point singularities Standard fortran subroutine Real version PARAMETERS
+Integration rules for integrands having ALGEBRAICO-LOGARITHMIC end point singularities Standard fortran subroutine Real version
 
 ## Classification
 
@@ -54,32 +54,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QC25S](https://www.netlib.org/slatec/src/qc25s.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Real Function subprogram defining the integrand The actual name for F needs to be declared E X T E R N A L  in the driver program. I/(B-A)) |
-| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Left end point of the original interval |
-| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Right end point of the original interval, B.GT.A X) |
-| 4 | `BL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Lower limit of integration, BL.GE.A |
-| 5 | `BR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Upper limit of integration, BR.LE.B |
-| 6 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real PARAMETER IN THE WEIGHT FUNCTION |
-| 7 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameter in the weight function |
-| 8 | `RI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
-| 9 | `RJ` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
-| 10 | `RG` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
-| 11 | `RH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
-| 12 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral is computed by using a generalized CLENSHAW-CURTIS method if B1 = A or BR = B. in all other cases the 15-POINT KRONROD RULE is applied, obtained by optimal addition of Abscissae to the 7-POINT GAUSS RULE. |
-| 13 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
-| 14 | `RESASC` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real |
-| 15 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Which determines the weight function = 1   W(X) = (X-A)**ALFA*(B-X)**BETA = 2   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A) = 3   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(B-X) = 4   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A)* |
-| 16 | `NEV` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Number of integrand evaluations |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
+| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | a part of (A,B). Left end point of the original interval. |
+| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | a part of (A,B). Right end point of the original interval, B. GT. A. |
+| 4 | `BL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Lower limit of integration, BL. GE. A. |
+| 5 | `BR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Upper limit of integration, BR. LE. B. |
+| 6 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | PARAMETER IN THE WEIGHT FUNCTION. |
+| 7 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Parameter in the weight function. |
+| 8 | `RI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO). |
+| 9 | `RJ` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO). |
+| 10 | `RG` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO). |
+| 11 | `RH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO). |
+| 12 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral is computed by using a generalized CLENSHAW-CURTIS method if B1 = A or BR = B. in all other cases the 15-POINT KRONROD RULE is applied, obtained by optimal addition of Abscissae to the 7-POINT GAUSS RULE. |
+| 13 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT). |
+| 14 | `RESASC` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral of ABS(F*W-I/(B-A)). |
+| 15 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Which determines the weight function = 1 W(X) = (X-A)**ALFA*(B-X)**BETA = 2 W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A) = 3 W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(B-X) = 4 W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A)*. |
+| 16 | `NEV` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of integrand evaluations. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -89,13 +89,9 @@ This is a Fortran subroutine and has no direct return value; outputs are documen
 
 Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
 
-### Error and status values
+### Storage and array requirements
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

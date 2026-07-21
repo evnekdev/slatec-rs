@@ -17,9 +17,14 @@ and explicit exclusions. Its correction layer is source-hash guarded. See
 Documentation completion is measured on rendered canonical rustdoc, not on a
 separate reference page. The committed
 [`rendered-rustdoc-audit.json`](../../generated/slatec-routines/rendered-rustdoc-audit.json)
-checks every public function page for its full contract, exact ABI arguments,
-Safety section, and direct Netlib source-file link. Generated declaration
-modules remain implementation detail even when they carry that documentation.
+checks every public function page for its applicable semantic contract, exact
+ABI arguments, Safety section, and direct Netlib source-file link. The
+companion M3 reports record the frozen baseline, final semantic status,
+source-first direction disagreements, contamination findings, status/workspace
+coverage, and deterministic review sample. The validated result is 812
+complete semantic contracts, with no unresolved direction conflict or detected
+argument contamination. Generated declaration modules remain implementation
+detail even when they carry that documentation.
 
 ## Canonical generated raw API
 

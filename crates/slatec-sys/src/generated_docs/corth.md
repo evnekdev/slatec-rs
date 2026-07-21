@@ -1,6 +1,6 @@
 # Purpose
 
-This subroutine is a translation of a complex analogue of the ALGOL procedure ORTHES, NUM. MATH. 12, 349-368(1968) by Martin and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 339-358(1971). Given a COMPLEX GENERAL matrix, this subroutine reduces a submatrix situated in rows and columns
+This subroutine is a translation of a complex analogue of the ALGOL procedure ORTHES, NUM. MATH. 12, 349-368(1968) by Martin and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 339-358(1971). Given a COMPLEX GENERAL matrix, this subroutine reduces a submatrix situated in rows and columns LOW through IGH to upper Hessenberg form by unitary similarity transformations.
 
 # Description
 
@@ -8,56 +8,60 @@ This canonical unsafe binding exposes original SLATEC routine `CORTH`. Its docum
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, AR and AI, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, AR and AI, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, AR and AI, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. (AR,AI).  N is an INTEGER variable.  N must be less than or equal to NM. (AR,AI).  N is an INTEGER variable.  N must be less than or equal to NM. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `LOW`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. through IGH to upper Hessenberg form by unitary similarity transformations. are two INTEGER variables determined by the balancing subroutine  CBAL.  If  CBAL  has not been used, 1 and IGH equal to the order of the matrix, N. are used. not stated by selected source not applicable or not stated by selected source not a workspace argument
+is the order of the matrix A=(AR,AI). N is an INTEGER variable. N must be less than or equal to NM.
 
-## 4. `IGH`
+## `LOW`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. are two INTEGER variables determined by the balancing subroutine  CBAL.  If  CBAL  has not been used, are used. and ORTI(IGH). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `AR`
+two INTEGER variables determined by the balancing subroutine CBAL. If CBAL has not been used, set LOW=1 and IGH equal to the order of the matrix, N.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain the real and imaginary parts, respectively, dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). contain the real and imaginary parts, respectively, of the Hessenberg matrix.  Information about the unitary transformations used in the reduction is stored in the remaining triangles under the Hessenberg matrix. contain the real and imaginary parts, respectively, dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). contain the real and imaginary parts, respectively, of the Hessenberg matrix.  Information about the unitary transformations used in the reduction is stored in the remaining triangles under the Hessenberg matrix. not applicable or not stated by selected source not a workspace argument
+## `IGH`
 
-## 6. `AI`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contain the real and imaginary parts, respectively, dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). contain the real and imaginary parts, respectively, of the Hessenberg matrix.  Information about the unitary transformations used in the reduction is stored in the remaining triangles under the Hessenberg matrix. contain the real and imaginary parts, respectively, dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). contain the real and imaginary parts, respectively, of the Hessenberg matrix.  Information about the unitary transformations used in the reduction is stored in the remaining triangles under the Hessenberg matrix. not applicable or not stated by selected source not a workspace argument
+two INTEGER variables determined by the balancing subroutine CBAL. If CBAL has not been used, set LOW=1 and IGH equal to the order of the matrix, N.
 
-## 7. `ORTR`
+## `AR`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain further information about the unitary dimensional REAL arrays, dimensioned and ORTI(IGH). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contain further information about the unitary dimensional REAL arrays, dimensioned and ORTI(IGH). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 8. `ORTI`
+the real and imaginary parts, respectively, of the complex input matrix. AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). of the Hessenberg matrix. Information about the unitary transformations used in the reduction is stored in the remaining triangles under the Hessenberg matrix.
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 1; dimensions (*). contain further information about the unitary dimensional REAL arrays, dimensioned contain further information about the unitary dimensional REAL arrays, dimensioned not applicable or not stated by selected source not a workspace argument
+## `AI`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+the real and imaginary parts, respectively, of the complex input matrix. AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). of the Hessenberg matrix. Information about the unitary transformations used in the reduction is stored in the remaining triangles under the Hessenberg matrix.
+
+## `ORTR`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+further information about the unitary transformations. Only elements LOW through IGH are used. one-dimensional REAL arrays, dimensioned ORTR(IGH) and ORTI(IGH). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S.
+
+## `ORTI`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 1; dimensions (*).
+
+further information about the unitary transformations. Only elements LOW through IGH are used. one-dimensional REAL arrays, dimensioned ORTR(IGH) and ORTI(IGH). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
-- `LOW`: not a workspace argument
-- `IGH`: not a workspace argument
 - `AR`: not a workspace argument
 - `AI`: not a workspace argument
 - `ORTR`: not a workspace argument

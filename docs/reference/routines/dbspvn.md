@@ -8,7 +8,7 @@ Calculate the value of all (possibly) nonzero basis functions at X.
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPVN is the BSPLVN routine of the reference. DBSPVN calculates the value of all (possibly) nonzero basis
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPVN is the BSPLVN routine of the reference. DBSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. X .LE. T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. ILEFT is such that T(ILEFT) .LE.
 
 ## Classification
 
@@ -54,33 +54,29 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [DBSPVN](https://www.netlib.org/slatec/src/dbspvn.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | IWORK is set inside the routine on are double precision knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K .LE. X .LE. T(N+1) .LE. X .LT.  T(ILEFT+1) |
-| 2 | `JHIGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1)), where T(K) K and INDEX=1 can be faster than calling DBSPVD, but extra coding is required for derivatives order of B-spline, 1 .LE. JHIGH .LE. K |
-| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | highest possible order .LE. X .LE. T(N+1) |
-| 4 | `INDEX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1)), where T(K) 1.  ILEFT is such that T(ILEFT) .LE. 2) and DBSPVD is set up for this purpose. Left limiting values are set up as described in DBSPVD. INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with work, IWORK values saved for subsequent calls to DBSPVN. 2. 1 exclusively, these are scratch variables and can be used for other purposes. |
-| 5 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 1)), where T(K) IWORK is set inside the routine on .LT. T(ILEFT+1).  A call to DINTRV(T,N+1,X,ILO,ILEFT,MFLAG) produces the proper ILEFT.  DBSPVN calculates using the basic algorithm needed in DBSPVD.  If only basis functions are are double precision argument of basis functions, |
-| 6 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that .LE. X .LT.  T(ILEFT+1) |
-| 7 | `VNIKX` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision vector of length K for spline values. |
-| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision a work vector of length 2*K |
-| 9 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a work parameter.  Both WORK and IWORK contain |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K. LE. X. T(N+1). LT. T(ILEFT+1) Output VNIKX, WORK are double precision. |
+| 2 | `JHIGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, 1. LE. JHIGH. K. |
+| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | highest possible order. |
+| 4 | `INDEX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with work, IWORK values saved for subsequent calls to DBSPVN. |
+| 5 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | LT. T(ILEFT+1). A call to DINTRV(T,N+1,X,ILO,ILEFT,MFLAG) produces the proper ILEFT. DBSPVN calculates using the basic algorithm needed in DBSPVD. If only basis functions are desired, setting JHIGH=K and INDEX=1 can be faster than calling DBSPVD, but extra coding is required for derivatives (INDEX=2) and DBSPVD is set up for this purpose. Left limiting values are set up as described in DBSPVD. |
+| 6 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that. |
+| 7 | `VNIKX` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | vector of length K for spline values. |
+| 8 | `WORK` | `workspace-output` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | a work vector of length 2*K. |
+| 9 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a work parameter. Both WORK and IWORK contain information necessary to continue for INDEX = 2. When INDEX = 1 exclusively, these are scratch variables and can be used for other purposes. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
-
-### Callback contract
-
-This interface declares no callback argument.
 
 ### Error and status values
 
@@ -88,9 +84,9 @@ Improper input is a fatal error.
 
 ### Storage and workspace requirements
 
-`WORK`: are double precision a work vector of length 2*K
+`WORK`: a work vector of length 2*K
 
-`IWORK`: a work parameter.  Both WORK and IWORK contain
+`IWORK`: a work parameter. Both WORK and IWORK contain information necessary to continue for INDEX = 2. When INDEX = 1 exclusively, these are scratch variables and can be used for other purposes.
 
 ### Provider, ABI, and safety
 

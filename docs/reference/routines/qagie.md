@@ -54,32 +54,32 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [QAGIE](https://www.netlib.org/slatec/src/qagie.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | INFINITY,BOUND) INFINITY,+INFINITY), hopefully satisfying following claim for accuracy Real Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
-| 2 | `BOUND` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Finite bound of integration range (has no meaning if interval is doubly-infinite) |
-| 3 | `INF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Real Indicating the kind of integration range involved 1 corresponds to  (BOUND,+INFINITY), 1            to  (-INFINITY,BOUND), INFINITY,+INFINITY). |
-| 4 | `EPSABS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Absolute accuracy requested and |
-| 5 | `EPSREL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Relative accuracy requested If  EPSABS.LE.0 28), 28), |
-| 6 | `LIMIT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Gives an upper bound on the number of subintervals in the partition of (A,B), LIMIT.GE.1 ON RETURN (and taking the according dimension adjustments into account).  However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved. = 2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated. = 3 Extremely bad integrand behaviour occurs at some points of the integration interval. = 4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is assumed that the requested tolerance cannot be achieved, and that the returned LAST LAST otherwise otherwise |
-| 7 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral is the best which can be obtained. = 5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER. = 6 The input is invalid, because ABSERR, NEVAL, LAST, RLIST(1), |
-| 8 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
-| 9 | `NEVAL` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Number of integrand evaluations |
-| 10 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 6. Integer 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. - IER.GT.0 Abnormal termination of the routine. The estimates for result and error are less reliable. It is assumed that the requested accuracy has not been achieved. 1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of |
-| 11 | `ALIST` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are set to 0 and 1 respectively. Real Vector of dimension at least LIMIT, the first |
-| 12 | `BLIST` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are set to 0 and 1 respectively. Real Vector of dimension at least LIMIT, the first |
-| 13 | `RLIST` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Real Vector of dimension at least LIMIT, the first |
-| 14 | `ELIST` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | are set to zero. Real Vector of dimension at least LIMIT,  the first |
-| 15 | `IORD` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | are set to zero. Integer Vector of dimension LIMIT, the first K elements of which are pointers to the |
-| 16 | `LAST` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | elements of which are the left end points of the subintervals in the partition of the transformed integration range (0,1). elements of which are the right end points of the subintervals in the partition of the transformed integration range (0,1). elements of which are the integral approximations on the subintervals elements of which are the moduli of the absolute error estimates on the subintervals LAST otherwise Integer Number of subintervals actually produced in the subdivision process |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. |
+| 2 | `BOUND` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Finite bound of integration range (has no meaning if interval is doubly-infinite). |
+| 3 | `INF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Indicating the kind of integration range involved 1 corresponds to (BOUND,+INFINITY), -1 to (-INFINITY,BOUND), 2 to (-INFINITY,+INFINITY). |
+| 4 | `EPSABS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Absolute accuracy requested. |
+| 5 | `EPSREL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Relative accuracy requested If EPSABS. LE. 0 and EPSREL. LT. MAX(50*REL. MACH. |
+| 6 | `LIMIT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Gives an upper bound on the number of subintervals in the partition of (A,B), LIMIT. GE. 1. |
+| 7 | `RESULT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Approximation to the integral. |
+| 8 | `ABSERR` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT). |
+| 9 | `NEVAL` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of integrand evaluations. |
+| 10 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IER = 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. - IER. GT. 0 Abnormal termination of the routine. The estimates for result and error are less reliable. |
+| 11 | `ALIST` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Vector of dimension at least LIMIT, the first. |
+| 12 | `BLIST` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Vector of dimension at least LIMIT, the first. |
+| 13 | `RLIST` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Vector of dimension at least LIMIT, the first. |
+| 14 | `ELIST` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Vector of dimension at least LIMIT, the first LAST elements of which are the moduli of the absolute error estimates on the subintervals. |
+| 15 | `IORD` | `output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Vector of dimension LIMIT, the first K elements of which are pointers to the error estimates over the subintervals, such that ELIST(IORD(1)),. , ELIST(IORD(K)) form a decreasing sequence, with K = LAST If LAST. LE. (LIMIT/2+2), and K = LIMIT+1-LAST otherwise. |
+| 16 | `LAST` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | elements of which are the left end points of the subintervals in the partition of the transformed integration range (0,1). elements of which are the right elements of which are the integral approximations on the subintervals Integer Number of subintervals actually produced in the subdivision process. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
@@ -91,11 +91,20 @@ Callback arguments must use the exact reviewed callback ABI, remain valid for th
 
 ### Error and status values
 
-such that ELIST(IORD(1)), ..., ELIST(IORD(K)) form a decreasing sequence, with K = LAST
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IER` | `0` | 0 Normal and reliable termination of the routine. It is assumed that the requested accuracy has been achieved. |
+| `IER` | `>0` | Abnormal termination of the routine. The estimates for result and error are less reliable. It is assumed that the requested accuracy has not been achieved. |
+| `IER` | `1` | 1 Maximum number of subdivisions allowed has been achieved. One can allow more subdivisions by increasing the value of LIMIT (and taking the according dimension adjustments into account). However, if this yields no improvement it is advised to analyze the integrand in order to determine the integration difficulties. If the position of a local difficulty can be determined (e.g. SINGULARITY, DISCONTINUITY within the interval) one will probably gain from splitting up the interval at this point and calling the integrator on the subranges. If possible, an appropriate special-purpose integrator should be used, which is designed for handling the type of difficulty involved. |
+| `IER` | `2` | 2 The occurrence of roundoff error is detected, which prevents the requested tolerance from being achieved. The error may be under-estimated. |
+| `IER` | `3` | 3 Extremely bad integrand behaviour occurs at some points of the integration interval. |
+| `IER` | `4` | 4 The algorithm does not converge. Roundoff error is detected in the extrapolation table. It is assumed that the requested tolerance cannot be achieved, and that the returned result is the best which can be obtained. |
+| `IER` | `5` | 5 The integral is probably divergent, or slowly convergent. It must be noted that divergence can occur with any other value of IER. |
+| `IER` | `6` | 6 The input is invalid, because (EPSABS.LE.0 and EPSREL.LT.MAX(50*REL.MACH.ACC.,0.5D-28), RESULT, ABSERR, NEVAL, LAST, RLIST(1), ELIST(1) and IORD(1) are set to zero. ALIST(1) and BLIST(1) are set to 0 and 1 respectively. |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

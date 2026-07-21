@@ -1,6 +1,6 @@
 # Purpose
 
-Usage: DOUBLE PRECISION L1, L2, L3, M1, M2MIN, M2MAX, THRCOF(NDIM) INTEGER NDIM, IER CALL DRC3JM (L1, L2, L3, M1, M2MIN, M2MAX, THRCOF, NDIM, IER) Although conventionally the parameters of the vector addition coefficients satisfy certain restrictions, such as being integers or integers plus 1/2, the restrictions imposed on input to this subroutine are somewhat weaker. See, for example, Section 27.9 of Abramowitz and Stegun or Appendix C of Volume II of A. Messiah. The restrictions imposed by this subroutine are
+Usage: DOUBLE PRECISION L1, L2, L3, M1, M2MIN, M2MAX, THRCOF(NDIM) INTEGER NDIM, IER CALL DRC3JM (L1, L2, L3, M1, M2MIN, M2MAX, THRCOF, NDIM, IER) Although conventionally the parameters of the vector addition coefficients satisfy certain restrictions, such as being integers or integers plus 1/2, the restrictions imposed on input to this subroutine are somewhat weaker. See, for example, Section 27.9 of Abramowitz and Stegun or Appendix C of Volume II of A. Messiah. The restrictions imposed by this subroutine are 1. L1.GE.ABS(M1) and L1+ABS(M1) must be an integer; 2. ABS(L1-L2).LE.L3.LE.L1+L2;
 
 # Description
 
@@ -8,65 +8,79 @@ This canonical unsafe binding exposes original SLATEC routine `DRC3JM`. Its docu
 
 # Arguments
 
-## 1. `L1`
+## `L1`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. IN      Parameter in 3j symbol. integer. integer. L2).LE.L3.LE.L1+L2 not satisfied. must be an integer; must be an integer; L2).LE.L3.LE.L1+L2; must be an integer; IN      Parameter in 3j symbol. integer. integer. L2).LE.L3.LE.L1+L2 not satisfied. must be an integer; must be an integer; L2).LE.L3.LE.L1+L2; must be an integer; not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `L2`
+Parameter in 3j symbol. must be an integer;.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. IN      Parameter in 3j symbol. must be an integer; M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) IN      Parameter in 3j symbol. must be an integer; M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) not applicable or not stated by selected source not a workspace argument
+## `L2`
 
-## 3. `L3`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. IN      Parameter in 3j symbol. must be an integer; M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) IN      Parameter in 3j symbol. must be an integer; M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) not applicable or not stated by selected source not a workspace argument
+Parameter in 3j symbol. must be an integer;.
 
-## 4. `M1`
+## `L3`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. M1-M2) for all allowed values of M2, the other parameters being held fixed. IN      Parameter in 3j symbol. integer. integer. must be an integer; must be an integer; M1-M2) for all allowed values of M2, the other parameters being held fixed. IN      Parameter in 3j symbol. integer. integer. must be an integer; must be an integer; not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 5. `M2MIN`
+Parameter in 3j symbol. must be an integer;.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. OUT  Smallest allowable M2 in 3j symbol. 1), I=1,2,...,M2MAX-M2MIN+1. are defined above. The sequence g(M2) is generated by a three-term recurrence algorithm with scaling to control overflow. Both backward and forward recurrence are used to maintain numerical stability. The two recurrence sequences are matched at an interior point and are normalized from the unitary property of 3j coefficients and Wigner's phase convention. The algorithm is suited to applications in which large quantum numbers arise, such as in molecular dynamics. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `M1`
 
-## 6. `M2MAX`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. OUT  Largest allowable M2 in 3j symbol. M2MIN not an integer. M2MIN+1. M2MIN must be an integer, where M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) are defined above. The sequence g(M2) is generated by a three-term recurrence algorithm with scaling to control overflow. Both backward and forward recurrence are used to maintain numerical stability. The two recurrence sequences are matched at an interior point and are normalized from the unitary property of 3j coefficients and Wigner's phase convention. The algorithm is suited to applications in which large quantum numbers arise, such as in molecular dynamics. OUT  Largest allowable M2 in 3j symbol. M2MIN not an integer. M2MIN+1. M2MIN must be an integer, where M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) are defined above. The sequence g(M2) is generated by a three-term recurrence algorithm with scaling to control overflow. Both backward and forward recurrence are used to maintain numerical stability. The two recurrence sequences are matched at an interior point and are normalized from the unitary property of 3j coefficients and Wigner's phase convention. The algorithm is suited to applications in which large quantum numbers arise, such as in molecular dynamics. not applicable or not stated by selected source not a workspace argument
+Parameter in 3j symbol.
 
-## 7. `THRCOF`
+## `M2MIN`
 
-input-output `array` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and rank 1; dimensions (NDIM). OUT Set of 3j coefficients generated by evaluating the 3j symbol for all allowed values of M2.  THRCOF(I) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 8. `NDIM`
+Smallest allowable M2 in 3j symbol. must be an integer, where.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. IN    Declared length of THRCOF in calling program. M2MIN+1. IN    Declared length of THRCOF in calling program. M2MIN+1. not applicable or not stated by selected source not a workspace argument
+## `M2MAX`
 
-## 9. `IER`
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. OUT    Error flag. 0 No errors. integer. L2).LE.L3.LE.L1+L2 not satisfied. 3 L1+L2+L3 not an integer. M2MIN not an integer. 5 M2MAX less than M2MIN. M2MIN+1. not stated by selected source not applicable or not stated by selected source not a workspace argument
+Largest allowable M2 in 3j symbol. must be an integer, where MIN(L2,L3-M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0. 75 1.
+
+## `THRCOF`
+
+**Direction:** `output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** rank 1; dimensions (NDIM).
+
+Set of 3j coefficients generated by evaluating the 3j symbol for all allowed values of M2. THRCOF(I) will contain g(M2MIN+I-1), I=1,2,. ,M2MAX-M2MIN+1.
+
+## `NDIM`
+
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Declared length of THRCOF in calling program.
+
+## `IER`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+Error flag. IER=0 No errors. IER=1 Either L1. LT. ABS(M1) or L1+ABS(M1) non-integer. IER=2 ABS(L1-L2).
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IER` | `0` | No errors. |
+| `IER` | `1` | Either L1.LT.ABS(M1) or L1+ABS(M1) non-integer. |
+| `IER` | `2` | ABS(L1-L2).LE.L3.LE.L1+L2 not satisfied. |
+| `IER` | `3` | L1+L2+L3 not an integer. |
+| `IER` | `4` | M2MAX-M2MIN not an integer. |
+| `IER` | `5` | M2MAX less than M2MIN. |
+| `IER` | `6` | NDIM less than M2MAX-M2MIN+1. |
 
 # Workspace and array requirements
 
-- `L1`: not a workspace argument
-- `L2`: not a workspace argument
-- `L3`: not a workspace argument
-- `M1`: not a workspace argument
-- `M2MIN`: not a workspace argument
-- `M2MAX`: not a workspace argument
 - `THRCOF`: not a workspace argument
-- `NDIM`: not a workspace argument
-- `IER`: not a workspace argument
 
 # ABI notes
 

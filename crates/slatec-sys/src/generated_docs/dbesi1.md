@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `DBESI1`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. calculates the double precision modified (hyperbolic) Bessel function of the first kind of order one and double precision argument X. Series for BI1        on the interval  0.          to  9.00000E+00 with weighted error   1.44E-32 log weighted error  31.84 significant figures required  31.45 decimal places required  32.46 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the modified (hyperbolic) Bessel function of the first kind of order one
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:f64(mut_f64)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

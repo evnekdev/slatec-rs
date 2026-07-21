@@ -1,6 +1,6 @@
 # Purpose
 
-This subroutine is a translation of the ALGOL procedure ELMHES, NUM. MATH. 12, 349-368(1968) by Martin and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 339-358(1971). Given a REAL GENERAL matrix, this subroutine reduces a submatrix situated in rows and columns
+This subroutine is a translation of the ALGOL procedure ELMHES, NUM. MATH. 12, 349-368(1968) by Martin and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 339-358(1971). Given a REAL GENERAL matrix, this subroutine reduces a submatrix situated in rows and columns LOW through IGH to upper Hessenberg form by stabilized elementary similarity transformations.
 
 # Description
 
@@ -8,48 +8,48 @@ This canonical unsafe binding exposes original SLATEC routine `ELMHES`. Its docu
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameter, A, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameter, A, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrix, A.  N is an INTEGER variable. must be less than or equal to NM. is the order of the matrix, A.  N is an INTEGER variable. must be less than or equal to NM. not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `LOW`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. through IGH to upper Hessenberg form by stabilized elementary similarity transformations. are two INTEGER variables determined by the balancing subroutine  BALANC.  If  BALANC  has not been 1 and IGH equal to the order of the matrix, N. are used. not stated by selected source not applicable or not stated by selected source not a workspace argument
+is the order of the matrix, A. N is an INTEGER variable. must be less than or equal to NM.
 
-## 4. `IGH`
+## `LOW`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. are two INTEGER variables determined by the balancing subroutine  BALANC.  If  BALANC  has not been are used. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `A`
+two INTEGER variables determined by the balancing subroutine BALANC. If BALANC has not been used, set LOW=1 and IGH equal to the order of the matrix, N.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional REAL dimensional REAL dimensional REAL array, dimensioned A(NM,N). array, dimensioned A(NM,N). array, dimensioned A(NM,N). contains the upper Hessenberg matrix.  The multipliers which were used in the reduction are stored in the remaining triangle under the Hessenberg matrix. dimensional INTEGER array, dimensioned INT(IGH). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY dimensional REAL dimensional REAL dimensional REAL array, dimensioned A(NM,N). array, dimensioned A(NM,N). array, dimensioned A(NM,N). contains the upper Hessenberg matrix.  The multipliers which were used in the reduction are stored in the remaining triangle under the Hessenberg matrix. dimensional INTEGER array, dimensioned INT(IGH). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+## `IGH`
 
-## 6. `INT`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-output `array` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and rank 1; dimensions (*). contains information on the rows and columns interchanged dimensional INTEGER array, dimensioned INT(IGH). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY contains information on the rows and columns interchanged dimensional INTEGER array, dimensioned INT(IGH). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+two INTEGER variables determined by the balancing subroutine BALANC. If BALANC has not been used, set LOW=1 and IGH equal to the order of the matrix, N.
+
+## `A`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+contains the input matrix. A is a two-dimensional REAL array, dimensioned A(NM,N). contains the upper Hessenberg matrix. The multipliers which were used in the reduction are stored in the remaining triangle under the Hessenberg matrix.
+
+## `INT`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** rank 1; dimensions (*).
+
+contains information on the rows and columns interchanged in the reduction. Only elements LOW through IGH are used. is a one-dimensional INTEGER array, dimensioned INT(IGH). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
-- `LOW`: not a workspace argument
-- `IGH`: not a workspace argument
 - `A`: not a workspace argument
 - `INT`: not a workspace argument
 

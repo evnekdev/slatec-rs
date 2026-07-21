@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `CLNREL`. Its docu
 
 # Arguments
 
-## 1. `Z`
+## `Z`
 
-input `scalar` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and scalar. LOG(1+Z) with relative error accuracy near Z = 0. Let   RHO = ABS(Z)  and R**2 = ABS(1+Z)**2 = (1+X)**2 + Y**2 = 1 + 2*X + RHO**2 . Now if RHO is small we may evaluate CLNREL(Z) accurately by CMPLX  (LOG(R), CARG(1+Z)) = CMPLX  (0.5*LOG(R**2), CARG(1+Z)) = CMPLX  (0.5*ALNREL(2*X+RHO**2), CARG(1+Z)) not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Evaluate ln(1+X) accurate in the sense of relative error
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `function:complex32(mut_complex32)`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `Z`: not a workspace argument
 
 # ABI notes
 

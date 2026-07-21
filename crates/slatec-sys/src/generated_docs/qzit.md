@@ -8,60 +8,63 @@ This canonical unsafe binding exposes original SLATEC routine `QZIT`. Its docume
 
 # Arguments
 
-## 1. `NM`
+## `NM`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 2. `N`
+must be set to the row dimension of the two-dimensional array parameters, A, B, and Z, as declared in the calling program dimension statement. NM is an INTEGER variable.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. is used to store is the order of the matrices A and B.  N is an INTEGER variable.  N must be less than or equal to NM. is used to store not applicable or not stated by selected source not a workspace argument
+## `N`
 
-## 3. `A`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). triangular form.  The elements below the first subdiagonal are still zero, and no two consecutive subdiagonal elements are nonzero. 1) nor A(J-1,J-2) has become zero after a total of 30*N iterations. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned Z(NM,N). triangular form.  The elements below the first subdiagonal are still zero, and no two consecutive subdiagonal elements are nonzero. 1) nor A(J-1,J-2) has become zero after a total of 30*N iterations. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY not applicable or not stated by selected source not a workspace argument
+is the order of the matrices A and B. N is an INTEGER variable. N must be less than or equal to NM.
 
-## 4. `B`
+## `A`
 
-input `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements is used to store system Routines - EISPACK Guide, Springer-Verlag, 1976. dimensional REAL array, dimensioned B(NM,N). dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements is used to store system Routines - EISPACK Guide, Springer-Verlag, 1976. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-## 5. `EPS1`
+contains a real upper Hessenberg matrix. A is a two- dimensional REAL array, dimensioned A(NM,N).
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. is a tolerance used to determine negligible elements. 0.0 (or negative) may be input, in which case an element will be neglected only if it is less than roundoff times the norm of B for later use by  QZVAL  and  QZVEC. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 6. `MATZ`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
 
-input `scalar` argument; Fortran declaration `LOGICAL`, Rust ABI type `*mut crate::FortranLogical`, and scalar. should be set to .TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to .FALSE. otherwise.  MATZ is a LOGICAL variable. not stated by selected source not applicable or not stated by selected source not a workspace argument
+contains a real upper triangular matrix. B is a two- dimensional REAL array, dimensioned B(NM,N). is still in upper triangular form, although its elements have been altered. The location B(N,1) is used to store EPS1 times the norm of B for later use by QZVAL and QZVEC.
 
-## 7. `Z`
+## `EPS1`
 
-output `array` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and rank 2; dimensions (NM, *). contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reduction by  QZHES, if performed, or else the identity matrix.  If MATZ has been set to .FALSE., dimensional REAL array, dimensional REAL array, dimensioned Z(NM,N). dimensioned Z(NM,N). contains the product of the right hand transformations (for both steps) if MATZ has been set to .TRUE. contains, if MATZ has been set to .TRUE., the transformation matrix produced in the reduction by  QZHES, if performed, or else the identity matrix.  If MATZ has been set to .FALSE., dimensional REAL array, dimensional REAL array, dimensioned Z(NM,N). dimensioned Z(NM,N). contains the product of the right hand transformations (for both steps) if MATZ has been set to .TRUE. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 8. `IERR`
+is a tolerance used to determine negligible elements. 0. 0 (or negative) may be input, in which case an element will be neglected only if it is less than roundoff error times the norm of its matrix. If the input EPS1 is positive, then an element will be considered negligible if it is less than EPS1 times the norm of its matrix. A positive value of EPS1 may result in faster execution, but less accurate results. EPS1 is a REAL variable.
 
-output `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is an INTEGER flag set to Zero       for normal return, not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `MATZ`
+
+**Direction:** `input`. **Fortran type:** `LOGICAL`. **Rust ABI type:** `*mut crate::FortranLogical`. **Shape:** scalar.
+
+should be set to. TRUE. if the right hand transformations are to be accumulated for later use in computing eigenvectors, and to. FALSE. otherwise. MATZ is a LOGICAL variable.
+
+## `Z`
+
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** rank 2; dimensions (NM, *).
+
+is not referenced. Z is a two-dimensional REAL array, dimensioned Z(NM,N). contains the product of the right hand transformations (for both steps) if MATZ has been set to. TRUE.
+
+## `IERR`
+
+**Direction:** `output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+is an INTEGER flag set to Zero for normal return, J if neither A(J,J-1) nor A(J-1,J-2) has become zero after a total of 30*N iterations. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-positive, then an element will be considered negligible if it is less than EPS1 times the norm of its matrix.  A positive value of EPS1 may result in faster execution, but less accurate results.  EPS1 is a REAL variable.
-
 # Workspace and array requirements
 
-- `NM`: not a workspace argument
-- `N`: not a workspace argument
 - `A`: not a workspace argument
 - `B`: not a workspace argument
-- `EPS1`: not a workspace argument
-- `MATZ`: not a workspace argument
 - `Z`: not a workspace argument
-- `IERR`: not a workspace argument
 
 # ABI notes
 

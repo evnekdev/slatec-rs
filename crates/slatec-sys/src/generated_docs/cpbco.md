@@ -8,55 +8,63 @@ This canonical unsafe binding exposes original SLATEC routine `CPBCO`. Its docum
 
 # Arguments
 
-## 1. `ABD`
+## `ABD`
 
-input `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 2; dimensions (LDA, *). COMPLEX(LDA, N) the matrix to be factored.  The columns of the upper triangle are stored in the columns of ABD and the diagonals of the upper triangle are stored in the rows of ABD .  See the comments below for details. an upper triangular matrix  R , stored in band form, so that  A = CTRANS(R)*R . If  INFO .NE. 0 , the factorization is not complete. A(I,J) 10    CONTINUE 20 CONTINUE This uses  M + 1  rows of  A , except for the  M by M upper left triangle, which is ignored. Example:  If the original matrix is 11 12 13  0  0  0 12 22 23 24  0  0 13 23 33 34 35  0 0 24 34 44 45 46 0  0 35 45 55 56 0  0  0 46 56 66 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 2; dimensions (LDA, *).
 
-## 2. `LDA`
+COMPLEX(LDA, N) the matrix to be factored. The columns of the upper triangle are stored in the columns of ABD and the diagonals of the upper triangle are stored in the rows of ABD. See the comments below for details. an upper triangular matrix R , stored in band form, so that A = CTRANS(R)*R. If INFO. NE.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the leading dimension of the array  ABD . must be .GE. M + 1 . INTEGER the leading dimension of the array  ABD . must be .GE. M + 1 . INTEGER the leading dimension of the array  ABD . must be .GE. M + 1 . not a workspace argument
+## `LDA`
 
-## 3. `N`
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the order of the matrix  A . 6 , M = 2  and  ABD  should contain * 13 24 35 46 12 23 34 45 56 11 22 33 44 55 66 not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the leading dimension of the array ABD. must be. GE. M + 1.
 
-## 4. `M`
+## `N`
 
-input `scalar` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. INTEGER the number of diagonals above the main diagonal. 0 .LE. M .LT. N . On Return (band width above diagonal) DO 20 J = 1, N I1 = MAX(1, J-M) DO 10 I = I1, J K = I-J+M+1 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-## 5. `RCOND`
+INTEGER the order of the matrix A.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. REAL an estimate of the reciprocal condition of  A . For the system  A*X = B , relative perturbations in  A  and  B  of size  EPSILON  may cause relative perturbations in  X  of size  EPSILON/RCOND . If  RCOND  is so small that the logical expression 1.0 + RCOND .EQ. 1.0 is true, then  A  may be singular to working precision.  In particular,  RCOND  is zero  if exact singularity is detected or the estimate is unchanged. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `M`
 
-## 6. `Z`
+**Direction:** `input-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
 
-input-output `array` argument; Fortran declaration `COMPLEX`, Rust ABI type `*mut crate::Complex32`, and rank 1; dimensions (*). COMPLEX(N) a work vector whose contents are usually unimportant. If  A  is singular to working precision, then  Z  is an approximate null vector in the sense that RCOND*NORM(A)*NORM(Z) . is unchanged. not stated by selected source not applicable or not stated by selected source not a workspace argument
+INTEGER the number of diagonals above the main diagonal. 0. LE. M. LT. N.
 
-## 7. `INFO`
+## `RCOND`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. is unchanged. is unchanged. INTEGER = 0  for normal return. = K  signals an error condition.  The leading minor of order  K  is not positive definite. Band Storage If  A  is a Hermitian positive definite band matrix, the following program segment will set up the input. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+REAL an estimate of the reciprocal condition of A. For the system A*X = B , relative perturbations in A and B of size EPSILON may cause relative perturbations in X of size EPSILON/RCOND. If RCOND is so small that the logical expression 1. 0 + RCOND. EQ. 1.
+
+## `Z`
+
+**Direction:** `output`. **Fortran type:** `COMPLEX`. **Rust ABI type:** `*mut crate::Complex32`. **Shape:** rank 1; dimensions (*).
+
+COMPLEX(N) a work vector whose contents are usually unimportant. If A is singular to working precision, then Z is an approximate null vector in the sense that NORM(A*Z) = RCOND*NORM(A)*NORM(Z). If INFO. NE. 0 , Z is unchanged.
+
+## `INFO`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+INTEGER = 0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Band Storage If A is a Hermitian positive definite band matrix, the following program segment will set up the input.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `INFO` | `0` | 0 for normal return. = K signals an error condition. The leading minor of order K is not positive definite. Band Storage If A is a Hermitian positive definite band matrix, the following program segment will set up the input. |
 
 # Workspace and array requirements
 
 - `ABD`: not a workspace argument
 - `LDA`: not a workspace argument
-- `N`: not a workspace argument
-- `M`: not a workspace argument
-- `RCOND`: not a workspace argument
 - `Z`: not a workspace argument
-- `INFO`: not a workspace argument
 
 # ABI notes
 

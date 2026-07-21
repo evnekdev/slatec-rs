@@ -52,33 +52,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [AIE](https://www.netlib.org/slatec/fnlib/aie.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | computes the exponentially scaled Airy function for non-negative X.  It evaluates AI(X) for X .LE. 0.0 and (2.0/3.0)*(X**1.5). (2.0/3.0)*(X**1.5). Series for AIF        on the interval -1.00000D+00 to  1.00000D+00 Series for AIF        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.09E-19 with weighted error   1.09E-19 log weighted error  18.96 log weighted error  18.96 significant figures required  17.76 significant figures required  17.76 decimal places required  19.44 decimal places required  19.44 Series for AIG        on the interval -1.00000D+00 to  1.00000D+00 Series for AIG        on the interval -1.00000D+00 to  1.00000D+00 with weighted error   1.51E-17 with weighted error   1.51E-17 log weighted error  16.82 log weighted error  16.82 significant figures required  15.19 significant figures required  15.19 decimal places required  17.27 decimal places required  17.27 Series for AIP        on the interval  0.          to  1.00000D+00 Series for AIP        on the interval  0.          to  1.00000D+00 with weighted error   5.10E-17 with weighted error   5.10E-17 log weighted error  16.29 log weighted error  16.29 significant figures required  14.41 significant figures required  14.41 decimal places required  17.06 decimal places required  17.06 |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input value at which the source-defined function is evaluated: Calculate the Airy function for a negative argument and an exponentially scaled Airy function for a non-negative argument |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
-
-### Callback contract
-
-This interface declares no callback argument.
-
-### Error and status values
-
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
-
-### Storage and workspace requirements
-
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

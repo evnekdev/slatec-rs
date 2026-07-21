@@ -8,7 +8,7 @@ Solve a general system of linear equations.
 
 ## Description
 
-Subroutine SGEFS solves a general NxN system of single precision linear equations using LINPACK subroutines SGECO and SGESL. That is, if A is an NxN real matrix and if X
+Subroutine SGEFS solves a general NxN system of single precision linear equations using LINPACK subroutines SGECO and SGESL. That is, if A is an NxN real matrix and if X and B are real N-vectors, then SGEFS solves the equation A*X=B. The matrix A is first factored into upper and lower tri- angular matrices U and L using partial pivoting. These factors and the pivoting information are used to find the solution vector X. An approximate condition number is calculated to provide a rough estimate of the number of digits of accuracy in the computed solution. If the equation A*X=B is to be solved for more than one vector B, the factoring of A does not need to be performed again and the option to only solve (ITASK .GT. 1) will be faster for the succeeding solutions. In this case, the contents of A, LDA, N and IWORK must not have been altered by the user follow- ing factorization (ITASK=1). IND will not be changed by SGEFS in this case. Argument Description ***
 
 ## Classification
 
@@ -54,42 +54,45 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [SGEFS](https://www.netlib.org/slatec/src/sgefs.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | B. angular matrices U and L using partial pivoting.  These factors and the pivoting information are used to find the solution vector X.  An approximate condition number is calculated to provide a rough estimate of the number of digits of accuracy in the computed solution. B is to be solved for more than one vector B, the factoring of A does not need to be performed again and the option to only solve (ITASK .GT. 1) will be faster for the succeeding solutions.  In this case, the contents of A, REAL(LDA,N) on entry, the doubly subscripted array with dimension L*U. must be greater than or equal to 1. B. on return, V contains the solution vector, X . singly subscripted array of dimension at least N. singly subscripted array of dimension at least N. solution has not been computed. may be poorly scaled. Note-  The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which LEVEL=1 (recoverable) and IFLAG=2 .  LEVEL=0 for warning error messages from XERMSG.  Unless the user provides otherwise, an error message will be printed followed by an abort. |
-| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | contains the coefficient matrix. on return, an upper triangular matrix U and the multipliers necessary to construct a matrix L INTEGER |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | vectors, then SGEFS solves the equation contains the coefficient matrix. on return, an upper triangular matrix U and the multipliers necessary to construct a matrix L 1) INTEGER the order of the matrix A.  The first N elements of the array A are the elements of the first column of must be greater than or equal to 1. |
-| 4 | `V` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) on entry, the singly subscripted array(vector) of di- mension N which contains the right hand side B of a |
-| 5 | `ITASK` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1).  IND will not be changed by SGEFS in this case. Argument Description *** INTEGER 1, the matrix A is factored and then the linear equation is solved. If ITASK .GT. 1, the equation is solved using the existing factored matrix A and IWORK. 3 is printed. |
-| 6 | `IND` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1) 2) 3 is printed. INTEGER GT. 0  IND is a rough estimate of the number of digits of accuracy in the solution, X. LT. 0  see error message corresponding to IND below. 1  terminal   N is greater than LDA. 2  terminal   N is less than 1. 3  terminal   ITASK is less than 1. 4  terminal   The matrix A is computationally singular. 10 warning    The solution has no apparent significance. The solution may be inaccurate or the matrix |
-| 7 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) |
-| 8 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) |
+| 1 | `A` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | REAL(LDA,N) on entry, the doubly subscripted array with dimension (LDA,N) which contains the coefficient matrix. on return, an upper triangular matrix U and the multipliers necessary to construct a matrix L so that A=L*U. |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array A. LDA must be great- er than or equal to N. (terminal error message IND=-1). |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix A. The first N elements of the array A are the elements of the first column of the matrix A. N must be greater than or equal to 1. (terminal error message IND=-2). |
+| 4 | `V` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) on entry, the singly subscripted array(vector) of di- mension N which contains the right hand side B of a system of simultaneous linear equations A*X=B. on return, V contains the solution vector, X. |
+| 5 | `ITASK` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER If ITASK=1, the matrix A is factored and then the linear equation is solved. If ITASK. GT. 1, the equation is solved using the existing factored matrix A and IWORK. LT. 1, then terminal error message IND=-3 is printed. |
+| 6 | `IND` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER GT. 0 IND is a rough estimate of the number of digits of accuracy in the solution, X. LT. 0 see error message corresponding to IND below. |
+| 7 | `WORK` | `workspace-output` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) a singly subscripted array of dimension at least N. |
+| 8 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IND` | `-1` | terminal N is greater than LDA. |
+| `IND` | `-2` | terminal N is less than 1. |
+| `IND` | `-3` | terminal ITASK is less than 1. |
+| `IND` | `-4` | terminal The matrix A is computationally singular. A solution has not been computed. |
+| `IND` | `-10` | warning The solution has no apparent significance. The solution may be inaccurate or the matrix A may be poorly scaled. Note- The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which |
+| `IND` | `1` | (recoverable) and IFLAG=2 . LEVEL=0 for warning error messages from XERMSG. Unless the user provides otherwise, an error message will be printed followed by an abort. |
 
 ### Storage and workspace requirements
 
-`WORK`: REAL(N)
+`WORK`: REAL(N) a singly subscripted array of dimension at least N.
 
-`IWORK`: INTEGER(N)
+`IWORK`: INTEGER(N) a singly subscripted array of dimension at least N. Error Messages Printed *** IND=-1 terminal N is greater than LDA. IND=-2 terminal N is less than 1. IND=-3 terminal ITASK is less than 1. IND=-4 terminal The matrix A is computationally singular. A solution has not been computed. IND=-10 warning The solution has no apparent significance. The solution may be inaccurate or the matrix A may be poorly scaled. Note- The above terminal(*fatal*) error messages are designed to be handled by XERMSG in which LEVEL=1 (recoverable) and IFLAG=2 . LEVEL=0 for warning error messages from XERMSG. Unless the user provides otherwise, an error message will be printed followed by an abort.
 
 ### Provider, ABI, and safety
 

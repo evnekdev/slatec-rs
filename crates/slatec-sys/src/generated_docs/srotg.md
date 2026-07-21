@@ -8,40 +8,33 @@ This canonical unsafe binding exposes original SLATEC routine `SROTG`. Its docum
 
 # Arguments
 
-## 1. `SA`
+## `SA`
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. single precision scalar single precision result R not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-## 2. `SB`
+single precision scalar single precision result R.
 
-input `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. single precision scalar single precision result Z not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `SB`
 
-## 3. `SC`
+**Direction:** `input-output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. single precision result If Z=1  set  SC=0.0  and  SS=1.0 Z**2)  and  SS=Z SC**2) Normally, the subprogram SROT(N,SX,INCX,SY,INCY,SC,SS) will next be called to apply the transformation to a 2 by N matrix. not stated by selected source not applicable or not stated by selected source not a workspace argument
+single precision scalar single precision result Z.
 
-## 4. `SS`
+## `SC`
 
-output `scalar` argument; Fortran declaration `REAL`, Rust ABI type `*mut f32`, and scalar. single precision result Construct the Givens transformation ( SC  SS ) G = (        ) ,    SC**2 + SS**2 = 1 , SC ) which zeros the second entry of the 2-vector  (SA,SB)**T. The quantity R = (+/-)SQRT(SA**2 + SB**2) overwrites SA in storage.  The value of SB is overwritten by a value Z which If Z=1  set  SC=0.0  and  SS=1.0 SC**2) Normally, the subprogram SROT(N,SX,INCX,SY,INCY,SC,SS) will next be called to apply the transformation to a 2 by N matrix. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+single precision result.
+
+## `SS`
+
+**Direction:** `output`. **Fortran type:** `REAL`. **Rust ABI type:** `*mut f32`. **Shape:** scalar.
+
+single precision result Construct the Givens transformation ( SC SS ) G = ( ) , SC**2 + SS**2 = 1 , (-SS SC ) which zeros the second entry of the 2-vector (SA,SB)**T. The quantity R = (+/-)SQRT(SA**2 + SB**2) overwrites SA in storage. The value of SB is overwritten by a value Z which allows SC and SS to be recovered by the following algorithm: If Z=1 set SC=0. 0 and SS=1. 0 If ABS(Z). LT.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `SA`: not a workspace argument
-- `SB`: not a workspace argument
-- `SC`: not a workspace argument
-- `SS`: not a workspace argument
 
 # ABI notes
 

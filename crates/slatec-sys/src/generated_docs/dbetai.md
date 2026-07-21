@@ -1,6 +1,6 @@
 # Purpose
 
-DBETAI calculates the DOUBLE PRECISION incomplete beta function. The incomplete beta function ratio is the probability that a random variable from a beta distribution having parameters PIN and
+DBETAI calculates the DOUBLE PRECISION incomplete beta function. The incomplete beta function ratio is the probability that a random variable from a beta distribution having parameters PIN and QIN will be less than or equal to X. -- Input Arguments -- All arguments are DOUBLE PRECISION.
 
 # Description
 
@@ -8,35 +8,27 @@ This canonical unsafe binding exposes original SLATEC routine `DBETAI`. Its docu
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. must be in (0,1) inclusive. must be in (0,1) inclusive. must be in (0,1) inclusive. must be in (0,1) inclusive. not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `PIN`
+upper limit of integration. X must be in (0,1) inclusive.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. must be .GT. 0.0. must be .GT. 0.0. must be .GT. 0.0. must be .GT. 0.0. not applicable or not stated by selected source not a workspace argument
+## `PIN`
 
-## 3. `QIN`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. will be less than or equal to X. -- Input Arguments -- All arguments are DOUBLE PRECISION. must be .GT. 0.0. must be .GT. 0.0. will be less than or equal to X. -- Input Arguments -- All arguments are DOUBLE PRECISION. must be .GT. 0.0. must be .GT. 0.0. not applicable or not stated by selected source not a workspace argument
+first beta distribution parameter. PIN must be. GT. 0.
+
+## `QIN`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+second beta distribution parameter. QIN must be. GT. 0.
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
-- `PIN`: not a workspace argument
-- `QIN`: not a workspace argument
 
 # ABI notes
 

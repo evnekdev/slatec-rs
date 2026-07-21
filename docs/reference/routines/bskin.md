@@ -8,7 +8,7 @@ Compute repeated integrals of the K-zero Bessel function.
 
 ## Description
 
-The following definitions are used in BSKIN: Definition 1
+The following definitions are used in BSKIN: Definition 1 KI(0,X) = K-zero Bessel function. Definition 2 KI(N,X) = Bickley Function = integral from X to infinity of KI(N-1,t)dt for X .ge. 0 and N = 1,2,... ____________________________________________________________________ BSKIN computes sequences of Bickley functions (repeated integrals of the K0 Bessel function); i.e. for fixed X and N and K=1,..., BSKIN computes the M-member sequence
 
 ## Classification
 
@@ -54,39 +54,37 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [BSKIN](https://www.netlib.org/slatec/src/bskin.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | zero Bessel function. Definition 2 Bickley Function 1,t)dt 1,2,... ____________________________________________________________________ BSKIN computes sequences of Bickley functions (repeated integrals 1,..., 1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). Argument, X .ge. 0.0E0 1,X), K=1,M = X(KI(L-3,X) - KI(L-1,X)) + (L-2)*KI(L-2,X) is stable where recurrence is carried forward or backward away from INT(X+0.5).  The power series for indices 0,1 and 2 on 0.le.X.le. 2 starts a stable recurrence for indices greater than 2.  If N is sufficiently large (N.gt.NLIM), the uniform asymptotic expansion for N to INFINITY is more economical.  On X.gt.2 the recursion is started by evaluating the uniform expansion for the three members whose indices are 1.  Forward recurrence, backward recurrence or both, complete the sequence depending on the relation of INT(X+0.5) to the ACM Transactions on Mathematical Software, 1983. D. E. Amos, A portable Fortran subroutine for the Bickley functions KI(N,X), Algorithm 609, ACM Transactions on Mathematical Software, 1983. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Bickley Function 1,t)dt 1,2,... ____________________________________________________________________ BSKIN computes sequences of Bickley functions (repeated integrals 1,..., 1,X) for KODE=1 or 1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). Order of first member of the sequence N .ge. 0 1,X), K=1,M 1,X), K=1,M 1.  Forward 1.  Forward recurrence, backward recurrence or both, complete the recurrence, backward recurrence or both, complete the sequence depending on the relation of INT(X+0.5) to the sequence depending on the relation of INT(X+0.5) to the 1. 1. ACM Transactions on Mathematical Software, 1983. D. E. Amos, A portable Fortran subroutine for the Bickley functions KI(N,X), Algorithm 609, ACM Transactions on Mathematical Software, 1983. |
-| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Selection parameter 1,X), K=1,M 1.  Y(K)=0.0E0, K=1,...,M is returned |
-| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | member sequence Number of members in the sequence, M.ge.1 1.  Forward recurrence, backward recurrence or both, complete the sequence depending on the relation of INT(X+0.5) to the 1. |
-| 5 | `Y` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,X) for KODE=1 or 1,X) for KODE=2, for N.ge.0 and X.ge.0 (N and X cannot be zero simultaneously). 1,X), K=1,M 1,X), K=1,M A vector of dimension at least M containing the sequence selected by KODE. |
-| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Underflow flag 0 means computation completed = M means an exponential underflow occurred on |
-| 7 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Error flag 0, Normal return, computation completed. = 1, Input error,   no computation. = 2, Error,         no computation.  The termination condition was not met. The nominal computational accuracy is the maximum of unit roundoff (=R1MACH(4)) and 1.0e-18 since critical constants are given to only 18 digits. DBSKIN is the double precision version of BSKIN. Long Description: Numerical recurrence on |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Argument, X. ge. 0. 0E0. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Order of first member of the sequence N. ge. 0. |
+| 3 | `KODE` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Selection parameter 1 returns Y(K)= KI(N+K-1,X), K=1,M = 2 returns Y(K)=EXP(X)*KI(N+K-1,X), K=1,M 1. Y(K)=0. 0E0, K=1,. ,M is returned. |
+| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Number of members in the sequence, M. ge. 1. |
+| 5 | `Y` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | KI(N+K-1,X) for KODE=1 EXP(X)*KI(N+K-1,X) for KODE=2, for N. ge. 0 and X. 0 (N and X cannot be zero simultaneously). A vector of dimension at least M containing the sequence selected by KODE. |
+| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Underflow flag NZ = 0 means computation completed = M means an exponential underflow occurred on. |
+| 7 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Error flag 0, Normal return, computation completed. = 1, Input error, no computation. = 2, Error, no computation. The termination condition was not met. The nominal computational accuracy is the maximum of unit roundoff (=R1MACH(4)) and 1. 0e-18 since critical constants are given to only 18 digits. |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `NZ` | `0` | 0 means computation completed = M means an exponential underflow occurred on |
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

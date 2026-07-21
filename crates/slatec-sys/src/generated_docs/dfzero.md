@@ -1,6 +1,6 @@
 # Purpose
 
-DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion,
+DFZERO searches for a zero of a DOUBLE PRECISION function F(X) between the given DOUBLE PRECISION values B and C until the width of the interval (B,C) has collapsed to within a tolerance specified by the stopping criterion, ABS(B-C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker.
 
 # Description
 
@@ -8,55 +8,58 @@ This canonical unsafe binding exposes original SLATEC routine `DFZERO`. Its docu
 
 # Arguments
 
-## 1. `F`
+## `F`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. EXT   - Name of the DOUBLE PRECISION external function.  This name must be in an EXTERNAL statement in the calling program.  F must be a function of one DOUBLE PRECISION argument. decreased in magnitude as (B,C) collapsed. 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). increased in magnitude as (B,C) collapsed, i.e. out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether EXT   - Name of the DOUBLE PRECISION external function.  This name must be in an EXTERNAL statement in the calling program.  F must be a function of one DOUBLE PRECISION argument. decreased in magnitude as (B,C) collapsed. 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). increased in magnitude as (B,C) collapsed, i.e. out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether not applicable or not stated by selected source not a workspace argument
+**Direction:** `callback`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 2. `B`
+- Name of the DOUBLE PRECISION external function. This name must be in an EXTERNAL statement in the calling program. F must be a function of one DOUBLE PRECISION argument.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is designed primarily for problems where F(B) and F(C) have opposite signs. C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker. INOUT - One end of the DOUBLE PRECISION interval (B,C).  The value returned for B usually is the better approximation to a zero of F. contains the origin, then a nonzero value should be chosen for AE. 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). erance and the function changes sign in (B,C), but out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5  Too many (.GT. 500) function evaluations used. is designed primarily for problems where F(B) and F(C) have opposite signs. C) .LE. 2.*(RW*ABS(B)+AE). The method used is an efficient combination of bisection and the secant rule and is due to T. J. Dekker. INOUT - One end of the DOUBLE PRECISION interval (B,C).  The value returned for B usually is the better approximation to a zero of F. contains the origin, then a nonzero value should be chosen for AE. 0.  However, the interval (B,C) may not have collapsed to the requested tolerance. 3  B may be near a singular point of F(X). erance and the function changes sign in (B,C), but out)) .GT. MAX(ABS(F(B in)),ABS(F(C in))) 4  No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5  Too many (.GT. 500) function evaluations used. not applicable or not stated by selected source not a workspace argument
+## `B`
 
-## 3. `C`
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input-output `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is designed primarily for problems where F(B) and F(C) have opposite signs. INOUT - The other end of the DOUBLE PRECISION interval (B,C) otherwise, the interval (B,C) will be searched for a possible root.  When no better guess is known, it is recommended that R be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. contains the origin, then a nonzero value should be chosen for AE. erance and the function changes sign in (B,C), but not stated by selected source not applicable or not stated by selected source not a workspace argument
+- One end of the DOUBLE PRECISION interval (B,C). The value returned for B usually is the better approximation to a zero of F. is near a local minimum of F(X), or B is near a zero of even multiplicity, or neither of these. 5 Too many (. GT. 500) function evaluations used.
 
-## 4. `R`
+## `C`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. IN    - A (better) DOUBLE PRECISION guess of a zero of F which could help in speeding up convergence.  If F(B) and F(R) have opposite signs, a root will be found in the interval (B,R);  if not, but F(R) and F(C) have opposite signs, a root will be found in the interval otherwise, the interval (B,C) will be searched for a possible root.  When no better guess is known, it is recommended that R be set to B or C, since if R is not interior to the interval (B,C), it will be ignored. not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input-output`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-## 5. `RE`
+- The other end of the DOUBLE PRECISION interval (B,C).
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. IN    - Relative error used for RW in the stopping criterion. If the requested RE is less than machine precision, then RW is set to approximately machine precision. not stated by selected source not applicable or not stated by selected source not a workspace argument
+## `R`
 
-## 6. `AE`
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. IN    - Absolute error used in the stopping criterion.  If not stated by selected source not applicable or not stated by selected source not a workspace argument
+- A (better) DOUBLE PRECISION guess of a zero of F which could help in speeding up convergence. If F(B) and F(R) have opposite signs, a root will be found in the interval (B,R); if not, but F(R) and F(C) have (R,C); otherwise, the interval (B,C) will be searched for a possible root. When no better guess is known, it is recommended that R be set to B or C, since if R is not interior to the interval (B,C), it will be ignored.
 
-## 7. `IFLAG`
+## `RE`
 
-status-output `status` argument; Fortran declaration `INTEGER`, Rust ABI type `*mut crate::FortranInteger`, and scalar. OUT   - A status code.  User must check IFLAG after each call.  Control returns to the user from DFZERO in all cases. 1  B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and OUT   - A status code.  User must check IFLAG after each call.  Control returns to the user from DFZERO in all cases. 1  B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+- Relative error used for RW in the stopping criterion. If the requested RE is less than machine precision, then RW is set to approximately machine precision.
+
+## `AE`
+
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+- Absolute error used in the stopping criterion. If the given interval (B,C) contains the origin, then a nonzero value should be chosen for AE.
+
+## `IFLAG`
+
+**Direction:** `status-output`. **Fortran type:** `INTEGER`. **Rust ABI type:** `*mut crate::FortranInteger`. **Shape:** scalar.
+
+- A status code. User must check IFLAG after each call. Control returns to the user from DFZERO in all cases. 1 B is within the requested tolerance of a zero. The interval (B,C) collapsed to the requested tolerance, the function changes sign in (B,C), and F(X) decreased in magnitude as (B,C) collapsed. 2 F(B) = 0.
 
 # Return value
 
 This is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.
 
-# Callback contract
-
-This interface has no callback argument.
-
 # Status and error values
 
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `F`: not a workspace argument
-- `B`: not a workspace argument
-- `C`: not a workspace argument
-- `R`: not a workspace argument
-- `RE`: not a workspace argument
-- `AE`: not a workspace argument
-- `IFLAG`: not a workspace argument
+| Status | Value | Meaning |
+| --- | ---: | --- |
+| `IFLAG` | `0` | 0. However, the interval (B,C) may not have collapsed to the requested tolerance. 3 B may be near a singular point of F(X). The interval (B,C) collapsed to the requested tol- erance and the function changes sign in (B,C), but F(X) increased in magnitude as (B,C) collapsed, i.e. |
+| `IFLAG` | `>0` | MAX(ABS(F(B in)),ABS(F(C in))) 4 No change in sign of F(X) was found although the interval (B,C) collapsed to the requested tolerance. The user must examine this case and decide whether |
 
 # ABI notes
 

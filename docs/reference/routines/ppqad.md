@@ -8,7 +8,7 @@ Compute the integral on (X1,X2) of a K-th order B-spline using the piecewise pol
 
 ## Description
 
-Abstract PPQAD computes the integral on (X1,X2) of a K-th order B-spline using the piecewise polynomial representation (C,XI,LXI,K). Here the Taylor expansion about the left
+PPQAD computes the integral on (X1,X2) of a K-th order B-spline using the piecewise polynomial representation (C,XI,LXI,K). Here the Taylor expansion about the left end point XI(J) of the J-th interval is integrated and evaluated on subintervals of (X1,X2) which are formed by included break points. Integration outside (XI(1),XI(LXI+1)) is permitted.
 
 ## Classification
 
@@ -54,40 +54,36 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
-- Documentation evidence: verified source prologue or source-hash-guarded authored correction
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence
 - Exact Netlib source: [PPQAD](https://www.netlib.org/slatec/src/ppqad.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of matrix C, LDC .GE. K |
-| 2 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDC, *) | Here the Taylor expansion about the left right Taylor derivatives at XI(J), I=1,K , J=1,LXI |
-| 3 | `XI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Here the Taylor expansion about the left th interval is integrated and break point array of length LXI+1 .LE. X .LE. XI(LXI+1) |
-| 4 | `LXI` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Here the Taylor expansion about the left number of polynomial pieces |
-| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | th order B-spline using the piecewise polynomial (PP) representation. th order B-spline using the piecewise polynomial representation Here the Taylor expansion about the left order of B-spline, K .GE. 1 |
-| 6 | `X1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | th order B-spline using the piecewise polynomial (PP) representation. th order B-spline using the piecewise polynomial representation are formed by included break points.  Integration outside (XI(1),XI(LXI+1)) is permitted. end points of quadrature interval, normally in |
-| 7 | `X2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | th order B-spline using the piecewise polynomial (PP) representation. th order B-spline using the piecewise polynomial representation are formed by included break points.  Integration outside (XI(1),XI(LXI+1)) is permitted. end points of quadrature interval, normally in |
-| 8 | `PQUAD` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | integral of the PP representation over (X1,X2) |
+| 1 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of matrix C, LDC. GE. K. |
+| 2 | `C` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDC, *) | right Taylor derivatives at XI(J), I=1,K , J=1,LXI. |
+| 3 | `XI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | break point array of length LXI+1. LE. X. XI(LXI+1). |
+| 4 | `LXI` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of polynomial pieces. |
+| 5 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, K. GE. 1. |
+| 6 | `X1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | end points of quadrature interval, normally in. |
+| 7 | `X2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | end points of quadrature interval, normally in. |
+| 8 | `PQUAD` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | integral of the PP representation over (X1,X2). |
 
-Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
 This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
-### Callback contract
-
-This interface declares no callback argument.
-
 ### Error and status values
 
 Improper input is a fatal error
 
-### Storage and workspace requirements
+### Storage and array requirements
 
-This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
 
 ### Provider, ABI, and safety
 

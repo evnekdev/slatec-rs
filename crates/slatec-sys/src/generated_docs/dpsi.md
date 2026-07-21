@@ -1,6 +1,6 @@
 # Purpose
 
-DPSI calculates the double precision Psi (or Digamma) function for
+DPSI calculates the double precision Psi (or Digamma) function for double precision argument X. PSI(X) is the logarithmic derivative of the Gamma function of X. Series for PSI on the interval 0. to 1.00000E+00 with weighted error 5.79E-32 log weighted error 31.24 significant figures required 30.93 decimal places required 32.05 Series for APSI on the interval 0. to 1.00000E-02 with weighted error 7.75E-33 log weighted error 32.11 significant figures required 28.88 decimal places required 32.71
 
 # Description
 
@@ -8,25 +8,15 @@ This canonical unsafe binding exposes original SLATEC routine `DPSI`. Its docume
 
 # Arguments
 
-## 1. `X`
+## `X`
 
-input `scalar` argument; Fortran declaration `DOUBLE PRECISION`, Rust ABI type `*mut f64`, and scalar. is the logarithmic derivative is the logarithmic derivative of the Gamma function of X. of the Gamma function of X. Series for PSI        on the interval  0.          to  1.00000E+00 Series for PSI        on the interval  0.          to  1.00000E+00 with weighted error   5.79E-32 with weighted error   5.79E-32 log weighted error  31.24 log weighted error  31.24 significant figures required  30.93 significant figures required  30.93 decimal places required  32.05 decimal places required  32.05 Series for APSI       on the interval  0.          to  1.00000E-02 Series for APSI       on the interval  0.          to  1.00000E-02 with weighted error   7.75E-33 with weighted error   7.75E-33 log weighted error  32.11 log weighted error  32.11 significant figures required  28.88 significant figures required  28.88 decimal places required  32.71 decimal places required  32.71 not stated by selected source not applicable or not stated by selected source not a workspace argument
+**Direction:** `input`. **Fortran type:** `DOUBLE PRECISION`. **Rust ABI type:** `*mut f64`. **Shape:** scalar.
+
+Input value at which the source-defined function is evaluated: Compute the Psi (or Digamma) function
 
 # Return value
 
 This Fortran function returns its scalar result using the compiler-validated ABI fingerprint `unavailable`. It has no separate Rust `Result` status channel.
-
-# Callback contract
-
-This interface has no callback argument.
-
-# Status and error values
-
-The selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.
-
-# Workspace and array requirements
-
-- `X`: not a workspace argument
 
 # ABI notes
 

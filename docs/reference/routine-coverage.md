@@ -67,10 +67,14 @@ The definitions and exclusions are generated in [coverage-summary.json](../../ge
 <!-- raw-api-coverage:end -->
 
 The fully documented count is calculated from the rendered canonical public
-rustdoc audit, not merely from generated routine-reference Markdown. See
-[rendered-rustdoc-audit.json](../../generated/slatec-routines/rendered-rustdoc-audit.json)
-for every function page, ABI argument list, source URL, and cross-surface
-comparison.
+rustdoc semantic audit, not merely from generated routine-reference Markdown.
+It requires bounded, argument-specific evidence; source-first direction
+resolution; applicable structured status/workspace/callback semantics; and no
+detected cross-contamination. See
+[semantic-quality-final.json](../../generated/slatec-routines/semantic-quality-final.json),
+[direction-evidence-conflicts.json](../../generated/slatec-routines/direction-evidence-conflicts.json),
+[argument-contamination-audit.json](../../generated/slatec-routines/argument-contamination-audit.json),
+and [rendered-rustdoc-semantic-audit.json](../../generated/slatec-routines/rendered-rustdoc-semantic-audit.json).
 
 ## Callback-bearing raw interfaces
 
