@@ -8,7 +8,7 @@ Compute the eigenvalues and, optionally, the eigenvectors of a real symmetric ma
 
 ## Description
 
-Abstract SSPEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix stored in packed form. Call Sequence Parameters(The values of parameters marked with * (star) will be changed by SSPEV.) A* REAL(N*(N+1)/2) real symmetric packed input matrix. Contains upper triangle and diagonal of A, by column (elements 11, 12, 22, 13, 23, 33, ...). N INTEGER set by the user to the order of the matrix A. E* REAL(N) on return from SSPEV, E contains the eigenvalues of A. See also INFO below. V* REAL(LDV,N) on return from SSPEV, if the user has set JOB = 0 V is not referenced. = nonzero the N eigenvectors of A are stored in the first N columns of V. See also INFO below. LDV INTEGER set by the user to the leading dimension of the array V if JOB is also set nonzero. In that case, N must be .LE. LDV. If JOB is set to zero, LDV is not referenced. WORK* REAL(2N) temporary storage vector. Contents changed by SSPEV. JOB INTEGER set by the user to = 0 eigenvalues only to be calculated by SSPEV. Neither V nor LDV are referenced. = nonzero eigenvalues and vectors to be calculated. In this case, A & V must be distinct arrays. Also, if LDA .GT. LDV, SSPEV changes all the elements of A thru column N. If LDA < LDV, SSPEV changes all the elements of V through column N. If LDA=LDV, only A(I,J) and V(I, J) for I,J = 1,...,N are changed by SSPEV. INFO* INTEGER on return from SSPEV, the value of INFO is = 0 for normal return. = K if the eigenvalue iteration fails to converge. Eigenvalues and vectors 1 through K-1 are correct. Error MessagesNo. 1 recoverable N is greater than LDV and JOB is nonzero No. 2 recoverable N is less than one
+SSPEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix stored in packed form. Call Sequence Parameters- (The values of parameters marked with * (star) will be changed by SSPEV.) A* REAL(N*(N+1)/2) real symmetric packed input matrix. Contains upper triangle and diagonal of A, by column (elements 11, 12, 22, 13, 23, 33, ...). N INTEGER set by the user to the order of the matrix A. E* REAL(N) on return from SSPEV, E contains the eigenvalues of A.
 
 ## Classification
 
@@ -52,29 +52,48 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `complete_structured`
-- Description provenance: `source_prologue`
-- Assessment: the selected source supplies a meaningful description and separable evidence for every argument
-- Dedicated family page: [Eigenvalue problems](../families/eigenvalue-problems.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [SSPEV](https://www.netlib.org/slatec/lin/sspev.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `A` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | Abstract SSPEV computes the eigenvalues and, optionally, the eigenvectors of a real symmetric matrix stored in packed form. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Call Sequence Parameters(The values of parameters marked with * (star) will be changed by SSPEV.) A* REAL(N*(N+1)/2) real symmetric packed input matrix. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `E` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | E* REAL(N) on return from SSPEV, E contains the eigenvalues of A. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `V` | output | `REAL` (`explicit`) | `*mut f32` | rank 2; dimensions (LDV, *) | V* REAL(LDV,N) on return from SSPEV, if the user has set JOB = 0 V is not referenced. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDV` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | V* REAL(LDV,N) on return from SSPEV, if the user has set JOB = 0 V is not referenced. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | output | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | WORK* REAL(2N) temporary storage vector. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JOB` | output | `INTEGER` (`implicit_rule`) | `*mut crate::FortranInteger` | scalar | V* REAL(LDV,N) on return from SSPEV, if the user has set JOB = 0 V is not referenced. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INFO` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | See also INFO below. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 4 | `V` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDV, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 5 | `LDV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 6 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 7 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 8 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::linear_algebra::eigen::sspev`. Native symbol: `sspev_`. Feature: `eigen`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank1,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank1,mut_i32,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+No. 1   recoverable  N is greater than LDV and JOB is nonzero No. 2   recoverable  N is less than one
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::linear_algebra::eigen::sspev`. Native symbol: `sspev_`. Declaration feature: `eigen`. Provider feature: `linear-algebra-eigen`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank1,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank1,mut_i32,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -85,7 +104,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::linear_algebra::eigen::sspev`
-- Compatibility aliases: `slatec_sys::eigen::numerical::sspev`
 - Public declaration feature: `eigen`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

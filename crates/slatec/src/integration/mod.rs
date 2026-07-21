@@ -3,7 +3,7 @@
 //! # Status: Partial
 //!
 //! QUADPACK quadrature is available through `quadrature`. Integral equations
-//! remain a planned separate family. `crate::quadrature` remains supported.
+//! remain a planned separate family.
 
 /// Integral-equation methods.
 pub mod integral_equations;

@@ -8,7 +8,7 @@ Calculate the value of a polynomial and its first NDER derivatives where the pol
 
 ## Description
 
-Abstract Subroutine DPOLVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to DPLINT. The variable N and the arrays X and C must not be altered between the call to DPLINT and the call to DPOLVL. ****** Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. 0. *** Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable. ***** Input parameters *** All TYPE REAL variables are DOUBLE PRECISION *** NDER - the number of derivatives to be evaluated XX - the argument at which the polynomial and its derivatives are to be evaluated. N - ***** * N, X, and C must not be altered between the call X - * to DPLINT and the call to DPOLVL. C - ***** ***** Output Parameters *** All TYPE REAL variables are DOUBLE PRECISION *** YFIT - the value of the polynomial at XX YP - the derivatives of the polynomial at XX. The derivative of order J at XX is stored in YP(J) , J = 1,...,NDER. IERR - Output error flag with the following possible values. = 1 indicates normal execution ***** Storage Parameters WORK = this is an array to provide internal working storage for DPOLVL. It must be dimensioned by at least 2*N if NDER is .GT. 0. If NDER=0, WORK does not need to be a dimensioned variable.
+Subroutine DPOLVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to DPLINT. The variable N and the arrays X and C must not be altered between the call to DPLINT and the call to DPOLVL. Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. 0. Note *** If NDER=0, neither YP nor WORK need to be dimensioned variables. If NDER=1, YP does not need to be a dimensioned variable.
 
 ## Classification
 
@@ -53,30 +53,49 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Interpolation](../families/interpolation.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DPOLVL](https://www.netlib.org/slatec/src/dpolvl.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `NDER` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract Subroutine DPOLVL calculates the value of the polynomial and its first NDER derivatives where the polynomial was produced by a previous call to DPLINT. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `XX` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | ***** Input parameters *** All TYPE REAL variables are DOUBLE PRECISION *** NDER - the number of derivatives to be evaluated XX - the argument at which the polynomial and its derivatives are to be evaluated. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `YFIT` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | C - ***** ***** Output Parameters *** All TYPE REAL variables are DOUBLE PRECISION *** YFIT - the value of the polynomial at XX YP - the derivatives of the polynomial at XX. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `YP` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | ****** Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. | ****** Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `N` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The variable N and the arrays X and C must not be altered between the call to DPLINT and the call to DPOLVL. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | The variable N and the arrays X and C must not be altered between the call to DPLINT and the call to DPOLVL. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `C` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | The variable N and the arrays X and C must not be altered between the call to DPLINT and the call to DPOLVL. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | ****** Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. | ****** Dimensioning Information ******* YP must be dimensioned by at least NDER X must be dimensioned by at least N (see the abstract ) C must be dimensioned by at least N (see the abstract ) WORK must be dimensioned by at least 2*N if NDER is .GT. Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | output | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | IERR - Output error flag with the following possible values. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `NDER` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | the number of derivatives to be evaluated |
+| 2 | `XX` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | the argument at which the polynomial and its derivatives are to be evaluated. 1,...,NDER. |
+| 3 | `YFIT` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | the value of the polynomial at XX |
+| 4 | `YP` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | the derivatives of the polynomial at XX.  The derivative of 1,...,NDER. |
+| 5 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ***** N, X, and C must not be altered between the call |
+| 6 | `X` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | *       to DPLINT and the call to DPOLVL. |
+| 7 | `C` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | ***** |
+| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 9 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::interpolation::dpolvl`. Native symbol: `dpolvl_`. Feature: `interpolation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_i32,mut_f64,mut_f64,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+= 1  indicates normal execution Storage Parameters WORK  = this is an array to provide internal working storage for DPOLVL.  It must be dimensioned by at least 2*N if NDER is .GT. 0.  If NDER=0, WORK does not need to be a dimensioned variable.
+
+### Storage and workspace requirements
+
+`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::interpolation::dpolvl`. Native symbol: `dpolvl_`. Declaration feature: `interpolation`. Provider feature: `interpolation-general`. ABI fingerprint: `subroutine:void(mut_i32,mut_f64,mut_f64,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -87,7 +106,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::interpolation::dpolvl`
-- Compatibility aliases: `slatec_sys::interpolation::numerical::dpolvl`
 - Public declaration feature: `interpolation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

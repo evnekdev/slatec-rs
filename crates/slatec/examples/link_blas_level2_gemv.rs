@@ -1,7 +1,7 @@
 //! Operation-granularity probe for the safe double-precision GEMV wrapper.
 
 fn main() {
-    use slatec::blas::{Transpose, level2::dgemv_contiguous};
+    use slatec::linear_algebra::blas::{Transpose, level2::dgemv_contiguous};
 
     let mut y = [0.0_f64, 0.0];
     dgemv_contiguous(

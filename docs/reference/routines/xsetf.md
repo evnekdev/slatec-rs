@@ -74,17 +74,16 @@ The table reports compiler/interface facts separately from source-prologue seman
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Public raw API status: `internal-subsidiary`
+- Public raw API status: `support-routine`
 - ABI validation: `pending`
 - Canonical Rust path: `not_promoted`
-- Compatibility aliases: `none`
 - Public declaration feature: `not_assigned`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `legacy_partial_rustdoc`
+- Documentation status: `not_documented`
 - Compile-test status: `compiler_observed`
 - Link-test status: `not_tested`
 - Runtime validation: `not-recorded`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `pre-existing declaration remains deferred until the R1 source-hash, argument-documentation, and ABI review gate passes`
+- Exclusion or deferment reason: `runtime or machine-support unit is not independently callable`
 <!-- raw-api-status:end -->

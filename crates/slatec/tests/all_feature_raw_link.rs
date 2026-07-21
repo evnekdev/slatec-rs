@@ -27,11 +27,11 @@ fn all_feature_representative_symbols_link_from_the_full_provider() {
     std::hint::black_box(slatec_sys::dassl::ddassl as *const () as usize);
     std::hint::black_box(slatec_sys::linear_programming::dsplp as *const () as usize);
     std::hint::black_box(slatec_sys::fftpack::rffti as *const () as usize);
-    std::hint::black_box(slatec_sys::fftpack_complex::cffti1 as *const () as usize);
+    std::hint::black_box(slatec_sys::fftpack::cffti1 as *const () as usize);
     std::hint::black_box(slatec_sys::pde::fishpack::hwscrt as *const () as usize);
     std::hint::black_box(slatec_sys::pde::fishpack::pois3d as *const () as usize);
-    std::hint::black_box(slatec_sys::banded::dgbfa as *const () as usize);
-    std::hint::black_box(slatec_sys::pchip::pchim as *const () as usize);
-    std::hint::black_box(slatec_sys::bspline::dbvalu as *const () as usize);
-    std::hint::black_box(slatec_sys::piecewise_polynomial::dppval as *const () as usize);
+    std::hint::black_box(slatec_sys::linear_algebra::banded::dgbfa as *const () as usize);
+    std::hint::black_box(slatec_sys::interpolation::pchim as *const () as usize);
+    std::hint::black_box(slatec_sys::interpolation::dbvalu as *const () as usize);
+    std::hint::black_box(slatec_sys::interpolation::dppval as *const () as usize);
 }

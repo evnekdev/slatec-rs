@@ -4,7 +4,6 @@
 - Public raw identities before Batch D: 776
 - New Batch D public declarations: 36
 - Public raw identities after Batch D: 812 (53.53% of retained identities)
-- Public compatibility paths: 662
 - Provider subsidiaries: 530
 - Raw-internal identities: 79
 - Runtime/error/machine support: 2/17/5

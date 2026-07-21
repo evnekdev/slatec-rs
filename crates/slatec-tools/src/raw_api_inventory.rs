@@ -62,7 +62,6 @@ struct Correction {
     source_hash: String,
     status: String,
     canonical_path: String,
-    compatibility_paths: Vec<String>,
     feature: String,
     provider_feature: String,
     role: String,
@@ -103,7 +102,6 @@ struct BatchAPublic {
     source_hash: String,
     canonical_path: String,
     canonical_module: String,
-    compatibility_paths: Vec<String>,
     feature: String,
     provider_feature: String,
     abi_class: String,
@@ -119,7 +117,6 @@ struct BulkPublic {
     source_hash: String,
     canonical_path: String,
     canonical_module: String,
-    compatibility_paths: Vec<String>,
     feature: String,
     provider_feature: String,
     abi_class: String,
@@ -230,7 +227,10 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         let batch_a_public = batch_a.get(&name);
         let bulk_public = batch_b.get(&name).or_else(|| batch_c.get(&name));
         let batch_a_exclusion = batch_a_exclusions.get(&name);
-        let legacy_paths = legacy_declarations.get(&name).cloned().unwrap_or_default();
+        // Existing source modules are private declaration owners.  They are
+        // still consulted for source-hash guarded Batch D evidence, but never
+        // surfaced as development-era public paths.
+        let declaration_owner_paths = legacy_declarations.get(&name).cloned().unwrap_or_default();
         if let Some(correction) = correction {
             if correction.source_hash != source_hash {
                 return Err(policy(&format!(
@@ -305,7 +305,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                 &name,
                 &source_hash,
                 &argument_order,
-                &legacy_paths,
+                &declaration_owner_paths,
             )
         });
         let correction = correction
@@ -349,10 +349,6 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .or_else(|| {
                 is_bulk_public.then(|| format!("{}_automated_public", bulk_public.unwrap().batch))
             })
-            .or_else(|| {
-                (!legacy_paths.is_empty())
-                    .then(|| "preexisting_family_declaration_requires_r1_review".to_owned())
-            })
             .unwrap_or_else(|| "not_reviewed_by_raw_api_registry".to_owned());
         let raw_state = correction
             .map(|item| item.status.clone())
@@ -365,7 +361,6 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
                     .filter(|item| item.0 == "external_dependency")
                     .map(|_| "external_dependency".to_owned())
             })
-            .or_else(|| (!legacy_paths.is_empty()).then(|| "documentation_or_tooling".to_owned()))
             .unwrap_or_else(|| raw_state(catalogue_record, interface, &generated_status));
         let feature = correction
             .map(|item| item.feature.clone())
@@ -392,23 +387,11 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .or_else(|| batch_a_public.map(|item| item.canonical_path.clone()))
             .or_else(|| bulk_public.map(|item| item.canonical_path.clone()))
             .unwrap_or_else(|| "not_promoted".to_owned());
-        let compatibility_paths = correction
-            .map(|item| item.compatibility_paths.clone())
-            .or_else(|| batch_a_public.map(|item| item.compatibility_paths.clone()))
-            .or_else(|| bulk_public.map(|item| item.compatibility_paths.clone()))
-            .unwrap_or_default();
-        let reported_legacy_paths = if correction.is_some() {
-            compatibility_paths.clone()
-        } else {
-            legacy_paths.clone()
-        };
         let is_reviewed = correction.is_some();
         let documentation_status = if is_reviewed {
             "complete_authored"
         } else if is_batch_a_public || is_bulk_public {
             "complete_generated_abi_contract"
-        } else if !legacy_paths.is_empty() {
-            "legacy_partial_rustdoc"
         } else {
             "not_documented"
         };
@@ -416,8 +399,6 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "complete_authored"
         } else if is_batch_a_public || is_bulk_public {
             "complete_generated_abi_contract"
-        } else if !legacy_paths.is_empty() {
-            "requires_r1_argument_review"
         } else {
             "not_documented"
         };
@@ -431,8 +412,6 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             } else {
                 "batch_c_source_hash_and_abi_fingerprint"
             }
-        } else if !legacy_paths.is_empty() {
-            "preexisting_review_not_requalified_for_r1"
         } else if generated_status == "generated_abi_validated" {
             "profile_validated_not_semantically_reviewed"
         } else {
@@ -536,9 +515,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "raw_api_state": raw_state,
             "canonical_rust_path": canonical_path,
             "intended_canonical_module": intended_module,
-            "compatibility_paths": compatibility_paths,
-            "legacy_family_declaration_status":if raw_state == "batch_d_public_driver" { "canonical_requalified_by_batch_d" } else if is_reviewed { "compatibility_reexport" } else if legacy_paths.is_empty() { "not_present" } else { "preexisting_family_declaration_requires_r1_review" },
-            "legacy_rust_paths":reported_legacy_paths,
+            "legacy_family_declaration_status":if raw_state == "batch_d_public_driver" { "canonical_requalified_by_batch_d" } else if is_reviewed { "authoritative_canonical_declaration" } else { "not_public" },
             "feature": feature,
             "all_feature_reachability": all_feature_reachability,
             "provider_feature": provider_feature,
@@ -737,7 +714,6 @@ pub fn validate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
         "public_raw_feasibility",
         "exclusion_reason",
         "legacy_family_declaration_status",
-        "legacy_rust_paths",
     ] {
         if records.iter().any(|record| record.get(required).is_none()) {
             return Err(policy(&format!(
@@ -807,7 +783,6 @@ fn corrections(path: &Path) -> Result<Corrections> {
                 source_hash: string(record, "source_hash")?,
                 status: string(record, "review_status")?,
                 canonical_path: string(record, "canonical_rust_path")?,
-                compatibility_paths: strings(record.get("compatibility_paths")),
                 feature: string(record, "feature")?,
                 provider_feature: string(record, "provider_feature")?,
                 role: string(record, "driver_role")?,
@@ -915,7 +890,6 @@ fn batch_a_candidates(path: &Path) -> Result<BTreeMap<String, BatchAPublic>> {
             source_hash: string(record, "source_hash")?,
             canonical_path: string(record, "canonical_rust_path")?,
             canonical_module: string(record, "canonical_module")?,
-            compatibility_paths: strings(record.get("compatibility_paths")),
             feature: string(record, "declaration_feature")?,
             provider_feature: string(record, "provider_feature")?,
             abi_class: string(record, "abi_class")?,
@@ -953,7 +927,6 @@ fn bulk_candidates(
             source_hash: string(record, "source_hash")?,
             canonical_path: string(record, "canonical_rust_path")?,
             canonical_module: string(record, "canonical_module")?,
-            compatibility_paths: strings(record.get("compatibility_paths")),
             feature: string(record, "declaration_feature")?,
             provider_feature: string(record, "provider_feature")?,
             abi_class: record
@@ -1025,10 +998,6 @@ fn automatic_blas_correction(
             "slatec_sys::blas::level{level}::{}",
             routine.to_ascii_lowercase()
         ),
-        compatibility_paths: vec![format!(
-            "slatec_sys::families::blas_level{level}::{}",
-            routine.to_ascii_lowercase()
-        )],
         feature: feature.clone(),
         provider_feature: feature,
         role: "historically_user_callable_driver".to_owned(),
@@ -1070,10 +1039,6 @@ fn automatic_special_foundations_correction(
             "slatec_sys::special::{group}::{}",
             routine.to_ascii_lowercase()
         ),
-        compatibility_paths: vec![format!(
-            "slatec_sys::families::special_{group}::{}",
-            routine.to_ascii_lowercase()
-        )],
         feature: feature.clone(),
         provider_feature: feature,
         role: "historically_user_callable_driver".to_owned(),
@@ -1114,10 +1079,6 @@ fn automatic_airy_correction(
             "slatec_sys::special::airy::{}",
             routine.to_ascii_lowercase()
         ),
-        compatibility_paths: vec![format!(
-            "slatec_sys::families::special_airy::{}",
-            routine.to_ascii_lowercase()
-        )],
         feature: feature.to_owned(),
         provider_feature: feature.to_owned(),
         role: "historically_user_callable_driver".to_owned(),
@@ -1160,7 +1121,6 @@ fn automatic_batch_d_correction(
         source_hash: source_hash.to_owned(),
         status: "batch_d_public_driver".to_owned(),
         canonical_path,
-        compatibility_paths: Vec::new(),
         feature: feature.to_owned(),
         provider_feature: feature.to_owned(),
         role: "historically_user_callable_driver".to_owned(),
@@ -2010,14 +1970,12 @@ fn canonical_paths(records: &[Value]) -> Value {
     json!({
         "schema_id":"slatec-sys.raw-api.canonical-paths",
         "schema_version":"1.0.0",
-        "policy":"One callable routine receives one canonical path when promoted. Existing paths remain compatibility re-exports; generated ABI-shaped module paths are transitional and unstable.",
+        "policy":"Each promoted callable routine has one canonical public mathematical path. ABI-shaped declaration modules are private implementation details.",
         "records":records.iter().map(|record| json!({
             "routine":field(record,"routine"),
             "intended_module":field(record,"intended_canonical_module"),
             "canonical_rust_path":field(record,"canonical_rust_path"),
             "intended_canonical_rust_path":planned_canonical_path(record),
-            "compatibility_paths":record.get("compatibility_paths").cloned().unwrap_or_else(|| json!([])),
-            "legacy_rust_paths":record.get("legacy_rust_paths").cloned().unwrap_or_else(|| json!([])),
             "status":if field(record,"canonical_rust_path")=="not_promoted" { "planned" } else { "implemented" },
         })).collect::<Vec<_>>()
     })
@@ -2243,35 +2201,7 @@ fn planned_canonical_path(record: &Value) -> String {
 }
 
 fn current_rust_path(record: &Value) -> String {
-    if let Some(path) = record
-        .get("legacy_rust_paths")
-        .and_then(Value::as_array)
-        .and_then(|paths| paths.first())
-        .and_then(Value::as_str)
-    {
-        return path.to_owned();
-    }
-    if let Some(path) = record
-        .get("compatibility_paths")
-        .and_then(Value::as_array)
-        .and_then(|paths| paths.first())
-        .and_then(Value::as_str)
-    {
-        return path.to_owned();
-    }
-    let generated_module = match field(record, "feature").as_str() {
-        "raw-ffi-numeric-scalar-subroutines" => "numeric_scalar_subroutines",
-        "raw-ffi-numeric-array-subroutines" => "numeric_array_subroutines",
-        "raw-ffi-scalar-functions" => "scalar_functions",
-        "raw-ffi-complex-arguments" => "complex_arguments",
-        "raw-ffi-logical" => "logical",
-        "raw-ffi-character" => "character",
-        _ => return field(record, "canonical_rust_path"),
-    };
-    format!(
-        "slatec_sys::generated::{generated_module}::{}",
-        field(record, "routine").to_ascii_lowercase(),
-    )
+    field(record, "canonical_rust_path")
 }
 
 fn is_root(record: &Value) -> bool {
@@ -2481,11 +2411,11 @@ fn write_blas_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
 
 fn write_blas_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let mut output = String::from(
-        "//! Generated canonical and compatibility import coverage for reviewed BLAS.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n",
+        "//! Generated canonical import coverage for reviewed BLAS.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n",
     );
     for level in 1..=3 {
         output.push_str(&format!(
-            "#[cfg(feature = \"blas-level{level}\")]\n#[test]\nfn level{level}_canonical_and_compatibility_paths_compile() {{\n"
+            "#[cfg(feature = \"blas-level{level}\")]\n#[test]\nfn level{level}_canonical_paths_compile() {{\n"
         ));
         let mut routines = records
             .iter()
@@ -2498,7 +2428,7 @@ fn write_blas_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<
         routines.sort();
         for routine in routines {
             output.push_str(&format!(
-                "    let _ = slatec_sys::blas::level{level}::{routine};\n    let _ = slatec_sys::families::blas_level{level}::{routine};\n"
+                "    let _ = slatec_sys::blas::level{level}::{routine};\n"
             ));
         }
         output.push_str("}\n\n");
@@ -2556,11 +2486,11 @@ fn write_special_module(sys_dir: &Path, records: &[Value]) -> Result<()> {
 
 fn write_special_foundations_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let mut output = String::from(
-        "//! Generated canonical and compatibility import coverage for R2B special foundations.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n",
+        "//! Generated canonical import coverage for reviewed special foundations.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n",
     );
     for group in ["elementary", "gamma", "beta", "error"] {
         output.push_str(&format!(
-            "#[cfg(feature = \"special-{group}\")]\n#[test]\nfn {group}_canonical_and_compatibility_paths_compile() {{\n"
+            "#[cfg(feature = \"special-{group}\")]\n#[test]\nfn {group}_canonical_paths_compile() {{\n"
         ));
         let mut routines = records
             .iter()
@@ -2575,7 +2505,7 @@ fn write_special_foundations_canonical_path_tests(sys_dir: &Path, records: &[Val
         routines.sort();
         for routine in routines {
             output.push_str(&format!(
-                "    let _ = slatec_sys::special::{group}::{routine};\n    let _ = slatec_sys::families::special_{group}::{routine};\n"
+                "    let _ = slatec_sys::special::{group}::{routine};\n"
             ));
         }
         output.push_str("}\n\n");
@@ -2627,7 +2557,7 @@ fn write_special_foundations_link_probe(facade_dir: &Path, records: &[Value]) ->
 
 fn write_airy_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<()> {
     let mut output = String::from(
-        "//! Generated canonical and compatibility import coverage for reviewed real Airy drivers.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n#[cfg(feature = \"special-airy\")]\n#[test]\nfn real_airy_canonical_and_compatibility_paths_compile() {\n",
+        "//! Generated canonical import coverage for reviewed real Airy drivers.\n//! Regenerate with `slatec-corpus generate-raw-api-inventory --offline`.\n\n#[cfg(feature = \"special-airy\")]\n#[test]\nfn real_airy_canonical_paths_compile() {\n",
     );
     let mut routines = records
         .iter()
@@ -2638,7 +2568,7 @@ fn write_airy_canonical_path_tests(sys_dir: &Path, records: &[Value]) -> Result<
     routines.sort();
     for routine in routines {
         output.push_str(&format!(
-            "    let _ = slatec_sys::special::airy::{routine};\n    let _ = slatec_sys::families::special_airy::{routine};\n"
+            "    let _ = slatec_sys::special::airy::{routine};\n"
         ));
     }
     output.push_str("}\n");
@@ -2815,19 +2745,6 @@ fn routine_page_status(record: &Value) -> String {
         "not_recorded" => "not-recorded",
         _ => "not-recorded",
     };
-    let compatibility = record
-        .get("compatibility_paths")
-        .or_else(|| record.get("legacy_rust_paths"))
-        .and_then(Value::as_array)
-        .map(|paths| {
-            paths
-                .iter()
-                .filter_map(Value::as_str)
-                .collect::<Vec<_>>()
-                .join(", ")
-        })
-        .filter(|paths| !paths.is_empty())
-        .unwrap_or_else(|| "none".to_owned());
     format!(
         "{ROUTINE_STATUS_START}\n\
          ## Raw Rust API status\n\n\
@@ -2835,7 +2752,6 @@ fn routine_page_status(record: &Value) -> String {
          - Public raw API status: `{public_status}`\n\
          - ABI validation: `{abi_validation}`\n\
         - Canonical Rust path: `{}`\n\
-        - Compatibility aliases: `{compatibility}`\n\
         - Public declaration feature: `{}`\n\
         - `all`-feature reachability: `{}`\n\
         - Provider-backed callable symbol: `{provider_backed}` (`{}`)\n\

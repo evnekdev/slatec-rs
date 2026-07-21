@@ -1,0 +1,266 @@
+{
+  "records": [
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "CSBMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "CSPMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "CSPR2"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "CSYMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "CSYR2"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DGERC"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DGERU"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHBMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHEMM"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHEMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHER"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHER2"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHERK"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHPMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DHPR2"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "DSISI"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SGERC"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SGERU"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHBMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHEMM"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHEMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHER"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHER2"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHERK"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHPMV"
+    },
+    {
+      "abi_provider_availability": "not_generated",
+      "current_public_status": "catalogue-only",
+      "exact_semantic_replacement": "not established",
+      "historical_catalogue_role": "historical_or_obsolete",
+      "modern_preferred_alternative": "not asserted without an exact semantic replacement",
+      "public_api_note": "retain the evidence-backed terminal disposition until new provider or ABI evidence exists",
+      "recommended_disposition": "catalogue-only",
+      "routine": "SHPR2"
+    }
+  ],
+  "schema_id": "slatec-rs.legacy-linear-algebra-review",
+  "schema_version": "1.0.0"
+}

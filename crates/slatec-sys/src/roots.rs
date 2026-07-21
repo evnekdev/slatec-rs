@@ -4,14 +4,18 @@
 //! unsafe because the caller owns callback lifetime, all mutable scalar
 //! pointers, and process-global runtime serialization.
 
+#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 use crate::FortranInteger;
 
 /// GNU Fortran scalar function callback used by `DFZERO`.
+#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 pub type RootFnF64 = unsafe extern "C" fn(*const f64) -> f64;
 
 /// GNU Fortran scalar function callback used by `FZERO`.
+#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 pub type RootFnF32 = unsafe extern "C" fn(*const f32) -> f32;
 
+#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 unsafe extern "C" {
     /// Finds a zero of the double-precision callback `F`.
     ///
@@ -94,8 +98,17 @@ unsafe extern "C" {
 
 /// Canonical scalar root-finding namespace.
 ///
-/// The parent `roots::{fzero, dfzero}` paths remain supported compatibility
-/// re-exports. No additional `extern` declarations live here.
+/// No additional `extern` declarations live here.
+#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
 pub mod scalar {
     pub use super::{RootFnF32, RootFnF64, dfzero, fzero};
+}
+
+/// Canonical complex polynomial and scalar-root interfaces.
+///
+/// These routines solve polynomial or complex scalar zero problems and
+/// re-export the one authoritative FFI declaration.
+#[cfg(feature = "raw-family-nonlinear-complex")]
+pub mod complex {
+    pub use crate::abi_bindings::nonlinear::{cpqr79, cpzero, rpqr79, rpzero};
 }

@@ -1,16 +1,37 @@
 {
   "category_counts": {
     "FZERO / DFZERO": 2,
+    "inherited-family evidence": 2,
     "polynomial-root routine": 2
   },
   "records": [
     {
-      "current_rust_path": "slatec_sys::nonlinear::complex::cpzero",
+      "current_rust_path": "slatec_sys::roots::complex::cpqr79",
       "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "none",
       "generated_declaration_status": "generated_abi_validated",
       "historical_role": "user_callable",
-      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::cpzero",
+      "intended_canonical_rust_path": "slatec_sys::roots::complex::cpqr79",
+      "provider": "full-provider-54725ba79df99c86",
+      "provider_feature_status": "nonlinear-complex",
+      "reviewed_declaration_status": "batch_c_automated_public",
+      "root_category": "inherited-family evidence",
+      "routine": "CPQR79",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "symbol": "cpqr79_",
+      "test_status": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "representative_batch_smoke_only"
+      }
+    },
+    {
+      "current_rust_path": "slatec_sys::roots::complex::cpzero",
+      "documentation_status": "complete_generated_abi_contract",
+      "exclusion_or_deferment_reason": "none",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_rust_path": "slatec_sys::roots::complex::cpzero",
       "provider": "full-provider-b251ff51d9d23d05",
       "provider_feature_status": "nonlinear-complex",
       "reviewed_declaration_status": "batch_c_automated_public",
@@ -25,7 +46,7 @@
       }
     },
     {
-      "current_rust_path": "slatec_sys::roots::dfzero",
+      "current_rust_path": "slatec_sys::roots::scalar::dfzero",
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "generated_declaration_status": "not_generated",
@@ -45,7 +66,7 @@
       }
     },
     {
-      "current_rust_path": "slatec_sys::roots::fzero",
+      "current_rust_path": "slatec_sys::roots::scalar::fzero",
       "documentation_status": "complete_authored",
       "exclusion_or_deferment_reason": "none",
       "generated_declaration_status": "not_generated",
@@ -65,12 +86,32 @@
       }
     },
     {
-      "current_rust_path": "slatec_sys::nonlinear::complex::rpzero",
+      "current_rust_path": "slatec_sys::roots::complex::rpqr79",
       "documentation_status": "complete_generated_abi_contract",
       "exclusion_or_deferment_reason": "none",
       "generated_declaration_status": "generated_abi_validated",
       "historical_role": "user_callable",
-      "intended_canonical_rust_path": "slatec_sys::nonlinear::complex::rpzero",
+      "intended_canonical_rust_path": "slatec_sys::roots::complex::rpqr79",
+      "provider": "full-provider-0313488e7870f774",
+      "provider_feature_status": "nonlinear-complex",
+      "reviewed_declaration_status": "batch_c_automated_public",
+      "root_category": "inherited-family evidence",
+      "routine": "RPQR79",
+      "safe_wrapper_status": "not_safely_wrapped",
+      "symbol": "rpqr79_",
+      "test_status": {
+        "compile": "compiler_observed",
+        "link": "passed",
+        "runtime": "representative_batch_smoke_only"
+      }
+    },
+    {
+      "current_rust_path": "slatec_sys::roots::complex::rpzero",
+      "documentation_status": "complete_generated_abi_contract",
+      "exclusion_or_deferment_reason": "none",
+      "generated_declaration_status": "generated_abi_validated",
+      "historical_role": "user_callable",
+      "intended_canonical_rust_path": "slatec_sys::roots::complex::rpzero",
       "provider": "full-provider-b9e8b033eaa7f5ac",
       "provider_feature_status": "nonlinear-complex",
       "reviewed_declaration_status": "batch_c_automated_public",

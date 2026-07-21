@@ -19,8 +19,8 @@ fn scalar_real_and_double_functions_return_plausible_values() {
     slatec_src::ensure_linked();
     let mut single = 1.5_f32;
     let mut double = 1.5_f64;
-    let single_result = unsafe { slatec_sys::special::numerical::acosh(&mut single) };
-    let double_result = unsafe { slatec_sys::special::numerical::dacosh(&mut double) };
+    let single_result = unsafe { slatec_sys::special::acosh(&mut single) };
+    let double_result = unsafe { slatec_sys::special::dacosh(&mut double) };
     assert!((single_result - 1.5_f32.acosh()).abs() < 1.0e-5);
     assert!((double_result - 1.5_f64.acosh()).abs() < 1.0e-12);
 }
@@ -31,7 +31,7 @@ fn scalar_subroutine_writes_outputs() {
     let mut x = 2.0_f32;
     let mut logarithm = f32::NAN;
     let mut sign = f32::NAN;
-    unsafe { slatec_sys::special::numerical::algams(&mut x, &mut logarithm, &mut sign) };
+    unsafe { slatec_sys::special::algams(&mut x, &mut logarithm, &mut sign) };
     assert!(logarithm.abs() < 1.0e-6);
     assert_eq!(sign, 1.0);
 }
@@ -47,7 +47,7 @@ fn status_bearing_array_subroutine_integrates_a_parabola() {
     let mut answer = f64::NAN;
     let mut status: FortranInteger = -1;
     unsafe {
-        slatec_sys::quadrature::numerical::davint(
+        slatec_sys::quadrature::davint(
             x.as_mut_ptr(),
             y.as_mut_ptr(),
             &mut n,
@@ -97,7 +97,7 @@ fn workspace_sequence_output_subroutine_writes_derivatives() {
     let mut workspace_length: FortranInteger = 6;
     let mut status: FortranInteger = -1;
     unsafe {
-        slatec_sys::interpolation::numerical::pchsp(
+        slatec_sys::interpolation::pchsp(
             boundary.as_mut_ptr(),
             values.as_ptr(),
             &mut count,

@@ -8,7 +8,7 @@ Calculate the value of all (possibly) nonzero basis functions at X.
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract BSPVN is the BSPLVN routine of the reference. BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. X .LE. T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. ILEFT is such that T(ILEFT) .LE. X .LT. T(ILEFT+1). A call to INTRV(T,N+1,X,ILO,ILEFT, MFLAG) produces the proper ILEFT. BSPVN calculates using the basic algorithm needed in BSPVD. If only basis functions are desired, setting JHIGH=K and INDEX=1 can be faster than calling BSPVD, but extra coding is required for derivatives (INDEX=2) and BSPVD is set up for this purpose. Left limiting values are set up as described in BSPVD. Description of Arguments
+Written by Carl de Boor and modified by D. E. Amos BSPVN is the BSPLVN routine of the reference. BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. X .LE. T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. ILEFT is such that T(ILEFT) .LE. X .LT. T(ILEFT+1). A call to INTRV(T,N+1,X,ILO,ILEFT, MFLAG) produces the proper ILEFT. BSPVN calculates using the basic algorithm needed in BSPVD. If only basis functions are desired, setting JHIGH=K and INDEX=1 can be faster than calling BSPVD, but extra coding is required for derivatives (INDEX=2) and BSPVD is set up for this purpose. Left limiting values are set up as described in BSPVD.
 
 ## Classification
 
@@ -54,30 +54,51 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Interpolation](../families/interpolation.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [BSPVN](https://www.netlib.org/slatec/src/bspvn.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `T` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `JHIGH` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `K` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INDEX` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | BSPVN calculates the value of all (possibly) nonzero basis functions at X of order MAX(JHIGH,(J+1)*(INDEX-1)), where T(K) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ILEFT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | ILEFT is such that T(ILEFT) .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `VNIKX` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `REAL` (`explicit`) | `*mut f32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | T(N+1) and J=IWORK is set inside the routine on the first call when INDEX=1. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | knot vector of length N+K, where N = number of B-spline basis functions N = sum of knot multiplicities-K |
+| 2 | `JHIGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, 1 .LE. JHIGH .LE. K |
+| 3 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | highest possible order |
+| 4 | `INDEX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INDEX = 1 gives basis functions of order JHIGH = 2 denotes previous entry with WORK, IWORK values saved for subsequent calls to BSPVN. 2. 1 exclusively, these are scratch variables and can be used for other purposes. |
+| 5 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | argument of basis functions, T(K) .LE. X .LE. T(N+1) |
+| 6 | `ILEFT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer such that T(ILEFT) .LE. X .LT. T(ILEFT+1) |
+| 7 | `VNIKX` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | vector of length K for spline values. |
+| 8 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a work vector of length 2*K |
+| 9 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | scalar | a work parameter.  Both WORK and IWORK contain |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
-### ABI and safety
+### Return value
 
-Canonical path: `slatec_sys::interpolation::bspvn`. Native symbol: `bspvn_`. Feature: `interpolation`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
+
+### Callback contract
+
+This interface declares no callback argument.
+
+### Error and status values
+
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+
+### Storage and workspace requirements
+
+`WORK`: a work vector of length 2*K
+
+`IWORK`: a work parameter.  Both WORK and IWORK contain
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::interpolation::bspvn`. Native symbol: `bspvn_`. Declaration feature: `interpolation`. Provider feature: `interpolation-general`. ABI fingerprint: `subroutine:void(mut_f32_ptr_rank1,mut_i32,mut_i32,mut_i32,mut_f32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -88,7 +109,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::interpolation::bspvn`
-- Compatibility aliases: `slatec_sys::interpolation::numerical::bspvn`
 - Public declaration feature: `interpolation`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

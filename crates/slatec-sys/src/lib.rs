@@ -10,13 +10,12 @@
 //!
 //! # Stability policy
 //!
-//! Reviewed declarations are promoted to canonical mathematical modules and
-//! retain older paths as compatibility re-exports. The ABI-shaped [`generated`]
-//! module is transitional implementation-generated access: its paths are not
-//! stable merely because an item is available there. The source-hash-guarded
-//! raw API inventory defines reviewed status, documentation, and validation
-//! coverage. An evidence-proven ABI correction may change an unsafe signature,
-//! because an incorrect FFI declaration is a safety bug.
+//! Reviewed declarations are promoted directly to canonical mathematical
+//! modules. ABI-shaped declaration modules are private implementation details,
+//! not public API paths. The source-hash-guarded raw API inventory defines
+//! reviewed status, documentation, and validation coverage. An
+//! evidence-proven ABI correction may change an unsafe signature, because an
+//! incorrect FFI declaration is a safety bug.
 
 /// GNU Fortran default `INTEGER` after the supported profile probe.
 #[cfg(feature = "ffi-profile-gnu-mingw-x86_64")]
@@ -69,20 +68,15 @@ macro_rules! public_binding_module {
 #[path = "generated/mod.rs"]
 mod generated_ffi;
 
-/// Transitional ABI-shaped compatibility namespace.
-///
-/// These paths are not stable unless a routine has also been promoted to its
-/// canonical mathematical module. Every item is re-exported from the private
-/// authoritative declaration layer; this namespace contains no independent
-/// FFI signatures.
+/// Private ABI-shaped declaration re-exports used while generating and
+/// validating canonical mathematical modules.
 #[path = "generated_compat.rs"]
-pub mod generated;
+mod generated;
 
 /// Canonical reviewed raw BLAS namespace.
 ///
 /// Enable `blas-level1`, `blas-level2`, `blas-level3`, or the aggregate
-/// `blas` feature.  The legacy [`families`] BLAS modules remain compatibility
-/// re-exports; [`generated`] paths remain ABI-shaped transitional access.
+/// `blas` feature.
 #[cfg(any(
     feature = "blas-level1",
     feature = "blas-level2",
@@ -98,9 +92,7 @@ pub mod blas;
 ///
 /// Enable one of `special-elementary`, `special-gamma`, `special-beta`,
 /// `special-error`, or `special-airy`, or the aggregate `special`. The
-/// remaining public special subfamilies continue to be available through their
-/// compatibility modules until they receive the same source-hash and
-/// documentation review.
+/// remaining public special subfamilies use their canonical mathematical paths.
 #[cfg(any(
     feature = "special-elementary",
     feature = "special-gamma",
@@ -150,17 +142,6 @@ public_binding_module!(
 #[path = "batch_c/mod.rs"]
 mod abi_bindings;
 
-/// Deprecated compatibility namespace for the former top-level eigen paths.
-#[cfg(feature = "linear-algebra-eigen")]
-#[deprecated(note = "use `slatec_sys::linear_algebra::eigen`")]
-pub mod eigen {
-    /// Deprecated compatibility layer for the former empty `numerical` level.
-    #[deprecated(note = "use `slatec_sys::linear_algebra::eigen`")]
-    pub mod numerical {
-        pub use crate::linear_algebra::eigen::*;
-    }
-}
-
 #[cfg(feature = "approximation-core")]
 public_binding_module!(
     approximation_bindings,
@@ -185,8 +166,7 @@ public_binding_module!(
     "Canonical raw probability and statistics bindings."
 );
 
-/// Generated raw declarations grouped by safe public family rather than ABI
-/// shape. These modules are the preferred dependency of narrow safe features.
+/// Private raw declaration groupings used by canonical family modules.
 #[cfg(any(
     feature = "raw-family-blas-level1",
     feature = "raw-family-blas-level2",
@@ -204,22 +184,13 @@ public_binding_module!(
     feature = "raw-family-bspline",
     feature = "raw-family-piecewise-polynomial"
 ))]
-public_binding_module!(
-    family_bindings,
-    families,
-    "families.rs",
-    "Compatibility family namespaces that re-export authoritative raw bindings."
-);
+#[path = "families.rs"]
+mod families;
 
-/// Hand-reviewed scalar declarations for the expanded real special-function
-/// family.
+/// Private declaration owner for expanded scalar special functions.
 #[cfg(feature = "raw-family-special-scalar-expanded")]
-public_binding_module!(
-    special_scalar_expanded_bindings,
-    special_scalar_expanded,
-    "special_scalar_expanded.rs",
-    "Compatibility raw bindings for expanded scalar special functions."
-);
+#[path = "special_scalar_expanded.rs"]
+mod special_scalar_expanded;
 
 /// Hand-reviewed real FFTPACK declarations for the plan-based safe API.
 #[cfg(any(
@@ -233,40 +204,27 @@ public_binding_module!(
     "Canonical raw FFTPACK bindings."
 );
 
-/// Hand-reviewed standard real-array declarations for the selected complex
-/// FFTPACK plan family.
+/// Private declaration owner for complex FFTPACK routines; canonical paths are
+/// nested under [`fftpack`].
 #[cfg(feature = "raw-family-fftpack-complex")]
-public_binding_module!(
-    fftpack_complex_bindings,
-    fftpack_complex,
-    "fftpack_complex.rs",
-    "Compatibility raw bindings for complex FFTPACK plans."
-);
+#[path = "fftpack_complex.rs"]
+mod fftpack_complex;
 
-/// Hand-reviewed declaration for the focused Cartesian FISHPACK driver.
+/// Private declaration owner for the focused Cartesian FISHPACK driver.
 #[cfg(feature = "raw-family-fishpack-cartesian-2d")]
-public_binding_module!(
-    fishpack_cartesian_2d_bindings,
-    fishpack_cartesian_2d,
-    "fishpack_cartesian_2d.rs",
-    "Compatibility raw binding for the Cartesian FISHPACK driver."
-);
+#[path = "fishpack_cartesian_2d.rs"]
+mod fishpack_cartesian_2d;
 
-/// Hand-reviewed declaration for the focused structured FISHPACK `POIS3D`
+/// Private declaration owner for the focused structured FISHPACK `POIS3D`
 /// driver.
 #[cfg(feature = "raw-family-fishpack-pois3d")]
-public_binding_module!(
-    fishpack_pois3d_bindings,
-    fishpack_pois3d,
-    "fishpack_pois3d.rs",
-    "Compatibility raw binding for the structured three-dimensional Poisson solver."
-);
+#[path = "fishpack_pois3d.rs"]
+mod fishpack_pois3d;
 
 /// Canonical raw PDE namespace.
 ///
-/// Only reviewed FISHPACK drivers are re-exported here. The historical focused
-/// modules remain compatibility paths and no duplicate FFI declarations are
-/// introduced.
+/// Only reviewed FISHPACK drivers are re-exported here from their private
+/// declaration owners.
 #[cfg(any(
     feature = "raw-family-fishpack-cartesian-2d",
     feature = "raw-family-fishpack-pois3d",
@@ -292,54 +250,38 @@ pub mod pde {
     }
 }
 
-/// Hand-reviewed LINPACK general-band factorization and solve declarations.
+/// Private declaration owner for general-band factorization and solve routines.
 #[cfg(any(
     feature = "raw-family-banded-linear-systems",
     feature = "raw-family-linear-algebra-real"
 ))]
-public_binding_module!(
-    banded_bindings,
-    banded,
-    "banded.rs",
-    "Compatibility raw bindings for general banded linear systems."
-);
+#[path = "banded.rs"]
+mod banded;
 
-/// Hand-reviewed PCHIP and piecewise-cubic Hermite declarations.
+/// Private declaration owner for PCHIP routines.
 #[cfg(any(
     feature = "raw-family-pchip",
     feature = "raw-family-interpolation-general"
 ))]
-public_binding_module!(
-    pchip_bindings,
-    pchip,
-    "pchip.rs",
-    "Compatibility raw PCHIP bindings."
-);
+#[path = "pchip.rs"]
+mod pchip;
 
-/// Hand-reviewed declarations for the restricted safe B-spline facade.
+/// Private declaration owner for B-spline routines.
 #[cfg(any(
     feature = "raw-family-bspline",
     feature = "raw-family-interpolation-general"
 ))]
-public_binding_module!(
-    bspline_bindings,
-    bspline,
-    "bspline.rs",
-    "Compatibility raw B-spline bindings."
-);
+#[path = "bspline.rs"]
+mod bspline;
 
-/// Hand-reviewed declarations for PP-form evaluation, integration, and
-/// B-spline conversion.
+/// Private declaration owner for PP-form evaluation, integration, and B-spline
+/// conversion.
 #[cfg(any(
     feature = "raw-family-piecewise-polynomial",
     feature = "raw-family-interpolation-general"
 ))]
-public_binding_module!(
-    piecewise_polynomial_bindings,
-    piecewise_polynomial,
-    "piecewise_polynomial.rs",
-    "Compatibility raw piecewise-polynomial bindings."
-);
+#[path = "piecewise_polynomial.rs"]
+mod piecewise_polynomial;
 
 /// Hand-reviewed callback declarations for the focused safe QUADPACK surface.
 ///
@@ -367,7 +309,11 @@ public_binding_module!(
 /// Hand-reviewed scalar callback declarations for the focused FZERO family.
 ///
 /// This narrow module remains separate from the general callback declaration layer.
-#[cfg(any(feature = "raw-ffi-roots", feature = "raw-family-roots-scalar"))]
+#[cfg(any(
+    feature = "raw-ffi-roots",
+    feature = "raw-family-roots-scalar",
+    feature = "raw-family-nonlinear-complex"
+))]
 public_binding_module!(
     roots_bindings,
     roots,

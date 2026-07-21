@@ -75,8 +75,6 @@ Exactly one backend must be selected whenever a numerical family is enabled.
   `libgfortran.a` and `libquadmath.a`.
 - `external-backend` emits no native build or link instruction. It is intended
   for applications whose final link is managed outside Cargo.
-- `bundled` is a deprecated compatibility alias with exactly the offline
-  `source-build` meaning. It never downloads source.
 
 Incompatible combinations fail in `slatec-src/build.rs` with a direct error.
 `slatec-src` itself is a `#![no_std]` provider-selection crate and exposes no
@@ -147,10 +145,10 @@ explicit: use `raw-family-roots-scalar` with `roots-scalar`,
 `raw-family-fishpack-cartesian-2d` with `fishpack-cartesian-2d`, and
 `raw-family-fishpack-pois3d` with `fishpack-pois3d`.
 
-The aggregate `raw-ffi-*` features enable only the unstable generated layer.
-They are not a promise of canonical family paths or provider closure. See
-[the raw API architecture](../architecture/slatec-sys-public-raw-api.md) for
-the reviewed-path and compatibility policy.
+ABI-shaped implementation gates are private to `slatec-sys` declaration
+ownership and generation. They are not a promise of canonical family paths or
+provider closure. See [the raw API architecture](../architecture/slatec-sys-public-raw-api.md)
+for the reviewed-path policy.
 
 ### Canonical numerical provider features
 
@@ -175,9 +173,9 @@ stabilize canonical paths such as
 `slatec_sys::quadrature::callbacks::dqk15`,
 `slatec_sys::linear_algebra::sparse::callbacks::scg`, and
 `slatec_sys::ode::callbacks::derkf` within the generated evidence boundary.
-### Requalified legacy provider features
+### Requalified provider features
 
-The 36 requalified legacy paths keep their existing mathematical features and
+The 36 requalified existing declarations keep their mathematical features and
 provider closures: quadrature, nonlinear, least-squares, DASSL and expert
 S-drive ODE, and in-memory linear programming. This preserves direct raw
 usability while avoiding per-routine switches and provider duplication.
@@ -221,8 +219,6 @@ R2B promotes the scalar elementary, gamma, beta, and error foundations under
 aliases select their corresponding reviewed declarations; `special` includes
 all four. The matching `slatec-src` feature selects the source closure, while
 the safe `slatec` feature continues to select only its existing safe facade.
-The former `families::special_*` raw paths remain compatibility re-exports.
-
 `slatec-sys/all` is the declaration-only aggregate of every public
 mathematical family. It intentionally selects no provider or backend and does
 not promise stability for any unreviewed generated declaration. The generated

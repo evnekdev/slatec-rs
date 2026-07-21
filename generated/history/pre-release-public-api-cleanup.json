@@ -1,0 +1,14 @@
+{
+  "canonical_public_paths_after": 812,
+  "compatibility_aliases_after": 0,
+  "compatibility_aliases_before": 666,
+  "compatibility_aliases_removed": 666,
+  "deprecated_public_items_after": 0,
+  "deprecated_public_items_before": 294,
+  "deprecated_public_items_removed": 294,
+  "public_routines_with_multiple_paths_after": 0,
+  "public_routines_with_multiple_paths_before": 572,
+  "schema_id": "slatec-sys.history.pre-release-public-api-cleanup",
+  "schema_version": "1.0.0",
+  "scope": "Development-only API paths removed before the first publication."
+}

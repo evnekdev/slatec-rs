@@ -12,9 +12,7 @@ selected SLATEC sources, not safe numerical wrappers.
 | Error | `slatec_sys::special::error` | `special-error` |
 
 `special` enables all four reviewed groups and the existing unpromoted special
-family gates. Existing `slatec_sys::families::special_{group}` paths remain
-compatibility re-exports of the same declarations. The complete, source-hash
-guarded candidate disposition is
+family gates. The complete, source-hash guarded candidate disposition is
 [`special-foundations-report.json`](../../generated/raw-api/special-foundations-report.json).
 
 ## Direct calls and provider selection
@@ -56,6 +54,6 @@ deterministic coverage check is
 the current report has no missing public family.
 
 `all` is useful for a consumer that supplies a complete external native
-provider. It does not promote `slatec_sys::generated` paths, and it does not
-make unreviewed routines stable. The canonical-path compile test imports a
+provider. It does not promote private ABI-shaped declaration paths, and it does
+not make unreviewed routines stable. The canonical-path compile test imports a
 representative reviewed path from every public family.

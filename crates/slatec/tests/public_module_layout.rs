@@ -24,10 +24,8 @@ fn expanded_special_functions_are_reachable_by_mathematical_paths() {
 
 #[cfg(feature = "blas-level1")]
 #[allow(dead_code)]
-fn blas_compatibility_and_grouped_paths_compile() {
-    use slatec::blas::level1 as compatibility;
-    use slatec::linear_algebra::blas::level1 as grouped;
-    let _ =
-        compatibility::daxpy as fn(f64, &[f64], &mut [f64]) -> Result<(), slatec::blas::BlasError>;
-    let _ = grouped::daxpy as fn(f64, &[f64], &mut [f64]) -> Result<(), slatec::blas::BlasError>;
+fn blas_canonical_path_compiles() {
+    use slatec::linear_algebra::blas::level1;
+    let _ = level1::daxpy
+        as fn(f64, &[f64], &mut [f64]) -> Result<(), slatec::linear_algebra::blas::BlasError>;
 }

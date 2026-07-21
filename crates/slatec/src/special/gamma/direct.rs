@@ -1,5 +1,5 @@
 #[cfg(feature = "special-gamma")]
-use slatec_sys::families::special_gamma as gamma_raw;
+use slatec_sys::special::gamma as gamma_raw;
 
 use super::super::{SpecialFunctionError, runtime};
 

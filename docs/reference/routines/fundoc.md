@@ -69,7 +69,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `internal-subsidiary`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `not_promoted`
-- Compatibility aliases: `none`
 - Public declaration feature: `raw-ffi-numeric-scalar-subroutines`
 - `all`-feature reachability: `not_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

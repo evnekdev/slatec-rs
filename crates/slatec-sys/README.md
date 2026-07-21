@@ -4,10 +4,9 @@ Profile-gated raw declarations for the selected SLATEC Fortran corpus. This crat
 
 ## Public raw API status
 
-`slatec_sys::generated` is transitional, ABI-shaped generated access. It is not
-a stable namespace and the existence of a generated declaration does not mean
-the routine has complete semantics or documentation review. Reviewed routines
-have one canonical mathematical path and retain old paths as re-exports.
+ABI-shaped generated declaration modules are private implementation details.
+Their existence does not mean a routine has complete semantics or documentation
+review. Reviewed routines have one canonical mathematical path.
 
 The deterministic inventory in `generated/raw-api/` separates retained
 identities, generated candidates, ABI-validated declarations, reviewed drivers
@@ -26,13 +25,13 @@ excluded.
 
 Use mathematical modules such as `special`, `quadrature`,
 `linear_algebra::{dense,banded,packed,sparse,eigen}`, `interpolation`, and
-`pde::fishpack`, not `generated::*`. Provider features use the same
+`pde::fishpack`, not ABI-shaped implementation modules. Provider features use the same
 mathematical family names. The callback paths under `quadrature::callbacks`,
 `linear_algebra::sparse::callbacks`, and `ode::callbacks` remain unsafe raw
 callbacks rather than safe Rust closure wrappers.
 
-Every public and compatibility path re-exports the same authoritative extern
-item. The terminal disposition for all 1,517 retained identities is in the
+Every public path re-exports one authoritative extern item. The terminal
+disposition for all 1,517 retained identities is in the
 [final coverage guide](../../docs/api/raw-api-final-coverage.md) and
 [`final-disposition.json`](../../generated/raw-api/final-disposition.json).
 
@@ -43,8 +42,7 @@ The feasible, historically user-callable BLAS corpus uses the canonical paths
 `slatec_sys::blas::level2`, and `slatec_sys::blas::level3`. Enable `blas` or
 one of `blas-level1`, `blas-level2`, and `blas-level3`; the corresponding
 `slatec-src` feature selects the native source closure when a source provider
-is used. The compatibility modules
-`slatec_sys::families::blas_level{1,2,3}` re-export these same declarations.
+is used.
 
 For the supported GNU profile, CHARACTER selector arguments are passed as
 one-byte buffers followed by trailing `FortranCharacterLength` values. Complex
@@ -58,8 +56,7 @@ and the full ABI contract.
 
 Forty historically user-callable scalar routines use the canonical
 `slatec_sys::special::{elementary,gamma,beta,error}` modules. Enable the
-matching `special-*` feature or `special`; the previous
-`slatec_sys::families::special_{group}` paths remain compatibility re-exports.
+matching `special-*` feature or `special`.
 The functions use direct `f32`/`f64` GNU MinGW scalar returns and scalar
 arguments passed by address. Their generated Rustdoc records the source,
 native symbol, domains, XERROR/FNLIB behavior, and raw Safety contract.
@@ -73,8 +70,7 @@ for direct-call and provider guidance.
 
 The eight real FNLIB Airy drivers are available at
 `slatec_sys::special::airy::{ai,aie,bi,bie,dai,daie,dbi,dbie}`. Enable
-`special-airy`; `slatec_sys::families::special_airy::*` remains a compatibility
-re-export. These unsafe scalar functions use the same direct GNU MinGW return
+`special-airy`. These unsafe scalar functions use the same direct GNU MinGW return
 ABI and by-address input contract as the reviewed scalar foundations. Complex
 Amos Airy drivers and Airy subsidiaries are intentionally not promoted; see
 [`docs/api/raw-special-airy.md`](../../docs/api/raw-special-airy.md).

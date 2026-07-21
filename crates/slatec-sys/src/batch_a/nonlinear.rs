@@ -52,11 +52,3 @@ pub mod jacobian_check {
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     pub use crate::nonlinear::dckder;
 }
-
-pub mod numerical {
-    #[deprecated(note = "use `slatec_sys::nonlinear::jacobian_check::chkder`")]
-    pub use super::jacobian_check::chkder;
-
-    #[deprecated(note = "use `slatec_sys::nonlinear::jacobian_check::dckder`")]
-    pub use super::jacobian_check::dckder;
-}

@@ -5,7 +5,7 @@
 
 use core::ffi::c_char;
 
-use slatec_sys::families::blas_level2 as raw;
+use slatec_sys::blas::level2 as raw;
 
 use super::super::validation::{
     count, gemv_logical_lengths, increment, input_pointer, output_pointer, validate_matrix,

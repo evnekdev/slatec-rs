@@ -8,7 +8,7 @@ Evaluate the variance function of the curve obtained by the constrained B-spline
 
 ## Description
 
-DCV( ) is a companion function subprogram for DFC( ). The documentation for DFC( ) has complete usage instructions. DCV( ) is used to evaluate the variance function of the curve obtained by the constrained B-spline fitting subprogram, DFC( ). The variance function defines the square of the probable error of the fitted curve at any point, XVAL. One can use the square root of this variance function to determine a probable error band around the fitted curve. DCV( ) is used after a call to DFC( ). MODE, an input variable to DFC( ), is used to indicate if the variance function is desired. In order to use DCV( ), MODE must equal 2 or 4 on input to DFC( ). MODE is also used as an output flag from DFC( ). Check to make sure that MODE = 0 after calling DFC( ), indicating a successful constrained curve fit. The array SDDATA, as input to DFC( ), must also be defined with the standard deviation or uncertainty of the Y values to use DCV( ). To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. The vector B(XVAL) is the B-spline basis function values at X=XVAL. The covariance matrix, C, of the solution coefficients accounts only for the least squares equations and the explicitly stated equality constraints. This fact must be considered when interpreting the variance function from a data fitting problem that has inequality constraints on the fitted curve. All the variables in the calling sequence for DCV( ) are used in DFC( ) except the variable XVAL. Do not change the values of these variables between the call to DFC( ) and the use of DCV( ). The following is a brief description of the variables XVAL The point where the variance is desired, a double precision variable. NDATA The number of discrete (X,Y) pairs for which DFC( ) calculated a piece-wise polynomial curve. NCONST The number of conditions that constrained the B-spline in DFC( ). NORD The order of the B-spline used in DFC( ). The value of NORD must satisfy 1 < NORD < 20 . (The order of the spline is one more than the degree of the piece-wise polynomial defined on each interval. This is consistent with the B-spline package convention. For example, NORD=4 when we are using piece-wise cubics.) NBKPT The number of knots in the array BKPT(*). The value of NBKPT must satisfy NBKPT .GE. 2*NORD. BKPT(*) The double precision array of knots. Normally the problem data interval will be included between the limits BKPT(NORD) and BKPT(NBKPT-NORD+1). The additional end knots BKPT(I),I=1,...,NORD-1 and I=NBKPT-NORD+2,...,NBKPT, are required by DFC( ) to compute the functions used to fit the data. W(*) Double precision work array as used in DFC( ). See DFC( ) for the required length of W(*). The contents of W(*) must not be modified by the user if the variance function is desired.
+DCV( ) is a companion function subprogram for DFC( ). The documentation for DFC( ) has complete usage instructions. DCV( ) is used to evaluate the variance function of the curve obtained by the constrained B-spline fitting subprogram, DFC( ).
 
 ## Classification
 
@@ -54,32 +54,47 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Probability and statistics](../families/probability-and-statistics.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DCV](https://www.netlib.org/slatec/src/dcv.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `XVAL` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | The variance function defines the square of the probable error of the fitted curve at any point, XVAL. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NDATA` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NCONST` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NORD` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NBKPT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `BKPT` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `W` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `XVAL` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 2 | `NDATA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `NCONST` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `NORD` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `NBKPT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 6 | `BKPT` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 7 | `W` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
-The Fortran function returns `*mut f64` through the compiler-validated ABI recorded by the authoritative declaration fingerprint `function:f64(mut_f64,mut_i32,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1)`.
+This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `function:f64(mut_f64,mut_i32,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1)`.
 
-### ABI and safety
+### Callback contract
 
-Canonical path: `slatec_sys::statistics::dcv`. Native symbol: `dcv_`. Feature: `statistics`. Provider status: `selected_provider_verified`. ABI fingerprint: `function:f64(mut_f64,mut_i32,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This interface declares no callback argument.
+
+### Error and status values
+
+of the fitted curve at any point, XVAL.  One can use the square around the fitted curve. DCV( ) is used after a call to DFC( ).  MODE, an input variable to DFC( ), is used to indicate if the variance function is desired. In order to use DCV( ), MODE must equal 2 or 4 on input to DFC( ). MODE is also used as an output flag from DFC( ).  Check to make sure that MODE = 0 after calling DFC( ), indicating a successful constrained curve fit.  The array SDDATA, as input to DFC( ), must also be defined with the standard deviation or uncertainty of the Y values to use DCV( ). To evaluate the variance function after calling DFC( ) as stated above, use DCV( ) as shown here VAR=DCV(XVAL,NDATA,NCONST,NORD,NBKPT,BKPT,W) The variance function is given by VAR=(transpose of B(XVAL))*C*B(XVAL)/DBLE(MAX(NDATA-N,1)) where N = NBKPT - NORD. The vector B(XVAL) is the B-spline basis function values at X=XVAL.  The covariance matrix, C, of the solution coefficients accounts only for the least squares equations and the explicitly stated equality constraints.  This fact must be considered when interpreting the variance function from a data fitting problem that has inequality constraints on the fitted curve. All the variables in the calling sequence for DCV( ) are used in DFC( ) except the variable XVAL.  Do not change the values of these variables between the call to DFC( ) and the use of DCV( ). The following is a brief description of the variables XVAL    The point where the variance is desired, a double precision variable. NDATA   The number of discrete (X,Y) pairs for which DFC( ) calculated a piece-wise polynomial curve. NCONST  The number of conditions that constrained the B-spline in DFC( ). NORD    The order of the B-spline used in DFC( ). The value of NORD must satisfy 1 < NORD < 20 . (The order of the spline is one more than the degree of the piece-wise polynomial defined on each interval.  This is consistent with the B-spline package convention.  For example, NORD=4 when we are using piece-wise cubics.) NBKPT   The number of knots in the array BKPT(*). The value of NBKPT must satisfy NBKPT .GE. 2*NORD. BKPT(*) The double precision array of knots.  Normally the problem data interval will be included between the limits BKPT(NORD) and BKPT(NBKPT-NORD+1).  The additional end knots BKPT(I),I=1,...,NORD-1 and I=NBKPT-NORD+2,...,NBKPT, are required by DFC( ) to compute the functions used to fit the data. W(*)    Double precision work array as used in DFC( ).  See DFC( ) for the required length of W(*).  The contents of W(*) must not be modified by the user if the variance function is desired.
+
+### Storage and workspace requirements
+
+`W`: Workspace argument classified by fixed-form executable read/write analysis.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::statistics::dcv`. Native symbol: `dcv_`. Declaration feature: `statistics`. Provider feature: `statistics-core`. ABI fingerprint: `function:f64(mut_f64,mut_i32,mut_i32,mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -90,7 +105,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::statistics::dcv`
-- Compatibility aliases: `slatec_sys::statistics::numerical::dcv`
 - Public declaration feature: `statistics`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

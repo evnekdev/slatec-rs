@@ -165,7 +165,9 @@ Feature groups are deliberately confidence-scoped:
   scalar functions;
 - `raw-ffi-abi-sensitive`: complex arguments, logical values, and character
   arguments, after profile-specific validation;
-- `raw-ffi-all-validated` (and the compatibility alias `raw-ffi`): both groups.
+- Internal ABI-shape feature gates select these implementation groups for
+  canonical-module generation and validation; they are not public raw API
+  features.
 
 Character-returning functions, unresolved/conflicting interfaces, and selected
 infrastructure remain outside every validated aggregate. Callback declarations

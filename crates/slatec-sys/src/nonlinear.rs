@@ -178,9 +178,3 @@ mod canonical_bindings;
 /// Canonical source-verified Jacobian-check declarations.
 #[cfg(feature = "raw-family-nonlinear-jacobian")]
 pub use canonical_bindings::*;
-
-/// Complex polynomial and nonlinear-equation interfaces.
-#[cfg(feature = "raw-family-nonlinear-complex")]
-pub mod complex {
-    pub use crate::abi_bindings::nonlinear::*;
-}

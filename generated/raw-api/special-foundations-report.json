@@ -24,10 +24,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_beta::albeta"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::log_beta_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -64,10 +61,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::alngam"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::log_gamma_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -104,10 +98,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::alnrel"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::log1p_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -145,10 +136,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_beta::beta"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::beta_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -187,10 +175,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_beta::betai"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::regularized_beta_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -228,10 +213,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::binom"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::binomial_coefficient_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -268,10 +250,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::cbrt"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::cbrt_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -308,10 +287,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::cosdg"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::cos_degrees_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -348,10 +324,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::daws"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::dawson_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -389,10 +362,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_beta::dbeta"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::beta",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -431,10 +401,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_beta::dbetai"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::regularized_beta",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -472,10 +439,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dbinom"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::binomial_coefficient",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -512,10 +476,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::dcbrt"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::cbrt",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -552,10 +513,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::dcosdg"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::cos_degrees",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -592,10 +550,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::ddaws"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::dawson",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -632,10 +587,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_error::derf"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::error_functions::erf",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -672,10 +624,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_error::derfc"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::error_functions::erfc",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -712,10 +661,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::dexprl"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::exprel",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -752,10 +698,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dfac"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::factorial",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -793,10 +736,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dgami"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_lower",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -834,10 +774,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dgamic"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_upper",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -875,10 +812,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dgamit"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::tricomi_incomplete_gamma",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -915,10 +849,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dgamma"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::gamma",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -955,10 +886,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dgamr"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::reciprocal_gamma",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -996,10 +924,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_beta::dlbeta"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::log_beta",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1036,10 +961,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dlngam"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::log_gamma",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1076,10 +998,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::dlnrel"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::log1p",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1116,10 +1035,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::dpsi"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::digamma",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1156,10 +1072,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::dsindg"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::sin_degrees",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1196,10 +1109,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_error::erf"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::error_functions::erf_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1236,10 +1146,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_error::erfc"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::error_functions::erfc_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1276,10 +1183,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::exprel"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::exprel_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1316,10 +1220,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::fac"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::factorial_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1357,10 +1258,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::gami"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_lower_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1398,10 +1296,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::gamic"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::incomplete_gamma_upper_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1439,10 +1334,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::gamit"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::tricomi_incomplete_gamma_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1479,10 +1371,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::gamma"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::gamma_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1519,10 +1408,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::gamr"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::reciprocal_gamma_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1559,10 +1445,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_gamma::psi"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::gamma::digamma_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",
@@ -1599,10 +1482,7 @@
         "source_link": "selected_provider_metadata"
       },
       "exclusion_or_deferment_reason": "none",
-      "existing_family_declaration_paths": [
-        "slatec_sys::families::special_elementary::sindg"
-      ],
-      "existing_family_declaration_status": "compatibility_reexport",
+      "existing_family_declaration_status": "authoritative_canonical_declaration",
       "existing_safe_wrapper_audit": "slatec::special::elementary::sin_degrees_f32",
       "final_feasibility_disposition": "reviewed public driver",
       "generated_declaration_status": "generated_abi_validated",

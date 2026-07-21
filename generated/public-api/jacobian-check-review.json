@@ -1,0 +1,48 @@
+{
+  "records": [
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::jacobian_check::chkder",
+      "classification": "independent_user_facing_diagnostic",
+      "decision": "retain_canonical_public_shared_diagnostic",
+      "direct_caller_count": 1,
+      "direct_callers": [
+        "SNLS1"
+      ],
+      "expected_direct_user_invocation": true,
+      "historical_role": "user_callable",
+      "independently_documented_public_contract": true,
+      "netlib_source_url": "https://www.netlib.org/slatec/src/chkder.f",
+      "public_callers": [
+        "SNLS1"
+      ],
+      "recommended_placement": "keep nonlinear::jacobian_check as a shared diagnostic namespace",
+      "routine": "CHKDER",
+      "solver_families_using_it": [
+        "nonlinear equations"
+      ]
+    },
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::jacobian_check::dckder",
+      "classification": "independent_user_facing_diagnostic",
+      "decision": "retain_canonical_public_shared_diagnostic",
+      "direct_caller_count": 1,
+      "direct_callers": [
+        "DNLS1"
+      ],
+      "expected_direct_user_invocation": true,
+      "historical_role": "user_callable",
+      "independently_documented_public_contract": true,
+      "netlib_source_url": "https://www.netlib.org/slatec/src/dckder.f",
+      "public_callers": [
+        "DNLS1"
+      ],
+      "recommended_placement": "keep nonlinear::jacobian_check as a shared diagnostic namespace",
+      "routine": "DCKDER",
+      "solver_families_using_it": [
+        "nonlinear equations"
+      ]
+    }
+  ],
+  "schema_id": "slatec-rs.jacobian-check-review",
+  "schema_version": "1.0.0"
+}

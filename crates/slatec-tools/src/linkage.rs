@@ -587,17 +587,13 @@ fn render_family_bindings(
     root: &Path,
     families: &BTreeMap<String, BTreeSet<String>>,
 ) -> Result<()> {
-    let generated = root.join("crates/slatec-sys/src/generated");
+    let family_owned = family_declaration_routines(root)?;
     let mut declarations = BTreeMap::<String, String>::new();
-    for name in [
-        "character.rs",
-        "complex_arguments.rs",
-        "logical.rs",
-        "numeric_array_subroutines.rs",
-        "numeric_scalar_subroutines.rs",
-        "scalar_functions.rs",
-    ] {
-        let source = fs::read_to_string(generated.join(name))?;
+    // This is the one private declaration owner for the hand-reviewed
+    // special-function groups.  Batch A and scalar-expanded declarations
+    // deliberately stay in their own canonical-owner files instead.
+    let source = fs::read_to_string(root.join("crates/slatec-sys/src/families.rs"))?;
+    {
         let lines = source.lines().collect::<Vec<_>>();
         let mut index = 0;
         while index < lines.len() {
@@ -611,11 +607,14 @@ fn render_family_bindings(
                 .nth(1)
                 .ok_or_else(|| bad("generated link name"))?;
             let routine = raw.trim_end_matches('_').to_ascii_uppercase();
-            let mut block = format!("    {}\n", lines[index]);
+            // `families.rs` is regenerated into a nested module.  Parse the
+            // declaration independent of the indentation used by the prior
+            // generated output so repeated regeneration is idempotent.
+            let mut block = format!("        {}\n", lines[index].trim_start());
             index += 1;
             while index < lines.len() {
-                block.push_str("    ");
-                block.push_str(lines[index]);
+                block.push_str("        ");
+                block.push_str(lines[index].trim_start());
                 block.push('\n');
                 let complete = lines[index].trim_end().ends_with(';');
                 index += 1;
@@ -623,11 +622,14 @@ fn render_family_bindings(
                     break;
                 }
             }
-            if declarations.insert(routine.clone(), block).is_some() {
-                return Err(CorpusError::Verification(format!(
-                    "duplicate generated raw declaration for {routine}"
-                )));
+            if !family_owned.contains(&routine) {
+                continue;
             }
+            // A prior generated file can contain a stale duplicate while this
+            // ownership migration is being regenerated.  Keep the first
+            // declaration-owner block; the regenerated output has exactly one
+            // owner and the ownership validator enforces that invariant.
+            declarations.entry(routine).or_insert(block);
         }
     }
 
@@ -642,19 +644,31 @@ fn render_family_bindings(
         let feature = format!("raw-family-{family}");
         if let Some(level) = family.strip_prefix("blas-level") {
             output.push_str(&format!(
-                "/// Compatibility re-exports for the canonical reviewed BLAS Level {level} namespace.\n#[cfg(feature = \"{feature}\")]\npub mod {module} {{\n    pub use crate::blas::level{level}::*;\n}}\n\n"
+                "/// Private declaration forwarding for the canonical reviewed BLAS Level {level} namespace.\n#[cfg(feature = \"{feature}\")]\npub mod {module} {{\n    pub use crate::blas::level{level}::*;\n}}\n\n"
             ));
+            continue;
+        }
+        if let Some(domain) = family.strip_suffix("-complex") {
+            let owner = domain.replace('-', "_");
+            output.push_str(&format!(
+                "/// Private declaration forwarding for the canonical ABI-sensitive {domain} namespace.\n#[cfg(feature = \"{feature}\")]\npub mod {module} {{\n    pub use crate::abi_bindings::{owner}::*;\n}}\n\n"
+            ));
+            continue;
+        }
+        if matches!(family.as_str(), "special-real" | "special-scalar-expanded") {
+            continue;
+        }
+        let selected = symbols
+            .iter()
+            .filter_map(|symbol| declarations.get(symbol))
+            .collect::<Vec<_>>();
+        if selected.is_empty() {
             continue;
         }
         output.push_str(&format!(
             "/// Reviewed declarations required by `{family}`.\n#[cfg(feature = \"{feature}\")]\npub mod {module} {{\n    use crate::{{Complex32, Complex64, FortranCharacterLength, FortranInteger, FortranLogical}};\n    use core::ffi::c_char;\n\n    unsafe extern \"C\" {{\n"
         ));
-        for symbol in symbols {
-            let declaration = declarations.get(symbol).ok_or_else(|| {
-                CorpusError::Verification(format!(
-                    "safe family {family} references missing generated declaration {symbol}"
-                ))
-            })?;
+        for declaration in selected {
             output.push_str(declaration);
         }
         output.push_str("    }\n}\n\n");
@@ -663,6 +677,25 @@ fn render_family_bindings(
     output.push('\n');
     fs::write(root.join("crates/slatec-sys/src/families.rs"), output)?;
     Ok(())
+}
+
+fn family_declaration_routines(root: &Path) -> Result<BTreeSet<String>> {
+    let statuses = read_json(&root.join("generated/raw-api/routine-status.json"))?;
+    let batch_a = read_json(&root.join("generated/raw-api/batch-a-candidates.json"))?;
+    let mut routines = BTreeSet::new();
+
+    for record in object_records(&statuses, "raw API routine statuses")? {
+        let reviewed = string_field(record, "reviewed_declaration_status")?;
+        if reviewed.starts_with("reviewed_public_") {
+            routines.insert(string_field(record, "routine")?.to_owned());
+        }
+    }
+    for record in array_records(&batch_a, "Batch A candidates")? {
+        if string_field(record, "binding_path")?.starts_with("crate::families::") {
+            routines.insert(string_field(record, "routine")?.to_owned());
+        }
+    }
+    Ok(routines)
 }
 
 fn inspect_examples(

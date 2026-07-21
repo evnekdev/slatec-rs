@@ -8,7 +8,7 @@ The original (infinite integration range is mapped onto the interval (0,1) and (
 
 ## Description
 
-Integration Rule Standard Fortran subroutine Real version PARAMETERS ON ENTRY F - Real Function subprogram defining the integrand FUNCTION F(X). The actual name for F needs to be Declared E X T E R N A L in the calling program. BOUN - Real Finite bound of original integration Range (SET TO ZERO IF INF = +2) INF - Integer If INF = -1, the original interval is (-INFINITY,BOUND), If INF = +1, the original interval is (BOUND,+INFINITY), If INF = +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). A - Real Lower limit for integration over subrange of (0,1) B - Real Upper limit for integration over subrange of (0,1) ON RETURN RESULT - Real Approximation to the integral I Result is computed by applying the 15-POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). ABSERR - Real Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) RESABS - Real Approximation to the integral J RESASC - Real Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B)
+Integration Rule Standard Fortran subroutine Real version PARAMETERS ON ENTRY F - Real Function subprogram defining the integrand FUNCTION F(X). The actual name for F needs to be Declared E X T E R N A L in the calling program. BOUN - Real Finite bound of original integration Range (SET TO ZERO IF INF = +2) INF - Integer If INF = -1, the original interval is (-INFINITY,BOUND), If INF = +1, the original interval is (BOUND,+INFINITY), If INF = +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). A - Real Lower limit for integration over subrange of (0,1) B - Real Upper limit for integration over subrange of (0,1) ON RETURN RESULT - Real Approximation to the integral I Result is computed by applying the 15-POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). ABSERR - Real
 
 ## Classification
 
@@ -54,34 +54,49 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `mangled_source_prologue`
-- Description provenance: `source_prologue`
-- Assessment: mechanical source-prologue checks found text that requires a documented repair or review
-- Dedicated family page: [Numerical quadrature](../families/numerical-quadrature.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [QK15I](https://www.netlib.org/slatec/src/qk15i.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `F` | callback | `REAL` (`explicit`) | `reviewed unsafe extern callback function pointer` | scalar | Integration Rule Standard Fortran subroutine Real version PARAMETERS ON ENTRY F - Real Function subprogram defining the integrand FUNCTION F(X). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `BOUN` | input | `REAL` (`explicit`) | `*mut f32` | scalar | BOUN - Real Finite bound of original integration Range (SET TO ZERO IF INF = +2) INF - Integer If INF = -1, the original interval is (-INFINITY,BOUND), If INF = +1, the original interval is (BOUND,+INFINITY), If INF = +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `INF` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | BOUN - Real Finite bound of original integration Range (SET TO ZERO IF INF = +2) INF - Integer If INF = -1, the original interval is (-INFINITY,BOUND), If INF = +1, the original interval is (BOUND,+INFINITY), If INF = +2, the original interval is (-INFINITY,+INFINITY) AND The integral is computed as the sum of two integrals, one over (-INFINITY,0) and one over (0,+INFINITY). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `A` | input/output | `REAL` (`explicit`) | `*mut f32` | scalar | The actual name for F needs to be Declared E X T E R N A L in the calling program. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `B` | input/output | `REAL` (`explicit`) | `*mut f32` | scalar | A - Real Lower limit for integration over subrange of (0,1) B - Real Upper limit for integration over subrange of (0,1) ON RETURN RESULT - Real Approximation to the integral I Result is computed by applying the 15-POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RESULT` | output | `REAL` (`explicit`) | `*mut f32` | scalar | A - Real Lower limit for integration over subrange of (0,1) B - Real Upper limit for integration over subrange of (0,1) ON RETURN RESULT - Real Approximation to the integral I Result is computed by applying the 15-POINT KRONROD RULE(RESK) obtained by optimal addition of abscissae to the 7-POINT GAUSS RULE(RESG). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ABSERR` | output | `REAL` (`explicit`) | `*mut f32` | scalar | ABSERR - Real Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) RESABS - Real Approximation to the integral J RESASC - Real Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RESABS` | output | `REAL` (`explicit`) | `*mut f32` | scalar | ABSERR - Real Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) RESABS - Real Approximation to the integral J RESASC - Real Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `RESASC` | output | `REAL` (`explicit`) | `*mut f32` | scalar | ABSERR - Real Estimate of the modulus of the absolute error, WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) RESABS - Real Approximation to the integral J RESASC - Real Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B) | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Callback argument classified by fixed-form executable read/write analysis. |
+| 2 | `BOUN` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 3 | `INF` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 4 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 5 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 6 | `RESULT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 7 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 8 | `RESABS` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 9 | `RESASC` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
+
+### Return value
+
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
 ### Callback contract
 
-Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
 
-### ABI and safety
+### Error and status values
 
-Canonical path: `slatec_sys::quadrature::callbacks::qk15i`. Native symbol: `qk15i_`. Feature: `quadrature-callbacks`. Provider status: `selected_provider_verified`. ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_i32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+WHICH SHOULD EQUAL or EXCEED ABS(I-RESULT) RESABS - Real Approximation to the integral J RESASC - Real Approximation to the integral of ABS((TRANSFORMED INTEGRAND)-I/(B-A)) over (A,B)
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::quadrature::callbacks::qk15i`. Native symbol: `qk15i_`. Declaration feature: `quadrature-callbacks`. Provider feature: `quadrature`. ABI fingerprint: `subroutine:void(fn:f32(ref_f32),mut_f32,mut_i32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32,mut_f32)`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -92,7 +107,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `compiler-validated`
 - Canonical Rust path: `slatec_sys::quadrature::callbacks::qk15i`
-- Compatibility aliases: `none`
 - Public declaration feature: `quadrature-callbacks`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

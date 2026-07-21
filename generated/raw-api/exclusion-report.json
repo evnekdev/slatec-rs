@@ -3,7 +3,7 @@
     "callback ABI has compiler-shape evidence but no routine-specific callback contract": 67,
     "catalogue identity has no selected executable provider": 26,
     "multiprecision helper is not a standalone BLAS public routine": 18,
-    "runtime or machine-support unit is not independently callable": 17,
+    "runtime or machine-support unit is not independently callable": 21,
     "source object has unresolved external procedure dependencies: dfmat_, dgvec_, duivp_, duvec_": 1,
     "source object has unresolved external procedure dependencies: fmat_, gvec_, uivp_, uvec_": 1
   },
@@ -645,12 +645,32 @@
     },
     {
       "reason": "runtime or machine-support unit is not independently callable",
+      "routine": "XGETF",
+      "state": "runtime_or_machine_support"
+    },
+    {
+      "reason": "runtime or machine-support unit is not independently callable",
+      "routine": "XGETUA",
+      "state": "runtime_or_machine_support"
+    },
+    {
+      "reason": "runtime or machine-support unit is not independently callable",
       "routine": "XGETUN",
       "state": "runtime_or_machine_support"
     },
     {
       "reason": "runtime or machine-support unit is not independently callable",
       "routine": "XSET",
+      "state": "runtime_or_machine_support"
+    },
+    {
+      "reason": "runtime or machine-support unit is not independently callable",
+      "routine": "XSETF",
+      "state": "runtime_or_machine_support"
+    },
+    {
+      "reason": "runtime or machine-support unit is not independently callable",
+      "routine": "XSETUA",
       "state": "runtime_or_machine_support"
     },
     {

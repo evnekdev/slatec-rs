@@ -1,5 +1,5 @@
 fn main() {
-    use slatec::blas::{Transpose, level3::dgemm_contiguous};
+    use slatec::linear_algebra::blas::{Transpose, level3::dgemm_contiguous};
     let mut output = [0.0];
     dgemm_contiguous(
         Transpose::None,

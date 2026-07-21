@@ -9,8 +9,6 @@ The safe API roadmap uses two independent labels.
   selection or terminology remains unsettled.
 - **Implemented**: a status label meaning a reviewed initial safe scope is
   public.
-- **Compatibility**: an existing public path preserved without deprecation or
-  a removal schedule.
 
 Reserved placeholders contain documentation modules only. They add no safe
 functions, native entry points, feature flags, or semver-promised signatures.
@@ -19,5 +17,4 @@ reviewed ABI, typed Rust API, checked storage/workspace policy, error/status
 mapping, state/concurrency audit, tests, and deterministic metadata.
 
 An audit may move a status backward when evidence reveals an unsafe native
-protocol. Compatibility paths remain available through such changes unless a
-separate semver decision documents otherwise.
+protocol. Before the first release, the canonical path is corrected directly.

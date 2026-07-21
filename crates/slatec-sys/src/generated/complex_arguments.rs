@@ -848,18 +848,18 @@ pub use crate::linear_algebra::packed::complex::cspdi;
 pub use crate::linear_algebra::packed::complex::cspfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::complex::cspsl`."]
 pub use crate::linear_algebra::packed::complex::cspsl;
-#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::cpqr79`."]
-pub use crate::nonlinear::complex::cpqr79;
-#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::cpzero`."]
-pub use crate::nonlinear::complex::cpzero;
-#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::rpqr79`."]
-pub use crate::nonlinear::complex::rpqr79;
-#[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::complex::rpzero`."]
-pub use crate::nonlinear::complex::rpzero;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::complex::cblktr`."]
 pub use crate::pde::fishpack::complex::cblktr;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::complex::cmgnbn`."]
 pub use crate::pde::fishpack::complex::cmgnbn;
+#[doc = "Transitional ABI-shaped alias; use `crate::roots::complex::cpqr79`."]
+pub use crate::roots::complex::cpqr79;
+#[doc = "Transitional ABI-shaped alias; use `crate::roots::complex::cpzero`."]
+pub use crate::roots::complex::cpzero;
+#[doc = "Transitional ABI-shaped alias; use `crate::roots::complex::rpqr79`."]
+pub use crate::roots::complex::rpqr79;
+#[doc = "Transitional ABI-shaped alias; use `crate::roots::complex::rpzero`."]
+pub use crate::roots::complex::rpzero;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cairy`."]
 pub use crate::special::complex::cairy;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::complex::cbesh`."]

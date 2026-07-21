@@ -1,0 +1,49 @@
+{
+  "records": [
+    {
+      "area": "complex root finding",
+      "decision": "canonicalize under roots::complex",
+      "evidence": "CPZERO/RPZERO find polynomial zeros and CPQR79/RPQR79 compute polynomial roots; no new extern owner was created",
+      "public_path_policy": "each routine is exposed only at its roots::complex canonical path",
+      "routines": [
+        "CPQR79",
+        "CPZERO",
+        "RPQR79",
+        "RPZERO"
+      ]
+    },
+    {
+      "area": "Jacobian checking",
+      "decision": "keep nonlinear::jacobian_check as a shared diagnostic namespace",
+      "evidence": "the routines have independent public diagnostic contracts and selected-source callers are reported separately",
+      "routines": [
+        "CHKDER",
+        "DCKDER"
+      ]
+    },
+    {
+      "area": "scalar special-function expansion",
+      "canonical_public_count": 175,
+      "decision": "organize directly under meaningful special subfamilies",
+      "evidence": "the public API has no expansion-only namespace"
+    },
+    {
+      "area": "pde::fishpack",
+      "decision": "retain package-qualified pde::fishpack",
+      "evidence": "FISHPACK provenance identifies a concrete PDE package, has a complex sibling, and is an explicit future extension point"
+    },
+    {
+      "area": "banded linear algebra",
+      "decision": "retain linear_algebra::banded",
+      "duplicate_identity_count": 0,
+      "evidence": "storage class is a peer of dense, packed, sparse, and eigen"
+    },
+    {
+      "area": "FFTPACK",
+      "decision": "retain one fftpack canonical family for 0.1.x",
+      "evidence": "the complex transform grouping is not a separate top-level namespace; the current canonical family is fftpack"
+    }
+  ],
+  "schema_id": "slatec-rs.public-api-taxonomy-review",
+  "schema_version": "1.0.0"
+}

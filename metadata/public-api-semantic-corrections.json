@@ -1,0 +1,6 @@
+{
+  "schema_id": "slatec-rs.public-api-semantic-corrections",
+  "schema_version": "1.0.0",
+  "policy": "Corrections are deliberately narrow, source-hash guarded, and documentation-only. A correction may clarify a parsed field or argument contract but may not alter a Rust ABI signature, native symbol, provider closure, or final disposition.",
+  "records": []
+}

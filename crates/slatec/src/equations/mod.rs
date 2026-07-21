@@ -3,8 +3,7 @@
 //! # Status: Partial
 //!
 //! Scalar roots and reviewed nonlinear systems are available behind their
-//! existing features. `crate::roots` and `crate::nonlinear` remain
-//! supported compatibility paths.
+//! documented family features.
 
 /// Nonlinear systems of equations.
 pub mod nonlinear;

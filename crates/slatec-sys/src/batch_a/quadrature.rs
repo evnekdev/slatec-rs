@@ -278,35 +278,3 @@ unsafe extern "C" {
         integr: *mut crate::FortranInteger,
     );
 }
-
-pub mod numerical {
-    #[deprecated(note = "use `slatec_sys::quadrature::avint`")]
-    pub use super::avint;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::bsqad`")]
-    pub use super::bsqad;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::davint`")]
-    pub use super::davint;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::dbsqad`")]
-    pub use super::dbsqad;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::dgaus8`")]
-    pub use super::dgaus8;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::dppqad`")]
-    pub use super::dppqad;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::dqmomo`")]
-    pub use super::dqmomo;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::gaus8`")]
-    pub use super::gaus8;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::ppqad`")]
-    pub use super::ppqad;
-
-    #[deprecated(note = "use `slatec_sys::quadrature::qmomo`")]
-    pub use super::qmomo;
-}

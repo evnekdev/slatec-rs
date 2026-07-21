@@ -89,7 +89,7 @@ pub fn generate(sys_cargo_toml: &Path, registry_path: &Path) -> Result<Value> {
     let report = json!({
         "schema_id":"slatec-sys.raw-api.all-feature-coverage",
         "schema_version":"1.0.0",
-        "policy":"all directly names every authored public mathematical family aggregate. It never directly names provider, profile-only, raw ABI-shape, raw-family, test-only, or compatibility features; legitimate public family dependencies remain visible in the transitive closure.",
+        "policy":"all directly names every authored public mathematical family aggregate. It never directly names provider, profile-only, raw ABI-shape, raw-family, or test-only implementation features; legitimate public family dependencies remain visible in the transitive closure.",
         "public_family_aggregates":public,
         "families_covered_by_all":covered,
         "families_missing_from_all":missing,

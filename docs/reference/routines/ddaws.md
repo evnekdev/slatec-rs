@@ -8,7 +8,7 @@ Compute Dawson's function.
 
 ## Description
 
-DDAWS(X) calculates the double precision Dawson's integral for double precision argument X. Series for DAW on the interval 0. to 1.00000E+00 with weighted error 8.95E-32 log weighted error 31.05 significant figures required 30.41 decimal places required 31.71 Series for DAW2 on the interval 0. to 1.60000E+01 with weighted error 1.61E-32 log weighted error 31.79 significant figures required 31.40 decimal places required 32.62 Series for DAWA on the interval 0. to 6.25000E-02 with weighted error 1.97E-32 log weighted error 31.71 significant figures required 29.79 decimal places required 32.64
+DDAWS(X) calculates the double precision Dawson's integral for double precision argument X. Series for DAW on the interval 0. to 1.00000E+00
 
 ## Classification
 
@@ -52,26 +52,41 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `argument_contract_incomplete`
-- Description provenance: `source_prologue`
-- Assessment: the routine description and ABI rows are complete, but at least one argument lacks separable semantic evidence
-- Dedicated family page: [Special functions](../families/special-functions.md)
+- Documentation work status: `complete-structured`
+- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Exact Netlib source: [DDAWS](https://www.netlib.org/slatec/fnlib/ddaws.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `X` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | DDAWS(X) calculates the double precision Dawson's integral for double precision argument X. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
 ### Return value
 
-The Fortran function returns `*mut f64` through the compiler-validated ABI recorded by the authoritative declaration fingerprint `unavailable`.
+This Fortran function returns its scalar result through the compiler-validated ABI fingerprint `unavailable`.
 
-### ABI and safety
+### Callback contract
 
-Canonical path: `slatec_sys::special::elementary::ddaws`. Native symbol: `ddaws_`. Feature: `special-elementary`. Provider status: `selected_provider_verified`. ABI fingerprint: `unavailable`. Every pointer must be aligned and valid for the full source-defined readable or writable extent; callers must uphold array dimensions, leading dimensions, workspace formulas, aliasing restrictions, callback lifetimes, and process-global runtime serialization.
+This interface declares no callback argument.
+
+### Error and status values
+
+significant figures required  30.41 decimal places required  31.71 Series for DAW2       on the interval  0.          to  1.60000E+01 significant figures required  31.40 decimal places required  32.62 Series for DAWA       on the interval  0.          to  6.25000E-02 significant figures required  29.79 decimal places required  32.64
+
+### Storage and workspace requirements
+
+This interface declares no separately named workspace argument. Array storage, if any, is Fortran column-major and must satisfy the documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::special::elementary::ddaws`. Native symbol: `ddaws_`. Declaration feature: `special-elementary`. Provider feature: `special-elementary`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -82,7 +97,6 @@ This generated status is evidence only; see the [authoritative inventory](../../
 - Public raw API status: `canonical-public`
 - ABI validation: `pending`
 - Canonical Rust path: `slatec_sys::special::elementary::ddaws`
-- Compatibility aliases: `slatec_sys::families::special_elementary::ddaws`
 - Public declaration feature: `special-elementary`
 - `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)

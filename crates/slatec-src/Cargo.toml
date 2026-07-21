@@ -22,8 +22,6 @@ prebuilt = []
 source-build = []
 system = []
 external-backend = []
-# Deprecated compatibility alias for the offline source-build backend.
-bundled = ["source-build"]
 
 blas = ["blas-level1", "blas-level2", "blas-level3", "blas-complex"]
 blas-level1 = []

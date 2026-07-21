@@ -1,7 +1,7 @@
 //! Stable elementary helpers whose SLATEC implementations differ from a
 //! direct portable intrinsic in their intended small-argument behavior.
 
-use slatec_sys::families::special_elementary as raw;
+use slatec_sys::special::elementary as raw;
 
 use super::{SpecialFunctionError, runtime};
 

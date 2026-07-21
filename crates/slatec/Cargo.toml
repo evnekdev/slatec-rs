@@ -30,9 +30,6 @@ prebuilt = ["slatec-src/prebuilt"]
 source-build = ["slatec-src/source-build"]
 system = ["slatec-src/system"]
 external-backend = ["slatec-src/external-backend"]
-# Deprecated compatibility alias with one precise meaning: offline
-# `source-build`. It never performs network acquisition.
-bundled = ["source-build", "slatec-src/bundled"]
 
 blas = ["blas-level1", "blas-level2", "blas-level3"]
 blas-level1-validation = [
@@ -598,7 +595,8 @@ path = "examples/interpolation/bspline_interpolate_and_convert.rs"
 required-features = ["bspline", "piecewise-polynomial"]
 
 [[example]]
-name = "link_special_scalar_expanded"
+name = "link_special_scalar"
+path = "examples/link_special_scalar.rs"
 required-features = ["special-scalar-expanded"]
 
 [[example]]

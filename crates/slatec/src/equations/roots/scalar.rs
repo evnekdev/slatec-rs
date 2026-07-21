@@ -2,7 +2,7 @@
 //!
 //! # Status: Implemented
 //!
-//! Enable `roots-scalar`. The compatibility path is `crate::roots`.
+//! Enable `roots-scalar`.
 
 #[cfg(feature = "roots-scalar")]
 pub use crate::roots::*;
