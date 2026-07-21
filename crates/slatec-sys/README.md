@@ -21,14 +21,14 @@ checks every public function page for its applicable semantic contract, exact
 ABI arguments, Safety section, and direct Netlib source-file link. The
 companion M3 reports record the frozen baseline, final semantic status,
 source-first direction disagreements, contamination findings, status/workspace
-coverage, and deterministic review sample. The validated result is 812
+coverage, and deterministic review sample. The validated result is 814
 complete semantic contracts, with no unresolved direction conflict or detected
 argument contamination. Generated declaration modules remain implementation
 detail even when they carry that documentation.
 
 ## Canonical generated raw API
 
-The canonical surface contains 812 routines. Straightforward numerical
+The canonical surface contains 814 routines. Straightforward numerical
 interfaces are source-hash and compiler-ABI guarded; callback-bearing
 interfaces additionally carry source-reconstructed callback fingerprints; and
 complex, fixed `CHARACTER*1`, and `LOGICAL` interfaces use controlled GNU

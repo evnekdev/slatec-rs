@@ -1,0 +1,79 @@
+{
+  "policy": "Only SOS and DSOS are public drivers; SOSEQS, DSOSEQ, SOSSOL, and DSOSSL remain reviewed internal subsidiaries.",
+  "records": [
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::dsos",
+      "closure_status": "source_closure_complete",
+      "direct_callees": [
+        "DSOSEQ",
+        "XERMSG"
+      ],
+      "native_symbol": "dsos_",
+      "profile_override_dependencies": [
+        "I1MACH",
+        "D1MACH"
+      ],
+      "provider_feature": "nonlinear-systems",
+      "provider_source_paths": [
+        "src/xerhlt.f",
+        "src/soseqs.f",
+        "src/xgetua.f",
+        "src/xermsg.f",
+        "src/xercnt.f",
+        "src/fdump.f",
+        "src/dsos.f",
+        "src/sos.f",
+        "src/xersve.f",
+        "src/xerprn.f",
+        "src/sossol.f",
+        "src/dsossl.f",
+        "src/j4save.f",
+        "src/dsoseq.f"
+      ],
+      "reviewed_subsidiaries": [
+        "DSOSEQ",
+        "DSOSSL"
+      ],
+      "routine": "DSOS",
+      "source_hash": "94f0ed896c0c1614997134726a4b6adee658fea43d98fd0142bbab2df82f9e21"
+    },
+    {
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::sos",
+      "closure_status": "source_closure_complete",
+      "direct_callees": [
+        "SOSEQS",
+        "XERMSG"
+      ],
+      "native_symbol": "sos_",
+      "profile_override_dependencies": [
+        "I1MACH",
+        "R1MACH"
+      ],
+      "provider_feature": "nonlinear-systems",
+      "provider_source_paths": [
+        "src/xerhlt.f",
+        "src/soseqs.f",
+        "src/xgetua.f",
+        "src/xermsg.f",
+        "src/xercnt.f",
+        "src/fdump.f",
+        "src/dsos.f",
+        "src/sos.f",
+        "src/xersve.f",
+        "src/xerprn.f",
+        "src/sossol.f",
+        "src/dsossl.f",
+        "src/j4save.f",
+        "src/dsoseq.f"
+      ],
+      "reviewed_subsidiaries": [
+        "SOSEQS",
+        "SOSSOL"
+      ],
+      "routine": "SOS",
+      "source_hash": "30674f2d020dfae1fedeae3e7f1ed333f41e64a14036f1b3cbaa4452f9ae5e84"
+    }
+  ],
+  "schema_id": "slatec-sys.sos-dsos-call-closure",
+  "schema_version": "1.0.0"
+}

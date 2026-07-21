@@ -19,7 +19,7 @@ use std::process::Command;
 const DOC_START: &str = "<!-- release-readiness:start -->";
 const DOC_END: &str = "<!-- release-readiness:end -->";
 const RETAINED_IDENTITIES: usize = 1517;
-const PUBLIC_BEFORE: usize = 812;
+const PUBLIC_BEFORE: usize = 814;
 const DEVELOPMENT_ALIASES_BEFORE: usize = 666;
 const DEVELOPMENT_DEPRECATIONS_BEFORE: usize = 294;
 const MULTI_PATH_ROUTINES_BEFORE: usize = 572;
@@ -3100,6 +3100,13 @@ fn semantic_block(page: &RoutinePage<'_>) -> String {
 /// generated Rust source only includes this file; it does not duplicate an
 /// `extern` declaration or make a generated ABI-shaped namespace public.
 fn write_public_rustdoc_contract(directory: &Path, page: &RoutinePage<'_>) -> Result<()> {
+    if let Some(contract) = sos_dsos_rustdoc_contract(page) {
+        write_markdown(
+            &directory.join(format!("{}.md", page.routine.to_ascii_lowercase())),
+            &contract,
+        )?;
+        return Ok(());
+    }
     if let Some(contract) = dassl_rustdoc_contract(page) {
         write_markdown(
             &directory.join(format!("{}.md", page.routine.to_ascii_lowercase())),
@@ -3231,6 +3238,32 @@ fn rendered_status_rows(page: &RoutinePage<'_>) -> Vec<(String, String, String)>
         }
     }
     rows
+}
+
+/// Complete source-hash-guarded contract for the paired SOS drivers.
+/// The source evaluates one numbered scalar equation at a time and mutates
+/// the trial vector while estimating its Jacobian, so the callback and
+/// workspace rules must be visible on the public declaration.
+fn sos_dsos_rustdoc_contract(page: &RoutinePage<'_>) -> Option<String> {
+    let (precision, scalar, callback) = match page.routine {
+        "SOS" => ("single precision", "f32", "SosEquationF32"),
+        "DSOS" => ("double precision", "f64", "SosEquationF64"),
+        _ => return None,
+    };
+    let source_url = field(page.link, "exact_netlib_url");
+    let mut output = format!(
+        "# Purpose\n\nSolves a square system of nonlinear algebraic equations by a modified Newton method with a forward-difference Jacobian. This is the original {precision} SLATEC driver `{}`.\n\n# Description\n\n`{}` repeatedly evaluates the numbered equations through `FNC(X, K)`, forms or updates an upper-triangular linear system, and returns the current iterate and convergence status through mutable arguments. The selected, source-hash-verified prologue is [{}]({}).\n\n# Arguments\n\n",
+        page.routine, page.routine, page.routine, source_url
+    );
+    output.push_str(&format!(
+        "- `FNC`: required synchronous `{callback}` callback. It receives a readable length-`NEQ` current or finite-difference-perturbed iterate `X` and one-based integer `K` in `1..=NEQ`, and returns the `K`th equation value. It must not mutate or retain either pointer and must not unwind.\n- `NEQ`: input number of equations and unknowns; it must be positive.\n- `X`: mutable length-`NEQ` `{scalar}` solution vector. It supplies the initial estimate and is overwritten with the most recent iterate. During finite differences the native code temporarily changes components before calling `FNC`.\n- `RTOLX`: input nonnegative relative iterate tolerance. The increment criterion is `abs(X(I)-XOLD(I)) <= RTOLX*abs(X(I)) + ATOLX`.\n- `ATOLX`: input nonnegative absolute iterate tolerance. A positive value is useful when a solution component can be zero.\n- `TOLF`: input nonnegative residual tolerance. Residual convergence requires every equation residual to be no greater than `TOLF`; scale equations so this test is meaningful.\n- `IFLAG`: input/output control and status integer. Input `0` uses default controls; input `-1` reads optional controls from `IW(1..=2)`. On return it reports one of the status values below.\n- `RW`: mutable `{scalar}` workspace with at least `LRW` elements. The required minimum is `1 + 6*NEQ + NEQ*(NEQ + 1)/2`. `RW(1)` reports the residual norm on return.\n- `LRW`: input declared length of `RW`; it must meet the stated minimum.\n- `IW`: mutable integer workspace with at least `LIW` elements. `IW(1)=-1` requests iteration output when `IFLAG=-1`; `IW(2)` supplies a positive iteration limit in that mode; `IW(3)` reports the iteration count on return.\n- `LIW`: input declared length of `IW`; it must be at least `3 + NEQ`.\n\n# Return value\n\nThis Fortran subroutine has no direct return value. It returns the iterate, residual norm, iteration count, and termination state through `X`, `RW`, `IW`, and `IFLAG`.\n\n# Callback contract\n\n`FNC` is called synchronously, potentially many times and with finite-difference perturbations of `X`. `K` is one-based and identifies exactly the requested equation. The callback may only read the supplied `X` extent for the duration of the call; it must not retain pointers, panic, or unwind across the native boundary.\n\n# Status and error values\n\n| `IFLAG` | Meaning |\n| ---: | --- |\n| `1` | The iterate-increment test was satisfied. |\n| `2` | The residual test was satisfied. |\n| `3` | Both increment and residual tests were satisfied. |\n| `4` | Numerical precision was inadequate or convergence was too slow. |\n| `5` | The iteration limit was reached. |\n| `6` | The iteration limit was reached and the iteration was not converging. |\n| `7` | The iteration appeared to diverge. |\n| `8` | The Jacobian-related triangular system was singular or nearly singular. |\n| `9` | An input, optional-control, or workspace requirement was invalid. |\n\n# Workspace and array requirements\n\n`X` has exactly `NEQ` elements. `RW` has at least `1 + 6*NEQ + NEQ*(NEQ + 1)/2` elements and `IW` has at least `3 + NEQ` elements. The native routine mutates `X`, `RW`, and `IW`; preserve their allocation and do not create incompatible aliases.\n\n# ABI notes\n\n- Canonical Rust path: `{}`\n- Original SLATEC routine: `{}`\n- Native symbol: `{}`\n- Precision: {precision}\n- Supported ABI profile: `ffi-profile-gnu-mingw-x86_64`\n- Exact Netlib source file: [{}]({})\n\n# Safety\n\nEvery scalar pointer must be non-null, correctly aligned, and valid for the required read or write access. `X`, `RW`, and `IW` must satisfy the exact lengths above and must not alias in a way that violates Rust or the native routine's mutation assumptions. `FNC` must have the stated GNU Fortran scalar-function ABI, remain valid through the call, neither retain pointers nor unwind, and tolerate the source-documented temporary perturbations of `X`. The caller is responsible for serializing use of legacy native runtime state.\n",
+        field(page.final_record, "canonical_rust_path"),
+        page.routine,
+        field(page.final_record, "native_symbol"),
+        page.routine,
+        source_url,
+    ));
+    Some(output)
 }
 
 /// Complete, source-hash-guarded contract for the two reviewed DASSL drivers.

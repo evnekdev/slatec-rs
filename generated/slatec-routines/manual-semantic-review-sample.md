@@ -2151,6 +2151,13 @@ The deterministic sample contains three routines per family, every source-hash-g
 - Review result: `machine-semantic-audit-passed`
 - Arguments: `N` (input), `X` (input), `Y` (output), `NELT` (input), `IA` (input), `JA` (input), `A` (input), `ISYM` (input)
 
+## `DSOS`
+
+- Canonical path: `slatec_sys::nonlinear::systems::dsos`
+- Family: `Nonlinear equations`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `FNC` (callback), `NEQ` (input), `X` (output), `RTOLX` (input), `ATOLX` (input), `TOLF` (input), `IFLAG` (status-output), `RW` (input), `LRW` (input), `IW` (input), `LIW` (input)
+
 ## `DSPCO`
 
 - Canonical path: `slatec_sys::linear_algebra::packed::dspco`
@@ -3424,6 +3431,13 @@ The deterministic sample contains three routines per family, every source-hash-g
 - Family: `Dense linear algebra`
 - Review result: `machine-semantic-audit-passed`
 - Arguments: `N` (input), `B` (input), `X` (input-output), `NELT` (input), `IA` (input), `JA` (input), `A` (input), `ISYM` (input), `MATVEC` (callback), `MSOLVE` (callback), `NSAVE` (input), `ITOL` (input), `TOL` (input-output), `ITMAX` (input), `ITER` (output), `ERR` (output), `IERR` (output), `IUNIT` (input), `R` (workspace-output), `Z` (workspace-output), `P` (workspace-output), `AP` (workspace-output), `EMAP` (workspace-output), `DZ` (workspace-output), `CSAV` (workspace-output), `RWORK` (workspace-output), `IWORK` (workspace-output)
+
+## `SOS`
+
+- Canonical path: `slatec_sys::nonlinear::systems::sos`
+- Family: `Nonlinear equations`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `FNC` (callback), `NEQ` (input), `X` (output), `RTOLX` (input), `ATOLX` (input), `TOLF` (input), `IFLAG` (status-output), `RW` (input), `LRW` (input), `IW` (input), `LIW` (input)
 
 ## `SPBCO`
 

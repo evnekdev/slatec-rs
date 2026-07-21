@@ -18,3 +18,12 @@ fn fishpack_hwscrt_canonical_path_compiles() {
 fn fishpack_pois3d_canonical_path_compiles() {
     let _ = slatec_sys::pde::fishpack::pois3d;
 }
+
+#[cfg(feature = "nonlinear-systems")]
+#[test]
+fn nonlinear_systems_canonical_paths_compile() {
+    let _ = slatec_sys::nonlinear::systems::sos;
+    let _ = slatec_sys::nonlinear::systems::dsos;
+    let _: Option<slatec_sys::nonlinear::systems::SosEquationF32> = None;
+    let _: Option<slatec_sys::nonlinear::systems::SosEquationF64> = None;
+}

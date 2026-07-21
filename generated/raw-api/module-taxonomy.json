@@ -4537,9 +4537,9 @@
       "routine": "DSORT"
     },
     {
-      "intended_canonical_module": "nonlinear",
+      "intended_canonical_module": "nonlinear::systems",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DSOS"
     },
     {
@@ -7765,9 +7765,9 @@
       "routine": "SORTH"
     },
     {
-      "intended_canonical_module": "nonlinear",
+      "intended_canonical_module": "nonlinear::systems",
       "primary_family": "Nonlinear equations",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SOS"
     },
     {

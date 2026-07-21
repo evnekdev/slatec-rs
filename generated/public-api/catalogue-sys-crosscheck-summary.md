@@ -1,7 +1,7 @@
 # Catalogue-to-`slatec-sys` cross-check
 
 - Retained identities: 1517
-- Canonical public raw identities: 812
+- Canonical public raw identities: 814
 - Inconsistencies: 0
 - Result: `pass`
 

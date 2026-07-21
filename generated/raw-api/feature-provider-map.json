@@ -5267,8 +5267,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "nonlinear-systems",
+      "raw_declaration_feature": "nonlinear-systems",
       "routine": "DSOS",
       "safe_facade_feature": "not_assigned"
     },
@@ -9033,8 +9033,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "nonlinear-systems",
+      "raw_declaration_feature": "nonlinear-systems",
       "routine": "SOS",
       "safe_facade_feature": "not_assigned"
     },

@@ -1,5 +1,5 @@
 {
-  "canonical_public_routines": 812,
+  "canonical_public_routines": 814,
   "records": [
     {
       "abi_fingerprint": "function:f32(mut_f32)",
@@ -5546,6 +5546,18 @@
       "routine": "DSMV"
     },
     {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::dsos",
+      "documentation_page": "docs/reference/routines/dsos.md",
+      "family": "Nonlinear equations",
+      "feature": "nonlinear-systems",
+      "native_symbol": "dsos_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/dsos.f",
+      "provider": "full-provider-c7940f9631450261",
+      "provider_feature": "nonlinear-systems",
+      "routine": "DSOS"
+    },
+    {
       "abi_fingerprint": "subroutine:void(mut_f64_ptr_rank1,mut_i32,mut_i32_ptr_rank1,mut_f64,mut_f64_ptr_rank1)",
       "canonical_rust_path": "slatec_sys::linear_algebra::packed::dspco",
       "documentation_page": "docs/reference/routines/dspco.md",
@@ -8388,6 +8400,18 @@
       "provider": "full-provider-06b7442680e1e0e0",
       "provider_feature": "linear-algebra",
       "routine": "SOMN"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::nonlinear::systems::sos",
+      "documentation_page": "docs/reference/routines/sos.md",
+      "family": "Nonlinear equations",
+      "feature": "nonlinear-systems",
+      "native_symbol": "sos_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/sos.f",
+      "provider": "full-provider-9cf0accfaa43bb5a",
+      "provider_feature": "nonlinear-systems",
+      "routine": "SOS"
     },
     {
       "abi_fingerprint": "subroutine:void(mut_f32_ptr_rank2,mut_i32,mut_i32,mut_i32,mut_f32,mut_f32_ptr_rank1,mut_i32)",

@@ -61,6 +61,7 @@ use slatec_tools::safe_pois3d;
 use slatec_tools::safe_quadrature;
 use slatec_tools::safe_roots;
 use slatec_tools::safe_special;
+use slatec_tools::sos_dsos_api;
 use std::path::PathBuf;
 
 #[derive(Debug)]
@@ -168,6 +169,8 @@ fn run() -> Result<()> {
             | "generate-public-surface-audit"
             | "validate-public-surface-terminology"
             | "validate-package-contents"
+            | "generate-sos-dsos-evidence"
+            | "validate-sos-dsos-evidence"
             | "validate-eol"
             | "release-check"
             | "validate-registry-simulation"
@@ -1303,6 +1306,20 @@ fn run() -> Result<()> {
             println!("success: agent guidance validation passed");
             Ok(())
         }
+        "generate-sos-dsos-evidence" | "validate-sos-dsos-evidence" => {
+            let root = PathBuf::from(".");
+            let result = if options.command == "generate-sos-dsos-evidence" {
+                sos_dsos_api::generate(&root, &options.output_dir)?
+            } else {
+                sos_dsos_api::validate(&root, &options.output_dir)?
+            };
+            println!(
+                "success: SOS/DSOS focused evidence in {} ({})",
+                result.output_dir.display(),
+                result.semantic_hash
+            );
+            Ok(())
+        }
         "generate-linkage-metadata" => {
             let result = linkage::generate(
                 &PathBuf::from("."),
@@ -1333,7 +1350,7 @@ fn run() -> Result<()> {
             Ok(())
         }
         _ => Err(CorpusError::Policy(format!(
-            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, generate-routine-catalogue, select-full-corpus, scan-ffi-inventory, probe-native-ffi, generate-raw-ffi, build-native-ffi, validate-raw-ffi, validate-runtime-profile, generate-raw-batch-a, validate-raw-batch-a, generate-raw-batch-b, validate-raw-batch-b, generate-raw-batch-c, validate-raw-batch-c, generate-raw-api-inventory, validate-raw-api-inventory, generate-final-raw-api-disposition, validate-final-raw-api-disposition, generate-all-feature-coverage, validate-all-feature-coverage, generate-public-api-semantic-review, validate-public-api-semantic-review, generate-semantic-documentation-quality, validate-semantic-documentation-quality, generate-rendered-rustdoc-audit, validate-rendered-rustdoc-audit, generate-safe-special-api, generate-safe-quadrature-api, generate-safe-roots-api, generate-safe-nonlinear-api, generate-safe-nonlinear-expert-api, generate-safe-least-squares-api, generate-safe-linear-least-squares-api, generate-safe-lp-in-memory-metadata, generate-safe-fftpack-metadata, generate-safe-fishpack-cartesian-2d-metadata, generate-safe-fishpack-pois3d-metadata, generate-safe-bspline-metadata, generate-safe-piecewise-polynomial-metadata, generate-safe-ode-sdrive-metadata, generate-safe-dassl-metadata, generate-optimization-audit, generate-ode-audit, generate-safe-bounded-linear-least-squares-api, generate-safe-bounded-constrained-linear-least-squares-api, generate-safe-constrained-linear-least-squares-api, generate-safe-api-docs, generate-runtime-storage-policy, generate-blas1-concurrency-audit, generate-native-origin-audit, generate-native-link-audit, validate-native-link-audit, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
+            "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, raw API and semantic generators, generate-sos-dsos-evidence, validate-sos-dsos-evidence, generate-linkage-metadata, acquire-provider-sources, or generate-provider-metadata",
             options.command
         ))),
     }
@@ -1420,7 +1437,7 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <...|generate-native-link-audit|validate-native-link-audit|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <...|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-native-link-audit|validate-native-link-audit|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
 }
 
 fn source_cache_dir(options: &Options) -> Result<PathBuf> {
