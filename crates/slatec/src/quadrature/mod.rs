@@ -11,6 +11,15 @@
 
 #[cfg(feature = "quadrature-basic")]
 mod adaptive;
+#[cfg(any(
+    feature = "quadrature-basic",
+    feature = "quadrature-breakpoints",
+    feature = "quadrature-weighted",
+    feature = "quadrature-oscillatory",
+    feature = "quadrature-fourier",
+    feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial"
+))]
 mod callback;
 mod error;
 #[cfg(any(
@@ -23,6 +32,8 @@ mod error;
 mod extended;
 #[cfg(feature = "quadrature-piecewise-polynomial")]
 mod piecewise_polynomial;
+#[cfg(feature = "tabulated-data")]
+mod tabulated;
 mod validation;
 
 #[cfg(feature = "quadrature-basic")]
@@ -48,6 +59,8 @@ pub use extended::{integrate_with_breakpoints, integrate_with_breakpoints_f32};
 pub use piecewise_polynomial::{
     PiecewiseQuadratureResult, PiecewiseQuadratureStatus, integrate_piecewise_polynomial,
 };
+#[cfg(feature = "tabulated-data")]
+pub use tabulated::{integrate_tabulated, integrate_tabulated_f32};
 
 /// Gauss-Kronrod rule used by QAG/DQAG finite-interval integration.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

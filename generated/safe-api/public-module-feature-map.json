@@ -306,6 +306,13 @@
         "interpolation::piecewise_polynomial"
       ],
       "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
+      "cargo_feature": "tabulated-data",
+      "grouped_paths": [
+        "interpolation::tabulated"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
     }
   ]
 }

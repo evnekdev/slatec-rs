@@ -5,6 +5,16 @@
 //! still unsafe: callers must uphold callback lifetime, workspace, pointer,
 //! status, and process-global runtime invariants.
 
+#[cfg(any(
+    feature = "raw-ffi-quadrature",
+    feature = "raw-family-quadrature-basic",
+    feature = "raw-family-quadrature-breakpoints",
+    feature = "raw-family-quadrature-weighted",
+    feature = "raw-family-quadrature-oscillatory",
+    feature = "raw-family-quadrature-fourier",
+    feature = "raw-family-quadrature-nonadaptive",
+    feature = "raw-family-quadrature-callbacks"
+))]
 use crate::FortranInteger;
 
 /// GNU Fortran scalar integrand callback for double precision.

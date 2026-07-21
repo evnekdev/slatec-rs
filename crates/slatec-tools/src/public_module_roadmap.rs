@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 253;
+const SAFE_FUNCTION_TARGET: usize = 259;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -54,6 +54,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "pchip",
     "bspline",
     "piecewise-polynomial",
+    "tabulated-data",
 ];
 const FROZEN_HIGH_LEVEL_PATHS: &[&str] = &[
     "roadmap",
@@ -927,6 +928,21 @@ fn leaves() -> Vec<LeafSpec> {
             "PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred.",
             "Audit one additional representation conversion only after its native contract and storage semantics are complete."
         ),
+        implemented!(
+            "interpolation::tabulated",
+            "crates/slatec/src/interpolation/tabulated.rs",
+            "tabulated-data",
+            "crate::interpolation::tabulated",
+            "none",
+            "tabulated-data",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            &[
+                "slatec::interpolation::tabulated::",
+                "slatec::quadrature::integrate_tabulated"
+            ]
+        ),
         planned!(
             "interpolation::divided_differences",
             "crates/slatec/src/interpolation/divided_differences.rs",
@@ -1172,6 +1188,11 @@ fn features() -> Vec<FeatureRecord> {
             grouped_paths: &["interpolation::piecewise_polynomial"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
+        FeatureRecord {
+            cargo_feature: "tabulated-data",
+            grouped_paths: &["interpolation::tabulated"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
     ]
 }
 
@@ -1210,7 +1231,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 193),
+            ("std".to_owned(), 199),
         ])
     {
         return Err(policy(

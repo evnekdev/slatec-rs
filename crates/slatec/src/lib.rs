@@ -70,6 +70,8 @@ compile_error!("the `pchip` safe API requires the `std` feature");
 compile_error!("the `bspline` safe API requires the `std` feature");
 #[cfg(all(feature = "piecewise-polynomial", not(feature = "std")))]
 compile_error!("the `piecewise-polynomial` safe API requires the `std` feature");
+#[cfg(all(feature = "tabulated-data", not(feature = "std")))]
+compile_error!("the `tabulated-data` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -147,7 +149,8 @@ pub mod polynomials;
     feature = "banded-linear-systems",
     feature = "pchip",
     feature = "bspline",
-    feature = "piecewise-polynomial"
+    feature = "piecewise-polynomial",
+    feature = "tabulated-data"
 ))]
 pub(crate) mod runtime;
 
@@ -274,7 +277,8 @@ mod callback_runtime;
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
-    feature = "quadrature-piecewise-polynomial"
+    feature = "quadrature-piecewise-polynomial",
+    feature = "tabulated-data"
 ))]
 pub mod quadrature;
 

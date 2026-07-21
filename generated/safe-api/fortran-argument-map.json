@@ -4034,6 +4034,342 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate",
+      "fortran_routine": "POLYVL",
+      "program_unit_id": "full-provider-4a366815ded92362",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate",
+      "fortran_routine": "DPOLVL",
+      "program_unit_id": "full-provider-948751cd59642506",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives",
+      "fortran_routine": "POLYVL",
+      "program_unit_id": "full-provider-4a366815ded92362",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives",
+      "fortran_routine": "DPOLVL",
+      "program_unit_id": "full-provider-948751cd59642506",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at",
+      "fortran_routine": "POLCOF",
+      "program_unit_id": "full-provider-71912fb047f461aa",
+      "arguments": [
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "D",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at",
+      "fortran_routine": "DPOLCF",
+      "program_unit_id": "full-provider-42defe5138c21f79",
+      "arguments": [
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "D",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial",
+      "fortran_routine": "POLINT",
+      "program_unit_id": "full-provider-eb2819e95b5e453b",
+      "arguments": [
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial",
+      "fortran_routine": "DPLINT",
+      "program_unit_id": "full-provider-2d9735a949e0ffaf",
+      "arguments": [
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::least_squares::covariance_from_expert_fit",
       "fortran_routine": "DCOV",
       "program_unit_id": "full-provider-ac51f11e9b483b2c",
@@ -8878,6 +9214,90 @@
         {
           "rust": null,
           "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_tabulated",
+      "fortran_routine": "DAVINT",
+      "program_unit_id": "full-provider-ec1e5d56349e8a09",
+      "arguments": [
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval start",
+          "fortran": "XLO",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval end",
+          "fortran": "XUP",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "ANS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_tabulated_f32",
+      "fortran_routine": "AVINT",
+      "program_unit_id": "full-provider-7b8a7bf4eaebcaa7",
+      "arguments": [
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval start",
+          "fortran": "XLO",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval end",
+          "fortran": "XUP",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "ANS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
           "transformation": "internal"
         }
       ]

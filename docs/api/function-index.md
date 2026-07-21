@@ -100,6 +100,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP Taylor evaluation](../../examples/piecewise_polynomial/from_pieces.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | batch-evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP batch evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` | `PPQAD` | piecewise-polynomial interpolation | f32/f64 | integrate a piecewise polynomial exactly | `std` | `piecewise-polynomial` | [exact PP definite integration](../../examples/piecewise_polynomial/integrate.rs) |
+| `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate` | `POLYVL/DPOLVL` | tabulated data | f32/f64 | evaluate a global Newton interpolation polynomial | `std` | `tabulated-data` | [evaluate global Newton interpolation polynomial](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives` | `POLYVL/DPOLVL` | tabulated data | f32/f64 | evaluate a global Newton interpolation polynomial and its first derivatives | `std` | `tabulated-data` | [evaluate global Newton interpolation polynomial and first derivatives](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at` | `POLCOF/DPOLCF` | tabulated data | f32/f64 | derive global polynomial Taylor coefficients about a finite centre | `std` | `tabulated-data` | [derive Taylor coefficients about a finite centre](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial` | `POLINT/DPLINT` | tabulated data | f32/f64 | construct a global Newton interpolation polynomial from checked samples | `std` | `tabulated-data` | [construct global Newton interpolation polynomial](../../examples/interpolation/tabulated_data.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -162,6 +166,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::quadrature::integrate_principal_value_f32` | `QAWC` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_singular` | `DQAGS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_singular_f32` | `QAGS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_tabulated` | `DAVINT` | tabulated data | f64 | integrate arbitrarily spaced tabulated values by overlapping parabolas | `std` | `tabulated-data` | [integrate arbitrarily spaced tabulated values](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::quadrature::integrate_tabulated_f32` | `AVINT` | tabulated data | f32 | integrate arbitrarily spaced tabulated values by overlapping parabolas | `std` | `tabulated-data` | [integrate arbitrarily spaced tabulated values](../../examples/interpolation/tabulated_data.rs) |
 | `slatec::quadrature::integrate_weighted_endpoints` | `DQAWS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_weighted_endpoints_f32` | `QAWS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_with_breakpoints` | `DQAGP` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
@@ -268,6 +274,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `ALI` -> `slatec::special::scalar_expanded::logarithmic_integral_f32`
 - `ALNGAM` -> `slatec::special::gamma::log_gamma_f32`
 - `ALNREL` -> `slatec::special::elementary::log1p_f32`
+- `AVINT` -> `slatec::quadrature::integrate_tabulated_f32`
 - `BESI0` -> `slatec::special::bessel::bessel_i0_f32`
 - `BESI0E` -> `slatec::special::bessel::bessel_i0_scaled_f32`
 - `BESI1` -> `slatec::special::bessel::bessel_i1_f32`
@@ -309,6 +316,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DAIE` -> `slatec::special::airy::airy_ai_scaled`
 - `DASUM` -> `slatec::blas::level1::dasum`
 - `DASUM` -> `slatec::blas::level1::dasum_strided`
+- `DAVINT` -> `slatec::quadrature::integrate_tabulated`
 - `DAWS` -> `slatec::special::elementary::dawson_f32`
 - `DAXPY` -> `slatec::blas::level1::daxpy`
 - `DAXPY` -> `slatec::blas::level1::daxpy_strided`
@@ -439,6 +447,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `PCHIM` -> `slatec::pchip::PiecewiseCubicHermite::monotone`
 - `PCHSP` -> `slatec::pchip::PiecewiseCubicHermite::spline`
 - `POIS3D` -> `slatec::differential_equations::pde::Pois3dProblem::solve`
+- `POLCOF/DPOLCF` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at`
+- `POLINT/DPLINT` -> `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial`
+- `POLYVL/DPOLVL` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate`
+- `POLYVL/DPOLVL` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives`
 - `PPQAD` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
@@ -801,6 +813,15 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` — batch-evaluate a right-Taylor piecewise polynomial
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` — integrate a piecewise polynomial exactly
 
+### tabulated data
+
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate` — evaluate a global Newton interpolation polynomial
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives` — evaluate a global Newton interpolation polynomial and its first derivatives
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at` — derive global polynomial Taylor coefficients about a finite centre
+- `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial` — construct a global Newton interpolation polynomial from checked samples
+- `slatec::quadrature::integrate_tabulated` — integrate arbitrarily spaced tabulated values by overlapping parabolas
+- `slatec::quadrature::integrate_tabulated_f32` — integrate arbitrarily spaced tabulated values by overlapping parabolas
+
 ### Cartesian FISHPACK PDE
 
 - `slatec::differential_equations::pde::CartesianHelmholtz2d::solve` — checked owned Cartesian Poisson/Helmholtz finite-difference solve
@@ -911,6 +932,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate`
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives`
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at`
+- `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`
@@ -971,6 +996,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_principal_value_f32`
 - `slatec::quadrature::integrate_singular`
 - `slatec::quadrature::integrate_singular_f32`
+- `slatec::quadrature::integrate_tabulated`
+- `slatec::quadrature::integrate_tabulated_f32`
 - `slatec::quadrature::integrate_weighted_endpoints`
 - `slatec::quadrature::integrate_weighted_endpoints_f32`
 - `slatec::quadrature::integrate_with_breakpoints`

@@ -546,6 +546,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/tabulated-data-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "tabulated data",
+                column(row, columns, "precision")?,
+                column(row, columns, "mathematical_operation")?,
+                "std",
+                "tabulated-data",
+            ))
+        },
+    )?;
     for (path, routine, family) in [
         (
             "slatec::fftpack::RealFftPlan::new",
@@ -852,6 +867,9 @@ fn record(
         "quadrature" if path.contains("integrate_piecewise_polynomial") => {
             "examples/quadrature/piecewise_polynomial.rs".to_owned()
         }
+        "quadrature" if path.contains("integrate_tabulated") => {
+            "examples/interpolation/tabulated_data.rs".to_owned()
+        }
         "quadrature" => "examples/quadrature/families.rs".to_owned(),
         "roots" => "examples/roots/scalar.rs".to_owned(),
         "nonlinear" if path.contains("solve_scalar_equations") => {
@@ -980,6 +998,7 @@ fn record(
         "piecewise-polynomial interpolation" => {
             "examples/piecewise_polynomial/from_pieces.rs".to_owned()
         }
+        "tabulated data" => "examples/interpolation/tabulated_data.rs".to_owned(),
         "special functions" if path.contains("scalar_expanded") && path.contains("carlson_") => {
             "examples/special/elliptic.rs".to_owned()
         }
@@ -1013,7 +1032,11 @@ fn record(
 fn documentation_url(module: &str, name: &str) -> String {
     let module = module.split("::<").next().unwrap_or(module);
     if let Some((parent, type_name)) = module.rsplit_once("::") {
-        if type_name.starts_with("Driv") || type_name.starts_with("ComplexDriv") {
+        if type_name
+            .chars()
+            .next()
+            .is_some_and(|character| character.is_ascii_uppercase())
+        {
             return format!(
                 "https://docs.rs/slatec/latest/slatec/{}/struct.{type_name}.html#method.{name}",
                 parent.trim_start_matches("slatec::").replace("::", "/")
@@ -1056,14 +1079,16 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
     }
     functions
         .iter()
-        .map(|function| {
-            let (program_unit_id, ids) =
-                by_name.get(&function.fortran_routine).ok_or_else(|| {
-                    policy(&format!(
-                        "missing interface for {}",
-                        function.fortran_routine
-                    ))
-                })?;
+        .flat_map(|function| {
+            function
+                .fortran_routine
+                .split('/')
+                .map(move |routine| (function, routine))
+        })
+        .map(|(function, routine)| {
+            let (program_unit_id, ids) = by_name
+                .get(routine)
+                .ok_or_else(|| policy(&format!("missing interface for {routine}")))?;
             let arguments = ids
                 .iter()
                 .filter_map(|id| by_id.get(id))
@@ -1071,7 +1096,7 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
                 .collect();
             Ok(MappingRecord {
                 rust_path: function.rust_path.clone(),
-                fortran_routine: function.fortran_routine.clone(),
+                fortran_routine: routine.to_owned(),
                 program_unit_id: program_unit_id.clone(),
                 arguments,
             })
@@ -1095,6 +1120,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let jacobian_check = function.rust_path.contains("check_jacobian");
     let bspline_constructor = function.domain == "B-spline interpolation"
         && function.rust_path.contains("interpolate_with_knots");
+    let tabulated = function.domain == "tabulated data";
     let internal_argument = (internal.contains(&upper.as_str())
         || (fishpack
             && matches!(
@@ -1109,6 +1135,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         || (bspline_constructor && matches!(upper.as_str(), "N" | "BCOEF" | "Q"))
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
+        || (tabulated && matches!(upper.as_str(), "C" | "D" | "YFIT" | "YP" | "ANS" | "IERR"))
         || (jacobian_check && upper == "FVEC"))
         && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
         && !(function.domain == "linear least squares" && upper == "MODE")
@@ -1120,6 +1147,16 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         None
     } else {
         Some(match upper.as_str() {
+            "X" if tabulated => {
+                "checked owned sample abscissas or the interpolant's retained abscissas"
+                    .to_owned()
+            }
+            "Y" if tabulated => "checked owned sample values".to_owned(),
+            "N" if tabulated => "data.sample_count".to_owned(),
+            "NDER" if tabulated => "derivative_count".to_owned(),
+            "XX" if tabulated => "finite evaluation or Taylor-expansion point".to_owned(),
+            "XLO" if tabulated => "interval start".to_owned(),
+            "XUP" if tabulated => "interval end".to_owned(),
             "L" if pois3d => "problem.rhs.nx".to_owned(),
             "M" if pois3d => "problem.rhs.ny".to_owned(),
             "N" if pois3d => "problem.rhs.nz".to_owned(),
@@ -1456,6 +1493,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "banded linear systems",
         "piecewise cubic Hermite interpolation",
         "piecewise-polynomial interpolation",
+        "tabulated data",
         "Cartesian FISHPACK PDE",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
@@ -1563,6 +1601,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "piecewise-polynomial interpolation" => {
             "crates/slatec/tests/piecewise_polynomial_native.rs"
         }
+        "tabulated data" => "crates/slatec/tests/tabulated_data_native.rs",
         "Cartesian FISHPACK PDE" => "crates/slatec/tests/fishpack_cartesian_2d_native.rs",
         "Structured FISHPACK PDE" => "crates/slatec/tests/fishpack_pois3d_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
@@ -1628,6 +1667,7 @@ fn native_status(record: &FunctionRecord) -> &'static str {
         | "complex FFTPACK"
         | "piecewise cubic Hermite interpolation"
         | "piecewise-polynomial interpolation"
+        | "tabulated data"
         | "Cartesian FISHPACK PDE"
         | "special functions"
         | "polynomials" => "native_execution_passed",
@@ -1745,6 +1785,21 @@ fn purpose(family: &str) -> &'static str {
         "exact B-spline to PP conversion" => {
             "convert a B-spline exactly to piecewise-polynomial form"
         }
+        "construct global Newton interpolation polynomial" => {
+            "construct a global Newton interpolation polynomial from checked samples"
+        }
+        "evaluate global Newton interpolation polynomial" => {
+            "evaluate a global Newton interpolation polynomial"
+        }
+        "evaluate global Newton interpolation polynomial and first derivatives" => {
+            "evaluate a global Newton interpolation polynomial and its first derivatives"
+        }
+        "derive Taylor coefficients about a finite centre" => {
+            "derive global polynomial Taylor coefficients about a finite centre"
+        }
+        "integrate arbitrarily spaced tabulated values" => {
+            "integrate arbitrarily spaced tabulated values by overlapping parabolas"
+        }
         "finite" => "adaptive finite-interval integration",
         "FnMut(f64)->f64" => "piecewise-polynomial weighted quadrature",
         "infinite" => "adaptive infinite-interval integration",
@@ -1771,6 +1826,7 @@ fn workspace_path(path: impl AsRef<Path>) -> PathBuf {
         .join("../..")
         .join(path)
 }
+
 fn array<'a>(value: &'a Value, field: &str) -> Result<&'a Vec<Value>> {
     value[field].as_array().ok_or_else(|| policy(field))
 }

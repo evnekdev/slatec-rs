@@ -118,6 +118,14 @@ increasing and never reordered; native extrapolation is not used. PCHIP and
 PP-to-B-spline conversion remain deferred. See the
 [piecewise-polynomial guide](../../docs/api/safe-piecewise-polynomial.md).
 
+The hosted `tabulated-data` feature provides `TabulatedData<f32>` and
+`TabulatedData<f64>` for finite, strictly increasing sampled data. It creates
+private Newton polynomial representations with `POLINT`/`DPLINT`, evaluates
+values and derivatives with `POLYVL`/`DPOLVL`, derives Taylor coefficients
+with `POLCOF`/`DPOLCF`, and integrates arbitrary-spacing samples with
+`AVINT`/`DAVINT`. It has no callback, caller-owned workspace, or implicit
+sorting policy. See the [tabulated-data guide](../../docs/api/safe-tabulated-data.md).
+
 The hosted `special-scalar-expanded` feature provides real scalar
 logarithmic/Spence integrals and Carlson symmetric elliptic integrals in both
 precisions. It has no caller workspace or external numerical dependency;
