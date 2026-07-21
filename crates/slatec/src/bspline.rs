@@ -82,6 +82,11 @@ pub enum BSplineError {
         /// Requested B-spline order.
         order: usize,
     },
+    /// Cubic `BINT4`/`DBINT4` interpolation needs at least two data points.
+    TooFewCubicInterpolationPoints {
+        /// Number of supplied interpolation points.
+        points: usize,
+    },
     /// An interpolation abscissa was NaN or infinite.
     NonFiniteInterpolationNode {
         /// Zero-based position of the invalid abscissa.
@@ -120,6 +125,11 @@ pub enum BSplineError {
     DimensionOverflow,
     /// A fallible allocation for private native work storage failed.
     AllocationFailed,
+    /// A prescribed cubic endpoint derivative was NaN or infinite.
+    NonFiniteCubicBoundaryCondition,
+    /// Explicit cubic exterior knots were not finite, nondecreasing on their
+    /// own side, or strictly exterior to the interpolation domain.
+    InvalidCubicExteriorKnots,
     /// Native behavior contradicted the reviewed B-spline contract.
     NativeContractViolation {
         /// A short explanation of the impossible native behavior.
@@ -138,6 +148,34 @@ pub enum Extrapolation {
     /// below the domain uses the left endpoint and a query above it uses the
     /// right endpoint.
     Clamp,
+}
+
+/// A source-accurate endpoint condition for `BINT4`/`DBINT4` cubic interpolation.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum CubicBoundaryCondition<T> {
+    /// Constrains the first derivative at the corresponding endpoint.
+    FirstDerivative(T),
+    /// Constrains the second derivative at the corresponding endpoint.
+    SecondDerivative(T),
+}
+
+/// Exterior-knot policy for `BINT4`/`DBINT4` cubic interpolation.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum CubicKnotPlacement<T> {
+    /// Repeats each endpoint four times. This is the source's `KNTOPT = 1`
+    /// choice and is suitable when extrapolation is not anticipated.
+    EndpointMultiplicity,
+    /// Uses the source's symmetric exterior-knot construction (`KNTOPT = 2`).
+    SymmetricExtension,
+    /// Supplies the three nondecreasing knots strictly to the left of the
+    /// first node and the three nondecreasing knots strictly to the right of
+    /// the last node (`KNTOPT = 3`).
+    Explicit {
+        /// Exterior knots left of the first interpolation node.
+        left: [T; 3],
+        /// Exterior knots right of the last interpolation node.
+        right: [T; 3],
+    },
 }
 
 /// An owned univariate scalar B-spline in the exact reviewed SLATEC storage format.
@@ -265,6 +303,30 @@ trait BSplineScalar: sealed::Sealed + Copy + Default + PartialOrd {
         workspace: *mut Self,
     );
 
+    /// Calls `BINT4` or `DBINT4`.
+    ///
+    /// # Safety
+    ///
+    /// Every pointer must satisfy the complete reviewed cubic-constructor
+    /// contract.
+    #[cfg(feature = "bspline-cubic-interpolation")]
+    #[allow(clippy::too_many_arguments)]
+    unsafe fn interpolate_cubic_native(
+        nodes: *const Self,
+        values: *const Self,
+        point_count: &mut FortranInteger,
+        left_boundary_kind: &mut FortranInteger,
+        right_boundary_kind: &mut FortranInteger,
+        left_boundary_value: &mut Self,
+        right_boundary_value: &mut Self,
+        knot_placement: &mut FortranInteger,
+        knots: *mut Self,
+        coefficients: *mut Self,
+        coefficient_count: &mut FortranInteger,
+        order: &mut FortranInteger,
+        workspace: *mut Self,
+    );
+
     /// Returns whether a native interpolation result reproduces one ordinate
     /// within a scale-aware, precision-specific audit tolerance.
     fn interpolation_matches(
@@ -350,6 +412,42 @@ impl BSplineScalar for f32 {
                 order,
                 coefficients,
                 factorization,
+                workspace,
+            )
+        }
+    }
+
+    #[cfg(feature = "bspline-cubic-interpolation")]
+    unsafe fn interpolate_cubic_native(
+        nodes: *const Self,
+        values: *const Self,
+        point_count: &mut FortranInteger,
+        left_boundary_kind: &mut FortranInteger,
+        right_boundary_kind: &mut FortranInteger,
+        left_boundary_value: &mut Self,
+        right_boundary_value: &mut Self,
+        knot_placement: &mut FortranInteger,
+        knots: *mut Self,
+        coefficients: *mut Self,
+        coefficient_count: &mut FortranInteger,
+        order: &mut FortranInteger,
+        workspace: *mut Self,
+    ) {
+        // SAFETY: upheld by this trait's safety contract.
+        unsafe {
+            slatec_sys::interpolation::bint4(
+                nodes.cast_mut(),
+                values.cast_mut(),
+                point_count,
+                left_boundary_kind,
+                right_boundary_kind,
+                left_boundary_value,
+                right_boundary_value,
+                knot_placement,
+                knots,
+                coefficients,
+                coefficient_count,
+                order,
                 workspace,
             )
         }
@@ -447,6 +545,42 @@ impl BSplineScalar for f64 {
         }
     }
 
+    #[cfg(feature = "bspline-cubic-interpolation")]
+    unsafe fn interpolate_cubic_native(
+        nodes: *const Self,
+        values: *const Self,
+        point_count: &mut FortranInteger,
+        left_boundary_kind: &mut FortranInteger,
+        right_boundary_kind: &mut FortranInteger,
+        left_boundary_value: &mut Self,
+        right_boundary_value: &mut Self,
+        knot_placement: &mut FortranInteger,
+        knots: *mut Self,
+        coefficients: *mut Self,
+        coefficient_count: &mut FortranInteger,
+        order: &mut FortranInteger,
+        workspace: *mut Self,
+    ) {
+        // SAFETY: upheld by this trait's safety contract.
+        unsafe {
+            slatec_sys::interpolation::dbint4(
+                nodes.cast_mut(),
+                values.cast_mut(),
+                point_count,
+                left_boundary_kind,
+                right_boundary_kind,
+                left_boundary_value,
+                right_boundary_value,
+                knot_placement,
+                knots,
+                coefficients,
+                coefficient_count,
+                order,
+                workspace,
+            )
+        }
+    }
+
     fn interpolation_matches(
         expected: Self,
         actual: Self,
@@ -522,6 +656,82 @@ impl<T: BSplineScalar> BSpline<T> {
         for (&node, &value) in nodes.iter().zip(values) {
             let actual = spline.evaluate_impl(node)?;
             if !T::interpolation_matches(value, actual, nodes.len(), order) {
+                return Err(BSplineError::SingularInterpolationSystem);
+            }
+        }
+        Ok(spline)
+    }
+
+    #[cfg(feature = "bspline-cubic-interpolation")]
+    fn interpolate_cubic_impl(
+        nodes: &[T],
+        values: &[T],
+        left_boundary: CubicBoundaryCondition<T>,
+        right_boundary: CubicBoundaryCondition<T>,
+        placement: CubicKnotPlacement<T>,
+    ) -> Result<Self, BSplineError> {
+        validate_cubic_interpolation_input(nodes, values, placement)?;
+        let mut point_count = native_len(nodes.len())?;
+        let (mut left_boundary_kind, mut left_boundary_value) = cubic_boundary(left_boundary)?;
+        let (mut right_boundary_kind, mut right_boundary_value) = cubic_boundary(right_boundary)?;
+        let mut knot_placement = cubic_knot_placement(placement);
+        let expected_coefficients = nodes
+            .len()
+            .checked_add(2)
+            .ok_or(BSplineError::DimensionOverflow)?;
+        let expected_knots = expected_coefficients
+            .checked_add(4)
+            .ok_or(BSplineError::DimensionOverflow)?;
+        let mut knots = zeroed(expected_knots)?;
+        let mut coefficients = zeroed(expected_coefficients)?;
+        let mut coefficient_count = native_len(expected_coefficients)?;
+        let mut order = 0;
+        let mut workspace = zeroed(cubic_workspace_len(nodes.len())?)?;
+        if let CubicKnotPlacement::Explicit { left, right } = placement {
+            workspace[..3].copy_from_slice(&left);
+            workspace[3..6].copy_from_slice(&right);
+        }
+        {
+            let _native = lock_native();
+            let _xerror = permit_recoverable_native_statuses();
+            // SAFETY: preflight establishes BINT4/DBINT4's source contract:
+            // NDATA >= 2; finite strictly increasing nodes and finite values;
+            // checked finite boundary data; a valid knot policy; T[NDATA+6],
+            // BCOEF[NDATA+2], and Fortran-column-major W[5*(NDATA+2)]. All
+            // arrays are private and remain live across the native call.
+            unsafe {
+                T::interpolate_cubic_native(
+                    nodes.as_ptr(),
+                    values.as_ptr(),
+                    &mut point_count,
+                    &mut left_boundary_kind,
+                    &mut right_boundary_kind,
+                    &mut left_boundary_value,
+                    &mut right_boundary_value,
+                    &mut knot_placement,
+                    knots.as_mut_ptr(),
+                    coefficients.as_mut_ptr(),
+                    &mut coefficient_count,
+                    &mut order,
+                    workspace.as_mut_ptr(),
+                );
+            }
+        }
+        if coefficient_count != native_len(expected_coefficients)? || order != 4 {
+            return Err(BSplineError::NativeContractViolation {
+                detail: "BINT4 returned an unexpected cubic B-spline shape",
+            });
+        }
+        if coefficients
+            .iter()
+            .any(|&coefficient| !coefficient.finite())
+        {
+            return Err(BSplineError::SingularInterpolationSystem);
+        }
+        let spline = Self::from_parts_impl(knots, coefficients, 4)?;
+        for (&node, &value) in nodes.iter().zip(values) {
+            let actual = spline.evaluate_impl(node)?;
+            if !T::interpolation_matches(value, actual, nodes.len(), 4) {
                 return Err(BSplineError::SingularInterpolationSystem);
             }
         }
@@ -734,6 +944,40 @@ macro_rules! impl_public_bspline_precision {
                 order: usize,
             ) -> Result<Self, BSplineError> {
                 Self::interpolate_with_knots_impl(nodes, values, knots, order)
+            }
+
+            /// Constructs a cubic B-spline with the reviewed
+            /// `BINT4`/`DBINT4` endpoint and exterior-knot policies.
+            ///
+            /// The returned spline has order four, `nodes.len() + 2`
+            /// coefficients, and `nodes.len() + 6` knots. Nodes and values
+            /// are finite, nodes are strictly increasing, and neither input
+            /// slice is mutated or retained. Boundary conditions constrain the
+            /// source-defined first or second derivative at each endpoint.
+            ///
+            /// [`CubicKnotPlacement::EndpointMultiplicity`] repeats each
+            /// endpoint four times. [`CubicKnotPlacement::SymmetricExtension`]
+            /// asks the original constructor to choose its documented symmetric
+            /// exterior knots. Explicit exterior knots are copied to the first
+            /// six Fortran work locations and must lie strictly outside the
+            /// data domain. All native work, output, and factorization storage
+            /// is private; a singular system is mapped to
+            /// [`BSplineError::SingularInterpolationSystem`].
+            #[cfg(feature = "bspline-cubic-interpolation")]
+            pub fn interpolate_cubic(
+                nodes: &[$scalar],
+                values: &[$scalar],
+                left_boundary: CubicBoundaryCondition<$scalar>,
+                right_boundary: CubicBoundaryCondition<$scalar>,
+                knot_placement: CubicKnotPlacement<$scalar>,
+            ) -> Result<Self, BSplineError> {
+                Self::interpolate_cubic_impl(
+                    nodes,
+                    values,
+                    left_boundary,
+                    right_boundary,
+                    knot_placement,
+                )
             }
 
             /// Evaluates the spline value at an in-domain point.
@@ -951,6 +1195,78 @@ fn validate_interpolation_input<T: BSplineScalar>(
     Ok(())
 }
 
+#[cfg(feature = "bspline-cubic-interpolation")]
+fn cubic_boundary<T: BSplineScalar>(
+    condition: CubicBoundaryCondition<T>,
+) -> Result<(FortranInteger, T), BSplineError> {
+    let (kind, value) = match condition {
+        CubicBoundaryCondition::FirstDerivative(value) => (1, value),
+        CubicBoundaryCondition::SecondDerivative(value) => (2, value),
+    };
+    if !value.finite() {
+        return Err(BSplineError::NonFiniteCubicBoundaryCondition);
+    }
+    Ok((kind, value))
+}
+
+#[cfg(feature = "bspline-cubic-interpolation")]
+fn cubic_knot_placement<T>(placement: CubicKnotPlacement<T>) -> FortranInteger {
+    match placement {
+        CubicKnotPlacement::EndpointMultiplicity => 1,
+        CubicKnotPlacement::SymmetricExtension => 2,
+        CubicKnotPlacement::Explicit { .. } => 3,
+    }
+}
+
+#[cfg(feature = "bspline-cubic-interpolation")]
+fn validate_cubic_interpolation_input<T: BSplineScalar>(
+    nodes: &[T],
+    values: &[T],
+    placement: CubicKnotPlacement<T>,
+) -> Result<(), BSplineError> {
+    if nodes.len() != values.len() {
+        return Err(BSplineError::InterpolationLengthMismatch {
+            nodes: nodes.len(),
+            values: values.len(),
+        });
+    }
+    if nodes.len() < 2 {
+        return Err(BSplineError::TooFewCubicInterpolationPoints {
+            points: nodes.len(),
+        });
+    }
+    native_len(nodes.len())?;
+    for (index, &node) in nodes.iter().enumerate() {
+        if !node.finite() {
+            return Err(BSplineError::NonFiniteInterpolationNode { index });
+        }
+    }
+    for (index, &value) in values.iter().enumerate() {
+        if !value.finite() {
+            return Err(BSplineError::NonFiniteInterpolationValue { index });
+        }
+    }
+    for (index, pair) in nodes.windows(2).enumerate() {
+        if pair[1] <= pair[0] {
+            return Err(BSplineError::InterpolationNodesNotStrictlyIncreasing { index: index + 1 });
+        }
+    }
+    if let CubicKnotPlacement::Explicit { left, right } = placement {
+        if left.iter().chain(right.iter()).any(|value| !value.finite())
+            || left[1] < left[0]
+            || left[2] < left[1]
+            || right[1] < right[0]
+            || right[2] < right[1]
+            || left[2] >= nodes[0]
+            || right[0] <= nodes[nodes.len() - 1]
+        {
+            return Err(BSplineError::InvalidCubicExteriorKnots);
+        }
+    }
+    cubic_workspace_len(nodes.len())?;
+    Ok(())
+}
+
 fn workspace_len(order: usize) -> Result<usize, BSplineError> {
     order.checked_mul(3).ok_or(BSplineError::DimensionOverflow)
 }
@@ -968,6 +1284,14 @@ fn interpolation_factorization_len(
 
 fn interpolation_workspace_len(order: usize) -> Result<usize, BSplineError> {
     order.checked_mul(2).ok_or(BSplineError::DimensionOverflow)
+}
+
+#[cfg(feature = "bspline-cubic-interpolation")]
+fn cubic_workspace_len(point_count: usize) -> Result<usize, BSplineError> {
+    point_count
+        .checked_add(2)
+        .and_then(|coefficient_count| coefficient_count.checked_mul(5))
+        .ok_or(BSplineError::DimensionOverflow)
 }
 
 fn native_len(length: usize) -> Result<FortranInteger, BSplineError> {

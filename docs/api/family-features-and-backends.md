@@ -23,10 +23,12 @@ routine.
 | `optimization` | `optimization-linear-programming-in-memory` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
 | Tabulated interpolation | `tabulated-data`, with raw/provider closures `interpolation-general` and `quadrature-direct` |
+| Cubic B-spline interpolation | `bspline-cubic-interpolation`, which adds the `interpolation-general` provider closure to `bspline` |
 | Additional raw domains | `linear-algebra-real`, `linear-algebra-eigen`, `linear-algebra-iterative`, `linear-algebra-complex`, `approximation-core`, `statistics-core`, `interpolation-general`, `fftpack-extended-real`, and the family members listed above |
 
-`roots-polynomial` remains an explicit deferred empty family: no polynomial
-root wrapper is exposed until its interface validation gate is cleared.
+`roots-polynomial` provides the reviewed single-precision owned complex-root
+surface for `RPZERO`/`CPZERO` and `RPQR79`/`CPQR79`; it does not claim a
+double-complex or general polynomial-analysis API.
 The optimization alias is deliberately limited to resident-memory
 `SPLP`/`DSPLP`; external paging and Fortran-unit lifecycle management remain
 deferred.

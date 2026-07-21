@@ -1324,6 +1324,21 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "fortran_routine": "BINT4/DBINT4",
+      "module": "slatec::interpolation::bspline::BSpline",
+      "domain": "B-spline interpolation",
+      "precision": "f32/f64",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "bspline-cubic-interpolation",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/interpolation/bspline/struct.BSpline.html#method.interpolate_cubic",
+      "example_file": "examples/interpolation/bspline_cubic_interpolate.rs",
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
       "fortran_routine": "BINTK",
       "module": "slatec::interpolation::bspline::BSpline",
@@ -2494,6 +2509,36 @@
       "inclusion_status": "safe_api_available"
     },
     {
+      "rust_path": "slatec::roots::complex_polynomial_roots",
+      "fortran_routine": "CPZERO",
+      "module": "slatec::roots",
+      "domain": "roots",
+      "precision": "f32_complex",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "roots-polynomial",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/roots/fn.complex_polynomial_roots.html",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "example_case": "owned complex polynomial roots",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::roots::complex_polynomial_roots_with_method",
+      "fortran_routine": "CPQR79",
+      "module": "slatec::roots",
+      "domain": "roots",
+      "precision": "f32_complex",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "roots-polynomial",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/roots/fn.complex_polynomial_roots_with_method.html",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "example_case": "owned complex polynomial roots",
+      "inclusion_status": "safe_api_available"
+    },
+    {
       "rust_path": "slatec::roots::find_root",
       "fortran_routine": "DFZERO",
       "module": "slatec::roots",
@@ -2521,6 +2566,36 @@
       "documentation": "https://docs.rs/slatec/latest/slatec/roots/fn.find_root_f32.html",
       "example_file": "examples/roots/scalar.rs",
       "example_case": "bracketed scalar root",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::roots::real_polynomial_roots",
+      "fortran_routine": "RPZERO",
+      "module": "slatec::roots",
+      "domain": "roots",
+      "precision": "f32_complex",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "roots-polynomial",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/roots/fn.real_polynomial_roots.html",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "example_case": "owned complex polynomial roots",
+      "inclusion_status": "safe_api_available"
+    },
+    {
+      "rust_path": "slatec::roots::real_polynomial_roots_with_method",
+      "fortran_routine": "RPQR79",
+      "module": "slatec::roots",
+      "domain": "roots",
+      "precision": "f32_complex",
+      "purpose": "validated scalar numerical function",
+      "capability": "std",
+      "feature": "roots-polynomial",
+      "native_profile": "ffi-profile-gnu-mingw-x86_64",
+      "documentation": "https://docs.rs/slatec/latest/slatec/roots/fn.real_polynomial_roots_with_method.html",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "example_case": "owned complex polynomial roots",
       "inclusion_status": "safe_api_available"
     },
     {

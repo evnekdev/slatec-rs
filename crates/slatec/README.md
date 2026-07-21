@@ -109,6 +109,15 @@ nodes, values, a complete caller-supplied knot sequence, and order;
 `BVALU`/`DBVALU` evaluate values or derivatives and `BSQAD`/`DBSQAD` integrate.
 There is no hidden knot-generation policy, sorting, coefficient conversion, or
 caller-managed workspace. See the [B-spline guide](../../docs/api/safe-bspline.md).
+The additive `bspline-cubic-interpolation` feature supplies typed fixed-cubic
+`BINT4`/`DBINT4` construction with explicit endpoint derivative and
+knot-placement policies.
+
+The hosted `roots-polynomial` feature supplies owned single-precision complex
+polynomial roots over `RPZERO`/`CPZERO` and `RPQR79`/`CPQR79`. Iterative
+drivers preserve documented best roots on their iteration limit; companion-QR
+nonconvergence is an error because the source does not promise partial output.
+See the [roots guide](../../docs/api/safe-roots.md).
 
 The hosted `piecewise-polynomial` feature provides owned `f32` and `f64`
 right-Taylor PP curves over reviewed `PPVAL`/`DPPVAL` evaluation and

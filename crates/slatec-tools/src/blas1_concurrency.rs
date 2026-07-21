@@ -95,6 +95,10 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
         let safe_function = string(&projection, "safe_function")?.to_owned();
         projections.entry(safe_function).or_insert(projection);
     }
+    for projection in crate::safe_roots::native_state_projections()? {
+        let safe_function = string(&projection, "safe_function")?.to_owned();
+        projections.entry(safe_function).or_insert(projection);
+    }
     for projection in crate::safe_callback_drivers::native_state_projections()? {
         let safe_function = string(&projection, "safe_function")?.to_owned();
         projections.entry(safe_function).or_insert(projection);

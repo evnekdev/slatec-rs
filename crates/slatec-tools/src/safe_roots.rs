@@ -4,7 +4,7 @@
 //! polynomial and nonlinear-system candidates. It emits structural evidence
 //! only: no copied source, native output, or workspace contents.
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -15,6 +15,198 @@ use crate::hash;
 
 const PROFILE: &str = "ffi-profile-gnu-mingw-x86_64";
 const MAX_TOTAL_BYTES: usize = 64 * 1024;
+
+/// Returns source/object-backed native-state projections for the reviewed
+/// owned polynomial-root wrappers.
+///
+/// The general native-state archive predates these wrappers.  Deriving their
+/// closure from the committed archive-symbol graph prevents a safe wrapper
+/// from silently falling outside the global ownership and serialization
+/// audits until that broad archive is regenerated.
+pub(crate) fn native_state_projections() -> Result<Vec<Value>> {
+    let archive = read(&repo_path("generated/native-link/archive-members.json"))?;
+    let members = archive["records"].as_array().ok_or_else(|| {
+        CorpusError::Verification("native-link archive members lacks records".to_owned())
+    })?;
+    let definitions = symbol_definitions(members)?;
+
+    [
+        (
+            "slatec::roots::complex_polynomial_roots",
+            "CPZERO",
+            "cpzero_",
+        ),
+        (
+            "slatec::roots::complex_polynomial_roots_with_method",
+            "CPQR79",
+            "cpqr79_",
+        ),
+        (
+            "slatec::roots::real_polynomial_roots",
+            "RPZERO",
+            "rpzero_",
+        ),
+        (
+            "slatec::roots::real_polynomial_roots_with_method",
+            "RPQR79",
+            "rpqr79_",
+        ),
+    ]
+    .into_iter()
+    .map(|(safe_function, routine, symbol)| {
+        let closure = archive_closure(symbol, &definitions)?;
+        Ok(json!({
+            "safe_function":safe_function,
+            "native_entry_points":[routine],
+            "feature":"roots-polynomial",
+            "effective_native_families":["nonlinear-complex"],
+            "entry_object":closure.entry_object,
+            "object_closure":closure.objects,
+            "source_closure":closure.sources,
+            "saved_mutable_locals":[],
+            "common_blocks":[],
+            "xerror_state":["XERROR J4SAVE/XERSVE process-global state reached through the exact archive closure"],
+            "fortran_io":["XERROR closure includes XERMSG/XERPRN/XERSVE Fortran I/O on native error paths"],
+            "callback_state":["none"],
+            "writable_symbols":["J4SAVE/XERSVE XERROR process-global error state"],
+            "source_object_unresolved":[],
+            "external_undefined_symbols":closure.external_symbols,
+            "feature_closure_mismatch":false,
+            "current_class":"SerializedGlobal",
+            "best_possible_class_from_slatec_source":"SerializedGlobal",
+            "native_routine_reentrancy":"SerializedGlobal",
+            "rust_api_concurrency":"owned polynomial inputs and outputs are movable; every native entry is globally serialized",
+            "provider_runtime_thread_safety":"reviewed source and external/system profiles remain serialized",
+            "provider_unknowns":["external_or_system_Fortran_runtime_and_provider_contract_not_qualified"],
+            "remaining_blockers":["process-global XERROR","Fortran I/O on native error paths","provider/runtime qualification"]
+        }))
+    })
+    .collect()
+}
+
+struct ArchiveClosure {
+    entry_object: String,
+    objects: Vec<String>,
+    sources: Vec<String>,
+    external_symbols: Vec<String>,
+}
+
+fn symbol_definitions(members: &[Value]) -> Result<BTreeMap<String, Vec<&Value>>> {
+    let mut definitions = BTreeMap::new();
+    for member in members {
+        let object = member["archive_member"].as_str().ok_or_else(|| {
+            CorpusError::Verification("native-link archive member lacks archive_member".to_owned())
+        })?;
+        for symbol in member["global_symbols_defined"].as_array().ok_or_else(|| {
+            CorpusError::Verification(format!(
+                "native-link archive member {object} lacks global_symbols_defined"
+            ))
+        })? {
+            let symbol = symbol.as_str().ok_or_else(|| {
+                CorpusError::Verification(format!(
+                    "native-link archive member {object} has a non-string defined symbol"
+                ))
+            })?;
+            definitions
+                .entry(symbol.to_owned())
+                .or_insert_with(Vec::new)
+                .push(member);
+        }
+    }
+    Ok(definitions)
+}
+
+fn archive_closure(
+    entry_symbol: &str,
+    definitions: &BTreeMap<String, Vec<&Value>>,
+) -> Result<ArchiveClosure> {
+    let entry = unique_definition(entry_symbol, definitions)?;
+    let entry_object = entry["archive_member"]
+        .as_str()
+        .ok_or_else(|| {
+            CorpusError::Verification("native-link entry lacks archive_member".to_owned())
+        })?
+        .to_owned();
+    let mut pending = VecDeque::from([entry_symbol.to_owned()]);
+    let mut visited_symbols = BTreeSet::new();
+    let mut objects = BTreeSet::new();
+    let mut sources = BTreeSet::new();
+    let mut external_symbols = BTreeSet::new();
+    while let Some(symbol) = pending.pop_front() {
+        if !visited_symbols.insert(symbol.clone()) {
+            continue;
+        }
+        let Some(candidates) = definitions.get(&symbol) else {
+            external_symbols.insert(symbol);
+            continue;
+        };
+        let member = candidates.as_slice();
+        let [member] = member else {
+            return Err(CorpusError::Verification(format!(
+                "native-link archive has {} providers for reachable symbol {symbol}",
+                member.len()
+            )));
+        };
+        let object = member["archive_member"].as_str().ok_or_else(|| {
+            CorpusError::Verification("native-link closure member lacks archive_member".to_owned())
+        })?;
+        if !objects.insert(object.to_owned()) {
+            continue;
+        }
+        let source = member["originating_source_file"].as_str().ok_or_else(|| {
+            CorpusError::Verification(format!(
+                "native-link archive member {object} lacks originating_source_file"
+            ))
+        })?;
+        sources.insert(source.to_owned());
+        for dependency in member["undefined_symbols_referenced"]
+            .as_array()
+            .ok_or_else(|| {
+                CorpusError::Verification(format!(
+                    "native-link archive member {object} lacks undefined_symbols_referenced"
+                ))
+            })?
+        {
+            let dependency = dependency.as_str().ok_or_else(|| {
+                CorpusError::Verification(format!(
+                    "native-link archive member {object} has a non-string dependency"
+                ))
+            })?;
+            pending.push_back(dependency.to_owned());
+        }
+    }
+    Ok(ArchiveClosure {
+        entry_object,
+        objects: objects.into_iter().collect(),
+        sources: sources.into_iter().collect(),
+        external_symbols: external_symbols.into_iter().collect(),
+    })
+}
+
+fn unique_definition<'a>(
+    symbol: &str,
+    definitions: &'a BTreeMap<String, Vec<&'a Value>>,
+) -> Result<&'a Value> {
+    let Some(candidates) = definitions.get(symbol) else {
+        return Err(CorpusError::Verification(format!(
+            "native-link archive lacks polynomial-root entry {symbol}"
+        )));
+    };
+    let candidates = candidates.as_slice();
+    let [member] = candidates else {
+        return Err(CorpusError::Verification(format!(
+            "native-link archive has {} providers for polynomial-root entry {symbol}",
+            candidates.len()
+        )));
+    };
+    Ok(member)
+}
+
+fn repo_path(relative: &str) -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
+        .join(relative)
+}
 
 #[derive(Clone, Copy)]
 struct Candidate {
@@ -52,20 +244,20 @@ macro_rules! scalar {
 }
 
 macro_rules! polynomial {
-    ($source:literal, $kind:literal, $shape:literal, $workspace:literal, $reason:literal) => {
+    ($source:literal, $kind:literal, $shape:literal, $workspace:literal) => {
         Candidate {
             source: $source,
             precision: "f32_complex",
             interface_kind: $kind,
             callback_signature: "none",
             argument_shape: $shape,
-            mutable_inputs: "coefficient/output/work arrays require a dedicated contract audit",
+            mutable_inputs: "coefficient input copied privately; roots, error bounds, and exact workspaces are private",
             workspace_policy: $workspace,
-            status_output: "routine_specific_error_flag",
-            machine_dependency: "unverified_for_safe_surface",
-            runtime_dependency: "legacy_error_state_possible",
-            disposition: "deferred",
-            reason: $reason,
+            status_output: "routine_specific_error_flag_reviewed",
+            machine_dependency: "none_documented_by_reviewed_driver_contract",
+            runtime_dependency: "serialized_process_native_lock",
+            disposition: "included",
+            reason: "reviewed_owned_complex_root_result_with_exact_workspace_and_status_mapping",
         }
     };
 }
@@ -96,29 +288,25 @@ const CANDIDATES: &[Candidate] = &[
         "RPQR79",
         "real_polynomial_complex_roots",
         "degree,real_coefficients,complex_roots,error,real_workspace",
-        "NDEG*(NDEG+2) real values",
-        "no_existing_safe_complex_array_policy_or_residual_validation"
+        "NDEG*(NDEG+2) private real values"
     ),
     polynomial!(
         "CPQR79",
         "complex_polynomial_complex_roots",
         "degree,complex_coefficients,complex_roots,error,real_workspace",
-        "2*NDEG*(NDEG+1) real values",
-        "no_existing_safe_complex_array_policy_or_residual_validation"
+        "2*NDEG*(NDEG+1) private real values"
     ),
     polynomial!(
         "RPZERO",
         "real_polynomial_iterative_roots",
         "degree,real_coefficients,complex_initial_roots,complex_workspace,error,bounds",
-        "complex_6*(N+1) temporary storage plus N real bounds",
-        "mutable_initial_estimate_and_complex_workspace_contract_unvalidated"
+        "6*(NDEG+1) private complex values plus NDEG private real bounds"
     ),
     polynomial!(
         "CPZERO",
         "complex_polynomial_iterative_roots",
         "degree,complex_coefficients,complex_initial_roots,complex_workspace,error,bounds",
-        "complex_4*(N+1) temporary storage plus N real bounds",
-        "mutable_initial_estimate_and_complex_workspace_contract_unvalidated"
+        "4*(NDEG+1) private complex values plus NDEG private real bounds"
     ),
     nonlinear!("SNSQ", "f32", "nonlinear_system"),
     nonlinear!("DNSQ", "f64", "nonlinear_system"),
@@ -259,10 +447,68 @@ pub fn generate(
             candidate.reason,
         ]));
         if candidate.disposition == "included" {
-            let safe_path = if candidate.source == "DFZERO" {
-                "slatec::roots::find_root"
-            } else {
-                "slatec::roots::find_root_f32"
+            let (
+                safe_path,
+                callback_policy,
+                input_mutation,
+                concurrency_policy,
+                native_test_status,
+                numerical_reference_type,
+            ) = match candidate.source {
+                "DFZERO" => (
+                    "slatec::roots::find_root",
+                    "thread_local_scoped_trampoline",
+                    "b,c,r,re,ae,iflag mutable scalar references",
+                    "serialized_process_native_lock",
+                    "native_reference_passed",
+                    "analytic_root_reference",
+                ),
+                "FZERO" => (
+                    "slatec::roots::find_root_f32",
+                    "thread_local_scoped_trampoline",
+                    "b,c,r,re,ae,iflag mutable scalar references",
+                    "serialized_process_native_lock",
+                    "native_reference_passed",
+                    "analytic_root_reference",
+                ),
+                "RPZERO" => (
+                    "slatec::roots::real_polynomial_roots",
+                    "none",
+                    "input copied; private roots, bounds, and workspace",
+                    "serialized_process_native_lock",
+                    "polynomial_roots_native",
+                    "manufactured_real_polynomial_roots",
+                ),
+                "CPZERO" => (
+                    "slatec::roots::complex_polynomial_roots",
+                    "none",
+                    "input copied; private roots, bounds, and workspace",
+                    "serialized_process_native_lock",
+                    "polynomial_roots_native",
+                    "manufactured_complex_polynomial_roots",
+                ),
+                "RPQR79" => (
+                    "slatec::roots::real_polynomial_roots_with_method",
+                    "none",
+                    "input copied; private roots and workspace",
+                    "serialized_process_native_lock",
+                    "polynomial_roots_native",
+                    "manufactured_real_polynomial_roots",
+                ),
+                "CPQR79" => (
+                    "slatec::roots::complex_polynomial_roots_with_method",
+                    "none",
+                    "input copied; private roots and workspace",
+                    "serialized_process_native_lock",
+                    "polynomial_roots_native",
+                    "manufactured_complex_polynomial_roots",
+                ),
+                _ => {
+                    return Err(CorpusError::Verification(format!(
+                        "included root candidate {} lacks safe wrapper metadata",
+                        candidate.source
+                    )));
+                }
             };
             wrappers.push(json!([
                 safe_path,
@@ -270,13 +516,13 @@ pub fn generate(
                 symbol,
                 id,
                 candidate.precision,
-                "thread_local_scoped_trampoline",
-                "b,c,r,re,ae,iflag mutable scalar references",
+                callback_policy,
+                input_mutation,
                 candidate.status_output,
                 candidate.workspace_policy,
-                "serialized_process_native_lock",
-                "native_reference_passed",
-                "analytic_root_reference",
+                concurrency_policy,
+                native_test_status,
+                numerical_reference_type,
                 "included",
             ]));
         } else {
@@ -324,6 +570,12 @@ pub fn generate(
                 [3,"PossibleSingularity","sign-changing bracket collapsed with increasing magnitude","ok_with_warning_status"],
                 [4,"NoSignChange","native iteration collapsed without a sign change","ok_with_warning_status"],
                 [5,"MaximumEvaluations","fixed native limit greater than 500 function evaluations reached","ok_with_warning_status"],
+                ["CPZERO/RPZERO:0","Converged","iterative polynomial-root driver completed and supplied per-root bounds","ok"],
+                ["CPZERO/RPZERO:1","InvalidInput","preflighted degree or leading coefficient was rejected","contract_violation"],
+                ["CPZERO/RPZERO:2","IterationLimitReached","best current roots are preserved; source does not calculate error bounds","ok_with_partial_result"],
+                ["CPQR79/RPQR79:0","Converged","companion-QR polynomial-root driver completed","ok"],
+                ["CPQR79/RPQR79:1","NoConvergence","source does not promise partial roots after its QR iteration limit","error_without_partial_result"],
+                ["CPQR79/RPQR79:2_or_3","InvalidInput","preflighted leading coefficient or degree was rejected","contract_violation"],
             ],
         }))?,
     );
@@ -349,7 +601,7 @@ pub fn generate(
     outputs.insert(
         "root-validation-summary.md",
         format!(
-            "# Safe scalar-root validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Classified candidates: {}\n- Reviewed safe wrappers: {}\n- Deferred candidates: {}\n- Callback policy: shared scoped thread-local trampoline; panics and non-finite results are contained\n- Concurrency policy: root and quadrature native calls serialize; nested callback calls are rejected\n- Polynomial policy: complex-array candidates remain deferred pending a complete safe complex/workspace/residual contract\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation. Detailed native evidence remains ignored.\n",
+            "# Safe-root validation\n\n- Snapshot: `{snapshot}`\n- Profile: `{PROFILE}`\n- Classified candidates: {}\n- Reviewed safe wrappers: {}\n- Deferred candidates: {}\n- Scalar callback policy: shared scoped thread-local trampoline; panics and non-finite results are contained\n- Polynomial policy: owned `Complex32` inputs and outputs; exact private workspaces; `CPZERO`/`RPZERO` retain documented partial roots on their iteration limit, while QR nonconvergence remains an error because source does not promise partial roots\n- Concurrency policy: root native calls serialize through the process-wide runtime lock\n- Semantic hash: `{semantic_hash}`\n\nThe original SLATEC Fortran routines remain the numerical implementation. Detailed native evidence remains ignored.\n",
             CANDIDATES.len(),
             wrappers.len(),
             deferred.len(),
@@ -445,19 +697,19 @@ mod tests {
     use super::*;
 
     #[test]
-    fn inventory_keeps_scalar_and_deferred_families_distinct() {
+    fn inventory_keeps_scalar_polynomial_and_deferred_families_distinct() {
         assert_eq!(CANDIDATES.len(), 14);
         assert_eq!(
             CANDIDATES
                 .iter()
                 .filter(|candidate| candidate.disposition == "included")
                 .count(),
-            2
+            6
         );
         assert!(CANDIDATES.iter().any(|candidate| {
             candidate.source == "CPQR79"
                 && candidate.reason
-                    == "no_existing_safe_complex_array_policy_or_residual_validation"
+                    == "reviewed_owned_complex_root_result_with_exact_workspace_and_status_mapping"
         }));
     }
 

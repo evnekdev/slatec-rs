@@ -279,14 +279,24 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         "generated/safe-api/root-wrapper-index.json",
         &mut output,
         |row, columns| {
+            let routine = column(row, columns, "raw_routine")?;
+            let polynomial = matches!(routine, "CPZERO" | "RPZERO" | "CPQR79" | "RPQR79");
             Ok(record(
                 column(row, columns, "safe_path")?,
-                column(row, columns, "raw_routine")?,
+                routine,
                 "roots",
                 column(row, columns, "precision")?,
-                "bracketed scalar root",
+                if polynomial {
+                    "owned complex polynomial roots"
+                } else {
+                    "bracketed scalar root"
+                },
                 "std",
-                "roots-scalar",
+                if polynomial {
+                    "roots-polynomial"
+                } else {
+                    "roots-scalar"
+                },
             ))
         },
     )?;
@@ -520,14 +530,19 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         "generated/safe-api/bspline-wrapper-index.json",
         &mut output,
         |row, columns| {
+            let routine = column(row, columns, "raw_routine")?;
             Ok(record(
                 column(row, columns, "safe_path")?,
-                column(row, columns, "raw_routine")?,
+                routine,
                 "B-spline interpolation",
                 column(row, columns, "precision")?,
                 "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
                 "std",
-                "bspline",
+                if routine == "BINT4/DBINT4" {
+                    "bspline-cubic-interpolation"
+                } else {
+                    "bspline"
+                },
             ))
         },
     )?;
@@ -871,6 +886,9 @@ fn record(
             "examples/interpolation/tabulated_data.rs".to_owned()
         }
         "quadrature" => "examples/quadrature/families.rs".to_owned(),
+        "roots" if path.contains("polynomial_roots") => {
+            "examples/roots/polynomial_roots.rs".to_owned()
+        }
         "roots" => "examples/roots/scalar.rs".to_owned(),
         "nonlinear" if path.contains("solve_scalar_equations") => {
             "examples/nonlinear/scalar_equations.rs".to_owned()
@@ -974,6 +992,9 @@ fn record(
             "examples/pchip/custom_derivatives.rs".to_owned()
         }
         "piecewise cubic Hermite interpolation" => "examples/pchip/monotone.rs".to_owned(),
+        "B-spline interpolation" if path.contains("interpolate_cubic") => {
+            "examples/interpolation/bspline_cubic_interpolate.rs".to_owned()
+        }
         "B-spline interpolation" if path.contains("interpolate_with_knots") => {
             "examples/interpolation/bspline_interpolate.rs".to_owned()
         }
@@ -1120,6 +1141,8 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let jacobian_check = function.rust_path.contains("check_jacobian");
     let bspline_constructor = function.domain == "B-spline interpolation"
         && function.rust_path.contains("interpolate_with_knots");
+    let cubic_bspline_constructor = function.domain == "B-spline interpolation"
+        && function.rust_path.contains("interpolate_cubic");
     let tabulated = function.domain == "tabulated data";
     let internal_argument = (internal.contains(&upper.as_str())
         || (fishpack
@@ -1133,6 +1156,8 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "LPEROD" | "MPEROD" | "NPEROD" | "LDIMF" | "MDIMF" | "IERROR" | "W"
             ))
         || (bspline_constructor && matches!(upper.as_str(), "N" | "BCOEF" | "Q"))
+        || (cubic_bspline_constructor
+            && matches!(upper.as_str(), "NDATA" | "T" | "BCOEF" | "N" | "K" | "W"))
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
         || (tabulated && matches!(upper.as_str(), "C" | "D" | "YFIT" | "YP" | "ANS" | "IERR"))
@@ -1244,6 +1269,13 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "complete knot sequence copied into owned native storage".to_owned()
             }
             "K" if bspline_constructor => "order".to_owned(),
+            "X" if cubic_bspline_constructor => "nodes".to_owned(),
+            "Y" if cubic_bspline_constructor => "values".to_owned(),
+            "IBCL" if cubic_bspline_constructor => "left_boundary derivative order".to_owned(),
+            "IBCR" if cubic_bspline_constructor => "right_boundary derivative order".to_owned(),
+            "FBCL" if cubic_bspline_constructor => "left_boundary derivative value".to_owned(),
+            "FBCR" if cubic_bspline_constructor => "right_boundary derivative value".to_owned(),
+            "KNTOPT" if cubic_bspline_constructor => "knot_placement".to_owned(),
             "N" if function.domain == "real FFTPACK" => "plan.length".to_owned(),
             "N" if function.domain == "complex FFTPACK" => "plan.length".to_owned(),
             "R" | "X" if function.domain == "real FFTPACK" => {
@@ -1420,7 +1452,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         "inferred"
     } else if internal_argument {
         "internal"
-    } else if bspline_constructor && upper == "T" {
+    } else if (bspline_constructor || cubic_bspline_constructor) && upper == "T" {
         "owned"
     } else if callback_argument {
         "callback"
@@ -1564,6 +1596,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/callback_driver_expansion.rs"
         }
         "quadrature" => "crates/slatec/tests/quadrature_native.rs",
+        "roots" if function.feature == "roots-polynomial" => {
+            "crates/slatec/tests/polynomial_roots_native.rs"
+        }
         "roots" => "crates/slatec/tests/roots_native.rs",
         "nonlinear" if function.rust_path.contains("solve_scalar_equations") => {
             "crates/slatec/tests/callback_driver_expansion.rs"
@@ -1597,6 +1632,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "complex FFTPACK" => "crates/slatec/tests/fftpack_complex_native.rs",
         "banded linear systems" => "crates/slatec/tests/banded_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
+        "B-spline interpolation" if function.feature == "bspline-cubic-interpolation" => {
+            "crates/slatec/tests/bspline_cubic_native.rs"
+        }
         "B-spline interpolation" => "crates/slatec/tests/bspline_native.rs",
         "piecewise-polynomial interpolation" => {
             "crates/slatec/tests/piecewise_polynomial_native.rs"
@@ -1665,6 +1703,7 @@ fn native_status(record: &FunctionRecord) -> &'static str {
         | "linear programming"
         | "real FFTPACK"
         | "complex FFTPACK"
+        | "B-spline interpolation"
         | "piecewise cubic Hermite interpolation"
         | "piecewise-polynomial interpolation"
         | "tabulated data"

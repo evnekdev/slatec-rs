@@ -128,6 +128,7 @@ pub mod polynomials;
     feature = "quadrature-nonadaptive",
     feature = "quadrature-piecewise-polynomial",
     feature = "roots-scalar",
+    feature = "roots-polynomial",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "nonlinear-systems",
@@ -169,10 +170,26 @@ mod bspline;
 #[cfg(feature = "dassl")]
 pub mod dassl;
 
+/// Test-only access to the production process-wide native lock for raw parity
+/// probes.
+#[cfg(feature = "native-lock-test-support")]
+#[doc(hidden)]
+pub mod native_lock_test_support {
+    /// Runs a probe while holding the same process-wide native lock as the
+    /// production facade.
+    ///
+    /// This exists solely for raw-versus-safe native parity tests; it is not a
+    /// public concurrency or provider guarantee.
+    pub fn with_native_lock<T>(operation: impl FnOnce() -> T) -> T {
+        let _native = crate::runtime::lock_native();
+        operation()
+    }
+}
+
 /// Test-only observations of the hosted process-wide native runtime lock.
 ///
-/// This module is available only with a native serialization test feature; it
-/// does not alter lock scope or advertise native parallel execution.
+/// This module is available only with a native test-support feature; it does
+/// not alter lock scope or advertise native parallel execution.
 #[cfg(any(
     feature = "native-serialization-tests",
     feature = "fishpack-cartesian-2d-native-tests",
@@ -282,8 +299,8 @@ mod callback_runtime;
 ))]
 pub mod quadrature;
 
-/// Safe bracketed scalar-root adapters over the original FZERO routines.
-#[cfg(feature = "roots-scalar")]
+/// Safe scalar and polynomial-root adapters over reviewed original SLATEC routines.
+#[cfg(any(feature = "roots-scalar", feature = "roots-polynomial"))]
 pub mod roots;
 
 /// Safe nonlinear-system solvers and Jacobian checks over original SLATEC

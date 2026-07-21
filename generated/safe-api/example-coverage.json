@@ -848,7 +848,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/derivatives.rs",
       "fortran_routine": "BVALU",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::derivative",
       "validation_case": "derivative",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -858,7 +858,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/from_parts.rs",
       "fortran_routine": "BVALU",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::evaluate",
       "validation_case": "evaluate",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -868,7 +868,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/from_parts.rs",
       "fortran_routine": "BVALU",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::evaluate_into",
       "validation_case": "evaluate_into",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -878,7 +878,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/integrate.rs",
       "fortran_routine": "BSQAD",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::integrate",
       "validation_case": "integrate",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -886,9 +886,19 @@
     {
       "doctest_present": false,
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
+      "example_file": "examples/interpolation/bspline_cubic_interpolate.rs",
+      "fortran_routine": "BINT4/DBINT4",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "validation_case": "interpolate_cubic",
+      "validation_file": "crates/slatec/tests/bspline_cubic_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/interpolation/bspline_interpolate.rs",
       "fortran_routine": "BINTK",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
       "validation_case": "interpolate_with_knots",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -1665,6 +1675,26 @@
     },
     {
       "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "CPZERO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::complex_polynomial_roots",
+      "validation_case": "complex_polynomial_roots",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "CPQR79",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::complex_polynomial_roots_with_method",
+      "validation_case": "complex_polynomial_roots_with_method",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "bracketed scalar root",
       "example_file": "examples/roots/scalar.rs",
       "fortran_routine": "DFZERO",
@@ -1682,6 +1712,26 @@
       "rust_path": "slatec::roots::find_root_f32",
       "validation_case": "find_root_f32",
       "validation_file": "crates/slatec/tests/roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "RPZERO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::real_polynomial_roots",
+      "validation_case": "real_polynomial_roots",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "RPQR79",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::real_polynomial_roots_with_method",
+      "validation_case": "real_polynomial_roots_with_method",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
     },
     {
       "doctest_present": false,

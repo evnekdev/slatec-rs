@@ -94,6 +94,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::integrate` | `BSQAD` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/integrate.rs) |
+| `slatec::interpolation::bspline::BSpline::interpolate_cubic` | `BINT4/DBINT4` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline-cubic-interpolation` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/interpolation/bspline_cubic_interpolate.rs) |
 | `slatec::interpolation::bspline::BSpline::interpolate_with_knots` | `BINTK` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/interpolation/bspline_interpolate.rs) |
 | `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial` | `BSPPP` | piecewise-polynomial interpolation | f32/f64 | convert a B-spline exactly to piecewise-polynomial form | `std` | `piecewise-polynomial` | [exact B-spline to PP conversion](../../examples/piecewise_polynomial/from_bspline.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise-polynomial derivative | `std` | `piecewise-polynomial` | [PP Taylor derivative evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
@@ -172,8 +173,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::quadrature::integrate_weighted_endpoints_f32` | `QAWS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_with_breakpoints` | `DQAGP` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_with_breakpoints_f32` | `QAGP` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
+| `slatec::roots::complex_polynomial_roots` | `CPZERO` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
+| `slatec::roots::complex_polynomial_roots_with_method` | `CPQR79` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
 | `slatec::roots::find_root` | `DFZERO` | roots | f64 | bracketed scalar root finding | `std` | `roots-scalar` | [bracketed scalar root](../../examples/roots/scalar.rs) |
 | `slatec::roots::find_root_f32` | `FZERO` | roots | f32 | bracketed scalar root finding | `std` | `roots-scalar` | [bracketed scalar root](../../examples/roots/scalar.rs) |
+| `slatec::roots::real_polynomial_roots` | `RPZERO` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
+| `slatec::roots::real_polynomial_roots_with_method` | `RPQR79` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
 | `slatec::special::airy::airy_ai` | `DAI` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
 | `slatec::special::airy::airy_ai_f32` | `AI` | special functions | f32 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
 | `slatec::special::airy::airy_ai_scaled` | `DAIE` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
@@ -292,6 +297,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BI` -> `slatec::special::airy::airy_bi_f32`
 - `BIE` -> `slatec::special::airy::airy_bi_scaled_f32`
 - `BINOM` -> `slatec::special::gamma::binomial_coefficient_f32`
+- `BINT4/DBINT4` -> `slatec::interpolation::bspline::BSpline::interpolate_cubic`
 - `BINTK` -> `slatec::interpolation::bspline::BSpline::interpolate_with_knots`
 - `BSPPP` -> `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `BSQAD` -> `slatec::interpolation::bspline::BSpline::integrate`
@@ -311,6 +317,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `COSQI` -> `slatec::fftpack::QuarterWaveCosinePlan::new`
 - `COST` -> `slatec::fftpack::CosineTransformPlan::transform`
 - `COSTI` -> `slatec::fftpack::CosineTransformPlan::new`
+- `CPQR79` -> `slatec::roots::complex_polynomial_roots_with_method`
+- `CPZERO` -> `slatec::roots::complex_polynomial_roots`
 - `CSEVL` -> `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `DAI` -> `slatec::special::airy::airy_ai`
 - `DAIE` -> `slatec::special::airy::airy_ai_scaled`
@@ -473,6 +481,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `RFFTF` -> `slatec::fftpack::RealFftPlan::forward`
 - `RFFTI` -> `slatec::fftpack::RealFftPlan::new`
 - `RJ` -> `slatec::special::scalar_expanded::carlson_rj_f32`
+- `RPQR79` -> `slatec::roots::real_polynomial_roots_with_method`
+- `RPZERO` -> `slatec::roots::real_polynomial_roots`
 - `SASUM` -> `slatec::blas::level1::sasum`
 - `SASUM` -> `slatec::blas::level1::sasum_strided`
 - `SAXPY` -> `slatec::blas::level1::saxpy`
@@ -713,8 +723,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### roots
 
+- `slatec::roots::complex_polynomial_roots` — validated scalar numerical function
+- `slatec::roots::complex_polynomial_roots_with_method` — validated scalar numerical function
 - `slatec::roots::find_root` — bracketed scalar root finding
 - `slatec::roots::find_root_f32` — bracketed scalar root finding
+- `slatec::roots::real_polynomial_roots` — validated scalar numerical function
+- `slatec::roots::real_polynomial_roots_with_method` — validated scalar numerical function
 
 ### nonlinear
 
@@ -926,6 +940,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::bspline::BSpline::evaluate`
 - `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `slatec::interpolation::bspline::BSpline::integrate`
+- `slatec::interpolation::bspline::BSpline::interpolate_cubic`
 - `slatec::interpolation::bspline::BSpline::interpolate_with_knots`
 - `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
@@ -1002,8 +1017,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_weighted_endpoints_f32`
 - `slatec::quadrature::integrate_with_breakpoints`
 - `slatec::quadrature::integrate_with_breakpoints_f32`
+- `slatec::roots::complex_polynomial_roots`
+- `slatec::roots::complex_polynomial_roots_with_method`
 - `slatec::roots::find_root`
 - `slatec::roots::find_root_f32`
+- `slatec::roots::real_polynomial_roots`
+- `slatec::roots::real_polynomial_roots_with_method`
 - `slatec::special::airy::airy_ai`
 - `slatec::special::airy::airy_ai_f32`
 - `slatec::special::airy::airy_ai_scaled`

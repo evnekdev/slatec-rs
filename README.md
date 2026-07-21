@@ -6,8 +6,9 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
-`fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`, and
-`piecewise-polynomial`, and `tabulated-data`.
+`fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`,
+`roots-polynomial`, `bspline`, `bspline-cubic-interpolation`, `piecewise-polynomial`, and
+`tabulated-data`.
 Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
@@ -126,8 +127,12 @@ piecewise polynomials. See
 panic-containment, concurrency, tolerance, and native-profile rules.
 
 The opt-in `roots` feature provides bracketed scalar root finding through the
-original `FZERO` and `DFZERO` routines. It shares the contained callback
-runtime with quadrature; polynomial roots remain deferred. The opt-in
+original `FZERO` and `DFZERO` routines. The narrower `roots-polynomial`
+feature adds owned single-precision complex polynomial roots through
+`RPZERO`/`CPZERO` and `RPQR79`/`CPQR79`: iterative-limit roots are preserved
+with an explicit partial-result status, while companion-QR nonconvergence is
+an error because the source does not promise partial output. Both surfaces
+share the serialized native runtime policy. The opt-in
 `nonlinear-easy` feature adds finite-difference easy drivers over original
 `SNSQE` and `DNSQE`; `nonlinear-systems` adds scalar-equation `SOS`/`DSOS`
 drivers with typed convergence reports. `nonlinear-expert` exposes reviewed `SNSQ`/`DNSQ` controls,
@@ -214,6 +219,9 @@ nodes, values, an explicit complete knot sequence, and order; `BVALU`/`DBVALU`
 evaluate and `BSQAD`/`DBSQAD` integrate them. It has no hidden knot-generation
 policy, sorting, coefficient conversion, or caller workspace. See the
 [B-spline guide](docs/api/safe-bspline.md).
+The additive `bspline-cubic-interpolation` feature adds source-accurate
+`BINT4`/`DBINT4` construction with typed first/second derivative endpoint
+conditions and explicit knot-placement policies.
 
 The opt-in hosted `piecewise-polynomial` feature adds owned real univariate
 PP curves using exact native right-Taylor storage. It evaluates values and

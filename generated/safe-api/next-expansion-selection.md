@@ -4,7 +4,7 @@ Selected batch: **checked tabulated data and global polynomial operations**. A s
 
 ## Rejected alternatives
 
-- `BINT4/DBINT4`: requires an explicit cubic B-spline boundary and knot policy distinct from the existing checked B-spline representation (future candidate)
+- `BINT4/DBINT4`: promoted to the typed BSpline::interpolate_cubic workflow; its source boundary and knot policies are no longer an unclassified candidate (implemented in current milestone)
 - `BSPEV/DBSPEV and associated spline primitives`: already represented by owned B-spline and piecewise-polynomial safe methods; raw-array duplication would regress storage safety (covered by higher-level API)
 - `GAUS8/DGAUS8`: callback-bearing routine would duplicate established QUADPACK options-based integration and callback containment (raw only)
 - `SDRIV3/DDRIV3 events and analytic Jacobians`: requires a dedicated continuation, callback, and event-lifecycle audit (deferred)

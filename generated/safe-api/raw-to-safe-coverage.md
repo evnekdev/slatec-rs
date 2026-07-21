@@ -5,10 +5,9 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 ## Counts
 
 - `blocked-by-safe-design`: 2
-- `candidate-for-safe-expansion`: 2
 - `covered-by-higher-level-safe-api`: 49
-- `direct-safe-wrapper`: 236
-- `expert-raw-only`: 218
+- `direct-safe-wrapper`: 242
+- `expert-raw-only`: 214
 - `intentionally-excluded-external-ecosystem`: 314
 
 ## Canonical raw routine records
@@ -54,7 +53,7 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `BI` | `slatec_sys::special::airy::bi` | Special functions | slatec::special::airy::airy_bi_f32 | `direct-safe-wrapper` | special-airy | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `BIE` | `slatec_sys::special::airy::bie` | Special functions | slatec::special::airy::airy_bi_scaled_f32 | `direct-safe-wrapper` | special-airy | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `BINOM` | `slatec_sys::special::gamma::binom` | Special functions | slatec::special::gamma::binomial_coefficient_f32 | `direct-safe-wrapper` | special-gamma | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `BINT4` | `slatec_sys::interpolation::bint4` | Interpolation | — | `candidate-for-safe-expansion` | — | — | `defer_to_dedicated_bspline_constructor_review` | `later` |
+| `BINT4` | `slatec_sys::interpolation::bint4` | Interpolation | slatec::interpolation::bspline::BSpline::interpolate_cubic | `direct-safe-wrapper` | bspline-cubic-interpolation | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `BINTK` | `slatec_sys::interpolation::bintk` | Interpolation | slatec::interpolation::bspline::BSpline::interpolate_with_knots | `direct-safe-wrapper` | bspline | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `BISECT` | `slatec_sys::linear_algebra::eigen::bisect` | Eigenvalue problems | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `BLKTRI` | `slatec_sys::pde::fishpack::blktri` | FISHPACK elliptic PDE solvers | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
@@ -192,10 +191,10 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `CPPDI` | `slatec_sys::linear_algebra::packed::complex::cppdi` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `CPPFA` | `slatec_sys::linear_algebra::packed::complex::cppfa` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `CPPSL` | `slatec_sys::linear_algebra::packed::complex::cppsl` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
-| `CPQR79` | `slatec_sys::roots::complex::cpqr79` | Nonlinear equations | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `CPQR79` | `slatec_sys::roots::complex::cpqr79` | Nonlinear equations | slatec::roots::complex_polynomial_roots_with_method | `direct-safe-wrapper` | roots-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `CPSI` | `slatec_sys::special::complex::cpsi` | Special functions | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `CPTSL` | `slatec_sys::linear_algebra::banded::complex::cptsl` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
-| `CPZERO` | `slatec_sys::roots::complex::cpzero` | Nonlinear equations | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `CPZERO` | `slatec_sys::roots::complex::cpzero` | Nonlinear equations | slatec::roots::complex_polynomial_roots | `direct-safe-wrapper` | roots-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `CQRDC` | `slatec_sys::linear_algebra::dense::complex::cqrdc` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `CQRSL` | `slatec_sys::linear_algebra::dense::complex::cqrsl` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `CROTG` | `slatec_sys::blas::level1::crotg` | Linear algebra kernels | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
@@ -259,7 +258,7 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `DBI` | `slatec_sys::special::airy::dbi` | Special functions | slatec::special::airy::airy_bi | `direct-safe-wrapper` | special-airy | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DBIE` | `slatec_sys::special::airy::dbie` | Special functions | slatec::special::airy::airy_bi_scaled | `direct-safe-wrapper` | special-airy | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DBINOM` | `slatec_sys::special::gamma::dbinom` | Special functions | slatec::special::gamma::binomial_coefficient | `direct-safe-wrapper` | special-gamma | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `DBINT4` | `slatec_sys::interpolation::dbint4` | Interpolation | — | `candidate-for-safe-expansion` | — | — | `defer_to_dedicated_bspline_constructor_review` | `later` |
+| `DBINT4` | `slatec_sys::interpolation::dbint4` | Interpolation | slatec::interpolation::bspline::BSpline::interpolate_cubic | `direct-safe-wrapper` | bspline-cubic-interpolation | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DBINTK` | `slatec_sys::interpolation::dbintk` | Interpolation | slatec::interpolation::bspline::BSpline::interpolate_with_knots | `direct-safe-wrapper` | bspline | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DBNDAC` | `slatec_sys::linear_algebra::banded::dbndac` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `DBNDSL` | `slatec_sys::linear_algebra::banded::dbndsl` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
@@ -649,8 +648,8 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `RGAUSS` | `slatec_sys::statistics::rgauss` | Probability and statistics | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `RGG` | `slatec_sys::linear_algebra::eigen::rgg` | Eigenvalue problems | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `RJ` | `slatec_sys::special::rj` | Special functions | slatec::special::scalar_expanded::carlson_rj_f32 | `direct-safe-wrapper` | special-scalar-expanded | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `RPQR79` | `slatec_sys::roots::complex::rpqr79` | Nonlinear equations | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
-| `RPZERO` | `slatec_sys::roots::complex::rpzero` | Nonlinear equations | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `RPQR79` | `slatec_sys::roots::complex::rpqr79` | Nonlinear equations | slatec::roots::real_polynomial_roots_with_method | `direct-safe-wrapper` | roots-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
+| `RPZERO` | `slatec_sys::roots::complex::rpzero` | Nonlinear equations | slatec::roots::real_polynomial_roots | `direct-safe-wrapper` | roots-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `RS` | `slatec_sys::linear_algebra::eigen::rs` | Eigenvalue problems | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `RSB` | `slatec_sys::linear_algebra::eigen::rsb` | Eigenvalue problems | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `RSG` | `slatec_sys::linear_algebra::eigen::rsg` | Eigenvalue problems | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
