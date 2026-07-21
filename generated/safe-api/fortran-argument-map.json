@@ -3747,6 +3747,150 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "fortran_routine": "BINT4",
+      "program_unit_id": "full-provider-7e47865997973c2d",
+      "arguments": [
+        {
+          "rust": "nodes",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDATA",
+          "transformation": "internal"
+        },
+        {
+          "rust": "left_boundary derivative order",
+          "fortran": "IBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative order",
+          "fortran": "IBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "left_boundary derivative value",
+          "fortran": "FBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative value",
+          "fortran": "FBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "knot_placement",
+          "fortran": "KNTOPT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "T",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "BCOEF",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "K",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "fortran_routine": "DBINT4",
+      "program_unit_id": "full-provider-0a43548b9dd54e86",
+      "arguments": [
+        {
+          "rust": "nodes",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDATA",
+          "transformation": "internal"
+        },
+        {
+          "rust": "left_boundary derivative order",
+          "fortran": "IBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative order",
+          "fortran": "IBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "left_boundary derivative value",
+          "fortran": "FBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative value",
+          "fortran": "FBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "knot_placement",
+          "fortran": "KNTOPT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "T",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "BCOEF",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "K",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
       "fortran_routine": "BINTK",
       "program_unit_id": "full-provider-c79a4afab0c19bed",
@@ -9661,6 +9805,75 @@
       ]
     },
     {
+      "rust_path": "slatec::roots::complex_polynomial_roots",
+      "fortran_routine": "CPZERO",
+      "program_unit_id": "full-provider-b251ff51d9d23d05",
+      "arguments": [
+        {
+          "rust": "in",
+          "fortran": "IN",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "iflg",
+          "fortran": "IFLG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "s",
+          "fortran": "S",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::complex_polynomial_roots_with_method",
+      "fortran_routine": "CPQR79",
+      "program_unit_id": "full-provider-54725ba79df99c86",
+      "arguments": [
+        {
+          "rust": "ndeg",
+          "fortran": "NDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "coeff",
+          "fortran": "COEFF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "root",
+          "fortran": "ROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::roots::find_root",
       "fortran_routine": "DFZERO",
       "program_unit_id": "full-provider-e60d6e16ae2266be",
@@ -9740,6 +9953,75 @@
         {
           "rust": null,
           "fortran": "IFLAG",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::real_polynomial_roots",
+      "fortran_routine": "RPZERO",
+      "program_unit_id": "full-provider-b9e8b033eaa7f5ac",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "iflg",
+          "fortran": "IFLG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "s",
+          "fortran": "S",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::real_polynomial_roots_with_method",
+      "fortran_routine": "RPQR79",
+      "program_unit_id": "full-provider-0313488e7870f774",
+      "arguments": [
+        {
+          "rust": "ndeg",
+          "fortran": "NDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "coeff",
+          "fortran": "COEFF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "root",
+          "fortran": "ROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
           "transformation": "internal"
         }
       ]

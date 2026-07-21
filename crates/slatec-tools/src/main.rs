@@ -1,6 +1,7 @@
 use slatec_tools::acquire;
 use slatec_tools::agent_guidance;
 use slatec_tools::all_feature_coverage;
+use slatec_tools::approx_roots_optimization;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::batch_a_api;
 use slatec_tools::batch_b_api;
@@ -282,6 +283,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-coverage-reconciliation"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-approx-roots-optimization-coverage"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -1199,6 +1205,16 @@ fn run() -> Result<()> {
             println!(
                 "success: reconciled {} canonical raw routines; direct safe coverage {}; {}",
                 result.raw_count, result.direct_safe_count, result.semantic_hash,
+            );
+            Ok(())
+        }
+        "generate-approx-roots-optimization-coverage" => {
+            let result = approx_roots_optimization::generate(&options.output_dir)?;
+            println!(
+                "success: generated {} domain-completion records in {} ({})",
+                result.routine_count,
+                result.output_dir.display(),
+                result.semantic_hash
             );
             Ok(())
         }

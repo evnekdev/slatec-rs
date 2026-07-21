@@ -80,9 +80,26 @@ and protects the package's saved quadrature tables; it is not a parallel
 native-execution claim.
 
 This feature intentionally excludes BINT4/DBINT4 fixed-cubic special
-construction, fitting, basis-function vectors, tensor-product splines,
+construction only unless the additive `bspline-cubic-interpolation` feature is
+also enabled. Fitting, basis-function vectors, tensor-product splines,
 smoothing, NURBS/rational splines, arbitrary strides, external array adapters
-and translated algorithms.
+and translated algorithms remain excluded.
+
+## Typed cubic construction
+
+Enable `bspline-cubic-interpolation` to use source-accurate
+`BSpline::interpolate_cubic` over `BINT4`/`DBINT4`. It takes finite strictly
+increasing nodes and finite values, a `CubicBoundaryCondition` for each end,
+and a `CubicKnotPlacement` policy. A boundary condition is explicitly either
+the first or second derivative prescribed at that endpoint.
+
+`EndpointMultiplicity` is the original `KNTOPT=1` policy; `SymmetricExtension`
+is `KNTOPT=2`; and `Explicit { left, right }` is `KNTOPT=3`. Explicit arrays
+contain three nondecreasing knots strictly outside each data endpoint. The
+wrapper owns exact private native storage: `T` has `NDATA + 6` values,
+`BCOEF` has `NDATA + 2` values, and `W` has `5 * (NDATA + 2)` values. It
+checks the returned `N=NDATA+2`, `K=4` shape and re-evaluates every input node.
+Neither input slice nor any workspace is retained.
 When the hosted `piecewise-polynomial` feature is also enabled,
 `BSpline::to_piecewise_polynomial` performs the reviewed exact
 `BSPPP`/`DBSPPP` conversion. PCHIP remains the separate
@@ -98,5 +115,6 @@ the appropriate separate API when monotonicity-preserving interpolation is the
 goal.
 
 Examples: `examples/interpolation/bspline_interpolate.rs`,
+`examples/interpolation/bspline_cubic_interpolate.rs`,
 `examples/interpolation/bspline_interpolate_and_convert.rs`, and
 `examples/bspline/from_parts.rs`.

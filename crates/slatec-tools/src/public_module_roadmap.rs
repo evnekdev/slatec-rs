@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 259;
+const SAFE_FUNCTION_TARGET: usize = 264;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -53,6 +53,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "banded-linear-systems",
     "pchip",
     "bspline",
+    "bspline-cubic-interpolation",
     "piecewise-polynomial",
     "tabulated-data",
 ];
@@ -619,14 +620,14 @@ fn leaves() -> Vec<LeafSpec> {
             "equations::roots::polynomial",
             "crates/slatec/src/equations/roots/polynomial.rs",
             "roots-polynomial",
-            "none",
-            "none",
+            "crate::roots::polynomial",
+            "slatec::roots",
             "roots-polynomial",
-            "unreviewed",
-            "alloc",
-            "unreviewed",
-            "Selected source support has no safe public facade.",
-            "Audit polynomial output, mutation, and multiplicity contracts."
+            "f32 Complex32 coefficients and roots",
+            "std",
+            "SerializedGlobal",
+            "Owned single-precision polynomial roots are reviewed; f64/Complex64 and broader polynomial analysis remain unreviewed.",
+            "Audit higher precision and multiplicity/conditioning policy separately."
         ),
         implemented!(
             "equations::nonlinear::easy",
@@ -912,8 +913,8 @@ fn leaves() -> Vec<LeafSpec> {
             "f32,f64",
             "std",
             "SerializedGlobal",
-            "Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred.",
-            "Audit one additional constructor or basis family without broadening the representation API."
+            "Basis vectors, weighted callbacks, tensor products, and smoothing remain deferred; reviewed cubic interpolation is available under an additive feature.",
+            "Audit one additional basis or fitting family without broadening the representation API."
         ),
         partial!(
             "interpolation::piecewise_polynomial",
@@ -1184,6 +1185,11 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "bspline-cubic-interpolation",
+            grouped_paths: &["interpolation::bspline"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "piecewise-polynomial",
             grouped_paths: &["interpolation::piecewise_polynomial"],
             evidence_source: "crates/slatec/Cargo.toml",
@@ -1231,7 +1237,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 199),
+            ("std".to_owned(), 204),
         ])
     {
         return Err(policy(

@@ -275,13 +275,18 @@ mod banded;
 #[path = "pchip.rs"]
 mod pchip;
 
-/// Private declaration owner for B-spline routines.
+/// Canonical raw B-spline declarations used by the reviewed safe
+/// representation API.
+///
+/// Enable the `bspline` feature. These declarations are provider-neutral;
+/// select a provider separately through `slatec-src` or an external native
+/// configuration.
 #[cfg(any(
     feature = "raw-family-bspline",
     feature = "raw-family-interpolation-general"
 ))]
 #[path = "bspline.rs"]
-mod bspline;
+pub mod bspline;
 
 /// Private declaration owner for PP-form evaluation, integration, and B-spline
 /// conversion.

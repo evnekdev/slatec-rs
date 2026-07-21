@@ -22,7 +22,7 @@ const HIGHER_LEVEL_ROUTINES: &[&str] = &[
     "QC25S", "DQC25S", "QMOMO", "DQMOMO",
 ];
 const SAFE_DESIGN_BLOCKED: &[&str] = &["GAUS8", "DGAUS8"];
-const FUTURE_CANDIDATES: &[&str] = &["BINT4", "DBINT4"];
+const FUTURE_CANDIDATES: &[&str] = &[];
 
 /// Summary of reconciliation generation.
 #[derive(Debug)]
@@ -343,7 +343,7 @@ fn selection_document(counts: &BTreeMap<String, usize>) -> Value {
             "reason":"A single checked data type supports two distinctive SLATEC workflows—global polynomial interpolation and arbitrary-spacing tabulated integration—without duplicating existing callback APIs or exposing workspace arrays."
         },
         "rejected_candidates":[
-            {"candidate":"BINT4/DBINT4","reason":"requires an explicit cubic B-spline boundary and knot policy distinct from the existing checked B-spline representation","disposition":"future candidate"},
+            {"candidate":"BINT4/DBINT4","reason":"promoted to the typed BSpline::interpolate_cubic workflow; its source boundary and knot policies are no longer an unclassified candidate","disposition":"implemented in current milestone"},
             {"candidate":"BSPEV/DBSPEV and associated spline primitives","reason":"already represented by owned B-spline and piecewise-polynomial safe methods; raw-array duplication would regress storage safety","disposition":"covered by higher-level API"},
             {"candidate":"GAUS8/DGAUS8","reason":"callback-bearing routine would duplicate established QUADPACK options-based integration and callback containment","disposition":"raw only"},
             {"candidate":"SDRIV3/DDRIV3 events and analytic Jacobians","reason":"requires a dedicated continuation, callback, and event-lifecycle audit","disposition":"deferred"},

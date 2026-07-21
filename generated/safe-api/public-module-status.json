@@ -638,17 +638,17 @@
       "stability": "Reserved",
       "status": "Partial",
       "cargo_feature": "roots-polynomial",
-      "current_implementation_module": "none",
-      "compatibility_path": "none",
+      "current_implementation_module": "crate::roots::polynomial",
+      "compatibility_path": "slatec::roots",
       "safe_native_families": [
         "roots-polynomial"
       ],
-      "precision_coverage": "unreviewed",
-      "runtime_level": "alloc",
-      "concurrency_classification": "unreviewed",
+      "precision_coverage": "f32 Complex32 coefficients and roots",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
       "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
-      "blocker": "Selected source support has no safe public facade.",
-      "likely_next_milestone": "Audit polynomial output, mutation, and multiplicity contracts.",
+      "blocker": "Owned single-precision polynomial roots are reviewed; f64/Complex64 and broader polynomial analysis remain unreviewed.",
+      "likely_next_milestone": "Audit higher precision and multiplicity/conditioning policy separately.",
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {
@@ -1161,8 +1161,8 @@
       "runtime_level": "std",
       "concurrency_classification": "SerializedGlobal",
       "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
-      "blocker": "Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred.",
-      "likely_next_milestone": "Audit one additional constructor or basis family without broadening the representation API.",
+      "blocker": "Basis vectors, weighted callbacks, tensor products, and smoothing remain deferred; reviewed cubic interpolation is available under an additive feature.",
+      "likely_next_milestone": "Audit one additional basis or fitting family without broadening the representation API.",
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {

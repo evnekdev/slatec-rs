@@ -55,6 +55,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     projections.extend(crate::safe_pois3d::native_state_projections()?);
     projections.extend(crate::safe_dassl::native_state_projections()?);
     projections.extend(crate::safe_special::native_state_projections()?);
+    projections.extend(crate::safe_roots::native_state_projections()?);
     projections.extend(crate::safe_callback_drivers::native_state_projections()?);
     // Focused projections are appended after a prior broad audit.  Replace a
     // stale broad record with the focused record for the same safe function,

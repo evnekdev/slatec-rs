@@ -5,6 +5,7 @@ pub mod acquire;
 pub mod agent_guidance;
 pub mod airy_api;
 pub mod all_feature_coverage;
+pub mod approx_roots_optimization;
 pub mod archive;
 pub mod batch_a_api;
 pub mod batch_b_api;
