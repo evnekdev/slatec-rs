@@ -85,7 +85,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
                 "example_case": record.example_case,
                 "validation_file": validation_path_for(record),
                 "validation_case": record.rust_path.rsplit("::").next().unwrap_or(&record.rust_path),
-                "native_execution_status": native_status(&record.domain),
+                "native_execution_status": native_status(record),
             })
         })
         .collect::<Vec<_>>();
@@ -472,6 +472,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         },
     )?;
     collect_columnar(
+        "generated/safe-api/callback-driver-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                column(row, columns, "domain")?,
+                column(row, columns, "precision")?,
+                column(row, columns, "callback_shape")?,
+                "std",
+                column(row, columns, "feature")?,
+            ))
+        },
+    )?;
+    collect_columnar(
         "generated/safe-api/dassl-wrapper-index.json",
         &mut output,
         |row, columns| {
@@ -834,8 +849,14 @@ fn record(
                 "3"
             }
         ),
+        "quadrature" if path.contains("integrate_piecewise_polynomial") => {
+            "examples/quadrature/piecewise_polynomial.rs".to_owned()
+        }
         "quadrature" => "examples/quadrature/families.rs".to_owned(),
         "roots" => "examples/roots/scalar.rs".to_owned(),
+        "nonlinear" if path.contains("solve_scalar_equations") => {
+            "examples/nonlinear/scalar_equations.rs".to_owned()
+        }
         "nonlinear" if path.contains("check_jacobian") => {
             "examples/nonlinear/check_jacobian.rs".to_owned()
         }
@@ -898,6 +919,9 @@ fn record(
             "examples/least_squares/linear_fit.rs".to_owned()
         }
         "least squares" => "examples/least_squares/exponential_fit.rs".to_owned(),
+        "ordinary differential equations" if path.contains("Driv") => {
+            "examples/ode/callback_drivers.rs".to_owned()
+        }
         "ordinary differential equations" if precision == "f32" => {
             "examples/ode/harmonic_oscillator.rs".to_owned()
         }
@@ -979,14 +1003,27 @@ fn record(
         capability: capability.to_owned(),
         feature: feature.to_owned(),
         native_profile: PROFILE.to_owned(),
-        documentation: format!(
-            "https://docs.rs/slatec/latest/slatec/{}/fn.{name}.html",
-            module.trim_start_matches("slatec::").replace("::", "/")
-        ),
+        documentation: documentation_url(module, name),
         example_file,
         example_case: family.to_owned(),
         inclusion_status: "safe_api_available".to_owned(),
     }
+}
+
+fn documentation_url(module: &str, name: &str) -> String {
+    let module = module.split("::<").next().unwrap_or(module);
+    if let Some((parent, type_name)) = module.rsplit_once("::") {
+        if type_name.starts_with("Driv") || type_name.starts_with("ComplexDriv") {
+            return format!(
+                "https://docs.rs/slatec/latest/slatec/{}/struct.{type_name}.html#method.{name}",
+                parent.trim_start_matches("slatec::").replace("::", "/")
+            );
+        }
+    }
+    format!(
+        "https://docs.rs/slatec/latest/slatec/{}/fn.{name}.html",
+        module.trim_start_matches("slatec::").replace("::", "/")
+    )
 }
 
 fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord>> {
@@ -1481,8 +1518,18 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/blas_level1_native.rs"
         }
         "BLAS" => "crates/slatec/tests/blas_level23_native.rs",
+        "quadrature"
+            if function
+                .rust_path
+                .contains("integrate_piecewise_polynomial") =>
+        {
+            "crates/slatec/tests/callback_driver_expansion.rs"
+        }
         "quadrature" => "crates/slatec/tests/quadrature_native.rs",
         "roots" => "crates/slatec/tests/roots_native.rs",
+        "nonlinear" if function.rust_path.contains("solve_scalar_equations") => {
+            "crates/slatec/tests/callback_driver_expansion.rs"
+        }
         "nonlinear" if function.feature != "nonlinear-easy" => {
             "crates/slatec/tests/nonlinear_expert_native.rs"
         }
@@ -1502,6 +1549,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/constrained_least_squares_native.rs"
         }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
+        "ordinary differential equations" if function.rust_path.contains("Driv") => {
+            "crates/slatec/tests/callback_driver_expansion.rs"
+        }
         "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
         "differential-algebraic equations" => "crates/slatec/tests/dassl_native.rs",
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
@@ -1530,6 +1580,8 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::nonlinear::solve_system_expert_f32"
             | "slatec::nonlinear::solve_system_with_jacobian"
             | "slatec::nonlinear::solve_system_with_jacobian_f32"
+            | "slatec::nonlinear::solve_scalar_equations"
+            | "slatec::quadrature::integrate_piecewise_polynomial"
             | "slatec::nonlinear::check_jacobian"
             | "slatec::nonlinear::check_jacobian_f32"
             | "slatec::least_squares::least_squares"
@@ -1555,9 +1607,17 @@ fn source_has_doctest(path: &str) -> bool {
     )
 }
 
-fn native_status(domain: &str) -> &'static str {
-    match domain {
+fn native_status(record: &FunctionRecord) -> &'static str {
+    match record.domain.as_str() {
         "BLAS" => "validated_by_native_batch",
+        "ordinary differential equations"
+            if matches!(
+                record.fortran_routine.as_str(),
+                "SDRIV1" | "DDRIV1" | "SDRIV2" | "DDRIV2" | "CDRIV1" | "CDRIV2"
+            ) =>
+        {
+            "native_execution_passed"
+        }
         "quadrature"
         | "roots"
         | "nonlinear"
@@ -1597,6 +1657,9 @@ fn purpose(family: &str) -> &'static str {
         "syrk" => "symmetric rank-k update",
         "bracketed scalar root" => "bracketed scalar root finding",
         "finite-difference nonlinear system" => "finite-difference nonlinear-system solving",
+        "FnMut(&[f64],usize)->f64" | "FnMut(&[f32],usize)->f32" => {
+            "scalar-equation nonlinear-system solving"
+        }
         "expert finite-difference nonlinear system" => {
             "expert finite-difference nonlinear-system solving"
         }
@@ -1683,6 +1746,7 @@ fn purpose(family: &str) -> &'static str {
             "convert a B-spline exactly to piecewise-polynomial form"
         }
         "finite" => "adaptive finite-interval integration",
+        "FnMut(f64)->f64" => "piecewise-polynomial weighted quadrature",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",
         "weighted_endpoints" => "endpoint-weighted integration",

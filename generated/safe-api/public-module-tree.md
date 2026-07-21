@@ -6,7 +6,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 
 | Status | Leaves |
 | --- | ---: |
-| Implemented | 30 |
+| Implemented | 32 |
 | Partial | 15 |
 | Planned | 17 |
 | Deferred | 3 |
@@ -15,7 +15,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | Stability | Leaves |
 | --- | ---: |
 | Frozen | 10 |
-| Reserved | 62 |
+| Reserved | 64 |
 | Provisional | 3 |
 
 ## Leaf status
@@ -53,12 +53,14 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | integration | `integration::quadrature::oscillatory` | Reserved | Implemented | yes | `quadrature-oscillatory` | f32,f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | integration | `integration::quadrature::fourier` | Reserved | Implemented | yes | `quadrature-fourier` | f32,f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | integration | `integration::quadrature::nonadaptive` | Reserved | Implemented | yes | `quadrature-nonadaptive` | f32,f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
+| integration | `integration::quadrature::piecewise_polynomial` | Reserved | Implemented | yes | `quadrature-piecewise-polynomial` | f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | integration | `integration::integral_equations` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No reviewed safe integral-equation family is selected. | Inventory candidate source families. |
 | equations | `equations::roots::scalar` | Reserved | Implemented | yes | `roots-scalar` | f32,f64 | std | SerializedGlobal | `slatec::roots` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | equations | `equations::roots::polynomial` | Reserved | Partial | yes | `roots-polynomial` | unreviewed | alloc | unreviewed | `none` | Selected source support has no safe public facade. | Audit polynomial output, mutation, and multiplicity contracts. |
 | equations | `equations::nonlinear::easy` | Reserved | Implemented | yes | `nonlinear-easy` | f32,f64 | std | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | equations | `equations::nonlinear::expert` | Reserved | Implemented | yes | `nonlinear-expert` | f32,f64 | std | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | equations | `equations::nonlinear::jacobian_check` | Reserved | Implemented | yes | `nonlinear-jacobian-check` | f32,f64 | alloc | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
+| equations | `equations::nonlinear::scalar_equations` | Reserved | Implemented | yes | `nonlinear-systems` | f32,f64 | std | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | least_squares | `least_squares::nonlinear::easy` | Reserved | Implemented | yes | `least-squares-nonlinear-easy` | f32,f64 | std | SerializedGlobal | `slatec::least_squares` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | least_squares | `least_squares::nonlinear::expert` | Reserved | Implemented | yes | `least-squares-nonlinear-expert` | f32,f64 | std | SerializedGlobal | `slatec::least_squares` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | least_squares | `least_squares::covariance` | Reserved | Implemented | yes | `least-squares-covariance` | f32,f64 | std | SerializedGlobal | `slatec::least_squares` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |

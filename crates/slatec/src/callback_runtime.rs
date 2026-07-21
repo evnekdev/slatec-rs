@@ -36,6 +36,14 @@ pub(crate) type VectorFnF32 = unsafe extern "C" fn(
     *mut slatec_sys::FortranInteger,
 );
 
+/// Reviewed GNU Fortran scalar-equation callback used by `SOS`.
+pub(crate) type IndexedEquationFnF32 =
+    unsafe extern "C" fn(*const f32, *const slatec_sys::FortranInteger) -> f32;
+
+/// Reviewed GNU Fortran scalar-equation callback used by `DSOS`.
+pub(crate) type IndexedEquationFnF64 =
+    unsafe extern "C" fn(*const f64, *const slatec_sys::FortranInteger) -> f64;
+
 /// Reviewed GNU Fortran Jacobian callback shape used by `DNSQ`.
 pub(crate) type JacobianFnF64 = unsafe extern "C" fn(
     *const slatec_sys::FortranInteger,
@@ -99,6 +107,15 @@ pub(crate) enum VectorCallbackFailure {
     DimensionMismatch,
 }
 
+/// Failure contained by a numbered scalar-equation callback.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum IndexedEquationCallbackFailure {
+    Panicked,
+    NonFinite { index: usize },
+    InvalidPointer,
+    InvalidEquationIndex,
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum ExpertCallbackFailure {
     ResidualPanicked,
@@ -156,6 +173,12 @@ pub(crate) struct CallbackInvocation<R> {
 pub(crate) struct VectorCallbackInvocation<R> {
     pub(crate) value: R,
     pub(crate) failure: Option<VectorCallbackFailure>,
+    pub(crate) evaluations: usize,
+}
+
+pub(crate) struct IndexedEquationCallbackInvocation<R> {
+    pub(crate) value: R,
+    pub(crate) failure: Option<IndexedEquationCallbackFailure>,
     pub(crate) evaluations: usize,
 }
 
@@ -218,6 +241,18 @@ struct VectorSlotF32 {
         *mut f32,
         *mut slatec_sys::FortranInteger,
     ),
+}
+
+#[derive(Clone, Copy)]
+struct IndexedEquationSlotF64 {
+    data: *mut (),
+    invoke: unsafe fn(*mut (), *const f64, *const slatec_sys::FortranInteger) -> f64,
+}
+
+#[derive(Clone, Copy)]
+struct IndexedEquationSlotF32 {
+    data: *mut (),
+    invoke: unsafe fn(*mut (), *const f32, *const slatec_sys::FortranInteger) -> f32,
 }
 
 #[derive(Clone, Copy)]
@@ -327,12 +362,15 @@ thread_local! {
     static ACTIVE_F32: Cell<Option<SlotF32>> = const { Cell::new(None) };
     static ACTIVE_VECTOR_F64: Cell<Option<VectorSlotF64>> = const { Cell::new(None) };
     static ACTIVE_VECTOR_F32: Cell<Option<VectorSlotF32>> = const { Cell::new(None) };
+    static ACTIVE_INDEXED_EQUATION_F64: Cell<Option<IndexedEquationSlotF64>> = const { Cell::new(None) };
+    static ACTIVE_INDEXED_EQUATION_F32: Cell<Option<IndexedEquationSlotF32>> = const { Cell::new(None) };
     static ACTIVE_EXPERT_F64: Cell<Option<ExpertSlotF64>> = const { Cell::new(None) };
     static ACTIVE_EXPERT_F32: Cell<Option<ExpertSlotF32>> = const { Cell::new(None) };
     static ACTIVE_LEAST_SQUARES_F64: Cell<Option<LeastSquaresSlotF64>> = const { Cell::new(None) };
     static ACTIVE_LEAST_SQUARES_F32: Cell<Option<LeastSquaresSlotF32>> = const { Cell::new(None) };
     static ACTIVE_EXPERT_LEAST_SQUARES_F64: Cell<Option<ExpertLeastSquaresSlotF64>> = const { Cell::new(None) };
     static ACTIVE_EXPERT_LEAST_SQUARES_F32: Cell<Option<ExpertLeastSquaresSlotF32>> = const { Cell::new(None) };
+    static ACTIVE_EXTERNAL_CONTEXT: Cell<bool> = const { Cell::new(false) };
 }
 
 struct CallbackState<F> {
@@ -345,6 +383,13 @@ struct VectorCallbackState<F> {
     callback: F,
     dimension: usize,
     failure: Option<VectorCallbackFailure>,
+    evaluations: usize,
+}
+
+struct IndexedEquationCallbackState<F> {
+    callback: F,
+    dimension: usize,
+    failure: Option<IndexedEquationCallbackFailure>,
     evaluations: usize,
 }
 
@@ -385,6 +430,8 @@ enum CallbackKind {
     F64,
     VectorF32,
     VectorF64,
+    IndexedEquationF32,
+    IndexedEquationF64,
     ExpertF32,
     ExpertF64,
     LeastSquaresF32,
@@ -400,6 +447,12 @@ impl Drop for SlotGuard {
             CallbackKind::F64 => ACTIVE_F64.with(|slot| slot.set(None)),
             CallbackKind::VectorF32 => ACTIVE_VECTOR_F32.with(|slot| slot.set(None)),
             CallbackKind::VectorF64 => ACTIVE_VECTOR_F64.with(|slot| slot.set(None)),
+            CallbackKind::IndexedEquationF32 => {
+                ACTIVE_INDEXED_EQUATION_F32.with(|slot| slot.set(None))
+            }
+            CallbackKind::IndexedEquationF64 => {
+                ACTIVE_INDEXED_EQUATION_F64.with(|slot| slot.set(None))
+            }
             CallbackKind::ExpertF32 => ACTIVE_EXPERT_F32.with(|slot| slot.set(None)),
             CallbackKind::ExpertF64 => ACTIVE_EXPERT_F64.with(|slot| slot.set(None)),
             CallbackKind::LeastSquaresF32 => ACTIVE_LEAST_SQUARES_F32.with(|slot| slot.set(None)),
@@ -420,12 +473,35 @@ pub(crate) fn is_active() -> bool {
         || ACTIVE_F32.with(|slot| slot.get().is_some())
         || ACTIVE_VECTOR_F64.with(|slot| slot.get().is_some())
         || ACTIVE_VECTOR_F32.with(|slot| slot.get().is_some())
+        || ACTIVE_INDEXED_EQUATION_F64.with(|slot| slot.get().is_some())
+        || ACTIVE_INDEXED_EQUATION_F32.with(|slot| slot.get().is_some())
         || ACTIVE_EXPERT_F64.with(|slot| slot.get().is_some())
         || ACTIVE_EXPERT_F32.with(|slot| slot.get().is_some())
         || ACTIVE_LEAST_SQUARES_F64.with(|slot| slot.get().is_some())
         || ACTIVE_LEAST_SQUARES_F32.with(|slot| slot.get().is_some())
         || ACTIVE_EXPERT_LEAST_SQUARES_F64.with(|slot| slot.get().is_some())
         || ACTIVE_EXPERT_LEAST_SQUARES_F32.with(|slot| slot.get().is_some())
+        || ACTIVE_EXTERNAL_CONTEXT.with(Cell::get)
+}
+
+/// Reserves the common callback-active marker for a family whose typed context
+/// remains locally implemented. This keeps the existing SDRIV3 session and
+/// newly added ODE contexts mutually exclusive with every callback slot above.
+pub(crate) struct ExternalCallbackContextGuard;
+
+impl Drop for ExternalCallbackContextGuard {
+    fn drop(&mut self) {
+        ACTIVE_EXTERNAL_CONTEXT.with(|active| active.set(false));
+    }
+}
+
+pub(crate) fn reserve_external_callback_context()
+-> Result<ExternalCallbackContextGuard, CallbackRuntimeError> {
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    ACTIVE_EXTERNAL_CONTEXT.with(|active| active.set(true));
+    Ok(ExternalCallbackContextGuard)
 }
 
 unsafe fn invoke_f64<F>(data: *mut (), value: Option<f64>) -> f64
@@ -483,6 +559,94 @@ where
     }
 }
 
+unsafe fn invoke_indexed_equation_f64<F>(
+    data: *mut (),
+    values: *const f64,
+    equation: *const slatec_sys::FortranInteger,
+) -> f64
+where
+    F: FnMut(&[f64], usize) -> f64,
+{
+    // Safety: the lexical slot and boxed callback state have matching scope.
+    let state = unsafe { &mut *data.cast::<IndexedEquationCallbackState<F>>() };
+    if state.failure.is_some() {
+        return 0.0;
+    }
+    let (Some(equation), false) = (unsafe { equation.as_ref() }, values.is_null()) else {
+        state.failure = Some(IndexedEquationCallbackFailure::InvalidPointer);
+        return 0.0;
+    };
+    let Ok(index) = usize::try_from(*equation) else {
+        state.failure = Some(IndexedEquationCallbackFailure::InvalidEquationIndex);
+        return 0.0;
+    };
+    let Some(index) = index
+        .checked_sub(1)
+        .filter(|index| *index < state.dimension)
+    else {
+        state.failure = Some(IndexedEquationCallbackFailure::InvalidEquationIndex);
+        return 0.0;
+    };
+    // Safety: the reviewed SOS callback ABI promises a readable N-element X.
+    let values = unsafe { core::slice::from_raw_parts(values, state.dimension) };
+    state.evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| (state.callback)(values, index))) {
+        Ok(value) if value.is_finite() => value,
+        Ok(_) => {
+            state.failure = Some(IndexedEquationCallbackFailure::NonFinite { index });
+            0.0
+        }
+        Err(_) => {
+            state.failure = Some(IndexedEquationCallbackFailure::Panicked);
+            0.0
+        }
+    }
+}
+
+unsafe fn invoke_indexed_equation_f32<F>(
+    data: *mut (),
+    values: *const f32,
+    equation: *const slatec_sys::FortranInteger,
+) -> f32
+where
+    F: FnMut(&[f32], usize) -> f32,
+{
+    // Safety: equivalent to the double-precision dispatcher above.
+    let state = unsafe { &mut *data.cast::<IndexedEquationCallbackState<F>>() };
+    if state.failure.is_some() {
+        return 0.0;
+    }
+    let (Some(equation), false) = (unsafe { equation.as_ref() }, values.is_null()) else {
+        state.failure = Some(IndexedEquationCallbackFailure::InvalidPointer);
+        return 0.0;
+    };
+    let Ok(index) = usize::try_from(*equation) else {
+        state.failure = Some(IndexedEquationCallbackFailure::InvalidEquationIndex);
+        return 0.0;
+    };
+    let Some(index) = index
+        .checked_sub(1)
+        .filter(|index| *index < state.dimension)
+    else {
+        state.failure = Some(IndexedEquationCallbackFailure::InvalidEquationIndex);
+        return 0.0;
+    };
+    // Safety: the reviewed SOS callback ABI promises a readable N-element X.
+    let values = unsafe { core::slice::from_raw_parts(values, state.dimension) };
+    state.evaluations += 1;
+    match catch_unwind(AssertUnwindSafe(|| (state.callback)(values, index))) {
+        Ok(value) if value.is_finite() => value,
+        Ok(_) => {
+            state.failure = Some(IndexedEquationCallbackFailure::NonFinite { index });
+            0.0
+        }
+        Err(_) => {
+            state.failure = Some(IndexedEquationCallbackFailure::Panicked);
+            0.0
+        }
+    }
+}
+
 unsafe fn failed_f64<F>(data: *const ()) -> bool
 where
     F: FnMut(f64) -> f64,
@@ -517,6 +681,32 @@ unsafe extern "C" fn trampoline_f32(value: *const f32) -> f32 {
             // Safety: see trampoline_f64.
             let value = unsafe { value.as_ref().copied() };
             unsafe { (slot.invoke)(slot.data, value) }
+        }
+        None => 0.0,
+    })
+}
+
+unsafe extern "C" fn trampoline_indexed_equation_f64(
+    values: *const f64,
+    equation: *const slatec_sys::FortranInteger,
+) -> f64 {
+    ACTIVE_INDEXED_EQUATION_F64.with(|slot| match slot.get() {
+        Some(slot) => {
+            // Safety: the lexical slot owns the matching boxed state.
+            unsafe { (slot.invoke)(slot.data, values, equation) }
+        }
+        None => 0.0,
+    })
+}
+
+unsafe extern "C" fn trampoline_indexed_equation_f32(
+    values: *const f32,
+    equation: *const slatec_sys::FortranInteger,
+) -> f32 {
+    ACTIVE_INDEXED_EQUATION_F32.with(|slot| match slot.get() {
+        Some(slot) => {
+            // Safety: equivalent to the double-precision dispatcher above.
+            unsafe { (slot.invoke)(slot.data, values, equation) }
         }
         None => 0.0,
     })
@@ -1665,6 +1855,30 @@ impl VectorF32Callback {
     }
 }
 
+/// Scoped callback handle for the reviewed double-precision `DSOS` ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct IndexedEquationF64Callback {
+    callback: IndexedEquationFnF64,
+}
+
+impl IndexedEquationF64Callback {
+    pub(crate) const fn ffi(self) -> IndexedEquationFnF64 {
+        self.callback
+    }
+}
+
+/// Scoped callback handle for the reviewed single-precision `SOS` ABI.
+#[derive(Clone, Copy)]
+pub(crate) struct IndexedEquationF32Callback {
+    callback: IndexedEquationFnF32,
+}
+
+impl IndexedEquationF32Callback {
+    pub(crate) const fn ffi(self) -> IndexedEquationFnF32 {
+        self.callback
+    }
+}
+
 /// Scoped callback handle for the reviewed `DNLS1E` residual ABI.
 #[derive(Clone, Copy)]
 pub(crate) struct LeastSquaresF64Callback {
@@ -1897,6 +2111,84 @@ where
     });
     drop(slot_guard);
     Ok(VectorCallbackInvocation {
+        value,
+        failure: state.failure,
+        evaluations: state.evaluations,
+    })
+}
+
+pub(crate) fn with_indexed_equation_f64<F, R>(
+    dimension: usize,
+    callback: F,
+    native_call: impl FnOnce(IndexedEquationF64Callback) -> R,
+) -> Result<IndexedEquationCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f64], usize) -> f64,
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(IndexedEquationCallbackState {
+        callback,
+        dimension,
+        failure: None,
+        evaluations: 0,
+    });
+    let data = (&mut *state as *mut IndexedEquationCallbackState<F>).cast();
+    ACTIVE_INDEXED_EQUATION_F64.with(|slot| {
+        slot.set(Some(IndexedEquationSlotF64 {
+            data,
+            invoke: invoke_indexed_equation_f64::<F>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::IndexedEquationF64,
+    };
+    let value = native_call(IndexedEquationF64Callback {
+        callback: trampoline_indexed_equation_f64,
+    });
+    drop(slot_guard);
+    Ok(IndexedEquationCallbackInvocation {
+        value,
+        failure: state.failure,
+        evaluations: state.evaluations,
+    })
+}
+
+pub(crate) fn with_indexed_equation_f32<F, R>(
+    dimension: usize,
+    callback: F,
+    native_call: impl FnOnce(IndexedEquationF32Callback) -> R,
+) -> Result<IndexedEquationCallbackInvocation<R>, CallbackRuntimeError>
+where
+    F: FnMut(&[f32], usize) -> f32,
+{
+    if is_active() {
+        return Err(CallbackRuntimeError::NestedCallback);
+    }
+    let _runtime_guard = crate::runtime::lock_native();
+    let mut state = Box::new(IndexedEquationCallbackState {
+        callback,
+        dimension,
+        failure: None,
+        evaluations: 0,
+    });
+    let data = (&mut *state as *mut IndexedEquationCallbackState<F>).cast();
+    ACTIVE_INDEXED_EQUATION_F32.with(|slot| {
+        slot.set(Some(IndexedEquationSlotF32 {
+            data,
+            invoke: invoke_indexed_equation_f32::<F>,
+        }));
+    });
+    let slot_guard = SlotGuard {
+        kind: CallbackKind::IndexedEquationF32,
+    };
+    let value = native_call(IndexedEquationF32Callback {
+        callback: trampoline_indexed_equation_f32,
+    });
+    drop(slot_guard);
+    Ok(IndexedEquationCallbackInvocation {
         value,
         failure: state.failure,
         evaluations: state.evaluations,
@@ -2176,8 +2468,9 @@ where
 #[cfg(test)]
 mod tests {
     use super::{
-        CallbackFailure, CallbackRuntimeError, ExpertCallbackFailure, LeastSquaresCallbackFailure,
-        VectorCallbackFailure, with_expert_f64, with_f32, with_f64, with_least_squares_f64,
+        CallbackFailure, CallbackRuntimeError, ExpertCallbackFailure,
+        IndexedEquationCallbackFailure, LeastSquaresCallbackFailure, VectorCallbackFailure,
+        with_expert_f64, with_f32, with_f64, with_indexed_equation_f64, with_least_squares_f64,
         with_vector_f64,
     };
 
@@ -2263,6 +2556,39 @@ mod tests {
             Some(VectorCallbackFailure::NonFinite { index: 0 })
         );
         assert_eq!(invocation.value, 1);
+        assert!(!super::is_active());
+    }
+
+    #[test]
+    fn indexed_equation_context_translates_indices_and_cleans_up_after_panic() {
+        let values = [2.0_f64, 3.0];
+        let invocation = with_indexed_equation_f64(
+            2,
+            |values, index| values[index] * 2.0,
+            |callback| unsafe {
+                let equation = 2;
+                (callback.ffi())(values.as_ptr(), &equation)
+            },
+        )
+        .unwrap();
+        assert_eq!(invocation.value, 6.0);
+        assert_eq!(invocation.evaluations, 1);
+        assert_eq!(invocation.failure, None);
+        assert!(!super::is_active());
+
+        let invocation = with_indexed_equation_f64(
+            1,
+            |_, _| panic!("contained indexed callback panic"),
+            |callback| unsafe {
+                let equation = 1;
+                (callback.ffi())(values.as_ptr(), &equation)
+            },
+        )
+        .unwrap();
+        assert_eq!(
+            invocation.failure,
+            Some(IndexedEquationCallbackFailure::Panicked)
+        );
         assert!(!super::is_active());
     }
 

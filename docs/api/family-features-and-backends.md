@@ -13,9 +13,9 @@ routine.
 | --- | --- |
 | `blas` | `blas-level1`, `blas-level2`, `blas-level3`, `blas-complex` |
 | `special` | `special-elementary`, `special-gamma`, `special-beta`, `special-error`, `special-airy`, `special-bessel`, `special-integrals`, `special-polynomials`, `special-scalar-expanded`, `special-real`, `special-complex` |
-| `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive`, `quadrature-direct`, `quadrature-callbacks` |
+| `quadrature` | `quadrature-basic`, `quadrature-breakpoints`, `quadrature-weighted`, `quadrature-oscillatory`, `quadrature-fourier`, `quadrature-nonadaptive`, `quadrature-piecewise-polynomial`, `quadrature-direct`, `quadrature-callbacks` |
 | `roots` | `roots-scalar`, `roots-polynomial` |
-| `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check`, `nonlinear-jacobian`, `nonlinear-complex` |
+| `nonlinear` | `nonlinear-easy`, `nonlinear-expert`, `nonlinear-jacobian-check`, `nonlinear-systems`, `nonlinear-jacobian`, `nonlinear-complex` |
 | `ode` | `ode-sdrive-expert`, `ode-integration`, `ode-callbacks` |
 | DAE | `dassl` |
 | Cartesian PDE | `fishpack-cartesian-2d`, `fishpack-general`, `fishpack-complex` |

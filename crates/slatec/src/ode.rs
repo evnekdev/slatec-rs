@@ -1,8 +1,14 @@
-//! Owned safe sessions for the reviewed SLATEC `SDRIV3` and `DDRIV3` drivers.
+//! Owned safe sessions for reviewed SLATEC `*DRIV1`, `*DRIV2`, and `*DRIV3`
+//! drivers.
 //!
-//! This first ODE surface solves only real explicit initial-value problems
-//! `y'(t) = f(t, y)`. It deliberately excludes roots, Jacobians, mass
-//! matrices, DAEs, complex systems, and interpolation APIs.
+//! [`OdeSession`](crate::ode::OdeSession) remains the expert real
+//! `SDRIV3`/`DDRIV3` surface, limited to explicit RHS callbacks.
+//! [`Driv1Session`](crate::ode::Driv1Session) supplies the straightforward
+//! real continuation drivers, [`Driv2Session`](crate::ode::Driv2Session) adds
+//! indexed root events, and [`ComplexDriv1Session`](crate::ode::ComplexDriv1Session)/
+//! [`ComplexDriv2Session`](crate::ode::ComplexDriv2Session) provide the reviewed
+//! single-precision complex counterparts. Jacobians, mass matrices, DAEs,
+//! interpolation, and `CDRIV3` remain outside this module's safe scope.
 
 use alloc::vec;
 use alloc::vec::Vec;
@@ -18,7 +24,7 @@ use slatec_sys::FortranInteger;
 use crate::runtime::{lock_native, permit_recoverable_native_statuses};
 
 thread_local! {
-    static ACTIVE_CONTEXT: ThreadCell<*mut c_void> = const { ThreadCell::new(core::ptr::null_mut()) };
+    pub(super) static ACTIVE_CONTEXT: ThreadCell<*mut c_void> = const { ThreadCell::new(core::ptr::null_mut()) };
 }
 
 mod sealed {
@@ -178,6 +184,12 @@ pub enum OdeInputError {
     InvalidMaximumOrder,
     /// The maximum step count was zero or could not fit native `INTEGER`.
     InvalidMaximumSteps,
+    /// The DRIV2 constant error-weight scale was non-finite or non-positive.
+    InvalidErrorWeight,
+    /// The supplied root-function count did not fit the reviewed driver.
+    InvalidRootCount,
+    /// A DRIV1/CDRIV1 convenience driver accepts at most 200 equations.
+    ConvenienceDriverDimension,
     /// The target did not establish or retain one integration direction.
     InvalidTarget,
     /// A dimension or workspace calculation overflowed the native ABI.
@@ -196,6 +208,13 @@ pub enum OdeError<E> {
     /// The RHS wrote a non-finite derivative entry.
     NonFiniteDerivative {
         /// First non-finite derivative index.
+        index: usize,
+    },
+    /// A root/event callback panicked; the panic was caught before FFI.
+    RootCallbackPanicked,
+    /// A root/event callback returned a non-finite value.
+    NonFiniteRoot {
+        /// Zero-based root-function index.
         index: usize,
     },
     /// The session was invoked while a callback context was already active on this thread.
@@ -220,6 +239,11 @@ impl<E: core::fmt::Display> core::fmt::Display for OdeError<E> {
             Self::NonFiniteDerivative { index } => write!(
                 formatter,
                 "ODE RHS produced a non-finite derivative at index {index}"
+            ),
+            Self::RootCallbackPanicked => formatter.write_str("ODE root callback panicked"),
+            Self::NonFiniteRoot { index } => write!(
+                formatter,
+                "ODE root callback produced a non-finite value at index {index}"
             ),
             Self::ReentrantCall => formatter.write_str("nested ODE session calls are rejected"),
             Self::NativeContractViolation { nstate, ierflg } => write!(
@@ -280,10 +304,10 @@ struct CallbackContext<T, F, E> {
 
 type PreparedContext<T, F, E> = (CallbackContext<T, F, E>, crate::runtime::NativeRuntimeGuard);
 
-struct ContextGuard;
+pub(super) struct ContextGuard;
 
 impl ContextGuard {
-    fn install(pointer: *mut c_void) -> Result<Self, ()> {
+    pub(super) fn install(pointer: *mut c_void) -> Result<Self, ()> {
         ACTIVE_CONTEXT.with(|slot| {
             if slot.get().is_null() {
                 slot.set(pointer);
@@ -690,7 +714,7 @@ unsafe fn dispatch<T: OdeScalar, F, E>(
     }
 }
 
-fn ranges_overlap<T>(left: *const T, right: *const T, length: usize) -> bool {
+pub(super) fn ranges_overlap<T>(left: *const T, right: *const T, length: usize) -> bool {
     let Some(bytes) = core::mem::size_of::<T>().checked_mul(length) else {
         return true;
     };
@@ -702,6 +726,16 @@ fn ranges_overlap<T>(left: *const T, right: *const T, length: usize) -> bool {
     };
     (left as usize) < right_end && (right as usize) < left_end
 }
+
+#[path = "ode/driv.rs"]
+mod driv;
+
+pub use driv::{
+    CallbackOdeError, ComplexDriv1Session, ComplexDriv2Session, Driv1Session, Driv2Options,
+    Driv2Session, DrivMethod, DrivStatus, DrivStepResult,
+};
+/// Safe complex scalar type used by the reviewed complex DRIV sessions.
+pub use num_complex::Complex32 as OdeComplex32;
 
 unsafe extern "C" fn dummy_jac_f32(
     _: *mut FortranInteger,
@@ -798,6 +832,8 @@ where
     F: FnMut(f32, &[f32], &mut [f32]) -> Result<(), E>,
 {
     let (mut context, _runtime) = prepare_context(session)?;
+    let _shared_context = crate::callback_runtime::reserve_external_callback_context()
+        .map_err(|_| OdeError::ReentrantCall)?;
     let pointer = (&mut context as *mut CallbackContext<f32, F, E>).cast::<c_void>();
     let guard = ContextGuard::install(pointer).map_err(|_| OdeError::ReentrantCall)?;
     let result = call_native_f32(session, target);
@@ -813,6 +849,8 @@ where
     F: FnMut(f64, &[f64], &mut [f64]) -> Result<(), E>,
 {
     let (mut context, _runtime) = prepare_context(session)?;
+    let _shared_context = crate::callback_runtime::reserve_external_callback_context()
+        .map_err(|_| OdeError::ReentrantCall)?;
     let pointer = (&mut context as *mut CallbackContext<f64, F, E>).cast::<c_void>();
     let guard = ContextGuard::install(pointer).map_err(|_| OdeError::ReentrantCall)?;
     let result = call_native_f64(session, target);
@@ -1025,6 +1063,12 @@ fn map_native_status(
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn shared_callback_guard_rejects_cross_family_reentry() {
+        let _guard = crate::callback_runtime::reserve_external_callback_context().unwrap();
+        assert!(crate::callback_runtime::with_f64(|value| value, |_| ()).is_err());
+    }
+
     #[test]
     fn callback_ranges_reject_equal_and_partial_aliases() {
         let values = [0.0_f64; 4];

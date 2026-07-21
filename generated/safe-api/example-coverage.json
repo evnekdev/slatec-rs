@@ -1155,6 +1155,26 @@
     },
     {
       "doctest_present": true,
+      "example_case": "FnMut(&[f64],usize)->f64",
+      "example_file": "examples/nonlinear/scalar_equations.rs",
+      "fortran_routine": "DSOS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::nonlinear::solve_scalar_equations",
+      "validation_case": "solve_scalar_equations",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "FnMut(&[f32],usize)->f32",
+      "example_file": "examples/nonlinear/scalar_equations.rs",
+      "fortran_routine": "SOS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::nonlinear::solve_scalar_equations_f32",
+      "validation_case": "solve_scalar_equations_f32",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "finite-difference nonlinear system",
       "example_file": "examples/nonlinear/solve_system.rs",
       "fortran_routine": "DNSQE",
@@ -1212,6 +1232,66 @@
       "rust_path": "slatec::nonlinear::solve_system_with_jacobian_f32",
       "validation_case": "solve_system_with_jacobian_f32",
       "validation_file": "crates/slatec/tests/nonlinear_expert_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "complex RHS closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "CDRIV1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::ComplexDriv1Session::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "complex RHS plus indexed real root closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "CDRIV2",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::ComplexDriv2Session::integrate_to_with_events",
+      "validation_case": "integrate_to_with_events",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "FnMut(f32,&[f32],&mut[f32])",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "SDRIV1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv1Session::<f32>::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "FnMut(f64,&[f64],&mut[f64])",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "DDRIV1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv1Session::<f64>::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "RHS plus indexed root closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "SDRIV2",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv2Session::<f32>::integrate_to_with_events",
+      "validation_case": "integrate_to_with_events",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "RHS plus indexed root closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "DDRIV2",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv2Session::<f64>::integrate_to_with_events",
+      "validation_case": "integrate_to_with_events",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
     },
     {
       "doctest_present": false,
@@ -1432,6 +1512,16 @@
       "rust_path": "slatec::quadrature::integrate_oscillatory_f32",
       "validation_case": "integrate_oscillatory_f32",
       "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": true,
+      "example_case": "FnMut(f64)->f64",
+      "example_file": "examples/quadrature/piecewise_polynomial.rs",
+      "fortran_routine": "DPFQAD",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_piecewise_polynomial",
+      "validation_case": "integrate_piecewise_polynomial",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
     },
     {
       "doctest_present": false,

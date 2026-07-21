@@ -30,10 +30,20 @@ inequalities, or linear programming.
 and therefore is neither a generic combination of the other drivers nor a
 linear-programming interface.
 
-The hosted `ode-sdrive-expert` feature provides owned real explicit-IVP
-sessions over original `SDRIV3`/`DDRIV3`. Its first scope has only a
-panic-contained RHS callback and same-direction continuation; event roots,
-Jacobians, mass matrices, DAEs, and interpolation are deliberately deferred.
+The hosted `ode-sdrive-expert` feature provides owned continuation sessions
+over reviewed `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`, `CDRIV1`/`CDRIV2`, and
+the existing expert `SDRIV3`/`DDRIV3` drivers. `Driv2Session` and
+`ComplexDriv2Session` expose zero-based indexed root events; all callback
+sessions are panic-contained, process-serialized, and preserve same-direction
+continuation workspace. Jacobians, mass matrices, DAEs, interpolation, and
+`CDRIV3` remain deliberately deferred.
+
+The `quadrature-piecewise-polynomial` feature adds `DPFQAD` multiplicative
+integration over the checked `PiecewisePolynomial<f64>` representation. The
+`nonlinear-systems` feature adds scalar-equation `SOS`/`DSOS` solvers with
+typed termination reports. Both reuse the existing callback runtime and
+require `std`, an explicit native backend, and the validated GNU MinGW
+profile.
 
 The hosted `dassl` feature separately provides owned real residual-only DAE
 sessions over `SDASSL`/`DDASSL` for index-1 `G(t, y, y') = 0` problems. It

@@ -14,6 +14,8 @@ pub enum NonlinearError {
     InvalidTolerance,
     /// The expert solver's function-evaluation budget is zero or too large.
     InvalidMaximumFunctionEvaluations,
+    /// A scalar-equation nonlinear-system iteration limit is zero or too large.
+    InvalidMaximumIterations,
     /// A finite-difference step estimate is negative, NaN, or infinite.
     InvalidFiniteDifferenceStep,
     /// The expert initial step-bound factor is not finite and positive.
@@ -98,6 +100,10 @@ impl fmt::Display for NonlinearError {
             Self::InvalidMaximumFunctionEvaluations => write!(
                 formatter,
                 "maximum function evaluations must be positive and fit Fortran INTEGER"
+            ),
+            Self::InvalidMaximumIterations => write!(
+                formatter,
+                "maximum nonlinear-system iterations must be positive and fit Fortran INTEGER"
             ),
             Self::InvalidFiniteDifferenceStep => write!(
                 formatter,

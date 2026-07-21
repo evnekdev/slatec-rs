@@ -16,8 +16,7 @@
 //! is a Rust-side endpoint clamp and never
 //! asks SLATEC to extrapolate. `PPQAD`/`DPPQAD` perform exact integration of
 //! the PP representation. When the `bspline` feature is also enabled,
-//! [`BSpline`](crate::interpolation::bspline::BSpline) converts exactly through
-//! `BSPPP`/`DBSPPP`.
+//! `BSpline` converts exactly through `BSPPP`/`DBSPPP`.
 //!
 //! All native calls are serialized through the process-wide runtime lock and
 //! use scoped XERROR restoration. The initial surface is real, univariate,

@@ -120,7 +120,8 @@ and translated implementations remain excluded.
 
 The callback-bearing safe API covers focused QUADPACK integration through
 `QAG`, `QAGS`, `QAGI`, `QAWC`, `QAGP`, `QAWS`, `QAWO`, `QAWF`, `QNG`, and
-`QNC79` in both precisions. See
+`QNC79` in both precisions, plus `DPFQAD` over checked double-precision
+piecewise polynomials. See
 [`docs/api/safe-quadrature.md`](docs/api/safe-quadrature.md) for workspace,
 panic-containment, concurrency, tolerance, and native-profile rules.
 
@@ -128,7 +129,8 @@ The opt-in `roots` feature provides bracketed scalar root finding through the
 original `FZERO` and `DFZERO` routines. It shares the contained callback
 runtime with quadrature; polynomial roots remain deferred. The opt-in
 `nonlinear-easy` feature adds finite-difference easy drivers over original
-`SNSQE` and `DNSQE`. `nonlinear-expert` exposes reviewed `SNSQ`/`DNSQ` controls,
+`SNSQE` and `DNSQE`; `nonlinear-systems` adds scalar-equation `SOS`/`DSOS`
+drivers with typed convergence reports. `nonlinear-expert` exposes reviewed `SNSQ`/`DNSQ` controls,
 including banded finite differences, scaling, and contained dense user
 Jacobians. `nonlinear-jacobian-check` provides alloc-only `CHKDER`/`DCKDER`
 helpers. `least-squares-nonlinear-easy` adds residual-only, finite-difference
@@ -155,10 +157,12 @@ adds dense equality and lower-sided inequality constraints through `LSEI` and
 `least-squares-linear-bounded-constrained` separately wraps `SBOCLS`/`DBOCLS`
 for bounds on both variables and linear constraint expressions; see the
 [bounded constrained guide](docs/api/safe-bounded-constrained-linear-least-squares.md).
-The opt-in `ode-sdrive-expert` feature adds owned, panic-contained real
-explicit-IVP sessions over `SDRIV3`/`DDRIV3`; it is deliberately limited to an
-RHS callback and caller-controlled continuation. See the
-[SDRIVE session guide](docs/api/safe-ode-sdrive-expert.md).
+The opt-in `ode-sdrive-expert` feature adds owned, panic-contained continuation
+sessions over real `SDRIV1`/`DDRIV1`, event-enabled `SDRIV2`/`DDRIV2`, complex
+`CDRIV1`/`CDRIV2`, and the existing expert `SDRIV3`/`DDRIV3` drivers. Event
+indices are zero-based, and all sessions retain native workspace only for
+same-direction continuation. See the [callback-driver guide](docs/api/safe-callback-drivers.md)
+and [SDRIVE expert-session guide](docs/api/safe-ode-sdrive-expert.md).
 The separate hosted `dassl` feature adds real residual-only index-1 DAE
 sessions over `SDASSL`/`DDASSL` for `G(t, y, y') = 0`. It owns all continuation
 workspace, requires caller-supplied sufficiently consistent initial `y` and

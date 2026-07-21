@@ -124,12 +124,15 @@ pub mod polynomials;
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial",
     feature = "roots-scalar",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
+    feature = "nonlinear-systems",
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
     feature = "least-squares-covariance",
+    feature = "ode-sdrive-expert",
     feature = "least-squares-linear-nonnegative",
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
@@ -251,12 +254,15 @@ pub mod blas1_concurrency_test_support {
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial",
     feature = "roots-scalar",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
+    feature = "nonlinear-systems",
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "ode-sdrive-expert"
 ))]
 mod callback_runtime;
 
@@ -267,7 +273,8 @@ mod callback_runtime;
     feature = "quadrature-weighted",
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
-    feature = "quadrature-nonadaptive"
+    feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial"
 ))]
 pub mod quadrature;
 
@@ -276,13 +283,15 @@ pub mod quadrature;
 pub mod roots;
 
 /// Safe nonlinear-system solvers and Jacobian checks over original SLATEC
-/// `SNSQE`, `DNSQE`, `SNSQ`, `DNSQ`, `CHKDER`, and `DCKDER` implementations.
+/// `SNSQE`, `DNSQE`, `SNSQ`, `DNSQ`, `SOS`, `DSOS`, `CHKDER`, and `DCKDER`
+/// implementations.
 #[cfg(any(
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "nonlinear-jacobian-check",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "nonlinear-systems"
 ))]
 pub mod nonlinear;
 
@@ -335,8 +344,9 @@ pub mod constrained_least_squares;
 #[cfg(feature = "least-squares-linear-bounded-constrained")]
 pub mod bounded_constrained_least_squares;
 
-/// Safe owned sessions for restricted explicit ODE initial-value problems over
-/// the original SLATEC `SDRIV3` and `DDRIV3` drivers.
+/// Safe owned sessions for reviewed explicit ODE initial-value problems over
+/// the original SLATEC `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`,
+/// `CDRIV1`/`CDRIV2`, `SDRIV3`, and `DDRIV3` drivers.
 #[cfg(feature = "ode-sdrive-expert")]
 pub mod ode;
 
