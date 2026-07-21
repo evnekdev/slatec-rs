@@ -20,6 +20,13 @@ Record and pin:
 
 Before parsing, verify archive SHA-256, member manifest, selected source-file hashes, and absence of unapproved patches. A mismatch is fatal and no prior cache entry may be reused.
 
+For a clean worktree, set `SLATEC_EVIDENCE_CACHE` to the separately acquired
+full-corpus `directories` cache used for exact Netlib-link verification. The
+smaller `SLATEC_SOURCE_CACHE` provider closure may supplement it, but cannot
+replace the full evidence cache. Neither cache path is serialized into
+semantic output; every selected file is still accepted only when its recorded
+source hash matches.
+
 ## Safe archive handling
 
 Reject absolute paths, path traversal, links escaping extraction root, device nodes, duplicate normalized paths, case-fold collisions, and entries exceeding configured resource limits. Preserve original archive path bytes where representable and record decoding decisions.
