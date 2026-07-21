@@ -1477,12 +1477,24 @@ fn source_link_record(root: &Path, record: &Value) -> Result<Value> {
 }
 
 fn selected_provider_source_path(record: &Value) -> String {
-    record
-        .pointer("/canonical_provider/source_file")
+    let provider = record.get("canonical_provider").unwrap_or(&Value::Null);
+    let source = provider
+        .get("source_file")
         .and_then(Value::as_str)
-        .filter(|path| !path.is_empty())
-        .unwrap_or_else(|| record["source_file"].as_str().unwrap_or_default())
-        .to_owned()
+        .filter(|path| !path.is_empty());
+    match source {
+        Some(path) if path.contains('/') || path.contains('\\') => path.to_owned(),
+        Some(path) => provider
+            .get("subset")
+            .and_then(Value::as_str)
+            .filter(|subset| !subset.is_empty())
+            .map(|subset| format!("{subset}/{path}"))
+            .unwrap_or_else(|| path.to_owned()),
+        None => record["source_file"]
+            .as_str()
+            .unwrap_or_default()
+            .to_owned(),
+    }
 }
 
 /// Resolves a verified selected-source input without changing the stable,
@@ -4489,11 +4501,19 @@ mod tests {
 
     #[test]
     fn source_resolution_uses_canonical_provider_path_not_profile_prefix() {
-        let record = json!({
+        let relocated = json!({
             "source_file":"main-src/src/avint.f",
             "canonical_provider":{"source_file":"src/avint.f"}
         });
-        assert_eq!(selected_provider_source_path(&record), "src/avint.f");
+        let subset_member = json!({
+            "source_file":"fnlib/acosh.f",
+            "canonical_provider":{"subset":"fnlib","source_file":"acosh.f"}
+        });
+        assert_eq!(selected_provider_source_path(&relocated), "src/avint.f");
+        assert_eq!(
+            selected_provider_source_path(&subset_member),
+            "fnlib/acosh.f"
+        );
     }
 
     #[test]
