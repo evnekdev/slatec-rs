@@ -8,7 +8,7 @@ Evaluate a generalization of Pochhammer's symbol.
 
 ## Description
 
-Evaluate a generalization of Pochhammer's symbol (A)-sub-X = GAMMA(A+X)/GAMMA(A). For X a non-negative integer, POCH(A,X) is just Pochhammer's symbol. A and X are single precision.
+Evaluate a generalization of Pochhammer's symbol
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [POCH](https://www.netlib.org/slatec/fnlib/poch.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | sub-X = GAMMA(A+X)/GAMMA(A).  For X a non-negative integer, is just Pochhammer's symbol.  A and X are single precision. This is a preliminary version.  Error handling when POCH(A,X) is less than half precision is probably incorrect.  Grossly incorrect arguments are not handled properly. |
+| 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is just Pochhammer's symbol.  A and X are single precision. This is a preliminary version.  Error handling when POCH(A,X) is less than half precision is probably incorrect.  Grossly incorrect arguments are not handled properly. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -75,7 +75,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-less than half precision is probably incorrect.  Grossly incorrect arguments are not handled properly.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

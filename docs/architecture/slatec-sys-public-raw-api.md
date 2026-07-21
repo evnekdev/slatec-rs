@@ -115,6 +115,23 @@ semantic information is explicit; it is never guessed from a parameter name.
 Narrow authored corrections are source-hash guarded and live in metadata.
 Generated Rust and report files are never hand edited.
 
+The contract is complete only when it is visible on the canonical public
+`slatec_sys::<family>::routine` rustdoc item. Every such function page must
+render Purpose, Description, Arguments, Return value (or an explicit
+no-return statement), Callback contract, Status and error values, Workspace
+and array requirements, ABI notes, Safety, and the verified direct Netlib
+source-file link. A generated routine-reference page or a private extern item
+is supporting evidence, not a substitute for this public surface.
+
+`slatec-corpus generate-rendered-rustdoc-audit` builds `slatec-sys` with all
+features and compares the HTML page, canonical path, declaration ownership,
+ABI argument order, reference page, documentation inventory, native symbol,
+and verified Netlib URL. Its committed JSON and Markdown reports are the only
+source of the `complete-structured` metric. The matching validator is a
+release-check gate. The correction profile layer may supply prose only when
+the profile is keyed to the selected source hash; it cannot alter ABI or
+provider metadata.
+
 ## Features and providers
 
 Public `slatec-sys` features name mathematical families and expose declarations

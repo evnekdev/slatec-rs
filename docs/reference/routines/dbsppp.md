@@ -8,7 +8,7 @@ Convert the B-representation of a B-spline to the piecewise polynomial (PP) form
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPPP is the BSPLPP routine of the reference. DBSPPP converts the B-representation (T,A,N,K) to the piecewise polynomial (PP) form (C,XI,LXI,K) for use with DPPVAL. Here XI(*), the break point array of length LXI, is the knot array T(*) with multiplicities removed. The columns of the matrix C(I,J) contain the right Taylor derivatives for the polynomial expansion about XI(J) for the intervals XI(J) .LE. X .LE. XI(J+1), I=1,K, J=1,LXI. Function DPPVAL makes this evaluation at a specified point X in XI(1) .LE. X .LE. XI(LXI+1)
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPPP is the BSPLPP routine of the reference. DBSPPP converts the B-representation (T,A,N,K) to the piecewise polynomial (PP) form (C,XI,LXI,K) for use with DPPVAL. Here XI(*), the break point array of length LXI, is the knot array T(*) with multiplicities removed. The columns of the matrix C(I,J) contain the right Taylor derivatives for the polynomial expansion about XI(J) for the intervals
 
 ## Classification
 
@@ -54,23 +54,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBSPPP](https://www.netlib.org/slatec/src/dbsppp.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot vector of length N+K |
-| 2 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | B-spline coefficient vector of length N |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision knot vector of length N+K |
+| 2 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision B-spline coefficient vector of length N |
 | 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of B-spline coefficients K |
 | 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K .GE. 1 |
-| 5 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C, LDC .GE. K Output     C,XI,WORK are double precision |
-| 6 | `C` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDC, *) | matrix of dimension at least (K,LXI) containing right derivatives at break points |
-| 7 | `XI` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | XI break point vector of length LXI+1 |
-| 8 | `LXI` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of break points, LXI .LE. N-K+1 |
-| 9 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | work vector of length K*(N+3) |
+| 5 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C, LDC .GE. K |
+| 6 | `C` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDC, *) | are double precision matrix of dimension at least (K,LXI) containing right derivatives at break points |
+| 7 | `XI` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1,K, J=1,LXI.  Function DPPVAL 1,K, J=1,LXI.  Function DPPVAL makes this evaluation at a specified point X in makes this evaluation at a specified point X in .LE. X .LE. XI(LXI+1) are double precision XI break point vector of length LXI+1 |
+| 8 | `LXI` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of break points, LXI .LE. N-K+1 |
+| 9 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision work vector of length K*(N+3) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -84,11 +84,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error
 
 ### Storage and workspace requirements
 
-`WORK`: work vector of length K*(N+3)
+`WORK`: are double precision work vector of length K*(N+3)
 
 ### Provider, ABI, and safety
 

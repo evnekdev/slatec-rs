@@ -8,7 +8,7 @@ Compute the minimum and maximum bounds for the argument in the Gamma function.
 
 ## Description
 
-Calculate the minimum and maximum legal bounds for X in gamma(X). XMIN and XMAX are not the only bounds, but they are the only non- trivial ones to calculate. Output Arguments -- XMIN double precision minimum legal value of X in gamma(X). Any smaller value of X might result in underflow. XMAX double precision maximum legal value of X in gamma(X). Any larger value of X might cause overflow.
+Calculate the minimum and maximum legal bounds for X in gamma(X).
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DGAMLM](https://www.netlib.org/slatec/fnlib/dgamlm.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `XMIN` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `XMAX` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `XMIN` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | trivial ones to calculate. Output Arguments -- double precision minimum legal value of X in gamma(X).  Any smaller value of X might result in underflow. |
+| 2 | `XMAX` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | trivial ones to calculate. Output Arguments -- double precision maximum legal value of X in gamma(X).  Any larger value of X might cause overflow. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

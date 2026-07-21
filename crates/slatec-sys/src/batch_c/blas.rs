@@ -24,6 +24,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cdcdot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cdcdot.md"))]
     pub fn cdcdot(
         n: *mut crate::FortranInteger,
         cb: *mut crate::Complex32,
@@ -55,6 +56,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cdotc_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cdotc.md"))]
     pub fn cdotc(
         n: *mut crate::FortranInteger,
         cx: *mut crate::Complex32,
@@ -85,6 +87,7 @@ unsafe extern "C" {
     ///
     /// This declaration is source/hash, symbol, ABI-profile, compile, and bulk-link validated; it is not a safe or universally numerically validated API. Every pointer must be non-null, aligned, and valid for every native access; array storage, strides, leading dimensions, workspace, and aliasing must satisfy the selected source prologue. Rust callbacks, if present, must use the exact compiler-validated callback ABI and must not unwind. The native routine retains no pointer. Callers must link the documented GNU MinGW-compatible provider and serialize any process-global SLATEC state.
     #[link_name = "cdotu_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cdotu.md"))]
     pub fn cdotu(
         n: *mut crate::FortranInteger,
         cx: *mut crate::Complex32,

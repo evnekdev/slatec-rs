@@ -8,7 +8,7 @@ Evaluate the B-representation of a B-spline at X for the function value or any o
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBVALU is the BVALUE function of the reference. DBVALU evaluates the B-representation (T,A,N,K) of a B-spline at X for the function value on IDERIV=0 or any of its derivatives on IDERIV=1,2,...,K-1. Right limiting values (right derivatives) are returned except at the right end point X=T(N+1) where left limiting values are computed. The spline is defined on T(K) .LE. X .LE. T(N+1). DBVALU returns
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBVALU is the BVALUE function of the reference. DBVALU evaluates the B-representation (T,A,N,K) of a B-spline
 
 ## Classification
 
@@ -54,20 +54,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBVALU](https://www.netlib.org/slatec/src/dbvalu.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot vector of length N+K |
-| 2 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | B-spline coefficient vector of length N |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of B-spline coefficients K |
-| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K .GE. 1 |
-| 5 | `IDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the derivative, 0 .LE. IDERIV .LE. K-1 spline value |
-| 6 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | argument, T(K) .LE. X .LE. T(N+1) |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1 and set X=T(I), I=K+1,N+1. DBVALU calls DINTRV are double precision knot vector of length N+K |
+| 2 | `A` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | is outside of this interval. To compute left derivatives or left limiting values at a are double precision B-spline coefficient vector of length N |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 and set X=T(I), I=K+1,N+1. DBVALU calls DINTRV number of B-spline coefficients K |
+| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1.  Right limiting values (right derivatives) are returned except at the right end order of the B-spline, K .GE. 1 |
+| 5 | `IDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0 or any of its 1.  Right limiting values (right derivatives) are returned except at the right end order of the derivative, 0 .LE. IDERIV .LE. K-1 spline value |
+| 6 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 0 or any of its T(N+1) where left limiting values are computed.  The spline is defined on T(K) .LE. X .LE. T(N+1).  DBVALU returns is outside of this interval. To compute left derivatives or left limiting values at a are double precision argument, T(K) .LE. X .LE. T(N+1) |
 | 7 | `INBV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time DBVALU is called. Output     WORK,DBVALU are double precision INBV contains information for efficient process- ing after the initial call and INBV must not be changed by the user.  Distinct splines require distinct INBV parameters. |
 | 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | work vector of length 3*K. DBVALU  - value of the IDERIV-th derivative at X |
 
@@ -83,7 +83,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-To compute left derivatives or left limiting values at a knot T(I), replace N by I-1 and set X=T(I), I=K+1,N+1. DBVALU calls DINTRV
+An improper input is a fatal error
 
 ### Storage and workspace requirements
 

@@ -8,7 +8,7 @@ Form the eigenvectors of a generalized symmetric eigensystem from the eigenvecto
 
 ## Description
 
-This subroutine is a translation of the ALGOL procedure REBAKA, NUM. MATH. 11, 99-110(1968) by Martin and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 303-314(1971). This subroutine forms the eigenvectors of a generalized SYMMETRIC eigensystem by back transforming those of the derived symmetric matrix determined by REDUC or REDUC2. On Input NM must be set to the row dimension of the two-dimensional array parameters, B and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix system. N is an INTEGER variable. N must be less than or equal to NM. B contains information about the similarity transformation (Cholesky decomposition) used in the reduction by REDUC or REDUC2 in its strict lower triangle. B is a two- dimensional REAL array, dimensioned B(NM,N). DL contains further information about the transformation. DL is a one-dimensional REAL array, dimensioned DL(N). M is the number of eigenvectors to be back transformed. M is an INTEGER variable. Z contains the eigenvectors to be back transformed in its first M columns. Z is a two-dimensional REAL array dimensioned Z(NM,M). On Output Z contains the transformed eigenvectors in its first M columns. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine is a translation of the ALGOL procedure REBAKA, NUM. MATH. 11, 99-110(1968) by Martin and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 303-314(1971). This subroutine forms the eigenvectors of a generalized SYMMETRIC eigensystem by back transforming those of the derived symmetric matrix determined by REDUC or REDUC2.
 
 ## Classification
 
@@ -51,20 +51,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [REBAK](https://www.netlib.org/slatec/lin/rebak.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `DL` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `Z` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, B and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix system.  N is an INTEGER variable.  N must be less than or equal to NM. |
+| 3 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains information about the similarity transformation (Cholesky decomposition) used in the reduction by  REDUC dimensional REAL array, dimensioned B(NM,N). system Routines - EISPACK Guide, Springer-Verlag, 1976. |
+| 4 | `DL` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains further information about the transformation. dimensional REAL array, dimensioned DL(N). |
+| 5 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of eigenvectors to be back transformed. is an INTEGER variable. dimensional REAL array dimensioned Z(NM,M). columns. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 6 | `Z` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the eigenvectors to be back transformed in its dimensional REAL array dimensioned Z(NM,M). contains the transformed eigenvectors in its first |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

@@ -54,21 +54,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DQDOTI](https://www.netlib.org/slatec/src/dqdoti.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 of DX(LX+I*INCX) * DY(LY+I*INCY),  where QC is an extended precision result which can be used as input to DQDOTA, |
-| 2 | `DB` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | 1 of DX(LX+I*INCX) * DY(LY+I*INCY),  where QC is an extended precision result which can be used as input to DQDOTA, |
-| 3 | `QC` | `output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (30) | 1 of DX(LX+I*INCX) * DY(LY+I*INCY),  where QC is an extended precision result which can be used as input to DQDOTA, |
-| 4 | `DX` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `INCX` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INCX)*N, and LY is defined in a similar way using INCY.  The MP package by Richard P. Brent is used for the extended precision arithmetic. Fred T. Krogh,  JPL,  1977,  June 1 The common block for the MP package is named MPCOM.  If local variable I1 is zero, DQDOTI calls MPBLAS to initialize the MP package and reset I1 to 1. The argument QC(*), and the local variables QX and QY are INTEGER arrays of size 30.  See the comments in the routine MPBLAS for the reason for this choice. |
-| 6 | `DY` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of elements in input vector(s) 1 of |
+| 2 | `DB` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision scalar to be added to inner product 1 of |
+| 3 | `QC` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (30) | extended precision scalar to be added extended precision result D.P. dot product with extended precision accumulation (and result) 1 of is an extended precision result which can be used as input to DQDOTA, |
+| 4 | `DX` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | double precision vector with N elements is an extended precision result which can be used as input to DQDOTA, |
+| 5 | `INCX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of DX is an extended precision result which can be used as input to DQDOTA, INCX)*N, and LY is defined in a similar way using INCY.  The MP package by Richard P. Brent is used for the extended precision arithmetic. Fred T. Krogh,  JPL,  1977,  June 1 The common block for the MP package is named MPCOM.  If local variable I1 is zero, DQDOTI calls MPBLAS to initialize the MP package and reset I1 to 1. The argument QC(*), and the local variables QX and QY are INTEGER arrays of size 30.  See the comments in the routine MPBLAS for the reason for this choice. |
+| 6 | `DY` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | double precision vector with N elements is an extended precision result which can be used as input to DQDOTA, |
+| 7 | `INCY` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | storage spacing between elements of DY is an extended precision result which can be used as input to DQDOTA, |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

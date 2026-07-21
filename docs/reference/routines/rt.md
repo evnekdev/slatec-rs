@@ -8,7 +8,7 @@ Compute the eigenvalues and eigenvectors of a special real tridiagonal matrix.
 
 ## Description
 
-This subroutine calls the recommended sequence of subroutines from the eigensystem subroutine package (EISPACK) to find the eigenvalues and eigenvectors (if desired) of a special REAL TRIDIAGONAL matrix. The property of the matrix required for use of this subroutine is that the products of pairs of corresponding off-diagonal elements be all non-negative. If eigenvectors are desired, no product can be zero unless both factors are zero. On Input NM must be set to the row dimension of the two-dimensional array parameter, A and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix A. N is an INTEGER variable. N must be less than or equal to NM. A contains the special real tridiagonal matrix in its first three columns. The subdiagonal elements are stored in the last N-1 positions of the first column, the diagonal elements in the second column, and the superdiagonal elements in the first N-1 positions of the third column. Elements A(1,1) and A(N,3) are arbitrary. A is a two-dimensional REAL array, dimensioned A(NM,3). MATZ is an INTEGER variable set equal to zero if only eigenvalues are desired. Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors. On Output W contains the eigenvalues in ascending order. W is a one-dimensional REAL array, dimensioned W(N). Z contains the eigenvectors if MATZ is not zero. The eigen- vectors are not normalized. Z is a two-dimensional REAL array, dimensioned Z(NM,N). IERR is an INTEGER flag set to Zero for normal return, 10*N if N is greater than NM, N+J if A(J,1)*A(J-1,3) is negative, 2*N+J if the product is zero with one factor non-zero, and MATZ is non-zero; J if the J-th eigenvalue has not been determined after 30 iterations. The eigenvalues and eigenvectors in the W and Z arrays should be correct for indices 1, 2, ..., IERR-1. FV1 is a one-dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine calls the recommended sequence of subroutines from the eigensystem subroutine package (EISPACK) to find the eigenvalues and eigenvectors (if desired) of a special REAL TRIDIAGONAL matrix. The property of the matrix required for use of this subroutine is that the products of pairs of corresponding off-diagonal elements be all non-negative. If eigenvectors are desired, no product can be zero unless both factors are zero.
 
 ## Classification
 
@@ -52,22 +52,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [RT](https://www.netlib.org/slatec/lin/rt.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, 3) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 5 | `MATZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `Z` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `FV1` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameter, A and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix A.  N is an INTEGER variable. must be less than or equal to NM. 1 positions of the first column, the diagonal elements in the second column, and the superdiagonal elements in the 1 positions of the third column.  Elements A(1,1) and dimensional REAL array, dimensioned A(NM,3). is greater than NM, is greater than NM, 1,3) is negative, zero, |
+| 3 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, 3) | contains the special real tridiagonal matrix in its first three columns.  The subdiagonal elements are stored in the dimensional REAL array, dimensional REAL array, dimensional REAL array, dimensioned A(NM,3). dimensioned A(NM,3). dimensioned A(NM,3). dimensional REAL array, dimensioned Z(NM,N). 1,3) is negative, 1,3) is negative, dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 4 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is a is a one-dimensional REAL array, dimensioned W(N). one-dimensional REAL array, dimensioned W(N). |
+| 5 | `MATZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER variable set equal to zero if only eigenvalues are desired.  Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors. zero; J          if the J-th eigenvalue has not been determined after 30 iterations. The eigenvalues and eigenvectors in the W and Z arrays should be correct for indices |
+| 6 | `Z` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | dimensional REAL array, dimensioned Z(NM,N). |
+| 7 | `FV1` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL array used for temporary storage, dimensioned FV1(N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, 1. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -85,7 +85,7 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`W`: Workspace argument classified by fixed-form executable read/write analysis.
+`W`: is a is a one-dimensional REAL array, dimensioned W(N). one-dimensional REAL array, dimensioned W(N).
 
 ### Provider, ABI, and safety
 

@@ -8,7 +8,7 @@ Compute the eigenvalues and, optionally, the eigenvectors of a complex Hermitian
 
 ## Description
 
-This subroutine calls the recommended sequence of subroutines from the eigensystem subroutine package (EISPACK) to find the eigenvalues and eigenvectors (if desired) of a COMPLEX HERMITIAN matrix. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, AR, AI, ZR and ZI, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix A=(AR,AI). N is an INTEGER variable. N must be less than or equal to NM. AR and AI contain the real and imaginary parts, respectively, of the complex Hermitian matrix. AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). MATZ is an INTEGER variable set equal to zero if only eigenvalues are desired. Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors. On OUTPUT W contains the eigenvalues in ascending order. W is a one-dimensional REAL array, dimensioned W(N). ZR and ZI contain the real and imaginary parts, respectively, of the eigenvectors if MATZ is not zero. ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,N) and ZI(NM,N). IERR is an INTEGER flag set to Zero for normal return, 10*N if N is greater than NM, J if the J-th eigenvalue has not been determined after a total of 30 iterations. The eigenvalues should be correct for indices 1, 2, ..., IERR-1, but no eigenvectors are computed. FV1 and FV2 are one-dimensional REAL arrays used for temporary storage, dimensioned FV1(N) and FV2(N). FM1 is a two-dimensional REAL array used for temporary storage, dimensioned FM1(2,N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine calls the recommended sequence of subroutines from the eigensystem subroutine package (EISPACK) to find the eigenvalues and eigenvectors (if desired) of a COMPLEX HERMITIAN matrix.
 
 ## Classification
 
@@ -52,26 +52,26 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CH](https://www.netlib.org/slatec/lin/ch.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `AR` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `AI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 6 | `MATZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `ZR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `ZI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `FV1` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `FV2` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `FM1` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (2, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 12 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, AR, AI, ZR and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (AR,AI).  N is an INTEGER variable.  N must be less than or equal to NM. is greater than NM, is greater than NM, J          if the J-th eigenvalue has not been J          if the J-th eigenvalue has not been determined after a total of 30 iterations. determined after a total of 30 iterations. The eigenvalues should be correct for indices The eigenvalues should be correct for indices |
+| 3 | `AR` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the complex Hermitian matrix.  AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). |
+| 4 | `AI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the complex Hermitian matrix.  AR and AI are two-dimensional REAL arrays, dimensioned AR(NM,N) and AI(NM,N). |
+| 5 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the eigenvalues in ascending order. dimensional REAL array, dimensioned W(N). |
+| 6 | `MATZ` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER variable set equal to zero if only eigenvalues are desired.  Otherwise, it is set to any non-zero integer for both eigenvalues and eigenvectors. |
+| 7 | `ZR` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the eigenvectors if MATZ is not zero.  ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,N) and |
+| 8 | `ZI` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the eigenvectors if MATZ is not zero.  ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,N) and |
+| 9 | `FV1` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays used for temporary storage, dimensioned FV1(N) and FV2(N). |
+| 10 | `FV2` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays used for temporary storage, dimensioned FV1(N) and FV2(N). |
+| 11 | `FM1` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (2, *) | dimensional REAL array used for temporary storage, dimensioned FM1(2,N). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, 1, but no eigenvectors are computed. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -89,7 +89,7 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`W`: Workspace argument classified by fixed-form executable read/write analysis.
+`W`: contains the eigenvalues in ascending order. dimensional REAL array, dimensioned W(N).
 
 ### Provider, ABI, and safety
 

@@ -8,7 +8,7 @@ Form the eigenvectors of a certain real non-symmetric tridiagonal matrix from a 
 
 ## Description
 
-This subroutine forms the eigenvectors of a NONSYMMETRIC TRIDIAGONAL matrix by back transforming those of the corresponding symmetric matrix determined by FIGI. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, T and Z, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix T. N is an INTEGER variable. N must be less than or equal to NM. T contains the nonsymmetric matrix. Its subdiagonal is stored in the last N-1 positions of the first column, its diagonal in the N positions of the second column, and its superdiagonal in the first N-1 positions of the third column. T(1,1) and T(N,3) are arbitrary. T is a two-dimensional REAL array, dimensioned T(NM,3). E contains the subdiagonal elements of the symmetric matrix in its last N-1 positions. E(1) is arbitrary. E is a one-dimensional REAL array, dimensioned E(N). M is the number of eigenvectors to be back transformed. M is an INTEGER variable. Z contains the eigenvectors to be back transformed in its first M columns. Z is a two-dimensional REAL array, dimensioned Z(NM,M). On OUTPUT T is unaltered. E is destroyed. Z contains the transformed eigenvectors in its first M columns. IERR is an INTEGER flag set to Zero for normal return, 2*N+I if E(I) is zero with T(I,1) or T(I-1,3) non-zero. In this case, the symmetric matrix is not similar to the original matrix, and the eigenvectors cannot be found by this program. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine forms the eigenvectors of a NONSYMMETRIC TRIDIAGONAL matrix by back transforming those of the corresponding symmetric matrix determined by FIGI.
 
 ## Classification
 
@@ -51,21 +51,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BAKVEC](https://www.netlib.org/slatec/lin/bakvec.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, 3) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `E` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `Z` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, T and Z, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix T.  N is an INTEGER variable. must be less than or equal to NM. 1 positions of the first column, its diagonal in the N positions of the second column, 1 positions of are arbitrary. 1 positions.  E(1) is arbitrary. 1,3) non-zero. In this case, the symmetric matrix is not similar to the original matrix, and the eigenvectors cannot be found by this program. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 3 | `T` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, 3) | contains the nonsymmetric matrix.  Its subdiagonal is are arbitrary. are arbitrary. dimensional REAL array, dimensioned T(NM,3). is unaltered. 1,3) non-zero. 1,3) non-zero. In this case, the symmetric matrix is not similar In this case, the symmetric matrix is not similar to the original matrix, and the eigenvectors to the original matrix, and the eigenvectors cannot be found by this program. cannot be found by this program. Questions and comments should be directed to B. S. Garbow, Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 4 | `E` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the subdiagonal elements of the symmetric dimensional REAL array, dimensioned E(N). is destroyed. 1,3) non-zero. In this case, the symmetric matrix is not similar to the original matrix, and the eigenvectors cannot be found by this program. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 5 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of eigenvectors to be back transformed. is an INTEGER variable. dimensional REAL array, dimensioned Z(NM,M). |
+| 6 | `Z` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the eigenvectors to be back transformed dimensional REAL array, dimensioned Z(NM,M). contains the transformed eigenvectors in its first M columns. |
+| 7 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

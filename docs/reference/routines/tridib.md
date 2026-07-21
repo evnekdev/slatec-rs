@@ -8,7 +8,7 @@ Compute the eigenvalues of a symmetric tridiagonal matrix in a given interval us
 
 ## Description
 
-This subroutine is a translation of the ALGOL procedure BISECT, NUM. MATH. 9, 386-393(1967) by Barth, Martin, and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 249-256(1971). This subroutine finds those eigenvalues of a TRIDIAGONAL SYMMETRIC matrix between specified boundary indices, using bisection. On Input N is the order of the matrix. N is an INTEGER variable.
+This subroutine is a translation of the ALGOL procedure BISECT, NUM. MATH. 9, 386-393(1967) by Barth, Martin, and Wilkinson. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 249-256(1971). This subroutine finds those eigenvalues of a TRIDIAGONAL SYMMETRIC matrix between specified boundary indices, using bisection.
 
 ## Classification
 
@@ -52,28 +52,28 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [TRIDIB](https://www.netlib.org/slatec/lin/tridib.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `EPS1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `D` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `E` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `E2` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `LB` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `UB` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `M11` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 10 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 11 | `IND` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Status argument classified by fixed-form executable read/write analysis. |
-| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 13 | `RV4` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 14 | `RV5` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the order of the matrix.  N is an INTEGER variable. 1 positions.  E(1) is if multiple eigenvalues at index M11 make unique selection of LB impossible, if multiple eigenvalues at index M22 make unique selection of UB impossible. |
+| 2 | `EPS1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | positive, it is reset for each submatrix to a default value, namely, minus the product of the relative machine precision and the 1-norm of the submatrix.  EPS1 is a REAL variable. is unaltered unless it has been reset to its (last) default value. |
+| 3 | `D` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the diagonal elements of the symmetric tridiagonal dimensional REAL array, dimensioned D(N). are unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. |
+| 4 | `E` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the subdiagonal elements of the symmetric dimensional REAL array, dimensioned are unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. |
+| 5 | `E2` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains the squares of the corresponding elements of E. dimensional REAL array, dimensional REAL array, dimensioned E2(N). dimensioned E2(N). is also set to zero. |
+| 6 | `LB` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | and UB define an interval containing exactly the desired are REAL variables. |
+| 7 | `UB` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | are REAL variables. |
+| 8 | `M11` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | specifies the lower boundary index for the set of desired eigenvalues.  M11 is an INTEGER variable. 1. |
+| 9 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | specifies the number of eigenvalues desired.  The upper 1. is an INTEGER variable. |
+| 10 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains, in its first M positions, the eigenvalues between indices M11 and M22 in ascending order. dimensional REAL array, dimensioned W(M). 1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc. |
+| 11 | `IND` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | contains in its first M positions the submatrix indices dimensional INTEGER array, dimensioned IND(M). |
+| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER flag set to Zero       for normal return, |
+| 13 | `RV4` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays used for temporary storage of the lower and upper bounds for the eigenvalues in are dimensioned RV4(N) and RV5(N). Note that subroutine TQL1, IMTQL1, or TQLRAT is generally faster than TRIDIB, if more than N/4 eigenvalues are to be found. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 14 | `RV5` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL arrays used for temporary storage of the lower and upper bounds for the eigenvalues in are dimensioned RV4(N) and RV5(N). Note that subroutine TQL1, IMTQL1, or TQLRAT is generally faster than TRIDIB, if more than N/4 eigenvalues are to be found. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -87,11 +87,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-values.  If the input EPS1 is non-positive, it is reset for each submatrix to a default value, namely, minus the product of the relative machine precision and the 1-norm of the submatrix.  EPS1 is a REAL variable. D contains the diagonal elements of the symmetric tridiagonal matrix.  D is a one-dimensional REAL array, dimensioned D(N). E contains the subdiagonal elements of the symmetric tridiagonal matrix in its last N-1 positions.  E(1) is arbitrary.  E is a one-dimensional REAL array, dimensioned E(N). E2 contains the squares of the corresponding elements of E. E2(1) is arbitrary.  E2 is a one-dimensional REAL array, dimensioned E2(N). M11 specifies the lower boundary index for the set of desired eigenvalues.  M11 is an INTEGER variable. M specifies the number of eigenvalues desired.  The upper boundary index M22 is then obtained as M22=M11+M-1. M is an INTEGER variable. On Output EPS1 is unaltered unless it has been reset to its (last) default value. D and E are unaltered. Elements of E2, corresponding to elements of E regarded as negligible, have been replaced by zero causing the matrix to split into a direct sum of submatrices. E2(1) is also set to zero. LB and UB define an interval containing exactly the desired eigenvalues.  LB and UB are REAL variables. W contains, in its first M positions, the eigenvalues between indices M11 and M22 in ascending order. W is a one-dimensional REAL array, dimensioned W(M). IND contains in its first M positions the submatrix indices associated with the corresponding eigenvalues in W -- 1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc. IND is an one-dimensional INTEGER array, dimensioned IND(M). IERR is an INTEGER flag set to Zero       for normal return, 3*N+1      if multiple eigenvalues at index M11 make unique selection of LB impossible, 3*N+2      if multiple eigenvalues at index M22 make unique selection of UB impossible. RV4 and RV5 are one-dimensional REAL arrays used for temporary storage of the lower and upper bounds for the eigenvalues in the bisection process.  RV4 and RV5 are dimensioned RV4(N) and RV5(N). Note that subroutine TQL1, IMTQL1, or TQLRAT is generally faster than TRIDIB, if more than N/4 eigenvalues are to be found. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 
-`W`: Workspace argument classified by fixed-form executable read/write analysis.
+`W`: contains, in its first M positions, the eigenvalues between indices M11 and M22 in ascending order. dimensional REAL array, dimensioned W(M). 1 for eigenvalues belonging to the first submatrix from the top, 2 for those belonging to the second submatrix, etc.
 
 ### Provider, ABI, and safety
 

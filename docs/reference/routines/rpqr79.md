@@ -8,7 +8,7 @@ Find the zeros of a polynomial with real coefficients.
 
 ## Description
 
-This routine computes all zeros of a polynomial of degree NDEG with real coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list COEFF(NDEG+1), ROOT(NDEG), WORK(NDEG*(NDEG+2))
+This routine computes all zeros of a polynomial of degree NDEG with real coefficients by computing the eigenvalues of the companion matrix. Description of Parameters The user must dimension all arrays appearing in the call list
 
 ## Classification
 
@@ -54,19 +54,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [RPQR79](https://www.netlib.org/slatec/src/rpqr79.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `COEFF` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 3 | `ROOT` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 1 | `NDEG` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | ROOT(NDEG), WORK(NDEG*(NDEG+2)) degree of polynomial |
+| 2 | `COEFF` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | ROOT(NDEG), WORK(NDEG*(NDEG+2)) REAL coefficients in descending order.  i.e., P(Z)= COEFF(1)*(Z**NDEG) + COEFF(NDEG)*Z + COEFF(NDEG+1) 0.0 3  NDEG is invalid (less than or equal to 0) |
+| 3 | `ROOT` | `output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX vector of roots |
+| 4 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Output Error Code - Normal Code 0  means the roots were computed. - Abnormal Codes 1  more than 30 QR iterations on some eigenvalue of the companion matrix |
+| 5 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL work array of dimension at least NDEG*(NDEG+2) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -80,11 +80,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-- Normal Code 0  means the roots were computed. - Abnormal Codes 1  more than 30 QR iterations on some eigenvalue of the companion matrix 2  COEFF(1)=0.0 3  NDEG is invalid (less than or equal to 0)
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 
-`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`WORK`: REAL work array of dimension at least NDEG*(NDEG+2)
 
 ### Provider, ABI, and safety
 

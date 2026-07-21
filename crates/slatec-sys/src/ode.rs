@@ -97,6 +97,7 @@ pub type SdriveUsersF64 = unsafe extern "C" fn(
 unsafe extern "C" {
     /// Original single-precision SLATEC expert SDRIVE driver `SDRIV3`.
     #[link_name = "sdriv3_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sdriv3.md"))]
     pub fn sdriv3(
         n: *mut FortranInteger,
         t: *mut f32,
@@ -130,6 +131,7 @@ unsafe extern "C" {
     );
     /// Original double-precision SLATEC expert SDRIVE driver `DDRIV3`.
     #[link_name = "ddriv3_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ddriv3.md"))]
     pub fn ddriv3(
         n: *mut FortranInteger,
         t: *mut f64,

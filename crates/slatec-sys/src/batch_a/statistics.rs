@@ -25,6 +25,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "cv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cv.md"))]
     pub fn cv(
         xval: *mut f32,
         ndata: *mut crate::FortranInteger,
@@ -58,6 +59,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dcv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcv.md"))]
     pub fn dcv(
         xval: *mut f64,
         ndata: *mut crate::FortranInteger,
@@ -85,6 +87,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "rand_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rand.md"))]
     pub fn rand(r: *mut f32) -> f32;
 }
 
@@ -105,6 +108,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "rgauss_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rgauss.md"))]
     pub fn rgauss(xmean: *mut f32, sd: *mut f32) -> f32;
 }
 
@@ -125,5 +129,6 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "runif_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/runif.md"))]
     pub fn runif(t: *mut f32, n: *mut crate::FortranInteger) -> f32;
 }

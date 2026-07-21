@@ -8,7 +8,7 @@ Evaluate the 3j symbol g(M2) = (L1 L2 L3 ) (M1 M2 -M1-M2) for all allowed values
 
 ## Description
 
-Usage: REAL L1, L2, L3, M1, M2MIN, M2MAX, THRCOF(NDIM) INTEGER NDIM, IER CALL RC3JM (L1, L2, L3, M1, M2MIN, M2MAX, THRCOF, NDIM, IER) Although conventionally the parameters of the vector addition coefficients satisfy certain restrictions, such as being integers or integers plus 1/2, the restrictions imposed on input to this subroutine are somewhat weaker. See, for example, Section 27.9 of Abramowitz and Stegun or Appendix C of Volume II of A. Messiah. The restrictions imposed by this subroutine are 1. L1.GE.ABS(M1) and L1+ABS(M1) must be an integer; 2. ABS(L1-L2).LE.L3.LE.L1+L2; 3. L1+L2+L3 must be an integer; 4. M2MAX-M2MIN must be an integer, where M2MAX=MIN(L2,L3-M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met.
+Usage: REAL L1, L2, L3, M1, M2MIN, M2MAX, THRCOF(NDIM) INTEGER NDIM, IER CALL RC3JM (L1, L2, L3, M1, M2MIN, M2MAX, THRCOF, NDIM, IER) Although conventionally the parameters of the vector addition coefficients satisfy certain restrictions, such as being integers or integers plus 1/2, the restrictions imposed on input to this subroutine are somewhat weaker. See, for example, Section 27.9 of Abramowitz and Stegun or Appendix C of Volume II of A. Messiah. The restrictions imposed by this subroutine are
 
 ## Classification
 
@@ -54,23 +54,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [RC3JM](https://www.netlib.org/slatec/src/rc3jm.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `L1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `L2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `L3` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `M1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `M2MIN` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | 1), I=1,2,...,M2MAX-M2MIN+1. NDIM :IN    Declared length of THRCOF in calling program. |
-| 6 | `M2MAX` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `THRCOF` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NDIM) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `NDIM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `L1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | IN      Parameter in 3j symbol. integer. integer. L2).LE.L3.LE.L1+L2 not satisfied. must be an integer; must be an integer; L2).LE.L3.LE.L1+L2; must be an integer; |
+| 2 | `L2` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | IN      Parameter in 3j symbol. must be an integer; M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) |
+| 3 | `L3` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | IN      Parameter in 3j symbol. must be an integer; M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) |
+| 4 | `M1` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | M1-M2) for all allowed values of M2, the other parameters being held fixed. IN      Parameter in 3j symbol. integer. integer. must be an integer; must be an integer; |
+| 5 | `M2MIN` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | OUT  Smallest allowable M2 in 3j symbol. 1), I=1,2,...,M2MAX-M2MIN+1. are defined above. The sequence g(M2) is generated by a three-term recurrence algorithm with scaling to control overflow. Both backward and forward recurrence are used to maintain numerical stability. The two recurrence sequences are matched at an interior point and are normalized from the unitary property of 3j coefficients and Wigner's phase convention. The algorithm is suited to applications in which large quantum numbers arise, such as in molecular dynamics. |
+| 6 | `M2MAX` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | OUT  Largest allowable M2 in 3j symbol. M2MIN not an integer. M2MIN+1. M2MIN must be an integer, where M1) and M2MIN=MAX(-L2,-L3-M1). If the conventional restrictions are satisfied, then these restrictions are met. The user should be cautious in using input parameters that do not satisfy the conventional restrictions. For example, the the subroutine produces values of g(M2) = (0.75 1.50   1.75  ) (0.25  M2  -0.25-M2) for M2=-1.5,-0.5,0.5,1.5 but none of the symmetry properties of the 3j symbol, set forth on page 1056 of Messiah, is satisfied. The subroutine generates g(M2MIN), g(M2MIN+1), ..., g(M2MAX) are defined above. The sequence g(M2) is generated by a three-term recurrence algorithm with scaling to control overflow. Both backward and forward recurrence are used to maintain numerical stability. The two recurrence sequences are matched at an interior point and are normalized from the unitary property of 3j coefficients and Wigner's phase convention. The algorithm is suited to applications in which large quantum numbers arise, such as in molecular dynamics. |
+| 7 | `THRCOF` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NDIM) | OUT Set of 3j coefficients generated by evaluating the 3j symbol for all allowed values of M2.  THRCOF(I) |
+| 8 | `NDIM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IN    Declared length of THRCOF in calling program. M2MIN+1. |
+| 9 | `IER` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | OUT    Error flag. 0 No errors. integer. L2).LE.L3.LE.L1+L2 not satisfied. 3 L1+L2+L3 not an integer. M2MIN not an integer. 5 M2MAX less than M2MIN. M2MIN+1. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -84,7 +84,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-IER=1 Either L1.LT.ABS(M1) or L1+ABS(M1) non-integer. IER=2 ABS(L1-L2).LE.L3.LE.L1+L2 not satisfied. IER=3 L1+L2+L3 not an integer. IER=4 M2MAX-M2MIN not an integer. IER=5 M2MAX less than M2MIN. IER=6 NDIM less than M2MAX-M2MIN+1. SLATEC standards. These changes were done by D. W. Lozier, M. A. McClain and J. M. Smith of the National Institute of Standards and Technology, formerly NBS.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

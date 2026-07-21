@@ -8,7 +8,7 @@ Compute the largest integer ILEFT in 1 .LE. ILEFT .LE. LXT such that XT(ILEFT) .
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos INTRV is the INTERV routine of the reference. INTRV computes the largest integer ILEFT in 1 .LE. ILEFT .LE. LXT such that XT(ILEFT) .LE. X where XT(*) is a subdivision of the X interval. Precisely, X .LT. XT(1) 1 -1 if XT(I) .LE. X .LT. XT(I+1) then ILEFT=I , MFLAG=0 XT(LXT) .LE. X LXT 1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT.
+Written by Carl de Boor and modified by D. E. Amos INTRV is the INTERV routine of the reference. INTRV computes the largest integer ILEFT in 1 .LE. ILEFT .LE.
 
 ## Classification
 
@@ -53,19 +53,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [INTRV](https://www.netlib.org/slatec/src/intrv.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `XT` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | XT is a knot or break point vector of length LXT |
-| 2 | `LXT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | length of the XT vector |
-| 3 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | argument |
+| 1 | `XT` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is a subdivision is a subdivision of the X interval. of the X interval. is a subdivision of is a subdivision of the X interval.  Precisely, the X interval.  Precisely, 1 I  , MFLAG=0 I  , MFLAG=0 .LE. X                         LXT        1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. XT is a knot or break point vector of length LXT |
+| 2 | `LXT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a subdivision of the X interval.  Precisely, .LE. X                         LXT        1, That is, when multiplicities are present in the break point to the left of X, the largest index is taken for ILEFT. length of the XT vector |
+| 3 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a subdivision of the X interval. is a subdivision of the X interval.  Precisely, 1 I  , MFLAG=0 argument |
 | 4 | `ILO` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time the spline array XT is processed by INTRV. ILO contains information for efficient process- ing after the initial call, and ILO must not be changed by the user.  Distinct splines require distinct ILO parameters. |
-| 5 | `ILEFT` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | largest integer satisfying XT(ILEFT) .LE. X |
+| 5 | `ILEFT` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a subdivision of the X interval. is a subdivision of the X interval.  Precisely, I  , MFLAG=0 largest integer satisfying XT(ILEFT) .LE. X |
 | 6 | `MFLAG` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | signals when X lies out of bounds |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.

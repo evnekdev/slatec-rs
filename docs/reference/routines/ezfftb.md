@@ -52,20 +52,20 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [EZFFTB](https://www.netlib.org/slatec/fishfft/ezfftb.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1)/2 locations are required 1)/2 locations are required WSAVE   a work array which must be dimensioned at least 3*N+15 WSAVE   a work array which must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different different WSAVE array must be used for each different value of N.  This initialization does not have to be value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. The same WSAVE array can be used by EZFFTF and EZFFTB. N/2 1)/2 1)/2 Then for I=1,...,N Then for I=1,...,N |
-| 2 | `R` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | N/2 AZERO plus the sum from K=1 to K=KMAX of KMAX to K=KMAX of C(K)*EXP(I*K*(J-1)*2*PI/N) where 1 to K=KMAX of ALPHA(K)*COS(K*(I-1)*2*PI/N+BETA(K)) where ALPHA(K) = SQRT(A(K)*A(K)+B(K)*B(K)) COS(BETA(K))=A(K)/ALPHA(K) SIN(BETA(K))=-B(K)/ALPHA(K) |
-| 3 | `AZERO` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | 1 to K=KMAX of ALPHA(K)*COS(K*(I-1)*2*PI/N+BETA(K)) where ALPHA(K) = SQRT(A(K)*A(K)+B(K)*B(K)) COS(BETA(K))=A(K)/ALPHA(K) SIN(BETA(K))=-B(K)/ALPHA(K) |
-| 4 | `A` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1)*2*PI/N)+B(K)*SIN(K*(I-1)*2*PI/N) Complex Notation ************************** For J=1,...,N B(K))   for K=1,...,KMAX C(-K) = CONJG(C(K)) C(0) = AZERO and I=SQRT(-1) Amplitude - Phase Notation *********************** For I=1,...,N |
-| 5 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is most efficient when N is the product of small primes. are required. are required. 1)/2 locations are required 1)/2 locations are required N/2 1)/2 1)/2 Then for I=1,...,N Then for I=1,...,N where where ALPHA(K) = SQRT(A(K)*A(K)+B(K)*B(K)) |
+| 2 | `R` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | is most efficient when N is the product of small primes. N/2 AZERO plus the sum from K=1 to K=KMAX of KMAX to K=KMAX of 1 to K=KMAX of |
+| 3 | `AZERO` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | the constant Fourier coefficient 1 to K=KMAX of |
+| 4 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the remaining Fourier coefficients. These arrays are not destroyed. The length of these arrays depends on whether N is even or odd. must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. 1)*2*PI/N)+B(K)*SIN(K*(I-1)*2*PI/N) Complex Notation ************************** For J=1,...,N B(K))   for K=1,...,KMAX C(-K) = CONJG(C(K)) C(0) = AZERO and I=SQRT(-1) Amplitude - Phase Notation *********************** For I=1,...,N |
+| 5 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the remaining Fourier coefficients. These arrays are not destroyed. The length of these arrays depends on whether N is even or odd. |
+| 6 | `WSAVE` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -83,7 +83,7 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`WSAVE`: Workspace argument classified by fixed-form executable read/write analysis.
+`WSAVE`: must be dimensioned at least 3*N+15 in the program that calls EZFFTB.  The WSAVE array must be initialized by calling subroutine EZFFTI(N,WSAVE), and a different WSAVE array must be used for each different value of N.  This initialization does not have to be repeated so long as N remains unchanged.  Thus subsequent transforms can be obtained faster than the first. The same WSAVE array can be used by EZFFTF and EZFFTB.
 
 ### Provider, ABI, and safety
 

@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [C0LGMC](https://www.netlib.org/slatec/fnlib/c0lgmc.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `Z` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `Z` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | 1.0 with relative 1.0 with relative 1.0 with relative accuracy. accuracy. accuracy. 1.0  with relative error accuracy 1.0  with relative error accuracy 1.0  with relative error accuracy Let Q = 1.0/Z so that Let Q = 1.0/Z so that Let Q = 1.0/Z so that 1 = (Z+0.5)*(LOG(1+Q) - Q + Q*Q/2) - Q*Q/4 1 = (Z+0.5)*(LOG(1+Q) - Q + Q*Q/2) - Q*Q/4 Q**2/4, where  C9LN2R  is (LOG(1+Q) - Q + 0.5*Q**2) / Q**3. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-Let Q = 1.0/Z so that (Z+0.5)*LOG(1+1/Z) - 1 = (Z+0.5)*(LOG(1+Q) - Q + Q*Q/2) - Q*Q/4 = (Z+0.5)*Q**3*C9LN2R(Q) - Q**2/4, where  C9LN2R  is (LOG(1+Q) - Q + 0.5*Q**2) / Q**3.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

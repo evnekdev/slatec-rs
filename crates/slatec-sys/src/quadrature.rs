@@ -19,6 +19,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-breakpoints"
     ))]
     #[link_name = "dqagp_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqagp.md"))]
     pub fn dqagp(
         f: IntegrandF64,
         a: *mut f64,
@@ -43,6 +44,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-breakpoints"
     ))]
     #[link_name = "qagp_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qagp.md"))]
     pub fn qagp(
         f: IntegrandF32,
         a: *mut f32,
@@ -67,6 +69,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-weighted"
     ))]
     #[link_name = "dqaws_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqaws.md"))]
     pub fn dqaws(
         f: IntegrandF64,
         a: *mut f64,
@@ -92,6 +95,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-weighted"
     ))]
     #[link_name = "qaws_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qaws.md"))]
     pub fn qaws(
         f: IntegrandF32,
         a: *mut f32,
@@ -117,6 +121,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-oscillatory"
     ))]
     #[link_name = "dqawo_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqawo.md"))]
     pub fn dqawo(
         f: IntegrandF64,
         a: *mut f64,
@@ -142,6 +147,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-oscillatory"
     ))]
     #[link_name = "qawo_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qawo.md"))]
     pub fn qawo(
         f: IntegrandF32,
         a: *mut f32,
@@ -167,6 +173,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-fourier"
     ))]
     #[link_name = "dqawf_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqawf.md"))]
     pub fn dqawf(
         f: IntegrandF64,
         a: *mut f64,
@@ -191,6 +198,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-fourier"
     ))]
     #[link_name = "qawf_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qawf.md"))]
     pub fn qawf(
         f: IntegrandF32,
         a: *mut f32,
@@ -215,6 +223,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-nonadaptive"
     ))]
     #[link_name = "dqng_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqng.md"))]
     pub fn dqng(
         f: IntegrandF64,
         a: *mut f64,
@@ -232,6 +241,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-nonadaptive"
     ))]
     #[link_name = "qng_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qng.md"))]
     pub fn qng(
         f: IntegrandF32,
         a: *mut f32,
@@ -249,6 +259,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-nonadaptive"
     ))]
     #[link_name = "dqnc79_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqnc79.md"))]
     pub fn dqnc79(
         f: IntegrandF64,
         a: *mut f64,
@@ -264,6 +275,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-nonadaptive"
     ))]
     #[link_name = "qnc79_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qnc79.md"))]
     pub fn qnc79(
         f: IntegrandF32,
         a: *mut f32,
@@ -279,6 +291,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "dqag_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqag.md"))]
     pub fn dqag(
         f: IntegrandF64,
         a: *mut f64,
@@ -302,6 +315,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "qag_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qag.md"))]
     pub fn qag(
         f: IntegrandF32,
         a: *mut f32,
@@ -325,6 +339,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "dqags_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqags.md"))]
     pub fn dqags(
         f: IntegrandF64,
         a: *mut f64,
@@ -347,6 +362,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "qags_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qags.md"))]
     pub fn qags(
         f: IntegrandF32,
         a: *mut f32,
@@ -369,6 +385,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "dqagi_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqagi.md"))]
     pub fn dqagi(
         f: IntegrandF64,
         bound: *mut f64,
@@ -391,6 +408,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "qagi_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qagi.md"))]
     pub fn qagi(
         f: IntegrandF32,
         bound: *mut f32,
@@ -413,6 +431,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "dqawc_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqawc.md"))]
     pub fn dqawc(
         f: IntegrandF64,
         a: *mut f64,
@@ -436,6 +455,7 @@ unsafe extern "C" {
         feature = "raw-family-quadrature-basic"
     ))]
     #[link_name = "qawc_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qawc.md"))]
     pub fn qawc(
         f: IntegrandF32,
         a: *mut f32,

@@ -8,7 +8,7 @@ Compute the exponentially scaled modified (hyperbolic) Bessel function of the th
 
 ## Description
 
-DBSK1E(S) computes the double precision exponentially scaled modified (hyperbolic) Bessel function of the third kind of order one for positive double precision argument X. Series for BK1 on the interval 0. to 4.00000E+00
+DBSK1E(S) computes the double precision exponentially scaled modified (hyperbolic) Bessel function of the third kind of order one for positive double precision argument X. Series for BK1 on the interval 0. to 4.00000E+00 with weighted error 9.16E-32 log weighted error 31.04 significant figures required 30.61 decimal places required 31.64 Series for AK1 on the interval 1.25000E-01 to 5.00000E-01 with weighted error 3.07E-32 log weighted error 31.51 significant figures required 30.71 decimal places required 32.30 Series for AK12 on the interval 0. to 1.25000E-01 with weighted error 2.41E-32 log weighted error 31.62 significant figures required 30.25 decimal places required 32.38
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBSK1E](https://www.netlib.org/slatec/fnlib/dbsk1e.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input positive double-precision argument. The function returns the exponentially scaled order-one modified Bessel K value at `X`; native code does not modify the scalar. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  30.61 decimal places required  31.64 Series for AK1        on the interval  1.25000E-01 to  5.00000E-01 significant figures required  30.71 decimal places required  32.30 Series for AK12       on the interval  0.          to  1.25000E-01 significant figures required  30.25 decimal places required  32.38
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

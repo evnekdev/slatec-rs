@@ -13,6 +13,7 @@ unsafe extern "C" {
     /// Original double-precision SLATEC weighted nonnegative least-squares
     /// driver `DWNNLS`.
     #[link_name = "dwnnls_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dwnnls.md"))]
     pub fn dwnnls(
         augmented_matrix: *mut f64,
         leading_dimension: *mut FortranInteger,
@@ -31,6 +32,7 @@ unsafe extern "C" {
     /// Original single-precision SLATEC weighted nonnegative least-squares
     /// driver `WNNLS`.
     #[link_name = "wnnls_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/wnnls.md"))]
     pub fn wnnls(
         augmented_matrix: *mut f32,
         leading_dimension: *mut FortranInteger,
@@ -54,6 +56,7 @@ unsafe extern "C" {
     /// describe each closed lower, upper, two-sided, or unbounded variable;
     /// `options` selects the legacy option-array protocol.
     #[link_name = "dbols_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbols.md"))]
     pub fn dbols(
         augmented_matrix: *mut f64,
         leading_dimension: *mut FortranInteger,
@@ -76,6 +79,7 @@ unsafe extern "C" {
     /// This has the same ABI shape and mutation rules as [`dbols`], using
     /// `REAL` arrays instead of `DOUBLE PRECISION` arrays.
     #[link_name = "sbols_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sbols.md"))]
     pub fn sbols(
         augmented_matrix: *mut f32,
         leading_dimension: *mut FortranInteger,
@@ -100,6 +104,7 @@ unsafe extern "C" {
     /// routine enforces `Gx >= H`, overwrites `W`, `X`, `WS`, and `IP`, and
     /// returns equality/objective residual norms plus `MODE`.
     #[link_name = "dlsei_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dlsei.md"))]
     pub fn dlsei(
         augmented_matrix: *mut f64,
         leading_dimension: *mut FortranInteger,
@@ -122,6 +127,7 @@ unsafe extern "C" {
     /// This has the same reviewed ABI and mutation rules as [`dlsei`], using
     /// `REAL` arrays in place of `DOUBLE PRECISION` arrays.
     #[link_name = "lsei_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/lsei.md"))]
     pub fn lsei(
         augmented_matrix: *mut f32,
         leading_dimension: *mut FortranInteger,
@@ -148,6 +154,7 @@ unsafe extern "C" {
     /// then to the auxiliary constraint values `Y = C X`. All arrays are
     /// mutable native storage and must follow the reviewed workspace contract.
     #[link_name = "dbocls_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbocls.md"))]
     pub fn dbocls(
         augmented_matrix: *mut f64,
         leading_dimension: *mut FortranInteger,
@@ -172,6 +179,7 @@ unsafe extern "C" {
     /// This has the same reviewed ABI and mutation rules as [`dbocls`], using
     /// `REAL` arrays in place of `DOUBLE PRECISION` arrays.
     #[link_name = "sbocls_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sbocls.md"))]
     pub fn sbocls(
         augmented_matrix: *mut f32,
         leading_dimension: *mut FortranInteger,

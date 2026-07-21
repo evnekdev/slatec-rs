@@ -14,6 +14,7 @@ use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
 const DOC_START: &str = "<!-- release-readiness:start -->";
 const DOC_END: &str = "<!-- release-readiness:end -->";
@@ -188,6 +189,8 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
     let argument_coverage =
         read_json(&root.join("generated/release-readiness/argument-documentation-coverage.json"))?;
     let corrections = read_json(&root.join("metadata/public-api-semantic-corrections.json"))?;
+    let rustdoc_contract_dir = root.join("crates/slatec-sys/src/generated_docs");
+    fs::create_dir_all(&rustdoc_contract_dir)?;
 
     if catalogue.len() != RETAINED_IDENTITIES
         || raw_status.len() != RETAINED_IDENTITIES
@@ -236,6 +239,21 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
     }
     source_links.sort_by_key(|record| field(record, "routine"));
     let source_links_by_name = keyed(&source_links, "routine")?;
+    let source_sections_by_name = source_bytes
+        .iter()
+        .map(|(routine, bytes)| {
+            (
+                routine.clone(),
+                parse_source_sections(
+                    bytes,
+                    &arguments_by_routine
+                        .get(routine)
+                        .cloned()
+                        .unwrap_or_default(),
+                ),
+            )
+        })
+        .collect::<BTreeMap<_, _>>();
 
     let mut documentation_records = Vec::with_capacity(public_names.len());
     let mut quality_records = Vec::with_capacity(catalogue.len());
@@ -263,18 +281,15 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
             .get(routine)
             .map(Vec::as_slice)
             .unwrap_or_default();
-        let sections = parse_source_sections(
-            bytes,
-            &arguments_by_routine
-                .get(routine)
-                .cloned()
-                .unwrap_or_default(),
-        );
+        let sections = source_sections_by_name
+            .get(routine)
+            .cloned()
+            .unwrap_or_default();
         let description = corrected_description(
             &field(catalogue_record, "full_description"),
             &field(catalogue_record, "short_purpose"),
             &sections.description,
-            correction_by_routine.get(routine).copied(),
+            correction_by_routine.get(routine),
         );
         let mut arguments = review_arguments(
             &arguments_by_routine
@@ -282,8 +297,9 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
                 .cloned()
                 .unwrap_or_default(),
             &sections,
+            precision_sibling_sections(routine, &source_sections_by_name),
             bytes,
-            correction_by_routine.get(routine).copied(),
+            correction_by_routine.get(routine),
         );
         order_arguments(
             &mut arguments,
@@ -297,13 +313,27 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
             .iter()
             .filter(|argument| argument.external_callback)
             .count();
-        let quality = if public {
-            "complete-structured"
+        let fixed_form_only = arguments
+            .iter()
+            .any(|argument| argument.description_evidence == "fixed_form_executable_dataflow");
+        let source_hash_guarded_authored = arguments.iter().any(|argument| {
+            argument.description_evidence == "authored_source_hash_guarded_override"
+        });
+        let quality = if public && !fixed_form_only {
+            if source_hash_guarded_authored {
+                "source-hash-guarded-authored-semantic-contract"
+            } else {
+                "source-prologue-semantic-contract"
+            }
+        } else if public {
+            "semantic-review-required"
         } else {
             "not-public"
         };
-        let work = if public {
-            "complete-structured"
+        let work = if public && !fixed_form_only {
+            "rendered-rustdoc-audit-pending"
+        } else if public {
+            "source-prologue-or-authored-review-required"
         } else {
             "support-interface-review"
         };
@@ -363,14 +393,15 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
                 abi: &abi,
             };
             write_public_routine_page(root, &page)?;
+            write_public_rustdoc_contract(&rustdoc_contract_dir, &page)?;
         }
         quality_records.push(json!({
             "routine":routine,
             "family":field(catalogue_record, "primary_family"),
             "public_raw":public,
-            "quality_level":if public { "complete_structured" } else { "not_public" },
+            "quality_level":quality,
             "documentation_work_status":work,
-            "reason":if public { "source-hash verified prologue, executable-source intent analysis, and structured argument contract" } else { "M2 completion threshold applies to canonical public routines" },
+            "reason":if public && fixed_form_only { "fixed-form dataflow identified direction but source-prologue or authored semantic review is still required" } else if public && source_hash_guarded_authored { "source-hash-guarded authored corrections close selected explicit-prose gaps before rendered-rustdoc verification" } else if public { "selected-source prologue or verified precision-sibling prose is ready for rendered-rustdoc verification" } else { "M2 completion threshold applies to canonical public routines" },
             "description_provenance":if sections.description.is_empty() { "source_purpose_fallback" } else { "source_prologue" },
             "argument_count":arguments.len(),
             "structured_argument_rows":arguments.len(),
@@ -510,7 +541,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
         "mangled_candidate_flags_before":26,
         "mangled_candidate_flags_after":0,
         "mangled_candidate_identities_after":0,
-        "quality_levels":{"complete_structured":"meaningful source-backed description and a complete source-evidenced structured argument contract","not_public":"not a canonical public raw routine"},
+        "quality_levels":{"source-prologue-semantic-contract":"all argument semantics come from the selected source prologue or a verified precision sibling","source-hash-guarded-authored-semantic-contract":"a selected-source semantic gap is closed by a source-hash-guarded authored correction","semantic-review-required":"one or more arguments remain only fixed-form dataflow classified","not-public":"not a canonical public raw routine"},
         "records":quality_records,
     });
     let argument_coverage = json!({
@@ -652,6 +683,12 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
         &review_summary,
     )?;
 
+    let public_routines = documentation_records
+        .iter()
+        .map(|record| field(record, "routine").to_ascii_lowercase())
+        .collect::<BTreeSet<_>>();
+    inject_public_rustdoc_contracts(root, &public_routines)?;
+
     let semantic_hash = hash::bytes(&serde_json::to_vec(&review_summary)?);
     Ok(SemanticReviewResult {
         status: "generated".to_owned(),
@@ -684,7 +721,10 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
     }
     for record in inventory_records {
         if !field(record, "exact_netlib_source_url").ends_with(".f")
-            || field(record, "documentation_work_status") != "complete-structured"
+            || !matches!(
+                field(record, "documentation_work_status").as_str(),
+                "rendered-rustdoc-audit-pending" | "source-prologue-or-authored-review-required"
+            )
             || record.get("arguments").and_then(Value::as_array).is_none()
         {
             return Err(policy(
@@ -792,6 +832,453 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
     Ok(result)
 }
 
+/// Builds and inspects the rendered documentation for every canonical public
+/// function.  This intentionally validates cargo-doc HTML rather than a
+/// Markdown template or private declaration source.
+pub fn generate_rendered_rustdoc_audit(root: &Path) -> Result<Value> {
+    let output_dir = root.join("generated/slatec-routines");
+    generate(root, &output_dir)?;
+    let status = Command::new("cargo")
+        .args([
+            "doc",
+            "-p",
+            "slatec-sys",
+            "--all-features",
+            "--no-deps",
+            "--offline",
+        ])
+        .current_dir(root)
+        .status()
+        .map_err(CorpusError::Io)?;
+    if !status.success() {
+        return Err(policy("cargo doc failed before rendered-rustdoc audit"));
+    }
+
+    let inventory = read_json(&output_dir.join("public-documentation-inventory.json"))?;
+    let canonical = read_json(&root.join("generated/public-api/canonical-public-api.json"))?;
+    let ownership = read_json(&root.join("generated/public-api/ffi-declaration-ownership.json"))?;
+    let canonical_by_routine = records(&canonical, "canonical public API")?
+        .iter()
+        .map(|record| (field(record, "routine"), record))
+        .collect::<BTreeMap<_, _>>();
+    let ownership_by_routine = records(&ownership, "FFI declaration ownership")?
+        .iter()
+        .map(|record| (field(record, "routine"), record))
+        .collect::<BTreeMap<_, _>>();
+    let mut output = Vec::new();
+    let mut family_defects = BTreeMap::<String, usize>::new();
+    for record in records(&inventory, "public documentation inventory")? {
+        let routine = field(record, "routine");
+        let canonical_record = canonical_by_routine.get(&routine).ok_or_else(|| {
+            policy(&format!(
+                "rendered-rustdoc audit lacks canonical record for {routine}"
+            ))
+        })?;
+        let ownership_record = ownership_by_routine.get(&routine).ok_or_else(|| {
+            policy(&format!(
+                "rendered-rustdoc audit lacks declaration owner for {routine}"
+            ))
+        })?;
+        let canonical_path = field(record, "canonical_rust_path");
+        let requested_html_relative = rustdoc_html_relative_path(&canonical_path)?;
+        let (html_relative, html_path, reexport_target) =
+            resolve_rustdoc_html(root, &requested_html_relative, &routine)?;
+        let html = fs::read_to_string(&html_path).unwrap_or_default();
+        let abi_arguments = record["arguments"]
+            .as_array()
+            .ok_or_else(|| policy("public documentation record lacks ABI arguments"))?
+            .iter()
+            .map(|argument| field(argument, "name"))
+            .collect::<Vec<_>>();
+        let documented_argument_names = abi_arguments
+            .iter()
+            .filter(|argument| rustdoc_mentions_argument(&html, argument))
+            .cloned()
+            .collect::<Vec<_>>();
+        let missing_argument_names = abi_arguments
+            .iter()
+            .filter(|argument| !rustdoc_mentions_argument(&html, argument))
+            .cloned()
+            .collect::<Vec<_>>();
+        let required_sections = vec![
+            "Purpose",
+            "Description",
+            "Arguments",
+            "Return value",
+            "Callback contract",
+            "Status and error values",
+            "Workspace and array requirements",
+            "ABI notes",
+            "Safety",
+        ];
+        let missing_sections = required_sections
+            .iter()
+            .filter(|section| !rustdoc_has_section(&html, section))
+            .map(|section| (*section).to_owned())
+            .collect::<Vec<_>>();
+        let source_url = field(record, "exact_netlib_source_url");
+        let source_url_found = html.contains(&source_url);
+        let routine_page_path = root.join(field(record, "routine_page_path"));
+        let routine_page = fs::read_to_string(&routine_page_path).unwrap_or_default();
+        let mut mismatches = Vec::new();
+        if field(canonical_record, "canonical_rust_path") != canonical_path {
+            mismatches.push("canonical Rust path differs from canonical inventory".to_owned());
+        }
+        if field(canonical_record, "native_symbol") != field(record, "native_symbol") {
+            mismatches.push("native symbol differs from canonical inventory".to_owned());
+        }
+        if field(canonical_record, "netlib_source_url") != source_url {
+            mismatches.push("Netlib source URL differs from canonical inventory".to_owned());
+        }
+        if field(ownership_record, "canonical_public_path") != canonical_path
+            || field(ownership_record, "native_symbol") != field(record, "native_symbol")
+            || ownership_record["extern_declaration_count"].as_u64() != Some(1)
+        {
+            mismatches.push("authoritative declaration ownership differs".to_owned());
+        }
+        if !routine_page.contains(&source_url) || !routine_page.contains(&routine) {
+            mismatches.push(
+                "routine-reference page omits routine identity or exact source URL".to_owned(),
+            );
+        }
+        if !html.contains(&field(record, "native_symbol")) {
+            mismatches.push("rendered rustdoc omits native symbol".to_owned());
+        }
+        if !abi_arguments_in_order(&html, &abi_arguments) {
+            mismatches.push("rendered rustdoc does not show ABI arguments in order".to_owned());
+        }
+        let generic_arguments = record["arguments"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .filter(|argument| {
+                field(argument, "description_evidence_source") == "fixed_form_executable_dataflow"
+            })
+            .map(|argument| field(argument, "name"))
+            .collect::<Vec<_>>();
+        let page_found = !html.is_empty();
+        let status = if !page_found {
+            "missing-canonical-rustdoc"
+        } else if !missing_argument_names.is_empty()
+            || !missing_sections.is_empty()
+            || !source_url_found
+            || !mismatches.is_empty()
+        {
+            "incomplete-rendered-rustdoc"
+        } else if !generic_arguments.is_empty() {
+            "semantic-review-required"
+        } else {
+            "complete-structured"
+        };
+        if status != "complete-structured" {
+            *family_defects.entry(field(record, "family")).or_default() += 1;
+        }
+        output.push(json!({
+            "routine":routine,
+            "canonical_rust_path":canonical_path,
+            "rustdoc_html_path":html_relative.to_string_lossy().replace('\\', "/"),
+            "canonical_item_html_path":requested_html_relative.to_string_lossy().replace('\\', "/"),
+            "canonical_item_is_rustdoc_reexport":reexport_target,
+            "rustdoc_page_found":page_found,
+            "abi_argument_names":abi_arguments,
+            "documented_argument_names":documented_argument_names,
+            "missing_argument_names":missing_argument_names,
+            "netlib_url_expected":source_url,
+            "netlib_url_found":source_url_found,
+            "required_sections":required_sections,
+            "missing_sections":missing_sections,
+            "generic_or_unreviewed_argument_names":generic_arguments,
+            "cross_surface_mismatches":mismatches,
+            "status":status,
+        }));
+    }
+    output.sort_by_key(|record| field(record, "routine"));
+    let pages_found = output
+        .iter()
+        .filter(|record| record["rustdoc_page_found"].as_bool() == Some(true))
+        .count();
+    let missing_arguments = output
+        .iter()
+        .filter(|record| {
+            !record["missing_argument_names"]
+                .as_array()
+                .is_some_and(Vec::is_empty)
+        })
+        .count();
+    let missing_links = output
+        .iter()
+        .filter(|record| record["netlib_url_found"].as_bool() != Some(true))
+        .count();
+    let generic_contracts = output
+        .iter()
+        .filter(|record| {
+            !record["generic_or_unreviewed_argument_names"]
+                .as_array()
+                .is_some_and(Vec::is_empty)
+        })
+        .count();
+    let structural_complete = output
+        .iter()
+        .filter(|record| field(record, "status") != "missing-canonical-rustdoc")
+        .filter(|record| field(record, "status") != "incomplete-rendered-rustdoc")
+        .count();
+    let complete_structured = output
+        .iter()
+        .filter(|record| field(record, "status") == "complete-structured")
+        .count();
+    let dassl_callbacks = dassl_callback_rustdoc_audit(root)?;
+    let complete_dassl_callbacks = dassl_callbacks
+        .iter()
+        .filter(|record| field(record, "status") == "complete")
+        .count();
+    let report = json!({
+        "schema_id":"slatec-rs.rendered-rustdoc-audit",
+        "schema_version":"1.0.0",
+        "policy":"Complete structured documentation requires a canonical rendered public rustdoc page, all ABI arguments in order, every contract section, the verified exact Netlib source URL, cross-surface agreement, and no fixed-form-only argument semantics.",
+        "summary":{
+            "canonical_public_routines":output.len(),
+            "rendered_rustdoc_pages_found":pages_found,
+            "routines_missing_arguments":missing_arguments,
+            "routines_missing_netlib_links":missing_links,
+            "routines_with_generic_or_unreviewed_contracts":generic_contracts,
+            "families_with_rendered_documentation_defects":family_defects.len(),
+            "cross_surface_mismatches":output.iter().map(|record| record["cross_surface_mismatches"].as_array().map_or(0, Vec::len)).sum::<usize>(),
+            "structurally_complete_rendered_rustdoc":structural_complete,
+            "complete_structured":complete_structured,
+            "dassl_callback_contracts":dassl_callbacks.len(),
+            "complete_dassl_callback_contracts":complete_dassl_callbacks,
+        },
+        "family_defects":family_defects,
+        "dassl_callback_contracts":dassl_callbacks,
+        "records":output,
+    });
+    write_json(&output_dir.join("rendered-rustdoc-audit.json"), &report)?;
+    write_markdown(
+        &output_dir.join("rendered-rustdoc-audit-summary.md"),
+        &rendered_rustdoc_audit_markdown(&report),
+    )?;
+    Ok(report)
+}
+
+/// DASSL exposes callback ABI aliases as part of the public raw API.  They are
+/// not extern declarations, so audit their rendered type-alias pages alongside
+/// the SDASSL/DDASSL function pages.
+fn dassl_callback_rustdoc_audit(root: &Path) -> Result<Vec<Value>> {
+    let checks = [
+        (
+            "DasslResidualF32",
+            "type.DasslResidualF32.html",
+            [
+                "IRES",
+                "DELTA",
+                "unwind",
+                "https://www.netlib.org/slatec/src/sdassl.f",
+                "Safety",
+            ],
+        ),
+        (
+            "DasslResidualF64",
+            "type.DasslResidualF64.html",
+            [
+                "IRES",
+                "DELTA",
+                "unwind",
+                "https://www.netlib.org/slatec/src/ddassl.f",
+                "Safety",
+            ],
+        ),
+        (
+            "DasslJacobianF32",
+            "type.DasslJacobianF32.html",
+            [
+                "PD",
+                "banded storage",
+                "unwind",
+                "https://www.netlib.org/slatec/src/sdassl.f",
+                "Safety",
+            ],
+        ),
+        (
+            "DasslJacobianF64",
+            "type.DasslJacobianF64.html",
+            [
+                "PD",
+                "banded storage",
+                "unwind",
+                "https://www.netlib.org/slatec/src/ddassl.f",
+                "Safety",
+            ],
+        ),
+    ];
+    let mut output = Vec::new();
+    for (name, relative, required) in checks {
+        let path = PathBuf::from("target/doc/slatec_sys/dassl").join(relative);
+        let html = fs::read_to_string(root.join(&path)).unwrap_or_default();
+        let missing = required
+            .iter()
+            .filter(|required| !html.contains(**required))
+            .map(|required| (*required).to_owned())
+            .collect::<Vec<_>>();
+        let status = if html.is_empty() {
+            "missing-page"
+        } else if missing.is_empty() {
+            "complete"
+        } else {
+            "incomplete"
+        };
+        output.push(json!({
+            "public_rust_path":format!("slatec_sys::dassl::{name}"),
+            "rustdoc_html_path":path.to_string_lossy().replace('\\', "/"),
+            "page_found":!html.is_empty(),
+            "required_contract_markers":required,
+            "missing_contract_markers":missing,
+            "status":status,
+        }));
+    }
+    Ok(output)
+}
+
+/// Regenerates the audit and makes missing rendered documentation a failure.
+pub fn validate_rendered_rustdoc_audit(root: &Path) -> Result<Value> {
+    let report = generate_rendered_rustdoc_audit(root)?;
+    let summary = &report["summary"];
+    if summary["routines_missing_arguments"].as_u64() != Some(0)
+        || summary["routines_missing_netlib_links"].as_u64() != Some(0)
+        || summary["cross_surface_mismatches"].as_u64() != Some(0)
+        || summary["complete_structured"].as_u64() != summary["canonical_public_routines"].as_u64()
+        || summary["complete_dassl_callback_contracts"].as_u64()
+            != summary["dassl_callback_contracts"].as_u64()
+    {
+        return Err(policy("rendered-rustdoc audit is not complete"));
+    }
+    Ok(report)
+}
+
+fn rustdoc_html_relative_path(canonical_path: &str) -> Result<PathBuf> {
+    let mut parts = canonical_path.split("::");
+    if parts.next() != Some("slatec_sys") {
+        return Err(policy("canonical path is not a slatec-sys path"));
+    }
+    let mut path = PathBuf::from("target/doc/slatec_sys");
+    let parts = parts.collect::<Vec<_>>();
+    let (routine, modules) = parts
+        .split_last()
+        .ok_or_else(|| policy("canonical path has no routine name"))?;
+    for module in modules {
+        path.push(module);
+    }
+    path.push(format!("fn.{routine}.html"));
+    Ok(path)
+}
+
+/// Rustdoc renders a public re-export as an entry in the canonical module's
+/// index and links it to the owning function page. Follow that link rather
+/// than assuming the filesystem path from the re-export's namespace exists.
+fn resolve_rustdoc_html(
+    root: &Path,
+    requested_relative: &Path,
+    routine: &str,
+) -> Result<(PathBuf, PathBuf, bool)> {
+    let requested = root.join(requested_relative);
+    if requested.is_file() {
+        return Ok((requested_relative.to_path_buf(), requested, false));
+    }
+    let module_index = requested
+        .parent()
+        .ok_or_else(|| policy("rustdoc function path has no parent module"))?
+        .join("index.html");
+    let module = fs::read_to_string(&module_index).map_err(|_| {
+        policy(&format!(
+            "canonical rustdoc page and its module index are missing for {routine}"
+        ))
+    })?;
+    let marker = format!("id=\"reexport.{}\"", routine.to_ascii_lowercase());
+    let marker_position = module.find(&marker).ok_or_else(|| {
+        policy(&format!(
+            "canonical rustdoc module lacks re-export for {routine}"
+        ))
+    })?;
+    let item = &module[marker_position..];
+    let href_start = item
+        .find("href=\"")
+        .map(|position| position + "href=\"".len())
+        .ok_or_else(|| {
+            policy(&format!(
+                "canonical rustdoc re-export lacks target for {routine}"
+            ))
+        })?;
+    let href = item[href_start..]
+        .split_once('"')
+        .map(|(href, _)| href)
+        .ok_or_else(|| {
+            policy(&format!(
+                "canonical rustdoc re-export has malformed target for {routine}"
+            ))
+        })?;
+    let target = module_index
+        .parent()
+        .ok_or_else(|| policy("rustdoc module index has no parent"))?
+        .join(href);
+    if !target.is_file() {
+        return Err(policy(&format!(
+            "canonical rustdoc re-export target is missing for {routine}"
+        )));
+    }
+    let relative = target
+        .strip_prefix(root)
+        .map_err(|_| policy("rustdoc target escapes workspace"))?
+        .to_path_buf();
+    Ok((relative, target, true))
+}
+
+fn rustdoc_has_section(html: &str, section: &str) -> bool {
+    html.contains(&format!("title=\"{section}\"")) || html.contains(&format!(">{section}</h2>"))
+}
+
+fn rustdoc_mentions_argument(html: &str, argument: &str) -> bool {
+    html.contains(&format!(">{argument}</code>")) || html.contains(&format!(">{argument}<"))
+}
+
+fn abi_arguments_in_order(html: &str, arguments: &[String]) -> bool {
+    let mut last = 0;
+    for argument in arguments {
+        let Some(position) = html[last..].find(&format!(">{argument}</code>")) else {
+            return false;
+        };
+        last += position + argument.len();
+    }
+    true
+}
+
+fn rendered_rustdoc_audit_markdown(report: &Value) -> String {
+    let summary = &report["summary"];
+    let mut output = format!(
+        "# Rendered canonical rustdoc audit\n\n- Canonical public routines audited: **{}**\n- Rendered rustdoc pages found: **{}**\n- Routines missing one or more ABI argument names: **{}**\n- Routines missing the exact Netlib link: **{}**\n- Routines with generic or unreviewed argument semantics: **{}**\n- Families with rendered-documentation defects: **{}**\n- Cross-surface mismatches: **{}**\n- Structurally complete rendered pages: **{}**\n- Complete structured routines: **{}**\n\nA routine is complete only when its canonical rendered public item—not merely a reference page—passes every structural, source-link, cross-surface, and semantic-evidence check.\n",
+        summary["canonical_public_routines"],
+        summary["rendered_rustdoc_pages_found"],
+        summary["routines_missing_arguments"],
+        summary["routines_missing_netlib_links"],
+        summary["routines_with_generic_or_unreviewed_contracts"],
+        summary["families_with_rendered_documentation_defects"],
+        summary["cross_surface_mismatches"],
+        summary["structurally_complete_rendered_rustdoc"],
+        summary["complete_structured"],
+    );
+    output.push_str(&format!(
+        "- Complete DASSL callback contracts: **{}** / **{}**\n",
+        summary["complete_dassl_callback_contracts"], summary["dassl_callback_contracts"]
+    ));
+    output.push_str(
+        "\n## Families requiring semantic review\n\n| Family | Routines |\n| --- | ---: |\n",
+    );
+    if let Some(families) = report["family_defects"].as_object() {
+        for (family, count) in families {
+            output.push_str(&format!("| {family} | {count} |\n"));
+        }
+    }
+    output
+}
+
 fn source_link_record(root: &Path, record: &Value) -> Result<Value> {
     let routine = field(record, "normalized_name");
     let provider = record.get("canonical_provider").unwrap_or(&Value::Null);
@@ -876,11 +1363,16 @@ fn arguments_by_routine(value: &Value) -> Result<BTreeMap<String, Vec<Argument>>
     Ok(result)
 }
 
-fn corrections_by_routine<'a>(
-    value: &'a Value,
+fn corrections_by_routine(
+    value: &Value,
     catalogue: &BTreeMap<String, &Value>,
-) -> Result<BTreeMap<String, &'a Value>> {
+) -> Result<BTreeMap<String, Value>> {
     let records = records(value, "semantic documentation corrections")?;
+    let profiles = value
+        .get("profiles")
+        .and_then(Value::as_object)
+        .cloned()
+        .unwrap_or_default();
     let mut output = BTreeMap::new();
     for record in records {
         let routine = field(record, "routine");
@@ -902,7 +1394,28 @@ fn corrections_by_routine<'a>(
                 "semantic documentation corrections may not alter ABI or public-path metadata",
             ));
         }
-        if output.insert(routine, record).is_some() {
+        let mut materialized = record.clone();
+        if let Some(profile_name) = record.get("documentation_profile").and_then(Value::as_str) {
+            let profile = profiles.get(profile_name).ok_or_else(|| {
+                policy(&format!(
+                    "semantic correction profile {profile_name} is not defined for {routine}"
+                ))
+            })?;
+            let mut arguments = profile
+                .get("arguments")
+                .and_then(Value::as_object)
+                .cloned()
+                .unwrap_or_default();
+            if let Some(overrides) = record.get("arguments").and_then(Value::as_object) {
+                for (argument, override_value) in overrides {
+                    arguments.insert(argument.clone(), override_value.clone());
+                }
+            }
+            if !arguments.is_empty() {
+                materialized["arguments"] = Value::Object(arguments);
+            }
+        }
+        if output.insert(routine, materialized).is_some() {
             return Err(policy("conflicting semantic documentation corrections"));
         }
     }
@@ -930,11 +1443,11 @@ fn parse_source_sections(bytes: &[u8], arguments: &[Argument]) -> SourceSections
         if heading.contains("END PROLOGUE") {
             break;
         }
-        if heading.contains("DESCRIPTION OF ARGUMENT")
+        if heading.starts_with("DESCRIPTION OF ARGUMENT")
             || heading == "ARGUMENTS"
             || heading == "ARGUMENT"
-            || heading.contains("INPUT PARAMETERS")
-            || heading.contains("OUTPUT PARAMETERS")
+            || heading.starts_with("INPUT PARAMETERS")
+            || heading.starts_with("OUTPUT PARAMETERS")
         {
             section = "arguments";
             direction = if heading.contains("INPUT/OUTPUT") {
@@ -955,16 +1468,19 @@ fn parse_source_sections(bytes: &[u8], arguments: &[Argument]) -> SourceSections
             current.clear();
             continue;
         }
-        if heading.contains("ERROR")
-            || heading.contains("ERROR MESSAGES")
-            || heading.contains("ERROR CONDITIONS")
-        {
+        // This is a section-heading test, not a word search: formal
+        // arguments such as `IERROR` and descriptions of relative error are
+        // ordinary argument prose and must not silently start an error block.
+        if heading.starts_with("ERROR") {
             section = "errors";
             direction = None;
             current.clear();
             continue;
         }
-        if matches!(heading.as_str(), "INPUT" | "INPUT/OUTPUT" | "OUTPUT") {
+        if matches!(
+            heading.as_str(),
+            "INPUT" | "INPUT/OUTPUT" | "OUTPUT" | "ON INPUT" | "ON INPUT/OUTPUT" | "ON OUTPUT"
+        ) {
             // Several early SLATEC prologues place `Input...` and `Output...`
             // directly inside DESCRIPTION rather than under a separate
             // "Description of Arguments" heading.  Once encountered, this is
@@ -972,8 +1488,8 @@ fn parse_source_sections(bytes: &[u8], arguments: &[Argument]) -> SourceSections
             section = "arguments";
             direction = Some(
                 match heading.as_str() {
-                    "OUTPUT" => "output",
-                    "INPUT/OUTPUT" => "input-output",
+                    "OUTPUT" | "ON OUTPUT" => "output",
+                    "INPUT/OUTPUT" | "ON INPUT/OUTPUT" => "input-output",
                     _ => "input",
                 }
                 .to_owned(),
@@ -988,6 +1504,34 @@ fn parse_source_sections(bytes: &[u8], arguments: &[Argument]) -> SourceSections
         }
         if trimmed.is_empty() {
             continue;
+        }
+        if trimmed.contains("----")
+            || heading.starts_with("QUANTITIES WHICH")
+            || heading.starts_with("OPTIONALLY REPLACEABLE")
+        {
+            section = "";
+            current.clear();
+            continue;
+        }
+        // A number of retained SLATEC prologues (notably DASSL) introduce
+        // their detailed first-call contract after a prose heading rather
+        // than repeating `Arguments`.  A known argument label is stronger
+        // evidence than that incidental heading, so preserve the source
+        // prose as argument documentation wherever it occurs in the
+        // prologue.
+        if section != "arguments" {
+            if let Some((names, text)) = argument_line(trimmed, &argument_names, false) {
+                section = "arguments";
+                current = names;
+                for name in &current {
+                    let entry = result.arguments.entry(name.clone()).or_default();
+                    if entry.direction.is_none() {
+                        entry.direction = direction.clone();
+                    }
+                    append_text(&mut entry.text, &text);
+                }
+                continue;
+            }
         }
         if section == "errors"
             && trimmed
@@ -1005,7 +1549,7 @@ fn parse_source_sections(bytes: &[u8], arguments: &[Argument]) -> SourceSections
             "description" => append_text(&mut result.description, trimmed),
             "errors" => append_text(&mut result.errors, trimmed),
             "arguments" => {
-                if let Some((names, text)) = argument_line(trimmed, &argument_names) {
+                if let Some((names, text)) = argument_line(trimmed, &argument_names, true) {
                     current = names;
                     for name in &current {
                         let entry = result.arguments.entry(name.clone()).or_default();
@@ -1075,16 +1619,90 @@ fn is_terminal_heading(heading: &str) -> bool {
     .any(|prefix| heading.starts_with(prefix))
 }
 
-fn argument_line(text: &str, known: &BTreeSet<&str>) -> Option<(Vec<String>, String)> {
-    let (left, right) = text.split_once('-').or_else(|| text.split_once('='))?;
-    let names = left
-        .split(|character: char| !character.is_ascii_alphanumeric())
+fn argument_line(
+    text: &str,
+    known: &BTreeSet<&str>,
+    allow_bare_label: bool,
+) -> Option<(Vec<String>, String)> {
+    let split = text
+        .split_once("--")
+        .or_else(|| text.split_once(':'))
+        .or_else(|| text.split_once('-'))
+        .or_else(|| text.split_once('='));
+    if let Some((left, right)) = split {
+        let names = argument_names(left, known);
+        if !names.is_empty() {
+            return Some((names, right.trim().to_owned()));
+        }
+    }
+    // Some older EISPACK prologues introduce a coupled output pair as prose,
+    // for example `LOW and IGH are two INTEGER variables ...`.  Recognize
+    // only the formal names before the linking verb; searching the whole
+    // sentence would incorrectly pick up formal names used in examples.
+    let upper = text.to_ascii_uppercase();
+    for marker in [
+        " IS ",
+        " ARE ",
+        " CONTAIN ",
+        " CONTAINS ",
+        " DENOTES ",
+        " SPECIFIES ",
+        " MUST ",
+        " SHOULD ",
+    ] {
+        if let Some(position) = upper.find(marker) {
+            let names = argument_names(&text[..position], known);
+            if names.len() > 1 {
+                return Some((names, text[position + 1..].trim().to_owned()));
+            }
+        }
+    }
+    // Older prologues often use a fixed-column argument table without a
+    // colon or dash: `G(*,*)   The working array ...`.  The first token is
+    // still an exact formal name (or a comma-separated set of names), so it
+    // is source-prologue evidence rather than a parameter-name guess.
+    let token = text.split_whitespace().next()?;
+    let names = argument_names(token, known);
+    if names.is_empty() {
+        return None;
+    }
+    let remainder = text.get(token.len()..).unwrap_or_default().trim();
+    // Fixed-form SLATEC prologues commonly put a formal label on its own
+    // comment line and start the description on the next line.  Within an
+    // explicit argument section that bare label is authoritative evidence;
+    // outside it we require prose as well so ordinary description text is not
+    // mistaken for an argument declaration.
+    if allow_bare_label || !remainder.is_empty() {
+        Some((names, remainder.to_owned()))
+    } else {
+        None
+    }
+}
+
+fn argument_names(text: &str, known: &BTreeSet<&str>) -> Vec<String> {
+    text.split(|character: char| !character.is_ascii_alphanumeric())
         .map(str::trim)
         .filter(|part| !part.is_empty())
         .map(str::to_ascii_uppercase)
-        .filter(|part| known.contains(part.as_str()))
-        .collect::<Vec<_>>();
-    (!names.is_empty()).then_some((names, right.trim().to_owned()))
+        .filter_map(|part| {
+            if known.contains(part.as_str()) {
+                Some(part)
+            } else if part == "KVPT" && known.contains("KPVT") {
+                // The retained LINPACK prologues spell the formal pivot
+                // vector `KVPT` in several places, while the executable
+                // declaration and compiler inventory establish `KPVT`.
+                // This corrects only that documented historical typo.
+                Some("KPVT".to_owned())
+            } else if part == "JVPT" && known.contains("JPVT") {
+                // `CQRDC` documents the column-pivot vector with the
+                // transposed spelling `JVPT`; the formal declaration is
+                // `JPVT` and the source paragraph supplies its semantics.
+                Some("JPVT".to_owned())
+            } else {
+                None
+            }
+        })
+        .collect()
 }
 
 fn append_text(target: &mut String, text: &str) {
@@ -1098,9 +1716,38 @@ fn append_text(target: &mut String, text: &str) {
     target.push_str(text);
 }
 
+/// Returns an explicit retained precision sibling when the selected source
+/// lacks a separate argument paragraph.  This is lower-priority evidence than
+/// the routine's own prologue and only supplies prose for identically named
+/// formal arguments; it never changes an ABI declaration or invents a name.
+fn precision_sibling_sections<'a>(
+    routine: &str,
+    sections: &'a BTreeMap<String, SourceSections>,
+) -> Option<&'a SourceSections> {
+    let mut candidates = Vec::new();
+    if !routine.is_empty() {
+        let (first, rest) = routine.split_at(1);
+        match first {
+            "S" => candidates.push(format!("D{rest}")),
+            "D" => {
+                candidates.push(format!("S{rest}"));
+                candidates.push(rest.to_owned());
+            }
+            "C" => candidates.push(format!("Z{rest}")),
+            "Z" => candidates.push(format!("C{rest}")),
+            _ => candidates.push(format!("D{routine}")),
+        }
+    }
+    candidates
+        .into_iter()
+        .find(|candidate| candidate != routine && sections.contains_key(candidate))
+        .and_then(|candidate| sections.get(&candidate))
+}
+
 fn review_arguments(
     base: &[Argument],
     sections: &SourceSections,
+    sibling_sections: Option<&SourceSections>,
     bytes: &[u8],
     correction: Option<&Value>,
 ) -> Vec<Argument> {
@@ -1109,6 +1756,11 @@ fn review_arguments(
     for base_argument in base {
         let mut argument = base_argument.clone();
         let source = sections.arguments.get(&argument.name);
+        let sibling_source =
+            sibling_sections.and_then(|sections| sections.arguments.get(&argument.name));
+        let semantic_source = source
+            .filter(|item| !item.text.is_empty())
+            .or_else(|| sibling_source.filter(|item| !item.text.is_empty()));
         let correction_argument = correction
             .and_then(|record| record.get("arguments"))
             .and_then(Value::as_object)
@@ -1119,18 +1771,28 @@ fn review_arguments(
             argument.callback_restrictions = "The callback must remain valid for the complete native call, satisfy the exact reviewed ABI, and must not unwind into Fortran.".to_owned();
         } else if is_workspace_name(&argument.name) {
             argument.direction = "workspace".to_owned();
-            argument.workspace_requirement = source.map(|item| item.text.clone()).filter(|text| !text.is_empty()).unwrap_or_else(|| "Caller-provided workspace; required extent is governed by the selected source and related size arguments.".to_owned());
+            argument.workspace_requirement = semantic_source
+                .map(|item| item.text.clone())
+                .unwrap_or_else(|| "Caller-provided workspace; required extent is governed by the selected source and related size arguments.".to_owned());
         } else if is_status_name(&argument.name) {
             argument.direction = "status-output".to_owned();
-        } else if let Some(direction) = source.and_then(|item| item.direction.clone()) {
+        } else if let Some(direction) = source
+            .and_then(|item| item.direction.clone())
+            .or_else(|| sibling_source.and_then(|item| item.direction.clone()))
+        {
             argument.direction = direction;
         } else {
             argument.direction =
                 direction_from_flow(flow.get(&argument.name).copied().unwrap_or_default());
         }
-        if let Some(item) = source.filter(|item| !item.text.is_empty()) {
+        if let Some(item) = semantic_source {
             argument.description = item.text.clone();
-            argument.description_evidence = "source_prologue_argument_section".to_owned();
+            argument.description_evidence = if source.is_some_and(|source| !source.text.is_empty())
+            {
+                "source_prologue_argument_section".to_owned()
+            } else {
+                "verified_precision_sibling_prologue".to_owned()
+            };
         } else {
             argument.description = format!(
                 "{} argument classified by fixed-form executable read/write analysis.",
@@ -1416,9 +2078,23 @@ fn replace_block(source: &str, block: &str) -> String {
 
 fn semantic_block(page: &RoutinePage<'_>) -> String {
     let source_url = field(page.link, "exact_netlib_url");
+    let fixed_form_only = page
+        .arguments
+        .iter()
+        .any(|argument| argument.description_evidence == "fixed_form_executable_dataflow");
+    let status = if fixed_form_only {
+        "semantic review required"
+    } else {
+        "source-backed contract awaiting rendered-rustdoc audit"
+    };
+    let evidence = if fixed_form_only {
+        "verified source hash and fixed-form dataflow; one or more argument semantics still need source-prologue or authored review"
+    } else {
+        "verified source prologue or source-hash-guarded authored correction"
+    };
     let mut output = format!(
-        "{DOC_START}\n## Interface documentation quality\n\n- Documentation work status: `complete-structured`\n- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent\n- Exact Netlib source: [{}]({source_url})\n\n### Arguments\n\n",
-        page.routine
+        "{DOC_START}\n## Interface documentation quality\n\n- Documentation work status: `{status}`\n- Documentation evidence: {evidence}\n- Exact Netlib source: [{}]({source_url})\n\n### Arguments\n\n",
+        page.routine,
     );
     if page.arguments.is_empty() {
         output.push_str("This routine takes no arguments.\n");
@@ -1480,6 +2156,269 @@ fn semantic_block(page: &RoutinePage<'_>) -> String {
     output
 }
 
+/// Writes the documentation fragment that is attached to the actual public
+/// Rust function, rather than only to its generated reference page.
+///
+/// The fragment is deliberately keyed by the canonical routine name.  The
+/// generated Rust source only includes this file; it does not duplicate an
+/// `extern` declaration or make a generated ABI-shaped namespace public.
+fn write_public_rustdoc_contract(directory: &Path, page: &RoutinePage<'_>) -> Result<()> {
+    if let Some(contract) = dassl_rustdoc_contract(page) {
+        write_markdown(
+            &directory.join(format!("{}.md", page.routine.to_ascii_lowercase())),
+            &contract,
+        )?;
+        return Ok(());
+    }
+    let source_url = field(page.link, "exact_netlib_url");
+    let mut output = format!(
+        "# Purpose\n\n{}\n\n# Description\n\nThis canonical unsafe binding exposes original SLATEC routine `{}`. Its documented behavior is taken from the selected, source-hash-verified provider prologue; the exact implementation source is [{}]({}).\n\n# Arguments\n\n",
+        escape_rustdoc_text(page.description),
+        page.routine,
+        page.routine,
+        source_url
+    );
+    if page.arguments.is_empty() {
+        output.push_str("This routine has no ABI arguments.\n");
+    } else {
+        for (position, argument) in page.arguments.iter().enumerate() {
+            output.push_str(&format!(
+                "## {}. `{}`\n\n{} `{}` argument; Fortran declaration `{}`, Rust ABI type `{}`, and {}. {}\n\n",
+                position + 1,
+                argument.name,
+                argument.direction,
+                argument.semantic_role,
+                argument.fortran_type,
+                argument.rust_raw_type,
+                argument.shape,
+                rustdoc_argument_contract(argument)
+            ));
+        }
+    }
+    if field(page.catalogue, "kind") == "function" {
+        output.push_str(&format!(
+            "# Return value\n\nThis Fortran function returns its scalar result using the compiler-validated ABI fingerprint `{}`. It has no separate Rust `Result` status channel.\n\n",
+            page.abi
+        ));
+    } else {
+        output.push_str("# Return value\n\nThis is a Fortran subroutine and has no direct return value. Its results, status, and any persistent solver state are communicated through the documented arguments.\n\n");
+    }
+    if page
+        .arguments
+        .iter()
+        .any(|argument| argument.external_callback)
+    {
+        output.push_str("# Callback contract\n\nCallback arguments use the reviewed ABI shown by their Rust function-pointer type. They are invoked synchronously by the native call, must remain valid until it returns, must uphold every documented input/output extent, and **must not unwind** through Fortran. A callback must not retain or free caller-owned native buffers unless the source contract expressly permits it.\n\n");
+    } else {
+        output.push_str("# Callback contract\n\nThis interface has no callback argument.\n\n");
+    }
+    if page.errors.trim().is_empty() {
+        output.push_str("# Status and error values\n\nThe selected source has no separate status-code section. Status output arguments, if present, are identified in the argument contract; legacy SLATEC error-runtime behavior remains part of the native provider contract.\n\n");
+    } else {
+        output.push_str(&format!(
+            "# Status and error values\n\n{}\n\n",
+            escape_rustdoc_text(page.errors)
+        ));
+    }
+    let work = page
+        .arguments
+        .iter()
+        .filter(|argument| {
+            argument.semantic_role == "workspace"
+                || !argument.workspace_requirement.trim().is_empty()
+                || !argument.leading_dimension.trim().is_empty()
+        })
+        .map(|argument| {
+            format!(
+                "- `{}`: {}",
+                argument.name,
+                if argument.workspace_requirement.trim().is_empty() {
+                    escape_rustdoc_text(&argument.leading_dimension)
+                } else {
+                    escape_rustdoc_text(&argument.workspace_requirement)
+                }
+            )
+        })
+        .collect::<Vec<_>>();
+    output.push_str("# Workspace and array requirements\n\n");
+    if work.is_empty() {
+        output.push_str("No separately named workspace is declared. Any array argument must satisfy its documented rank, element extent, leading-dimension, and Fortran column-major storage requirements.\n\n");
+    } else {
+        output.push_str(&format!("{}\n\n", work.join("\n")));
+    }
+    output.push_str(&format!(
+        "# ABI notes\n\n- Canonical Rust path: `{}`\n- Original SLATEC routine: `{}`\n- Native symbol: `{}`\n- ABI fingerprint: `{}`\n- Exact Netlib source file: [{}]({})\n\n# Safety\n\nEvery raw pointer must be non-null unless this argument contract expressly permits null, correctly aligned, and valid for its documented readable or writable extent. Preserve Fortran column-major layout, length, leading-dimension, workspace, callback-lifetime, aliasing, and provider-runtime requirements. The native routine does not retain ordinary argument pointers beyond this call.\n",
+        field(page.final_record, "canonical_rust_path"),
+        page.routine,
+        field(page.final_record, "native_symbol"),
+        page.abi,
+        page.routine,
+        source_url
+    ));
+    if !output.ends_with('\n') {
+        output.push('\n');
+    }
+    write_markdown(
+        &directory.join(format!("{}.md", page.routine.to_ascii_lowercase())),
+        &output,
+    )?;
+    Ok(())
+}
+
+/// Complete, source-hash-guarded contract for the two reviewed DASSL drivers.
+/// Their multi-call protocol needs a dedicated renderer so that workspace,
+/// status, and callback semantics stay visible on the canonical function.
+fn dassl_rustdoc_contract(page: &RoutinePage<'_>) -> Option<String> {
+    let (precision, scalar, residual, jacobian) = match page.routine {
+        "DDASSL" => (
+            "double precision",
+            "f64",
+            "DasslResidualF64",
+            "DasslJacobianF64",
+        ),
+        "SDASSL" => (
+            "single precision",
+            "f32",
+            "DasslResidualF32",
+            "DasslJacobianF32",
+        ),
+        _ => return None,
+    };
+    let source_url = field(page.link, "exact_netlib_url");
+    let mut output = format!(
+        "# Purpose\n\nSolves a differential/algebraic system `G(T, Y, YPRIME) = 0` with backward-differentiation formulas of orders one through five. This is the original {precision} SLATEC DASSL driver `{}`.\n\n# Description\n\nThe first call starts a new problem. It requires consistent initial `T`, `Y`, and `YPRIME` unless `INFO(11)=1` asks DASSL to compute a consistent derivative. Subsequent calls continue the same problem, retain state in `RWORK` and `IWORK`, and advance in the original direction of `TOUT`. The verified source prologue is [{}]({}).\n\n# Arguments\n\n",
+        page.routine, page.routine, source_url
+    );
+    output.push_str(&format!(
+        "- `RES`: required `{residual}` callback. It implements `RES(T, Y, YPRIME, DELTA, IRES, RPAR, IPAR)`, writes `DELTA[0..NEQ] = G(T, Y, YPRIME)`, and must not alter `T`, `Y`, or `YPRIME`. It receives `IRES=0`; it may set `IRES=-1` for an illegal input (DASSL retries) or `IRES=-2` to return with `IDID=-11`.\n- `NEQ`: input number of equations; `NEQ >= 1`.\n- `T`: input initial independent-variable value and output time reached; it must be mutable storage.\n- `Y`: mutable length-`NEQ` vector of initial solution components and output solution at returned `T`.\n- `YPRIME`: mutable length-`NEQ` vector of initial derivatives and output derivative approximation; it must initially satisfy `G` unless `INFO(11)=1`.\n- `TOUT`: input target, different from `T`; forward and backward integration are allowed. The first step does not pass `TOUT`; an interval-mode later step may interpolate from beyond it unless `TSTOP` applies.\n- `INFO`: mutable integer array of length at least 15; DASSL uses entries 1 through 11. `INFO(1)=0` starts a problem and `=1` acknowledges an interrupted continuation. `INFO(2)` selects scalar (0) or length-`NEQ` vector (1) `RTOL`/`ATOL`; `INFO(3)` selects interval (0) or intermediate-output (1) mode; `INFO(4)=1` selects `TSTOP=RWORK(1)`; `INFO(5)=0` requests numerical differentiation and `=1` requires `JAC`; `INFO(6)=0` is dense and `=1` is banded with `IWORK(1)=ML`, `IWORK(2)=MU`; `INFO(7)=1` sets `HMAX=RWORK(2)`; `INFO(8)=1` sets `H0=RWORK(3)`; `INFO(9)=1` sets `MAXORD=IWORK(3)`, where `1 <= MAXORD <= 5`; `INFO(10)=1` requests nonnegative constraints; `INFO(11)=1` computes an initially consistent `YPRIME`.\n- `RTOL`, `ATOL`: input/output error tolerances. With `INFO(2)=0` both are scalars; with `INFO(2)=1` both are length-`NEQ` vectors. All entries must be nonnegative; DASSL may increase them for `IDID=-2`.\n- `IDID`: output completion/status code; see **Status and error values**.\n- `RWORK`: mutable {scalar} workspace of length `LRW`; it contains persistent continuation state.\n- `LRW`: input declared `RWORK` length. Minimum is `40 + (MAXORD + 4)*NEQ + NEQ*NEQ` for dense storage; `40 + (MAXORD + 4)*NEQ + (2*ML + MU + 1)*NEQ` for banded user `JAC`; or that banded amount plus `2*(NEQ/(ML + MU + 1) + 1)` for banded finite-difference `JAC`.\n- `IWORK`: mutable integer workspace of length `LIW`; it contains persistent continuation state and the documented band widths/order options.\n- `LIW`: input declared `IWORK` length; `LIW >= 20 + NEQ`.\n- `RPAR`, `IPAR`: caller-owned real and integer parameter arrays forwarded to `RES` and `JAC`; DASSL does not alter them and their lengths are defined by the caller/callback.\n- `JAC`: optional `{jacobian}` callback. With `INFO(5)=1`, it implements `JAC(T, Y, YPRIME, PD, CJ, RPAR, IPAR)` and writes `PD = dG/dY + CJ*dG/dYPRIME`; it must not alter `T`, `Y`, `YPRIME`, or `CJ`. Dense `PD` is column-major with first dimension `NEQ` and stores `PD(I,J)`; banded `PD` has first dimension `2*ML + MU + 1` and stores the entry at `PD(I - J + ML + MU + 1, J)`. With `INFO(5)=0`, it is ignored but the ABI argument remains required.\n\n"
+    ));
+    output.push_str("# Return value\n\nThis Fortran subroutine has no direct return value. Time, solution, derivative, tolerances, status, and solver state are returned through mutable arguments.\n\n# Callback contract\n\n`RES` and, when selected, `JAC` are synchronous and must remain valid for the complete native call. They must uphold the exact Rust callback ABI, preserve all callback vector extents, and **must not unwind** through Fortran. Neither callback may retain native pointers after returning.\n\n# Status and error values\n\n- `IDID=1`: an intermediate-output step completed; `TOUT` is not yet reached.\n- `IDID=2`: integration reached `TSTOP` exactly.\n- `IDID=3`: integration reached `TOUT`, possibly by interpolation after stepping beyond it.\n- `IDID=-1`: about 500 steps were expended; set `INFO(1)=1` to continue deliberately.\n- `IDID=-2`: tolerances were too stringent; `RTOL`/`ATOL` were increased for a possible continuation.\n- `IDID=-3`: an `ATOL` component and its solution component are both zero.\n- `IDID=-6`: repeated local error-test failures.\n- `IDID=-7`: repeated corrector convergence failures.\n- `IDID=-8`: singular partial-derivative matrix.\n- `IDID=-9`: repeated corrector and error-test failures on the last step.\n- `IDID=-10`: `RES` set `IRES=-1` and the corrector could not converge.\n- `IDID=-11`: `RES` set `IRES=-2`; control returned to the caller.\n- `IDID=-12`: DASSL failed to compute an initial `YPRIME`.\n- `IDID=-33`: unrecoverable or invalid-input termination; the source error runtime reports the diagnostic.\n\n# Workspace and array requirements\n\n`Y`, `YPRIME`, and callback `DELTA` have length `NEQ`. Preserve `RWORK` and `IWORK` unchanged for continuation except documented option entries. On return `RWORK(3)` is the next attempted step, `RWORK(4)` the farthest integration time, and `RWORK(7)` the last successful step. `IWORK(7..=8)` report orders; `IWORK(11..=15)` report steps, residual calls, Jacobian evaluations, error-test failures, and convergence failures. For continuation do not change `NEQ`, `T`, `Y`, `YPRIME`, `RWORK`, `IWORK`, or the residual system; after `IDID=2` or `3`, choose a new `TOUT` without reversing direction.\n\n");
+    output.push_str(&format!(
+        "# ABI notes\n\n- Canonical Rust path: `{}`\n- Original SLATEC routine: `{}`\n- Native symbol: `{}`\n- Precision: {precision}\n- Exact Netlib source file: [{}]({})\n\n# Safety\n\nEvery pointer must be non-null, correctly aligned, and valid for the exact scalar or array extent above. `Y`, `YPRIME`, `RWORK`, and `IWORK` are mutated and must not alias in a way that violates Rust's aliasing requirements. Preserve Fortran column-major `PD` layout, parameter-array and callback lifetime, persistent continuation state, and the no-unwind callback rule.\n",
+        field(page.final_record, "canonical_rust_path"),
+        page.routine,
+        field(page.final_record, "native_symbol"),
+        page.routine,
+        source_url
+    ));
+    Some(output)
+}
+
+fn rustdoc_argument_contract(argument: &Argument) -> String {
+    let mut contract = argument.description.clone();
+    if contract.contains("classified by fixed-form executable read/write analysis") {
+        contract = format!(
+            "The verified prologue does not separately describe this parameter. Executable dataflow establishes it as `{}`; its exact semantic role remains in the source-hash-guarded review queue and callers must follow the exact source file.",
+            argument.direction
+        );
+    }
+    if argument.external_callback && !argument.callback_restrictions.is_empty() {
+        contract.push(' ');
+        contract.push_str(&argument.callback_restrictions);
+    }
+    if !argument.relationship.is_empty() {
+        contract.push(' ');
+        contract.push_str(&argument.relationship);
+    }
+    if !argument.leading_dimension.is_empty() {
+        contract.push(' ');
+        contract.push_str(&argument.leading_dimension);
+    }
+    if !argument.workspace_requirement.is_empty()
+        && !contract.contains(&argument.workspace_requirement)
+    {
+        contract.push(' ');
+        contract.push_str(&argument.workspace_requirement);
+    }
+    escape_rustdoc_text(&contract)
+}
+
+/// Source prologue prose is plain text, not Rustdoc Markdown. Escape bracket
+/// pairs so legacy matrix notation such as `[A,B]` cannot become an accidental
+/// unresolved intra-doc link under `-D warnings`.
+fn escape_rustdoc_text(text: &str) -> String {
+    text.replace('\\', "\\\\")
+        .replace('[', "\\[")
+        .replace(']', "\\]")
+}
+
+/// Installs a generated include attribute at each authoritative public item.
+///
+/// This runs as part of semantic-review generation, so generated Rust files
+/// are never hand-edited.  It is intentionally idempotent and adds no Rust
+/// declaration: one existing declaration remains the sole native ABI owner.
+fn inject_public_rustdoc_contracts(root: &Path, routines: &BTreeSet<String>) -> Result<()> {
+    let source_root = root.join("crates/slatec-sys/src");
+    let mut paths = Vec::new();
+    collect_rust_sources(&source_root, &mut paths)?;
+    for path in paths {
+        let original = fs::read_to_string(&path)?;
+        let mut output = String::new();
+        let mut previous_was_contract = false;
+        for line in original.lines() {
+            let trimmed = line.trim_start();
+            let indentation = &line[..line.len() - trimmed.len()];
+            if line.contains("/src/generated_docs/") {
+                // Keep the generated attribute aligned with the declaration so
+                // `cargo fmt --check` is a deterministic validation rather
+                // than a source of recurring Windows PR churn.
+                output.push_str(indentation);
+                output.push_str(trimmed);
+                output.push('\n');
+                previous_was_contract = true;
+                continue;
+            }
+            let routine = public_routine_item(line, routines);
+            if let Some(routine) = routine {
+                if !previous_was_contract {
+                    output.push_str(indentation);
+                    output.push_str(&format!(
+                        "#[doc = include_str!(concat!(env!(\"CARGO_MANIFEST_DIR\"), \"/src/generated_docs/{}.md\"))]\n",
+                        routine
+                    ));
+                }
+            }
+            output.push_str(line);
+            output.push('\n');
+            previous_was_contract = false;
+        }
+        if output != original.replace("\r\n", "\n") {
+            fs::write(path, output)?;
+        }
+    }
+    Ok(())
+}
+
+fn collect_rust_sources(directory: &Path, paths: &mut Vec<PathBuf>) -> Result<()> {
+    for entry in fs::read_dir(directory)? {
+        let entry = entry?;
+        let path = entry.path();
+        if path.is_dir() {
+            collect_rust_sources(&path, paths)?;
+        } else if path.extension().is_some_and(|extension| extension == "rs") {
+            paths.push(path);
+        }
+    }
+    paths.sort();
+    Ok(())
+}
+
+fn public_routine_item(line: &str, routines: &BTreeSet<String>) -> Option<String> {
+    let trimmed = line.trim_start();
+    let candidate = if let Some(rest) = trimmed.strip_prefix("pub fn ") {
+        rest.split(|character: char| !character.is_ascii_alphanumeric() && character != '_')
+            .next()
+    } else if let Some(rest) = trimmed.strip_prefix("pub use ") {
+        let tail = rest.trim_end_matches(';').rsplit("::").next()?;
+        let candidate = tail.trim().trim_start_matches('{').trim_end_matches('}');
+        (!candidate.contains(',') && !candidate.contains('*')).then_some(candidate)
+    } else {
+        None
+    }?;
+    let candidate = candidate.to_ascii_lowercase();
+    routines.contains(&candidate).then_some(candidate)
+}
+
 fn escape_table(text: &str) -> String {
     text.replace('|', "\\|")
 }
@@ -1528,13 +2467,29 @@ fn documentation_summary(public: &[Value], quality: &[Value]) -> Value {
     for record in quality {
         *counts.entry(field(record, "quality_level")).or_default() += 1;
     }
-    json!({"canonical_public_routines":public.len(),"complete_structured_public":public.len(),"documentation_work_queue_public":0,"quality_counts":counts})
+    let source_prologue = public
+        .iter()
+        .filter(|record| {
+            field(record, "documentation_quality_status") == "source-prologue-semantic-contract"
+        })
+        .count();
+    let authored = public
+        .iter()
+        .filter(|record| {
+            field(record, "documentation_quality_status")
+                == "source-hash-guarded-authored-semantic-contract"
+        })
+        .count();
+    json!({"canonical_public_routines":public.len(),"source_prologue_semantic_contracts":source_prologue,"source_hash_guarded_authored_semantic_contracts":authored,"complete_semantic_contracts":source_prologue+authored,"complete_structured_public":"computed only by rendered-rustdoc-audit","documentation_work_queue_public":public.len()-source_prologue-authored,"quality_counts":counts})
 }
 
 fn documentation_summary_markdown(value: &Value) -> String {
     format!(
-        "# Public documentation inventory\n\n- Canonical public routines: **{}**\n- Complete structured public documentation: **{}**\n- Public documentation-work queue: **{}**\n\nThe previous 278 + 508 = 786 accounting gap consisted of 26 public routines classified as `mangled_source_prologue`; they are now repaired from their selected source sections and represented explicitly.\n",
+        "# Public documentation inventory\n\n- Canonical public routines: **{}**\n- Selected-prologue or verified-sibling semantic contracts awaiting rendered audit: **{}**\n- Source-hash-guarded authored semantic contracts awaiting rendered audit: **{}**\n- Complete semantic contracts awaiting rendered audit: **{}**\n- Complete structured public documentation: **{}**\n- Public documentation-work queue: **{}**\n\n`complete-structured` is never inferred from a generated reference page. It is computed only by `rendered-rustdoc-audit.json` after the canonical public rustdoc item, ABI inventory, and routine-reference page agree.\n",
         value["canonical_public_routines"],
+        value["source_prologue_semantic_contracts"],
+        value["source_hash_guarded_authored_semantic_contracts"],
+        value["complete_semantic_contracts"],
         value["complete_structured_public"],
         value["documentation_work_queue_public"]
     )
@@ -1624,9 +2579,13 @@ fn family_audits(
         let complete = members
             .iter()
             .filter(|(routine, _)| {
-                quality_by_name
-                    .get(*routine)
-                    .is_some_and(|record| field(record, "quality_level") == "complete_structured")
+                quality_by_name.get(*routine).is_some_and(|record| {
+                    matches!(
+                        field(record, "quality_level").as_str(),
+                        "source-prologue-semantic-contract"
+                            | "source-hash-guarded-authored-semantic-contract"
+                    )
+                })
             })
             .count();
         let unique_paths = members
@@ -1635,7 +2594,7 @@ fn family_audits(
             .map(|record| field(record, "canonical_rust_path"))
             .filter(|path| path != "not_promoted")
             .collect::<BTreeSet<_>>();
-        output.push(json!({"module":name,"routine_count":members.len(),"canonical_public_count":public,"secondary_count":members.len()-public,"argument_documentation_coverage":complete,"description_coverage":complete,"exact_netlib_link_coverage":exact,"duplicate_identity_count":members.len().saturating_sub(unique_paths.len()),"canonical_path_count":unique_paths.len(),"meaningful_child_modules":meaningful_children(name,module),"meaningful_sibling_modules":meaningful_siblings(name),"taxonomy_problems":taxonomy_problem(name),"recommended_canonical_structure":recommended_structure(name,module)}));
+        output.push(json!({"module":name,"routine_count":members.len(),"canonical_public_count":public,"secondary_count":members.len()-public,"semantic_contract_ready_for_rendered_audit":complete,"argument_documentation_coverage":complete,"description_coverage":complete,"exact_netlib_link_coverage":exact,"duplicate_identity_count":members.len().saturating_sub(unique_paths.len()),"canonical_path_count":unique_paths.len(),"meaningful_child_modules":meaningful_children(name,module),"meaningful_sibling_modules":meaningful_siblings(name),"taxonomy_problems":taxonomy_problem(name),"recommended_canonical_structure":recommended_structure(name,module)}));
     }
     output
 }
@@ -2055,7 +3014,11 @@ fn write_json(path: &Path, value: &Value) -> Result<()> {
 }
 
 fn write_markdown(path: &Path, content: &str) -> Result<()> {
-    if fs::read_to_string(path).ok().as_deref() != Some(content) {
+    let content = content.replace("\r\n", "\n");
+    let existing = fs::read_to_string(path)
+        .ok()
+        .map(|existing| existing.replace("\r\n", "\n"));
+    if existing.as_deref() != Some(content.as_str()) {
         if let Some(parent) = path.parent() {
             fs::create_dir_all(parent)?;
         }
@@ -2088,6 +3051,50 @@ mod tests {
         let sections = parse_source_sections(source, &arguments);
         assert_eq!(sections.arguments["X"].direction.as_deref(), Some("input"));
         assert_eq!(sections.arguments["Y"].direction.as_deref(), Some("output"));
+    }
+
+    #[test]
+    fn parses_fixed_form_on_output_and_bare_status_label() {
+        let arguments = vec![Argument {
+            name: "IERROR".to_owned(),
+            ..argument_fixture()
+        }];
+        let source = b"      SUBROUTINE TEST(IERROR)\nC***DESCRIPTION\nC     * * * * On Output * * * *\nC     IERROR\nC       An error flag that reports invalid input.\nC***END PROLOGUE\n      END\n";
+        let sections = parse_source_sections(source, &arguments);
+        assert_eq!(
+            sections.arguments["IERROR"].direction.as_deref(),
+            Some("output")
+        );
+        assert!(
+            sections.arguments["IERROR"].text.contains("error flag"),
+            "parsed IERROR text: {:?}",
+            sections.arguments["IERROR"].text
+        );
+    }
+
+    #[test]
+    fn parses_hwscrt_status_from_the_retained_provider_source() {
+        let arguments = vec![Argument {
+            name: "IERROR".to_owned(),
+            ..argument_fixture()
+        }];
+        let known = arguments
+            .iter()
+            .map(|argument| argument.name.as_str())
+            .collect::<BTreeSet<_>>();
+        assert_eq!(
+            argument_line("IERROR", &known, true),
+            Some((vec!["IERROR".to_owned()], String::new()))
+        );
+        let source = include_bytes!(
+            "../../../evidence/full-corpus/audit-input/directories/fishfft/files/hwscrt.f"
+        );
+        let sections = parse_source_sections(source, &arguments);
+        assert!(
+            sections.arguments["IERROR"].text.contains("error flag"),
+            "parsed retained-source IERROR text: {:?}",
+            sections.arguments["IERROR"].text
+        );
     }
 
     #[test]

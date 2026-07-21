@@ -8,7 +8,7 @@ Use Householder transformations to compute the QR factorization of an N by P mat
 
 ## Description
 
-CQRDC uses Householder transformations to compute the QR factorization of an N by P matrix X. Column pivoting based on the 2-norms of the reduced columns may be performed at the users option. On Entry X COMPLEX(LDX,P), where LDX .GE. N. X contains the matrix whose decomposition is to be computed. LDX INTEGER. LDX is the leading dimension of the array X. N INTEGER. N is the number of rows of the matrix X. P INTEGER. P is the number of columns of the matrix X. JVPT INTEGER(P). JVPT contains integers that control the selection of the pivot columns. The K-th column X(K) of X is placed in one of three classes according to the value of JVPT(K). If JVPT(K) .GT. 0, then X(K) is an initial column. If JVPT(K) .EQ. 0, then X(K) is a free column. If JVPT(K) .LT. 0, then X(K) is a final column. Before the decomposition is computed, initial columns are moved to the beginning of the array X and final columns to the end. Both initial and final columns are frozen in place during the computation and only free columns are moved. At the K-th stage of the reduction, if X(K) is occupied by a free column it is interchanged with the free column of largest reduced norm. JVPT is not referenced if JOB .EQ. 0. WORK COMPLEX(P). WORK is a work array. WORK is not referenced if JOB .EQ. 0. JOB INTEGER. JOB is an integer that initiates column pivoting. If JOB .EQ. 0, no pivoting is done. If JOB .NE. 0, pivoting is done. On Return X X contains in its upper triangle the upper triangular matrix R of the QR factorization. Below its diagonal X contains information from which the unitary part of the decomposition can be recovered. Note that if pivoting has been requested, the decomposition is not that of the original matrix X but that of X with its columns permuted as described by JVPT. QRAUX COMPLEX(P). QRAUX contains further information required to recover the unitary part of the decomposition. JVPT JVPT(K) contains the index of the column of the original matrix that has been interchanged into the K-th column, if pivoting was requested.
+CQRDC uses Householder transformations to compute the QR factorization of an N by P matrix X. Column pivoting based on the 2-norms of the reduced columns may be performed at the users option. On Entry
 
 ## Classification
 
@@ -52,22 +52,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CQRDC](https://www.netlib.org/slatec/lin/cqrdc.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDX, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `QRAUX` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `JPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `WORK` | `workspace` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 2; dimensions (LDX, *) | COMPLEX(LDX,P), where LDX .GE. N. contains the matrix whose decomposition is to be computed. is an initial column. is a free column. is a final column. Before the decomposition is computed, initial columns are moved to the beginning of the array X and final columns to the end.  Both initial and final columns are frozen in place during the computation and only free columns are moved.  At the K-th stage of the reduction, if X(K) is occupied by a free column it is interchanged with the free column of largest reduced norm.  JVPT is not referenced if contains in its upper triangle the upper contains in its upper triangle the upper triangular matrix R of the QR factorization. triangular matrix R of the QR factorization. Below its diagonal X contains information from Below its diagonal X contains information from which the unitary part of the decomposition which the unitary part of the decomposition can be recovered.  Note that if pivoting has can be recovered.  Note that if pivoting has been requested, the decomposition is not that been requested, the decomposition is not that of the original matrix X but that of X of the original matrix X but that of X with its columns permuted as described by JVPT. with its columns permuted as described by JVPT. |
+| 2 | `LDX` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER. is the leading dimension of the array X. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a users option. INTEGER. is the number of rows of the matrix X. |
+| 4 | `P` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a users option. INTEGER. is the number of columns of the matrix X. |
+| 5 | `QRAUX` | `input-output` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). contains further information required to recover the unitary part of the decomposition. |
+| 6 | `JPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(P). contains integers that control the selection of the pivot columns.  The K-th column X(K) of X is placed in one of three classes according to the value of JVPT(K). is an initial column. is a free column. is a final column. Before the decomposition is computed, initial columns are moved to the beginning of the array X and final columns to the end.  Both initial and final columns are frozen in place during the computation and only free columns are moved.  At the K-th stage of the reduction, if X(K) is occupied by a free column it is interchanged with the free column of largest reduced norm.  JVPT is not referenced if contains the index of the column of the contains the index of the column of the original matrix that has been interchanged into original matrix that has been interchanged into the K-th column, if pivoting was requested. the K-th column, if pivoting was requested. |
+| 7 | `WORK` | `workspace` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | COMPLEX(P). is a work array.  WORK is not referenced if |
+| 8 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | .EQ. 0. .EQ. 0. INTEGER. is an integer that initiates column pivoting. If JOB .EQ. 0, no pivoting is done. If JOB .NE. 0, pivoting is done. On Return |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -85,7 +85,7 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`WORK`: COMPLEX(P). is a work array.  WORK is not referenced if
 
 ### Provider, ABI, and safety
 

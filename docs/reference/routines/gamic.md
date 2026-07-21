@@ -8,7 +8,7 @@ Calculate the complementary incomplete Gamma function.
 
 ## Description
 
-Evaluate the complementary incomplete gamma function GAMIC = integral from X to infinity of EXP(-T) * T**(A-1.) . GAMIC is evaluated for arbitrary real values of A and for non- negative values of X (even though GAMIC is defined for X .LT. 0.0), except that for X = 0 and A .LE. 0.0, GAMIC is undefined. GAMIC, A, and X are REAL. A slight deterioration of 2 or 3 digits accuracy will occur when GAMIC is very large or very small in absolute value, because log- arithmic variables are used. Also, if the parameter A is very close to a negative integer (but not a negative integer), there is a loss of accuracy, which is reported if the result is less than half machine precision.
+Evaluate the complementary incomplete gamma function
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [GAMIC](https://www.netlib.org/slatec/fnlib/gamic.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | negative values of X (even though GAMIC is defined for X .LT. are REAL. slight deterioration of 2 or 3 digits accuracy will occur when GAMIC is very large or very small in absolute value, because log- arithmic variables are used.  Also, if the parameter A is very close is a loss is a loss of accuracy, which is reported if the result is less than half of accuracy, which is reported if the result is less than half machine precision. machine precision. |
+| 2 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | T) * T**(A-1.)  . 0 and A .LE. 0.0, GAMIC is undefined. are REAL. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

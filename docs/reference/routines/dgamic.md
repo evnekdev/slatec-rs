@@ -8,7 +8,7 @@ Calculate the complementary incomplete Gamma function.
 
 ## Description
 
-Evaluate the complementary incomplete Gamma function DGAMIC = integral from X to infinity of EXP(-T) * T**(A-1.) . DGAMIC is evaluated for arbitrary real values of A and for non- negative values of X (even though DGAMIC is defined for X .LT. 0.0), except that for X = 0 and A .LE. 0.0, DGAMIC is undefined. DGAMIC, A, and X are DOUBLE PRECISION. A slight deterioration of 2 or 3 digits accuracy will occur when DGAMIC is very large or very small in absolute value, because log- arithmic variables are used. Also, if the parameter A is very close to a negative INTEGER (but not a negative integer), there is a loss of accuracy, which is reported if the result is less than half machine precision.
+Evaluate the complementary incomplete Gamma function
 
 ## Classification
 
@@ -52,16 +52,16 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DGAMIC](https://www.netlib.org/slatec/fnlib/dgamic.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | negative values of X (even though DGAMIC is defined for X .LT. are DOUBLE PRECISION. slight deterioration of 2 or 3 digits accuracy will occur when DGAMIC is very large or very small in absolute value, because log- arithmic variables are used.  Also, if the parameter A is very close is a loss is a loss of accuracy, which is reported if the result is less than half of accuracy, which is reported if the result is less than half machine precision. machine precision. |
+| 2 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | T) * T**(A-1.)  . 0 and A .LE. 0.0, DGAMIC is undefined. are DOUBLE PRECISION. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

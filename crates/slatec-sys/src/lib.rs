@@ -235,8 +235,10 @@ pub mod pde {
     /// Canonical reviewed FISHPACK driver namespace.
     pub mod fishpack {
         #[cfg(feature = "raw-family-fishpack-cartesian-2d")]
+        #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwscrt.md"))]
         pub use crate::fishpack_cartesian_2d::hwscrt;
         #[cfg(feature = "raw-family-fishpack-pois3d")]
+        #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pois3d.md"))]
         pub use crate::fishpack_pois3d::pois3d;
         #[cfg(feature = "raw-family-fishpack-general")]
         #[path = "../../batch_a/pde_fishpack.rs"]

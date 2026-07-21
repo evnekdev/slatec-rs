@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CLNREL](https://www.netlib.org/slatec/fnlib/clnrel.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `Z` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `Z` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | LOG(1+Z) with relative error accuracy near Z = 0. Let   RHO = ABS(Z)  and R**2 = ABS(1+Z)**2 = (1+X)**2 + Y**2 = 1 + 2*X + RHO**2 . Now if RHO is small we may evaluate CLNREL(Z) accurately by CMPLX  (LOG(R), CARG(1+Z)) = CMPLX  (0.5*LOG(R**2), CARG(1+Z)) = CMPLX  (0.5*ALNREL(2*X+RHO**2), CARG(1+Z)) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-Let   RHO = ABS(Z)  and R**2 = ABS(1+Z)**2 = (1+X)**2 + Y**2 = 1 + 2*X + RHO**2 . Now if RHO is small we may evaluate CLNREL(Z) accurately by LOG(1+Z) = CMPLX  (LOG(R), CARG(1+Z)) = CMPLX  (0.5*LOG(R**2), CARG(1+Z)) = CMPLX  (0.5*ALNREL(2*X+RHO**2), CARG(1+Z))
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

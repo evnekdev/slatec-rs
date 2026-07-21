@@ -8,7 +8,7 @@ Check the gradients of M nonlinear functions in N variables, evaluated at a poin
 
 ## Description
 
-This subroutine is a companion routine to SNLS1,SNLS1E,SNSQ,and SNSQE which may be used to check the calculation of the Jacobian. SUBROUTINE CHKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. The user must call CKDER twice, first with MODE = 1 and then with MODE = 2. MODE = 1. On input, X must contain the point of evaluation. On output, XP is set to a neighboring point. MODE = 2. On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated at X, and FVECP must contain the functions evaluated at XP. On output, ERR contains measures of correctness of the respective gradients. The subroutine does not perform reliably if cancellation or
+This subroutine is a companion routine to SNLS1,SNLS1E,SNSQ,and SNSQE which may be used to check the calculation of the Jacobian. SUBROUTINE CHKDER This subroutine checks the gradients of M nonlinear functions in N variables, evaluated at a point X, for consistency with the functions themselves. The user must call CKDER twice,
 
 ## Classification
 
@@ -54,24 +54,24 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CHKDER](https://www.netlib.org/slatec/src/chkder.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `FVEC` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `FJAC` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDFJAC, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `LDFJAC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `XP` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `FVECP` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `MODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 10 | `ERR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a positive integer input variable set to the number of functions. 2, 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. 2, 2, |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a positive integer input variable set to the number of variables. 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. 1, |
+| 3 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the functions evaluated at XP. On output, ERR contains measures of correctness of the respective gradients. The subroutine does not perform reliably if cancellation or rounding errors cause a severe loss of significance in the evaluation of a function. Therefore, none of the components of X should be unusually small (in particular, zero) or any other value which may cause loss of significance. The SUBROUTINE statement is SUBROUTINE CHKDER(M,N,X,FVEC,FJAC,LDFJAC,XP,FVECP,MODE,ERR) where is an input array of length N. |
+| 4 | `FVEC` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 2, must contain the functions evaluated at X. |
+| 5 | `FJAC` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDFJAC, *) | 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. |
+| 6 | `LDFJAC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is a positive integer input parameter not less than M which specifies the leading dimension of the array FJAC. |
+| 7 | `XP` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1, is set to a neighboring point of X. |
+| 8 | `FVECP` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contain the functions evaluated at XP. On output, ERR contains measures of correctness of the respective gradients. The subroutine does not perform reliably if cancellation or rounding errors cause a severe loss of significance in the evaluation of a function. Therefore, none of the components of X should be unusually small (in particular, zero) or any other value which may cause loss of significance. The SUBROUTINE statement is SUBROUTINE CHKDER(M,N,X,FVEC,FJAC,LDFJAC,XP,FVECP,MODE,ERR) where 2, must contain the functions evaluated at XP. |
+| 9 | `MODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 and then with MODE = 2. 1. On input, X must contain the point of evaluation. On output, XP is set to a neighboring point. 2. On input, FVEC must contain the functions and the rows of FJAC must contain the gradients of the respective functions each evaluated 2, 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. 1, 2, is an integer input variable set to 1 on the first call and 2 on the second. Other values of MODE are equivalent 1. 2, |
+| 10 | `ERR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 2, contains measures of correctness of the respective gradients. If there is no severe loss of significance, th gradient is correct, th gradient is incorrect. For values of ERR between 0.0 and 1.0, the categorization is less certain. In general, a value of ERR(I) greater than 0.5 indicates that the I-th gradient is probably correct, while a value of ERR(I) less than 0.5 indicates that the I-th gradient is probably incorrect. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -85,7 +85,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-evaluation of a function. Therefore, none of the components of X should be unusually small (in particular, zero) or any other value which may cause loss of significance. The SUBROUTINE statement is SUBROUTINE CHKDER(M,N,X,FVEC,FJAC,LDFJAC,XP,FVECP,MODE,ERR) where M is a positive integer input variable set to the number of functions. N is a positive integer input variable set to the number of variables. X is an input array of length N. FVEC is an array of length M. On input when MODE = 2, FVEC must contain the functions evaluated at X. FJAC is an M by N array. On input when MODE = 2, the rows of FJAC must contain the gradients of the respective functions evaluated at X. LDFJAC is a positive integer input parameter not less than M which specifies the leading dimension of the array FJAC. XP is an array of length N. On output when MODE = 1, XP is set to a neighboring point of X. FVECP is an array of length M. On input when MODE = 2, FVECP must contain the functions evaluated at XP. MODE is an integer input variable set to 1 on the first call and 2 on the second. Other values of MODE are equivalent to MODE = 1. ERR is an array of length M. On output when MODE = 2, ERR contains measures of correctness of the respective gradients. If there is no severe loss of significance, then if ERR(I) is 1.0 the I-th gradient is correct, while if ERR(I) is 0.0 the I-th gradient is incorrect. For values of ERR between 0.0 and 1.0, the categorization is less certain. In general, a value of ERR(I) greater than 0.5 indicates that the I-th gradient is probably correct, while a value of ERR(I) less than 0.5 indicates that the I-th gradient is probably incorrect.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

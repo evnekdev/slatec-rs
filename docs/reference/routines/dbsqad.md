@@ -8,7 +8,7 @@ Compute the integral of a K-th order B-spline using the B-representation.
 
 ## Description
 
-Abstract **** a double precision routine **** DBSQAD computes the integral on (X1,X2) of a K-th order B-spline using the B-representation (T,BCOEF,N,K). Orders K as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use DBFQAD with F(X) = 1. The maximum number of significant digits obtainable in DBSQAD is the smaller of 18 and the number of digits carried in double precision arithmetic.
+Abstract **** a double precision routine ****
 
 ## Classification
 
@@ -54,22 +54,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBSQAD](https://www.netlib.org/slatec/src/dbsqad.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot array of length N+K |
-| 2 | `BCOEF` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | B-spline coefficient array of length N |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision knot array of length N+K .LE. X .LE. T(N+1) |
+| 2 | `BCOEF` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision B-spline coefficient array of length N |
 | 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | length of coefficient array |
-| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of B-spline, 1 .LE. K .LE. 20 |
-| 5 | `X1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | end points of quadrature interval in T(K) .LE. X .LE. T(N+1) Output     BQUAD,WORK are double precision |
-| 6 | `X2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | end points of quadrature interval in T(K) .LE. X .LE. T(N+1) Output     BQUAD,WORK are double precision |
-| 7 | `BQUAD` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | integral of the B-spline over (X1,X2) |
-| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | work vector of length 3*K |
+| 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | th order B-spline using the B-representation. th order B-spline using the B-representation (T,BCOEF,N,K).  Orders as high as 20 are permitted by applying a 2, 6, or 10 point Gauss formula on subintervals of (X1,X2) which are formed by included (distinct) knots. If orders K greater than 20 are needed, use DBFQAD with F(X) = 1. The maximum number of significant digits obtainable in DBSQAD is the smaller of 18 and the number of digits carried in double precision arithmetic. order of B-spline, 1 .LE. K .LE. 20 .LE. X .LE. T(N+1) |
+| 5 | `X1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | th order B-spline using the B-representation (T,BCOEF,N,K).  Orders are double precision end points of quadrature interval in |
+| 6 | `X2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | th order B-spline using the B-representation (T,BCOEF,N,K).  Orders are double precision end points of quadrature interval in |
+| 7 | `BQUAD` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | are double precision integral of the B-spline over (X1,X2) |
+| 8 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision work vector of length 3*K |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -83,11 +83,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error
 
 ### Storage and workspace requirements
 
-`WORK`: work vector of length 3*K
+`WORK`: are double precision work vector of length 3*K
 
 ### Provider, ABI, and safety
 

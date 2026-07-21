@@ -8,7 +8,7 @@ Factor a real symmetric matrix stored in packed form by elimination with symmetr
 
 ## Description
 
-SSPFA factors a real symmetric matrix stored in packed form by elimination with symmetric pivoting. To solve A*X = B , follow SSPFA by SSPSL. To compute INVERSE(A)*C , follow SSPFA by SSPSL. To compute DETERMINANT(A) , follow SSPFA by SSPDI. To compute INERTIA(A) , follow SSPFA by SSPDI. To compute INVERSE(A) , follow SSPFA by SSPDI. On Entry AP REAL (N*(N+1)/2) the packed form of a symmetric matrix A . The columns of the upper triangle are stored sequentially in a one-dimensional array of length N*(N+1)/2 . See comments below for details. N INTEGER the order of the matrix A .
+SSPFA factors a real symmetric matrix stored in packed form by elimination with symmetric pivoting. To solve A*X = B , follow SSPFA by SSPSL. To compute INVERSE(A)*C , follow SSPFA by SSPSL. To compute DETERMINANT(A) , follow SSPFA by SSPDI. To compute INERTIA(A) , follow SSPFA by SSPDI. To compute INVERSE(A) , follow SSPFA by SSPDI. On Entry
 
 ## Classification
 
@@ -52,18 +52,18 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SSPFA](https://www.netlib.org/slatec/lin/sspfa.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `AP` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `KPVT` | `input-output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
+| 1 | `AP` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL (N*(N+1)/2) the packed form of a symmetric matrix  A .  The columns of the upper triangle are stored sequentially in a one-dimensional array of length  N*(N+1)/2 . See comments below for details. a block diagonal matrix and the multipliers which were used to obtain it stored in packed form. The factorization can be written  A = U*D*TRANS(U) where  U  is a product of permutation and unit upper triangular matrices , TRANS(U) is the transpose of  U , and  D  is block diagonal with 1 by 1 and 2 by 2 blocks. A(I,J) 10    CONTINUE 20 CONTINUE |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . |
+| 3 | `KPVT` | `output` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | INTEGER(N) an integer vector of pivot indices. |
+| 4 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 0  normal value. = K  if the K-th pivot block is singular.  This is not an error condition for this subroutine, but it does indicate that SSPSL or SSPDI may divide by zero if called. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix. K = 0 DO 20 J = 1, N DO 10 I = 1, J K = K + 1 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -77,7 +77,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-but it does indicate that SSPSL or SSPDI may divide by zero if called. Packed Storage The following program segment will pack the upper triangle of a symmetric matrix. K = 0 DO 20 J = 1, N DO 10 I = 1, J K = K + 1 AP(K)  = A(I,J) 10    CONTINUE 20 CONTINUE
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

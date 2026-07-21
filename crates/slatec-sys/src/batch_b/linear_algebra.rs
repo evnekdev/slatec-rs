@@ -103,6 +103,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "dbcg_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbcg.md"))]
             pub fn dbcg(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -200,6 +201,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "dcg_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcg.md"))]
             pub fn dcg(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -309,6 +311,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "dcgn_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcgn.md"))]
             pub fn dcgn(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -408,6 +411,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "dcgs_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcgs.md"))]
             pub fn dcgs(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -505,6 +509,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "dgmres_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgmres.md"))]
             pub fn dgmres(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -598,6 +603,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "dir_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dir.md"))]
             pub fn dir(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -693,6 +699,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "domn_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/domn.md"))]
             pub fn domn(
                 n: *mut crate::FortranInteger,
                 b: *mut f64,
@@ -822,6 +829,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "sbcg_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sbcg.md"))]
             pub fn sbcg(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,
@@ -919,6 +927,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "scg_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scg.md"))]
             pub fn scg(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,
@@ -1028,6 +1037,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "scgn_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scgn.md"))]
             pub fn scgn(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,
@@ -1127,6 +1137,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "scgs_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scgs.md"))]
             pub fn scgs(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,
@@ -1224,6 +1235,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "sgmres_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgmres.md"))]
             pub fn sgmres(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,
@@ -1317,6 +1329,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "sir_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sir.md"))]
             pub fn sir(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,
@@ -1412,6 +1425,7 @@ pub mod sparse {
             ///
             /// This is a source-verified callback-bearing raw declaration, not a safe or numerically validated API. Callback functions must use the exact GNU Fortran calling convention, remain callable for the full native invocation, write only through documented mutable outputs, and must not unwind into Fortran. Scalar and array pointers must be non-null, aligned, valid for the native access, and must not violate Rust aliasing rules. No user-data pointer or closure trampoline is invented by this raw API; callers must arrange any state through the original Fortran arguments and serialize legacy runtime access where required.
             #[link_name = "somn_"]
+            #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/somn.md"))]
             pub fn somn(
                 n: *mut crate::FortranInteger,
                 b: *mut f32,

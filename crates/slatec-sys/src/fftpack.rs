@@ -22,9 +22,11 @@ unsafe extern "C" {
 
     /// Initializes an easy real Fourier transform workspace of at least `3*N + 15` words.
     #[link_name = "ezffti_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ezffti.md"))]
     pub fn ezffti(n: *mut FortranInteger, wsave: *mut f32);
     /// Computes separate easy real Fourier coefficients.
     #[link_name = "ezfftf_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ezfftf.md"))]
     pub fn ezfftf(
         n: *mut FortranInteger,
         values: *const f32,
@@ -35,6 +37,7 @@ unsafe extern "C" {
     );
     /// Synthesizes a real periodic sequence from easy Fourier coefficients.
     #[link_name = "ezfftb_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ezfftb.md"))]
     pub fn ezfftb(
         n: *mut FortranInteger,
         values: *mut f32,
@@ -46,36 +49,46 @@ unsafe extern "C" {
 
     /// Initializes a full sine-transform workspace.
     #[link_name = "sinti_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinti.md"))]
     pub fn sinti(n: *mut FortranInteger, wsave: *mut f32);
     /// Computes the in-place full sine transform.
     #[link_name = "sint_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sint.md"))]
     pub fn sint(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
 
     /// Initializes a full cosine-transform workspace.
     #[link_name = "costi_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/costi.md"))]
     pub fn costi(n: *mut FortranInteger, wsave: *mut f32);
     /// Computes the in-place full cosine transform.
     #[link_name = "cost_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cost.md"))]
     pub fn cost(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
 
     /// Initializes a quarter-wave sine-transform workspace.
     #[link_name = "sinqi_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinqi.md"))]
     pub fn sinqi(n: *mut FortranInteger, wsave: *mut f32);
     /// Computes the in-place quarter-wave sine forward transform.
     #[link_name = "sinqf_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinqf.md"))]
     pub fn sinqf(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
     /// Computes the in-place quarter-wave sine backward transform.
     #[link_name = "sinqb_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinqb.md"))]
     pub fn sinqb(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
 
     /// Initializes a quarter-wave cosine-transform workspace.
     #[link_name = "cosqi_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosqi.md"))]
     pub fn cosqi(n: *mut FortranInteger, wsave: *mut f32);
     /// Computes the in-place quarter-wave cosine forward transform.
     #[link_name = "cosqf_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosqf.md"))]
     pub fn cosqf(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
     /// Computes the in-place quarter-wave cosine backward transform.
     #[link_name = "cosqb_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosqb.md"))]
     pub fn cosqb(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
 }
 

@@ -30,6 +30,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "bint4_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bint4.md"))]
     pub fn bint4(
         x: *mut f32,
         y: *mut f32,
@@ -67,6 +68,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bintk.md"))]
 pub use crate::bspline::bintk;
 
 // raw-api-routine: BSPDR
@@ -89,6 +91,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "bspdr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspdr.md"))]
     pub fn bspdr(
         t: *mut f32,
         a: *mut f32,
@@ -122,6 +125,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "bspev_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspev.md"))]
     pub fn bspev(
         t: *mut f32,
         ad: *mut f32,
@@ -156,6 +160,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bsppp.md"))]
 pub use crate::piecewise_polynomial::bsppp;
 
 // raw-api-routine: BSPVD
@@ -180,6 +185,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "bspvd_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspvd.md"))]
     pub fn bspvd(
         t: *mut f32,
         k: *mut crate::FortranInteger,
@@ -215,6 +221,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "bspvn_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspvn.md"))]
     pub fn bspvn(
         t: *mut f32,
         jhigh: *mut crate::FortranInteger,
@@ -249,6 +256,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bvalu.md"))]
 pub use crate::bspline::bvalu;
 
 // raw-api-routine: CHFDV
@@ -277,6 +285,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "chfdv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chfdv.md"))]
     pub fn chfdv(
         x1: *mut f32,
         x2: *mut f32,
@@ -318,6 +327,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "chfev_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chfev.md"))]
     pub fn chfev(
         x1: *mut f32,
         x2: *mut f32,
@@ -360,6 +370,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dbint4_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbint4.md"))]
     pub fn dbint4(
         x: *mut f64,
         y: *mut f64,
@@ -397,6 +408,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbintk.md"))]
 pub use crate::bspline::dbintk;
 
 // raw-api-routine: DBSPDR
@@ -419,6 +431,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dbspdr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspdr.md"))]
     pub fn dbspdr(
         t: *mut f64,
         a: *mut f64,
@@ -452,6 +465,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dbspev_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspev.md"))]
     pub fn dbspev(
         t: *mut f64,
         ad: *mut f64,
@@ -486,6 +500,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbsppp.md"))]
 pub use crate::piecewise_polynomial::dbsppp;
 
 // raw-api-routine: DBSPVD
@@ -510,6 +525,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dbspvd_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspvd.md"))]
     pub fn dbspvd(
         t: *mut f64,
         k: *mut crate::FortranInteger,
@@ -545,6 +561,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dbspvn_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspvn.md"))]
     pub fn dbspvn(
         t: *mut f64,
         jhigh: *mut crate::FortranInteger,
@@ -579,6 +596,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbvalu.md"))]
 pub use crate::bspline::dbvalu;
 
 // raw-api-routine: DCHFDV
@@ -607,6 +625,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dchfdv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchfdv.md"))]
     pub fn dchfdv(
         x1: *mut f64,
         x2: *mut f64,
@@ -648,6 +667,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dchfev_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchfev.md"))]
     pub fn dchfev(
         x1: *mut f64,
         x2: *mut f64,
@@ -683,6 +703,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dintrv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dintrv.md"))]
     pub fn dintrv(
         xt: *mut f64,
         lxt: *mut crate::FortranInteger,
@@ -719,6 +740,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dpchbs_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchbs.md"))]
     pub fn dpchbs(
         n: *mut crate::FortranInteger,
         x: *mut f64,
@@ -757,6 +779,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dpchcm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchcm.md"))]
     pub fn dpchcm(
         n: *mut crate::FortranInteger,
         x: *mut f64,
@@ -792,6 +815,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchfd.md"))]
 pub use crate::pchip::dpchfd;
 
 // raw-api-routine: DPCHFE
@@ -816,6 +840,7 @@ pub use crate::pchip::dpchfd;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchfe.md"))]
 pub use crate::pchip::dpchfe;
 
 // raw-api-routine: DPCHIA
@@ -840,6 +865,7 @@ pub use crate::pchip::dpchfe;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchia.md"))]
 pub use crate::pchip::dpchia;
 
 // raw-api-routine: DPCHIC
@@ -865,6 +891,7 @@ pub use crate::pchip::dpchia;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchic.md"))]
 pub use crate::pchip::dpchic;
 
 // raw-api-routine: DPCHID
@@ -891,6 +918,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dpchid_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchid.md"))]
     pub fn dpchid(
         n: *mut crate::FortranInteger,
         x: *mut f64,
@@ -922,6 +950,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchim.md"))]
 pub use crate::pchip::dpchim;
 
 // raw-api-routine: DPCHSP
@@ -946,6 +975,7 @@ pub use crate::pchip::dpchim;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchsp.md"))]
 pub use crate::pchip::dpchsp;
 
 // raw-api-routine: DPLINT
@@ -966,6 +996,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dplint_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dplint.md"))]
     pub fn dplint(n: *mut crate::FortranInteger, x: *mut f64, y: *mut f64, c: *mut f64);
 }
 
@@ -989,6 +1020,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dpolcf_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpolcf.md"))]
     pub fn dpolcf(
         xx: *mut f64,
         n: *mut crate::FortranInteger,
@@ -1022,6 +1054,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "dpolvl_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpolvl.md"))]
     pub fn dpolvl(
         nder: *mut crate::FortranInteger,
         xx: *mut f64,
@@ -1056,6 +1089,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppval.md"))]
 pub use crate::piecewise_polynomial::dppval;
 
 // raw-api-routine: INTRV
@@ -1078,6 +1112,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "intrv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/intrv.md"))]
     pub fn intrv(
         xt: *mut f32,
         lxt: *mut crate::FortranInteger,
@@ -1114,6 +1149,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "pchbs_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchbs.md"))]
     pub fn pchbs(
         n: *mut crate::FortranInteger,
         x: *mut f32,
@@ -1152,6 +1188,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "pchcm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchcm.md"))]
     pub fn pchcm(
         n: *mut crate::FortranInteger,
         x: *mut f32,
@@ -1187,6 +1224,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchfd.md"))]
 pub use crate::pchip::pchfd;
 
 // raw-api-routine: PCHFE
@@ -1211,6 +1249,7 @@ pub use crate::pchip::pchfd;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchfe.md"))]
 pub use crate::pchip::pchfe;
 
 // raw-api-routine: PCHIA
@@ -1235,6 +1274,7 @@ pub use crate::pchip::pchfe;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchia.md"))]
 pub use crate::pchip::pchia;
 
 // raw-api-routine: PCHIC
@@ -1260,6 +1300,7 @@ pub use crate::pchip::pchia;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchic.md"))]
 pub use crate::pchip::pchic;
 
 // raw-api-routine: PCHID
@@ -1286,6 +1327,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "pchid_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchid.md"))]
     pub fn pchid(
         n: *mut crate::FortranInteger,
         x: *mut f32,
@@ -1317,6 +1359,7 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchim.md"))]
 pub use crate::pchip::pchim;
 
 // raw-api-routine: PCHSP
@@ -1341,6 +1384,7 @@ pub use crate::pchip::pchim;
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchsp.md"))]
 pub use crate::pchip::pchsp;
 
 // raw-api-routine: POLCOF
@@ -1363,6 +1407,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "polcof_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polcof.md"))]
     pub fn polcof(
         xx: *mut f32,
         n: *mut crate::FortranInteger,
@@ -1391,6 +1436,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "polint_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polint.md"))]
     pub fn polint(n: *mut crate::FortranInteger, x: *mut f32, y: *mut f32, c: *mut f32);
 }
 
@@ -1417,6 +1463,7 @@ unsafe extern "C" {
     ///
     /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
     #[link_name = "polyvl_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polyvl.md"))]
     pub fn polyvl(
         nder: *mut crate::FortranInteger,
         xx: *mut f32,
@@ -1451,4 +1498,5 @@ unsafe extern "C" {
 /// # Safety
 ///
 /// This is a source-verified, compiler-profile ABI declaration, not a safe or numerically validated API. Callers must provide valid non-null scalar and array pointers, satisfy every source-declared dimension, leading-dimension, and workspace rule, avoid mutable aliasing, use the supported GNU MinGW Fortran ABI, and serialize access if the native routine reaches legacy global state. The normalized declaration does not establish argument intent or pointer retention; consult the original source prologue before calling.
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ppval.md"))]
 pub use crate::piecewise_polynomial::ppval;

@@ -49,6 +49,7 @@ unsafe extern "C" {
     /// workspace must remain alive for the call; native code retains no pointer.
     /// The caller is responsible for serializing legacy SLATEC runtime use.
     #[link_name = "hwscrt_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwscrt.md"))]
     pub fn hwscrt(
         a: *const f32,
         b: *const f32,

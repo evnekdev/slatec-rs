@@ -12,6 +12,7 @@ use core::ffi::c_char;
 #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
 unsafe extern "C" {
     #[link_name = "caxpy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/caxpy.md"))]
     pub fn caxpy(
         n: *mut FortranInteger,
         ca: *mut Complex32,
@@ -21,6 +22,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "ccopy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ccopy.md"))]
     pub fn ccopy(
         n: *mut FortranInteger,
         cx: *mut Complex32,
@@ -29,8 +31,10 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "crotg_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/crotg.md"))]
     pub fn crotg(ca: *mut Complex32, cb: *mut Complex32, c: *mut f32, s: *mut Complex32);
     #[link_name = "cscal_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cscal.md"))]
     pub fn cscal(
         n: *mut FortranInteger,
         ca: *mut Complex32,
@@ -38,6 +42,7 @@ unsafe extern "C" {
         incx: *mut FortranInteger,
     );
     #[link_name = "csrot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csrot.md"))]
     pub fn csrot(
         n: *mut FortranInteger,
         cx: *mut Complex32,
@@ -48,6 +53,7 @@ unsafe extern "C" {
         s: *mut f32,
     );
     #[link_name = "csscal_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csscal.md"))]
     pub fn csscal(
         n: *mut FortranInteger,
         sa: *mut f32,
@@ -55,6 +61,7 @@ unsafe extern "C" {
         incx: *mut FortranInteger,
     );
     #[link_name = "cswap_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cswap.md"))]
     pub fn cswap(
         n: *mut FortranInteger,
         cx: *mut Complex32,
@@ -63,8 +70,10 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "dasum_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dasum.md"))]
     pub fn dasum(n: *mut FortranInteger, dx: *mut f64, incx: *mut FortranInteger) -> f64;
     #[link_name = "daxpy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/daxpy.md"))]
     pub fn daxpy(
         n: *mut FortranInteger,
         da: *mut f64,
@@ -74,6 +83,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "dcdot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcdot.md"))]
     pub fn dcdot(
         n: *mut FortranInteger,
         fm: *mut f64,
@@ -85,6 +95,7 @@ unsafe extern "C" {
         dci: *mut f64,
     );
     #[link_name = "dcopy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcopy.md"))]
     pub fn dcopy(
         n: *mut FortranInteger,
         dx: *mut f64,
@@ -93,6 +104,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "dcopym_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcopym.md"))]
     pub fn dcopym(
         n: *mut FortranInteger,
         dx: *mut f64,
@@ -101,6 +113,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "ddot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ddot.md"))]
     pub fn ddot(
         n: *mut FortranInteger,
         dx: *mut f64,
@@ -109,8 +122,10 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     ) -> f64;
     #[link_name = "dnrm2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnrm2.md"))]
     pub fn dnrm2(n: *mut FortranInteger, dx: *mut f64, incx: *mut FortranInteger) -> f64;
     #[link_name = "dqdota_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqdota.md"))]
     pub fn dqdota(
         n: *mut FortranInteger,
         db: *mut f64,
@@ -121,6 +136,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     ) -> f64;
     #[link_name = "dqdoti_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqdoti.md"))]
     pub fn dqdoti(
         n: *mut FortranInteger,
         db: *mut f64,
@@ -131,6 +147,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     ) -> f64;
     #[link_name = "drot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drot.md"))]
     pub fn drot(
         n: *mut FortranInteger,
         dx: *mut f64,
@@ -141,8 +158,10 @@ unsafe extern "C" {
         ds: *mut f64,
     );
     #[link_name = "drotg_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotg.md"))]
     pub fn drotg(da: *mut f64, db: *mut f64, dc: *mut f64, ds: *mut f64);
     #[link_name = "drotm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotm.md"))]
     pub fn drotm(
         n: *mut FortranInteger,
         dx: *mut f64,
@@ -152,8 +171,10 @@ unsafe extern "C" {
         dparam: *mut f64,
     );
     #[link_name = "drotmg_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotmg.md"))]
     pub fn drotmg(dd1: *mut f64, dd2: *mut f64, dx1: *mut f64, dy1: *mut f64, dparam: *mut f64);
     #[link_name = "ds2y_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ds2y.md"))]
     pub fn ds2y(
         n: *mut FortranInteger,
         nelt: *mut FortranInteger,
@@ -163,8 +184,10 @@ unsafe extern "C" {
         isym: *mut FortranInteger,
     );
     #[link_name = "dscal_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dscal.md"))]
     pub fn dscal(n: *mut FortranInteger, da: *mut f64, dx: *mut f64, incx: *mut FortranInteger);
     #[link_name = "dsdi_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdi.md"))]
     pub fn dsdi(
         n: *mut FortranInteger,
         b: *mut f64,
@@ -178,6 +201,7 @@ unsafe extern "C" {
         iwork: *mut FortranInteger,
     );
     #[link_name = "dsdot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdot.md"))]
     pub fn dsdot(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -186,6 +210,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     ) -> f64;
     #[link_name = "dsmtv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmtv.md"))]
     pub fn dsmtv(
         n: *mut FortranInteger,
         x: *mut f64,
@@ -197,6 +222,7 @@ unsafe extern "C" {
         isym: *mut FortranInteger,
     );
     #[link_name = "dsmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmv.md"))]
     pub fn dsmv(
         n: *mut FortranInteger,
         x: *mut f64,
@@ -208,6 +234,7 @@ unsafe extern "C" {
         isym: *mut FortranInteger,
     );
     #[link_name = "dswap_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dswap.md"))]
     pub fn dswap(
         n: *mut FortranInteger,
         dx: *mut f64,
@@ -216,12 +243,14 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "icamax_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/icamax.md"))]
     pub fn icamax(
         n: *mut FortranInteger,
         cx: *mut Complex32,
         incx: *mut FortranInteger,
     ) -> FortranInteger;
     #[link_name = "icopy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/icopy.md"))]
     pub fn icopy(
         n: *mut FortranInteger,
         ix: *mut FortranInteger,
@@ -230,18 +259,21 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "idamax_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/idamax.md"))]
     pub fn idamax(
         n: *mut FortranInteger,
         dx: *mut f64,
         incx: *mut FortranInteger,
     ) -> FortranInteger;
     #[link_name = "isamax_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/isamax.md"))]
     pub fn isamax(
         n: *mut FortranInteger,
         sx: *mut f32,
         incx: *mut FortranInteger,
     ) -> FortranInteger;
     #[link_name = "iswap_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/iswap.md"))]
     pub fn iswap(
         n: *mut FortranInteger,
         ix: *mut FortranInteger,
@@ -250,8 +282,10 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "sasum_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sasum.md"))]
     pub fn sasum(n: *mut FortranInteger, sx: *mut f32, incx: *mut FortranInteger) -> f32;
     #[link_name = "saxpy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/saxpy.md"))]
     pub fn saxpy(
         n: *mut FortranInteger,
         sa: *mut f32,
@@ -261,10 +295,13 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "scasum_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scasum.md"))]
     pub fn scasum(n: *mut FortranInteger, cx: *mut Complex32, incx: *mut FortranInteger) -> f32;
     #[link_name = "scnrm2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scnrm2.md"))]
     pub fn scnrm2(n: *mut FortranInteger, cx: *mut Complex32, incx: *mut FortranInteger) -> f32;
     #[link_name = "scopy_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scopy.md"))]
     pub fn scopy(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -273,6 +310,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "scopym_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scopym.md"))]
     pub fn scopym(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -281,6 +319,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     );
     #[link_name = "sdot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sdot.md"))]
     pub fn sdot(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -289,6 +328,7 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     ) -> f32;
     #[link_name = "sdsdot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sdsdot.md"))]
     pub fn sdsdot(
         n: *mut FortranInteger,
         sb: *mut f32,
@@ -298,8 +338,10 @@ unsafe extern "C" {
         incy: *mut FortranInteger,
     ) -> f32;
     #[link_name = "snrm2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snrm2.md"))]
     pub fn snrm2(n: *mut FortranInteger, sx: *mut f32, incx: *mut FortranInteger) -> f32;
     #[link_name = "srot_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srot.md"))]
     pub fn srot(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -310,8 +352,10 @@ unsafe extern "C" {
         ss: *mut f32,
     );
     #[link_name = "srotg_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotg.md"))]
     pub fn srotg(sa: *mut f32, sb: *mut f32, sc: *mut f32, ss: *mut f32);
     #[link_name = "srotm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotm.md"))]
     pub fn srotm(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -321,8 +365,10 @@ unsafe extern "C" {
         sparam: *mut f32,
     );
     #[link_name = "srotmg_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotmg.md"))]
     pub fn srotmg(sd1: *mut f32, sd2: *mut f32, sx1: *mut f32, sy1: *mut f32, sparam: *mut f32);
     #[link_name = "ss2y_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ss2y.md"))]
     pub fn ss2y(
         n: *mut FortranInteger,
         nelt: *mut FortranInteger,
@@ -332,8 +378,10 @@ unsafe extern "C" {
         isym: *mut FortranInteger,
     );
     #[link_name = "sscal_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sscal.md"))]
     pub fn sscal(n: *mut FortranInteger, sa: *mut f32, sx: *mut f32, incx: *mut FortranInteger);
     #[link_name = "ssdi_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdi.md"))]
     pub fn ssdi(
         n: *mut FortranInteger,
         b: *mut f32,
@@ -347,6 +395,7 @@ unsafe extern "C" {
         iwork: *mut FortranInteger,
     );
     #[link_name = "ssmtv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmtv.md"))]
     pub fn ssmtv(
         n: *mut FortranInteger,
         x: *mut f32,
@@ -358,6 +407,7 @@ unsafe extern "C" {
         isym: *mut FortranInteger,
     );
     #[link_name = "ssmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmv.md"))]
     pub fn ssmv(
         n: *mut FortranInteger,
         x: *mut f32,
@@ -369,6 +419,7 @@ unsafe extern "C" {
         isym: *mut FortranInteger,
     );
     #[link_name = "sswap_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sswap.md"))]
     pub fn sswap(
         n: *mut FortranInteger,
         sx: *mut f32,
@@ -381,6 +432,7 @@ unsafe extern "C" {
 #[cfg(any(feature = "blas-level2", feature = "raw-family-blas-level2"))]
 unsafe extern "C" {
     #[link_name = "cgbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgbmv.md"))]
     pub fn cgbmv(
         trans: *mut c_char,
         m: *mut FortranInteger,
@@ -398,6 +450,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "cgemv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgemv.md"))]
     pub fn cgemv(
         trans: *mut c_char,
         m: *mut FortranInteger,
@@ -413,6 +466,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "cgerc_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgerc.md"))]
     pub fn cgerc(
         m: *mut FortranInteger,
         n: *mut FortranInteger,
@@ -425,6 +479,7 @@ unsafe extern "C" {
         lda: *mut FortranInteger,
     );
     #[link_name = "cgeru_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgeru.md"))]
     pub fn cgeru(
         m: *mut FortranInteger,
         n: *mut FortranInteger,
@@ -437,6 +492,7 @@ unsafe extern "C" {
         lda: *mut FortranInteger,
     );
     #[link_name = "chbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chbmv.md"))]
     pub fn chbmv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -452,6 +508,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "chemv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chemv.md"))]
     pub fn chemv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -466,6 +523,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "cher_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cher.md"))]
     pub fn cher(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -477,6 +535,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "cher2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cher2.md"))]
     pub fn cher2(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -490,6 +549,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "chpmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chpmv.md"))]
     pub fn chpmv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -503,6 +563,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "chpr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chpr.md"))]
     pub fn chpr(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -513,6 +574,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "chpr2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chpr2.md"))]
     pub fn chpr2(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -525,6 +587,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "ctbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctbmv.md"))]
     pub fn ctbmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -540,6 +603,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "ctbsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctbsv.md"))]
     pub fn ctbsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -555,6 +619,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "ctpmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctpmv.md"))]
     pub fn ctpmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -568,6 +633,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "ctpsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctpsv.md"))]
     pub fn ctpsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -581,6 +647,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "ctrmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrmv.md"))]
     pub fn ctrmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -595,6 +662,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "ctrsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrsv.md"))]
     pub fn ctrsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -609,6 +677,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "dgbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgbmv.md"))]
     pub fn dgbmv(
         trans: *mut c_char,
         m: *mut FortranInteger,
@@ -626,6 +695,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dgemv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgemv.md"))]
     pub fn dgemv(
         trans: *mut c_char,
         m: *mut FortranInteger,
@@ -641,6 +711,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dger_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dger.md"))]
     pub fn dger(
         m: *mut FortranInteger,
         n: *mut FortranInteger,
@@ -653,6 +724,7 @@ unsafe extern "C" {
         lda: *mut FortranInteger,
     );
     #[link_name = "dsbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsbmv.md"))]
     pub fn dsbmv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -668,6 +740,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dspmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspmv.md"))]
     pub fn dspmv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -681,6 +754,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dspr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspr.md"))]
     pub fn dspr(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -691,6 +765,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dspr2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspr2.md"))]
     pub fn dspr2(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -703,6 +778,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dsymv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsymv.md"))]
     pub fn dsymv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -717,6 +793,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dsyr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyr.md"))]
     pub fn dsyr(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -728,6 +805,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dsyr2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyr2.md"))]
     pub fn dsyr2(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -741,6 +819,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "dtbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtbmv.md"))]
     pub fn dtbmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -756,6 +835,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "dtbsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtbsv.md"))]
     pub fn dtbsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -771,6 +851,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "dtpmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtpmv.md"))]
     pub fn dtpmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -784,6 +865,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "dtpsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtpsv.md"))]
     pub fn dtpsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -797,6 +879,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "dtrmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrmv.md"))]
     pub fn dtrmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -811,6 +894,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "dtrsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrsv.md"))]
     pub fn dtrsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -825,6 +909,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "sgbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgbmv.md"))]
     pub fn sgbmv(
         trans: *mut c_char,
         m: *mut FortranInteger,
@@ -842,6 +927,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "sgemv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgemv.md"))]
     pub fn sgemv(
         trans: *mut c_char,
         m: *mut FortranInteger,
@@ -857,6 +943,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "sger_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sger.md"))]
     pub fn sger(
         m: *mut FortranInteger,
         n: *mut FortranInteger,
@@ -869,6 +956,7 @@ unsafe extern "C" {
         lda: *mut FortranInteger,
     );
     #[link_name = "ssbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssbmv.md"))]
     pub fn ssbmv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -884,6 +972,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "sspmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspmv.md"))]
     pub fn sspmv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -897,6 +986,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "sspr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspr.md"))]
     pub fn sspr(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -907,6 +997,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "sspr2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspr2.md"))]
     pub fn sspr2(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -919,6 +1010,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "ssymv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssymv.md"))]
     pub fn ssymv(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -933,6 +1025,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "ssyr_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyr.md"))]
     pub fn ssyr(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -944,6 +1037,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "ssyr2_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyr2.md"))]
     pub fn ssyr2(
         uplo: *mut c_char,
         n: *mut FortranInteger,
@@ -957,6 +1051,7 @@ unsafe extern "C" {
         character_length_1: FortranCharacterLength,
     );
     #[link_name = "stbmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stbmv.md"))]
     pub fn stbmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -972,6 +1067,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "stbsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stbsv.md"))]
     pub fn stbsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -987,6 +1083,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "stpmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stpmv.md"))]
     pub fn stpmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1000,6 +1097,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "stpsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stpsv.md"))]
     pub fn stpsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1013,6 +1111,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "strmv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strmv.md"))]
     pub fn strmv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1027,6 +1126,7 @@ unsafe extern "C" {
         character_length_3: FortranCharacterLength,
     );
     #[link_name = "strsv_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strsv.md"))]
     pub fn strsv(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1045,6 +1145,7 @@ unsafe extern "C" {
 #[cfg(any(feature = "blas-level3", feature = "raw-family-blas-level3"))]
 unsafe extern "C" {
     #[link_name = "cgemm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgemm.md"))]
     pub fn cgemm(
         transa: *mut c_char,
         transb: *mut c_char,
@@ -1063,6 +1164,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "chemm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chemm.md"))]
     pub fn chemm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1080,6 +1182,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "cher2k_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cher2k.md"))]
     pub fn cher2k(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1097,6 +1200,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "cherk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cherk.md"))]
     pub fn cherk(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1112,6 +1216,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "csymm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csymm.md"))]
     pub fn csymm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1129,6 +1234,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "csyr2k_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csyr2k.md"))]
     pub fn csyr2k(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1146,6 +1252,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "csyrk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csyrk.md"))]
     pub fn csyrk(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1161,6 +1268,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "ctrmm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrmm.md"))]
     pub fn ctrmm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1179,6 +1287,7 @@ unsafe extern "C" {
         character_length_4: FortranCharacterLength,
     );
     #[link_name = "ctrsm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrsm.md"))]
     pub fn ctrsm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1197,6 +1306,7 @@ unsafe extern "C" {
         character_length_4: FortranCharacterLength,
     );
     #[link_name = "dgemm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgemm.md"))]
     pub fn dgemm(
         transa: *mut c_char,
         transb: *mut c_char,
@@ -1215,6 +1325,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "dsymm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsymm.md"))]
     pub fn dsymm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1232,6 +1343,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "dsyr2k_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyr2k.md"))]
     pub fn dsyr2k(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1249,6 +1361,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "dsyrk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyrk.md"))]
     pub fn dsyrk(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1264,6 +1377,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "dtrmm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrmm.md"))]
     pub fn dtrmm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1282,6 +1396,7 @@ unsafe extern "C" {
         character_length_4: FortranCharacterLength,
     );
     #[link_name = "dtrsm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrsm.md"))]
     pub fn dtrsm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1300,6 +1415,7 @@ unsafe extern "C" {
         character_length_4: FortranCharacterLength,
     );
     #[link_name = "sgemm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgemm.md"))]
     pub fn sgemm(
         transa: *mut c_char,
         transb: *mut c_char,
@@ -1318,6 +1434,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "ssymm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssymm.md"))]
     pub fn ssymm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1335,6 +1452,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "ssyr2k_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyr2k.md"))]
     pub fn ssyr2k(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1352,6 +1470,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "ssyrk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyrk.md"))]
     pub fn ssyrk(
         uplo: *mut c_char,
         trans: *mut c_char,
@@ -1367,6 +1486,7 @@ unsafe extern "C" {
         character_length_2: FortranCharacterLength,
     );
     #[link_name = "strmm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strmm.md"))]
     pub fn strmm(
         side: *mut c_char,
         uplo: *mut c_char,
@@ -1385,6 +1505,7 @@ unsafe extern "C" {
         character_length_4: FortranCharacterLength,
     );
     #[link_name = "strsm_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strsm.md"))]
     pub fn strsm(
         side: *mut c_char,
         uplo: *mut c_char,

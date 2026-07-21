@@ -8,7 +8,7 @@ Convert the B-representation of a B-spline to the piecewise polynomial (PP) form
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos BSPPP is the BSPLPP routine of the reference. BSPPP converts the B-representation (T,A,N,K) to the piecewise polynomial (PP) form (C,XI,LXI,K) for use with PPVAL. Here XI(*), the break point array of length LXI, is the knot array T(*) with multiplicities removed. The columns of the matrix C(I,J) contain the right Taylor derivatives for the polynomial expansion about XI(J) for the intervals XI(J) .LE. X .LE. XI(J+1), I=1,K, J=1,LXI. Function PPVAL makes this evaluation at a specified point X in XI(1) .LE. X .LE. XI(LXI(1) .LE. X .LE. XI+1)
+Written by Carl de Boor and modified by D. E. Amos BSPPP is the BSPLPP routine of the reference. BSPPP converts the B-representation (T,A,N,K) to the piecewise polynomial (PP) form (C,XI,LXI,K) for use with PPVAL. Here XI(*), the break point array of length LXI, is the knot array T(*) with multiplicities removed. The columns of the matrix C(I,J) contain the right Taylor derivatives for the polynomial expansion about XI(J) for the intervals
 
 ## Classification
 
@@ -54,8 +54,8 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BSPPP](https://www.netlib.org/slatec/src/bsppp.f)
 
 ### Arguments
@@ -68,7 +68,7 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 | 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K .GE. 1 |
 | 5 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | leading dimension of C, LDC .GE. K |
 | 6 | `C` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDC, *) | matrix of dimension at least (K,LXI) containing right derivatives at break points |
-| 7 | `XI` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | XI break point vector of length LXI+1 |
+| 7 | `XI` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | 1,K, J=1,LXI.  Function PPVAL 1,K, J=1,LXI.  Function PPVAL makes this evaluation at a specified point X in makes this evaluation at a specified point X in .LE. X .LE. XI(LXI(1) .LE. X .LE. XI+1) XI break point vector of length LXI+1 |
 | 8 | `LXI` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of break points, LXI .LE. N-K+1 |
 | 9 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | work vector of length K*(N+3) |
 
@@ -84,7 +84,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error
 
 ### Storage and workspace requirements
 

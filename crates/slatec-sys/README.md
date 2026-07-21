@@ -14,6 +14,13 @@ and subsidiaries, provider/link/runtime/documentation coverage, safe wrappers,
 and explicit exclusions. Its correction layer is source-hash guarded. See
 [`docs/architecture/slatec-sys-public-raw-api.md`](../../docs/architecture/slatec-sys-public-raw-api.md).
 
+Documentation completion is measured on rendered canonical rustdoc, not on a
+separate reference page. The committed
+[`rendered-rustdoc-audit.json`](../../generated/slatec-routines/rendered-rustdoc-audit.json)
+checks every public function page for its full contract, exact ABI arguments,
+Safety section, and direct Netlib source-file link. Generated declaration
+modules remain implementation detail even when they carry that documentation.
+
 ## Canonical generated raw API
 
 The canonical surface contains 812 routines. Straightforward numerical

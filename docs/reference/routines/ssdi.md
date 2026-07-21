@@ -51,24 +51,24 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SSDI](https://www.netlib.org/slatec/lin/ssdi.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | conditioner setup routines SSDS or SSD2S. |
-| 3 | `X` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `RWORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 10 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (10) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | IN       Integer Order of the Matrix. |
+| 2 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | IN       Real B(N). Vector to multiply the diagonal by. by.  This array must be set by the user or by a call to the SLAP routine SSDS or SSD2S.  The length of RWORK must be >= IWORK(4)+N. conditioner setup routines SSDS or SSD2S. |
+| 3 | `X` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (N) | DIAG*B, where DIAG is a diagonal matrix. OUT      Real X(N). Result of DIAG*B. |
+| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | DUMMY    Integer. |
+| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | DUMMY    Integer IA(NELT). |
+| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | DUMMY    Integer JA(NELT). |
+| 7 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NELT) | DUMMY    Real A(NELT). |
+| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | DUMMY    Integer. These are for compatibility with SLAP MSOLVE calling sequence. |
+| 9 | `RWORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | IN       Real RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale |
+| 10 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (10) | IN       Integer IWORK(10). holds the offset into RWORK for the diagonal matrix |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -86,9 +86,9 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`RWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`RWORK`: IN       Real RWORK(USER DEFINED). Work array holding the diagonal of some matrix to scale
 
-`IWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`IWORK`: IN       Integer IWORK(10). holds the offset into RWORK for the diagonal matrix
 
 ### Provider, ABI, and safety
 

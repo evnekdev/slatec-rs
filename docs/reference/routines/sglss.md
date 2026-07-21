@@ -8,7 +8,7 @@ Solve a linear least squares problems by performing a QR factorization of the ma
 
 ## Description
 
-SGLSS solves both underdetermined and overdetermined LINEAR systems AX = B, where A is an M by N matrix and B is an M by NB matrix of right hand sides. If M.GE.N, the least squares solution is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than MIN(M,N), then the minimal length least squares solution is computed. SGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes LLSIA and ULSIA are recommended. SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. * WARNING - All input arrays are changed on exit. * * SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO)
+SGLSS solves both underdetermined and overdetermined
 
 ## Classification
 
@@ -54,27 +54,27 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SGLSS](https://www.netlib.org/slatec/src/sglss.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (MDA, *) | B, with MDA the MDA,M,N      actual first dimension of A in the calling program. M is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). B(,)          Right hand side(s), with MDB the actual first MDB,NB       dimension of B in the calling program. NB is the number of M by 1 right hand sides. Must have |
-| 2 | `MDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
-| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
-| 5 | `B` | `output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (MDB, *) | AX(I), I=1,NB. WORK()        The first 2*MIN(M,N) locations of WORK contain value necessary to reproduce the factorization of A. IWORK()       The first M+N locations contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. INFO          Flag to indicate status of computation on completion |
-| 6 | `MDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
-| 7 | `NB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0, B is never accessed. RNORM()       Vector of length at least NB.  On input the contents of RNORM are unused. WORK()        A real work array dimensioned 5*MIN(M,N). LW            Actual dimension of WORK. IWORK()       Integer work array dimensioned at least N+M. LIW           Actual dimension of IWORK. INFO          A flag which provides for the efficient solution of subsequent problems involving the same A but different B. |
-| 8 | `RNORM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 10 | `LW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 11 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 12 | `LIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 0 original call 1 subsequent calls On subsequent calls, the user must supply A, INFO, LW, IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to SGLSS. |
+| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (MDA, *) | is an M by N matrix and B is an M by NB matrix of right hand sides. If B, with MDA the Contains the triangular part of the reduced matrix and the transformation information. It together with the first 2*MIN(M,N) elements of WORK (see below) completely specify the factorization of A. |
+| 2 | `MDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | actual first dimension of A in the calling program. |
+| 3 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than then the minimal length least squares solution is computed. SGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes LLSIA and ULSIA are recommended. SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. * WARNING - All input arrays are changed on exit.        * * SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) actual first dimension of A in the calling program. is the row dimension (no. of EQUATIONS of the problem) and N the col dimension (no. of UNKNOWNS). 0, B is never accessed. contain value necessary to reproduce the factorization of A. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. |
+| 4 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is computed by decomposing the matrix A into the product of an orthogonal matrix Q and an upper triangular matrix R (QR factorization). If M.LT.N, the minimal length solution is computed by factoring the matrix A into the product of a lower triangular matrix L and an orthogonal matrix Q (LQ factor- ization). If the matrix A is determined to be rank deficient, that is the rank of A is less than then the minimal length least squares solution is computed. SGLSS assumes full machine precision in the data. If more control over the uncertainty in the data is desired, the codes LLSIA and ULSIA are recommended. SGLSS requires MDA*N + (MDB + 1)*NB + 5*MIN(M,N) dimensioned real space and M+N dimensioned integer space. * WARNING - All input arrays are changed on exit.        * * SUBROUTINE SGLSS(A,MDA,M,N,B,MDB,NB,RNORM,WORK,LW,IWORK,LIW,INFO) actual first dimension of A in the calling program. 0, B is never accessed. contain value necessary to reproduce the factorization of A. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. Reduced rank  rank=MIN(M,N)-INFO |
+| 5 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (MDB, *) | is an M by N matrix and B is an M by NB matrix of right hand sides. If Right hand side(s), with MDB the actual first is the number of M by 1 right hand sides. Must have Contains the N by NB solution matrix X. AX(I), I=1,NB. |
+| 6 | `MDB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of M by 1 right hand sides. Must have 0, B is never accessed. |
+| 7 | `NB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the is the number of M by 1 right hand sides. Must have number of M by 1 right hand sides. Must have 0, B is never accessed. |
+| 8 | `RNORM` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Vector of length at least NB.  On input the contents of RNORM are unused. Contains the Euclidean length of the NB residual |
+| 9 | `WORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | A real work array dimensioned 5*MIN(M,N). contain value contain value necessary to reproduce the factorization of A. necessary to reproduce the factorization of A. |
+| 10 | `LW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Actual dimension of WORK. IWORK, LIW, and the first 2*MIN(M,N) locations of WORK as output by the original call to SGLSS. |
+| 11 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Integer work array dimensioned at least N+M. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns. |
+| 12 | `LIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Actual dimension of IWORK. |
+| 13 | `INFO` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | A flag which provides for the efficient solution of subsequent problems involving the same A but different B. 0 original call 1 subsequent calls On subsequent calls, the user must supply A, INFO, Flag to indicate status of computation on completion -1   Parameter error(s) 0 - Full rank |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -88,13 +88,13 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-0 - Full rank N.GT.0 - Reduced rank  rank=MIN(M,N)-INFO
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 
-`WORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`WORK`: A real work array dimensioned 5*MIN(M,N). contain value contain value necessary to reproduce the factorization of A. necessary to reproduce the factorization of A.
 
-`IWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`IWORK`: Integer work array dimensioned at least N+M. contain the order in which the rows and columns of A were used. If M.GE.N columns then rows. If M.LT.N rows then columns.
 
 ### Provider, ABI, and safety
 

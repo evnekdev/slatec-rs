@@ -8,7 +8,7 @@ Construct a Givens transformation.
 
 ## Description
 
-Complex Givens transformation Construct the Givens transformation (C S) G = ( ), C**2 + ABS(S)**2 =1, (-S C) which zeros the second entry of the complex 2-vector (CA,CB)**T The quantity CA/ABS(CA)*NORM(CA,CB) overwrites CA in storage.
+Complex Givens transformation Construct the Givens transformation
 
 ## Classification
 
@@ -51,18 +51,18 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CROTG](https://www.netlib.org/slatec/lin/crotg.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `CA` | `input-output` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `CB` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `C` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `S` | `output` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `CA` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | (Complex) (Complex)      CA/ABS(CA)*NORM(CA,CB) |
+| 2 | `CB` | `input` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | (Complex) |
+| 3 | `C` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | S) G  =  (      ),  C**2 + ABS(S)**2 =1, (Real) |
+| 4 | `S` | `output` | `scalar` | `COMPLEX` | `*mut crate::Complex32` | scalar | C) which zeros the second entry of the complex 2-vector (CA,CB)**T The quantity CA/ABS(CA)*NORM(CA,CB) overwrites CA in storage. (Complex) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

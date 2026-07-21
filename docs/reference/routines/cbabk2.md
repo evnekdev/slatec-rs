@@ -8,7 +8,7 @@ Form the eigenvectors of a complex general matrix from the eigenvectors of matri
 
 ## Description
 
-This subroutine is a translation of the ALGOL procedure CBABK2, which is a complex version of BALBAK, NUM. MATH. 13, 293-304(1969) by Parlett and Reinsch. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). This subroutine forms the eigenvectors of a COMPLEX GENERAL matrix by back transforming those of the corresponding balanced matrix determined by CBAL. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, ZR and ZI, as declared in the calling program dimension statement. NM is an INTEGER variable. N is the order of the matrix Z=(ZR,ZI). N is an INTEGER variable. N must be less than or equal to NM. LOW and IGH are INTEGER variables determined by CBAL. SCALE contains information determining the permutations and scaling factors used by CBAL. SCALE is a one-dimensional REAL array, dimensioned SCALE(N). M is the number of eigenvectors to be back transformed. M is an INTEGER variable. ZR and ZI contain the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first M columns. ZR and ZI are two-dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). On OUTPUT ZR and ZI contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+This subroutine is a translation of the ALGOL procedure CBABK2, which is a complex version of BALBAK, NUM. MATH. 13, 293-304(1969) by Parlett and Reinsch. HANDBOOK FOR AUTO. COMP., VOL.II-LINEAR ALGEBRA, 315-326(1971). This subroutine forms the eigenvectors of a COMPLEX GENERAL matrix by back transforming those of the corresponding balanced matrix determined by CBAL.
 
 ## Classification
 
@@ -51,22 +51,22 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [CBABK2](https://www.netlib.org/slatec/lin/cbabk2.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `LOW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `IGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `SCALE` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `ZR` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `ZI` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, ZR and ZI, as declared in the calling program dimension statement.  NM is an INTEGER variable. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | (ZR,ZI).  N is an INTEGER variable.  N must be less than or equal to NM. |
+| 3 | `LOW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are INTEGER variables determined by  CBAL. |
+| 4 | `IGH` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | are INTEGER variables determined by  CBAL. |
+| 5 | `SCALE` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | contains information determining the permutations and dimensional REAL array, dimensioned SCALE(N). |
+| 6 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of eigenvectors to be back transformed. is an INTEGER variable. dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). |
+| 7 | `ZR` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 8 | `ZI` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contain the real and imaginary parts, respectively, of the eigenvectors to be back transformed in their first dimensional REAL arrays, dimensioned ZR(NM,M) and ZI(NM,M). contain the real and imaginary parts, respectively, of the transformed eigenvectors in their first M columns. Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

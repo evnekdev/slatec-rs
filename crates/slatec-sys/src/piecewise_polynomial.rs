@@ -9,6 +9,7 @@ use crate::FortranInteger;
 unsafe extern "C" {
     /// Evaluates a single-precision PP-form value or derivative.
     #[link_name = "ppval_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ppval.md"))]
     pub fn ppval(
         leading_dimension: *const FortranInteger,
         coefficients: *const f32,
@@ -22,6 +23,7 @@ unsafe extern "C" {
 
     /// Evaluates a double-precision PP-form value or derivative.
     #[link_name = "dppval_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppval.md"))]
     pub fn dppval(
         leading_dimension: *const FortranInteger,
         coefficients: *const f64,
@@ -35,6 +37,7 @@ unsafe extern "C" {
 
     /// Integrates a single-precision PP-form spline exactly.
     #[link_name = "ppqad_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ppqad.md"))]
     pub fn ppqad(
         leading_dimension: *const FortranInteger,
         coefficients: *const f32,
@@ -48,6 +51,7 @@ unsafe extern "C" {
 
     /// Integrates a double-precision PP-form spline exactly.
     #[link_name = "dppqad_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppqad.md"))]
     pub fn dppqad(
         leading_dimension: *const FortranInteger,
         coefficients: *const f64,
@@ -61,6 +65,7 @@ unsafe extern "C" {
 
     /// Converts a single-precision B-spline to PP form.
     #[link_name = "bsppp_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bsppp.md"))]
     pub fn bsppp(
         knots: *const f32,
         coefficients: *const f32,
@@ -75,6 +80,7 @@ unsafe extern "C" {
 
     /// Converts a double-precision B-spline to PP form.
     #[link_name = "dbsppp_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbsppp.md"))]
     pub fn dbsppp(
         knots: *const f64,
         coefficients: *const f64,

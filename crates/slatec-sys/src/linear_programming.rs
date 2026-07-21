@@ -31,6 +31,7 @@ pub type LpMatrixF64 = unsafe extern "C" fn(
 unsafe extern "C" {
     /// Original single-precision SLATEC sparse linear-programming driver.
     #[link_name = "splp_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/splp.md"))]
     pub fn splp(
         matrix: LpMatrixF32,
         rows: *mut FortranInteger,
@@ -53,6 +54,7 @@ unsafe extern "C" {
 
     /// Original double-precision SLATEC sparse linear-programming driver.
     #[link_name = "dsplp_"]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsplp.md"))]
     pub fn dsplp(
         matrix: LpMatrixF64,
         rows: *mut FortranInteger,

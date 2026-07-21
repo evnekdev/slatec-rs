@@ -30,6 +30,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/caxpy.md"))]
     pub use crate::generated::blas::caxpy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -50,6 +51,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ccopy.md"))]
     pub use crate::generated::blas::ccopy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -69,6 +71,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/crotg.md"))]
     pub use crate::generated::blas::crotg;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -88,6 +91,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cscal.md"))]
     pub use crate::generated::blas::cscal;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -110,6 +114,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csrot.md"))]
     pub use crate::generated::blas::csrot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -129,6 +134,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csscal.md"))]
     pub use crate::generated::blas::csscal;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -149,6 +155,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cswap.md"))]
     pub use crate::generated::blas::cswap;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -167,6 +174,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dasum.md"))]
     pub use crate::generated::blas::dasum;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -188,6 +196,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/daxpy.md"))]
     pub use crate::generated::blas::daxpy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -211,6 +220,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcdot.md"))]
     pub use crate::generated::blas::dcdot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -231,6 +241,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcopy.md"))]
     pub use crate::generated::blas::dcopy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -251,6 +262,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcopym.md"))]
     pub use crate::generated::blas::dcopym;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -271,6 +283,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ddot.md"))]
     pub use crate::generated::blas::ddot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -289,6 +302,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnrm2.md"))]
     pub use crate::generated::blas::dnrm2;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -311,6 +325,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqdota.md"))]
     pub use crate::generated::blas::dqdota;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -333,6 +348,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqdoti.md"))]
     pub use crate::generated::blas::dqdoti;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -355,6 +371,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drot.md"))]
     pub use crate::generated::blas::drot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -374,6 +391,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotg.md"))]
     pub use crate::generated::blas::drotg;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -395,6 +413,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotm.md"))]
     pub use crate::generated::blas::drotm;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -415,6 +434,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotmg.md"))]
     pub use crate::generated::blas::drotmg;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -436,6 +456,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ds2y.md"))]
     pub use crate::generated::blas::ds2y;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -455,6 +476,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dscal.md"))]
     pub use crate::generated::blas::dscal;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -480,6 +502,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdi.md"))]
     pub use crate::generated::blas::dsdi;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -500,6 +523,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdot.md"))]
     pub use crate::generated::blas::dsdot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -523,6 +547,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmtv.md"))]
     pub use crate::generated::blas::dsmtv;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -546,6 +571,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmv.md"))]
     pub use crate::generated::blas::dsmv;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -566,6 +592,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dswap.md"))]
     pub use crate::generated::blas::dswap;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -584,6 +611,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/icamax.md"))]
     pub use crate::generated::blas::icamax;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -604,6 +632,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/icopy.md"))]
     pub use crate::generated::blas::icopy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -622,6 +651,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/idamax.md"))]
     pub use crate::generated::blas::idamax;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -640,6 +670,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/isamax.md"))]
     pub use crate::generated::blas::isamax;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -660,6 +691,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/iswap.md"))]
     pub use crate::generated::blas::iswap;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -678,6 +710,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sasum.md"))]
     pub use crate::generated::blas::sasum;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -699,6 +732,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/saxpy.md"))]
     pub use crate::generated::blas::saxpy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -717,6 +751,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scasum.md"))]
     pub use crate::generated::blas::scasum;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -735,6 +770,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scnrm2.md"))]
     pub use crate::generated::blas::scnrm2;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -755,6 +791,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scopy.md"))]
     pub use crate::generated::blas::scopy;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -775,6 +812,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scopym.md"))]
     pub use crate::generated::blas::scopym;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -795,6 +833,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sdot.md"))]
     pub use crate::generated::blas::sdot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -816,6 +855,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sdsdot.md"))]
     pub use crate::generated::blas::sdsdot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -834,6 +874,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snrm2.md"))]
     pub use crate::generated::blas::snrm2;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -856,6 +897,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srot.md"))]
     pub use crate::generated::blas::srot;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -875,6 +917,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotg.md"))]
     pub use crate::generated::blas::srotg;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -896,6 +939,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotm.md"))]
     pub use crate::generated::blas::srotm;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -916,6 +960,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotmg.md"))]
     pub use crate::generated::blas::srotmg;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -937,6 +982,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ss2y.md"))]
     pub use crate::generated::blas::ss2y;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -956,6 +1002,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sscal.md"))]
     pub use crate::generated::blas::sscal;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -981,6 +1028,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdi.md"))]
     pub use crate::generated::blas::ssdi;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -1004,6 +1052,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmtv.md"))]
     pub use crate::generated::blas::ssmtv;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -1027,6 +1076,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmv.md"))]
     pub use crate::generated::blas::ssmv;
 
     #[cfg(any(feature = "blas-level1", feature = "raw-family-blas-level1"))]
@@ -1047,6 +1097,7 @@ pub mod level1 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sswap.md"))]
     pub use crate::generated::blas::sswap;
 
     /// Complex-return BLAS Level 1 functions.
@@ -1082,6 +1133,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgbmv.md"))]
     pub use crate::generated::blas::cgbmv;
 
     // raw-api-routine: CGEMV
@@ -1107,6 +1159,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgemv.md"))]
     pub use crate::generated::blas::cgemv;
 
     // raw-api-routine: CGERC
@@ -1130,6 +1183,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgerc.md"))]
     pub use crate::generated::blas::cgerc;
 
     // raw-api-routine: CGERU
@@ -1153,6 +1207,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgeru.md"))]
     pub use crate::generated::blas::cgeru;
 
     // raw-api-routine: CHBMV
@@ -1178,6 +1233,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chbmv.md"))]
     pub use crate::generated::blas::chbmv;
 
     // raw-api-routine: CHEMV
@@ -1202,6 +1258,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chemv.md"))]
     pub use crate::generated::blas::chemv;
 
     // raw-api-routine: CHER
@@ -1223,6 +1280,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cher.md"))]
     pub use crate::generated::blas::cher;
 
     // raw-api-routine: CHER2
@@ -1246,6 +1304,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cher2.md"))]
     pub use crate::generated::blas::cher2;
 
     // raw-api-routine: CHPMV
@@ -1269,6 +1328,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chpmv.md"))]
     pub use crate::generated::blas::chpmv;
 
     // raw-api-routine: CHPR
@@ -1289,6 +1349,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chpr.md"))]
     pub use crate::generated::blas::chpr;
 
     // raw-api-routine: CHPR2
@@ -1311,6 +1372,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chpr2.md"))]
     pub use crate::generated::blas::chpr2;
 
     // raw-api-routine: CTBMV
@@ -1334,6 +1396,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctbmv.md"))]
     pub use crate::generated::blas::ctbmv;
 
     // raw-api-routine: CTBSV
@@ -1357,6 +1420,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctbsv.md"))]
     pub use crate::generated::blas::ctbsv;
 
     // raw-api-routine: CTPMV
@@ -1378,6 +1442,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctpmv.md"))]
     pub use crate::generated::blas::ctpmv;
 
     // raw-api-routine: CTPSV
@@ -1399,6 +1464,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctpsv.md"))]
     pub use crate::generated::blas::ctpsv;
 
     // raw-api-routine: CTRMV
@@ -1421,6 +1487,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrmv.md"))]
     pub use crate::generated::blas::ctrmv;
 
     // raw-api-routine: CTRSV
@@ -1443,6 +1510,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrsv.md"))]
     pub use crate::generated::blas::ctrsv;
 
     // raw-api-routine: DGBMV
@@ -1470,6 +1538,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgbmv.md"))]
     pub use crate::generated::blas::dgbmv;
 
     // raw-api-routine: DGEMV
@@ -1495,6 +1564,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgemv.md"))]
     pub use crate::generated::blas::dgemv;
 
     // raw-api-routine: DGER
@@ -1518,6 +1588,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dger.md"))]
     pub use crate::generated::blas::dger;
 
     // raw-api-routine: DSBMV
@@ -1543,6 +1614,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsbmv.md"))]
     pub use crate::generated::blas::dsbmv;
 
     // raw-api-routine: DSPMV
@@ -1566,6 +1638,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspmv.md"))]
     pub use crate::generated::blas::dspmv;
 
     // raw-api-routine: DSPR
@@ -1586,6 +1659,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspr.md"))]
     pub use crate::generated::blas::dspr;
 
     // raw-api-routine: DSPR2
@@ -1608,6 +1682,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspr2.md"))]
     pub use crate::generated::blas::dspr2;
 
     // raw-api-routine: DSYMV
@@ -1632,6 +1707,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsymv.md"))]
     pub use crate::generated::blas::dsymv;
 
     // raw-api-routine: DSYR
@@ -1653,6 +1729,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyr.md"))]
     pub use crate::generated::blas::dsyr;
 
     // raw-api-routine: DSYR2
@@ -1676,6 +1753,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyr2.md"))]
     pub use crate::generated::blas::dsyr2;
 
     // raw-api-routine: DTBMV
@@ -1699,6 +1777,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtbmv.md"))]
     pub use crate::generated::blas::dtbmv;
 
     // raw-api-routine: DTBSV
@@ -1722,6 +1801,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtbsv.md"))]
     pub use crate::generated::blas::dtbsv;
 
     // raw-api-routine: DTPMV
@@ -1743,6 +1823,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtpmv.md"))]
     pub use crate::generated::blas::dtpmv;
 
     // raw-api-routine: DTPSV
@@ -1764,6 +1845,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtpsv.md"))]
     pub use crate::generated::blas::dtpsv;
 
     // raw-api-routine: DTRMV
@@ -1786,6 +1868,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrmv.md"))]
     pub use crate::generated::blas::dtrmv;
 
     // raw-api-routine: DTRSV
@@ -1808,6 +1891,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrsv.md"))]
     pub use crate::generated::blas::dtrsv;
 
     // raw-api-routine: SGBMV
@@ -1835,6 +1919,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgbmv.md"))]
     pub use crate::generated::blas::sgbmv;
 
     // raw-api-routine: SGEMV
@@ -1860,6 +1945,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgemv.md"))]
     pub use crate::generated::blas::sgemv;
 
     // raw-api-routine: SGER
@@ -1883,6 +1969,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sger.md"))]
     pub use crate::generated::blas::sger;
 
     // raw-api-routine: SSBMV
@@ -1908,6 +1995,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssbmv.md"))]
     pub use crate::generated::blas::ssbmv;
 
     // raw-api-routine: SSPMV
@@ -1931,6 +2019,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspmv.md"))]
     pub use crate::generated::blas::sspmv;
 
     // raw-api-routine: SSPR
@@ -1951,6 +2040,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspr.md"))]
     pub use crate::generated::blas::sspr;
 
     // raw-api-routine: SSPR2
@@ -1973,6 +2063,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspr2.md"))]
     pub use crate::generated::blas::sspr2;
 
     // raw-api-routine: SSYMV
@@ -1997,6 +2088,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssymv.md"))]
     pub use crate::generated::blas::ssymv;
 
     // raw-api-routine: SSYR
@@ -2018,6 +2110,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyr.md"))]
     pub use crate::generated::blas::ssyr;
 
     // raw-api-routine: SSYR2
@@ -2041,6 +2134,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyr2.md"))]
     pub use crate::generated::blas::ssyr2;
 
     // raw-api-routine: STBMV
@@ -2064,6 +2158,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stbmv.md"))]
     pub use crate::generated::blas::stbmv;
 
     // raw-api-routine: STBSV
@@ -2087,6 +2182,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stbsv.md"))]
     pub use crate::generated::blas::stbsv;
 
     // raw-api-routine: STPMV
@@ -2108,6 +2204,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stpmv.md"))]
     pub use crate::generated::blas::stpmv;
 
     // raw-api-routine: STPSV
@@ -2129,6 +2226,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/stpsv.md"))]
     pub use crate::generated::blas::stpsv;
 
     // raw-api-routine: STRMV
@@ -2151,6 +2249,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strmv.md"))]
     pub use crate::generated::blas::strmv;
 
     // raw-api-routine: STRSV
@@ -2173,6 +2272,7 @@ pub mod level2 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strsv.md"))]
     pub use crate::generated::blas::strsv;
 }
 
@@ -2204,6 +2304,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgemm.md"))]
     pub use crate::generated::blas::cgemm;
 
     // raw-api-routine: CHEMM
@@ -2230,6 +2331,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chemm.md"))]
     pub use crate::generated::blas::chemm;
 
     // raw-api-routine: CHER2K
@@ -2256,6 +2358,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cher2k.md"))]
     pub use crate::generated::blas::cher2k;
 
     // raw-api-routine: CHERK
@@ -2280,6 +2383,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cherk.md"))]
     pub use crate::generated::blas::cherk;
 
     // raw-api-routine: CSYMM
@@ -2306,6 +2410,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csymm.md"))]
     pub use crate::generated::blas::csymm;
 
     // raw-api-routine: CSYR2K
@@ -2332,6 +2437,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csyr2k.md"))]
     pub use crate::generated::blas::csyr2k;
 
     // raw-api-routine: CSYRK
@@ -2356,6 +2462,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/csyrk.md"))]
     pub use crate::generated::blas::csyrk;
 
     // raw-api-routine: CTRMM
@@ -2381,6 +2488,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrmm.md"))]
     pub use crate::generated::blas::ctrmm;
 
     // raw-api-routine: CTRSM
@@ -2406,6 +2514,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ctrsm.md"))]
     pub use crate::generated::blas::ctrsm;
 
     // raw-api-routine: DGEMM
@@ -2433,6 +2542,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgemm.md"))]
     pub use crate::generated::blas::dgemm;
 
     // raw-api-routine: DSYMM
@@ -2459,6 +2569,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsymm.md"))]
     pub use crate::generated::blas::dsymm;
 
     // raw-api-routine: DSYR2K
@@ -2485,6 +2596,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyr2k.md"))]
     pub use crate::generated::blas::dsyr2k;
 
     // raw-api-routine: DSYRK
@@ -2509,6 +2621,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsyrk.md"))]
     pub use crate::generated::blas::dsyrk;
 
     // raw-api-routine: DTRMM
@@ -2534,6 +2647,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrmm.md"))]
     pub use crate::generated::blas::dtrmm;
 
     // raw-api-routine: DTRSM
@@ -2559,6 +2673,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrsm.md"))]
     pub use crate::generated::blas::dtrsm;
 
     // raw-api-routine: SGEMM
@@ -2586,6 +2701,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgemm.md"))]
     pub use crate::generated::blas::sgemm;
 
     // raw-api-routine: SSYMM
@@ -2612,6 +2728,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssymm.md"))]
     pub use crate::generated::blas::ssymm;
 
     // raw-api-routine: SSYR2K
@@ -2638,6 +2755,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyr2k.md"))]
     pub use crate::generated::blas::ssyr2k;
 
     // raw-api-routine: SSYRK
@@ -2662,6 +2780,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssyrk.md"))]
     pub use crate::generated::blas::ssyrk;
 
     // raw-api-routine: STRMM
@@ -2687,6 +2806,7 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strmm.md"))]
     pub use crate::generated::blas::strmm;
 
     // raw-api-routine: STRSM
@@ -2712,5 +2832,6 @@ pub mod level3 {
     /// # Safety
     /// All scalar pointers must be non-null and valid for the documented read or write access. Every vector and matrix pointer must describe contiguous Fortran column-major storage with the stated leading dimensions and strides. For a strided vector with `N > 0`, make the complete source-defined extent accessible; positive increments need at least `1 + (N - 1) * INC` elements from the selected starting element. Zero and negative increments are accepted only where the selected routine's prologue permits them; this raw interface never normalizes them. Do not pass overlapping mutable operands unless the selected source explicitly permits that overlap. The native routine retains no pointer after return. The raw API does not serialize calls; callers must account for the linked SLATEC runtime and any broader process-global state.
     #[doc(inline)]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strsm.md"))]
     pub use crate::generated::blas::strsm;
 }

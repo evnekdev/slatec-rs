@@ -8,7 +8,7 @@ Solve the real symmetric positive definite linear system using the factors compu
 
 ## Description
 
-SPOSL solves the real symmetric positive definite system A * X = B using the factors computed by SPOCO or SPOFA. On Entry A REAL(LDA, N) the output from SPOCO or SPOFA. LDA INTEGER the leading dimension of the array A . N INTEGER the order of the matrix A . B REAL(N) the right hand side vector. On Return B the solution vector X .
+SPOSL solves the real symmetric positive definite system
 
 ## Classification
 
@@ -52,18 +52,18 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SPOSL](https://www.netlib.org/slatec/lin/sposl.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (LDA, *) | B using the factors computed by SPOCO or SPOFA. On Entry REAL(LDA, N) the output from SPOCO or SPOFA. division by zero will occur if the input factor contains zero on the diagonal.  Technically, this indicates singularity, but it is usually caused by improper subroutine arguments.  It will not occur if the subroutines are called correctly and  INFO .EQ. 0 . To compute  INVERSE(A) * C  where  C  is a matrix with  P  columns CALL SPOCO(A,LDA,N,RCOND,Z,INFO) IF (RCOND is too small .OR. INFO .NE. 0) GO TO ... DO 10 J = 1, P CALL SPOSL(A,LDA,N,C(1,J)) 10 CONTINUE |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array  A . |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . |
+| 4 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | REAL(N) the right hand side vector. On Return the solution vector  X . |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -77,7 +77,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-A division by zero will occur if the input factor contains a zero on the diagonal.  Technically, this indicates singularity, but it is usually caused by improper subroutine arguments.  It will not occur if the subroutines are called correctly and  INFO .EQ. 0 . To compute  INVERSE(A) * C  where  C  is a matrix with  P  columns CALL SPOCO(A,LDA,N,RCOND,Z,INFO) IF (RCOND is too small .OR. INFO .NE. 0) GO TO ... DO 10 J = 1, P CALL SPOSL(A,LDA,N,C(1,J)) 10 CONTINUE
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

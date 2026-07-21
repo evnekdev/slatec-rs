@@ -8,7 +8,7 @@ Compute an N member sequence of J Bessel functions J/SUB(ALPHA+K-1)/(X), K=1,...
 
 ## Description
 
-BESJ computes an N member sequence of J Bessel functions J/sub(ALPHA+K-1)/(X), K=1,...,N for non-negative ALPHA and X. A combination of the power series, the asymptotic expansion for X to infinity and the uniform asymptotic expansion for NU to infinity are applied over subdivisions of the (NU,X) plane. For values of (NU,X) not covered by one of these formulae, the order is incremented or decremented by integer values into a region where one of the formulae apply. Backward recursion is applied to reduce orders by integer values except where the entire sequence lies in the oscillatory region. In this case forward recursion is stable and values from the asymptotic expansion for X to infinity start the recursion when it is efficient to do so. Leading terms of the series and uniform expansion are tested for underflow. If a sequence is requested and the last member would underflow, the result is set to zero and the next lower order tried, etc., until a member comes on scale or all members are set to zero. Overflow cannot occur.
+BESJ computes an N member sequence of J Bessel functions
 
 ## Classification
 
@@ -54,19 +54,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BESJ](https://www.netlib.org/slatec/src/besj.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | X .GE. 0.0E0 |
-| 2 | `ALPHA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | order of first member of the sequence, ALPHA .GE. 0.0E0 1)/(X), K=1,...,N |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | X .GE. 0.0E0 and J(NU,X), X .GE. 0, NU .GE. 0, ACM Transactions on Mathematical Software 3, (1977), pp. 76-92. F. W. J. Olver, Tables of Bessel Functions of Moderate or Large Orders, NPL Mathematical Tables 6, Her Majesty's Stationery Office, London, 1962. |
+| 2 | `ALPHA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | 1)/(X), K=1,...,N for non-negative ALPHA and X. 1)/(X), K=1,...,N for non-negative ALPHA and X. A combination of the power series, the asymptotic expansion for X to infinity and the uniform asymptotic expansion for NU to infinity are applied over subdivisions of the (NU,X) plane.  For values of (NU,X) not covered by one of these formulae, the order is incremented or decremented by integer values into a region where one of the formulae apply. Backward recursion is applied to reduce orders by integer values except where the entire sequence lies in the oscillatory region.  In this case forward recursion is stable and values from the asymptotic expansion for X to infinity start the recursion when it is efficient to do so.  Leading terms of the series and uniform expansion are tested for underflow.  If a sequence is requested and the last member would underflow, the result is set to zero and the next lower order tried, etc., until a member comes on scale or all members are set to zero. Overflow cannot occur. order of first member of the sequence, .GE. 0.0E0 1)/(X), K=1,...,N |
 | 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of members in the sequence, N .GE. 1 NZ+1,...,N. |
 | 4 | `Y` | `output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | a vector whose first  N components contain NZ+1,...,N. |
-| 5 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of components of Y set to zero due to underflow, 0   , normal return, computation completed NZ .NE. 0, last NZ components of Y set to zero, |
+| 5 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of components of Y set to zero due to underflow, 0   , normal return, computation completed .NE. 0, last NZ components of Y set to zero, |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -80,7 +80,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input arguments - a fatal error Underflow  - a non-fatal error (NZ .NE. 0)
 
 ### Storage and workspace requirements
 

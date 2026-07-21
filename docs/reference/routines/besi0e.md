@@ -8,7 +8,7 @@ Compute the exponentially scaled modified (hyperbolic) Bessel function of the fi
 
 ## Description
 
-BESI0E(X) calculates the exponentially scaled modified (hyperbolic) Bessel function of the first kind of order zero for real argument X; i.e., EXP(-ABS(X))*I0(X). Series for BI0 on the interval 0. to 9.00000D+00
+BESI0E(X) calculates the exponentially scaled modified (hyperbolic) Bessel function of the first kind of order zero for real argument X; i.e., EXP(-ABS(X))*I0(X). Series for BI0 on the interval 0. to 9.00000D+00 with weighted error 2.46E-18 log weighted error 17.61 significant figures required 17.90 decimal places required 18.15 Series for AI0 on the interval 1.25000D-01 to 3.33333D-01 with weighted error 7.87E-17 log weighted error 16.10 significant figures required 14.69 decimal places required 16.76 Series for AI02 on the interval 0. to 1.25000D-01 with weighted error 3.79E-17 log weighted error 16.42 significant figures required 14.86 decimal places required 17.09
 
 ## Classification
 
@@ -52,15 +52,15 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [BESI0E](https://www.netlib.org/slatec/fnlib/besi0e.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | calculates the exponentially scaled modified (hyperbolic) Bessel function of the first kind of order zero for real argument X; i.e., EXP(-ABS(X))*I0(X). Series for BI0        on the interval  0.          to  9.00000D+00 with weighted error   2.46E-18 log weighted error  17.61 significant figures required  17.90 decimal places required  18.15 Series for AI0        on the interval  1.25000D-01 to  3.33333D-01 with weighted error   7.87E-17 log weighted error  16.10 significant figures required  14.69 decimal places required  16.76 Series for AI02       on the interval  0.          to  1.25000D-01 with weighted error   3.79E-17 log weighted error  16.42 significant figures required  14.86 decimal places required  17.09 |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -74,7 +74,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-significant figures required  17.90 decimal places required  18.15 Series for AI0        on the interval  1.25000D-01 to  3.33333D-01 significant figures required  14.69 decimal places required  16.76 Series for AI02       on the interval  0.          to  1.25000D-01 significant figures required  14.86 decimal places required  17.09
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

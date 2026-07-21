@@ -8,7 +8,7 @@ Calculate the value of the spline and its derivatives from the B-representation.
 
 ## Description
 
-Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPEV is the BSPLEV routine of the reference. DBSPEV calculates the value of the spline and its derivatives at X from the B-representation (T,A,N,K) and returns them in SVALUE(I),I=1,NDERIV, T(K) .LE. X .LE. T(N+1). AD(I) can be the B-spline coefficients A(I), I=1,N) if NDERIV=1. Otherwise AD must be computed before hand by a call to DBSPDR (T,A,N,K, NDERIV,AD). If X=T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a knot T(I), replace N by I-1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN
+Written by Carl de Boor and modified by D. E. Amos Abstract **** a double precision routine **** DBSPEV is the BSPLEV routine of the reference. DBSPEV calculates the value of the spline and its derivatives
 
 ## Classification
 
@@ -54,23 +54,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DBSPEV](https://www.netlib.org/slatec/src/dbspev.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | knot vector of length N+K |
-| 2 | `AD` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | vector of length (2*N-NDERIV+1)*NDERIV/2 containing the difference table from DBSPDR. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of B-spline coefficients K |
+| 1 | `T` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN are double precision knot vector of length N+K |
+| 2 | `AD` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | must be computed before hand by a call to DBSPDR (T,A,N,K, T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a are double precision vector of length (2*N-NDERIV+1)*NDERIV/2 containing the difference table from DBSPDR. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 and set X=T(I), I=K+1,N+1. DBSPEV calls DINTRV, DBSPVN number of B-spline coefficients K |
 | 4 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | order of the B-spline, K .GE. 1 |
-| 5 | `NDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | number of derivatives, 1 .LE. NDERIV .LE. K. th derivative = function value 1 derivatives in the remaining components. |
-| 6 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | argument, T(K) .LE. X .LE. T(N+1) |
-| 7 | `INEV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time DBSPEV is called. Output     SVALUE,WORK are double precision INEV contains information for efficient process- ing after the initial call and INEV must not be changed by the user.  Distinct splines require distinct INEV parameters. |
-| 8 | `SVALUE` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | vector of length NDERIV containing the spline 1 derivatives in the remaining components. |
-| 9 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | work vector of length 3*K |
+| 5 | `NDERIV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a number of derivatives, 1 .LE. NDERIV .LE. K. th derivative = function value 1 derivatives in the remaining components. |
+| 6 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | representation (T,A,N,K) and returns them in T(I),I=K,N), right limiting values are obtained. To compute left derivatives or left limiting values at a are double precision argument, T(K) .LE. X .LE. T(N+1) |
+| 7 | `INEV` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | an initialization parameter which must be set to 1 the first time DBSPEV is called. INEV contains information for efficient process- ing after the initial call and INEV must not be changed by the user.  Distinct splines require distinct INEV parameters. |
+| 8 | `SVALUE` | `output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | 1,NDERIV, T(K) .LE. X .LE. T(N+1).  AD(I) can be the B-spline coefficients A(I), I=1,N) if NDERIV=1.  Otherwise are double precision vector of length NDERIV containing the spline 1 derivatives in the remaining components. |
+| 9 | `WORK` | `workspace` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | are double precision work vector of length 3*K |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -84,11 +84,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
+Improper input is a fatal error.
 
 ### Storage and workspace requirements
 
-`WORK`: work vector of length 3*K
+`WORK`: are double precision work vector of length 3*K
 
 ### Provider, ABI, and safety
 

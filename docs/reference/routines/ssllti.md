@@ -8,7 +8,7 @@ SLAP MSOLVE for LDL' (IC) Factorization. This routine acts as an interface betwe
 
 ## Description
 
-It is assumed that RWORK and IWORK have initialized with the information required for SLLTI2: IWORK(1) = NEL IWORK(2) = Starting location of IEL in IWORK. IWORK(3) = Starting location of JEL in IWORK. IWORK(4) = Starting location of EL in RWORK. IWORK(5) = Starting location of DINV in RWORK. See the DESCRIPTION of SLLTI2 for details.
+It is assumed that RWORK and IWORK have initialized with the information required for SLLTI2:
 
 ## Classification
 
@@ -52,24 +52,24 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [SSLLTI](https://www.netlib.org/slatec/lin/ssllti.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 3 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
-| 7 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NELT) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `RWORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 10 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input order of the sparse linear system and required vector length. |
+| 2 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | X. |
+| 3 | `X` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Writable output vector of length `N`. The interface computes the lower-triangular preconditioner solve `L^-1 * B` into this storage. |
+| 4 | `NELT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input number of stored nonzero entries in the sparse arrays `IA`, `JA`, and `A`. |
+| 5 | `IA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Readable integer sparse-index array with at least `NELT` entries. Together with `JA` it describes the SLAP column-format matrix or preconditioner data. |
+| 6 | `JA` | `input` | `array` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (NELT) | Readable integer sparse-offset/index array with at least `NELT` entries as declared by this interface. Together with `IA` and `A` it identifies the SLAP column-format entries. |
+| 7 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (NELT) | Readable sparse value array with at least `NELT` entries, stored in the SLAP column format described by `IA` and `JA`. |
+| 8 | `ISYM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input sparse-storage symmetry flag. `0` means all nonzero entries are present; `1` means symmetric storage contains only the lower triangle. |
+| 9 | `RWORK` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Readable real work/state array initialized for the underlying SLAP `*SLI2` routine. Its offsets are supplied through `IWORK`; native code uses it as preconditioner storage and does not retain it. |
+| 10 | `IWORK` | `workspace` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. Starting location of DINV in RWORK. See the DESCRIPTION of SLLTI2 for details. |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -87,9 +87,9 @@ The selected source does not provide a separate error-status section. Any status
 
 ### Storage and workspace requirements
 
-`RWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`RWORK`: Caller-provided workspace; required extent is governed by the selected source and related size arguments.
 
-`IWORK`: Workspace argument classified by fixed-form executable read/write analysis.
+`IWORK`: NEL Starting location of IEL in IWORK. Starting location of JEL in IWORK. Starting location of EL in RWORK. Starting location of DINV in RWORK. See the DESCRIPTION of SLLTI2 for details.
 
 ### Provider, ABI, and safety
 

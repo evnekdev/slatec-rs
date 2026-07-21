@@ -3472,797 +3472,1194 @@ unsafe extern "C" {
 
 // ffi-declaration-aliases:start
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dbocls`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbocls.md"))]
 pub use crate::approximation::dbocls;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dbols`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbols.md"))]
 pub use crate::approximation::dbols;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::defc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/defc.md"))]
 pub use crate::approximation::defc;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dfc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dfc.md"))]
 pub use crate::approximation::dfc;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dlsei`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dlsei.md"))]
 pub use crate::approximation::dlsei;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dp1vlu`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dp1vlu.md"))]
 pub use crate::approximation::dp1vlu;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dpcoef`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpcoef.md"))]
 pub use crate::approximation::dpcoef;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dpolft`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpolft.md"))]
 pub use crate::approximation::dpolft;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::dwnnls`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dwnnls.md"))]
 pub use crate::approximation::dwnnls;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::efc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/efc.md"))]
 pub use crate::approximation::efc;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::fc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/fc.md"))]
 pub use crate::approximation::fc;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::lsei`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/lsei.md"))]
 pub use crate::approximation::lsei;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::pcoef`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pcoef.md"))]
 pub use crate::approximation::pcoef;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::polfit`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polfit.md"))]
 pub use crate::approximation::polfit;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::pvalue`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pvalue.md"))]
 pub use crate::approximation::pvalue;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::sbocls`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sbocls.md"))]
 pub use crate::approximation::sbocls;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::sbols`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sbols.md"))]
 pub use crate::approximation::sbols;
 #[doc = "Transitional ABI-shaped alias; use `crate::approximation::wnnls`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/wnnls.md"))]
 pub use crate::approximation::wnnls;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::daxpy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/daxpy.md"))]
 pub use crate::blas::level1::daxpy;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dcopy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcopy.md"))]
 pub use crate::blas::level1::dcopy;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dcopym`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dcopym.md"))]
 pub use crate::blas::level1::dcopym;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drot`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drot.md"))]
 pub use crate::blas::level1::drot;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drotm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotm.md"))]
 pub use crate::blas::level1::drotm;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::drotmg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drotmg.md"))]
 pub use crate::blas::level1::drotmg;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ds2y`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ds2y.md"))]
 pub use crate::blas::level1::ds2y;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dscal`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dscal.md"))]
 pub use crate::blas::level1::dscal;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dsdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdi.md"))]
 pub use crate::blas::level1::dsdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dsmtv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmtv.md"))]
 pub use crate::blas::level1::dsmtv;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dsmv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmv.md"))]
 pub use crate::blas::level1::dsmv;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::dswap`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dswap.md"))]
 pub use crate::blas::level1::dswap;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::icopy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/icopy.md"))]
 pub use crate::blas::level1::icopy;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::iswap`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/iswap.md"))]
 pub use crate::blas::level1::iswap;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::saxpy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/saxpy.md"))]
 pub use crate::blas::level1::saxpy;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::scopy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scopy.md"))]
 pub use crate::blas::level1::scopy;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::scopym`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/scopym.md"))]
 pub use crate::blas::level1::scopym;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srot`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srot.md"))]
 pub use crate::blas::level1::srot;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srotm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotm.md"))]
 pub use crate::blas::level1::srotm;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::srotmg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/srotmg.md"))]
 pub use crate::blas::level1::srotmg;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ss2y`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ss2y.md"))]
 pub use crate::blas::level1::ss2y;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::sscal`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sscal.md"))]
 pub use crate::blas::level1::sscal;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ssdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdi.md"))]
 pub use crate::blas::level1::ssdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ssmtv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmtv.md"))]
 pub use crate::blas::level1::ssmtv;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::ssmv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmv.md"))]
 pub use crate::blas::level1::ssmv;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level1::sswap`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sswap.md"))]
 pub use crate::blas::level1::sswap;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::dger`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dger.md"))]
 pub use crate::blas::level2::dger;
 #[doc = "Transitional ABI-shaped alias; use `crate::blas::level2::sger`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sger.md"))]
 pub use crate::blas::level2::sger;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cfftb1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cfftb1.md"))]
 pub use crate::fftpack::cfftb1;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cfftf1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cfftf1.md"))]
 pub use crate::fftpack::cfftf1;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cffti1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cffti1.md"))]
 pub use crate::fftpack::cffti1;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cosqb`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosqb.md"))]
 pub use crate::fftpack::cosqb;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cosqf`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosqf.md"))]
 pub use crate::fftpack::cosqf;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cosqi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cosqi.md"))]
 pub use crate::fftpack::cosqi;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::cost`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cost.md"))]
 pub use crate::fftpack::cost;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::costi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/costi.md"))]
 pub use crate::fftpack::costi;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::ezfftb`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ezfftb.md"))]
 pub use crate::fftpack::ezfftb;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::ezfftf`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ezfftf.md"))]
 pub use crate::fftpack::ezfftf;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::ezffti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ezffti.md"))]
 pub use crate::fftpack::ezffti;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::rfftb1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rfftb1.md"))]
 pub use crate::fftpack::rfftb1;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::rfftf1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rfftf1.md"))]
 pub use crate::fftpack::rfftf1;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::rffti1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rffti1.md"))]
 pub use crate::fftpack::rffti1;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinqb`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinqb.md"))]
 pub use crate::fftpack::sinqb;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinqf`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinqf.md"))]
 pub use crate::fftpack::sinqf;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinqi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinqi.md"))]
 pub use crate::fftpack::sinqi;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sint.md"))]
 pub use crate::fftpack::sint;
 #[doc = "Transitional ABI-shaped alias; use `crate::fftpack::sinti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sinti.md"))]
 pub use crate::fftpack::sinti;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bint4`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bint4.md"))]
 pub use crate::interpolation::bint4;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bintk`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bintk.md"))]
 pub use crate::interpolation::bintk;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspdr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspdr.md"))]
 pub use crate::interpolation::bspdr;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspev.md"))]
 pub use crate::interpolation::bspev;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bsppp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bsppp.md"))]
 pub use crate::interpolation::bsppp;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspvd`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspvd.md"))]
 pub use crate::interpolation::bspvd;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::bspvn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bspvn.md"))]
 pub use crate::interpolation::bspvn;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::chfdv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chfdv.md"))]
 pub use crate::interpolation::chfdv;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::chfev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chfev.md"))]
 pub use crate::interpolation::chfev;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbint4`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbint4.md"))]
 pub use crate::interpolation::dbint4;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbintk`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbintk.md"))]
 pub use crate::interpolation::dbintk;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspdr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspdr.md"))]
 pub use crate::interpolation::dbspdr;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspev.md"))]
 pub use crate::interpolation::dbspev;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbsppp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbsppp.md"))]
 pub use crate::interpolation::dbsppp;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspvd`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspvd.md"))]
 pub use crate::interpolation::dbspvd;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dbspvn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbspvn.md"))]
 pub use crate::interpolation::dbspvn;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dchfdv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchfdv.md"))]
 pub use crate::interpolation::dchfdv;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dchfev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchfev.md"))]
 pub use crate::interpolation::dchfev;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dintrv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dintrv.md"))]
 pub use crate::interpolation::dintrv;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchbs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchbs.md"))]
 pub use crate::interpolation::dpchbs;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchic`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchic.md"))]
 pub use crate::interpolation::dpchic;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchim`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchim.md"))]
 pub use crate::interpolation::dpchim;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpchsp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpchsp.md"))]
 pub use crate::interpolation::dpchsp;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dplint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dplint.md"))]
 pub use crate::interpolation::dplint;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpolcf`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpolcf.md"))]
 pub use crate::interpolation::dpolcf;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::dpolvl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpolvl.md"))]
 pub use crate::interpolation::dpolvl;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::intrv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/intrv.md"))]
 pub use crate::interpolation::intrv;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchbs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchbs.md"))]
 pub use crate::interpolation::pchbs;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchic`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchic.md"))]
 pub use crate::interpolation::pchic;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchim`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchim.md"))]
 pub use crate::interpolation::pchim;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::pchsp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pchsp.md"))]
 pub use crate::interpolation::pchsp;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::polcof`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polcof.md"))]
 pub use crate::interpolation::polcof;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::polint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polint.md"))]
 pub use crate::interpolation::polint;
 #[doc = "Transitional ABI-shaped alias; use `crate::interpolation::polyvl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/polyvl.md"))]
 pub use crate::interpolation::polyvl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::bndacc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bndacc.md"))]
 pub use crate::linear_algebra::banded::bndacc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::bndsol`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bndsol.md"))]
 pub use crate::linear_algebra::banded::bndsol;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dbndac`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbndac.md"))]
 pub use crate::linear_algebra::banded::dbndac;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dbndsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbndsl.md"))]
 pub use crate::linear_algebra::banded::dbndsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgbco.md"))]
 pub use crate::linear_algebra::banded::dgbco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgbdi.md"))]
 pub use crate::linear_algebra::banded::dgbdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgbfa.md"))]
 pub use crate::linear_algebra::banded::dgbfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgbsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgbsl.md"))]
 pub use crate::linear_algebra::banded::dgbsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dgtsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgtsl.md"))]
 pub use crate::linear_algebra::banded::dgtsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dhfti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dhfti.md"))]
 pub use crate::linear_algebra::banded::dhfti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnbco.md"))]
 pub use crate::linear_algebra::banded::dnbco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnbdi.md"))]
 pub use crate::linear_algebra::banded::dnbdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnbfa.md"))]
 pub use crate::linear_algebra::banded::dnbfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbfs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnbfs.md"))]
 pub use crate::linear_algebra::banded::dnbfs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dnbsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dnbsl.md"))]
 pub use crate::linear_algebra::banded::dnbsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpbco.md"))]
 pub use crate::linear_algebra::banded::dpbco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpbdi.md"))]
 pub use crate::linear_algebra::banded::dpbdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpbfa.md"))]
 pub use crate::linear_algebra::banded::dpbfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dpbsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpbsl.md"))]
 pub use crate::linear_algebra::banded::dpbsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::dptsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dptsl.md"))]
 pub use crate::linear_algebra::banded::dptsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgbco.md"))]
 pub use crate::linear_algebra::banded::sgbco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgbdi.md"))]
 pub use crate::linear_algebra::banded::sgbdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgbfa.md"))]
 pub use crate::linear_algebra::banded::sgbfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgbsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgbsl.md"))]
 pub use crate::linear_algebra::banded::sgbsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sgtsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgtsl.md"))]
 pub use crate::linear_algebra::banded::sgtsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snbco.md"))]
 pub use crate::linear_algebra::banded::snbco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snbdi.md"))]
 pub use crate::linear_algebra::banded::snbdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snbfa.md"))]
 pub use crate::linear_algebra::banded::snbfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbfs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snbfs.md"))]
 pub use crate::linear_algebra::banded::snbfs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbir`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snbir.md"))]
 pub use crate::linear_algebra::banded::snbir;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::snbsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/snbsl.md"))]
 pub use crate::linear_algebra::banded::snbsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spbco.md"))]
 pub use crate::linear_algebra::banded::spbco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spbdi.md"))]
 pub use crate::linear_algebra::banded::spbdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spbfa.md"))]
 pub use crate::linear_algebra::banded::spbfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::spbsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spbsl.md"))]
 pub use crate::linear_algebra::banded::spbsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::banded::sptsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sptsl.md"))]
 pub use crate::linear_algebra::banded::sptsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchdc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchdc.md"))]
 pub use crate::linear_algebra::dense::dchdc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchdd`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchdd.md"))]
 pub use crate::linear_algebra::dense::dchdd;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchex`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchex.md"))]
 pub use crate::linear_algebra::dense::dchex;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dchud`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dchud.md"))]
 pub use crate::linear_algebra::dense::dchud;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgeco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgeco.md"))]
 pub use crate::linear_algebra::dense::dgeco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgedi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgedi.md"))]
 pub use crate::linear_algebra::dense::dgedi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgefa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgefa.md"))]
 pub use crate::linear_algebra::dense::dgefa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgefs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgefs.md"))]
 pub use crate::linear_algebra::dense::dgefs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dgesl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dgesl.md"))]
 pub use crate::linear_algebra::dense::dgesl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dglss`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dglss.md"))]
 pub use crate::linear_algebra::dense::dglss;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dllsia`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dllsia.md"))]
 pub use crate::linear_algebra::dense::dllsia;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dllti2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dllti2.md"))]
 pub use crate::linear_algebra::dense::dllti2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpoco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpoco.md"))]
 pub use crate::linear_algebra::dense::dpoco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpodi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpodi.md"))]
 pub use crate::linear_algebra::dense::dpodi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpofa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpofa.md"))]
 pub use crate::linear_algebra::dense::dpofa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dpofs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpofs.md"))]
 pub use crate::linear_algebra::dense::dpofs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dposl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dposl.md"))]
 pub use crate::linear_algebra::dense::dposl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dqrdc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqrdc.md"))]
 pub use crate::linear_algebra::dense::dqrdc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dqrsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqrsl.md"))]
 pub use crate::linear_algebra::dense::dqrsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ds2lt`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ds2lt.md"))]
 pub use crate::linear_algebra::dense::ds2lt;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsd2s`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsd2s.md"))]
 pub use crate::linear_algebra::dense::dsd2s;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsds`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsds.md"))]
 pub use crate::linear_algebra::dense::dsds;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsdscl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdscl.md"))]
 pub use crate::linear_algebra::dense::dsdscl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsico`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsico.md"))]
 pub use crate::linear_algebra::dense::dsico;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsics`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsics.md"))]
 pub use crate::linear_algebra::dense::dsics;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsidi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsidi.md"))]
 pub use crate::linear_algebra::dense::dsidi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsifa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsifa.md"))]
 pub use crate::linear_algebra::dense::dsifa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsilus`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsilus.md"))]
 pub use crate::linear_algebra::dense::dsilus;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsisl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsisl.md"))]
 pub use crate::linear_algebra::dense::dsisl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsli`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsli.md"))]
 pub use crate::linear_algebra::dense::dsli;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsli2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsli2.md"))]
 pub use crate::linear_algebra::dense::dsli2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsllti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsllti.md"))]
 pub use crate::linear_algebra::dense::dsllti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslucs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslucs.md"))]
 pub use crate::linear_algebra::dense::dslucs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslui`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslui.md"))]
 pub use crate::linear_algebra::dense::dslui;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslui2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslui2.md"))]
 pub use crate::linear_algebra::dense::dslui2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dslui4`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslui4.md"))]
 pub use crate::linear_algebra::dense::dslui4;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsluti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsluti.md"))]
 pub use crate::linear_algebra::dense::dsluti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsmmi2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmmi2.md"))]
 pub use crate::linear_algebra::dense::dsmmi2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsmmti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsmmti.md"))]
 pub use crate::linear_algebra::dense::dsmmti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dsvdc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsvdc.md"))]
 pub use crate::linear_algebra::dense::dsvdc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dtrco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrco.md"))]
 pub use crate::linear_algebra::dense::dtrco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dtrdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrdi.md"))]
 pub use crate::linear_algebra::dense::dtrdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dtrsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dtrsl.md"))]
 pub use crate::linear_algebra::dense::dtrsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::dulsia`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dulsia.md"))]
 pub use crate::linear_algebra::dense::dulsia;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::hfti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hfti.md"))]
 pub use crate::linear_algebra::dense::hfti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::llsia`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/llsia.md"))]
 pub use crate::linear_algebra::dense::llsia;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::minfit`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/minfit.md"))]
 pub use crate::linear_algebra::dense::minfit;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schdc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/schdc.md"))]
 pub use crate::linear_algebra::dense::schdc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schdd`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/schdd.md"))]
 pub use crate::linear_algebra::dense::schdd;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schex`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/schex.md"))]
 pub use crate::linear_algebra::dense::schex;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::schud`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/schud.md"))]
 pub use crate::linear_algebra::dense::schud;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgeco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgeco.md"))]
 pub use crate::linear_algebra::dense::sgeco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgedi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgedi.md"))]
 pub use crate::linear_algebra::dense::sgedi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgefa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgefa.md"))]
 pub use crate::linear_algebra::dense::sgefa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgefs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgefs.md"))]
 pub use crate::linear_algebra::dense::sgefs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgeir`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgeir.md"))]
 pub use crate::linear_algebra::dense::sgeir;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sgesl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgesl.md"))]
 pub use crate::linear_algebra::dense::sgesl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sglss`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sglss.md"))]
 pub use crate::linear_algebra::dense::sglss;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sllti2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sllti2.md"))]
 pub use crate::linear_algebra::dense::sllti2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spoco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spoco.md"))]
 pub use crate::linear_algebra::dense::spoco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spodi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spodi.md"))]
 pub use crate::linear_algebra::dense::spodi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spofa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spofa.md"))]
 pub use crate::linear_algebra::dense::spofa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spofs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spofs.md"))]
 pub use crate::linear_algebra::dense::spofs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::spoir`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/spoir.md"))]
 pub use crate::linear_algebra::dense::spoir;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sposl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sposl.md"))]
 pub use crate::linear_algebra::dense::sposl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sqrdc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sqrdc.md"))]
 pub use crate::linear_algebra::dense::sqrdc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sqrsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sqrsl.md"))]
 pub use crate::linear_algebra::dense::sqrsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ss2lt`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ss2lt.md"))]
 pub use crate::linear_algebra::dense::ss2lt;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssd2s`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssd2s.md"))]
 pub use crate::linear_algebra::dense::ssd2s;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssds`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssds.md"))]
 pub use crate::linear_algebra::dense::ssds;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssdscl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdscl.md"))]
 pub use crate::linear_algebra::dense::ssdscl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssico`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssico.md"))]
 pub use crate::linear_algebra::dense::ssico;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssics`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssics.md"))]
 pub use crate::linear_algebra::dense::ssics;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssidi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssidi.md"))]
 pub use crate::linear_algebra::dense::ssidi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssifa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssifa.md"))]
 pub use crate::linear_algebra::dense::ssifa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssilus`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssilus.md"))]
 pub use crate::linear_algebra::dense::ssilus;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssisl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssisl.md"))]
 pub use crate::linear_algebra::dense::ssisl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssli`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssli.md"))]
 pub use crate::linear_algebra::dense::ssli;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssli2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssli2.md"))]
 pub use crate::linear_algebra::dense::ssli2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssllti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssllti.md"))]
 pub use crate::linear_algebra::dense::ssllti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslucs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslucs.md"))]
 pub use crate::linear_algebra::dense::sslucs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslui`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslui.md"))]
 pub use crate::linear_algebra::dense::sslui;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslui2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslui2.md"))]
 pub use crate::linear_algebra::dense::sslui2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::sslui4`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslui4.md"))]
 pub use crate::linear_algebra::dense::sslui4;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssluti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssluti.md"))]
 pub use crate::linear_algebra::dense::ssluti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssmmi2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmmi2.md"))]
 pub use crate::linear_algebra::dense::ssmmi2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssmmti`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssmmti.md"))]
 pub use crate::linear_algebra::dense::ssmmti;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ssvdc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssvdc.md"))]
 pub use crate::linear_algebra::dense::ssvdc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::strco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strco.md"))]
 pub use crate::linear_algebra::dense::strco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::strdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strdi.md"))]
 pub use crate::linear_algebra::dense::strdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::strsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/strsl.md"))]
 pub use crate::linear_algebra::dense::strsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::dense::ulsia`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ulsia.md"))]
 pub use crate::linear_algebra::dense::ulsia;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bakvec`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bakvec.md"))]
 pub use crate::linear_algebra::eigen::bakvec;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::balanc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/balanc.md"))]
 pub use crate::linear_algebra::eigen::balanc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::balbak`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/balbak.md"))]
 pub use crate::linear_algebra::eigen::balbak;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bandv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bandv.md"))]
 pub use crate::linear_algebra::eigen::bandv;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bisect`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bisect.md"))]
 pub use crate::linear_algebra::eigen::bisect;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::bqr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bqr.md"))]
 pub use crate::linear_algebra::eigen::bqr;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cbabk2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbabk2.md"))]
 pub use crate::linear_algebra::eigen::cbabk2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cbal`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cbal.md"))]
 pub use crate::linear_algebra::eigen::cbal;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cg.md"))]
 pub use crate::linear_algebra::eigen::cg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cgeev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cgeev.md"))]
 pub use crate::linear_algebra::eigen::cgeev;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ch`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ch.md"))]
 pub use crate::linear_algebra::eigen::ch;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::chiev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chiev.md"))]
 pub use crate::linear_algebra::eigen::chiev;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::combak`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/combak.md"))]
 pub use crate::linear_algebra::eigen::combak;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comhes`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/comhes.md"))]
 pub use crate::linear_algebra::eigen::comhes;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comlr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/comlr.md"))]
 pub use crate::linear_algebra::eigen::comlr;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comlr2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/comlr2.md"))]
 pub use crate::linear_algebra::eigen::comlr2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comqr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/comqr.md"))]
 pub use crate::linear_algebra::eigen::comqr;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::comqr2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/comqr2.md"))]
 pub use crate::linear_algebra::eigen::comqr2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::cortb`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/cortb.md"))]
 pub use crate::linear_algebra::eigen::cortb;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::corth`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/corth.md"))]
 pub use crate::linear_algebra::eigen::corth;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::elmbak`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/elmbak.md"))]
 pub use crate::linear_algebra::eigen::elmbak;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::elmhes`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/elmhes.md"))]
 pub use crate::linear_algebra::eigen::elmhes;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::eltran`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/eltran.md"))]
 pub use crate::linear_algebra::eigen::eltran;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::figi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/figi.md"))]
 pub use crate::linear_algebra::eigen::figi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::figi2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/figi2.md"))]
 pub use crate::linear_algebra::eigen::figi2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::hqr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hqr.md"))]
 pub use crate::linear_algebra::eigen::hqr;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::hqr2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hqr2.md"))]
 pub use crate::linear_algebra::eigen::hqr2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htrib3`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/htrib3.md"))]
 pub use crate::linear_algebra::eigen::htrib3;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htribk`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/htribk.md"))]
 pub use crate::linear_algebra::eigen::htribk;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htrid3`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/htrid3.md"))]
 pub use crate::linear_algebra::eigen::htrid3;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::htridi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/htridi.md"))]
 pub use crate::linear_algebra::eigen::htridi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::imtql1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/imtql1.md"))]
 pub use crate::linear_algebra::eigen::imtql1;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::imtql2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/imtql2.md"))]
 pub use crate::linear_algebra::eigen::imtql2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::imtqlv`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/imtqlv.md"))]
 pub use crate::linear_algebra::eigen::imtqlv;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ortbak`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ortbak.md"))]
 pub use crate::linear_algebra::eigen::ortbak;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::orthes`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/orthes.md"))]
 pub use crate::linear_algebra::eigen::orthes;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ortran`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ortran.md"))]
 pub use crate::linear_algebra::eigen::ortran;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::qzvec`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qzvec.md"))]
 pub use crate::linear_algebra::eigen::qzvec;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rebak`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rebak.md"))]
 pub use crate::linear_algebra::eigen::rebak;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rebakb`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rebakb.md"))]
 pub use crate::linear_algebra::eigen::rebakb;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::reduc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/reduc.md"))]
 pub use crate::linear_algebra::eigen::reduc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::reduc2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/reduc2.md"))]
 pub use crate::linear_algebra::eigen::reduc2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rg.md"))]
 pub use crate::linear_algebra::eigen::rg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rgg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rgg.md"))]
 pub use crate::linear_algebra::eigen::rgg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rs.md"))]
 pub use crate::linear_algebra::eigen::rs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsb`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rsb.md"))]
 pub use crate::linear_algebra::eigen::rsb;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rsg.md"))]
 pub use crate::linear_algebra::eigen::rsg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsgab`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rsgab.md"))]
 pub use crate::linear_algebra::eigen::rsgab;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsgba`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rsgba.md"))]
 pub use crate::linear_algebra::eigen::rsgba;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rsp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rsp.md"))]
 pub use crate::linear_algebra::eigen::rsp;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rst`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rst.md"))]
 pub use crate::linear_algebra::eigen::rst;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::rt`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rt.md"))]
 pub use crate::linear_algebra::eigen::rt;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::sgeev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sgeev.md"))]
 pub use crate::linear_algebra::eigen::sgeev;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::ssiev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssiev.md"))]
 pub use crate::linear_algebra::eigen::ssiev;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::sspev`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspev.md"))]
 pub use crate::linear_algebra::eigen::sspev;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tinvit`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tinvit.md"))]
 pub use crate::linear_algebra::eigen::tinvit;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tql1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tql1.md"))]
 pub use crate::linear_algebra::eigen::tql1;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tql2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tql2.md"))]
 pub use crate::linear_algebra::eigen::tql2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tqlrat`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tqlrat.md"))]
 pub use crate::linear_algebra::eigen::tqlrat;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::trbak1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/trbak1.md"))]
 pub use crate::linear_algebra::eigen::trbak1;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::trbak3`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/trbak3.md"))]
 pub use crate::linear_algebra::eigen::trbak3;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tred1`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tred1.md"))]
 pub use crate::linear_algebra::eigen::tred1;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tred2`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tred2.md"))]
 pub use crate::linear_algebra::eigen::tred2;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tred3`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tred3.md"))]
 pub use crate::linear_algebra::eigen::tred3;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tridib`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tridib.md"))]
 pub use crate::linear_algebra::eigen::tridib;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::eigen::tsturm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/tsturm.md"))]
 pub use crate::linear_algebra::eigen::tsturm;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppco.md"))]
 pub use crate::linear_algebra::packed::dppco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppdi.md"))]
 pub use crate::linear_algebra::packed::dppdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppfa.md"))]
 pub use crate::linear_algebra::packed::dppfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dppsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppsl.md"))]
 pub use crate::linear_algebra::packed::dppsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspco.md"))]
 pub use crate::linear_algebra::packed::dspco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspdi.md"))]
 pub use crate::linear_algebra::packed::dspdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspfa.md"))]
 pub use crate::linear_algebra::packed::dspfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::dspsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dspsl.md"))]
 pub use crate::linear_algebra::packed::dspsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sppco.md"))]
 pub use crate::linear_algebra::packed::sppco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sppdi.md"))]
 pub use crate::linear_algebra::packed::sppdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sppfa.md"))]
 pub use crate::linear_algebra::packed::sppfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sppsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sppsl.md"))]
 pub use crate::linear_algebra::packed::sppsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspco`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspco.md"))]
 pub use crate::linear_algebra::packed::sspco;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspdi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspdi.md"))]
 pub use crate::linear_algebra::packed::sspdi;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspfa`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspfa.md"))]
 pub use crate::linear_algebra::packed::sspfa;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::packed::sspsl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sspsl.md"))]
 pub use crate::linear_algebra::packed::sspsl;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdbcg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdbcg.md"))]
 pub use crate::linear_algebra::sparse::dsdbcg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdcg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdcg.md"))]
 pub use crate::linear_algebra::sparse::dsdcg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdcgn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdcgn.md"))]
 pub use crate::linear_algebra::sparse::dsdcgn;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdcgs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdcgs.md"))]
 pub use crate::linear_algebra::sparse::dsdcgs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdgmr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdgmr.md"))]
 pub use crate::linear_algebra::sparse::dsdgmr;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsdomn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsdomn.md"))]
 pub use crate::linear_algebra::sparse::dsdomn;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsgs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsgs.md"))]
 pub use crate::linear_algebra::sparse::dsgs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsiccg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsiccg.md"))]
 pub use crate::linear_algebra::sparse::dsiccg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsilur`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsilur.md"))]
 pub use crate::linear_algebra::sparse::dsilur;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsjac`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsjac.md"))]
 pub use crate::linear_algebra::sparse::dsjac;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dslubc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslubc.md"))]
 pub use crate::linear_algebra::sparse::dslubc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dslucn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslucn.md"))]
 pub use crate::linear_algebra::sparse::dslucn;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dslugm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dslugm.md"))]
 pub use crate::linear_algebra::sparse::dslugm;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::dsluom`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dsluom.md"))]
 pub use crate::linear_algebra::sparse::dsluom;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdbcg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdbcg.md"))]
 pub use crate::linear_algebra::sparse::ssdbcg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdcg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdcg.md"))]
 pub use crate::linear_algebra::sparse::ssdcg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdcgn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdcgn.md"))]
 pub use crate::linear_algebra::sparse::ssdcgn;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdcgs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdcgs.md"))]
 pub use crate::linear_algebra::sparse::ssdcgs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdgmr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdgmr.md"))]
 pub use crate::linear_algebra::sparse::ssdgmr;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssdomn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssdomn.md"))]
 pub use crate::linear_algebra::sparse::ssdomn;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssgs`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssgs.md"))]
 pub use crate::linear_algebra::sparse::ssgs;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssiccg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssiccg.md"))]
 pub use crate::linear_algebra::sparse::ssiccg;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssilur`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssilur.md"))]
 pub use crate::linear_algebra::sparse::ssilur;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssjac`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssjac.md"))]
 pub use crate::linear_algebra::sparse::ssjac;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::sslubc`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslubc.md"))]
 pub use crate::linear_algebra::sparse::sslubc;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::sslucn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslucn.md"))]
 pub use crate::linear_algebra::sparse::sslucn;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::sslugm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sslugm.md"))]
 pub use crate::linear_algebra::sparse::sslugm;
 #[doc = "Transitional ABI-shaped alias; use `crate::linear_algebra::sparse::ssluom`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ssluom.md"))]
 pub use crate::linear_algebra::sparse::ssluom;
 #[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::jacobian_check::chkder`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/chkder.md"))]
 pub use crate::nonlinear::jacobian_check::chkder;
 #[doc = "Transitional ABI-shaped alias; use `crate::nonlinear::jacobian_check::dckder`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dckder.md"))]
 pub use crate::nonlinear::jacobian_check::dckder;
 #[doc = "Transitional ABI-shaped alias; use `crate::ode::dintp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dintp.md"))]
 pub use crate::ode::dintp;
 #[doc = "Transitional ABI-shaped alias; use `crate::ode::sintrp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/sintrp.md"))]
 pub use crate::ode::sintrp;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::blktri`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/blktri.md"))]
 pub use crate::pde::fishpack::blktri;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::genbun`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/genbun.md"))]
 pub use crate::pde::fishpack::genbun;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstcrt`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hstcrt.md"))]
 pub use crate::pde::fishpack::hstcrt;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstcsp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hstcsp.md"))]
 pub use crate::pde::fishpack::hstcsp;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstcyl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hstcyl.md"))]
 pub use crate::pde::fishpack::hstcyl;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstplr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hstplr.md"))]
 pub use crate::pde::fishpack::hstplr;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hstssp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hstssp.md"))]
 pub use crate::pde::fishpack::hstssp;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hw3crt`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hw3crt.md"))]
 pub use crate::pde::fishpack::hw3crt;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwscrt`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwscrt.md"))]
 pub use crate::pde::fishpack::hwscrt;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwscsp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwscsp.md"))]
 pub use crate::pde::fishpack::hwscsp;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwscyl`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwscyl.md"))]
 pub use crate::pde::fishpack::hwscyl;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwsplr`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwsplr.md"))]
 pub use crate::pde::fishpack::hwsplr;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::hwsssp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/hwsssp.md"))]
 pub use crate::pde::fishpack::hwsssp;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::pois3d`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/pois3d.md"))]
 pub use crate::pde::fishpack::pois3d;
 #[doc = "Transitional ABI-shaped alias; use `crate::pde::fishpack::poistg`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/poistg.md"))]
 pub use crate::pde::fishpack::poistg;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::avint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/avint.md"))]
 pub use crate::quadrature::avint;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::bsqad`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bsqad.md"))]
 pub use crate::quadrature::bsqad;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::davint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/davint.md"))]
 pub use crate::quadrature::davint;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dbsqad`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbsqad.md"))]
 pub use crate::quadrature::dbsqad;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dppqad`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dppqad.md"))]
 pub use crate::quadrature::dppqad;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dqmomo`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqmomo.md"))]
 pub use crate::quadrature::dqmomo;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::ppqad`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/ppqad.md"))]
 pub use crate::quadrature::ppqad;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::qmomo`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qmomo.md"))]
 pub use crate::quadrature::qmomo;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/besi.md"))]
 pub use crate::special::bessel::besi;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besj`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/besj.md"))]
 pub use crate::special::bessel::besj;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besk`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/besk.md"))]
 pub use crate::special::bessel::besk;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::beskes`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/beskes.md"))]
 pub use crate::special::bessel::beskes;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besks`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/besks.md"))]
 pub use crate::special::bessel::besks;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::besy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/besy.md"))]
 pub use crate::special::bessel::besy;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbesi.md"))]
 pub use crate::special::bessel::dbesi;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesj`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbesj.md"))]
 pub use crate::special::bessel::dbesj;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesk`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbesk.md"))]
 pub use crate::special::bessel::dbesk;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesks`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbesks.md"))]
 pub use crate::special::bessel::dbesks;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::dbesy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbesy.md"))]
 pub use crate::special::bessel::dbesy;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesh`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zbesh.md"))]
 pub use crate::special::bessel::zbesh;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesi`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zbesi.md"))]
 pub use crate::special::bessel::zbesi;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesj`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zbesj.md"))]
 pub use crate::special::bessel::zbesj;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesk`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zbesk.md"))]
 pub use crate::special::bessel::zbesk;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bessel::zbesy`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/zbesy.md"))]
 pub use crate::special::bessel::zbesy;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::bskin`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bskin.md"))]
 pub use crate::special::bskin;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dbskes`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbskes.md"))]
 pub use crate::special::dbskes;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dbskin`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbskin.md"))]
 pub use crate::special::dbskin;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dexint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dexint.md"))]
 pub use crate::special::dexint;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dpsifn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpsifn.md"))]
 pub use crate::special::dpsifn;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::drc3jj`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drc3jj.md"))]
 pub use crate::special::drc3jj;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::drc3jm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drc3jm.md"))]
 pub use crate::special::drc3jm;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::drc6j`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/drc6j.md"))]
 pub use crate::special::drc6j;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dxlegf`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dxlegf.md"))]
 pub use crate::special::dxlegf;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::dxnrmp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dxnrmp.md"))]
 pub use crate::special::dxnrmp;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::exint`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/exint.md"))]
 pub use crate::special::exint;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::psifn`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/psifn.md"))]
 pub use crate::special::psifn;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::rc3jj`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rc3jj.md"))]
 pub use crate::special::rc3jj;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::rc3jm`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rc3jm.md"))]
 pub use crate::special::rc3jm;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::rc6j`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/rc6j.md"))]
 pub use crate::special::rc6j;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::xlegf`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/xlegf.md"))]
 pub use crate::special::xlegf;
 #[doc = "Transitional ABI-shaped alias; use `crate::special::xnrmp`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/xnrmp.md"))]
 pub use crate::special::xnrmp;
 // ffi-declaration-aliases:end

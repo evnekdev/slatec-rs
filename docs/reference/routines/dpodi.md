@@ -8,7 +8,7 @@ Compute the determinant and inverse of a certain real symmetric positive definit
 
 ## Description
 
-DPODI computes the determinant and inverse of a certain double precision symmetric positive definite matrix (see below) using the factors computed by DPOCO, DPOFA or DQRDC. On Entry A DOUBLE PRECISION(LDA, N) the output A from DPOCO or DPOFA or the output X from DQRDC. LDA INTEGER the leading dimension of the array A . N INTEGER the order of the matrix A . JOB INTEGER = 11 both determinant and inverse. = 01 inverse only. = 10 determinant only. On Return A If DPOCO or DPOFA was used to factor A , then DPODI produces the upper half of INVERSE(A) . If DQRDC was used to decompose X , then DPODI produces the upper half of inverse(TRANS(X)*X) where TRANS(X) is the transpose. Elements of A below the diagonal are unchanged. If the units digit of JOB is zero, A is unchanged. DET DOUBLE PRECISION(2) determinant of A or of TRANS(X)*X if requested. Otherwise not referenced. Determinant = DET(1) * 10.0**DET(2) with 1.0 .LE. DET(1) .LT. 10.0 or DET(1) .EQ. 0.0 .
+DPODI computes the determinant and inverse of a certain double precision symmetric positive definite matrix (see below) using the factors computed by DPOCO, DPOFA or DQRDC. On Entry
 
 ## Classification
 
@@ -52,19 +52,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DPODI](https://www.netlib.org/slatec/lin/dpodi.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDA, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `DET` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (2) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `A` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDA, *) | DOUBLE PRECISION(LDA, N) the output  A  from DPOCO or DPOFA or the output  X  from DQRDC. If DPOCO or DPOFA was used to factor  A , then DPODI produces the upper half of INVERSE(A) . If DQRDC was used to decompose  X , then DPODI produces the upper half of inverse(TRANS(X)*X) where TRANS(X) is the transpose. Elements of  A  below the diagonal are unchanged. If the units digit of JOB is zero,  A  is unchanged. division by zero will occur if the input factor contains zero on the diagonal and the inverse is requested. It will not occur if the subroutines are called correctly and if DPOCO or DPOFA has set INFO .EQ. 0 . |
+| 2 | `LDA` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the leading dimension of the array  A . |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER the order of the matrix  A . |
+| 4 | `DET` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (2) | DOUBLE PRECISION(2) determinant of  A  or of  TRANS(X)*X  if requested. Otherwise not referenced. Determinant = DET(1) * 10.0**DET(2) with  1.0 .LE. DET(1) .LT. 10.0 or  DET(1) .EQ. 0.0 . |
+| 5 | `JOB` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | INTEGER = 11   both determinant and inverse. = 01   inverse only. = 10   determinant only. On Return |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -78,7 +78,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-A division by zero will occur if the input factor contains a zero on the diagonal and the inverse is requested. It will not occur if the subroutines are called correctly and if DPOCO or DPOFA has set INFO .EQ. 0 .
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

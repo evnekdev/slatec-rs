@@ -12,6 +12,7 @@ use crate::FortranInteger;
 unsafe extern "C" {
     /// Evaluates a single-precision B-spline value or derivative.
     #[link_name = "bvalu_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bvalu.md"))]
     pub fn bvalu(
         knots: *const f32,
         coefficients: *const f32,
@@ -24,6 +25,7 @@ unsafe extern "C" {
     ) -> f32;
     /// Evaluates a double-precision B-spline value or derivative.
     #[link_name = "dbvalu_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbvalu.md"))]
     pub fn dbvalu(
         knots: *const f64,
         coefficients: *const f64,
@@ -36,6 +38,7 @@ unsafe extern "C" {
     ) -> f64;
     /// Integrates a single-precision B-spline over two validated limits.
     #[link_name = "bsqad_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bsqad.md"))]
     pub fn bsqad(
         knots: *const f32,
         coefficients: *const f32,
@@ -48,6 +51,7 @@ unsafe extern "C" {
     );
     /// Integrates a double-precision B-spline over two validated limits.
     #[link_name = "dbsqad_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbsqad.md"))]
     pub fn dbsqad(
         knots: *const f64,
         coefficients: *const f64,
@@ -67,6 +71,7 @@ unsafe extern "C" {
     /// or singular systems only through XERROR; the safe facade preflights the
     /// documented Schoenberg--Whitney conditions before this call.
     #[link_name = "bintk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/bintk.md"))]
     pub fn bintk(
         nodes: *const f32,
         values: *const f32,
@@ -81,6 +86,7 @@ unsafe extern "C" {
     ///
     /// The array mutability and exact lengths are the same as for `BINTK`.
     #[link_name = "dbintk_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dbintk.md"))]
     pub fn dbintk(
         nodes: *const f64,
         values: *const f64,

@@ -51,19 +51,19 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DROTMG](https://www.netlib.org/slatec/lin/drotmg.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `DD1` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `DD2` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `DX1` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `DY1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `DPARAM` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (5) | vector. DPARAM(1)=DFLAG defined below. Locations 2-5 contain the rotation matrix. DFLAG, H has one of the following forms: DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0 (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0) H=(          )    (          )    (          )    (          ) (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0). Locations 2-5 of DPARAM contain DH11, DH21, DH12, and DH22, respectively.  (Values of 1.D0, -1.D0, or 0.D0 implied by the value of DPARAM(1) are not stored in DPARAM.) |
+| 1 | `DD1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision scalar changed to represent the effect of the transformation |
+| 2 | `DD2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision scalar changed to represent the effect of the transformation |
+| 3 | `DX1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | double precision scalar DX2  double precision scalar changed to represent the effect of the transformation DX2  unchanged Construct the modified Givens transformation matrix H which zeros the second component of the 2-vector  (SQRT(DD1)*DX1,SQRT(DD2)* DY2)**T. |
+| 4 | `DY1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Readable second component of the input two-vector used to construct the modified Givens transformation. The routine uses it to form the rotation but leaves this scalar unchanged. |
+| 5 | `DPARAM` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (5) | vector. DPARAM(1)=DFLAG defined below. Locations 2-5 contain the rotation matrix. DFLAG=-1.D0     DFLAG=0.D0        DFLAG=1.D0     DFLAG=-2.D0 (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0) H=(          )    (          )    (          )    (          ) (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0). Locations 2-5 of DPARAM contain DH11, DH21, DH12, and DH22, respectively.  (Values of 1.D0, -1.D0, or 0.D0 implied by the value of DPARAM(1) are not stored in DPARAM.) |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 

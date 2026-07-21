@@ -8,7 +8,7 @@ Compute the singular value decomposition of a rectangular matrix and solve the r
 
 ## Description
 
-This subroutine is a translation of the ALGOL procedure MINFIT, NUM. MATH. 14, 403-420(1970) by Golub and Reinsch. HANDBOOK FOR AUTO. COMP., VOL II-LINEAR ALGEBRA, 134-151(1971). This subroutine determines, towards the solution of the linear T system AX=B, the singular value decomposition A=USV of a real T M by N rectangular matrix, forming U B rather than U. Householder bidiagonalization and a variant of the QR algorithm are used. On INPUT NM must be set to the row dimension of the two-dimensional array parameters, A and B, as declared in the calling program dimension statement. Note that NM must be at least as large as the maximum of M and N. NM is an INTEGER variable. M is the number of rows of A and B. M is an INTEGER variable. N is the number of columns of A and the order of V. N is an INTEGER variable. A contains the rectangular coefficient matrix of the system. A is a two-dimensional REAL array, dimensioned A(NM,N). IP is the number of columns of B. IP can be zero. B contains the constant column matrix of the system if IP is not zero. Otherwise, B is not referenced. B is a two- dimensional REAL array, dimensioned B(NM,IP). On OUTPUT A has been overwritten by the matrix V (orthogonal) of the decomposition in its first N rows and columns. If an
+This subroutine is a translation of the ALGOL procedure MINFIT, NUM. MATH. 14, 403-420(1970) by Golub and Reinsch. HANDBOOK FOR AUTO. COMP., VOL II-LINEAR ALGEBRA, 134-151(1971). This subroutine determines, towards the solution of the linear T system AX=B, the singular value decomposition A=USV of a real T
 
 ## Classification
 
@@ -52,23 +52,23 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [MINFIT](https://www.netlib.org/slatec/lin/minfit.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `A` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | Array argument classified by fixed-form executable read/write analysis. |
-| 5 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Workspace argument classified by fixed-form executable read/write analysis. |
-| 6 | `IP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `B` | `input-output` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, IP) | Array argument classified by fixed-form executable read/write analysis. |
-| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `RV1` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
+| 1 | `NM` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional array parameters, A and B, as declared in the calling program dimension statement.  Note that NM must be at least is an INTEGER variable. |
+| 2 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | by N rectangular matrix, forming U B rather than U.  Householder bidiagonalization and a variant of the QR algorithm are used. is an INTEGER variable. is the number of rows of A and B.  M is an INTEGER variable. |
+| 3 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is an INTEGER variable. is the number of columns of A and the order of V.  N is an INTEGER variable. negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T |
+| 4 | `A` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, *) | contains the rectangular coefficient matrix of the system. dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned A(NM,N). dimensional REAL array, dimensioned B(NM,IP). has been overwritten by the matrix V (orthogonal) of the decomposition in its first N rows and columns.  If an dimensional REAL array, dimensioned W(N). T dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
+| 5 | `W` | `workspace` | `workspace` | `REAL` | `*mut f32` | rank 1; dimensions (*) | negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T |
+| 6 | `IP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | is the number of columns of B.  IP can be zero. |
+| 7 | `B` | `input` | `array` | `REAL` | `*mut f32` | rank 2; dimensions (NM, IP) | contains the constant column matrix of the system if IP is dimensional REAL array, dimensioned B(NM,IP). dimensional REAL array, dimensioned B(NM,IP). is made, is made, T T the rows of U B corresponding to indices of correct singular the rows of U B corresponding to indices of correct singular values should be correct. values should be correct. system Routines - EISPACK Guide, Springer-Verlag, 1976. |
+| 8 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | dimensional dimensional REAL array, dimensioned W(N). REAL array, dimensioned W(N). T T is an INTEGER flag set to Zero       for normal return, K          if the K-th singular value has not been determined after 30 iterations. The singular values should be correct for indices IERR+1, IERR+2, ..., N. |
+| 9 | `RV1` | `input-output` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (*) | dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -82,11 +82,11 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-indices of correct singular values should be correct. W contains the N (non-negative) singular values of A (the diagonal elements of S).  They are unordered.  If an for indices IERR+1, IERR+2, ..., N.  W is a one-dimensional REAL array, dimensioned W(N). T T the rows of U B corresponding to indices of correct singular values should be correct. IERR is an INTEGER flag set to Zero       for normal return, K          if the K-th singular value has not been determined after 30 iterations. The singular values should be correct for indices IERR+1, IERR+2, ..., N. RV1 is a one-dimensional REAL array used for temporary storage, dimensioned RV1(N). Calls PYTHAG(A,B) for sqrt(A**2 + B**2). Questions and comments should be directed to B. S. Garbow, APPLIED MATHEMATICS DIVISION, ARGONNE NATIONAL LABORATORY ------------------------------------------------------------------
+indices of correct singular values should be correct.
 
 ### Storage and workspace requirements
 
-`W`: Workspace argument classified by fixed-form executable read/write analysis.
+`W`: negative) singular values of A (the diagonal elements of S).  They are unordered.  If an dimensional REAL array, dimensioned W(N). T
 
 ### Provider, ABI, and safety
 

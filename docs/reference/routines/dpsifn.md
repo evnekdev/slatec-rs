@@ -8,7 +8,7 @@ Compute derivatives of the Psi function.
 
 ## Description
 
-The following definitions are used in DPSIFN: Definition 1 PSI(X) = d/dx (ln(GAMMA(X)), the first derivative of the log GAMMA function. Definition 2 K K PSI(K,X) = d /dx (PSI(X)), the K-th derivative of PSI(X). ___________________________________________________________________ DPSIFN computes a sequence of SCALED derivatives of the PSI function; i.e. for fixed X and M it computes the M-member sequence ((-1)**(K+1)/GAMMA(K+1))*PSI(K,X) for K = N,...,N+M-1 where PSI(K,X) is as defined above. For KODE=1, DPSIFN returns the scaled derivatives as described. KODE=2 is operative only when K=0 and in that case DPSIFN returns -PSI(X) + LN(X). That is, the logarithmic behavior for large X is removed when KODE=2 and K=0. When sums or differences of PSI functions are computed the logarithmic terms can be combined analytically and computed separately to help retain significant digits. Note that CALL DPSIFN(X,0,1,1,ANS) results in ANS = -PSI(X) Input X is DOUBLE PRECISION X - Argument, X .gt. 0.0D0 N - First member of the sequence, 0 .le. N .le. 100 N=0 gives ANS(1) = -PSI(X) for KODE=1 -PSI(X)+LN(X) for KODE=2 KODE - Selection parameter KODE=1 returns scaled derivatives of the PSI function. KODE=2 returns scaled derivatives of the PSI function EXCEPT when N=0. In this case, ANS(1) = -PSI(X) + LN(X) is returned. M - Number of members of the sequence, M.ge.1 Output ANS is DOUBLE PRECISION ANS - A vector of length at least M whose first M components contain the sequence of derivatives scaled according to KODE. NZ - Underflow flag NZ.eq.0, A normal return NZ.ne.0, Underflow, last NZ components of ANS are set to zero, ANS(M-K+1)=0.0, K=1,...,NZ
+The following definitions are used in DPSIFN: Definition 1
 
 ## Classification
 
@@ -54,21 +54,21 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DPSIFN](https://www.netlib.org/slatec/src/dpsifn.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `ANS` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Array argument classified by fixed-form executable read/write analysis. |
-| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Status argument classified by fixed-form executable read/write analysis. |
-| 7 | `IERR` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `X` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | d/dx (ln(GAMMA(X)), the first derivative of the log GAMMA function. Definition 2 K   K th derivative of PSI(X). th derivative of PSI(X). ___________________________________________________________________ ___________________________________________________________________ DPSIFN computes a sequence of SCALED derivatives of DPSIFN computes a sequence of SCALED derivatives of the PSI function; i.e. for fixed X and M it computes the PSI function; i.e. for fixed X and M it computes 1, DPSIFN returns 2 and K=0.  When sums or differences of PSI functions are computed the logarithmic terms can be combined analytically and computed separately to help retain significant digits. Note that CALL DPSIFN(X,0,1,1,ANS) results in Argument, X .gt. 0.0D0 for KODE=2 for KODE=2 1 too large or both N-1) = W(X). N-1) = W(X). This is supplemented by a series This is supplemented by a series N-1) , K=0,1,2,... ) which converges rapidly for large N. Both XMIN and the number of terms of the series are calculated from the unit roundoff of the machine environment. |
+| 2 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1 1 First member of the sequence, 0 .le. N .le. 100 PSI(X)       for KODE=1 0. In this case, 1 too large or both |
+| 3 | `KODE` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | 1, DPSIFN returns 2 is operative only when K=0 and in that case DPSIFN returns -PSI(X) + LN(X).  That 2 and K=0.  When sums or differences of PSI functions are computed the logarithmic terms can be combined analytically and computed separately to help retain significant digits. Note that CALL DPSIFN(X,0,1,1,ANS) results in Selection parameter 1 returns scaled derivatives of the PSI function. 2 returns scaled derivatives of the PSI |
+| 4 | `M` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | member sequence 1 Number of members of the sequence, M.ge.1 Output     ANS is DOUBLE PRECISION K+1)=0.0, K=1,...,NZ 1 too large or both |
+| 5 | `ANS` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | PSI(X) Input      X is DOUBLE PRECISION PSI(X)       for KODE=1 PSI(X) + LN(X) is returned. A vector of length at least M whose first M components contain the sequence of derivatives scaled according to KODE. K+1)=0.0, K=1,...,NZ |
+| 6 | `NZ` | `status-output` | `status` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Underflow flag A normal return Underflow, last NZ components of ANS are |
+| 7 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Error flag 0, A normal return, computation completed 1, Input error,     no computation 1 too large or both 3, Error,           N too large. Dimensioned array TRMR(NMAX) is not large enough for N The nominal computational accuracy is the maximum of unit roundoff (=D1MACH(4)) and 1.0D-18 since critical constants are given to only 18 digits. PSIFN is the single precision version of DPSIFN. Long Description: The basic method of evaluation is the asymptotic expansion for large X.ge.XMIN followed by backward recursion on a two term recursion relation |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -82,7 +82,7 @@ This interface declares no callback argument.
 
 ### Error and status values
 
-IERR=0, A normal return, computation completed IERR=2, Overflow,        X too small or N+M-1 too large or both array TRMR(NMAX) is not large enough for N The nominal computational accuracy is the maximum of unit roundoff (=D1MACH(4)) and 1.0D-18 since critical constants are given to only 18 digits. PSIFN is the single precision version of DPSIFN. Long Description: The basic method of evaluation is the asymptotic expansion for large X.ge.XMIN followed by backward recursion on a two term recursion relation W(X+1) + X**(-N-1) = W(X). This is supplemented by a series SUM( (X+K)**(-N-1) , K=0,1,2,... ) which converges rapidly for large N. Both XMIN and the number of terms of the series are calculated from the unit roundoff of the machine environment.
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

@@ -8,7 +8,7 @@ To compute I = Integral of F*W over (BL,BR), with error estimate, where the weig
 
 ## Description
 
-Integration rules for integrands having ALGEBRAICO-LOGARITHMIC end point singularities Standard fortran subroutine Real version PARAMETERS F - Real Function subprogram defining the integrand F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. A - Real Left end point of the original interval B - Real Right end point of the original interval, B.GT.A BL - Real Lower limit of integration, BL.GE.A BR - Real Upper limit of integration, BR.LE.B ALFA - Real PARAMETER IN THE WEIGHT FUNCTION BETA - Real Parameter in the weight function RI,RJ,RG,RH - Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) RESULT - Real Approximation to the integral RESULT is computed by using a generalized CLENSHAW-CURTIS method if B1 = A or BR = B. in all other cases the 15-POINT KRONROD RULE is applied, obtained by optimal addition of Abscissae to the 7-POINT GAUSS RULE. ABSERR - Real
+Integration rules for integrands having ALGEBRAICO-LOGARITHMIC end point singularities Standard fortran subroutine Real version PARAMETERS
 
 ## Classification
 
@@ -54,30 +54,30 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [QC25S](https://www.netlib.org/slatec/src/qc25s.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Callback argument classified by fixed-form executable read/write analysis. |
-| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `BL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `BR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `RI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 9 | `RJ` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 10 | `RG` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 11 | `RH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Array argument classified by fixed-form executable read/write analysis. |
-| 12 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 13 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 14 | `RESASC` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 15 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 16 | `NEV` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `F` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Real Function subprogram defining the integrand The actual name for F needs to be declared E X T E R N A L  in the driver program. I/(B-A)) |
+| 2 | `A` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Left end point of the original interval |
+| 3 | `B` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Right end point of the original interval, B.GT.A X) |
+| 4 | `BL` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Lower limit of integration, BL.GE.A |
+| 5 | `BR` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | is a part of (A,B). Real Upper limit of integration, BR.LE.B |
+| 6 | `ALFA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real PARAMETER IN THE WEIGHT FUNCTION |
+| 7 | `BETA` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real Parameter in the weight function |
+| 8 | `RI` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 9 | `RJ` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 10 | `RG` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 11 | `RH` | `input` | `array` | `REAL` | `*mut f32` | rank 1; dimensions (25) | Real Modified CHEBYSHEV moments for the application of the generalized CLENSHAW-CURTIS method (computed in subroutine DQMOMO) |
+| 12 | `RESULT` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Approximation to the integral is computed by using a generalized CLENSHAW-CURTIS method if B1 = A or BR = B. in all other cases the 15-POINT KRONROD RULE is applied, obtained by optimal addition of Abscissae to the 7-POINT GAUSS RULE. |
+| 13 | `ABSERR` | `input-output` | `scalar` | `REAL` | `*mut f32` | scalar | Real Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
+| 14 | `RESASC` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Real |
+| 15 | `INTEGR` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Which determines the weight function = 1   W(X) = (X-A)**ALFA*(B-X)**BETA = 2   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A) = 3   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(B-X) = 4   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A)* |
+| 16 | `NEV` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Number of integrand evaluations |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -91,7 +91,7 @@ Callback arguments must use the exact reviewed callback ABI, remain valid for th
 
 ### Error and status values
 
-estimate, where the weight function W has a singular behaviour of ALGEBRAICO-LOGARITHMIC type at the points A and/or B. (BL,BR) is a part of (A,B). which should equal or exceed ABS(I-RESULT) RESASC - Real Approximation to the integral of ABS(F*W-I/(B-A)) INTEGR - Integer Which determines the weight function = 1   W(X) = (X-A)**ALFA*(B-X)**BETA = 2   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A) = 3   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(B-X) = 4   W(X) = (X-A)**ALFA*(B-X)**BETA*LOG(X-A)* LOG(B-X) NEV    - Integer Number of integrand evaluations
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 

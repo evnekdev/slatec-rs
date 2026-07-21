@@ -8,7 +8,7 @@ To compute I = Integral of F*W over (A,B), with error estimate J = Integral of A
 
 ## Description
 
-Integration rules Standard fortran subroutine Double precision version PARAMETERS ON ENTRY F - Double precision Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. W - Double precision Function subprogram defining the integrand WEIGHT function W(X). The actual name for W needs to be declared E X T E R N A L in the calling program. P1, P2, P3, P4 - Double precision Parameters in the WEIGHT function KP - Integer Key for indicating the type of WEIGHT function A - Double precision Lower limit of integration B - Double precision Upper limit of integration ON RETURN RESULT - Double precision Approximation to the integral I RESULT is computed by applying the 15-point Kronrod rule (RESK) obtained by optimal addition of abscissae to the 7-point Gauss rule (RESG). ABSERR - Double precision
+Integration rules Standard fortran subroutine Double precision version PARAMETERS ON ENTRY
 
 ## Classification
 
@@ -54,27 +54,27 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Documentation work status: `complete-structured`
-- Documentation evidence: source prologue, verified source hash, and fixed-form executable analysis where an argument section is absent
+- Documentation work status: `source-backed contract awaiting rendered-rustdoc audit`
+- Documentation evidence: verified source prologue or source-hash-guarded authored correction
 - Exact Netlib source: [DQK15W](https://www.netlib.org/slatec/src/dqk15w.f)
 
 ### Arguments
 
 | # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Callback argument classified by fixed-form executable read/write analysis. |
-| 2 | `W` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Callback argument classified by fixed-form executable read/write analysis. |
-| 3 | `P1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 4 | `P2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 5 | `P3` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 6 | `P4` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 7 | `KP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 8 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 9 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 10 | `RESULT` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 11 | `ABSERR` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 12 | `RESABS` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
-| 13 | `RESASC` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Scalar argument classified by fixed-form executable read/write analysis. |
+| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Double precision Function subprogram defining the integrand function F(X). The actual name for F needs to be declared E X T E R N A L in the driver program. I/(B-A)) |
+| 2 | `W` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Double precision Function subprogram defining the integrand WEIGHT function W(X). The actual name for W needs to be declared E X T E R N A L in the calling program. |
+| 3 | `P1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Parameters in the WEIGHT function |
+| 4 | `P2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Parameters in the WEIGHT function |
+| 5 | `P3` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Parameters in the WEIGHT function |
+| 6 | `P4` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Parameters in the WEIGHT function |
+| 7 | `KP` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Integer Key for indicating the type of WEIGHT function |
+| 8 | `A` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Lower limit of integration |
+| 9 | `B` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Upper limit of integration ON RETURN |
+| 10 | `RESULT` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Approximation to the integral I point Kronrod rule (RESK) obtained by optimal addition of abscissae to the 7-point Gauss rule (RESG). |
+| 11 | `ABSERR` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Estimate of the modulus of the absolute error, which should equal or exceed ABS(I-RESULT) |
+| 12 | `RESABS` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision Approximation to the integral of ABS(F) |
+| 13 | `RESASC` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Double precision |
 
 Argument evidence records nullability, shape, relationships, leading dimensions, workspace rules, options, and overwrite behavior in the authoritative public-documentation inventory. Native code does not retain ordinary argument pointers.
 
@@ -88,7 +88,7 @@ Callback arguments must use the exact reviewed callback ABI, remain valid for th
 
 ### Error and status values
 
-estimate J = Integral of ABS(F*W) over (A,B) which should equal or exceed ABS(I-RESULT) RESABS - Double precision Approximation to the integral of ABS(F) RESASC - Double precision Approximation to the integral of ABS(F-I/(B-A))
+The selected source does not provide a separate error-status section. Any status output argument is identified in the argument table; callers must also respect the legacy SLATEC error-runtime behavior described by the source.
 
 ### Storage and workspace requirements
 
