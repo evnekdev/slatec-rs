@@ -253,7 +253,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SemanticReviewResult> 
             .and_then(Value::as_str)
             .unwrap_or_default();
         let source_path =
-            resolved_cached_source_path(root, cached_path, &field(record, "source_file"));
+            resolved_cached_source_path(root, cached_path, &selected_provider_source_path(record));
         let mut link = source_link_record(root, record)?;
         link["public_routine"] = Value::Bool(public_names.contains(&routine));
         if let Some(path) = source_path {
@@ -1445,7 +1445,7 @@ fn source_link_record(root: &Path, record: &Value) -> Result<Value> {
         && url.ends_with(".f")
     {
         if let Some(path) =
-            resolved_cached_source_path(root, cached_path, &field(record, "source_file"))
+            resolved_cached_source_path(root, cached_path, &selected_provider_source_path(record))
         {
             let bytes = fs::read(&path)?;
             if hash::bytes(&bytes) == expected_hash {
@@ -1474,6 +1474,15 @@ fn source_link_record(root: &Path, record: &Value) -> Result<Value> {
         "public_routine":false,
         "unavailable_reason":reason,
     }))
+}
+
+fn selected_provider_source_path(record: &Value) -> String {
+    record
+        .pointer("/canonical_provider/source_file")
+        .and_then(Value::as_str)
+        .filter(|path| !path.is_empty())
+        .unwrap_or_else(|| record["source_file"].as_str().unwrap_or_default())
+        .to_owned()
 }
 
 /// Resolves a verified selected-source input without changing the stable,
@@ -4476,6 +4485,15 @@ mod tests {
             ),
             Some(source)
         );
+    }
+
+    #[test]
+    fn source_resolution_uses_canonical_provider_path_not_profile_prefix() {
+        let record = json!({
+            "source_file":"main-src/src/avint.f",
+            "canonical_provider":{"source_file":"src/avint.f"}
+        });
+        assert_eq!(selected_provider_source_path(&record), "src/avint.f");
     }
 
     #[test]
