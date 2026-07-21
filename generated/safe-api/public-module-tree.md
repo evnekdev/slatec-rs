@@ -6,7 +6,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 
 | Status | Leaves |
 | --- | ---: |
-| Implemented | 32 |
+| Implemented | 33 |
 | Partial | 15 |
 | Planned | 17 |
 | Deferred | 3 |
@@ -15,7 +15,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | Stability | Leaves |
 | --- | ---: |
 | Frozen | 10 |
-| Reserved | 64 |
+| Reserved | 65 |
 | Provisional | 3 |
 
 ## Leaf status
@@ -86,6 +86,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | interpolation | `interpolation::pchip` | Reserved | Implemented | yes | `pchip` | f32,f64 | std | SerializedGlobal | `slatec::pchip` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | interpolation | `interpolation::bspline` | Reserved | Partial | yes | `bspline` | f32,f64 | std | SerializedGlobal | `none` | Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred. | Audit one additional constructor or basis family without broadening the representation API. |
 | interpolation | `interpolation::piecewise_polynomial` | Reserved | Partial | yes | `piecewise-polynomial` | f32,f64 | std | SerializedGlobal | `none` | PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred. | Audit one additional representation conversion only after its native contract and storage semantics are complete. |
+| interpolation | `interpolation::tabulated` | Reserved | Implemented | yes | `tabulated-data` | f32,f64 | std | SerializedGlobal | `none` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | interpolation | `interpolation::divided_differences` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe divided-difference family exists. | Audit a coherent family. |
 | interpolation | `interpolation::chebyshev` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Interpolation uses need a distinct contract from scalar polynomial evaluation. | Audit Chebyshev interpolation. |
 | interpolation | `interpolation::approximation` | Provisional | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | The intended source-family boundary remains uncertain. | Complete approximation-family inventory. |

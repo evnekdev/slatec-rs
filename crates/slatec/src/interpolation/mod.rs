@@ -2,10 +2,10 @@
 //!
 //! # Status: Partial
 //!
-//! PCHIP is available under `pchip`; owned B-spline and PP representations are
-//! available under `bspline` and `piecewise_polynomial`. Other interpolation
-//! families remain reserved until their storage and numerical contracts are
-//! audited.
+//! PCHIP is available under `pchip`; owned B-spline, PP, and tabulated global
+//! polynomial representations are available under `bspline`,
+//! `piecewise_polynomial`, and `tabulated`. Other interpolation families
+//! remain reserved until their storage and numerical contracts are audited.
 
 /// Approximation methods.
 pub mod approximation;
@@ -19,3 +19,6 @@ pub mod divided_differences;
 pub mod pchip;
 /// Piecewise-polynomial interpolation.
 pub mod piecewise_polynomial;
+/// Checked tabulated samples and global polynomial interpolation.
+#[cfg(feature = "tabulated-data")]
+pub mod tabulated;

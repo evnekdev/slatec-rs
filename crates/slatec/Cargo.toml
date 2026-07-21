@@ -115,7 +115,7 @@ raw-final-coverage-link-tests = [
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
     "quadrature-oscillatory", "quadrature-fourier", "quadrature-nonadaptive",
-    "quadrature-piecewise-polynomial",
+    "quadrature-piecewise-polynomial", "tabulated-data",
 ]
 quadrature-common = ["std", "blas-level1-validation"]
 quadrature-basic = ["quadrature-common", "slatec-sys/raw-family-quadrature-basic", "slatec-src/quadrature-basic"]
@@ -130,6 +130,15 @@ quadrature-piecewise-polynomial = [
     "slatec-sys/quadrature-callbacks",
     "slatec-src/quadrature-callbacks",
 ]
+tabulated-data = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/interpolation-general",
+    "slatec-src/interpolation-general",
+    "slatec-sys/quadrature-direct",
+    "slatec-src/quadrature-direct",
+]
+tabulated-data-native-tests = ["tabulated-data"]
 quadrature-native-tests = ["quadrature"]
 
 roots = ["roots-scalar", "roots-polynomial"]
@@ -356,7 +365,7 @@ least-squares-native-tests = [
 
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
-interpolate = ["pchip", "bspline", "piecewise-polynomial"]
+interpolate = ["pchip", "bspline", "piecewise-polynomial", "tabulated-data"]
 optimize = ["optimization"]
 full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
@@ -528,6 +537,11 @@ name = "callback_driver_expansion"
 path = "tests/callback_driver_expansion.rs"
 required-features = ["quadrature-piecewise-polynomial", "nonlinear-systems", "ode-sdrive-expert"]
 
+[[test]]
+name = "tabulated_data_native"
+path = "tests/tabulated_data_native.rs"
+required-features = ["tabulated-data"]
+
 [[example]]
 name = "link_dassl"
 required-features = ["dassl"]
@@ -625,6 +639,11 @@ required-features = ["bspline"]
 name = "bspline_interpolate_and_convert"
 path = "examples/interpolation/bspline_interpolate_and_convert.rs"
 required-features = ["bspline", "piecewise-polynomial"]
+
+[[example]]
+name = "tabulated_data"
+path = "../../examples/interpolation/tabulated_data.rs"
+required-features = ["tabulated-data"]
 
 [[example]]
 name = "link_special_scalar"

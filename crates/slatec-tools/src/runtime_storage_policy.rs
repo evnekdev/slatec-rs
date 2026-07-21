@@ -49,6 +49,7 @@ pub fn generate(output_dir: &Path) -> Result<ResultSummary> {
     projections.extend(crate::safe_banded::native_state_projections()?);
     projections.extend(crate::safe_bspline::native_state_projections()?);
     projections.extend(crate::safe_piecewise_polynomial::native_state_projections()?);
+    projections.extend(crate::safe_tabulated_data::native_state_projections()?);
     projections.extend(crate::safe_fftpack_complex::native_state_projections()?);
     projections.extend(crate::safe_fishpack::native_state_projections()?);
     projections.extend(crate::safe_pois3d::native_state_projections()?);

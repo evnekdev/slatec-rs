@@ -944,6 +944,46 @@
       "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
     },
     {
+      "doctest_present": false,
+      "example_case": "evaluate global Newton interpolation polynomial",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLYVL/DPOLVL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate",
+      "validation_case": "evaluate",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "evaluate global Newton interpolation polynomial and first derivatives",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLYVL/DPOLVL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives",
+      "validation_case": "evaluate_with_derivatives",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "derive Taylor coefficients about a finite centre",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLCOF/DPOLCF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at",
+      "validation_case": "taylor_coefficients_at",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "construct global Newton interpolation polynomial",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLINT/DPLINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial",
+      "validation_case": "interpolating_polynomial",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
       "doctest_present": true,
       "example_case": "nonlinear least-squares covariance estimation",
       "example_file": "examples/least_squares/covariance_nonlinear_fit.rs",
@@ -1562,6 +1602,26 @@
       "rust_path": "slatec::quadrature::integrate_singular_f32",
       "validation_case": "integrate_singular_f32",
       "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrate arbitrarily spaced tabulated values",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "DAVINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_tabulated",
+      "validation_case": "integrate_tabulated",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrate arbitrarily spaced tabulated values",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "AVINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_tabulated_f32",
+      "validation_case": "integrate_tabulated_f32",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
     },
     {
       "doctest_present": false,

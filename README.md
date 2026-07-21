@@ -7,7 +7,7 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
 `fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`, and
-`piecewise-polynomial`.
+`piecewise-polynomial`, and `tabulated-data`.
 Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
@@ -223,6 +223,15 @@ derivatives through `PPVAL`/`DPPVAL`, integrates exactly through
 extrapolation by default, does not sort inputs, and leaves PCHIP and
 PP-to-B-spline conversion deferred. See the
 [piecewise-polynomial guide](docs/api/safe-piecewise-polynomial.md).
+
+The opt-in hosted `tabulated-data` feature adds one checked owned sample type
+for finite, strictly increasing real abscissas and matching finite values. It
+constructs global Newton interpolants with `POLINT`/`DPLINT`, evaluates values
+and derivatives with `POLYVL`/`DPOLVL`, produces Taylor coefficients with
+`POLCOF`/`DPOLCF`, and integrates arbitrarily spaced samples with
+`AVINT`/`DAVINT`. Samples are never sorted or exposed as native workspaces;
+calls are process-serialized. See the
+[tabulated-data guide](docs/api/safe-tabulated-data.md).
 
 The opt-in hosted `banded-linear-systems` feature provides compact general
 real `f32`/`f64` LINPACK LU factors and direct/transpose solves together with

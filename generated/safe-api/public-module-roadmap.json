@@ -1,22 +1,22 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 253,
+  "safe_function_count": 259,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 193
+    "std": 199
   },
   "status_totals": {
     "Deferred": 3,
-    "Implemented": 32,
+    "Implemented": 33,
     "Partial": 15,
     "Planned": 17
   },
   "stability_totals": {
     "Frozen": 10,
     "Provisional": 3,
-    "Reserved": 64
+    "Reserved": 65
   },
   "frozen_high_level_paths": [
     "roadmap",
@@ -1211,6 +1211,25 @@
       "status_rationale": "Useful safe public functionality exists, but material reviewed scope remains.",
       "blocker": "PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred.",
       "likely_next_milestone": "Audit one additional representation conversion only after its native contract and storage semantics are complete.",
+      "evidence_source": "generated/safe-api/function-index.json"
+    },
+    {
+      "canonical_grouped_module_path": "interpolation::tabulated",
+      "module_file": "crates/slatec/src/interpolation/tabulated.rs",
+      "stability": "Reserved",
+      "status": "Implemented",
+      "cargo_feature": "tabulated-data",
+      "current_implementation_module": "crate::interpolation::tabulated",
+      "compatibility_path": "none",
+      "safe_native_families": [
+        "tabulated-data"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
       "evidence_source": "generated/safe-api/function-index.json"
     },
     {
