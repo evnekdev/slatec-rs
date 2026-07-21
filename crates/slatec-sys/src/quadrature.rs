@@ -14,6 +14,34 @@ pub type IntegrandF64 = unsafe extern "C" fn(*const f64) -> f64;
 pub type IntegrandF32 = unsafe extern "C" fn(*const f32) -> f32;
 
 unsafe extern "C" {
+    /// Original double-precision SLATEC B-spline quadrature driver `DPFQAD`.
+    /// Source: <https://www.netlib.org/slatec/src/dpfqad.f>. Arguments:
+    /// `F`, `LDC`, `C`, `XI`, `LXI`, `K`, `ID`, `X1`, `X2`, `TOL`, `QUAD`, `IERR`.
+    ///
+    /// # Safety
+    ///
+    /// `F` must use the reviewed GNU Fortran scalar-function ABI and remain
+    /// valid for the native call. `C` is column-major with leading dimension
+    /// `LDC >= K`, `XI` has at least `LXI + 1` entries, and all scalar and
+    /// output pointers must be valid for the documented access.
+    #[cfg(feature = "raw-family-quadrature-callbacks")]
+    #[link_name = "dpfqad_"]
+    #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpfqad.md"))]
+    pub fn dpfqad(
+        function: IntegrandF64,
+        leading_dimension: *mut FortranInteger,
+        coefficients: *mut f64,
+        breakpoints: *mut f64,
+        piece_count: *mut FortranInteger,
+        order: *mut FortranInteger,
+        derivative_order: *mut FortranInteger,
+        lower: *mut f64,
+        upper: *mut f64,
+        tolerance: *mut f64,
+        integral: *mut f64,
+        status: *mut FortranInteger,
+    );
+
     #[cfg(any(
         feature = "raw-ffi-quadrature",
         feature = "raw-family-quadrature-breakpoints"

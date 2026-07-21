@@ -70,6 +70,7 @@ pub mod safe_pois3d;
 pub mod safe_quadrature;
 pub mod safe_roots;
 pub mod safe_special;
+pub mod small_candidate_batch;
 pub mod sos_dsos_api;
 pub mod special_foundations_api;
 

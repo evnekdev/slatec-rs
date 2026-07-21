@@ -71,7 +71,7 @@ fn sos_converges_and_uses_the_one_based_equation_callback_abi() {
     let mut iflag: FortranInteger = 0;
     let mut rw = vec![0.0_f32; real_workspace_len(2)];
     let mut lrw = rw.len() as FortranInteger;
-    let mut iw = vec![0_i32; 3 + 2];
+    let mut iw = vec![FortranInteger::default(); 3 + 2];
     let mut liw = iw.len() as FortranInteger;
 
     unsafe {
@@ -113,7 +113,7 @@ fn dsos_converges_and_uses_the_one_based_equation_callback_abi() {
     let mut iflag: FortranInteger = 0;
     let mut rw = vec![0.0_f64; real_workspace_len(2)];
     let mut lrw = rw.len() as FortranInteger;
-    let mut iw = vec![0_i32; 3 + 2];
+    let mut iw = vec![FortranInteger::default(); 3 + 2];
     let mut liw = iw.len() as FortranInteger;
 
     unsafe {

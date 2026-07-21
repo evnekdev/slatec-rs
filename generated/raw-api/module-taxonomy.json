@@ -843,13 +843,13 @@
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CDRIV1"
     },
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "reviewed_public_driver",
       "routine": "CDRIV2"
     },
     {
@@ -2805,13 +2805,13 @@
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DDRIV1"
     },
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DDRIV2"
     },
     {
@@ -3645,7 +3645,7 @@
     {
       "intended_canonical_module": "quadrature",
       "primary_family": "Numerical quadrature",
-      "promotion_state": "unsupported_callback_abi",
+      "promotion_state": "reviewed_public_driver",
       "routine": "DPFQAD"
     },
     {
@@ -7341,13 +7341,13 @@
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SDRIV1"
     },
     {
       "intended_canonical_module": "ode",
       "primary_family": "ODE solvers",
-      "promotion_state": "source_present_unbound",
+      "promotion_state": "reviewed_public_driver",
       "routine": "SDRIV2"
     },
     {

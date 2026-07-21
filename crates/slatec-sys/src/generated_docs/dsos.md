@@ -26,7 +26,7 @@ This Fortran subroutine has no direct return value. It returns the iterate, resi
 
 # Callback contract
 
-`FNC` is called synchronously, potentially many times and with finite-difference perturbations of `X`. `K` is one-based and identifies exactly the requested equation. The callback may only read the supplied `X` extent for the duration of the call; it must not retain pointers, panic, or unwind across the native boundary.
+`FNC` is called synchronously, potentially many times and with finite-difference perturbations of `X`. It receives only `X` and the one-based equation index `K`: `NEQ` is not passed through the callback ABI, and there is no user-data/context pointer. The callback may only read the externally known supplied `X` extent for the duration of the call; it must not retain pointers, panic, or unwind across the native boundary. Stateful Rust use therefore requires an external scoped context mechanism in a future wrapper.
 
 # Status and error values
 

@@ -27,3 +27,24 @@ fn nonlinear_systems_canonical_paths_compile() {
     let _: Option<slatec_sys::nonlinear::systems::SosEquationF32> = None;
     let _: Option<slatec_sys::nonlinear::systems::SosEquationF64> = None;
 }
+
+#[cfg(feature = "raw-family-quadrature-callbacks")]
+#[test]
+fn quadrature_callback_canonical_path_compiles() {
+    let _ = slatec_sys::quadrature::dpfqad;
+}
+
+#[cfg(feature = "raw-family-ode-sdrive-expert")]
+#[test]
+fn sdrive_canonical_paths_compile() {
+    let _ = slatec_sys::ode::sdriv1;
+    let _ = slatec_sys::ode::sdriv2;
+    let _ = slatec_sys::ode::sdriv3;
+    let _ = slatec_sys::ode::ddriv1;
+    let _ = slatec_sys::ode::ddriv2;
+    let _ = slatec_sys::ode::ddriv3;
+    let _ = slatec_sys::ode::cdriv1;
+    let _ = slatec_sys::ode::cdriv2;
+    let _: Option<slatec_sys::ode::CdriveRhsF32> = None;
+    let _: Option<slatec_sys::ode::CdriveRootF32> = None;
+}

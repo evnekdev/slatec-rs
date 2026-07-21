@@ -16,8 +16,8 @@ and source-hash evidence. It does not create a parallel inventory.
 
 ## Final coverage
 
-The retained corpus has 1,517 identities. Of these, 814 have one canonical
-public raw path: 173 authored reviewed declarations, 459 generated numerical
+The retained corpus has 1,517 identities. Of these, 821 have one canonical
+public raw path: 182 authored reviewed declarations, 459 generated numerical
 declarations, 47 callback-bearing declarations, 97 ABI-sensitive declarations,
 and 36 requalified existing family declarations. Each public identity has one
 canonical path and one authoritative `extern` declaration.
@@ -25,7 +25,7 @@ canonical path and one authoritative `extern` declaration.
 The non-public remainder is classified as 530 provider subsidiaries, 79 raw
 internal units, 2 runtime support units, 17 error support units, 5 machine
 support units, 2 demonstration programs, 26 catalogue-only identities, 13
-missing symbols, 30 unsupported callback interfaces, and one other permanent
+missing symbols, 21 unsupported callback interfaces, and one other permanent
 exclusion. The selected retained identities contain no callable `BLOCK DATA`,
 `ENTRY`, or alternate-return unit. They also contain no unresolved long-string,
 complex, COMMON-data, Fortran-I/O, or compiler-specific ABI after public-role

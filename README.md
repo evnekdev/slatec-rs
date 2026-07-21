@@ -65,7 +65,7 @@ Raw documentation quality is assessed on the rendered canonical `slatec-sys`
 surface, not by page existence. The M3 semantic reports in
 [`generated/slatec-routines/`](generated/slatec-routines/) record bounded
 argument evidence, source-first directions, status/workspace/callback
-contracts, and contamination findings. The current audit covers all 814
+contracts, and contamination findings. The current audit covers all 821
 canonical public routines with zero unresolved direction conflicts and zero
 detected argument contamination.
 
@@ -88,7 +88,7 @@ in [`docs/api/raw-special-foundations.md`](docs/api/raw-special-foundations.md).
 The eight real Airy drivers use `slatec_sys::special::airy`, while complex Amos
 Airy interfaces remain explicitly deferred in
 [`docs/api/raw-special-airy.md`](docs/api/raw-special-airy.md).
-The canonical raw interface exposes 814 routines through mathematical modules.
+The canonical raw interface exposes 821 routines through mathematical modules.
 It accounts for all 1,517 retained corpus identities with one public Rust path
 per public routine; the safe facade remains deliberately selective.
 That surface includes source-hash-guarded numerical declarations,

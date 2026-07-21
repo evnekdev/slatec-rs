@@ -1,0 +1,25 @@
+{
+  "records": [
+    {
+      "abi_status": "unsupported implicit external-procedure ABI",
+      "callback_count": 4,
+      "final_disposition": "unsupported-abi",
+      "native_symbol": "dbvsup_",
+      "reason": "Its four external-procedure dependencies have no direct Rust callback declaration or user-data/context contract on the selected profile, so an ABI-correct independent public path cannot be claimed.",
+      "routine": "DBVSUP",
+      "source_hash": "d232ccda69783a860a887d103d9feb79595fb844e66d289068a07733dfaada54"
+    },
+    {
+      "abi_status": "not-applicable",
+      "callback_count": 0,
+      "final_disposition": "missing-symbol",
+      "native_symbol": null,
+      "reason": "The exact Netlib src/dvsup.f URL returns HTTP 404; no retained catalogue identity, selected provider, or native symbol exists.",
+      "routine": "DVSUP",
+      "source_hash": null
+    }
+  ],
+  "schema_id": "slatec-sys.bvsup-family-abi",
+  "schema_version": "1.0.0",
+  "supported_abi_profile": "ffi-profile-gnu-mingw-x86_64"
+}

@@ -1,5 +1,5 @@
 {
-  "complete_workspace_contracts": 167,
+  "complete_workspace_contracts": 173,
   "records": [
     {
       "coverage_status": "complete",
@@ -130,6 +130,36 @@
           "coverage_status": "complete",
           "description": "COMPLEX. is a work array.",
           "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CDRIV1",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent `Complex32` workspace with at least `N*N + 11*N + 300` elements.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "CDRIV2",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent `Complex32` workspace. Its minimum is `16*N + 2*NROOT + 250`, `N*N + 10*N + 2*NROOT + 250`, or `N*N + 17*N + 2*NROOT + 250` for `MINT=1`, `2`, or `3` respectively.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent integer workspace with at least `50` elements for `MINT=1` or `N+50` otherwise.",
+          "source_section": "arguments"
         }
       ]
     },
@@ -652,6 +682,36 @@
           "coverage_status": "complete",
           "description": "IWORK(*) is an INTEGER work array of length LIW which provides the code with needed storage space and an across call flag.",
           "source_section": "description"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DDRIV1",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent real workspace with at least `N*N + 11*N + 300` elements; do not disturb it between continuation calls.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "DDRIV2",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent real workspace. Its minimum is `16*N + 2*NROOT + 250` for `MINT=1`, `N*N + 10*N + 2*NROOT + 250` for `2`, or `N*N + 17*N + 2*NROOT + 250` for `3`.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent integer workspace, at least `50` elements for `MINT=1` or `N+50` for `MINT=2/3`.",
+          "source_section": "arguments"
         }
       ]
     },
@@ -1833,6 +1893,36 @@
     },
     {
       "coverage_status": "complete",
+      "routine": "SDRIV1",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent real workspace with at least `N*N + 11*N + 300` elements; do not disturb it between continuation calls.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
+      "routine": "SDRIV2",
+      "workspace_arguments": [
+        {
+          "argument": "WORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent real workspace. Its minimum is `16*N + 2*NROOT + 250` for `MINT=1`, `N*N + 10*N + 2*NROOT + 250` for `2`, or `N*N + 17*N + 2*NROOT + 250` for `3`.",
+          "source_section": "arguments"
+        },
+        {
+          "argument": "IWORK",
+          "coverage_status": "complete",
+          "description": "Mutable persistent integer workspace, at least `50` elements for `MINT=1` or `N+50` for `MINT=2/3`.",
+          "source_section": "arguments"
+        }
+      ]
+    },
+    {
+      "coverage_status": "complete",
       "routine": "SDRIV3",
       "workspace_arguments": [
         {
@@ -2624,7 +2714,7 @@
       ]
     }
   ],
-  "routines_with_workspace_contracts": 167,
+  "routines_with_workspace_contracts": 173,
   "schema_id": "slatec-rs.workspace-contract-coverage",
   "schema_version": "1.0.0"
 }

@@ -1089,19 +1089,19 @@
       "routine": "CDPST"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "CDRIV1"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "CDRIV2"
     },
     {
@@ -3705,19 +3705,19 @@
       "routine": "DDPST"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "DDRIV1"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "DDRIV2"
     },
     {
@@ -4825,11 +4825,11 @@
       "routine": "DPCOEF"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "DPFQAD"
     },
     {
@@ -9753,19 +9753,19 @@
       "routine": "SDPST"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "SDRIV1"
     },
     {
-      "expected_section": "secondary",
-      "final_disposition": "unsupported-callback-abi",
+      "expected_section": "public",
+      "final_disposition": "canonical-public",
       "historical_role": "user_callable",
       "reason": "final disposition governs rendering",
-      "rendered_section": "secondary",
+      "rendered_section": "public",
       "routine": "SDRIV2"
     },
     {

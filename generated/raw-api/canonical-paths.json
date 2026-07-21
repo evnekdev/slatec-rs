@@ -954,18 +954,18 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::cdriv1",
       "intended_canonical_rust_path": "slatec_sys::ode::cdriv1",
       "intended_module": "ode",
       "routine": "CDRIV1",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::cdriv2",
       "intended_canonical_rust_path": "slatec_sys::ode::cdriv2",
       "intended_module": "ode",
       "routine": "CDRIV2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -3243,18 +3243,18 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::ddriv1",
       "intended_canonical_rust_path": "slatec_sys::ode::ddriv1",
       "intended_module": "ode",
       "routine": "DDRIV1",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::ddriv2",
       "intended_canonical_rust_path": "slatec_sys::ode::ddriv2",
       "intended_module": "ode",
       "routine": "DDRIV2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::ode::ddriv3",
@@ -4223,11 +4223,11 @@
       "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::quadrature::dpfqad",
       "intended_canonical_rust_path": "slatec_sys::quadrature::dpfqad",
       "intended_module": "quadrature",
       "routine": "DPFQAD",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "not_promoted",
@@ -8535,18 +8535,18 @@
       "status": "planned"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::sdriv1",
       "intended_canonical_rust_path": "slatec_sys::ode::sdriv1",
       "intended_module": "ode",
       "routine": "SDRIV1",
-      "status": "planned"
+      "status": "implemented"
     },
     {
-      "canonical_rust_path": "not_promoted",
+      "canonical_rust_path": "slatec_sys::ode::sdriv2",
       "intended_canonical_rust_path": "slatec_sys::ode::sdriv2",
       "intended_module": "ode",
       "routine": "SDRIV2",
-      "status": "planned"
+      "status": "implemented"
     },
     {
       "canonical_rust_path": "slatec_sys::ode::sdriv3",

@@ -352,9 +352,9 @@ fn public_records(root: &Path) -> Result<Vec<PublicRecord>> {
         });
     }
     records.sort_by(|left, right| left.routine.cmp(&right.routine));
-    if records.len() != 814 {
+    if records.len() != 821 {
         return Err(policy(&format!(
-            "expected 814 public routines, found {}",
+            "expected 821 public routines, found {}",
             records.len()
         )));
     }

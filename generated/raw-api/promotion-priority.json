@@ -37,13 +37,13 @@
       "unresolved_callbacks": 18
     },
     {
-      "documentation_complete": 20,
+      "documentation_complete": 21,
       "generated_abi_validated": 27,
       "historically_user_callable": 43,
       "module": "quadrature",
-      "promotion_score": 371,
+      "promotion_score": 384,
       "safe_wrapper_audits": 22,
-      "unresolved_callbacks": 12
+      "unresolved_callbacks": 11
     },
     {
       "documentation_complete": 0,
@@ -109,6 +109,15 @@
       "unresolved_callbacks": 9
     },
     {
+      "documentation_complete": 8,
+      "generated_abi_validated": 84,
+      "historically_user_callable": 18,
+      "module": "ode",
+      "promotion_score": 204,
+      "safe_wrapper_audits": 2,
+      "unresolved_callbacks": 18
+    },
+    {
       "documentation_complete": 12,
       "generated_abi_validated": 12,
       "historically_user_callable": 12,
@@ -143,15 +152,6 @@
       "promotion_score": 186,
       "safe_wrapper_audits": 8,
       "unresolved_callbacks": 0
-    },
-    {
-      "documentation_complete": 2,
-      "generated_abi_validated": 84,
-      "historically_user_callable": 18,
-      "module": "ode",
-      "promotion_score": 156,
-      "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 18
     },
     {
       "documentation_complete": 0,

@@ -27,6 +27,7 @@ const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("QUADRATURE_OSCILLATORY", "quadrature-oscillatory"),
     ("QUADRATURE_FOURIER", "quadrature-fourier"),
     ("QUADRATURE_NONADAPTIVE", "quadrature-nonadaptive"),
+    ("QUADRATURE_CALLBACKS", "quadrature-callbacks"),
     ("ROOTS_SCALAR", "roots-scalar"),
     ("ROOTS_POLYNOMIAL", "roots-polynomial"),
     ("NONLINEAR_EASY", "nonlinear-easy"),

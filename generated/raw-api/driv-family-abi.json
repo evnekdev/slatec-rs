@@ -1,0 +1,88 @@
+{
+  "records": [
+    {
+      "abi_status": "validated complex32 argument callback through focused native integration",
+      "callback_count": 1,
+      "final_disposition": "canonical-public",
+      "native_symbol": "cdriv1_",
+      "reason": "The independent convenience-driver contract and complex derivative callback both have focused source, link, and runtime evidence.",
+      "routine": "CDRIV1",
+      "source_hash": "b105c8171d4242e8937fe583330902e0c1caacc230d6493fba4a40d87b2f7de5"
+    },
+    {
+      "abi_status": "validated complex32 derivative and real root-function callbacks through focused native integration",
+      "callback_count": 2,
+      "final_disposition": "canonical-public",
+      "native_symbol": "cdriv2_",
+      "reason": "The independent advanced-driver contract, complex callback layout, root callback, and workspace formula have focused evidence.",
+      "routine": "CDRIV2",
+      "source_hash": "f1b2a1455165c55fe9f83889c2b3b523b85f1cdeb48f909118200c9463b57cd8"
+    },
+    {
+      "abi_status": "unsupported advanced complex callback ABI",
+      "callback_count": 5,
+      "final_disposition": "unsupported-abi",
+      "native_symbol": "cdriv3_",
+      "reason": "The independent JACOBN, FA, and USERS complex callback contracts are not yet compiler- and runtime-probed on the supported profile; CDRIV1/2 do not require exposing them.",
+      "routine": "CDRIV3",
+      "source_hash": "0c491e51d01cdedba7ac4a98331241fcd17e8c874d1695c27b4cff4843bbaa38"
+    },
+    {
+      "abi_status": "validated real f64 derivative subroutine callback",
+      "callback_count": 1,
+      "final_disposition": "canonical-public",
+      "native_symbol": "ddriv1_",
+      "reason": "The wrapper has its own documented call contract and supplies default stiff-method controls to DDRIV3.",
+      "routine": "DDRIV1",
+      "source_hash": "f7c42396b073bef0635a50c99b2f5e55880947a4ad7fecc6b43514150f31afe3"
+    },
+    {
+      "abi_status": "validated real f64 derivative and root-function callbacks",
+      "callback_count": 2,
+      "final_disposition": "canonical-public",
+      "native_symbol": "ddriv2_",
+      "reason": "The source documents independent method, event, workspace, and continuation controls before forwarding to DDRIV3.",
+      "routine": "DDRIV2",
+      "source_hash": "00199a083c90d91414a7ad070f24d77a099cbf95795b2f9a9ffe9cca0aa7ee96"
+    },
+    {
+      "abi_status": "previously reviewed expert callback ABI",
+      "callback_count": 5,
+      "final_disposition": "canonical-public",
+      "native_symbol": "ddriv3_",
+      "reason": "Already public as the expert driver; this batch preserves its canonical path and provider closure.",
+      "routine": "DDRIV3",
+      "source_hash": "29d9a3f5ae0d2518be54444697425ced36e6faba624fa0b1bb0011fc4c1c174c"
+    },
+    {
+      "abi_status": "validated real f32 derivative subroutine callback",
+      "callback_count": 1,
+      "final_disposition": "canonical-public",
+      "native_symbol": "sdriv1_",
+      "reason": "The wrapper has its own documented call contract and supplies default stiff-method controls to SDRIV3.",
+      "routine": "SDRIV1",
+      "source_hash": "1e79cc1e53804d2becd073ba97a923c507fe793f5d2d4404c6edd6594bc442f3"
+    },
+    {
+      "abi_status": "validated real f32 derivative and root-function callbacks",
+      "callback_count": 2,
+      "final_disposition": "canonical-public",
+      "native_symbol": "sdriv2_",
+      "reason": "The source documents independent method, event, workspace, and continuation controls before forwarding to SDRIV3.",
+      "routine": "SDRIV2",
+      "source_hash": "cd0b421a85efe362b7c63b1f1d8e2c4ed1c49c828c7b286cafbf4421c861edd6"
+    },
+    {
+      "abi_status": "previously reviewed expert callback ABI",
+      "callback_count": 5,
+      "final_disposition": "canonical-public",
+      "native_symbol": "sdriv3_",
+      "reason": "Already public as the expert driver; this batch preserves its canonical path and provider closure.",
+      "routine": "SDRIV3",
+      "source_hash": "40335af85f302f1f16895f96e6753085861a3f65f9161f1d3aabb5240f21dc75"
+    }
+  ],
+  "schema_id": "slatec-sys.driv-family-abi",
+  "schema_version": "1.0.0",
+  "supported_abi_profile": "ffi-profile-gnu-mingw-x86_64"
+}

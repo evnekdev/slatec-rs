@@ -4,7 +4,7 @@
       "arguments": [
         {
           "direction": "read-only callback view",
-          "extent": "NEQ elements",
+          "extent": "NEQ elements supplied by externally managed problem state; NEQ is not a callback argument",
           "fortran_type": "DOUBLE PRECISION(*)",
           "name": "X"
         },
@@ -17,6 +17,7 @@
       ],
       "callback_name": "FNC",
       "callback_status": "reviewed_source_and_runtime_tested",
+      "context_abi": "no user-data or context pointer is present; stateful Rust use requires a future scoped context mechanism",
       "executable_call_evidence": "DSOSEQ: F = FNC(X,K); FP = FNC(X,K)",
       "fortran_kind": "scalar real function",
       "return_abi": "direct scalar return; no hidden result argument",
@@ -27,7 +28,7 @@
       "arguments": [
         {
           "direction": "read-only callback view",
-          "extent": "NEQ elements",
+          "extent": "NEQ elements supplied by externally managed problem state; NEQ is not a callback argument",
           "fortran_type": "REAL(*)",
           "name": "X"
         },
@@ -40,6 +41,7 @@
       ],
       "callback_name": "FNC",
       "callback_status": "reviewed_source_and_runtime_tested",
+      "context_abi": "no user-data or context pointer is present; stateful Rust use requires a future scoped context mechanism",
       "executable_call_evidence": "SOSEQS: F = FNC(X,K); FP = FNC(X,K)",
       "fortran_kind": "scalar real function",
       "return_abi": "direct scalar return; no hidden result argument",

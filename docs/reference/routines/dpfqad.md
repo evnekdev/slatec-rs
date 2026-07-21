@@ -8,7 +8,7 @@ Compute the integral on (X1,X2) of a product of a function F and the ID-th deriv
 
 ## Description
 
-Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). (X1,X2) is normally a subinterval of XI(1) .LE. X .LE. XI(LXI+1). An integration routine, DPPGQ8 (a modification of GAUS8), integrates the product on subintervals of (X1,X2) formed by the included break points. Integration outside of (XI(1),XI(LXI+1)) is permitted provided F is defined. The maximum number of significant digits obtainable in DBSQAD is the smaller of 18 and the number of digits carried in double precision arithmetic. Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. K C(I,J) - right Taylor derivatives at XI(J), I=1,K , J=1,LXI XI(*) - break point array of length LXI+1 LXI - number of polynomial pieces K - order of B-spline, K .GE. 1 ID - order of the spline derivative, 0 .LE. ID .LE. K-1 ID=0 gives the spline function X1,X2 - end points of quadrature interval, normally in XI(1) .LE. X .LE. XI(LXI+1) TOL - desired accuracy for the quadrature, suggest 10.*DTOL .LT. TOL .LE. 0.1 where DTOL is the maximum of 1.0D-18 and double precision unit roundoff for the machine = D1MACH(4) Output QUAD is double precision QUAD - integral of PF(X) on (X1,X2) IERR - a status code IERR=1 normal return 2 some quadrature does not meet the requested tolerance Error Conditions Improper input is a fatal error. Some quadrature does not meet the requested tolerance.
+Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). (X1,X2) is normally a sub- interval of XI(1) .LE. X .LE. XI(LXI+1). An integration routine, DPPGQ8 (a modification of GAUS8), integrates the product on subintervals of (X1,X2) formed by the included break points. Integration outside of (XI(1),XI(LXI+1)) is permitted provided F is defined. The maximum number of significant digits obtainable in DBSQAD is the smaller of 18 and the number of digits carried in double precision arithmetic.
 
 ## Classification
 
@@ -54,33 +54,52 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `support_unit_minimal`
-- Description provenance: `source_prologue`
-- Assessment: the support identity records its role, side-effect boundary, and non-public disposition
-- Dedicated family page: [Numerical quadrature](../families/numerical-quadrature.md)
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
+- Exact Netlib source: [DPFQAD](https://www.netlib.org/slatec/src/dpfqad.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `F` | callback | `DOUBLE PRECISION` (`explicit`) | `reviewed unsafe extern callback function pointer` | scalar | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LDC` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. | Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. Leading dimension: Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `C` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 2; dimensions (LDC, *) | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `XI` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LXI` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `K` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `ID` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X1` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `X2` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | Abstract **** a double precision routine **** DPFQAD computes the integral on (X1,X2) of a product of a function F and the ID-th derivative of a B-spline, using the PP-representation (C,XI,LXI,K). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `TOL` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. | Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. Leading dimension: Description of arguments Input F,C,XI,X1,X2,TOL are double precision F - external function of one argument for the integrand PF(X)=F(X)*DPPVAL(LDC,C,XI,LXI,K,ID,X, INPPV) LDC - leading dimension of matrix C, LDC .GE. Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `QUAD` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | 0.1 where DTOL is the maximum of 1.0D-18 and double precision unit roundoff for the machine = D1MACH(4) Output QUAD is double precision QUAD - integral of PF(X) on (X1,X2) IERR - a status code IERR=1 normal return 2 some quadrature does not meet the requested tolerance Error Conditions Improper input is a fatal error. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERR` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | 0.1 where DTOL is the maximum of 1.0D-18 and double precision unit roundoff for the machine = D1MACH(4) Output QUAD is double precision QUAD - integral of PF(X) on (X1,X2) IERR - a status code IERR=1 normal return 2 some quadrature does not meet the requested tolerance Error Conditions Improper input is a fatal error. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `F` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Required synchronous double-precision scalar integrand callback `F(X)`. It receives only a readable scalar pointer, returns directly, has no user-data pointer, must not retain the pointer, and must not unwind through Fortran. |
+| 2 | `LDC` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input leading dimension of the Fortran column-major coefficient matrix `C`; it must be at least `K`. |
+| 3 | `C` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 2; dimensions (LDC, *) | Readable column-major matrix of right Taylor derivatives, with at least `LDC * LXI` double-precision elements. |
+| 4 | `XI` | `input-output` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Readable breakpoint vector with at least `LXI + 1` elements; it defines the piecewise-polynomial intervals. |
+| 5 | `LXI` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input number of polynomial pieces; it must be positive. |
+| 6 | `K` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input B-spline order; it must be positive. |
+| 7 | `ID` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input derivative order, constrained to `0..K-1`; zero selects the spline itself. |
+| 8 | `X1` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input first integration endpoint. The routine reverses the sign when `X1 > X2`. |
+| 9 | `X2` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input second integration endpoint. |
+| 10 | `TOL` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input requested quadrature tolerance. The selected source requires it between the double-precision machine floor and `0.1`. |
+| 11 | `QUAD` | `output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Writable output integral of `F(X)` times the selected B-spline derivative. |
+| 12 | `IERR` | `output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Writable status: `1` means normal completion and `2` means some subinterval did not meet `TOL`. Invalid arguments enter the legacy error path. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
+
+### Return value
+
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
 ### Callback contract
 
-Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
+
+### Error and status values
+
+Improper input is a fatal error. Some quadrature does not meet the requested tolerance.
+
+### Storage and array requirements
+
+Array arguments use Fortran column-major storage and must satisfy their documented shape and leading-dimension relationships.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::quadrature::dpfqad`. Native symbol: `dpfqad_`. Declaration feature: `quadrature-callbacks`. Provider feature: `quadrature-callbacks`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -88,16 +107,16 @@ Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on 
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Public raw API status: `unsupported-abi`
+- Public raw API status: `canonical-public`
 - ABI validation: `pending`
-- Canonical Rust path: `not_promoted`
-- Public declaration feature: `raw-ffi-callbacks`
-- `all`-feature reachability: `not_enabled_by_all`
+- Canonical Rust path: `slatec_sys::quadrature::dpfqad`
+- Public declaration feature: `quadrature-callbacks`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `not_documented`
+- Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime validation: `not-recorded`
+- Link-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `callback ABI has compiler-shape evidence but no routine-specific callback contract`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

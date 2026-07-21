@@ -1,0 +1,25 @@
+{
+  "records": [
+    {
+      "abi_status": "not-applicable",
+      "callback_count": 0,
+      "final_disposition": "missing-symbol",
+      "native_symbol": null,
+      "reason": "The exact Netlib src/dfqad.f URL returns HTTP 404; no retained catalogue identity, selected provider, or native symbol exists.",
+      "routine": "DFQAD",
+      "source_hash": null
+    },
+    {
+      "abi_status": "validated scalar f64 callback; direct scalar return",
+      "callback_count": 1,
+      "final_disposition": "canonical-public",
+      "native_symbol": "dpfqad_",
+      "reason": "The source prologue and DPPGQ8 call site establish an independent integration contract and `FUN(X)` callback ABI.",
+      "routine": "DPFQAD",
+      "source_hash": "3dbf015a1070ed6bd3ca769e4868b658b372f7c509a356c21eb855bd3e7d4e17"
+    }
+  ],
+  "schema_id": "slatec-sys.dfqad-dpfqad-abi",
+  "schema_version": "1.0.0",
+  "supported_abi_profile": "ffi-profile-gnu-mingw-x86_64"
+}

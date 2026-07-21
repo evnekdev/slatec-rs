@@ -345,6 +345,20 @@ The deterministic sample contains three routines per family, every source-hash-g
 - Review result: `machine-semantic-audit-passed`
 - Arguments: `N` (input), `CB` (input), `CX` (input), `INCX` (input), `CY` (input), `INCY` (input)
 
+## `CDRIV1`
+
+- Canonical path: `slatec_sys::ode::cdriv1`
+- Family: `ODE solvers`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `N` (input), `T` (input), `Y` (input), `F` (callback), `TOUT` (output), `MSTATE` (input-output), `EPS` (input), `WORK` (workspace-output), `LENW` (input), `IERFLG` (input-output)
+
+## `CDRIV2`
+
+- Canonical path: `slatec_sys::ode::cdriv2`
+- Family: `ODE solvers`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `N` (input), `T` (input), `Y` (input), `F` (callback), `TOUT` (output), `MSTATE` (input-output), `NROOT` (input), `EPS` (input), `EWT` (input), `MINT` (input), `WORK` (workspace-output), `LENW` (input), `IWORK` (workspace-output), `LENIW` (input), `G` (callback), `IERFLG` (input-output)
+
 ## `CFFTB1`
 
 - Canonical path: `slatec_sys::fftpack::cfftb1`
@@ -1213,6 +1227,20 @@ The deterministic sample contains three routines per family, every source-hash-g
 - Review result: `machine-semantic-audit-passed`
 - Arguments: `DF` (callback), `NEQ` (input), `T` (input), `Y` (input-output), `TOUT` (input), `INFO` (input), `RTOL` (input), `ATOL` (input), `IDID` (input), `RWORK` (workspace-output), `LRW` (input-output), `IWORK` (workspace-output), `LIW` (input-output), `RPAR` (input), `IPAR` (input)
 
+## `DDRIV1`
+
+- Canonical path: `slatec_sys::ode::ddriv1`
+- Family: `ODE solvers`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `N` (input), `T` (input), `Y` (input), `F` (callback), `TOUT` (input-output), `MSTATE` (input-output), `EPS` (input), `WORK` (workspace-output), `LENW` (input), `IERFLG` (input-output)
+
+## `DDRIV2`
+
+- Canonical path: `slatec_sys::ode::ddriv2`
+- Family: `ODE solvers`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `N` (input), `T` (input), `Y` (input), `F` (callback), `TOUT` (input-output), `MSTATE` (input-output), `NROOT` (input), `EPS` (input), `EWT` (input), `MINT` (input), `WORK` (workspace-output), `LENW` (input), `IWORK` (workspace-output), `LENIW` (input), `G` (callback), `IERFLG` (input-output)
+
 ## `DDRIV3`
 
 - Canonical path: `slatec_sys::ode::ddriv3`
@@ -1569,6 +1597,13 @@ The deterministic sample contains three routines per family, every source-hash-g
 - Family: `Approximation`
 - Review result: `machine-semantic-audit-passed`
 - Arguments: `L` (input), `C` (input), `TC` (output), `A` (input)
+
+## `DPFQAD`
+
+- Canonical path: `slatec_sys::quadrature::dpfqad`
+- Family: `Numerical quadrature`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `F` (callback), `LDC` (input), `C` (input), `XI` (input-output), `LXI` (input), `K` (input), `ID` (input), `X1` (input), `X2` (input), `TOL` (input), `QUAD` (output), `IERR` (output)
 
 ## `DPOCH1`
 
@@ -3200,6 +3235,20 @@ The deterministic sample contains three routines per family, every source-hash-g
 - Family: `ODE solvers`
 - Review result: `machine-semantic-audit-passed`
 - Arguments: `RES` (callback), `NEQ` (input), `T` (input-output), `Y` (input-output), `YPRIME` (input-output), `TOUT` (input), `INFO` (input), `RTOL` (input-output), `ATOL` (input-output), `IDID` (output), `RWORK` (workspace-output), `LRW` (input), `IWORK` (workspace-output), `LIW` (input), `RPAR` (input), `IPAR` (input), `JAC` (callback)
+
+## `SDRIV1`
+
+- Canonical path: `slatec_sys::ode::sdriv1`
+- Family: `ODE solvers`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `N` (input), `T` (input), `Y` (input), `F` (callback), `TOUT` (input-output), `MSTATE` (input-output), `EPS` (input), `WORK` (workspace-output), `LENW` (input), `IERFLG` (input-output)
+
+## `SDRIV2`
+
+- Canonical path: `slatec_sys::ode::sdriv2`
+- Family: `ODE solvers`
+- Review result: `machine-semantic-audit-passed`
+- Arguments: `N` (input), `T` (input), `Y` (input), `F` (callback), `TOUT` (input-output), `MSTATE` (input-output), `NROOT` (input), `EPS` (input), `EWT` (input), `MINT` (input), `WORK` (workspace-output), `LENW` (input), `IWORK` (workspace-output), `LENIW` (input), `G` (callback), `IERFLG` (input-output)
 
 ## `SDRIV3`
 
