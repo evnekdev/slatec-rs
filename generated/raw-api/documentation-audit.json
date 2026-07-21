@@ -1,12 +1,12 @@
 {
-  "abi_profile_statements_present": 814,
-  "argument_docs_complete": 814,
+  "abi_profile_statements_present": 821,
+  "argument_docs_complete": 821,
   "batch_a_public_declarations": 459,
   "batch_b_public_declarations": 47,
   "batch_c_public_declarations": 97,
   "batch_d_public_declarations": 36,
   "missing": [],
-  "public_extern_declarations": 814,
+  "public_extern_declarations": 821,
   "review_queue": [
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -607,30 +607,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "CDPST"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CDRIV1"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "CDRIV2"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -2141,30 +2117,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "DDRIV1"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "DDRIV2"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DDSCL"
     },
@@ -2935,18 +2887,6 @@
       ],
       "raw_api_state": "generated_abi_validated",
       "routine": "DPCHSW"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "unsupported_callback_abi",
-      "routine": "DPFQAD"
     },
     {
       "declaration_status": "not_reviewed_by_raw_api_registry",
@@ -6737,30 +6677,6 @@
         "source_link",
         "abi_profile_statement"
       ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "SDRIV1"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
-      "raw_api_state": "source_present_unbound",
-      "routine": "SDRIV2"
-    },
-    {
-      "declaration_status": "not_reviewed_by_raw_api_registry",
-      "missing": [
-        "source_hash_requalification",
-        "argument_semantics",
-        "Safety",
-        "source_link",
-        "abi_profile_statement"
-      ],
       "raw_api_state": "generated_abi_validated",
       "routine": "SDSCL"
     },
@@ -8446,10 +8362,10 @@
     }
   ],
   "review_queue_policy": "Non-reviewed declarations remain queued rather than receiving inferred pointer semantics.",
-  "reviewed_public_declarations": 175,
-  "routine_docs_present": 814,
-  "safety_sections_present": 814,
+  "reviewed_public_declarations": 182,
+  "routine_docs_present": 821,
+  "safety_sections_present": 821,
   "schema_id": "slatec-sys.raw-api.documentation-audit",
   "schema_version": "1.0.0",
-  "source_links_present": 814
+  "source_links_present": 821
 }

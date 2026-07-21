@@ -8,7 +8,7 @@ The function of CDRIV1 is to solve N (200 or fewer) ordinary differential equati
 
 ## Description
 
-Version 92.1 I. CHOOSING THE CORRECT ROUTINE ................................... SDRIV DDRIV CDRIV These are the generic names for three packages for solving initial value problems for ordinary differential equations. SDRIV uses single precision arithmetic. DDRIV uses double precision arithmetic. CDRIV allows complex-valued differential equations, integrated with respect to a single, real, independent variable. As an aid in selecting the proper program, the following is a discussion of the important options or restrictions associated with each program: A. CDRIV1 should be tried first for those routine problems with no more than 200 differential equations (CDRIV2 and CDRIV3 have no such restriction.) Internally this routine has two important technical defaults: 1. Numerical approximation of the Jacobian matrix of the right hand side is used. 2. The stiff solver option is used. Most users of CDRIV1 should not have to concern themselves with these details. B. CDRIV2 should be considered for those problems for which CDRIV1 is inadequate. For example, CDRIV1 may have difficulty with problems having zero initial conditions and zero derivatives. In this case CDRIV2, with an appropriate value of the parameter EWT, should perform more efficiently. CDRIV2 provides three important additional options: 1. The nonstiff equation solver (as well as the stiff solver) is available. 2. The root-finding option is available. 3. The program can dynamically select either the non-stiff or the stiff methods. Internally this routine also defaults to the numerical approximation of the Jacobian matrix of the right hand side. C. CDRIV3 is the most flexible, and hence the most complex, of the programs. Its important additional features include: 1. The ability to exploit band structure in the Jacobian matrix. 2. The ability to solve some implicit differential equations, i.e., those having the form: A(Y,T)*dY/dT = F(Y,T). 3. The option of integrating in the one step mode. 4. The option of allowing the user to provide a routine which computes the analytic Jacobian matrix of the right hand side. 5. The option of allowing the user to provide a routine which does all the matrix algebra associated with corrections to the solution components. II. PARAMETERS .................................................... The user should use parameter names in the call sequence of CDRIV1 for those quantities whose value may be altered by CDRIV1. The parameters in the call sequence are: N = (Input) The number of differential equations, N .LE. 200 T = (Real) The independent variable. On input for the first call, T is the initial point. On output, T is the point at which the solution is given. Y = (Complex) The vector of dependent variables. Y is used as input on the first call, to set the initial values. On output, Y is the computed solution vector. This array Y is passed in the call sequence of the user-provided routine F. Thus parameters required by F can be stored in this array in components N+1 and above. (Note: Changes by the user to the first N components of this array will take effect only after a restart, i.e., after setting MSTATE to +1(-1).) F = A subroutine supplied by the user. The name must be declared EXTERNAL in the user's calling program. This subroutine is of the form: SUBROUTINE F (N, T, Y, YDOT) COMPLEX Y(*), YDOT(*) . . YDOT(1) = ... . . YDOT(N) = ...
+Version 92.1 I. CHOOSING THE CORRECT ROUTINE ................................... SDRIV DDRIV CDRIV These are the generic names for three packages for solving initial value problems for ordinary differential equations. SDRIV uses single precision arithmetic. DDRIV uses double precision arithmetic. CDRIV allows complex-valued differential equations, integrated with respect to a single, real, independent variable. As an aid in selecting the proper program, the following is a discussion of the important options or restrictions associated with each program: A. CDRIV1 should be tried first for those routine problems with no more than 200 differential equations (CDRIV2 and CDRIV3 have no such restriction.) Internally this routine has two important technical defaults: 1. Numerical approximation of the Jacobian matrix of the right hand side is used. 2. The stiff solver option is used. Most users of CDRIV1 should not have to concern themselves with these details. B. CDRIV2 should be considered for those problems for which CDRIV1 is inadequate. For example, CDRIV1 may have difficulty with problems having zero initial conditions and zero derivatives. In this case CDRIV2, with an appropriate value of the parameter EWT, should perform more efficiently. CDRIV2 provides three important additional options: 1. The nonstiff equation solver (as well as the stiff solver) is available. 2. The root-finding option is available. 3. The program can dynamically select either the non-stiff or the stiff methods. Internally this routine also defaults to the numerical approximation of the Jacobian matrix of the right hand side. C. CDRIV3 is the most flexible, and hence the most complex, of the programs. Its important additional features include: 1. The ability to exploit band structure in the Jacobian matrix. 2. The ability to solve some implicit differential equations, i.e., those having the form: A(Y,T)*dY/dT = F(Y,T). 3. The option of integrating in the one step mode. 4. The option of allowing the user to provide a routine which computes the analytic Jacobian matrix of the right 5. The option of allowing the user to provide a routine which does all the matrix algebra associated with corrections to the solution components.
 
 ## Classification
 
@@ -54,31 +54,46 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `support_unit_minimal`
-- Description provenance: `source_prologue`
-- Assessment: the support identity records its role, side-effect boundary, and non-public disposition
-- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
+- Exact Netlib source: [CDRIV1](https://www.netlib.org/slatec/src/cdriv1.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The parameters in the call sequence are: N = (Input) The number of differential equations, N .LE. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `T` | output | `REAL` (`explicit`) | `*mut f32` | scalar | The ability to solve some implicit differential equations, i.e., those having the form: A(Y,T)*dY/dT = F(Y,T). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `Y` | input | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | The ability to solve some implicit differential equations, i.e., those having the form: A(Y,T)*dY/dT = F(Y,T). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `F` | callback | `UNKNOWN` (`unknown`) | `reviewed unsafe extern callback function pointer` | scalar | The ability to solve some implicit differential equations, i.e., those having the form: A(Y,T)*dY/dT = F(Y,T). | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `TOUT` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MSTATE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | (Note: Changes by the user to the first N components of this array will take effect only after a restart, i.e., after setting MSTATE to +1(-1).) F = A subroutine supplied by the user. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `EPS` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LENW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERFLG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input equation count, constrained to `1..=200` by this convenience driver. |
+| 2 | `T` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Mutable real independent variable. |
+| 3 | `Y` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Mutable length-at-least-`N` `Complex32` solution vector in selected GNU Fortran complex layout. |
+| 4 | `F` | `callback` | `callback` | `UNKNOWN` | `reviewed unsafe extern callback function pointer` | scalar | Required synchronous complex RHS subroutine callback `F(N,T,Y,YDOT)`. `Y` is readable and `YDOT` writable for `N` complex values; it has no user-data pointer and must not unwind. |
+| 5 | `TOUT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Input real output point for the current integration call. |
+| 6 | `MSTATE` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input/output continuation state with the same source-documented completion and recovery protocol as SDRIV1. |
+| 7 | `EPS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input/output real relative accuracy request. |
+| 8 | `WORK` | `workspace-output` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Mutable persistent `Complex32` workspace with at least `N*N + 11*N + 300` elements. |
+| 9 | `LENW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input declared `WORK` length meeting the stated formula. |
+| 10 | `IERFLG` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input/output diagnostic status for the selected legacy driver. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
+
+### Return value
+
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
 ### Callback contract
 
-Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
+
+### Storage and workspace requirements
+
+`WORK`: Mutable persistent `Complex32` workspace with at least `N*N + 11*N + 300` elements.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::ode::cdriv1`. Native symbol: `cdriv1_`. Declaration feature: `ode-sdrive-expert`. Provider feature: `ode-sdrive-expert`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -86,16 +101,16 @@ Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on 
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Public raw API status: `historical-program`
+- Public raw API status: `canonical-public`
 - ABI validation: `pending`
-- Canonical Rust path: `not_promoted`
-- Public declaration feature: `not_assigned`
-- `all`-feature reachability: `not_enabled_by_all`
+- Canonical Rust path: `slatec_sys::ode::cdriv1`
+- Public declaration feature: `ode-sdrive-expert`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `not_documented`
+- Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime validation: `not-recorded`
+- Link-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

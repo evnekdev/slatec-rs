@@ -187,6 +187,9 @@ pub use crate::quadrature::callbacks::qk51;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::callbacks::qk61`."]
 #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/qk61.md"))]
 pub use crate::quadrature::callbacks::qk61;
+#[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dpfqad`."]
+#[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dpfqad.md"))]
+pub use crate::quadrature::dpfqad;
 #[doc = "Transitional ABI-shaped alias; use `crate::quadrature::dqag`."]
 #[doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/src/generated_docs/dqag.md"))]
 pub use crate::quadrature::dqag;

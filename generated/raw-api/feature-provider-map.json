@@ -955,15 +955,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "CDRIV1",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "CDRIV2",
       "safe_facade_feature": "not_assigned"
     },
@@ -3244,15 +3244,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "DDRIV1",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "DDRIV2",
       "safe_facade_feature": "not_assigned"
     },
@@ -4224,8 +4224,8 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "raw-ffi-callbacks",
+      "native_provider_feature": "quadrature-callbacks",
+      "raw_declaration_feature": "quadrature-callbacks",
       "routine": "DPFQAD",
       "safe_facade_feature": "not_assigned"
     },
@@ -8536,15 +8536,15 @@
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "SDRIV1",
       "safe_facade_feature": "not_assigned"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
-      "native_provider_feature": "not_assigned",
-      "raw_declaration_feature": "not_assigned",
+      "native_provider_feature": "ode-sdrive-expert",
+      "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "SDRIV2",
       "safe_facade_feature": "not_assigned"
     },

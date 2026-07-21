@@ -171,6 +171,14 @@ ode-sdrive-expert = [
     "slatec-src/ode-sdrive-expert",
 ]
 ode-sdrive-expert-native-tests = ["ode-sdrive-expert"]
+small-raw-candidate-native-tests = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/quadrature-callbacks",
+    "slatec-src/quadrature-callbacks",
+    "slatec-sys/raw-family-ode-sdrive-expert",
+    "slatec-src/ode-sdrive-expert",
+]
 dassl = [
     "std",
     "blas-level1-validation",

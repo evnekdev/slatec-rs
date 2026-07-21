@@ -54,37 +54,54 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `support_unit_minimal`
-- Description provenance: `source_prologue`
-- Assessment: the support identity records its role, side-effect boundary, and non-public disposition
-- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
+- Exact Netlib source: [DDRIV2](https://www.netlib.org/slatec/src/ddriv2.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The parameters in the call sequence are: N = (Input) The number of differential equations. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `T` | output | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | T = The independent variable. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `Y` | input | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | Y = The vector of dependent variables. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `F` | callback | `UNKNOWN` (`unknown`) | `reviewed unsafe extern callback function pointer` | scalar | This array Y is passed in the call sequence of the user-provided routines F and G. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `TOUT` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MSTATE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | (Note: Changes by the user to the first N components of this array will take effect only after a restart, i.e., after setting MSTATE to +1(-1).) F = A subroutine supplied by the user. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NROOT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `EPS` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `EWT` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MINT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `DOUBLE PRECISION` (`explicit`) | `*mut f64` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LENW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LENIW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `G` | callback | `DOUBLE PRECISION` (`explicit`) | `reviewed unsafe extern callback function pointer` | scalar | This array Y is passed in the call sequence of the user-provided routines F and G. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERFLG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input positive equation count; it remains fixed for a continuation problem. |
+| 2 | `T` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Mutable independent variable: initial point on the first call and returned solution/root point thereafter. |
+| 3 | `Y` | `input` | `array` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Mutable length-at-least-`N` solution vector shared with the RHS and optional root callbacks. |
+| 4 | `F` | `callback` | `callback` | `UNKNOWN` | `reviewed unsafe extern callback function pointer` | scalar | Required synchronous RHS subroutine callback `F(N,T,Y,YDOT)`. `Y` is readable, `YDOT` is writable for `N` elements, callback-local `N=0` requests a controlled stop, and the callback has no user-data pointer or unwind permission. |
+| 5 | `TOUT` | `input-output` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input requested output point for the current continuation call. |
+| 6 | `MSTATE` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input/output continuation state. Initialize to `+1` or `-1`; normal completion is `2`, root detection is `5`, controlled callback stops are `6`/`7`, and other documented states require recovery or continuation. |
+| 7 | `NROOT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input number of real root equations. Zero disables root search; otherwise `G` is invoked and the reported root index is stored in `IWORK(6)` using Fortran indexing. |
+| 8 | `EPS` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input/output relative accuracy request; the routine may raise a too-small value. |
+| 9 | `EWT` | `input` | `scalar` | `DOUBLE PRECISION` | `*mut f64` | scalar | Input error-weight scale used to form `max(abs(Y(I)), EWT)` for the selected error control. |
+| 10 | `MINT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input method selector: `1` Adams, `2` Gear, or `3` automatic selection. It must not change without restarting. |
+| 11 | `WORK` | `workspace-output` | `workspace` | `DOUBLE PRECISION` | `*mut f64` | rank 1; dimensions (*) | Mutable persistent real workspace. Its minimum is `16*N + 2*NROOT + 250` for `MINT=1`, `N*N + 10*N + 2*NROOT + 250` for `2`, or `N*N + 17*N + 2*NROOT + 250` for `3`. |
+| 12 | `LENW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input declared `WORK` length meeting the selected `MINT` formula. |
+| 13 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Mutable persistent integer workspace, at least `50` elements for `MINT=1` or `N+50` for `MINT=2/3`. |
+| 14 | `LENIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input declared `IWORK` length meeting the selected `MINT` formula. |
+| 15 | `G` | `callback` | `callback` | `DOUBLE PRECISION` | `reviewed unsafe extern callback function pointer` | scalar | Synchronous real root-function callback `G(N,T,Y,IROOT)`. It is used only when `NROOT` is nonzero, reads `Y[0..N]`, returns directly, may request a controlled stop through callback-local `N=0`, has no user-data pointer, and must not unwind. |
+| 16 | `IERFLG` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input/output diagnostic status corresponding to source-documented warnings and recoverable setup or continuation failures. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
+
+### Return value
+
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
 ### Callback contract
 
-Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
+
+### Storage and workspace requirements
+
+`WORK`: Mutable persistent real workspace. Its minimum is `16*N + 2*NROOT + 250` for `MINT=1`, `N*N + 10*N + 2*NROOT + 250` for `2`, or `N*N + 17*N + 2*NROOT + 250` for `3`.
+
+`IWORK`: Mutable persistent integer workspace, at least `50` elements for `MINT=1` or `N+50` for `MINT=2/3`.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::ode::ddriv2`. Native symbol: `ddriv2_`. Declaration feature: `ode-sdrive-expert`. Provider feature: `ode-sdrive-expert`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -92,16 +109,16 @@ Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on 
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Public raw API status: `historical-program`
+- Public raw API status: `canonical-public`
 - ABI validation: `pending`
-- Canonical Rust path: `not_promoted`
-- Public declaration feature: `not_assigned`
-- `all`-feature reachability: `not_enabled_by_all`
+- Canonical Rust path: `slatec_sys::ode::ddriv2`
+- Public declaration feature: `ode-sdrive-expert`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `not_documented`
+- Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime validation: `not-recorded`
+- Link-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

@@ -1,9 +1,9 @@
 # Final raw API disposition summary
 
 - Retained identities: 1517
-- Public raw identities before Batch D: 778
+- Public raw identities before Batch D: 785
 - New Batch D public declarations: 36
-- Public raw identities after Batch D: 814 (53.66% of retained identities)
+- Public raw identities after Batch D: 821 (54.12% of retained identities)
 - Provider subsidiaries: 530
 - Raw-internal identities: 79
 - Runtime/error/machine support: 2/17/5
@@ -11,7 +11,7 @@
 - Demonstration programs: 2
 - Catalogue-only identities: 26
 - Missing provider/symbol identities: 0/13
-- Unsupported character/callback/complex interfaces: 0/28/0
+- Unsupported character/callback/complex interfaces: 0/21/0
 - Unsupported ENTRY/alternate-return/COMMON/Fortran-I/O interfaces: 0/0/0/0
 - Unsupported compiler-specific interfaces: 0
 - Other permanent exclusions: 1

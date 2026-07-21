@@ -45,17 +45,25 @@ pub type NonlinearJacF32 = unsafe extern "C" fn(
 
 /// GNU Fortran scalar equation callback used by the reviewed `SOS` driver.
 ///
-/// `X` points to a readable length-`NEQ` iterate and `K` points to a
-/// one-based equation index in `1..=NEQ`. The callback returns equation `K`
-/// as a single-precision scalar and must not mutate or retain either pointer.
+/// The native callback receives only `X` and `K`; `NEQ` is not forwarded.
+/// `X` points to a readable iterate whose extent must be known from externally
+/// managed problem state, and `K` points to a one-based equation index in
+/// `1..=NEQ`. The raw ABI has no user-data/context pointer, so a stateful Rust
+/// wrapper requires a separate scoped context mechanism. The callback returns
+/// equation `K` as a single-precision scalar and must not mutate or retain
+/// either pointer.
 #[cfg(feature = "raw-family-nonlinear-systems")]
 pub type SosEquationF32 = unsafe extern "C" fn(*const f32, *const FortranInteger) -> f32;
 
 /// GNU Fortran scalar equation callback used by the reviewed `DSOS` driver.
 ///
-/// `X` points to a readable length-`NEQ` iterate and `K` points to a
-/// one-based equation index in `1..=NEQ`. The callback returns equation `K`
-/// as a double-precision scalar and must not mutate or retain either pointer.
+/// The native callback receives only `X` and `K`; `NEQ` is not forwarded.
+/// `X` points to a readable iterate whose extent must be known from externally
+/// managed problem state, and `K` points to a one-based equation index in
+/// `1..=NEQ`. The raw ABI has no user-data/context pointer, so a stateful Rust
+/// wrapper requires a separate scoped context mechanism. The callback returns
+/// equation `K` as a double-precision scalar and must not mutate or retain
+/// either pointer.
 #[cfg(feature = "raw-family-nonlinear-systems")]
 pub type SosEquationF64 = unsafe extern "C" fn(*const f64, *const FortranInteger) -> f64;
 

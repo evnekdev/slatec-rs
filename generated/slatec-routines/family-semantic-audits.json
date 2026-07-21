@@ -177,19 +177,19 @@
       "taxonomy_problems": "module is a shared diagnostic rather than a solver namespace"
     },
     {
-      "argument_documentation_coverage": 7,
-      "canonical_path_count": 7,
-      "canonical_public_count": 7,
-      "description_coverage": 7,
+      "argument_documentation_coverage": 13,
+      "canonical_path_count": 13,
+      "canonical_public_count": 13,
+      "description_coverage": 13,
       "duplicate_identity_count": 0,
-      "exact_netlib_link_coverage": 7,
+      "exact_netlib_link_coverage": 13,
       "meaningful_child_modules": "ode",
       "meaningful_sibling_modules": "derived from canonical taxonomy",
       "module": "ode",
       "recommended_canonical_structure": "ode",
-      "routine_count": 7,
+      "routine_count": 13,
       "secondary_count": 0,
-      "semantic_contract_ready_for_rendered_audit": 7,
+      "semantic_contract_ready_for_rendered_audit": 13,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
@@ -241,19 +241,19 @@
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {
-      "argument_documentation_coverage": 60,
-      "canonical_path_count": 60,
-      "canonical_public_count": 60,
-      "description_coverage": 60,
+      "argument_documentation_coverage": 61,
+      "canonical_path_count": 61,
+      "canonical_public_count": 61,
+      "description_coverage": 61,
       "duplicate_identity_count": 0,
-      "exact_netlib_link_coverage": 60,
+      "exact_netlib_link_coverage": 61,
       "meaningful_child_modules": "quadrature",
       "meaningful_sibling_modules": "derived from canonical taxonomy",
       "module": "quadrature",
       "recommended_canonical_structure": "quadrature",
-      "routine_count": 60,
+      "routine_count": 61,
       "secondary_count": 0,
-      "semantic_contract_ready_for_rendered_audit": 60,
+      "semantic_contract_ready_for_rendered_audit": 61,
       "taxonomy_problems": "none detected by canonical-path audit"
     },
     {

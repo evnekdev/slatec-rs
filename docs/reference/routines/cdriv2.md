@@ -54,37 +54,54 @@ Description selected from `canonical_source_prologue` using `PURPOSE`; confidenc
 <!-- release-readiness:start -->
 ## Interface documentation quality
 
-- Evidence level: `support_unit_minimal`
-- Description provenance: `source_prologue`
-- Assessment: the support identity records its role, side-effect boundary, and non-public disposition
-- Dedicated family page: [ODE solvers](../families/ode-solvers.md)
+- Documentation work status: `complete-semantic-contract`
+- Documentation evidence: bounded selected-source prologue evidence plus source-hash-guarded authored corrections
+- Exact Netlib source: [CDRIV2](https://www.netlib.org/slatec/src/cdriv2.f)
 
 ### Arguments
 
-| Argument | Direction | Fortran type | Rust raw type | Shape | Description | Relationships and requirements | Nullable |
+| # | Argument | Direction | Role | Fortran type | Rust raw type | Shape | Contract |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `N` | input | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | The parameters in the call sequence are: N = (Input) The number of differential equations. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `T` | output | `REAL` (`explicit`) | `*mut f32` | scalar | T = (Real) The independent variable. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `Y` | input | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | Y = (Complex) The vector of dependent variables. | none stated in the separable source sentence Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `F` | callback | `UNKNOWN` (`unknown`) | `reviewed unsafe extern callback function pointer` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `TOUT` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MSTATE` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `NROOT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `EPS` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `EWT` | unavailable | `REAL` (`explicit`) | `*mut f32` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `MINT` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `WORK` | unavailable | `COMPLEX` (`explicit`) | `*mut crate::Complex32` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LENW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IWORK` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | rank 1; dimensions (*) | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `LENIW` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `G` | callback | `REAL` (`explicit`) | `reviewed unsafe extern callback function pointer` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
-| `IERFLG` | unavailable | `INTEGER` (`explicit`) | `*mut crate::FortranInteger` | scalar | No separable argument description was found in the selected source prologue. | unavailable Leading dimension: not established Workspace: not established | required; null is not permitted for an ordinary Fortran actual argument |
+| 1 | `N` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input positive equation count. |
+| 2 | `T` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Mutable real independent variable. |
+| 3 | `Y` | `input` | `array` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Mutable length-at-least-`N` `Complex32` solution vector shared with callbacks. |
+| 4 | `F` | `callback` | `callback` | `UNKNOWN` | `reviewed unsafe extern callback function pointer` | scalar | Required synchronous complex RHS subroutine callback `F(N,T,Y,YDOT)`. It has no user-data pointer and must not unwind. |
+| 5 | `TOUT` | `output` | `scalar` | `REAL` | `*mut f32` | scalar | Input real output point for the current continuation call. |
+| 6 | `MSTATE` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input/output continuation state; root and controlled-stop values follow the selected CDRIV2 prologue. |
+| 7 | `NROOT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input count of real root equations; zero disables `G` and otherwise records a one-based root index in `IWORK(6)`. |
+| 8 | `EPS` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input/output real relative accuracy request. |
+| 9 | `EWT` | `input` | `scalar` | `REAL` | `*mut f32` | scalar | Input real error-weight scale used for complex solution error control. |
+| 10 | `MINT` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input Adams (`1`), Gear (`2`), or automatic (`3`) method selector; restart before changing it. |
+| 11 | `WORK` | `workspace-output` | `workspace` | `COMPLEX` | `*mut crate::Complex32` | rank 1; dimensions (*) | Mutable persistent `Complex32` workspace. Its minimum is `16*N + 2*NROOT + 250`, `N*N + 10*N + 2*NROOT + 250`, or `N*N + 17*N + 2*NROOT + 250` for `MINT=1`, `2`, or `3` respectively. |
+| 12 | `LENW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input declared complex workspace length. |
+| 13 | `IWORK` | `workspace-output` | `workspace` | `INTEGER` | `*mut crate::FortranInteger` | rank 1; dimensions (*) | Mutable persistent integer workspace with at least `50` elements for `MINT=1` or `N+50` otherwise. |
+| 14 | `LENIW` | `input` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input declared integer workspace length. |
+| 15 | `G` | `callback` | `callback` | `REAL` | `reviewed unsafe extern callback function pointer` | scalar | Optional synchronous real root-function callback `G(N,T,Y,IROOT)` over the complex solution vector. It is used only when `NROOT` is nonzero, returns an `f32` directly, has no user-data pointer, and must not unwind. |
+| 16 | `IERFLG` | `input-output` | `scalar` | `INTEGER` | `*mut crate::FortranInteger` | scalar | Input/output diagnostic status for warnings and recoverable failures. |
 
-The table reports compiler/interface facts separately from source-prologue semantics. Unknown intent, aliasing, workspace, leading-dimension, and retention rules remain explicit; parameter names alone are never treated as semantic evidence. Native code does not retain ordinary argument pointers unless a reviewed declaration explicitly says otherwise.
+The authoritative public-documentation inventory records argument evidence ranges, nullability, shapes, relationships, leading dimensions, option values, and overwrite behavior. Native code does not retain ordinary argument pointers.
+
+### Return value
+
+This is a Fortran subroutine and has no direct return value; outputs are documented in its argument contract.
 
 ### Callback contract
 
-Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on the canonical declaration. Callback pointers are required, must remain valid for the complete native call, must satisfy the documented mutation contract, and must never unwind into Fortran.
+Callback arguments must use the exact reviewed callback ABI, remain valid for the entire native call, satisfy their documented storage contract, and never unwind through Fortran.
+
+### Storage and workspace requirements
+
+`WORK`: Mutable persistent `Complex32` workspace. Its minimum is `16*N + 2*NROOT + 250`, `N*N + 10*N + 2*NROOT + 250`, or `N*N + 17*N + 2*NROOT + 250` for `MINT=1`, `2`, or `3` respectively.
+
+`IWORK`: Mutable persistent integer workspace with at least `50` elements for `MINT=1` or `N+50` otherwise.
+
+### Provider, ABI, and safety
+
+Canonical Rust path: `slatec_sys::ode::cdriv2`. Native symbol: `cdriv2_`. Declaration feature: `ode-sdrive-expert`. Provider feature: `ode-sdrive-expert`. ABI fingerprint: `unavailable`.
+
+# Safety
+
+Every pointer must be non-null unless its argument record explicitly permits null, correctly aligned, and valid for its documented readable or writable extent. Callers must preserve Fortran column-major layout, dimensions, leading dimensions, workspace capacity, callback lifetime, and the selected provider's runtime serialization requirements. Mutable arguments may not alias in a way the native routine does not permit.
 <!-- release-readiness:end -->
 
 <!-- raw-api-status:start -->
@@ -92,16 +109,16 @@ Procedure arguments use the exact reviewed `unsafe extern "C"` callback type on 
 
 This generated status is evidence only; see the [authoritative inventory](../../../generated/raw-api/routine-status.json).
 
-- Public raw API status: `historical-program`
+- Public raw API status: `canonical-public`
 - ABI validation: `pending`
-- Canonical Rust path: `not_promoted`
-- Public declaration feature: `not_assigned`
-- `all`-feature reachability: `not_enabled_by_all`
+- Canonical Rust path: `slatec_sys::ode::cdriv2`
+- Public declaration feature: `ode-sdrive-expert`
+- `all`-feature reachability: `transitively_enabled_by_all`
 - Provider-backed callable symbol: `yes` (`observed_exactly_once`)
-- Documentation status: `not_documented`
+- Documentation status: `complete_authored`
 - Compile-test status: `compiler_observed`
-- Link-test status: `not_tested`
-- Runtime validation: `not-recorded`
+- Link-test status: `passed`
+- Runtime validation: `passed`
 - Safe-wrapper status: `not_safely_wrapped`
-- Exclusion or deferment reason: `source exists but no reviewed or ABI-validated public declaration is recorded`
+- Exclusion or deferment reason: `none`
 <!-- raw-api-status:end -->

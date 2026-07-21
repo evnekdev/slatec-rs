@@ -1,8 +1,8 @@
 {
   "family_pages": 20,
-  "public_routines": 814,
+  "public_routines": 821,
   "retained_identities": 1517,
   "schema_id": "slatec-rs.family-page-summary",
   "schema_version": "1.0.0",
-  "secondary_identities": 703
+  "secondary_identities": 696
 }

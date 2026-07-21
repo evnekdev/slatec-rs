@@ -849,24 +849,23 @@
       "unresolved_externals": []
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "Numerical quadrature",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "quadrature role reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/dpfqad.f",
       "provider_symbol": "dpfqad_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "Numerical quadrature",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "quadrature",
       "routine": "DPFQAD",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "artifact verification failed: DPFQAD callback F has no direct or forwarded call evidence",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
@@ -909,45 +908,43 @@
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "ODE solvers",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "ODE driver callback-contract reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/cdriv1.f",
       "provider_symbol": "cdriv1_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "ODE solvers",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "ode",
       "routine": "CDRIV1",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "interface was not withheld for callback review",
-        "callback-bearing combination lacks a promoted Batch B callback model"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "ODE solvers",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "ODE driver callback-contract reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/cdriv2.f",
       "provider_symbol": "cdriv2_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "ODE solvers",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "ode",
       "routine": "CDRIV2",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "interface was not withheld for callback review",
-        "callback-bearing combination lacks a promoted Batch B callback model"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
@@ -975,45 +972,43 @@
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "ODE solvers",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "ODE driver callback-contract reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/ddriv1.f",
       "provider_symbol": "ddriv1_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "ODE solvers",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "ode",
       "routine": "DDRIV1",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "interface was not withheld for callback review",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "ODE solvers",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "ODE driver callback-contract reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/ddriv2.f",
       "provider_symbol": "ddriv2_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "ODE solvers",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "ode",
       "routine": "DDRIV2",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "interface was not withheld for callback review",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
@@ -1043,45 +1038,43 @@
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "ODE solvers",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "ODE driver callback-contract reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/sdriv1.f",
       "provider_symbol": "sdriv1_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "ODE solvers",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "ode",
       "routine": "SDRIV1",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "interface was not withheld for callback review",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {
-      "abi_status": "not_reviewed",
+      "abi_status": "reviewed_against_source_hash",
       "call_graph_role": "no direct selected-source callers observed",
-      "current_disposition": "unsupported-callback-abi",
+      "current_disposition": "canonical-public",
       "current_family": "ODE solvers",
-      "decision": "retain_evidence_backed_terminal_disposition",
+      "decision": "retain_canonical_public",
       "direct_callers": [],
-      "evidence": "final-disposition evidence remains controlling; M2 found no new complete public-call contract",
+      "evidence": "verified source, provider symbol, unique declaration ownership, and completed public documentation",
       "manual_review_request": "ODE driver callback-contract reassessment",
       "netlib_source_url": "https://www.netlib.org/slatec/src/sdriv2.f",
       "provider_symbol": "sdriv2_",
-      "recommended_disposition": "unsupported-callback-abi",
-      "recommended_family": "ODE solvers",
+      "recommended_disposition": "canonical-public",
+      "recommended_family": "ode",
       "routine": "SDRIV2",
       "source_declared_role": "subroutine",
       "toc_role": "user_callable",
       "unresolved_externals": [
-        "interface was not withheld for callback review",
-        "routine has no complex, CHARACTER, or LOGICAL ABI component"
+        "preserved prior reviewed_public_driver disposition"
       ]
     },
     {

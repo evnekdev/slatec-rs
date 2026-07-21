@@ -803,6 +803,24 @@
       "selected_direction": "input-output"
     },
     {
+      "argument": "TOUT",
+      "conflict": "selected source says `output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "CDRIV1",
+      "selected_direction": "output"
+    },
+    {
+      "argument": "TOUT",
+      "conflict": "selected source says `output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "CDRIV2",
+      "selected_direction": "output"
+    },
+    {
       "argument": "IFAC",
       "conflict": "selected source says `output` while executable dataflow is `input-output`; selected source direction is retained",
       "direction_evidence": "selected_source_explicit_direction",
@@ -3922,6 +3940,24 @@
       "direction_evidence": "selected_source_explicit_direction",
       "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
       "resolved": true,
+      "routine": "DDRIV1",
+      "selected_direction": "input-output"
+    },
+    {
+      "argument": "TOUT",
+      "conflict": "selected source says `input-output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "DDRIV2",
+      "selected_direction": "input-output"
+    },
+    {
+      "argument": "TOUT",
+      "conflict": "selected source says `input-output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
       "routine": "DDRIV3",
       "selected_direction": "input-output"
     },
@@ -5571,6 +5607,15 @@
       "resolved": true,
       "routine": "DPCOEF",
       "selected_direction": "output"
+    },
+    {
+      "argument": "XI",
+      "conflict": "selected source says `input-output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "DPFQAD",
+      "selected_direction": "input-output"
     },
     {
       "argument": "X",
@@ -14102,6 +14147,24 @@
       "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
       "resolved": true,
       "routine": "SDASSL",
+      "selected_direction": "input-output"
+    },
+    {
+      "argument": "TOUT",
+      "conflict": "selected source says `input-output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "SDRIV1",
+      "selected_direction": "input-output"
+    },
+    {
+      "argument": "TOUT",
+      "conflict": "selected source says `input-output` while executable dataflow is `input`; selected source direction is retained",
+      "direction_evidence": "selected_source_explicit_direction",
+      "resolution": "selected-source direction retained; executable dataflow is recorded as lower-precedence evidence",
+      "resolved": true,
+      "routine": "SDRIV2",
       "selected_direction": "input-output"
     },
     {

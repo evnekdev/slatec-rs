@@ -1786,6 +1786,8 @@ fn reviewed_source(sys_dir: &Path, routine: &str) -> Result<String> {
     let file = match routine {
         "FZERO" | "DFZERO" => "src/roots.rs",
         "SOS" | "DSOS" => "src/nonlinear.rs",
+        "DPFQAD" => "src/quadrature.rs",
+        "SDRIV1" | "DDRIV1" | "SDRIV2" | "DDRIV2" | "CDRIV1" | "CDRIV2" => "src/ode.rs",
         "HWSCRT" => "src/fishpack_cartesian_2d.rs",
         "POIS3D" => "src/fishpack_pois3d.rs",
         _ => {

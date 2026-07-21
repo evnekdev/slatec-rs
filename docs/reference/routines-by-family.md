@@ -16,8 +16,8 @@ This branching overview covers the complete retained catalogue. Each dedicated f
 | [Interpolation](families/interpolation.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 26 | 31 |
 | [Linear algebra kernels](families/linear-algebra-kernels.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 124 | 167 |
 | [Nonlinear equations](families/nonlinear-equations.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 14 | 31 |
-| [Numerical quadrature](families/numerical-quadrature.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 60 | 89 |
-| [ODE solvers](families/ode-solvers.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 9 | 132 |
+| [Numerical quadrature](families/numerical-quadrature.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 61 | 89 |
+| [ODE solvers](families/ode-solvers.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 15 | 132 |
 | [Optimization and least squares](families/optimization-and-least-squares.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 2 | 57 |
 | [PCHIP](families/pchip.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 22 | 41 |
 | [Probability and statistics](families/probability-and-statistics.md) | Retained routines classified by the authoritative catalogue under this mathematical family. | 5 | 5 |

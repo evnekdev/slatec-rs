@@ -173,6 +173,90 @@
         "IW": { "description": "Mutable integer workspace of at least `3 + NEQ` elements. With input `IFLAG=-1`, `IW(1)=-1` requests iteration output and `IW(2)` supplies a positive iteration limit; `IW(3)` receives the iteration count." },
         "LIW": { "description": "Input declared length of `IW`; it must be at least `3 + NEQ`." }
       }
+    },
+    "dpfqad-v1": {
+      "arguments": {
+        "F": { "description": "Required synchronous double-precision scalar integrand callback `F(X)`. It receives only a readable scalar pointer, returns directly, has no user-data pointer, must not retain the pointer, and must not unwind through Fortran." },
+        "LDC": { "description": "Input leading dimension of the Fortran column-major coefficient matrix `C`; it must be at least `K`." },
+        "C": { "description": "Readable column-major matrix of right Taylor derivatives, with at least `LDC * LXI` double-precision elements." },
+        "XI": { "description": "Readable breakpoint vector with at least `LXI + 1` elements; it defines the piecewise-polynomial intervals." },
+        "LXI": { "description": "Input number of polynomial pieces; it must be positive." },
+        "K": { "description": "Input B-spline order; it must be positive." },
+        "ID": { "description": "Input derivative order, constrained to `0..K-1`; zero selects the spline itself." },
+        "X1": { "description": "Input first integration endpoint. The routine reverses the sign when `X1 > X2`." },
+        "X2": { "description": "Input second integration endpoint." },
+        "TOL": { "description": "Input requested quadrature tolerance. The selected source requires it between the double-precision machine floor and `0.1`." },
+        "QUAD": { "description": "Writable output integral of `F(X)` times the selected B-spline derivative." },
+        "IERR": { "description": "Writable status: `1` means normal completion and `2` means some subinterval did not meet `TOL`. Invalid arguments enter the legacy error path." }
+      }
+    },
+    "sdrive1-v1": {
+      "arguments": {
+        "N": { "description": "Input equation count. The convenience driver requires `1 <= N <= 200`; callback-local changes to its own `N` do not change this argument." },
+        "T": { "description": "Mutable independent variable: initial point on the first call and returned solution point thereafter." },
+        "Y": { "description": "Mutable length-at-least-`N` solution vector. It supplies initial data and is overwritten; it also provides the RHS callback's live solution view." },
+        "F": { "description": "Required synchronous RHS subroutine callback `F(N,T,Y,YDOT)`. `Y` is readable and `YDOT` is writable for `N` elements; setting callback-local `N` to zero requests a controlled stop. It has no user-data pointer and must not unwind." },
+        "TOUT": { "description": "Input requested output point. The sign of `MSTATE` chooses interpolation past it or an exact step to it." },
+        "MSTATE": { "description": "Input/output continuation state. Initialize to `+1` or `-1`; then preserve its magnitude except to restart. Outputs `2` for normal completion, `3..7` for documented warning, abort, interpolation, or recoverable states." },
+        "EPS": { "description": "Input/output relative accuracy request. The routine may raise an overambitious value before continuation." },
+        "WORK": { "description": "Mutable persistent real workspace with at least `N*N + 11*N + 300` elements; do not disturb it between continuation calls." },
+        "LENW": { "description": "Input declared `WORK` length; it must meet the stated formula." },
+        "IERFLG": { "description": "Input/output diagnostic status. Zero is normal; the selected prologue documents warnings and recoverable setup or continuation errors." }
+      }
+    },
+    "sdrive2-v1": {
+      "arguments": {
+        "N": { "description": "Input positive equation count; it remains fixed for a continuation problem." },
+        "T": { "description": "Mutable independent variable: initial point on the first call and returned solution/root point thereafter." },
+        "Y": { "description": "Mutable length-at-least-`N` solution vector shared with the RHS and optional root callbacks." },
+        "F": { "description": "Required synchronous RHS subroutine callback `F(N,T,Y,YDOT)`. `Y` is readable, `YDOT` is writable for `N` elements, callback-local `N=0` requests a controlled stop, and the callback has no user-data pointer or unwind permission." },
+        "TOUT": { "description": "Input requested output point for the current continuation call." },
+        "MSTATE": { "description": "Input/output continuation state. Initialize to `+1` or `-1`; normal completion is `2`, root detection is `5`, controlled callback stops are `6`/`7`, and other documented states require recovery or continuation." },
+        "NROOT": { "description": "Input number of real root equations. Zero disables root search; otherwise `G` is invoked and the reported root index is stored in `IWORK(6)` using Fortran indexing." },
+        "EPS": { "description": "Input/output relative accuracy request; the routine may raise a too-small value." },
+        "EWT": { "description": "Input error-weight scale used to form `max(abs(Y(I)), EWT)` for the selected error control." },
+        "MINT": { "description": "Input method selector: `1` Adams, `2` Gear, or `3` automatic selection. It must not change without restarting." },
+        "WORK": { "description": "Mutable persistent real workspace. Its minimum is `16*N + 2*NROOT + 250` for `MINT=1`, `N*N + 10*N + 2*NROOT + 250` for `2`, or `N*N + 17*N + 2*NROOT + 250` for `3`." },
+        "LENW": { "description": "Input declared `WORK` length meeting the selected `MINT` formula." },
+        "IWORK": { "description": "Mutable persistent integer workspace, at least `50` elements for `MINT=1` or `N+50` for `MINT=2/3`." },
+        "LENIW": { "description": "Input declared `IWORK` length meeting the selected `MINT` formula." },
+        "G": { "description": "Synchronous real root-function callback `G(N,T,Y,IROOT)`. It is used only when `NROOT` is nonzero, reads `Y[0..N]`, returns directly, may request a controlled stop through callback-local `N=0`, has no user-data pointer, and must not unwind." },
+        "IERFLG": { "description": "Input/output diagnostic status corresponding to source-documented warnings and recoverable setup or continuation failures." }
+      }
+    },
+    "cdrive1-v1": {
+      "arguments": {
+        "N": { "description": "Input equation count, constrained to `1..=200` by this convenience driver." },
+        "T": { "description": "Mutable real independent variable." },
+        "Y": { "description": "Mutable length-at-least-`N` `Complex32` solution vector in selected GNU Fortran complex layout." },
+        "F": { "description": "Required synchronous complex RHS subroutine callback `F(N,T,Y,YDOT)`. `Y` is readable and `YDOT` writable for `N` complex values; it has no user-data pointer and must not unwind." },
+        "TOUT": { "description": "Input real output point for the current integration call." },
+        "MSTATE": { "description": "Input/output continuation state with the same source-documented completion and recovery protocol as SDRIV1." },
+        "EPS": { "description": "Input/output real relative accuracy request." },
+        "WORK": { "description": "Mutable persistent `Complex32` workspace with at least `N*N + 11*N + 300` elements." },
+        "LENW": { "description": "Input declared `WORK` length meeting the stated formula." },
+        "IERFLG": { "description": "Input/output diagnostic status for the selected legacy driver." }
+      }
+    },
+    "cdrive2-v1": {
+      "arguments": {
+        "N": { "description": "Input positive equation count." },
+        "T": { "description": "Mutable real independent variable." },
+        "Y": { "description": "Mutable length-at-least-`N` `Complex32` solution vector shared with callbacks." },
+        "F": { "description": "Required synchronous complex RHS subroutine callback `F(N,T,Y,YDOT)`. It has no user-data pointer and must not unwind." },
+        "TOUT": { "description": "Input real output point for the current continuation call." },
+        "MSTATE": { "description": "Input/output continuation state; root and controlled-stop values follow the selected CDRIV2 prologue." },
+        "NROOT": { "description": "Input count of real root equations; zero disables `G` and otherwise records a one-based root index in `IWORK(6)`." },
+        "EPS": { "description": "Input/output real relative accuracy request." },
+        "EWT": { "description": "Input real error-weight scale used for complex solution error control." },
+        "MINT": { "description": "Input Adams (`1`), Gear (`2`), or automatic (`3`) method selector; restart before changing it." },
+        "WORK": { "description": "Mutable persistent `Complex32` workspace. Its minimum is `16*N + 2*NROOT + 250`, `N*N + 10*N + 2*NROOT + 250`, or `N*N + 17*N + 2*NROOT + 250` for `MINT=1`, `2`, or `3` respectively." },
+        "LENW": { "description": "Input declared complex workspace length." },
+        "IWORK": { "description": "Mutable persistent integer workspace with at least `50` elements for `MINT=1` or `N+50` otherwise." },
+        "LENIW": { "description": "Input declared integer workspace length." },
+        "G": { "description": "Optional synchronous real root-function callback `G(N,T,Y,IROOT)` over the complex solution vector. It is used only when `NROOT` is nonzero, returns an `f32` directly, has no user-data pointer, and must not unwind." },
+        "IERFLG": { "description": "Input/output diagnostic status for warnings and recoverable failures." }
+      }
     }
   },
   "records": [
@@ -223,6 +307,13 @@
     { "routine": "DLGAMS", "expected_source_hash": "beca401c91fed89b6d8b3588aa370c5b773daa57f6f2b639c2b1dfdfd50edaa7", "documentation_profile": "log-gamma-sign-v1", "reason": "The selected source documents the result at routine scope rather than as individual argument rows.", "evidence_lines": "DLGAMS selected source prologue lines 14-17", "reviewer_note": "M3 semantic review: DLGAM receives log(abs(gamma(X))) and SGNGAM follows the selected sign computation." },
     { "routine": "RATQR", "expected_source_hash": "afcbf7a5039c06c88a1a30784b7e5244af0c7477ba4a560330f32c433346a109", "documentation_profile": "rational-qr-selection-v1" },
     { "routine": "SOS", "expected_source_hash": "30674f2d020dfae1fedeae3e7f1ed333f41e64a14036f1b3cbaa4452f9ae5e84", "documentation_profile": "sos-dsos-v1", "reason": "The selected source describes the callback and workspace relationship at routine scope; this source-hash-guarded profile materializes the exact reviewed argument contract.", "evidence_lines": "SOS selected source prologue lines 50-164 and SOSEQS executable callback call sites", "reviewer_note": "SOS callback ABI, workspace formulas, IFLAG values, and finite-difference callback behavior reviewed against sos.f and soseqs.f." },
-    { "routine": "DSOS", "expected_source_hash": "94f0ed896c0c1614997134726a4b6adee658fea43d98fd0142bbab2df82f9e21", "documentation_profile": "sos-dsos-v1", "reason": "The selected source describes the callback and workspace relationship at routine scope; this source-hash-guarded profile materializes the exact reviewed argument contract.", "evidence_lines": "DSOS selected source prologue lines 50-164 and DSOSEQ executable callback call sites", "reviewer_note": "DSOS callback ABI, workspace formulas, IFLAG values, and finite-difference callback behavior reviewed against dsos.f and dsoseq.f." }
+    { "routine": "DSOS", "expected_source_hash": "94f0ed896c0c1614997134726a4b6adee658fea43d98fd0142bbab2df82f9e21", "documentation_profile": "sos-dsos-v1", "reason": "The selected source describes the callback and workspace relationship at routine scope; this source-hash-guarded profile materializes the exact reviewed argument contract.", "evidence_lines": "DSOS selected source prologue lines 50-164 and DSOSEQ executable callback call sites", "reviewer_note": "DSOS callback ABI, workspace formulas, IFLAG values, and finite-difference callback behavior reviewed against dsos.f and dsoseq.f." },
+    { "routine": "DPFQAD", "expected_source_hash": "3dbf015a1070ed6bd3ca769e4868b658b372f7c509a356c21eb855bd3e7d4e17", "documentation_profile": "dpfqad-v1", "reason": "DPFQAD forwards its scalar callback to DPPGQ8; the profile records the exact B-spline matrix, breakpoint, tolerance, and result contract.", "evidence_lines": "DPFQAD selected source prologue lines 5-82 and DPPGQ8 executable FUN(X) calls", "reviewer_note": "Outer declaration, scalar callback return, and polynomial smoke case reviewed against dpfqad.f and dppgq8.f." },
+    { "routine": "SDRIV1", "expected_source_hash": "1e79cc1e53804d2becd073ba97a923c507fe793f5d2d4404c6edd6594bc442f3", "documentation_profile": "sdrive1-v1", "reason": "The convenience driver forwards the proven RHS callback to SDRIV3 while defining a distinct N-limited workspace and continuation contract.", "evidence_lines": "SDRIV1 selected prologue lines 34-211 and executable SDRIV3 call", "reviewer_note": "Real single convenience driver reviewed with direct callback and convergence smoke." },
+    { "routine": "DDRIV1", "expected_source_hash": "f7c42396b073bef0635a50c99b2f5e55880947a4ad7fecc6b43514150f31afe3", "documentation_profile": "sdrive1-v1", "reason": "Double-precision sibling has matching argument order and semantics after source comparison.", "evidence_lines": "DDRIV1 selected prologue lines 34-214 and executable DDRIV3 call", "reviewer_note": "Double-precision callback and convergence smoke reviewed." },
+    { "routine": "SDRIV2", "expected_source_hash": "cd0b421a85efe362b7c63b1f1d8e2c4ed1c49c828c7b286cafbf4421c861edd6", "documentation_profile": "sdrive2-v1", "reason": "The advanced wrapper forwards source-documented RHS and root callbacks to SDRIV3 with its own workspace and continuation rules.", "evidence_lines": "SDRIV2 selected prologue lines 21-267 and executable SDRIV3 call", "reviewer_note": "Real single advanced driver reviewed with NROOT=0 runtime smoke and source-proved root callback." },
+    { "routine": "DDRIV2", "expected_source_hash": "00199a083c90d91414a7ad070f24d77a099cbf95795b2f9a9ffe9cca0aa7ee96", "documentation_profile": "sdrive2-v1", "reason": "Double-precision sibling has matching source contract and callback order.", "evidence_lines": "DDRIV2 selected prologue lines 21-270 and executable DDRIV3 call", "reviewer_note": "Double-precision advanced driver reviewed with NROOT=0 runtime smoke." },
+    { "routine": "CDRIV1", "expected_source_hash": "b105c8171d4242e8937fe583330902e0c1caacc230d6493fba4a40d87b2f7de5", "documentation_profile": "cdrive1-v1", "reason": "The selected source and direct native y'=i*y smoke independently validate GNU Fortran complex array arguments through the RHS callback.", "evidence_lines": "CDRIV1 selected prologue lines 34-211 and executable CDRIV3 call", "reviewer_note": "Complex layout and callback pointer semantics are not inferred from real SDRIVE siblings." },
+    { "routine": "CDRIV2", "expected_source_hash": "f1b2a1455165c55fe9f83889c2b3b523b85f1cdeb48f909118200c9463b57cd8", "documentation_profile": "cdrive2-v1", "reason": "The selected source and direct native y'=i*y smoke independently validate complex RHS and real root callback conventions.", "evidence_lines": "CDRIV2 selected prologue lines 21-275 and executable CDRIV3 call", "reviewer_note": "Complex callback array layout and real G return are independently evidenced." }
   ]
 }

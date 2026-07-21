@@ -1,7 +1,7 @@
 # API quality and release readiness
 
 - Retained identities: 1517
-- Canonical public raw routines: 814
+- Canonical public raw routines: 821
 - Dedicated mathematical family pages: 20
 - Forbidden canonical namespace paths: 0
 - Duplicate canonical paths: 0

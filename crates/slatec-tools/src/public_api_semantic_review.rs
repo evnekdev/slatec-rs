@@ -19,7 +19,7 @@ use std::process::Command;
 const DOC_START: &str = "<!-- release-readiness:start -->";
 const DOC_END: &str = "<!-- release-readiness:end -->";
 const RETAINED_IDENTITIES: usize = 1517;
-const PUBLIC_BEFORE: usize = 814;
+const PUBLIC_BEFORE: usize = 821;
 const DEVELOPMENT_ALIASES_BEFORE: usize = 666;
 const DEVELOPMENT_DEPRECATIONS_BEFORE: usize = 294;
 const MULTI_PATH_ROUTINES_BEFORE: usize = 572;
@@ -3263,6 +3263,10 @@ fn sos_dsos_rustdoc_contract(page: &RoutinePage<'_>) -> Option<String> {
         page.routine,
         source_url,
     ));
+    output = output.replace(
+        "`FNC` is called synchronously, potentially many times and with finite-difference perturbations of `X`. `K` is one-based and identifies exactly the requested equation. The callback may only read the supplied `X` extent for the duration of the call; it must not retain pointers, panic, or unwind across the native boundary.",
+        "`FNC` is called synchronously, potentially many times and with finite-difference perturbations of `X`. It receives only `X` and the one-based equation index `K`: `NEQ` is not passed through the callback ABI, and there is no user-data/context pointer. The callback may only read the externally known supplied `X` extent for the duration of the call; it must not retain pointers, panic, or unwind across the native boundary. Stateful Rust use therefore requires an external scoped context mechanism in a future wrapper.",
+    );
     Some(output)
 }
 

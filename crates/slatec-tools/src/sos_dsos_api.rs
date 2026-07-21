@@ -120,10 +120,11 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SosDsosResult> {
             "fortran_kind":"scalar real function",
             "return_abi":"direct scalar return; no hidden result argument",
             "arguments":[
-                {"name":"X","fortran_type":if routine == "SOS" {"REAL(*)"} else {"DOUBLE PRECISION(*)"},"direction":"read-only callback view","extent":"NEQ elements"},
+                {"name":"X","fortran_type":if routine == "SOS" {"REAL(*)"} else {"DOUBLE PRECISION(*)"},"direction":"read-only callback view","extent":"NEQ elements supplied by externally managed problem state; NEQ is not a callback argument"},
                 {"name":"K","fortran_type":"INTEGER","direction":"input","range":"1..=NEQ (one-based equation index)"}
             ],
             "executable_call_evidence":if routine == "SOS" {"SOSEQS: F = FNC(X,K); FP = FNC(X,K)"} else {"DSOSEQ: F = FNC(X,K); FP = FNC(X,K)"},
+            "context_abi":"no user-data or context pointer is present; stateful Rust use requires a future scoped context mechanism",
             "callback_status":"reviewed_source_and_runtime_tested"
         }));
     }
@@ -161,7 +162,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<SosDsosResult> {
     )?;
     write_if_changed(
         &output_dir.join("sos-dsos-callback-abi.md"),
-        b"# SOS/DSOS callback ABI\n\n`FNC` is a synchronous scalar function. `SOS` uses `unsafe extern \"C\" fn(*const f32, *const FortranInteger) -> f32`; `DSOS` uses the corresponding `f64` type. `X` is a readable `NEQ`-element vector during the callback and `K` is a one-based equation index. There is no hidden result argument. The focused native tests exercise both callbacks and verify that both equation indices are observed.\n",
+        b"# SOS/DSOS callback ABI\n\n`FNC` is a synchronous scalar function. `SOS` uses `unsafe extern \"C\" fn(*const f32, *const FortranInteger) -> f32`; `DSOS` uses the corresponding `f64` type. The callback receives only `X` and `K`: `NEQ` is not passed through this ABI, so the callback must know the readable `X` extent from externally managed problem state. `K` is a one-based equation index. There is no user-data/context pointer or hidden result argument; a future stateful Rust wrapper therefore needs a scoped context mechanism. The focused native tests exercise both callbacks and verify that both equation indices are observed.\n",
     )?;
     let semantic_hash =
         hash::bytes(&[json_bytes(&closure_json)?, json_bytes(&callback_json)?].concat());

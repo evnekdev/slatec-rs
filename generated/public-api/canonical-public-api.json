@@ -1,5 +1,5 @@
 {
-  "canonical_public_routines": 814,
+  "canonical_public_routines": 821,
   "records": [
     {
       "abi_fingerprint": "function:f32(mut_f32)",
@@ -1032,6 +1032,30 @@
       "provider": "full-provider-503b917251d9a16b",
       "provider_feature": "blas-complex",
       "routine": "CDOTU"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::ode::cdriv1",
+      "documentation_page": "docs/reference/routines/cdriv1.md",
+      "family": "ODE solvers",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "cdriv1_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/cdriv1.f",
+      "provider": "full-provider-d786596f8e33653f",
+      "provider_feature": "ode-sdrive-expert",
+      "routine": "CDRIV1"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::ode::cdriv2",
+      "documentation_page": "docs/reference/routines/cdriv2.md",
+      "family": "ODE solvers",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "cdriv2_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/cdriv2.f",
+      "provider": "full-provider-a0b24b5043a52ad6",
+      "provider_feature": "ode-sdrive-expert",
+      "routine": "CDRIV2"
     },
     {
       "abi_fingerprint": "function:complex32(mut_complex32)",
@@ -3435,6 +3459,30 @@
     },
     {
       "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::ode::ddriv1",
+      "documentation_page": "docs/reference/routines/ddriv1.md",
+      "family": "ODE solvers",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "ddriv1_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/ddriv1.f",
+      "provider": "full-provider-83170f334d0d68a8",
+      "provider_feature": "ode-sdrive-expert",
+      "routine": "DDRIV1"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::ode::ddriv2",
+      "documentation_page": "docs/reference/routines/ddriv2.md",
+      "family": "ODE solvers",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "ddriv2_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/ddriv2.f",
+      "provider": "full-provider-7e657082e96474b6",
+      "provider_feature": "ode-sdrive-expert",
+      "routine": "DDRIV2"
+    },
+    {
+      "abi_fingerprint": "unavailable",
       "canonical_rust_path": "slatec_sys::ode::ddriv3",
       "documentation_page": "docs/reference/routines/ddriv3.md",
       "family": "ODE solvers",
@@ -4308,6 +4356,18 @@
       "provider": "full-provider-e7c38c1e089ade65",
       "provider_feature": "approximation-core",
       "routine": "DPCOEF"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::quadrature::dpfqad",
+      "documentation_page": "docs/reference/routines/dpfqad.md",
+      "family": "Numerical quadrature",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dpfqad_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/dpfqad.f",
+      "provider": "full-provider-8319889b2bfafb4d",
+      "provider_feature": "quadrature-callbacks",
+      "routine": "DPFQAD"
     },
     {
       "abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1)",
@@ -7908,6 +7968,30 @@
       "provider": "full-provider-35f2e5e233709c3e",
       "provider_feature": "blas-level1",
       "routine": "SDOT"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::ode::sdriv1",
+      "documentation_page": "docs/reference/routines/sdriv1.md",
+      "family": "ODE solvers",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "sdriv1_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/sdriv1.f",
+      "provider": "full-provider-434b7acc9ea23338",
+      "provider_feature": "ode-sdrive-expert",
+      "routine": "SDRIV1"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "canonical_rust_path": "slatec_sys::ode::sdriv2",
+      "documentation_page": "docs/reference/routines/sdriv2.md",
+      "family": "ODE solvers",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "sdriv2_",
+      "netlib_source_url": "https://www.netlib.org/slatec/src/sdriv2.f",
+      "provider": "full-provider-2de3f93dcb2a644e",
+      "provider_feature": "ode-sdrive-expert",
+      "routine": "SDRIV2"
     },
     {
       "abi_fingerprint": "unavailable",

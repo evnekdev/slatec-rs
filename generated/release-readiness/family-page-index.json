@@ -1,6 +1,6 @@
 {
   "family_pages": 20,
-  "public_routine_sum": 814,
+  "public_routine_sum": 821,
   "records": [
     {
       "family": "Approximation",
@@ -88,16 +88,16 @@
     },
     {
       "family": "Numerical quadrature",
-      "public_routines": 60,
+      "public_routines": 61,
       "retained_identities": 89,
-      "secondary_identities": 29,
+      "secondary_identities": 28,
       "slug": "numerical-quadrature"
     },
     {
       "family": "ODE solvers",
-      "public_routines": 9,
+      "public_routines": 15,
       "retained_identities": 132,
-      "secondary_identities": 123,
+      "secondary_identities": 117,
       "slug": "ode-solvers"
     },
     {
@@ -146,5 +146,5 @@
   "retained_identity_sum": 1517,
   "schema_id": "slatec-rs.family-page-index",
   "schema_version": "1.0.0",
-  "secondary_identity_sum": 703
+  "secondary_identity_sum": 696
 }

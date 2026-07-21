@@ -2,11 +2,11 @@
   "counts": {
     "abi_conflicts": 0,
     "declarations_removed_from_abi_shaped_modules": 727,
-    "extern_declarations_after": 814,
-    "extern_declarations_before": 1541,
-    "generated_abi_reexports": 810,
-    "native_symbols_audited": 814,
-    "public_routines": 814,
+    "extern_declarations_after": 821,
+    "extern_declarations_before": 1548,
+    "generated_abi_reexports": 811,
+    "native_symbols_audited": 821,
+    "public_routines": 821,
     "symbols_with_duplicate_declarations_after": 0,
     "symbols_with_duplicate_declarations_before": 727
   },
@@ -1303,6 +1303,36 @@
       "routine": "CDOTU"
     },
     {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:239",
+      "canonical_public_path": "slatec_sys::ode::cdriv1",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "ode-sdrive-expert",
+        "private_declaration": "not_assigned"
+      },
+      "native_symbol": "cdriv1_",
+      "private_generated_reexport_present": false,
+      "public_path_count": 1,
+      "routine": "CDRIV1"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:265",
+      "canonical_public_path": "slatec_sys::ode::cdriv2",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "ode-sdrive-expert",
+        "private_declaration": "not_assigned"
+      },
+      "native_symbol": "cdriv2_",
+      "private_generated_reexport_present": false,
+      "public_path_count": 1,
+      "routine": "CDRIV2"
+    },
+    {
       "abi_fingerprint": "function:complex32(mut_complex32)",
       "authoritative_declaration_path": "crates/slatec-sys/src/batch_c/special.rs:511",
       "canonical_public_path": "slatec_sys::special::complex::cexprl",
@@ -1889,7 +1919,7 @@
     },
     {
       "abi_fingerprint": "subroutine:void(mut_i32,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_f32_ptr_rank2,mut_i32,mut_f32_ptr_rank1,mut_f32_ptr_rank1,mut_i32,mut_f32_ptr_rank1)",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:180",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:188",
       "canonical_public_path": "slatec_sys::nonlinear::jacobian_check::chkder",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -4109,7 +4139,7 @@
     },
     {
       "abi_fingerprint": "subroutine:void(mut_i32,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank2,mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_i32,mut_f64_ptr_rank1)",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:164",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:172",
       "canonical_public_path": "slatec_sys::nonlinear::jacobian_check::dckder",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -4304,7 +4334,37 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:133",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:153",
+      "canonical_public_path": "slatec_sys::ode::ddriv1",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "ode-sdrive-expert",
+        "private_declaration": "not_assigned"
+      },
+      "native_symbol": "ddriv1_",
+      "private_generated_reexport_present": false,
+      "public_path_count": 1,
+      "routine": "DDRIV1"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:209",
+      "canonical_public_path": "slatec_sys::ode::ddriv2",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "ode-sdrive-expert",
+        "private_declaration": "not_assigned"
+      },
+      "native_symbol": "ddriv2_",
+      "private_generated_reexport_present": false,
+      "public_path_count": 1,
+      "routine": "DDRIV2"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:321",
       "canonical_public_path": "slatec_sys::ode::ddriv3",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5129,7 +5189,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:98",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:106",
       "canonical_public_path": "slatec_sys::nonlinear::dnsq",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5144,7 +5204,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:64",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:72",
       "canonical_public_path": "slatec_sys::nonlinear::dnsqe",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5396,6 +5456,21 @@
       "private_generated_reexport_present": true,
       "public_path_count": 1,
       "routine": "DPCOEF"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:28",
+      "canonical_public_path": "slatec_sys::quadrature::dpfqad",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "quadrature-callbacks",
+        "private_declaration": "raw-ffi-callbacks"
+      },
+      "native_symbol": "dpfqad_",
+      "private_generated_reexport_present": true,
+      "public_path_count": 1,
+      "routine": "DPFQAD"
     },
     {
       "abi_fingerprint": "subroutine:void(mut_i32,mut_f64_ptr_rank1,mut_f64_ptr_rank1,mut_f64_ptr_rank1)",
@@ -5699,7 +5774,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:293",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:321",
       "canonical_public_path": "slatec_sys::quadrature::dqag",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5714,7 +5789,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:387",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:415",
       "canonical_public_path": "slatec_sys::quadrature::dqagi",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5744,7 +5819,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:21",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:49",
       "canonical_public_path": "slatec_sys::quadrature::dqagp",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5774,7 +5849,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:341",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:369",
       "canonical_public_path": "slatec_sys::quadrature::dqags",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5804,7 +5879,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:433",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:461",
       "canonical_public_path": "slatec_sys::quadrature::dqawc",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5834,7 +5909,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:175",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:203",
       "canonical_public_path": "slatec_sys::quadrature::dqawf",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5849,7 +5924,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:123",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:151",
       "canonical_public_path": "slatec_sys::quadrature::dqawo",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -5864,7 +5939,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:71",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:99",
       "canonical_public_path": "slatec_sys::quadrature::dqaws",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -6089,7 +6164,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:261",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:289",
       "canonical_public_path": "slatec_sys::quadrature::dqnc79",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -6104,7 +6179,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:225",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:253",
       "canonical_public_path": "slatec_sys::quadrature::dqng",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -6944,7 +7019,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:243",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:251",
       "canonical_public_path": "slatec_sys::nonlinear::systems::dsos",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8714,7 +8789,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:317",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:345",
       "canonical_public_path": "slatec_sys::quadrature::qag",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8729,7 +8804,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:410",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:438",
       "canonical_public_path": "slatec_sys::quadrature::qagi",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8759,7 +8834,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:46",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:74",
       "canonical_public_path": "slatec_sys::quadrature::qagp",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8789,7 +8864,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:364",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:392",
       "canonical_public_path": "slatec_sys::quadrature::qags",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8819,7 +8894,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:457",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:485",
       "canonical_public_path": "slatec_sys::quadrature::qawc",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8849,7 +8924,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:200",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:228",
       "canonical_public_path": "slatec_sys::quadrature::qawf",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8864,7 +8939,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:149",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:177",
       "canonical_public_path": "slatec_sys::quadrature::qawo",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -8879,7 +8954,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:97",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:125",
       "canonical_public_path": "slatec_sys::quadrature::qaws",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -9074,7 +9149,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:277",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:305",
       "canonical_public_path": "slatec_sys::quadrature::qnc79",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -9089,7 +9164,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:243",
+      "authoritative_declaration_path": "crates/slatec-sys/src/quadrature.rs:271",
       "canonical_public_path": "slatec_sys::quadrature::qng",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -9899,7 +9974,37 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:99",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:128",
+      "canonical_public_path": "slatec_sys::ode::sdriv1",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "ode-sdrive-expert",
+        "private_declaration": "not_assigned"
+      },
+      "native_symbol": "sdriv1_",
+      "private_generated_reexport_present": false,
+      "public_path_count": 1,
+      "routine": "SDRIV1"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:178",
+      "canonical_public_path": "slatec_sys::ode::sdriv2",
+      "consistency_status": "consistent",
+      "extern_declaration_count": 1,
+      "feature_gates": {
+        "canonical": "ode-sdrive-expert",
+        "private_declaration": "not_assigned"
+      },
+      "native_symbol": "sdriv2_",
+      "private_generated_reexport_present": false,
+      "public_path_count": 1,
+      "routine": "SDRIV2"
+    },
+    {
+      "abi_fingerprint": "unavailable",
+      "authoritative_declaration_path": "crates/slatec-sys/src/ode.rs:287",
       "canonical_public_path": "slatec_sys::ode::sdriv3",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -10469,7 +10574,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:131",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:139",
       "canonical_public_path": "slatec_sys::nonlinear::snsq",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -10484,7 +10589,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:81",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:89",
       "canonical_public_path": "slatec_sys::nonlinear::snsqe",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,
@@ -10514,7 +10619,7 @@
     },
     {
       "abi_fingerprint": "unavailable",
-      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:211",
+      "authoritative_declaration_path": "crates/slatec-sys/src/nonlinear.rs:219",
       "canonical_public_path": "slatec_sys::nonlinear::systems::sos",
       "consistency_status": "consistent",
       "extern_declaration_count": 1,

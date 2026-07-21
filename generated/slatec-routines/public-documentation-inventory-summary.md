@@ -1,9 +1,9 @@
 # Public documentation inventory
 
-- Canonical public routines: **814**
-- Complete source-bounded semantic contracts awaiting rendered audit: **814**
-- Source-hash-guarded authored semantic contracts: **46**
-- Complete semantic contracts: **814**
+- Canonical public routines: **821**
+- Complete source-bounded semantic contracts awaiting rendered audit: **821**
+- Source-hash-guarded authored semantic contracts: **53**
+- Complete semantic contracts: **821**
 - Complete rendered semantic public documentation: **"computed only by rendered-rustdoc-semantic-audit"**
 - Public documentation-work queue: **0**
 

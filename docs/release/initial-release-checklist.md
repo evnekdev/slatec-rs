@@ -7,7 +7,7 @@ release commit before checking an item.
 ## Public API and documentation
 
 - [ ] Canonical mathematical namespaces are finalized.
-- [ ] All 814 canonical raw routines resolve to exactly one authoritative extern declaration.
+- [ ] All 821 canonical raw routines resolve to exactly one authoritative extern declaration.
 - [ ] Compatibility aliases are documented, deprecated where appropriate, and do not inflate routine counts.
 - [ ] Public terminology contains no implementation-milestone labels.
 - [ ] Documentation quality thresholds pass for every public routine.
