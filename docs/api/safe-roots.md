@@ -1,8 +1,8 @@
-# Safe scalar root finding
+# Safe scalar and single-precision polynomial root finding
 
-`slatec::roots` is an opt-in safe facade over the original SLATEC `FZERO`
-(single precision) and `DFZERO` (double precision) routines. It does not
-implement a root-finding algorithm in Rust.
+`slatec::roots` is an opt-in safe facade over original SLATEC scalar and
+single-precision polynomial-root routines. It does not implement a
+root-finding algorithm in Rust.
 
 The module is restricted to the validated
 `ffi-profile-gnu-mingw-x86_64` profile: GNU Fortran targeting
@@ -59,11 +59,30 @@ calls serialize, and nested root or quadrature calls from either callback are
 rejected deterministically. This is a safety and legacy-runtime policy, not a
 claim of concurrent native execution.
 
-## Deferred routines
+## Polynomial roots
 
-`RPQR79`, `CPQR79`, `RPZERO`, and `CPZERO` remain deferred. Their mutable
-complex coefficients, roots, and work arrays need a separate safe complex
-layout, ownership, workspace, and residual-validation contract. `SNSQ`,
+The additive `roots-polynomial` feature exposes owned `num_complex::Complex32`
+results for real or complex coefficients in descending-power order. Use
+`real_polynomial_roots` or `complex_polynomial_roots` for the iterative
+`RPZERO`/`CPZERO` method, or their `_with_method` variants with
+`PolynomialRootMethod::CompanionQr` for `RPQR79`/`CPQR79`.
+
+Input coefficients are copied; native roots, bounds, and exact work arrays
+are private. A zero leading coefficient, non-finite component, or dimension
+overflow is rejected before FFI. The iterative drivers use automatic native
+initial estimates and preserve their documented best roots on the `25*N`
+iteration limit as `PolynomialRootStatus::IterationLimitReached`; error bounds
+are absent in that partial-result status. The companion-QR drivers return an
+error on nonconvergence because their source does not promise partial roots.
+
+Only `f32`/`Complex32` is currently reviewed. The layout is checked against
+the selected GNU Fortran default-COMPLEX ABI; there is no `f64`/`Complex64`
+polynomial-root facade. Calls are process-serialized by the shared native
+runtime lock. See `examples/roots/polynomial_roots.rs`.
+
+## Remaining root-family boundaries
+
+`SNSQ`,
 `DNSQ`, `SNSQE`, `DNSQE`, `SOS`, `DSOS`, `CHKDER`, and `DCKDER` remain deferred
 as nonlinear-system architecture work; this module exposes neither their
 callbacks nor their dense work arrays.
@@ -72,6 +91,7 @@ callbacks nor their dense work arrays.
 
 ```text
 cargo test -p slatec --features roots-native-tests --target x86_64-pc-windows-gnu --test roots_native -- --test-threads=1
+cargo test -p slatec --features roots-polynomial-native-tests --target x86_64-pc-windows-gnu --test polynomial_roots_native -- --test-threads=1
 ```
 
 The offline `source-build` provider supplies the verified native family closure

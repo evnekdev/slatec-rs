@@ -1,13 +1,25 @@
-//! Safe callback-based adapters for a focused SLATEC QUADPACK family.
+//! Safe callback-based adapters for a focused SLATEC QUADPACK and
+//! piecewise-polynomial family.
 //!
 //! The original QUADPACK Fortran drivers remain the numerical implementations.
 //! Calls are serialized for the validated GNU MinGW runtime profile because
 //! callback registration and legacy error state are process-global. Integrand
 //! panics and non-finite results are contained in the trampoline and reported
-//! after Fortran returns.
+//! after Fortran returns. `DPFQAD` combines a checked PP representation with a
+//! user scalar multiplier; it is separate from the QUADPACK adaptive drivers
+//! but follows the same callback and error policy.
 
 #[cfg(feature = "quadrature-basic")]
 mod adaptive;
+#[cfg(any(
+    feature = "quadrature-basic",
+    feature = "quadrature-breakpoints",
+    feature = "quadrature-weighted",
+    feature = "quadrature-oscillatory",
+    feature = "quadrature-fourier",
+    feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial"
+))]
 mod callback;
 mod error;
 #[cfg(any(
@@ -18,6 +30,10 @@ mod error;
     feature = "quadrature-nonadaptive"
 ))]
 mod extended;
+#[cfg(feature = "quadrature-piecewise-polynomial")]
+mod piecewise_polynomial;
+#[cfg(feature = "tabulated-data")]
+mod tabulated;
 mod validation;
 
 #[cfg(feature = "quadrature-basic")]
@@ -39,6 +55,12 @@ pub use extended::{integrate_oscillatory, integrate_oscillatory_f32};
 pub use extended::{integrate_weighted_endpoints, integrate_weighted_endpoints_f32};
 #[cfg(feature = "quadrature-breakpoints")]
 pub use extended::{integrate_with_breakpoints, integrate_with_breakpoints_f32};
+#[cfg(feature = "quadrature-piecewise-polynomial")]
+pub use piecewise_polynomial::{
+    PiecewiseQuadratureResult, PiecewiseQuadratureStatus, integrate_piecewise_polynomial,
+};
+#[cfg(feature = "tabulated-data")]
+pub use tabulated::{integrate_tabulated, integrate_tabulated_f32};
 
 /// Gauss-Kronrod rule used by QAG/DQAG finite-interval integration.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

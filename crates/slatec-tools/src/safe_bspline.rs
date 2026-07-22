@@ -35,6 +35,10 @@ pub(crate) fn native_state_projections() -> Result<Vec<Value>> {
             "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
             "BINTK/DBINTK",
         ),
+        (
+            "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+            "BINT4/DBINT4",
+        ),
     ]
     .into_iter()
     .map(|(safe_function, routine)| {
@@ -42,23 +46,25 @@ pub(crate) fn native_state_projections() -> Result<Vec<Value>> {
             "selected-source-d7a112ce8c81f313.o"
         } else if routine.starts_with("BINTK") {
             "bspline-construction-bintk.o"
+        } else if routine.starts_with("BINT4") {
+            "interpolation-general-bint4.o"
         } else {
             "selected-source-287a4838efb0e436.o"
         };
         json!({
             "safe_function":safe_function,
             "native_entry_points":routine.split('/').collect::<Vec<_>>(),
-            "feature":"bspline",
-            "effective_native_families":["bspline"],
+            "feature": if routine.starts_with("BINT4") { "bspline-cubic-interpolation" } else { "bspline" },
+            "effective_native_families": if routine.starts_with("BINT4") { vec!["bspline","interpolation-general"] } else { vec!["bspline"] },
             "entry_object":entry_object,
             "object_closure":objects,
-            "source_closure": if routine.starts_with("BINTK") { vec!["BINTK/DBINTK","BNFAC/DBNFAC","BNSLV/DBNSLV","BSPVN/DBSPVN","XERROR closure"] } else { vec!["BVALU/DBVALU","BSQAD/DBSQAD","INTRV/DINTRV","XERROR closure"] },
+            "source_closure": if routine.starts_with("BINTK") { vec!["BINTK/DBINTK","BNFAC/DBNFAC","BNSLV/DBNSLV","BSPVN/DBSPVN","XERROR closure"] } else if routine.starts_with("BINT4") { vec!["BINT4/DBINT4","BSPVN/DBSPVN","BNFAC/DBNFAC","BNSLV/DBNSLV","XERROR closure"] } else { vec!["BVALU/DBVALU","BSQAD/DBSQAD","INTRV/DINTRV","XERROR closure"] },
             "saved_mutable_locals": if routine.starts_with("BSQAD") { vec!["BSQAD/DBSQAD DATA-initialized Gauss nodes and weights; read-only after initialization"] } else { Vec::<&str>::new() },
             "common_blocks":[],
             "xerror_state":["XERROR J4SAVE/XERSVE process-global state reachable on native contract violation"],
             "fortran_io":[],
             "callback_state":["none"],
-            "writable_symbols": if routine.starts_with("BINTK") { vec!["focused closure audit: BINTK/DBINTK plus BNFAC/DBNFAC, BNSLV/DBNSLV, and BSPVN/DBSPVN have no COMMON, SAVE, DATA, or writable numerical static storage; XERROR storage remains reachable"] } else { vec!["focused closure audit: BSQAD/DBSQAD DATA quadrature tables plus XERROR storage"] },
+            "writable_symbols": if routine.starts_with("BINTK") { vec!["focused closure audit: BINTK/DBINTK plus BNFAC/DBNFAC, BNSLV/DBNSLV, and BSPVN/DBSPVN have no COMMON, SAVE, DATA, or writable numerical static storage; XERROR storage remains reachable"] } else if routine.starts_with("BINT4") { vec!["BINT4/DBINT4 uses caller-private output and workspace; reachable XERROR storage remains process-global"] } else { vec!["focused closure audit: BSQAD/DBSQAD DATA quadrature tables plus XERROR storage"] },
             "source_object_unresolved":[],
             "external_undefined_symbols":[],
             "feature_closure_mismatch":false,
@@ -68,7 +74,7 @@ pub(crate) fn native_state_projections() -> Result<Vec<Value>> {
             "rust_api_concurrency":"owned spline is movable; every native entry is globally serialized",
             "provider_runtime_thread_safety":"reviewed source and external/system profiles remain serialized",
             "provider_unknowns":["external_or_system_Fortran_runtime_and_provider_contract_not_qualified"],
-            "remaining_blockers": if routine.starts_with("BINTK") { vec!["process-global XERROR","provider/runtime qualification"] } else { vec!["process-global XERROR","DATA quadrature tables","provider/runtime qualification"] }
+            "remaining_blockers": if routine.starts_with("BINTK") || routine.starts_with("BINT4") { vec!["process-global XERROR","provider/runtime qualification"] } else { vec!["process-global XERROR","DATA quadrature tables","provider/runtime qualification"] }
         })
     })
     .collect())
@@ -161,20 +167,20 @@ pub fn generate(
         [
             "BINT4",
             "f32",
-            "interpolation_construction",
+            "cubic_interpolation_construction",
             "subroutine",
-            "broader construction controls",
-            "documented work array",
-            "deferred"
+            "X,Y,NDATA,IBCL,IBCR,FBCL,FBCR,KNTOPT,T,BCOEF,N,K,W",
+            "T=NDATA+6; BCOEF=NDATA+2; W=5*(NDATA+2)",
+            "included"
         ],
         [
             "DBINT4",
             "f64",
-            "interpolation_construction",
+            "cubic_interpolation_construction",
             "subroutine",
-            "broader construction controls",
-            "documented work array",
-            "deferred"
+            "X,Y,NDATA,IBCL,IBCR,FBCL,FBCR,KNTOPT,T,BCOEF,N,K,W",
+            "T=NDATA+6; BCOEF=NDATA+2; W=5*(NDATA+2)",
+            "included"
         ],
         [
             "BSPVD",
@@ -393,6 +399,15 @@ pub fn generate(
             "Q=(2*K-1)*N private Vec; WORK=2*K private Vec",
             "SerializedGlobal",
             "reviewed"
+        ],
+        [
+            "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+            "BINT4/DBINT4",
+            "f32/f64",
+            "source-defined cubic interpolation with endpoint derivative conditions and explicit knot-placement policy",
+            "T=NDATA+6; BCOEF=NDATA+2; W=5*(NDATA+2) private Vec",
+            "SerializedGlobal",
+            "reviewed"
         ]
     ]);
     let files = [
@@ -402,11 +417,11 @@ pub fn generate(
         ),
         (
             "bspline-candidate-classification.json",
-            json!({"schema_id":"slatec.safe-bspline.candidate-classification","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["candidate","status","reason"],"records":[["BVALU/DBVALU","included","scalar value and native derivative contract; no callback or persistent caller state"],["BSQAD/DBSQAD","included","bounded-order signed definite integration with exact 3*K workspace"],["BINTK/DBINTK","included","general-order exact interpolation with caller-supplied complete knots, checked Schoenberg--Whitney preflight, and private banded factorization storage"],["BINT4/DBINT4","deferred","fixed cubic endpoint-condition and knot-placement policy is materially distinct from the selected general-order constructor"],["BSINT/DBSINT","absent_from_selected_snapshot","historical search lead; no selected provider record exists"],["BSPEV/DBSPEV plus BSPDR/DBSPDR","deferred","multi-derivative output requires a checked derivative-table representation and distinct cached interval-state contract"],["BSPVN/DBSPVN,BSPVD/DBSPVD,BSPLVN,BSPLVD","deferred","basis-vector workspace and interval-state API is not required for the representation facade"],["BFQAD/DBFQAD","deferred","weighted callback containment requires a separate callback audit"],["BSPPP/DBSPPP","included_elsewhere","exact B-spline-to-PP conversion is exposed by the piecewise-polynomial feature"],["PPVAL/DPPVAL,PPQAD/DPPQAD","included_elsewhere","PP storage and evaluation are owned by the piecewise-polynomial feature"],["BSPDOC","internal_only","non-executable package documentation, not a numerical entry point"],["tensor_product,smoothing,NURBS","deferred","outside the scalar representation scope"]]}),
+            json!({"schema_id":"slatec.safe-bspline.candidate-classification","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["candidate","status","reason"],"records":[["BVALU/DBVALU","included","scalar value and native derivative contract; no callback or persistent caller state"],["BSQAD/DBSQAD","included","bounded-order signed definite integration with exact 3*K workspace"],["BINTK/DBINTK","included","general-order exact interpolation with caller-supplied complete knots, checked Schoenberg--Whitney preflight, and private banded factorization storage"],["BINT4/DBINT4","included","fixed cubic constructor now has typed endpoint-condition and knot-placement policies, exact private output/workspace allocation, and post-construction interpolation verification"],["BSINT/DBSINT","absent_from_selected_snapshot","historical search lead; no selected provider record exists"],["BSPEV/DBSPEV plus BSPDR/DBSPDR","deferred","multi-derivative output requires a checked derivative-table representation and distinct cached interval-state contract"],["BSPVN/DBSPVN,BSPVD/DBSPVD,BSPLVN,BSPLVD","deferred","basis-vector workspace and interval-state API is not required for the representation facade"],["BFQAD/DBFQAD","deferred","weighted callback containment requires a separate callback audit"],["BSPPP/DBSPPP","included_elsewhere","exact B-spline-to-PP conversion is exposed by the piecewise-polynomial feature"],["PPVAL/DPPVAL,PPQAD/DPPQAD","included_elsewhere","PP storage and evaluation are owned by the piecewise-polynomial feature"],["BSPDOC","internal_only","non-executable package documentation, not a numerical entry point"],["tensor_product,smoothing,NURBS","deferred","outside the scalar representation scope"]]}),
         ),
         (
             "bspline-source-closure.json",
-            json!({"schema_id":"slatec.safe-bspline.source-closure","schema_version":"1.0.0","snapshot_id":snapshot,"manifest":"crates/slatec-src/metadata/bspline-source-closure.json","roots":["BVALU","DBVALU","BSQAD","DBSQAD","BINTK","DBINTK"],"source_ids":closure["source_ids"],"sources":closure["sources"],"profile_machines":["I1MACH","R1MACH","D1MACH"],"direct_subsidiaries":["INTRV","DINTRV","BNFAC","DBNFAC","BNSLV","DBNSLV","BSPVN","DBSPVN"],"xerror_subsidiaries":["XERMSG","XERHLT","XERCNT","XERPRN","XERSVE","XGETUA","J4SAVE","FDUMP","XGETF","XSETF"],"excluded":["BINT4","DBINT4","BSPEV","BSPDR","BSPVD","BSPLVN","BSPLVD","BFQAD","BSPPP","PPVAL","PPQAD","smoothing","tensor_product","BLAS"]}),
+            json!({"schema_id":"slatec.safe-bspline.source-closure","schema_version":"1.0.0","snapshot_id":snapshot,"manifest":"crates/slatec-src/metadata/bspline-source-closure.json","roots":["BVALU","DBVALU","BSQAD","DBSQAD","BINTK","DBINTK"],"source_ids":closure["source_ids"],"sources":closure["sources"],"profile_machines":["I1MACH","R1MACH","D1MACH"],"direct_subsidiaries":["INTRV","DINTRV","BNFAC","DBNFAC","BNSLV","DBNSLV","BSPVN","DBSPVN"],"xerror_subsidiaries":["XERMSG","XERHLT","XERCNT","XERPRN","XERSVE","XGETUA","J4SAVE","FDUMP","XGETF","XSETF"],"cubic_constructor":{"roots":["BINT4","DBINT4"],"provider_feature":"interpolation-general","safe_feature":"bspline-cubic-interpolation","provider_manifest":"crates/slatec-src/metadata/family-source-closure.json"},"excluded":["BSPEV","BSPDR","BSPVD","BSPLVN","BSPLVD","BFQAD","BSPPP","PPVAL","PPQAD","smoothing","tensor_product","BLAS"]}),
         ),
         (
             "bspline-storage-contract.json",
@@ -418,7 +433,7 @@ pub fn generate(
         ),
         (
             "bspline-status-map.json",
-            json!({"schema_id":"slatec.safe-bspline.status-map","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["routines","native_result","safe_interpretation"],"records":[["BINTK/DBINTK","BCOEF output; malformed or singular systems issue level-one XERMSG and return without INFO","Rust preflights all documented invalid-data and Schoenberg--Whitney cases; nonfinite coefficients or failure to reproduce nodes maps to BSplineError::SingularInterpolationSystem after scoped XERROR restoration"],["BVALU/DBVALU","scalar return; invalid contract uses level-two XERMSG","all documented invalid inputs preflighted; any contradicted postcondition is BSplineError::NativeContractViolation"],["BSQAD/DBSQAD","BQUAD output; invalid contract uses level-two XERMSG","all limits, order, dimensions, and work size preflighted"],["all exposed roots","no regular INFO status","safe API returns Result only for Rust validation, allocation, checked construction verification, or contract violations"]]}),
+            json!({"schema_id":"slatec.safe-bspline.status-map","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["routines","native_result","safe_interpretation"],"records":[["BINTK/DBINTK","BCOEF output; malformed or singular systems issue level-one XERMSG and return without INFO","Rust preflights all documented invalid-data and Schoenberg--Whitney cases; nonfinite coefficients or failure to reproduce nodes maps to BSplineError::SingularInterpolationSystem after scoped XERROR restoration"],["BINT4/DBINT4","T,BCOEF,N,K output; malformed conditions issue XERROR rather than an INFO value","Rust validates data, endpoint conditions, knot policy, exact output/workspace lengths, returned cubic shape, and reproduction of every node"],["BVALU/DBVALU","scalar return; invalid contract uses level-two XERMSG","all documented invalid inputs preflighted; any contradicted postcondition is BSplineError::NativeContractViolation"],["BSQAD/DBSQAD","BQUAD output; invalid contract uses level-two XERMSG","all limits, order, dimensions, and work size preflighted"],["all exposed roots","no regular INFO status","safe API returns Result only for Rust validation, allocation, checked construction verification, or contract violations"]]}),
         ),
         (
             "bspline-native-state.json",
@@ -426,19 +441,19 @@ pub fn generate(
         ),
         (
             "bspline-concurrency.json",
-            json!({"schema_id":"slatec.safe-bspline.concurrency","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["safe_function","backend_profile","class","lock_scope","reason"],"records":[["BSpline::interpolate_with_knots","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","reachable XERROR and unqualified provider/runtime state; constructor factorization workspace is private but does not establish native reentrancy"],["BSpline::evaluate/derivative/evaluate_into","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","reachable XERROR and unqualified provider/runtime state"],["BSpline::integrate","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","BSQAD/DBSQAD DATA tables plus XERROR and provider/runtime state"],["all B-spline methods","external_or_system_backend","BackendDependent","process_global_runtime_lock","external provider and runtime storage contract is not qualified"]]}),
+            json!({"schema_id":"slatec.safe-bspline.concurrency","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["safe_function","backend_profile","class","lock_scope","reason"],"records":[["BSpline::interpolate_with_knots","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","reachable XERROR and unqualified provider/runtime state; constructor factorization workspace is private but does not establish native reentrancy"],["BSpline::interpolate_cubic","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","BINT4/DBINT4 uses private outputs and workspace but reaches the legacy error runtime on violated native contracts"],["BSpline::evaluate/derivative/evaluate_into","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","reachable XERROR and unqualified provider/runtime state"],["BSpline::integrate","slatec-src-gnu-mingw","SerializedGlobal","process_global_runtime_lock","BSQAD/DBSQAD DATA tables plus XERROR and provider/runtime state"],["all B-spline methods","external_or_system_backend","BackendDependent","process_global_runtime_lock","external provider and runtime storage contract is not qualified"]]}),
         ),
         (
             "bspline-wrapper-index.json",
-            json!({"schema_id":"slatec.safe-bspline.wrapper-index","schema_version":"1.0.0","snapshot_id":snapshot,"raw_ffi_profile":PROFILE,"columns":["safe_path","raw_routine","precision","mathematical_model","workspace_formula","runtime_policy","review_state"],"records":wrappers,"counts":{"native_user_callable_routines":6,"public_representation_types":1,"canonical_native_operations":5,"precision_pairs":2,"subsidiaries_linkage_only":18}}),
+            json!({"schema_id":"slatec.safe-bspline.wrapper-index","schema_version":"1.0.0","snapshot_id":snapshot,"raw_ffi_profile":PROFILE,"columns":["safe_path","raw_routine","precision","mathematical_model","workspace_formula","runtime_policy","review_state"],"records":wrappers,"counts":{"native_user_callable_routines":8,"public_representation_types":1,"canonical_native_operations":6,"precision_pairs":2,"subsidiaries_linkage_only":18}}),
         ),
         (
             "bspline-construction-routine-inventory.json",
-            json!({"schema_id":"slatec.safe-bspline-construction.routine-inventory","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["routine","precision","role","native_arguments","workspace","inclusion"],"records":[["BINTK","f32","general_order_exact_constructor","X,Y,T,N,K,BCOEF,Q,WORK","Q=(2*K-1)*N; WORK=2*K","included"],["DBINTK","f64","general_order_exact_constructor","X,Y,T,N,K,BCOEF,Q,WORK","Q=(2*K-1)*N; WORK=2*K","included"],["BINT4","f32","fixed_cubic_special_constructor","X,Y,NDATA,IBCL,IBCR,FBCL,FBCR,KNTOPT,T,BCOEF,N,K,W","W=5*(NDATA+2)","deferred"],["DBINT4","f64","fixed_cubic_special_constructor","X,Y,NDATA,IBCL,IBCR,FBCL,FBCR,KNTOPT,T,BCOEF,N,K,W","W=5*(NDATA+2)","deferred"],["BNFAC/DBNFAC","f32/f64","banded_factorization_subsidiary","W,NROWW,NROW,NBANDL,NBANDU,IFLAG","owned by BINTK/DBINTK","internal"],["BNSLV/DBNSLV","f32/f64","banded_substitution_subsidiary","W,NROWW,NROW,NBANDL,NBANDU,B","owned by BINTK/DBINTK","internal"],["BSPVN/DBSPVN","f32/f64","basis_subsidiary","T,JHIGH,K,INDEX,X,ILEFT,VNIKX,WORK,IWORK","WORK=2*K","internal"],["BSINT/DBSINT","none","historical_search_lead","not present in selected snapshot","none","absent"]],"source_columns":["routine","source_path","source_sha256","catalogue_role"],"source_records":candidate_sources}),
+            json!({"schema_id":"slatec.safe-bspline-construction.routine-inventory","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["routine","precision","role","native_arguments","workspace","inclusion"],"records":[["BINTK","f32","general_order_exact_constructor","X,Y,T,N,K,BCOEF,Q,WORK","Q=(2*K-1)*N; WORK=2*K","included"],["DBINTK","f64","general_order_exact_constructor","X,Y,T,N,K,BCOEF,Q,WORK","Q=(2*K-1)*N; WORK=2*K","included"],["BINT4","f32","fixed_cubic_special_constructor","X,Y,NDATA,IBCL,IBCR,FBCL,FBCR,KNTOPT,T,BCOEF,N,K,W","T=NDATA+6; BCOEF=NDATA+2; W=5*(NDATA+2)","included"],["DBINT4","f64","fixed_cubic_special_constructor","X,Y,NDATA,IBCL,IBCR,FBCL,FBCR,KNTOPT,T,BCOEF,N,K,W","T=NDATA+6; BCOEF=NDATA+2; W=5*(NDATA+2)","included"],["BNFAC/DBNFAC","f32/f64","banded_factorization_subsidiary","W,NROWW,NROW,NBANDL,NBANDU,IFLAG","owned by BINTK/DBINTK","internal"],["BNSLV/DBNSLV","f32/f64","banded_substitution_subsidiary","W,NROWW,NROW,NBANDL,NBANDU,B","owned by BINTK/DBINTK","internal"],["BSPVN/DBSPVN","f32/f64","basis_subsidiary","T,JHIGH,K,INDEX,X,ILEFT,VNIKX,WORK,IWORK","WORK=2*K","internal"],["BSINT/DBSINT","none","historical_search_lead","not present in selected snapshot","none","absent"]],"source_columns":["routine","source_path","source_sha256","catalogue_role"],"source_records":candidate_sources}),
         ),
         (
             "bspline-construction-candidate-classification.json",
-            json!({"schema_id":"slatec.safe-bspline-construction.candidate-classification","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["candidate","classification","reason"],"records":[["BINTK/DBINTK","selected_exact_interpolation_constructor","general order, exact collocation, explicit complete knots, no callbacks or persistent workspace"],["BINT4/DBINT4","special_knot_interpolation_constructor_deferred","fixed cubic order with endpoint-condition and knot-placement policy outside the selected general-order API"],["BNFAC/DBNFAC and BNSLV/DBNSLV","linear_system_subsidiaries","private native factorization and substitution only"],["BSPVN/DBSPVN","basis_subsidiaries","required internally by selected constructor; no public basis-vector API"],["BSINT/DBSINT","absent_from_selected_snapshot","no selected provider record"]]}),
+            json!({"schema_id":"slatec.safe-bspline-construction.candidate-classification","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["candidate","classification","reason"],"records":[["BINTK/DBINTK","selected_exact_interpolation_constructor","general order, exact collocation, explicit complete knots, no callbacks or persistent workspace"],["BINT4/DBINT4","selected_typed_cubic_constructor","fixed cubic order with source-defined endpoint derivative conditions and explicit knot-placement policy encoded by owned Rust enums"],["BNFAC/DBNFAC and BNSLV/DBNSLV","linear_system_subsidiaries","private native factorization and substitution only"],["BSPVN/DBSPVN","basis_subsidiaries","required internally by selected constructor; no public basis-vector API"],["BSINT/DBSINT","absent_from_selected_snapshot","no selected provider record"]]}),
         ),
         (
             "bspline-construction-data-contract.json",
@@ -454,7 +469,7 @@ pub fn generate(
         ),
         (
             "bspline-construction-source-closure.json",
-            json!({"schema_id":"slatec.safe-bspline-construction.source-closure","schema_version":"1.0.0","snapshot_id":snapshot,"manifest":"crates/slatec-src/metadata/bspline-source-closure.json","roots":["BINTK","DBINTK"],"direct_subsidiaries":["BNFAC","DBNFAC","BNSLV","DBNSLV","BSPVN","DBSPVN"],"shared_subsidiaries":["XERMSG","XERHLT","XERCNT","XERPRN","XERSVE","XGETUA","J4SAVE","FDUMP","XGETF","XSETF"],"source_ids":closure["source_ids"],"sources":closure["sources"],"excluded":["BINT4","DBINT4","smoothing","least_squares_fitting","tensor_product","PCHIP","public_banded_api","BLAS"]}),
+            json!({"schema_id":"slatec.safe-bspline-construction.source-closure","schema_version":"1.0.0","snapshot_id":snapshot,"manifest":"crates/slatec-src/metadata/bspline-source-closure.json","roots":["BINTK","DBINTK"],"direct_subsidiaries":["BNFAC","DBNFAC","BNSLV","DBNSLV","BSPVN","DBSPVN"],"shared_subsidiaries":["XERMSG","XERHLT","XERCNT","XERPRN","XERSVE","XGETUA","J4SAVE","FDUMP","XGETF","XSETF"],"source_ids":closure["source_ids"],"sources":closure["sources"],"cubic_constructor":{"roots":["BINT4","DBINT4"],"provider_feature":"interpolation-general","safe_feature":"bspline-cubic-interpolation","provider_manifest":"crates/slatec-src/metadata/family-source-closure.json"},"excluded":["smoothing","least_squares_fitting","tensor_product","PCHIP","public_banded_api","BLAS"]}),
         ),
         (
             "bspline-construction-native-state.json",
@@ -477,7 +492,7 @@ pub fn generate(
         bytes.extend_from_slice(&encoded);
     }
     let summary = format!(
-        "# Safe B-spline construction and evaluation\n\n- Snapshot: `{snapshot}`.\n- The partial hosted `bspline` feature exposes `BINTK`/`DBINTK` exact general-order interpolation with caller-supplied complete knots, `BVALU`/`DBVALU` values and derivatives, and `BSQAD`/`DBSQAD` definite integration, in f32 and f64.\n- `BSpline::interpolate_with_knots` enforces finite strictly increasing nodes, finite values, `N >= K >= 1`, complete finite nondecreasing `T.len() = N + K`, endpoint placement, and the documented Schoenberg--Whitney condition before FFI. It never generates, sorts, inserts, or merges knots.\n- Construction owns only the returned knots, coefficients, and order. It uses exact checked private `Q=(2*K-1)*N` and `WORK=2*K` allocations, drops factorization state before returning, and verifies that the output reproduces all input nodes.\n- Evaluation and integration have exact checked private workspace `3*K`. Integration additionally rejects `K > 20`, the reviewed `BSQAD`/`DBSQAD` limit.\n- All native entry is serialized through the process-global runtime lock and scoped XERROR restoration. BINT4/DBINT4 fixed-cubic construction, basis vectors, weighted callbacks, tensor-product splines, smoothing, NURBS, arbitrary strides, adapters, and translated algorithms remain deferred.\n"
+        "# Safe B-spline construction and evaluation\n\n- Snapshot: `{snapshot}`.\n- The `bspline` feature exposes `BINTK`/`DBINTK` exact general-order interpolation with caller-supplied complete knots, `BVALU`/`DBVALU` values and derivatives, and `BSQAD`/`DBSQAD` definite integration, in f32 and f64. The additive `bspline-cubic-interpolation` feature additionally exposes source-accurate `BINT4`/`DBINT4` cubic construction.\n- `BSpline::interpolate_with_knots` enforces finite strictly increasing nodes, finite values, `N >= K >= 1`, complete finite nondecreasing `T.len() = N + K`, endpoint placement, and the documented Schoenberg--Whitney condition before FFI. It never generates, sorts, inserts, or merges knots.\n- `BSpline::interpolate_cubic` owns exact `T=NDATA+6`, `BCOEF=NDATA+2`, and `W=5*(NDATA+2)` storage; typed endpoint conditions distinguish first from second derivatives and typed knot placement distinguishes source options 1, 2, and 3. It verifies the returned cubic shape and every input node.\n- Evaluation and integration have exact checked private workspace `3*K`. Integration additionally rejects `K > 20`, the reviewed `BSQAD`/`DBSQAD` limit.\n- All native entry is serialized through the process-global runtime lock and scoped XERROR restoration where a reviewed path requires it. Basis vectors, weighted callbacks, tensor-product splines, smoothing, NURBS, arbitrary strides, adapters, and translated algorithms remain deferred.\n"
     );
     fs::write(
         output_dir.join("bspline-validation-summary.md"),
@@ -485,7 +500,7 @@ pub fn generate(
     )?;
     bytes.extend_from_slice(summary.as_bytes());
     let construction_summary = format!(
-        "# Safe exact univariate B-spline interpolation construction\n\n- Snapshot: `{snapshot}`.\n- Selected native family: `BINTK`/`DBINTK`, one general-order exact interpolation constructor pair. It solves the total-positive banded collocation system without pivoting and returns ordinary owned `BSpline<f32>` or `BSpline<f64>` values.\n- Public constructor: `BSpline::interpolate_with_knots(nodes, values, knots, order)`. Knots are caller supplied because the selected driver does not generate a knot policy.\n- Exact private workspace: coefficients `N`, factorization `Q=(2*K-1)*N`, scratch `WORK=2*K`. All arithmetic is checked and allocation is fallible.\n- Solvability: strictly increasing nodes, endpoint placement, and Schoenberg--Whitney support are preflighted. The driver has no INFO output; an invalid verified result maps to `SingularInterpolationSystem` after XERROR restoration.\n- `BINT4`/`DBINT4` remain deferred: their fixed cubic order, endpoint-condition switches, and automatic knot-placement policies are materially different.\n- Native calls remain `SerializedGlobal`; no callback, file I/O, source artifact, or retained factorization is introduced.\n"
+        "# Safe exact univariate B-spline interpolation construction\n\n- Snapshot: `{snapshot}`.\n- Selected native constructors: `BINTK`/`DBINTK` for general-order exact interpolation and `BINT4`/`DBINT4` for fixed cubic interpolation. Both return ordinary owned `BSpline<f32>` or `BSpline<f64>` values.\n- `BSpline::interpolate_with_knots(nodes, values, knots, order)` accepts an explicit complete knot sequence. `BSpline::interpolate_cubic(nodes, values, left_boundary, right_boundary, knot_placement)` encodes the source endpoint-condition and knot-placement choices without exposing writable native storage.\n- General-order exact private workspace: coefficients `N`, factorization `Q=(2*K-1)*N`, scratch `WORK=2*K`. Cubic exact private workspace: `T=NDATA+6`, `BCOEF=NDATA+2`, `W=5*(NDATA+2)`. All arithmetic is checked and allocation is fallible.\n- Both constructors preflight finite strictly increasing nodes and finite values; cubic construction additionally validates finite derivative conditions and explicit exterior knots. Returned splines are audited against every input node.\n- Native calls remain `SerializedGlobal`; no callback, file I/O, source artifact, or retained factorization is introduced.\n"
     );
     fs::write(
         output_dir.join("bspline-construction-validation-summary.md"),
@@ -495,7 +510,7 @@ pub fn generate(
     Ok(ResultSummary {
         snapshot_id: snapshot.to_owned(),
         semantic_hash: hash::bytes(&bytes),
-        routine_count: 5,
+        routine_count: 6,
     })
 }
 
@@ -566,7 +581,7 @@ mod tests {
         let one = generate(&selected, first.path(), true).unwrap();
         let two = generate(&selected, second.path(), true).unwrap();
         assert_eq!(one.semantic_hash, two.semantic_hash);
-        assert_eq!(one.routine_count, 5);
+        assert_eq!(one.routine_count, 6);
         for name in [
             "bspline-routine-inventory.json",
             "bspline-candidate-classification.json",

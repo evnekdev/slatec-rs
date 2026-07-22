@@ -115,6 +115,7 @@ raw-final-coverage-link-tests = [
 quadrature = [
     "quadrature-basic", "quadrature-breakpoints", "quadrature-weighted",
     "quadrature-oscillatory", "quadrature-fourier", "quadrature-nonadaptive",
+    "quadrature-piecewise-polynomial", "tabulated-data",
 ]
 quadrature-common = ["std", "blas-level1-validation"]
 quadrature-basic = ["quadrature-common", "slatec-sys/raw-family-quadrature-basic", "slatec-src/quadrature-basic"]
@@ -123,6 +124,21 @@ quadrature-weighted = ["quadrature-common", "slatec-sys/raw-family-quadrature-we
 quadrature-oscillatory = ["quadrature-common", "slatec-sys/raw-family-quadrature-oscillatory", "slatec-src/quadrature-oscillatory"]
 quadrature-fourier = ["quadrature-common", "slatec-sys/raw-family-quadrature-fourier", "slatec-src/quadrature-fourier"]
 quadrature-nonadaptive = ["quadrature-common", "slatec-sys/raw-family-quadrature-nonadaptive", "slatec-src/quadrature-nonadaptive"]
+quadrature-piecewise-polynomial = [
+    "quadrature-common",
+    "piecewise-polynomial",
+    "slatec-sys/quadrature-callbacks",
+    "slatec-src/quadrature-callbacks",
+]
+tabulated-data = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/interpolation-general",
+    "slatec-src/interpolation-general",
+    "slatec-sys/quadrature-direct",
+    "slatec-src/quadrature-direct",
+]
+tabulated-data-native-tests = ["tabulated-data"]
 quadrature-native-tests = ["quadrature"]
 
 roots = ["roots-scalar", "roots-polynomial"]
@@ -133,7 +149,14 @@ roots-scalar = [
     "slatec-src/roots-scalar",
 ]
 roots-native-tests = ["roots", "quadrature"]
-roots-polynomial = ["alloc", "slatec-src/roots-polynomial"]
+roots-polynomial = [
+    "std",
+    "blas-level1-validation",
+    "dep:num-complex",
+    "slatec-sys/nonlinear-complex",
+    "slatec-src/nonlinear-complex",
+]
+roots-polynomial-native-tests = ["roots-polynomial", "native-lock-test-support"]
 
 nonlinear = ["nonlinear-easy", "nonlinear-expert", "nonlinear-jacobian-check", "nonlinear-systems"]
 nonlinear-easy = [
@@ -167,6 +190,7 @@ ode = ["ode-sdrive-expert"]
 ode-sdrive-expert = [
     "std",
     "blas-level1-validation",
+    "dep:num-complex",
     "slatec-sys/raw-family-ode-sdrive-expert",
     "slatec-src/ode-sdrive-expert",
 ]
@@ -243,6 +267,12 @@ bspline = [
     "slatec-src/bspline",
 ]
 bspline-native-tests = ["bspline"]
+bspline-cubic-interpolation = [
+    "bspline",
+    "slatec-sys/interpolation-general",
+    "slatec-src/interpolation-general",
+]
+bspline-cubic-interpolation-native-tests = ["bspline-cubic-interpolation", "native-lock-test-support"]
 piecewise-polynomial = [
     "std",
     "blas-level1-validation",
@@ -252,6 +282,7 @@ piecewise-polynomial = [
 piecewise-polynomial-native-tests = ["piecewise-polynomial", "bspline"]
 native-serialization-tests = [
     "std",
+    "native-lock-test-support",
     "optimization-linear-programming-in-memory-native-tests",
     "fftpack-real-native-tests",
     "fftpack-complex-native-tests",
@@ -269,6 +300,7 @@ native-serialization-tests = [
     "least-squares-linear-nonnegative-native-tests",
     "special-gamma",
 ]
+native-lock-test-support = ["std"]
 
 least-squares = ["least-squares-nonlinear", "least-squares-covariance", "least-squares-linear"]
 least-squares-nonlinear = [
@@ -348,7 +380,7 @@ least-squares-native-tests = [
 
 # Compatibility names retained for downstream manifests from earlier releases.
 integrate = ["quadrature"]
-interpolate = ["pchip", "bspline", "piecewise-polynomial"]
+interpolate = ["pchip", "bspline", "bspline-cubic-interpolation", "piecewise-polynomial", "tabulated-data"]
 optimize = ["optimization"]
 full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
@@ -512,6 +544,20 @@ name = "link_ode_sdrive"
 required-features = ["ode-sdrive-expert"]
 
 [[example]]
+name = "callback_driver_expansion"
+required-features = ["quadrature-piecewise-polynomial", "nonlinear-systems", "ode-sdrive-expert"]
+
+[[test]]
+name = "callback_driver_expansion"
+path = "tests/callback_driver_expansion.rs"
+required-features = ["quadrature-piecewise-polynomial", "nonlinear-systems", "ode-sdrive-expert"]
+
+[[test]]
+name = "tabulated_data_native"
+path = "tests/tabulated_data_native.rs"
+required-features = ["tabulated-data"]
+
+[[example]]
 name = "link_dassl"
 required-features = ["dassl"]
 
@@ -605,9 +651,34 @@ path = "examples/interpolation/bspline_interpolate.rs"
 required-features = ["bspline"]
 
 [[example]]
+name = "bspline_cubic_interpolate"
+path = "../../examples/interpolation/bspline_cubic_interpolate.rs"
+required-features = ["bspline-cubic-interpolation"]
+
+[[example]]
 name = "bspline_interpolate_and_convert"
 path = "examples/interpolation/bspline_interpolate_and_convert.rs"
 required-features = ["bspline", "piecewise-polynomial"]
+
+[[example]]
+name = "tabulated_data"
+path = "../../examples/interpolation/tabulated_data.rs"
+required-features = ["tabulated-data"]
+
+[[example]]
+name = "polynomial_roots"
+path = "../../examples/roots/polynomial_roots.rs"
+required-features = ["roots-polynomial"]
+
+[[test]]
+name = "bspline_cubic_native"
+path = "tests/bspline_cubic_native.rs"
+required-features = ["bspline-cubic-interpolation-native-tests"]
+
+[[test]]
+name = "polynomial_roots_native"
+path = "tests/polynomial_roots_native.rs"
+required-features = ["roots-polynomial-native-tests"]
 
 [[example]]
 name = "link_special_scalar"

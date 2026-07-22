@@ -7,11 +7,13 @@
 //! consistency checks. Observer callbacks and callback cancellation remain
 //! deliberately unavailable.
 //!
-//! Solver APIs require `std` and the validated GNU Fortran x86_64 MinGW native
-//! profile. Calls are serialized because the selected SLATEC runtime contains
-//! process-global state, and a callback cannot begin another callback-based
-//! SLATEC operation. Jacobian checking uses `alloc` but does not require the
-//! hosted callback runtime.
+//! The `nonlinear-systems` feature additionally exposes scalar-equation
+//! `SOS`/`DSOS` drivers with typed termination reports. Solver APIs require
+//! `std` and the validated GNU Fortran x86_64 MinGW native profile. Calls are
+//! serialized because the selected SLATEC runtime contains process-global
+//! state, and a callback cannot begin another callback-based SLATEC operation.
+//! Jacobian checking uses `alloc` but does not require the hosted callback
+//! runtime.
 
 #[cfg(feature = "nonlinear-jacobian-check")]
 mod checker;
@@ -27,6 +29,8 @@ mod expert;
 mod jacobian;
 #[cfg(feature = "nonlinear-easy")]
 mod solver;
+#[cfg(feature = "nonlinear-systems")]
+mod systems;
 
 #[cfg(feature = "nonlinear-jacobian-check")]
 pub use checker::{JacobianCheckError, JacobianCheckResult, check_jacobian, check_jacobian_f32};
@@ -46,6 +50,11 @@ pub use expert::{
 pub use jacobian::{JacobianIndexError, JacobianMut};
 #[cfg(feature = "nonlinear-easy")]
 pub use solver::{solve_system, solve_system_f32};
+#[cfg(feature = "nonlinear-systems")]
+pub use systems::{
+    SystemOptions, SystemReport, SystemTermination, solve_scalar_equations,
+    solve_scalar_equations_f32,
+};
 
 /// Easy-driver controls accepted by `SNSQE` and `DNSQE`.
 ///

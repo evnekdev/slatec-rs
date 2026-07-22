@@ -1,6 +1,10 @@
-//! Polynomial roots.
+//! Owned single-precision polynomial roots.
 //!
-//! # Status: Partial
+//! # Status: Implemented
 //!
-//! Source support is selected, but no safe public polynomial-root facade is
-//! currently exposed. Exact output and workspace semantics remain to review.
+//! Enable `roots-polynomial`. The canonical safe API is
+//! `crate::roots::polynomial`; this module is its mathematical-organization
+//! re-export.
+
+#[cfg(feature = "roots-polynomial")]
+pub use crate::roots::polynomial::*;

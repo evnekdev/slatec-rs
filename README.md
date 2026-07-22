@@ -6,8 +6,9 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-nonlinear-expert`, `least-squares-covariance`, and
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
-`fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`, and
-`piecewise-polynomial`.
+`fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`,
+`roots-polynomial`, `bspline`, `bspline-cubic-interpolation`, `piecewise-polynomial`, and
+`tabulated-data`.
 Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
@@ -120,15 +121,21 @@ and translated implementations remain excluded.
 
 The callback-bearing safe API covers focused QUADPACK integration through
 `QAG`, `QAGS`, `QAGI`, `QAWC`, `QAGP`, `QAWS`, `QAWO`, `QAWF`, `QNG`, and
-`QNC79` in both precisions. See
+`QNC79` in both precisions, plus `DPFQAD` over checked double-precision
+piecewise polynomials. See
 [`docs/api/safe-quadrature.md`](docs/api/safe-quadrature.md) for workspace,
 panic-containment, concurrency, tolerance, and native-profile rules.
 
 The opt-in `roots` feature provides bracketed scalar root finding through the
-original `FZERO` and `DFZERO` routines. It shares the contained callback
-runtime with quadrature; polynomial roots remain deferred. The opt-in
+original `FZERO` and `DFZERO` routines. The narrower `roots-polynomial`
+feature adds owned single-precision complex polynomial roots through
+`RPZERO`/`CPZERO` and `RPQR79`/`CPQR79`: iterative-limit roots are preserved
+with an explicit partial-result status, while companion-QR nonconvergence is
+an error because the source does not promise partial output. Both surfaces
+share the serialized native runtime policy. The opt-in
 `nonlinear-easy` feature adds finite-difference easy drivers over original
-`SNSQE` and `DNSQE`. `nonlinear-expert` exposes reviewed `SNSQ`/`DNSQ` controls,
+`SNSQE` and `DNSQE`; `nonlinear-systems` adds scalar-equation `SOS`/`DSOS`
+drivers with typed convergence reports. `nonlinear-expert` exposes reviewed `SNSQ`/`DNSQ` controls,
 including banded finite differences, scaling, and contained dense user
 Jacobians. `nonlinear-jacobian-check` provides alloc-only `CHKDER`/`DCKDER`
 helpers. `least-squares-nonlinear-easy` adds residual-only, finite-difference
@@ -155,10 +162,12 @@ adds dense equality and lower-sided inequality constraints through `LSEI` and
 `least-squares-linear-bounded-constrained` separately wraps `SBOCLS`/`DBOCLS`
 for bounds on both variables and linear constraint expressions; see the
 [bounded constrained guide](docs/api/safe-bounded-constrained-linear-least-squares.md).
-The opt-in `ode-sdrive-expert` feature adds owned, panic-contained real
-explicit-IVP sessions over `SDRIV3`/`DDRIV3`; it is deliberately limited to an
-RHS callback and caller-controlled continuation. See the
-[SDRIVE session guide](docs/api/safe-ode-sdrive-expert.md).
+The opt-in `ode-sdrive-expert` feature adds owned, panic-contained continuation
+sessions over real `SDRIV1`/`DDRIV1`, event-enabled `SDRIV2`/`DDRIV2`, complex
+`CDRIV1`/`CDRIV2`, and the existing expert `SDRIV3`/`DDRIV3` drivers. Event
+indices are zero-based, and all sessions retain native workspace only for
+same-direction continuation. See the [callback-driver guide](docs/api/safe-callback-drivers.md)
+and [SDRIVE expert-session guide](docs/api/safe-ode-sdrive-expert.md).
 The separate hosted `dassl` feature adds real residual-only index-1 DAE
 sessions over `SDASSL`/`DDASSL` for `G(t, y, y') = 0`. It owns all continuation
 workspace, requires caller-supplied sufficiently consistent initial `y` and
@@ -210,6 +219,9 @@ nodes, values, an explicit complete knot sequence, and order; `BVALU`/`DBVALU`
 evaluate and `BSQAD`/`DBSQAD` integrate them. It has no hidden knot-generation
 policy, sorting, coefficient conversion, or caller workspace. See the
 [B-spline guide](docs/api/safe-bspline.md).
+The additive `bspline-cubic-interpolation` feature adds source-accurate
+`BINT4`/`DBINT4` construction with typed first/second derivative endpoint
+conditions and explicit knot-placement policies.
 
 The opt-in hosted `piecewise-polynomial` feature adds owned real univariate
 PP curves using exact native right-Taylor storage. It evaluates values and
@@ -219,6 +231,15 @@ derivatives through `PPVAL`/`DPPVAL`, integrates exactly through
 extrapolation by default, does not sort inputs, and leaves PCHIP and
 PP-to-B-spline conversion deferred. See the
 [piecewise-polynomial guide](docs/api/safe-piecewise-polynomial.md).
+
+The opt-in hosted `tabulated-data` feature adds one checked owned sample type
+for finite, strictly increasing real abscissas and matching finite values. It
+constructs global Newton interpolants with `POLINT`/`DPLINT`, evaluates values
+and derivatives with `POLYVL`/`DPOLVL`, produces Taylor coefficients with
+`POLCOF`/`DPOLCF`, and integrates arbitrarily spaced samples with
+`AVINT`/`DAVINT`. Samples are never sorted or exposed as native workspaces;
+calls are process-serialized. See the
+[tabulated-data guide](docs/api/safe-tabulated-data.md).
 
 The opt-in hosted `banded-linear-systems` feature provides compact general
 real `f32`/`f64` LINPACK LU factors and direct/transpose solves together with

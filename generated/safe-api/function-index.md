@@ -94,12 +94,17 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::integrate` | `BSQAD` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/integrate.rs) |
+| `slatec::interpolation::bspline::BSpline::interpolate_cubic` | `BINT4/DBINT4` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline-cubic-interpolation` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/interpolation/bspline_cubic_interpolate.rs) |
 | `slatec::interpolation::bspline::BSpline::interpolate_with_knots` | `BINTK` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/interpolation/bspline_interpolate.rs) |
 | `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial` | `BSPPP` | piecewise-polynomial interpolation | f32/f64 | convert a B-spline exactly to piecewise-polynomial form | `std` | `piecewise-polynomial` | [exact B-spline to PP conversion](../../examples/piecewise_polynomial/from_bspline.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise-polynomial derivative | `std` | `piecewise-polynomial` | [PP Taylor derivative evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP Taylor evaluation](../../examples/piecewise_polynomial/from_pieces.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` | `PPVAL` | piecewise-polynomial interpolation | f32/f64 | batch-evaluate a right-Taylor piecewise polynomial | `std` | `piecewise-polynomial` | [PP batch evaluation](../../examples/piecewise_polynomial/evaluate_derivatives.rs) |
 | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` | `PPQAD` | piecewise-polynomial interpolation | f32/f64 | integrate a piecewise polynomial exactly | `std` | `piecewise-polynomial` | [exact PP definite integration](../../examples/piecewise_polynomial/integrate.rs) |
+| `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate` | `POLYVL/DPOLVL` | tabulated data | f32/f64 | evaluate a global Newton interpolation polynomial | `std` | `tabulated-data` | [evaluate global Newton interpolation polynomial](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives` | `POLYVL/DPOLVL` | tabulated data | f32/f64 | evaluate a global Newton interpolation polynomial and its first derivatives | `std` | `tabulated-data` | [evaluate global Newton interpolation polynomial and first derivatives](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at` | `POLCOF/DPOLCF` | tabulated data | f32/f64 | derive global polynomial Taylor coefficients about a finite centre | `std` | `tabulated-data` | [derive Taylor coefficients about a finite centre](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial` | `POLINT/DPLINT` | tabulated data | f32/f64 | construct a global Newton interpolation polynomial from checked samples | `std` | `tabulated-data` | [construct global Newton interpolation polynomial](../../examples/interpolation/tabulated_data.rs) |
 | `slatec::least_squares::covariance_from_expert_fit` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::covariance_from_expert_fit_f32` | `SCOV` | least squares | f32 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance + least-squares-nonlinear-expert` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
 | `slatec::least_squares::estimate_covariance` | `DCOV` | least squares | f64 | nonlinear least-squares covariance estimation | `std` | `least-squares-covariance` | [nonlinear least-squares covariance estimation](../../examples/least_squares/covariance_nonlinear_fit.rs) |
@@ -121,12 +126,20 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::linear_programming::LinearProgram::<f64>::solve` | `DSPLP` | linear programming | f64 | sparse in-memory linear programming with variable and row-activity bounds | `std` | `optimization-linear-programming-in-memory` | [sparse in-memory linear programming](../../examples/linear_programming/basic.rs) |
 | `slatec::nonlinear::check_jacobian` | `DCKDER` | nonlinear | f64 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
 | `slatec::nonlinear::check_jacobian_f32` | `CHKDER` | nonlinear | f32 | componentwise Jacobian consistency checking | `alloc` | `nonlinear-jacobian-check` | [Jacobian consistency checking](../../examples/nonlinear/check_jacobian.rs) |
+| `slatec::nonlinear::solve_scalar_equations` | `DSOS` | nonlinear | f64 | scalar-equation nonlinear-system solving | `std` | `nonlinear-systems` | [FnMut(&[f64],usize)->f64](../../examples/nonlinear/scalar_equations.rs) |
+| `slatec::nonlinear::solve_scalar_equations_f32` | `SOS` | nonlinear | f32 | scalar-equation nonlinear-system solving | `std` | `nonlinear-systems` | [FnMut(&[f32],usize)->f32](../../examples/nonlinear/scalar_equations.rs) |
 | `slatec::nonlinear::solve_system` | `DNSQE` | nonlinear | f64 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system.rs) |
 | `slatec::nonlinear::solve_system_expert` | `DNSQ` | nonlinear | f64 | expert finite-difference nonlinear-system solving | `std` | `nonlinear-expert` | [expert finite-difference nonlinear system](../../examples/nonlinear/solve_system_expert.rs) |
 | `slatec::nonlinear::solve_system_expert_f32` | `SNSQ` | nonlinear | f32 | expert finite-difference nonlinear-system solving | `std` | `nonlinear-expert` | [expert finite-difference nonlinear system](../../examples/nonlinear/solve_system_expert.rs) |
 | `slatec::nonlinear::solve_system_f32` | `SNSQE` | nonlinear | f32 | finite-difference nonlinear-system solving | `std` | `nonlinear-easy` | [finite-difference nonlinear system](../../examples/nonlinear/solve_system_f32.rs) |
 | `slatec::nonlinear::solve_system_with_jacobian` | `DNSQ` | nonlinear | f64 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
 | `slatec::nonlinear::solve_system_with_jacobian_f32` | `SNSQ` | nonlinear | f32 | expert analytic-Jacobian nonlinear-system solving | `std` | `nonlinear-expert` | [expert analytic-Jacobian nonlinear system](../../examples/nonlinear/solve_system_with_jacobian.rs) |
+| `slatec::ode::ComplexDriv1Session::integrate_to` | `CDRIV1` | ordinary differential equations | Complex32/f32 time | complex RHS closure | `std` | `ode-sdrive-expert` | [complex RHS closure](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::ComplexDriv2Session::integrate_to_with_events` | `CDRIV2` | ordinary differential equations | Complex32/f32 time | complex RHS plus indexed real root closure | `std` | `ode-sdrive-expert` | [complex RHS plus indexed real root closure](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv1Session::<f32>::integrate_to` | `SDRIV1` | ordinary differential equations | f32 | FnMut(f32,&[f32],&mut[f32]) | `std` | `ode-sdrive-expert` | [FnMut(f32,&[f32],&mut[f32])](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv1Session::<f64>::integrate_to` | `DDRIV1` | ordinary differential equations | f64 | FnMut(f64,&[f64],&mut[f64]) | `std` | `ode-sdrive-expert` | [FnMut(f64,&[f64],&mut[f64])](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv2Session::<f32>::integrate_to_with_events` | `SDRIV2` | ordinary differential equations | f32 | RHS plus indexed root closure | `std` | `ode-sdrive-expert` | [RHS plus indexed root closure](../../examples/ode/callback_drivers.rs) |
+| `slatec::ode::Driv2Session::<f64>::integrate_to_with_events` | `DDRIV2` | ordinary differential equations | f64 | RHS plus indexed root closure | `std` | `ode-sdrive-expert` | [RHS plus indexed root closure](../../examples/ode/callback_drivers.rs) |
 | `slatec::ode::OdeSession::<f32, F, E>::integrate_to` | `SDRIV3` | ordinary differential equations | f32 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/harmonic_oscillator.rs) |
 | `slatec::ode::OdeSession::<f64, F, E>::integrate_to` | `DDRIV3` | ordinary differential equations | f64 | explicit real initial-value problem y'=f(t,y) | `std` | `ode-sdrive-expert` | [explicit real initial-value problem y'=f(t,y)](../../examples/ode/exponential_decay.rs) |
 | `slatec::pchip::PiecewiseCubicHermite::evaluate_into` | `PCHFE` | piecewise cubic Hermite interpolation | f32/f64 | evaluate a piecewise-cubic Hermite curve | `std` | `pchip` | [piecewise-cubic Hermite value evaluation](../../examples/pchip/monotone.rs) |
@@ -149,16 +162,23 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::quadrature::integrate_non_adaptive_f32` | `QNG` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-nonadaptive` | [finite_non_adaptive](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_oscillatory` | `DQAWO` | quadrature | f64 | finite oscillatory integration | `std` | `quadrature-oscillatory` | [finite_oscillatory](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_oscillatory_f32` | `QAWO` | quadrature | f32 | finite oscillatory integration | `std` | `quadrature-oscillatory` | [finite_oscillatory](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_piecewise_polynomial` | `DPFQAD` | quadrature | f64 | piecewise-polynomial weighted quadrature | `std` | `quadrature-piecewise-polynomial` | [FnMut(f64)->f64](../../examples/quadrature/piecewise_polynomial.rs) |
 | `slatec::quadrature::integrate_principal_value` | `DQAWC` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_principal_value_f32` | `QAWC` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [cauchy_principal_value](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_singular` | `DQAGS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_singular_f32` | `QAGS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-basic` | [finite_endpoint_singularity](../../examples/quadrature/families.rs) |
+| `slatec::quadrature::integrate_tabulated` | `DAVINT` | tabulated data | f64 | integrate arbitrarily spaced tabulated values by overlapping parabolas | `std` | `tabulated-data` | [integrate arbitrarily spaced tabulated values](../../examples/interpolation/tabulated_data.rs) |
+| `slatec::quadrature::integrate_tabulated_f32` | `AVINT` | tabulated data | f32 | integrate arbitrarily spaced tabulated values by overlapping parabolas | `std` | `tabulated-data` | [integrate arbitrarily spaced tabulated values](../../examples/interpolation/tabulated_data.rs) |
 | `slatec::quadrature::integrate_weighted_endpoints` | `DQAWS` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_weighted_endpoints_f32` | `QAWS` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-weighted` | [finite_endpoint_weight](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_with_breakpoints` | `DQAGP` | quadrature | f64 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
 | `slatec::quadrature::integrate_with_breakpoints_f32` | `QAGP` | quadrature | f32 | validated scalar numerical function | `std` | `quadrature-breakpoints` | [finite_breakpoints](../../examples/quadrature/families.rs) |
+| `slatec::roots::complex_polynomial_roots` | `CPZERO` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
+| `slatec::roots::complex_polynomial_roots_with_method` | `CPQR79` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
 | `slatec::roots::find_root` | `DFZERO` | roots | f64 | bracketed scalar root finding | `std` | `roots-scalar` | [bracketed scalar root](../../examples/roots/scalar.rs) |
 | `slatec::roots::find_root_f32` | `FZERO` | roots | f32 | bracketed scalar root finding | `std` | `roots-scalar` | [bracketed scalar root](../../examples/roots/scalar.rs) |
+| `slatec::roots::real_polynomial_roots` | `RPZERO` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
+| `slatec::roots::real_polynomial_roots_with_method` | `RPQR79` | roots | f32_complex | validated scalar numerical function | `std` | `roots-polynomial` | [owned complex polynomial roots](../../examples/roots/polynomial_roots.rs) |
 | `slatec::special::airy::airy_ai` | `DAI` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
 | `slatec::special::airy::airy_ai_f32` | `AI` | special functions | f32 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
 | `slatec::special::airy::airy_ai_scaled` | `DAIE` | special functions | f64 | validated scalar numerical function | `std` | `special-airy` | [airy](../../examples/special/functions.rs) |
@@ -259,6 +279,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `ALI` -> `slatec::special::scalar_expanded::logarithmic_integral_f32`
 - `ALNGAM` -> `slatec::special::gamma::log_gamma_f32`
 - `ALNREL` -> `slatec::special::elementary::log1p_f32`
+- `AVINT` -> `slatec::quadrature::integrate_tabulated_f32`
 - `BESI0` -> `slatec::special::bessel::bessel_i0_f32`
 - `BESI0E` -> `slatec::special::bessel::bessel_i0_scaled_f32`
 - `BESI1` -> `slatec::special::bessel::bessel_i1_f32`
@@ -276,6 +297,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BI` -> `slatec::special::airy::airy_bi_f32`
 - `BIE` -> `slatec::special::airy::airy_bi_scaled_f32`
 - `BINOM` -> `slatec::special::gamma::binomial_coefficient_f32`
+- `BINT4/DBINT4` -> `slatec::interpolation::bspline::BSpline::interpolate_cubic`
 - `BINTK` -> `slatec::interpolation::bspline::BSpline::interpolate_with_knots`
 - `BSPPP` -> `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `BSQAD` -> `slatec::interpolation::bspline::BSpline::integrate`
@@ -283,6 +305,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate`
 - `BVALU` -> `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `CBRT` -> `slatec::special::elementary::cbrt_f32`
+- `CDRIV1` -> `slatec::ode::ComplexDriv1Session::integrate_to`
+- `CDRIV2` -> `slatec::ode::ComplexDriv2Session::integrate_to_with_events`
 - `CFFTB1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::backward`
 - `CFFTF1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::forward`
 - `CFFTI1` -> `slatec::transforms::fft::complex::ComplexFftPlan32::new`
@@ -293,11 +317,14 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `COSQI` -> `slatec::fftpack::QuarterWaveCosinePlan::new`
 - `COST` -> `slatec::fftpack::CosineTransformPlan::transform`
 - `COSTI` -> `slatec::fftpack::CosineTransformPlan::new`
+- `CPQR79` -> `slatec::roots::complex_polynomial_roots_with_method`
+- `CPZERO` -> `slatec::roots::complex_polynomial_roots`
 - `CSEVL` -> `slatec::polynomials::chebyshev::chebyshev_series_f32`
 - `DAI` -> `slatec::special::airy::airy_ai`
 - `DAIE` -> `slatec::special::airy::airy_ai_scaled`
 - `DASUM` -> `slatec::blas::level1::dasum`
 - `DASUM` -> `slatec::blas::level1::dasum_strided`
+- `DAVINT` -> `slatec::quadrature::integrate_tabulated`
 - `DAWS` -> `slatec::special::elementary::dawson_f32`
 - `DAXPY` -> `slatec::blas::level1::daxpy`
 - `DAXPY` -> `slatec::blas::level1::daxpy_strided`
@@ -333,6 +360,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DDAWS` -> `slatec::special::elementary::dawson`
 - `DDOT` -> `slatec::blas::level1::ddot`
 - `DDOT` -> `slatec::blas::level1::ddot_strided`
+- `DDRIV1` -> `slatec::ode::Driv1Session::<f64>::integrate_to`
+- `DDRIV2` -> `slatec::ode::Driv2Session::<f64>::integrate_to_with_events`
 - `DDRIV3` -> `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
 - `DE1` -> `slatec::special::integrals::exponential_integral_e1`
 - `DEI` -> `slatec::special::integrals::exponential_integral_ei`
@@ -365,6 +394,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DNSQ` -> `slatec::nonlinear::solve_system_expert`
 - `DNSQ` -> `slatec::nonlinear::solve_system_with_jacobian`
 - `DNSQE` -> `slatec::nonlinear::solve_system`
+- `DPFQAD` -> `slatec::quadrature::integrate_piecewise_polynomial`
 - `DPSI` -> `slatec::special::gamma::digamma`
 - `DQAG` -> `slatec::quadrature::integrate`
 - `DQAGI` -> `slatec::quadrature::integrate_infinite`
@@ -385,6 +415,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `DSCAL` -> `slatec::blas::level1::dscal`
 - `DSCAL` -> `slatec::blas::level1::dscal_strided`
 - `DSINDG` -> `slatec::special::elementary::sin_degrees`
+- `DSOS` -> `slatec::nonlinear::solve_scalar_equations`
 - `DSPENC` -> `slatec::special::scalar_expanded::spence_integral`
 - `DSPLP` -> `slatec::linear_programming::LinearProgram::<f64>::solve`
 - `DSWAP` -> `slatec::blas::level1::dswap`
@@ -424,6 +455,10 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `PCHIM` -> `slatec::pchip::PiecewiseCubicHermite::monotone`
 - `PCHSP` -> `slatec::pchip::PiecewiseCubicHermite::spline`
 - `POIS3D` -> `slatec::differential_equations::pde::Pois3dProblem::solve`
+- `POLCOF/DPOLCF` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at`
+- `POLINT/DPLINT` -> `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial`
+- `POLYVL/DPOLVL` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate`
+- `POLYVL/DPOLVL` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives`
 - `PPQAD` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
@@ -446,6 +481,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `RFFTF` -> `slatec::fftpack::RealFftPlan::forward`
 - `RFFTI` -> `slatec::fftpack::RealFftPlan::new`
 - `RJ` -> `slatec::special::scalar_expanded::carlson_rj_f32`
+- `RPQR79` -> `slatec::roots::real_polynomial_roots_with_method`
+- `RPZERO` -> `slatec::roots::real_polynomial_roots`
 - `SASUM` -> `slatec::blas::level1::sasum`
 - `SASUM` -> `slatec::blas::level1::sasum_strided`
 - `SAXPY` -> `slatec::blas::level1::saxpy`
@@ -460,6 +497,8 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SDASSL` -> `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - `SDOT` -> `slatec::blas::level1::sdot`
 - `SDOT` -> `slatec::blas::level1::sdot_strided`
+- `SDRIV1` -> `slatec::ode::Driv1Session::<f32>::integrate_to`
+- `SDRIV2` -> `slatec::ode::Driv2Session::<f32>::integrate_to_with_events`
 - `SDRIV3` -> `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
 - `SGBCO` -> `slatec::linear_algebra::banded::BandMatrixRef::factorize_with_condition_estimate`
 - `SGBDI` -> `slatec::linear_algebra::banded::BandLu32::scaled_determinant`
@@ -482,6 +521,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `SNSQ` -> `slatec::nonlinear::solve_system_expert_f32`
 - `SNSQ` -> `slatec::nonlinear::solve_system_with_jacobian_f32`
 - `SNSQE` -> `slatec::nonlinear::solve_system_f32`
+- `SOS` -> `slatec::nonlinear::solve_scalar_equations_f32`
 - `SPENC` -> `slatec::special::scalar_expanded::spence_integral_f32`
 - `SPLP` -> `slatec::linear_programming::LinearProgram::<f32>::solve`
 - `SROT` -> `slatec::blas::level1::srot`
@@ -671,6 +711,7 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_non_adaptive_f32` — validated scalar numerical function
 - `slatec::quadrature::integrate_oscillatory` — finite oscillatory integration
 - `slatec::quadrature::integrate_oscillatory_f32` — finite oscillatory integration
+- `slatec::quadrature::integrate_piecewise_polynomial` — piecewise-polynomial weighted quadrature
 - `slatec::quadrature::integrate_principal_value` — validated scalar numerical function
 - `slatec::quadrature::integrate_principal_value_f32` — validated scalar numerical function
 - `slatec::quadrature::integrate_singular` — validated scalar numerical function
@@ -682,13 +723,19 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### roots
 
+- `slatec::roots::complex_polynomial_roots` — validated scalar numerical function
+- `slatec::roots::complex_polynomial_roots_with_method` — validated scalar numerical function
 - `slatec::roots::find_root` — bracketed scalar root finding
 - `slatec::roots::find_root_f32` — bracketed scalar root finding
+- `slatec::roots::real_polynomial_roots` — validated scalar numerical function
+- `slatec::roots::real_polynomial_roots_with_method` — validated scalar numerical function
 
 ### nonlinear
 
 - `slatec::nonlinear::check_jacobian` — componentwise Jacobian consistency checking
 - `slatec::nonlinear::check_jacobian_f32` — componentwise Jacobian consistency checking
+- `slatec::nonlinear::solve_scalar_equations` — scalar-equation nonlinear-system solving
+- `slatec::nonlinear::solve_scalar_equations_f32` — scalar-equation nonlinear-system solving
 - `slatec::nonlinear::solve_system` — finite-difference nonlinear-system solving
 - `slatec::nonlinear::solve_system_expert` — expert finite-difference nonlinear-system solving
 - `slatec::nonlinear::solve_system_expert_f32` — expert finite-difference nonlinear-system solving
@@ -724,6 +771,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 
 ### ordinary differential equations
 
+- `slatec::ode::ComplexDriv1Session::integrate_to` — complex RHS closure
+- `slatec::ode::ComplexDriv2Session::integrate_to_with_events` — complex RHS plus indexed real root closure
+- `slatec::ode::Driv1Session::<f32>::integrate_to` — FnMut(f32,&[f32],&mut[f32])
+- `slatec::ode::Driv1Session::<f64>::integrate_to` — FnMut(f64,&[f64],&mut[f64])
+- `slatec::ode::Driv2Session::<f32>::integrate_to_with_events` — RHS plus indexed root closure
+- `slatec::ode::Driv2Session::<f64>::integrate_to_with_events` — RHS plus indexed root closure
 - `slatec::ode::OdeSession::<f32, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
 - `slatec::ode::OdeSession::<f64, F, E>::integrate_to` — explicit real initial-value problem y'=f(t,y)
 
@@ -773,6 +826,15 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate` — evaluate a right-Taylor piecewise polynomial
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` — batch-evaluate a right-Taylor piecewise polynomial
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate` — integrate a piecewise polynomial exactly
+
+### tabulated data
+
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate` — evaluate a global Newton interpolation polynomial
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives` — evaluate a global Newton interpolation polynomial and its first derivatives
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at` — derive global polynomial Taylor coefficients about a finite centre
+- `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial` — construct a global Newton interpolation polynomial from checked samples
+- `slatec::quadrature::integrate_tabulated` — integrate arbitrarily spaced tabulated values by overlapping parabolas
+- `slatec::quadrature::integrate_tabulated_f32` — integrate arbitrarily spaced tabulated values by overlapping parabolas
 
 ### Cartesian FISHPACK PDE
 
@@ -878,12 +940,17 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::interpolation::bspline::BSpline::evaluate`
 - `slatec::interpolation::bspline::BSpline::evaluate_into`
 - `slatec::interpolation::bspline::BSpline::integrate`
+- `slatec::interpolation::bspline::BSpline::interpolate_cubic`
 - `slatec::interpolation::bspline::BSpline::interpolate_with_knots`
 - `slatec::interpolation::bspline::BSpline::to_piecewise_polynomial`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into`
 - `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate`
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate`
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives`
+- `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at`
+- `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial`
 - `slatec::least_squares::covariance_from_expert_fit`
 - `slatec::least_squares::covariance_from_expert_fit_f32`
 - `slatec::least_squares::estimate_covariance`
@@ -903,12 +970,20 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::linear_least_squares::solve_nonnegative_least_squares_f32`
 - `slatec::linear_programming::LinearProgram::<f32>::solve`
 - `slatec::linear_programming::LinearProgram::<f64>::solve`
+- `slatec::nonlinear::solve_scalar_equations`
+- `slatec::nonlinear::solve_scalar_equations_f32`
 - `slatec::nonlinear::solve_system`
 - `slatec::nonlinear::solve_system_expert`
 - `slatec::nonlinear::solve_system_expert_f32`
 - `slatec::nonlinear::solve_system_f32`
 - `slatec::nonlinear::solve_system_with_jacobian`
 - `slatec::nonlinear::solve_system_with_jacobian_f32`
+- `slatec::ode::ComplexDriv1Session::integrate_to`
+- `slatec::ode::ComplexDriv2Session::integrate_to_with_events`
+- `slatec::ode::Driv1Session::<f32>::integrate_to`
+- `slatec::ode::Driv1Session::<f64>::integrate_to`
+- `slatec::ode::Driv2Session::<f32>::integrate_to_with_events`
+- `slatec::ode::Driv2Session::<f64>::integrate_to_with_events`
 - `slatec::ode::OdeSession::<f32, F, E>::integrate_to`
 - `slatec::ode::OdeSession::<f64, F, E>::integrate_to`
 - `slatec::pchip::PiecewiseCubicHermite::evaluate_into`
@@ -931,16 +1006,23 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_non_adaptive_f32`
 - `slatec::quadrature::integrate_oscillatory`
 - `slatec::quadrature::integrate_oscillatory_f32`
+- `slatec::quadrature::integrate_piecewise_polynomial`
 - `slatec::quadrature::integrate_principal_value`
 - `slatec::quadrature::integrate_principal_value_f32`
 - `slatec::quadrature::integrate_singular`
 - `slatec::quadrature::integrate_singular_f32`
+- `slatec::quadrature::integrate_tabulated`
+- `slatec::quadrature::integrate_tabulated_f32`
 - `slatec::quadrature::integrate_weighted_endpoints`
 - `slatec::quadrature::integrate_weighted_endpoints_f32`
 - `slatec::quadrature::integrate_with_breakpoints`
 - `slatec::quadrature::integrate_with_breakpoints_f32`
+- `slatec::roots::complex_polynomial_roots`
+- `slatec::roots::complex_polynomial_roots_with_method`
 - `slatec::roots::find_root`
 - `slatec::roots::find_root_f32`
+- `slatec::roots::real_polynomial_roots`
+- `slatec::roots::real_polynomial_roots_with_method`
 - `slatec::special::airy::airy_ai`
 - `slatec::special::airy::airy_ai_f32`
 - `slatec::special::airy::airy_ai_scaled`

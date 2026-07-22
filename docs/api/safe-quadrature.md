@@ -33,6 +33,10 @@ verified cache; ordinary Cargo builds do not acquire source.
   nested-rule progression, without adaptive subdivision (`DQNG`/`QNG`).
 - `integrate_nc79` and its single-precision counterpart: the bounded,
   adaptive Newton-Cotes 7/9 driver (`DQNC79`/`QNC79`).
+- `integrate_tabulated` and `integrate_tabulated_f32`: arbitrary-spacing,
+  finite tabulated samples integrated by overlapping parabolas
+  (`DAVINT`/`AVINT`). These use checked owned `TabulatedData` values and do
+  not install a callback or expose a workspace.
 
 The low-level `QK*` and `QC25*` kernels and public expert `*E` workspace
 drivers remain deferred. The safe layer never exposes raw work arrays.

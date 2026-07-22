@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 244;
+const SAFE_FUNCTION_TARGET: usize = 264;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -29,11 +29,13 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "quadrature-oscillatory",
     "quadrature-fourier",
     "quadrature-nonadaptive",
+    "quadrature-piecewise-polynomial",
     "roots-scalar",
     "roots-polynomial",
     "nonlinear-easy",
     "nonlinear-expert",
     "nonlinear-jacobian-check",
+    "nonlinear-systems",
     "least-squares-nonlinear-easy",
     "least-squares-nonlinear-expert",
     "least-squares-covariance",
@@ -51,7 +53,9 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "banded-linear-systems",
     "pchip",
     "bspline",
+    "bspline-cubic-interpolation",
     "piecewise-polynomial",
+    "tabulated-data",
 ];
 const FROZEN_HIGH_LEVEL_PATHS: &[&str] = &[
     "roadmap",
@@ -581,6 +585,18 @@ fn leaves() -> Vec<LeafSpec> {
             "SerializedGlobal",
             &["slatec::quadrature::integrate_non_adaptive"]
         ),
+        implemented!(
+            "integration::quadrature::piecewise_polynomial",
+            "crates/slatec/src/quadrature/piecewise_polynomial.rs",
+            "quadrature-piecewise-polynomial",
+            "crate::quadrature",
+            "slatec::quadrature",
+            "quadrature-piecewise-polynomial",
+            "f64",
+            "std",
+            "SerializedGlobal",
+            &["slatec::quadrature::integrate_piecewise_polynomial"]
+        ),
         planned!(
             "integration::integral_equations",
             "crates/slatec/src/integration/integral_equations.rs",
@@ -604,14 +620,14 @@ fn leaves() -> Vec<LeafSpec> {
             "equations::roots::polynomial",
             "crates/slatec/src/equations/roots/polynomial.rs",
             "roots-polynomial",
-            "none",
-            "none",
+            "crate::roots::polynomial",
+            "slatec::roots",
             "roots-polynomial",
-            "unreviewed",
-            "alloc",
-            "unreviewed",
-            "Selected source support has no safe public facade.",
-            "Audit polynomial output, mutation, and multiplicity contracts."
+            "f32 Complex32 coefficients and roots",
+            "std",
+            "SerializedGlobal",
+            "Owned single-precision polynomial roots are reviewed; f64/Complex64 and broader polynomial analysis remain unreviewed.",
+            "Audit higher precision and multiplicity/conditioning policy separately."
         ),
         implemented!(
             "equations::nonlinear::easy",
@@ -648,6 +664,18 @@ fn leaves() -> Vec<LeafSpec> {
             "alloc",
             "SerializedGlobal",
             &["slatec::nonlinear::check_jacobian"]
+        ),
+        implemented!(
+            "equations::nonlinear::scalar_equations",
+            "crates/slatec/src/nonlinear/systems.rs",
+            "nonlinear-systems",
+            "crate::nonlinear",
+            "slatec::nonlinear",
+            "nonlinear-systems",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            &["slatec::nonlinear::solve_scalar_equations"]
         ),
         implemented!(
             "least_squares::nonlinear::easy",
@@ -885,8 +913,8 @@ fn leaves() -> Vec<LeafSpec> {
             "f32,f64",
             "std",
             "SerializedGlobal",
-            "Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred.",
-            "Audit one additional constructor or basis family without broadening the representation API."
+            "Basis vectors, weighted callbacks, tensor products, and smoothing remain deferred; reviewed cubic interpolation is available under an additive feature.",
+            "Audit one additional basis or fitting family without broadening the representation API."
         ),
         partial!(
             "interpolation::piecewise_polynomial",
@@ -900,6 +928,21 @@ fn leaves() -> Vec<LeafSpec> {
             "SerializedGlobal",
             "PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred.",
             "Audit one additional representation conversion only after its native contract and storage semantics are complete."
+        ),
+        implemented!(
+            "interpolation::tabulated",
+            "crates/slatec/src/interpolation/tabulated.rs",
+            "tabulated-data",
+            "crate::interpolation::tabulated",
+            "none",
+            "tabulated-data",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            &[
+                "slatec::interpolation::tabulated::",
+                "slatec::quadrature::integrate_tabulated"
+            ]
         ),
         planned!(
             "interpolation::divided_differences",
@@ -1022,6 +1065,11 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "quadrature-piecewise-polynomial",
+            grouped_paths: &["integration::quadrature::piecewise_polynomial"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "roots-scalar",
             grouped_paths: &["equations::roots::scalar"],
             evidence_source: "crates/slatec/Cargo.toml",
@@ -1044,6 +1092,11 @@ fn features() -> Vec<FeatureRecord> {
         FeatureRecord {
             cargo_feature: "nonlinear-jacobian-check",
             grouped_paths: &["equations::nonlinear::jacobian_check"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
+            cargo_feature: "nonlinear-systems",
+            grouped_paths: &["equations::nonlinear::scalar_equations"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
@@ -1132,8 +1185,18 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "bspline-cubic-interpolation",
+            grouped_paths: &["interpolation::bspline"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "piecewise-polynomial",
             grouped_paths: &["interpolation::piecewise_polynomial"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
+            cargo_feature: "tabulated-data",
+            grouped_paths: &["interpolation::tabulated"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
     ]
@@ -1156,7 +1219,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         .len();
     if safe_function_count != SAFE_FUNCTION_TARGET {
         return Err(policy(
-            "safe-function count changed during documentation-only milestone",
+            "safe-function count differs from the reviewed safe surface",
         ));
     }
     let capability_counts = capability["capabilities"]
@@ -1174,7 +1237,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 184),
+            ("std".to_owned(), 204),
         ])
     {
         return Err(policy(

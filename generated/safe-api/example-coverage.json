@@ -848,7 +848,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/derivatives.rs",
       "fortran_routine": "BVALU",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::derivative",
       "validation_case": "derivative",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -858,7 +858,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/from_parts.rs",
       "fortran_routine": "BVALU",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::evaluate",
       "validation_case": "evaluate",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -868,7 +868,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/from_parts.rs",
       "fortran_routine": "BVALU",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::evaluate_into",
       "validation_case": "evaluate_into",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -878,7 +878,7 @@
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/integrate.rs",
       "fortran_routine": "BSQAD",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::integrate",
       "validation_case": "integrate",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -886,9 +886,19 @@
     {
       "doctest_present": false,
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
+      "example_file": "examples/interpolation/bspline_cubic_interpolate.rs",
+      "fortran_routine": "BINT4/DBINT4",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "validation_case": "interpolate_cubic",
+      "validation_file": "crates/slatec/tests/bspline_cubic_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/interpolation/bspline_interpolate.rs",
       "fortran_routine": "BINTK",
-      "native_execution_status": "unknown",
+      "native_execution_status": "native_execution_passed",
       "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
       "validation_case": "interpolate_with_knots",
       "validation_file": "crates/slatec/tests/bspline_native.rs"
@@ -942,6 +952,46 @@
       "rust_path": "slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate",
       "validation_case": "integrate",
       "validation_file": "crates/slatec/tests/piecewise_polynomial_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "evaluate global Newton interpolation polynomial",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLYVL/DPOLVL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate",
+      "validation_case": "evaluate",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "evaluate global Newton interpolation polynomial and first derivatives",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLYVL/DPOLVL",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives",
+      "validation_case": "evaluate_with_derivatives",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "derive Taylor coefficients about a finite centre",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLCOF/DPOLCF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at",
+      "validation_case": "taylor_coefficients_at",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "construct global Newton interpolation polynomial",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "POLINT/DPLINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial",
+      "validation_case": "interpolating_polynomial",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
     },
     {
       "doctest_present": true,
@@ -1155,6 +1205,26 @@
     },
     {
       "doctest_present": true,
+      "example_case": "FnMut(&[f64],usize)->f64",
+      "example_file": "examples/nonlinear/scalar_equations.rs",
+      "fortran_routine": "DSOS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::nonlinear::solve_scalar_equations",
+      "validation_case": "solve_scalar_equations",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "FnMut(&[f32],usize)->f32",
+      "example_file": "examples/nonlinear/scalar_equations.rs",
+      "fortran_routine": "SOS",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::nonlinear::solve_scalar_equations_f32",
+      "validation_case": "solve_scalar_equations_f32",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": true,
       "example_case": "finite-difference nonlinear system",
       "example_file": "examples/nonlinear/solve_system.rs",
       "fortran_routine": "DNSQE",
@@ -1212,6 +1282,66 @@
       "rust_path": "slatec::nonlinear::solve_system_with_jacobian_f32",
       "validation_case": "solve_system_with_jacobian_f32",
       "validation_file": "crates/slatec/tests/nonlinear_expert_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "complex RHS closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "CDRIV1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::ComplexDriv1Session::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "complex RHS plus indexed real root closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "CDRIV2",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::ComplexDriv2Session::integrate_to_with_events",
+      "validation_case": "integrate_to_with_events",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "FnMut(f32,&[f32],&mut[f32])",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "SDRIV1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv1Session::<f32>::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "FnMut(f64,&[f64],&mut[f64])",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "DDRIV1",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv1Session::<f64>::integrate_to",
+      "validation_case": "integrate_to",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "RHS plus indexed root closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "SDRIV2",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv2Session::<f32>::integrate_to_with_events",
+      "validation_case": "integrate_to_with_events",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "RHS plus indexed root closure",
+      "example_file": "examples/ode/callback_drivers.rs",
+      "fortran_routine": "DDRIV2",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::ode::Driv2Session::<f64>::integrate_to_with_events",
+      "validation_case": "integrate_to_with_events",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
     },
     {
       "doctest_present": false,
@@ -1434,6 +1564,16 @@
       "validation_file": "crates/slatec/tests/quadrature_native.rs"
     },
     {
+      "doctest_present": true,
+      "example_case": "FnMut(f64)->f64",
+      "example_file": "examples/quadrature/piecewise_polynomial.rs",
+      "fortran_routine": "DPFQAD",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_piecewise_polynomial",
+      "validation_case": "integrate_piecewise_polynomial",
+      "validation_file": "crates/slatec/tests/callback_driver_expansion.rs"
+    },
+    {
       "doctest_present": false,
       "example_case": "cauchy_principal_value",
       "example_file": "examples/quadrature/families.rs",
@@ -1472,6 +1612,26 @@
       "rust_path": "slatec::quadrature::integrate_singular_f32",
       "validation_case": "integrate_singular_f32",
       "validation_file": "crates/slatec/tests/quadrature_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrate arbitrarily spaced tabulated values",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "DAVINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_tabulated",
+      "validation_case": "integrate_tabulated",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "integrate arbitrarily spaced tabulated values",
+      "example_file": "examples/interpolation/tabulated_data.rs",
+      "fortran_routine": "AVINT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::quadrature::integrate_tabulated_f32",
+      "validation_case": "integrate_tabulated_f32",
+      "validation_file": "crates/slatec/tests/tabulated_data_native.rs"
     },
     {
       "doctest_present": false,
@@ -1515,6 +1675,26 @@
     },
     {
       "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "CPZERO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::complex_polynomial_roots",
+      "validation_case": "complex_polynomial_roots",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "CPQR79",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::complex_polynomial_roots_with_method",
+      "validation_case": "complex_polynomial_roots_with_method",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "bracketed scalar root",
       "example_file": "examples/roots/scalar.rs",
       "fortran_routine": "DFZERO",
@@ -1532,6 +1712,26 @@
       "rust_path": "slatec::roots::find_root_f32",
       "validation_case": "find_root_f32",
       "validation_file": "crates/slatec/tests/roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "RPZERO",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::real_polynomial_roots",
+      "validation_case": "real_polynomial_roots",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "owned complex polynomial roots",
+      "example_file": "examples/roots/polynomial_roots.rs",
+      "fortran_routine": "RPQR79",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::roots::real_polynomial_roots_with_method",
+      "validation_case": "real_polynomial_roots_with_method",
+      "validation_file": "crates/slatec/tests/polynomial_roots_native.rs"
     },
     {
       "doctest_present": false,

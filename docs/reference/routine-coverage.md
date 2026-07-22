@@ -76,6 +76,17 @@ detected cross-contamination. See
 [argument-contamination-audit.json](../../generated/slatec-routines/argument-contamination-audit.json),
 and [rendered-rustdoc-semantic-audit.json](../../generated/slatec-routines/rendered-rustdoc-semantic-audit.json).
 
+## Approximation, roots, and optimization completion
+
+The safe-facade disposition is deliberately reported separately from raw ABI
+coverage. The deterministic [aggregate completion inventory](../../generated/safe-api/approx-roots-optimization-coverage.md)
+and its [approximation](../../generated/safe-api/approximation-complete-coverage.md),
+[complex-root](../../generated/safe-api/complex-root-complete-coverage.md), and
+[nonlinear/optimization](../../generated/safe-api/nonlinear-optimization-complete-coverage.md)
+views record source hashes, raw and provider features, safe paths, test status,
+and an exact final disposition for each relevant identity. They do not infer a
+Fortran call graph where the committed authoritative inputs do not provide one.
+
 ## Callback-bearing raw interfaces
 
 The callback-specific public raw tier is source-reconstructed and

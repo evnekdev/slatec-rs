@@ -6,7 +6,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 
 | Status | Leaves |
 | --- | ---: |
-| Implemented | 30 |
+| Implemented | 33 |
 | Partial | 15 |
 | Planned | 17 |
 | Deferred | 3 |
@@ -15,7 +15,7 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | Stability | Leaves |
 | --- | ---: |
 | Frozen | 10 |
-| Reserved | 62 |
+| Reserved | 65 |
 | Provisional | 3 |
 
 ## Leaf status
@@ -53,12 +53,14 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | integration | `integration::quadrature::oscillatory` | Reserved | Implemented | yes | `quadrature-oscillatory` | f32,f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | integration | `integration::quadrature::fourier` | Reserved | Implemented | yes | `quadrature-fourier` | f32,f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | integration | `integration::quadrature::nonadaptive` | Reserved | Implemented | yes | `quadrature-nonadaptive` | f32,f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
+| integration | `integration::quadrature::piecewise_polynomial` | Reserved | Implemented | yes | `quadrature-piecewise-polynomial` | f64 | std | SerializedGlobal | `slatec::quadrature` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | integration | `integration::integral_equations` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No reviewed safe integral-equation family is selected. | Inventory candidate source families. |
 | equations | `equations::roots::scalar` | Reserved | Implemented | yes | `roots-scalar` | f32,f64 | std | SerializedGlobal | `slatec::roots` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
-| equations | `equations::roots::polynomial` | Reserved | Partial | yes | `roots-polynomial` | unreviewed | alloc | unreviewed | `none` | Selected source support has no safe public facade. | Audit polynomial output, mutation, and multiplicity contracts. |
+| equations | `equations::roots::polynomial` | Reserved | Partial | yes | `roots-polynomial` | f32 Complex32 coefficients and roots | std | SerializedGlobal | `slatec::roots` | Owned single-precision polynomial roots are reviewed; f64/Complex64 and broader polynomial analysis remain unreviewed. | Audit higher precision and multiplicity/conditioning policy separately. |
 | equations | `equations::nonlinear::easy` | Reserved | Implemented | yes | `nonlinear-easy` | f32,f64 | std | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | equations | `equations::nonlinear::expert` | Reserved | Implemented | yes | `nonlinear-expert` | f32,f64 | std | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | equations | `equations::nonlinear::jacobian_check` | Reserved | Implemented | yes | `nonlinear-jacobian-check` | f32,f64 | alloc | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
+| equations | `equations::nonlinear::scalar_equations` | Reserved | Implemented | yes | `nonlinear-systems` | f32,f64 | std | SerializedGlobal | `slatec::nonlinear` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | least_squares | `least_squares::nonlinear::easy` | Reserved | Implemented | yes | `least-squares-nonlinear-easy` | f32,f64 | std | SerializedGlobal | `slatec::least_squares` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | least_squares | `least_squares::nonlinear::expert` | Reserved | Implemented | yes | `least-squares-nonlinear-expert` | f32,f64 | std | SerializedGlobal | `slatec::least_squares` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | least_squares | `least_squares::covariance` | Reserved | Implemented | yes | `least-squares-covariance` | f32,f64 | std | SerializedGlobal | `slatec::least_squares` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
@@ -82,8 +84,9 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | transforms | `transforms::fft::complex` | Reserved | Partial | yes | `fftpack-complex` | f32 (Complex32); Complex64 native roots absent | std | SerializedGlobal | `none` | Only the selected single-precision standard real-array complex FFTPACK interface exists; multidimensional work remains separate. | Audit a native double-precision complex family only if one is added to the selected snapshot. |
 | transforms | `transforms::fft::multidimensional` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No reviewed safe multidimensional transform family is selected. | Audit a bounded multidimensional transform family. |
 | interpolation | `interpolation::pchip` | Reserved | Implemented | yes | `pchip` | f32,f64 | std | SerializedGlobal | `slatec::pchip` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
-| interpolation | `interpolation::bspline` | Reserved | Partial | yes | `bspline` | f32,f64 | std | SerializedGlobal | `none` | Basis vectors, weighted callbacks, BINT4/DBINT4 special cubic construction, tensor products, and smoothing remain deferred. | Audit one additional constructor or basis family without broadening the representation API. |
+| interpolation | `interpolation::bspline` | Reserved | Partial | yes | `bspline` | f32,f64 | std | SerializedGlobal | `none` | Basis vectors, weighted callbacks, tensor products, and smoothing remain deferred; reviewed cubic interpolation is available under an additive feature. | Audit one additional basis or fitting family without broadening the representation API. |
 | interpolation | `interpolation::piecewise_polynomial` | Reserved | Partial | yes | `piecewise-polynomial` | f32,f64 | std | SerializedGlobal | `none` | PP-to-B-spline conversion, PCHIP conversion, multidimensional PP, fitting, and arbitrary-stride storage remain deferred. | Audit one additional representation conversion only after its native contract and storage semantics are complete. |
+| interpolation | `interpolation::tabulated` | Reserved | Implemented | yes | `tabulated-data` | f32,f64 | std | SerializedGlobal | `none` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | interpolation | `interpolation::divided_differences` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe divided-difference family exists. | Audit a coherent family. |
 | interpolation | `interpolation::chebyshev` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Interpolation uses need a distinct contract from scalar polynomial evaluation. | Audit Chebyshev interpolation. |
 | interpolation | `interpolation::approximation` | Provisional | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | The intended source-family boundary remains uncertain. | Complete approximation-family inventory. |

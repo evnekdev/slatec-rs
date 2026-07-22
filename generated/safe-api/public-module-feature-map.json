@@ -133,6 +133,13 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "quadrature-piecewise-polynomial",
+      "grouped_paths": [
+        "integration::quadrature::piecewise_polynomial"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "roots-scalar",
       "grouped_paths": [
         "equations::roots::scalar"
@@ -164,6 +171,13 @@
       "cargo_feature": "nonlinear-jacobian-check",
       "grouped_paths": [
         "equations::nonlinear::jacobian_check"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
+      "cargo_feature": "nonlinear-systems",
+      "grouped_paths": [
+        "equations::nonlinear::scalar_equations"
       ],
       "evidence_source": "crates/slatec/Cargo.toml"
     },
@@ -238,6 +252,13 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "fishpack-pois3d",
+      "grouped_paths": [
+        "differential_equations::pde"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "optimization-linear-programming-in-memory",
       "grouped_paths": [
         "optimization::linear_programming"
@@ -280,9 +301,23 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "bspline-cubic-interpolation",
+      "grouped_paths": [
+        "interpolation::bspline"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "piecewise-polynomial",
       "grouped_paths": [
         "interpolation::piecewise_polynomial"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
+      "cargo_feature": "tabulated-data",
+      "grouped_paths": [
+        "interpolation::tabulated"
       ],
       "evidence_source": "crates/slatec/Cargo.toml"
     }

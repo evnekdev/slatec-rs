@@ -70,8 +70,11 @@ fn safe_api_metadata_is_compact_and_contains_no_source_text() {
         "blas1-concurrency-audit-summary.md",
     ] {
         let contents = std::fs::read(metadata_path(name)).expect("safe API documentation metadata");
+        // The index includes every argument of every reviewed safe/raw mapping.
+        // The checked tabulated-data batch adds eight documented native roots;
+        // keep the bound compact while accommodating this structural evidence.
         assert!(
-            contents.len() < 256 * 1024,
+            contents.len() < 320 * 1024,
             "{name} must remain a compact structural index"
         );
         assert!(

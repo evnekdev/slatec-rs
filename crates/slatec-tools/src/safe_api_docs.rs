@@ -85,7 +85,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
                 "example_case": record.example_case,
                 "validation_file": validation_path_for(record),
                 "validation_case": record.rust_path.rsplit("::").next().unwrap_or(&record.rust_path),
-                "native_execution_status": native_status(&record.domain),
+                "native_execution_status": native_status(record),
             })
         })
         .collect::<Vec<_>>();
@@ -279,14 +279,24 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         "generated/safe-api/root-wrapper-index.json",
         &mut output,
         |row, columns| {
+            let routine = column(row, columns, "raw_routine")?;
+            let polynomial = matches!(routine, "CPZERO" | "RPZERO" | "CPQR79" | "RPQR79");
             Ok(record(
                 column(row, columns, "safe_path")?,
-                column(row, columns, "raw_routine")?,
+                routine,
                 "roots",
                 column(row, columns, "precision")?,
-                "bracketed scalar root",
+                if polynomial {
+                    "owned complex polynomial roots"
+                } else {
+                    "bracketed scalar root"
+                },
                 "std",
-                "roots-scalar",
+                if polynomial {
+                    "roots-polynomial"
+                } else {
+                    "roots-scalar"
+                },
             ))
         },
     )?;
@@ -472,6 +482,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         },
     )?;
     collect_columnar(
+        "generated/safe-api/callback-driver-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                column(row, columns, "domain")?,
+                column(row, columns, "precision")?,
+                column(row, columns, "callback_shape")?,
+                "std",
+                column(row, columns, "feature")?,
+            ))
+        },
+    )?;
+    collect_columnar(
         "generated/safe-api/dassl-wrapper-index.json",
         &mut output,
         |row, columns| {
@@ -505,14 +530,19 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
         "generated/safe-api/bspline-wrapper-index.json",
         &mut output,
         |row, columns| {
+            let routine = column(row, columns, "raw_routine")?;
             Ok(record(
                 column(row, columns, "safe_path")?,
-                column(row, columns, "raw_routine")?,
+                routine,
                 "B-spline interpolation",
                 column(row, columns, "precision")?,
                 "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
                 "std",
-                "bspline",
+                if routine == "BINT4/DBINT4" {
+                    "bspline-cubic-interpolation"
+                } else {
+                    "bspline"
+                },
             ))
         },
     )?;
@@ -528,6 +558,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
                 column(row, columns, "mathematical_model")?,
                 "std",
                 "piecewise-polynomial",
+            ))
+        },
+    )?;
+    collect_columnar(
+        "generated/safe-api/tabulated-data-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "tabulated data",
+                column(row, columns, "precision")?,
+                column(row, columns, "mathematical_operation")?,
+                "std",
+                "tabulated-data",
             ))
         },
     )?;
@@ -834,8 +879,20 @@ fn record(
                 "3"
             }
         ),
+        "quadrature" if path.contains("integrate_piecewise_polynomial") => {
+            "examples/quadrature/piecewise_polynomial.rs".to_owned()
+        }
+        "quadrature" if path.contains("integrate_tabulated") => {
+            "examples/interpolation/tabulated_data.rs".to_owned()
+        }
         "quadrature" => "examples/quadrature/families.rs".to_owned(),
+        "roots" if path.contains("polynomial_roots") => {
+            "examples/roots/polynomial_roots.rs".to_owned()
+        }
         "roots" => "examples/roots/scalar.rs".to_owned(),
+        "nonlinear" if path.contains("solve_scalar_equations") => {
+            "examples/nonlinear/scalar_equations.rs".to_owned()
+        }
         "nonlinear" if path.contains("check_jacobian") => {
             "examples/nonlinear/check_jacobian.rs".to_owned()
         }
@@ -898,6 +955,9 @@ fn record(
             "examples/least_squares/linear_fit.rs".to_owned()
         }
         "least squares" => "examples/least_squares/exponential_fit.rs".to_owned(),
+        "ordinary differential equations" if path.contains("Driv") => {
+            "examples/ode/callback_drivers.rs".to_owned()
+        }
         "ordinary differential equations" if precision == "f32" => {
             "examples/ode/harmonic_oscillator.rs".to_owned()
         }
@@ -932,6 +992,9 @@ fn record(
             "examples/pchip/custom_derivatives.rs".to_owned()
         }
         "piecewise cubic Hermite interpolation" => "examples/pchip/monotone.rs".to_owned(),
+        "B-spline interpolation" if path.contains("interpolate_cubic") => {
+            "examples/interpolation/bspline_cubic_interpolate.rs".to_owned()
+        }
         "B-spline interpolation" if path.contains("interpolate_with_knots") => {
             "examples/interpolation/bspline_interpolate.rs".to_owned()
         }
@@ -956,6 +1019,7 @@ fn record(
         "piecewise-polynomial interpolation" => {
             "examples/piecewise_polynomial/from_pieces.rs".to_owned()
         }
+        "tabulated data" => "examples/interpolation/tabulated_data.rs".to_owned(),
         "special functions" if path.contains("scalar_expanded") && path.contains("carlson_") => {
             "examples/special/elliptic.rs".to_owned()
         }
@@ -979,14 +1043,31 @@ fn record(
         capability: capability.to_owned(),
         feature: feature.to_owned(),
         native_profile: PROFILE.to_owned(),
-        documentation: format!(
-            "https://docs.rs/slatec/latest/slatec/{}/fn.{name}.html",
-            module.trim_start_matches("slatec::").replace("::", "/")
-        ),
+        documentation: documentation_url(module, name),
         example_file,
         example_case: family.to_owned(),
         inclusion_status: "safe_api_available".to_owned(),
     }
+}
+
+fn documentation_url(module: &str, name: &str) -> String {
+    let module = module.split("::<").next().unwrap_or(module);
+    if let Some((parent, type_name)) = module.rsplit_once("::") {
+        if type_name
+            .chars()
+            .next()
+            .is_some_and(|character| character.is_ascii_uppercase())
+        {
+            return format!(
+                "https://docs.rs/slatec/latest/slatec/{}/struct.{type_name}.html#method.{name}",
+                parent.trim_start_matches("slatec::").replace("::", "/")
+            );
+        }
+    }
+    format!(
+        "https://docs.rs/slatec/latest/slatec/{}/fn.{name}.html",
+        module.trim_start_matches("slatec::").replace("::", "/")
+    )
 }
 
 fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord>> {
@@ -1019,14 +1100,16 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
     }
     functions
         .iter()
-        .map(|function| {
-            let (program_unit_id, ids) =
-                by_name.get(&function.fortran_routine).ok_or_else(|| {
-                    policy(&format!(
-                        "missing interface for {}",
-                        function.fortran_routine
-                    ))
-                })?;
+        .flat_map(|function| {
+            function
+                .fortran_routine
+                .split('/')
+                .map(move |routine| (function, routine))
+        })
+        .map(|(function, routine)| {
+            let (program_unit_id, ids) = by_name
+                .get(routine)
+                .ok_or_else(|| policy(&format!("missing interface for {routine}")))?;
             let arguments = ids
                 .iter()
                 .filter_map(|id| by_id.get(id))
@@ -1034,7 +1117,7 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
                 .collect();
             Ok(MappingRecord {
                 rust_path: function.rust_path.clone(),
-                fortran_routine: function.fortran_routine.clone(),
+                fortran_routine: routine.to_owned(),
                 program_unit_id: program_unit_id.clone(),
                 arguments,
             })
@@ -1058,6 +1141,9 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let jacobian_check = function.rust_path.contains("check_jacobian");
     let bspline_constructor = function.domain == "B-spline interpolation"
         && function.rust_path.contains("interpolate_with_knots");
+    let cubic_bspline_constructor = function.domain == "B-spline interpolation"
+        && function.rust_path.contains("interpolate_cubic");
+    let tabulated = function.domain == "tabulated data";
     let internal_argument = (internal.contains(&upper.as_str())
         || (fishpack
             && matches!(
@@ -1070,8 +1156,11 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "LPEROD" | "MPEROD" | "NPEROD" | "LDIMF" | "MDIMF" | "IERROR" | "W"
             ))
         || (bspline_constructor && matches!(upper.as_str(), "N" | "BCOEF" | "Q"))
+        || (cubic_bspline_constructor
+            && matches!(upper.as_str(), "NDATA" | "T" | "BCOEF" | "N" | "K" | "W"))
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
+        || (tabulated && matches!(upper.as_str(), "C" | "D" | "YFIT" | "YP" | "ANS" | "IERR"))
         || (jacobian_check && upper == "FVEC"))
         && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
         && !(function.domain == "linear least squares" && upper == "MODE")
@@ -1083,6 +1172,16 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         None
     } else {
         Some(match upper.as_str() {
+            "X" if tabulated => {
+                "checked owned sample abscissas or the interpolant's retained abscissas"
+                    .to_owned()
+            }
+            "Y" if tabulated => "checked owned sample values".to_owned(),
+            "N" if tabulated => "data.sample_count".to_owned(),
+            "NDER" if tabulated => "derivative_count".to_owned(),
+            "XX" if tabulated => "finite evaluation or Taylor-expansion point".to_owned(),
+            "XLO" if tabulated => "interval start".to_owned(),
+            "XUP" if tabulated => "interval end".to_owned(),
             "L" if pois3d => "problem.rhs.nx".to_owned(),
             "M" if pois3d => "problem.rhs.ny".to_owned(),
             "N" if pois3d => "problem.rhs.nz".to_owned(),
@@ -1170,6 +1269,13 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "complete knot sequence copied into owned native storage".to_owned()
             }
             "K" if bspline_constructor => "order".to_owned(),
+            "X" if cubic_bspline_constructor => "nodes".to_owned(),
+            "Y" if cubic_bspline_constructor => "values".to_owned(),
+            "IBCL" if cubic_bspline_constructor => "left_boundary derivative order".to_owned(),
+            "IBCR" if cubic_bspline_constructor => "right_boundary derivative order".to_owned(),
+            "FBCL" if cubic_bspline_constructor => "left_boundary derivative value".to_owned(),
+            "FBCR" if cubic_bspline_constructor => "right_boundary derivative value".to_owned(),
+            "KNTOPT" if cubic_bspline_constructor => "knot_placement".to_owned(),
             "N" if function.domain == "real FFTPACK" => "plan.length".to_owned(),
             "N" if function.domain == "complex FFTPACK" => "plan.length".to_owned(),
             "R" | "X" if function.domain == "real FFTPACK" => {
@@ -1346,7 +1452,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         "inferred"
     } else if internal_argument {
         "internal"
-    } else if bspline_constructor && upper == "T" {
+    } else if (bspline_constructor || cubic_bspline_constructor) && upper == "T" {
         "owned"
     } else if callback_argument {
         "callback"
@@ -1419,6 +1525,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "banded linear systems",
         "piecewise cubic Hermite interpolation",
         "piecewise-polynomial interpolation",
+        "tabulated data",
         "Cartesian FISHPACK PDE",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
@@ -1481,8 +1588,21 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/blas_level1_native.rs"
         }
         "BLAS" => "crates/slatec/tests/blas_level23_native.rs",
+        "quadrature"
+            if function
+                .rust_path
+                .contains("integrate_piecewise_polynomial") =>
+        {
+            "crates/slatec/tests/callback_driver_expansion.rs"
+        }
         "quadrature" => "crates/slatec/tests/quadrature_native.rs",
+        "roots" if function.feature == "roots-polynomial" => {
+            "crates/slatec/tests/polynomial_roots_native.rs"
+        }
         "roots" => "crates/slatec/tests/roots_native.rs",
+        "nonlinear" if function.rust_path.contains("solve_scalar_equations") => {
+            "crates/slatec/tests/callback_driver_expansion.rs"
+        }
         "nonlinear" if function.feature != "nonlinear-easy" => {
             "crates/slatec/tests/nonlinear_expert_native.rs"
         }
@@ -1502,6 +1622,9 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/constrained_least_squares_native.rs"
         }
         "linear least squares" => "crates/slatec/tests/nonnegative_least_squares_native.rs",
+        "ordinary differential equations" if function.rust_path.contains("Driv") => {
+            "crates/slatec/tests/callback_driver_expansion.rs"
+        }
         "ordinary differential equations" => "crates/slatec/tests/ode_sdrive_native.rs",
         "differential-algebraic equations" => "crates/slatec/tests/dassl_native.rs",
         "linear programming" => "crates/slatec/tests/linear_programming_native.rs",
@@ -1509,10 +1632,14 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "complex FFTPACK" => "crates/slatec/tests/fftpack_complex_native.rs",
         "banded linear systems" => "crates/slatec/tests/banded_native.rs",
         "piecewise cubic Hermite interpolation" => "crates/slatec/tests/pchip_native.rs",
+        "B-spline interpolation" if function.feature == "bspline-cubic-interpolation" => {
+            "crates/slatec/tests/bspline_cubic_native.rs"
+        }
         "B-spline interpolation" => "crates/slatec/tests/bspline_native.rs",
         "piecewise-polynomial interpolation" => {
             "crates/slatec/tests/piecewise_polynomial_native.rs"
         }
+        "tabulated data" => "crates/slatec/tests/tabulated_data_native.rs",
         "Cartesian FISHPACK PDE" => "crates/slatec/tests/fishpack_cartesian_2d_native.rs",
         "Structured FISHPACK PDE" => "crates/slatec/tests/fishpack_pois3d_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
@@ -1530,6 +1657,8 @@ fn source_has_doctest(path: &str) -> bool {
             | "slatec::nonlinear::solve_system_expert_f32"
             | "slatec::nonlinear::solve_system_with_jacobian"
             | "slatec::nonlinear::solve_system_with_jacobian_f32"
+            | "slatec::nonlinear::solve_scalar_equations"
+            | "slatec::quadrature::integrate_piecewise_polynomial"
             | "slatec::nonlinear::check_jacobian"
             | "slatec::nonlinear::check_jacobian_f32"
             | "slatec::least_squares::least_squares"
@@ -1555,9 +1684,17 @@ fn source_has_doctest(path: &str) -> bool {
     )
 }
 
-fn native_status(domain: &str) -> &'static str {
-    match domain {
+fn native_status(record: &FunctionRecord) -> &'static str {
+    match record.domain.as_str() {
         "BLAS" => "validated_by_native_batch",
+        "ordinary differential equations"
+            if matches!(
+                record.fortran_routine.as_str(),
+                "SDRIV1" | "DDRIV1" | "SDRIV2" | "DDRIV2" | "CDRIV1" | "CDRIV2"
+            ) =>
+        {
+            "native_execution_passed"
+        }
         "quadrature"
         | "roots"
         | "nonlinear"
@@ -1566,8 +1703,10 @@ fn native_status(domain: &str) -> &'static str {
         | "linear programming"
         | "real FFTPACK"
         | "complex FFTPACK"
+        | "B-spline interpolation"
         | "piecewise cubic Hermite interpolation"
         | "piecewise-polynomial interpolation"
+        | "tabulated data"
         | "Cartesian FISHPACK PDE"
         | "special functions"
         | "polynomials" => "native_execution_passed",
@@ -1597,6 +1736,9 @@ fn purpose(family: &str) -> &'static str {
         "syrk" => "symmetric rank-k update",
         "bracketed scalar root" => "bracketed scalar root finding",
         "finite-difference nonlinear system" => "finite-difference nonlinear-system solving",
+        "FnMut(&[f64],usize)->f64" | "FnMut(&[f32],usize)->f32" => {
+            "scalar-equation nonlinear-system solving"
+        }
         "expert finite-difference nonlinear system" => {
             "expert finite-difference nonlinear-system solving"
         }
@@ -1682,7 +1824,23 @@ fn purpose(family: &str) -> &'static str {
         "exact B-spline to PP conversion" => {
             "convert a B-spline exactly to piecewise-polynomial form"
         }
+        "construct global Newton interpolation polynomial" => {
+            "construct a global Newton interpolation polynomial from checked samples"
+        }
+        "evaluate global Newton interpolation polynomial" => {
+            "evaluate a global Newton interpolation polynomial"
+        }
+        "evaluate global Newton interpolation polynomial and first derivatives" => {
+            "evaluate a global Newton interpolation polynomial and its first derivatives"
+        }
+        "derive Taylor coefficients about a finite centre" => {
+            "derive global polynomial Taylor coefficients about a finite centre"
+        }
+        "integrate arbitrarily spaced tabulated values" => {
+            "integrate arbitrarily spaced tabulated values by overlapping parabolas"
+        }
         "finite" => "adaptive finite-interval integration",
+        "FnMut(f64)->f64" => "piecewise-polynomial weighted quadrature",
         "infinite" => "adaptive infinite-interval integration",
         "breakpoints" => "breakpoint-aware integration",
         "weighted_endpoints" => "endpoint-weighted integration",
@@ -1707,6 +1865,7 @@ fn workspace_path(path: impl AsRef<Path>) -> PathBuf {
         .join("../..")
         .join(path)
 }
+
 fn array<'a>(value: &'a Value, field: &str) -> Result<&'a Vec<Value>> {
     value[field].as_array().ok_or_else(|| policy(field))
 }

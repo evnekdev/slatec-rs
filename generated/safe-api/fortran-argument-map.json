@@ -3747,6 +3747,150 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "fortran_routine": "BINT4",
+      "program_unit_id": "full-provider-7e47865997973c2d",
+      "arguments": [
+        {
+          "rust": "nodes",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDATA",
+          "transformation": "internal"
+        },
+        {
+          "rust": "left_boundary derivative order",
+          "fortran": "IBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative order",
+          "fortran": "IBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "left_boundary derivative value",
+          "fortran": "FBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative value",
+          "fortran": "FBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "knot_placement",
+          "fortran": "KNTOPT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "T",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "BCOEF",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "K",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_cubic",
+      "fortran_routine": "DBINT4",
+      "program_unit_id": "full-provider-0a43548b9dd54e86",
+      "arguments": [
+        {
+          "rust": "nodes",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDATA",
+          "transformation": "internal"
+        },
+        {
+          "rust": "left_boundary derivative order",
+          "fortran": "IBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative order",
+          "fortran": "IBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "left_boundary derivative value",
+          "fortran": "FBCL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "right_boundary derivative value",
+          "fortran": "FBCR",
+          "transformation": "pass"
+        },
+        {
+          "rust": "knot_placement",
+          "fortran": "KNTOPT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "T",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "BCOEF",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "K",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::interpolation::bspline::BSpline::interpolate_with_knots",
       "fortran_routine": "BINTK",
       "program_unit_id": "full-provider-c79a4afab0c19bed",
@@ -4030,6 +4174,342 @@
           "rust": "pquad",
           "fortran": "PQUAD",
           "transformation": "owned"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate",
+      "fortran_routine": "POLYVL",
+      "program_unit_id": "full-provider-4a366815ded92362",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate",
+      "fortran_routine": "DPOLVL",
+      "program_unit_id": "full-provider-948751cd59642506",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives",
+      "fortran_routine": "POLYVL",
+      "program_unit_id": "full-provider-4a366815ded92362",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives",
+      "fortran_routine": "DPOLVL",
+      "program_unit_id": "full-provider-948751cd59642506",
+      "arguments": [
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at",
+      "fortran_routine": "POLCOF",
+      "program_unit_id": "full-provider-71912fb047f461aa",
+      "arguments": [
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "D",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at",
+      "fortran_routine": "DPOLCF",
+      "program_unit_id": "full-provider-42defe5138c21f79",
+      "arguments": [
+        {
+          "rust": "finite evaluation or Taylor-expansion point",
+          "fortran": "XX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "D",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial",
+      "fortran_routine": "POLINT",
+      "program_unit_id": "full-provider-eb2819e95b5e453b",
+      "arguments": [
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial",
+      "fortran_routine": "DPLINT",
+      "program_unit_id": "full-provider-2d9735a949e0ffaf",
+      "arguments": [
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
         }
       ]
     },
@@ -5711,6 +6191,130 @@
       ]
     },
     {
+      "rust_path": "slatec::nonlinear::solve_scalar_equations",
+      "fortran_routine": "DSOS",
+      "program_unit_id": "full-provider-c7940f9631450261",
+      "arguments": [
+        {
+          "rust": "fnc",
+          "fortran": "FNC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "neq",
+          "fortran": "NEQ",
+          "transformation": "pass"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rtolx",
+          "fortran": "RTOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "atolx",
+          "fortran": "ATOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tolf",
+          "fortran": "TOLF",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IFLAG",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "RW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "lrw",
+          "fortran": "LRW",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::nonlinear::solve_scalar_equations_f32",
+      "fortran_routine": "SOS",
+      "program_unit_id": "full-provider-9cf0accfaa43bb5a",
+      "arguments": [
+        {
+          "rust": "fnc",
+          "fortran": "FNC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "neq",
+          "fortran": "NEQ",
+          "transformation": "pass"
+        },
+        {
+          "rust": "initial",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "rtolx",
+          "fortran": "RTOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "atolx",
+          "fortran": "ATOLX",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tolf",
+          "fortran": "TOLF",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IFLAG",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "RW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "lrw",
+          "fortran": "LRW",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LIW",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::nonlinear::solve_system",
       "fortran_routine": "DNSQE",
       "program_unit_id": "full-provider-8bc6c085f4ef6b2e",
@@ -6399,6 +7003,438 @@
           "rust": null,
           "fortran": "WA4",
           "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::ComplexDriv1Session::integrate_to",
+      "fortran_routine": "CDRIV1",
+      "program_unit_id": "full-provider-d786596f8e33653f",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::ComplexDriv2Session::integrate_to_with_events",
+      "fortran_routine": "CDRIV2",
+      "program_unit_id": "full-provider-a0b24b5043a52ad6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "nroot",
+          "fortran": "NROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ewt",
+          "fortran": "EWT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mint",
+          "fortran": "MINT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "pass"
+        },
+        {
+          "rust": "g",
+          "fortran": "G",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv1Session::<f32>::integrate_to",
+      "fortran_routine": "SDRIV1",
+      "program_unit_id": "full-provider-434b7acc9ea23338",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv1Session::<f64>::integrate_to",
+      "fortran_routine": "DDRIV1",
+      "program_unit_id": "full-provider-83170f334d0d68a8",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv2Session::<f32>::integrate_to_with_events",
+      "fortran_routine": "SDRIV2",
+      "program_unit_id": "full-provider-2de3f93dcb2a644e",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "nroot",
+          "fortran": "NROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ewt",
+          "fortran": "EWT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mint",
+          "fortran": "MINT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "pass"
+        },
+        {
+          "rust": "g",
+          "fortran": "G",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::ode::Driv2Session::<f64>::integrate_to_with_events",
+      "fortran_routine": "DDRIV2",
+      "program_unit_id": "full-provider-7e657082e96474b6",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "y",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "tout",
+          "fortran": "TOUT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mstate",
+          "fortran": "MSTATE",
+          "transformation": "pass"
+        },
+        {
+          "rust": "nroot",
+          "fortran": "NROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "eps",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ewt",
+          "fortran": "EWT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "mint",
+          "fortran": "MINT",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "LENW",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IWORK",
+          "transformation": "internal"
+        },
+        {
+          "rust": "leniw",
+          "fortran": "LENIW",
+          "transformation": "pass"
+        },
+        {
+          "rust": "g",
+          "fortran": "G",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierflg",
+          "fortran": "IERFLG",
+          "transformation": "pass"
         }
       ]
     },
@@ -7942,6 +8978,73 @@
       ]
     },
     {
+      "rust_path": "slatec::quadrature::integrate_piecewise_polynomial",
+      "fortran_routine": "DPFQAD",
+      "program_unit_id": "full-provider-8319889b2bfafb4d",
+      "arguments": [
+        {
+          "rust": "function",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": "ldc",
+          "fortran": "LDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "c",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "xi",
+          "fortran": "XI",
+          "transformation": "pass"
+        },
+        {
+          "rust": "lxi",
+          "fortran": "LXI",
+          "transformation": "pass"
+        },
+        {
+          "rust": "k",
+          "fortran": "K",
+          "transformation": "pass"
+        },
+        {
+          "rust": "id",
+          "fortran": "ID",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x1",
+          "fortran": "X1",
+          "transformation": "pass"
+        },
+        {
+          "rust": "x2",
+          "fortran": "X2",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tol",
+          "fortran": "TOL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "quad",
+          "fortran": "QUAD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::quadrature::integrate_principal_value",
       "fortran_routine": "DQAWC",
       "program_unit_id": "full-provider-66c69d5929af3cb2",
@@ -8255,6 +9358,90 @@
         {
           "rust": null,
           "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_tabulated",
+      "fortran_routine": "DAVINT",
+      "program_unit_id": "full-provider-ec1e5d56349e8a09",
+      "arguments": [
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval start",
+          "fortran": "XLO",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval end",
+          "fortran": "XUP",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "ANS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::quadrature::integrate_tabulated_f32",
+      "fortran_routine": "AVINT",
+      "program_unit_id": "full-provider-7b8a7bf4eaebcaa7",
+      "arguments": [
+        {
+          "rust": "checked owned sample abscissas or the interpolant's retained abscissas",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked owned sample values",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "data.sample_count",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval start",
+          "fortran": "XLO",
+          "transformation": "pass"
+        },
+        {
+          "rust": "interval end",
+          "fortran": "XUP",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "ANS",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
           "transformation": "internal"
         }
       ]
@@ -8618,6 +9805,75 @@
       ]
     },
     {
+      "rust_path": "slatec::roots::complex_polynomial_roots",
+      "fortran_routine": "CPZERO",
+      "program_unit_id": "full-provider-b251ff51d9d23d05",
+      "arguments": [
+        {
+          "rust": "in",
+          "fortran": "IN",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "iflg",
+          "fortran": "IFLG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "s",
+          "fortran": "S",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::complex_polynomial_roots_with_method",
+      "fortran_routine": "CPQR79",
+      "program_unit_id": "full-provider-54725ba79df99c86",
+      "arguments": [
+        {
+          "rust": "ndeg",
+          "fortran": "NDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "coeff",
+          "fortran": "COEFF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "root",
+          "fortran": "ROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::roots::find_root",
       "fortran_routine": "DFZERO",
       "program_unit_id": "full-provider-e60d6e16ae2266be",
@@ -8697,6 +9953,75 @@
         {
           "rust": null,
           "fortran": "IFLAG",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::real_polynomial_roots",
+      "fortran_routine": "RPZERO",
+      "program_unit_id": "full-provider-b9e8b033eaa7f5ac",
+      "arguments": [
+        {
+          "rust": "n",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": "a",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": "t",
+          "fortran": "T",
+          "transformation": "pass"
+        },
+        {
+          "rust": "iflg",
+          "fortran": "IFLG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "s",
+          "fortran": "S",
+          "transformation": "pass"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::roots::real_polynomial_roots_with_method",
+      "fortran_routine": "RPQR79",
+      "program_unit_id": "full-provider-0313488e7870f774",
+      "arguments": [
+        {
+          "rust": "ndeg",
+          "fortran": "NDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": "coeff",
+          "fortran": "COEFF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "root",
+          "fortran": "ROOT",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ierr",
+          "fortran": "IERR",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "WORK",
           "transformation": "internal"
         }
       ]

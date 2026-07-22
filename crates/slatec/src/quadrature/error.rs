@@ -7,6 +7,8 @@ pub enum IntegrationError {
     InvalidBounds,
     /// Absolute or relative tolerances violate the driver's contract.
     InvalidTolerance,
+    /// A requested PP derivative is outside the checked polynomial order.
+    InvalidDerivativeOrder,
     /// A breakpoint is non-finite, outside the open interval, or at an endpoint.
     InvalidBreakpoint {
         /// Position in the caller's breakpoint slice.
@@ -39,6 +41,11 @@ pub enum IntegrationError {
     MomentWorkspaceTooLarge,
     /// A count cannot be represented by the selected Fortran `INTEGER`.
     IntegerOverflow,
+    /// A tabulated overlapping-parabola interval has too few sampled points.
+    InsufficientTabulatedPoints {
+        /// Number of sample abscissas within the requested closed interval.
+        found: usize,
+    },
     /// The adaptive driver exhausted its subdivision limit.
     MaximumSubdivisions,
     /// Fourier-tail integration exhausted its cycle limit.
@@ -74,6 +81,12 @@ impl fmt::Display for IntegrationError {
         match self {
             Self::InvalidBounds => write!(formatter, "integration bounds are invalid"),
             Self::InvalidTolerance => write!(formatter, "integration tolerances are invalid"),
+            Self::InvalidDerivativeOrder => {
+                write!(
+                    formatter,
+                    "piecewise-polynomial derivative order is invalid"
+                )
+            }
             Self::InvalidBreakpoint { index, value } => {
                 write!(formatter, "breakpoint {index} is invalid: {value}")
             }
@@ -89,6 +102,10 @@ impl fmt::Display for IntegrationError {
                 write!(formatter, "quadrature moment workspace is too large")
             }
             Self::IntegerOverflow => write!(formatter, "value does not fit Fortran INTEGER"),
+            Self::InsufficientTabulatedPoints { found } => write!(
+                formatter,
+                "tabulated interval contains only {found} sample points; at least three are required"
+            ),
             Self::MaximumSubdivisions => write!(formatter, "maximum subdivisions reached"),
             Self::MaximumCyclesReached => write!(formatter, "maximum Fourier cycles reached"),
             Self::RoundoffDetected => write!(formatter, "roundoff prevented requested accuracy"),

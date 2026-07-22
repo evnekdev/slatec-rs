@@ -1,16 +1,30 @@
-//! Safe bracketed scalar-root finding over original SLATEC `FZERO` routines.
+//! Safe root finding over reviewed original SLATEC routines.
 //!
-//! Calls are available only for the validated GNU MinGW x86_64 profile. The
-//! callback runtime is shared with quadrature: callback-bearing native calls
-//! serialize and any nested callback-based SLATEC call is rejected.
+//! Scalar roots use the callback-bearing `FZERO` routines. Polynomial roots
+//! use owned buffers with the single-precision complex `CPZERO`/`RPZERO` and
+//! `CPQR79`/`RPQR79` drivers. Every native call is serialized under the
+//! validated GNU MinGW x86_64 profile.
 
+#[cfg(feature = "roots-scalar")]
 mod error;
+#[cfg(feature = "roots-polynomial")]
+pub mod polynomial;
+#[cfg(feature = "roots-scalar")]
 mod scalar;
 
+#[cfg(feature = "roots-scalar")]
 pub use error::RootError;
+#[cfg(feature = "roots-polynomial")]
+pub use polynomial::{
+    PolynomialRootError, PolynomialRootMethod, PolynomialRootStatus, PolynomialRoots,
+    complex_polynomial_roots, complex_polynomial_roots_with_method, real_polynomial_roots,
+    real_polynomial_roots_with_method,
+};
+#[cfg(feature = "roots-scalar")]
 pub use scalar::{find_root, find_root_f32};
 
 /// A caller-supplied bracket. Reversed endpoints are accepted.
+#[cfg(feature = "roots-scalar")]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RootBracket<T = f64> {
     /// First endpoint passed as Fortran argument `B`.
@@ -24,6 +38,7 @@ pub struct RootBracket<T = f64> {
 /// If `initial_guess` is absent, the safe wrapper passes the upper endpoint,
 /// following the original routine's documented recommendation when no better
 /// interior suggestion is available.
+#[cfg(feature = "roots-scalar")]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RootOptions<T = f64> {
     /// Relative bracket-width tolerance (`RE`).
@@ -34,6 +49,7 @@ pub struct RootOptions<T = f64> {
     pub initial_guess: Option<T>,
 }
 
+#[cfg(feature = "roots-scalar")]
 impl Default for RootOptions<f64> {
     fn default() -> Self {
         Self {
@@ -44,6 +60,7 @@ impl Default for RootOptions<f64> {
     }
 }
 
+#[cfg(feature = "roots-scalar")]
 impl RootOptions<f32> {
     /// Practical defaults for the single-precision FZERO driver.
     pub const fn single_precision() -> Self {
@@ -56,6 +73,7 @@ impl RootOptions<f32> {
 }
 
 /// Numerically meaningful FZERO completion statuses.
+#[cfg(feature = "roots-scalar")]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum RootStatus {
     /// The bracket contracted to the requested tolerance with decreasing
@@ -76,6 +94,7 @@ pub enum RootStatus {
 }
 
 /// Result from a completed FZERO call.
+#[cfg(feature = "roots-scalar")]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RootResult<T = f64> {
     /// Best root estimate returned by FZERO.

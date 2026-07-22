@@ -70,6 +70,8 @@ compile_error!("the `pchip` safe API requires the `std` feature");
 compile_error!("the `bspline` safe API requires the `std` feature");
 #[cfg(all(feature = "piecewise-polynomial", not(feature = "std")))]
 compile_error!("the `piecewise-polynomial` safe API requires the `std` feature");
+#[cfg(all(feature = "tabulated-data", not(feature = "std")))]
+compile_error!("the `tabulated-data` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-covariance", not(feature = "std")))]
 compile_error!("the `least-squares-covariance` safe API requires the `std` feature");
 #[cfg(all(feature = "least-squares-linear-nonnegative", not(feature = "std")))]
@@ -124,12 +126,16 @@ pub mod polynomials;
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial",
     feature = "roots-scalar",
+    feature = "roots-polynomial",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
+    feature = "nonlinear-systems",
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
     feature = "least-squares-covariance",
+    feature = "ode-sdrive-expert",
     feature = "least-squares-linear-nonnegative",
     feature = "least-squares-linear-bounded",
     feature = "least-squares-linear-constrained",
@@ -144,7 +150,8 @@ pub mod polynomials;
     feature = "banded-linear-systems",
     feature = "pchip",
     feature = "bspline",
-    feature = "piecewise-polynomial"
+    feature = "piecewise-polynomial",
+    feature = "tabulated-data"
 ))]
 pub(crate) mod runtime;
 
@@ -163,10 +170,26 @@ mod bspline;
 #[cfg(feature = "dassl")]
 pub mod dassl;
 
+/// Test-only access to the production process-wide native lock for raw parity
+/// probes.
+#[cfg(feature = "native-lock-test-support")]
+#[doc(hidden)]
+pub mod native_lock_test_support {
+    /// Runs a probe while holding the same process-wide native lock as the
+    /// production facade.
+    ///
+    /// This exists solely for raw-versus-safe native parity tests; it is not a
+    /// public concurrency or provider guarantee.
+    pub fn with_native_lock<T>(operation: impl FnOnce() -> T) -> T {
+        let _native = crate::runtime::lock_native();
+        operation()
+    }
+}
+
 /// Test-only observations of the hosted process-wide native runtime lock.
 ///
-/// This module is available only with a native serialization test feature; it
-/// does not alter lock scope or advertise native parallel execution.
+/// This module is available only with a native test-support feature; it does
+/// not alter lock scope or advertise native parallel execution.
 #[cfg(any(
     feature = "native-serialization-tests",
     feature = "fishpack-cartesian-2d-native-tests",
@@ -251,12 +274,15 @@ pub mod blas1_concurrency_test_support {
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
     feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial",
     feature = "roots-scalar",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
+    feature = "nonlinear-systems",
     feature = "least-squares-nonlinear-easy",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "ode-sdrive-expert"
 ))]
 mod callback_runtime;
 
@@ -267,22 +293,26 @@ mod callback_runtime;
     feature = "quadrature-weighted",
     feature = "quadrature-oscillatory",
     feature = "quadrature-fourier",
-    feature = "quadrature-nonadaptive"
+    feature = "quadrature-nonadaptive",
+    feature = "quadrature-piecewise-polynomial",
+    feature = "tabulated-data"
 ))]
 pub mod quadrature;
 
-/// Safe bracketed scalar-root adapters over the original FZERO routines.
-#[cfg(feature = "roots-scalar")]
+/// Safe scalar and polynomial-root adapters over reviewed original SLATEC routines.
+#[cfg(any(feature = "roots-scalar", feature = "roots-polynomial"))]
 pub mod roots;
 
 /// Safe nonlinear-system solvers and Jacobian checks over original SLATEC
-/// `SNSQE`, `DNSQE`, `SNSQ`, `DNSQ`, `CHKDER`, and `DCKDER` implementations.
+/// `SNSQE`, `DNSQE`, `SNSQ`, `DNSQ`, `SOS`, `DSOS`, `CHKDER`, and `DCKDER`
+/// implementations.
 #[cfg(any(
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "nonlinear-jacobian-check",
     feature = "least-squares-nonlinear-expert",
-    feature = "least-squares-covariance"
+    feature = "least-squares-covariance",
+    feature = "nonlinear-systems"
 ))]
 pub mod nonlinear;
 
@@ -335,8 +365,9 @@ pub mod constrained_least_squares;
 #[cfg(feature = "least-squares-linear-bounded-constrained")]
 pub mod bounded_constrained_least_squares;
 
-/// Safe owned sessions for restricted explicit ODE initial-value problems over
-/// the original SLATEC `SDRIV3` and `DDRIV3` drivers.
+/// Safe owned sessions for reviewed explicit ODE initial-value problems over
+/// the original SLATEC `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`,
+/// `CDRIV1`/`CDRIV2`, `SDRIV3`, and `DDRIV3` drivers.
 #[cfg(feature = "ode-sdrive-expert")]
 pub mod ode;
 

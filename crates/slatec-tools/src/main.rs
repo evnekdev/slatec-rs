@@ -1,6 +1,7 @@
 use slatec_tools::acquire;
 use slatec_tools::agent_guidance;
 use slatec_tools::all_feature_coverage;
+use slatec_tools::approx_roots_optimization;
 use slatec_tools::archive::{inspect_archive, verify_artifact};
 use slatec_tools::batch_a_api;
 use slatec_tools::batch_b_api;
@@ -43,7 +44,9 @@ use slatec_tools::safe_banded;
 use slatec_tools::safe_bounded_constrained_linear_least_squares;
 use slatec_tools::safe_bounded_linear_least_squares;
 use slatec_tools::safe_bspline;
+use slatec_tools::safe_callback_drivers;
 use slatec_tools::safe_constrained_linear_least_squares;
+use slatec_tools::safe_coverage_reconciliation;
 use slatec_tools::safe_dassl;
 use slatec_tools::safe_fftpack;
 use slatec_tools::safe_fftpack_complex;
@@ -61,6 +64,7 @@ use slatec_tools::safe_pois3d;
 use slatec_tools::safe_quadrature;
 use slatec_tools::safe_roots;
 use slatec_tools::safe_special;
+use slatec_tools::safe_tabulated_data;
 use slatec_tools::small_candidate_batch;
 use slatec_tools::sos_dsos_api;
 use std::path::PathBuf;
@@ -273,6 +277,21 @@ fn run() -> Result<()> {
     {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
+    if options.command == "generate-safe-tabulated-data-metadata"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-safe-coverage-reconciliation"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-approx-roots-optimization-coverage"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
     if options.command == "generate-safe-banded-metadata"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
@@ -304,6 +323,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-api-docs"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-safe-callback-driver-plan"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -1042,6 +1066,11 @@ fn run() -> Result<()> {
             );
             Ok(())
         }
+        "generate-safe-callback-driver-plan" => {
+            let result = safe_callback_drivers::generate(&options.output_dir)?;
+            println!("success: callback-driver plan ({})", result.semantic_hash);
+            Ok(())
+        }
         "generate-safe-dassl-metadata" => {
             let result = safe_dassl::generate(
                 &options.selected_corpus_dir,
@@ -1153,6 +1182,39 @@ fn run() -> Result<()> {
             println!(
                 "success: snapshot {} ({}); reviewed routines {}",
                 result.snapshot_id, result.semantic_hash, result.routine_count,
+            );
+            Ok(())
+        }
+        "generate-safe-tabulated-data-metadata" => {
+            let result = safe_tabulated_data::generate(
+                &options.selected_corpus_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "success: snapshot {} ({}); reviewed roots {}; public operations {}",
+                result.snapshot_id,
+                result.semantic_hash,
+                result.routine_count,
+                result.operation_count,
+            );
+            Ok(())
+        }
+        "generate-safe-coverage-reconciliation" => {
+            let result = safe_coverage_reconciliation::generate(&options.output_dir)?;
+            println!(
+                "success: reconciled {} canonical raw routines; direct safe coverage {}; {}",
+                result.raw_count, result.direct_safe_count, result.semantic_hash,
+            );
+            Ok(())
+        }
+        "generate-approx-roots-optimization-coverage" => {
+            let result = approx_roots_optimization::generate(&options.output_dir)?;
+            println!(
+                "success: generated {} domain-completion records in {} ({})",
+                result.routine_count,
+                result.output_dir.display(),
+                result.semantic_hash
             );
             Ok(())
         }
