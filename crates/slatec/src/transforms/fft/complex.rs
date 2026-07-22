@@ -31,6 +31,7 @@ use core::slice;
 
 use num_complex::Complex32;
 use slatec_sys::FortranInteger;
+use slatec_sys::fftpack as raw;
 
 pub use super::FftError;
 use crate::runtime::lock_native;
@@ -78,7 +79,7 @@ impl ComplexFftPlan32 {
         // SAFETY: every pointer targets an exact-length private allocation;
         // CFFTI1 only initializes WA[2*N] and IFAC[15] for this N.
         unsafe {
-            slatec_sys::fftpack_complex::cffti1(
+            raw::cffti1(
                 &mut native_length_for_call,
                 twiddles.as_mut_ptr(),
                 factors.as_mut_ptr(),
@@ -115,7 +116,7 @@ impl ComplexFftPlan32 {
     /// not normalize. NaN and infinity are not rejected because FFTPACK has no
     /// finite-value status channel; they may propagate under native arithmetic.
     pub fn forward(&mut self, values: &mut [Complex32]) -> Result<(), FftError> {
-        self.apply(values, slatec_sys::fftpack_complex::cfftf1)
+        self.apply(values, raw::cfftf1)
     }
 
     /// Applies `CFFTB1` in place using the positive-exponent convention.
@@ -124,7 +125,7 @@ impl ComplexFftPlan32 {
     /// backward call after a forward call multiplies every original value by
     /// [`Self::len`].
     pub fn backward(&mut self, values: &mut [Complex32]) -> Result<(), FftError> {
-        self.apply(values, slatec_sys::fftpack_complex::cfftb1)
+        self.apply(values, raw::cfftb1)
     }
 
     fn apply(

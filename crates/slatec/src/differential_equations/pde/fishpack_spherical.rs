@@ -1035,6 +1035,66 @@ mod tests {
         );
     }
 
+    #[cfg(feature = "fishpack-spherical-native-tests")]
+    #[test]
+    fn native_surface_coefficient_pole_modes_and_singular_perturbation_are_verified() {
+        let coefficient = 1.25;
+        let north = SphereSurfaceHelmholtz2d::new(
+            ColatitudeAxis::new(0.0, 2.0, 12).unwrap(),
+            LongitudeAxis::full_circle(12).unwrap(),
+            coefficient,
+            FishpackGrid2::new(13, 13, vec![coefficient; 169]).unwrap(),
+            ColatitudeBoundary::NorthPoleDirichlet {
+                upper: vec![1.0; 13],
+            },
+            CoordinateBoundary::Periodic,
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!(
+            north
+                .values()
+                .values()
+                .iter()
+                .all(|value| (*value - 1.0).abs() < 3.0e-4)
+        );
+
+        let south = SphereSurfaceHelmholtz2d::new(
+            ColatitudeAxis::new(1.0, core::f32::consts::PI, 12).unwrap(),
+            LongitudeAxis::full_circle(12).unwrap(),
+            coefficient,
+            FishpackGrid2::new(13, 13, vec![coefficient; 169]).unwrap(),
+            ColatitudeBoundary::SouthPoleDirichlet {
+                lower: vec![1.0; 13],
+            },
+            CoordinateBoundary::Periodic,
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!(
+            south
+                .values()
+                .values()
+                .iter()
+                .all(|value| (*value - 1.0).abs() < 3.0e-4)
+        );
+
+        let singular = SphereSurfaceHelmholtz2d::new(
+            ColatitudeAxis::full_sphere(12).unwrap(),
+            LongitudeAxis::full_circle(12).unwrap(),
+            0.0,
+            FishpackGrid2::new(13, 13, vec![0.75; 169]).unwrap(),
+            ColatitudeBoundary::BothPoles,
+            CoordinateBoundary::Periodic,
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!((singular.perturbation() - 0.75).abs() < 3.0e-4);
+    }
+
     #[test]
     fn full_domain_constructors_keep_source_pi_boundary_exact() {
         let colatitude = ColatitudeAxis::full_sphere(6).unwrap();

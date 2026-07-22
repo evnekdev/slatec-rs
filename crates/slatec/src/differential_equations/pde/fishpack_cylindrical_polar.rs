@@ -1493,6 +1493,8 @@ fn zeroed(length: usize) -> Result<Vec<f32>, CurvilinearPdeError> {
 #[cfg(test)]
 mod tests {
     use alloc::vec;
+    #[cfg(feature = "fishpack-cylindrical-polar-native-tests")]
+    use alloc::vec::Vec;
 
     use super::{
         CoordinateAxis, CoordinateBoundary, CurvilinearPdeError, CylindricalHelmholtz2d,
@@ -1661,5 +1663,102 @@ mod tests {
                 .iter()
                 .all(|value| (*value - 1.0).abs() < 1.0e-4)
         );
+    }
+
+    #[cfg(feature = "fishpack-cylindrical-polar-native-tests")]
+    #[test]
+    fn native_cylindrical_nonconstant_boundary_and_singular_perturbation_are_verified() {
+        let radius = RadialAxis::new(1.0, 2.0, 12).unwrap();
+        let axial = CoordinateAxis::new(0.0, 1.0, 12).unwrap();
+        let z_values = (0..=12)
+            .map(|index| index as f32 / 12.0)
+            .collect::<Vec<_>>();
+        let zero = vec![0.0; 13];
+        let one = vec![1.0; 13];
+        let solution = CylindricalHelmholtz2d::new(
+            radius,
+            axial,
+            0.0,
+            FishpackGrid2::zeros(13, 13).unwrap(),
+            RadialBoundary::Dirichlet {
+                lower: z_values.clone(),
+                upper: z_values,
+            },
+            CoordinateBoundary::Dirichlet {
+                lower: zero,
+                upper: one,
+            },
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        for second in 0..=12 {
+            let expected = second as f32 / 12.0;
+            for first in 0..=12 {
+                assert!((solution.values()[(first, second)] - expected).abs() < 3.0e-4);
+            }
+        }
+
+        let singular = CylindricalHelmholtz2d::new(
+            RadialAxis::new(1.0, 2.0, 8).unwrap(),
+            CoordinateAxis::new(0.0, 1.0, 8).unwrap(),
+            0.0,
+            FishpackGrid2::new(9, 9, vec![2.5; 81]).unwrap(),
+            RadialBoundary::Neumann {
+                lower_derivative: vec![0.0; 9],
+                upper_derivative: vec![0.0; 9],
+            },
+            CoordinateBoundary::Neumann {
+                lower_derivative: vec![0.0; 9],
+                upper_derivative: vec![0.0; 9],
+            },
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!((singular.perturbation() - 2.5).abs() < 2.0e-4);
+    }
+
+    #[cfg(feature = "fishpack-cylindrical-polar-native-tests")]
+    #[test]
+    fn native_polar_nonzero_coefficient_and_singular_perturbation_are_verified() {
+        let coefficient = 1.75;
+        let solution = PolarHelmholtz2d::new(
+            RadialAxis::new(1.0, 2.0, 8).unwrap(),
+            CoordinateAxis::new(0.0, core::f32::consts::TAU, 8).unwrap(),
+            coefficient,
+            FishpackGrid2::new(9, 9, vec![coefficient; 81]).unwrap(),
+            RadialBoundary::Dirichlet {
+                lower: vec![1.0; 9],
+                upper: vec![1.0; 9],
+            },
+            CoordinateBoundary::Periodic,
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!(
+            solution
+                .values()
+                .values()
+                .iter()
+                .all(|value| (*value - 1.0).abs() < 2.0e-4)
+        );
+
+        let singular = PolarHelmholtz2d::new(
+            RadialAxis::new(1.0, 2.0, 8).unwrap(),
+            CoordinateAxis::new(0.0, core::f32::consts::TAU, 8).unwrap(),
+            0.0,
+            FishpackGrid2::new(9, 9, vec![1.25; 81]).unwrap(),
+            RadialBoundary::Neumann {
+                lower_derivative: vec![0.0; 9],
+                upper_derivative: vec![0.0; 9],
+            },
+            CoordinateBoundary::Periodic,
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!((singular.perturbation() - 1.25).abs() < 2.0e-4);
     }
 }

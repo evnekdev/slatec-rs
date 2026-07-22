@@ -6,7 +6,8 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 use slatec::dassl::{
-    DaeError, DaeInputError, DaeOptions, DaeSession, DaeStatus, DaeTolerance, ResidualAction,
+    DaeError, DaeInputError, DaeJacobianMode, DaeOptions, DaeSession, DaeStatus, DaeTolerance,
+    ResidualAction,
 };
 
 fn decay_residual_f64()
@@ -47,6 +48,52 @@ fn f64_index_one_decay_and_continuation_match_analytic_solution() {
     assert!((session.state()[0] - (-1.0_f64).exp()).abs() < 3.0e-5);
     assert!(session.state()[1].abs() < 3.0e-7);
     assert!(result.diagnostics.maximum_absolute_residual.unwrap_or(1.0) < 2.0e-5);
+}
+
+#[test]
+fn finite_difference_banded_iteration_matches_dense_dassl() {
+    let residual = |_: f64, y: &[f64], y_prime: &[f64], output: &mut [f64]| {
+        output[0] = y_prime[0] + 40.0 * y[0] - 20.0 * y[1];
+        output[1] = y_prime[1] - 20.0 * y[0] + 40.0 * y[1] - 20.0 * y[2];
+        output[2] = y_prime[2] - 20.0 * y[1] + 40.0 * y[2];
+        Ok::<_, &'static str>(ResidualAction::Continue)
+    };
+    let mut banded = DaeSession::new(
+        0.0,
+        vec![1.0, 0.0, 0.0],
+        vec![-40.0, 20.0, 0.0],
+        residual,
+        scalar_f64(),
+        DaeOptions {
+            jacobian_mode: DaeJacobianMode::FiniteDifferenceBanded {
+                lower_bandwidth: 1,
+                upper_bandwidth: 1,
+            },
+            ..DaeOptions::default()
+        },
+    )
+    .unwrap();
+    banded.advance_to(0.2).unwrap();
+
+    let mut dense = DaeSession::new(
+        0.0,
+        vec![1.0, 0.0, 0.0],
+        vec![-40.0, 20.0, 0.0],
+        |_: f64, y: &[f64], y_prime: &[f64], output: &mut [f64]| {
+            output[0] = y_prime[0] + 40.0 * y[0] - 20.0 * y[1];
+            output[1] = y_prime[1] - 20.0 * y[0] + 40.0 * y[1] - 20.0 * y[2];
+            output[2] = y_prime[2] - 20.0 * y[1] + 40.0 * y[2];
+            Ok::<_, &'static str>(ResidualAction::Continue)
+        },
+        scalar_f64(),
+        DaeOptions::default(),
+    )
+    .unwrap();
+    dense.advance_to(0.2).unwrap();
+
+    for (banded, dense) in banded.state().iter().zip(dense.state()) {
+        assert!((banded - dense).abs() < 4.0e-5);
+    }
 }
 
 #[test]

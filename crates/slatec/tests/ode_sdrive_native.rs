@@ -4,9 +4,9 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 use slatec::ode::{
-    OdeError, OdeInputError, OdeMethod, OdeOptions, OdeSession, OdeStatus, OdeTolerance,
-    OdeTolerances, max_native_call_concurrency_for_test, reset_native_call_concurrency_for_test,
-    with_native_runtime_lock_for_test,
+    OdeError, OdeInputError, OdeIteration, OdeJacobianWriter, OdeMethod, OdeOptions, OdeSession,
+    OdeStatus, OdeTolerance, OdeTolerances, max_native_call_concurrency_for_test,
+    reset_native_call_concurrency_for_test, with_native_runtime_lock_for_test,
 };
 
 fn scalar_tolerances<T>(relative: T, absolute: T) -> OdeTolerances<T> {
@@ -122,11 +122,175 @@ fn bdf_functional_iteration_remains_rhs_only() {
             maximum_order: Some(5),
             maximum_steps: None,
             maximum_step: Some(0.01),
+            iteration: OdeIteration::Functional,
         },
     )
     .unwrap();
     session.integrate_to(0.2).unwrap();
     assert!((session.state()[0] - (-2.0_f64).exp()).abs() < 1.0e-4);
+}
+
+#[test]
+fn stiff_dense_analytic_and_internal_jacobians_agree() {
+    let options = OdeOptions {
+        method: OdeMethod::Bdf,
+        maximum_order: Some(5),
+        maximum_steps: None,
+        maximum_step: Some(0.02),
+        iteration: OdeIteration::AnalyticDense,
+    };
+    let mut analytic = OdeSession::new_with_jacobian(
+        0.0_f64,
+        vec![1.0, 0.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -40.0 * state[0] + 20.0 * state[1];
+            derivative[1] = 20.0 * state[0] - 40.0 * state[1];
+            Ok(())
+        },
+        |_time, _state, mut jacobian: OdeJacobianWriter<'_, f64>| -> Result<(), ()> {
+            jacobian.set(0, 0, -40.0).unwrap();
+            jacobian.set(0, 1, 20.0).unwrap();
+            jacobian.set(1, 0, 20.0).unwrap();
+            jacobian.set(1, 1, -40.0).unwrap();
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        options,
+    )
+    .unwrap();
+    analytic.integrate_to(0.2).unwrap();
+
+    let mut finite_difference = OdeSession::new(
+        0.0_f64,
+        vec![1.0, 0.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -40.0 * state[0] + 20.0 * state[1];
+            derivative[1] = 20.0 * state[0] - 40.0 * state[1];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions {
+            iteration: OdeIteration::FiniteDifferenceDense,
+            ..options
+        },
+    )
+    .unwrap();
+    finite_difference.integrate_to(0.2).unwrap();
+
+    for (analytic, finite_difference) in analytic.state().iter().zip(finite_difference.state()) {
+        assert!((analytic - finite_difference).abs() < 2.0e-6);
+    }
+}
+
+#[test]
+fn stiff_banded_analytic_and_internal_jacobians_agree() {
+    let options = OdeOptions {
+        method: OdeMethod::Bdf,
+        maximum_order: Some(5),
+        maximum_steps: None,
+        maximum_step: Some(0.01),
+        iteration: OdeIteration::AnalyticBanded {
+            lower_bandwidth: 1,
+            upper_bandwidth: 1,
+        },
+    };
+    let rhs = |_time: f64, state: &[f64], derivative: &mut [f64]| -> Result<(), ()> {
+        derivative[0] = -40.0 * state[0] + 20.0 * state[1];
+        derivative[1] = 20.0 * state[0] - 40.0 * state[1] + 20.0 * state[2];
+        derivative[2] = 20.0 * state[1] - 40.0 * state[2];
+        Ok(())
+    };
+    let mut analytic = OdeSession::new_with_jacobian(
+        0.0_f64,
+        vec![1.0, 0.0, 0.0],
+        rhs,
+        |_time, _state, mut jacobian: OdeJacobianWriter<'_, f64>| -> Result<(), ()> {
+            jacobian.set(0, 0, -40.0).unwrap();
+            jacobian.set(0, 1, 20.0).unwrap();
+            jacobian.set(1, 0, 20.0).unwrap();
+            jacobian.set(1, 1, -40.0).unwrap();
+            jacobian.set(1, 2, 20.0).unwrap();
+            jacobian.set(2, 1, 20.0).unwrap();
+            jacobian.set(2, 2, -40.0).unwrap();
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        options,
+    )
+    .unwrap();
+    analytic.integrate_to(0.2).unwrap();
+
+    let mut finite_difference = OdeSession::new(
+        0.0_f64,
+        vec![1.0, 0.0, 0.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -40.0 * state[0] + 20.0 * state[1];
+            derivative[1] = 20.0 * state[0] - 40.0 * state[1] + 20.0 * state[2];
+            derivative[2] = 20.0 * state[1] - 40.0 * state[2];
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        OdeOptions {
+            iteration: OdeIteration::FiniteDifferenceBanded {
+                lower_bandwidth: 1,
+                upper_bandwidth: 1,
+            },
+            ..options
+        },
+    )
+    .unwrap();
+    finite_difference.integrate_to(0.2).unwrap();
+
+    for (analytic, finite_difference) in analytic.state().iter().zip(finite_difference.state()) {
+        assert!((analytic - finite_difference).abs() < 2.0e-6);
+    }
+}
+
+#[test]
+fn analytic_jacobian_panic_and_nonfinite_values_are_contained() {
+    let options = OdeOptions {
+        method: OdeMethod::Bdf,
+        iteration: OdeIteration::AnalyticDense,
+        ..OdeOptions::default()
+    };
+    let mut panicking = OdeSession::new_with_jacobian(
+        0.0_f64,
+        vec![1.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        |_time, _state, _jacobian: OdeJacobianWriter<'_, f64>| -> Result<(), ()> {
+            panic!("contained Jacobian panic")
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        options,
+    )
+    .unwrap();
+    assert!(matches!(
+        panicking.integrate_to(0.1),
+        Err(OdeError::JacobianCallbackPanicked)
+    ));
+
+    let mut nonfinite = OdeSession::new_with_jacobian(
+        0.0_f64,
+        vec![1.0],
+        |_time, state, derivative| -> Result<(), ()> {
+            derivative[0] = -state[0];
+            Ok(())
+        },
+        |_time, _state, mut jacobian: OdeJacobianWriter<'_, f64>| -> Result<(), ()> {
+            jacobian.set(0, 0, f64::NAN).unwrap();
+            Ok(())
+        },
+        scalar_tolerances(1.0e-8, 1.0e-10),
+        options,
+    )
+    .unwrap();
+    assert!(matches!(
+        nonfinite.integrate_to(0.1),
+        Err(OdeError::NonFiniteJacobian { row: 0, column: 0 })
+    ));
 }
 
 #[test]

@@ -6,7 +6,7 @@
 //! XERROR runtime.  The Carlson wrappers preserve their native `IER` outcome
 //! as [`SpecialFunctionError::NativeStatus`] after scoped XERROR restoration.
 
-use slatec_sys::{FortranInteger, special_scalar_expanded as raw};
+use slatec_sys::{FortranInteger, special as raw};
 
 use super::{SpecialFunctionError, runtime};
 

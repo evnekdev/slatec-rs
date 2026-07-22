@@ -273,8 +273,15 @@ fn build_sources(families: &BTreeSet<String>) {
             "special-scalar-expanded-source-closure.json",
         ),
     ] {
-        if families.contains(family) && !manifest.families.contains_key(family) {
-            apply_family_overlay(&mut manifest, family, file);
+        // The safe DASSL facade scopes `XGETF`/`XSETF` around recoverable
+        // native statuses. Its focused closure is the authoritative source
+        // selection because the compiler-derived base closure cannot observe
+        // those Rust-side runtime calls. Other historical overlays remain
+        // additive only when the base manifest has no family entry.
+        if families.contains(family)
+            && (!manifest.families.contains_key(family) || family == "dassl")
+        {
+            apply_family_overlay(&mut manifest, family, file, family == "dassl");
         }
     }
     let by_id = manifest
@@ -337,7 +344,12 @@ fn build_sources(families: &BTreeSet<String>) {
     emit_runtime_links(&compiler);
 }
 
-fn apply_family_overlay(manifest: &mut Manifest, family: &str, file: &str) {
+fn apply_family_overlay(
+    manifest: &mut Manifest,
+    family: &str,
+    file: &str,
+    replace_existing_family: bool,
+) {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("metadata")
         .join(file);
@@ -370,6 +382,7 @@ fn apply_family_overlay(manifest: &mut Manifest, family: &str, file: &str) {
         .families
         .insert(overlay.family.clone(), overlay.source_ids)
         .is_some()
+        && !replace_existing_family
     {
         panic!("base source closure unexpectedly already defines {family}");
     }

@@ -165,15 +165,18 @@ for bounds on both variables and linear constraint expressions; see the
 The opt-in `ode-sdrive-expert` feature adds owned, panic-contained continuation
 sessions over real `SDRIV1`/`DDRIV1`, event-enabled `SDRIV2`/`DDRIV2`, complex
 `CDRIV1`/`CDRIV2`, and the existing expert `SDRIV3`/`DDRIV3` drivers. Event
-indices are zero-based, and all sessions retain native workspace only for
-same-direction continuation. See the [callback-driver guide](docs/api/safe-callback-drivers.md)
+indices are zero-based. The real expert sessions support functional, internal
+dense/banded finite-difference, and checked analytic dense/banded Jacobian
+iteration; all sessions retain native workspace only for same-direction
+continuation. See the [callback-driver guide](docs/api/safe-callback-drivers.md)
 and [SDRIVE expert-session guide](docs/api/safe-ode-sdrive-expert.md).
 The separate hosted `dassl` feature adds real residual-only index-1 DAE
 sessions over `SDASSL`/`DDASSL` for `G(t, y, y') = 0`. It owns all continuation
 workspace, requires caller-supplied sufficiently consistent initial `y` and
 `y'`, contains callback errors and panics, and uses only DASSL's internally
-differenced dense iteration matrix. User Jacobians, banded storage, event
-handling, and automatic consistency calculation remain deferred. See the
+differenced dense or checked-banded iteration matrix. User Jacobians remain
+deferred because DASSL's `JAC` callback has no native abort protocol; event
+handling and automatic consistency calculation remain deferred. See the
 [DASSL guide](docs/api/safe-dassl.md).
 The opt-in `optimization-linear-programming-in-memory` feature wraps original
 `SPLP`/`DSPLP` for sparse linear programs that fit entirely in native resident

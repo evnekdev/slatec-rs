@@ -627,4 +627,80 @@ mod tests {
                 .all(|value| (*value - 1.0).abs() < 5.0e-4)
         );
     }
+
+    #[cfg(feature = "fishpack-spherical-native-tests")]
+    #[test]
+    fn native_axisymmetric_coefficient_origin_and_singular_modes_are_verified() {
+        let coefficient = 0.5;
+        let mut coefficient_rhs = vec![0.0; 121];
+        for radial in 0..=10 {
+            let radius = 1.0 + radial as f32 / 10.0;
+            for colatitude in 0..=10 {
+                let theta = 0.5 + 2.0 * colatitude as f32 / 10.0;
+                coefficient_rhs[colatitude + 11 * radial] =
+                    coefficient / (radius * theta.sin()).powi(2);
+            }
+        }
+        let coefficient_problem = AxisymmetricSphericalHelmholtz2d::new(
+            ColatitudeAxis::new(0.5, 2.5, 10).unwrap(),
+            RadialAxis::new(1.0, 2.0, 10).unwrap(),
+            coefficient,
+            FishpackGrid2::new(11, 11, coefficient_rhs).unwrap(),
+            ColatitudeBoundary::Dirichlet {
+                lower: vec![1.0; 11],
+                upper: vec![1.0; 11],
+            },
+            RadialBoundary::Dirichlet {
+                lower: vec![1.0; 11],
+                upper: vec![1.0; 11],
+            },
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!(
+            coefficient_problem
+                .values()
+                .values()
+                .iter()
+                .all(|value| (*value - 1.0).abs() < 6.0e-4)
+        );
+
+        let origin_problem = AxisymmetricSphericalHelmholtz2d::new(
+            ColatitudeAxis::full_sphere(10).unwrap(),
+            RadialAxis::new(0.0, 2.0, 10).unwrap(),
+            0.0,
+            FishpackGrid2::zeros(11, 11).unwrap(),
+            ColatitudeBoundary::BothPoles,
+            RadialBoundary::AxisDirichlet {
+                outer: vec![1.0; 11],
+            },
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!(
+            origin_problem
+                .values()
+                .values()
+                .iter()
+                .all(|value| (*value - 1.0).abs() < 8.0e-4)
+        );
+
+        let singular = AxisymmetricSphericalHelmholtz2d::new(
+            ColatitudeAxis::full_sphere(8).unwrap(),
+            RadialAxis::new(1.0, 2.0, 8).unwrap(),
+            0.0,
+            FishpackGrid2::new(9, 9, vec![1.5; 81]).unwrap(),
+            ColatitudeBoundary::BothPoles,
+            RadialBoundary::Neumann {
+                lower_derivative: vec![0.0; 9],
+                upper_derivative: vec![0.0; 9],
+            },
+        )
+        .unwrap()
+        .solve()
+        .unwrap();
+        assert!((singular.perturbation() - 1.5).abs() < 4.0e-4);
+    }
 }

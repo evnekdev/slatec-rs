@@ -2,12 +2,13 @@
 //! drivers.
 //!
 //! [`OdeSession`](crate::ode::OdeSession) remains the expert real
-//! `SDRIV3`/`DDRIV3` surface, limited to explicit RHS callbacks.
+//! `SDRIV3`/`DDRIV3` surface for explicit systems, with reviewed functional,
+//! finite-difference, and analytic-Jacobian iteration modes.
 //! [`Driv1Session`](crate::ode::Driv1Session) supplies the straightforward
 //! real continuation drivers, [`Driv2Session`](crate::ode::Driv2Session) adds
 //! indexed root events, and [`ComplexDriv1Session`](crate::ode::ComplexDriv1Session)/
 //! [`ComplexDriv2Session`](crate::ode::ComplexDriv2Session) provide the reviewed
-//! single-precision complex counterparts. Jacobians, mass matrices, DAEs,
+//! single-precision complex counterparts. Mass matrices, DAEs,
 //! interpolation, and `CDRIV3` remain outside this module's safe scope.
 
 use alloc::vec;
@@ -52,12 +53,12 @@ pub trait OdeScalar:
     /// This implementation detail is sealed to `f32` and `f64`; safe callers
     /// use [`OdeSession::integrate_to`] instead of calling it directly.
     #[doc(hidden)]
-    fn call_native<F, E>(
-        session: &mut OdeSession<Self, F, E>,
+    fn call_native<S, E>(
+        session: &mut OdeSession<Self, S, E>,
         target: Self,
     ) -> Result<OdeStatus, OdeError<E>>
     where
-        F: FnMut(Self, &[Self], &mut [Self]) -> Result<(), E>;
+        S: OdeSystem<Self, E>;
 }
 
 impl OdeScalar for f32 {
@@ -73,12 +74,12 @@ impl OdeScalar for f32 {
         self.abs()
     }
 
-    fn call_native<F, E>(
-        session: &mut OdeSession<Self, F, E>,
+    fn call_native<S, E>(
+        session: &mut OdeSession<Self, S, E>,
         target: Self,
     ) -> Result<OdeStatus, OdeError<E>>
     where
-        F: FnMut(Self, &[Self], &mut [Self]) -> Result<(), E>,
+        S: OdeSystem<Self, E>,
     {
         call_f32(session, target)
     }
@@ -97,12 +98,12 @@ impl OdeScalar for f64 {
         self.abs()
     }
 
-    fn call_native<F, E>(
-        session: &mut OdeSession<Self, F, E>,
+    fn call_native<S, E>(
+        session: &mut OdeSession<Self, S, E>,
         target: Self,
     ) -> Result<OdeStatus, OdeError<E>>
     where
-        F: FnMut(Self, &[Self], &mut [Self]) -> Result<(), E>,
+        S: OdeSystem<Self, E>,
     {
         call_f64(session, target)
     }
@@ -131,7 +132,7 @@ pub struct OdeTolerances<T> {
     pub absolute: OdeTolerance<T>,
 }
 
-/// Integration method supported by the RHS-only session.
+/// Integration method supported by the reviewed SDRIVE session.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum OdeMethod {
     /// Nonstiff Adams methods, with maximum order at most 12.
@@ -140,7 +141,37 @@ pub enum OdeMethod {
     Bdf,
 }
 
-/// Validated controls for the restricted SDRIVE expert mode.
+/// Linear iteration used by the explicit `SDRIV3`/`DDRIV3` system.
+///
+/// The finite-difference variants have no additional Rust callback. Analytic
+/// variants are available only through [`OdeSession::new_with_jacobian`], so
+/// the native `JACOBN` callback always has a checked Rust owner.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum OdeIteration {
+    /// Functional iteration (`MITER = 0`), normally appropriate for nonstiff
+    /// systems.
+    Functional,
+    /// Dense chord iteration with a Jacobian computed by SDRIVE (`MITER = 2`).
+    FiniteDifferenceDense,
+    /// Banded chord iteration with a Jacobian computed by SDRIVE (`MITER = 5`).
+    FiniteDifferenceBanded {
+        /// Largest permitted row-minus-column index.
+        lower_bandwidth: usize,
+        /// Largest permitted column-minus-row index.
+        upper_bandwidth: usize,
+    },
+    /// Dense chord iteration with a checked Rust Jacobian callback (`MITER = 1`).
+    AnalyticDense,
+    /// Banded chord iteration with a checked Rust Jacobian callback (`MITER = 4`).
+    AnalyticBanded {
+        /// Largest permitted row-minus-column index.
+        lower_bandwidth: usize,
+        /// Largest permitted column-minus-row index.
+        upper_bandwidth: usize,
+    },
+}
+
+/// Validated controls for the reviewed explicit SDRIVE expert mode.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct OdeOptions<T> {
     /// Adams or BDF selection; automatic switching is intentionally absent.
@@ -151,6 +182,8 @@ pub struct OdeOptions<T> {
     pub maximum_steps: Option<usize>,
     /// Optional positive maximum absolute native step size.
     pub maximum_step: Option<T>,
+    /// Linear iteration and Jacobian storage model.
+    pub iteration: OdeIteration,
 }
 
 impl<T> Default for OdeOptions<T> {
@@ -160,6 +193,7 @@ impl<T> Default for OdeOptions<T> {
             maximum_order: None,
             maximum_steps: None,
             maximum_step: None,
+            iteration: OdeIteration::Functional,
         }
     }
 }
@@ -194,6 +228,12 @@ pub enum OdeInputError {
     InvalidTarget,
     /// A dimension or workspace calculation overflowed the native ABI.
     DimensionOverflow,
+    /// A band width was outside SDRIVE's documented `0..N` range.
+    InvalidBandwidth,
+    /// An analytic iteration was requested without an owned Jacobian callback.
+    AnalyticJacobianRequired,
+    /// A Jacobian callback was supplied for an iteration that does not call it.
+    AnalyticJacobianNotUsed,
 }
 
 /// Error returned by an ODE session call.
@@ -209,6 +249,17 @@ pub enum OdeError<E> {
     NonFiniteDerivative {
         /// First non-finite derivative index.
         index: usize,
+    },
+    /// The user Jacobian callback returned an error after setting native `N = 0`.
+    JacobianCallback(E),
+    /// The user Jacobian callback panicked; the panic was caught before FFI.
+    JacobianCallbackPanicked,
+    /// The user Jacobian callback wrote a non-finite matrix entry.
+    NonFiniteJacobian {
+        /// Zero-based matrix row.
+        row: usize,
+        /// Zero-based matrix column.
+        column: usize,
     },
     /// A root/event callback panicked; the panic was caught before FFI.
     RootCallbackPanicked,
@@ -240,6 +291,14 @@ impl<E: core::fmt::Display> core::fmt::Display for OdeError<E> {
                 formatter,
                 "ODE RHS produced a non-finite derivative at index {index}"
             ),
+            Self::JacobianCallback(error) => {
+                write!(formatter, "ODE Jacobian callback failed: {error}")
+            }
+            Self::JacobianCallbackPanicked => formatter.write_str("ODE Jacobian callback panicked"),
+            Self::NonFiniteJacobian { row, column } => write!(
+                formatter,
+                "ODE Jacobian produced a non-finite value at row {row}, column {column}"
+            ),
             Self::RootCallbackPanicked => formatter.write_str("ODE root callback panicked"),
             Self::NonFiniteRoot { index } => write!(
                 formatter,
@@ -260,7 +319,7 @@ impl<E: core::fmt::Display> core::fmt::Display for OdeError<E> {
 impl<E: std::error::Error + 'static> std::error::Error for OdeError<E> {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
-            Self::Callback(error) => Some(error),
+            Self::Callback(error) | Self::JacobianCallback(error) => Some(error),
             _ => None,
         }
     }
@@ -293,16 +352,208 @@ enum SessionState {
     Failed,
 }
 
-struct CallbackContext<T, F, E> {
-    rhs: *mut F,
+/// Error returned when a Jacobian writer index is outside its reviewed shape.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct OdeJacobianIndexError;
+
+/// Checked dense Jacobian writer passed to an analytic SDRIVE callback.
+///
+/// Entries use mathematical zero-based `(row, column)` indices. Storage is
+/// Fortran column-major internally, but never exposed through this API.
+pub struct OdeDenseJacobianViewMut<'a, T> {
+    values: &'a mut [T],
+    dimension: usize,
+}
+
+impl<'a, T: Copy> OdeDenseJacobianViewMut<'a, T> {
+    /// Stores `d f_row / d y_column`.
+    pub fn set(
+        &mut self,
+        row: usize,
+        column: usize,
+        value: T,
+    ) -> Result<(), OdeJacobianIndexError> {
+        if row >= self.dimension || column >= self.dimension {
+            return Err(OdeJacobianIndexError);
+        }
+        self.values[column * self.dimension + row] = value;
+        Ok(())
+    }
+}
+
+/// Checked banded Jacobian writer passed to an analytic SDRIVE callback.
+///
+/// Entries use mathematical zero-based `(row, column)` indices. Only entries
+/// within the declared band may be written; all other matrix entries are
+/// mathematically zero. The native Fortran leading dimension remains private.
+pub struct OdeBandedJacobianViewMut<'a, T> {
+    values: &'a mut [T],
+    dimension: usize,
+    lower_bandwidth: usize,
+    upper_bandwidth: usize,
+    leading_dimension: usize,
+}
+
+impl<'a, T: Copy> OdeBandedJacobianViewMut<'a, T> {
+    /// Stores `d f_row / d y_column` when that entry is inside the declared band.
+    pub fn set(
+        &mut self,
+        row: usize,
+        column: usize,
+        value: T,
+    ) -> Result<(), OdeJacobianIndexError> {
+        if row >= self.dimension || column >= self.dimension {
+            return Err(OdeJacobianIndexError);
+        }
+        let lower = row.saturating_sub(column);
+        let upper = column.saturating_sub(row);
+        if lower > self.lower_bandwidth || upper > self.upper_bandwidth {
+            return Err(OdeJacobianIndexError);
+        }
+        let native_row = row + self.upper_bandwidth - column;
+        self.values[column * self.leading_dimension + native_row] = value;
+        Ok(())
+    }
+}
+
+/// Internal callback contract used by the sealed real SDRIVE dispatch.
+///
+/// This is public only because [`OdeScalar`] is public; callers construct the
+/// reviewed owners through [`OdeSession::new`] or
+/// [`OdeSession::new_with_jacobian`] rather than implementing this trait.
+#[doc(hidden)]
+pub trait OdeSystem<T: OdeScalar, E> {
+    fn rhs(&mut self, time: T, state: &[T], derivative: &mut [T]) -> Result<(), E>;
+    fn supports_analytic_jacobian(&self) -> bool;
+    fn jacobian(
+        &mut self,
+        time: T,
+        state: &[T],
+        values: &mut [T],
+        leading_dimension: usize,
+        lower_bandwidth: usize,
+        upper_bandwidth: usize,
+        banded: bool,
+    ) -> Result<(), E>;
+}
+
+/// Internal owner used by the RHS-only constructor.
+pub struct RhsOnly<F>(F);
+
+impl<T: OdeScalar, F, E> OdeSystem<T, E> for RhsOnly<F>
+where
+    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+{
+    fn rhs(&mut self, time: T, state: &[T], derivative: &mut [T]) -> Result<(), E> {
+        (self.0)(time, state, derivative)
+    }
+
+    fn supports_analytic_jacobian(&self) -> bool {
+        false
+    }
+
+    fn jacobian(
+        &mut self,
+        _: T,
+        _: &[T],
+        _: &mut [T],
+        _: usize,
+        _: usize,
+        _: usize,
+        _: bool,
+    ) -> Result<(), E> {
+        unreachable!("RHS-only SDRIVE session cannot receive a Jacobian callback")
+    }
+}
+
+/// Internal owner used by the analytic-Jacobian constructor.
+pub struct RhsAndJacobian<F, J> {
+    rhs: F,
+    jacobian: J,
+}
+
+impl<T: OdeScalar, F, J, E> OdeSystem<T, E> for RhsAndJacobian<F, J>
+where
+    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+    J: FnMut(T, &[T], OdeJacobianWriter<'_, T>) -> Result<(), E>,
+{
+    fn rhs(&mut self, time: T, state: &[T], derivative: &mut [T]) -> Result<(), E> {
+        (self.rhs)(time, state, derivative)
+    }
+
+    fn supports_analytic_jacobian(&self) -> bool {
+        true
+    }
+
+    fn jacobian(
+        &mut self,
+        time: T,
+        state: &[T],
+        values: &mut [T],
+        leading_dimension: usize,
+        lower_bandwidth: usize,
+        upper_bandwidth: usize,
+        banded: bool,
+    ) -> Result<(), E> {
+        let writer = if !banded {
+            OdeJacobianWriter::Dense(OdeDenseJacobianViewMut {
+                values,
+                dimension: state.len(),
+            })
+        } else {
+            OdeJacobianWriter::Banded(OdeBandedJacobianViewMut {
+                values,
+                dimension: state.len(),
+                lower_bandwidth,
+                upper_bandwidth,
+                leading_dimension,
+            })
+        };
+        (self.jacobian)(time, state, writer)
+    }
+}
+
+/// Jacobian storage passed to the checked analytic SDRIVE callback.
+pub enum OdeJacobianWriter<'a, T> {
+    /// A full dense matrix.
+    Dense(OdeDenseJacobianViewMut<'a, T>),
+    /// A matrix restricted to the declared lower and upper bands.
+    Banded(OdeBandedJacobianViewMut<'a, T>),
+}
+
+impl<'a, T: Copy> OdeJacobianWriter<'a, T> {
+    /// Stores `d f_row / d y_column` through the reviewed native layout.
+    pub fn set(
+        &mut self,
+        row: usize,
+        column: usize,
+        value: T,
+    ) -> Result<(), OdeJacobianIndexError> {
+        match self {
+            Self::Dense(view) => view.set(row, column, value),
+            Self::Banded(view) => view.set(row, column, value),
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
+enum CallbackFailure {
+    Rhs,
+    Jacobian,
+}
+
+struct CallbackContext<T, S, E> {
+    system: *mut S,
     dimension: usize,
     error: Option<E>,
     panicked: bool,
     non_finite: Option<usize>,
+    non_finite_jacobian: Option<(usize, usize)>,
+    failure: CallbackFailure,
     _scalar: PhantomData<T>,
 }
 
-type PreparedContext<T, F, E> = (CallbackContext<T, F, E>, crate::runtime::NativeRuntimeGuard);
+type PreparedContext<T, S, E> = (CallbackContext<T, S, E>, crate::runtime::NativeRuntimeGuard);
 
 pub(super) struct ContextGuard;
 
@@ -332,8 +583,8 @@ impl Drop for ContextGuard {
 /// `Send`, but is intentionally not `Sync`; the API also rejects callback-nested
 /// solves before native re-entry. The stored workspace is continuation state and
 /// is neither cloneable nor exposed for mutation.
-pub struct OdeSession<T: OdeScalar, F, E> {
-    rhs: F,
+pub struct OdeSession<T: OdeScalar, S, E> {
+    system: S,
     time: T,
     state: Vec<T>,
     tolerances: OdeTolerances<T>,
@@ -381,7 +632,7 @@ pub fn with_native_runtime_lock_for_test<R>(operation: impl FnOnce() -> R) -> R 
     operation()
 }
 
-impl<T: OdeScalar, F, E> OdeSession<T, F, E>
+impl<T: OdeScalar, F, E> OdeSession<T, RhsOnly<F>, E>
 where
     F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
 {
@@ -401,19 +652,28 @@ where
     ) -> Result<Self, OdeError<E>> {
         validate_inputs(initial_time, &initial_state, &tolerances, options)?;
         let maximum_order = order(options)?;
-        let work_len = workspace_len(initial_state.len(), maximum_order)?;
+        if matches!(
+            options.iteration,
+            OdeIteration::AnalyticDense | OdeIteration::AnalyticBanded { .. }
+        ) {
+            return Err(OdeError::InvalidInput(
+                OdeInputError::AnalyticJacobianRequired,
+            ));
+        }
+        let work_len = workspace_len(initial_state.len(), maximum_order, options.iteration)?;
+        let integer_work_len = integer_workspace_len(initial_state.len(), options.iteration)?;
         if FortranInteger::try_from(work_len).is_err() {
             return Err(OdeError::InvalidInput(OdeInputError::DimensionOverflow));
         }
 
         Ok(Self {
-            rhs,
+            system: RhsOnly(rhs),
             time: initial_time,
             state: initial_state,
             tolerances,
             options,
             work: vec![T::zero(); work_len],
-            iwork: vec![0; 50],
+            iwork: vec![0; integer_work_len],
             nstate: 1,
             direction: None,
             lifecycle: SessionState::Ready,
@@ -422,6 +682,98 @@ where
         })
     }
 
+    /// Copies a borrowed initial state into a new owned continuation session.
+    pub fn from_slice(
+        initial_time: T,
+        initial_state: &[T],
+        rhs: F,
+        tolerances: OdeTolerances<T>,
+        options: OdeOptions<T>,
+    ) -> Result<Self, OdeError<E>> {
+        Self::new(
+            initial_time,
+            initial_state.to_vec(),
+            rhs,
+            tolerances,
+            options,
+        )
+    }
+}
+
+impl<T: OdeScalar, F, J, E> OdeSession<T, RhsAndJacobian<F, J>, E>
+where
+    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+    J: FnMut(T, &[T], OdeJacobianWriter<'_, T>) -> Result<(), E>,
+{
+    /// Creates an owned explicit SDRIVE session with a checked analytic Jacobian.
+    ///
+    /// The selected [`OdeIteration`] must be [`OdeIteration::AnalyticDense`]
+    /// or [`OdeIteration::AnalyticBanded`]. Both callbacks are contained: an
+    /// error, panic, invalid index, or non-finite Jacobian value sets native
+    /// `N = 0` before control returns from Fortran.
+    pub fn new_with_jacobian(
+        initial_time: T,
+        initial_state: Vec<T>,
+        rhs: F,
+        jacobian: J,
+        tolerances: OdeTolerances<T>,
+        options: OdeOptions<T>,
+    ) -> Result<Self, OdeError<E>> {
+        validate_inputs(initial_time, &initial_state, &tolerances, options)?;
+        if !matches!(
+            options.iteration,
+            OdeIteration::AnalyticDense | OdeIteration::AnalyticBanded { .. }
+        ) {
+            return Err(OdeError::InvalidInput(
+                OdeInputError::AnalyticJacobianNotUsed,
+            ));
+        }
+        let maximum_order = order(options)?;
+        let work_len = workspace_len(initial_state.len(), maximum_order, options.iteration)?;
+        let integer_work_len = integer_workspace_len(initial_state.len(), options.iteration)?;
+        if FortranInteger::try_from(work_len).is_err() {
+            return Err(OdeError::InvalidInput(OdeInputError::DimensionOverflow));
+        }
+        Ok(Self {
+            system: RhsAndJacobian { rhs, jacobian },
+            time: initial_time,
+            state: initial_state,
+            tolerances,
+            options,
+            work: vec![T::zero(); work_len],
+            iwork: vec![0; integer_work_len],
+            nstate: 1,
+            direction: None,
+            lifecycle: SessionState::Ready,
+            _not_sync: PhantomData,
+            _error: PhantomData,
+        })
+    }
+
+    /// Copies a borrowed initial state into a new analytic-Jacobian session.
+    pub fn from_slice_with_jacobian(
+        initial_time: T,
+        initial_state: &[T],
+        rhs: F,
+        jacobian: J,
+        tolerances: OdeTolerances<T>,
+        options: OdeOptions<T>,
+    ) -> Result<Self, OdeError<E>> {
+        Self::new_with_jacobian(
+            initial_time,
+            initial_state.to_vec(),
+            rhs,
+            jacobian,
+            tolerances,
+            options,
+        )
+    }
+}
+
+impl<T: OdeScalar, S, E> OdeSession<T, S, E>
+where
+    S: OdeSystem<T, E>,
+{
     fn prepare_target(&mut self, target_time: T) -> Result<(), OdeError<E>> {
         if self.lifecycle == SessionState::Failed {
             return Err(OdeError::SessionFailed);
@@ -462,23 +814,6 @@ where
                 Err(error)
             }
         }
-    }
-
-    /// Copies a borrowed initial state into a new owned continuation session.
-    pub fn from_slice(
-        initial_time: T,
-        initial_state: &[T],
-        rhs: F,
-        tolerances: OdeTolerances<T>,
-        options: OdeOptions<T>,
-    ) -> Result<Self, OdeError<E>> {
-        Self::new(
-            initial_time,
-            initial_state.to_vec(),
-            rhs,
-            tolerances,
-            options,
-        )
     }
 
     /// Integrates in the established direction to `target_time`.
@@ -563,6 +898,11 @@ fn validate_inputs<T: OdeScalar, E>(
     if FortranInteger::try_from(state.len()).is_err() {
         return Err(OdeError::InvalidInput(OdeInputError::DimensionOverflow));
     }
+    if let Some((lower, upper)) = bandwidths(options.iteration) {
+        if lower >= state.len() || upper >= state.len() {
+            return Err(OdeError::InvalidInput(OdeInputError::InvalidBandwidth));
+        }
+    }
     Ok(())
 }
 
@@ -578,29 +918,110 @@ fn order<T: OdeScalar, E>(options: OdeOptions<T>) -> Result<usize, OdeError<E>> 
     Ok(value)
 }
 
-fn workspace_len<E>(dimension: usize, maximum_order: usize) -> Result<usize, OdeError<E>> {
-    maximum_order
-        .checked_add(4)
-        .and_then(|value| value.checked_mul(dimension))
+fn workspace_len<E>(
+    dimension: usize,
+    maximum_order: usize,
+    iteration: OdeIteration,
+) -> Result<usize, OdeError<E>> {
+    let order_term = match iteration {
+        OdeIteration::Functional => maximum_order.checked_add(4),
+        _ => maximum_order.checked_add(5),
+    }
+    .and_then(|value| value.checked_mul(dimension));
+    let matrix = match iteration {
+        OdeIteration::Functional => Some(0),
+        OdeIteration::FiniteDifferenceDense | OdeIteration::AnalyticDense => {
+            dimension.checked_mul(dimension)
+        }
+        OdeIteration::FiniteDifferenceBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        }
+        | OdeIteration::AnalyticBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        } => lower_bandwidth
+            .checked_mul(2)
+            .and_then(|value| value.checked_add(upper_bandwidth))
+            .and_then(|value| value.checked_add(1))
+            .and_then(|value| value.checked_mul(dimension)),
+    };
+    order_term
+        .and_then(|value| matrix.and_then(|matrix| value.checked_add(matrix)))
         .and_then(|value| value.checked_add(250))
         .ok_or(OdeError::InvalidInput(OdeInputError::DimensionOverflow))
 }
 
-fn prepare_context<T: OdeScalar, F, E>(
-    session: &mut OdeSession<T, F, E>,
-) -> Result<PreparedContext<T, F, E>, OdeError<E>>
+fn integer_workspace_len<E>(
+    dimension: usize,
+    iteration: OdeIteration,
+) -> Result<usize, OdeError<E>> {
+    let length = match iteration {
+        OdeIteration::Functional => 50,
+        _ => dimension
+            .checked_add(50)
+            .ok_or(OdeError::InvalidInput(OdeInputError::DimensionOverflow))?,
+    };
+    FortranInteger::try_from(length)
+        .map_err(|_| OdeError::InvalidInput(OdeInputError::DimensionOverflow))?;
+    Ok(length)
+}
+
+fn bandwidths(iteration: OdeIteration) -> Option<(usize, usize)> {
+    match iteration {
+        OdeIteration::FiniteDifferenceBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        }
+        | OdeIteration::AnalyticBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        } => Some((lower_bandwidth, upper_bandwidth)),
+        _ => None,
+    }
+}
+
+fn native_iteration(iteration: OdeIteration) -> (FortranInteger, FortranInteger, FortranInteger) {
+    match iteration {
+        OdeIteration::Functional => (0, 0, 0),
+        OdeIteration::FiniteDifferenceDense => (2, 0, 0),
+        OdeIteration::FiniteDifferenceBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        } => (
+            5,
+            FortranInteger::try_from(lower_bandwidth).expect("validated bandwidth"),
+            FortranInteger::try_from(upper_bandwidth).expect("validated bandwidth"),
+        ),
+        OdeIteration::AnalyticDense => (1, 0, 0),
+        OdeIteration::AnalyticBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        } => (
+            4,
+            FortranInteger::try_from(lower_bandwidth).expect("validated bandwidth"),
+            FortranInteger::try_from(upper_bandwidth).expect("validated bandwidth"),
+        ),
+    }
+}
+
+fn prepare_context<T: OdeScalar, S, E>(
+    session: &mut OdeSession<T, S, E>,
+) -> Result<PreparedContext<T, S, E>, OdeError<E>>
 where
-    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+    S: OdeSystem<T, E>,
 {
     if ACTIVE_CONTEXT.with(|slot| !slot.get().is_null()) {
         return Err(OdeError::ReentrantCall);
     }
     let context = CallbackContext {
-        rhs: &mut session.rhs,
+        system: &mut session.system,
         dimension: session.state.len(),
         error: None,
         panicked: false,
         non_finite: None,
+        non_finite_jacobian: None,
+        failure: CallbackFailure::Rhs,
         _scalar: PhantomData,
     };
     Ok((context, lock_native()))
@@ -613,39 +1034,39 @@ fn hmax<T: OdeScalar>(session: &OdeSession<T, impl Sized, impl Sized>, target: T
         .unwrap_or_else(|| (target - session.time).abs())
 }
 
-unsafe extern "C" fn rhs_f32<F, E>(
+unsafe extern "C" fn rhs_f32<S, E>(
     n: *mut FortranInteger,
     time: *mut f32,
     state: *mut f32,
     derivative: *mut f32,
 ) where
-    F: FnMut(f32, &[f32], &mut [f32]) -> Result<(), E>,
+    S: OdeSystem<f32, E>,
 {
     // SAFETY: SDRIVE invokes this only while `call_f32` has registered the
     // matching context; `dispatch` checks all callback pointers and sizes.
-    unsafe { dispatch::<f32, F, E>(n, time, state, derivative) }
+    unsafe { dispatch::<f32, S, E>(n, time, state, derivative) }
 }
 
-unsafe extern "C" fn rhs_f64<F, E>(
+unsafe extern "C" fn rhs_f64<S, E>(
     n: *mut FortranInteger,
     time: *mut f64,
     state: *mut f64,
     derivative: *mut f64,
 ) where
-    F: FnMut(f64, &[f64], &mut [f64]) -> Result<(), E>,
+    S: OdeSystem<f64, E>,
 {
     // SAFETY: SDRIVE invokes this only while `call_f64` has registered the
     // matching context; `dispatch` checks all callback pointers and sizes.
-    unsafe { dispatch::<f64, F, E>(n, time, state, derivative) }
+    unsafe { dispatch::<f64, S, E>(n, time, state, derivative) }
 }
 
-unsafe fn dispatch<T: OdeScalar, F, E>(
+unsafe fn dispatch<T: OdeScalar, S, E>(
     n: *mut FortranInteger,
     time: *mut T,
     state: *mut T,
     derivative: *mut T,
 ) where
-    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+    S: OdeSystem<T, E>,
 {
     if n.is_null() || time.is_null() || state.is_null() || derivative.is_null() {
         if !n.is_null() {
@@ -671,7 +1092,8 @@ unsafe fn dispatch<T: OdeScalar, F, E>(
     }
     // SAFETY: `call_f32`/`call_f64` install the matching type-specific
     // context before entering native code and remove it before stack teardown.
-    let context = unsafe { &mut *pointer.cast::<CallbackContext<T, F, E>>() };
+    let context = unsafe { &mut *pointer.cast::<CallbackContext<T, S, E>>() };
+    context.failure = CallbackFailure::Rhs;
     if dimension != context.dimension || ranges_overlap(state, derivative, dimension) {
         // SAFETY: `n` is non-null. An unexpected length or aliasing layout
         // would make Rust's input/output slice construction unsound.
@@ -692,7 +1114,7 @@ unsafe fn dispatch<T: OdeScalar, F, E>(
     let output = unsafe { core::slice::from_raw_parts_mut(derivative, dimension) };
 
     match catch_unwind(AssertUnwindSafe(|| unsafe {
-        (&mut *context.rhs)(callback_time, input, output)
+        (&mut *context.system).rhs(callback_time, input, output)
     })) {
         Ok(Ok(())) => {
             if let Some(index) = output.iter().position(|value| !value.is_finite()) {
@@ -709,6 +1131,201 @@ unsafe fn dispatch<T: OdeScalar, F, E>(
         Err(_) => {
             context.panicked = true;
             // SAFETY: `n` is non-null.
+            unsafe { *n = 0 };
+        }
+    }
+}
+
+unsafe extern "C" fn jac_f32<S, E>(
+    n: *mut FortranInteger,
+    time: *mut f32,
+    state: *mut f32,
+    matrix: *mut f32,
+    leading_dimension: *mut FortranInteger,
+    lower_bandwidth: *mut FortranInteger,
+    upper_bandwidth: *mut FortranInteger,
+) where
+    S: OdeSystem<f32, E>,
+{
+    // SAFETY: SDRIVE invokes this only while `call_f32` has registered the
+    // matching context and only in a reviewed analytic iteration mode.
+    unsafe {
+        dispatch_jacobian::<f32, S, E>(
+            n,
+            time,
+            state,
+            matrix,
+            leading_dimension,
+            lower_bandwidth,
+            upper_bandwidth,
+        )
+    }
+}
+
+unsafe extern "C" fn jac_f64<S, E>(
+    n: *mut FortranInteger,
+    time: *mut f64,
+    state: *mut f64,
+    matrix: *mut f64,
+    leading_dimension: *mut FortranInteger,
+    lower_bandwidth: *mut FortranInteger,
+    upper_bandwidth: *mut FortranInteger,
+) where
+    S: OdeSystem<f64, E>,
+{
+    // SAFETY: SDRIVE invokes this only while `call_f64` has registered the
+    // matching context and only in a reviewed analytic iteration mode.
+    unsafe {
+        dispatch_jacobian::<f64, S, E>(
+            n,
+            time,
+            state,
+            matrix,
+            leading_dimension,
+            lower_bandwidth,
+            upper_bandwidth,
+        )
+    }
+}
+
+unsafe fn dispatch_jacobian<T: OdeScalar, S, E>(
+    n: *mut FortranInteger,
+    time: *mut T,
+    state: *mut T,
+    matrix: *mut T,
+    leading_dimension: *mut FortranInteger,
+    lower_bandwidth: *mut FortranInteger,
+    upper_bandwidth: *mut FortranInteger,
+) where
+    S: OdeSystem<T, E>,
+{
+    if n.is_null()
+        || time.is_null()
+        || state.is_null()
+        || matrix.is_null()
+        || leading_dimension.is_null()
+        || lower_bandwidth.is_null()
+        || upper_bandwidth.is_null()
+    {
+        if !n.is_null() {
+            // SAFETY: native supplied this non-null callback control pointer.
+            unsafe { *n = 0 };
+        }
+        return;
+    }
+    let dimension = match usize::try_from(unsafe { *n }) {
+        Ok(value) if value > 0 => value,
+        _ => {
+            // SAFETY: `n` is non-null above.
+            unsafe { *n = 0 };
+            return;
+        }
+    };
+    let leading = match usize::try_from(unsafe { *leading_dimension }) {
+        Ok(value) if value > 0 => value,
+        _ => {
+            // SAFETY: `n` is non-null above.
+            unsafe { *n = 0 };
+            return;
+        }
+    };
+    let lower = match usize::try_from(unsafe { *lower_bandwidth }) {
+        Ok(value) => value,
+        Err(_) => {
+            // SAFETY: `n` is non-null above.
+            unsafe { *n = 0 };
+            return;
+        }
+    };
+    let upper = match usize::try_from(unsafe { *upper_bandwidth }) {
+        Ok(value) => value,
+        Err(_) => {
+            // SAFETY: `n` is non-null above.
+            unsafe { *n = 0 };
+            return;
+        }
+    };
+    let pointer = ACTIVE_CONTEXT.with(|slot| slot.get());
+    if pointer.is_null() {
+        // SAFETY: `n` is non-null above.
+        unsafe { *n = 0 };
+        return;
+    }
+    // SAFETY: the exact typed context lives for the enclosing native call.
+    let context = unsafe { &mut *pointer.cast::<CallbackContext<T, S, E>>() };
+    context.failure = CallbackFailure::Jacobian;
+    if context.system.is_null()
+        || dimension != context.dimension
+        || !unsafe { (&*context.system).supports_analytic_jacobian() }
+    {
+        // SAFETY: `n` is non-null above.
+        unsafe { *n = 0 };
+        return;
+    }
+    let banded = leading != dimension || lower != 0 || upper != 0;
+    let expected_leading = if banded {
+        match lower
+            .checked_mul(2)
+            .and_then(|value| value.checked_add(upper))
+            .and_then(|value| value.checked_add(1))
+        {
+            Some(value) => value,
+            None => {
+                // SAFETY: `n` is non-null above.
+                unsafe { *n = 0 };
+                return;
+            }
+        }
+    } else {
+        dimension
+    };
+    let Some(length) = leading.checked_mul(dimension) else {
+        // SAFETY: `n` is non-null above.
+        unsafe { *n = 0 };
+        return;
+    };
+    if leading != expected_leading || ranges_overlap(state, matrix, dimension) {
+        // SAFETY: `n` is non-null above.
+        unsafe { *n = 0 };
+        return;
+    }
+    let callback_time = unsafe { *time };
+    if !callback_time.is_finite() {
+        // SAFETY: `n` is non-null above.
+        unsafe { *n = 0 };
+        return;
+    }
+    // SAFETY: source contract supplies Y(*), DFDY(MATDIM,*), with reviewed
+    // `N` and `MATDIM` dimensions. The wrapper checked their multiplication.
+    let input = unsafe { core::slice::from_raw_parts(state, dimension) };
+    // SAFETY: source contract supplies writable `MATDIM * N` matrix storage.
+    let output = unsafe { core::slice::from_raw_parts_mut(matrix, length) };
+    output.fill(T::zero());
+    match catch_unwind(AssertUnwindSafe(|| unsafe {
+        (&mut *context.system).jacobian(callback_time, input, output, leading, lower, upper, banded)
+    })) {
+        Ok(Ok(())) => {
+            if let Some(index) = output.iter().position(|value| !value.is_finite()) {
+                let column = index / leading;
+                let native_row = index % leading;
+                let row = if banded {
+                    native_row.saturating_add(column).saturating_sub(upper)
+                } else {
+                    native_row
+                };
+                context.non_finite_jacobian = Some((row, column));
+                // SAFETY: `n` is non-null above.
+                unsafe { *n = 0 };
+            }
+        }
+        Ok(Err(error)) => {
+            context.error = Some(error);
+            // SAFETY: `n` is non-null above.
+            unsafe { *n = 0 };
+        }
+        Err(_) => {
+            context.panicked = true;
+            // SAFETY: `n` is non-null above.
             unsafe { *n = 0 };
         }
     }
@@ -736,28 +1353,6 @@ pub use driv::{
 };
 /// Safe complex scalar type used by the reviewed complex DRIV sessions.
 pub use num_complex::Complex32 as OdeComplex32;
-
-unsafe extern "C" fn dummy_jac_f32(
-    _: *mut FortranInteger,
-    _: *mut f32,
-    _: *mut f32,
-    _: *mut f32,
-    _: *mut FortranInteger,
-    _: *mut FortranInteger,
-    _: *mut FortranInteger,
-) {
-}
-
-unsafe extern "C" fn dummy_jac_f64(
-    _: *mut FortranInteger,
-    _: *mut f64,
-    _: *mut f64,
-    _: *mut f64,
-    _: *mut FortranInteger,
-    _: *mut FortranInteger,
-    _: *mut FortranInteger,
-) {
-}
 
 unsafe extern "C" fn dummy_mass_f32(
     _: *mut FortranInteger,
@@ -824,65 +1419,74 @@ macro_rules! dummy_users {
 dummy_users!(dummy_users_f32, f32);
 dummy_users!(dummy_users_f64, f64);
 
-fn call_f32<F, E>(
-    session: &mut OdeSession<f32, F, E>,
+fn call_f32<S, E>(
+    session: &mut OdeSession<f32, S, E>,
     target: f32,
 ) -> Result<OdeStatus, OdeError<E>>
 where
-    F: FnMut(f32, &[f32], &mut [f32]) -> Result<(), E>,
+    S: OdeSystem<f32, E>,
 {
     let (mut context, _runtime) = prepare_context(session)?;
     let _shared_context = crate::callback_runtime::reserve_external_callback_context()
         .map_err(|_| OdeError::ReentrantCall)?;
-    let pointer = (&mut context as *mut CallbackContext<f32, F, E>).cast::<c_void>();
+    let pointer = (&mut context as *mut CallbackContext<f32, S, E>).cast::<c_void>();
     let guard = ContextGuard::install(pointer).map_err(|_| OdeError::ReentrantCall)?;
     let result = call_native_f32(session, target);
     drop(guard);
     finish_callback_result(context, result)
 }
 
-fn call_f64<F, E>(
-    session: &mut OdeSession<f64, F, E>,
+fn call_f64<S, E>(
+    session: &mut OdeSession<f64, S, E>,
     target: f64,
 ) -> Result<OdeStatus, OdeError<E>>
 where
-    F: FnMut(f64, &[f64], &mut [f64]) -> Result<(), E>,
+    S: OdeSystem<f64, E>,
 {
     let (mut context, _runtime) = prepare_context(session)?;
     let _shared_context = crate::callback_runtime::reserve_external_callback_context()
         .map_err(|_| OdeError::ReentrantCall)?;
-    let pointer = (&mut context as *mut CallbackContext<f64, F, E>).cast::<c_void>();
+    let pointer = (&mut context as *mut CallbackContext<f64, S, E>).cast::<c_void>();
     let guard = ContextGuard::install(pointer).map_err(|_| OdeError::ReentrantCall)?;
     let result = call_native_f64(session, target);
     drop(guard);
     finish_callback_result(context, result)
 }
 
-fn finish_callback_result<T: OdeScalar, F, E>(
-    mut context: CallbackContext<T, F, E>,
+fn finish_callback_result<T: OdeScalar, S, E>(
+    mut context: CallbackContext<T, S, E>,
     native: Result<OdeStatus, OdeError<E>>,
 ) -> Result<OdeStatus, OdeError<E>>
 where
-    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+    S: OdeSystem<T, E>,
 {
     if let Some(error) = context.error.take() {
-        return Err(OdeError::Callback(error));
+        return Err(match context.failure {
+            CallbackFailure::Rhs => OdeError::Callback(error),
+            CallbackFailure::Jacobian => OdeError::JacobianCallback(error),
+        });
     }
     if context.panicked {
-        return Err(OdeError::CallbackPanicked);
+        return Err(match context.failure {
+            CallbackFailure::Rhs => OdeError::CallbackPanicked,
+            CallbackFailure::Jacobian => OdeError::JacobianCallbackPanicked,
+        });
     }
     if let Some(index) = context.non_finite {
         return Err(OdeError::NonFiniteDerivative { index });
     }
+    if let Some((row, column)) = context.non_finite_jacobian {
+        return Err(OdeError::NonFiniteJacobian { row, column });
+    }
     native
 }
 
-fn native_inputs<T: OdeScalar, F, E>(
-    session: &mut OdeSession<T, F, E>,
+fn native_inputs<T: OdeScalar, S, E>(
+    session: &mut OdeSession<T, S, E>,
     target: T,
 ) -> Result<NativeInputs<T>, OdeError<E>>
 where
-    F: FnMut(T, &[T], &mut [T]) -> Result<(), E>,
+    S: OdeSystem<T, E>,
 {
     Ok(NativeInputs {
         dimension: FortranInteger::try_from(session.state.len())
@@ -924,20 +1528,19 @@ struct NativeInputs<T> {
     maximum_steps: FortranInteger,
 }
 
-fn call_native_f32<F, E>(
-    session: &mut OdeSession<f32, F, E>,
+fn call_native_f32<S, E>(
+    session: &mut OdeSession<f32, S, E>,
     target: f32,
 ) -> Result<OdeStatus, OdeError<E>>
 where
-    F: FnMut(f32, &[f32], &mut [f32]) -> Result<(), E>,
+    S: OdeSystem<f32, E>,
 {
     let mut input = native_inputs(session, target)?;
     let mut eps = session.tolerances.relative;
     let ewt = tolerance_pointer(&mut session.tolerances.absolute);
-    let mut miter = 0;
+    let (mut miter, mut lower_bandwidth, mut upper_bandwidth) =
+        native_iteration(session.options.iteration);
     let mut implementation = 0;
-    let mut lower_bandwidth = 0;
-    let mut upper_bandwidth = 0;
     let mut equation_count = 0;
     let mut error_flag = 0;
     let _xerror = permit_recoverable_native_statuses();
@@ -950,7 +1553,7 @@ where
             &mut input.dimension,
             &mut session.time,
             session.state.as_mut_ptr(),
-            rhs_f32::<F, E>,
+            rhs_f32::<S, E>,
             &mut session.nstate,
             &mut input.target,
             &mut input.task,
@@ -969,7 +1572,7 @@ where
             &mut input.work_length,
             session.iwork.as_mut_ptr(),
             &mut input.integer_work_length,
-            dummy_jac_f32,
+            jac_f32::<S, E>,
             dummy_mass_f32,
             &mut equation_count,
             &mut input.maximum_steps,
@@ -983,20 +1586,19 @@ where
         .map_err(|(nstate, ierflg)| OdeError::NativeContractViolation { nstate, ierflg })
 }
 
-fn call_native_f64<F, E>(
-    session: &mut OdeSession<f64, F, E>,
+fn call_native_f64<S, E>(
+    session: &mut OdeSession<f64, S, E>,
     target: f64,
 ) -> Result<OdeStatus, OdeError<E>>
 where
-    F: FnMut(f64, &[f64], &mut [f64]) -> Result<(), E>,
+    S: OdeSystem<f64, E>,
 {
     let mut input = native_inputs(session, target)?;
     let mut eps = session.tolerances.relative;
     let ewt = tolerance_pointer(&mut session.tolerances.absolute);
-    let mut miter = 0;
+    let (mut miter, mut lower_bandwidth, mut upper_bandwidth) =
+        native_iteration(session.options.iteration);
     let mut implementation = 0;
-    let mut lower_bandwidth = 0;
-    let mut upper_bandwidth = 0;
     let mut equation_count = 0;
     let mut error_flag = 0;
     let _xerror = permit_recoverable_native_statuses();
@@ -1009,7 +1611,7 @@ where
             &mut input.dimension,
             &mut session.time,
             session.state.as_mut_ptr(),
-            rhs_f64::<F, E>,
+            rhs_f64::<S, E>,
             &mut session.nstate,
             &mut input.target,
             &mut input.task,
@@ -1028,7 +1630,7 @@ where
             &mut input.work_length,
             session.iwork.as_mut_ptr(),
             &mut input.integer_work_length,
-            dummy_jac_f64,
+            jac_f64::<S, E>,
             dummy_mass_f64,
             &mut equation_count,
             &mut input.maximum_steps,
@@ -1086,7 +1688,28 @@ mod tests {
 
     #[test]
     fn restricted_workspace_formula_is_exact() {
-        assert_eq!(super::workspace_len::<()>(3, 12).unwrap(), 298);
-        assert!(super::workspace_len::<()>(usize::MAX, 12).is_err());
+        assert_eq!(
+            super::workspace_len::<()>(3, 12, super::OdeIteration::Functional).unwrap(),
+            298
+        );
+        assert_eq!(
+            super::workspace_len::<()>(3, 5, super::OdeIteration::FiniteDifferenceDense).unwrap(),
+            289
+        );
+        assert_eq!(
+            super::workspace_len::<()>(
+                3,
+                5,
+                super::OdeIteration::FiniteDifferenceBanded {
+                    lower_bandwidth: 1,
+                    upper_bandwidth: 1,
+                },
+            )
+            .unwrap(),
+            292
+        );
+        assert!(
+            super::workspace_len::<()>(usize::MAX, 12, super::OdeIteration::Functional).is_err()
+        );
     }
 }

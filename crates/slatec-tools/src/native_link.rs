@@ -289,7 +289,7 @@ fn read_manifest(root: &Path) -> Result<Manifest> {
     let path = root.join("crates/slatec-src/metadata/family-source-closure.json");
     let mut manifest: Manifest = read_json(&path)?;
     for (family, file) in OVERLAYS {
-        if manifest.families.contains_key(*family) {
+        if manifest.families.contains_key(*family) && *family != "dassl" {
             continue;
         }
         let overlay: Overlay = read_json(&root.join("crates/slatec-src/metadata").join(file))?;

@@ -16,7 +16,7 @@ mod fishpack_cartesian_2d {
     use core::fmt;
     use core::ops::{Index, IndexMut};
 
-    use slatec_sys::FortranInteger;
+    use slatec_sys::{FortranInteger, pde::fishpack as raw};
 
     use crate::runtime::lock_native;
 
@@ -395,7 +395,7 @@ mod fishpack_cartesian_2d {
             // column-major with first dimension `nx`; only it and workspace
             // are mutable native arrays.
             unsafe {
-                slatec_sys::fishpack_cartesian_2d::hwscrt(
+                raw::hwscrt(
                     &self.x.lower,
                     &self.x.upper,
                     &m,

@@ -122,7 +122,7 @@ pub fn generate(
             "sdassl_",
             "f32",
             "G(t,y,y_prime)=0",
-            "owned_residual_only_dense_finite_difference_session",
+            "owned_residual_only_internal_dense_or_banded_finite_difference_session",
             "SerializedGlobal"
         ]),
         json!([
@@ -131,7 +131,7 @@ pub fn generate(
             "ddassl_",
             "f64",
             "G(t,y,y_prime)=0",
-            "owned_residual_only_dense_finite_difference_session",
+            "owned_residual_only_internal_dense_or_banded_finite_difference_session",
             "SerializedGlobal"
         ]),
     ];
@@ -142,7 +142,7 @@ pub fn generate(
         ),
         (
             "dassl-source-closure.json",
-            json!({"schema_id":"slatec.safe-dassl.source-closure","schema_version":"1.0.0","snapshot_id":snapshot,"roots":["SDASSL","DDASSL"],"source_ids":closure["source_ids"],"dense_mode":"INFO(6)=0; DDAJAC still contains hard-referenced dense and banded LINPACK paths","narrow_link_probe":{"example":"link_dassl","required_symbol":"ddassl_","status":"passed","excluded_root_symbols":["ddriv3_","sdriv3_","dsplp_","splp_"]},"excluded":["user_Jacobian","banded_public_mode","events","complex_DASSL","other_ODE_drivers"]}),
+            json!({"schema_id":"slatec.safe-dassl.source-closure","schema_version":"1.0.0","snapshot_id":snapshot,"roots":["SDASSL","DDASSL"],"source_ids":closure["source_ids"],"finite_difference_modes":"INFO(5)=0; INFO(6)=0 dense or 1 banded; DDAJAC contains hard-referenced dense and banded LINPACK paths","safe_facade_runtime_dependencies":["XGETF","XSETF"],"narrow_link_probe":{"example":"link_dassl","required_symbol":"ddassl_","status":"passed","excluded_root_symbols":["ddriv3_","sdriv3_","dsplp_","splp_"]},"excluded":["analytic_user_Jacobian_without_native_abort","events","complex_DASSL","other_ODE_drivers"]}),
         ),
         (
             "dassl-callback-contract.json",
@@ -150,7 +150,7 @@ pub fn generate(
         ),
         (
             "dassl-workspace.json",
-            json!({"schema_id":"slatec.safe-dassl.workspace","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["array_or_region","formula_or_index","restricted_mode","ownership_or_meaning"],"records":[["RWORK","40+(MAXORD+4)*NEQ+NEQ^2","dense internally-differenced Jacobian; MAXORD in 1..=5","owned opaque continuation history"],["IWORK","20+NEQ","dense internally-differenced Jacobian","owned opaque continuation history"],["IWORK(11)","zero_based_10","all restricted modes","cumulative_internal_steps"],["IWORK(12)","zero_based_11","all restricted modes","cumulative_residual_evaluations"],["IWORK(13)","zero_based_12","all restricted modes","cumulative_iteration_matrix_evaluations"],["IWORK(14)","zero_based_13","all restricted modes","cumulative_error_test_failures"],["IWORK(15)","zero_based_14","all restricted modes","cumulative_convergence_failures"]]}),
+            json!({"schema_id":"slatec.safe-dassl.workspace","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["array_or_region","formula_or_index","restricted_mode","ownership_or_meaning"],"records":[["RWORK","40+(MAXORD+4)*NEQ+NEQ^2","dense internally-differenced Jacobian; MAXORD in 1..=5","owned opaque continuation history"],["RWORK","40+(MAXORD+4)*NEQ+(2*ML+MU+1)*NEQ+2*(NEQ/(ML+MU+1)+1)","banded internally-differenced Jacobian; MAXORD in 1..=5","owned opaque continuation history"],["IWORK","20+NEQ; IWORK(1)=ML and IWORK(2)=MU for banded mode","internal finite-difference modes","owned opaque continuation history"],["IWORK(11)","zero_based_10","all restricted modes","cumulative_internal_steps"],["IWORK(12)","zero_based_11","all restricted modes","cumulative_residual_evaluations"],["IWORK(13)","zero_based_12","all restricted modes","cumulative_iteration_matrix_evaluations"],["IWORK(14)","zero_based_13","all restricted modes","cumulative_error_test_failures"],["IWORK(15)","zero_based_14","all restricted modes","cumulative_convergence_failures"]]}),
         ),
         (
             "dassl-tolerance-contract.json",
@@ -158,7 +158,7 @@ pub fn generate(
         ),
         (
             "dassl-option-audit.json",
-            json!({"schema_id":"slatec.safe-dassl.option-audit","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["safe_option","INFO_or_workspace","decision"],"records":[["stop_time","INFO(4)=1; RWORK(1)","deferred: requested-output mode rejects TOUT beyond TSTOP, so it has no useful distinct safe advancement semantics"],["maximum_step","INFO(7)=1; RWORK(2)","exposed"],["initial_step","INFO(8)=1; RWORK(3)","exposed"],["maximum_order","INFO(9)=1; IWORK(3); 1..=5","exposed"],["intermediate_output","INFO(3)","deferred"],["user_Jacobian","INFO(5)=1","prohibited"],["banded_Jacobian","INFO(6)=1","prohibited"],["consistent_initial_derivative","INFO(11)=1","deferred"]]}),
+            json!({"schema_id":"slatec.safe-dassl.option-audit","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["safe_option","INFO_or_workspace","decision"],"records":[["stop_time","INFO(4)=1; RWORK(1)","deferred: requested-output mode rejects TOUT beyond TSTOP, so it has no useful distinct safe advancement semantics"],["maximum_step","INFO(7)=1; RWORK(2)","exposed"],["initial_step","INFO(8)=1; RWORK(3)","exposed"],["maximum_order","INFO(9)=1; IWORK(3); 1..=5","exposed"],["internal_dense_finite_difference","INFO(5)=0; INFO(6)=0","exposed"],["internal_banded_finite_difference","INFO(5)=0; INFO(6)=1; IWORK(1)=ML, IWORK(2)=MU","exposed"],["analytic_user_Jacobian","INFO(5)=1","deferred: native JAC has no source-defined abort channel for panic/error/non-finite containment"],["intermediate_output","INFO(3)","deferred"],["consistent_initial_derivative","INFO(11)=1","deferred"]]}),
         ),
         (
             "dassl-status-map.json",
@@ -178,7 +178,7 @@ pub fn generate(
         ),
         (
             "dassl-deferred.json",
-            json!({"schema_id":"slatec.safe-dassl.deferred","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["item","reason"],"records":[["user_Jacobian","callback ABI and dense matrix ownership need a separate reviewed milestone"],["banded_or_sparse_Jacobian","layout and workspace mode require separate checked views"],["events_and_roots","DASSL driver scope has no reviewed root callback in this family"],["consistent_initial_conditions","INFO(11) semantics require a separate lifecycle and mathematical contract"],["mass_matrix_convenience","residual formulation remains primary without a new matrix API"],["complex_DAEs","Fortran complex ABI is deferred"],["parallel_native_execution","saved DATA, XERROR, callback dispatch, and provider/runtime state require global serialization"],["ecosystem_adapters","core API deliberately uses slices and Vec without dependencies"]]}),
+            json!({"schema_id":"slatec.safe-dassl.deferred","schema_version":"1.0.0","snapshot_id":snapshot,"columns":["item","reason"],"records":[["analytic_user_Jacobian","JAC(T,Y,YPRIME,PD,CJ,RPAR,IPAR) has no IRES- or N-like native termination channel, so a Rust panic, error, malformed call, or non-finite matrix cannot be safely contained before returning to Fortran"],["events_and_roots","DASSL driver scope has no reviewed root callback in this family"],["consistent_initial_conditions","INFO(11) semantics require a separate lifecycle and mathematical contract"],["mass_matrix_convenience","residual formulation remains primary without a new matrix API"],["complex_DAEs","Fortran complex ABI is deferred"],["parallel_native_execution","saved DATA, XERROR, callback dispatch, and provider/runtime state require global serialization"],["ecosystem_adapters","core API deliberately uses slices and Vec without dependencies"]]}),
         ),
         (
             "dassl-wrapper-index.json",
@@ -193,7 +193,7 @@ pub fn generate(
         bytes.extend_from_slice(&encoded);
     }
     let summary = format!(
-        "# Safe residual-only DASSL sessions\n\n- Snapshot: `{snapshot}`.\n- Drivers: `SDASSL` (`f32`) and `DDASSL` (`f64`) for real index-1 `G(t,y,y')=0` problems.\n- Scope: owned continuation sessions, scalar/vector tolerances, internally differenced dense iteration matrices, and requested-output advancement only. User Jacobians, banded storage, root finding, consistent-initial-condition calculation, and complex drivers remain deferred.\n- Callback: `IRES=0` continues, `-1` requests documented recoverable residual failure, and `-2` ends the native operation. Rust errors, panics, malformed calls, and non-finite residuals are contained without unwinding across Fortran.\n- Workspace: `RWORK=40+(MAXORD+4)*NEQ+NEQ^2`; `IWORK=20+NEQ`; `MAXORD` is 1 through 5.\n- Runtime: all calls remain `SerializedGlobal`; `SDAINI/DDAINI` and `SDASTP/DDASTP` use saved DATA state and reachable XERROR is process-global. There is no DASSL external-file protocol in the selected closure.\n- Native-origin audit: focused DASSL closure inspection is complete; broad audit retry status is reported independently and never weakens serialization.\n"
+        "# Safe residual-only DASSL sessions\n\n- Snapshot: `{snapshot}`.\n- Drivers: `SDASSL` (`f32`) and `DDASSL` (`f64`) for real index-1 `G(t,y,y')=0` problems.\n- Scope: owned continuation sessions, scalar/vector tolerances, internally differenced dense or banded iteration matrices, and requested-output advancement only. The caller provides an initially consistent pair. Root finding, consistent-initial-condition calculation, and complex drivers remain deferred.\n- Callback: `IRES=0` continues, `-1` requests documented recoverable residual failure, and `-2` ends the native operation. Rust errors, panics, malformed calls, and non-finite residuals are contained without unwinding across Fortran. The optional analytic `JAC` callback receives `CJ` but has no source-defined abort channel, so it remains deliberately unexposed.\n- Workspace: dense `RWORK=40+(MAXORD+4)*NEQ+NEQ^2`; banded `RWORK=40+(MAXORD+4)*NEQ+(2*ML+MU+1)*NEQ+2*(NEQ/(ML+MU+1)+1)`; `IWORK=20+NEQ`; `MAXORD` is 1 through 5.\n- Runtime: all calls remain `SerializedGlobal`; `SDAINI/DDAINI` and `SDASTP/DDASTP` use saved DATA state and reachable XERROR is process-global. The focused provider closure includes the safe-facade `XGETF/XSETF` calls and has no DASSL external-file protocol.\n- Native-origin audit: focused DASSL closure inspection is complete; broad audit retry status is reported independently and never weakens serialization.\n"
     );
     fs::write(
         output_dir.join("dassl-validation-summary.md"),

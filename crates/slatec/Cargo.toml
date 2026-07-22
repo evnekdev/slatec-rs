@@ -73,10 +73,10 @@ special-gamma = ["special-common", "special-f32", "slatec-sys/raw-family-special
 special-beta = ["special-common", "special-f32", "slatec-sys/raw-family-special-beta", "slatec-src/special-beta"]
 special-error = ["special-common", "special-f32", "slatec-sys/raw-family-special-error", "slatec-src/special-error"]
 special-airy = ["special-common", "special-f32", "slatec-sys/raw-family-special-airy", "slatec-src/special-airy"]
-special-bessel = ["special-common", "special-f32", "slatec-sys/raw-family-special-bessel", "slatec-src/special-bessel"]
-special-integrals = ["special-common", "special-f32", "slatec-sys/raw-family-special-integrals", "slatec-src/special-integrals"]
-special-polynomials = ["special-common", "special-f32", "slatec-sys/raw-family-special-polynomials", "slatec-src/special-polynomials"]
-special-scalar-expanded = ["special-common", "special-f32", "slatec-sys/raw-family-special-scalar-expanded", "slatec-src/special-scalar-expanded"]
+special-bessel = ["special-common", "special-f32", "slatec-sys/raw-family-special-bessel", "slatec-sys/special-real", "slatec-src/special-bessel"]
+special-integrals = ["special-common", "special-f32", "slatec-sys/raw-family-special-integrals", "slatec-sys/special-real", "slatec-src/special-integrals"]
+special-polynomials = ["special-common", "special-f32", "slatec-sys/raw-family-special-polynomials", "slatec-sys/special-real", "slatec-src/special-polynomials"]
+special-scalar-expanded = ["special-common", "special-f32", "slatec-sys/raw-family-special-scalar-expanded", "slatec-sys/special-real", "slatec-src/special-scalar-expanded"]
 special-scalar-expanded-native-tests = ["special-scalar-expanded"]
 special-raw-link-tests = ["special"]
 special-raw-native-tests = ["special-raw-link-tests"]
@@ -280,12 +280,13 @@ fishpack-spherical = [
     "slatec-src/fishpack-spherical",
 ]
 fishpack-spherical-native-tests = ["fishpack-spherical"]
-banded-linear-systems = ["std", "blas-level1-validation", "slatec-sys/raw-family-banded-linear-systems", "slatec-src/banded-linear-systems"]
+banded-linear-systems = ["std", "blas-level1-validation", "slatec-sys/raw-family-banded-linear-systems", "slatec-sys/linear-algebra-real", "slatec-src/banded-linear-systems"]
 banded-linear-systems-native-tests = ["banded-linear-systems"]
 pchip = [
     "std",
     "blas-level1-validation",
     "slatec-sys/raw-family-pchip",
+    "slatec-sys/interpolation-general",
     "slatec-src/pchip",
 ]
 pchip-native-tests = ["pchip"]
@@ -575,6 +576,11 @@ name = "link_ode_sdrive"
 required-features = ["ode-sdrive-expert"]
 
 [[example]]
+name = "ode_sdrive_analytic_jacobian"
+path = "../../examples/ode/analytic_jacobian.rs"
+required-features = ["ode-sdrive-expert"]
+
+[[example]]
 name = "callback_driver_expansion"
 required-features = ["quadrature-piecewise-polynomial", "nonlinear-systems", "ode-sdrive-expert"]
 
@@ -590,6 +596,11 @@ required-features = ["tabulated-data"]
 
 [[example]]
 name = "link_dassl"
+required-features = ["dassl"]
+
+[[example]]
+name = "dassl_banded_finite_difference"
+path = "../../examples/dassl/banded_finite_difference.rs"
 required-features = ["dassl"]
 
 [[example]]

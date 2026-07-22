@@ -19,17 +19,26 @@ interface, DAE solver, or general matrix API.
 
 ## Session and continuation model
 
-`OdeSession<f32, F, E>` owns the state, callback, time, `SDRIV3` work arrays,
-and continuation flag. `OdeSession<f64, F, E>` does the same for `DDRIV3`.
+`OdeSession` owns the state, callback owner, time, `SDRIV3` work arrays, and
+continuation flag for `f32`; it does the same for `DDRIV3` at `f64`.
 The session is not cloneable and does not expose native work arrays. It may
 advance only in the direction established by the first `integrate_to` call.
 The first and subsequent calls use `NTASK=3`, exact-target mode.
 
-`OdeSession` supports the expert controls `MINT=1` Adams or `MINT=2` BDF,
-`MITER=0` functional iteration, `IMPL=0`, and `NROOT=0`. This preserves an
-RHS-only scope. Roots/events, Jacobians, finite-difference Jacobian control,
-mass matrices, implicit forms, DAEs, dense output, and interpolation remain
-deferred for that expert-session surface.
+`OdeSession` supports `MINT=1` Adams or `MINT=2` BDF, `IMPL=0`, and
+`NROOT=0`. `OdeIteration` selects `MITER=0` functional iteration, internally
+generated dense (`MITER=2`) or banded (`MITER=5`) finite differences, or
+checked analytic dense (`MITER=1`) or banded (`MITER=4`) `JACOBN` callbacks.
+Analytic modes use `OdeSession::new_with_jacobian`; the callback receives a
+solver-specific writer whose `set(row, column, value)` API checks zero-based
+indices and declared band membership while keeping Fortran storage private.
+
+Both native `F` and `JACOBN` receive mutable `N` and document `N=0` as their
+termination protocol. The callback trampoline uses that protocol for a Rust
+error, caught panic, invalid matrix index, malformed native request, or
+non-finite derivative/Jacobian value. Roots/events, mass matrices, implicit
+forms, DAEs, standalone dense output, and interpolation remain deferred for
+this expert-session surface.
 
 `Driv1Session<f32>` and `Driv1Session<f64>` own the documented convenience
 driver work history for `SDRIV1` and `DDRIV1`. `Driv2Session` adds a typed
@@ -73,10 +82,13 @@ Relative tolerance maps to scalar native `EPS`. `OdeTolerance::Scalar` uses
 and `max(abs(y_i), EWT(i))`. Inputs must be finite, nonnegative/positive where
 required, and vector tolerances must match the state dimension.
 
-For the restricted controls, the session allocates exactly
-`(MXORD + 4) * N + 250` real values and 50 integer values with checked
-arithmetic. Those arrays retain opaque continuation history and are internally
-owned.
+For functional iteration the session allocates exactly
+`(MXORD + 4) * N + 250` real values and 50 integer values. Dense internal or
+analytic iteration allocates `N^2 + (MXORD + 5) * N + 250` real values and
+`N + 50` integers. Banded internal or analytic iteration allocates
+`(2 * ML + MU + 1) * N + (MXORD + 5) * N + 250` real values and `N + 50`
+integers. All arithmetic and native-integer conversions are checked, and the
+arrays retain opaque continuation history owned by the session.
 
 `ReachedTarget`, `ExcessWork`, and `ToleranceAdjusted` preserve meaningful
 time/state and permit same-direction continuation. Callback errors, callback

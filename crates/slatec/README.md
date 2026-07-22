@@ -35,8 +35,10 @@ over reviewed `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`, `CDRIV1`/`CDRIV2`, and
 the existing expert `SDRIV3`/`DDRIV3` drivers. `Driv2Session` and
 `ComplexDriv2Session` expose zero-based indexed root events; all callback
 sessions are panic-contained, process-serialized, and preserve same-direction
-continuation workspace. Jacobians, mass matrices, DAEs, interpolation, and
-`CDRIV3` remain deliberately deferred.
+continuation workspace. The real expert sessions additionally support
+functional, internal dense/banded finite-difference, and checked analytic
+dense/banded Jacobian iterations; mass matrices, event lifecycle, DAEs,
+interpolation, and `CDRIV3` remain deliberately deferred.
 
 The `quadrature-piecewise-polynomial` feature adds `DPFQAD` multiplicative
 integration over the checked `PiecewisePolynomial<f64>` representation. The
@@ -48,9 +50,10 @@ profile.
 The hosted `dassl` feature separately provides owned real residual-only DAE
 sessions over `SDASSL`/`DDASSL` for index-1 `G(t, y, y') = 0` problems. It
 requires caller-supplied sufficiently consistent `(y, y')`, uses internal
-dense finite differences, contains residual errors and panics, and keeps all
-native calls process-serialized. User Jacobians, banded/sparse storage,
-events, and automatic initial-condition calculation remain deferred; see the
+dense or checked-banded finite differences, contains residual errors and
+panics, and keeps all native calls process-serialized. Analytic user
+Jacobians remain deferred because their native callback has no abort protocol;
+events and automatic initial-condition calculation remain deferred; see the
 [DASSL guide](../../docs/api/safe-dassl.md).
 
 The hosted `optimization-linear-programming-in-memory` feature provides typed

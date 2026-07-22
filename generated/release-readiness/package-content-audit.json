@@ -3,7 +3,7 @@
     {
       "build_script": null,
       "crate": "slatec",
-      "file_count": 314,
+      "file_count": 319,
       "forbidden_files": [],
       "links": null,
       "manifest": "crates/slatec/Cargo.toml",
@@ -23,7 +23,7 @@
     {
       "build_script": "build.rs",
       "crate": "slatec-src",
-      "file_count": 26,
+      "file_count": 28,
       "forbidden_files": [],
       "links": "slatec",
       "manifest": "crates/slatec-src/Cargo.toml",
