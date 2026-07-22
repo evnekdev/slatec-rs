@@ -5,13 +5,15 @@
 declaration-only users can depend on `slatec-sys` directly.
 
 `bundled` is the canonical ordinary-provider feature. Its target-specific
-carrier contains the hash-verified `special-elementary` archive for
-`x86_64-pc-windows-gnu`; it links without a compiler, source cache, system
-directory, or network access. Every other family is independently
-provenance-blocked and fails before touching those inputs. `source-build`
-consumes a separately acquired, checksum-verified cache and never accesses the
-network. `system` links an explicitly located archive, while `external-backend`
-emits no link directives.
+carrier contains one hash-verified accepted-source archive for
+`x86_64-pc-windows-gnu`, currently providing `special-elementary`,
+`special-gamma`, `special-beta`, `special-error`, `special-integrals`,
+`special-polynomials`, `special-airy`, and `roots-scalar`. It links without a
+compiler, source cache, system directory, or network access. Every other
+family is independently provenance-blocked and fails before touching those
+inputs. `source-build` consumes a separately acquired, checksum-verified cache
+and never accesses the network. `system` links an explicitly located archive,
+while `external-backend` emits no link directives.
 
 For the supported GNU MinGW source backend, every selected original Fortran
 source is compiled separately and retained as a separate member in a normal

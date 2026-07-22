@@ -29,10 +29,17 @@
       "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"external-backend\", \"special-gamma\"] }",
       "result": "pass",
       "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "safe-bundled-elementary",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
+      "result": "pass",
+      "workspace_path_dependencies": 0
     }
   ],
   "local_packages": [
     "slatec-sys",
+    "slatec-bundled-x86_64-pc-windows-gnu",
     "slatec-src",
     "slatec-core",
     "slatec"

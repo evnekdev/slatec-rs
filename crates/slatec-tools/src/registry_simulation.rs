@@ -50,7 +50,13 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
     fs::create_dir_all(&cargo_home)?;
     fs::write(cargo_home.join("config.toml"), &source_config)?;
 
-    let packages = ["slatec-sys", "slatec-src", "slatec-core", "slatec"];
+    let packages = [
+        "slatec-sys",
+        "slatec-bundled-x86_64-pc-windows-gnu",
+        "slatec-src",
+        "slatec-core",
+        "slatec",
+    ];
     for package in packages {
         run(
             root,
@@ -85,26 +91,43 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             name: "raw-no-default",
             dependency: "slatec-sys = { version = \"=0.1.0\", default-features = false }",
             source: "fn main() {}\n",
+            target: None,
+            run: false,
         },
         Consumer {
             name: "raw-all-declarations",
             dependency: "slatec-sys = { version = \"=0.1.0\", default-features = false, features = [\"all\"] }",
             source: "fn main() { let _ = slatec_sys::special::airy::ai as *const (); }\n",
+            target: None,
+            run: false,
         },
         Consumer {
             name: "external-provider-narrow",
             dependency: "slatec-src = { version = \"=0.1.0\", default-features = false, features = [\"external-backend\", \"special-gamma\"] }",
             source: "fn main() { slatec_src::ensure_linked(); }\n",
+            target: None,
+            run: false,
         },
         Consumer {
             name: "safe-no-default",
             dependency: "slatec = { version = \"=0.1.0\", default-features = false }",
             source: "fn main() {}\n",
+            target: None,
+            run: false,
         },
         Consumer {
             name: "safe-narrow-external",
             dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"external-backend\", \"special-gamma\"] }",
             source: "fn main() { let _ = slatec::special::gamma::gamma(1.0_f64); }\n",
+            target: None,
+            run: false,
+        },
+        Consumer {
+            name: "safe-bundled-elementary",
+            dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
+            source: "fn main() { println!(\"{}\", slatec::special::elementary::log1p(0.5_f64).expect(\"finite input\")); }\n",
+            target: Some("x86_64-pc-windows-gnu"),
+            run: true,
         },
     ];
     let consumer_root = simulation.join("consumers");
@@ -120,11 +143,14 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             ),
         )?;
         fs::write(dir.join("src/main.rs"), consumer.source)?;
-        run(
-            &dir,
-            Command::new("cargo").args(["check", "--offline"]),
-            consumer.name,
-        )?;
+        let mut command = Command::new("cargo");
+        command
+            .arg(if consumer.run { "run" } else { "check" })
+            .arg("--offline");
+        if let Some(target) = consumer.target {
+            command.args(["--target", target]);
+        }
+        run(&dir, &mut command, consumer.name)?;
         records.push(json!({
             "configuration":consumer.name,
             "dependency":consumer.dependency,
@@ -160,6 +186,8 @@ struct Consumer {
     name: &'static str,
     dependency: &'static str,
     source: &'static str,
+    target: Option<&'static str>,
+    run: bool,
 }
 
 fn write_directory_checksum(directory: &Path, package_hash: &str) -> Result<()> {

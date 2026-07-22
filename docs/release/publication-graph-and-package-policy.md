@@ -13,17 +13,17 @@ resolves inherited workspace dependencies, and requires both `version` and
 `path` for every publishable workspace edge.
 
 ```text
-layer 0: slatec-src    slatec-sys
-                         |
-layer 1:             slatec-core
-                      /   |   \
-layer 2:                 slatec
+layer 0: slatec-bundled-x86_64-pc-windows-gnu    slatec-sys
+                         |                         |
+layer 1:                    slatec-src        slatec-core
+                              \                 /
+layer 2:                         slatec
 ```
 
-`slatec-src` and `slatec-sys` are independent and may be published in either
-order. `slatec-core` depends on `slatec-sys`. The safe `slatec` facade depends
-on all three lower crates. `slatec-tools` is workspace-only and has
-`publish = false`.
+The target carrier and `slatec-sys` are independent and may be published in
+either order. `slatec-src` depends on the carrier for its supported target;
+`slatec-core` depends on `slatec-sys`; the safe `slatec` facade depends on all
+three lower layers. `slatec-tools` is workspace-only and has `publish = false`.
 
 ## Native ownership
 
@@ -39,20 +39,28 @@ silently owning the same native library identity.
 Each publishable crate uses an explicit `include` policy. The package validator
 runs `cargo package --allow-dirty --list --offline` and requires Cargo metadata,
 README, and both workspace license files. It rejects target directories,
-evidence and source caches, downloaded Fortran corpus bytes, native objects and
-archives, DLLs and executables, link maps, logs, credentials, and local Cargo
-configuration.
+evidence and source caches, downloaded Fortran corpus bytes, objects, DLLs and
+executables, link maps, logs, credentials, and local Cargo configuration. The
+target carrier is the sole exception for its generated manifest-verified static
+archives; it must also package exact GNU runtime licence texts and
+source/relinking instructions.
 
 `slatec-src` packages deterministic provider metadata and reviewed machine
 constant overrides. It does not package the separately acquired SLATEC source
-cache. The canonical `bundled` mode remains archive-blocked pending the
-source-level provenance review; it never falls back to another provider.
+cache. The canonical `bundled` mode uses the published target carrier only for
+exactly approved family closures and never falls back to another provider.
 These are technical redistribution boundaries, not new legal conclusions.
 
 Generated evidence is committed at:
 
 - [`workspace-publication-graph.json`](../../generated/release-readiness/workspace-publication-graph.json)
 - [`package-content-audit.json`](../../generated/release-readiness/package-content-audit.json)
+- [`package-dry-run-audit.json`](../../generated/release-readiness/package-dry-run-audit.json)
+- [`public-api-freeze-baseline.json`](../../generated/release-readiness/public-api-freeze-baseline.json)
+- [`scalar-api-disposition.json`](../../generated/release-readiness/scalar-api-disposition.json)
+- [`scalar-accuracy-evidence.json`](../../generated/release-readiness/scalar-accuracy-evidence.json)
+- [`docs-feature-visibility.json`](../../generated/release-readiness/docs-feature-visibility.json)
+- [`target-support.json`](../../generated/release-readiness/target-support.json)
 
 The release checklist records package verification, dry-run dependency
 blockers, downstream simulation, crates.io ownership, publication order, and

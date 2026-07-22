@@ -1,19 +1,96 @@
 {
   "bundled_carrier": {
-    "archive_count": 1,
+    "archive_count": 8,
     "archives": [
       {
+        "family": "roots-scalar",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
+        "family": "special-airy",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
+        "family": "special-beta",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
         "family": "special-elementary",
-        "path": "native/libslatec_bundle_special_elementary.a",
-        "sha256": "5a41286fdf793171164bf2c42c0fad3c05e8754419df94e17f79ba89972b7fcb",
-        "size_bytes": 56678
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
+        "family": "special-error",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
+        "family": "special-gamma",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
+        "family": "special-integrals",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
+      },
+      {
+        "family": "special-polynomials",
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
+        "size_bytes": 239142
       }
     ],
     "crate": "slatec-bundled-x86_64-pc-windows-gnu",
-    "publish": false,
+    "publish": true,
     "status": "ready",
     "target": "x86_64-pc-windows-gnu"
   },
+  "package_dry_runs": [
+    {
+      "crate": "slatec",
+      "detail": "Cargo package verification resolves registry dependencies rather than workspace paths; this is expected before the preceding publication layer is uploaded. The registry-only downstream simulation is the complete pre-publication proof.",
+      "package_size_bytes": null,
+      "prerequisite": "slatec-core",
+      "status": "blocked_until_publication_prerequisite_exists"
+    },
+    {
+      "crate": "slatec-bundled-x86_64-pc-windows-gnu",
+      "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
+      "package_size_bytes": 332300,
+      "status": "passed_offline_prepublication"
+    },
+    {
+      "crate": "slatec-core",
+      "detail": "Cargo package verification resolves registry dependencies rather than workspace paths; this is expected before the preceding publication layer is uploaded. The registry-only downstream simulation is the complete pre-publication proof.",
+      "package_size_bytes": null,
+      "prerequisite": "slatec-sys",
+      "status": "blocked_until_publication_prerequisite_exists"
+    },
+    {
+      "crate": "slatec-src",
+      "detail": "Cargo package verification resolves registry dependencies rather than workspace paths; this is expected before the preceding publication layer is uploaded. The registry-only downstream simulation is the complete pre-publication proof.",
+      "package_size_bytes": null,
+      "prerequisite": "slatec-bundled-x86_64-pc-windows-gnu",
+      "status": "blocked_until_publication_prerequisite_exists"
+    },
+    {
+      "crate": "slatec-sys",
+      "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
+      "package_size_bytes": 611731,
+      "status": "passed_offline_prepublication"
+    }
+  ],
   "packages": [
     {
       "build_script": null,
@@ -22,6 +99,16 @@
       "forbidden_files": [],
       "links": null,
       "manifest": "crates/slatec/Cargo.toml",
+      "missing_required_files": [],
+      "result": "pass"
+    },
+    {
+      "build_script": "build.rs",
+      "crate": "slatec-bundled-x86_64-pc-windows-gnu",
+      "file_count": 22,
+      "forbidden_files": [],
+      "links": "slatec_bundled_x86_64_pc_windows_gnu",
+      "manifest": "crates/slatec-bundled-x86_64-pc-windows-gnu/Cargo.toml",
       "missing_required_files": [],
       "result": "pass"
     },
@@ -56,7 +143,7 @@
       "result": "pass"
     }
   ],
-  "policy": "Packages must contain required Rust metadata and licenses and no caches, downloaded Fortran corpus, native objects, archives, executables, maps, logs, credentials, or local configuration.",
+  "policy": "Packages must contain required Rust metadata and licenses and no caches, downloaded Fortran corpus, objects, executables, maps, logs, credentials, or local configuration. The target carrier may contain only manifest-verified native static archives plus exact runtime licence and relinking material.",
   "result": "pass",
   "schema_id": "slatec-rs.package-content-audit",
   "schema_version": "1.0.0"

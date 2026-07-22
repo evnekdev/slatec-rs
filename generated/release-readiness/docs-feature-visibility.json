@@ -1,0 +1,301 @@
+{
+  "input": "generated/public-api/public-module-feature-map.json",
+  "input_sha256": "4b9abd3fe8f36ea89c76c69ca84f33b30f444fdf6b466f4fb26e172df71e00ee",
+  "policy": "The public module map is the deterministic feature-to-capability index for no-default-feature navigation and full-feature documentation review.",
+  "record_count": 41,
+  "records": [
+    {
+      "cargo_feature": "blas-level1",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "linear_algebra::blas::level1"
+      ]
+    },
+    {
+      "cargo_feature": "blas-level2",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "linear_algebra::blas::level2"
+      ]
+    },
+    {
+      "cargo_feature": "blas-level3",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "linear_algebra::blas::level3"
+      ]
+    },
+    {
+      "cargo_feature": "special-elementary",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::elementary"
+      ]
+    },
+    {
+      "cargo_feature": "special-gamma",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::gamma"
+      ]
+    },
+    {
+      "cargo_feature": "special-beta",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::beta",
+        "special::probability"
+      ]
+    },
+    {
+      "cargo_feature": "special-error",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::error"
+      ]
+    },
+    {
+      "cargo_feature": "special-airy",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::airy"
+      ]
+    },
+    {
+      "cargo_feature": "special-bessel",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::bessel"
+      ]
+    },
+    {
+      "cargo_feature": "special-integrals",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::integrals",
+        "special::integrals::exponential"
+      ]
+    },
+    {
+      "cargo_feature": "special-polynomials",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "special::polynomials"
+      ]
+    },
+    {
+      "cargo_feature": "special-scalar-expanded",
+      "evidence_source": "generated/safe-api/special-wrapper-index.json",
+      "grouped_paths": [
+        "special::integrals::logarithmic",
+        "special::integrals::spence",
+        "special::elliptic::carlson"
+      ]
+    },
+    {
+      "cargo_feature": "quadrature-basic",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "integration::quadrature::basic"
+      ]
+    },
+    {
+      "cargo_feature": "quadrature-breakpoints",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "integration::quadrature::breakpoints"
+      ]
+    },
+    {
+      "cargo_feature": "quadrature-weighted",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "integration::quadrature::weighted"
+      ]
+    },
+    {
+      "cargo_feature": "quadrature-oscillatory",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "integration::quadrature::oscillatory"
+      ]
+    },
+    {
+      "cargo_feature": "quadrature-fourier",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "integration::quadrature::fourier"
+      ]
+    },
+    {
+      "cargo_feature": "quadrature-nonadaptive",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "integration::quadrature::nonadaptive"
+      ]
+    },
+    {
+      "cargo_feature": "roots-scalar",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "equations::roots::scalar"
+      ]
+    },
+    {
+      "cargo_feature": "roots-polynomial",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "equations::roots::polynomial"
+      ]
+    },
+    {
+      "cargo_feature": "nonlinear-easy",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "equations::nonlinear::easy"
+      ]
+    },
+    {
+      "cargo_feature": "nonlinear-expert",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "equations::nonlinear::expert"
+      ]
+    },
+    {
+      "cargo_feature": "nonlinear-jacobian-check",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "equations::nonlinear::jacobian_check"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-nonlinear-easy",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::nonlinear::easy"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-nonlinear-expert",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::nonlinear::expert"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-covariance",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::covariance"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-linear-nonnegative",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::linear::nonnegative"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-linear-bounded",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::linear::bounded"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-linear-constrained",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::linear::constrained"
+      ]
+    },
+    {
+      "cargo_feature": "least-squares-linear-bounded-constrained",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "least_squares::linear::bounded_constrained"
+      ]
+    },
+    {
+      "cargo_feature": "ode-sdrive-expert",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "differential_equations::ode::sdrive"
+      ]
+    },
+    {
+      "cargo_feature": "dassl",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "differential_equations::dae::dassl::residual"
+      ]
+    },
+    {
+      "cargo_feature": "fishpack-cartesian-2d",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "differential_equations::pde"
+      ]
+    },
+    {
+      "cargo_feature": "fishpack-pois3d",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "differential_equations::pde"
+      ]
+    },
+    {
+      "cargo_feature": "optimization-linear-programming-in-memory",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "optimization::linear_programming"
+      ]
+    },
+    {
+      "cargo_feature": "fftpack-real",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "transforms::fft::real"
+      ]
+    },
+    {
+      "cargo_feature": "fftpack-complex",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "transforms::fft::complex"
+      ]
+    },
+    {
+      "cargo_feature": "banded-linear-systems",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "linear_algebra::banded"
+      ]
+    },
+    {
+      "cargo_feature": "pchip",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "interpolation::pchip"
+      ]
+    },
+    {
+      "cargo_feature": "bspline",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "interpolation::bspline"
+      ]
+    },
+    {
+      "cargo_feature": "piecewise-polynomial",
+      "evidence_source": "crates/slatec/Cargo.toml",
+      "grouped_paths": [
+        "interpolation::piecewise_polynomial"
+      ]
+    }
+  ],
+  "schema_id": "slatec-rs.docs-feature-visibility",
+  "schema_version": "1.0.0"
+}

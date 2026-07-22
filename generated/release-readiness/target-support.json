@@ -1,0 +1,39 @@
+{
+  "policy": "Only x86_64-pc-windows-gnu is a supported compiler-free target. Other targets must select an explicit expert provider and are not validated by this carrier report.",
+  "schema_id": "slatec-rs.target-support",
+  "schema_version": "1.0.0",
+  "targets": [
+    {
+      "evidence": [
+        "hash-verified accepted-source carrier",
+        "reduced GNU runtime closure receipt",
+        "clean packaged-consumer execution"
+      ],
+      "status": "supported-bundled",
+      "target": "x86_64-pc-windows-gnu"
+    },
+    {
+      "blockers": [
+        "no reviewed GNU Fortran compiler/runtime profile in this release receipt",
+        "no target-specific carrier archive or packaged-consumer execution",
+        "no source-cache, runtime-closure, import, or provenance receipt for a Linux carrier"
+      ],
+      "status": "not-shipped",
+      "target": "x86_64-unknown-linux-gnu"
+    },
+    {
+      "blockers": [
+        "no reviewed Fortran provider/linker ABI strategy"
+      ],
+      "status": "not-shipped",
+      "target": "x86_64-pc-windows-msvc"
+    },
+    {
+      "blockers": [
+        "no reviewed Fortran provider/linker ABI strategy"
+      ],
+      "status": "not-shipped",
+      "target": "aarch64-apple-darwin"
+    }
+  ]
+}

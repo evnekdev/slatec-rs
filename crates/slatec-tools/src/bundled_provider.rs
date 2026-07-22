@@ -33,8 +33,8 @@ const ACCEPTED_BUNDLE_CLASSIFICATIONS: &[&str] = &[
     "explicit-copyleft-compatible",
     "third-party-notice-required",
 ];
-const FIRST_BUNDLED_FAMILY: &str = "special-elementary";
-const FIRST_BUNDLED_ARCHIVE: &str = "native/libslatec_bundle_special_elementary.a";
+const BUNDLED_ARCHIVE_FAMILY: &str = "accepted-source-closure";
+const BUNDLED_ARCHIVE: &str = "native/libslatec_bundle_accepted.a";
 const BUNDLED_GFORTRAN_ARCHIVE: &str = "native/libslatec_bundle_gfortran.a";
 const BUNDLED_QUADMATH_ARCHIVE: &str = "native/libslatec_bundle_quadmath.a";
 const BUNDLED_BUILD_RECEIPT: &str = "metadata/bundle-build-receipt.json";
@@ -45,7 +45,7 @@ const COMPILE_FLAGS: &[&str] = &[
     "-std=legacy",
     "-ffixed-line-length-none",
     "-fno-ident",
-    "-frandom-seed=slatec-bundled-special-elementary",
+    "-frandom-seed=slatec-bundled-accepted-source-closure",
     "-c",
 ];
 const OVERLAYS: &[(&str, &str, bool)] = &[
@@ -131,6 +131,8 @@ struct FamilyOverlay {
 struct Overrides {
     #[serde(default)]
     sources: Vec<Override>,
+    #[serde(default)]
+    scopes: Vec<ScopeApproval>,
 }
 
 #[derive(Default, Deserialize)]
@@ -148,10 +150,12 @@ struct EvidenceRecord {
     excerpt: String,
     statement: String,
     scope: String,
+    #[serde(default)]
+    source_scope: Option<SourceScope>,
     source_ids: Vec<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 struct Override {
     id: String,
     sha256: String,
@@ -171,6 +175,35 @@ struct Override {
     evidence_ids: Vec<String>,
     #[serde(default)]
     manual_override_provenance: Option<String>,
+    #[serde(default)]
+    scope_approval_id: Option<String>,
+}
+
+#[derive(Deserialize)]
+struct ScopeApproval {
+    id: String,
+    families: Vec<String>,
+    source_set_sha256: String,
+    source_count: usize,
+    classification: String,
+    confidence: String,
+    #[serde(default)]
+    stated_institutions: Vec<String>,
+    #[serde(default)]
+    governing_notice: Option<String>,
+    #[serde(default)]
+    redistribution_conditions: Option<String>,
+    #[serde(default)]
+    evidence_ids: Vec<String>,
+    #[serde(default)]
+    manual_override_provenance: Option<String>,
+}
+
+#[derive(Deserialize)]
+struct SourceScope {
+    families: Vec<String>,
+    source_set_sha256: String,
+    source_count: usize,
 }
 
 #[derive(Deserialize)]
@@ -239,9 +272,9 @@ pub fn validate(root: &Path) -> Result<String> {
     ))
 }
 
-/// Builds the first target-specific archive only after its exact family closure
-/// passes the source-level redistribution gate. The source cache and compiler
-/// are intentionally touched only after that decision.
+/// Builds one target-specific accepted-source archive only after every selected
+/// family closure passes the source-level redistribution gate. The source cache
+/// and compiler are intentionally touched only after that decision.
 pub fn require_buildable(root: &Path) -> Result<()> {
     let manifest = materialized_manifest(root)?;
     let evidence = read_evidence(root)?;
@@ -251,28 +284,32 @@ pub fn require_buildable(root: &Path) -> Result<()> {
         .iter()
         .map(|source| (source.id.as_str(), source))
         .collect::<BTreeMap<_, _>>();
-    let selected = manifest
+    let included_families = manifest
         .families
-        .get(FIRST_BUNDLED_FAMILY)
-        .ok_or_else(|| policy("first bundled family has no source closure"))?;
-    let blocked = selected
         .iter()
-        .filter(|id| {
-            let Some(source) = source_by_id.get(id.as_str()) else {
-                return true;
-            };
-            !overrides.get(source.id.as_str()).is_some_and(|record| {
-                ACCEPTED_BUNDLE_CLASSIFICATIONS.contains(&record.classification.as_str())
+        .filter(|(_, ids)| !ids.is_empty())
+        .filter(|(_, ids)| {
+            ids.iter().all(|id| {
+                source_by_id.get(id.as_str()).is_some_and(|source| {
+                    overrides.get(source.id.as_str()).is_some_and(|record| {
+                        ACCEPTED_BUNDLE_CLASSIFICATIONS.contains(&record.classification.as_str())
+                    })
+                })
             })
         })
-        .cloned()
+        .map(|(family, _)| family.clone())
         .collect::<Vec<_>>();
-    if !blocked.is_empty() {
-        return Err(CorpusError::Policy(format!(
-            "bundled archive production for {FIRST_BUNDLED_FAMILY} is blocked by unresolved source units: {}. No compiler or source cache was consulted.",
-            blocked.join(", ")
-        )));
+    if included_families.is_empty() {
+        return Err(policy(
+            "no bundled family has a complete accepted source closure; no compiler or source cache was consulted",
+        ));
     }
+    let selected = included_families
+        .iter()
+        .flat_map(|family| manifest.families[family].iter().cloned())
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect::<Vec<_>>();
 
     let cache = env::var_os("SLATEC_SOURCE_CACHE")
         .map(PathBuf::from)
@@ -286,16 +323,16 @@ pub fn require_buildable(root: &Path) -> Result<()> {
     let carrier_root = root.join("crates/slatec-bundled-x86_64-pc-windows-gnu");
     let stage = root
         .join("target/bundled-provider")
-        .join(FIRST_BUNDLED_FAMILY);
+        .join(BUNDLED_ARCHIVE_FAMILY);
     if stage.exists() {
         fs::remove_dir_all(&stage)?;
     }
     fs::create_dir_all(&stage)?;
-    let archive = stage.join("libslatec_bundle_special_elementary.a");
+    let archive = stage.join("libslatec_bundle_accepted.a");
     let (members, symbols, undefined, source_records) = build_family_archive(
         root,
         &source_by_id,
-        selected,
+        &selected,
         &cache,
         &compiler,
         &stage,
@@ -304,17 +341,16 @@ pub fn require_buildable(root: &Path) -> Result<()> {
     let reproducibility_stage = root
         .join("target/bundled-provider")
         .join("reproducibility")
-        .join(FIRST_BUNDLED_FAMILY);
+        .join(BUNDLED_ARCHIVE_FAMILY);
     if reproducibility_stage.exists() {
         fs::remove_dir_all(&reproducibility_stage)?;
     }
     fs::create_dir_all(&reproducibility_stage)?;
-    let reproducibility_archive =
-        reproducibility_stage.join("libslatec_bundle_special_elementary.a");
+    let reproducibility_archive = reproducibility_stage.join("libslatec_bundle_accepted.a");
     let _ = build_family_archive(
         root,
         &source_by_id,
-        selected,
+        &selected,
         &cache,
         &compiler,
         &reproducibility_stage,
@@ -330,39 +366,77 @@ pub fn require_buildable(root: &Path) -> Result<()> {
     let runtime_required = undefined.iter().any(|symbol| symbol.contains("_gfortran_"));
     let native = carrier_root.join("native");
     fs::create_dir_all(&native)?;
-    let carrier_archive = carrier_root.join(FIRST_BUNDLED_ARCHIVE);
+    let carrier_archive = carrier_root.join(BUNDLED_ARCHIVE);
     fs::copy(&archive, &carrier_archive)?;
+    let obsolete_family_archive = carrier_root.join("native/libslatec_bundle_special_elementary.a");
+    if obsolete_family_archive.is_file() {
+        fs::remove_file(obsolete_family_archive)?;
+    }
     let mut runtime_archives = Vec::new();
+    let mut runtime_member_audits = Vec::new();
+    let mut quadmath_required = false;
     if runtime_required {
         let runtime_source = static_runtime_archive(&compiler, "libgfortran.a")?;
         let runtime_destination = carrier_root.join(BUNDLED_GFORTRAN_ARCHIVE);
-        fs::copy(&runtime_source, &runtime_destination)?;
+        let gfortran_seed = undefined
+            .iter()
+            .filter(|symbol| symbol.starts_with("_gfortran_"))
+            .cloned()
+            .collect::<Vec<_>>();
+        let reduction = reduce_static_runtime_archive(
+            &compiler,
+            &runtime_source,
+            &runtime_destination,
+            &gfortran_seed,
+            &stage.join("gfortran"),
+        )?;
         runtime_archives.push(json!({
             "component":"libgfortran","path":BUNDLED_GFORTRAN_ARCHIVE,"sha256":hash::file(&runtime_destination)?,
-            "link_name":"slatec_bundle_gfortran","linking_mode":"static","source":runtime_source.display().to_string(),
+            "link_name":"slatec_bundle_gfortran","linking_mode":"static-reduced-closure","source":runtime_source.display().to_string(),
+            "upstream_sha256":hash::file(&runtime_source)?,"upstream_size_bytes":fs::metadata(&runtime_source)?.len(),"retained_member_count":reduction.selected_members.len(),"retained_members":reduction.selected_members,
+            "externally_resolved_symbols":reduction.externally_resolved_symbols,"ambiguous_symbol_providers":reduction.ambiguous_symbols,"undefined_symbols":reduction.undefined_symbols,
             "license":"GPL-3.0-with-GCC-exception","obligations":"Preserve the GCC Runtime Library Exception notice; the final consumer remains relinkable because Cargo links ordinary static archives."
         }));
+        let quadmath_source = static_runtime_archive(&compiler, "libquadmath.a")?;
+        let quadmath_destination = carrier_root.join(BUNDLED_QUADMATH_ARCHIVE);
+        let quadmath_reduction = reduce_static_runtime_archive(
+            &compiler,
+            &quadmath_source,
+            &quadmath_destination,
+            &runtime_archives
+                .last()
+                .and_then(|record| record.get("externally_resolved_symbols"))
+                .and_then(Value::as_array)
+                .into_iter()
+                .flatten()
+                .filter_map(Value::as_str)
+                .map(str::to_owned)
+                .collect::<Vec<_>>(),
+            &stage.join("quadmath"),
+        )?;
+        quadmath_required = !quadmath_reduction.selected_members.is_empty();
+        runtime_archives.push(json!({
+            "component":"libquadmath","path":BUNDLED_QUADMATH_ARCHIVE,"sha256":hash::file(&quadmath_destination)?,
+            "link_name":"slatec_bundle_quadmath","linking_mode":"static-reduced-closure","source":quadmath_source.display().to_string(),
+            "upstream_sha256":hash::file(&quadmath_source)?,"upstream_size_bytes":fs::metadata(&quadmath_source)?.len(),"retained_member_count":quadmath_reduction.selected_members.len(),"retained_members":quadmath_reduction.selected_members,
+            "externally_resolved_symbols":quadmath_reduction.externally_resolved_symbols,"ambiguous_symbol_providers":quadmath_reduction.ambiguous_symbols,"undefined_symbols":quadmath_reduction.undefined_symbols,
+            "license":"LGPL-2.1-or-later","obligations":"Preserve the LGPL notice and provide the corresponding-source or relinking information required for the static runtime archive. The retained quadmath closure is selected because libgfortran formatted-write members reference quadmath_snprintf; the SLATEC archive has no direct quadmath reference."
+        }));
+        runtime_member_audits.push(json!({"component":"libgfortran","seed_symbols":gfortran_seed}));
+        runtime_member_audits.push(json!({"component":"libquadmath","causal_symbol":"quadmath_snprintf","causal_chain":"SLATEC XERROR diagnostic formatting -> libgfortran write.o/transfer128.o -> quadmath_snprintf -> libquadmath quadmath-printf.o"}));
     }
-    let quadmath_source = static_runtime_archive(&compiler, "libquadmath.a")?;
-    let quadmath_destination = carrier_root.join(BUNDLED_QUADMATH_ARCHIVE);
-    fs::copy(&quadmath_source, &quadmath_destination)?;
-    runtime_archives.push(json!({
-        "component":"libquadmath","path":BUNDLED_QUADMATH_ARCHIVE,"sha256":hash::file(&quadmath_destination)?,
-        "link_name":"slatec_bundle_quadmath","linking_mode":"static","source":quadmath_source.display().to_string(),
-        "license":"LGPL-2.1-or-later","obligations":"Preserve the LGPL notice and provide the corresponding-source or relinking information required for the static runtime archive. It is included because the reviewed Rust GNU target final link requires quadmath_snprintf; the SLATEC family archive itself has no quadmath reference."
-    }));
     let receipt = json!({
         "schema_id":"slatec-rs/bundled-build-receipt","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
-        "family":FIRST_BUNDLED_FAMILY,
+        "family":BUNDLED_ARCHIVE_FAMILY,
         "compiler":{"path":compiler.display().to_string(),"version":command_output(&compiler, &["--version"])? .lines().next().unwrap_or_default(),"target":command_output(&compiler, &["-dumpmachine"])? .trim()},
         "compile_flags":COMPILE_FLAGS,"archiver":sibling_tool(&compiler, "ar").display().to_string(),"archiver_flags":"crsD",
-        "archives":[{"family":FIRST_BUNDLED_FAMILY,"path":FIRST_BUNDLED_ARCHIVE,"sha256":archive_sha256,"size_bytes":fs::metadata(&carrier_archive)?.len()}],
+        "archives":[{"family":BUNDLED_ARCHIVE_FAMILY,"families":included_families,"path":BUNDLED_ARCHIVE,"sha256":archive_sha256,"size_bytes":fs::metadata(&carrier_archive)?.len()}],
         "runtime_archives":runtime_archives,
         "source_units":source_records,
-        "archive_audit":{"schema_id":"slatec-rs/bundled-archive-audit","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,"status":"ready","archive_members":members,"defined_symbols":symbols,"undefined_symbols":undefined,"imported_dlls":[],"same_root_reproduction":"sha256_match"},
-        "runtime_audit":{"schema_id":"slatec-rs/bundled-runtime-audit","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,"status":"static_runtime_pending_consumer_probe","compiler_profile":"GNU Fortran 14.2.0 / x86_64-w64-mingw32","compiler_invoked":true,"source_cache_read":true,"network_access":false,"runtime_components":[
-            {"component":"libgfortran","static_or_dynamic":if runtime_required { "static bundled" } else { "not required" },"actually_referenced":runtime_required,"distribution_action":if runtime_required { "include libslatec_bundle_gfortran.a with GPLv3 and Runtime Library Exception notice" } else { "not included" }},
-            {"component":"libquadmath","static_or_dynamic":"static bundled","actually_referenced":"required by the reviewed Rust GNU target final link (quadmath_snprintf), not by the SLATEC archive","distribution_action":"include libslatec_bundle_quadmath.a with LGPL-2.1-or-later notice and source/relinking information"},
+        "archive_audit":{"schema_id":"slatec-rs/bundled-archive-audit","schema_version":"3.0.0","snapshot_id":SNAPSHOT,"target":TARGET,"status":"ready","archive_model":"one accepted-source archive; family eligibility remains exact and the static linker extracts only referenced members","archive_members":members,"defined_symbols":symbols,"undefined_symbols":undefined,"included_families":included_families,"included_source_ids":selected,"imported_dlls":[],"same_root_reproduction":"sha256_match"},
+        "runtime_audit":{"schema_id":"slatec-rs/bundled-runtime-audit","schema_version":"3.0.0","snapshot_id":SNAPSHOT,"target":TARGET,"status":"static_runtime_pending_consumer_probe","compiler_profile":"GNU Fortran 14.2.0 / x86_64-w64-mingw32","compiler_invoked":true,"source_cache_read":true,"network_access":false,"runtime_member_audits":runtime_member_audits,"runtime_components":[
+            {"component":"libgfortran","static_or_dynamic":if runtime_required { "static reduced closure" } else { "not required" },"actually_referenced":runtime_required,"distribution_action":if runtime_required { "include reduced libslatec_bundle_gfortran.a with GPLv3 and Runtime Library Exception notice" } else { "not included" }},
+            {"component":"libquadmath","static_or_dynamic":if quadmath_required { "static reduced closure" } else { "not required" },"actually_referenced":if quadmath_required { "required by libgfortran formatted-write members through quadmath_snprintf, not by the SLATEC archive" } else { "not required by the reduced runtime closure" },"distribution_action":if quadmath_required { "include reduced libslatec_bundle_quadmath.a with LGPL-2.1-or-later notice and source/relinking information" } else { "not included" }},
             {"component":"libgcc","static_or_dynamic":"toolchain-provided final-link support","actually_referenced":"not separately bundled","distribution_action":"no carrier copy; audit final consumer imports"}
         ],"imported_dlls":[],"reason":"Archive-level audit complete; final consumer import probe is recorded by the release validation command."}
     });
@@ -590,6 +664,163 @@ fn static_runtime_archive(compiler: &Path, name: &str) -> Result<PathBuf> {
     }
 }
 
+struct ReducedRuntimeArchive {
+    selected_members: Vec<String>,
+    externally_resolved_symbols: Vec<String>,
+    ambiguous_symbols: Vec<String>,
+    undefined_symbols: Vec<String>,
+}
+
+/// Materialize the deterministic member closure of a static runtime archive.
+///
+/// This deliberately follows only global undefined symbols from members that
+/// satisfy the selected closure. Symbols without a definition in this archive
+/// are recorded as final-link dependencies rather than guessed or copied from
+/// another runtime.
+fn reduce_static_runtime_archive(
+    compiler: &Path,
+    source: &Path,
+    destination: &Path,
+    seed_symbols: &[String],
+    stage: &Path,
+) -> Result<ReducedRuntimeArchive> {
+    let ar = sibling_tool(compiler, "ar");
+    let nm = sibling_tool(compiler, "nm");
+    let members = command_output(
+        &ar,
+        &[
+            "t",
+            source
+                .to_str()
+                .ok_or_else(|| policy("runtime archive path is not UTF-8"))?,
+        ],
+    )?
+    .lines()
+    .map(str::to_owned)
+    .collect::<Vec<_>>();
+    if members.is_empty() {
+        return Err(policy("runtime archive has no members"));
+    }
+    let mut defined = BTreeMap::<String, BTreeSet<String>>::new();
+    let mut undefined = BTreeMap::<String, BTreeSet<String>>::new();
+    for member in &members {
+        undefined.insert(member.clone(), BTreeSet::new());
+    }
+    let source_text = source
+        .to_str()
+        .ok_or_else(|| policy("runtime archive path is not UTF-8"))?;
+    let defined_output = command_output(&nm, &["-A", "-g", "--defined-only", source_text])?;
+    for line in defined_output.lines() {
+        let Some((member, symbol)) = archive_nm_member_symbol(line, source) else {
+            continue;
+        };
+        defined.entry(symbol).or_default().insert(member);
+    }
+    let undefined_output = command_output(&nm, &["-A", "-u", source_text])?;
+    for line in undefined_output.lines() {
+        let Some((member, symbol)) = archive_nm_member_symbol(line, source) else {
+            continue;
+        };
+        undefined.entry(member).or_default().insert(symbol);
+    }
+
+    let mut pending = seed_symbols.iter().cloned().collect::<BTreeSet<_>>();
+    let mut selected = BTreeSet::<String>::new();
+    let mut external = BTreeSet::<String>::new();
+    let mut ambiguous = BTreeSet::<String>::new();
+    while let Some(symbol) = pending.pop_first() {
+        let Some(candidates) = defined.get(&symbol) else {
+            external.insert(symbol);
+            continue;
+        };
+        let Some(member) = candidates.iter().next() else {
+            external.insert(symbol);
+            continue;
+        };
+        if candidates.len() > 1 {
+            ambiguous.insert(symbol.clone());
+        }
+        if selected.insert(member.clone()) {
+            pending.extend(undefined.get(member).into_iter().flatten().cloned());
+        }
+    }
+    if selected.is_empty() {
+        return Err(policy("runtime reduction selected no archive members"));
+    }
+
+    let objects = stage.join("runtime-objects");
+    if objects.exists() {
+        fs::remove_dir_all(&objects)?;
+    }
+    fs::create_dir_all(&objects)?;
+    if selected.iter().any(|member| {
+        Path::new(member).file_name().and_then(|name| name.to_str()) != Some(member.as_str())
+    }) {
+        return Err(policy(
+            "runtime archive member path escaped its archive root",
+        ));
+    }
+    let extraction = Command::new(&ar)
+        .current_dir(&objects)
+        .arg("x")
+        .arg(source)
+        .args(&selected)
+        .output()?;
+    if !extraction.status.success() {
+        return Err(policy(&format!(
+            "GNU ar could not extract reduced runtime members: {}",
+            String::from_utf8_lossy(&extraction.stderr).trim()
+        )));
+    }
+    let extracted = selected
+        .iter()
+        .map(|member| objects.join(member))
+        .collect::<Vec<_>>();
+    if extracted.iter().any(|object| !object.is_file()) {
+        return Err(policy(
+            "GNU ar extraction did not produce every selected runtime member",
+        ));
+    }
+    if destination.exists() {
+        fs::remove_file(destination)?;
+    }
+    let status = Command::new(&ar)
+        .arg("crsD")
+        .arg(destination)
+        .args(&extracted)
+        .status()?;
+    if !status.success() {
+        return Err(policy(&format!(
+            "GNU ar failed creating reduced runtime archive {}",
+            destination.display()
+        )));
+    }
+    let selected_members = selected.into_iter().collect::<Vec<_>>();
+    let undefined_symbols = selected_members
+        .iter()
+        .flat_map(|member| undefined.get(member).into_iter().flatten().cloned())
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect();
+    Ok(ReducedRuntimeArchive {
+        selected_members,
+        externally_resolved_symbols: external.into_iter().collect(),
+        ambiguous_symbols: ambiguous.into_iter().collect(),
+        undefined_symbols,
+    })
+}
+
+fn archive_nm_member_symbol(line: &str, archive: &Path) -> Option<(String, String)> {
+    let archive_prefix = format!("{}:", archive.display());
+    let suffix = line.strip_prefix(&archive_prefix)?;
+    let (member, details) = suffix.split_once(':')?;
+    let symbol = details.split_whitespace().last()?;
+    if symbol.ends_with(':') || symbol.ends_with(".o:") {
+        return None;
+    }
+    Some((member.to_owned(), symbol.to_owned()))
+}
+
 fn write_json(path: &Path, value: &Value) -> Result<()> {
     let mut bytes = serde_json::to_vec_pretty(value)?;
     bytes.push(b'\n');
@@ -612,12 +843,12 @@ fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<V
     fs::write(
         probe_root.join("Cargo.toml"),
         format!(
-            "[workspace]\n\n[package]\nname = \"slatec-bundled-consumer\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", features = [\"special-elementary\"] }}\n"
+            "[workspace]\n\n[package]\nname = \"slatec-bundled-consumer\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", features = [\"special-elementary\", \"special-gamma\", \"special-beta\", \"special-error\", \"special-integrals\", \"special-polynomials\", \"special-airy\", \"roots-scalar\"] }}\n"
         ),
     )?;
     fs::write(
         &source,
-        "fn main() { let value = slatec::special::elementary::log1p(0.5).expect(\"finite input\"); println!(\"{value:.17}\"); }\n",
+        "fn main() { use slatec::special::{airy::airy_ai, elementary::log1p, error_functions::erf, gamma::{beta, gamma}, integrals::exponential_integral_e1}; use slatec::polynomials::chebyshev::chebyshev_series; use slatec::roots::{find_root, RootBracket, RootOptions}; let root = find_root(|x| x * x - 2.0, RootBracket { lower: 0.0, upper: 2.0 }, RootOptions::default()).expect(\"bracketed root\").estimate; let value = log1p(0.5).unwrap() + gamma(0.5).unwrap() + beta(1.0, 1.0).unwrap() + erf(0.5).unwrap() + exponential_integral_e1(1.0).unwrap() + chebyshev_series(0.0, &[1.0, 0.5]).unwrap() + airy_ai(0.0).unwrap() + root; println!(\"{value:.17}\"); }\n",
     )?;
     let target_dir = root.join("target/bundled-provider/clean-consumer-target");
     let bundled = run_consumer(
@@ -641,12 +872,12 @@ fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<V
     fs::write(
         source_build_root.join("Cargo.toml"),
         format!(
-            "[workspace]\n\n[package]\nname = \"slatec-source-build-parity\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", default-features = false, features = [\"std\", \"source-build\", \"special-elementary\"] }}\n"
+            "[workspace]\n\n[package]\nname = \"slatec-source-build-parity\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", default-features = false, features = [\"std\", \"source-build\", \"special-elementary\", \"special-gamma\", \"special-beta\", \"special-error\", \"special-integrals\", \"special-polynomials\", \"special-airy\", \"roots-scalar\"] }}\n"
         ),
     )?;
     fs::write(
         source_build_root.join("src/main.rs"),
-        "fn main() { let value = slatec::special::elementary::log1p(0.5).expect(\"finite input\"); println!(\"{value:.17}\"); }\n",
+        "fn main() { use slatec::special::{airy::airy_ai, elementary::log1p, error_functions::erf, gamma::{beta, gamma}, integrals::exponential_integral_e1}; use slatec::polynomials::chebyshev::chebyshev_series; use slatec::roots::{find_root, RootBracket, RootOptions}; let root = find_root(|x| x * x - 2.0, RootBracket { lower: 0.0, upper: 2.0 }, RootOptions::default()).expect(\"bracketed root\").estimate; let value = log1p(0.5).unwrap() + gamma(0.5).unwrap() + beta(1.0, 1.0).unwrap() + erf(0.5).unwrap() + exponential_integral_e1(1.0).unwrap() + chebyshev_series(0.0, &[1.0, 0.5]).unwrap() + airy_ai(0.0).unwrap() + root; println!(\"{value:.17}\"); }\n",
     )?;
     let source_build = run_consumer(
         root,
@@ -659,7 +890,7 @@ fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<V
     )?;
     if bundled.0 != source_build.0 {
         return Err(policy(&format!(
-            "bundled and source-build elementary smoke values differ: {} versus {}",
+            "bundled and source-build scalar release smoke values differ: {} versus {}",
             bundled.0, source_build.0
         )));
     }
@@ -808,7 +1039,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
             "program_units":units,
             "originating_package":originating_package,
             "named_authors":override_record.map(|record| record.named_authors.clone()).unwrap_or_default(),
-            "named_authors_status":if override_record.is_some() { "reviewed_source_prologue" } else if author_field_present { "prologue_author_field_present_but_text_not_preserved_in_committed_index" } else { "unavailable" },
+            "named_authors_status":if override_record.is_some_and(|record| record.scope_approval_id.is_some()) { "source-prologue-not-extracted-in-exact-scope-approval" } else if override_record.is_some() { "reviewed_source_prologue" } else if author_field_present { "prologue_author_field_present_but_text_not_preserved_in_committed_index" } else { "unavailable" },
             "stated_institutions":override_record.map(|record| record.stated_institutions.clone()).unwrap_or_default(),
             "author_prologue":override_record.and_then(|record| record.author_prologue.clone()),
             "governing_notice":override_record.and_then(|record| record.governing_notice.clone()),
@@ -819,6 +1050,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
             "bundle_eligible":bundle_eligible,
             "evidence":evidence_records,
             "manual_override_provenance":override_record.and_then(|record| record.manual_override_provenance.clone()),
+            "scope_approval_id":override_record.and_then(|record| record.scope_approval_id.clone()),
             "unresolved_questions":if override_record.is_some() { Vec::<String>::new() } else { vec!["No hash-guarded, source-specific redistribution classification has been recorded.".to_owned(), "Government sponsorship, institutional affiliation, and Netlib hosting are not treated as a public-domain dedication.".to_owned()] },
         }));
     }
@@ -856,11 +1088,8 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
             })
             .map(|source| source.id.clone())
             .collect::<Vec<_>>();
-        let archive = family_archive(family);
-        let archive_ready = match archive {
-            Some(path) => archive_record(&carrier_root, path, &receipt)?,
-            None => None,
-        };
+        let archive_ready = archive_record_for_family(&carrier_root, ids, &receipt)?;
+        let archive = archive_ready.as_ref().map(|_| BUNDLED_ARCHIVE);
         let status = if ids.is_empty() {
             "no_selected_source_closure"
         } else if !blocked.is_empty() {
@@ -897,6 +1126,44 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
     } else {
         "blocked_by_source_provenance"
     };
+    let family_matrix = manifest
+        .families
+        .iter()
+        .map(|(family, ids)| {
+            let mut already_accepted = 0usize;
+            let mut newly_accepted = 0usize;
+            let mut unresolved = 0usize;
+            for id in ids {
+                match overrides.get(id) {
+                    Some(record)
+                        if ACCEPTED_BUNDLE_CLASSIFICATIONS
+                            .contains(&record.classification.as_str()) =>
+                    {
+                        if record.scope_approval_id.is_some() {
+                            newly_accepted += 1;
+                        } else {
+                            already_accepted += 1;
+                        }
+                    }
+                    _ => unresolved += 1,
+                }
+            }
+            let family_record = family_records
+                .iter()
+                .find(|record| record["feature"].as_str() == Some(family))
+                .expect("constructed family record");
+            json!({
+                "family":family,
+                "closure_size":ids.len(),
+                "already_accepted":already_accepted,
+                "newly_accepted":newly_accepted,
+                "still_unresolved":unresolved,
+                "runtime_closure":if family_record["bundle_available"].as_bool() == Some(true) { "reduced_static_gfortran_and_quadmath_as_recorded" } else { "not_bundled" },
+                "bundle_action":family_record["status"],
+                "archive":family_record["archive"],
+            })
+        })
+        .collect::<Vec<_>>();
     let provenance = json!({
         "schema_id":"slatec-rs/slatec-source-provenance",
         "schema_version":"2.0.0",
@@ -1000,20 +1267,26 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         "comment":if carrier_status == "ready" { "Includes the hash-guarded source inventory for ready bundled family archives." } else { "This is a source inventory, not a claim that an archive is redistributable." },
         "files":sbom_files,
     });
-    let first_source_ids = manifest
-        .families
-        .get(FIRST_BUNDLED_FAMILY)
-        .cloned()
+    let bundled_source_ids = receipt
+        .as_ref()
+        .and_then(|item| item["archive_audit"]["included_source_ids"].as_array())
+        .map(|ids| {
+            ids.iter()
+                .filter_map(Value::as_str)
+                .map(str::to_owned)
+                .collect::<Vec<_>>()
+        })
         .unwrap_or_default();
     let source_unit_manifest = json!({
         "schema_id":"slatec-rs/bundled-source-unit-manifest","schema_version":"2.0.0","snapshot_id":SNAPSHOT,
-        "family":FIRST_BUNDLED_FAMILY,"source_ids":first_source_ids,
+        "archive_model":"one accepted-source archive","family":BUNDLED_ARCHIVE_FAMILY,"source_ids":bundled_source_ids,
         "profile_sources":PROFILE_SOURCES,"records":provenance["records"].as_array().expect("records").iter().filter(|record| {
-            record["selected_source_ids"].as_array().is_some_and(|ids| ids.iter().any(|id| first_source_ids.iter().any(|source_id| id.as_str() == Some(source_id))))
+            record["selected_source_ids"].as_array().is_some_and(|ids| ids.iter().any(|id| bundled_source_ids.iter().any(|source_id| id.as_str() == Some(source_id))))
         }).collect::<Vec<_>>()
     });
     let build_recipe = json!({
-        "schema_id":"slatec-rs/bundled-build-recipe","schema_version":"2.0.0","target":TARGET,"family":FIRST_BUNDLED_FAMILY,
+        "schema_id":"slatec-rs/bundled-build-recipe","schema_version":"3.0.0","target":TARGET,"family":BUNDLED_ARCHIVE_FAMILY,
+        "archive_model":"one accepted-source archive; family records share one archive only when their full exact source closure is present",
         "compiler":"GNU Fortran 14.2.0 / x86_64-w64-mingw32","compile_flags":COMPILE_FLAGS,
         "archiver":"GNU ar 2.43","archive_flags":"crsD","source_verification":"SHA-256 against family-source-closure.json before every compilation",
         "command":"cargo run -p slatec-tools --bin slatec-corpus -- build-bundled-provider --offline"
@@ -1033,6 +1306,16 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         &mut artifacts,
         root.join("generated/licensing/bundled-source-eligibility.json"),
         &eligibility,
+    )?;
+    insert_json(
+        &mut artifacts,
+        root.join("generated/licensing/bundle-family-matrix.json"),
+        &json!({
+            "schema_id":"slatec-rs/bundle-family-matrix","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
+            "columns":["family","closure_size","already_accepted","newly_accepted","still_unresolved","runtime_closure","bundle_action","archive"],
+            "records":family_matrix,
+            "policy":"A family is bundled only when its complete exact source closure is accepted and present in the carrier receipt. Source-cache absence is a build blocker, not an implicit provenance approval."
+        }),
     )?;
     insert_json(
         &mut artifacts,
@@ -1164,7 +1447,7 @@ fn read_evidence(root: &Path) -> Result<BTreeMap<String, EvidenceRecord>> {
             || record.excerpt.is_empty()
             || record.statement.is_empty()
             || record.scope.is_empty()
-            || record.source_ids.is_empty()
+            || (record.source_ids.is_empty() && record.source_scope.is_none())
         {
             return Err(policy(
                 "bundled provenance evidence records must be complete and source-scoped",
@@ -1186,13 +1469,14 @@ fn read_overrides(
 ) -> Result<BTreeMap<String, Override>> {
     let input = root.join("crates/slatec-src/metadata/bundled-provenance-overrides.json");
     let overrides: Overrides = serde_json::from_slice(&fs::read(input)?)?;
+    let Overrides { sources, scopes } = overrides;
     let known = manifest
         .sources
         .iter()
         .map(|source| (source.id.as_str(), source.sha256.as_str()))
         .collect::<BTreeMap<_, _>>();
     let mut result = BTreeMap::new();
-    for record in overrides.sources {
+    for record in sources {
         if !CLASSIFICATIONS.contains(&record.classification.as_str()) {
             return Err(policy(&format!(
                 "unknown bundled provenance classification {}",
@@ -1253,7 +1537,136 @@ fn read_overrides(
             ));
         }
     }
+    for scope in scopes {
+        validate_scope_approval(&scope, manifest, evidence)?;
+        let source_ids = source_ids_for_families(manifest, &scope.families)?;
+        for id in source_ids {
+            let source = manifest
+                .sources
+                .iter()
+                .find(|source| source.id == id)
+                .ok_or_else(|| policy("scope source disappeared from materialized manifest"))?;
+            if result.contains_key(&source.id) {
+                continue;
+            }
+            result.insert(
+                source.id.clone(),
+                Override {
+                    id: source.id.clone(),
+                    sha256: source.sha256.clone(),
+                    classification: scope.classification.clone(),
+                    confidence: scope.confidence.clone(),
+                    named_authors: Vec::new(),
+                    stated_institutions: scope.stated_institutions.clone(),
+                    author_prologue: None,
+                    governing_notice: scope.governing_notice.clone(),
+                    redistribution_conditions: scope.redistribution_conditions.clone(),
+                    evidence_ids: scope.evidence_ids.clone(),
+                    manual_override_provenance: scope.manual_override_provenance.clone(),
+                    scope_approval_id: Some(scope.id.clone()),
+                },
+            );
+        }
+    }
     Ok(result)
+}
+
+fn validate_scope_approval(
+    scope: &ScopeApproval,
+    manifest: &Manifest,
+    evidence: &BTreeMap<String, EvidenceRecord>,
+) -> Result<()> {
+    if !ACCEPTED_BUNDLE_CLASSIFICATIONS.contains(&scope.classification.as_str())
+        || scope.id.is_empty()
+        || scope.families.is_empty()
+        || scope.source_set_sha256.is_empty()
+        || scope.source_count == 0
+        || scope.confidence.is_empty()
+        || scope.stated_institutions.is_empty()
+        || scope.governing_notice.as_deref().is_none_or(str::is_empty)
+        || scope
+            .redistribution_conditions
+            .as_deref()
+            .is_none_or(str::is_empty)
+        || scope
+            .manual_override_provenance
+            .as_deref()
+            .is_none_or(str::is_empty)
+        || scope.evidence_ids.is_empty()
+    {
+        return Err(policy(
+            "accepted bundled provenance scope is missing required review evidence",
+        ));
+    }
+    let ids = source_ids_for_families(manifest, &scope.families)?;
+    if ids.len() != scope.source_count
+        || source_set_hash(manifest, &ids)? != scope.source_set_sha256
+    {
+        return Err(policy(
+            "bundled provenance scope source set changed; refresh the hash-guarded authored approval",
+        ));
+    }
+    for evidence_id in &scope.evidence_ids {
+        let item = evidence.get(evidence_id).ok_or_else(|| {
+            policy(&format!(
+                "bundled provenance scope {} references unknown evidence {evidence_id}",
+                scope.id
+            ))
+        })?;
+        let Some(evidence_scope) = &item.source_scope else {
+            return Err(policy(&format!(
+                "bundled provenance scope {} requires exact source-scope evidence",
+                scope.id
+            )));
+        };
+        let evidence_ids = source_ids_for_families(manifest, &evidence_scope.families)?;
+        if evidence_scope.source_count != ids.len()
+            || evidence_scope.source_set_sha256 != scope.source_set_sha256
+            || evidence_ids != ids
+        {
+            return Err(policy(&format!(
+                "bundled provenance evidence {evidence_id} does not cover the exact approved source set"
+            )));
+        }
+    }
+    Ok(())
+}
+
+fn source_ids_for_families(manifest: &Manifest, families: &[String]) -> Result<Vec<String>> {
+    let mut ids = BTreeSet::new();
+    for family in families {
+        let closure = manifest.families.get(family).ok_or_else(|| {
+            policy(&format!(
+                "bundled provenance scope references unknown family {family}"
+            ))
+        })?;
+        ids.extend(closure.iter().cloned());
+    }
+    if ids.is_empty() {
+        return Err(policy("bundled provenance scope selects no source units"));
+    }
+    Ok(ids.into_iter().collect())
+}
+
+fn source_set_hash(manifest: &Manifest, ids: &[String]) -> Result<String> {
+    let known = manifest
+        .sources
+        .iter()
+        .map(|source| (source.id.as_str(), source.sha256.as_str()))
+        .collect::<BTreeMap<_, _>>();
+    let mut bytes = Vec::new();
+    for id in ids {
+        let sha256 = known.get(id.as_str()).ok_or_else(|| {
+            policy(&format!(
+                "approved source set references unknown source {id}"
+            ))
+        })?;
+        bytes.extend_from_slice(id.as_bytes());
+        bytes.push(0);
+        bytes.extend_from_slice(sha256.as_bytes());
+        bytes.push(b'\n');
+    }
+    Ok(hash::bytes(&bytes))
 }
 
 fn routine_names(root: &Path) -> Result<BTreeMap<String, Vec<String>>> {
@@ -1344,10 +1757,6 @@ fn physical_sources(manifest: &Manifest) -> BTreeMap<String, PhysicalSource> {
     result
 }
 
-fn family_archive(family: &str) -> Option<&'static str> {
-    (family == FIRST_BUNDLED_FAMILY).then_some(FIRST_BUNDLED_ARCHIVE)
-}
-
 fn read_build_receipt(carrier_root: &Path) -> Result<Option<Value>> {
     let path = carrier_root.join(BUNDLED_BUILD_RECEIPT);
     if !path.is_file() {
@@ -1356,35 +1765,54 @@ fn read_build_receipt(carrier_root: &Path) -> Result<Option<Value>> {
     Ok(Some(serde_json::from_slice(&fs::read(path)?)?))
 }
 
-fn archive_record(
+fn archive_record_for_family(
     carrier_root: &Path,
-    archive: &str,
+    family_source_ids: &[String],
     receipt: &Option<Value>,
 ) -> Result<Option<Value>> {
-    let path = carrier_root.join(archive);
+    // An empty selected closure is not evidence that this feature is bundled:
+    // `Iterator::all` would otherwise accept it vacuously.  A feature becomes
+    // available only after its non-empty exact closure is both approved and
+    // present in the receipt.
+    if family_source_ids.is_empty() {
+        return Ok(None);
+    }
+    let path = carrier_root.join(BUNDLED_ARCHIVE);
     if !path.is_file() {
         return Ok(None);
     }
     let receipt = receipt.as_ref().ok_or_else(|| {
         policy("a bundled archive is present without its deterministic build receipt")
     })?;
-    let expected = receipt["archives"]
+    let archive = receipt["archives"]
         .as_array()
         .and_then(|items| {
             items
                 .iter()
-                .find(|item| item["path"].as_str() == Some(archive))
+                .find(|item| item["path"].as_str() == Some(BUNDLED_ARCHIVE))
         })
-        .and_then(|item| item["sha256"].as_str())
         .ok_or_else(|| policy("bundled build receipt lacks an archive checksum"))?;
+    let expected = archive["sha256"]
+        .as_str()
+        .ok_or_else(|| policy("bundled build receipt archive checksum is not a string"))?;
+    let included = receipt["archive_audit"]["included_source_ids"]
+        .as_array()
+        .ok_or_else(|| policy("bundled build receipt lacks included source identities"))?;
+    if !family_source_ids.iter().all(|id| {
+        included
+            .iter()
+            .any(|included_id| included_id.as_str() == Some(id))
+    }) {
+        return Ok(None);
+    }
     let actual = hash::file(&path)?;
     if actual != expected {
         return Err(policy(&format!(
-            "bundled archive checksum changed for {archive}: expected {expected}, found {actual}"
+            "bundled archive checksum changed for {BUNDLED_ARCHIVE}: expected {expected}, found {actual}"
         )));
     }
     Ok(Some(
-        json!({"path":archive,"sha256":actual,"size_bytes":fs::metadata(path)?.len()}),
+        json!({"path":BUNDLED_ARCHIVE,"sha256":actual,"size_bytes":fs::metadata(path)?.len()}),
     ))
 }
 
@@ -1441,7 +1869,7 @@ fn third_party_notices(provenance: &Value, carrier_status: &str) -> String {
         .count();
     let status = if carrier_status == "ready" {
         format!(
-            "The carrier includes the `{FIRST_BUNDLED_FAMILY}` archive built from {public_domain} hash-guarded historical SLATEC units plus three project-profile units. Its historical units are classified `explicit-public-domain` from the cited NIST/NTIS statements and Version 4.1 Netlib subset scope.\n\nThe carrier also includes unmodified static `libgfortran` (GPL-3.0 with the GCC Runtime Library Exception) and `libquadmath` (LGPL-2.1-or-later) only because the audited final GNU consumer link requires them. Preserve the notices and provide the applicable corresponding-source or relinking information. The final executable is linked from ordinary static archives, so an end user can relink it with a compatible replacement runtime.\n"
+            "The carrier includes one `{BUNDLED_ARCHIVE_FAMILY}` archive built from {public_domain} hash-guarded historical SLATEC units plus three project-profile units. Each family remains available only when its exact source closure is contained in that archive; static linking extracts only the members reached by the final program. Its historical units are classified `explicit-public-domain` from the cited NIST/NTIS statements and Version 4.1 Netlib subset scope.\n\nThe carrier also includes static `libgfortran` (GPL-3.0 with the GCC Runtime Library Exception) and `libquadmath` (LGPL-2.1-or-later) only because the audited final GNU consumer link requires their retained members. Preserve the notices and provide the applicable corresponding-source or relinking information. The final executable is linked from ordinary static archives, so an end user can relink it with a compatible replacement runtime.\n"
         )
     } else {
         "No historical SLATEC source or GNU runtime archive is included while no family is ready.\n"
@@ -1457,7 +1885,7 @@ fn redistribution_notice(provenance: &Value, carrier_status: &str) -> String {
         .as_u64()
         .unwrap_or_default();
     format!(
-        "# Bundled-provider redistribution notice\n\nCarrier status: `{carrier_status}`. The only historical SLATEC family currently distributed by this carrier is `{FIRST_BUNDLED_FAMILY}`. Its {source_count} hash-pinned historical source units have source-specific `explicit-public-domain` records in the generated provenance inventory. This is an evidence record, not legal advice.\n\nDo not treat this notice as clearance for any other SLATEC source, family, overlay, cache, archive, or Netlib-hosted material. The static GNU runtime archives are separately identified in `bundle-build-receipt.json` and subject to their own notices and source/relinking obligations.\n"
+        "# Bundled-provider redistribution notice\n\nCarrier status: `{carrier_status}`. The carrier distributes one `{BUNDLED_ARCHIVE_FAMILY}` archive. A family is available only when its entire exact source closure is recorded in that archive; its {source_count} hash-pinned historical source units have source-specific `explicit-public-domain` records in the generated provenance inventory. This is an evidence record, not legal advice.\n\nDo not treat this notice as clearance for any other SLATEC source, family, overlay, cache, archive, or Netlib-hosted material. The static GNU runtime archives are separately identified in `bundle-build-receipt.json` and subject to their own notices and source/relinking obligations.\n"
     )
 }
 
@@ -1495,7 +1923,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn generated_audit_is_source_hash_guarded_and_admits_only_the_reviewed_family() {
+    fn generated_audit_is_source_hash_guarded_and_admits_only_exactly_cleared_families() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let artifacts = artifacts(&root).expect("generate bundled-provider evidence");
         let provenance: Value = serde_json::from_slice(
@@ -1512,7 +1940,7 @@ mod tests {
         );
         assert_eq!(
             provenance["summary"]["classification_counts"]["explicit-public-domain"],
-            28
+            91
         );
         let unresolved = provenance["summary"]["classification_counts"]["unresolved-rights"]
             .as_u64()
@@ -1521,7 +1949,7 @@ mod tests {
                 .as_u64()
                 .unwrap_or_default();
         assert_eq!(
-            unresolved + 28,
+            unresolved + 91,
             provenance["summary"]["physical_source_units"]
                 .as_u64()
                 .unwrap_or_default()
@@ -1538,7 +1966,7 @@ mod tests {
             .and_then(|families| {
                 families
                     .iter()
-                    .find(|family| family["feature"] == FIRST_BUNDLED_FAMILY)
+                    .find(|family| family["feature"] == "special-elementary")
             })
             .expect("elementary family record");
         assert_eq!(elementary["status"], "ready");
@@ -1551,8 +1979,22 @@ mod tests {
                     .find(|family| family["feature"] == "special-gamma")
             })
             .expect("gamma family record");
-        assert_eq!(gamma["status"], "blocked_by_source_provenance");
-        assert!(!gamma["bundle_available"].as_bool().unwrap_or(true));
+        assert_eq!(gamma["status"], "ready");
+        assert!(gamma["bundle_available"].as_bool().unwrap_or(false));
+        let scalar_expanded = eligibility["families"]
+            .as_array()
+            .and_then(|families| {
+                families
+                    .iter()
+                    .find(|family| family["feature"] == "special-scalar-expanded")
+            })
+            .expect("scalar-expanded family record");
+        assert_eq!(scalar_expanded["status"], "blocked_by_source_provenance");
+        assert!(
+            !scalar_expanded["bundle_available"]
+                .as_bool()
+                .unwrap_or(true)
+        );
         let sbom: Value = serde_json::from_slice(
             artifacts
                 .get(&root.join("generated/licensing/bundled-sbom.spdx.json"))
@@ -1561,7 +2003,7 @@ mod tests {
         .expect("valid SPDX JSON");
         let files = sbom["files"].as_array().expect("SBOM files");
         for name in [
-            FIRST_BUNDLED_ARCHIVE,
+            BUNDLED_ARCHIVE,
             BUNDLED_GFORTRAN_ARCHIVE,
             BUNDLED_QUADMATH_ARCHIVE,
         ] {

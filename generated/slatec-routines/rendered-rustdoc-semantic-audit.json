@@ -1416,7 +1416,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.bintk.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::bintk",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -1444,7 +1444,7 @@
         "Workspace and array requirements"
       ],
       "routine": "BINTK",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.bintk.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../bspline/fn.bintk.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -1840,7 +1840,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.bsppp.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::bsppp",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -1869,7 +1869,7 @@
         "Workspace and array requirements"
       ],
       "routine": "BSPPP",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.bsppp.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../piecewise_polynomial/fn.bsppp.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -1975,7 +1975,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/quadrature/fn.bsqad.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::quadrature::bsqad",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -2003,7 +2003,7 @@
         "Workspace and array requirements"
       ],
       "routine": "BSQAD",
-      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/fn.bsqad.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/../bspline/fn.bsqad.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -2019,7 +2019,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.bvalu.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::bvalu",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -2047,7 +2047,7 @@
         "Workspace and array requirements"
       ],
       "routine": "BVALU",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.bvalu.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../bspline/fn.bvalu.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -9697,7 +9697,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.dbintk.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::dbintk",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -9725,7 +9725,7 @@
         "Workspace and array requirements"
       ],
       "routine": "DBINTK",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.dbintk.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../bspline/fn.dbintk.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -10222,7 +10222,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.dbsppp.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::dbsppp",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -10251,7 +10251,7 @@
         "Workspace and array requirements"
       ],
       "routine": "DBSPPP",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.dbsppp.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../piecewise_polynomial/fn.dbsppp.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -10357,7 +10357,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/quadrature/fn.dbsqad.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::quadrature::dbsqad",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -10385,7 +10385,7 @@
         "Workspace and array requirements"
       ],
       "routine": "DBSQAD",
-      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/fn.dbsqad.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/../bspline/fn.dbsqad.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -10401,7 +10401,7 @@
         "WORK"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.dbvalu.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::dbvalu",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -10429,7 +10429,7 @@
         "Workspace and array requirements"
       ],
       "routine": "DBVALU",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.dbvalu.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../bspline/fn.dbvalu.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -15636,7 +15636,7 @@
         "PQUAD"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/quadrature/fn.dppqad.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::quadrature::dppqad",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -15664,7 +15664,7 @@
         "Workspace and array requirements"
       ],
       "routine": "DPPQAD",
-      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/fn.dppqad.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/../piecewise_polynomial/fn.dppqad.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -15714,7 +15714,7 @@
         "INPPV"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.dppval.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::dppval",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -15742,7 +15742,7 @@
         "Workspace and array requirements"
       ],
       "routine": "DPPVAL",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.dppval.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../piecewise_polynomial/fn.dppval.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -25155,7 +25155,7 @@
         "PQUAD"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/quadrature/fn.ppqad.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::quadrature::ppqad",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -25183,7 +25183,7 @@
         "Workspace and array requirements"
       ],
       "routine": "PPQAD",
-      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/fn.ppqad.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/quadrature/../piecewise_polynomial/fn.ppqad.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },
@@ -25199,7 +25199,7 @@
         "INPPV"
       ],
       "canonical_item_html_path": "target/doc/slatec_sys/interpolation/fn.ppval.html",
-      "canonical_item_is_rustdoc_reexport": false,
+      "canonical_item_is_rustdoc_reexport": true,
       "canonical_rust_path": "slatec_sys::interpolation::ppval",
       "cross_surface_mismatches": [],
       "documented_argument_names": [
@@ -25227,7 +25227,7 @@
         "Workspace and array requirements"
       ],
       "routine": "PPVAL",
-      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/fn.ppval.html",
+      "rustdoc_html_path": "target/doc/slatec_sys/interpolation/../piecewise_polynomial/fn.ppval.html",
       "rustdoc_page_found": true,
       "status": "complete-semantic-contract"
     },

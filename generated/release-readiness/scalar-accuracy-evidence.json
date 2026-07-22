@@ -1,0 +1,60 @@
+{
+  "columns": [
+    "operation",
+    "precision",
+    "domain_set",
+    "max_abs_error",
+    "max_relative_or_ulp_error",
+    "comparator",
+    "status"
+  ],
+  "known_limitations": [
+    "The committed tests use per-case absolute tolerances and do not calculate a corpus-wide maximum relative error or ULP bound.",
+    "No new scalar safe path is frozen by this change; any future scalar promotion must add its own high-precision vectors and difficult-point assertions."
+  ],
+  "records": [
+    {
+      "comparator": "closed-form values and standard constants",
+      "domain_set": "small cancellation value; zero; exact cube; degree identity",
+      "max_abs_error": "1e-20 for log1p(1e-8); 1e-15 for the remaining asserted values",
+      "max_relative_or_ulp_error": "not_aggregated",
+      "operation": "log1p / exprel / cbrt / degree sine",
+      "precision": "f64",
+      "status": "reference assertions passed on the reviewed GNU MinGW profile"
+    },
+    {
+      "comparator": "closed-form values and independent identities",
+      "domain_set": "ordinary values, identities, singular-domain rejection, and contained native error paths",
+      "max_abs_error": "per-case asserted tolerance from 1e-15 to 2e-12",
+      "max_relative_or_ulp_error": "not_aggregated",
+      "operation": "gamma / beta / error / Airy / exponential and logarithmic integrals",
+      "precision": "f64",
+      "status": "reference and contract assertions passed on the reviewed GNU MinGW profile"
+    },
+    {
+      "comparator": "pi identities and exact unit cases",
+      "domain_set": "identity values, invalid signs, native range status, and post-error reuse",
+      "max_abs_error": "per-case asserted tolerance from 1e-13 to 1e-12",
+      "max_relative_or_ulp_error": "not_aggregated",
+      "operation": "Spence and Carlson symmetric elliptic integrals",
+      "precision": "f64",
+      "status": "reference and native-status assertions passed on the reviewed GNU MinGW profile"
+    },
+    {
+      "comparator": "finite-result execution smoke",
+      "domain_set": "ordinary valid execution case for each exposed wrapper",
+      "max_abs_error": "not measured by the committed f32 smoke test",
+      "max_relative_or_ulp_error": "not measured",
+      "operation": "all exposed scalar f32 counterparts",
+      "precision": "f32",
+      "status": "execution coverage only; no f32 accuracy superiority claim"
+    }
+  ],
+  "schema_id": "slatec-rs.scalar-accuracy-evidence",
+  "schema_version": "1.0.0",
+  "scope": "No safe scalar path is introduced by this release-candidate change. This report makes the existing reviewed scalar reference coverage and its limits explicit rather than inventing aggregate accuracy claims.",
+  "test_sources": [
+    "crates/slatec/tests/special_foundations_raw_native.rs",
+    "crates/slatec/tests/special_functions_native.rs"
+  ]
+}
