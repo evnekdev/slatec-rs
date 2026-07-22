@@ -96,6 +96,38 @@ three-dimensional unknown grid. It does not provide arbitrary values on six
 faces or a general 3D Cartesian PDE facade. See the [structured POIS3D guide]
 (../api/safe-fishpack-pois3d.md).
 
+### Reviewed curvilinear FISHPACK workflows
+
+The `fishpack-cylindrical-polar` feature provides single-precision, owned,
+one-shot Helmholtz/Poisson finite-difference workflows for the centered
+`HWSCYL`/`HWSPLR` and staggered `HSTCYL`/`HSTPLR` drivers.  Their public
+problem types name the actual coordinates (`radius`, `axial`, and `angle`),
+keep source boundary vectors private, and return an owned `FishpackGrid2` with
+the first coordinate varying fastest.  In particular, origin and axis modes
+are source-defined regularity conditions, not arbitrary user boundary values;
+derivative data is with respect to the increasing coordinate, not an inferred
+outward-normal convention.
+
+The distinct `fishpack-spherical` feature has two separate models.  The
+unit-sphere surface wrappers use `HWSSSP`/`HSTSSP` on colatitude--longitude
+grids.  The axisymmetric spherical wrappers use `HWSCSP`/`HSTCSP` on
+colatitude--radius grids and therefore model a three-dimensional
+axisymmetric equation rather than a surface equation.  Full-pole constructors
+use the selected `PIMACH` value exactly; this preserves the native source's
+pole equality tests.  All four drivers validate their pole/origin code
+combinations before the call, own their boundary and workspace storage, report
+the native perturbation for compatible singular Poisson systems, and serialize
+calls through the project-wide native lock.  The spherical provider feature
+selects the reviewed driver, cyclic-reduction, and XERROR closure required by
+the GNU MinGW profile; it does not turn `slatec-sys` into a provider selector.
+
+The remaining `HSTCRT` and `HW3CRT` drivers deliberately stay raw-only:
+their staggered-Cartesian and six-face 3D contracts need separate
+geometry-owning reviews.  Generic `BLKTRI`, `CBLKTR`, `CMGNBN`, `GENBUN`, and
+`POISTG` remain raw or private subsidiary interfaces rather than being exposed
+as general safe linear algebra APIs.  The complete disposition, boundary, and
+provider evidence is generated under `generated/safe-api/fishpack-*.json`.
+
 ## Common callback and workspace patterns
 
 - RHS callback \(f(t,y)\);

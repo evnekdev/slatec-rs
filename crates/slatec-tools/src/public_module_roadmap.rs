@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 271;
+const SAFE_FUNCTION_TARGET: usize = 279;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -46,7 +46,9 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "ode-sdrive-expert",
     "dassl",
     "fishpack-cartesian-2d",
+    "fishpack-cylindrical-polar",
     "fishpack-pois3d",
+    "fishpack-spherical",
     "optimization-linear-programming-in-memory",
     "fftpack-real",
     "fftpack-complex",
@@ -1156,7 +1158,17 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "fishpack-cylindrical-polar",
+            grouped_paths: &["differential_equations::pde"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "fishpack-pois3d",
+            grouped_paths: &["differential_equations::pde"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
+            cargo_feature: "fishpack-spherical",
             grouped_paths: &["differential_equations::pde"],
             evidence_source: "crates/slatec/Cargo.toml",
         },
@@ -1248,7 +1260,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 211),
+            ("std".to_owned(), 219),
         ])
     {
         return Err(policy(

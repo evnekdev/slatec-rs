@@ -72,8 +72,16 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::constrained_least_squares::solve_constrained_least_squares_f32` | `LSEI` | linear least squares | f32 | dense equality and inequality constrained linear least-squares fitting | `std` | `least-squares-linear-constrained` | [equality and inequality constrained linear least squares](../../examples/least_squares/inequality_constrained_fit.rs) |
 | `slatec::dassl::DaeSession::<f32, F>::advance_to` | `SDASSL` | differential-algebraic equations | f32 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/algebraic_variable.rs) |
 | `slatec::dassl::DaeSession::<f64, F>::advance_to` | `DDASSL` | differential-algebraic equations | f64 | validated scalar numerical function | `std` | `dassl` | [real implicit index-1 initial-value problem G(t,y,y_prime)=0](../../examples/dassl/index1_constraint.rs) |
+| `slatec::differential_equations::pde::AxisymmetricSphericalHelmholtz2d::solve` | `HWSCSP` | Curvilinear FISHPACK PDE | f32 | centered axisymmetric spherical Helmholtz finite-difference solve | `std` | `fishpack-spherical` | [manufactured constant axisymmetric spherical solution](../../examples/fishpack_spherical.rs) |
 | `slatec::differential_equations::pde::CartesianHelmholtz2d::solve` | `HWSCRT` | Cartesian FISHPACK PDE | f32 | checked owned Cartesian Poisson/Helmholtz finite-difference solve | `std` | `fishpack-cartesian-2d` | [mixed Cartesian Poisson problem](../../examples/fishpack_cartesian_2d.rs) |
+| `slatec::differential_equations::pde::CylindricalHelmholtz2d::solve` | `HWSCYL` | Curvilinear FISHPACK PDE | f32 | centered cylindrical modified Helmholtz finite-difference solve | `std` | `fishpack-cylindrical-polar` | [manufactured constant curvilinear solution](../../examples/fishpack_cylindrical_polar.rs) |
 | `slatec::differential_equations::pde::Pois3dProblem::solve` | `POIS3D` | Structured FISHPACK PDE | f32 | checked owned structured three-dimensional block-tridiagonal solve | `std` | `fishpack-pois3d` | [manufactured structured cyclic POIS3D system](../../examples/fishpack_pois3d.rs) |
+| `slatec::differential_equations::pde::PolarHelmholtz2d::solve` | `HWSPLR` | Curvilinear FISHPACK PDE | f32 | centered polar Helmholtz finite-difference solve | `std` | `fishpack-cylindrical-polar` | [manufactured constant curvilinear solution](../../examples/fishpack_cylindrical_polar.rs) |
+| `slatec::differential_equations::pde::SphereSurfaceHelmholtz2d::solve` | `HWSSSP` | Curvilinear FISHPACK PDE | f32 | centered unit-sphere surface Helmholtz finite-difference solve | `std` | `fishpack-spherical` | [manufactured constant unit-sphere surface solution](../../examples/fishpack_spherical.rs) |
+| `slatec::differential_equations::pde::StaggeredAxisymmetricSphericalHelmholtz2d::solve` | `HSTCSP` | Curvilinear FISHPACK PDE | f32 | staggered axisymmetric spherical Helmholtz finite-difference solve | `std` | `fishpack-spherical` | [manufactured constant staggered axisymmetric spherical solution](../../examples/fishpack_spherical.rs) |
+| `slatec::differential_equations::pde::StaggeredCylindricalHelmholtz2d::solve` | `HSTCYL` | Curvilinear FISHPACK PDE | f32 | staggered cylindrical modified Helmholtz finite-difference solve | `std` | `fishpack-cylindrical-polar` | [manufactured constant staggered curvilinear solution](../../examples/fishpack_cylindrical_polar.rs) |
+| `slatec::differential_equations::pde::StaggeredPolarHelmholtz2d::solve` | `HSTPLR` | Curvilinear FISHPACK PDE | f32 | staggered polar Helmholtz finite-difference solve | `std` | `fishpack-cylindrical-polar` | [manufactured constant staggered curvilinear solution](../../examples/fishpack_cylindrical_polar.rs) |
+| `slatec::differential_equations::pde::StaggeredSphereSurfaceHelmholtz2d::solve` | `HSTSSP` | Curvilinear FISHPACK PDE | f32 | staggered unit-sphere surface Helmholtz finite-difference solve | `std` | `fishpack-spherical` | [manufactured constant staggered unit-sphere surface solution](../../examples/fishpack_spherical.rs) |
 | `slatec::fftpack::CosineTransformPlan::new` | `COSTI` | real FFTPACK | f32 | initialize a full cosine-transform plan | `std` | `fftpack-real` | [full cosine transform plan initialization](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::CosineTransformPlan::transform` | `COST` | real FFTPACK | f32 | compute the full FFTPACK cosine transform | `std` | `fftpack-real` | [full cosine transform](../../examples/fftpack/cosine_transform.rs) |
 | `slatec::fftpack::EasyRealFftPlan::backward` | `EZFFTB` | real FFTPACK | f32 | synthesize a real sequence from Fourier-series coefficients | `std` | `fftpack-real` | [easy real Fourier synthesis](../../examples/fftpack/real_fft.rs) |
@@ -449,7 +457,15 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `GAMIT` -> `slatec::special::gamma::tricomi_incomplete_gamma_f32`
 - `GAMMA` -> `slatec::special::gamma::gamma_f32`
 - `GAMR` -> `slatec::special::gamma::reciprocal_gamma_f32`
+- `HSTCSP` -> `slatec::differential_equations::pde::StaggeredAxisymmetricSphericalHelmholtz2d::solve`
+- `HSTCYL` -> `slatec::differential_equations::pde::StaggeredCylindricalHelmholtz2d::solve`
+- `HSTPLR` -> `slatec::differential_equations::pde::StaggeredPolarHelmholtz2d::solve`
+- `HSTSSP` -> `slatec::differential_equations::pde::StaggeredSphereSurfaceHelmholtz2d::solve`
 - `HWSCRT` -> `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
+- `HWSCSP` -> `slatec::differential_equations::pde::AxisymmetricSphericalHelmholtz2d::solve`
+- `HWSCYL` -> `slatec::differential_equations::pde::CylindricalHelmholtz2d::solve`
+- `HWSPLR` -> `slatec::differential_equations::pde::PolarHelmholtz2d::solve`
+- `HWSSSP` -> `slatec::differential_equations::pde::SphereSurfaceHelmholtz2d::solve`
 - `IDAMAX` -> `slatec::blas::level1::idamax`
 - `IDAMAX` -> `slatec::blas::level1::idamax_strided`
 - `ISAMAX` -> `slatec::blas::level1::isamax`
@@ -942,8 +958,16 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::constrained_least_squares::solve_constrained_least_squares_f32`
 - `slatec::dassl::DaeSession::<f32, F>::advance_to`
 - `slatec::dassl::DaeSession::<f64, F>::advance_to`
+- `slatec::differential_equations::pde::AxisymmetricSphericalHelmholtz2d::solve`
 - `slatec::differential_equations::pde::CartesianHelmholtz2d::solve`
+- `slatec::differential_equations::pde::CylindricalHelmholtz2d::solve`
 - `slatec::differential_equations::pde::Pois3dProblem::solve`
+- `slatec::differential_equations::pde::PolarHelmholtz2d::solve`
+- `slatec::differential_equations::pde::SphereSurfaceHelmholtz2d::solve`
+- `slatec::differential_equations::pde::StaggeredAxisymmetricSphericalHelmholtz2d::solve`
+- `slatec::differential_equations::pde::StaggeredCylindricalHelmholtz2d::solve`
+- `slatec::differential_equations::pde::StaggeredPolarHelmholtz2d::solve`
+- `slatec::differential_equations::pde::StaggeredSphereSurfaceHelmholtz2d::solve`
 - `slatec::fftpack::CosineTransformPlan::new`
 - `slatec::fftpack::CosineTransformPlan::transform`
 - `slatec::fftpack::EasyRealFftPlan::backward`

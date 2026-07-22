@@ -266,6 +266,20 @@ fishpack-pois3d = [
     "slatec-src/fishpack-pois3d",
 ]
 fishpack-pois3d-native-tests = ["fishpack-pois3d"]
+fishpack-cylindrical-polar = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-fishpack-general",
+    "slatec-src/fishpack-cylindrical-polar",
+]
+fishpack-cylindrical-polar-native-tests = ["fishpack-cylindrical-polar"]
+fishpack-spherical = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/raw-family-fishpack-general",
+    "slatec-src/fishpack-spherical",
+]
+fishpack-spherical-native-tests = ["fishpack-spherical"]
 banded-linear-systems = ["std", "blas-level1-validation", "slatec-sys/raw-family-banded-linear-systems", "slatec-src/banded-linear-systems"]
 banded-linear-systems-native-tests = ["banded-linear-systems"]
 pchip = [
@@ -303,6 +317,8 @@ native-serialization-tests = [
     "fftpack-complex-native-tests",
     "fishpack-cartesian-2d-native-tests",
     "fishpack-pois3d-native-tests",
+    "fishpack-cylindrical-polar-native-tests",
+    "fishpack-spherical-native-tests",
     "banded-linear-systems-native-tests",
     "pchip-native-tests",
     "bspline-native-tests",
@@ -397,7 +413,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = ["pchip", "bspline", "bspline-cubic-interpolation", "piecewise-polynomial", "tabulated-data"]
 optimize = ["optimization"]
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "approximation", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "approximation", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "fishpack-cylindrical-polar", "fishpack-spherical", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -602,6 +618,16 @@ required-features = ["fishpack-cartesian-2d"]
 name = "fishpack_pois3d"
 path = "examples/fishpack_pois3d.rs"
 required-features = ["fishpack-pois3d"]
+
+[[example]]
+name = "fishpack_cylindrical_polar"
+path = "examples/fishpack_cylindrical_polar.rs"
+required-features = ["fishpack-cylindrical-polar"]
+
+[[example]]
+name = "fishpack_spherical"
+path = "examples/fishpack_spherical.rs"
+required-features = ["fishpack-spherical"]
 
 [[example]]
 name = "banded_factor_and_solve"

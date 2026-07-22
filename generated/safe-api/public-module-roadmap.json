@@ -1,11 +1,11 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 271,
+  "safe_function_count": 279,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 211
+    "std": 219
   },
   "status_totals": {
     "Deferred": 3,

@@ -18,7 +18,7 @@
     "reviewed_public_subsidiaries": 0,
     "reviewed_user_callable_raw_drivers": 182,
     "runtime_tested_raw_routines": 777,
-    "safely_wrapped_routines": 210,
+    "safely_wrapped_routines": 224,
     "unclassified_routines": 0
   },
   "metric_definitions": {

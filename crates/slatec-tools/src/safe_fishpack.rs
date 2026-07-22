@@ -192,7 +192,8 @@ pub fn generate(
                 ],
                 "unresolved_external_dependencies":[],
                 "duplicate_definition_risk":"none in the reviewed narrow closure",
-                "deferred":["GENBUN public API","BLKTRI public API","POIS3D","polar/cylindrical/spherical/complex drivers"]
+                "deferred":["GENBUN public API","BLKTRI public API","complex drivers"],
+                "outside_this_cartesian_m1_scope":["POIS3D has its own structured-system facade","cylindrical and polar drivers have the fishpack-cylindrical-polar facade","unit-sphere and axisymmetric spherical drivers have the fishpack-spherical facade"]
             }),
         ),
         (
@@ -261,7 +262,8 @@ pub fn generate(
                 "singularity":"lambda=0 with each axis periodic or double-Neumann; HWSCRT subtracts PERTRB and returns a solution defined up to an additive constant",
                 "positive_lambda":"IERROR=6 is returned as an attempted-solve warning status because HWSCRT may not have a solution",
                 "runtime_policy":"SerializedGlobal via the existing process-wide native lock",
-                "deferred":["POIS3D","3D Cartesian","GENBUN public API","BLKTRI public API","polar","cylindrical","spherical","complex FISHPACK","generic PDE abstractions"]
+                "deferred":["3D Cartesian","GENBUN public API","BLKTRI public API","complex FISHPACK","generic PDE abstractions"],
+                "outside_this_cartesian_m1_scope":["POIS3D has its own structured-system facade","cylindrical and polar drivers have the fishpack-cylindrical-polar facade","unit-sphere and axisymmetric spherical drivers have the fishpack-spherical facade"]
             }),
         ),
         (

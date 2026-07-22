@@ -59,7 +59,7 @@ The former aggregate is retired because it conflated generated declarations, rev
 | Runtime-tested raw routines | 777 |
 | Fully documented raw routines | 821 |
 | Pre-existing family declarations pending R1 review | 1335 |
-| Safely wrapped routines | 210 |
+| Safely wrapped routines | 224 |
 | Explicitly excluded routines | 131 |
 | Unclassified routines | 0 |
 

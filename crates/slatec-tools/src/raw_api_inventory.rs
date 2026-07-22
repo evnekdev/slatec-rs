@@ -73,6 +73,19 @@ struct Correction {
     safe_wrapper_path: String,
 }
 
+/// Source-hash-guarded safe-facade evidence that does not imply a new raw
+/// declaration review.  This keeps the authoritative raw state distinct from
+/// the independently audited high-level workflow.
+#[derive(Clone, Debug)]
+struct SafeFacadeOverride {
+    routine: String,
+    source_hash: String,
+    safe_wrapper_path: String,
+    safe_facade_feature: String,
+    link_test_status: String,
+    runtime_test_status: String,
+}
+
 #[derive(Clone, Debug)]
 struct BlasReviewPolicy {
     source_manifest_sha256: String,
@@ -129,6 +142,7 @@ struct BulkPublic {
 #[derive(Clone, Debug)]
 struct Corrections {
     records: Vec<Correction>,
+    safe_facade_overrides: Vec<SafeFacadeOverride>,
     blas_policy: Option<BlasReviewPolicy>,
     special_foundations_policy: Option<SpecialFoundationsReviewPolicy>,
     airy_policy: Option<AiryReviewPolicy>,
@@ -142,7 +156,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let interfaces = interfaces(&paths.ffi_dir.join("interface-inventory.json"))?;
     let arguments = argument_names(&paths.ffi_inventory_dir.join("argument-index.json"))?;
     let safe_api_index = read_json(&paths.safe_api_dir.join("function-index.json"))?;
-    let _safe_api_records = records(&safe_api_index, "safe API function index")?;
+    let safe_api_records = records(&safe_api_index, "safe API function index")?;
     let corrections = corrections(paths.corrections_path)?;
     let batch_a = batch_a_candidates(&paths.output_dir.join("batch-a-candidates.json"))?;
     let batch_b = bulk_candidates(
@@ -193,6 +207,17 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
     let special_foundations_policy = corrections.special_foundations_policy;
     let airy_policy = corrections.airy_policy;
     let batch_d_policy = corrections.batch_d_policy;
+    let mut safe_facade_override_by_name = BTreeMap::new();
+    for override_record in corrections.safe_facade_overrides {
+        if safe_facade_override_by_name
+            .insert(override_record.routine.clone(), override_record)
+            .is_some()
+        {
+            return Err(policy(
+                "safe-facade overrides must contain one record per routine",
+            ));
+        }
+    }
     let mut correction_by_name = BTreeMap::new();
     for correction in corrections.records {
         if correction_by_name
@@ -224,6 +249,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             })
         });
         let correction = correction_by_name.get(&name);
+        let safe_facade_override = safe_facade_override_by_name.get(&name);
         let batch_a_public = batch_a.get(&name);
         let bulk_public = batch_b.get(&name).or_else(|| batch_c.get(&name));
         let batch_a_exclusion = batch_a_exclusions.get(&name);
@@ -246,6 +272,26 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             {
                 return Err(policy(&format!(
                     "raw-api correction for {name} names a different selected source file"
+                )));
+            }
+        }
+        if let Some(override_record) = safe_facade_override {
+            if override_record.source_hash != source_hash {
+                return Err(policy(&format!(
+                    "safe-facade override for {name} is guarded by {}, but catalogue selected {source_hash}",
+                    override_record.source_hash
+                )));
+            }
+            let found = safe_api_records.iter().any(|record| {
+                record.get("fortran_routine").and_then(Value::as_str) == Some(name.as_str())
+                    && record.get("rust_path").and_then(Value::as_str)
+                        == Some(override_record.safe_wrapper_path.as_str())
+                    && record.get("feature").and_then(Value::as_str)
+                        == Some(override_record.safe_facade_feature.as_str())
+            });
+            if !found {
+                return Err(policy(&format!(
+                    "safe-facade override for {name} does not match generated safe API metadata"
                 )));
             }
         }
@@ -434,6 +480,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             .unwrap_or_else(|| batch_status(interface, &validation, "runtime_status"));
         let safe_wrapper_status = correction
             .map(|item| item.safe_wrapper_path.clone())
+            .or_else(|| safe_facade_override.map(|item| item.safe_wrapper_path.clone()))
             .or_else(|| {
                 catalogue_record
                     .get("safe_api_paths")
@@ -521,6 +568,7 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "provider_feature": provider_feature,
             "safe_facade_feature": correction
                 .map(|_| safe_feature(&name, &facade_features))
+                .or_else(|| safe_facade_override.map(|item| item.safe_facade_feature.clone()))
                 .unwrap_or_else(|| "not_assigned".to_owned()),
             "documentation_status": documentation_status,
             "argument_documentation_status": argument_documentation_status,
@@ -532,6 +580,8 @@ pub fn generate(paths: RawApiPaths<'_>) -> Result<RawApiInventoryResult> {
             "runtime_test_status": runtime_test_status,
             "example_status": if is_reviewed && blas_api::level(&name).is_some() { "representative_raw_blas_examples".to_owned() } else if is_reviewed && special_foundations_api::group(&name).is_some() { "representative_raw_special_foundations_examples".to_owned() } else if is_reviewed && airy_api::is_real_driver(&name) { "representative_raw_airy_examples".to_owned() } else { example_status(catalogue_record) },
             "safe_wrapper_status": safe_wrapper_status,
+            "safe_facade_link_test_status": safe_facade_override.map(|item| item.link_test_status.clone()).unwrap_or_else(|| "not_recorded".to_owned()),
+            "safe_facade_runtime_test_status": safe_facade_override.map(|item| item.runtime_test_status.clone()).unwrap_or_else(|| "not_recorded".to_owned()),
             "public_raw_feasibility": feasibility,
             "exclusion_reason": exclusion_reason,
             "batch_a_exclusion_reason":batch_a_exclusion.map(|item| item.1.clone()).unwrap_or_else(|| "none".to_owned()),
@@ -798,6 +848,26 @@ fn corrections(path: &Path) -> Result<Corrections> {
             })
         })
         .collect::<Result<Vec<_>>>()?;
+    let safe_facade_overrides = value
+        .get("safe_facade_overrides")
+        .and_then(Value::as_array)
+        .map(|records| {
+            records
+                .iter()
+                .map(|record| {
+                    Ok(SafeFacadeOverride {
+                        routine: string(record, "routine")?,
+                        source_hash: string(record, "source_hash")?,
+                        safe_wrapper_path: string(record, "safe_wrapper_path")?,
+                        safe_facade_feature: string(record, "safe_facade_feature")?,
+                        link_test_status: string(record, "link_test_status")?,
+                        runtime_test_status: string(record, "runtime_test_status")?,
+                    })
+                })
+                .collect::<Result<Vec<_>>>()
+        })
+        .transpose()?
+        .unwrap_or_default();
     let blas_policy = value
         .get("family_reviews")
         .and_then(Value::as_array)
@@ -870,6 +940,7 @@ fn corrections(path: &Path) -> Result<Corrections> {
         .transpose()?;
     Ok(Corrections {
         records,
+        safe_facade_overrides,
         blas_policy,
         special_foundations_policy,
         airy_policy,
@@ -1376,6 +1447,13 @@ fn safe_feature(routine: &str, facade_features: &BTreeSet<String>) -> String {
         "fishpack-pois3d"
     } else if routine == "HWSCRT" {
         "fishpack-cartesian-2d"
+    } else if matches!(
+        routine,
+        "SDRIV1" | "DDRIV1" | "SDRIV2" | "DDRIV2" | "SDRIV3" | "DDRIV3" | "CDRIV1" | "CDRIV2"
+    ) {
+        "ode-sdrive-expert"
+    } else if matches!(routine, "SDASSL" | "DDASSL") {
+        "dassl"
     } else if matches!(routine, "FZERO" | "DFZERO") {
         "roots-scalar"
     } else if let Some(feature) = special_foundations_api::feature(routine) {
@@ -2763,6 +2841,8 @@ fn routine_page_status(record: &Value) -> String {
          - Link-test status: `{}`\n\
          - Runtime validation: `{runtime_validation}`\n\
          - Safe-wrapper status: `{}`\n\
+         - Safe-facade link test: `{}`\n\
+         - Safe-facade runtime test: `{}`\n\
          - Exclusion or deferment reason: `{}`\n\
          {ROUTINE_STATUS_END}",
         field(record, "canonical_rust_path"),
@@ -2773,6 +2853,8 @@ fn routine_page_status(record: &Value) -> String {
         field(record, "compile_test_status"),
         field(record, "link_test_status"),
         field(record, "safe_wrapper_status"),
+        field(record, "safe_facade_link_test_status"),
+        field(record, "safe_facade_runtime_test_status"),
         field(record, "exclusion_reason"),
     )
 }

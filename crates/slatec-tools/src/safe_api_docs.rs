@@ -814,6 +814,31 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             })
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/fishpack-cylindrical-polar-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            let path = column(row, columns, "safe_path")?;
+            Ok(FunctionRecord {
+                rust_path: path.to_owned(),
+                fortran_routine: column(row, columns, "raw_routine")?.to_owned(),
+                module: "slatec::differential_equations::pde".to_owned(),
+                domain: "Curvilinear FISHPACK PDE".to_owned(),
+                precision: column(row, columns, "precision")?.to_owned(),
+                purpose: column(row, columns, "mathematical_model")?.to_owned(),
+                capability: "std".to_owned(),
+                feature: column(row, columns, "feature")?.to_owned(),
+                native_profile: PROFILE.to_owned(),
+                documentation: format!(
+                    "https://docs.rs/slatec/latest/slatec/differential_equations/pde/{}",
+                    column(row, columns, "documentation")?
+                ),
+                example_file: column(row, columns, "example_file")?.to_owned(),
+                example_case: column(row, columns, "example_case")?.to_owned(),
+                inclusion_status: "safe_api_available".to_owned(),
+            })
+        },
+    )?;
     Ok(output)
 }
 
@@ -1144,6 +1169,13 @@ fn build_argument_maps(functions: &[FunctionRecord]) -> Result<Vec<MappingRecord
 fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let upper = name.to_ascii_uppercase();
     let fishpack = function.domain == "Cartesian FISHPACK PDE";
+    let curvilinear_fishpack = function.domain == "Curvilinear FISHPACK PDE";
+    let surface_spherical_fishpack =
+        curvilinear_fishpack && function.rust_path.contains("SphereSurface");
+    let axisymmetric_spherical_fishpack =
+        curvilinear_fishpack && function.rust_path.contains("AxisymmetricSpherical");
+    let spherical_fishpack = surface_spherical_fishpack || axisymmetric_spherical_fishpack;
+    let staggered_fishpack = curvilinear_fishpack && function.rust_path.contains("Staggered");
     let pois3d = function.domain == "Structured FISHPACK PDE";
     let internal = [
         "WORK", "IWORK", "LENW", "LAST", "NEVAL", "IER", "IFLAG", "RESULT", "ABSERR", "ALIST",
@@ -1163,6 +1195,11 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let polynomial_fit = function.domain == "polynomial fitting";
     let internal_argument = (internal.contains(&upper.as_str())
         || (fishpack
+            && matches!(
+                upper.as_str(),
+                "MBDCND" | "NBDCND" | "IDIMF" | "IERROR" | "W"
+            ))
+        || (curvilinear_fishpack
             && matches!(
                 upper.as_str(),
                 "MBDCND" | "NBDCND" | "IDIMF" | "IERROR" | "W"
@@ -1223,6 +1260,67 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
                 "private owned buffers derived from ThirdAxisOperator".to_owned()
             }
             "F" if pois3d => "owned Grid3 RHS overwritten with solution".to_owned(),
+            "A" if spherical_fishpack => "problem.colatitude.lower".to_owned(),
+            "B" if spherical_fishpack => "problem.colatitude.upper".to_owned(),
+            "TS" if axisymmetric_spherical_fishpack => "problem.colatitude.lower".to_owned(),
+            "TF" if axisymmetric_spherical_fishpack => "problem.colatitude.upper".to_owned(),
+            "M" if spherical_fishpack && staggered_fishpack => {
+                "problem.colatitude.points".to_owned()
+            }
+            "M" if spherical_fishpack => "problem.colatitude.panels".to_owned(),
+            "C" if axisymmetric_spherical_fishpack => "problem.radius.lower".to_owned(),
+            "D" if axisymmetric_spherical_fishpack => "problem.radius.upper".to_owned(),
+            "RS" if axisymmetric_spherical_fishpack => "problem.radius.lower".to_owned(),
+            "RF" if axisymmetric_spherical_fishpack => "problem.radius.upper".to_owned(),
+            "C" if surface_spherical_fishpack => "problem.longitude.lower".to_owned(),
+            "D" if surface_spherical_fishpack => "problem.longitude.upper".to_owned(),
+            "N" if axisymmetric_spherical_fishpack && staggered_fishpack => {
+                "problem.radius.points".to_owned()
+            }
+            "N" if axisymmetric_spherical_fishpack => "problem.radius.panels".to_owned(),
+            "N" if surface_spherical_fishpack && staggered_fishpack => {
+                "problem.longitude.points".to_owned()
+            }
+            "N" if surface_spherical_fishpack => "problem.longitude.panels".to_owned(),
+            "BDTS" | "BDTF" if axisymmetric_spherical_fishpack => {
+                "private colatitude derivative buffer".to_owned()
+            }
+            "BDRS" | "BDRF" if axisymmetric_spherical_fishpack => {
+                "private radial derivative buffer".to_owned()
+            }
+            "BDA" | "BDB" if axisymmetric_spherical_fishpack => {
+                "private colatitude boundary-data buffer".to_owned()
+            }
+            "BDC" | "BDD" if axisymmetric_spherical_fishpack => {
+                "private radial boundary-data buffer".to_owned()
+            }
+            "BDA" | "BDB" if surface_spherical_fishpack => {
+                "private colatitude boundary-data buffer".to_owned()
+            }
+            "BDC" | "BDD" if surface_spherical_fishpack => {
+                "private longitude boundary-data buffer".to_owned()
+            }
+            "A" if curvilinear_fishpack => "problem.radius.lower".to_owned(),
+            "B" if curvilinear_fishpack => "problem.radius.upper".to_owned(),
+            "M" if curvilinear_fishpack && staggered_fishpack => {
+                "problem.radius.points".to_owned()
+            }
+            "M" if curvilinear_fishpack => "problem.radius.panels".to_owned(),
+            "C" if curvilinear_fishpack => "problem.second_axis.lower".to_owned(),
+            "D" if curvilinear_fishpack => "problem.second_axis.upper".to_owned(),
+            "N" if curvilinear_fishpack && staggered_fishpack => {
+                "problem.second_axis.points".to_owned()
+            }
+            "N" if curvilinear_fishpack => "problem.second_axis.panels".to_owned(),
+            "BDA" | "BDB" if curvilinear_fishpack => {
+                "private radial derivative buffer from RadialBoundary".to_owned()
+            }
+            "BDC" | "BDD" if curvilinear_fishpack => {
+                "private second-coordinate derivative buffer from CoordinateBoundary".to_owned()
+            }
+            "ELMBDA" if curvilinear_fishpack => "problem.coefficient".to_owned(),
+            "F" if curvilinear_fishpack => "owned FishpackGrid2 RHS overwritten with solution".to_owned(),
+            "PERTRB" if curvilinear_fishpack => "result.perturbation".to_owned(),
             "A" if fishpack => "problem.x.lower".to_owned(),
             "B" if fishpack => "problem.x.upper".to_owned(),
             "M" if fishpack => "problem.x.intervals".to_owned(),
@@ -1676,6 +1774,15 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
         "polynomial fitting" => "crates/slatec/tests/polynomial_fit_native.rs",
         "Cartesian FISHPACK PDE" => "crates/slatec/tests/fishpack_cartesian_2d_native.rs",
         "Structured FISHPACK PDE" => "crates/slatec/tests/fishpack_pois3d_native.rs",
+        "Curvilinear FISHPACK PDE" if function.rust_path.contains("AxisymmetricSpherical") => {
+            "crates/slatec/src/differential_equations/pde/fishpack_axisymmetric_spherical.rs"
+        }
+        "Curvilinear FISHPACK PDE" if function.feature == "fishpack-spherical" => {
+            "crates/slatec/src/differential_equations/pde/fishpack_spherical.rs"
+        }
+        "Curvilinear FISHPACK PDE" => {
+            "crates/slatec/src/differential_equations/pde/fishpack_cylindrical_polar.rs"
+        }
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
         _ => "",
     }

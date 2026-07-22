@@ -21,6 +21,7 @@ pub mod extract;
 pub mod ffi_declaration_ownership;
 pub mod ffi_inventory;
 pub mod ffi_validation;
+pub mod fishpack_ode_dae_bulk;
 pub mod fixed_form;
 pub mod fortran_state;
 pub mod full_corpus;

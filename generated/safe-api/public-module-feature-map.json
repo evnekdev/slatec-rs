@@ -252,7 +252,21 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "fishpack-cylindrical-polar",
+      "grouped_paths": [
+        "differential_equations::pde"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "fishpack-pois3d",
+      "grouped_paths": [
+        "differential_equations::pde"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
+      "cargo_feature": "fishpack-spherical",
       "grouped_paths": [
         "differential_equations::pde"
       ],

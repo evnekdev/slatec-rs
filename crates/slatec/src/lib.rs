@@ -64,6 +64,10 @@ compile_error!("the `fftpack-complex` safe API requires the `std` feature");
 compile_error!("the `fishpack-cartesian-2d` safe API requires the `std` feature");
 #[cfg(all(feature = "fishpack-pois3d", not(feature = "std")))]
 compile_error!("the `fishpack-pois3d` safe API requires the `std` feature");
+#[cfg(all(feature = "fishpack-cylindrical-polar", not(feature = "std")))]
+compile_error!("the `fishpack-cylindrical-polar` safe API requires the `std` feature");
+#[cfg(all(feature = "fishpack-spherical", not(feature = "std")))]
+compile_error!("the `fishpack-spherical` safe API requires the `std` feature");
 #[cfg(all(feature = "pchip", not(feature = "std")))]
 compile_error!("the `pchip` safe API requires the `std` feature");
 #[cfg(all(feature = "bspline", not(feature = "std")))]
@@ -148,6 +152,8 @@ pub mod polynomials;
     feature = "fftpack-complex",
     feature = "fishpack-cartesian-2d",
     feature = "fishpack-pois3d",
+    feature = "fishpack-cylindrical-polar",
+    feature = "fishpack-spherical",
     feature = "banded-linear-systems",
     feature = "pchip",
     feature = "bspline",
@@ -194,7 +200,9 @@ pub mod native_lock_test_support {
 #[cfg(any(
     feature = "native-serialization-tests",
     feature = "fishpack-cartesian-2d-native-tests",
-    feature = "fishpack-pois3d-native-tests"
+    feature = "fishpack-pois3d-native-tests",
+    feature = "fishpack-cylindrical-polar-native-tests",
+    feature = "fishpack-spherical-native-tests"
 ))]
 #[doc(hidden)]
 pub mod native_serialization_test_support {

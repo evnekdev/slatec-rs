@@ -1,9 +1,13 @@
 //! Partial differential equations.
 //!
-//! The `fishpack-cartesian-2d` feature exposes a checked, owned facade over
-//! the selected single-precision FISHPACK `HWSCRT` driver.  It solves a
-//! constant-coefficient Cartesian Poisson/Helmholtz finite-difference problem
-//! on a uniform rectangular grid.  Other PDE families remain planned.
+//! The checked FISHPACK facades are feature-gated and own all native grids,
+//! boundary arrays, and workspaces.  `fishpack-cartesian-2d` exposes the
+//! centered Cartesian `HWSCRT` workflow, while
+//! `fishpack-cylindrical-polar` exposes centered and staggered cylindrical and
+//! polar workflows.  `fishpack-spherical` separately exposes unit-sphere
+//! surface and axisymmetric spherical theta--radius workflows.  The latter
+//! two mathematical models must not be confused: only the axisymmetric
+//! workflow retains a radial coordinate.
 
 #[cfg(feature = "fishpack-cartesian-2d")]
 mod fishpack_cartesian_2d {
@@ -1006,4 +1010,40 @@ mod fishpack_pois3d;
 pub use fishpack_pois3d::{
     CyclicAxisCoefficients, Grid3, Pois3dError, Pois3dProblem, ThirdAxisOperator,
     TransverseBoundary, TridiagonalAxisCoefficients,
+};
+
+#[cfg(any(feature = "fishpack-cylindrical-polar", feature = "fishpack-spherical"))]
+#[cfg_attr(not(feature = "fishpack-cylindrical-polar"), allow(dead_code))]
+mod fishpack_cylindrical_polar;
+
+#[cfg(any(feature = "fishpack-cylindrical-polar", feature = "fishpack-spherical"))]
+pub use fishpack_cylindrical_polar::{
+    CoordinateBoundary, CurvilinearPdeError, CurvilinearPdeSolution, FishpackGrid2,
+    NativeCurvilinearPdeStatus,
+};
+
+#[cfg(any(feature = "fishpack-cylindrical-polar", feature = "fishpack-spherical"))]
+pub use fishpack_cylindrical_polar::{RadialAxis, RadialBoundary, StaggeredRadialAxis};
+
+#[cfg(feature = "fishpack-cylindrical-polar")]
+pub use fishpack_cylindrical_polar::{
+    CoordinateAxis, CylindricalHelmholtz2d, PolarHelmholtz2d, StaggeredCoordinateAxis,
+    StaggeredCylindricalHelmholtz2d, StaggeredPolarHelmholtz2d,
+};
+
+#[cfg(feature = "fishpack-spherical")]
+mod fishpack_spherical;
+
+#[cfg(feature = "fishpack-spherical")]
+mod fishpack_axisymmetric_spherical;
+
+#[cfg(feature = "fishpack-spherical")]
+pub use fishpack_spherical::{
+    ColatitudeAxis, ColatitudeBoundary, LongitudeAxis, SphereSurfaceHelmholtz2d,
+    StaggeredColatitudeAxis, StaggeredLongitudeAxis, StaggeredSphereSurfaceHelmholtz2d,
+};
+
+#[cfg(feature = "fishpack-spherical")]
+pub use fishpack_axisymmetric_spherical::{
+    AxisymmetricSphericalHelmholtz2d, StaggeredAxisymmetricSphericalHelmholtz2d,
 };
