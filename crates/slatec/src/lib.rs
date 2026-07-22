@@ -4,9 +4,10 @@
 //! Safe, opt-in Rust facades over original SLATEC Fortran implementations.
 //!
 //! Numerical families target the validated GNU MinGW x86_64 ABI and require one
-//! backend. The canonical `bundled` feature is selected by default, but its
-//! generated source-level provenance gate currently blocks historical archive
-//! distribution before any compiler, cache, system directory, or network path
+//! backend. The canonical `bundled` feature is selected by default. On the
+//! supported GNU MinGW target it provides only families whose complete
+//! hash-verified source closure is in the published carrier; unavailable
+//! families fail before any compiler, cache, system directory, or network path
 //! is considered. `source-build` consumes a separately acquired verified cache;
 //! `system` and `external-backend` provide explicit integration escape hatches; see
 //! [`docs/api/family-features-and-backends.md`](https://github.com/evnekdev/slatec-rs/blob/master/docs/api/family-features-and-backends.md).

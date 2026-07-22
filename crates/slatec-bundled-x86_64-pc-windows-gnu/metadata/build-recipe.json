@@ -1,5 +1,6 @@
 {
   "archive_flags": "crsD",
+  "archive_model": "one accepted-source archive; family records share one archive only when their full exact source closure is present",
   "archiver": "GNU ar 2.43",
   "command": "cargo run -p slatec-tools --bin slatec-corpus -- build-bundled-provider --offline",
   "compile_flags": [
@@ -8,13 +9,13 @@
     "-std=legacy",
     "-ffixed-line-length-none",
     "-fno-ident",
-    "-frandom-seed=slatec-bundled-special-elementary",
+    "-frandom-seed=slatec-bundled-accepted-source-closure",
     "-c"
   ],
   "compiler": "GNU Fortran 14.2.0 / x86_64-w64-mingw32",
-  "family": "special-elementary",
+  "family": "accepted-source-closure",
   "schema_id": "slatec-rs/bundled-build-recipe",
-  "schema_version": "2.0.0",
+  "schema_version": "3.0.0",
   "source_verification": "SHA-256 against family-source-closure.json before every compilation",
   "target": "x86_64-pc-windows-gnu"
 }

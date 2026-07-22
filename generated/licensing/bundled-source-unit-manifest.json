@@ -1,11 +1,222 @@
 {
-  "family": "special-elementary",
+  "archive_model": "one accepted-source archive",
+  "family": "accepted-source-closure",
   "profile_sources": [
     "i1mach.f",
     "r1mach.f",
     "d1mach.f"
   ],
   "records": [
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/ai.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "ai.f",
+      "program_units": [
+        "AI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-c449749c2cbbae9c",
+      "selected_source_ids": [
+        "selected-source-c449749c2cbbae9c"
+      ],
+      "sha256": "8dc543ab36e7a79192f21e831ceab0ca83f48108640e3a271092ca02afa32e67",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/aie.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "aie.f",
+      "program_units": [
+        "AIE"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-5bafdd2feec85bcd",
+      "selected_source_ids": [
+        "selected-source-5bafdd2feec85bcd"
+      ],
+      "sha256": "3b2ba2c5e32081df6a0311c800fa27e9038fb264c3fa93bd2d88731ee4917553",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/albeta.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "albeta.f",
+      "program_units": [
+        "ALBETA"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-a6e0e36b1fdcd12e",
+      "selected_source_ids": [
+        "selected-source-a6e0e36b1fdcd12e"
+      ],
+      "sha256": "d27b27c086a52208978d685e903e562f3741ca1baf527287a230bd63e4ddabae",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/algams.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "algams.f",
+      "program_units": [
+        "ALGAMS"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-c99bae6c40b8b920",
+      "selected_source_ids": [
+        "selected-source-c99bae6c40b8b920"
+      ],
+      "sha256": "d5e6c14625a66fb91457692ef07c066108f7b808a7aace87ca301f1d847cc1d2",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/alngam.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "alngam.f",
+      "program_units": [
+        "ALNGAM"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-2e87c3a1a7e92d82",
+      "selected_source_ids": [
+        "selected-source-2e87c3a1a7e92d82"
+      ],
+      "sha256": "d2cc54236f1efa559175ad7e9d9f9b4f5d03630ec9b69801b047f414a7d96ede",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
     {
       "author_prologue": "C***AUTHOR  Fullerton, W., (LANL)",
       "bundle_eligible": true,
@@ -53,6 +264,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-1e3bed089a5c7353",
       "selected_source_ids": [
         "selected-source-1e3bed089a5c7353"
@@ -61,6 +273,216 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/beta.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "beta.f",
+      "program_units": [
+        "BETA"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-e3bf3183967f9916",
+      "selected_source_ids": [
+        "selected-source-e3bf3183967f9916"
+      ],
+      "sha256": "dbdf0d025ec445758aee5c3f96177967cb67c51bc68093237a84a054e1eca07c",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/betai.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "betai.f",
+      "program_units": [
+        "BETAI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-aa47e6af63d2f71c",
+      "selected_source_ids": [
+        "selected-source-aa47e6af63d2f71c"
+      ],
+      "sha256": "a6a36a9e8db44fb9e6b260f4fb76db093228412b5005a3dbe1b228a92bf52dd3",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/bi.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "bi.f",
+      "program_units": [
+        "BI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-ede456fffeb9c700",
+      "selected_source_ids": [
+        "selected-source-ede456fffeb9c700"
+      ],
+      "sha256": "0d36b8c2a4b0d1e8cccbf03bb794696dbcbd77151743c42e18d8c524022042cf",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/bie.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "bie.f",
+      "program_units": [
+        "BIE"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-49b27218bf8d18a4",
+      "selected_source_ids": [
+        "selected-source-49b27218bf8d18a4"
+      ],
+      "sha256": "601e7c7d581318a86a2791a82160b3df20ecbaf80fbb8c7fd06feb9c692445b1",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/binom.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "binom.f",
+      "program_units": [
+        "BINOM"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-d46728abb46de261",
+      "selected_source_ids": [
+        "selected-source-d46728abb46de261"
+      ],
+      "sha256": "8fb4db24e6efea9fe882fc79881368137bedecc9b03efbd5ac53b2b00a1b0554",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -112,6 +534,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-5ad0f482d1edfed6",
       "selected_source_ids": [
         "selected-source-5ad0f482d1edfed6"
@@ -171,6 +594,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-4a69af03648ecbfb",
       "selected_source_ids": [
         "selected-source-4a69af03648ecbfb"
@@ -179,6 +603,48 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/cot.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "cot.f",
+      "program_units": [
+        "COT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-3298283a10ab1532",
+      "selected_source_ids": [
+        "selected-source-3298283a10ab1532"
+      ],
+      "sha256": "c0de56c4514cb7ded4536a42c59547aded790e8664afa982934966c58725750a",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -230,6 +696,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-ffb49667980bd47d",
       "selected_source_ids": [
         "selected-source-ffb49667980bd47d"
@@ -238,6 +705,258 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/d9aimp.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "d9aimp.f",
+      "program_units": [
+        "D9AIMP"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-d52ff331d93b8b2a",
+      "selected_source_ids": [
+        "selected-source-d52ff331d93b8b2a"
+      ],
+      "sha256": "1345e66f3bf43d472a0efe6db181e808fde574e6eba2bdf7e7fb7b982b84d8dc",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/d9gmic.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "d9gmic.f",
+      "program_units": [
+        "D9GMIC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-10d6be2ed6e8727b",
+      "selected_source_ids": [
+        "selected-source-10d6be2ed6e8727b"
+      ],
+      "sha256": "7ac65b8416f80d3c66857db2a41e005ae067c4f014f7092a1345bcbfdadb3798",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/d9gmit.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "d9gmit.f",
+      "program_units": [
+        "D9GMIT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-e0d082148e467407",
+      "selected_source_ids": [
+        "selected-source-e0d082148e467407"
+      ],
+      "sha256": "dfcbc10a92272e056e3b73f9127cdc1bcca28d251cd1bbc57f0327ed0107bd12",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/d9lgic.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "d9lgic.f",
+      "program_units": [
+        "D9LGIC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-5d201631eec34617",
+      "selected_source_ids": [
+        "selected-source-5d201631eec34617"
+      ],
+      "sha256": "f3ca0aa39e53cd0b343d5f44a33e769f948c073cad9ddfc96a8659184da27823",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/d9lgit.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "d9lgit.f",
+      "program_units": [
+        "D9LGIT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-3d178f5691a211fc",
+      "selected_source_ids": [
+        "selected-source-3d178f5691a211fc"
+      ],
+      "sha256": "9136f897348bfb21397379d148f36a632e34478d34d565df63a102e979abc2d2",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/d9lgmc.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "d9lgmc.f",
+      "program_units": [
+        "D9LGMC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-4c7be8c3fd4aeead",
+      "selected_source_ids": [
+        "selected-source-4c7be8c3fd4aeead"
+      ],
+      "sha256": "0590ea082b0a5cf871a21018e11e88c4c541e1299ddc6cd4cdf7eadde9859fb3",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -289,6 +1008,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-794dcf0acfef9e77",
       "selected_source_ids": [
         "selected-source-794dcf0acfef9e77"
@@ -348,6 +1068,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-f5f1bf7a0160a2d7",
       "selected_source_ids": [
         "selected-source-f5f1bf7a0160a2d7"
@@ -356,6 +1077,90 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dai.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dai.f",
+      "program_units": [
+        "DAI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-ec2322ff630b8382",
+      "selected_source_ids": [
+        "selected-source-ec2322ff630b8382"
+      ],
+      "sha256": "fc72a4ad011c1cc6d87c9ffd9d9b966c8aba63247abc9f9270faf0a431984591",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/daie.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "daie.f",
+      "program_units": [
+        "DAIE"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-0deca9ef9fd2a2df",
+      "selected_source_ids": [
+        "selected-source-0deca9ef9fd2a2df"
+      ],
+      "sha256": "1bad910629a06477f40e3facb2a0f3b973c594a8f0f97dceb3cafecbe95b1c77",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -407,6 +1212,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-53d7a5b46de65f00",
       "selected_source_ids": [
         "selected-source-53d7a5b46de65f00"
@@ -415,6 +1221,216 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dbeta.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dbeta.f",
+      "program_units": [
+        "DBETA"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-5b546245f624a841",
+      "selected_source_ids": [
+        "selected-source-5b546245f624a841"
+      ],
+      "sha256": "8ed4b6aa906f054539b8f214da90b043ad5494b50718789336879d1b629d5d3f",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dbetai.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dbetai.f",
+      "program_units": [
+        "DBETAI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-2e4378db0ae698a2",
+      "selected_source_ids": [
+        "selected-source-2e4378db0ae698a2"
+      ],
+      "sha256": "64eaeb14a43c6ae2c49735c62f7b5c0dc8a64948a9865c74db77dbb890c3fe09",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dbi.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dbi.f",
+      "program_units": [
+        "DBI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-713faf3582449842",
+      "selected_source_ids": [
+        "selected-source-713faf3582449842"
+      ],
+      "sha256": "e0b8a985d1a843accf188b656e451db82739c021c219f1262da0489e3a85e751",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dbie.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dbie.f",
+      "program_units": [
+        "DBIE"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-361a75e20c7d4de9",
+      "selected_source_ids": [
+        "selected-source-361a75e20c7d4de9"
+      ],
+      "sha256": "41e70d0c060c5aa515322d4a7f55c5e41b13c4639690a9810802a718deafde9d",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dbinom.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dbinom.f",
+      "program_units": [
+        "DBINOM"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-547b04045de4df27",
+      "selected_source_ids": [
+        "selected-source-547b04045de4df27"
+      ],
+      "sha256": "04fde7af024d061cd84f67def99a9fe2cd6131e2d39770794080c0cec270abde",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -466,6 +1482,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-f7c2f72773df582e",
       "selected_source_ids": [
         "selected-source-f7c2f72773df582e"
@@ -525,6 +1542,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-9328d11396675be5",
       "selected_source_ids": [
         "selected-source-9328d11396675be5"
@@ -533,6 +1551,48 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dcot.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dcot.f",
+      "program_units": [
+        "DCOT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-1b524c5ae0da50d9",
+      "selected_source_ids": [
+        "selected-source-1b524c5ae0da50d9"
+      ],
+      "sha256": "5eef8c540370405f002b00eddf7f98237316a131775b5f7170e33984e16ec11e",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -584,6 +1644,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-e29e41489490bd88",
       "selected_source_ids": [
         "selected-source-e29e41489490bd88"
@@ -643,6 +1704,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-ea1981b04f846b72",
       "selected_source_ids": [
         "selected-source-ea1981b04f846b72"
@@ -651,6 +1713,174 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/de1.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "de1.f",
+      "program_units": [
+        "DE1"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-a6de0f79c8ce2602",
+      "selected_source_ids": [
+        "selected-source-a6de0f79c8ce2602"
+      ],
+      "sha256": "9be9b707a9a8f974eb283207f26deab7f53a31bcc1ae585cb03bd3b1598e288b",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dei.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dei.f",
+      "program_units": [
+        "DEI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-0bd2c16eae74799b",
+      "selected_source_ids": [
+        "selected-source-0bd2c16eae74799b"
+      ],
+      "sha256": "cab4235d827aaad4cebc1431961279c443fe000add61481464d64336e8bb97f3",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/derf.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "derf.f",
+      "program_units": [
+        "DERF"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-949871588e8240e1",
+      "selected_source_ids": [
+        "selected-source-949871588e8240e1"
+      ],
+      "sha256": "d3997603b1382bc2501b999dded3cd537990df465819c420101c143e2adce245",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/derfc.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "derfc.f",
+      "program_units": [
+        "DERFC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-1f796d0080f5eba3",
+      "selected_source_ids": [
+        "selected-source-1f796d0080f5eba3"
+      ],
+      "sha256": "789292ae72242e66d57d990ae77de4412e4311da1f4ca64b1a5826a0cb3b2359",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -702,6 +1932,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-d28f0088410e971d",
       "selected_source_ids": [
         "selected-source-d28f0088410e971d"
@@ -710,6 +1941,426 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dfac.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dfac.f",
+      "program_units": [
+        "DFAC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-bb821782393b89bf",
+      "selected_source_ids": [
+        "selected-source-bb821782393b89bf"
+      ],
+      "sha256": "a2791ba7fb11eb6a8b944bf6d0b09058427f4b06ea2ec4b1cac637aa6928947e",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dgami.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dgami.f",
+      "program_units": [
+        "DGAMI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-4476e54b1447464f",
+      "selected_source_ids": [
+        "selected-source-4476e54b1447464f"
+      ],
+      "sha256": "0c300d1996c66f30606df996c5758bade078387917bbd595c94ef66256dd3d58",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dgamic.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dgamic.f",
+      "program_units": [
+        "DGAMIC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-71722b011953db5e",
+      "selected_source_ids": [
+        "selected-source-71722b011953db5e"
+      ],
+      "sha256": "f019e031bb41a4bcb339a5fa98c1f801e41ba2c535606173a1d5d871c6acfe5d",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dgamit.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dgamit.f",
+      "program_units": [
+        "DGAMIT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-51bd3df02285cfdc",
+      "selected_source_ids": [
+        "selected-source-51bd3df02285cfdc"
+      ],
+      "sha256": "3e6588aa893cfd35c2b07966054d653090a0a5230aff1584b1bd0f8347c0025f",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dgamlm.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dgamlm.f",
+      "program_units": [
+        "DGAMLM"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-d274161a72e859e9",
+      "selected_source_ids": [
+        "selected-source-d274161a72e859e9"
+      ],
+      "sha256": "f392908f1fc8f0c3558a59d439936471714f5ecd26bf3957c9761c552103e3a3",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dgamma.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dgamma.f",
+      "program_units": [
+        "DGAMMA"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-565475439e0c4a2c",
+      "selected_source_ids": [
+        "selected-source-565475439e0c4a2c"
+      ],
+      "sha256": "6ed1d9ce1b8bb014e3736796d51c14709b2dd14fa789fd32fdc963ac90954426",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dgamr.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dgamr.f",
+      "program_units": [
+        "DGAMR"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-ac6dddb82f76b415",
+      "selected_source_ids": [
+        "selected-source-ac6dddb82f76b415"
+      ],
+      "sha256": "6e4ad8c03c1e2528b894d3c43d0be86044cb26b8ef9a4ef9aad0596492858ddd",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dlbeta.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dlbeta.f",
+      "program_units": [
+        "DLBETA"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-6ab1a696a9486260",
+      "selected_source_ids": [
+        "selected-source-6ab1a696a9486260"
+      ],
+      "sha256": "4550e206b3d6aefa0ef2f0e98a769287d34f68d10d6be46b29ec3f2a5292bfbc",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dlgams.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dlgams.f",
+      "program_units": [
+        "DLGAMS"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-22a9c94209a33a55",
+      "selected_source_ids": [
+        "selected-source-22a9c94209a33a55"
+      ],
+      "sha256": "beca401c91fed89b6d8b3588aa370c5b773daa57f6f2b639c2b1dfdfd50edaa7",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dlngam.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dlngam.f",
+      "program_units": [
+        "DLNGAM"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-7fab74c7284bedbd",
+      "selected_source_ids": [
+        "selected-source-7fab74c7284bedbd"
+      ],
+      "sha256": "0be36b841a0f5f3a966793ae33a13b4c8a9f64aaf5de3e957d3ece2da854bd3b",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -761,6 +2412,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-33e062e6c5111389",
       "selected_source_ids": [
         "selected-source-33e062e6c5111389"
@@ -769,6 +2421,48 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/dpsi.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "dpsi.f",
+      "program_units": [
+        "DPSI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-a2b5db982c8e6e61",
+      "selected_source_ids": [
+        "selected-source-a2b5db982c8e6e61"
+      ],
+      "sha256": "d92f9179612d49a56eda35349764905aa97e2c6564cb9079aa7296d16daee448",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -820,6 +2514,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-c9a62608746c2110",
       "selected_source_ids": [
         "selected-source-c9a62608746c2110"
@@ -828,6 +2523,174 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/e1.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "e1.f",
+      "program_units": [
+        "E1"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-ec4a307d222c980d",
+      "selected_source_ids": [
+        "selected-source-ec4a307d222c980d"
+      ],
+      "sha256": "7ef86325ce7d30b9cebf7e4cb214a14e94805443bad836cf7eeed7302b2db2ac",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/ei.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "ei.f",
+      "program_units": [
+        "EI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-685a17c032c45674",
+      "selected_source_ids": [
+        "selected-source-685a17c032c45674"
+      ],
+      "sha256": "1346549ffbcc4ef4e97c9e61315b6f4aa4f6447c1e189cc312c70e2f5db3ed09",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/erf.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "erf.f",
+      "program_units": [
+        "ERF"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-4a7340cfe6fd9647",
+      "selected_source_ids": [
+        "selected-source-4a7340cfe6fd9647"
+      ],
+      "sha256": "c63f326756672d49a7a87ba7897ef83fd4e38a8b8c79351f5197008563d34e6f",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/erfc.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "erfc.f",
+      "program_units": [
+        "ERFC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-994fe496ae7900a3",
+      "selected_source_ids": [
+        "selected-source-994fe496ae7900a3"
+      ],
+      "sha256": "8fc79bc57c551b3427bb0e3fdfa521f0d9e7dd8a31d89ad20e9addec92714496",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -879,6 +2742,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-c89507c7c4762651",
       "selected_source_ids": [
         "selected-source-c89507c7c4762651"
@@ -887,6 +2751,300 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/fac.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "fac.f",
+      "program_units": [
+        "FAC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-ddcfca193f51d84e",
+      "selected_source_ids": [
+        "selected-source-ddcfca193f51d84e"
+      ],
+      "sha256": "a85123d2c17ea7b63ec8c16ecde5c163a62f2ee1532366b9ba7cc9f950682a26",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/gami.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "gami.f",
+      "program_units": [
+        "GAMI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-792c3ca5a0e13180",
+      "selected_source_ids": [
+        "selected-source-792c3ca5a0e13180"
+      ],
+      "sha256": "3db222c1b3625d3d930e0e2098699aaef240fa2eba27812696d207e7960cc201",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/gamic.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "gamic.f",
+      "program_units": [
+        "GAMIC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-228aea8b8242993e",
+      "selected_source_ids": [
+        "selected-source-228aea8b8242993e"
+      ],
+      "sha256": "f5033c54790d20ac58106050bc19147081735ecdd268a9c417326a8450f2310a",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/gamit.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "gamit.f",
+      "program_units": [
+        "GAMIT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-d739f12cea73772e",
+      "selected_source_ids": [
+        "selected-source-d739f12cea73772e"
+      ],
+      "sha256": "485d8800df3f9d9c5765a08f9e5964ca9e5c97573807bb30350dee409c610192",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/gamlim.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "gamlim.f",
+      "program_units": [
+        "GAMLIM"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-7e3ebe4b48e21dee",
+      "selected_source_ids": [
+        "selected-source-7e3ebe4b48e21dee"
+      ],
+      "sha256": "5532270855f26bfda6bbc4149d54d55d43a06f501b3894c0e480650047e42edb",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/gamma.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "gamma.f",
+      "program_units": [
+        "GAMMA"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-8377bd12b8d2d8ab",
+      "selected_source_ids": [
+        "selected-source-8377bd12b8d2d8ab"
+      ],
+      "sha256": "37e90ccd9e8a6123dbaba335d53ef124fe39f18244bea11585d878a56e8dae53",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/gamr.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "gamr.f",
+      "program_units": [
+        "GAMR"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-467f7e743a8576aa",
+      "selected_source_ids": [
+        "selected-source-467f7e743a8576aa"
+      ],
+      "sha256": "677fd1b452d86312748893f36523155390f3f753474d07a0afb8b90dd03d16fd",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -938,6 +3096,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-f3de2d6b6fc09924",
       "selected_source_ids": [
         "selected-source-f3de2d6b6fc09924"
@@ -997,6 +3156,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-1030d7afc1353bb9",
       "selected_source_ids": [
         "selected-source-1030d7afc1353bb9"
@@ -1005,6 +3165,300 @@
       "source_subset": "fnlib",
       "stated_institutions": [
         "Los Alamos National Laboratory (LANL)"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/psi.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "psi.f",
+      "program_units": [
+        "PSI"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-163b890786462b51",
+      "selected_source_ids": [
+        "selected-source-163b890786462b51"
+      ],
+      "sha256": "02ed7daf7d9c886e3cf89f7781270b1e6cca235ef8e668ca78472c270acdde51",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/r9aimp.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "r9aimp.f",
+      "program_units": [
+        "R9AIMP"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-c262902eb3e322b8",
+      "selected_source_ids": [
+        "selected-source-c262902eb3e322b8"
+      ],
+      "sha256": "f5b55488dc1a3b0441c8ea573fd4216a7c7e5d0b56d8f5eb750527c1e84a3495",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/r9gmic.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "r9gmic.f",
+      "program_units": [
+        "R9GMIC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-7d529c1eec8a3a15",
+      "selected_source_ids": [
+        "selected-source-7d529c1eec8a3a15"
+      ],
+      "sha256": "a8e40eb48ed184d75f09df42d392c3ec39d7597e585a62de7e82851355b6c417",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/r9gmit.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "r9gmit.f",
+      "program_units": [
+        "R9GMIT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-6b1d5144e34b148a",
+      "selected_source_ids": [
+        "selected-source-6b1d5144e34b148a"
+      ],
+      "sha256": "a274473726fa27f822f84b0a36e4f2d9e264811620046aea62f3c3d3359bdf3f",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/r9lgic.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "r9lgic.f",
+      "program_units": [
+        "R9LGIC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-293877c2b0ad033c",
+      "selected_source_ids": [
+        "selected-source-293877c2b0ad033c"
+      ],
+      "sha256": "39123212e4efd007796c0f627d2f7ca9d8e1bc166053b6ae239eecab495b657f",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/r9lgit.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "r9lgit.f",
+      "program_units": [
+        "R9LGIT"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-fd617f0465e8d50b",
+      "selected_source_ids": [
+        "selected-source-fd617f0465e8d50b"
+      ],
+      "sha256": "7456a3102697712d64cd46f71a88fb24d8d642419939cb5c58fae9e1166c9855",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/fnlib/r9lgmc.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC-hosted FNLIB",
+      "path": "r9lgmc.f",
+      "program_units": [
+        "R9LGMC"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-f63a41779126bc41",
+      "selected_source_ids": [
+        "selected-source-f63a41779126bc41"
+      ],
+      "sha256": "d3b7975d61bd6d277ade5620a5d6d6235912b55bcd47ebc32adc6e6331c8b40c",
+      "source_subset": "fnlib",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -1056,6 +3510,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-e4538c4c265c8a3a",
       "selected_source_ids": [
         "selected-source-e4538c4c265c8a3a"
@@ -1115,6 +3570,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-b1d4e65885bb89bb",
       "selected_source_ids": [
         "selected-source-b1d4e65885bb89bb"
@@ -1174,6 +3630,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-d444fdc85ad2d8b3",
       "selected_source_ids": [
         "selected-source-d444fdc85ad2d8b3"
@@ -1184,6 +3641,48 @@
         "Los Alamos National Laboratory (LANL)"
       ],
       "third_party_incorporation_notes": "The fnlib subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/src/dfzero.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC main source archive",
+      "path": "src/dfzero.f",
+      "program_units": [
+        "DFZERO"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-be643c5a8720902c",
+      "selected_source_ids": [
+        "selected-source-be643c5a8720902c"
+      ],
+      "sha256": "a16fc8c6621f0e0e849d52316d9642b8b761464705ae60a31b0cbdc200755447",
+      "source_subset": "main-src",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
     },
     {
@@ -1233,6 +3732,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-37c1dbf0f41a4725",
       "selected_source_ids": [
         "selected-source-37c1dbf0f41a4725"
@@ -1241,6 +3741,48 @@
       "source_subset": "main-src",
       "stated_institutions": [
         "Sandia National Laboratories (SNLA)"
+      ],
+      "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/src/fzero.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC main source archive",
+      "path": "src/fzero.f",
+      "program_units": [
+        "FZERO"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-2a2ba76c90398aeb",
+      "selected_source_ids": [
+        "selected-source-2a2ba76c90398aeb"
+      ],
+      "sha256": "d3aa53f915058e74e22eec56cda0a338a7ca481854eb3686f2496da27e0450d3",
+      "source_subset": "main-src",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -1292,6 +3834,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-abab17e1d4c0a1a8",
       "selected_source_ids": [
         "selected-source-abab17e1d4c0a1a8"
@@ -1300,6 +3843,48 @@
       "source_subset": "main-src",
       "stated_institutions": [
         "Sandia National Laboratories (SNLA)"
+      ],
+      "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/src/xerclr.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC main source archive",
+      "path": "src/xerclr.f",
+      "program_units": [
+        "XERCLR"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-68f4cadb8076f09e",
+      "selected_source_ids": [
+        "selected-source-68f4cadb8076f09e"
+      ],
+      "sha256": "1e089eb2595d8e24d52a5375cafadfef43379d00e1e1e911f679b3604777e779",
+      "source_subset": "main-src",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -1351,6 +3936,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-34d2ab39a8d150a7",
       "selected_source_ids": [
         "selected-source-34d2ab39a8d150a7"
@@ -1410,6 +3996,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-10275ec90dd6e066",
       "selected_source_ids": [
         "selected-source-10275ec90dd6e066"
@@ -1469,6 +4056,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-273c06b35f95f85b",
       "selected_source_ids": [
         "selected-source-273c06b35f95f85b"
@@ -1528,6 +4116,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-84e03977dd3521a1",
       "selected_source_ids": [
         "selected-source-84e03977dd3521a1"
@@ -1587,6 +4176,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-60f744ba036ffdb7",
       "selected_source_ids": [
         "selected-source-60f744ba036ffdb7"
@@ -1595,6 +4185,48 @@
       "source_subset": "main-src",
       "stated_institutions": [
         "Sandia National Laboratories (SNLA)"
+      ],
+      "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/src/xgetf.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC main source archive",
+      "path": "src/xgetf.f",
+      "program_units": [
+        "XGETF"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-bb2d61d06785b38d",
+      "selected_source_ids": [
+        "selected-source-bb2d61d06785b38d"
+      ],
+      "sha256": "b0276ed9175ca664862fda5c298b32d05ef89531454c56052d9ad8968936e284",
+      "source_subset": "main-src",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
       ],
       "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
@@ -1646,6 +4278,7 @@
       ],
       "redistribution_classification": "explicit-public-domain",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution.",
+      "scope_approval_id": null,
       "selected_source_id": "selected-source-1fdae9155aa43140",
       "selected_source_ids": [
         "selected-source-1fdae9155aa43140"
@@ -1657,39 +4290,144 @@
       ],
       "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
       "unresolved_questions": []
+    },
+    {
+      "author_prologue": null,
+      "bundle_eligible": true,
+      "canonical_upstream_url": "https://www.netlib.org/slatec/src/xsetf.f",
+      "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
+      "evidence": [
+        {
+          "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
+          "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
+          "id": "slatec-v41-scalar-release-exact-source-scope",
+          "retrieved_on": "2026-07-22",
+          "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+          "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
+          "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html"
+        }
+      ],
+      "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
+      "manual_override_provenance": "manual-release-review-2026-07-22",
+      "named_authors": [],
+      "named_authors_status": "source-prologue-not-extracted-in-exact-scope-approval",
+      "originating_package": "SLATEC main source archive",
+      "path": "src/xsetf.f",
+      "program_units": [
+        "XSETF"
+      ],
+      "redistribution_classification": "explicit-public-domain",
+      "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
+      "scope_approval_id": "scalar-release-v41-public-domain-scope",
+      "selected_source_id": "selected-source-9be192a17f28e8b7",
+      "selected_source_ids": [
+        "selected-source-9be192a17f28e8b7"
+      ],
+      "sha256": "042e868c6ea1a9930fff9367a1742873ec1c1ad39603817fc7443ef2938deeff",
+      "source_subset": "main-src",
+      "stated_institutions": [
+        "National Institute of Standards and Technology (NIST)",
+        "National Technical Information Service (NTIS)",
+        "Netlib SLATEC Version 4.1 distribution index"
+      ],
+      "third_party_incorporation_notes": "The main-src subset is historical source provenance only. It is not treated as a grant covering incorporated third-party routines.",
+      "unresolved_questions": []
     }
   ],
   "schema_id": "slatec-rs/bundled-source-unit-manifest",
   "schema_version": "2.0.0",
   "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
   "source_ids": [
+    "selected-source-0bd2c16eae74799b",
+    "selected-source-0deca9ef9fd2a2df",
     "selected-source-10275ec90dd6e066",
     "selected-source-1030d7afc1353bb9",
+    "selected-source-10d6be2ed6e8727b",
+    "selected-source-163b890786462b51",
+    "selected-source-1b524c5ae0da50d9",
     "selected-source-1e3bed089a5c7353",
+    "selected-source-1f796d0080f5eba3",
     "selected-source-1fdae9155aa43140",
+    "selected-source-228aea8b8242993e",
+    "selected-source-22a9c94209a33a55",
     "selected-source-273c06b35f95f85b",
+    "selected-source-293877c2b0ad033c",
+    "selected-source-2a2ba76c90398aeb",
+    "selected-source-2e4378db0ae698a2",
+    "selected-source-2e87c3a1a7e92d82",
+    "selected-source-3298283a10ab1532",
     "selected-source-33e062e6c5111389",
     "selected-source-34d2ab39a8d150a7",
+    "selected-source-361a75e20c7d4de9",
     "selected-source-37c1dbf0f41a4725",
+    "selected-source-3d178f5691a211fc",
+    "selected-source-4476e54b1447464f",
+    "selected-source-467f7e743a8576aa",
+    "selected-source-49b27218bf8d18a4",
     "selected-source-4a69af03648ecbfb",
+    "selected-source-4a7340cfe6fd9647",
+    "selected-source-4c7be8c3fd4aeead",
+    "selected-source-51bd3df02285cfdc",
     "selected-source-53d7a5b46de65f00",
+    "selected-source-547b04045de4df27",
+    "selected-source-565475439e0c4a2c",
     "selected-source-5ad0f482d1edfed6",
+    "selected-source-5b546245f624a841",
+    "selected-source-5bafdd2feec85bcd",
+    "selected-source-5d201631eec34617",
     "selected-source-60f744ba036ffdb7",
+    "selected-source-685a17c032c45674",
+    "selected-source-68f4cadb8076f09e",
+    "selected-source-6ab1a696a9486260",
+    "selected-source-6b1d5144e34b148a",
+    "selected-source-713faf3582449842",
+    "selected-source-71722b011953db5e",
+    "selected-source-792c3ca5a0e13180",
     "selected-source-794dcf0acfef9e77",
+    "selected-source-7d529c1eec8a3a15",
+    "selected-source-7e3ebe4b48e21dee",
+    "selected-source-7fab74c7284bedbd",
+    "selected-source-8377bd12b8d2d8ab",
     "selected-source-84e03977dd3521a1",
     "selected-source-9328d11396675be5",
+    "selected-source-949871588e8240e1",
+    "selected-source-994fe496ae7900a3",
+    "selected-source-9be192a17f28e8b7",
+    "selected-source-a2b5db982c8e6e61",
+    "selected-source-a6de0f79c8ce2602",
+    "selected-source-a6e0e36b1fdcd12e",
+    "selected-source-aa47e6af63d2f71c",
     "selected-source-abab17e1d4c0a1a8",
+    "selected-source-ac6dddb82f76b415",
     "selected-source-b1d4e65885bb89bb",
+    "selected-source-bb2d61d06785b38d",
+    "selected-source-bb821782393b89bf",
+    "selected-source-be643c5a8720902c",
+    "selected-source-c262902eb3e322b8",
+    "selected-source-c449749c2cbbae9c",
     "selected-source-c89507c7c4762651",
+    "selected-source-c99bae6c40b8b920",
     "selected-source-c9a62608746c2110",
+    "selected-source-d274161a72e859e9",
     "selected-source-d28f0088410e971d",
     "selected-source-d444fdc85ad2d8b3",
+    "selected-source-d46728abb46de261",
+    "selected-source-d52ff331d93b8b2a",
+    "selected-source-d739f12cea73772e",
+    "selected-source-ddcfca193f51d84e",
+    "selected-source-e0d082148e467407",
     "selected-source-e29e41489490bd88",
+    "selected-source-e3bf3183967f9916",
     "selected-source-e4538c4c265c8a3a",
     "selected-source-ea1981b04f846b72",
+    "selected-source-ec2322ff630b8382",
+    "selected-source-ec4a307d222c980d",
+    "selected-source-ede456fffeb9c700",
     "selected-source-f3de2d6b6fc09924",
     "selected-source-f5f1bf7a0160a2d7",
+    "selected-source-f63a41779126bc41",
     "selected-source-f7c2f72773df582e",
+    "selected-source-fd617f0465e8d50b",
     "selected-source-ffb49667980bd47d"
   ]
 }

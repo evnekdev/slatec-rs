@@ -11,17 +11,37 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `tabulated-data`, and `approximation-polynomial-fitting`.
 Numerical families require exactly one backend: `bundled`, `source-build`,
 `system`, or `external-backend`. `bundled` is the canonical default feature.
-On `x86_64-pc-windows-gnu`, `special-elementary` is available from the first
-hash-verified compiler-free carrier; it needs no GFortran, source cache,
-system archive, or build-script network access. Other bundled families remain
-provenance-blocked and fail precisely rather than falling back. `source-build`
-is offline-only and consumes a separately acquired, SHA-256-verified cache;
+On `x86_64-pc-windows-gnu`, the crates.io carrier provides
+`special-elementary`, `special-gamma`, `special-beta`, `special-error`,
+`special-integrals`, `special-polynomials`, `special-airy`, and `roots-scalar`
+without GFortran, a source cache, system archive, or build-script network
+access. The carrier is one hash-verified accepted-source archive with reduced
+static GNU runtime closures; its package includes exact runtime licences and
+relinking instructions. Families outside the generated exact source set remain
+blocked and fail precisely rather than falling back. `source-build` is
+offline-only and consumes a separately acquired, SHA-256-verified cache;
 ordinary Cargo builds never download SLATEC source from `build.rs`.
 
 The safe Rust layer is `no_std`. `alloc` is an independent capability and does
 not require `std`; `std` enables `alloc`. The current GNU MinGW native backend
 is hosted and runtime-validated, not a bare-metal backend. See
 [`docs/api/family-features-and-backends.md`](docs/api/family-features-and-backends.md).
+
+## Quick start: compiler-free special functions
+
+On the supported `x86_64-pc-windows-gnu` target, ordinary consumers need only
+select the safe family. The default `bundled` provider resolves the published
+carrier and never invokes GFortran:
+
+```toml
+[dependencies]
+slatec = { version = "0.1", features = ["special-elementary"] }
+```
+
+Families not named above intentionally remain unavailable from `bundled` until
+their complete source closure has an accepted provenance record. Choose the
+offline `source-build`, `system`, or `external-backend` provider explicitly
+when integrating those families.
 
 Workspace skeleton for Rust bindings and safe wrappers around selected SLATEC numerical routines.
 

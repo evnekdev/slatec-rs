@@ -1,0 +1,639 @@
+{
+  "columns": [
+    "family",
+    "closure_size",
+    "already_accepted",
+    "newly_accepted",
+    "still_unresolved",
+    "runtime_closure",
+    "bundle_action",
+    "archive"
+  ],
+  "policy": "A family is bundled only when its complete exact source closure is accepted and present in the carrier receipt. Source-cache absence is a build blocker, not an implicit provenance approval.",
+  "records": [
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 89,
+      "family": "approximation-core",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 81
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 18,
+      "family": "banded-linear-systems",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 18
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 3,
+      "family": "blas-complex",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 3
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 79,
+      "family": "blas-level1",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 71
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 59,
+      "family": "blas-level2",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 51
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 31,
+      "family": "blas-level3",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 23
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 24,
+      "family": "bspline",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 14
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 42,
+      "family": "dassl",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 32
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 13,
+      "family": "fftpack-complex",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 13
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 45,
+      "family": "fftpack-extended-real",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 45
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 32,
+      "family": "fftpack-real",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 32
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 11,
+      "family": "fishpack-cartesian-2d",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 11
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 34,
+      "family": "fishpack-complex",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 26
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 16,
+      "family": "fishpack-cylindrical-polar",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 16
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 80,
+      "family": "fishpack-general",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 72
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 32,
+      "family": "fishpack-pois3d",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 32
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 43,
+      "family": "fishpack-spherical",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 35
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 78,
+      "family": "interpolation-general",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 70
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 20,
+      "family": "least-squares-covariance",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 10
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 35,
+      "family": "least-squares-linear-bounded",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 25
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 41,
+      "family": "least-squares-linear-bounded-constrained",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 31
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 52,
+      "family": "least-squares-linear-constrained",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 42
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 42,
+      "family": "least-squares-linear-nonnegative",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 34
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 28,
+      "family": "least-squares-nonlinear-easy",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 18
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 26,
+      "family": "least-squares-nonlinear-expert",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 16
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 81,
+      "family": "linear-algebra-complex",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 73
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 86,
+      "family": "linear-algebra-eigen",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 78
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 266,
+      "family": "linear-algebra-real",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 258
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 18,
+      "family": "nonlinear-complex",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 10
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 26,
+      "family": "nonlinear-easy",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 18
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 24,
+      "family": "nonlinear-expert",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 16
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 10,
+      "family": "nonlinear-jacobian",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 2
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 10,
+      "family": "nonlinear-jacobian-check",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 2
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 14,
+      "family": "nonlinear-systems",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 6
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 2,
+      "family": "ode-integration",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 2
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 73,
+      "family": "ode-sdrive-expert",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 63
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 61,
+      "family": "optimization-linear-programming-in-memory",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 51
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 24,
+      "family": "pchip",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 16
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 24,
+      "family": "piecewise-polynomial",
+      "newly_accepted": 2,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 14
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 50,
+      "family": "quadrature-basic",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 42
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 18,
+      "family": "quadrature-breakpoints",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 10
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 12,
+      "family": "quadrature-callbacks",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 4
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 22,
+      "family": "quadrature-direct",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 14
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 32,
+      "family": "quadrature-fourier",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 24
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 12,
+      "family": "quadrature-nonadaptive",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 4
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 26,
+      "family": "quadrature-oscillatory",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 18
+    },
+    {
+      "already_accepted": 8,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 24,
+      "family": "quadrature-weighted",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 16
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "no_selected_source_closure",
+      "closure_size": 0,
+      "family": "roots-polynomial",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 8,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 10,
+      "family": "roots-scalar",
+      "newly_accepted": 2,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 12,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 22,
+      "family": "special-airy",
+      "newly_accepted": 10,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 12,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 38,
+      "family": "special-bessel",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 26
+    },
+    {
+      "already_accepted": 14,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 28,
+      "family": "special-beta",
+      "newly_accepted": 14,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 14,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 76,
+      "family": "special-complex",
+      "newly_accepted": 4,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 58
+    },
+    {
+      "already_accepted": 28,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 28,
+      "family": "special-elementary",
+      "newly_accepted": 0,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 12,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 16,
+      "family": "special-error",
+      "newly_accepted": 4,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 14,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 51,
+      "family": "special-gamma",
+      "newly_accepted": 37,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 12,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 16,
+      "family": "special-integrals",
+      "newly_accepted": 4,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 10,
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
+      "closure_size": 10,
+      "family": "special-polynomials",
+      "newly_accepted": 0,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
+    },
+    {
+      "already_accepted": 16,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 205,
+      "family": "special-real",
+      "newly_accepted": 25,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 164
+    },
+    {
+      "already_accepted": 12,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 30,
+      "family": "special-scalar-expanded",
+      "newly_accepted": 6,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 12
+    },
+    {
+      "already_accepted": 0,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 9,
+      "family": "statistics-core",
+      "newly_accepted": 0,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 9
+    },
+    {
+      "already_accepted": 12,
+      "archive": null,
+      "bundle_action": "blocked_by_source_provenance",
+      "closure_size": 120,
+      "family": "unclassified",
+      "newly_accepted": 4,
+      "runtime_closure": "not_bundled",
+      "still_unresolved": 104
+    }
+  ],
+  "schema_id": "slatec-rs/bundle-family-matrix",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "target": "x86_64-pc-windows-gnu"
+}

@@ -1,16 +1,18 @@
 # Target-specific SLATEC bundled-provider carrier
 
-This crate carries only target-specific native-provider artifacts for
-`x86_64-pc-windows-gnu`; it exposes no numerical Rust API.
+This crates.io package carries only target-specific native-provider artifacts
+for `x86_64-pc-windows-gnu`; it exposes no numerical Rust API. Depend on
+`slatec` (or, for an expert provider selection, `slatec-src`), not on this
+carrier directly.
 
-It currently contains the deterministic `special-elementary` SLATEC archive,
-the exact static GNU runtime closure required by the reviewed final consumer,
-and generated checksums, source-unit manifest, build recipe, compiler receipt,
-symbol/runtime audits, SPDX SBOM, and redistribution notices. It does not
-contain source caches, object intermediates, executables, or logs.
+The carrier packages one deterministic accepted-source archive. Individual
+families are available only when their entire hash-pinned closure is present;
+ordinary static linking still extracts only referenced native objects. The
+current receipt identifies the available families, checksums, compiler recipe,
+source-unit manifest, symbol/runtime audits, SPDX SBOM, and notices.
 
-The carrier is usable only when `metadata/bundle-manifest.json` is `ready` and
-every recorded checksum verifies. Other source families remain unavailable with
-the bundled provider until their own hash-guarded provenance closure is
-cleared. See `generated/licensing/` in the workspace for the source-level
-evidence and runtime obligations.
+Reduced static `libgfortran` and `libquadmath` closures are included only when
+their required members are recorded. Exact GNU licence texts, source locations,
+and replacement/relink instructions live in
+`metadata/runtime-licenses/`. The package contains no source cache, object
+intermediates, executables, or compiler logs.

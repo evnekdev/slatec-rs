@@ -2,6 +2,10 @@
   "coordinated_version": "0.1.0",
   "dependency_edges": [
     {
+      "dependency": "slatec-bundled-x86_64-pc-windows-gnu",
+      "dependent": "slatec-src"
+    },
+    {
       "dependency": "slatec-core",
       "dependent": "slatec"
     },
@@ -20,17 +24,22 @@
   ],
   "links_owners": [
     {
+      "crate": "slatec-bundled-x86_64-pc-windows-gnu",
+      "links": "slatec_bundled_x86_64_pc_windows_gnu"
+    },
+    {
       "crate": "slatec-src",
       "links": "slatec"
     }
   ],
   "publication_layers": [
     [
-      "slatec-src",
+      "slatec-bundled-x86_64-pc-windows-gnu",
       "slatec-sys"
     ],
     [
-      "slatec-core"
+      "slatec-core",
+      "slatec-src"
     ],
     [
       "slatec"
@@ -38,6 +47,7 @@
   ],
   "publishable_crates": [
     "slatec",
+    "slatec-bundled-x86_64-pc-windows-gnu",
     "slatec-core",
     "slatec-src",
     "slatec-sys"

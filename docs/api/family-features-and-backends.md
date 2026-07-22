@@ -71,10 +71,13 @@ mutability, and leading-dimension rules. See the
 Exactly one backend must be selected whenever a numerical family is enabled.
 
 - `bundled` is the canonical default feature. On `x86_64-pc-windows-gnu`, its
-  target-specific carrier supplies `special-elementary` without a compiler,
-  source cache, system archive, or network access. Every other family remains
-  source-provenance-blocked and fails clearly instead of falling back to another
-  provider.
+  crates.io target carrier supplies `special-elementary`, `special-gamma`,
+  `special-beta`, `special-error`, `special-integrals`,
+  `special-polynomials`, `special-airy`, and `roots-scalar` without a compiler,
+  source cache, system archive, or network access. It uses one exact
+  accepted-source archive, so ordinary static linking still extracts only
+  referenced objects. Every other family remains source-provenance-blocked and
+  fails clearly instead of falling back to another provider.
 - `source-build` compiles from `SLATEC_SOURCE_CACHE` and never accesses the
   network. Populate that cache explicitly with
   `slatec-corpus acquire-provider-sources`; the build fails with the exact
@@ -106,11 +109,14 @@ set SLATEC_SOURCE_CACHE=evidence/provider-sources
 cargo build --offline --no-default-features --features std,source-build,special-gamma --target x86_64-pc-windows-gnu
 ```
 
-The source build statically links `libgfortran` and `libquadmath`. The first
-bundled carrier also carries its audited static runtime closure: the tested
-clean consumer has no GNU runtime DLL imports. Static `libquadmath` carries
-LGPL source/relinking obligations and `libgfortran` carries its GPL/GCC Runtime
-Library Exception notice; see `generated/licensing/` and the carrier metadata.
+The source build statically links `libgfortran` and `libquadmath`. The bundled
+carrier carries audited reduced static closures: the tested clean consumer has
+no GNU runtime DLL imports. `libquadmath` is retained only because
+`libgfortran` formatted-write members require `quadmath_snprintf`, not because
+the SLATEC archive references it directly. Its LGPL source/relinking material
+and the `libgfortran` GPL/GCC Runtime Library Exception material are packaged
+under the carrier's `metadata/runtime-licenses/`; see `generated/licensing/`
+and the carrier metadata.
 
 ## Static retention
 

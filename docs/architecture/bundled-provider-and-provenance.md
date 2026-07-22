@@ -7,23 +7,28 @@ Fortran compiler, or searches a system archive.
 
 ## Current supported bundle
 
-`x86_64-pc-windows-gnu` ships one reviewed compiler-free native family:
-`special-elementary`. A normal user can select it with:
+`x86_64-pc-windows-gnu` ships a crates.io-publishable compiler-free carrier.
+Its exact accepted-source archive currently supports `special-elementary`,
+`special-gamma`, `special-beta`, `special-error`, `special-integrals`,
+`special-polynomials`, `special-airy`, and `roots-scalar`. A normal user can
+select it with:
 
 ```toml
 [dependencies]
 slatec = { version = "0.1", features = ["special-elementary"] }
 ```
 
-Its deterministic archive contains 28 hash-pinned historical SLATEC units and
-the three project-owned GNU MinGW machine-profile units. It has a unique
-family archive instead of one broad archive, so enabling a later family does
-not make this first archive a hidden implementation root. All other families
-remain unavailable with `bundled` until their entire closure is accepted.
+Its deterministic archive contains the union of every fully accepted
+hash-pinned historical closure and the three project-owned GNU MinGW
+machine-profile units. Family eligibility remains exact: the archive is
+advertised only when a feature's complete source closure is present. This
+avoids duplicate objects while preserving ordinary static-linker member
+extraction. All other families remain unavailable with `bundled` until their
+entire closure is accepted.
 
 | Mode | Compiler | Source cache | System archive | Current status |
 | --- | --- | --- | --- | --- |
-| `bundled` | Never | Never | Never | `special-elementary` on `x86_64-pc-windows-gnu` |
+| `bundled` | Never | Never | Never | Eight reviewed scalar/roots families on `x86_64-pc-windows-gnu` |
 | `source-build` | GNU Fortran | Required, verified | No | Expert provider |
 | `system` | No | No | Explicitly supplied | Expert provider |
 | `external-backend` | No | No | Caller-managed | Emits no link directives |
@@ -42,12 +47,14 @@ The authoritative reviewed inputs are:
   source ID, exact SHA-256, author/institution prologue evidence, classification,
   governing notice, conditions, and evidence references.
 
-The elementary clearance relies on express public-domain statements by NIST
-and NTIS, plus Netlib's Version 4.1 index that identifies the selected `src`
-and `fnlib` units as SLATEC subsets. It is **not** inferred from hosting,
+The scalar release clearance relies on express public-domain statements by
+NIST and NTIS, plus Netlib's Version 4.1 index that identifies the selected
+`src` and `fnlib` units as SLATEC subsets. It is **not** inferred from hosting,
 government sponsorship, or a laboratory name. Every accepted record is
-hash-bound; an unknown ID, changed hash, incomplete accepted record, missing
-evidence, or evidence whose source scope omits the record is rejected.
+hash-bound; the widened release scope records the exact source-family union,
+unit count, and deterministic source-set hash. An unknown ID, changed hash,
+incomplete accepted record, missing evidence, or scope-hash mismatch is
+rejected.
 
 The classification vocabulary is finite:
 
@@ -61,10 +68,9 @@ The classification vocabulary is finite:
 - `excluded-from-bundle`
 
 The first five may be accepted only with complete source-specific review data.
-The other three cannot enter an archive. Current generated counts are 28
-`explicit-public-domain`, 903 `unresolved-authorship`, and 356
-`unresolved-rights`; unresolved units remain blocked even though one family is
-now available.
+The other three cannot enter an archive. Current generated counts are derived
+from the committed source-hash records; unresolved units remain blocked even
+though several scalar families are available.
 
 ## Reproducible build and carrier contents
 
@@ -85,13 +91,14 @@ builds a clean consumer with cache/system settings absent and an invalid
 `SLATEC_GFORTRAN`, runs it, compares its rendered result with `source-build`,
 and audits imported DLLs. It never performs network access.
 
-The target carrier includes its family archive, the required static
-`libgfortran` and `libquadmath` archives, checksums, source-unit manifest,
-build recipe, compiler receipt, archive/runtime audits, SPDX SBOM, third-party
-notices, and redistribution notice. `libquadmath` is included because the
-reviewed final Rust GNU consumer link requires `quadmath_snprintf`, not because
-the SLATEC archive references it. The recorded clean consumer imports no
-`libgfortran` or `libquadmath` DLL.
+The target carrier includes its accepted-source archive, reduced static
+`libgfortran` and `libquadmath` member closures, checksums, source-unit
+manifest, build recipe, compiler receipt, archive/runtime audits, SPDX SBOM,
+third-party notices, redistribution notice, exact runtime licence texts, and
+source/relink instructions. `libquadmath` is included because `libgfortran`
+formatted-write members require `quadmath_snprintf`, not because the SLATEC
+archive references it. The recorded clean consumer imports no `libgfortran` or
+`libquadmath` DLL.
 
 The runtime archives retain their upstream obligations: `libgfortran` is
 recorded as GPL-3.0 with GCC Runtime Library Exception; `libquadmath` is
@@ -100,6 +107,7 @@ information must travel with a distribution. This is a provenance record, not
 legal advice.
 
 Generated evidence lives in `generated/licensing/`, and the target carrier
-contains the package-ready copies under `metadata/`. The carrier remains
-`publish = false` until a separate publication review; no crate or tag is
-published by the build workflow.
+contains the package-ready copies under `metadata/`. The carrier is publishable
+and is a target dependency of `slatec-src`; package and local-registry
+simulation validate that route. No crate or tag is published by the build
+workflow.
