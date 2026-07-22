@@ -4,7 +4,7 @@
   "result": "pass",
   "schema_id": "slatec-rs.eol-audit",
   "schema_version": "1.1.0",
-  "tracked_text_files": 3570,
+  "tracked_text_files": 3587,
   "violation_count": 0,
   "violations": []
 }

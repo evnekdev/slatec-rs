@@ -70,6 +70,7 @@ pub mod safe_ode_sdrive;
 pub mod safe_pchip;
 pub mod safe_piecewise_polynomial;
 pub mod safe_pois3d;
+pub mod safe_polynomial_fit;
 pub mod safe_quadrature;
 pub mod safe_roots;
 pub mod safe_special;

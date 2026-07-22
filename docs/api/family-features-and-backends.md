@@ -21,6 +21,7 @@ routine.
 | Cartesian PDE | `fishpack-cartesian-2d`, `fishpack-general`, `fishpack-complex` |
 | Structured 3D FISHPACK system | `fishpack-pois3d` |
 | `optimization` | `optimization-linear-programming-in-memory` |
+| Polynomial approximation and fitting | `approximation-polynomial-fitting`, with raw/provider closure `approximation-core` |
 | `least-squares` | `least-squares-nonlinear-easy`, `least-squares-nonlinear-expert`, `least-squares-covariance`, `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, `least-squares-linear-bounded-constrained` |
 | Tabulated interpolation | `tabulated-data`, with raw/provider closures `interpolation-general` and `quadrature-direct` |
 | Cubic B-spline interpolation | `bspline-cubic-interpolation`, which adds the `interpolation-general` provider closure to `bspline` |
@@ -32,6 +33,11 @@ double-complex or general polynomial-analysis API.
 The optimization alias is deliberately limited to resident-memory
 `SPLP`/`DSPLP`; external paging and Fortran-unit lifecycle management remain
 deferred.
+
+`approximation-polynomial-fitting` is a separate hosted safe feature for the
+reviewed `POLFIT`/`DPOLFT` polynomial least-squares representation. It does
+not imply a general nonlinear optimizer, constrained B-spline fitting, or a
+provider feature for the deferred `FC`/`DFC` and `EFC`/`DEFC` workflows.
 
 
 ## Capability layers

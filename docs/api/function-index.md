@@ -90,6 +90,13 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 | `slatec::fftpack::RealFftPlan::new` | `RFFTI` | real FFTPACK | f32 | initialize a periodic real FFTPACK plan | `std` | `fftpack-real` | [periodic real FFT plan initialization](../../examples/fftpack/real_fft.rs) |
 | `slatec::fftpack::SineTransformPlan::new` | `SINTI` | real FFTPACK | f32 | initialize a full sine-transform plan | `std` | `fftpack-real` | [full sine transform plan initialization](../../examples/fftpack/sine_transform.rs) |
 | `slatec::fftpack::SineTransformPlan::transform` | `SINT` | real FFTPACK | f32 | compute the full FFTPACK sine transform | `std` | `fftpack-real` | [full sine transform](../../examples/fftpack/sine_transform.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::evaluate` | `PVALUE/DP1VLU` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [evaluate selected orthogonal polynomial fit](../../examples/approximation/polynomial_fit.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::evaluate_into` | `PVALUE/DP1VLU` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [batch evaluate selected fit](../../examples/approximation/polynomial_fit.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives` | `PVALUE/DP1VLU` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [evaluate selected fit and first derivatives](../../examples/approximation/polynomial_fit.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::fit` | `POLFIT/DPOLFT` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [construct immutable unit-weight least-squares polynomial fit](../../examples/approximation/polynomial_fit.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::fit_weighted` | `POLFIT/DPOLFT` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [construct immutable positive-weight least-squares polynomial fit](../../examples/approximation/polynomial_fit.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::power_coefficients` | `PCOEF/DPCOEF` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [convert selected fit to ascending powers at origin](../../examples/approximation/polynomial_fit.rs) |
+| `slatec::interpolation::approximation::PolynomialFit::power_coefficients_at` | `PCOEF/DPCOEF` | polynomial fitting | f32/f64 | validated scalar numerical function | `std` | `approximation-polynomial-fitting` | [convert selected fit to ascending Taylor powers at a finite requested origin](../../examples/approximation/polynomial_fit.rs) |
 | `slatec::interpolation::bspline::BSpline::derivative` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/derivatives.rs) |
 | `slatec::interpolation::bspline::BSpline::evaluate` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
 | `slatec::interpolation::bspline::BSpline::evaluate_into` | `BVALU` | B-spline interpolation | f32/f64 | validated scalar numerical function | `std` | `bspline` | [exact B-spline interpolation construction, evaluation, derivatives, and definite integration](../../examples/bspline/from_parts.rs) |
@@ -454,8 +461,12 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `PCHIC` -> `slatec::pchip::PiecewiseCubicHermite::monotone_with_conditions`
 - `PCHIM` -> `slatec::pchip::PiecewiseCubicHermite::monotone`
 - `PCHSP` -> `slatec::pchip::PiecewiseCubicHermite::spline`
+- `PCOEF/DPCOEF` -> `slatec::interpolation::approximation::PolynomialFit::power_coefficients`
+- `PCOEF/DPCOEF` -> `slatec::interpolation::approximation::PolynomialFit::power_coefficients_at`
 - `POIS3D` -> `slatec::differential_equations::pde::Pois3dProblem::solve`
 - `POLCOF/DPOLCF` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at`
+- `POLFIT/DPOLFT` -> `slatec::interpolation::approximation::PolynomialFit::fit`
+- `POLFIT/DPOLFT` -> `slatec::interpolation::approximation::PolynomialFit::fit_weighted`
 - `POLINT/DPLINT` -> `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial`
 - `POLYVL/DPOLVL` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate`
 - `POLYVL/DPOLVL` -> `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives`
@@ -464,6 +475,9 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate`
 - `PPVAL` -> `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into`
 - `PSI` -> `slatec::special::gamma::digamma_f32`
+- `PVALUE/DP1VLU` -> `slatec::interpolation::approximation::PolynomialFit::evaluate`
+- `PVALUE/DP1VLU` -> `slatec::interpolation::approximation::PolynomialFit::evaluate_into`
+- `PVALUE/DP1VLU` -> `slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives`
 - `QAG` -> `slatec::quadrature::integrate_f32`
 - `QAGI` -> `slatec::quadrature::integrate_infinite_f32`
 - `QAGP` -> `slatec::quadrature::integrate_with_breakpoints_f32`
@@ -836,6 +850,16 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::quadrature::integrate_tabulated` — integrate arbitrarily spaced tabulated values by overlapping parabolas
 - `slatec::quadrature::integrate_tabulated_f32` — integrate arbitrarily spaced tabulated values by overlapping parabolas
 
+### polynomial fitting
+
+- `slatec::interpolation::approximation::PolynomialFit::evaluate` — validated scalar numerical function
+- `slatec::interpolation::approximation::PolynomialFit::evaluate_into` — validated scalar numerical function
+- `slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives` — validated scalar numerical function
+- `slatec::interpolation::approximation::PolynomialFit::fit` — validated scalar numerical function
+- `slatec::interpolation::approximation::PolynomialFit::fit_weighted` — validated scalar numerical function
+- `slatec::interpolation::approximation::PolynomialFit::power_coefficients` — validated scalar numerical function
+- `slatec::interpolation::approximation::PolynomialFit::power_coefficients_at` — validated scalar numerical function
+
 ### Cartesian FISHPACK PDE
 
 - `slatec::differential_equations::pde::CartesianHelmholtz2d::solve` — checked owned Cartesian Poisson/Helmholtz finite-difference solve
@@ -936,6 +960,13 @@ This index is generated from the reviewed safe-API inventories. The Rust surface
 - `slatec::fftpack::RealFftPlan::new`
 - `slatec::fftpack::SineTransformPlan::new`
 - `slatec::fftpack::SineTransformPlan::transform`
+- `slatec::interpolation::approximation::PolynomialFit::evaluate`
+- `slatec::interpolation::approximation::PolynomialFit::evaluate_into`
+- `slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives`
+- `slatec::interpolation::approximation::PolynomialFit::fit`
+- `slatec::interpolation::approximation::PolynomialFit::fit_weighted`
+- `slatec::interpolation::approximation::PolynomialFit::power_coefficients`
+- `slatec::interpolation::approximation::PolynomialFit::power_coefficients_at`
 - `slatec::interpolation::bspline::BSpline::derivative`
 - `slatec::interpolation::bspline::BSpline::evaluate`
 - `slatec::interpolation::bspline::BSpline::evaluate_into`

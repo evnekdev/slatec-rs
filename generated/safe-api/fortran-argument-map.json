@@ -3559,6 +3559,564 @@
       ]
     },
     {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate",
+      "fortran_routine": "PVALUE",
+      "program_unit_id": "full-provider-96edd341c5cb6e66",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate",
+      "fortran_routine": "DP1VLU",
+      "program_unit_id": "full-provider-611242326f4289b1",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate_into",
+      "fortran_routine": "PVALUE",
+      "program_unit_id": "full-provider-96edd341c5cb6e66",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate_into",
+      "fortran_routine": "DP1VLU",
+      "program_unit_id": "full-provider-611242326f4289b1",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives",
+      "fortran_routine": "PVALUE",
+      "program_unit_id": "full-provider-96edd341c5cb6e66",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives",
+      "fortran_routine": "DP1VLU",
+      "program_unit_id": "full-provider-611242326f4289b1",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": "derivative_count",
+          "fortran": "NDER",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "YFIT",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "YP",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::fit",
+      "fortran_routine": "POLFIT",
+      "program_unit_id": "full-provider-735696ca1ae42ec7",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample ordinates",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked positive weights or private unit-weight sentinel",
+          "fortran": "W",
+          "transformation": "pass"
+        },
+        {
+          "rust": "options.max_degree",
+          "fortran": "MAXDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDEG",
+          "transformation": "internal"
+        },
+        {
+          "rust": "source-defined degree-selection policy",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::fit",
+      "fortran_routine": "DPOLFT",
+      "program_unit_id": "full-provider-1f34d25923cfd48c",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample ordinates",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked positive weights or private unit-weight sentinel",
+          "fortran": "W",
+          "transformation": "pass"
+        },
+        {
+          "rust": "options.max_degree",
+          "fortran": "MAXDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDEG",
+          "transformation": "internal"
+        },
+        {
+          "rust": "source-defined degree-selection policy",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::fit_weighted",
+      "fortran_routine": "POLFIT",
+      "program_unit_id": "full-provider-735696ca1ae42ec7",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample ordinates",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked positive weights or private unit-weight sentinel",
+          "fortran": "W",
+          "transformation": "pass"
+        },
+        {
+          "rust": "options.max_degree",
+          "fortran": "MAXDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDEG",
+          "transformation": "internal"
+        },
+        {
+          "rust": "source-defined degree-selection policy",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::fit_weighted",
+      "fortran_routine": "DPOLFT",
+      "program_unit_id": "full-provider-1f34d25923cfd48c",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "N",
+          "transformation": "internal"
+        },
+        {
+          "rust": "checked finite sample abscissas or finite evaluation point",
+          "fortran": "X",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked finite sample ordinates",
+          "fortran": "Y",
+          "transformation": "pass"
+        },
+        {
+          "rust": "checked positive weights or private unit-weight sentinel",
+          "fortran": "W",
+          "transformation": "pass"
+        },
+        {
+          "rust": "options.max_degree",
+          "fortran": "MAXDEG",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NDEG",
+          "transformation": "internal"
+        },
+        {
+          "rust": "source-defined degree-selection policy",
+          "fortran": "EPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "R",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "IERR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::power_coefficients",
+      "fortran_routine": "PCOEF",
+      "program_unit_id": "full-provider-2c43fdc0f2b4c49a",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "TC",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::power_coefficients",
+      "fortran_routine": "DPCOEF",
+      "program_unit_id": "full-provider-e7c38c1e089ade65",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "TC",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::power_coefficients_at",
+      "fortran_routine": "PCOEF",
+      "program_unit_id": "full-provider-2c43fdc0f2b4c49a",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "TC",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::power_coefficients_at",
+      "fortran_routine": "DPCOEF",
+      "program_unit_id": "full-provider-e7c38c1e089ade65",
+      "arguments": [
+        {
+          "rust": null,
+          "fortran": "L",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "C",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "TC",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "A",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::interpolation::bspline::BSpline::derivative",
       "fortran_routine": "BVALU",
       "program_unit_id": "full-provider-a84dd70ebbee8a4f",

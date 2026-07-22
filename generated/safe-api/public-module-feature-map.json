@@ -266,6 +266,13 @@
       "evidence_source": "crates/slatec/Cargo.toml"
     },
     {
+      "cargo_feature": "approximation-polynomial-fitting",
+      "grouped_paths": [
+        "interpolation::approximation"
+      ],
+      "evidence_source": "crates/slatec/Cargo.toml"
+    },
+    {
       "cargo_feature": "fftpack-real",
       "grouped_paths": [
         "transforms::fft::real"

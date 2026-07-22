@@ -845,6 +845,76 @@
     },
     {
       "doctest_present": false,
+      "example_case": "evaluate selected orthogonal polynomial fit",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "PVALUE/DP1VLU",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate",
+      "validation_case": "evaluate",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "batch evaluate selected fit",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "PVALUE/DP1VLU",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate_into",
+      "validation_case": "evaluate_into",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "evaluate selected fit and first derivatives",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "PVALUE/DP1VLU",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives",
+      "validation_case": "evaluate_with_derivatives",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "construct immutable unit-weight least-squares polynomial fit",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "POLFIT/DPOLFT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::fit",
+      "validation_case": "fit",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "construct immutable positive-weight least-squares polynomial fit",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "POLFIT/DPOLFT",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::fit_weighted",
+      "validation_case": "fit_weighted",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "convert selected fit to ascending powers at origin",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "PCOEF/DPCOEF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::power_coefficients",
+      "validation_case": "power_coefficients",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "convert selected fit to ascending Taylor powers at a finite requested origin",
+      "example_file": "examples/approximation/polynomial_fit.rs",
+      "fortran_routine": "PCOEF/DPCOEF",
+      "native_execution_status": "native_execution_passed",
+      "rust_path": "slatec::interpolation::approximation::PolynomialFit::power_coefficients_at",
+      "validation_case": "power_coefficients_at",
+      "validation_file": "crates/slatec/tests/polynomial_fit_native.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "exact B-spline interpolation construction, evaluation, derivatives, and definite integration",
       "example_file": "examples/bspline/derivatives.rs",
       "fortran_routine": "BVALU",

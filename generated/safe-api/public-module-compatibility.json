@@ -913,6 +913,25 @@
       "blocker": "None for the documented initial scope.",
       "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
       "evidence_source": "generated/safe-api/function-index.json"
+    },
+    {
+      "canonical_grouped_module_path": "interpolation::approximation",
+      "module_file": "crates/slatec/src/interpolation/approximation.rs",
+      "stability": "Reserved",
+      "status": "Implemented",
+      "cargo_feature": "approximation-polynomial-fitting",
+      "current_implementation_module": "crate::interpolation::approximation",
+      "compatibility_path": "slatec::interpolation::approximation",
+      "safe_native_families": [
+        "approximation-polynomial-fitting"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
+      "evidence_source": "generated/safe-api/function-index.json"
     }
   ]
 }

@@ -9,7 +9,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const SCHEMA_VERSION: &str = "1.0.0";
-const SAFE_FUNCTION_TARGET: usize = 264;
+const SAFE_FUNCTION_TARGET: usize = 271;
 const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "blas-level1",
     "blas-level2",
@@ -56,6 +56,7 @@ const CURRENT_FAMILY_FEATURES: &[&str] = &[
     "bspline-cubic-interpolation",
     "piecewise-polynomial",
     "tabulated-data",
+    "approximation-polynomial-fitting",
 ];
 const FROZEN_HIGH_LEVEL_PATHS: &[&str] = &[
     "roadmap",
@@ -958,12 +959,17 @@ fn leaves() -> Vec<LeafSpec> {
             "Interpolation uses need a distinct contract from scalar polynomial evaluation.",
             "Audit Chebyshev interpolation."
         ),
-        planned!(
+        implemented!(
             "interpolation::approximation",
             "crates/slatec/src/interpolation/approximation.rs",
-            "Provisional",
-            "The intended source-family boundary remains uncertain.",
-            "Complete approximation-family inventory."
+            "approximation-polynomial-fitting",
+            "crate::interpolation::approximation",
+            "slatec::interpolation::approximation",
+            "approximation-polynomial-fitting",
+            "f32,f64",
+            "std",
+            "SerializedGlobal",
+            &["slatec::interpolation::approximation::"]
         ),
     ]
 }
@@ -1160,6 +1166,11 @@ fn features() -> Vec<FeatureRecord> {
             evidence_source: "crates/slatec/Cargo.toml",
         },
         FeatureRecord {
+            cargo_feature: "approximation-polynomial-fitting",
+            grouped_paths: &["interpolation::approximation"],
+            evidence_source: "crates/slatec/Cargo.toml",
+        },
+        FeatureRecord {
             cargo_feature: "fftpack-real",
             grouped_paths: &["transforms::fft::real"],
             evidence_source: "crates/slatec/Cargo.toml",
@@ -1237,7 +1248,7 @@ pub fn generate(output_dir: &Path) -> Result<GenerationResult> {
         != BTreeMap::from([
             ("alloc".to_owned(), 2),
             ("core".to_owned(), 58),
-            ("std".to_owned(), 204),
+            ("std".to_owned(), 211),
         ])
     {
         return Err(policy(

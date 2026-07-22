@@ -61,6 +61,13 @@ row multipliers and reduced costs, and independently recomputed KKT
 diagnostics; reviewed controls are limited to iteration count, feasibility
 tolerances, and pricing.
 
+The hosted `approximation-polynomial-fitting` feature provides immutable
+`f32`/`f64` weighted polynomial least-squares models over `POLFIT`/`DPOLFT`.
+It supports source-defined degree selection, value and derivative evaluation,
+and origin power coefficients without exposing native workspace. It is a
+fitting API, not global interpolation; see the
+[polynomial-fitting guide](../../docs/api/safe-polynomial-fitting.md).
+
 The hosted `fftpack-real` feature provides reusable `f32` plans over the
 reviewed real FFTPACK families: periodic packed real FFT, easy Fourier series,
 full sine/cosine, and quarter-wave sine/cosine transforms. Each plan owns its

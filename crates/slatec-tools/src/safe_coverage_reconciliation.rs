@@ -334,15 +334,17 @@ fn selection_document(counts: &BTreeMap<String, usize>) -> Value {
     json!({
         "schema_id":"slatec.safe-api.next-expansion-selection",
         "schema_version":"1.0.0",
-        "selection_criteria":["existing checked interpolation and quadrature module structure","reviewed ABI and provider feature closures","no callback or retained pointer contract","shared owned sample type","focused f32/f64 runtime tests practical"],
+        "selection_criteria":["separate fitting versus interpolation semantics","reviewed ABI and approximation-core provider closure","no callback or retained pointer contract","one immutable owned representation","focused f32/f64 runtime tests practical"],
         "selected_batch":{
-            "name":"checked tabulated data and global polynomial operations",
-            "reviewed_raw_routines":["AVINT","DAVINT","POLINT","DPLINT","POLYVL","DPOLVL","POLCOF","DPOLCF"],
-            "public_operations":["TabulatedData::interpolating_polynomial","InterpolatingPolynomial::evaluate","InterpolatingPolynomial::evaluate_with_derivatives","InterpolatingPolynomial::taylor_coefficients_at","quadrature::integrate_tabulated","quadrature::integrate_tabulated_f32"],
+            "name":"checked weighted polynomial least-squares fitting",
+            "reviewed_raw_routines":["POLFIT","DPOLFT","PVALUE","DP1VLU","PCOEF","DPCOEF"],
+            "public_operations":["PolynomialFit::fit","PolynomialFit::fit_weighted","PolynomialFit::evaluate","PolynomialFit::evaluate_with_derivatives","PolynomialFit::evaluate_into","PolynomialFit::power_coefficients"],
             "shared_infrastructure":["owned Vec storage","Fortran INTEGER conversion","process-global native serialization","safe preflight of every reviewed legacy-error contract"],
-            "reason":"A single checked data type supports two distinctive SLATEC workflows—global polynomial interpolation and arbitrary-spacing tabulated integration—without duplicating existing callback APIs or exposing workspace arrays."
+            "reason":"A single immutable checked representation covers weighted f32/f64 polynomial fitting, source-defined model selection, evaluation, derivatives, and origin coefficients without duplicating global interpolation or exposing native workspace arrays."
         },
         "rejected_candidates":[
+            {"candidate":"FC/DFC and EFC/DEFC","reason":"constrained and incremental B-spline fitting retains persistent workspace, optional variance state, and caller-described constraints; no coherent owned workflow is proven","disposition":"deferred stateful workflow"},
+            {"candidate":"P1VLU","reason":"not a retained selected-corpus identity; POLFIT's single-precision evaluator is PVALUE","disposition":"corrected source taxonomy"},
             {"candidate":"BINT4/DBINT4","reason":"promoted to the typed BSpline::interpolate_cubic workflow; its source boundary and knot policies are no longer an unclassified candidate","disposition":"implemented in current milestone"},
             {"candidate":"BSPEV/DBSPEV and associated spline primitives","reason":"already represented by owned B-spline and piecewise-polynomial safe methods; raw-array duplication would regress storage safety","disposition":"covered by higher-level API"},
             {"candidate":"GAUS8/DGAUS8","reason":"callback-bearing routine would duplicate established QUADPACK options-based integration and callback containment","disposition":"raw only"},
