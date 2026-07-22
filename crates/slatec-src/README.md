@@ -4,7 +4,14 @@
 `slatec-rs`. Applications that need an implementation provider use this crate;
 declaration-only users can depend on `slatec-sys` directly.
 
-`source-build` consumes a separately acquired, checksum-verified cache and never accesses the network. `system` links an explicitly located archive, while `external-backend` emits no link directives. `prebuilt` is intentionally unavailable until redistribution rights are resolved.
+`bundled` is the canonical ordinary-provider feature. Its target-specific
+carrier does not currently contain a historical SLATEC archive: the generated
+source-level provenance audit blocks distribution until every selected source
+has accepted, hash-guarded evidence. A bundled native-family request therefore
+fails before touching a compiler, source cache, system directory, or network.
+`source-build` consumes a separately acquired, checksum-verified cache and
+never accesses the network. `system` links an explicitly located archive, while
+`external-backend` emits no link directives.
 
 For the supported GNU MinGW source backend, every selected original Fortran
 source is compiled separately and retained as a separate member in a normal

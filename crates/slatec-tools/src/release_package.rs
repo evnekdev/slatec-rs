@@ -194,6 +194,7 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
         "schema_version":"1.0.0",
         "policy":"Packages must contain required Rust metadata and licenses and no caches, downloaded Fortran corpus, native objects, archives, executables, maps, logs, credentials, or local configuration.",
         "packages":package_records,
+        "bundled_carrier":validate_bundled_carrier(root)?,
         "result":"pass",
     });
     fs::create_dir_all(output_dir)?;
@@ -217,6 +218,55 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
         publication_layers: layers.len(),
         semantic_hash: hash::bytes(&bytes),
     })
+}
+
+fn validate_bundled_carrier(root: &Path) -> Result<Value> {
+    let crate_root = root.join("crates/slatec-bundled-x86_64-pc-windows-gnu");
+    let manifest_path = crate_root.join("metadata/bundle-manifest.json");
+    let manifest: Value = serde_json::from_slice(&fs::read(&manifest_path)?)?;
+    let status = manifest["status"]
+        .as_str()
+        .ok_or_else(|| policy("bundled carrier manifest lacks status"))?;
+    let archive = manifest["archive"]
+        .as_str()
+        .ok_or_else(|| policy("bundled carrier manifest lacks archive path"))?;
+    let archive_path = crate_root.join(archive);
+    let cargo = read_toml(&crate_root.join("Cargo.toml"))?;
+    let published = cargo
+        .get("package")
+        .and_then(|value| value.get("publish"))
+        .and_then(toml::Value::as_bool)
+        .unwrap_or(true);
+    match status {
+        "blocked_by_source_provenance" => {
+            if archive_path.exists() {
+                return Err(policy(
+                    "a bundled archive is present even though its generated provenance manifest blocks distribution",
+                ));
+            }
+            if published {
+                return Err(policy(
+                    "a provenance-blocked bundled carrier must remain publish = false",
+                ));
+            }
+        }
+        "ready_for_archive_production" => {
+            if !archive_path.is_file() || manifest["archive_sha256"].as_str().is_none() {
+                return Err(policy(
+                    "a ready bundled carrier must contain its archive and SHA-256 manifest entry",
+                ));
+            }
+        }
+        other => return Err(policy(&format!("unknown bundled carrier status {other}"))),
+    }
+    Ok(json!({
+        "crate":"slatec-bundled-x86_64-pc-windows-gnu",
+        "target":manifest["target"],
+        "status":status,
+        "archive":archive,
+        "archive_present":archive_path.is_file(),
+        "publish":published,
+    }))
 }
 
 fn publication_layers(
@@ -366,5 +416,13 @@ mod tests {
                 vec!["facade".to_owned()]
             ]
         );
+    }
+
+    #[test]
+    fn blocked_bundled_carrier_contains_no_archive() {
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let carrier = validate_bundled_carrier(&root).expect("carrier policy");
+        assert_eq!(carrier["status"], "blocked_by_source_provenance");
+        assert_eq!(carrier["archive_present"], false);
     }
 }

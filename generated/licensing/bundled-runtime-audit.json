@@ -1,0 +1,33 @@
+{
+  "compiler_invoked": false,
+  "compiler_profile": null,
+  "imported_dlls": [],
+  "network_access": false,
+  "reason": "The source-level provenance gate blocks archive production before a compiler or linker can run. Source-build runtime observations remain separate evidence and are not attributed to bundled mode.",
+  "runtime_components": [
+    {
+      "actually_referenced": "not_assessed",
+      "component": "libgfortran",
+      "distribution_action": "no bundled runtime is present",
+      "static_or_dynamic": "not_assessed"
+    },
+    {
+      "actually_referenced": "not_assessed",
+      "component": "libquadmath",
+      "distribution_action": "no bundled runtime is present; do not add it speculatively",
+      "static_or_dynamic": "not_assessed"
+    },
+    {
+      "actually_referenced": "not_assessed",
+      "component": "libgcc",
+      "distribution_action": "no bundled runtime is present",
+      "static_or_dynamic": "not_assessed"
+    }
+  ],
+  "schema_id": "slatec-rs/bundled-runtime-audit",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "source_cache_read": false,
+  "status": "not_applicable_no_redistributable_archive",
+  "target": "x86_64-pc-windows-gnu"
+}

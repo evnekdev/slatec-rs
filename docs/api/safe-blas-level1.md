@@ -21,7 +21,7 @@ $env:SLATEC_SOURCE_CACHE = "evidence/provider-sources"
 cargo test -p slatec --features blas-level1-native-tests --target x86_64-pc-windows-gnu
 ```
 
-`prebuilt` is blocked pending rights clearance; `system` and
+`bundled` is archive-blocked pending source-level rights clearance; `system` and
 `external-backend` provide explicit alternatives.
 Applications that need a raw declaration can depend on `slatec-sys` directly;
 the safe facade deliberately does not duplicate it.

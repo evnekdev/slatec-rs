@@ -1,0 +1,12 @@
+{
+  "archive_members": [],
+  "defined_symbols": [],
+  "imported_dlls": [],
+  "reason": "No archive is produced while the generated eligibility report blocks every selected historical source unit.",
+  "schema_id": "slatec-rs/bundled-archive-audit",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "status": "not_applicable_no_redistributable_archive",
+  "target": "x86_64-pc-windows-gnu",
+  "undefined_symbols": []
+}

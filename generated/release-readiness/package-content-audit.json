@@ -1,4 +1,12 @@
 {
+  "bundled_carrier": {
+    "archive": "native/libslatec_bundle.a",
+    "archive_present": false,
+    "crate": "slatec-bundled-x86_64-pc-windows-gnu",
+    "publish": false,
+    "status": "blocked_by_source_provenance",
+    "target": "x86_64-pc-windows-gnu"
+  },
   "packages": [
     {
       "build_script": null,
@@ -23,7 +31,7 @@
     {
       "build_script": "build.rs",
       "crate": "slatec-src",
-      "file_count": 28,
+      "file_count": 30,
       "forbidden_files": [],
       "links": "slatec",
       "manifest": "crates/slatec-src/Cargo.toml",

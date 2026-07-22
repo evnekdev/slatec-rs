@@ -20,13 +20,13 @@ features = ["std", "external-backend", "full"]
 targets = ["x86_64-pc-windows-gnu"]
 
 [features]
-default = ["std"]
+default = ["std", "bundled"]
 alloc = ["slatec-core/alloc"]
 std = ["alloc", "slatec-core/std"]
 
 # Implementation providers are orthogonal to API capability. Exactly one is
 # required when a native family is selected; the provider crate enforces this.
-prebuilt = ["slatec-src/prebuilt"]
+bundled = ["slatec-src/bundled"]
 source-build = ["slatec-src/source-build"]
 system = ["slatec-src/system"]
 external-backend = ["slatec-src/external-backend"]

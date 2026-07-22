@@ -45,7 +45,8 @@ configuration.
 
 `slatec-src` packages deterministic provider metadata and reviewed machine
 constant overrides. It does not package the separately acquired SLATEC source
-cache. The unavailable prebuilt mode remains blocked pending rights review.
+cache. The canonical `bundled` mode remains archive-blocked pending the
+source-level provenance review; it never falls back to another provider.
 These are technical redistribution boundaries, not new legal conclusions.
 
 Generated evidence is committed at:

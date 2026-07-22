@@ -5,7 +5,7 @@ facades over the selected original SLATEC BLAS routines. They require the
 `blas-level2` or `blas-level3` feature and the existing
 `ffi-profile-gnu-mingw-x86_64` native profile. Select `source-build` with an
 explicitly acquired verified cache, or use `system`/`external-backend`.
-`prebuilt` remains blocked pending redistribution-rights clearance.
+`bundled` remains archive-blocked pending source-level redistribution-rights clearance.
 
 Matrices are ordinary column-major backing slices. The element at `row`, `col`
 is `a[row + col * lda]`. Dimensions and leading dimensions are explicit in the

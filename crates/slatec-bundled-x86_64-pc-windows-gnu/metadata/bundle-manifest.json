@@ -1,0 +1,14 @@
+{
+  "archive": "native/libslatec_bundle.a",
+  "archive_audit": "generated/licensing/bundled-archive-audit.json",
+  "archive_sha256": null,
+  "reason": "No historical SLATEC archive is included until the source-level provenance audit admits every selected source for a supported family.",
+  "runtime_audit": "generated/licensing/bundled-runtime-audit.json",
+  "schema_id": "slatec-rs/bundled-carrier-manifest",
+  "schema_version": "1.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "source_eligibility": "generated/licensing/bundled-source-eligibility.json",
+  "source_unit_count": 0,
+  "status": "blocked_by_source_provenance",
+  "target": "x86_64-pc-windows-gnu"
+}

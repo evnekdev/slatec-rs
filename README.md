@@ -9,12 +9,13 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`,
 `roots-polynomial`, `bspline`, `bspline-cubic-interpolation`, `piecewise-polynomial`,
 `tabulated-data`, and `approximation-polynomial-fitting`.
-Numerical families
-require one explicit backend: `prebuilt`, `source-build`, `system`, or
-`external-backend`. Prebuilt publication is currently blocked because the
-historical source rights remain unresolved. `source-build` is offline-only and
-consumes a separately acquired, SHA-256-verified cache; ordinary Cargo builds
-never download SLATEC source from `build.rs`.
+Numerical families require exactly one backend: `bundled`, `source-build`,
+`system`, or `external-backend`. `bundled` is the canonical default feature,
+but its source-level provenance gate currently blocks historical archive
+distribution. A bundled family request therefore fails before touching a
+compiler, source cache, system archive, or network path. `source-build` is
+offline-only and consumes a separately acquired, SHA-256-verified cache;
+ordinary Cargo builds never download SLATEC source from `build.rs`.
 
 The safe Rust layer is `no_std`. `alloc` is an independent capability and does
 not require `std`; `std` enables `alloc`. The current GNU MinGW native backend
