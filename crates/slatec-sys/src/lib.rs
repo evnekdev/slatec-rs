@@ -202,7 +202,8 @@ mod special_scalar_expanded;
 /// Hand-reviewed real FFTPACK declarations for the plan-based safe API.
 #[cfg(any(
     feature = "raw-family-fftpack-real",
-    feature = "raw-family-fftpack-extended-real"
+    feature = "raw-family-fftpack-extended-real",
+    feature = "raw-family-fftpack-complex"
 ))]
 public_binding_module!(
     fftpack_bindings,

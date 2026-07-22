@@ -385,10 +385,11 @@ fn manifest_with_overlays(manifest_path: &Path) -> Result<Manifest> {
             continue;
         }
         let mut overlay: Overlay = serde_json::from_slice(&fs::read(overlay_path)?)?;
-        if manifest.families.contains_key(&overlay.family) {
-            // `slatec-src/build.rs` gives an emitted base closure precedence
-            // over a historical focused overlay. Mirror that provider rule so
-            // this audit observes the exact closure the source backend builds.
+        if manifest.families.contains_key(&overlay.family) && overlay.family != "dassl" {
+            // The base closure normally has precedence. DASSL is exceptional:
+            // its safe wrapper calls XGETF/XSETF from Rust, which compiler-only
+            // Fortran dependency extraction cannot observe, so the focused
+            // overlay is the provider closure the source backend actually builds.
             continue;
         }
         // Historical overlays sometimes name a physical source with a

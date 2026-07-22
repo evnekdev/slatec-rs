@@ -92,6 +92,16 @@ unsafe extern "C" {
     pub fn cosqb(n: *mut FortranInteger, values: *mut f32, wsave: *mut f32);
 }
 
+/// Canonical complex FFTPACK kernel declarations.
+///
+/// The reviewed complex plan facade uses these `*1` routines directly. They
+/// remain declaration-only and retain the documented interleaved-real ABI.
+#[cfg(all(
+    feature = "raw-family-fftpack-complex",
+    not(feature = "raw-family-fftpack-extended-real")
+))]
+pub use crate::fftpack_complex::{cfftb1, cfftf1, cffti1};
+
 #[cfg(feature = "raw-family-fftpack-extended-real")]
 #[path = "batch_a/fftpack.rs"]
 mod canonical_bindings;

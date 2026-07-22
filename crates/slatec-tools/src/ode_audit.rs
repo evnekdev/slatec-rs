@@ -232,7 +232,7 @@ const CANDIDATES: &[Candidate] = &[
         "NSTATE=2_success,3_work,4_tolerance,5_root,6..10_callback_abort,11_interpolated,12_failure",
         "documented_mode_dependent; SDRIV1 gives N*N+11*N+300 baseline; exact SDRIV3 formula selected by MINT/MITER/IMPL",
         "reviewed_safe_session",
-        "existing_f32_f64_RHS_only_owned_session_with_panic_contained_trampolines"
+        "owned_real_explicit_session_with_functional_or_internal_dense_banded_finite_difference_or_analytic_dense_banded_JACOBN;_both_F_and_JACOBN_set_N=0_for_contained_abort;_mass_matrix_and_root_modes_deferred"
     ),
     candidate!(
         "DDRIV3",
@@ -248,7 +248,7 @@ const CANDIDATES: &[Candidate] = &[
         "NSTATE=2_success,3_work,4_tolerance,5_root,6..10_callback_abort,11_interpolated,12_failure",
         "documented_mode_dependent; DDRIV1 gives N*N+11*N+300 baseline; exact DDRIV3 formula selected by MINT/MITER/IMPL",
         "reviewed_safe_session",
-        "existing_f32_f64_RHS_only_owned_session_with_panic_contained_trampolines"
+        "owned_real_explicit_session_with_functional_or_internal_dense_banded_finite_difference_or_analytic_dense_banded_JACOBN;_both_F_and_JACOBN_set_N=0_for_contained_abort;_mass_matrix_and_root_modes_deferred"
     ),
     candidate!(
         "CDRIV1",
@@ -305,14 +305,14 @@ const CANDIDATES: &[Candidate] = &[
         "dassl_dae",
         "expert_driver",
         "residual_G_t_y_yprime_equals_zero",
-        "RES(t,y,yprime,cj,delta,ires,rpar,ipar); optional JAC; IRES controls termination",
+        "RES(t,y,yprime,cj,delta,ires,rpar,ipar) uses IRES for termination; optional JAC(t,y,yprime,pd,cj,rpar,ipar) has no source-defined termination channel",
         "INFO(1)=0_start_or_1_continue; opaque work arrays persist",
         "no_COMMON_or_SAVE_in_driver_after_880387_revision; XERROR",
         "none",
         "IDID=1_target,2_step,3_tstop,-1..-12_failures",
-        "dense:40+(MAXORD+4)*N+N*N; banded:40+(MAXORD+4)*N+(2*ML+MU+1)*N; LIW>=20+N",
+        "dense:40+(MAXORD+4)*N+N*N; banded numeric:40+(MAXORD+4)*N+(2*ML+MU+1)*N+2*(N/(ML+MU+1)+1); LIW>=20+N",
         "reviewed_safe_session",
-        "existing_residual_only_owned_session_requires_caller_consistent_initial_pair_and_uses_dense_numeric_Jacobian"
+        "owned_residual_session_requires_caller_consistent_initial_pair_and_uses_internal_dense_or_banded_finite_difference;_analytic_JAC_is_deferred_because_it_has_no_native_abort_protocol"
     ),
     candidate!(
         "DDASSL",
@@ -321,14 +321,14 @@ const CANDIDATES: &[Candidate] = &[
         "dassl_dae",
         "expert_driver",
         "residual_G_t_y_yprime_equals_zero",
-        "RES(t,y,yprime,cj,delta,ires,rpar,ipar); optional JAC; IRES controls termination",
+        "RES(t,y,yprime,cj,delta,ires,rpar,ipar) uses IRES for termination; optional JAC(t,y,yprime,pd,cj,rpar,ipar) has no source-defined termination channel",
         "INFO(1)=0_start_or_1_continue; opaque work arrays persist",
         "no_COMMON_or_SAVE_in_driver_after_880387_revision; XERROR",
         "none",
         "IDID=1_target,2_step,3_tstop,-1..-12_failures",
-        "dense:40+(MAXORD+4)*N+N*N; banded:40+(MAXORD+4)*N+(2*ML+MU+1)*N; LIW>=20+N",
+        "dense:40+(MAXORD+4)*N+N*N; banded numeric:40+(MAXORD+4)*N+(2*ML+MU+1)*N+2*(N/(ML+MU+1)+1); LIW>=20+N",
         "reviewed_safe_session",
-        "existing_residual_only_owned_session_requires_caller_consistent_initial_pair_and_uses_dense_numeric_Jacobian"
+        "owned_residual_session_requires_caller_consistent_initial_pair_and_uses_internal_dense_or_banded_finite_difference;_analytic_JAC_is_deferred_because_it_has_no_native_abort_protocol"
     ),
     candidate!(
         "DERKFS",
@@ -869,7 +869,7 @@ pub fn generate(
         ),
         (
             "ode-family-index.json",
-            json!({"schema_id":"slatec.ode.family-index","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","routines","capability","selection"],"records":[["depac_runge_kutta_fehlberg","DERKF/DDERKF","nonstiff_RKF45; scalar_or_vector_tolerances; interval_or_step","deferred_no_callback_abort"],["depac_adams","DEABM/DDEABM","nonstiff_Adams_orders_1_to_12","deferred_no_callback_abort"],["depac_bdf","DEBDF/DDEBDF","stiff_BDF_orders_1_to_5; dense_or_banded_Jacobian","deferred_COMMON"],["sdrive","SDRIV1/2/3 and DDRIV1/2/3","nonstiff_or_stiff; roots; interpolation; optional_mass_matrix","reviewed_safe_sessions_for_DRIV1_2_3; expert_modes_deferred"],["dassl","SDASSL/DDASSL","implicit_DAE_BDF_orders_1_to_5; dense_or_banded_Jacobian","reviewed_residual_only_safe_session; analytic_and_banded_Jacobians_deferred"]]}),
+            json!({"schema_id":"slatec.ode.family-index","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","routines","capability","selection"],"records":[["depac_runge_kutta_fehlberg","DERKF/DDERKF","nonstiff_RKF45; scalar_or_vector_tolerances; interval_or_step","deferred_no_callback_abort"],["depac_adams","DEABM/DDEABM","nonstiff_Adams_orders_1_to_12","deferred_no_callback_abort"],["depac_bdf","DEBDF/DDEBDF","stiff_BDF_orders_1_to_5; dense_or_banded_Jacobian","deferred_COMMON"],["sdrive","SDRIV1/2/3 and DDRIV1/2/3","nonstiff_or_stiff; roots; interpolation; optional_mass_matrix","reviewed_safe_sessions_for_DRIV1_2_3; SDRIV3 supports functional, internal dense/banded finite-difference, and analytic dense/banded JACOBN modes; mass/root modes deferred"],["dassl","SDASSL/DDASSL","implicit DAE BDF orders 1 to 5; dense or banded iteration matrices","reviewed residual session with internal dense/banded finite differences; analytic JAC deferred because it has no native abort protocol"]]}),
         ),
         (
             "ode-callback-audit.json",
@@ -893,7 +893,7 @@ pub fn generate(
         ),
         (
             "ode-jacobian-audit.json",
-            json!({"schema_id":"slatec.ode.jacobian-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","protocol","storage","scope"],"records":[["DEBDF/DDEBDF","optional JAC/DJAC; finite-difference fallback","dense N_by_N or banded (2*ML+MU+1)_by_N","deferred_COMMON"],["SDRIV3/DDRIV3","JACOBN optional; FA for mass matrix","dense_or_banded selected by MITER/IMPL/ML/MU","reviewed_RHS_only_scope; analytic_and_mass_callbacks_deferred"],["SDASSL/DDASSL","JAC optional, receives CJ iteration coefficient","dense_or_banded Fortran column-major work matrix","reviewed_dense_numeric_Jacobian; analytic_and_banded_callbacks_deferred"]]}),
+            json!({"schema_id":"slatec.ode.jacobian-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","protocol","storage","scope"],"records":[["DEBDF/DDEBDF","optional JAC/DJAC; finite-difference fallback","dense N_by_N or banded (2*ML+MU+1)_by_N","deferred_COMMON"],["SDRIV3/DDRIV3","JACOBN receives mutable N and can set N=0; FA is the separate mass-matrix callback","dense or banded selected by MITER/IMPL/ML/MU","reviewed functional, internal dense/banded finite-difference, and checked analytic dense/banded JACOBN; mass callbacks deferred"],["SDASSL/DDASSL","JAC receives CJ but has no native termination channel","dense or banded Fortran column-major work matrix","reviewed internal dense/banded finite difference; analytic JAC deferred because panic/error/nonfinite output cannot safely abort"]]}),
         ),
         (
             "ode-interpolation-audit.json",
@@ -909,18 +909,18 @@ pub fn generate(
         ),
         (
             "ode-source-closure-audit.json",
-            json!({"schema_id":"slatec.ode.source-closure-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","roots","genuine_subsidiaries","practicality"],"records":[["DERKF/DDERKF","DERKF,DDERKF","DERKFS/DRKFS,DEFEHL/DFEHL,HSTART/DHSTRT,HVNRM/DHVNRM,machine_constants,XERROR","narrow_but_callback_abort_unsuitable"],["SDRIV3/DDRIV3","SDRIV3,DDRIV3","SDSTP/DDSTP,SDNTP/DDNTP,SDZRO/DDZRO,LINPACK_dense_banded,machine_constants,XERROR","reviewed_for_restricted_RHS_only_owned_sessions"],["DASSL","SDASSL,DDASSL","initialization,step,interpolation,weights,norms,LINPACK,machine_constants,XERROR","reviewed_for_residual_only_dense_numeric_Jacobian_sessions"],["DEBDF","DEBDF,DDEBDF","LSOD/DLSOD,INTYD/DINTYD,LINPACK,XERROR","COMMON_blocks_prevent_safe_selection"]]}),
+            json!({"schema_id":"slatec.ode.source-closure-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","roots","genuine_subsidiaries","practicality"],"records":[["DERKF/DDERKF","DERKF,DDERKF","DERKFS/DRKFS,DEFEHL/DFEHL,HSTART/DHSTRT,HVNRM/DHVNRM,machine_constants,XERROR","narrow_but_callback_abort_unsuitable"],["SDRIV3/DDRIV3","SDRIV3,DDRIV3","SDSTP/DDSTP,SDNTP/DDNTP,SDZRO/DDZRO,LINPACK_dense_banded,machine_constants,XERROR","reviewed_for_owned_explicit_functional_finite_difference_and_JACOBN_sessions"],["DASSL","SDASSL,DDASSL","initialization,step,interpolation,weights,norms,LINPACK,machine_constants,XERROR,XGETF/XSETF","reviewed_for_residual_owned_internal_dense_or_banded_finite_difference_sessions; focused overlay adds safe-facade XGETF/XSETF"],["DEBDF","DEBDF,DDEBDF","LSOD/DLSOD,INTYD/DINTYD,LINPACK,XERROR","COMMON_blocks_prevent_safe_selection"]]}),
         ),
         (
             "ode-selection.json",
-            json!({"schema_id":"slatec.ode.selection","schema_version":"1.0.0","snapshot_id":snapshot_id,"recommendation":"reviewed_sdrive_and_residual_only_dassl_sessions","reviewed_routines":["SDRIV1","DDRIV1","SDRIV2","DDRIV2","SDRIV3","DDRIV3","CDRIV1","CDRIV2","SDASSL","DDASSL"],"current_scope":"real f32/f64 RHS-only owned OdeSession for SDRIV3/DDRIV3; owned real and complex DRIV1/2 sessions; residual-only dense-numeric-Jacobian DaeSession requiring caller-consistent initial data","deferred":["DERKF/DDERKF and DEABM/DDEABM: no callback abort","DEBDF/DDEBDF and INTYD/DINTYD: COMMON history","SDRIV3/DDRIV3 analytic Jacobian, mass-matrix, and event lifecycle modes: separate callback lifecycle review","SDASSL/DDASSL analytic or banded Jacobian callbacks: matrix layout, mutation, and callback lifecycle review","CDRIV3: exact complex expert ABI not reviewed"],"interoperability":"slices and lightweight checked views; internal mutable workspace; optional nalgebra/ndarray/faer adapters behind separate features"}),
+            json!({"schema_id":"slatec.ode.selection","schema_version":"1.0.0","snapshot_id":snapshot_id,"recommendation":"reviewed_sdrive_and_residual_only_dassl_sessions","reviewed_routines":["SDRIV1","DDRIV1","SDRIV2","DDRIV2","SDRIV3","DDRIV3","CDRIV1","CDRIV2","SDASSL","DDASSL"],"current_scope":"real f32/f64 owned OdeSession for SDRIV3/DDRIV3 with functional, internal dense/banded finite-difference, or analytic dense/banded JACOBN iteration; owned real and complex DRIV1/2 sessions; residual-only DaeSession with internal dense/banded finite-difference matrices requiring caller-consistent initial data","deferred":["DERKF/DDERKF and DEABM/DDEABM: no callback abort","DEBDF/DDEBDF and INTYD/DINTYD: COMMON history","SDRIV3/DDRIV3 mass-matrix and event lifecycle modes: separate callback lifecycle review","SDASSL/DDASSL analytic JAC: no native abort protocol for contained panic/error/nonfinite output","CDRIV3: exact complex expert ABI not reviewed"],"interoperability":"slices and lightweight checked solver-specific Jacobian writers; internal mutable workspace; optional nalgebra/ndarray/faer adapters behind separate features"}),
         ),
     ];
     let summary = format!(
-        "# SLATEC ODE-family audit\n\n- Snapshot: `{snapshot_id}`.\n- Public drivers span DEPAC RKF/Adams/BDF, SDRIVE, and DASSL DAE families.\n- **Reviewed sessions:** `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`, `SDRIV3`/`DDRIV3`, and `CDRIV1`/`CDRIV2` have checked owned sessions for their reviewed modes.  The expert real sessions are RHS-only; their documented mutable-`N` callback abort supports panic and user-error containment.\n- `SDASSL`/`DDASSL` have checked residual-only owned sessions with a dense finite-difference iteration matrix.  Callers provide initially consistent `(y, y')`; analytic and banded Jacobian callbacks are deliberately outside this reviewed scope.\n- DEPAC RKF/Adams drivers are deferred because their RHS callbacks have no documented native abort signal. DEBDF and `INTYD` use process-global COMMON history. `CDRIV3` remains unreviewed on the complex expert ABI.\n- SDRIVE supports sign-change roots but no direction/terminal filtering; SDRIV3 event modes remain outside the RHS-only expert session.\n"
+        "# SLATEC ODE-family audit\n\n- Snapshot: `{snapshot_id}`.\n- Public drivers span DEPAC RKF/Adams/BDF, SDRIVE, and DASSL DAE families.\n- **Reviewed sessions:** `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`, `SDRIV3`/`DDRIV3`, and `CDRIV1`/`CDRIV2` have checked owned sessions for their reviewed modes. The expert real sessions support functional iteration, internal dense/banded finite differences, and checked analytic dense/banded `JACOBN`; both native callbacks document mutable-`N` abort for contained Rust failures.\n- `SDASSL`/`DDASSL` have checked residual-only owned sessions with internal dense or banded finite-difference iteration matrices. Callers provide initially consistent `(y, y')`. The DASSL analytic `JAC` callback has no source-defined termination channel, so it remains outside the safe API.\n- DEPAC RKF/Adams drivers are deferred because their RHS callbacks have no documented native abort signal. DEBDF and `INTYD` use process-global COMMON history. `CDRIV3` remains unreviewed on the complex expert ABI.\n- SDRIVE supports sign-change roots but no direction/terminal filtering; mass-matrix and event modes remain outside the reviewed expert session.\n"
     );
     let complete_summary = format!(
-        "# Complete ODE and DAE coverage\n\n- Candidate public drivers and required subsidiaries are recorded from the selected corpus, rather than inferred from Rust path names.\n- Reviewed safe sessions: SDRIV1/DDRIV1, SDRIV2/DDRIV2, SDRIV3/DDRIV3, CDRIV1/CDRIV2, and residual-only SDASSL/DDASSL.\n- Explicit deferrals: DERKF/DDERKF and DEABM/DDEABM lack a documented callback abort; DEBDF/DDEBDF and INTYD/DINTYD retain COMMON history; CDRIV3 and analytic/mass-matrix/banded callback modes require their own ABI and lifecycle reviews.\n- Snapshot: `{snapshot_id}`.\n"
+        "# Complete ODE and DAE coverage\n\n- Candidate public drivers and required subsidiaries are recorded from the selected corpus, rather than inferred from Rust path names.\n- Reviewed safe sessions: SDRIV1/DDRIV1, SDRIV2/DDRIV2, SDRIV3/DDRIV3 (functional, internal finite-difference, and checked analytic `JACOBN` modes), CDRIV1/CDRIV2, and residual-only SDASSL/DDASSL with internal dense/banded finite differences.\n- Explicit deferrals: DERKF/DDERKF and DEABM/DDEABM lack a documented callback abort; DEBDF/DDEBDF and INTYD/DINTYD retain COMMON history; CDRIV3 and SDRIV3 mass/event callbacks require their own ABI and lifecycle reviews; DASSL analytic `JAC` lacks a native abort protocol.\n- Snapshot: `{snapshot_id}`.\n"
     );
     let mut bytes = Vec::new();
     for (name, value) in outputs {
@@ -944,7 +944,10 @@ pub fn generate(
 }
 
 fn callback_safety(candidate: &Candidate) -> &'static str {
-    if candidate.callbacks.contains("set callback N=0") || candidate.callbacks.contains("set N=0") {
+    if candidate.callbacks.contains("set callback N=0")
+        || candidate.callbacks.contains("set N=0")
+        || candidate.callbacks.contains("IRES controls termination")
+    {
         "native_documented_abort_after_callback"
     } else {
         "no_documented_abort_or_not_applicable"

@@ -5,7 +5,7 @@ use core::convert::TryFrom;
 use core::fmt;
 use core::ops::{Index, IndexMut};
 
-use slatec_sys::FortranInteger;
+use slatec_sys::{FortranInteger, pde::fishpack as raw};
 
 use crate::runtime::lock_native;
 
@@ -368,7 +368,7 @@ impl Pois3dProblem {
         // reviewed `F(LDIMF,MDIMF,N)`, `A(N)`, `B(N)`, `C(N)`, and workspace
         // contracts. The process-global native lock covers the whole call.
         unsafe {
-            slatec_sys::fishpack_pois3d::pois3d(
+            raw::pois3d(
                 &lperod,
                 &l,
                 &self.c1,

@@ -1,6 +1,6 @@
 //! Scalar real Bessel functions with explicit scaled and unscaled names.
 
-use slatec_sys::special::bessel as raw;
+use slatec_sys::special::{self as raw_special, bessel as raw};
 
 use super::{SpecialFunctionError, runtime};
 
@@ -23,6 +23,21 @@ macro_rules! unary_f64 {
             // input envelope, serializes FNLIB state, and passes one valid
             // scalar pointer through the validated GNU MinGW ABI.
             Ok(unsafe { raw::$raw(&mut x) })
+        }
+    };
+}
+
+macro_rules! unary_f64_special_root {
+    ($name:ident, $raw:ident, $doc:literal, $validate:ident) => {
+        #[doc = $doc]
+        pub fn $name(x: f64) -> Result<f64, SpecialFunctionError> {
+            $validate(stringify!($name), x)?;
+            let _guard = runtime::lock_fnlib();
+            let mut x = x;
+            // Safety: the wrapper checks the routine's conservative nonfatal
+            // input envelope, serializes FNLIB state, and passes one valid
+            // scalar pointer through the validated GNU MinGW ABI.
+            Ok(unsafe { raw_special::$raw(&mut x) })
         }
     };
 }
@@ -63,13 +78,13 @@ unary_f64!(
     "Modified Bessel I of order one on the conservative safe envelope, using `DBESI1`.",
     positive_or_negative
 );
-unary_f64!(
+unary_f64_special_root!(
     bessel_i0_scaled,
     dbsi0e,
     "Exponentially scaled modified Bessel I0, using `DBSI0E`.",
     positive_or_negative
 );
-unary_f64!(
+unary_f64_special_root!(
     bessel_i1_scaled,
     dbsi1e,
     "Exponentially scaled modified Bessel I1, using `DBSI1E`.",
@@ -87,13 +102,13 @@ unary_f64!(
     "Modified Bessel K of order one for `0 < x <= 20`, using `DBESK1`.",
     positive
 );
-unary_f64!(
+unary_f64_special_root!(
     bessel_k0_scaled,
     dbsk0e,
     "Exponentially scaled modified Bessel K0, using `DBSK0E`.",
     positive
 );
-unary_f64!(
+unary_f64_special_root!(
     bessel_k1_scaled,
     dbsk1e,
     "Exponentially scaled modified Bessel K1, using `DBSK1E`.",

@@ -4,9 +4,9 @@
 //! The public scope is real first-order index-1 initial-value problems
 //! `G(t, y, y') = 0`. Callers supply an initially sufficiently consistent
 //! pair `(y, y')`; this API does not calculate consistent initial conditions.
-//! DASSL numerically differences the dense iteration matrix internally, so
-//! residual functions can be invoked many times per step. Native entry,
-//! callback dispatch, and XERROR control are serialized process-wide.
+//! DASSL internally differences either a dense or checked-banded iteration
+//! matrix, so residual functions can be invoked many times per step. Native
+//! entry, callback dispatch, and XERROR control are serialized process-wide.
 
 use alloc::vec::Vec;
 use core::cell::Cell;
@@ -244,12 +244,29 @@ impl DaeOrder {
     }
 }
 
-/// Reviewed controls for the residual-only dense DASSL mode.
+/// Internally generated DASSL iteration-matrix storage.
+///
+/// Both variants retain the existing residual-only callback model. DASSL's
+/// analytic `JAC` ABI has no source-defined abort flag, so user-supplied
+/// Jacobian callbacks remain outside the safe API.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum DaeJacobianMode {
+    /// Dense finite-difference iteration matrix (`INFO(5)=0`, `INFO(6)=0`).
+    FiniteDifferenceDense,
+    /// Banded finite-difference iteration matrix (`INFO(5)=0`, `INFO(6)=1`).
+    FiniteDifferenceBanded {
+        /// Largest permitted row-minus-column index.
+        lower_bandwidth: usize,
+        /// Largest permitted column-minus-row index.
+        upper_bandwidth: usize,
+    },
+}
+
+/// Reviewed controls for the residual-only DASSL mode.
 ///
 /// This API fixes interval output, internal finite-difference Jacobians,
-/// dense storage, and caller-supplied consistent initial values. It does not
-/// expose raw `INFO` words, user Jacobians, banded matrices, or nonnegativity
-/// projection.
+/// caller-supplied consistent initial values. It does not expose raw `INFO`
+/// words, user Jacobians, or nonnegativity projection.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct DaeOptions<T> {
     /// Optional positive maximum absolute step size.
@@ -259,6 +276,8 @@ pub struct DaeOptions<T> {
     pub initial_step: Option<T>,
     /// Optional maximum BDF order; `None` keeps DASSL's order-five default.
     pub maximum_order: Option<DaeOrder>,
+    /// Internal finite-difference iteration-matrix storage.
+    pub jacobian_mode: DaeJacobianMode,
 }
 
 impl<T> Default for DaeOptions<T> {
@@ -267,6 +286,7 @@ impl<T> Default for DaeOptions<T> {
             maximum_step: None,
             initial_step: None,
             maximum_order: None,
+            jacobian_mode: DaeJacobianMode::FiniteDifferenceDense,
         }
     }
 }
@@ -301,6 +321,8 @@ pub enum DaeInputError {
     InvalidStepControl,
     /// A dimension, workspace, or native integer conversion overflowed.
     DimensionOverflow,
+    /// A requested band width was outside DASSL's documented `0..NEQ` range.
+    InvalidBandwidth,
     /// A fallible session-owned allocation could not be satisfied.
     AllocationFailed,
     /// Changing the state dimension requires constructing a new session.
@@ -535,10 +557,10 @@ impl<T: DaeScalar, F: DaeResidual<T>> DaeSession<T, F> {
     /// consistent `G(initial_time, initial_state, initial_derivative)=0` pair.
     ///
     /// This constructor does not prove DAE consistency. It validates dimensions,
-    /// finite values, tolerances, options, and checked dense workspace formulas,
-    /// then allocates opaque continuation storage. DASSL's internally
-    /// differenced Jacobian mode is fixed; `ResidualAction::Continue` callbacks
-    /// may run multiple times per native step.
+    /// finite values, tolerances, options, and checked source-specific workspace
+    /// formulas, then allocates opaque continuation storage. DASSL's internally
+    /// differenced dense or banded Jacobian mode is selected by [`DaeOptions`];
+    /// `ResidualAction::Continue` callbacks may run multiple times per native step.
     pub fn new(
         initial_time: T,
         initial_state: Vec<T>,
@@ -557,10 +579,7 @@ impl<T: DaeScalar, F: DaeResidual<T>> DaeSession<T, F> {
         let dimension = initial_state.len();
         let (real_length, integer_length) = workspace_lengths(dimension, options)?;
         let mut integer_workspace = allocate(integer_length, 0).map_err(DaeError::InvalidInput)?;
-        if let Some(order) = options.maximum_order {
-            integer_workspace[2] = FortranInteger::try_from(order.value())
-                .map_err(|_| DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
-        }
+        initialize_static_controls(&mut integer_workspace, options)?;
         Ok(Self {
             time: initial_time,
             state: initial_state,
@@ -677,10 +696,7 @@ impl<T: DaeScalar, F: DaeResidual<T>> DaeSession<T, F> {
         self.state_derivative = state_derivative;
         self.real_workspace.fill(T::zero());
         self.integer_workspace.fill(0);
-        if let Some(order) = self.options.maximum_order {
-            self.integer_workspace[2] = FortranInteger::try_from(order.value())
-                .map_err(|_| DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
-        }
+        initialize_static_controls(&mut self.integer_workspace, self.options)?;
         self.diagnostic_residual.fill(T::zero());
         self.info = [0; 15];
         self.lifecycle = DaeLifecycle::Ready;
@@ -774,9 +790,34 @@ fn workspace_lengths<T: DaeScalar, E>(
         .checked_add(4)
         .and_then(|value| value.checked_mul(dimension))
         .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
-    let matrix = dimension
-        .checked_mul(dimension)
-        .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
+    let matrix = match options.jacobian_mode {
+        DaeJacobianMode::FiniteDifferenceDense => dimension
+            .checked_mul(dimension)
+            .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?,
+        DaeJacobianMode::FiniteDifferenceBanded {
+            lower_bandwidth,
+            upper_bandwidth,
+        } => {
+            let matrix_band = lower_bandwidth
+                .checked_add(upper_bandwidth)
+                .and_then(|value| value.checked_add(1))
+                .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
+            let stored_band = lower_bandwidth
+                .checked_mul(2)
+                .and_then(|value| value.checked_add(upper_bandwidth))
+                .and_then(|value| value.checked_add(1))
+                .and_then(|value| value.checked_mul(dimension))
+                .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
+            let save = dimension
+                .checked_div(matrix_band)
+                .and_then(|value| value.checked_add(1))
+                .and_then(|value| value.checked_mul(2))
+                .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
+            stored_band
+                .checked_add(save)
+                .ok_or(DaeError::InvalidInput(DaeInputError::DimensionOverflow))?
+        }
+    };
     let real = 40_usize
         .checked_add(history)
         .and_then(|value| value.checked_add(matrix))
@@ -814,7 +855,7 @@ fn validate_initial<T: DaeScalar, E>(
         return Err(DaeError::InvalidInput(DaeInputError::NonFiniteInput));
     }
     validate_tolerance(tolerance, state.len())?;
-    validate_options(options)?;
+    validate_options(options, state.len())?;
     let _ = workspace_lengths::<T, E>(state.len(), options)?;
     Ok(())
 }
@@ -860,7 +901,10 @@ fn validate_tolerance_pair<T: DaeScalar, E>(relative: T, absolute: T) -> Result<
     Ok(())
 }
 
-fn validate_options<T: DaeScalar, E>(options: DaeOptions<T>) -> Result<(), DaeError<E>> {
+fn validate_options<T: DaeScalar, E>(
+    options: DaeOptions<T>,
+    dimension: usize,
+) -> Result<(), DaeError<E>> {
     if let Some(value) = options.maximum_step {
         if !value.is_finite() || value <= T::zero() {
             return Err(DaeError::InvalidInput(DaeInputError::InvalidStepControl));
@@ -870,6 +914,36 @@ fn validate_options<T: DaeScalar, E>(options: DaeOptions<T>) -> Result<(), DaeEr
         if !value.is_finite() || value == T::zero() {
             return Err(DaeError::InvalidInput(DaeInputError::InvalidStepControl));
         }
+    }
+    if let DaeJacobianMode::FiniteDifferenceBanded {
+        lower_bandwidth,
+        upper_bandwidth,
+    } = options.jacobian_mode
+    {
+        if lower_bandwidth >= dimension || upper_bandwidth >= dimension {
+            return Err(DaeError::InvalidInput(DaeInputError::InvalidBandwidth));
+        }
+    }
+    Ok(())
+}
+
+fn initialize_static_controls<T: DaeScalar, E>(
+    integer_workspace: &mut [FortranInteger],
+    options: DaeOptions<T>,
+) -> Result<(), DaeError<E>> {
+    if let DaeJacobianMode::FiniteDifferenceBanded {
+        lower_bandwidth,
+        upper_bandwidth,
+    } = options.jacobian_mode
+    {
+        integer_workspace[0] = FortranInteger::try_from(lower_bandwidth)
+            .map_err(|_| DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
+        integer_workspace[1] = FortranInteger::try_from(upper_bandwidth)
+            .map_err(|_| DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
+    }
+    if let Some(order) = options.maximum_order {
+        integer_workspace[2] = FortranInteger::try_from(order.value())
+            .map_err(|_| DaeError::InvalidInput(DaeInputError::DimensionOverflow))?;
     }
     Ok(())
 }
@@ -1249,7 +1323,14 @@ fn configure_first_call_controls<T: DaeScalar, F: DaeResidual<T>>(
     };
     session.info[2] = 0;
     session.info[4] = 0;
-    session.info[5] = 0;
+    session.info[5] = if matches!(
+        session.options.jacobian_mode,
+        DaeJacobianMode::FiniteDifferenceBanded { .. }
+    ) {
+        1
+    } else {
+        0
+    };
     session.info[9] = 0;
     session.info[10] = 0;
     configure_mutable_controls(session, forward)?;

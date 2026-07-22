@@ -15,6 +15,7 @@
 use alloc::vec::Vec;
 use core::convert::TryFrom;
 
+use slatec_sys::interpolation as raw;
 use slatec_sys::{FortranInteger, FortranLogical};
 
 use crate::runtime::{lock_native, permit_recoverable_native_statuses};
@@ -367,7 +368,7 @@ impl PchipScalar for f32 {
         incfd: &mut FortranInteger,
         ierr: &mut FortranInteger,
     ) {
-        unsafe { slatec_sys::pchip::pchim(n, x, f, d, incfd, ierr) }
+        unsafe { raw::pchim(n, x, f, d, incfd, ierr) }
     }
     unsafe fn controlled(
         ic: *const FortranInteger,
@@ -383,7 +384,7 @@ impl PchipScalar for f32 {
         ierr: &mut FortranInteger,
     ) {
         unsafe {
-            slatec_sys::pchip::pchic(
+            raw::pchic(
                 ic,
                 vc,
                 switch,
@@ -410,9 +411,7 @@ impl PchipScalar for f32 {
         workspace_len: &mut FortranInteger,
         ierr: &mut FortranInteger,
     ) {
-        unsafe {
-            slatec_sys::pchip::pchsp(ic, vc, n, x, f, d, incfd, workspace, workspace_len, ierr)
-        }
+        unsafe { raw::pchsp(ic, vc, n, x, f, d, incfd, workspace, workspace_len, ierr) }
     }
     unsafe fn evaluate(
         n: &mut FortranInteger,
@@ -426,7 +425,7 @@ impl PchipScalar for f32 {
         values: *mut Self,
         ierr: &mut FortranInteger,
     ) {
-        unsafe { slatec_sys::pchip::pchfe(n, x, f, d, incfd, skip, count, points, values, ierr) }
+        unsafe { raw::pchfe(n, x, f, d, incfd, skip, count, points, values, ierr) }
     }
     unsafe fn evaluate_derivative(
         n: &mut FortranInteger,
@@ -442,7 +441,7 @@ impl PchipScalar for f32 {
         ierr: &mut FortranInteger,
     ) {
         unsafe {
-            slatec_sys::pchip::pchfd(
+            raw::pchfd(
                 n,
                 x,
                 f,
@@ -468,7 +467,7 @@ impl PchipScalar for f32 {
         upper: &Self,
         ierr: &mut FortranInteger,
     ) -> Self {
-        unsafe { slatec_sys::pchip::pchia(n, x, f, d, incfd, skip, lower, upper, ierr) }
+        unsafe { raw::pchia(n, x, f, d, incfd, skip, lower, upper, ierr) }
     }
 }
 
@@ -490,7 +489,7 @@ impl PchipScalar for f64 {
         incfd: &mut FortranInteger,
         ierr: &mut FortranInteger,
     ) {
-        unsafe { slatec_sys::pchip::dpchim(n, x, f, d, incfd, ierr) }
+        unsafe { raw::dpchim(n, x, f, d, incfd, ierr) }
     }
     unsafe fn controlled(
         ic: *const FortranInteger,
@@ -506,7 +505,7 @@ impl PchipScalar for f64 {
         ierr: &mut FortranInteger,
     ) {
         unsafe {
-            slatec_sys::pchip::dpchic(
+            raw::dpchic(
                 ic,
                 vc,
                 switch,
@@ -533,9 +532,7 @@ impl PchipScalar for f64 {
         workspace_len: &mut FortranInteger,
         ierr: &mut FortranInteger,
     ) {
-        unsafe {
-            slatec_sys::pchip::dpchsp(ic, vc, n, x, f, d, incfd, workspace, workspace_len, ierr)
-        }
+        unsafe { raw::dpchsp(ic, vc, n, x, f, d, incfd, workspace, workspace_len, ierr) }
     }
     unsafe fn evaluate(
         n: &mut FortranInteger,
@@ -549,7 +546,7 @@ impl PchipScalar for f64 {
         values: *mut Self,
         ierr: &mut FortranInteger,
     ) {
-        unsafe { slatec_sys::pchip::dpchfe(n, x, f, d, incfd, skip, count, points, values, ierr) }
+        unsafe { raw::dpchfe(n, x, f, d, incfd, skip, count, points, values, ierr) }
     }
     unsafe fn evaluate_derivative(
         n: &mut FortranInteger,
@@ -565,7 +562,7 @@ impl PchipScalar for f64 {
         ierr: &mut FortranInteger,
     ) {
         unsafe {
-            slatec_sys::pchip::dpchfd(
+            raw::dpchfd(
                 n,
                 x,
                 f,
@@ -591,7 +588,7 @@ impl PchipScalar for f64 {
         upper: &Self,
         ierr: &mut FortranInteger,
     ) -> Self {
-        unsafe { slatec_sys::pchip::dpchia(n, x, f, d, incfd, skip, lower, upper, ierr) }
+        unsafe { raw::dpchia(n, x, f, d, incfd, skip, lower, upper, ierr) }
     }
 }
 

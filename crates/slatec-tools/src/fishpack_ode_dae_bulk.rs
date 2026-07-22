@@ -75,7 +75,7 @@ const FISHPACK: &[FishpackRoutine] = &[
         safe_status: "raw_only",
         safe_path: "",
         provider_feature: "fishpack-general",
-        decision: "staggered unknown-location and boundary-value model requires a separate owned-grid review",
+        decision: "source uses M-by-N staggered interior F(IDIMF,N), BDA/BDB length N, and BDC/BDD length M; its corner-free edge-vector model and 13*M+4*N+M*INT(log2(N)) workspace have not received an independent owned-grid/raw-parity review",
     },
     FishpackRoutine {
         routine: "HSTCSP",
@@ -130,7 +130,7 @@ const FISHPACK: &[FishpackRoutine] = &[
         safe_status: "raw_only",
         safe_path: "",
         provider_feature: "fishpack-general",
-        decision: "six-face boundary and three-dimensional workspace contract not represented by POIS3D",
+        decision: "source owns F(LDIMF,MDIMF,N+1), BDXS/BDXF(MDIMF,N+1), BDYS/BDYF(LDIMF,N+1), and BDZS/BDZF(LDIMF,M+1); the six face-specific derivative/value orientations and 30+L+M+5*N+MAX(L,M,N)+7*(INT((L+1)/2)+INT((M+1)/2)) workspace need a dedicated safe/raw-parity design",
     },
     FishpackRoutine {
         routine: "HWSCRT",
@@ -378,7 +378,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ResultSummary> {
             "safe_status":routine.safe_status,
             "safe_path":routine.safe_path,
             "link_test_status":if routine.safe_status == "implemented" { "focused_native_linked" } else if routine.provider_feature == "external_only" { "source_closure_missing" } else { "raw_provider_recorded" },
-            "runtime_test_status":if routine.safe_status == "implemented" { "native_manufactured_or_existing_regression" } else { "not_safe_wrapper" },
+            "runtime_test_status":if routine.safe_status != "implemented" { "not_safe_wrapper" } else if matches!(routine.routine, "HWSCYL" | "HWSPLR" | "HWSSSP" | "HWSCSP") { "native_hardened_boundary_coefficient_and_singular_perturbation_regression" } else { "native_manufactured_or_existing_regression" },
             "decision":routine.decision,
         }))
         .collect::<Vec<_>>();
@@ -387,7 +387,7 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ResultSummary> {
         .filter(|record| record["safe_status"] == "implemented")
         .count();
     let markdown = format!(
-        "# Complete FISHPACK coverage\n\n- Retained canonical drivers: {}.\n- Implemented checked safe drivers: {implemented}: HWSCRT, HSTCSP, HSTCYL, HSTPLR, HSTSSP, HWSCSP, HWSCYL, HWSPLR, HWSSSP, and POIS3D.\n- Every remaining driver is explicitly raw-only or subsidiary-only with the reason recorded in `fishpack-complete-coverage.json`; no generated declaration is counted as safe coverage.\n- The cylindrical/polar feature uses an audited 16-source closure for centered and staggered driver roots.  The spherical feature uses a separate 43-source closure for unit-sphere and axisymmetric roots, including the exact XERROR dependency closure needed by the reviewed GNU-MinGW machine-constant profile support.\n",
+        "# Complete FISHPACK coverage\n\n- Retained canonical drivers: {}.\n- Implemented checked safe drivers: {implemented}: HWSCRT, HSTCSP, HSTCYL, HSTPLR, HSTSSP, HWSCSP, HWSCYL, HWSPLR, HWSSSP, and POIS3D.\n- Every remaining driver is explicitly raw-only or subsidiary-only with the reason recorded in `fishpack-complete-coverage.json`; no generated declaration is counted as safe coverage. HSTCRT and HW3CRT now record their exact source grids, face/edge contracts, and workspace formulas as deliberately separate unimplemented safe designs.\n- The cylindrical/polar feature uses an audited 16-source closure for centered and staggered driver roots. The spherical feature uses a separate 43-source closure for unit-sphere and axisymmetric roots, including the exact XERROR dependency closure needed by the reviewed GNU-MinGW machine-constant profile support. Focused native regressions now cover nonconstant boundary data, nonzero coefficients, regularity modes, and singular-Poisson perturbations for the centered cylindrical, polar, sphere-surface, and axisymmetric-spherical wrappers.\n",
         records.len()
     );
     let ode_dae = json!({
@@ -396,13 +396,13 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ResultSummary> {
         "records":[
             ["SDRIV1/DDRIV1","implemented","Driv1Session<f32/f64>","owned continuation with panic-contained RHS"],
             ["SDRIV2/DDRIV2","implemented","Driv2Session<f32/f64>","owned continuation and indexed real events"],
-            ["SDRIV3/DDRIV3","implemented","OdeSession<f32/f64>","expert real RHS-only sessions"],
+            ["SDRIV3/DDRIV3","implemented","OdeSession<f32/f64>","owned explicit sessions with functional, internal dense/banded finite-difference, and checked analytic dense/banded JACOBN modes"],
             ["CDRIV1/CDRIV2","implemented","ComplexDriv1Session/ComplexDriv2Session","owned complex sessions with indexed real events"],
             ["CDRIV3","raw_only","","complex expert callback and optional-matrix modes remain unresolved"],
             ["DERKF/DDERKF/DEABM/DDEABM","raw_only","","no reviewed callback-abort protocol"],
             ["DEBDF/DDEBDF","raw_only","","COMMON-backed history prevents an independently safe session"],
-            ["SDASSL/DDASSL","implemented_residual_only","DaeSession<f32/f64>","caller supplies a consistent initial pair; dense numeric-Jacobian mode only"],
-            ["analytic_or_banded_DASSL","deferred","","callback matrix layout, mutation, and lifecycle require separate review"]
+            ["SDASSL/DDASSL","implemented_residual_only","DaeSession<f32/f64>","caller supplies a consistent initial pair; internal dense or banded finite-difference mode"],
+            ["analytic_DASSL","deferred","","JAC(T,Y,YPRIME,PD,CJ,RPAR,IPAR) has no native termination channel for contained Rust panic, error, or non-finite output"]
         ]
     });
     let coordinate = json!({
@@ -422,7 +422,8 @@ pub fn generate(root: &Path, output_dir: &Path) -> Result<ResultSummary> {
             ["HSTCSP","axisymmetric spherical staggered grid","open-interval theta-r points; source-specific pole and origin combinations are preflight-checked"],
             ["HSTCYL/HSTPLR","staggered cylindrical and polar grids","interior unknowns are owned independently from source boundary data"],
             ["HSTSSP","staggered spherical surface grid","open-interval theta/phi unknowns with source-defined pole regularity modes"],
-            ["HSTCRT","remaining staggered grids","raw only until its Cartesian unknown locations and boundary semantics receive a dedicated owned representation"]
+            ["HSTCRT","remaining staggered grids","raw only: M-by-N staggered interior and separate M/N edge vectors require a dedicated owned representation and raw-parity audit"],
+            ["HW3CRT","remaining Cartesian 3D grids","raw only: full 3D field plus six face arrays with distinct two-dimensional layouts require a dedicated owned representation and raw-parity audit"]
         ]
     });
     let provider = json!({

@@ -14,6 +14,7 @@
 use alloc::vec::Vec;
 use core::convert::TryFrom;
 use slatec_sys::FortranInteger;
+use slatec_sys::linear_algebra::banded as raw;
 
 use crate::runtime::lock_native;
 
@@ -424,7 +425,7 @@ fn factor32(m: BandMatrixRef<'_, f32>) -> Result<BandLu32, BandError> {
     {
         let _g = lock_native();
         unsafe {
-            slatec_sys::banded::sgbfa(
+            raw::sgbfa(
                 a.as_mut_ptr(),
                 &mut lda,
                 &mut (n.clone()),
@@ -456,7 +457,7 @@ fn factor64(m: BandMatrixRef<'_, f64>) -> Result<BandLu64, BandError> {
     {
         let _g = lock_native();
         unsafe {
-            slatec_sys::banded::dgbfa(
+            raw::dgbfa(
                 a.as_mut_ptr(),
                 &mut lda,
                 &mut (n.clone()),
@@ -492,7 +493,7 @@ fn factor_with_condition32(
     {
         let _g = lock_native();
         unsafe {
-            slatec_sys::banded::sgbco(
+            raw::sgbco(
                 a.as_mut_ptr(),
                 &mut lda,
                 &mut (n.clone()),
@@ -533,7 +534,7 @@ fn factor_with_condition64(
     {
         let _g = lock_native();
         unsafe {
-            slatec_sys::banded::dgbco(
+            raw::dgbco(
                 a.as_mut_ptr(),
                 &mut lda,
                 &mut (n.clone()),
@@ -626,7 +627,7 @@ fn determinant32(l: &BandLu32) -> Result<ScaledDeterminant<f32>, BandError> {
     let mut det = [0.0; 2];
     let _g = lock_native();
     unsafe {
-        slatec_sys::banded::sgbdi(
+        raw::sgbdi(
             l.factors.as_ptr(),
             &l.lda,
             &l.n,
@@ -643,7 +644,7 @@ fn determinant64(l: &BandLu64) -> Result<ScaledDeterminant<f64>, BandError> {
     let mut det = [0.0; 2];
     let _g = lock_native();
     unsafe {
-        slatec_sys::banded::dgbdi(
+        raw::dgbdi(
             l.factors.as_ptr(),
             &l.lda,
             &l.n,
@@ -710,7 +711,7 @@ fn solve32(l: &BandLu32, b: &mut [f32], mut job: FortranInteger) -> Result<(), B
     let mut mu = l.upper;
     let mut lda = l.lda;
     unsafe {
-        slatec_sys::banded::sgbsl(
+        raw::sgbsl(
             l.factors.as_ptr() as *mut _,
             &mut lda,
             &mut n,
@@ -736,7 +737,7 @@ fn solve64(l: &BandLu64, b: &mut [f64], mut job: FortranInteger) -> Result<(), B
     let mut mu = l.upper;
     let mut lda = l.lda;
     unsafe {
-        slatec_sys::banded::dgbsl(
+        raw::dgbsl(
             l.factors.as_ptr() as *mut _,
             &mut lda,
             &mut n,
