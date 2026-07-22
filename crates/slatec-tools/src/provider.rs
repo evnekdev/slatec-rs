@@ -147,7 +147,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
             "license_or_public_domain_statement":"No explicit archive-wide copyright licence or public-domain dedication was found.",
             "redistribution_terms":"Unresolved. Netlib hosting and the disclaimer do not grant redistribution permission.",
             "modification_requirements":"Unresolved", "attribution_requirements":"Preserve file-level provenance and notices",
-            "source_redistribution":"unresolved", "compiled_redistribution":"unresolved", "prebuilt_eligible":false,
+            "source_redistribution":"unresolved", "compiled_redistribution":"unresolved", "bundled_eligible":false,
             "evidence":["docs/source-corpus/rights-register.md#right-001","https://www.netlib.org/misc/faq.html"]
         }),
         json!({
@@ -157,7 +157,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
             "license_or_public_domain_statement":"No common explicit FNLIB redistribution licence was verified.",
             "redistribution_terms":"Requires file-level author or rights-holder review.",
             "modification_requirements":"Unresolved", "attribution_requirements":"Preserve authorship and revision provenance",
-            "source_redistribution":"unresolved", "compiled_redistribution":"unresolved", "prebuilt_eligible":false,
+            "source_redistribution":"unresolved", "compiled_redistribution":"unresolved", "bundled_eligible":false,
             "evidence":["docs/source-corpus/rights-register.md#right-012","https://www.netlib.org/misc/faq.html"]
         }),
         json!({
@@ -168,7 +168,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
             "redistribution_terms":"Do not apply the BLAS permission to the mixed directory as a whole.",
             "modification_requirements":"Reference BLAS asks that modified routines be renamed and changes documented; other files unresolved",
             "attribution_requirements":"Reference BLAS requests proper credit; other files require review",
-            "source_redistribution":"partial_unresolved", "compiled_redistribution":"unresolved", "prebuilt_eligible":false,
+            "source_redistribution":"partial_unresolved", "compiled_redistribution":"unresolved", "bundled_eligible":false,
             "evidence":["docs/source-corpus/rights-register.md#right-007","docs/source-corpus/rights-register.md#right-008","docs/source-corpus/rights-register.md#right-009","https://www.netlib.org/blas/faq.html"]
         }),
         json!({
@@ -177,7 +177,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
             "copyright_notice":"Project-authored compatibility code.", "license_or_public_domain_statement":"MIT OR Apache-2.0 project licence",
             "redistribution_terms":"Permitted under either project licence.", "modification_requirements":"Follow selected project licence",
             "attribution_requirements":"Follow selected project licence", "source_redistribution":"permitted", "compiled_redistribution":"permitted",
-            "prebuilt_eligible":true, "evidence":["LICENSE-MIT","LICENSE-APACHE"]
+            "bundled_eligible":true, "evidence":["LICENSE-MIT","LICENSE-APACHE"]
         }),
         json!({
             "id":"rights-libgfortran", "origin":"GNU libgfortran", "selected_source_count":0,
@@ -187,7 +187,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
             "redistribution_terms":"The exception permits eligible compiled target-code combinations under chosen terms; redistribution of the runtime as an independent library remains subject to its licence.",
             "modification_requirements":"Follow the exact runtime notices and eligible-compilation conditions",
             "attribution_requirements":"Retain applicable licence notices", "source_redistribution":"licensed_with_conditions",
-            "compiled_redistribution":"licensed_with_conditions", "prebuilt_eligible":false,
+            "compiled_redistribution":"licensed_with_conditions", "bundled_eligible":false,
             "evidence":["https://www.gnu.org/licenses/gcc-exception.html","https://www.gnu.org/licenses/gcc-exception-faq.html"]
         }),
         json!({
@@ -198,26 +198,26 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
             "redistribution_terms":"Static-link distribution requires a dedicated LGPL compliance plan; slatec-rs does not redistribute this archive.",
             "modification_requirements":"Follow the exact LGPL version and notices shipped with the toolchain",
             "attribution_requirements":"Retain applicable licence notices", "source_redistribution":"licensed_with_conditions",
-            "compiled_redistribution":"licensed_with_conditions", "prebuilt_eligible":false,
+            "compiled_redistribution":"licensed_with_conditions", "bundled_eligible":false,
             "evidence":["https://gcc.gnu.org/onlinedocs/gfortran/Link-Options.html"]
         }),
     ];
     let rights = json!({
         "schema_id":"slatec-rs/source-rights", "schema_version":"1.0.0", "snapshot_id":SNAPSHOT,
         "legal_status":"risk documentation only; not legal advice", "records":rights_records,
-        "decision":"prebuilt source and binary redistribution blocked until every selected historical origin and GNU runtime delivery plan is cleared"
+        "decision":"bundled source and binary redistribution is blocked until every selected historical physical source and GNU runtime delivery plan is cleared"
     });
     let provider_index = json!({
         "schema_id":"slatec-rs/provider-index", "schema_version":"1.0.0", "snapshot_id":SNAPSHOT,
         "family_count":manifest.families.len(),
         "records":[
-            {"mode":"prebuilt","status":"blocked","network":false,"fortran_compiler":false,"reason":"selected historical source and compiled redistribution rights unresolved","target":null,"archive_sha256":null},
+            {"mode":"bundled","status":"blocked_by_source_provenance","network":false,"fortran_compiler":false,"reason":"the source-level provenance gate has no accepted historical source classifications; no archive is distributed","target":"x86_64-pc-windows-gnu","archive_sha256":null},
             {"mode":"source-build","status":"supported","network":false,"fortran_compiler":true,"source_cache":"SLATEC_SOURCE_CACHE, populated explicitly and hash-verified","target":"x86_64-pc-windows-gnu","compiler_profile_id":PROFILE,"validated_compiler":"GNU Fortran 14.2.0 x86_64-w64-mingw32","flags":["-x","f77","-std=legacy","-ffixed-line-length-none","-c"],"runtime":["static libgfortran","static libquadmath","MinGW/UCRT system libraries"],"separate_objects":true,"whole_archive":false},
             {"mode":"system","status":"supported_escape_hatch","network":false,"fortran_compiler":false,"configuration":["SLATEC_SYSTEM_LIB_DIR","optional SLATEC_SYSTEM_LIB_NAME","SLATEC_SYSTEM_RUNTIME_LIB_DIR"]},
             {"mode":"external-backend","status":"supported_escape_hatch","network":false,"fortran_compiler":false,"link_directives":false}
         ],
-        "default_backend":null,
-        "policy":"A top-level application selects one backend. No backend is silently selected when no redistributable prebuilt provider exists."
+        "default_backend_feature":"bundled",
+        "policy":"A top-level application selects one backend. The canonical bundled feature is selected by default, but a native family cannot use it until a target carrier archive passes the source-level provenance gate. No provider falls back silently."
     });
     let runtime_audit = json!({
         "schema_id":"slatec-rs/provider-runtime-link-audit", "schema_version":"1.0.0",
@@ -239,7 +239,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     fs::write(
         licensing.join("provider-rights-summary.md"),
         format!(
-            "# Provider rights summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Reviewed provider-source origins: main-src ({}), fnlib ({}), lin ({}).\n- Netlib says most packages have no restrictions but recommends checking authors; it is not a package-specific grant.\n- No common explicit redistribution grant has been verified for all selected historical sources.\n- Prebuilt source and archive publication is therefore **blocked**.\n- Project-authored profile support may be distributed under MIT OR Apache-2.0.\n- GNU libgfortran is governed by its exact GPL/RLE notices; static libquadmath introduces LGPL compliance obligations.\n- This is risk documentation, not legal advice.\n",
+            "# Provider rights summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Reviewed provider-source origins: main-src ({}), fnlib ({}), lin ({}).\n- Netlib says most packages have no restrictions but recommends checking authors; it is not a package-specific grant.\n- The source-level bundled-provider audit has no accepted historical-source classification yet.\n- The canonical `bundled` provider therefore has **no archive** and fails before a compiler, cache, system directory, or network path is considered.\n- Project-authored profile support may be distributed under MIT OR Apache-2.0.\n- GNU libgfortran is governed by its exact GPL/RLE notices; static libquadmath introduces LGPL compliance obligations.\n- This is risk documentation, not legal advice.\n",
             subset_counts.get("main-src").copied().unwrap_or(0),
             subset_counts.get("fnlib").copied().unwrap_or(0),
             subset_counts.get("lin").copied().unwrap_or(0)
@@ -248,7 +248,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     fs::write(
         providers.join("provider-validation-summary.md"),
         format!(
-            "# Provider validation summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Validated ABI profile: `{PROFILE}` (GNU Fortran 14.2.0, x86_64-w64-mingw32).\n- Prebuilt: blocked; no archive or provider crate is published.\n- Source-build: explicit, cache-only, checksum-verified, and offline after acquisition.\n- System: explicit deterministic archive directory and name.\n- External backend: emits no native directives.\n- Native archive policy: separate source objects and no whole-archive.\n- Runtime policy: static libgfortran and libquadmath are linked by source-build; redistribution obligations remain with the produced binary and must be reviewed.\n"
+            "# Provider validation summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Validated ABI profile: `{PROFILE}` (GNU Fortran 14.2.0, x86_64-w64-mingw32).\n- Bundled: canonical default feature, but blocked by the generated source-level provenance audit; no archive or runtime is distributed.\n- Source-build: explicit, cache-only, checksum-verified, and offline after acquisition.\n- System: explicit deterministic archive directory and name.\n- External backend: emits no native directives.\n- Native archive policy: separate source objects and no whole-archive.\n- Runtime policy: static libgfortran and libquadmath are linked by source-build; redistribution obligations remain with the produced binary and must be reviewed.\n"
         ),
     )?;
     Ok(hash::bytes(&serde_json::to_vec(
@@ -592,7 +592,7 @@ mod tests {
     }
 
     #[test]
-    fn committed_publication_policy_blocks_unlicensed_prebuilt_artifacts() {
+    fn committed_publication_policy_blocks_unlicensed_bundled_artifacts() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let providers: Value = serde_json::from_slice(
             &fs::read(root.join("generated/providers/provider-index.json"))
@@ -600,11 +600,11 @@ mod tests {
         )
         .expect("valid provider index");
         let records = providers["records"].as_array().expect("provider records");
-        let prebuilt = records
+        let bundled = records
             .iter()
-            .find(|record| record["mode"] == "prebuilt")
-            .expect("prebuilt record");
-        assert_eq!(prebuilt["status"], "blocked");
+            .find(|record| record["mode"] == "bundled")
+            .expect("bundled record");
+        assert_eq!(bundled["status"], "blocked_by_source_provenance");
         let manifest =
             provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
                 .expect("provider manifest");

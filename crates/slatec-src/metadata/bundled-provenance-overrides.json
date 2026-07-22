@@ -1,0 +1,6 @@
+{
+  "schema_id": "slatec-rs/bundled-provenance-overrides",
+  "schema_version": "1.0.0",
+  "policy": "Every override is keyed by selected source ID and exact SHA-256. Historical source units are unresolved unless this file records source-specific evidence; Netlib hosting and government sponsorship alone are insufficient.",
+  "sources": []
+}

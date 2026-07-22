@@ -99,7 +99,7 @@ pub fn generate(sys_cargo_toml: &Path, registry_path: &Path) -> Result<Value> {
         "transitive_closure":closure,
         "public_subfamilies_or_components":public_components,
         "intentionally_excluded_feature_classes":class_report,
-        "provider_features_intentionally_excluded":["source-build", "prebuilt", "system", "external-backend"],
+        "provider_features_intentionally_excluded":["bundled", "source-build", "system", "external-backend"],
     });
     if !report["families_missing_from_all"]
         .as_array()

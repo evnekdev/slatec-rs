@@ -251,7 +251,7 @@ fn contained_invalid_raw_calls_use_the_profile_fatal_status() {
             .unwrap();
         // The reviewed GNU MinGW source build reaches XERROR's Fortran STOP
         // path, which terminates the child before the following Rust panic
-        // and reports zero on this runtime.  The prebuilt validation profile
+        // and reports zero on this runtime. The source-build validation profile
         // reports 70 instead.  In either case, a raw fatal call never returns
         // into the test body; safe wrappers reject these inputs before FFI.
         assert!(

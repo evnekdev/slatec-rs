@@ -1,0 +1,22 @@
+[package]
+name = "slatec-bundled-x86_64-pc-windows-gnu"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+authors.workspace = true
+publish = false
+links = "slatec_bundled_x86_64_pc_windows_gnu"
+build = "build.rs"
+description = "Target-specific SLATEC bundled-provider carrier metadata for x86_64-pc-windows-gnu"
+readme = "README.md"
+keywords = ["slatec", "fortran", "provider", "mingw"]
+categories = ["external-ffi-bindings", "science"]
+include = ["src/**", "metadata/**", "native/**", "build.rs", "Cargo.toml", "README.md"]
+
+[build-dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+sha2.workspace = true

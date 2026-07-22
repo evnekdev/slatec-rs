@@ -143,30 +143,95 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/bspline-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/piecewise-polynomial-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/special-scalar-expanded-source-closure.json");
+    println!("cargo:rerun-if-changed=metadata/bundled-source-eligibility.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
 
     let families = enabled_families();
     if families.is_empty() {
         return;
     }
-    let backends = ["PREBUILT", "SOURCE_BUILD", "SYSTEM", "EXTERNAL_BACKEND"]
+    let backends = ["BUNDLED", "SOURCE_BUILD", "SYSTEM", "EXTERNAL_BACKEND"]
         .into_iter()
         .filter(|name| feature(name))
         .collect::<Vec<_>>();
     if backends.len() != 1 {
         panic!(
-            "native SLATEC families require exactly one backend feature: prebuilt, source-build, system, or external-backend; enabled {backends:?}. Backend selection should be made by the top-level application"
+            "native SLATEC families require exactly one backend feature: bundled, source-build, system, or external-backend; enabled {backends:?}. Backend selection should be made by the top-level application"
         );
     }
     match backends[0] {
-        "PREBUILT" => panic!(
-            "the prebuilt backend is unavailable: redistribution rights for the selected historical SLATEC sources and compiled archive remain unresolved. Select source-build, system, or external-backend"
-        ),
+        "BUNDLED" => link_bundled(&families),
         "SOURCE_BUILD" => build_sources(&families),
         "SYSTEM" => link_system(),
         "EXTERNAL_BACKEND" => (),
         _ => unreachable!(),
     }
+}
+
+#[derive(Deserialize)]
+struct BundledEligibility {
+    carrier: BundledCarrier,
+    families: Vec<BundledFamily>,
+}
+
+#[derive(Deserialize)]
+struct BundledCarrier {
+    status: String,
+}
+
+#[derive(Deserialize)]
+struct BundledFamily {
+    feature: String,
+    bundle_available: bool,
+}
+
+fn link_bundled(families: &BTreeSet<String>) {
+    let target = env::var("TARGET").unwrap_or_default();
+    if target != TARGET {
+        panic!(
+            "The bundled SLATEC provider does not support {target}.\nSupported bundled targets:\n- {TARGET}\n\nSelect source-build, system, or external-backend explicitly, or build for a supported target."
+        );
+    }
+    let eligibility_path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("metadata/bundled-source-eligibility.json");
+    let eligibility: BundledEligibility = serde_json::from_slice(
+        &fs::read(&eligibility_path).expect("read bundled-source eligibility metadata"),
+    )
+    .expect("parse bundled-source eligibility metadata");
+    let unavailable = families
+        .iter()
+        .filter(|family| {
+            eligibility
+                .families
+                .iter()
+                .find(|record| record.feature == **family)
+                .is_none_or(|record| !record.bundle_available)
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    if eligibility.carrier.status != "ready_for_archive_production" || !unavailable.is_empty() {
+        let details = unavailable.join(", ");
+        panic!(
+            "the bundled SLATEC provider has no redistributable archive for {details}. The generated source-level provenance audit blocks this provider before any compiler, source cache, system archive, or network path is considered. Select source-build, system, or external-backend explicitly."
+        );
+    }
+    let available = env::var("DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU_AVAILABLE")
+        .ok()
+        .as_deref()
+        == Some("true");
+    let archive =
+        env::var_os("DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU_ARCHIVE").map(PathBuf::from);
+    if !available || archive.as_ref().is_none_or(|path| !path.is_file()) {
+        panic!(
+            "the bundled SLATEC carrier metadata is present but its verified archive is unavailable. Select source-build, system, or external-backend explicitly."
+        );
+    }
+    let archive = archive.expect("checked archive");
+    println!(
+        "cargo:rustc-link-search=native={}",
+        archive.parent().expect("bundled archive parent").display()
+    );
+    println!("cargo:rustc-link-lib=static=slatec_bundle");
 }
 
 fn feature(name: &str) -> bool {

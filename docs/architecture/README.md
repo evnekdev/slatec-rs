@@ -8,6 +8,7 @@ This index is the starting point for maintainers and coding agents. Keep it shor
 - [Raw API architecture](slatec-sys-public-raw-api.md) — canonical paths, private declaration ownership, documentation, and generated-layer policy.
 - [Final raw API coverage](../api/raw-api-final-coverage.md) — Batch A-D closure, permanent dispositions, exceptional interfaces, and reopen policy.
 - [Family features and backends](../api/family-features-and-backends.md) — public family features and provider relationships.
+- [Bundled provider and provenance gate](bundled-provider-and-provenance.md) — target carrier design, redistribution evidence, and the no-fallback release gate.
 - [Native link granularity](native-link-granularity.md) — native source-to-object-to-archive pipeline and final-link guarantees.
 - [Safe-facade link granularity](safe-facade-link-granularity.md) — safe-wrapper operation closure policy and safe-versus-raw link evidence.
 

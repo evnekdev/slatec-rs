@@ -70,10 +70,12 @@ mutability, and leading-dimension rules. See the
 
 Exactly one backend must be selected whenever a numerical family is enabled.
 
-- `prebuilt` means a target-specific packaged archive requiring no network or
-  compiler. It currently fails with a rights-blocked diagnostic: no historical
-  SLATEC archive is published until source and binary redistribution are
-  cleared.
+- `bundled` is the canonical default feature and is designed to use a
+  target-specific carrier without a compiler, source cache, system archive, or
+  network access. The current carrier is deliberately metadata-only: the
+  generated source-level provenance audit has no accepted historical-source
+  classifications, so a native-family request fails clearly instead of falling
+  back to another provider.
 - `source-build` compiles from `SLATEC_SOURCE_CACHE` and never accesses the
   network. Populate that cache explicitly with
   `slatec-corpus acquire-provider-sources`; the build fails with the exact
@@ -92,8 +94,9 @@ numerical API. Its build script contains no network client.
 The source builder currently supports the validated GNU Fortran 14.2.0
 `x86_64-w64-mingw32` profile. Other compiler versions are not claimed as
 validated merely because their target string matches. Other targets must select
-`system` or `external-backend`. No native backend is selected by default while
-prebuilt publication is blocked.
+`source-build`, `system`, or `external-backend` explicitly. The default
+`bundled` feature is selected even while its archive is unavailable so provider
+conflicts remain mechanical and no implicit fallback exists.
 
 Explicit acquisition from a repository checkout:
 
@@ -103,10 +106,12 @@ set SLATEC_SOURCE_CACHE=evidence/provider-sources
 cargo build --offline --no-default-features --features std,source-build,special-gamma --target x86_64-pc-windows-gnu
 ```
 
-The source build statically links `libgfortran` and `libquadmath`. The tested
-consumer has no GNU runtime DLL imports, but static `libquadmath` introduces
-LGPL redistribution obligations and `libgfortran` remains governed by its exact
-GPL/GCC Runtime Library Exception notices. See `generated/licensing/`.
+The source build currently statically links `libgfortran` and `libquadmath`.
+The tested consumer has no GNU runtime DLL imports, but static `libquadmath`
+introduces LGPL redistribution obligations and `libgfortran` remains governed
+by its exact GPL/GCC Runtime Library Exception notices. No bundled archive or
+runtime claim is made until the carrier's separate runtime audit is complete.
+See `generated/licensing/`.
 
 ## Static retention
 

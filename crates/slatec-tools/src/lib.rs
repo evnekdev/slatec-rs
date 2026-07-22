@@ -13,6 +13,7 @@ pub mod batch_c_api;
 pub mod batch_d_api;
 pub mod blas1_concurrency;
 pub mod blas_api;
+pub mod bundled_provider;
 pub mod complete_corpus;
 pub mod diagnostics;
 pub mod eol_audit;

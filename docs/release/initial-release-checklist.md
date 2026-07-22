@@ -25,7 +25,7 @@ release commit before checking an item.
 - [ ] The XERROR child-process containment contract passes for documented GNU outcomes.
 - [ ] Archive and safe-wrapper link granularity regressions pass.
 - [ ] Workspace MIT/Apache licensing metadata and generated-code provenance are consistent.
-- [ ] No unresolved-rights SLATEC source cache or prebuilt binary is included in a package.
+- [ ] No unresolved-rights SLATEC source cache or bundled binary is included in a package.
 
 ## Package chain
 

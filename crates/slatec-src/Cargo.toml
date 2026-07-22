@@ -17,8 +17,8 @@ categories = ["external-ffi-bindings", "science", "mathematics"]
 include = ["src/**", "metadata/**", "native/**", "build.rs", "Cargo.toml", "README.md", "LICENSE-*"]
 
 [features]
-default = []
-prebuilt = []
+default = ["bundled"]
+bundled = []
 source-build = []
 system = []
 external-backend = []
@@ -111,3 +111,6 @@ least-squares-linear-bounded-constrained = []
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
+
+[target.'cfg(all(target_arch = "x86_64", target_os = "windows", target_env = "gnu"))'.dependencies]
+slatec-bundled-x86_64-pc-windows-gnu = { version = "0.1.0", path = "../slatec-bundled-x86_64-pc-windows-gnu" }

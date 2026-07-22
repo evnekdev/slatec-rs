@@ -429,8 +429,8 @@
   },
   "policy": "all directly names every authored public mathematical family aggregate. It never directly names provider, profile-only, raw ABI-shape, raw-family, or test-only implementation features; legitimate public family dependencies remain visible in the transitive closure.",
   "provider_features_intentionally_excluded": [
+    "bundled",
     "source-build",
-    "prebuilt",
     "system",
     "external-backend"
   ],

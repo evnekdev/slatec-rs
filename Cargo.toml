@@ -3,6 +3,7 @@ resolver = "3"
 members = [
     "crates/slatec-sys",
     "crates/slatec-src",
+    "crates/slatec-bundled-x86_64-pc-windows-gnu",
     "crates/slatec-core",
     "crates/slatec",
     "crates/slatec-tools",
