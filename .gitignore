@@ -24,10 +24,12 @@ Cargo.lock
 *.crate
 *.log
 
-# The reviewed carrier is the sole exception: its reproducibly generated,
-# checksum-verified static archives are a distributed provider artifact.
+# The reviewed carriers are the sole exceptions: their reproducibly generated,
+# checksum-verified static archives are distributed provider artifacts.
 !crates/slatec-bundled-x86_64-pc-windows-gnu/native/
 !crates/slatec-bundled-x86_64-pc-windows-gnu/native/*.a
+!crates/slatec-bundled-x86_64-unknown-linux-gnu/native/
+!crates/slatec-bundled-x86_64-unknown-linux-gnu/native/*.a
 
 # Explicit provider acquisition/build caches
 /evidence/provider-sources/

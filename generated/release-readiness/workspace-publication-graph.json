@@ -6,6 +6,10 @@
       "dependent": "slatec-src"
     },
     {
+      "dependency": "slatec-bundled-x86_64-unknown-linux-gnu",
+      "dependent": "slatec-src"
+    },
+    {
       "dependency": "slatec-core",
       "dependent": "slatec"
     },
@@ -28,6 +32,10 @@
       "links": "slatec_bundled_x86_64_pc_windows_gnu"
     },
     {
+      "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
+      "links": "slatec_bundled_x86_64_unknown_linux_gnu"
+    },
+    {
       "crate": "slatec-src",
       "links": "slatec"
     }
@@ -35,6 +43,7 @@
   "publication_layers": [
     [
       "slatec-bundled-x86_64-pc-windows-gnu",
+      "slatec-bundled-x86_64-unknown-linux-gnu",
       "slatec-sys"
     ],
     [
@@ -48,6 +57,7 @@
   "publishable_crates": [
     "slatec",
     "slatec-bundled-x86_64-pc-windows-gnu",
+    "slatec-bundled-x86_64-unknown-linux-gnu",
     "slatec-core",
     "slatec-src",
     "slatec-sys"

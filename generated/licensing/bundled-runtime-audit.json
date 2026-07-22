@@ -20,7 +20,7 @@
       "api-ms-win-core-synch-l1-2-0.dll",
       "bcryptprimitives.dll"
     ],
-    "bundled_numeric": "6.18704438748315955",
+    "bundled_numeric": "8.26142853597504612",
     "environment": {
       "SLATEC_GFORTRAN": "intentionally invalid",
       "SLATEC_SOURCE_CACHE": "absent",
@@ -28,7 +28,7 @@
       "SLATEC_SYSTEM_RUNTIME_LIB_DIR": "absent"
     },
     "numeric_parity": "exact_rendered_f64",
-    "source_build_numeric": "6.18704438748315955",
+    "source_build_numeric": "8.26142853597504612",
     "status": "pass"
   },
   "compiler_invoked": true,
@@ -85,7 +85,8 @@
         "_gfortran_stop_string",
         "_gfortran_string_index",
         "_gfortran_transfer_character_write",
-        "_gfortran_transfer_integer_write"
+        "_gfortran_transfer_integer_write",
+        "_gfortran_transfer_real_write"
       ]
     },
     {

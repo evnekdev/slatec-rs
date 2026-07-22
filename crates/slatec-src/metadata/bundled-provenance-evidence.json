@@ -33,18 +33,18 @@
       "source_ids": ["selected-source-1e3bed089a5c7353","selected-source-5ad0f482d1edfed6","selected-source-4a69af03648ecbfb","selected-source-ffb49667980bd47d","selected-source-794dcf0acfef9e77","selected-source-f5f1bf7a0160a2d7","selected-source-53d7a5b46de65f00","selected-source-f7c2f72773df582e","selected-source-9328d11396675be5","selected-source-e29e41489490bd88","selected-source-ea1981b04f846b72","selected-source-d28f0088410e971d","selected-source-33e062e6c5111389","selected-source-c9a62608746c2110","selected-source-c89507c7c4762651","selected-source-f3de2d6b6fc09924","selected-source-1030d7afc1353bb9","selected-source-e4538c4c265c8a3a","selected-source-b1d4e65885bb89bb","selected-source-d444fdc85ad2d8b3","selected-source-37c1dbf0f41a4725","selected-source-abab17e1d4c0a1a8","selected-source-34d2ab39a8d150a7","selected-source-10275ec90dd6e066","selected-source-273c06b35f95f85b","selected-source-84e03977dd3521a1","selected-source-60f744ba036ffdb7","selected-source-1fdae9155aa43140"]
     },
     {
-      "id": "slatec-v41-scalar-release-exact-source-scope",
+      "id": "slatec-v41-special-release-exact-source-scope",
       "authority": "NIST and NTIS public-domain statements, scoped to Netlib SLATEC Version 4.1 source identities",
       "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html",
       "retrieved_on": "2026-07-22",
       "excerpt": "The SLATEC Library is a public-domain Fortran library; FNLIB subset of SLATEC; main SLATEC Fortran source.",
       "statement": "This release-review record combines NIST's express SLATEC public-domain statement and the independent NTIS SLADOC public-domain record with Netlib's Version 4.1 fnlib/src subset identification. It applies only to the exact, hash-pinned source set below; it is not a directory-wide inference and it does not clear other Netlib-hosted material.",
-      "scope": "The exact source closures of the listed scalar special-function and scalar-root families, identified by the deterministic source-set SHA-256 and count.",
+      "scope": "The exact source closures of the listed scalar special-function and scalar-root families, including the real Bessel and scalar-expanded closures, identified by the deterministic source-set SHA-256 and count.",
       "source_ids": [],
       "source_scope": {
-        "families": ["special-elementary", "special-gamma", "special-beta", "special-error", "special-integrals", "special-polynomials", "roots-scalar", "special-airy"],
-        "source_set_sha256": "be839a1aee845ce13e79c1c2cc9c4403e9e5b96c96342828850d4fd5a13dfd8e",
-        "source_count": 91
+        "families": ["special-elementary", "special-gamma", "special-beta", "special-error", "special-integrals", "special-polynomials", "roots-scalar", "special-airy", "special-bessel", "special-scalar-expanded"],
+        "source_set_sha256": "5dd25f947a0ace0daeb0c58fec21cbf0ddb3a7896270fa5b95a18b497b65b9ad",
+        "source_count": 129
       }
     }
   ]

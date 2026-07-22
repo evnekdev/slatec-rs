@@ -11,9 +11,11 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `tabulated-data`, and `approximation-polynomial-fitting`.
 Numerical families require exactly one backend: `bundled`, `source-build`,
 `system`, or `external-backend`. `bundled` is the canonical default feature.
-On `x86_64-pc-windows-gnu`, the crates.io carrier provides
+On `x86_64-pc-windows-gnu` and `x86_64-unknown-linux-gnu`, the crates.io
+carriers provide
 `special-elementary`, `special-gamma`, `special-beta`, `special-error`,
-`special-integrals`, `special-polynomials`, `special-airy`, and `roots-scalar`
+`special-integrals`, `special-polynomials`, `special-airy`, `special-bessel`,
+`special-scalar-expanded`, and `roots-scalar`
 without GFortran, a source cache, system archive, or build-script network
 access. The carrier is one hash-verified accepted-source archive with reduced
 static GNU runtime closures; its package includes exact runtime licences and
@@ -29,9 +31,9 @@ is hosted and runtime-validated, not a bare-metal backend. See
 
 ## Quick start: compiler-free special functions
 
-On the supported `x86_64-pc-windows-gnu` target, ordinary consumers need only
-select the safe family. The default `bundled` provider resolves the published
-carrier and never invokes GFortran:
+On either supported bundled target, ordinary consumers need only select the
+safe family. The default `bundled` provider resolves the target carrier and
+never invokes GFortran:
 
 ```toml
 [dependencies]

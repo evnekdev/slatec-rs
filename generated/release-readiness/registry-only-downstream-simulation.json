@@ -3,43 +3,64 @@
     {
       "configuration": "raw-no-default",
       "dependency": "slatec-sys = { version = \"=0.1.0\", default-features = false }",
+      "executor": "host",
       "result": "pass",
+      "target": null,
       "workspace_path_dependencies": 0
     },
     {
       "configuration": "raw-all-declarations",
       "dependency": "slatec-sys = { version = \"=0.1.0\", default-features = false, features = [\"all\"] }",
+      "executor": "host",
       "result": "pass",
+      "target": null,
       "workspace_path_dependencies": 0
     },
     {
       "configuration": "external-provider-narrow",
       "dependency": "slatec-src = { version = \"=0.1.0\", default-features = false, features = [\"external-backend\", \"special-gamma\"] }",
+      "executor": "host",
       "result": "pass",
+      "target": null,
       "workspace_path_dependencies": 0
     },
     {
       "configuration": "safe-no-default",
       "dependency": "slatec = { version = \"=0.1.0\", default-features = false }",
+      "executor": "host",
       "result": "pass",
+      "target": null,
       "workspace_path_dependencies": 0
     },
     {
       "configuration": "safe-narrow-external",
       "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"external-backend\", \"special-gamma\"] }",
+      "executor": "host",
       "result": "pass",
+      "target": null,
       "workspace_path_dependencies": 0
     },
     {
       "configuration": "safe-bundled-elementary",
       "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-elementary\"] }",
+      "executor": "host",
       "result": "pass",
+      "target": "x86_64-pc-windows-gnu",
+      "workspace_path_dependencies": 0
+    },
+    {
+      "configuration": "safe-bundled-bessel-linux",
+      "dependency": "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-bessel\"] }",
+      "executor": "wsl",
+      "result": "pass",
+      "target": "x86_64-unknown-linux-gnu",
       "workspace_path_dependencies": 0
     }
   ],
   "local_packages": [
     "slatec-sys",
     "slatec-bundled-x86_64-pc-windows-gnu",
+    "slatec-bundled-x86_64-unknown-linux-gnu",
     "slatec-src",
     "slatec-core",
     "slatec"

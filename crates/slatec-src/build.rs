@@ -6,7 +6,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-const TARGET: &str = "x86_64-pc-windows-gnu";
+const WINDOWS_GNU_TARGET: &str = "x86_64-pc-windows-gnu";
+const LINUX_GNU_TARGET: &str = "x86_64-unknown-linux-gnu";
 const ACQUIRE_COMMAND: &str = "cargo run -p slatec-tools --bin slatec-corpus -- acquire-provider-sources --output-dir <SLATEC_SOURCE_CACHE>";
 const FAMILY_FEATURES: &[(&str, &str)] = &[
     ("BLAS_LEVEL1", "blas-level1"),
@@ -117,6 +118,30 @@ struct FamilyOverlay {
     profile_override: bool,
 }
 
+struct NativeTarget {
+    rust_target: &'static str,
+    compiler_target: &'static str,
+    profile_directory: &'static str,
+}
+
+fn native_target(target: &str) -> NativeTarget {
+    match target {
+        WINDOWS_GNU_TARGET => NativeTarget {
+            rust_target: WINDOWS_GNU_TARGET,
+            compiler_target: "x86_64-w64-mingw32",
+            profile_directory: "gnu-mingw-x86_64",
+        },
+        LINUX_GNU_TARGET => NativeTarget {
+            rust_target: LINUX_GNU_TARGET,
+            compiler_target: "x86_64-linux-gnu",
+            profile_directory: "gnu-linux-x86_64",
+        },
+        _ => panic!(
+            "source-build currently supports only {WINDOWS_GNU_TARGET} and {LINUX_GNU_TARGET}; found {target}. Select system or external-backend for another target"
+        ),
+    }
+}
+
 fn main() {
     for name in [
         "SLATEC_SOURCE_CACHE",
@@ -145,6 +170,7 @@ fn main() {
     println!("cargo:rerun-if-changed=metadata/special-scalar-expanded-source-closure.json");
     println!("cargo:rerun-if-changed=metadata/bundled-source-eligibility.json");
     println!("cargo:rerun-if-changed=native/gnu-mingw-x86_64");
+    println!("cargo:rerun-if-changed=native/gnu-linux-x86_64");
 
     let families = enabled_families();
     if families.is_empty() {
@@ -179,15 +205,33 @@ struct BundledFamily {
     bundle_available: bool,
 }
 
+struct BundledCarrier {
+    prefix: &'static str,
+    eligibility_file: &'static str,
+}
+
+fn bundled_carrier(target: &str) -> BundledCarrier {
+    match target {
+        WINDOWS_GNU_TARGET => BundledCarrier {
+            prefix: "DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU",
+            eligibility_file: "bundled-source-eligibility.json",
+        },
+        LINUX_GNU_TARGET => BundledCarrier {
+            prefix: "DEP_SLATEC_BUNDLED_X86_64_UNKNOWN_LINUX_GNU",
+            eligibility_file: "bundled-source-eligibility-linux.json",
+        },
+        _ => panic!(
+            "The bundled SLATEC provider does not support {target}.\nSupported bundled targets:\n- {WINDOWS_GNU_TARGET}\n- {LINUX_GNU_TARGET}\n\nSelect source-build, system, or external-backend explicitly, or build for a supported target."
+        ),
+    }
+}
+
 fn link_bundled(families: &BTreeSet<String>) {
     let target = env::var("TARGET").unwrap_or_default();
-    if target != TARGET {
-        panic!(
-            "The bundled SLATEC provider does not support {target}.\nSupported bundled targets:\n- {TARGET}\n\nSelect source-build, system, or external-backend explicitly, or build for a supported target."
-        );
-    }
-    let eligibility_path =
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("metadata/bundled-source-eligibility.json");
+    let carrier = bundled_carrier(&target);
+    let eligibility_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("metadata")
+        .join(carrier.eligibility_file);
     let eligibility: BundledEligibility = serde_json::from_slice(
         &fs::read(&eligibility_path).expect("read bundled-source eligibility metadata"),
     )
@@ -212,12 +256,11 @@ fn link_bundled(families: &BTreeSet<String>) {
     let mut linked_archives = BTreeSet::new();
     for family in families {
         let key = family.replace('-', "_").to_ascii_uppercase();
-        let prefix = "DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU";
-        let available = env::var(format!("{prefix}_AVAILABLE_{key}"))
+        let available = env::var(format!("{}_AVAILABLE_{key}", carrier.prefix))
             .ok()
             .as_deref()
             == Some("true");
-        let archive = env::var_os(format!("{prefix}_ARCHIVE_{key}")).map(PathBuf::from);
+        let archive = env::var_os(format!("{}_ARCHIVE_{key}", carrier.prefix)).map(PathBuf::from);
         if !available || archive.as_ref().is_none_or(|path| !path.is_file()) {
             panic!(
                 "the bundled SLATEC carrier has no verified archive for {family}. Select source-build, system, or external-backend explicitly."
@@ -235,13 +278,14 @@ fn link_bundled(families: &BTreeSet<String>) {
             );
         }
     }
-    let prefix = "DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU";
     for component in ["LIBGFORTRAN", "LIBQUADMATH"] {
-        let runtime = env::var_os(format!("{prefix}_RUNTIME_{component}")).map(PathBuf::from);
-        let runtime_available = env::var(format!("{prefix}_RUNTIME_AVAILABLE_{component}"))
-            .ok()
-            .as_deref()
-            == Some("true");
+        let runtime =
+            env::var_os(format!("{}_RUNTIME_{component}", carrier.prefix)).map(PathBuf::from);
+        let runtime_available =
+            env::var(format!("{}_RUNTIME_AVAILABLE_{component}", carrier.prefix))
+                .ok()
+                .as_deref()
+                == Some("true");
         if runtime_available {
             let runtime = runtime.expect("bundled runtime path");
             if !runtime.is_file() {
@@ -322,11 +366,7 @@ fn link_system() {
 
 fn build_sources(families: &BTreeSet<String>) {
     let target = env::var("TARGET").unwrap_or_default();
-    if target != TARGET {
-        panic!(
-            "source-build currently supports only {TARGET}; found {target}. Select system or external-backend for another target"
-        );
-    }
+    let native_target = native_target(&target);
     let cache = env::var_os("SLATEC_SOURCE_CACHE").map(PathBuf::from).unwrap_or_else(|| {
         panic!(
             "source-build is offline-only and requires SLATEC_SOURCE_CACHE. Populate it explicitly with: {ACQUIRE_COMMAND}"
@@ -420,11 +460,11 @@ fn build_sources(families: &BTreeSet<String>) {
         })
         .collect::<Vec<_>>();
     let compiler = compiler();
-    verify_compiler(&compiler);
+    verify_compiler(&compiler, &native_target);
     let mut object_paths = Vec::new();
     for (id, path) in verified_sources {
         let object = objects.join(format!("{id}.o"));
-        compile_one(&compiler, &path, &object);
+        compile_one(&compiler, &path, &object, "-std=f95");
         object_paths.push(object);
     }
     if families
@@ -432,10 +472,12 @@ fn build_sources(families: &BTreeSet<String>) {
         .any(|family| manifest.profile_override_families.contains(family))
     {
         for name in ["i1mach", "r1mach", "d1mach"] {
-            let source = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-                .join(format!("native/gnu-mingw-x86_64/{name}.f"));
+            let source = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join(format!(
+                "native/{}/{name}.f",
+                native_target.profile_directory
+            ));
             let object = objects.join(format!("profile-{name}.o"));
-            compile_one(&compiler, &source, &object);
+            compile_one(&compiler, &source, &object, "-std=f2008");
             object_paths.push(object);
         }
     }
@@ -500,12 +542,14 @@ fn compiler() -> PathBuf {
         .unwrap_or_else(|| PathBuf::from("gfortran"))
 }
 
-fn verify_compiler(compiler: &Path) {
+fn verify_compiler(compiler: &Path, native_target: &NativeTarget) {
     let target = output(compiler, &["-dumpmachine"]);
-    if target.trim() != "x86_64-w64-mingw32" {
+    if target.trim() != native_target.compiler_target {
         panic!(
-            "source-build requires GNU Fortran target x86_64-w64-mingw32; found {}",
-            target.trim()
+            "source-build for {} requires GNU Fortran target {}; found {}",
+            native_target.rust_target,
+            native_target.compiler_target,
+            target.trim(),
         );
     }
 }
@@ -534,9 +578,9 @@ fn verified_cached_source(cache: &Path, source: &Source) -> PathBuf {
     path
 }
 
-fn compile_one(compiler: &Path, source: &Path, object: &Path) {
+fn compile_one(compiler: &Path, source: &Path, object: &Path, standard: &str) {
     let output = Command::new(compiler)
-        .args(["-x", "f77", "-std=legacy", "-ffixed-line-length-none", "-c"])
+        .args(["-x", "f77", standard, "-ffixed-line-length-none", "-c"])
         .arg(source)
         .arg("-o")
         .arg(object)

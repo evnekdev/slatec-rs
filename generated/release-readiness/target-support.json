@@ -1,9 +1,21 @@
 {
-  "policy": "Only x86_64-pc-windows-gnu is a supported compiler-free target. Other targets must select an explicit expert provider and are not validated by this carrier report.",
+  "policy": "Only target records with a ready, exact carrier receipt and a clean packaged-consumer execution are supported bundled targets. Other targets must select an explicit expert provider and are not validated by this carrier report.",
   "schema_id": "slatec-rs.target-support",
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "targets": [
     {
+      "bundled_families": [
+        "roots-scalar",
+        "special-airy",
+        "special-bessel",
+        "special-beta",
+        "special-elementary",
+        "special-error",
+        "special-gamma",
+        "special-integrals",
+        "special-polynomials",
+        "special-scalar-expanded"
+      ],
       "evidence": [
         "hash-verified accepted-source carrier",
         "reduced GNU runtime closure receipt",
@@ -13,12 +25,24 @@
       "target": "x86_64-pc-windows-gnu"
     },
     {
-      "blockers": [
-        "no reviewed GNU Fortran compiler/runtime profile in this release receipt",
-        "no target-specific carrier archive or packaged-consumer execution",
-        "no source-cache, runtime-closure, import, or provenance receipt for a Linux carrier"
+      "bundled_families": [
+        "roots-scalar",
+        "special-airy",
+        "special-bessel",
+        "special-beta",
+        "special-elementary",
+        "special-error",
+        "special-gamma",
+        "special-integrals",
+        "special-polynomials",
+        "special-scalar-expanded"
       ],
-      "status": "not-shipped",
+      "evidence": [
+        "hash-verified accepted-source carrier",
+        "reduced GNU runtime closure receipt",
+        "clean ELF consumer execution and source-build parity"
+      ],
+      "status": "supported-bundled",
       "target": "x86_64-unknown-linux-gnu"
     },
     {

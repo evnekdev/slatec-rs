@@ -4,50 +4,62 @@
     {
       "family": "roots-scalar",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-airy",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
+    },
+    {
+      "family": "special-bessel",
+      "path": "native/libslatec_bundle_accepted.a",
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-beta",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-elementary",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-error",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-gamma",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-integrals",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     },
     {
       "family": "special-polynomials",
       "path": "native/libslatec_bundle_accepted.a",
-      "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-      "size_bytes": 239142
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
+    },
+    {
+      "family": "special-scalar-expanded",
+      "path": "native/libslatec_bundle_accepted.a",
+      "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+      "size_bytes": 385314
     }
   ],
   "build_receipt": "metadata/bundle-build-receipt.json",
@@ -651,7 +663,7 @@
   "schema_version": "2.0.0",
   "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
   "source_eligibility": "generated/licensing/bundled-source-eligibility.json",
-  "source_unit_count": 91,
+  "source_unit_count": 129,
   "source_unit_manifest": "metadata/source-unit-manifest.json",
   "status": "ready",
   "target": "x86_64-pc-windows-gnu"

@@ -7,10 +7,12 @@ Fortran compiler, or searches a system archive.
 
 ## Current supported bundle
 
-`x86_64-pc-windows-gnu` ships a crates.io-publishable compiler-free carrier.
-Its exact accepted-source archive currently supports `special-elementary`,
+`x86_64-pc-windows-gnu` and `x86_64-unknown-linux-gnu` each ship a
+crates.io-publishable compiler-free carrier. Their exact accepted-source
+archives support `special-elementary`,
 `special-gamma`, `special-beta`, `special-error`, `special-integrals`,
-`special-polynomials`, `special-airy`, and `roots-scalar`. A normal user can
+`special-polynomials`, `special-airy`, `special-bessel`,
+`special-scalar-expanded`, and `roots-scalar`. A normal user can
 select it with:
 
 ```toml
@@ -28,7 +30,7 @@ entire closure is accepted.
 
 | Mode | Compiler | Source cache | System archive | Current status |
 | --- | --- | --- | --- | --- |
-| `bundled` | Never | Never | Never | Eight reviewed scalar/roots families on `x86_64-pc-windows-gnu` |
+| `bundled` | Never | Never | Never | Ten reviewed special/root families on the Windows GNU and Linux GNU carriers |
 | `source-build` | GNU Fortran | Required, verified | No | Expert provider |
 | `system` | No | No | Explicitly supplied | Expert provider |
 | `external-backend` | No | No | Caller-managed | Emits no link directives |

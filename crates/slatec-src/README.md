@@ -6,9 +6,10 @@ declaration-only users can depend on `slatec-sys` directly.
 
 `bundled` is the canonical ordinary-provider feature. Its target-specific
 carrier contains one hash-verified accepted-source archive for
-`x86_64-pc-windows-gnu`, currently providing `special-elementary`,
+`x86_64-pc-windows-gnu` and `x86_64-unknown-linux-gnu`, providing `special-elementary`,
 `special-gamma`, `special-beta`, `special-error`, `special-integrals`,
-`special-polynomials`, `special-airy`, and `roots-scalar`. It links without a
+`special-polynomials`, `special-airy`, `special-bessel`,
+`special-scalar-expanded`, and `roots-scalar`. It links without a
 compiler, source cache, system directory, or network access. Every other
 family is independently provenance-blocked and fails before touching those
 inputs. `source-build` consumes a separately acquired, checksum-verified cache
@@ -29,6 +30,7 @@ provider's one-source-per-object archive construction; see
 
 This crate owns the workspace's Cargo `links = "slatec"` namespace. It never
 downloads source during a build. The strongest validated source-build profile
-is GNU MinGW on `x86_64-pc-windows-gnu`; system and external backends must supply
-an independently compatible ABI. Packages contain closure metadata and the
+is GNU MinGW 14.2 on `x86_64-pc-windows-gnu` and GNU Fortran 11.4 on
+`x86_64-unknown-linux-gnu`; system and external backends must supply an
+independently compatible ABI. Packages contain closure metadata and the
 reviewed machine-constant overrides, not the separately acquired source cache.

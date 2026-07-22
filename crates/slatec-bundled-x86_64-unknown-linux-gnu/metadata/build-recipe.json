@@ -1,0 +1,25 @@
+{
+  "command": "SLATEC_BUNDLED_TARGET=x86_64-unknown-linux-gnu cargo run -p slatec-tools --bin slatec-corpus -- build-bundled-provider --offline",
+  "compiler": "GNU Fortran 11.4.0 / x86_64-linux-gnu",
+  "historical_source_compile_flags": [
+    "-x",
+    "f77",
+    "-std=f95",
+    "-ffixed-line-length-none",
+    "-fno-ident",
+    "-frandom-seed=slatec-bundled-accepted-source-closure",
+    "-c"
+  ],
+  "profile_source_compile_flags": [
+    "-x",
+    "f77",
+    "-std=f2008",
+    "-ffixed-line-length-none",
+    "-fno-ident",
+    "-frandom-seed=slatec-bundled-accepted-source-closure",
+    "-c"
+  ],
+  "schema_id": "slatec-rs/bundled-build-recipe",
+  "schema_version": "3.0.0",
+  "target": "x86_64-unknown-linux-gnu"
+}

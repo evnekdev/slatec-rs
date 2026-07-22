@@ -1090,12 +1090,12 @@
           "checksumValue": "3a5a4b74ab6bf4153d95715931265f9775f1df0b326eec56e10986a38fd67e8a"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/ali.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1170,12 +1170,12 @@
           "checksumValue": "d05bcc30e6f3d95bc1f386c35eab5e11a781084bba614a7dfa710153d60f633a"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besi0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1186,12 +1186,12 @@
           "checksumValue": "f904fe0a61a1babcf94517234321623cc9678d10c107f5a952776f5a87309556"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besi0e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1202,12 +1202,12 @@
           "checksumValue": "9839566b37235a3ed0e55c36429596e0718990a250566367190626c3f977a700"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besi1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1218,12 +1218,12 @@
           "checksumValue": "d86b0f8e39670f72b70e52fe931e55aa07a7cba634cd4ba845059494df64f6a1"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besi1e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1234,12 +1234,12 @@
           "checksumValue": "584da02b66dae950106a6a57b8c7be1fe734f5842eeec0dd54c7a64f9f2d7515"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besj0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1250,12 +1250,12 @@
           "checksumValue": "256aabcf0aebaa39258b9dae1f84f86573d7168e6cb549bf1a976bd5a1d56804"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besj1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1266,12 +1266,12 @@
           "checksumValue": "49fe93266446f431515693f4c61b8f57b85b17194060666166a18153b0827d47"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besk0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1282,12 +1282,12 @@
           "checksumValue": "98ce6a094ca41e3f5b93cf9988b17d58aa54fc8111607e7bd2da2b1d8ea518f6"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besk0e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1298,12 +1298,12 @@
           "checksumValue": "fe1e17c99996466348d7a76f1ea6ffe3f6eeb6f29d79c5c7ff61e5a7f8852d5c"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besk1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1314,12 +1314,12 @@
           "checksumValue": "0708ac5da44e18393b51302c16680eb38b2a0736163620fba8e532907c4a2403"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besk1e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1362,12 +1362,12 @@
           "checksumValue": "636a20c0a071f8f3955e73f0f30a6351d4c129d57ddb14a76a6fe60ecb300a8f"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besy0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1378,12 +1378,12 @@
           "checksumValue": "158f3bacc43563f17dd7ee50cd09d6f3d97bc61ff6fd0cf0297648261c26958a"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/besy1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -1986,12 +1986,12 @@
           "checksumValue": "52983617d24ffb89ce958289ca9f16a5adea039a68b3853d201b8efc7601d610"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/d9b0mp.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2002,12 +2002,12 @@
           "checksumValue": "e020237f01127add671ac9da349a83428832f97e9bb92cc807367804bf619078"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/d9b1mp.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2258,12 +2258,12 @@
           "checksumValue": "b4a440b65f4f72ce0ea3d4140fc071e238d009fec10ae10add6b1bec0fede3c8"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesi0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2274,12 +2274,12 @@
           "checksumValue": "1caeedb909be60a466497a4a8a7869e161bec253b984a4f3569decd1fe393a7f"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesi1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2290,12 +2290,12 @@
           "checksumValue": "07a317016b37f4a9aeee192cef11bf041c4c145d41cb852976583aecaa1b7297"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesj0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2306,12 +2306,12 @@
           "checksumValue": "b987dd1c79f116875dddb7b0a03cd84f9da2475e4bddadf81147fc661e3d7c1e"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesj1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2322,12 +2322,12 @@
           "checksumValue": "1f8739474b1e92e1ae1c26d59a06d8dcdd2056db4cfa29a22d2008fe67fa7c5e"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesk0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2338,12 +2338,12 @@
           "checksumValue": "b984d50e2c38b3269517f6d801a8a76ddc6b11b4416f0fd8d5f9f77d85b1ee42"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesk1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2370,12 +2370,12 @@
           "checksumValue": "80f1875caf2f393090dbf936d305bf30d7192736b053fc9b0c3f8558864039b9"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesy0.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2386,12 +2386,12 @@
           "checksumValue": "176a5187115fa962b6e043c8f96c540bbc595796e749c1c017726995285412a8"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbesy1.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2482,12 +2482,12 @@
           "checksumValue": "1ba478c6c21bb6dbfb55fe5fa73be6cde82a4246db6c9afdc45b671b19d04f0d"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbsi0e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2498,12 +2498,12 @@
           "checksumValue": "c007158e783a494700e07a8451934f43ae86db3dd53fe98178cad5bf8a38b088"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbsi1e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2514,12 +2514,12 @@
           "checksumValue": "6086ba86ac3d3c761269d9dbc75a6f424cbcbb98e29584a95c4f2233e96781bf"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbsk0e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2530,12 +2530,12 @@
           "checksumValue": "31d1a562e6b924b40fd5d89f3df5c16a45d2633901d0aeb65db9f6a89d30690d"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dbsk1e.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2882,12 +2882,12 @@
           "checksumValue": "597bc07e99e378fb7482599aff1bb037692a24fdd9d1c55f33591ba362a64e24"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dli.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -2994,12 +2994,12 @@
           "checksumValue": "dfd7853131ce5c2907b1ba33eb5566266897bf4f4466546df5effde759d2ab62"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/dspenc.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -3538,12 +3538,12 @@
           "checksumValue": "88388a431e85f9cf19296fc4420690c44ae891ec20b3c9dc9dbcc3450afcc670"
         }
       ],
-      "comment": "Redistribution classification: unresolved-authorship",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "fnlib/spenc.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -14674,12 +14674,12 @@
           "checksumValue": "ae45556ea6684c231f056bcd594ac2dacdba6696d8700f3e80fb8e6df56d5239"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/drc.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -14738,12 +14738,12 @@
           "checksumValue": "ef30e5f27e4b101600ed70567c393a7d19bf7c549bf93db9898ed36efcf48cb1"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/drd.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -14770,12 +14770,12 @@
           "checksumValue": "d0b7c830af2c73c312d0b8a4b672306c57ab515e5b5db125d05cca6b9a2bf347"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/drf.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -14786,12 +14786,12 @@
           "checksumValue": "1f51a43f5d539a731b8b745507021d6f5893c7610075a68588b0f5ac0c4970d0"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/drj.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -17554,12 +17554,12 @@
           "checksumValue": "bf1797079157e19f6d3f6c4080355fffc5903319dc6bee5a4d8237b94e03e97d"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/rc.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -17618,12 +17618,12 @@
           "checksumValue": "70a90ea4193084b8ce2de613e062ac179a138178126553d9f34395eb55854d71"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/rd.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -17634,12 +17634,12 @@
           "checksumValue": "1fe1ceb799bcd0c723e57797a25980c8e0df96e0f69560c1b6d5c75b8c309a40"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/rf.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -17650,12 +17650,12 @@
           "checksumValue": "20ee99b4e529f5ddf07298980ae901decbe2d0037f04e9579a199698dc5cba08"
         }
       ],
-      "comment": "Redistribution classification: unresolved-rights",
+      "comment": "Redistribution classification: explicit-public-domain",
       "copyrightText": "NOASSERTION",
       "fileName": "main-src/src/rj.f",
-      "licenseConcluded": "NOASSERTION",
+      "licenseConcluded": "LicenseRef-PublicDomain",
       "licenseInfoInFiles": [
-        "NOASSERTION"
+        "LicenseRef-PublicDomain"
       ]
     },
     {
@@ -20607,7 +20607,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0"
+          "checksumValue": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092"
         }
       ],
       "comment": "Historical archive is built only from hash-guarded source units.",

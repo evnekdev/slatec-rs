@@ -1,0 +1,77 @@
+{
+  "clean_consumer": {
+    "bundled_native_dependencies": [
+      "libgcc_s.so.1",
+      "libm.so.6",
+      "libc.so.6",
+      "ld-linux-x86-64.so.2"
+    ],
+    "bundled_numeric": "8.26142853597504612",
+    "environment": {
+      "SLATEC_GFORTRAN": "intentionally invalid",
+      "SLATEC_SOURCE_CACHE": "absent",
+      "SLATEC_SYSTEM_LIB_DIR": "absent",
+      "SLATEC_SYSTEM_RUNTIME_LIB_DIR": "absent"
+    },
+    "numeric_parity": "exact_rendered_f64",
+    "source_build_numeric": "8.26142853597504612",
+    "status": "pass"
+  },
+  "compiler_invoked": true,
+  "compiler_profile": "GNU Fortran 11.4.0 / x86_64-linux-gnu",
+  "consumer_dependencies": [
+    "libgcc_s.so.1",
+    "libm.so.6",
+    "libc.so.6",
+    "ld-linux-x86-64.so.2"
+  ],
+  "imported_dlls": [],
+  "network_access": false,
+  "reason": "Archive-level audit complete; final consumer import probe is recorded by the release validation command.",
+  "runtime_components": [
+    {
+      "actually_referenced": true,
+      "component": "libgfortran",
+      "distribution_action": "include reduced libslatec_bundle_gfortran.a with GPLv3 and Runtime Library Exception notice",
+      "static_or_dynamic": "static reduced closure"
+    },
+    {
+      "actually_referenced": "required by libgfortran formatted-write members through quadmath_snprintf, not by the SLATEC archive",
+      "component": "libquadmath",
+      "distribution_action": "include reduced libslatec_bundle_quadmath.a with LGPL-2.1-or-later notice and source/relinking information",
+      "static_or_dynamic": "static reduced closure"
+    },
+    {
+      "actually_referenced": "not separately bundled",
+      "component": "libgcc",
+      "distribution_action": "no carrier copy; audit final consumer imports",
+      "static_or_dynamic": "toolchain-provided final-link support"
+    }
+  ],
+  "runtime_member_audits": [
+    {
+      "component": "libgfortran",
+      "seed_symbols": [
+        "_gfortran_concat_string",
+        "_gfortran_st_write",
+        "_gfortran_st_write_done",
+        "_gfortran_stop_string",
+        "_gfortran_string_index",
+        "_gfortran_transfer_character_write",
+        "_gfortran_transfer_integer_write",
+        "_gfortran_transfer_real_write"
+      ]
+    },
+    {
+      "causal_chain": "SLATEC XERROR diagnostic formatting -> libgfortran write.o/transfer128.o -> quadmath_snprintf -> libquadmath quadmath-printf.o",
+      "causal_symbol": "quadmath_snprintf",
+      "component": "libquadmath"
+    }
+  ],
+  "schema_id": "slatec-rs/bundled-runtime-audit",
+  "schema_version": "3.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "source_cache_read": true,
+  "status": "ready",
+  "target": "x86_64-unknown-linux-gnu"
+}

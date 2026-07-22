@@ -34,16 +34,16 @@
   ],
   "scopes": [
     {
-      "id": "scalar-release-v41-public-domain-scope",
-      "families": ["special-elementary", "special-gamma", "special-beta", "special-error", "special-integrals", "special-polynomials", "roots-scalar", "special-airy"],
-      "source_set_sha256": "be839a1aee845ce13e79c1c2cc9c4403e9e5b96c96342828850d4fd5a13dfd8e",
-      "source_count": 91,
+      "id": "special-release-v41-public-domain-scope",
+      "families": ["special-elementary", "special-gamma", "special-beta", "special-error", "special-integrals", "special-polynomials", "roots-scalar", "special-airy", "special-bessel", "special-scalar-expanded"],
+      "source_set_sha256": "5dd25f947a0ace0daeb0c58fec21cbf0ddb3a7896270fa5b95a18b497b65b9ad",
+      "source_count": 129,
       "classification": "explicit-public-domain",
       "confidence": "reviewed-primary-institutional-statement-exact-source-scope",
       "stated_institutions": ["National Institute of Standards and Technology (NIST)", "National Technical Information Service (NTIS)", "Netlib SLATEC Version 4.1 distribution index"],
       "governing_notice": "NIST and NTIS expressly identify SLATEC as public domain; Netlib identifies the reviewed fnlib/src units as SLATEC Version 4.1 source subsets.",
       "redistribution_conditions": "No licence-imposed condition is stated in the reviewed public-domain records; preserve factual source attribution and the generated provenance receipt.",
-      "evidence_ids": ["slatec-v41-scalar-release-exact-source-scope"],
+      "evidence_ids": ["slatec-v41-special-release-exact-source-scope"],
       "manual_override_provenance": "manual-release-review-2026-07-22"
     }
   ]
