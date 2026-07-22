@@ -28,10 +28,13 @@ Rights are recorded per artifact or source family. Netlib hosting, SLATEC direct
 | `RIGHT-014` | QUADPACK family | `requires-review` | Source files are publicly served, while the package monograph is copyrighted. No blanket code licence was verified. | Keep source and book rights separate; cite the monograph, inspect file notices, and avoid reproducing book text. |
 | `RIGHT-015` | MINPACK, DASSL, ODEPACK-related, and AMOS families | `requires-review` | These are identifiable upstream candidates with varied authorship and institutional origins. Exact SLATEC lineage and file-level rights remain unresolved. | Resolve exact provider and notices before any family is redistributed or relicensed. |
 | `RIGHT-016` | Project-authored metadata, policies, extraction tools, and patches | `requires-review` until project licence is declared | These are new project works rather than historical SLATEC material. Their rights can be set by the project, subject to employer/contributor obligations and without purporting to relicense upstream source. | Add an explicit project licence and contribution policy before publication; keep patch authorship and sign-off records. |
+| `RIGHT-017` | Hash-pinned `special-elementary` closure (20 FNLIB and 8 SLATEC XERROR units) | `source-specific explicit public domain` | NIST's SLATEC programme report and its NTIS distribution record each explicitly describe the SLATEC library as public domain; the Netlib SLATEC Version 4.1 index establishes the exact `fnlib` and `src` subset scope. The committed evidence registry binds these statements to the 28 selected source IDs and hashes. | The target carrier may redistribute only these exact reviewed units, with the generated provenance and redistribution notices. This does not clear any other SLATEC source or imported package. |
 
 ## Government-work interpretation boundary
 
 The `AAAAAA` notice establishes government sponsorship and a disclaimer. It does **not** state that every file is in the public domain, that every author was a federal employee, or that contractor-authored and third-party package material is a United States Government work. Therefore the selected archive is not classified `public-domain-stated` or `government-work-stated` as a whole.
+
+`RIGHT-017` is narrower: it relies on direct institutional statements that the SLATEC library is public domain, then constrains the decision to an exact Version 4.1 Netlib subset and committed source hashes. It is not an inference merely from NIST association or Netlib hosting.
 
 ## Evidence distinctions
 

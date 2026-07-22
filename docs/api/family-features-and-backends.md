@@ -70,12 +70,11 @@ mutability, and leading-dimension rules. See the
 
 Exactly one backend must be selected whenever a numerical family is enabled.
 
-- `bundled` is the canonical default feature and is designed to use a
-  target-specific carrier without a compiler, source cache, system archive, or
-  network access. The current carrier is deliberately metadata-only: the
-  generated source-level provenance audit has no accepted historical-source
-  classifications, so a native-family request fails clearly instead of falling
-  back to another provider.
+- `bundled` is the canonical default feature. On `x86_64-pc-windows-gnu`, its
+  target-specific carrier supplies `special-elementary` without a compiler,
+  source cache, system archive, or network access. Every other family remains
+  source-provenance-blocked and fails clearly instead of falling back to another
+  provider.
 - `source-build` compiles from `SLATEC_SOURCE_CACHE` and never accesses the
   network. Populate that cache explicitly with
   `slatec-corpus acquire-provider-sources`; the build fails with the exact
@@ -94,9 +93,10 @@ numerical API. Its build script contains no network client.
 The source builder currently supports the validated GNU Fortran 14.2.0
 `x86_64-w64-mingw32` profile. Other compiler versions are not claimed as
 validated merely because their target string matches. Other targets must select
-`source-build`, `system`, or `external-backend` explicitly. The default
-`bundled` feature is selected even while its archive is unavailable so provider
-conflicts remain mechanical and no implicit fallback exists.
+`source-build`, `system`, or `external-backend` explicitly. `bundled` remains
+selected by default; only a reviewed per-family carrier archive makes a family
+available, so provider conflicts remain mechanical and no implicit fallback
+exists.
 
 Explicit acquisition from a repository checkout:
 
@@ -106,12 +106,11 @@ set SLATEC_SOURCE_CACHE=evidence/provider-sources
 cargo build --offline --no-default-features --features std,source-build,special-gamma --target x86_64-pc-windows-gnu
 ```
 
-The source build currently statically links `libgfortran` and `libquadmath`.
-The tested consumer has no GNU runtime DLL imports, but static `libquadmath`
-introduces LGPL redistribution obligations and `libgfortran` remains governed
-by its exact GPL/GCC Runtime Library Exception notices. No bundled archive or
-runtime claim is made until the carrier's separate runtime audit is complete.
-See `generated/licensing/`.
+The source build statically links `libgfortran` and `libquadmath`. The first
+bundled carrier also carries its audited static runtime closure: the tested
+clean consumer has no GNU runtime DLL imports. Static `libquadmath` carries
+LGPL source/relinking obligations and `libgfortran` carries its GPL/GCC Runtime
+Library Exception notice; see `generated/licensing/` and the carrier metadata.
 
 ## Static retention
 

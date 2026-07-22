@@ -227,10 +227,9 @@ fn validate_bundled_carrier(root: &Path) -> Result<Value> {
     let status = manifest["status"]
         .as_str()
         .ok_or_else(|| policy("bundled carrier manifest lacks status"))?;
-    let archive = manifest["archive"]
-        .as_str()
-        .ok_or_else(|| policy("bundled carrier manifest lacks archive path"))?;
-    let archive_path = crate_root.join(archive);
+    let archives = manifest["archives"]
+        .as_array()
+        .ok_or_else(|| policy("bundled carrier manifest lacks archives"))?;
     let cargo = read_toml(&crate_root.join("Cargo.toml"))?;
     let published = cargo
         .get("package")
@@ -238,10 +237,10 @@ fn validate_bundled_carrier(root: &Path) -> Result<Value> {
         .and_then(toml::Value::as_bool)
         .unwrap_or(true);
     match status {
-        "blocked_by_source_provenance" => {
-            if archive_path.exists() {
+        "blocked_by_source_provenance" | "eligible_pending_archive" => {
+            if !archives.is_empty() {
                 return Err(policy(
-                    "a bundled archive is present even though its generated provenance manifest blocks distribution",
+                    "a bundled archive is declared even though its generated provenance manifest is not ready",
                 ));
             }
             if published {
@@ -250,11 +249,54 @@ fn validate_bundled_carrier(root: &Path) -> Result<Value> {
                 ));
             }
         }
-        "ready_for_archive_production" => {
-            if !archive_path.is_file() || manifest["archive_sha256"].as_str().is_none() {
+        "ready" => {
+            if archives.is_empty() {
                 return Err(policy(
-                    "a ready bundled carrier must contain its archive and SHA-256 manifest entry",
+                    "a ready bundled carrier must declare at least one archive",
                 ));
+            }
+            for archive in archives {
+                let path = archive["path"]
+                    .as_str()
+                    .ok_or_else(|| policy("ready bundled archive lacks a path"))?;
+                let expected = archive["sha256"]
+                    .as_str()
+                    .ok_or_else(|| policy("ready bundled archive lacks SHA-256"))?;
+                let actual = hash::file(&crate_root.join(path))?;
+                if actual != expected {
+                    return Err(policy(
+                        "ready bundled archive checksum does not match its manifest",
+                    ));
+                }
+            }
+            for required in [
+                "metadata/source-unit-manifest.json",
+                "metadata/build-recipe.json",
+                "metadata/bundle-build-receipt.json",
+                "metadata/THIRD-PARTY-NOTICES.md",
+                "metadata/REDISTRIBUTION-NOTICE.md",
+            ] {
+                if !crate_root.join(required).is_file() {
+                    return Err(policy(&format!(
+                        "ready bundled carrier is missing required package evidence {required}"
+                    )));
+                }
+            }
+            for runtime in manifest["runtime_archives"]
+                .as_array()
+                .ok_or_else(|| policy("ready bundled carrier lacks runtime archive records"))?
+            {
+                let path = runtime["path"]
+                    .as_str()
+                    .ok_or_else(|| policy("ready runtime archive lacks a path"))?;
+                let expected = runtime["sha256"]
+                    .as_str()
+                    .ok_or_else(|| policy("ready runtime archive lacks SHA-256"))?;
+                if hash::file(&crate_root.join(path))? != expected {
+                    return Err(policy(
+                        "ready bundled runtime checksum does not match its manifest",
+                    ));
+                }
             }
         }
         other => return Err(policy(&format!("unknown bundled carrier status {other}"))),
@@ -263,8 +305,8 @@ fn validate_bundled_carrier(root: &Path) -> Result<Value> {
         "crate":"slatec-bundled-x86_64-pc-windows-gnu",
         "target":manifest["target"],
         "status":status,
-        "archive":archive,
-        "archive_present":archive_path.is_file(),
+        "archive_count":archives.len(),
+        "archives":archives,
         "publish":published,
     }))
 }
@@ -419,10 +461,10 @@ mod tests {
     }
 
     #[test]
-    fn blocked_bundled_carrier_contains_no_archive() {
+    fn ready_bundled_carrier_has_hash_verified_archives() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let carrier = validate_bundled_carrier(&root).expect("carrier policy");
-        assert_eq!(carrier["status"], "blocked_by_source_provenance");
-        assert_eq!(carrier["archive_present"], false);
+        assert_eq!(carrier["status"], "ready");
+        assert!(carrier["archive_count"].as_u64().unwrap_or_default() >= 1);
     }
 }

@@ -1,33 +1,84 @@
 {
-  "compiler_invoked": false,
-  "compiler_profile": null,
-  "imported_dlls": [],
+  "clean_consumer": {
+    "bundled_imported_dlls": [
+      "KERNEL32.dll",
+      "api-ms-win-crt-convert-l1-1-0.dll",
+      "api-ms-win-crt-environment-l1-1-0.dll",
+      "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "api-ms-win-crt-heap-l1-1-0.dll",
+      "api-ms-win-crt-locale-l1-1-0.dll",
+      "api-ms-win-crt-math-l1-1-0.dll",
+      "api-ms-win-crt-private-l1-1-0.dll",
+      "api-ms-win-crt-runtime-l1-1-0.dll",
+      "api-ms-win-crt-stdio-l1-1-0.dll",
+      "api-ms-win-crt-string-l1-1-0.dll",
+      "api-ms-win-crt-time-l1-1-0.dll",
+      "api-ms-win-crt-utility-l1-1-0.dll",
+      "ntdll.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "bundled_numeric": "0.40546510810816438",
+    "environment": {
+      "SLATEC_GFORTRAN": "intentionally invalid",
+      "SLATEC_SOURCE_CACHE": "absent",
+      "SLATEC_SYSTEM_LIB_DIR": "absent",
+      "SLATEC_SYSTEM_RUNTIME_LIB_DIR": "absent"
+    },
+    "numeric_parity": "exact_rendered_f64",
+    "source_build_numeric": "0.40546510810816438",
+    "status": "pass"
+  },
+  "compiler_invoked": true,
+  "compiler_profile": "GNU Fortran 14.2.0 / x86_64-w64-mingw32",
+  "imported_dlls": [
+    "KERNEL32.dll",
+    "api-ms-win-crt-convert-l1-1-0.dll",
+    "api-ms-win-crt-environment-l1-1-0.dll",
+    "api-ms-win-crt-filesystem-l1-1-0.dll",
+    "api-ms-win-crt-heap-l1-1-0.dll",
+    "api-ms-win-crt-locale-l1-1-0.dll",
+    "api-ms-win-crt-math-l1-1-0.dll",
+    "api-ms-win-crt-private-l1-1-0.dll",
+    "api-ms-win-crt-runtime-l1-1-0.dll",
+    "api-ms-win-crt-stdio-l1-1-0.dll",
+    "api-ms-win-crt-string-l1-1-0.dll",
+    "api-ms-win-crt-time-l1-1-0.dll",
+    "api-ms-win-crt-utility-l1-1-0.dll",
+    "ntdll.dll",
+    "USERENV.dll",
+    "WS2_32.dll",
+    "api-ms-win-core-synch-l1-2-0.dll",
+    "bcryptprimitives.dll"
+  ],
   "network_access": false,
-  "reason": "The source-level provenance gate blocks archive production before a compiler or linker can run. Source-build runtime observations remain separate evidence and are not attributed to bundled mode.",
+  "reason": "Archive-level audit complete; final consumer import probe is recorded by the release validation command.",
   "runtime_components": [
     {
-      "actually_referenced": "not_assessed",
+      "actually_referenced": true,
       "component": "libgfortran",
-      "distribution_action": "no bundled runtime is present",
-      "static_or_dynamic": "not_assessed"
+      "distribution_action": "include libslatec_bundle_gfortran.a with GPLv3 and Runtime Library Exception notice",
+      "static_or_dynamic": "static bundled"
     },
     {
-      "actually_referenced": "not_assessed",
+      "actually_referenced": "required by the reviewed Rust GNU target final link (quadmath_snprintf), not by the SLATEC archive",
       "component": "libquadmath",
-      "distribution_action": "no bundled runtime is present; do not add it speculatively",
-      "static_or_dynamic": "not_assessed"
+      "distribution_action": "include libslatec_bundle_quadmath.a with LGPL-2.1-or-later notice and source/relinking information",
+      "static_or_dynamic": "static bundled"
     },
     {
-      "actually_referenced": "not_assessed",
+      "actually_referenced": "not separately bundled",
       "component": "libgcc",
-      "distribution_action": "no bundled runtime is present",
-      "static_or_dynamic": "not_assessed"
+      "distribution_action": "no carrier copy; audit final consumer imports",
+      "static_or_dynamic": "toolchain-provided final-link support"
     }
   ],
   "schema_id": "slatec-rs/bundled-runtime-audit",
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
-  "source_cache_read": false,
-  "status": "not_applicable_no_redistributable_archive",
+  "source_cache_read": true,
+  "status": "ready",
   "target": "x86_64-pc-windows-gnu"
 }

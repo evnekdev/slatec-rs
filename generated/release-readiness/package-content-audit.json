@@ -1,10 +1,17 @@
 {
   "bundled_carrier": {
-    "archive": "native/libslatec_bundle.a",
-    "archive_present": false,
+    "archive_count": 1,
+    "archives": [
+      {
+        "family": "special-elementary",
+        "path": "native/libslatec_bundle_special_elementary.a",
+        "sha256": "5a41286fdf793171164bf2c42c0fad3c05e8754419df94e17f79ba89972b7fcb",
+        "size_bytes": 56678
+      }
+    ],
     "crate": "slatec-bundled-x86_64-pc-windows-gnu",
     "publish": false,
-    "status": "blocked_by_source_provenance",
+    "status": "ready",
     "target": "x86_64-pc-windows-gnu"
   },
   "packages": [
@@ -31,7 +38,7 @@
     {
       "build_script": "build.rs",
       "crate": "slatec-src",
-      "file_count": 30,
+      "file_count": 31,
       "forbidden_files": [],
       "links": "slatec",
       "manifest": "crates/slatec-src/Cargo.toml",

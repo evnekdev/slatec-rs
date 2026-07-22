@@ -24,6 +24,11 @@ Cargo.lock
 *.crate
 *.log
 
+# The reviewed carrier is the sole exception: its reproducibly generated,
+# checksum-verified static archives are a distributed provider artifact.
+!crates/slatec-bundled-x86_64-pc-windows-gnu/native/
+!crates/slatec-bundled-x86_64-pc-windows-gnu/native/*.a
+
 # Explicit provider acquisition/build caches
 /evidence/provider-sources/
 /evidence/provider-cache/

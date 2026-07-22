@@ -141,6 +141,16 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     }
     let rights_records = vec![
         json!({
+            "id":"rights-bundled-special-elementary", "origin":"selected SLATEC elementary closure", "selected_source_count":28,
+            "upstream_url":"https://www.netlib.org/slatec/", "original_package":"SLATEC Version 4.1 src and fnlib subsets",
+            "copyright_notice":"Named source prologues are preserved in the hash-guarded provenance override layer.",
+            "license_or_public_domain_statement":"NIST and NTIS expressly describe SLATEC as a public-domain Fortran library; Netlib Version 4.1 scopes the exact selected units as SLATEC subsets.",
+            "redistribution_terms":"Approved only for the 28 exact SHA-256 source units in special-elementary; preserve provenance and generated notices.",
+            "modification_requirements":"A changed source hash invalidates clearance and requires review.", "attribution_requirements":"Preserve factual prologue attribution and provenance evidence.",
+            "source_redistribution":"accepted_source_specific", "compiled_redistribution":"accepted_with_runtime_notices", "bundled_eligible":true,
+            "evidence":["crates/slatec-src/metadata/bundled-provenance-evidence.json","crates/slatec-src/metadata/bundled-provenance-overrides.json"]
+        }),
+        json!({
             "id":"rights-main-src", "origin":"main-src", "selected_source_count":subset_counts.get("main-src").copied().unwrap_or(0),
             "upstream_url":"https://www.netlib.org/slatec/slatec_src.tgz", "original_package":"SLATEC main source archive",
             "copyright_notice":"Archive AAAAAA carries a United States Government sponsorship and warranty disclaimer; individual files have varied authorship.",
@@ -205,19 +215,19 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     let rights = json!({
         "schema_id":"slatec-rs/source-rights", "schema_version":"1.0.0", "snapshot_id":SNAPSHOT,
         "legal_status":"risk documentation only; not legal advice", "records":rights_records,
-        "decision":"bundled source and binary redistribution is blocked until every selected historical physical source and GNU runtime delivery plan is cleared"
+        "decision":"Only the approved special-elementary closure and its reviewed static runtime plan may be bundled. Every other selected historical physical source remains blocked until its own source-specific clearance is recorded."
     });
     let provider_index = json!({
         "schema_id":"slatec-rs/provider-index", "schema_version":"1.0.0", "snapshot_id":SNAPSHOT,
         "family_count":manifest.families.len(),
         "records":[
-            {"mode":"bundled","status":"blocked_by_source_provenance","network":false,"fortran_compiler":false,"reason":"the source-level provenance gate has no accepted historical source classifications; no archive is distributed","target":"x86_64-pc-windows-gnu","archive_sha256":null},
+            {"mode":"bundled","status":"supported_partial","network":false,"fortran_compiler":false,"reason":"only special-elementary has a ready, hash-verified family archive; unavailable families fail without fallback","target":"x86_64-pc-windows-gnu","available_families":["special-elementary"],"blocked_families":"all other selected source closures"},
             {"mode":"source-build","status":"supported","network":false,"fortran_compiler":true,"source_cache":"SLATEC_SOURCE_CACHE, populated explicitly and hash-verified","target":"x86_64-pc-windows-gnu","compiler_profile_id":PROFILE,"validated_compiler":"GNU Fortran 14.2.0 x86_64-w64-mingw32","flags":["-x","f77","-std=legacy","-ffixed-line-length-none","-c"],"runtime":["static libgfortran","static libquadmath","MinGW/UCRT system libraries"],"separate_objects":true,"whole_archive":false},
             {"mode":"system","status":"supported_escape_hatch","network":false,"fortran_compiler":false,"configuration":["SLATEC_SYSTEM_LIB_DIR","optional SLATEC_SYSTEM_LIB_NAME","SLATEC_SYSTEM_RUNTIME_LIB_DIR"]},
             {"mode":"external-backend","status":"supported_escape_hatch","network":false,"fortran_compiler":false,"link_directives":false}
         ],
         "default_backend_feature":"bundled",
-        "policy":"A top-level application selects one backend. The canonical bundled feature is selected by default, but a native family cannot use it until a target carrier archive passes the source-level provenance gate. No provider falls back silently."
+        "policy":"A top-level application selects one backend. The canonical bundled feature is selected by default, but each family requires its own target carrier archive and source-level provenance clearance. No provider falls back silently."
     });
     let runtime_audit = json!({
         "schema_id":"slatec-rs/provider-runtime-link-audit", "schema_version":"1.0.0",
@@ -227,7 +237,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
         "consumer_test":{"name":"source-build-gamma","toolchain_directories_on_path":false,"status":"passed"},
         "observed_gnu_runtime_dll_imports":[],
         "observed_host_runtime_families":["Windows kernel","UCRT API sets","USERENV","WS2_32"],
-        "licensing_note":"Static libquadmath introduces LGPL compliance obligations; libgfortran is governed by its exact GPL/GCC Runtime Library Exception notices. No runtime archive is redistributed by slatec-rs."
+        "licensing_note":"The ready elementary carrier includes audited static libgfortran and libquadmath; notices and the applicable source/relinking obligations are included in its metadata."
     });
     let licensing = root.join("generated/licensing");
     let providers = root.join("generated/providers");
@@ -239,7 +249,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     fs::write(
         licensing.join("provider-rights-summary.md"),
         format!(
-            "# Provider rights summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Reviewed provider-source origins: main-src ({}), fnlib ({}), lin ({}).\n- Netlib says most packages have no restrictions but recommends checking authors; it is not a package-specific grant.\n- The source-level bundled-provider audit has no accepted historical-source classification yet.\n- The canonical `bundled` provider therefore has **no archive** and fails before a compiler, cache, system directory, or network path is considered.\n- Project-authored profile support may be distributed under MIT OR Apache-2.0.\n- GNU libgfortran is governed by its exact GPL/RLE notices; static libquadmath introduces LGPL compliance obligations.\n- This is risk documentation, not legal advice.\n",
+            "# Provider rights summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Reviewed provider-source origins: main-src ({}), fnlib ({}), lin ({}).\n- The source-level bundled-provider audit accepts exactly the 28 hash-guarded `special-elementary` historical units, using express NIST/NTIS public-domain statements plus Netlib Version 4.1 subset scope.\n- The canonical `bundled` provider distributes that family only on `x86_64-pc-windows-gnu`; all other source closures remain blocked without fallback.\n- Project-authored profile support may be distributed under MIT OR Apache-2.0.\n- The carrier includes static libgfortran and libquadmath with the required notices and source/relinking information.\n- This is risk documentation, not legal advice.\n",
             subset_counts.get("main-src").copied().unwrap_or(0),
             subset_counts.get("fnlib").copied().unwrap_or(0),
             subset_counts.get("lin").copied().unwrap_or(0)
@@ -248,7 +258,7 @@ pub fn generate_metadata(root: &Path) -> Result<String> {
     fs::write(
         providers.join("provider-validation-summary.md"),
         format!(
-            "# Provider validation summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Validated ABI profile: `{PROFILE}` (GNU Fortran 14.2.0, x86_64-w64-mingw32).\n- Bundled: canonical default feature, but blocked by the generated source-level provenance audit; no archive or runtime is distributed.\n- Source-build: explicit, cache-only, checksum-verified, and offline after acquisition.\n- System: explicit deterministic archive directory and name.\n- External backend: emits no native directives.\n- Native archive policy: separate source objects and no whole-archive.\n- Runtime policy: static libgfortran and libquadmath are linked by source-build; redistribution obligations remain with the produced binary and must be reviewed.\n"
+            "# Provider validation summary\n\n- Snapshot: `{SNAPSHOT}`.\n- Validated ABI profile: `{PROFILE}` (GNU Fortran 14.2.0, x86_64-w64-mingw32).\n- Bundled: canonical default feature with a hash-verified `special-elementary` family archive on `x86_64-pc-windows-gnu`; other families remain blocked.\n- Source-build: explicit, cache-only, checksum-verified, and offline after acquisition.\n- System: explicit deterministic archive directory and name.\n- External backend: emits no native directives.\n- Native archive policy: separate source objects and no whole-archive.\n- Runtime policy: the ready carrier includes static libgfortran and libquadmath and records final-consumer DLL imports.\n"
         ),
     )?;
     Ok(hash::bytes(&serde_json::to_vec(
@@ -592,7 +602,7 @@ mod tests {
     }
 
     #[test]
-    fn committed_publication_policy_blocks_unlicensed_bundled_artifacts() {
+    fn bundled_policy_exposes_only_the_reviewed_family() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
         let providers: Value = serde_json::from_slice(
             &fs::read(root.join("generated/providers/provider-index.json"))
@@ -604,7 +614,8 @@ mod tests {
             .iter()
             .find(|record| record["mode"] == "bundled")
             .expect("bundled record");
-        assert_eq!(bundled["status"], "blocked_by_source_provenance");
+        assert_eq!(bundled["status"], "supported_partial");
+        assert_eq!(bundled["available_families"], json!(["special-elementary"]));
         let manifest =
             provider_manifest(&root.join("crates/slatec-src/metadata/family-source-closure.json"))
                 .expect("provider manifest");

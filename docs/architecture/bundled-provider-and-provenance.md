@@ -1,94 +1,105 @@
 # Bundled provider and provenance gate
 
-`slatec-src` has four mutually exclusive implementation-provider features:
-`bundled`, `source-build`, `system`, and `external-backend`. `bundled` is the
-canonical default feature in the pre-release API. It is target-specific and is
-intended to let a normal consumer use a reviewed mathematical feature without a
-Fortran compiler, source cache, system archive, environment variable, or build
-script network access.
+`slatec-src` selects exactly one implementation provider: `bundled`,
+`source-build`, `system`, or `external-backend`. `bundled` is the ordinary
+default. It never downloads source, reads `SLATEC_SOURCE_CACHE`, probes a
+Fortran compiler, or searches a system archive.
 
-That intended experience is not currently available for a native family. The
-carrier is deliberately metadata-only because the source-level provenance audit
-has not admitted any historical source unit. This is a release gate, not a
-fallback policy: selecting a native family with `bundled` fails before the build
-script reads `SLATEC_SOURCE_CACHE`, probes GFortran, searches a system directory,
-or invokes a network client.
+## Current supported bundle
 
-## Provider modes
+`x86_64-pc-windows-gnu` ships one reviewed compiler-free native family:
+`special-elementary`. A normal user can select it with:
 
-| Mode | Default feature | Compiler | Source cache | System archive | Status |
-| --- | --- | --- | --- | --- | --- |
-| `bundled` | Yes | Never | Never | Never | Target carrier architecture present; no historical archive until provenance clearance |
-| `source-build` | No | GNU Fortran | Verified local cache | No | Explicit expert provider |
-| `system` | No | No | No | Explicit archive and runtime directories | Explicit expert provider |
-| `external-backend` | No | No | No | Caller-managed | Emits no link directives |
+```toml
+[dependencies]
+slatec = { version = "0.1", features = ["special-elementary"] }
+```
 
-No mode silently selects another provider. The `prebuilt` feature was removed:
-there is one canonical public name, `bundled`.
+Its deterministic archive contains 28 hash-pinned historical SLATEC units and
+the three project-owned GNU MinGW machine-profile units. It has a unique
+family archive instead of one broad archive, so enabling a later family does
+not make this first archive a hidden implementation root. All other families
+remain unavailable with `bundled` until their entire closure is accepted.
 
-## Carrier layout
+| Mode | Compiler | Source cache | System archive | Current status |
+| --- | --- | --- | --- | --- |
+| `bundled` | Never | Never | Never | `special-elementary` on `x86_64-pc-windows-gnu` |
+| `source-build` | GNU Fortran | Required, verified | No | Expert provider |
+| `system` | No | No | Explicitly supplied | Expert provider |
+| `external-backend` | No | No | Caller-managed | Emits no link directives |
 
-The first carrier package is
-`slatec-bundled-x86_64-pc-windows-gnu`. It has no numerical Rust API. When the
-gate is cleared it will contain a deterministic `libslatec_bundle.a`, its
-checksum, source-unit manifest, member and symbol reports, compiler recipe,
-runtime notices, and target metadata. Cargo selects the package only for its
-target, so a future archive is not downloaded for unrelated targets.
+An unsupported family or target fails with a provider-specific error and does
+not fall back. Experts can still use `default-features = false` with
+`source-build`, `system`, or `external-backend`.
 
-The current generated carrier manifest is intentionally marked
-`blocked_by_source_provenance`, has no archive checksum, and the package remains
-`publish = false`. Package-content validation rejects an archive in that state.
+## Provenance decision
 
-## Provenance policy
+The authoritative reviewed inputs are:
 
-The authoritative input for a clearance is
-`crates/slatec-src/metadata/bundled-provenance-overrides.json`. Every record is
-keyed by a stable selected-source ID and SHA-256. Generation rejects an unknown
-source, an altered hash, and a classification outside the closed vocabulary:
+- `crates/slatec-src/metadata/bundled-provenance-evidence.json` — primary
+  institutional evidence, retrieval date, short excerpt, and exact scope;
+- `crates/slatec-src/metadata/bundled-provenance-overrides.json` — stable
+  source ID, exact SHA-256, author/institution prologue evidence, classification,
+  governing notice, conditions, and evidence references.
+
+The elementary clearance relies on express public-domain statements by NIST
+and NTIS, plus Netlib's Version 4.1 index that identifies the selected `src`
+and `fnlib` units as SLATEC subsets. It is **not** inferred from hosting,
+government sponsorship, or a laboratory name. Every accepted record is
+hash-bound; an unknown ID, changed hash, incomplete accepted record, missing
+evidence, or evidence whose source scope omits the record is rejected.
+
+The classification vocabulary is finite:
 
 - `us-government-public-domain`
 - `explicit-public-domain`
-- `permissive-license`
-- `copyleft-license`
-- `third-party-license`
-- `government-provenance-no-explicit-notice`
-- `unresolved-provenance`
+- `explicit-permissive`
+- `explicit-copyleft-compatible`
+- `third-party-notice-required`
+- `unresolved-authorship`
+- `unresolved-rights`
 - `excluded-from-bundle`
 
-Only the first three classifications are currently accepted for a bundled
-archive. Government sponsorship, an institutional name, and Netlib hosting are
-not evidence of public-domain status. GNU compiler-runtime licensing is audited
-separately from SLATEC source provenance.
+The first five may be accepted only with complete source-specific review data.
+The other three cannot enter an archive. Current generated counts are 28
+`explicit-public-domain`, 903 `unresolved-authorship`, and 356
+`unresolved-rights`; unresolved units remain blocked even though one family is
+now available.
 
-Generated evidence lives in `generated/licensing/`:
+## Reproducible build and carrier contents
 
-- `slatec-source-provenance.json` and `.md` give one record per physical source;
-- `bundled-source-eligibility.json` maps every provider family to its block;
-- `unresolved-provenance.json`, `third-party-notices.md`, and
-  `bundled-sbom.spdx.json` preserve the distribution boundary;
-- `bundled-runtime-audit.json` and `bundled-archive-audit.json` explicitly say
-  `not_applicable_no_redistributable_archive` until a real archive exists.
-
-Regenerate and validate this evidence with:
+Run the following only with the reviewed GNU MinGW 14.2.0 toolchain and an
+explicit verified cache:
 
 ```text
-cargo run -p slatec-tools --bin slatec-corpus -- generate-bundled-provider-evidence --offline
+set SLATEC_SOURCE_CACHE=<absolute verified cache path>
+set SLATEC_GFORTRAN=<reviewed gfortran.exe>
+cargo run -p slatec-tools --bin slatec-corpus -- build-bundled-provider --offline
 cargo run -p slatec-tools --bin slatec-corpus -- validate-bundled-provider-evidence --offline
 ```
 
-`build-bundled-provider` deliberately fails before compilation while the gate
-is blocked. This prevents an opaque local archive from becoming de facto
-distribution input. Once every required source unit is cleared, the command must
-be extended to compile one original source per object with the pinned toolchain,
-normalize archive ordering and timestamps, verify symbols/imports/runtime
-closure, and prove a clean-root deterministic archive hash before the carrier is
-published.
+The command verifies every source hash before compiling it separately with
+fixed Fortran flags, builds the archive with deterministic `ar crsD`, repeats
+the build in the same root and compares SHA-256, records members/symbols,
+builds a clean consumer with cache/system settings absent and an invalid
+`SLATEC_GFORTRAN`, runs it, compares its rendered result with `source-build`,
+and audits imported DLLs. It never performs network access.
 
-## Link and runtime boundary
+The target carrier includes its family archive, the required static
+`libgfortran` and `libquadmath` archives, checksums, source-unit manifest,
+build recipe, compiler receipt, archive/runtime audits, SPDX SBOM, third-party
+notices, and redistribution notice. `libquadmath` is included because the
+reviewed final Rust GNU consumer link requires `quadmath_snprintf`, not because
+the SLATEC archive references it. The recorded clean consumer imports no
+`libgfortran` or `libquadmath` DLL.
 
-The existing source-build archive remains one object per selected original
-source, with no whole-archive link. Its GNU runtime observations do not prove a
-future bundled runtime closure. In particular, `libquadmath` must not be added
-to a carrier merely because it exists in a compiler distribution: actual object
-references and final imported DLLs must be recorded after a cleared archive is
-built.
+The runtime archives retain their upstream obligations: `libgfortran` is
+recorded as GPL-3.0 with GCC Runtime Library Exception; `libquadmath` is
+recorded as LGPL-2.1-or-later. Notices and corresponding-source/relinking
+information must travel with a distribution. This is a provenance record, not
+legal advice.
+
+Generated evidence lives in `generated/licensing/`, and the target carrier
+contains the package-ready copies under `metadata/`. The carrier remains
+`publish = false` until a separate publication review; no crate or tag is
+published by the build workflow.
