@@ -1,0 +1,549 @@
+{
+  "carrier": {
+    "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
+    "reason": "A family archive is available only when its complete hash-guarded source closure is present in this target's deterministic carrier receipt.",
+    "status": "ready"
+  },
+  "families": [
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "approximation-core",
+      "source_unit_count": 89,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "banded-linear-systems",
+      "source_unit_count": 18,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "blas-complex",
+      "source_unit_count": 3,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "blas-level1",
+      "source_unit_count": 79,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "blas-level2",
+      "source_unit_count": 59,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "blas-level3",
+      "source_unit_count": 31,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "bspline",
+      "source_unit_count": 24,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "dassl",
+      "source_unit_count": 42,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fftpack-complex",
+      "source_unit_count": 13,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fftpack-extended-real",
+      "source_unit_count": 45,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fftpack-real",
+      "source_unit_count": 32,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fishpack-cartesian-2d",
+      "source_unit_count": 11,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fishpack-complex",
+      "source_unit_count": 34,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fishpack-cylindrical-polar",
+      "source_unit_count": 16,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fishpack-general",
+      "source_unit_count": 80,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fishpack-pois3d",
+      "source_unit_count": 32,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "fishpack-spherical",
+      "source_unit_count": 43,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "interpolation-general",
+      "source_unit_count": 78,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-covariance",
+      "source_unit_count": 20,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-linear-bounded",
+      "source_unit_count": 35,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-linear-bounded-constrained",
+      "source_unit_count": 41,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-linear-constrained",
+      "source_unit_count": 52,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-linear-nonnegative",
+      "source_unit_count": 42,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-nonlinear-easy",
+      "source_unit_count": 28,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "least-squares-nonlinear-expert",
+      "source_unit_count": 26,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "linear-algebra-complex",
+      "source_unit_count": 81,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "linear-algebra-eigen",
+      "source_unit_count": 86,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "linear-algebra-real",
+      "source_unit_count": 266,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "nonlinear-complex",
+      "source_unit_count": 18,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "nonlinear-easy",
+      "source_unit_count": 26,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "nonlinear-expert",
+      "source_unit_count": 24,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "nonlinear-jacobian",
+      "source_unit_count": 10,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "nonlinear-jacobian-check",
+      "source_unit_count": 10,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "nonlinear-systems",
+      "source_unit_count": 14,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "ode-integration",
+      "source_unit_count": 2,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "ode-sdrive-expert",
+      "source_unit_count": 73,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "optimization-linear-programming-in-memory",
+      "source_unit_count": 61,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "pchip",
+      "source_unit_count": 24,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "piecewise-polynomial",
+      "source_unit_count": 24,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-basic",
+      "source_unit_count": 50,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-breakpoints",
+      "source_unit_count": 18,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-callbacks",
+      "source_unit_count": 12,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-direct",
+      "source_unit_count": 22,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-fourier",
+      "source_unit_count": 32,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-nonadaptive",
+      "source_unit_count": 12,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-oscillatory",
+      "source_unit_count": 26,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "quadrature-weighted",
+      "source_unit_count": 24,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "roots-polynomial",
+      "source_unit_count": 0,
+      "status": "no_selected_source_closure"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "roots-scalar",
+      "source_unit_count": 10,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-airy",
+      "source_unit_count": 22,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-bessel",
+      "source_unit_count": 38,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-beta",
+      "source_unit_count": 28,
+      "status": "ready"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "special-complex",
+      "source_unit_count": 76,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-elementary",
+      "source_unit_count": 28,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-error",
+      "source_unit_count": 16,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-gamma",
+      "source_unit_count": 51,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-integrals",
+      "source_unit_count": 16,
+      "status": "ready"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-polynomials",
+      "source_unit_count": 10,
+      "status": "ready"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "special-real",
+      "source_unit_count": 205,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": "native/libslatec_bundle_accepted.a",
+      "archive_record": {
+        "path": "native/libslatec_bundle_accepted.a",
+        "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+        "size_bytes": 567600
+      },
+      "bundle_available": true,
+      "feature": "special-scalar-expanded",
+      "source_unit_count": 30,
+      "status": "ready"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "statistics-core",
+      "source_unit_count": 9,
+      "status": "blocked_by_source_provenance"
+    },
+    {
+      "archive": null,
+      "archive_record": null,
+      "bundle_available": false,
+      "feature": "unclassified",
+      "source_unit_count": 120,
+      "status": "blocked_by_source_provenance"
+    }
+  ],
+  "schema_id": "slatec-rs/bundled-source-eligibility",
+  "schema_version": "2.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "target": "x86_64-unknown-linux-gnu"
+}

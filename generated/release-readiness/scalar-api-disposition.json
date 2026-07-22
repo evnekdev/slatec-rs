@@ -1,904 +1,1032 @@
 {
   "disposition_counts": {
-    "private-provider-subsidiary": 18,
-    "public-enhanced-primitive": 90,
-    "raw-only-with-reason": 19
+    "covered_by_rust_std": 6,
+    "implement_safe_public_wrapper": 90,
+    "keep_private_provider_subsidiary": 20,
+    "retain_raw_only_with_blocker": 11
   },
   "input": "generated/safe-api/special-existing-vs-candidate.json",
-  "input_sha256": "9a3562ea503b1049c0d75aaddbc10058586a608c8233ebae22280ec96d25a26b",
-  "policy": "A public scalar path must supply a reviewed numerical or domain-safety value. Subsidiaries, mutable-global-state routines, and incomplete contracts remain non-public with an explicit reason.",
+  "input_sha256": "693eaa3bafce2f91387b27be39954aec1e94c1150a9193d4b7ee9450dddf7f3c",
+  "policy": "A public scalar path must supply a reviewed numerical or domain-safety value. Subsidiaries, mutable-global-state routines, and incomplete contracts remain non-public with an explicit reason. ACOSH/ASINH/ATANH and their double-precision aliases are deliberately covered by Rust standard-library methods rather than duplicated.",
   "records": [
     {
+      "final_action": "covered_by_rust_std",
       "native_name": "ACOSH",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "portable_intrinsic_duplicate",
+      "review_basis": "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted.",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "obsolete_alias_or_duplicate"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "AI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_ai_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "AIE",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_ai_scaled_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "ALBETA",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::log_beta_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "ALI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::logarithmic_integral_f32",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "ALNGAM",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::log_gamma_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "ALNREL",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::log1p_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "covered_by_rust_std",
       "native_name": "ASINH",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "portable_intrinsic_duplicate",
+      "review_basis": "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted.",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "obsolete_alias_or_duplicate"
     },
     {
+      "final_action": "covered_by_rust_std",
       "native_name": "ATANH",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "portable_intrinsic_duplicate",
+      "review_basis": "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted.",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "obsolete_alias_or_duplicate"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESI0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i0_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESI0E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i0_scaled_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESI1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i1_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESI1E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i1_scaled_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESJ0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_j0_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESJ1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_j1_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESK0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k0_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESK0E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k0_scaled_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESK1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k1_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESK1E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k1_scaled_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESY0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_y0_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BESY1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_y1_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BETA",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::beta_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BETAI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::regularized_beta_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_bi_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BIE",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_bi_scaled_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "BINOM",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::binomial_coefficient_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "CBRT",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::cbrt_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "CHU",
       "reason": "insufficiently_documented_convergence_contract",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "insufficiently_documented"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "COSDG",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::cos_degrees_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "COT",
       "reason": "fatal_near_pole_precision_path",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "deferred_due_to_branch_or_precision_ambiguity"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "CSEVL",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::polynomials::chebyshev::chebyshev_series_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9ATN1",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9CHU",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9GMIC",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9GMIT",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9LGIC",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9LGIT",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9LGMC",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9LN2R",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "D9PAK",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "covered_by_rust_std",
       "native_name": "DACOSH",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "portable_intrinsic_duplicate",
+      "review_basis": "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted.",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "obsolete_alias_or_duplicate"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DAI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_ai",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DAIE",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_ai_scaled",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "covered_by_rust_std",
       "native_name": "DASINH",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "portable_intrinsic_duplicate",
+      "review_basis": "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted.",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "obsolete_alias_or_duplicate"
     },
     {
+      "final_action": "covered_by_rust_std",
       "native_name": "DATANH",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "portable_intrinsic_duplicate",
+      "review_basis": "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted.",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "obsolete_alias_or_duplicate"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DAWS",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::dawson_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESI0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i0",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESI1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i1",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESJ0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_j0",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESJ1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_j1",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESK0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k0",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESK1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k1",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESY0",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_y0",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBESY1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_y1",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBETA",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::beta",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBETAI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::regularized_beta",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_bi",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBIE",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::airy::airy_bi_scaled",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBINOM",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::binomial_coefficient",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBSI0E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i0_scaled",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBSI1E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_i1_scaled",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBSK0E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k0_scaled",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DBSK1E",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::bessel::bessel_k1_scaled",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DCBRT",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::cbrt",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "DCHU",
       "reason": "insufficiently_documented_convergence_contract",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "insufficiently_documented"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DCOSDG",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::cos_degrees",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "DCOT",
       "reason": "fatal_near_pole_precision_path",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "deferred_due_to_branch_or_precision_ambiguity"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DCSEVL",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::polynomials::chebyshev::chebyshev_series",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DDAWS",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::dawson",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DE1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::integrals::exponential_integral_e1",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DEI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::integrals::exponential_integral_ei",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DERF",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::error_functions::erf",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DERFC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::error_functions::erfc",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DEXPRL",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::exprel",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DFAC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::factorial",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DGAMI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::incomplete_gamma_lower",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DGAMIC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::incomplete_gamma_upper",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DGAMIT",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::tricomi_incomplete_gamma",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DGAMMA",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::gamma",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DGAMR",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::reciprocal_gamma",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DLBETA",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::log_beta",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DLI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::logarithmic_integral",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DLNGAM",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::log_gamma",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DLNREL",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::log1p",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "DPOCH",
       "reason": "insufficiently_documented_argument_reliability",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "insufficiently_documented"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "DPOCH1",
       "reason": "insufficiently_documented_argument_reliability",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "insufficiently_documented"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DPSI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::digamma",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DRC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rc",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DRD",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rd",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DRF",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rf",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DRJ",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rj",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DSINDG",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::sin_degrees",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "DSPENC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::spence_integral",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "E1",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::integrals::exponential_integral_e1_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "EI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::integrals::exponential_integral_ei_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "ERF",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::error_functions::erf_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "ERFC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::error_functions::erfc_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "EXPREL",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::exprel_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "FAC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::factorial_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "GAMI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::incomplete_gamma_lower_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "GAMIC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::incomplete_gamma_upper_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "GAMIT",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::tricomi_incomplete_gamma_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "GAMMA",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::gamma_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "GAMR",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::reciprocal_gamma_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "INITDS",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "internal_approximant",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "INITS",
-      "reason": "unverified_public_contract",
-      "release_disposition": "raw-only-with-reason",
+      "reason": "internal_approximant",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
-      "source_classification": "deferred_pending_contract_review"
+      "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "POCH",
       "reason": "insufficiently_documented_argument_reliability",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "insufficiently_documented"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "POCH1",
       "reason": "insufficiently_documented_argument_reliability",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "insufficiently_documented"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "PSI",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::gamma::digamma_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9ATN1",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9CHU",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9GMIC",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9GMIT",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9LGIC",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9LGIT",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9LGMC",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9LN2R",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "keep_private_provider_subsidiary",
       "native_name": "R9PAK",
       "reason": "internal_approximant",
-      "release_disposition": "private-provider-subsidiary",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "internal_or_subsidiary_only"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "RAND",
       "reason": "mutable_global_state",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "deferred_due_to_global_mutable_state"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "RC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rc_f32",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "RD",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rd_f32",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "RF",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rf_f32",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "RGAUSS",
       "reason": "mutable_global_state",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "deferred_due_to_global_mutable_state"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "RJ",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::carlson_rj_f32",
       "source_classification": "suitable_for_this_milestone"
     },
     {
+      "final_action": "retain_raw_only_with_blocker",
       "native_name": "RUNIF",
       "reason": "mutable_global_state",
-      "release_disposition": "raw-only-with-reason",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": null,
       "source_classification": "deferred_due_to_global_mutable_state"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "SINDG",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::elementary::sin_degrees_f32",
       "source_classification": "already_safely_exposed"
     },
     {
+      "final_action": "implement_safe_public_wrapper",
       "native_name": "SPENC",
       "reason": "validated_scalar_contract",
-      "release_disposition": "public-enhanced-primitive",
+      "review_basis": "generated safe-special candidate classification and source-backed contract review",
       "safe_path": "slatec::special::scalar_expanded::spence_integral_f32",
       "source_classification": "suitable_for_this_milestone"
     }
   ],
   "schema_id": "slatec-rs.scalar-api-disposition",
   "schema_version": "1.0.0",
-  "scope": "retained scalar special-function candidates; ordinary Rust core and std operations are not wrapped merely for name parity"
+  "scope": "retained scalar special-function candidates; each record has exactly one final action and ordinary Rust core/std operations are not wrapped merely for name parity"
 }

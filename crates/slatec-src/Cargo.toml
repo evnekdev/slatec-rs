@@ -114,3 +114,6 @@ sha2.workspace = true
 
 [target.'cfg(all(target_arch = "x86_64", target_os = "windows", target_env = "gnu"))'.dependencies]
 slatec-bundled-x86_64-pc-windows-gnu = { version = "0.1.0", path = "../slatec-bundled-x86_64-pc-windows-gnu" }
+
+[target.'cfg(all(target_arch = "x86_64", target_os = "linux", target_env = "gnu"))'.dependencies]
+slatec-bundled-x86_64-unknown-linux-gnu = { version = "0.1.0", path = "../slatec-bundled-x86_64-unknown-linux-gnu" }

@@ -1316,11 +1316,17 @@ fn deferred_reason(source: &str) -> &'static str {
         "fatal_near_pole_precision_path"
     } else if matches!(source, "RAND" | "RGAUSS" | "RUNIF") {
         "mutable_global_state"
-    } else if source.starts_with("D9") || source.starts_with("R9") {
+    } else if matches!(source, "INITDS" | "INITS")
+        || source.starts_with("D9")
+        || source.starts_with("R9")
+    {
         "internal_approximant"
     } else if matches!(
         source,
-        "ACOS"
+        "ACOSH"
+            | "ASINH"
+            | "ATANH"
+            | "ACOS"
             | "ALOG"
             | "ALOG10"
             | "ASIN"
@@ -1329,9 +1335,12 @@ fn deferred_reason(source: &str) -> &'static str {
             | "COS"
             | "COSH"
             | "DACOS"
+            | "DACOSH"
             | "DASIN"
+            | "DASINH"
             | "DATAN"
             | "DATAN2"
+            | "DATANH"
             | "DCOS"
             | "DCOSH"
             | "DEXP"

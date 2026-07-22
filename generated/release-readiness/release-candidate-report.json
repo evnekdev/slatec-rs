@@ -1,0 +1,82 @@
+{
+  "gates": [
+    {
+      "count": 279,
+      "evidence": "generated/release-readiness/public-api-freeze-baseline.json",
+      "gate": "safe API freeze",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "count": 821,
+      "evidence": "generated/release-readiness/raw-public-abi-freeze-baseline.json",
+      "gate": "raw ABI freeze",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "count": 3,
+      "evidence": "generated/release-readiness/core-support-types-api-baseline.json",
+      "gate": "core support API freeze",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "count": 2,
+      "evidence": "generated/release-readiness/carrier-metadata-api-baseline.json",
+      "gate": "target-carrier metadata freeze",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "evidence": "generated/release-readiness/target-support.json",
+      "families": [
+        "roots-scalar",
+        "special-airy",
+        "special-bessel",
+        "special-beta",
+        "special-elementary",
+        "special-error",
+        "special-gamma",
+        "special-integrals",
+        "special-polynomials",
+        "special-scalar-expanded"
+      ],
+      "gate": "Windows bundled carrier",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "evidence": "generated/release-readiness/target-support.json",
+      "gate": "Linux bundled carrier",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "evidence": "generated/release-readiness/package-content-audit.json",
+      "gate": "package contents",
+      "remaining_blocker": null,
+      "status": "pass"
+    },
+    {
+      "evidence": "generated/release-readiness/registry-only-downstream-simulation.json",
+      "gate": "registry-only packaged consumers",
+      "remaining_blocker": null,
+      "status": "pass"
+    }
+  ],
+  "overall_status": "release_candidate",
+  "policy": "This report records every unsatisfied gate as a blocker; it never upgrades a framework, partially accepted source closure, or unvalidated target into a release candidate.",
+  "publish_commands": [
+    "cargo publish -p slatec-bundled-x86_64-pc-windows-gnu",
+    "cargo publish -p slatec-bundled-x86_64-unknown-linux-gnu",
+    "cargo publish -p slatec-sys",
+    "cargo publish -p slatec-core",
+    "cargo publish -p slatec-src",
+    "cargo publish -p slatec"
+  ],
+  "remaining_blockers": [],
+  "schema_id": "slatec-rs.release-candidate-report",
+  "schema_version": "1.0.0",
+  "semver_decision": "0.1.0 release candidate; no crate published and no tag created"
+}

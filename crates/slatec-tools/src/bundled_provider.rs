@@ -15,7 +15,70 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const SNAPSHOT: &str = "complete-slatec-05078ebcb649b50e4435";
-const TARGET: &str = "x86_64-pc-windows-gnu";
+const WINDOWS_TARGET: &str = "x86_64-pc-windows-gnu";
+const LINUX_TARGET: &str = "x86_64-unknown-linux-gnu";
+
+struct BundleTarget {
+    rust_target: &'static str,
+    compiler_target: &'static str,
+    compiler_version: &'static str,
+    carrier_directory: &'static str,
+    carrier_crate: &'static str,
+    profile_directory: &'static str,
+    executable_name: &'static str,
+    dependency_format: DependencyFormat,
+}
+
+struct ArchiveBuildEnvironment<'a> {
+    root: &'a Path,
+    cache: &'a Path,
+    compiler: &'a Path,
+    target: &'a BundleTarget,
+}
+
+struct ConsumerEnvironment<'a> {
+    remove_env: &'a [&'a str],
+    invalid_env: Option<(&'a str, &'a str)>,
+    source_build: Option<(&'a Path, &'a Path)>,
+}
+
+#[derive(Clone, Copy)]
+enum DependencyFormat {
+    Pe,
+    Elf,
+}
+
+const WINDOWS_BUNDLE_TARGET: BundleTarget = BundleTarget {
+    rust_target: WINDOWS_TARGET,
+    compiler_target: "x86_64-w64-mingw32",
+    compiler_version: "14.2.0",
+    carrier_directory: "crates/slatec-bundled-x86_64-pc-windows-gnu",
+    carrier_crate: "slatec-bundled-x86_64-pc-windows-gnu",
+    profile_directory: "gnu-mingw-x86_64",
+    executable_name: "slatec-bundled-consumer.exe",
+    dependency_format: DependencyFormat::Pe,
+};
+
+const LINUX_BUNDLE_TARGET: BundleTarget = BundleTarget {
+    rust_target: LINUX_TARGET,
+    compiler_target: "x86_64-linux-gnu",
+    compiler_version: "11.4.0",
+    carrier_directory: "crates/slatec-bundled-x86_64-unknown-linux-gnu",
+    carrier_crate: "slatec-bundled-x86_64-unknown-linux-gnu",
+    profile_directory: "gnu-linux-x86_64",
+    executable_name: "slatec-bundled-consumer",
+    dependency_format: DependencyFormat::Elf,
+};
+
+fn selected_bundle_target() -> Result<&'static BundleTarget> {
+    match env::var("SLATEC_BUNDLED_TARGET").as_deref() {
+        Err(_) | Ok(WINDOWS_TARGET) => Ok(&WINDOWS_BUNDLE_TARGET),
+        Ok(LINUX_TARGET) => Ok(&LINUX_BUNDLE_TARGET),
+        Ok(other) => Err(policy(&format!(
+            "SLATEC_BUNDLED_TARGET must be {WINDOWS_TARGET} or {LINUX_TARGET}; found {other}"
+        ))),
+    }
+}
 const CLASSIFICATIONS: &[&str] = &[
     "us-government-public-domain",
     "explicit-public-domain",
@@ -42,7 +105,16 @@ const PROFILE_SOURCES: &[&str] = &["i1mach.f", "r1mach.f", "d1mach.f"];
 const COMPILE_FLAGS: &[&str] = &[
     "-x",
     "f77",
-    "-std=legacy",
+    "-std=f95",
+    "-ffixed-line-length-none",
+    "-fno-ident",
+    "-frandom-seed=slatec-bundled-accepted-source-closure",
+    "-c",
+];
+const PROFILE_COMPILE_FLAGS: &[&str] = &[
+    "-x",
+    "f77",
+    "-std=f2008",
     "-ffixed-line-length-none",
     "-fno-ident",
     "-frandom-seed=slatec-bundled-accepted-source-closure",
@@ -272,10 +344,90 @@ pub fn validate(root: &Path) -> Result<String> {
     ))
 }
 
+/// Generates deterministic Linux carrier metadata without compiling native
+/// code. The archive itself is produced only by the target-selected builder.
+pub fn generate_linux(root: &Path) -> Result<String> {
+    let artifacts = linux_artifacts(root, &LINUX_BUNDLE_TARGET)?;
+    for (path, bytes) in &artifacts {
+        write_if_changed(path, bytes)?;
+    }
+    Ok(semantic_hash(&artifacts))
+}
+
+/// Validates that every generated Linux carrier metadata artifact is current.
+pub fn validate_linux(root: &Path) -> Result<String> {
+    let artifacts = linux_artifacts(root, &LINUX_BUNDLE_TARGET)?;
+    for (path, expected) in &artifacts {
+        let actual = fs::read(path).map_err(|error| {
+            CorpusError::Verification(format!(
+                "missing Linux bundled-provider artifact {}: {error}",
+                path.display()
+            ))
+        })?;
+        if actual != *expected {
+            return Err(CorpusError::Verification(format!(
+                "Linux bundled-provider artifact drifted: {}; regenerate with generate-linux-bundled-provider-evidence",
+                path.display()
+            )));
+        }
+    }
+    Ok(semantic_hash(&artifacts))
+}
+
+/// Runs the Linux carrier's clean-consumer and source-build parity probes
+/// against an already receipt-verified deterministic archive.
+pub fn validate_linux_carrier(root: &Path) -> Result<()> {
+    let target = &LINUX_BUNDLE_TARGET;
+    let cache = env::var_os("SLATEC_SOURCE_CACHE")
+        .map(PathBuf::from)
+        .ok_or_else(|| policy("Linux carrier validation requires SLATEC_SOURCE_CACHE"))?;
+    let compiler = env::var_os("SLATEC_GFORTRAN")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from("gfortran"));
+    verify_bundled_compiler(&compiler, target)?;
+    let carrier_root = root.join(target.carrier_directory);
+    let mut receipt = read_build_receipt(&carrier_root)?.ok_or_else(|| {
+        policy("Linux carrier validation requires a deterministic bundle-build-receipt.json")
+    })?;
+    let archive = carrier_root.join(BUNDLED_ARCHIVE);
+    let expected = receipt["archives"]
+        .as_array()
+        .and_then(|archives| archives.first())
+        .and_then(|archive| archive["sha256"].as_str())
+        .ok_or_else(|| policy("Linux carrier receipt lacks its archive checksum"))?;
+    let actual = hash::file(&archive)?;
+    if actual != expected {
+        return Err(policy(&format!(
+            "Linux carrier archive checksum mismatch: expected {expected}, found {actual}"
+        )));
+    }
+    let consumer_probe = probe_clean_consumers(root, &cache, &compiler, target)?;
+    receipt["runtime_audit"]["status"] = Value::String("ready".to_owned());
+    receipt["runtime_audit"]["consumer_dependencies"] =
+        consumer_probe["bundled_native_dependencies"].clone();
+    receipt["runtime_audit"]["clean_consumer"] = consumer_probe;
+    write_json(&carrier_root.join(BUNDLED_BUILD_RECEIPT), &receipt)?;
+    generate_target_evidence(root, target)
+}
+
+fn semantic_hash(artifacts: &BTreeMap<PathBuf, Vec<u8>>) -> String {
+    hash::bytes(
+        &artifacts
+            .iter()
+            .flat_map(|(path, bytes)| {
+                let mut value = path.to_string_lossy().as_bytes().to_vec();
+                value.extend_from_slice(bytes);
+                value
+            })
+            .collect::<Vec<_>>(),
+    )
+}
+
 /// Builds one target-specific accepted-source archive only after every selected
 /// family closure passes the source-level redistribution gate. The source cache
 /// and compiler are intentionally touched only after that decision.
 pub fn require_buildable(root: &Path) -> Result<()> {
+    let target = selected_bundle_target()?;
     let manifest = materialized_manifest(root)?;
     let evidence = read_evidence(root)?;
     let overrides = read_overrides(root, &manifest, &evidence)?;
@@ -319,8 +471,8 @@ pub fn require_buildable(root: &Path) -> Result<()> {
     let compiler = env::var_os("SLATEC_GFORTRAN")
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from("gfortran"));
-    verify_bundled_compiler(&compiler)?;
-    let carrier_root = root.join("crates/slatec-bundled-x86_64-pc-windows-gnu");
+    verify_bundled_compiler(&compiler, target)?;
+    let carrier_root = root.join(target.carrier_directory);
     let stage = root
         .join("target/bundled-provider")
         .join(BUNDLED_ARCHIVE_FAMILY);
@@ -329,12 +481,16 @@ pub fn require_buildable(root: &Path) -> Result<()> {
     }
     fs::create_dir_all(&stage)?;
     let archive = stage.join("libslatec_bundle_accepted.a");
-    let (members, symbols, undefined, source_records) = build_family_archive(
+    let archive_environment = ArchiveBuildEnvironment {
         root,
+        cache: &cache,
+        compiler: &compiler,
+        target,
+    };
+    let (members, symbols, undefined, source_records) = build_family_archive(
         &source_by_id,
         &selected,
-        &cache,
-        &compiler,
+        &archive_environment,
         &stage,
         &archive,
     )?;
@@ -348,11 +504,9 @@ pub fn require_buildable(root: &Path) -> Result<()> {
     fs::create_dir_all(&reproducibility_stage)?;
     let reproducibility_archive = reproducibility_stage.join("libslatec_bundle_accepted.a");
     let _ = build_family_archive(
-        root,
         &source_by_id,
         &selected,
-        &cache,
-        &compiler,
+        &archive_environment,
         &reproducibility_stage,
         &reproducibility_archive,
     )?;
@@ -426,57 +580,58 @@ pub fn require_buildable(root: &Path) -> Result<()> {
         runtime_member_audits.push(json!({"component":"libquadmath","causal_symbol":"quadmath_snprintf","causal_chain":"SLATEC XERROR diagnostic formatting -> libgfortran write.o/transfer128.o -> quadmath_snprintf -> libquadmath quadmath-printf.o"}));
     }
     let receipt = json!({
-        "schema_id":"slatec-rs/bundled-build-receipt","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
+        "schema_id":"slatec-rs/bundled-build-receipt","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":target.rust_target,
         "family":BUNDLED_ARCHIVE_FAMILY,
         "compiler":{"path":compiler.display().to_string(),"version":command_output(&compiler, &["--version"])? .lines().next().unwrap_or_default(),"target":command_output(&compiler, &["-dumpmachine"])? .trim()},
-        "compile_flags":COMPILE_FLAGS,"archiver":sibling_tool(&compiler, "ar").display().to_string(),"archiver_flags":"crsD",
+        "historical_source_compile_flags":COMPILE_FLAGS,"profile_source_compile_flags":PROFILE_COMPILE_FLAGS,"archiver":sibling_tool(&compiler, "ar").display().to_string(),"archiver_flags":"crsD",
         "archives":[{"family":BUNDLED_ARCHIVE_FAMILY,"families":included_families,"path":BUNDLED_ARCHIVE,"sha256":archive_sha256,"size_bytes":fs::metadata(&carrier_archive)?.len()}],
         "runtime_archives":runtime_archives,
         "source_units":source_records,
-        "archive_audit":{"schema_id":"slatec-rs/bundled-archive-audit","schema_version":"3.0.0","snapshot_id":SNAPSHOT,"target":TARGET,"status":"ready","archive_model":"one accepted-source archive; family eligibility remains exact and the static linker extracts only referenced members","archive_members":members,"defined_symbols":symbols,"undefined_symbols":undefined,"included_families":included_families,"included_source_ids":selected,"imported_dlls":[],"same_root_reproduction":"sha256_match"},
-        "runtime_audit":{"schema_id":"slatec-rs/bundled-runtime-audit","schema_version":"3.0.0","snapshot_id":SNAPSHOT,"target":TARGET,"status":"static_runtime_pending_consumer_probe","compiler_profile":"GNU Fortran 14.2.0 / x86_64-w64-mingw32","compiler_invoked":true,"source_cache_read":true,"network_access":false,"runtime_member_audits":runtime_member_audits,"runtime_components":[
+        "archive_audit":{"schema_id":"slatec-rs/bundled-archive-audit","schema_version":"3.0.0","snapshot_id":SNAPSHOT,"target":target.rust_target,"status":"ready","archive_model":"one accepted-source archive; family eligibility remains exact and the static linker extracts only referenced members","archive_members":members,"defined_symbols":symbols,"undefined_symbols":undefined,"included_families":included_families,"included_source_ids":selected,"imported_dlls":[],"same_root_reproduction":"sha256_match"},
+        "runtime_audit":{"schema_id":"slatec-rs/bundled-runtime-audit","schema_version":"3.0.0","snapshot_id":SNAPSHOT,"target":target.rust_target,"status":"static_runtime_pending_consumer_probe","compiler_profile":format!("GNU Fortran {} / {}", target.compiler_version, target.compiler_target),"compiler_invoked":true,"source_cache_read":true,"network_access":false,"runtime_member_audits":runtime_member_audits,"runtime_components":[
             {"component":"libgfortran","static_or_dynamic":if runtime_required { "static reduced closure" } else { "not required" },"actually_referenced":runtime_required,"distribution_action":if runtime_required { "include reduced libslatec_bundle_gfortran.a with GPLv3 and Runtime Library Exception notice" } else { "not included" }},
             {"component":"libquadmath","static_or_dynamic":if quadmath_required { "static reduced closure" } else { "not required" },"actually_referenced":if quadmath_required { "required by libgfortran formatted-write members through quadmath_snprintf, not by the SLATEC archive" } else { "not required by the reduced runtime closure" },"distribution_action":if quadmath_required { "include reduced libslatec_bundle_quadmath.a with LGPL-2.1-or-later notice and source/relinking information" } else { "not included" }},
             {"component":"libgcc","static_or_dynamic":"toolchain-provided final-link support","actually_referenced":"not separately bundled","distribution_action":"no carrier copy; audit final consumer imports"}
         ],"imported_dlls":[],"reason":"Archive-level audit complete; final consumer import probe is recorded by the release validation command."}
     });
     write_json(&carrier_root.join(BUNDLED_BUILD_RECEIPT), &receipt)?;
-    generate(root)?;
-    let consumer_probe = probe_clean_consumers(root, &cache, &compiler)?;
+    generate_target_evidence(root, target)?;
+    let consumer_probe = probe_clean_consumers(root, &cache, &compiler, target)?;
     let mut final_receipt: Value =
         serde_json::from_slice(&fs::read(carrier_root.join(BUNDLED_BUILD_RECEIPT))?)?;
     final_receipt["runtime_audit"]["status"] = Value::String("ready".to_owned());
-    final_receipt["runtime_audit"]["imported_dlls"] =
-        consumer_probe["bundled_imported_dlls"].clone();
+    final_receipt["runtime_audit"]["consumer_dependencies"] =
+        consumer_probe["bundled_native_dependencies"].clone();
     final_receipt["runtime_audit"]["clean_consumer"] = consumer_probe.clone();
     write_json(&carrier_root.join(BUNDLED_BUILD_RECEIPT), &final_receipt)?;
-    generate(root)?;
+    generate_target_evidence(root, target)?;
     Ok(())
 }
 
-fn verify_bundled_compiler(compiler: &Path) -> Result<()> {
-    let target = command_output(compiler, &["-dumpmachine"])?;
-    if target.trim() != "x86_64-w64-mingw32" {
+fn verify_bundled_compiler(compiler: &Path, target: &BundleTarget) -> Result<()> {
+    let compiler_target = command_output(compiler, &["-dumpmachine"])?;
+    if compiler_target.trim() != target.compiler_target {
         return Err(policy(&format!(
-            "bundled archive production requires GNU Fortran target x86_64-w64-mingw32; found {}",
-            target.trim()
+            "bundled archive production for {} requires GNU Fortran target {}; found {}",
+            target.rust_target,
+            target.compiler_target,
+            compiler_target.trim(),
         )));
     }
     let version = command_output(compiler, &["--version"])?;
-    if !version.contains("14.2.0") {
-        return Err(policy(
-            "bundled archive production requires the reviewed GNU Fortran 14.2.0 toolchain",
-        ));
+    if !version.contains(target.compiler_version) {
+        return Err(policy(&format!(
+            "bundled archive production for {} requires the reviewed GNU Fortran {} toolchain",
+            target.rust_target, target.compiler_version
+        )));
     }
     Ok(())
 }
 
 fn build_family_archive(
-    root: &Path,
     source_by_id: &BTreeMap<&str, &Source>,
     selected: &[String],
-    cache: &Path,
-    compiler: &Path,
+    environment: &ArchiveBuildEnvironment<'_>,
     stage: &Path,
     archive: &Path,
 ) -> Result<ArchiveBuildAudit> {
@@ -488,9 +643,9 @@ fn build_family_archive(
         let source = source_by_id
             .get(id.as_str())
             .ok_or_else(|| policy(&format!("bundled family references unknown source {id}")))?;
-        let source_path = verified_cached_source(cache, source)?;
+        let source_path = verified_cached_source(environment.cache, source)?;
         let object = objects.join(format!("{}.o", source.id));
-        compile_source(compiler, &source_path, &object)?;
+        compile_source(environment.compiler, COMPILE_FLAGS, &source_path, &object)?;
         object_paths.push(object);
         source_records.push(json!({
             "id":source.id,"subset":source.subset,"path":source.path,"sha256":source.sha256,
@@ -498,8 +653,10 @@ fn build_family_archive(
         }));
     }
     for profile in PROFILE_SOURCES {
-        let source = root
-            .join("crates/slatec-src/native/gnu-mingw-x86_64")
+        let source = environment
+            .root
+            .join("crates/slatec-src/native")
+            .join(environment.target.profile_directory)
             .join(profile);
         let object = objects.join(format!("profile-{}.o", profile.trim_end_matches(".f")));
         let object_name = object
@@ -507,14 +664,19 @@ fn build_family_archive(
             .and_then(|name| name.to_str())
             .unwrap_or_default()
             .to_owned();
-        compile_source(compiler, &source, &object)?;
+        compile_source(
+            environment.compiler,
+            PROFILE_COMPILE_FLAGS,
+            &source,
+            &object,
+        )?;
         object_paths.push(object);
         source_records.push(json!({
-            "id":format!("profile-{}",profile.trim_end_matches(".f")),"subset":"slatec-rs-profile","path":format!("native/gnu-mingw-x86_64/{profile}"),"sha256":hash::file(&source)?,"cached_source_sha256":hash::file(&source)?,"object":object_name
+            "id":format!("profile-{}",profile.trim_end_matches(".f")),"subset":"slatec-rs-profile","path":format!("native/{}/{profile}", environment.target.profile_directory),"sha256":hash::file(&source)?,"cached_source_sha256":hash::file(&source)?,"object":object_name
         }));
     }
     object_paths.sort();
-    let ar = sibling_tool(compiler, "ar");
+    let ar = sibling_tool(environment.compiler, "ar");
     if archive.exists() {
         fs::remove_file(archive)?;
     }
@@ -541,7 +703,7 @@ fn build_family_archive(
     .lines()
     .map(str::to_owned)
     .collect::<Vec<_>>();
-    let nm = sibling_tool(compiler, "nm");
+    let nm = sibling_tool(environment.compiler, "nm");
     let defined = command_output(
         &nm,
         &[
@@ -593,9 +755,9 @@ fn verified_cached_source(cache: &Path, source: &Source) -> Result<PathBuf> {
     Ok(path)
 }
 
-fn compile_source(compiler: &Path, source: &Path, object: &Path) -> Result<()> {
+fn compile_source(compiler: &Path, flags: &[&str], source: &Path, object: &Path) -> Result<()> {
     let output = Command::new(compiler)
-        .args(COMPILE_FLAGS)
+        .args(flags)
         .arg(source)
         .arg("-o")
         .arg(object)
@@ -831,8 +993,17 @@ fn write_json(path: &Path, value: &Value) -> Result<()> {
     Ok(())
 }
 
-fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<Value> {
-    let probe_root = root.join("target/bundled-provider/clean-consumer");
+fn probe_clean_consumers(
+    root: &Path,
+    cache: &Path,
+    compiler: &Path,
+    target: &BundleTarget,
+) -> Result<Value> {
+    let probe_workspace = match target.dependency_format {
+        DependencyFormat::Pe => root.join("target/bundled-provider"),
+        DependencyFormat::Elf => env::temp_dir().join("slatec-bundled-provider-linux"),
+    };
+    let probe_root = probe_workspace.join("clean-consumer");
     let source = probe_root.join("src/main.rs");
     fs::create_dir_all(source.parent().expect("consumer source parent"))?;
     let canonical_root = root.canonicalize()?;
@@ -843,50 +1014,56 @@ fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<V
     fs::write(
         probe_root.join("Cargo.toml"),
         format!(
-            "[workspace]\n\n[package]\nname = \"slatec-bundled-consumer\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", features = [\"special-elementary\", \"special-gamma\", \"special-beta\", \"special-error\", \"special-integrals\", \"special-polynomials\", \"special-airy\", \"roots-scalar\"] }}\n"
+            "[workspace]\n\n[package]\nname = \"slatec-bundled-consumer\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", features = [\"special-elementary\", \"special-gamma\", \"special-beta\", \"special-error\", \"special-integrals\", \"special-polynomials\", \"special-airy\", \"special-bessel\", \"special-scalar-expanded\", \"roots-scalar\"] }}\n"
         ),
     )?;
     fs::write(
         &source,
-        "fn main() { use slatec::special::{airy::airy_ai, elementary::log1p, error_functions::erf, gamma::{beta, gamma}, integrals::exponential_integral_e1}; use slatec::polynomials::chebyshev::chebyshev_series; use slatec::roots::{find_root, RootBracket, RootOptions}; let root = find_root(|x| x * x - 2.0, RootBracket { lower: 0.0, upper: 2.0 }, RootOptions::default()).expect(\"bracketed root\").estimate; let value = log1p(0.5).unwrap() + gamma(0.5).unwrap() + beta(1.0, 1.0).unwrap() + erf(0.5).unwrap() + exponential_integral_e1(1.0).unwrap() + chebyshev_series(0.0, &[1.0, 0.5]).unwrap() + airy_ai(0.0).unwrap() + root; println!(\"{value:.17}\"); }\n",
+        "fn main() { use slatec::special::{airy::airy_ai, bessel::bessel_j0, elementary::log1p, error_functions::erf, gamma::{beta, gamma}, integrals::exponential_integral_e1, scalar_expanded::{carlson_rf, spence_integral}}; use slatec::polynomials::chebyshev::chebyshev_series; use slatec::roots::{find_root, RootBracket, RootOptions}; let root = find_root(|x| x * x - 2.0, RootBracket { lower: 0.0, upper: 2.0 }, RootOptions::default()).expect(\"bracketed root\").estimate; let value = log1p(0.5).unwrap() + gamma(0.5).unwrap() + beta(1.0, 1.0).unwrap() + erf(0.5).unwrap() + exponential_integral_e1(1.0).unwrap() + chebyshev_series(0.0, &[1.0, 0.5]).unwrap() + airy_ai(0.0).unwrap() + bessel_j0(1.0).unwrap() + spence_integral(0.5).unwrap() + carlson_rf(1.0, 2.0, 3.0).unwrap() + root; println!(\"{value:.17}\"); }\n",
     )?;
-    let target_dir = root.join("target/bundled-provider/clean-consumer-target");
+    let target_dir = probe_workspace.join("clean-consumer-target");
     let bundled = run_consumer(
         root,
         &probe_root,
         &target_dir,
         &[],
-        &[
-            "SLATEC_SOURCE_CACHE",
-            "SLATEC_SYSTEM_LIB_DIR",
-            "SLATEC_SYSTEM_RUNTIME_LIB_DIR",
-        ],
-        Some((
-            "SLATEC_GFORTRAN",
-            "__bundled_provider_must_not_invoke_gfortran__",
-        )),
-        None,
+        ConsumerEnvironment {
+            remove_env: &[
+                "SLATEC_SOURCE_CACHE",
+                "SLATEC_SYSTEM_LIB_DIR",
+                "SLATEC_SYSTEM_RUNTIME_LIB_DIR",
+            ],
+            invalid_env: Some((
+                "SLATEC_GFORTRAN",
+                "__bundled_provider_must_not_invoke_gfortran__",
+            )),
+            source_build: None,
+        },
+        target,
     )?;
-    let source_build_root = root.join("target/bundled-provider/source-build-consumer");
+    let source_build_root = probe_workspace.join("source-build-consumer");
     fs::create_dir_all(source_build_root.join("src"))?;
     fs::write(
         source_build_root.join("Cargo.toml"),
         format!(
-            "[workspace]\n\n[package]\nname = \"slatec-source-build-parity\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", default-features = false, features = [\"std\", \"source-build\", \"special-elementary\", \"special-gamma\", \"special-beta\", \"special-error\", \"special-integrals\", \"special-polynomials\", \"special-airy\", \"roots-scalar\"] }}\n"
+            "[workspace]\n\n[package]\nname = \"slatec-source-build-parity\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[dependencies]\nslatec = {{ path = \"{slatec_path}/crates/slatec\", default-features = false, features = [\"std\", \"source-build\", \"special-elementary\", \"special-gamma\", \"special-beta\", \"special-error\", \"special-integrals\", \"special-polynomials\", \"special-airy\", \"special-bessel\", \"special-scalar-expanded\", \"roots-scalar\"] }}\n"
         ),
     )?;
     fs::write(
         source_build_root.join("src/main.rs"),
-        "fn main() { use slatec::special::{airy::airy_ai, elementary::log1p, error_functions::erf, gamma::{beta, gamma}, integrals::exponential_integral_e1}; use slatec::polynomials::chebyshev::chebyshev_series; use slatec::roots::{find_root, RootBracket, RootOptions}; let root = find_root(|x| x * x - 2.0, RootBracket { lower: 0.0, upper: 2.0 }, RootOptions::default()).expect(\"bracketed root\").estimate; let value = log1p(0.5).unwrap() + gamma(0.5).unwrap() + beta(1.0, 1.0).unwrap() + erf(0.5).unwrap() + exponential_integral_e1(1.0).unwrap() + chebyshev_series(0.0, &[1.0, 0.5]).unwrap() + airy_ai(0.0).unwrap() + root; println!(\"{value:.17}\"); }\n",
+        "fn main() { use slatec::special::{airy::airy_ai, bessel::bessel_j0, elementary::log1p, error_functions::erf, gamma::{beta, gamma}, integrals::exponential_integral_e1, scalar_expanded::{carlson_rf, spence_integral}}; use slatec::polynomials::chebyshev::chebyshev_series; use slatec::roots::{find_root, RootBracket, RootOptions}; let root = find_root(|x| x * x - 2.0, RootBracket { lower: 0.0, upper: 2.0 }, RootOptions::default()).expect(\"bracketed root\").estimate; let value = log1p(0.5).unwrap() + gamma(0.5).unwrap() + beta(1.0, 1.0).unwrap() + erf(0.5).unwrap() + exponential_integral_e1(1.0).unwrap() + chebyshev_series(0.0, &[1.0, 0.5]).unwrap() + airy_ai(0.0).unwrap() + bessel_j0(1.0).unwrap() + spence_integral(0.5).unwrap() + carlson_rf(1.0, 2.0, 3.0).unwrap() + root; println!(\"{value:.17}\"); }\n",
     )?;
     let source_build = run_consumer(
         root,
         &source_build_root,
-        &root.join("target/bundled-provider/source-build-parity-target"),
+        &probe_workspace.join("source-build-parity-target"),
         &[],
-        &[],
-        None,
-        Some((cache, compiler)),
+        ConsumerEnvironment {
+            remove_env: &[],
+            invalid_env: None,
+            source_build: Some((cache, compiler)),
+        },
+        target,
     )?;
     if bundled.0 != source_build.0 {
         return Err(policy(&format!(
@@ -894,21 +1071,27 @@ fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<V
             bundled.0, source_build.0
         )));
     }
-    let objdump = sibling_tool(compiler, "objdump");
-    let imports = command_output(
-        &objdump,
-        &[
-            "-p",
-            bundled
-                .1
-                .to_str()
-                .ok_or_else(|| policy("consumer executable path is not UTF-8"))?,
-        ],
-    )?
-    .lines()
-    .filter_map(|line| line.trim().strip_prefix("DLL Name: "))
-    .map(str::to_owned)
-    .collect::<Vec<_>>();
+    let executable = bundled
+        .1
+        .to_str()
+        .ok_or_else(|| policy("consumer executable path is not UTF-8"))?;
+    let imports = match target.dependency_format {
+        DependencyFormat::Pe => {
+            command_output(&sibling_tool(compiler, "objdump"), &["-p", executable])?
+                .lines()
+                .filter_map(|line| line.trim().strip_prefix("DLL Name: "))
+                .map(str::to_owned)
+                .collect::<Vec<_>>()
+        }
+        DependencyFormat::Elf => {
+            command_output(&sibling_tool(compiler, "readelf"), &["-d", executable])?
+                .lines()
+                .filter_map(|line| line.split_once("Shared library: ["))
+                .filter_map(|(_, value)| value.strip_suffix(']'))
+                .map(str::to_owned)
+                .collect::<Vec<_>>()
+        }
+    };
     if imports.iter().any(|name| {
         name.to_ascii_lowercase().contains("gfortran")
             || name.to_ascii_lowercase().contains("quadmath")
@@ -919,7 +1102,7 @@ fn probe_clean_consumers(root: &Path, cache: &Path, compiler: &Path) -> Result<V
     }
     Ok(json!({
         "status":"pass","bundled_numeric":bundled.0,"source_build_numeric":source_build.0,
-        "numeric_parity":"exact_rendered_f64","bundled_imported_dlls":imports,
+        "numeric_parity":"exact_rendered_f64","bundled_native_dependencies":imports,
         "environment":{"SLATEC_GFORTRAN":"intentionally invalid","SLATEC_SOURCE_CACHE":"absent","SLATEC_SYSTEM_LIB_DIR":"absent","SLATEC_SYSTEM_RUNTIME_LIB_DIR":"absent"}
     }))
 }
@@ -929,26 +1112,25 @@ fn run_consumer(
     manifest_root: &Path,
     target_dir: &Path,
     feature_args: &[&str],
-    remove_env: &[&str],
-    invalid_env: Option<(&str, &str)>,
-    source_build: Option<(&Path, &Path)>,
+    environment: ConsumerEnvironment<'_>,
+    target: &BundleTarget,
 ) -> Result<(String, PathBuf)> {
     let mut command = Command::new("cargo");
     command
         .current_dir(root)
         .args(["run", "--manifest-path"])
         .arg(manifest_root.join("Cargo.toml"))
-        .args(["--target", TARGET, "--offline"])
+        .args(["--target", target.rust_target, "--offline"])
         .args(feature_args)
         .env("CARGO_TARGET_DIR", target_dir)
         .env("CARGO_NET_OFFLINE", "true");
-    for key in remove_env {
+    for key in environment.remove_env {
         command.env_remove(key);
     }
-    if let Some((key, value)) = invalid_env {
+    if let Some((key, value)) = environment.invalid_env {
         command.env(key, value);
     }
-    if let Some((source_cache, source_compiler)) = source_build {
+    if let Some((source_cache, source_compiler)) = environment.source_build {
         command
             .env("SLATEC_SOURCE_CACHE", source_cache)
             .env("SLATEC_GFORTRAN", source_compiler);
@@ -970,9 +1152,198 @@ fn run_consumer(
     Ok((
         value,
         target_dir
-            .join(TARGET)
-            .join("debug/slatec-bundled-consumer.exe"),
+            .join(target.rust_target)
+            .join("debug")
+            .join(target.executable_name),
     ))
+}
+
+fn generate_target_evidence(root: &Path, target: &BundleTarget) -> Result<()> {
+    if target.rust_target == WINDOWS_TARGET {
+        generate(root)?;
+        return Ok(());
+    }
+    for (path, bytes) in linux_artifacts(root, target)? {
+        write_if_changed(&path, &bytes)?;
+    }
+    Ok(())
+}
+
+fn linux_artifacts(root: &Path, target: &BundleTarget) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
+    let manifest = materialized_manifest(root)?;
+    let evidence = read_evidence(root)?;
+    let overrides = read_overrides(root, &manifest, &evidence)?;
+    let provenance: Value = serde_json::from_slice(&fs::read(
+        root.join("generated/licensing/slatec-source-provenance.json"),
+    )?)?;
+    let source_by_id = manifest
+        .sources
+        .iter()
+        .map(|source| (source.id.as_str(), source))
+        .collect::<BTreeMap<_, _>>();
+    let carrier_root = root.join(target.carrier_directory);
+    let receipt = read_build_receipt(&carrier_root)?;
+    let mut families = Vec::new();
+    for (feature, source_ids) in &manifest.families {
+        let accepted = !source_ids.is_empty()
+            && source_ids.iter().all(|id| {
+                source_by_id.get(id.as_str()).is_some_and(|source| {
+                    overrides.get(source.id.as_str()).is_some_and(|record| {
+                        ACCEPTED_BUNDLE_CLASSIFICATIONS.contains(&record.classification.as_str())
+                    })
+                })
+            });
+        let archive_record = if accepted {
+            archive_record_for_family(&carrier_root, source_ids, &receipt)?
+        } else {
+            None
+        };
+        let status = if source_ids.is_empty() {
+            "no_selected_source_closure"
+        } else if !accepted {
+            "blocked_by_source_provenance"
+        } else if archive_record.is_some() {
+            "ready"
+        } else {
+            "eligible_pending_archive"
+        };
+        families.push(json!({
+            "feature":feature,
+            "source_unit_count":source_ids.len(),
+            "bundle_available":status == "ready",
+            "status":status,
+            "archive":archive_record.as_ref().map(|_| BUNDLED_ARCHIVE),
+            "archive_record":archive_record,
+        }));
+    }
+    let carrier_status = if families.iter().any(|family| family["status"] == "ready") {
+        "ready"
+    } else if families
+        .iter()
+        .any(|family| family["status"] == "eligible_pending_archive")
+    {
+        "eligible_pending_archive"
+    } else {
+        "blocked_by_source_provenance"
+    };
+    let eligibility = json!({
+        "schema_id":"slatec-rs/bundled-source-eligibility",
+        "schema_version":"2.0.0",
+        "snapshot_id":SNAPSHOT,
+        "target":target.rust_target,
+        "carrier":{"crate":target.carrier_crate,"status":carrier_status,"reason":"A family archive is available only when its complete hash-guarded source closure is present in this target's deterministic carrier receipt."},
+        "families":families,
+    });
+    let receipt_value = receipt.clone().unwrap_or_else(|| json!({}));
+    let source_unit_manifest = json!({
+        "schema_id":"slatec-rs/bundled-source-unit-manifest",
+        "schema_version":"2.0.0",
+        "snapshot_id":SNAPSHOT,
+        "target":target.rust_target,
+        "source_units":receipt_value["source_units"],
+    });
+    let build_recipe = json!({
+        "schema_id":"slatec-rs/bundled-build-recipe",
+        "schema_version":"3.0.0",
+        "target":target.rust_target,
+        "compiler":format!("GNU Fortran {} / {}", target.compiler_version, target.compiler_target),
+        "historical_source_compile_flags":COMPILE_FLAGS,
+        "profile_source_compile_flags":PROFILE_COMPILE_FLAGS,
+        "command":format!("SLATEC_BUNDLED_TARGET={} cargo run -p slatec-tools --bin slatec-corpus -- build-bundled-provider --offline", target.rust_target),
+    });
+    let carrier_manifest = json!({
+        "schema_id":"slatec-rs/bundled-carrier-manifest",
+        "schema_version":"2.0.0",
+        "snapshot_id":SNAPSHOT,
+        "target":target.rust_target,
+        "status":carrier_status,
+        "source_unit_count":receipt_value["source_units"].as_array().map_or(0, Vec::len),
+        "source_eligibility":"metadata/bundled-source-eligibility.json",
+        "source_unit_manifest":"metadata/source-unit-manifest.json",
+        "build_recipe":"metadata/build-recipe.json",
+        "build_receipt":BUNDLED_BUILD_RECEIPT,
+        "runtime_audit":"metadata/bundle-build-receipt.json",
+        "archive_audit":"metadata/bundle-build-receipt.json",
+        "archives":families.iter().filter_map(|family| family["archive_record"].as_object().map(|_| json!({"family":family["feature"],"path":family["archive"],"sha256":family["archive_record"]["sha256"],"size_bytes":family["archive_record"]["size_bytes"]}))).collect::<Vec<_>>(),
+        "runtime_archives":receipt_value["runtime_archives"].as_array().cloned().unwrap_or_default(),
+        "reason":"This target-specific archive is built from exact accepted source closures and a deterministic receipt."
+    });
+    let mut artifacts = BTreeMap::new();
+    insert_json(
+        &mut artifacts,
+        root.join("crates/slatec-src/metadata/bundled-source-eligibility-linux.json"),
+        &eligibility,
+    )?;
+    insert_json(
+        &mut artifacts,
+        carrier_root.join("metadata/bundled-source-eligibility.json"),
+        &eligibility,
+    )?;
+    insert_json(
+        &mut artifacts,
+        carrier_root.join("metadata/source-unit-manifest.json"),
+        &source_unit_manifest,
+    )?;
+    insert_json(
+        &mut artifacts,
+        carrier_root.join("metadata/build-recipe.json"),
+        &build_recipe,
+    )?;
+    insert_json(
+        &mut artifacts,
+        carrier_root.join("metadata/bundle-manifest.json"),
+        &carrier_manifest,
+    )?;
+    insert_json(
+        &mut artifacts,
+        root.join("generated/licensing/linux/bundled-source-eligibility.json"),
+        &eligibility,
+    )?;
+    insert_json(
+        &mut artifacts,
+        root.join("generated/licensing/linux/bundled-archive-audit.json"),
+        &receipt_value["archive_audit"],
+    )?;
+    insert_json(
+        &mut artifacts,
+        root.join("generated/licensing/linux/bundled-runtime-audit.json"),
+        &receipt_value["runtime_audit"],
+    )?;
+    insert_markdown(
+        &mut artifacts,
+        carrier_root.join("metadata/THIRD-PARTY-NOTICES.md"),
+        third_party_notices(&provenance, carrier_status),
+    );
+    insert_markdown(
+        &mut artifacts,
+        carrier_root.join("metadata/REDISTRIBUTION-NOTICE.md"),
+        redistribution_notice(&provenance, carrier_status),
+    );
+    for name in [
+        "GPL-3.0.txt",
+        "LGPL-2.1-or-later.txt",
+        "GCC-RUNTIME-LIBRARY-EXCEPTION-3.1.txt",
+    ] {
+        artifacts.insert(
+            carrier_root.join("metadata/runtime-licenses").join(name),
+            read_lf_text(
+                root.join("crates/slatec-bundled-x86_64-pc-windows-gnu/metadata/runtime-licenses")
+                    .join(name),
+            )?,
+        );
+    }
+    artifacts.insert(
+        carrier_root.join("metadata/runtime-licenses/SOURCES-AND-RELINKING.md"),
+        format!(
+            "# Runtime sources and relinking\n\nThis carrier was built with GNU Fortran {} for `{}`. Its receipt records the exact static `libgfortran` and `libquadmath` source archives, retained members, checksums, and external symbols. To relink, replace the ordinary static archives under `native/` with compatible rebuilt archives and rebuild the consuming Rust application. Preserve the GNU runtime notices shipped beside this file.\n",
+            target.compiler_version, target.rust_target
+        )
+        .into_bytes(),
+    );
+    for name in ["LICENSE-APACHE", "LICENSE-MIT"] {
+        artifacts.insert(carrier_root.join(name), read_lf_text(root.join(name))?);
+    }
+    Ok(artifacts)
 }
 
 fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
@@ -1176,7 +1547,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         "schema_id":"slatec-rs/bundled-source-eligibility",
         "schema_version":"2.0.0",
         "snapshot_id":SNAPSHOT,
-        "target":TARGET,
+        "target":WINDOWS_TARGET,
         "accepted_bundle_classifications":ACCEPTED_BUNDLE_CLASSIFICATIONS,
         "carrier":{"crate":"slatec-bundled-x86_64-pc-windows-gnu","status":carrier_status,"reason":"A family archive is available only when its entire source closure has accepted, hash-guarded provenance evidence and the generated carrier receipt verifies the archive."},
         "summary":{"physical_source_units":physical.len(),"eligible_source_units":eligible_source_units,"unresolved_source_units":physical.len()-eligible_source_units},
@@ -1187,7 +1558,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         .and_then(|item| item.get("runtime_audit"))
         .cloned()
         .unwrap_or_else(|| json!({
-            "schema_id":"slatec-rs/bundled-runtime-audit","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
+            "schema_id":"slatec-rs/bundled-runtime-audit","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":WINDOWS_TARGET,
             "status":"not_applicable_no_ready_archive","compiler_profile":Value::Null,"compiler_invoked":false,"source_cache_read":false,"network_access":false,
             "runtime_components":[
                 {"component":"libgfortran","static_or_dynamic":"not_assessed","actually_referenced":"not_assessed","distribution_action":"no bundled runtime is present"},
@@ -1200,7 +1571,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         .and_then(|item| item.get("archive_audit"))
         .cloned()
         .unwrap_or_else(|| json!({
-            "schema_id":"slatec-rs/bundled-archive-audit","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
+            "schema_id":"slatec-rs/bundled-archive-audit","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":WINDOWS_TARGET,
             "status":"not_applicable_no_ready_archive","archive_members":[],"defined_symbols":[],"undefined_symbols":[],"imported_dlls":[],
             "reason":"No family archive has passed both provenance and deterministic build checks."
         }));
@@ -1285,9 +1656,9 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         }).collect::<Vec<_>>()
     });
     let build_recipe = json!({
-        "schema_id":"slatec-rs/bundled-build-recipe","schema_version":"3.0.0","target":TARGET,"family":BUNDLED_ARCHIVE_FAMILY,
+        "schema_id":"slatec-rs/bundled-build-recipe","schema_version":"3.0.0","target":WINDOWS_TARGET,"family":BUNDLED_ARCHIVE_FAMILY,
         "archive_model":"one accepted-source archive; family records share one archive only when their full exact source closure is present",
-        "compiler":"GNU Fortran 14.2.0 / x86_64-w64-mingw32","compile_flags":COMPILE_FLAGS,
+        "compiler":"GNU Fortran 14.2.0 / x86_64-w64-mingw32","historical_source_compile_flags":COMPILE_FLAGS,"profile_source_compile_flags":PROFILE_COMPILE_FLAGS,
         "archiver":"GNU ar 2.43","archive_flags":"crsD","source_verification":"SHA-256 against family-source-closure.json before every compilation",
         "command":"cargo run -p slatec-tools --bin slatec-corpus -- build-bundled-provider --offline"
     });
@@ -1311,7 +1682,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         &mut artifacts,
         root.join("generated/licensing/bundle-family-matrix.json"),
         &json!({
-            "schema_id":"slatec-rs/bundle-family-matrix","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
+            "schema_id":"slatec-rs/bundle-family-matrix","schema_version":"1.0.0","snapshot_id":SNAPSHOT,"target":WINDOWS_TARGET,
             "columns":["family","closure_size","already_accepted","newly_accepted","still_unresolved","runtime_closure","bundle_action","archive"],
             "records":family_matrix,
             "policy":"A family is bundled only when its complete exact source closure is accepted and present in the carrier receipt. Source-cache absence is a build blocker, not an implicit provenance approval."
@@ -1371,7 +1742,7 @@ fn artifacts(root: &Path) -> Result<BTreeMap<PathBuf, Vec<u8>>> {
         &mut artifacts,
         root.join("crates/slatec-bundled-x86_64-pc-windows-gnu/metadata/bundle-manifest.json"),
         &json!({
-            "schema_id":"slatec-rs/bundled-carrier-manifest","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":TARGET,
+            "schema_id":"slatec-rs/bundled-carrier-manifest","schema_version":"2.0.0","snapshot_id":SNAPSHOT,"target":WINDOWS_TARGET,
             "status":carrier_status,"source_unit_count":eligible_source_units,"source_eligibility":"generated/licensing/bundled-source-eligibility.json",
             "source_unit_manifest":"metadata/source-unit-manifest.json","build_recipe":"metadata/build-recipe.json",
             "build_receipt":BUNDLED_BUILD_RECEIPT,"runtime_audit":"generated/licensing/bundled-runtime-audit.json","archive_audit":"generated/licensing/bundled-archive-audit.json",
@@ -1904,6 +2275,15 @@ fn insert_markdown(artifacts: &mut BTreeMap<PathBuf, Vec<u8>>, path: PathBuf, co
     artifacts.insert(path, content.into_bytes());
 }
 
+fn read_lf_text(path: PathBuf) -> Result<Vec<u8>> {
+    let content = String::from_utf8(fs::read(&path)?)
+        .map_err(|_| policy(&format!("expected UTF-8 text at {}", path.display())))?;
+    Ok(content
+        .replace("\r\n", "\n")
+        .replace('\r', "\n")
+        .into_bytes())
+}
+
 fn write_if_changed(path: &Path, bytes: &[u8]) -> Result<()> {
     if fs::read(path).ok().as_deref() != Some(bytes) {
         if let Some(parent) = path.parent() {
@@ -1940,7 +2320,7 @@ mod tests {
         );
         assert_eq!(
             provenance["summary"]["classification_counts"]["explicit-public-domain"],
-            91
+            129
         );
         let unresolved = provenance["summary"]["classification_counts"]["unresolved-rights"]
             .as_u64()
@@ -1949,7 +2329,7 @@ mod tests {
                 .as_u64()
                 .unwrap_or_default();
         assert_eq!(
-            unresolved + 91,
+            unresolved + 129,
             provenance["summary"]["physical_source_units"]
                 .as_u64()
                 .unwrap_or_default()
@@ -1981,6 +2361,16 @@ mod tests {
             .expect("gamma family record");
         assert_eq!(gamma["status"], "ready");
         assert!(gamma["bundle_available"].as_bool().unwrap_or(false));
+        let bessel = eligibility["families"]
+            .as_array()
+            .and_then(|families| {
+                families
+                    .iter()
+                    .find(|family| family["feature"] == "special-bessel")
+            })
+            .expect("bessel family record");
+        assert_eq!(bessel["status"], "ready");
+        assert!(bessel["bundle_available"].as_bool().unwrap_or(false));
         let scalar_expanded = eligibility["families"]
             .as_array()
             .and_then(|families| {
@@ -1989,11 +2379,11 @@ mod tests {
                     .find(|family| family["feature"] == "special-scalar-expanded")
             })
             .expect("scalar-expanded family record");
-        assert_eq!(scalar_expanded["status"], "blocked_by_source_provenance");
+        assert_eq!(scalar_expanded["status"], "ready");
         assert!(
-            !scalar_expanded["bundle_available"]
+            scalar_expanded["bundle_available"]
                 .as_bool()
-                .unwrap_or(true)
+                .unwrap_or(false)
         );
         let sbom: Value = serde_json::from_slice(
             artifacts

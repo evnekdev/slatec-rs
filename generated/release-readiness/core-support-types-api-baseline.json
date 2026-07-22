@@ -1,0 +1,25 @@
+{
+  "exports": [
+    "slatec_core::fortran::IntegerRangeError",
+    "slatec_core::fortran::to_fortran_integer",
+    "slatec_core::fortran::to_fortran_increment"
+  ],
+  "input": "crates/slatec-core/src/fortran.rs",
+  "input_sha256": "0103f1fccea4ce472c04d416b06f615a569f24f21a6a7d5f200c8edca128b61a",
+  "policy": "Core support types remain provider-neutral and are frozen separately from both safe numerical paths and raw declarations.",
+  "schema_id": "slatec-rs.core-support-types-api-baseline",
+  "schema_version": "1.0.0",
+  "scope": "provider-neutral public slatec-core support exports selected by ffi-profile-gnu-mingw-x86_64",
+  "target_feature_profiles": [
+    {
+      "feature_set": "ffi-profile-gnu-mingw-x86_64",
+      "provider": "none",
+      "target": "x86_64-pc-windows-gnu"
+    },
+    {
+      "feature_set": "provider-neutral support types",
+      "provider": "none",
+      "target": "x86_64-unknown-linux-gnu"
+    }
+  ]
+}

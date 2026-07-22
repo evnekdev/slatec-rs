@@ -7,10 +7,11 @@ confine the raw ABI calls to small unsafe blocks.
 
 ## Supported profile and setup
 
-This API is supported only with GNU Fortran on `x86_64-w64-mingw32` and Rust's
-`x86_64-pc-windows-gnu` target. It requires the
-`ffi-profile-gnu-mingw-x86_64` raw-FFI profile. It is not a portability claim
-for other compilers or targets.
+The bundled safe API is validated on GNU MinGW 14.2 with Rust's
+`x86_64-pc-windows-gnu` target and GNU Fortran 11.4 with Rust's
+`x86_64-unknown-linux-gnu` target. Each target has its own hash-verified
+archive and runtime receipt; this is not a portability claim for other
+compilers or targets.
 
 Enable the family features deliberately:
 

@@ -1,0 +1,5765 @@
+{
+  "export_count": 821,
+  "exports": [
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dbocls_",
+      "path": "slatec_sys::approximation::dbocls",
+      "routine": "DBOCLS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dbols_",
+      "path": "slatec_sys::approximation::dbols",
+      "routine": "DBOLS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "defc_",
+      "path": "slatec_sys::approximation::defc",
+      "routine": "DEFC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dfc_",
+      "path": "slatec_sys::approximation::dfc",
+      "routine": "DFC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dlsei_",
+      "path": "slatec_sys::approximation::dlsei",
+      "routine": "DLSEI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dp1vlu_",
+      "path": "slatec_sys::approximation::dp1vlu",
+      "routine": "DP1VLU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dpcoef_",
+      "path": "slatec_sys::approximation::dpcoef",
+      "routine": "DPCOEF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dpolft_",
+      "path": "slatec_sys::approximation::dpolft",
+      "routine": "DPOLFT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "dwnnls_",
+      "path": "slatec_sys::approximation::dwnnls",
+      "routine": "DWNNLS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "efc_",
+      "path": "slatec_sys::approximation::efc",
+      "routine": "EFC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "fc_",
+      "path": "slatec_sys::approximation::fc",
+      "routine": "FC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "lsei_",
+      "path": "slatec_sys::approximation::lsei",
+      "routine": "LSEI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "pcoef_",
+      "path": "slatec_sys::approximation::pcoef",
+      "routine": "PCOEF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "polfit_",
+      "path": "slatec_sys::approximation::polfit",
+      "routine": "POLFIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "pvalue_",
+      "path": "slatec_sys::approximation::pvalue",
+      "routine": "PVALUE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "sbocls_",
+      "path": "slatec_sys::approximation::sbocls",
+      "routine": "SBOCLS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "sbols_",
+      "path": "slatec_sys::approximation::sbols",
+      "routine": "SBOLS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "approximation",
+      "native_symbol": "wnnls_",
+      "path": "slatec_sys::approximation::wnnls",
+      "routine": "WNNLS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "caxpy_",
+      "path": "slatec_sys::blas::level1::caxpy",
+      "routine": "CAXPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ccopy_",
+      "path": "slatec_sys::blas::level1::ccopy",
+      "routine": "CCOPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-complex",
+      "native_symbol": "cdcdot_",
+      "path": "slatec_sys::blas::level1::cdcdot",
+      "routine": "CDCDOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-complex",
+      "native_symbol": "cdotc_",
+      "path": "slatec_sys::blas::level1::cdotc",
+      "routine": "CDOTC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-complex",
+      "native_symbol": "cdotu_",
+      "path": "slatec_sys::blas::level1::cdotu",
+      "routine": "CDOTU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "crotg_",
+      "path": "slatec_sys::blas::level1::crotg",
+      "routine": "CROTG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "cscal_",
+      "path": "slatec_sys::blas::level1::cscal",
+      "routine": "CSCAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "csrot_",
+      "path": "slatec_sys::blas::level1::csrot",
+      "routine": "CSROT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "csscal_",
+      "path": "slatec_sys::blas::level1::csscal",
+      "routine": "CSSCAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "cswap_",
+      "path": "slatec_sys::blas::level1::cswap",
+      "routine": "CSWAP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dasum_",
+      "path": "slatec_sys::blas::level1::dasum",
+      "routine": "DASUM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "daxpy_",
+      "path": "slatec_sys::blas::level1::daxpy",
+      "routine": "DAXPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dcdot_",
+      "path": "slatec_sys::blas::level1::dcdot",
+      "routine": "DCDOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dcopy_",
+      "path": "slatec_sys::blas::level1::dcopy",
+      "routine": "DCOPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dcopym_",
+      "path": "slatec_sys::blas::level1::dcopym",
+      "routine": "DCOPYM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ddot_",
+      "path": "slatec_sys::blas::level1::ddot",
+      "routine": "DDOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dnrm2_",
+      "path": "slatec_sys::blas::level1::dnrm2",
+      "routine": "DNRM2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dqdota_",
+      "path": "slatec_sys::blas::level1::dqdota",
+      "routine": "DQDOTA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dqdoti_",
+      "path": "slatec_sys::blas::level1::dqdoti",
+      "routine": "DQDOTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "drot_",
+      "path": "slatec_sys::blas::level1::drot",
+      "routine": "DROT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "drotg_",
+      "path": "slatec_sys::blas::level1::drotg",
+      "routine": "DROTG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "drotm_",
+      "path": "slatec_sys::blas::level1::drotm",
+      "routine": "DROTM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "drotmg_",
+      "path": "slatec_sys::blas::level1::drotmg",
+      "routine": "DROTMG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ds2y_",
+      "path": "slatec_sys::blas::level1::ds2y",
+      "routine": "DS2Y"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dscal_",
+      "path": "slatec_sys::blas::level1::dscal",
+      "routine": "DSCAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dsdi_",
+      "path": "slatec_sys::blas::level1::dsdi",
+      "routine": "DSDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dsdot_",
+      "path": "slatec_sys::blas::level1::dsdot",
+      "routine": "DSDOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dsmtv_",
+      "path": "slatec_sys::blas::level1::dsmtv",
+      "routine": "DSMTV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dsmv_",
+      "path": "slatec_sys::blas::level1::dsmv",
+      "routine": "DSMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "dswap_",
+      "path": "slatec_sys::blas::level1::dswap",
+      "routine": "DSWAP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "icamax_",
+      "path": "slatec_sys::blas::level1::icamax",
+      "routine": "ICAMAX"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "icopy_",
+      "path": "slatec_sys::blas::level1::icopy",
+      "routine": "ICOPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "idamax_",
+      "path": "slatec_sys::blas::level1::idamax",
+      "routine": "IDAMAX"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "isamax_",
+      "path": "slatec_sys::blas::level1::isamax",
+      "routine": "ISAMAX"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "iswap_",
+      "path": "slatec_sys::blas::level1::iswap",
+      "routine": "ISWAP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "sasum_",
+      "path": "slatec_sys::blas::level1::sasum",
+      "routine": "SASUM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "saxpy_",
+      "path": "slatec_sys::blas::level1::saxpy",
+      "routine": "SAXPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "scasum_",
+      "path": "slatec_sys::blas::level1::scasum",
+      "routine": "SCASUM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "scnrm2_",
+      "path": "slatec_sys::blas::level1::scnrm2",
+      "routine": "SCNRM2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "scopy_",
+      "path": "slatec_sys::blas::level1::scopy",
+      "routine": "SCOPY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "scopym_",
+      "path": "slatec_sys::blas::level1::scopym",
+      "routine": "SCOPYM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "sdot_",
+      "path": "slatec_sys::blas::level1::sdot",
+      "routine": "SDOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "sdsdot_",
+      "path": "slatec_sys::blas::level1::sdsdot",
+      "routine": "SDSDOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "snrm2_",
+      "path": "slatec_sys::blas::level1::snrm2",
+      "routine": "SNRM2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "srot_",
+      "path": "slatec_sys::blas::level1::srot",
+      "routine": "SROT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "srotg_",
+      "path": "slatec_sys::blas::level1::srotg",
+      "routine": "SROTG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "srotm_",
+      "path": "slatec_sys::blas::level1::srotm",
+      "routine": "SROTM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "srotmg_",
+      "path": "slatec_sys::blas::level1::srotmg",
+      "routine": "SROTMG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ss2y_",
+      "path": "slatec_sys::blas::level1::ss2y",
+      "routine": "SS2Y"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "sscal_",
+      "path": "slatec_sys::blas::level1::sscal",
+      "routine": "SSCAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ssdi_",
+      "path": "slatec_sys::blas::level1::ssdi",
+      "routine": "SSDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ssmtv_",
+      "path": "slatec_sys::blas::level1::ssmtv",
+      "routine": "SSMTV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "ssmv_",
+      "path": "slatec_sys::blas::level1::ssmv",
+      "routine": "SSMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level1",
+      "native_symbol": "sswap_",
+      "path": "slatec_sys::blas::level1::sswap",
+      "routine": "SSWAP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "cgbmv_",
+      "path": "slatec_sys::blas::level2::cgbmv",
+      "routine": "CGBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "cgemv_",
+      "path": "slatec_sys::blas::level2::cgemv",
+      "routine": "CGEMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "cgerc_",
+      "path": "slatec_sys::blas::level2::cgerc",
+      "routine": "CGERC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "cgeru_",
+      "path": "slatec_sys::blas::level2::cgeru",
+      "routine": "CGERU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "chbmv_",
+      "path": "slatec_sys::blas::level2::chbmv",
+      "routine": "CHBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "chemv_",
+      "path": "slatec_sys::blas::level2::chemv",
+      "routine": "CHEMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "cher_",
+      "path": "slatec_sys::blas::level2::cher",
+      "routine": "CHER"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "cher2_",
+      "path": "slatec_sys::blas::level2::cher2",
+      "routine": "CHER2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "chpmv_",
+      "path": "slatec_sys::blas::level2::chpmv",
+      "routine": "CHPMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "chpr_",
+      "path": "slatec_sys::blas::level2::chpr",
+      "routine": "CHPR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "chpr2_",
+      "path": "slatec_sys::blas::level2::chpr2",
+      "routine": "CHPR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ctbmv_",
+      "path": "slatec_sys::blas::level2::ctbmv",
+      "routine": "CTBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ctbsv_",
+      "path": "slatec_sys::blas::level2::ctbsv",
+      "routine": "CTBSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ctpmv_",
+      "path": "slatec_sys::blas::level2::ctpmv",
+      "routine": "CTPMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ctpsv_",
+      "path": "slatec_sys::blas::level2::ctpsv",
+      "routine": "CTPSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ctrmv_",
+      "path": "slatec_sys::blas::level2::ctrmv",
+      "routine": "CTRMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ctrsv_",
+      "path": "slatec_sys::blas::level2::ctrsv",
+      "routine": "CTRSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dgbmv_",
+      "path": "slatec_sys::blas::level2::dgbmv",
+      "routine": "DGBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dgemv_",
+      "path": "slatec_sys::blas::level2::dgemv",
+      "routine": "DGEMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dger_",
+      "path": "slatec_sys::blas::level2::dger",
+      "routine": "DGER"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dsbmv_",
+      "path": "slatec_sys::blas::level2::dsbmv",
+      "routine": "DSBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dspmv_",
+      "path": "slatec_sys::blas::level2::dspmv",
+      "routine": "DSPMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dspr_",
+      "path": "slatec_sys::blas::level2::dspr",
+      "routine": "DSPR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dspr2_",
+      "path": "slatec_sys::blas::level2::dspr2",
+      "routine": "DSPR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dsymv_",
+      "path": "slatec_sys::blas::level2::dsymv",
+      "routine": "DSYMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dsyr_",
+      "path": "slatec_sys::blas::level2::dsyr",
+      "routine": "DSYR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dsyr2_",
+      "path": "slatec_sys::blas::level2::dsyr2",
+      "routine": "DSYR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dtbmv_",
+      "path": "slatec_sys::blas::level2::dtbmv",
+      "routine": "DTBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dtbsv_",
+      "path": "slatec_sys::blas::level2::dtbsv",
+      "routine": "DTBSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dtpmv_",
+      "path": "slatec_sys::blas::level2::dtpmv",
+      "routine": "DTPMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dtpsv_",
+      "path": "slatec_sys::blas::level2::dtpsv",
+      "routine": "DTPSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dtrmv_",
+      "path": "slatec_sys::blas::level2::dtrmv",
+      "routine": "DTRMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "dtrsv_",
+      "path": "slatec_sys::blas::level2::dtrsv",
+      "routine": "DTRSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "sgbmv_",
+      "path": "slatec_sys::blas::level2::sgbmv",
+      "routine": "SGBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "sgemv_",
+      "path": "slatec_sys::blas::level2::sgemv",
+      "routine": "SGEMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "sger_",
+      "path": "slatec_sys::blas::level2::sger",
+      "routine": "SGER"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ssbmv_",
+      "path": "slatec_sys::blas::level2::ssbmv",
+      "routine": "SSBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "sspmv_",
+      "path": "slatec_sys::blas::level2::sspmv",
+      "routine": "SSPMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "sspr_",
+      "path": "slatec_sys::blas::level2::sspr",
+      "routine": "SSPR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "sspr2_",
+      "path": "slatec_sys::blas::level2::sspr2",
+      "routine": "SSPR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ssymv_",
+      "path": "slatec_sys::blas::level2::ssymv",
+      "routine": "SSYMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ssyr_",
+      "path": "slatec_sys::blas::level2::ssyr",
+      "routine": "SSYR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "ssyr2_",
+      "path": "slatec_sys::blas::level2::ssyr2",
+      "routine": "SSYR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "stbmv_",
+      "path": "slatec_sys::blas::level2::stbmv",
+      "routine": "STBMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "stbsv_",
+      "path": "slatec_sys::blas::level2::stbsv",
+      "routine": "STBSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "stpmv_",
+      "path": "slatec_sys::blas::level2::stpmv",
+      "routine": "STPMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "stpsv_",
+      "path": "slatec_sys::blas::level2::stpsv",
+      "routine": "STPSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "strmv_",
+      "path": "slatec_sys::blas::level2::strmv",
+      "routine": "STRMV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level2",
+      "native_symbol": "strsv_",
+      "path": "slatec_sys::blas::level2::strsv",
+      "routine": "STRSV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "cgemm_",
+      "path": "slatec_sys::blas::level3::cgemm",
+      "routine": "CGEMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "chemm_",
+      "path": "slatec_sys::blas::level3::chemm",
+      "routine": "CHEMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "cher2k_",
+      "path": "slatec_sys::blas::level3::cher2k",
+      "routine": "CHER2K"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "cherk_",
+      "path": "slatec_sys::blas::level3::cherk",
+      "routine": "CHERK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "csymm_",
+      "path": "slatec_sys::blas::level3::csymm",
+      "routine": "CSYMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "csyr2k_",
+      "path": "slatec_sys::blas::level3::csyr2k",
+      "routine": "CSYR2K"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "csyrk_",
+      "path": "slatec_sys::blas::level3::csyrk",
+      "routine": "CSYRK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "ctrmm_",
+      "path": "slatec_sys::blas::level3::ctrmm",
+      "routine": "CTRMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "ctrsm_",
+      "path": "slatec_sys::blas::level3::ctrsm",
+      "routine": "CTRSM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "dgemm_",
+      "path": "slatec_sys::blas::level3::dgemm",
+      "routine": "DGEMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "dsymm_",
+      "path": "slatec_sys::blas::level3::dsymm",
+      "routine": "DSYMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "dsyr2k_",
+      "path": "slatec_sys::blas::level3::dsyr2k",
+      "routine": "DSYR2K"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "dsyrk_",
+      "path": "slatec_sys::blas::level3::dsyrk",
+      "routine": "DSYRK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "dtrmm_",
+      "path": "slatec_sys::blas::level3::dtrmm",
+      "routine": "DTRMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "dtrsm_",
+      "path": "slatec_sys::blas::level3::dtrsm",
+      "routine": "DTRSM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "sgemm_",
+      "path": "slatec_sys::blas::level3::sgemm",
+      "routine": "SGEMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "ssymm_",
+      "path": "slatec_sys::blas::level3::ssymm",
+      "routine": "SSYMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "ssyr2k_",
+      "path": "slatec_sys::blas::level3::ssyr2k",
+      "routine": "SSYR2K"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "ssyrk_",
+      "path": "slatec_sys::blas::level3::ssyrk",
+      "routine": "SSYRK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "strmm_",
+      "path": "slatec_sys::blas::level3::strmm",
+      "routine": "STRMM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "blas-level3",
+      "native_symbol": "strsm_",
+      "path": "slatec_sys::blas::level3::strsm",
+      "routine": "STRSM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "dassl",
+      "native_symbol": "ddassl_",
+      "path": "slatec_sys::dassl::ddassl",
+      "routine": "DDASSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "dassl",
+      "native_symbol": "sdassl_",
+      "path": "slatec_sys::dassl::sdassl",
+      "routine": "SDASSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cfftb1_",
+      "path": "slatec_sys::fftpack::cfftb1",
+      "routine": "CFFTB1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cfftf1_",
+      "path": "slatec_sys::fftpack::cfftf1",
+      "routine": "CFFTF1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cffti1_",
+      "path": "slatec_sys::fftpack::cffti1",
+      "routine": "CFFTI1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cosqb_",
+      "path": "slatec_sys::fftpack::cosqb",
+      "routine": "COSQB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cosqf_",
+      "path": "slatec_sys::fftpack::cosqf",
+      "routine": "COSQF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cosqi_",
+      "path": "slatec_sys::fftpack::cosqi",
+      "routine": "COSQI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "cost_",
+      "path": "slatec_sys::fftpack::cost",
+      "routine": "COST"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "costi_",
+      "path": "slatec_sys::fftpack::costi",
+      "routine": "COSTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "ezfftb_",
+      "path": "slatec_sys::fftpack::ezfftb",
+      "routine": "EZFFTB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "ezfftf_",
+      "path": "slatec_sys::fftpack::ezfftf",
+      "routine": "EZFFTF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "ezffti_",
+      "path": "slatec_sys::fftpack::ezffti",
+      "routine": "EZFFTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "rfftb1_",
+      "path": "slatec_sys::fftpack::rfftb1",
+      "routine": "RFFTB1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "rfftf1_",
+      "path": "slatec_sys::fftpack::rfftf1",
+      "routine": "RFFTF1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "rffti1_",
+      "path": "slatec_sys::fftpack::rffti1",
+      "routine": "RFFTI1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "sinqb_",
+      "path": "slatec_sys::fftpack::sinqb",
+      "routine": "SINQB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "sinqf_",
+      "path": "slatec_sys::fftpack::sinqf",
+      "routine": "SINQF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "sinqi_",
+      "path": "slatec_sys::fftpack::sinqi",
+      "routine": "SINQI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "sint_",
+      "path": "slatec_sys::fftpack::sint",
+      "routine": "SINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fftpack",
+      "native_symbol": "sinti_",
+      "path": "slatec_sys::fftpack::sinti",
+      "routine": "SINTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bint4_",
+      "path": "slatec_sys::interpolation::bint4",
+      "routine": "BINT4"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bintk_",
+      "path": "slatec_sys::interpolation::bintk",
+      "routine": "BINTK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bspdr_",
+      "path": "slatec_sys::interpolation::bspdr",
+      "routine": "BSPDR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bspev_",
+      "path": "slatec_sys::interpolation::bspev",
+      "routine": "BSPEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bsppp_",
+      "path": "slatec_sys::interpolation::bsppp",
+      "routine": "BSPPP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bspvd_",
+      "path": "slatec_sys::interpolation::bspvd",
+      "routine": "BSPVD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bspvn_",
+      "path": "slatec_sys::interpolation::bspvn",
+      "routine": "BSPVN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "bvalu_",
+      "path": "slatec_sys::interpolation::bvalu",
+      "routine": "BVALU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "chfdv_",
+      "path": "slatec_sys::interpolation::chfdv",
+      "routine": "CHFDV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "chfev_",
+      "path": "slatec_sys::interpolation::chfev",
+      "routine": "CHFEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbint4_",
+      "path": "slatec_sys::interpolation::dbint4",
+      "routine": "DBINT4"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbintk_",
+      "path": "slatec_sys::interpolation::dbintk",
+      "routine": "DBINTK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbspdr_",
+      "path": "slatec_sys::interpolation::dbspdr",
+      "routine": "DBSPDR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbspev_",
+      "path": "slatec_sys::interpolation::dbspev",
+      "routine": "DBSPEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbsppp_",
+      "path": "slatec_sys::interpolation::dbsppp",
+      "routine": "DBSPPP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbspvd_",
+      "path": "slatec_sys::interpolation::dbspvd",
+      "routine": "DBSPVD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbspvn_",
+      "path": "slatec_sys::interpolation::dbspvn",
+      "routine": "DBSPVN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dbvalu_",
+      "path": "slatec_sys::interpolation::dbvalu",
+      "routine": "DBVALU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dchfdv_",
+      "path": "slatec_sys::interpolation::dchfdv",
+      "routine": "DCHFDV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dchfev_",
+      "path": "slatec_sys::interpolation::dchfev",
+      "routine": "DCHFEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dintrv_",
+      "path": "slatec_sys::interpolation::dintrv",
+      "routine": "DINTRV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchbs_",
+      "path": "slatec_sys::interpolation::dpchbs",
+      "routine": "DPCHBS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchcm_",
+      "path": "slatec_sys::interpolation::dpchcm",
+      "routine": "DPCHCM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchfd_",
+      "path": "slatec_sys::interpolation::dpchfd",
+      "routine": "DPCHFD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchfe_",
+      "path": "slatec_sys::interpolation::dpchfe",
+      "routine": "DPCHFE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchia_",
+      "path": "slatec_sys::interpolation::dpchia",
+      "routine": "DPCHIA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchic_",
+      "path": "slatec_sys::interpolation::dpchic",
+      "routine": "DPCHIC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchid_",
+      "path": "slatec_sys::interpolation::dpchid",
+      "routine": "DPCHID"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchim_",
+      "path": "slatec_sys::interpolation::dpchim",
+      "routine": "DPCHIM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpchsp_",
+      "path": "slatec_sys::interpolation::dpchsp",
+      "routine": "DPCHSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dplint_",
+      "path": "slatec_sys::interpolation::dplint",
+      "routine": "DPLINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpolcf_",
+      "path": "slatec_sys::interpolation::dpolcf",
+      "routine": "DPOLCF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dpolvl_",
+      "path": "slatec_sys::interpolation::dpolvl",
+      "routine": "DPOLVL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "dppval_",
+      "path": "slatec_sys::interpolation::dppval",
+      "routine": "DPPVAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "intrv_",
+      "path": "slatec_sys::interpolation::intrv",
+      "routine": "INTRV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchbs_",
+      "path": "slatec_sys::interpolation::pchbs",
+      "routine": "PCHBS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchcm_",
+      "path": "slatec_sys::interpolation::pchcm",
+      "routine": "PCHCM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchfd_",
+      "path": "slatec_sys::interpolation::pchfd",
+      "routine": "PCHFD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchfe_",
+      "path": "slatec_sys::interpolation::pchfe",
+      "routine": "PCHFE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchia_",
+      "path": "slatec_sys::interpolation::pchia",
+      "routine": "PCHIA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchic_",
+      "path": "slatec_sys::interpolation::pchic",
+      "routine": "PCHIC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchid_",
+      "path": "slatec_sys::interpolation::pchid",
+      "routine": "PCHID"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchim_",
+      "path": "slatec_sys::interpolation::pchim",
+      "routine": "PCHIM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "pchsp_",
+      "path": "slatec_sys::interpolation::pchsp",
+      "routine": "PCHSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "polcof_",
+      "path": "slatec_sys::interpolation::polcof",
+      "routine": "POLCOF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "polint_",
+      "path": "slatec_sys::interpolation::polint",
+      "routine": "POLINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "polyvl_",
+      "path": "slatec_sys::interpolation::polyvl",
+      "routine": "POLYVL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "interpolation",
+      "native_symbol": "ppval_",
+      "path": "slatec_sys::interpolation::ppval",
+      "routine": "PPVAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "least-squares-covariance",
+      "native_symbol": "dcov_",
+      "path": "slatec_sys::least_squares::dcov",
+      "routine": "DCOV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "least-squares-nonlinear-expert",
+      "native_symbol": "dnls1_",
+      "path": "slatec_sys::least_squares::dnls1",
+      "routine": "DNLS1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "least-squares-nonlinear-easy",
+      "native_symbol": "dnls1e_",
+      "path": "slatec_sys::least_squares::dnls1e",
+      "routine": "DNLS1E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "least-squares-covariance",
+      "native_symbol": "scov_",
+      "path": "slatec_sys::least_squares::scov",
+      "routine": "SCOV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "least-squares-nonlinear-expert",
+      "native_symbol": "snls1_",
+      "path": "slatec_sys::least_squares::snls1",
+      "routine": "SNLS1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "least-squares-nonlinear-easy",
+      "native_symbol": "snls1e_",
+      "path": "slatec_sys::least_squares::snls1e",
+      "routine": "SNLS1E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "bndacc_",
+      "path": "slatec_sys::linear_algebra::banded::bndacc",
+      "routine": "BNDACC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "bndsol_",
+      "path": "slatec_sys::linear_algebra::banded::bndsol",
+      "routine": "BNDSOL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgbco_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cgbco",
+      "routine": "CGBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgbdi_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cgbdi",
+      "routine": "CGBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgbfa_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cgbfa",
+      "routine": "CGBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgbsl_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cgbsl",
+      "routine": "CGBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgtsl_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cgtsl",
+      "routine": "CGTSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cnbco_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cnbco",
+      "routine": "CNBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cnbdi_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cnbdi",
+      "routine": "CNBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cnbfa_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cnbfa",
+      "routine": "CNBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cnbfs_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cnbfs",
+      "routine": "CNBFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cnbir_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cnbir",
+      "routine": "CNBIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cnbsl_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cnbsl",
+      "routine": "CNBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpbco_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cpbco",
+      "routine": "CPBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpbdi_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cpbdi",
+      "routine": "CPBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpbfa_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cpbfa",
+      "routine": "CPBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpbsl_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cpbsl",
+      "routine": "CPBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cptsl_",
+      "path": "slatec_sys::linear_algebra::banded::complex::cptsl",
+      "routine": "CPTSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dbndac_",
+      "path": "slatec_sys::linear_algebra::banded::dbndac",
+      "routine": "DBNDAC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dbndsl_",
+      "path": "slatec_sys::linear_algebra::banded::dbndsl",
+      "routine": "DBNDSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgbco_",
+      "path": "slatec_sys::linear_algebra::banded::dgbco",
+      "routine": "DGBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgbdi_",
+      "path": "slatec_sys::linear_algebra::banded::dgbdi",
+      "routine": "DGBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgbfa_",
+      "path": "slatec_sys::linear_algebra::banded::dgbfa",
+      "routine": "DGBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgbsl_",
+      "path": "slatec_sys::linear_algebra::banded::dgbsl",
+      "routine": "DGBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgtsl_",
+      "path": "slatec_sys::linear_algebra::banded::dgtsl",
+      "routine": "DGTSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dhfti_",
+      "path": "slatec_sys::linear_algebra::banded::dhfti",
+      "routine": "DHFTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dnbco_",
+      "path": "slatec_sys::linear_algebra::banded::dnbco",
+      "routine": "DNBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dnbdi_",
+      "path": "slatec_sys::linear_algebra::banded::dnbdi",
+      "routine": "DNBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dnbfa_",
+      "path": "slatec_sys::linear_algebra::banded::dnbfa",
+      "routine": "DNBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dnbfs_",
+      "path": "slatec_sys::linear_algebra::banded::dnbfs",
+      "routine": "DNBFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dnbsl_",
+      "path": "slatec_sys::linear_algebra::banded::dnbsl",
+      "routine": "DNBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpbco_",
+      "path": "slatec_sys::linear_algebra::banded::dpbco",
+      "routine": "DPBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpbdi_",
+      "path": "slatec_sys::linear_algebra::banded::dpbdi",
+      "routine": "DPBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpbfa_",
+      "path": "slatec_sys::linear_algebra::banded::dpbfa",
+      "routine": "DPBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpbsl_",
+      "path": "slatec_sys::linear_algebra::banded::dpbsl",
+      "routine": "DPBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dptsl_",
+      "path": "slatec_sys::linear_algebra::banded::dptsl",
+      "routine": "DPTSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgbco_",
+      "path": "slatec_sys::linear_algebra::banded::sgbco",
+      "routine": "SGBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgbdi_",
+      "path": "slatec_sys::linear_algebra::banded::sgbdi",
+      "routine": "SGBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgbfa_",
+      "path": "slatec_sys::linear_algebra::banded::sgbfa",
+      "routine": "SGBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgbsl_",
+      "path": "slatec_sys::linear_algebra::banded::sgbsl",
+      "routine": "SGBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgtsl_",
+      "path": "slatec_sys::linear_algebra::banded::sgtsl",
+      "routine": "SGTSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "snbco_",
+      "path": "slatec_sys::linear_algebra::banded::snbco",
+      "routine": "SNBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "snbdi_",
+      "path": "slatec_sys::linear_algebra::banded::snbdi",
+      "routine": "SNBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "snbfa_",
+      "path": "slatec_sys::linear_algebra::banded::snbfa",
+      "routine": "SNBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "snbfs_",
+      "path": "slatec_sys::linear_algebra::banded::snbfs",
+      "routine": "SNBFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "snbir_",
+      "path": "slatec_sys::linear_algebra::banded::snbir",
+      "routine": "SNBIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "snbsl_",
+      "path": "slatec_sys::linear_algebra::banded::snbsl",
+      "routine": "SNBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spbco_",
+      "path": "slatec_sys::linear_algebra::banded::spbco",
+      "routine": "SPBCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spbdi_",
+      "path": "slatec_sys::linear_algebra::banded::spbdi",
+      "routine": "SPBDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spbfa_",
+      "path": "slatec_sys::linear_algebra::banded::spbfa",
+      "routine": "SPBFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spbsl_",
+      "path": "slatec_sys::linear_algebra::banded::spbsl",
+      "routine": "SPBSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sptsl_",
+      "path": "slatec_sys::linear_algebra::banded::sptsl",
+      "routine": "SPTSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cchdc_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cchdc",
+      "routine": "CCHDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cchdd_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cchdd",
+      "routine": "CCHDD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cchex_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cchex",
+      "routine": "CCHEX"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cchud_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cchud",
+      "routine": "CCHUD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgeco_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cgeco",
+      "routine": "CGECO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgedi_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cgedi",
+      "routine": "CGEDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgefa_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cgefa",
+      "routine": "CGEFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgefs_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cgefs",
+      "routine": "CGEFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgeir_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cgeir",
+      "routine": "CGEIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cgesl_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cgesl",
+      "routine": "CGESL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chico_",
+      "path": "slatec_sys::linear_algebra::dense::complex::chico",
+      "routine": "CHICO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chidi_",
+      "path": "slatec_sys::linear_algebra::dense::complex::chidi",
+      "routine": "CHIDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chifa_",
+      "path": "slatec_sys::linear_algebra::dense::complex::chifa",
+      "routine": "CHIFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chisl_",
+      "path": "slatec_sys::linear_algebra::dense::complex::chisl",
+      "routine": "CHISL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpoco_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cpoco",
+      "routine": "CPOCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpodi_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cpodi",
+      "routine": "CPODI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpofa_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cpofa",
+      "routine": "CPOFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpofs_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cpofs",
+      "routine": "CPOFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cpoir_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cpoir",
+      "routine": "CPOIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cposl_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cposl",
+      "routine": "CPOSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cqrdc_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cqrdc",
+      "routine": "CQRDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cqrsl_",
+      "path": "slatec_sys::linear_algebra::dense::complex::cqrsl",
+      "routine": "CQRSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "csico_",
+      "path": "slatec_sys::linear_algebra::dense::complex::csico",
+      "routine": "CSICO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "csidi_",
+      "path": "slatec_sys::linear_algebra::dense::complex::csidi",
+      "routine": "CSIDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "csifa_",
+      "path": "slatec_sys::linear_algebra::dense::complex::csifa",
+      "routine": "CSIFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "csisl_",
+      "path": "slatec_sys::linear_algebra::dense::complex::csisl",
+      "routine": "CSISL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "csvdc_",
+      "path": "slatec_sys::linear_algebra::dense::complex::csvdc",
+      "routine": "CSVDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "ctrco_",
+      "path": "slatec_sys::linear_algebra::dense::complex::ctrco",
+      "routine": "CTRCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "ctrdi_",
+      "path": "slatec_sys::linear_algebra::dense::complex::ctrdi",
+      "routine": "CTRDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "ctrsl_",
+      "path": "slatec_sys::linear_algebra::dense::complex::ctrsl",
+      "routine": "CTRSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dchdc_",
+      "path": "slatec_sys::linear_algebra::dense::dchdc",
+      "routine": "DCHDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dchdd_",
+      "path": "slatec_sys::linear_algebra::dense::dchdd",
+      "routine": "DCHDD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dchex_",
+      "path": "slatec_sys::linear_algebra::dense::dchex",
+      "routine": "DCHEX"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dchud_",
+      "path": "slatec_sys::linear_algebra::dense::dchud",
+      "routine": "DCHUD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgeco_",
+      "path": "slatec_sys::linear_algebra::dense::dgeco",
+      "routine": "DGECO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgedi_",
+      "path": "slatec_sys::linear_algebra::dense::dgedi",
+      "routine": "DGEDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgefa_",
+      "path": "slatec_sys::linear_algebra::dense::dgefa",
+      "routine": "DGEFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgefs_",
+      "path": "slatec_sys::linear_algebra::dense::dgefs",
+      "routine": "DGEFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dgesl_",
+      "path": "slatec_sys::linear_algebra::dense::dgesl",
+      "routine": "DGESL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dglss_",
+      "path": "slatec_sys::linear_algebra::dense::dglss",
+      "routine": "DGLSS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dllsia_",
+      "path": "slatec_sys::linear_algebra::dense::dllsia",
+      "routine": "DLLSIA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dllti2_",
+      "path": "slatec_sys::linear_algebra::dense::dllti2",
+      "routine": "DLLTI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpoco_",
+      "path": "slatec_sys::linear_algebra::dense::dpoco",
+      "routine": "DPOCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpodi_",
+      "path": "slatec_sys::linear_algebra::dense::dpodi",
+      "routine": "DPODI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpofa_",
+      "path": "slatec_sys::linear_algebra::dense::dpofa",
+      "routine": "DPOFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dpofs_",
+      "path": "slatec_sys::linear_algebra::dense::dpofs",
+      "routine": "DPOFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dposl_",
+      "path": "slatec_sys::linear_algebra::dense::dposl",
+      "routine": "DPOSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dqrdc_",
+      "path": "slatec_sys::linear_algebra::dense::dqrdc",
+      "routine": "DQRDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dqrsl_",
+      "path": "slatec_sys::linear_algebra::dense::dqrsl",
+      "routine": "DQRSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ds2lt_",
+      "path": "slatec_sys::linear_algebra::dense::ds2lt",
+      "routine": "DS2LT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsd2s_",
+      "path": "slatec_sys::linear_algebra::dense::dsd2s",
+      "routine": "DSD2S"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsds_",
+      "path": "slatec_sys::linear_algebra::dense::dsds",
+      "routine": "DSDS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdscl_",
+      "path": "slatec_sys::linear_algebra::dense::dsdscl",
+      "routine": "DSDSCL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsico_",
+      "path": "slatec_sys::linear_algebra::dense::dsico",
+      "routine": "DSICO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsics_",
+      "path": "slatec_sys::linear_algebra::dense::dsics",
+      "routine": "DSICS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsidi_",
+      "path": "slatec_sys::linear_algebra::dense::dsidi",
+      "routine": "DSIDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsifa_",
+      "path": "slatec_sys::linear_algebra::dense::dsifa",
+      "routine": "DSIFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsilus_",
+      "path": "slatec_sys::linear_algebra::dense::dsilus",
+      "routine": "DSILUS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsisl_",
+      "path": "slatec_sys::linear_algebra::dense::dsisl",
+      "routine": "DSISL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsli_",
+      "path": "slatec_sys::linear_algebra::dense::dsli",
+      "routine": "DSLI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsli2_",
+      "path": "slatec_sys::linear_algebra::dense::dsli2",
+      "routine": "DSLI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsllti_",
+      "path": "slatec_sys::linear_algebra::dense::dsllti",
+      "routine": "DSLLTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslucs_",
+      "path": "slatec_sys::linear_algebra::dense::dslucs",
+      "routine": "DSLUCS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslui_",
+      "path": "slatec_sys::linear_algebra::dense::dslui",
+      "routine": "DSLUI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslui2_",
+      "path": "slatec_sys::linear_algebra::dense::dslui2",
+      "routine": "DSLUI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslui4_",
+      "path": "slatec_sys::linear_algebra::dense::dslui4",
+      "routine": "DSLUI4"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsluti_",
+      "path": "slatec_sys::linear_algebra::dense::dsluti",
+      "routine": "DSLUTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsmmi2_",
+      "path": "slatec_sys::linear_algebra::dense::dsmmi2",
+      "routine": "DSMMI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsmmti_",
+      "path": "slatec_sys::linear_algebra::dense::dsmmti",
+      "routine": "DSMMTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsvdc_",
+      "path": "slatec_sys::linear_algebra::dense::dsvdc",
+      "routine": "DSVDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dtrco_",
+      "path": "slatec_sys::linear_algebra::dense::dtrco",
+      "routine": "DTRCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dtrdi_",
+      "path": "slatec_sys::linear_algebra::dense::dtrdi",
+      "routine": "DTRDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dtrsl_",
+      "path": "slatec_sys::linear_algebra::dense::dtrsl",
+      "routine": "DTRSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dulsia_",
+      "path": "slatec_sys::linear_algebra::dense::dulsia",
+      "routine": "DULSIA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "hfti_",
+      "path": "slatec_sys::linear_algebra::dense::hfti",
+      "routine": "HFTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "llsia_",
+      "path": "slatec_sys::linear_algebra::dense::llsia",
+      "routine": "LLSIA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "minfit_",
+      "path": "slatec_sys::linear_algebra::dense::minfit",
+      "routine": "MINFIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "schdc_",
+      "path": "slatec_sys::linear_algebra::dense::schdc",
+      "routine": "SCHDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "schdd_",
+      "path": "slatec_sys::linear_algebra::dense::schdd",
+      "routine": "SCHDD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "schex_",
+      "path": "slatec_sys::linear_algebra::dense::schex",
+      "routine": "SCHEX"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "schud_",
+      "path": "slatec_sys::linear_algebra::dense::schud",
+      "routine": "SCHUD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgeco_",
+      "path": "slatec_sys::linear_algebra::dense::sgeco",
+      "routine": "SGECO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgedi_",
+      "path": "slatec_sys::linear_algebra::dense::sgedi",
+      "routine": "SGEDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgefa_",
+      "path": "slatec_sys::linear_algebra::dense::sgefa",
+      "routine": "SGEFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgefs_",
+      "path": "slatec_sys::linear_algebra::dense::sgefs",
+      "routine": "SGEFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgeir_",
+      "path": "slatec_sys::linear_algebra::dense::sgeir",
+      "routine": "SGEIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sgesl_",
+      "path": "slatec_sys::linear_algebra::dense::sgesl",
+      "routine": "SGESL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sglss_",
+      "path": "slatec_sys::linear_algebra::dense::sglss",
+      "routine": "SGLSS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sllti2_",
+      "path": "slatec_sys::linear_algebra::dense::sllti2",
+      "routine": "SLLTI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spoco_",
+      "path": "slatec_sys::linear_algebra::dense::spoco",
+      "routine": "SPOCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spodi_",
+      "path": "slatec_sys::linear_algebra::dense::spodi",
+      "routine": "SPODI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spofa_",
+      "path": "slatec_sys::linear_algebra::dense::spofa",
+      "routine": "SPOFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spofs_",
+      "path": "slatec_sys::linear_algebra::dense::spofs",
+      "routine": "SPOFS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "spoir_",
+      "path": "slatec_sys::linear_algebra::dense::spoir",
+      "routine": "SPOIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sposl_",
+      "path": "slatec_sys::linear_algebra::dense::sposl",
+      "routine": "SPOSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sqrdc_",
+      "path": "slatec_sys::linear_algebra::dense::sqrdc",
+      "routine": "SQRDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sqrsl_",
+      "path": "slatec_sys::linear_algebra::dense::sqrsl",
+      "routine": "SQRSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ss2lt_",
+      "path": "slatec_sys::linear_algebra::dense::ss2lt",
+      "routine": "SS2LT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssd2s_",
+      "path": "slatec_sys::linear_algebra::dense::ssd2s",
+      "routine": "SSD2S"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssds_",
+      "path": "slatec_sys::linear_algebra::dense::ssds",
+      "routine": "SSDS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdscl_",
+      "path": "slatec_sys::linear_algebra::dense::ssdscl",
+      "routine": "SSDSCL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssico_",
+      "path": "slatec_sys::linear_algebra::dense::ssico",
+      "routine": "SSICO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssics_",
+      "path": "slatec_sys::linear_algebra::dense::ssics",
+      "routine": "SSICS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssidi_",
+      "path": "slatec_sys::linear_algebra::dense::ssidi",
+      "routine": "SSIDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssifa_",
+      "path": "slatec_sys::linear_algebra::dense::ssifa",
+      "routine": "SSIFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssilus_",
+      "path": "slatec_sys::linear_algebra::dense::ssilus",
+      "routine": "SSILUS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssisl_",
+      "path": "slatec_sys::linear_algebra::dense::ssisl",
+      "routine": "SSISL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssli_",
+      "path": "slatec_sys::linear_algebra::dense::ssli",
+      "routine": "SSLI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssli2_",
+      "path": "slatec_sys::linear_algebra::dense::ssli2",
+      "routine": "SSLI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssllti_",
+      "path": "slatec_sys::linear_algebra::dense::ssllti",
+      "routine": "SSLLTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslucs_",
+      "path": "slatec_sys::linear_algebra::dense::sslucs",
+      "routine": "SSLUCS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslui_",
+      "path": "slatec_sys::linear_algebra::dense::sslui",
+      "routine": "SSLUI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslui2_",
+      "path": "slatec_sys::linear_algebra::dense::sslui2",
+      "routine": "SSLUI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslui4_",
+      "path": "slatec_sys::linear_algebra::dense::sslui4",
+      "routine": "SSLUI4"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssluti_",
+      "path": "slatec_sys::linear_algebra::dense::ssluti",
+      "routine": "SSLUTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssmmi2_",
+      "path": "slatec_sys::linear_algebra::dense::ssmmi2",
+      "routine": "SSMMI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssmmti_",
+      "path": "slatec_sys::linear_algebra::dense::ssmmti",
+      "routine": "SSMMTI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssvdc_",
+      "path": "slatec_sys::linear_algebra::dense::ssvdc",
+      "routine": "SSVDC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "strco_",
+      "path": "slatec_sys::linear_algebra::dense::strco",
+      "routine": "STRCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "strdi_",
+      "path": "slatec_sys::linear_algebra::dense::strdi",
+      "routine": "STRDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "strsl_",
+      "path": "slatec_sys::linear_algebra::dense::strsl",
+      "routine": "STRSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ulsia_",
+      "path": "slatec_sys::linear_algebra::dense::ulsia",
+      "routine": "ULSIA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "bakvec_",
+      "path": "slatec_sys::linear_algebra::eigen::bakvec",
+      "routine": "BAKVEC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "balanc_",
+      "path": "slatec_sys::linear_algebra::eigen::balanc",
+      "routine": "BALANC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "balbak_",
+      "path": "slatec_sys::linear_algebra::eigen::balbak",
+      "routine": "BALBAK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "bandr_",
+      "path": "slatec_sys::linear_algebra::eigen::bandr",
+      "routine": "BANDR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "bandv_",
+      "path": "slatec_sys::linear_algebra::eigen::bandv",
+      "routine": "BANDV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "bisect_",
+      "path": "slatec_sys::linear_algebra::eigen::bisect",
+      "routine": "BISECT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "bqr_",
+      "path": "slatec_sys::linear_algebra::eigen::bqr",
+      "routine": "BQR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "cbabk2_",
+      "path": "slatec_sys::linear_algebra::eigen::cbabk2",
+      "routine": "CBABK2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "cbal_",
+      "path": "slatec_sys::linear_algebra::eigen::cbal",
+      "routine": "CBAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "cg_",
+      "path": "slatec_sys::linear_algebra::eigen::cg",
+      "routine": "CG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "cgeev_",
+      "path": "slatec_sys::linear_algebra::eigen::cgeev",
+      "routine": "CGEEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "ch_",
+      "path": "slatec_sys::linear_algebra::eigen::ch",
+      "routine": "CH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "chiev_",
+      "path": "slatec_sys::linear_algebra::eigen::chiev",
+      "routine": "CHIEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "cinvit_",
+      "path": "slatec_sys::linear_algebra::eigen::cinvit",
+      "routine": "CINVIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "combak_",
+      "path": "slatec_sys::linear_algebra::eigen::combak",
+      "routine": "COMBAK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "comhes_",
+      "path": "slatec_sys::linear_algebra::eigen::comhes",
+      "routine": "COMHES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "comlr_",
+      "path": "slatec_sys::linear_algebra::eigen::comlr",
+      "routine": "COMLR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "comlr2_",
+      "path": "slatec_sys::linear_algebra::eigen::comlr2",
+      "routine": "COMLR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "comqr_",
+      "path": "slatec_sys::linear_algebra::eigen::comqr",
+      "routine": "COMQR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "comqr2_",
+      "path": "slatec_sys::linear_algebra::eigen::comqr2",
+      "routine": "COMQR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "cortb_",
+      "path": "slatec_sys::linear_algebra::eigen::cortb",
+      "routine": "CORTB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "corth_",
+      "path": "slatec_sys::linear_algebra::eigen::corth",
+      "routine": "CORTH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "elmbak_",
+      "path": "slatec_sys::linear_algebra::eigen::elmbak",
+      "routine": "ELMBAK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "elmhes_",
+      "path": "slatec_sys::linear_algebra::eigen::elmhes",
+      "routine": "ELMHES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "eltran_",
+      "path": "slatec_sys::linear_algebra::eigen::eltran",
+      "routine": "ELTRAN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "figi_",
+      "path": "slatec_sys::linear_algebra::eigen::figi",
+      "routine": "FIGI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "figi2_",
+      "path": "slatec_sys::linear_algebra::eigen::figi2",
+      "routine": "FIGI2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "hqr_",
+      "path": "slatec_sys::linear_algebra::eigen::hqr",
+      "routine": "HQR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "hqr2_",
+      "path": "slatec_sys::linear_algebra::eigen::hqr2",
+      "routine": "HQR2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "htrib3_",
+      "path": "slatec_sys::linear_algebra::eigen::htrib3",
+      "routine": "HTRIB3"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "htribk_",
+      "path": "slatec_sys::linear_algebra::eigen::htribk",
+      "routine": "HTRIBK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "htrid3_",
+      "path": "slatec_sys::linear_algebra::eigen::htrid3",
+      "routine": "HTRID3"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "htridi_",
+      "path": "slatec_sys::linear_algebra::eigen::htridi",
+      "routine": "HTRIDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "imtql1_",
+      "path": "slatec_sys::linear_algebra::eigen::imtql1",
+      "routine": "IMTQL1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "imtql2_",
+      "path": "slatec_sys::linear_algebra::eigen::imtql2",
+      "routine": "IMTQL2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "imtqlv_",
+      "path": "slatec_sys::linear_algebra::eigen::imtqlv",
+      "routine": "IMTQLV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "invit_",
+      "path": "slatec_sys::linear_algebra::eigen::invit",
+      "routine": "INVIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "ortbak_",
+      "path": "slatec_sys::linear_algebra::eigen::ortbak",
+      "routine": "ORTBAK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "orthes_",
+      "path": "slatec_sys::linear_algebra::eigen::orthes",
+      "routine": "ORTHES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "ortran_",
+      "path": "slatec_sys::linear_algebra::eigen::ortran",
+      "routine": "ORTRAN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "qzhes_",
+      "path": "slatec_sys::linear_algebra::eigen::qzhes",
+      "routine": "QZHES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "qzit_",
+      "path": "slatec_sys::linear_algebra::eigen::qzit",
+      "routine": "QZIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "qzval_",
+      "path": "slatec_sys::linear_algebra::eigen::qzval",
+      "routine": "QZVAL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "qzvec_",
+      "path": "slatec_sys::linear_algebra::eigen::qzvec",
+      "routine": "QZVEC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "ratqr_",
+      "path": "slatec_sys::linear_algebra::eigen::ratqr",
+      "routine": "RATQR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rebak_",
+      "path": "slatec_sys::linear_algebra::eigen::rebak",
+      "routine": "REBAK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rebakb_",
+      "path": "slatec_sys::linear_algebra::eigen::rebakb",
+      "routine": "REBAKB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "reduc_",
+      "path": "slatec_sys::linear_algebra::eigen::reduc",
+      "routine": "REDUC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "reduc2_",
+      "path": "slatec_sys::linear_algebra::eigen::reduc2",
+      "routine": "REDUC2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rg_",
+      "path": "slatec_sys::linear_algebra::eigen::rg",
+      "routine": "RG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rgg_",
+      "path": "slatec_sys::linear_algebra::eigen::rgg",
+      "routine": "RGG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rs_",
+      "path": "slatec_sys::linear_algebra::eigen::rs",
+      "routine": "RS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rsb_",
+      "path": "slatec_sys::linear_algebra::eigen::rsb",
+      "routine": "RSB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rsg_",
+      "path": "slatec_sys::linear_algebra::eigen::rsg",
+      "routine": "RSG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rsgab_",
+      "path": "slatec_sys::linear_algebra::eigen::rsgab",
+      "routine": "RSGAB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rsgba_",
+      "path": "slatec_sys::linear_algebra::eigen::rsgba",
+      "routine": "RSGBA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rsp_",
+      "path": "slatec_sys::linear_algebra::eigen::rsp",
+      "routine": "RSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rst_",
+      "path": "slatec_sys::linear_algebra::eigen::rst",
+      "routine": "RST"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "rt_",
+      "path": "slatec_sys::linear_algebra::eigen::rt",
+      "routine": "RT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "sgeev_",
+      "path": "slatec_sys::linear_algebra::eigen::sgeev",
+      "routine": "SGEEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "ssiev_",
+      "path": "slatec_sys::linear_algebra::eigen::ssiev",
+      "routine": "SSIEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "sspev_",
+      "path": "slatec_sys::linear_algebra::eigen::sspev",
+      "routine": "SSPEV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tinvit_",
+      "path": "slatec_sys::linear_algebra::eigen::tinvit",
+      "routine": "TINVIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tql1_",
+      "path": "slatec_sys::linear_algebra::eigen::tql1",
+      "routine": "TQL1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tql2_",
+      "path": "slatec_sys::linear_algebra::eigen::tql2",
+      "routine": "TQL2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tqlrat_",
+      "path": "slatec_sys::linear_algebra::eigen::tqlrat",
+      "routine": "TQLRAT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "trbak1_",
+      "path": "slatec_sys::linear_algebra::eigen::trbak1",
+      "routine": "TRBAK1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "trbak3_",
+      "path": "slatec_sys::linear_algebra::eigen::trbak3",
+      "routine": "TRBAK3"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tred1_",
+      "path": "slatec_sys::linear_algebra::eigen::tred1",
+      "routine": "TRED1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tred2_",
+      "path": "slatec_sys::linear_algebra::eigen::tred2",
+      "routine": "TRED2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tred3_",
+      "path": "slatec_sys::linear_algebra::eigen::tred3",
+      "routine": "TRED3"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tridib_",
+      "path": "slatec_sys::linear_algebra::eigen::tridib",
+      "routine": "TRIDIB"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "eigen",
+      "native_symbol": "tsturm_",
+      "path": "slatec_sys::linear_algebra::eigen::tsturm",
+      "routine": "TSTURM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chpco_",
+      "path": "slatec_sys::linear_algebra::packed::complex::chpco",
+      "routine": "CHPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chpdi_",
+      "path": "slatec_sys::linear_algebra::packed::complex::chpdi",
+      "routine": "CHPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chpfa_",
+      "path": "slatec_sys::linear_algebra::packed::complex::chpfa",
+      "routine": "CHPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "chpsl_",
+      "path": "slatec_sys::linear_algebra::packed::complex::chpsl",
+      "routine": "CHPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cppco_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cppco",
+      "routine": "CPPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cppdi_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cppdi",
+      "routine": "CPPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cppfa_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cppfa",
+      "routine": "CPPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cppsl_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cppsl",
+      "routine": "CPPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cspco_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cspco",
+      "routine": "CSPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cspdi_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cspdi",
+      "routine": "CSPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cspfa_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cspfa",
+      "routine": "CSPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-complex",
+      "native_symbol": "cspsl_",
+      "path": "slatec_sys::linear_algebra::packed::complex::cspsl",
+      "routine": "CSPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dppco_",
+      "path": "slatec_sys::linear_algebra::packed::dppco",
+      "routine": "DPPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dppdi_",
+      "path": "slatec_sys::linear_algebra::packed::dppdi",
+      "routine": "DPPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dppfa_",
+      "path": "slatec_sys::linear_algebra::packed::dppfa",
+      "routine": "DPPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dppsl_",
+      "path": "slatec_sys::linear_algebra::packed::dppsl",
+      "routine": "DPPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dspco_",
+      "path": "slatec_sys::linear_algebra::packed::dspco",
+      "routine": "DSPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dspdi_",
+      "path": "slatec_sys::linear_algebra::packed::dspdi",
+      "routine": "DSPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dspfa_",
+      "path": "slatec_sys::linear_algebra::packed::dspfa",
+      "routine": "DSPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dspsl_",
+      "path": "slatec_sys::linear_algebra::packed::dspsl",
+      "routine": "DSPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sppco_",
+      "path": "slatec_sys::linear_algebra::packed::sppco",
+      "routine": "SPPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sppdi_",
+      "path": "slatec_sys::linear_algebra::packed::sppdi",
+      "routine": "SPPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sppfa_",
+      "path": "slatec_sys::linear_algebra::packed::sppfa",
+      "routine": "SPPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sppsl_",
+      "path": "slatec_sys::linear_algebra::packed::sppsl",
+      "routine": "SPPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sspco_",
+      "path": "slatec_sys::linear_algebra::packed::sspco",
+      "routine": "SSPCO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sspdi_",
+      "path": "slatec_sys::linear_algebra::packed::sspdi",
+      "routine": "SSPDI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sspfa_",
+      "path": "slatec_sys::linear_algebra::packed::sspfa",
+      "routine": "SSPFA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sspsl_",
+      "path": "slatec_sys::linear_algebra::packed::sspsl",
+      "routine": "SSPSL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "dbcg_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::dbcg",
+      "routine": "DBCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "dcg_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::dcg",
+      "routine": "DCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "dcgn_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::dcgn",
+      "routine": "DCGN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "dcgs_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::dcgs",
+      "routine": "DCGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "dgmres_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::dgmres",
+      "routine": "DGMRES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "dir_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::dir",
+      "routine": "DIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "domn_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::domn",
+      "routine": "DOMN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "sbcg_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::sbcg",
+      "routine": "SBCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "scg_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::scg",
+      "routine": "SCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "scgn_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::scgn",
+      "routine": "SCGN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "scgs_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::scgs",
+      "routine": "SCGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "sgmres_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::sgmres",
+      "routine": "SGMRES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "sir_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::sir",
+      "routine": "SIR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra-iterative",
+      "native_symbol": "somn_",
+      "path": "slatec_sys::linear_algebra::sparse::callbacks::somn",
+      "routine": "SOMN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdbcg_",
+      "path": "slatec_sys::linear_algebra::sparse::dsdbcg",
+      "routine": "DSDBCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdcg_",
+      "path": "slatec_sys::linear_algebra::sparse::dsdcg",
+      "routine": "DSDCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdcgn_",
+      "path": "slatec_sys::linear_algebra::sparse::dsdcgn",
+      "routine": "DSDCGN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdcgs_",
+      "path": "slatec_sys::linear_algebra::sparse::dsdcgs",
+      "routine": "DSDCGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdgmr_",
+      "path": "slatec_sys::linear_algebra::sparse::dsdgmr",
+      "routine": "DSDGMR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsdomn_",
+      "path": "slatec_sys::linear_algebra::sparse::dsdomn",
+      "routine": "DSDOMN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsgs_",
+      "path": "slatec_sys::linear_algebra::sparse::dsgs",
+      "routine": "DSGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsiccg_",
+      "path": "slatec_sys::linear_algebra::sparse::dsiccg",
+      "routine": "DSICCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsilur_",
+      "path": "slatec_sys::linear_algebra::sparse::dsilur",
+      "routine": "DSILUR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsjac_",
+      "path": "slatec_sys::linear_algebra::sparse::dsjac",
+      "routine": "DSJAC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslubc_",
+      "path": "slatec_sys::linear_algebra::sparse::dslubc",
+      "routine": "DSLUBC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslucn_",
+      "path": "slatec_sys::linear_algebra::sparse::dslucn",
+      "routine": "DSLUCN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dslugm_",
+      "path": "slatec_sys::linear_algebra::sparse::dslugm",
+      "routine": "DSLUGM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "dsluom_",
+      "path": "slatec_sys::linear_algebra::sparse::dsluom",
+      "routine": "DSLUOM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdbcg_",
+      "path": "slatec_sys::linear_algebra::sparse::ssdbcg",
+      "routine": "SSDBCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdcg_",
+      "path": "slatec_sys::linear_algebra::sparse::ssdcg",
+      "routine": "SSDCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdcgn_",
+      "path": "slatec_sys::linear_algebra::sparse::ssdcgn",
+      "routine": "SSDCGN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdcgs_",
+      "path": "slatec_sys::linear_algebra::sparse::ssdcgs",
+      "routine": "SSDCGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdgmr_",
+      "path": "slatec_sys::linear_algebra::sparse::ssdgmr",
+      "routine": "SSDGMR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssdomn_",
+      "path": "slatec_sys::linear_algebra::sparse::ssdomn",
+      "routine": "SSDOMN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssgs_",
+      "path": "slatec_sys::linear_algebra::sparse::ssgs",
+      "routine": "SSGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssiccg_",
+      "path": "slatec_sys::linear_algebra::sparse::ssiccg",
+      "routine": "SSICCG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssilur_",
+      "path": "slatec_sys::linear_algebra::sparse::ssilur",
+      "routine": "SSILUR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssjac_",
+      "path": "slatec_sys::linear_algebra::sparse::ssjac",
+      "routine": "SSJAC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslubc_",
+      "path": "slatec_sys::linear_algebra::sparse::sslubc",
+      "routine": "SSLUBC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslucn_",
+      "path": "slatec_sys::linear_algebra::sparse::sslucn",
+      "routine": "SSLUCN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "sslugm_",
+      "path": "slatec_sys::linear_algebra::sparse::sslugm",
+      "routine": "SSLUGM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "linear-algebra",
+      "native_symbol": "ssluom_",
+      "path": "slatec_sys::linear_algebra::sparse::ssluom",
+      "routine": "SSLUOM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "optimization-linear-programming-in-memory",
+      "native_symbol": "dsplp_",
+      "path": "slatec_sys::linear_programming::dsplp",
+      "routine": "DSPLP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "optimization-linear-programming-in-memory",
+      "native_symbol": "splp_",
+      "path": "slatec_sys::linear_programming::splp",
+      "routine": "SPLP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-expert",
+      "native_symbol": "dnsq_",
+      "path": "slatec_sys::nonlinear::dnsq",
+      "routine": "DNSQ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-easy",
+      "native_symbol": "dnsqe_",
+      "path": "slatec_sys::nonlinear::dnsqe",
+      "routine": "DNSQE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear",
+      "native_symbol": "chkder_",
+      "path": "slatec_sys::nonlinear::jacobian_check::chkder",
+      "routine": "CHKDER"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear",
+      "native_symbol": "dckder_",
+      "path": "slatec_sys::nonlinear::jacobian_check::dckder",
+      "routine": "DCKDER"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-expert",
+      "native_symbol": "snsq_",
+      "path": "slatec_sys::nonlinear::snsq",
+      "routine": "SNSQ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-easy",
+      "native_symbol": "snsqe_",
+      "path": "slatec_sys::nonlinear::snsqe",
+      "routine": "SNSQE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-systems",
+      "native_symbol": "dsos_",
+      "path": "slatec_sys::nonlinear::systems::dsos",
+      "routine": "DSOS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-systems",
+      "native_symbol": "sos_",
+      "path": "slatec_sys::nonlinear::systems::sos",
+      "routine": "SOS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-callbacks",
+      "native_symbol": "ddeabm_",
+      "path": "slatec_sys::ode::callbacks::ddeabm",
+      "routine": "DDEABM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-callbacks",
+      "native_symbol": "dderkf_",
+      "path": "slatec_sys::ode::callbacks::dderkf",
+      "routine": "DDERKF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-callbacks",
+      "native_symbol": "derkf_",
+      "path": "slatec_sys::ode::callbacks::derkf",
+      "routine": "DERKF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "cdriv1_",
+      "path": "slatec_sys::ode::cdriv1",
+      "routine": "CDRIV1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "cdriv2_",
+      "path": "slatec_sys::ode::cdriv2",
+      "routine": "CDRIV2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "ddriv1_",
+      "path": "slatec_sys::ode::ddriv1",
+      "routine": "DDRIV1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "ddriv2_",
+      "path": "slatec_sys::ode::ddriv2",
+      "routine": "DDRIV2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "ddriv3_",
+      "path": "slatec_sys::ode::ddriv3",
+      "routine": "DDRIV3"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode",
+      "native_symbol": "dintp_",
+      "path": "slatec_sys::ode::dintp",
+      "routine": "DINTP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "sdriv1_",
+      "path": "slatec_sys::ode::sdriv1",
+      "routine": "SDRIV1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "sdriv2_",
+      "path": "slatec_sys::ode::sdriv2",
+      "routine": "SDRIV2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode-sdrive-expert",
+      "native_symbol": "sdriv3_",
+      "path": "slatec_sys::ode::sdriv3",
+      "routine": "SDRIV3"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "ode",
+      "native_symbol": "sintrp_",
+      "path": "slatec_sys::ode::sintrp",
+      "routine": "SINTRP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "blktri_",
+      "path": "slatec_sys::pde::fishpack::blktri",
+      "routine": "BLKTRI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack-complex",
+      "native_symbol": "cblktr_",
+      "path": "slatec_sys::pde::fishpack::complex::cblktr",
+      "routine": "CBLKTR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack-complex",
+      "native_symbol": "cmgnbn_",
+      "path": "slatec_sys::pde::fishpack::complex::cmgnbn",
+      "routine": "CMGNBN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "genbun_",
+      "path": "slatec_sys::pde::fishpack::genbun",
+      "routine": "GENBUN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hstcrt_",
+      "path": "slatec_sys::pde::fishpack::hstcrt",
+      "routine": "HSTCRT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hstcsp_",
+      "path": "slatec_sys::pde::fishpack::hstcsp",
+      "routine": "HSTCSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hstcyl_",
+      "path": "slatec_sys::pde::fishpack::hstcyl",
+      "routine": "HSTCYL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hstplr_",
+      "path": "slatec_sys::pde::fishpack::hstplr",
+      "routine": "HSTPLR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hstssp_",
+      "path": "slatec_sys::pde::fishpack::hstssp",
+      "routine": "HSTSSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hw3crt_",
+      "path": "slatec_sys::pde::fishpack::hw3crt",
+      "routine": "HW3CRT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "raw-family-fishpack-cartesian-2d",
+      "native_symbol": "hwscrt_",
+      "path": "slatec_sys::pde::fishpack::hwscrt",
+      "routine": "HWSCRT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hwscsp_",
+      "path": "slatec_sys::pde::fishpack::hwscsp",
+      "routine": "HWSCSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hwscyl_",
+      "path": "slatec_sys::pde::fishpack::hwscyl",
+      "routine": "HWSCYL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hwsplr_",
+      "path": "slatec_sys::pde::fishpack::hwsplr",
+      "routine": "HWSPLR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "hwsssp_",
+      "path": "slatec_sys::pde::fishpack::hwsssp",
+      "routine": "HWSSSP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "raw-family-fishpack-pois3d",
+      "native_symbol": "pois3d_",
+      "path": "slatec_sys::pde::fishpack::pois3d",
+      "routine": "POIS3D"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "fishpack",
+      "native_symbol": "poistg_",
+      "path": "slatec_sys::pde::fishpack::poistg",
+      "routine": "POISTG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "avint_",
+      "path": "slatec_sys::quadrature::avint",
+      "routine": "AVINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "bsqad_",
+      "path": "slatec_sys::quadrature::bsqad",
+      "routine": "BSQAD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqagie_",
+      "path": "slatec_sys::quadrature::callbacks::dqagie",
+      "routine": "DQAGIE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqagpe_",
+      "path": "slatec_sys::quadrature::callbacks::dqagpe",
+      "routine": "DQAGPE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqagse_",
+      "path": "slatec_sys::quadrature::callbacks::dqagse",
+      "routine": "DQAGSE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqawce_",
+      "path": "slatec_sys::quadrature::callbacks::dqawce",
+      "routine": "DQAWCE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqawse_",
+      "path": "slatec_sys::quadrature::callbacks::dqawse",
+      "routine": "DQAWSE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqc25c_",
+      "path": "slatec_sys::quadrature::callbacks::dqc25c",
+      "routine": "DQC25C"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqc25s_",
+      "path": "slatec_sys::quadrature::callbacks::dqc25s",
+      "routine": "DQC25S"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk15_",
+      "path": "slatec_sys::quadrature::callbacks::dqk15",
+      "routine": "DQK15"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk15i_",
+      "path": "slatec_sys::quadrature::callbacks::dqk15i",
+      "routine": "DQK15I"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk15w_",
+      "path": "slatec_sys::quadrature::callbacks::dqk15w",
+      "routine": "DQK15W"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk21_",
+      "path": "slatec_sys::quadrature::callbacks::dqk21",
+      "routine": "DQK21"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk31_",
+      "path": "slatec_sys::quadrature::callbacks::dqk31",
+      "routine": "DQK31"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk41_",
+      "path": "slatec_sys::quadrature::callbacks::dqk41",
+      "routine": "DQK41"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk51_",
+      "path": "slatec_sys::quadrature::callbacks::dqk51",
+      "routine": "DQK51"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dqk61_",
+      "path": "slatec_sys::quadrature::callbacks::dqk61",
+      "routine": "DQK61"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qagie_",
+      "path": "slatec_sys::quadrature::callbacks::qagie",
+      "routine": "QAGIE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qagpe_",
+      "path": "slatec_sys::quadrature::callbacks::qagpe",
+      "routine": "QAGPE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qagse_",
+      "path": "slatec_sys::quadrature::callbacks::qagse",
+      "routine": "QAGSE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qawce_",
+      "path": "slatec_sys::quadrature::callbacks::qawce",
+      "routine": "QAWCE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qawse_",
+      "path": "slatec_sys::quadrature::callbacks::qawse",
+      "routine": "QAWSE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qc25c_",
+      "path": "slatec_sys::quadrature::callbacks::qc25c",
+      "routine": "QC25C"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qc25s_",
+      "path": "slatec_sys::quadrature::callbacks::qc25s",
+      "routine": "QC25S"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk15_",
+      "path": "slatec_sys::quadrature::callbacks::qk15",
+      "routine": "QK15"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk15i_",
+      "path": "slatec_sys::quadrature::callbacks::qk15i",
+      "routine": "QK15I"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk15w_",
+      "path": "slatec_sys::quadrature::callbacks::qk15w",
+      "routine": "QK15W"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk21_",
+      "path": "slatec_sys::quadrature::callbacks::qk21",
+      "routine": "QK21"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk31_",
+      "path": "slatec_sys::quadrature::callbacks::qk31",
+      "routine": "QK31"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk41_",
+      "path": "slatec_sys::quadrature::callbacks::qk41",
+      "routine": "QK41"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk51_",
+      "path": "slatec_sys::quadrature::callbacks::qk51",
+      "routine": "QK51"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "qk61_",
+      "path": "slatec_sys::quadrature::callbacks::qk61",
+      "routine": "QK61"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "davint_",
+      "path": "slatec_sys::quadrature::davint",
+      "routine": "DAVINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "dbsqad_",
+      "path": "slatec_sys::quadrature::dbsqad",
+      "routine": "DBSQAD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "dgaus8_",
+      "path": "slatec_sys::quadrature::dgaus8",
+      "routine": "DGAUS8"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-callbacks",
+      "native_symbol": "dpfqad_",
+      "path": "slatec_sys::quadrature::dpfqad",
+      "routine": "DPFQAD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "dppqad_",
+      "path": "slatec_sys::quadrature::dppqad",
+      "routine": "DPPQAD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "dqag_",
+      "path": "slatec_sys::quadrature::dqag",
+      "routine": "DQAG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "dqagi_",
+      "path": "slatec_sys::quadrature::dqagi",
+      "routine": "DQAGI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-breakpoints",
+      "native_symbol": "dqagp_",
+      "path": "slatec_sys::quadrature::dqagp",
+      "routine": "DQAGP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "dqags_",
+      "path": "slatec_sys::quadrature::dqags",
+      "routine": "DQAGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "dqawc_",
+      "path": "slatec_sys::quadrature::dqawc",
+      "routine": "DQAWC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-fourier",
+      "native_symbol": "dqawf_",
+      "path": "slatec_sys::quadrature::dqawf",
+      "routine": "DQAWF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-oscillatory",
+      "native_symbol": "dqawo_",
+      "path": "slatec_sys::quadrature::dqawo",
+      "routine": "DQAWO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-weighted",
+      "native_symbol": "dqaws_",
+      "path": "slatec_sys::quadrature::dqaws",
+      "routine": "DQAWS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "dqmomo_",
+      "path": "slatec_sys::quadrature::dqmomo",
+      "routine": "DQMOMO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-nonadaptive",
+      "native_symbol": "dqnc79_",
+      "path": "slatec_sys::quadrature::dqnc79",
+      "routine": "DQNC79"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-nonadaptive",
+      "native_symbol": "dqng_",
+      "path": "slatec_sys::quadrature::dqng",
+      "routine": "DQNG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "gaus8_",
+      "path": "slatec_sys::quadrature::gaus8",
+      "routine": "GAUS8"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "ppqad_",
+      "path": "slatec_sys::quadrature::ppqad",
+      "routine": "PPQAD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "qag_",
+      "path": "slatec_sys::quadrature::qag",
+      "routine": "QAG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "qagi_",
+      "path": "slatec_sys::quadrature::qagi",
+      "routine": "QAGI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-breakpoints",
+      "native_symbol": "qagp_",
+      "path": "slatec_sys::quadrature::qagp",
+      "routine": "QAGP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "qags_",
+      "path": "slatec_sys::quadrature::qags",
+      "routine": "QAGS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-basic",
+      "native_symbol": "qawc_",
+      "path": "slatec_sys::quadrature::qawc",
+      "routine": "QAWC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-fourier",
+      "native_symbol": "qawf_",
+      "path": "slatec_sys::quadrature::qawf",
+      "routine": "QAWF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-oscillatory",
+      "native_symbol": "qawo_",
+      "path": "slatec_sys::quadrature::qawo",
+      "routine": "QAWO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-weighted",
+      "native_symbol": "qaws_",
+      "path": "slatec_sys::quadrature::qaws",
+      "routine": "QAWS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature",
+      "native_symbol": "qmomo_",
+      "path": "slatec_sys::quadrature::qmomo",
+      "routine": "QMOMO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-nonadaptive",
+      "native_symbol": "qnc79_",
+      "path": "slatec_sys::quadrature::qnc79",
+      "routine": "QNC79"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "quadrature-nonadaptive",
+      "native_symbol": "qng_",
+      "path": "slatec_sys::quadrature::qng",
+      "routine": "QNG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-complex",
+      "native_symbol": "cpqr79_",
+      "path": "slatec_sys::roots::complex::cpqr79",
+      "routine": "CPQR79"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-complex",
+      "native_symbol": "cpzero_",
+      "path": "slatec_sys::roots::complex::cpzero",
+      "routine": "CPZERO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-complex",
+      "native_symbol": "rpqr79_",
+      "path": "slatec_sys::roots::complex::rpqr79",
+      "routine": "RPQR79"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "nonlinear-complex",
+      "native_symbol": "rpzero_",
+      "path": "slatec_sys::roots::complex::rpzero",
+      "routine": "RPZERO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "raw-family-roots-scalar",
+      "native_symbol": "dfzero_",
+      "path": "slatec_sys::roots::scalar::dfzero",
+      "routine": "DFZERO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "raw-family-roots-scalar",
+      "native_symbol": "fzero_",
+      "path": "slatec_sys::roots::scalar::fzero",
+      "routine": "FZERO"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "acosh_",
+      "path": "slatec_sys::special::acosh",
+      "routine": "ACOSH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "ai_",
+      "path": "slatec_sys::special::airy::ai",
+      "routine": "AI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "aie_",
+      "path": "slatec_sys::special::airy::aie",
+      "routine": "AIE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "bi_",
+      "path": "slatec_sys::special::airy::bi",
+      "routine": "BI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "bie_",
+      "path": "slatec_sys::special::airy::bie",
+      "routine": "BIE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "dai_",
+      "path": "slatec_sys::special::airy::dai",
+      "routine": "DAI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "daie_",
+      "path": "slatec_sys::special::airy::daie",
+      "routine": "DAIE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "dbi_",
+      "path": "slatec_sys::special::airy::dbi",
+      "routine": "DBI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-airy",
+      "native_symbol": "dbie_",
+      "path": "slatec_sys::special::airy::dbie",
+      "routine": "DBIE"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "algams_",
+      "path": "slatec_sys::special::algams",
+      "routine": "ALGAMS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "ali_",
+      "path": "slatec_sys::special::ali",
+      "routine": "ALI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "asinh_",
+      "path": "slatec_sys::special::asinh",
+      "routine": "ASINH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "atanh_",
+      "path": "slatec_sys::special::atanh",
+      "routine": "ATANH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besi_",
+      "path": "slatec_sys::special::bessel::besi",
+      "routine": "BESI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besi0_",
+      "path": "slatec_sys::special::bessel::besi0",
+      "routine": "BESI0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besi0e_",
+      "path": "slatec_sys::special::bessel::besi0e",
+      "routine": "BESI0E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besi1_",
+      "path": "slatec_sys::special::bessel::besi1",
+      "routine": "BESI1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besi1e_",
+      "path": "slatec_sys::special::bessel::besi1e",
+      "routine": "BESI1E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besj_",
+      "path": "slatec_sys::special::bessel::besj",
+      "routine": "BESJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besj0_",
+      "path": "slatec_sys::special::bessel::besj0",
+      "routine": "BESJ0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besj1_",
+      "path": "slatec_sys::special::bessel::besj1",
+      "routine": "BESJ1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besk_",
+      "path": "slatec_sys::special::bessel::besk",
+      "routine": "BESK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besk0_",
+      "path": "slatec_sys::special::bessel::besk0",
+      "routine": "BESK0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besk0e_",
+      "path": "slatec_sys::special::bessel::besk0e",
+      "routine": "BESK0E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besk1_",
+      "path": "slatec_sys::special::bessel::besk1",
+      "routine": "BESK1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besk1e_",
+      "path": "slatec_sys::special::bessel::besk1e",
+      "routine": "BESK1E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "beskes_",
+      "path": "slatec_sys::special::bessel::beskes",
+      "routine": "BESKES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besks_",
+      "path": "slatec_sys::special::bessel::besks",
+      "routine": "BESKS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besy_",
+      "path": "slatec_sys::special::bessel::besy",
+      "routine": "BESY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besy0_",
+      "path": "slatec_sys::special::bessel::besy0",
+      "routine": "BESY0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "besy1_",
+      "path": "slatec_sys::special::bessel::besy1",
+      "routine": "BESY1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesi_",
+      "path": "slatec_sys::special::bessel::dbesi",
+      "routine": "DBESI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesi0_",
+      "path": "slatec_sys::special::bessel::dbesi0",
+      "routine": "DBESI0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesi1_",
+      "path": "slatec_sys::special::bessel::dbesi1",
+      "routine": "DBESI1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesj_",
+      "path": "slatec_sys::special::bessel::dbesj",
+      "routine": "DBESJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesj0_",
+      "path": "slatec_sys::special::bessel::dbesj0",
+      "routine": "DBESJ0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesj1_",
+      "path": "slatec_sys::special::bessel::dbesj1",
+      "routine": "DBESJ1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesk_",
+      "path": "slatec_sys::special::bessel::dbesk",
+      "routine": "DBESK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesk0_",
+      "path": "slatec_sys::special::bessel::dbesk0",
+      "routine": "DBESK0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesk1_",
+      "path": "slatec_sys::special::bessel::dbesk1",
+      "routine": "DBESK1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesks_",
+      "path": "slatec_sys::special::bessel::dbesks",
+      "routine": "DBESKS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesy_",
+      "path": "slatec_sys::special::bessel::dbesy",
+      "routine": "DBESY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesy0_",
+      "path": "slatec_sys::special::bessel::dbesy0",
+      "routine": "DBESY0"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbesy1_",
+      "path": "slatec_sys::special::bessel::dbesy1",
+      "routine": "DBESY1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zbesh_",
+      "path": "slatec_sys::special::bessel::zbesh",
+      "routine": "ZBESH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zbesi_",
+      "path": "slatec_sys::special::bessel::zbesi",
+      "routine": "ZBESI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zbesj_",
+      "path": "slatec_sys::special::bessel::zbesj",
+      "routine": "ZBESJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zbesk_",
+      "path": "slatec_sys::special::bessel::zbesk",
+      "routine": "ZBESK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zbesy_",
+      "path": "slatec_sys::special::bessel::zbesy",
+      "routine": "ZBESY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-beta",
+      "native_symbol": "albeta_",
+      "path": "slatec_sys::special::beta::albeta",
+      "routine": "ALBETA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-beta",
+      "native_symbol": "beta_",
+      "path": "slatec_sys::special::beta::beta",
+      "routine": "BETA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-beta",
+      "native_symbol": "betai_",
+      "path": "slatec_sys::special::beta::betai",
+      "routine": "BETAI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-beta",
+      "native_symbol": "dbeta_",
+      "path": "slatec_sys::special::beta::dbeta",
+      "routine": "DBETA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-beta",
+      "native_symbol": "dbetai_",
+      "path": "slatec_sys::special::beta::dbetai",
+      "routine": "DBETAI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-beta",
+      "native_symbol": "dlbeta_",
+      "path": "slatec_sys::special::beta::dlbeta",
+      "routine": "DLBETA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "bskin_",
+      "path": "slatec_sys::special::bskin",
+      "routine": "BSKIN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "chu_",
+      "path": "slatec_sys::special::chu",
+      "routine": "CHU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "c0lgmc_",
+      "path": "slatec_sys::special::complex::c0lgmc",
+      "routine": "C0LGMC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cacos_",
+      "path": "slatec_sys::special::complex::cacos",
+      "routine": "CACOS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cacosh_",
+      "path": "slatec_sys::special::complex::cacosh",
+      "routine": "CACOSH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cairy_",
+      "path": "slatec_sys::special::complex::cairy",
+      "routine": "CAIRY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "casin_",
+      "path": "slatec_sys::special::complex::casin",
+      "routine": "CASIN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "casinh_",
+      "path": "slatec_sys::special::complex::casinh",
+      "routine": "CASINH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "catan_",
+      "path": "slatec_sys::special::complex::catan",
+      "routine": "CATAN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "catan2_",
+      "path": "slatec_sys::special::complex::catan2",
+      "routine": "CATAN2"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "catanh_",
+      "path": "slatec_sys::special::complex::catanh",
+      "routine": "CATANH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbesh_",
+      "path": "slatec_sys::special::complex::cbesh",
+      "routine": "CBESH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbesi_",
+      "path": "slatec_sys::special::complex::cbesi",
+      "routine": "CBESI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbesj_",
+      "path": "slatec_sys::special::complex::cbesj",
+      "routine": "CBESJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbesk_",
+      "path": "slatec_sys::special::complex::cbesk",
+      "routine": "CBESK"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbesy_",
+      "path": "slatec_sys::special::complex::cbesy",
+      "routine": "CBESY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbeta_",
+      "path": "slatec_sys::special::complex::cbeta",
+      "routine": "CBETA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cbiry_",
+      "path": "slatec_sys::special::complex::cbiry",
+      "routine": "CBIRY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "ccbrt_",
+      "path": "slatec_sys::special::complex::ccbrt",
+      "routine": "CCBRT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "ccosh_",
+      "path": "slatec_sys::special::complex::ccosh",
+      "routine": "CCOSH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "ccot_",
+      "path": "slatec_sys::special::complex::ccot",
+      "routine": "CCOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cexprl_",
+      "path": "slatec_sys::special::complex::cexprl",
+      "routine": "CEXPRL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cgamma_",
+      "path": "slatec_sys::special::complex::cgamma",
+      "routine": "CGAMMA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cgamr_",
+      "path": "slatec_sys::special::complex::cgamr",
+      "routine": "CGAMR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "clbeta_",
+      "path": "slatec_sys::special::complex::clbeta",
+      "routine": "CLBETA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "clngam_",
+      "path": "slatec_sys::special::complex::clngam",
+      "routine": "CLNGAM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "clnrel_",
+      "path": "slatec_sys::special::complex::clnrel",
+      "routine": "CLNREL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "clog10_",
+      "path": "slatec_sys::special::complex::clog10",
+      "routine": "CLOG10"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "cpsi_",
+      "path": "slatec_sys::special::complex::cpsi",
+      "routine": "CPSI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "csinh_",
+      "path": "slatec_sys::special::complex::csinh",
+      "routine": "CSINH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "ctan_",
+      "path": "slatec_sys::special::complex::ctan",
+      "routine": "CTAN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-complex",
+      "native_symbol": "ctanh_",
+      "path": "slatec_sys::special::complex::ctanh",
+      "routine": "CTANH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "cot_",
+      "path": "slatec_sys::special::cot",
+      "routine": "COT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "csevl_",
+      "path": "slatec_sys::special::csevl",
+      "routine": "CSEVL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dacosh_",
+      "path": "slatec_sys::special::dacosh",
+      "routine": "DACOSH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dasinh_",
+      "path": "slatec_sys::special::dasinh",
+      "routine": "DASINH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "datanh_",
+      "path": "slatec_sys::special::datanh",
+      "routine": "DATANH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbsi0e_",
+      "path": "slatec_sys::special::dbsi0e",
+      "routine": "DBSI0E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbsi1e_",
+      "path": "slatec_sys::special::dbsi1e",
+      "routine": "DBSI1E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbsk0e_",
+      "path": "slatec_sys::special::dbsk0e",
+      "routine": "DBSK0E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbsk1e_",
+      "path": "slatec_sys::special::dbsk1e",
+      "routine": "DBSK1E"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbskes_",
+      "path": "slatec_sys::special::dbskes",
+      "routine": "DBSKES"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dbskin_",
+      "path": "slatec_sys::special::dbskin",
+      "routine": "DBSKIN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dchu_",
+      "path": "slatec_sys::special::dchu",
+      "routine": "DCHU"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dcot_",
+      "path": "slatec_sys::special::dcot",
+      "routine": "DCOT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dcsevl_",
+      "path": "slatec_sys::special::dcsevl",
+      "routine": "DCSEVL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "de1_",
+      "path": "slatec_sys::special::de1",
+      "routine": "DE1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dei_",
+      "path": "slatec_sys::special::dei",
+      "routine": "DEI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dexint_",
+      "path": "slatec_sys::special::dexint",
+      "routine": "DEXINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dgamlm_",
+      "path": "slatec_sys::special::dgamlm",
+      "routine": "DGAMLM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dlgams_",
+      "path": "slatec_sys::special::dlgams",
+      "routine": "DLGAMS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dli_",
+      "path": "slatec_sys::special::dli",
+      "routine": "DLI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dpoch_",
+      "path": "slatec_sys::special::dpoch",
+      "routine": "DPOCH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dpoch1_",
+      "path": "slatec_sys::special::dpoch1",
+      "routine": "DPOCH1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dpsifn_",
+      "path": "slatec_sys::special::dpsifn",
+      "routine": "DPSIFN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drc_",
+      "path": "slatec_sys::special::drc",
+      "routine": "DRC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drc3jj_",
+      "path": "slatec_sys::special::drc3jj",
+      "routine": "DRC3JJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drc3jm_",
+      "path": "slatec_sys::special::drc3jm",
+      "routine": "DRC3JM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drc6j_",
+      "path": "slatec_sys::special::drc6j",
+      "routine": "DRC6J"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drd_",
+      "path": "slatec_sys::special::drd",
+      "routine": "DRD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drf_",
+      "path": "slatec_sys::special::drf",
+      "routine": "DRF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "drj_",
+      "path": "slatec_sys::special::drj",
+      "routine": "DRJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dspenc_",
+      "path": "slatec_sys::special::dspenc",
+      "routine": "DSPENC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dxlegf_",
+      "path": "slatec_sys::special::dxlegf",
+      "routine": "DXLEGF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "dxnrmp_",
+      "path": "slatec_sys::special::dxnrmp",
+      "routine": "DXNRMP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "e1_",
+      "path": "slatec_sys::special::e1",
+      "routine": "E1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "ei_",
+      "path": "slatec_sys::special::ei",
+      "routine": "EI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "alnrel_",
+      "path": "slatec_sys::special::elementary::alnrel",
+      "routine": "ALNREL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "cbrt_",
+      "path": "slatec_sys::special::elementary::cbrt",
+      "routine": "CBRT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "cosdg_",
+      "path": "slatec_sys::special::elementary::cosdg",
+      "routine": "COSDG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "daws_",
+      "path": "slatec_sys::special::elementary::daws",
+      "routine": "DAWS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "dcbrt_",
+      "path": "slatec_sys::special::elementary::dcbrt",
+      "routine": "DCBRT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "dcosdg_",
+      "path": "slatec_sys::special::elementary::dcosdg",
+      "routine": "DCOSDG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "ddaws_",
+      "path": "slatec_sys::special::elementary::ddaws",
+      "routine": "DDAWS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "dexprl_",
+      "path": "slatec_sys::special::elementary::dexprl",
+      "routine": "DEXPRL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "dlnrel_",
+      "path": "slatec_sys::special::elementary::dlnrel",
+      "routine": "DLNREL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "dsindg_",
+      "path": "slatec_sys::special::elementary::dsindg",
+      "routine": "DSINDG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "exprel_",
+      "path": "slatec_sys::special::elementary::exprel",
+      "routine": "EXPREL"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-elementary",
+      "native_symbol": "sindg_",
+      "path": "slatec_sys::special::elementary::sindg",
+      "routine": "SINDG"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-error",
+      "native_symbol": "derf_",
+      "path": "slatec_sys::special::error::derf",
+      "routine": "DERF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-error",
+      "native_symbol": "derfc_",
+      "path": "slatec_sys::special::error::derfc",
+      "routine": "DERFC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-error",
+      "native_symbol": "erf_",
+      "path": "slatec_sys::special::error::erf",
+      "routine": "ERF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-error",
+      "native_symbol": "erfc_",
+      "path": "slatec_sys::special::error::erfc",
+      "routine": "ERFC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "exint_",
+      "path": "slatec_sys::special::exint",
+      "routine": "EXINT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "gamlim_",
+      "path": "slatec_sys::special::gamlim",
+      "routine": "GAMLIM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "alngam_",
+      "path": "slatec_sys::special::gamma::alngam",
+      "routine": "ALNGAM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "binom_",
+      "path": "slatec_sys::special::gamma::binom",
+      "routine": "BINOM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dbinom_",
+      "path": "slatec_sys::special::gamma::dbinom",
+      "routine": "DBINOM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dfac_",
+      "path": "slatec_sys::special::gamma::dfac",
+      "routine": "DFAC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dgami_",
+      "path": "slatec_sys::special::gamma::dgami",
+      "routine": "DGAMI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dgamic_",
+      "path": "slatec_sys::special::gamma::dgamic",
+      "routine": "DGAMIC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dgamit_",
+      "path": "slatec_sys::special::gamma::dgamit",
+      "routine": "DGAMIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dgamma_",
+      "path": "slatec_sys::special::gamma::dgamma",
+      "routine": "DGAMMA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dgamr_",
+      "path": "slatec_sys::special::gamma::dgamr",
+      "routine": "DGAMR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dlngam_",
+      "path": "slatec_sys::special::gamma::dlngam",
+      "routine": "DLNGAM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "dpsi_",
+      "path": "slatec_sys::special::gamma::dpsi",
+      "routine": "DPSI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "fac_",
+      "path": "slatec_sys::special::gamma::fac",
+      "routine": "FAC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "gami_",
+      "path": "slatec_sys::special::gamma::gami",
+      "routine": "GAMI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "gamic_",
+      "path": "slatec_sys::special::gamma::gamic",
+      "routine": "GAMIC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "gamit_",
+      "path": "slatec_sys::special::gamma::gamit",
+      "routine": "GAMIT"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "gamma_",
+      "path": "slatec_sys::special::gamma::gamma",
+      "routine": "GAMMA"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "gamr_",
+      "path": "slatec_sys::special::gamma::gamr",
+      "routine": "GAMR"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special-gamma",
+      "native_symbol": "psi_",
+      "path": "slatec_sys::special::gamma::psi",
+      "routine": "PSI"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "initds_",
+      "path": "slatec_sys::special::initds",
+      "routine": "INITDS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "inits_",
+      "path": "slatec_sys::special::inits",
+      "routine": "INITS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "poch_",
+      "path": "slatec_sys::special::poch",
+      "routine": "POCH"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "poch1_",
+      "path": "slatec_sys::special::poch1",
+      "routine": "POCH1"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "psifn_",
+      "path": "slatec_sys::special::psifn",
+      "routine": "PSIFN"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rc_",
+      "path": "slatec_sys::special::rc",
+      "routine": "RC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rc3jj_",
+      "path": "slatec_sys::special::rc3jj",
+      "routine": "RC3JJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rc3jm_",
+      "path": "slatec_sys::special::rc3jm",
+      "routine": "RC3JM"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rc6j_",
+      "path": "slatec_sys::special::rc6j",
+      "routine": "RC6J"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rd_",
+      "path": "slatec_sys::special::rd",
+      "routine": "RD"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rf_",
+      "path": "slatec_sys::special::rf",
+      "routine": "RF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "rj_",
+      "path": "slatec_sys::special::rj",
+      "routine": "RJ"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "spenc_",
+      "path": "slatec_sys::special::spenc",
+      "routine": "SPENC"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "xlegf_",
+      "path": "slatec_sys::special::xlegf",
+      "routine": "XLEGF"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "xnrmp_",
+      "path": "slatec_sys::special::xnrmp",
+      "routine": "XNRMP"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zairy_",
+      "path": "slatec_sys::special::zairy",
+      "routine": "ZAIRY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "special",
+      "native_symbol": "zbiry_",
+      "path": "slatec_sys::special::zbiry",
+      "routine": "ZBIRY"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "statistics",
+      "native_symbol": "cv_",
+      "path": "slatec_sys::statistics::cv",
+      "routine": "CV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "statistics",
+      "native_symbol": "dcv_",
+      "path": "slatec_sys::statistics::dcv",
+      "routine": "DCV"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "statistics",
+      "native_symbol": "rand_",
+      "path": "slatec_sys::statistics::rand",
+      "routine": "RAND"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "statistics",
+      "native_symbol": "rgauss_",
+      "path": "slatec_sys::statistics::rgauss",
+      "routine": "RGAUSS"
+    },
+    {
+      "classification": "feature-gated-intentional",
+      "feature": "statistics",
+      "native_symbol": "runif_",
+      "path": "slatec_sys::statistics::runif",
+      "routine": "RUNIF"
+    }
+  ],
+  "input": "generated/public-api/canonical-public-api.json",
+  "input_sha256": "908f9923b94d62cfc021711ba9f868ff0844468d7fd4698de169eb3b80317948",
+  "policy": "Canonical reviewed raw paths and routine names are frozen for 0.1.x. Feature gates are additive where possible; an ABI correction may supersede compatibility when evidence proves the existing declaration unsafe.",
+  "schema_id": "slatec-rs.raw-public-abi-freeze-baseline",
+  "schema_version": "2.0.0",
+  "scope": "canonical reviewed slatec-sys raw ABI paths; generated implementation modules and provider internals are deliberately excluded",
+  "target_feature_profiles": [
+    {
+      "abi_profile": "ffi-profile-gnu-mingw-x86_64",
+      "feature_set": "slatec-sys/all",
+      "target": "x86_64-pc-windows-gnu"
+    }
+  ]
+}

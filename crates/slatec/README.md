@@ -6,11 +6,11 @@ Use this crate when an owned, checked Rust interface exists for the required
 family. The safe surface is intentionally selective and is much smaller than
 the 812-routine raw API in `slatec-sys`. A native family requires exactly one
 backend (`bundled`, `source-build`, `system`, or `external-backend`). The
-canonical `bundled` default provides `special-elementary` on
-`x86_64-pc-windows-gnu` from a hash-verified carrier, without compiler, cache,
-system, or network access. Other bundled families remain individually
-provenance-blocked and do not fall back. Builds never download source.
-GNU MinGW on `x86_64-pc-windows-gnu` is the strongest validated native profile.
+canonical `bundled` default provides ten reviewed special/root families on
+`x86_64-pc-windows-gnu` and `x86_64-unknown-linux-gnu` from hash-verified
+carriers, without compiler, cache, system, or network access. Builds never
+download source. GNU MinGW 14.2 on Windows and GNU Fortran 11.4 on Linux are
+the validated native profiles.
 
 The hosted `least-squares-nonlinear-easy` family provides residual-only,
 finite-difference nonlinear least-squares fitting through the original
@@ -172,9 +172,8 @@ repository [runtime concurrency and storage policy](../../docs/architecture/runt
 
 Native implementations use exactly one provider: `bundled`, `source-build`,
 `system`, or `external-backend`. `bundled` is the canonical default feature,
-and currently distributes only `special-elementary` on
-`x86_64-pc-windows-gnu`; every other native family remains individually
-provenance-blocked. Select an expert provider explicitly for an unavailable
+and distributes the ten reviewed special/root families on both supported
+bundled targets. Select an expert provider explicitly for an unavailable
 family.
 
 Safe family features do not create a numerical implementation root. On the

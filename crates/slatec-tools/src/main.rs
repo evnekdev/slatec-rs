@@ -1474,6 +1474,21 @@ fn run() -> Result<()> {
             println!("validated: bundled-provider provenance evidence ({semantic_hash})");
             Ok(())
         }
+        "generate-linux-bundled-provider-evidence" => {
+            let semantic_hash = bundled_provider::generate_linux(&PathBuf::from("."))?;
+            println!("success: Linux bundled-provider evidence ({semantic_hash})");
+            Ok(())
+        }
+        "validate-linux-bundled-provider-evidence" => {
+            let semantic_hash = bundled_provider::validate_linux(&PathBuf::from("."))?;
+            println!("validated: Linux bundled-provider evidence ({semantic_hash})");
+            Ok(())
+        }
+        "validate-linux-bundled-carrier" => {
+            bundled_provider::validate_linux_carrier(&PathBuf::from("."))?;
+            println!("validated: Linux bundled carrier");
+            Ok(())
+        }
         "build-bundled-provider" => bundled_provider::require_buildable(&PathBuf::from(".")),
         _ => Err(CorpusError::Policy(format!(
             "unknown command {}; use acquire, verify, inspect, extract, manifest, prepare, scan-program-units, scan-prologues, analyze-prologues, audit-full-corpus, raw API and semantic generators, generate-sos-dsos-evidence, validate-sos-dsos-evidence, generate-small-candidate-batch-review, validate-small-candidate-batch-review, generate-linkage-metadata, acquire-provider-sources, generate-provider-metadata, or bundled-provider evidence commands",
@@ -1563,7 +1578,7 @@ fn required_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result
 }
 
 fn usage() -> &'static str {
-    "Usage: slatec-corpus <...|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-small-candidate-batch-review|validate-small-candidate-batch-review|generate-native-link-audit|validate-native-link-audit|generate-bundled-provider-evidence|validate-bundled-provider-evidence|build-bundled-provider|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--bindings-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
+    "Usage: slatec-corpus <...|generate-sos-dsos-evidence|validate-sos-dsos-evidence|generate-small-candidate-batch-review|validate-small-candidate-batch-review|generate-native-link-audit|validate-native-link-audit|generate-bundled-provider-evidence|validate-bundled-provider-evidence|generate-linux-bundled-provider-evidence|validate-linux-bundled-provider-evidence|validate-linux-bundled-carrier|build-bundled-provider|validate-agent-guidance|...> [--artifact-path PATH] [--evidence-dir PATH] [--manifest-dir PATH] [--program-unit-dir PATH] [--full-corpus-dir PATH] [--selected-corpus-dir PATH] [--ffi-inventory-dir PATH] [--output-dir PATH] [--source-cache-dir PATH] [--batch NAME] [--offline]"
 }
 
 fn source_cache_dir(options: &Options) -> Result<PathBuf> {

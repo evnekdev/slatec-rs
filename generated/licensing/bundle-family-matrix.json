@@ -513,13 +513,13 @@
     },
     {
       "already_accepted": 12,
-      "archive": null,
-      "bundle_action": "blocked_by_source_provenance",
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
       "closure_size": 38,
       "family": "special-bessel",
-      "newly_accepted": 0,
-      "runtime_closure": "not_bundled",
-      "still_unresolved": 26
+      "newly_accepted": 26,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
     },
     {
       "already_accepted": 14,
@@ -597,19 +597,19 @@
       "bundle_action": "blocked_by_source_provenance",
       "closure_size": 205,
       "family": "special-real",
-      "newly_accepted": 25,
+      "newly_accepted": 63,
       "runtime_closure": "not_bundled",
-      "still_unresolved": 164
+      "still_unresolved": 126
     },
     {
       "already_accepted": 12,
-      "archive": null,
-      "bundle_action": "blocked_by_source_provenance",
+      "archive": "native/libslatec_bundle_accepted.a",
+      "bundle_action": "ready",
       "closure_size": 30,
       "family": "special-scalar-expanded",
-      "newly_accepted": 6,
-      "runtime_closure": "not_bundled",
-      "still_unresolved": 12
+      "newly_accepted": 18,
+      "runtime_closure": "reduced_static_gfortran_and_quadmath_as_recorded",
+      "still_unresolved": 0
     },
     {
       "already_accepted": 0,
@@ -627,9 +627,9 @@
       "bundle_action": "blocked_by_source_provenance",
       "closure_size": 120,
       "family": "unclassified",
-      "newly_accepted": 4,
+      "newly_accepted": 16,
       "runtime_closure": "not_bundled",
-      "still_unresolved": 104
+      "still_unresolved": 92
     }
   ],
   "schema_id": "slatec-rs/bundle-family-matrix",

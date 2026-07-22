@@ -49,10 +49,18 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
     let cargo_home = simulation.join("cargo-home");
     fs::create_dir_all(&cargo_home)?;
     fs::write(cargo_home.join("config.toml"), &source_config)?;
+    let wsl_cargo_home = simulation.join("wsl-cargo-home");
+    fs::create_dir_all(&wsl_cargo_home)?;
+    let wsl_source_config = format!(
+        "[source.crates-io]\nreplace-with = \"local-release-vendor\"\n\n[source.local-release-vendor]\ndirectory = \"{}\"\n\n[net]\noffline = true\n",
+        wsl_path(&vendor)?
+    );
+    fs::write(wsl_cargo_home.join("config.toml"), &wsl_source_config)?;
 
     let packages = [
         "slatec-sys",
         "slatec-bundled-x86_64-pc-windows-gnu",
+        "slatec-bundled-x86_64-unknown-linux-gnu",
         "slatec-src",
         "slatec-core",
         "slatec",
@@ -93,6 +101,7 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             source: "fn main() {}\n",
             target: None,
             run: false,
+            executor: ConsumerExecutor::Host,
         },
         Consumer {
             name: "raw-all-declarations",
@@ -100,6 +109,7 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             source: "fn main() { let _ = slatec_sys::special::airy::ai as *const (); }\n",
             target: None,
             run: false,
+            executor: ConsumerExecutor::Host,
         },
         Consumer {
             name: "external-provider-narrow",
@@ -107,6 +117,7 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             source: "fn main() { slatec_src::ensure_linked(); }\n",
             target: None,
             run: false,
+            executor: ConsumerExecutor::Host,
         },
         Consumer {
             name: "safe-no-default",
@@ -114,6 +125,7 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             source: "fn main() {}\n",
             target: None,
             run: false,
+            executor: ConsumerExecutor::Host,
         },
         Consumer {
             name: "safe-narrow-external",
@@ -121,6 +133,7 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             source: "fn main() { let _ = slatec::special::gamma::gamma(1.0_f64); }\n",
             target: None,
             run: false,
+            executor: ConsumerExecutor::Host,
         },
         Consumer {
             name: "safe-bundled-elementary",
@@ -128,6 +141,15 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             source: "fn main() { println!(\"{}\", slatec::special::elementary::log1p(0.5_f64).expect(\"finite input\")); }\n",
             target: Some("x86_64-pc-windows-gnu"),
             run: true,
+            executor: ConsumerExecutor::Host,
+        },
+        Consumer {
+            name: "safe-bundled-bessel-linux",
+            dependency: "slatec = { version = \"=0.1.0\", default-features = false, features = [\"std\", \"bundled\", \"special-bessel\"] }",
+            source: "fn main() { println!(\"{}\", slatec::special::bessel::bessel_j0(1.0_f64).expect(\"finite input\")); }\n",
+            target: Some("x86_64-unknown-linux-gnu"),
+            run: true,
+            executor: ConsumerExecutor::Wsl,
         },
     ];
     let consumer_root = simulation.join("consumers");
@@ -143,17 +165,26 @@ pub fn validate(root: &Path, output_path: &Path) -> Result<RegistrySimulationRes
             ),
         )?;
         fs::write(dir.join("src/main.rs"), consumer.source)?;
-        let mut command = Command::new("cargo");
-        command
-            .arg(if consumer.run { "run" } else { "check" })
-            .arg("--offline");
-        if let Some(target) = consumer.target {
-            command.args(["--target", target]);
+        match consumer.executor {
+            ConsumerExecutor::Host => {
+                let mut command = Command::new("cargo");
+                command
+                    .arg(if consumer.run { "run" } else { "check" })
+                    .arg("--offline");
+                if let Some(target) = consumer.target {
+                    command.args(["--target", target]);
+                }
+                run(&dir, &mut command, consumer.name)?;
+            }
+            ConsumerExecutor::Wsl => {
+                run_wsl_consumer(&dir, &wsl_cargo_home, &wsl_source_config, consumer.name)?
+            }
         }
-        run(&dir, &mut command, consumer.name)?;
         records.push(json!({
             "configuration":consumer.name,
             "dependency":consumer.dependency,
+            "target":consumer.target,
+            "executor":consumer.executor.name(),
             "workspace_path_dependencies":0,
             "result":"pass",
         }));
@@ -188,6 +219,22 @@ struct Consumer {
     source: &'static str,
     target: Option<&'static str>,
     run: bool,
+    executor: ConsumerExecutor,
+}
+
+#[derive(Clone, Copy)]
+enum ConsumerExecutor {
+    Host,
+    Wsl,
+}
+
+impl ConsumerExecutor {
+    fn name(self) -> &'static str {
+        match self {
+            Self::Host => "host",
+            Self::Wsl => "wsl",
+        }
+    }
 }
 
 fn write_directory_checksum(directory: &Path, package_hash: &str) -> Result<()> {
@@ -227,6 +274,55 @@ fn run(root: &Path, command: &mut Command, label: &str) -> Result<()> {
         )));
     }
     Ok(())
+}
+
+fn run_wsl_consumer(
+    directory: &Path,
+    cargo_home: &Path,
+    source_config: &str,
+    label: &str,
+) -> Result<()> {
+    let config = directory.join(".cargo/config.toml");
+    fs::create_dir_all(config.parent().expect("consumer Cargo config parent"))?;
+    fs::write(config, source_config)?;
+    let directory = wsl_path(directory)?;
+    let cargo_home = wsl_path(cargo_home)?;
+    let script = format!(
+        "env -u SLATEC_SOURCE_CACHE -u SLATEC_SYSTEM_LIB_DIR -u SLATEC_SYSTEM_RUNTIME_LIB_DIR -u SLATEC_GFORTRAN CARGO_HOME={} CARGO_NET_OFFLINE=true cargo run --offline --target x86_64-unknown-linux-gnu",
+        bash_quote(&cargo_home),
+    );
+    let output = Command::new("wsl.exe")
+        .args(["--cd", &directory, "bash", "-lc", &script])
+        .output()?;
+    if output.status.success() {
+        Ok(())
+    } else {
+        Err(policy(&format!(
+            "{label} failed\nstdout:\n{}\nstderr:\n{}",
+            String::from_utf8_lossy(&output.stdout).trim(),
+            String::from_utf8_lossy(&output.stderr).trim()
+        )))
+    }
+}
+
+fn wsl_path(path: &Path) -> Result<String> {
+    let path = path.to_string_lossy().replace('\\', "/");
+    let path = path.strip_prefix("//?/").unwrap_or(&path);
+    let bytes = path.as_bytes();
+    if bytes.len() < 3 || bytes[1] != b':' || bytes[2] != b'/' {
+        return Err(policy(&format!(
+            "WSL registry simulation requires an absolute Windows drive path; found {path}"
+        )));
+    }
+    Ok(format!(
+        "/mnt/{}/{}",
+        (bytes[0] as char).to_ascii_lowercase(),
+        &path[3..]
+    ))
+}
+
+fn bash_quote(value: &str) -> String {
+    format!("'{}'", value.replace('\'', "'\\\"'\\\"'"))
 }
 
 fn policy(message: &str) -> CorpusError {

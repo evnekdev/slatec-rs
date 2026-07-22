@@ -1,60 +1,146 @@
 {
-  "bundled_carrier": {
-    "archive_count": 8,
-    "archives": [
+  "bundled_carriers": {
+    "carriers": [
       {
-        "family": "roots-scalar",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
+        "archive_count": 10,
+        "archives": [
+          {
+            "family": "roots-scalar",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-airy",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-bessel",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-beta",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-elementary",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-error",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-gamma",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-integrals",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-polynomials",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          },
+          {
+            "family": "special-scalar-expanded",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "7410fb46e5ce75cddbfe8afcf71dedb5c0e9f19053db66c0f31c0692de173092",
+            "size_bytes": 385314
+          }
+        ],
+        "crate": "slatec-bundled-x86_64-pc-windows-gnu",
+        "publish": true,
+        "status": "ready",
+        "target": "x86_64-pc-windows-gnu"
       },
       {
-        "family": "special-airy",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
-      },
-      {
-        "family": "special-beta",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
-      },
-      {
-        "family": "special-elementary",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
-      },
-      {
-        "family": "special-error",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
-      },
-      {
-        "family": "special-gamma",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
-      },
-      {
-        "family": "special-integrals",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
-      },
-      {
-        "family": "special-polynomials",
-        "path": "native/libslatec_bundle_accepted.a",
-        "sha256": "0feea16b5445e0cb95a1a918c8de08dcd9fa9f891bf403114ecdc7814e2f8bc0",
-        "size_bytes": 239142
+        "archive_count": 10,
+        "archives": [
+          {
+            "family": "roots-scalar",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-airy",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-bessel",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-beta",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-elementary",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-error",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-gamma",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-integrals",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-polynomials",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          },
+          {
+            "family": "special-scalar-expanded",
+            "path": "native/libslatec_bundle_accepted.a",
+            "sha256": "b720b0ea51eb336641b41c186864bc8cc9572a3362e84e65149c97ae7a959ffc",
+            "size_bytes": 567600
+          }
+        ],
+        "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
+        "publish": true,
+        "status": "ready",
+        "target": "x86_64-unknown-linux-gnu"
       }
     ],
-    "crate": "slatec-bundled-x86_64-pc-windows-gnu",
-    "publish": true,
-    "status": "ready",
-    "target": "x86_64-pc-windows-gnu"
+    "result": "pass"
   },
   "package_dry_runs": [
     {
@@ -67,7 +153,13 @@
     {
       "crate": "slatec-bundled-x86_64-pc-windows-gnu",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 332300,
+      "package_size_bytes": 385725,
+      "status": "passed_offline_prepublication"
+    },
+    {
+      "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
+      "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
+      "package_size_bytes": 398565,
       "status": "passed_offline_prepublication"
     },
     {
@@ -81,13 +173,13 @@
       "crate": "slatec-src",
       "detail": "Cargo package verification resolves registry dependencies rather than workspace paths; this is expected before the preceding publication layer is uploaded. The registry-only downstream simulation is the complete pre-publication proof.",
       "package_size_bytes": null,
-      "prerequisite": "slatec-bundled-x86_64-pc-windows-gnu",
+      "prerequisite": "slatec-bundled-x86_64-unknown-linux-gnu",
       "status": "blocked_until_publication_prerequisite_exists"
     },
     {
       "crate": "slatec-sys",
       "detail": "Cargo packaged and verified this independent publication-layer crate from its package contents.",
-      "package_size_bytes": 611731,
+      "package_size_bytes": 611733,
       "status": "passed_offline_prepublication"
     }
   ],
@@ -113,6 +205,16 @@
       "result": "pass"
     },
     {
+      "build_script": "build.rs",
+      "crate": "slatec-bundled-x86_64-unknown-linux-gnu",
+      "file_count": 23,
+      "forbidden_files": [],
+      "links": "slatec_bundled_x86_64_unknown_linux_gnu",
+      "manifest": "crates/slatec-bundled-x86_64-unknown-linux-gnu/Cargo.toml",
+      "missing_required_files": [],
+      "result": "pass"
+    },
+    {
       "build_script": null,
       "crate": "slatec-core",
       "file_count": 12,
@@ -125,7 +227,7 @@
     {
       "build_script": "build.rs",
       "crate": "slatec-src",
-      "file_count": 31,
+      "file_count": 35,
       "forbidden_files": [],
       "links": "slatec",
       "manifest": "crates/slatec-src/Cargo.toml",

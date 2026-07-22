@@ -148,7 +148,7 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
             .cloned()
             .collect::<Vec<_>>();
         let mut required_files = vec!["Cargo.toml", "README.md", "LICENSE-APACHE", "LICENSE-MIT"];
-        if name == "slatec-bundled-x86_64-pc-windows-gnu" {
+        if name.starts_with("slatec-bundled-") {
             required_files.extend([
                 "metadata/runtime-licenses/GPL-3.0.txt",
                 "metadata/runtime-licenses/LGPL-2.1-or-later.txt",
@@ -226,7 +226,7 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
         "policy":"Packages must contain required Rust metadata and licenses and no caches, downloaded Fortran corpus, objects, executables, maps, logs, credentials, or local configuration. The target carrier may contain only manifest-verified native static archives plus exact runtime licence and relinking material.",
         "packages":package_records,
         "package_dry_runs":package_dry_runs,
-        "bundled_carrier":validate_bundled_carrier(root)?,
+        "bundled_carriers":validate_bundled_carriers(root)?,
         "result":"pass",
     });
     fs::create_dir_all(output_dir)?;
@@ -241,20 +241,26 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
             "policy":"Before any crate is published, an offline Cargo package verification can only pass for a publication layer whose workspace dependencies are already on crates.io. A blocked dependent package is recorded with its exact prerequisite; the local-registry downstream simulation validates the complete package graph without workspace paths."
         }),
     )?;
-    let api_baseline = public_api_baseline(root)?;
-    let target_support = json!({
-        "schema_id":"slatec-rs.target-support","schema_version":"1.0.0",
-        "targets":[
-            {"target":"x86_64-pc-windows-gnu","status":"supported-bundled","evidence":["hash-verified accepted-source carrier","reduced GNU runtime closure receipt","clean packaged-consumer execution"]},
-            {"target":"x86_64-unknown-linux-gnu","status":"not-shipped","blockers":["no reviewed GNU Fortran compiler/runtime profile in this release receipt","no target-specific carrier archive or packaged-consumer execution","no source-cache, runtime-closure, import, or provenance receipt for a Linux carrier"]},
-            {"target":"x86_64-pc-windows-msvc","status":"not-shipped","blockers":["no reviewed Fortran provider/linker ABI strategy"]},
-            {"target":"aarch64-apple-darwin","status":"not-shipped","blockers":["no reviewed Fortran provider/linker ABI strategy"]}
-        ],
-        "policy":"Only x86_64-pc-windows-gnu is a supported compiler-free target. Other targets must select an explicit expert provider and are not validated by this carrier report."
-    });
+    let safe_api_baseline = safe_public_api_baseline(root)?;
+    let raw_api_baseline = raw_public_abi_baseline(root)?;
+    let core_api_baseline = core_support_types_baseline(root)?;
+    let carrier_api_baseline = carrier_metadata_baseline(root)?;
+    let target_support = target_support(root, &carrier_api_baseline)?;
     write_json(
         &output_dir.join("public-api-freeze-baseline.json"),
-        &api_baseline,
+        &safe_api_baseline,
+    )?;
+    write_json(
+        &output_dir.join("raw-public-abi-freeze-baseline.json"),
+        &raw_api_baseline,
+    )?;
+    write_json(
+        &output_dir.join("core-support-types-api-baseline.json"),
+        &core_api_baseline,
+    )?;
+    write_json(
+        &output_dir.join("carrier-metadata-api-baseline.json"),
+        &carrier_api_baseline,
     )?;
     write_json(&output_dir.join("target-support.json"), &target_support)?;
     let (scalar_disposition, scalar_accuracy) = scalar_release_evidence(root)?;
@@ -271,8 +277,25 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
         &output_dir.join("docs-feature-visibility.json"),
         &docs_visibility,
     )?;
+    let release_candidate = release_candidate_report(
+        root,
+        &safe_api_baseline,
+        &raw_api_baseline,
+        &core_api_baseline,
+        &carrier_api_baseline,
+        &target_support,
+        &packages,
+    )?;
+    write_json(
+        &output_dir.join("release-candidate-report.json"),
+        &release_candidate,
+    )?;
+    write_if_changed(
+        &output_dir.join("release-candidate-report.md"),
+        release_candidate_markdown(&release_candidate).as_bytes(),
+    )?;
     let summary = format!(
-        "# Workspace package audit\n\n- Publishable crates: {}\n- Package contents audited: {}\n- Publication layers: {}\n- Native implementation-provider `links` owner: `slatec-src` (`slatec`)\n- Target carrier: `slatec-bundled-x86_64-pc-windows-gnu` (distinct metadata-only `links` namespace)\n- Result: `pass`\n\nPublication order is layer-based: independent crates in the same layer may be published in either order, followed by each dependent layer.\n",
+        "# Workspace package audit\n\n- Publishable crates: {}\n- Package contents audited: {}\n- Publication layers: {}\n- Native implementation-provider `links` owner: `slatec-src` (`slatec`)\n- Target carriers: `slatec-bundled-x86_64-pc-windows-gnu` and `slatec-bundled-x86_64-unknown-linux-gnu` (distinct metadata-only `links` namespaces)\n- Result: `pass`\n\nPublication order is layer-based: independent crates in the same layer may be published in either order, followed by each dependent layer.\n",
         publishable.len(),
         package_records.len(),
         layers.len(),
@@ -284,11 +307,15 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
     let bytes = serde_json::to_vec(&json!({
         "graph":graph,
         "packages":packages,
-        "api_baseline":api_baseline,
+        "safe_api_baseline":safe_api_baseline,
+        "raw_api_baseline":raw_api_baseline,
+        "core_api_baseline":core_api_baseline,
+        "carrier_api_baseline":carrier_api_baseline,
         "target_support":target_support,
         "scalar_disposition":scalar_disposition,
         "scalar_accuracy":scalar_accuracy,
         "docs_visibility":docs_visibility,
+        "release_candidate":release_candidate,
     }))?;
     Ok(PackageAuditResult {
         status: "validated".to_owned(),
@@ -299,7 +326,64 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
     })
 }
 
-fn public_api_baseline(root: &Path) -> Result<Value> {
+fn safe_public_api_baseline(root: &Path) -> Result<Value> {
+    let source = root.join("generated/safe-api/function-index.json");
+    let function_index: Value = serde_json::from_slice(&fs::read(&source)?)?;
+    let records = function_index["records"]
+        .as_array()
+        .ok_or_else(|| policy("safe function index lacks records"))?;
+    let mut exports = records
+        .iter()
+        .map(|record| {
+            let path = record["rust_path"]
+                .as_str()
+                .ok_or_else(|| policy("safe function index record lacks rust_path"))?;
+            let feature = record["feature"]
+                .as_str()
+                .ok_or_else(|| policy("safe function index record lacks feature"))?;
+            Ok(json!({
+                "path":path,
+                "feature":feature,
+                "fortran_routine":record["fortran_routine"],
+                "precision":record["precision"],
+                "capability":record["capability"],
+                "native_profile":record["native_profile"],
+                "inclusion_status":record["inclusion_status"],
+            }))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    exports.sort_by(|left, right| left["path"].as_str().cmp(&right["path"].as_str()));
+    let paths = exports
+        .iter()
+        .filter_map(|record| record["path"].as_str())
+        .collect::<BTreeSet<_>>();
+    if paths.len() != exports.len() || exports.is_empty() {
+        return Err(policy(
+            "safe public API baseline must contain unique callable facade paths",
+        ));
+    }
+    let feature_set = exports
+        .iter()
+        .filter_map(|record| record["feature"].as_str())
+        .collect::<BTreeSet<_>>();
+    Ok(json!({
+        "schema_id":"slatec-rs.safe-public-api-freeze-baseline","schema_version":"2.0.0",
+        "scope":"callable safe slatec facade paths from the generated safe function index; raw declarations, generated implementation modules, provider internals, and test-only modules are excluded",
+        "input":"generated/safe-api/function-index.json",
+        "input_sha256":hash::file(&source)?,
+        "target_feature_profiles":[
+            {"target":"x86_64-pc-windows-gnu","provider":"bundled or source-build","feature_set":"full","native_profile":"ffi-profile-gnu-mingw-x86_64"},
+            {"target":"x86_64-unknown-linux-gnu","provider":"bundled or source-build","feature_set":"reviewed bundled special/root families","native_profile":"GNU Fortran 11.4 carrier receipt"},
+            {"target":"caller-selected","provider":"external-backend","feature_set":"feature-gated callable facade","native_profile":"provider-dependent"}
+        ],
+        "feature_set":feature_set,
+        "export_count":exports.len(),
+        "exports":exports,
+        "policy":"Safe callable paths, feature gates, precision labels, and wrapper-to-routine mappings are frozen for 0.1.x. This is deliberately independent from the raw ABI baseline."
+    }))
+}
+
+fn raw_public_abi_baseline(root: &Path) -> Result<Value> {
     let source = root.join("generated/public-api/canonical-public-api.json");
     let canonical: Value = serde_json::from_slice(&fs::read(&source)?)?;
     let records = canonical["records"]
@@ -331,14 +415,226 @@ fn public_api_baseline(root: &Path) -> Result<Value> {
         ));
     }
     Ok(json!({
-        "schema_id":"slatec-rs.public-api-freeze-baseline","schema_version":"1.0.0",
-        "scope":"canonical reviewed slatec-sys raw paths; generated implementation modules and provider internals are deliberately excluded",
+        "schema_id":"slatec-rs.raw-public-abi-freeze-baseline","schema_version":"2.0.0",
+        "scope":"canonical reviewed slatec-sys raw ABI paths; generated implementation modules and provider internals are deliberately excluded",
         "input":"generated/public-api/canonical-public-api.json",
         "input_sha256":hash::file(&source)?,
         "export_count":exports.len(),
         "exports":exports,
-        "policy":"Canonical reviewed paths and routine names are frozen for 0.1.x. Feature gates are additive where possible; an ABI correction may supersede compatibility when evidence proves the existing declaration unsafe."
+        "target_feature_profiles":[{"target":"x86_64-pc-windows-gnu","feature_set":"slatec-sys/all","abi_profile":"ffi-profile-gnu-mingw-x86_64"}],
+        "policy":"Canonical reviewed raw paths and routine names are frozen for 0.1.x. Feature gates are additive where possible; an ABI correction may supersede compatibility when evidence proves the existing declaration unsafe."
     }))
+}
+
+fn core_support_types_baseline(root: &Path) -> Result<Value> {
+    let source = root.join("crates/slatec-core/src/fortran.rs");
+    let source_text = fs::read_to_string(&source)?;
+    let exports = [
+        "slatec_core::fortran::IntegerRangeError",
+        "slatec_core::fortran::to_fortran_integer",
+        "slatec_core::fortran::to_fortran_increment",
+    ];
+    for export in exports {
+        let item = export.rsplit("::").next().expect("static core export");
+        if !source_text.contains(item) {
+            return Err(policy("core support type baseline source drifted"));
+        }
+    }
+    Ok(json!({
+        "schema_id":"slatec-rs.core-support-types-api-baseline","schema_version":"1.0.0",
+        "scope":"provider-neutral public slatec-core support exports selected by ffi-profile-gnu-mingw-x86_64",
+        "input":"crates/slatec-core/src/fortran.rs",
+        "input_sha256":hash::file(&source)?,
+        "target_feature_profiles":[{"target":"x86_64-pc-windows-gnu","feature_set":"ffi-profile-gnu-mingw-x86_64","provider":"none"},{"target":"x86_64-unknown-linux-gnu","feature_set":"provider-neutral support types","provider":"none"}],
+        "exports":exports,
+        "policy":"Core support types remain provider-neutral and are frozen separately from both safe numerical paths and raw declarations."
+    }))
+}
+
+fn carrier_metadata_baseline(root: &Path) -> Result<Value> {
+    let carriers = fs::read_dir(root.join("crates"))?
+        .filter_map(std::result::Result::ok)
+        .filter(|entry| entry.file_name().to_string_lossy().starts_with("slatec-bundled-"))
+        .map(|entry| {
+            let crate_root = entry.path();
+            let manifest_path = crate_root.join("metadata/bundle-manifest.json");
+            let cargo_path = crate_root.join("Cargo.toml");
+            let manifest: Value = serde_json::from_slice(&fs::read(&manifest_path)?)?;
+            let cargo = read_toml(&cargo_path)?;
+            let package = cargo
+                .get("package")
+                .ok_or_else(|| policy("carrier Cargo.toml lacks package metadata"))?;
+            Ok(json!({
+                "crate":package.get("name").and_then(toml::Value::as_str),
+                "version":package.get("version").and_then(toml::Value::as_str),
+                "links":package.get("links").and_then(toml::Value::as_str),
+                "target":manifest["target"],
+                "status":manifest["status"],
+                "source_unit_count":manifest["source_unit_count"],
+                "archive_count":manifest["archives"].as_array().map(|archives| archives.len()),
+                "runtime_archive_count":manifest["runtime_archives"].as_array().map(|archives| archives.len()),
+                "cargo_toml_sha256":hash::file(&cargo_path)?,
+                "bundle_manifest_sha256":hash::file(&manifest_path)?,
+            }))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    if carriers.is_empty() {
+        return Err(policy(
+            "at least one target carrier metadata package is required",
+        ));
+    }
+    Ok(json!({
+        "schema_id":"slatec-rs.carrier-metadata-api-baseline","schema_version":"1.0.0",
+        "scope":"target-specific bundled-carrier metadata only; carriers expose no numerical Rust API",
+        "carriers":carriers,
+        "policy":"Each target carrier has its own links namespace, exact target receipt, and immutable package metadata baseline."
+    }))
+}
+
+fn target_support(root: &Path, carriers: &Value) -> Result<Value> {
+    let records = carriers["carriers"]
+        .as_array()
+        .ok_or_else(|| policy("carrier baseline lacks carrier records"))?;
+    let target_record = |target: &str| {
+        records
+            .iter()
+            .find(|record| record["target"].as_str() == Some(target))
+            .ok_or_else(|| policy(&format!("carrier baseline lacks {target} carrier")))
+    };
+    let ready_families = |file: &str| -> Result<Vec<String>> {
+        let eligibility: Value = serde_json::from_slice(&fs::read(root.join(file))?)?;
+        Ok(eligibility["families"]
+            .as_array()
+            .ok_or_else(|| policy("bundled source eligibility lacks family records"))?
+            .iter()
+            .filter(|record| record["bundle_available"] == true)
+            .filter_map(|record| record["feature"].as_str().map(str::to_owned))
+            .collect())
+    };
+    let windows = target_record("x86_64-pc-windows-gnu")?;
+    let linux = target_record("x86_64-unknown-linux-gnu")?;
+    let windows_families =
+        ready_families("crates/slatec-src/metadata/bundled-source-eligibility.json")?;
+    let linux_families =
+        ready_families("crates/slatec-src/metadata/bundled-source-eligibility-linux.json")?;
+    if windows["status"].as_str() != Some("ready") || windows_families.is_empty() {
+        return Err(policy(
+            "Windows GNU target cannot be reported as bundled without a ready carrier and family archive",
+        ));
+    }
+    if linux["status"].as_str() != Some("ready") || linux_families.is_empty() {
+        return Err(policy(
+            "Linux GNU target cannot be reported as bundled without a ready carrier and family archive",
+        ));
+    }
+    Ok(json!({
+        "schema_id":"slatec-rs.target-support","schema_version":"2.0.0",
+        "targets":[
+            {"target":"x86_64-pc-windows-gnu","status":"supported-bundled","bundled_families":windows_families,"evidence":["hash-verified accepted-source carrier","reduced GNU runtime closure receipt","clean packaged-consumer execution"]},
+            {"target":"x86_64-unknown-linux-gnu","status":"supported-bundled","bundled_families":linux_families,"evidence":["hash-verified accepted-source carrier","reduced GNU runtime closure receipt","clean ELF consumer execution and source-build parity"]},
+            {"target":"x86_64-pc-windows-msvc","status":"not-shipped","blockers":["no reviewed Fortran provider/linker ABI strategy"]},
+            {"target":"aarch64-apple-darwin","status":"not-shipped","blockers":["no reviewed Fortran provider/linker ABI strategy"]}
+        ],
+        "policy":"Only target records with a ready, exact carrier receipt and a clean packaged-consumer execution are supported bundled targets. Other targets must select an explicit expert provider and are not validated by this carrier report."
+    }))
+}
+
+fn release_candidate_report(
+    root: &Path,
+    safe_api: &Value,
+    raw_api: &Value,
+    core_api: &Value,
+    carrier_api: &Value,
+    target_support: &Value,
+    packages: &Value,
+) -> Result<Value> {
+    let windows = target_support["targets"]
+        .as_array()
+        .and_then(|targets| {
+            targets
+                .iter()
+                .find(|target| target["target"].as_str() == Some("x86_64-pc-windows-gnu"))
+        })
+        .ok_or_else(|| policy("release-candidate report lacks Windows target record"))?;
+    let linux = target_support["targets"]
+        .as_array()
+        .and_then(|targets| {
+            targets
+                .iter()
+                .find(|target| target["target"].as_str() == Some("x86_64-unknown-linux-gnu"))
+        })
+        .ok_or_else(|| policy("release-candidate report lacks Linux target record"))?;
+    let registry_path =
+        root.join("generated/release-readiness/registry-only-downstream-simulation.json");
+    let registry = if registry_path.is_file() {
+        serde_json::from_slice::<Value>(&fs::read(&registry_path)?)?
+    } else {
+        json!({"result":"not_run"})
+    };
+    let gates = vec![
+        json!({"gate":"safe API freeze","status":"pass","evidence":"generated/release-readiness/public-api-freeze-baseline.json","remaining_blocker":Value::Null,"count":safe_api["export_count"]}),
+        json!({"gate":"raw ABI freeze","status":"pass","evidence":"generated/release-readiness/raw-public-abi-freeze-baseline.json","remaining_blocker":Value::Null,"count":raw_api["export_count"]}),
+        json!({"gate":"core support API freeze","status":"pass","evidence":"generated/release-readiness/core-support-types-api-baseline.json","remaining_blocker":Value::Null,"count":core_api["exports"].as_array().map(Vec::len)}),
+        json!({"gate":"target-carrier metadata freeze","status":"pass","evidence":"generated/release-readiness/carrier-metadata-api-baseline.json","remaining_blocker":Value::Null,"count":carrier_api["carriers"].as_array().map(Vec::len)}),
+        json!({"gate":"Windows bundled carrier","status":if windows["status"] == "supported-bundled" { "pass" } else { "blocked" },"evidence":"generated/release-readiness/target-support.json","remaining_blocker":windows["blockers"],"families":windows["bundled_families"]}),
+        json!({"gate":"Linux bundled carrier","status":if linux["status"] == "supported-bundled" { "pass" } else { "blocked" },"evidence":"generated/release-readiness/target-support.json","remaining_blocker":linux["blockers"]}),
+        json!({"gate":"package contents","status":packages["result"],"evidence":"generated/release-readiness/package-content-audit.json","remaining_blocker":Value::Null}),
+        json!({"gate":"registry-only packaged consumers","status":registry["result"],"evidence":"generated/release-readiness/registry-only-downstream-simulation.json","remaining_blocker":if registry["result"] == "pass" { Value::Null } else { json!("run validate-registry-simulation") }}),
+    ];
+    let blockers = gates
+        .iter()
+        .filter(|gate| gate["status"] != "pass")
+        .map(|gate| gate["gate"].clone())
+        .collect::<Vec<_>>();
+    Ok(json!({
+        "schema_id":"slatec-rs.release-candidate-report","schema_version":"1.0.0",
+        "overall_status":if blockers.is_empty() { "release_candidate" } else { "blocked" },
+        "gates":gates,
+        "remaining_blockers":blockers,
+        "semver_decision":if blockers.is_empty() { "0.1.0 release candidate; no crate published and no tag created" } else { "not a release candidate until every listed gate is resolved" },
+        "publish_commands":[
+            "cargo publish -p slatec-bundled-x86_64-pc-windows-gnu",
+            "cargo publish -p slatec-bundled-x86_64-unknown-linux-gnu",
+            "cargo publish -p slatec-sys",
+            "cargo publish -p slatec-core",
+            "cargo publish -p slatec-src",
+            "cargo publish -p slatec"
+        ],
+        "policy":"This report records every unsatisfied gate as a blocker; it never upgrades a framework, partially accepted source closure, or unvalidated target into a release candidate."
+    }))
+}
+
+fn release_candidate_markdown(report: &Value) -> String {
+    let mut output = String::from(
+        "# Release candidate report\n\n| Gate | Status | Evidence | Remaining blocker |\n| --- | --- | --- | --- |\n",
+    );
+    for gate in report["gates"].as_array().into_iter().flatten() {
+        let blocker = gate["remaining_blocker"]
+            .as_str()
+            .map(str::to_owned)
+            .or_else(|| {
+                gate["remaining_blocker"].as_array().map(|items| {
+                    items
+                        .iter()
+                        .filter_map(Value::as_str)
+                        .collect::<Vec<_>>()
+                        .join("; ")
+                })
+            })
+            .unwrap_or_else(|| "—".to_owned());
+        output.push_str(&format!(
+            "| {} | {} | `{}` | {} |\n",
+            gate["gate"].as_str().unwrap_or("unknown"),
+            gate["status"].as_str().unwrap_or("unknown"),
+            gate["evidence"].as_str().unwrap_or("unknown"),
+            blocker
+        ));
+    }
+    output.push_str(&format!(
+        "\nOverall status: **{}**.\n",
+        report["overall_status"].as_str().unwrap_or("unknown")
+    ));
+    output
 }
 
 fn scalar_release_evidence(root: &Path) -> Result<(Value, Value)> {
@@ -362,27 +658,31 @@ fn scalar_release_evidence(root: &Path) -> Result<(Value, Value)> {
                 .get(3)
                 .and_then(Value::as_str)
                 .ok_or_else(|| policy("safe scalar inventory record lacks a classification"))?;
-            let release_disposition = match source_classification {
+            let final_action = match source_classification {
                 "already_safely_exposed" | "suitable_for_this_milestone" => {
-                    "public-enhanced-primitive"
+                    "implement_safe_public_wrapper"
                 }
-                "internal_or_subsidiary_only" => "private-provider-subsidiary",
-                "deferred_due_to_global_mutable_state" => "raw-only-with-reason",
-                "deferred_due_to_branch_or_precision_ambiguity" => "raw-only-with-reason",
+                "obsolete_alias_or_duplicate" => "covered_by_rust_std",
+                "internal_or_subsidiary_only" => "keep_private_provider_subsidiary",
+                "deferred_due_to_global_mutable_state" => "retain_raw_only_with_blocker",
+                "deferred_due_to_branch_or_precision_ambiguity" => {
+                    "retain_raw_only_with_blocker"
+                }
                 "deferred_pending_contract_review" | "insufficiently_documented" => {
-                    "raw-only-with-reason"
+                    "retain_raw_only_with_blocker"
                 }
-                _ => "raw-only-with-reason",
+                _ => "retain_raw_only_with_blocker",
             };
             *disposition_counts
-                .entry(release_disposition.to_owned())
+                .entry(final_action.to_owned())
                 .or_default() += 1;
             Ok(json!({
                 "native_name":native_name,
                 "source_classification":source_classification,
-                "release_disposition":release_disposition,
+                "final_action":final_action,
                 "safe_path":fields.get(6).and_then(Value::as_str).filter(|path| !path.is_empty()),
                 "reason":fields.get(5).and_then(Value::as_str),
+                "review_basis":if final_action == "covered_by_rust_std" { "Rust f32/f64 intrinsic has the same ordinary real elementary operation; no SLATEC-specific numerical advantage is asserted." } else { "generated safe-special candidate classification and source-backed contract review" },
             }))
         })
         .collect::<Result<Vec<_>>>()?;
@@ -390,10 +690,10 @@ fn scalar_release_evidence(root: &Path) -> Result<(Value, Value)> {
         "schema_id":"slatec-rs.scalar-api-disposition","schema_version":"1.0.0",
         "input":"generated/safe-api/special-existing-vs-candidate.json",
         "input_sha256":hash::file(&source)?,
-        "scope":"retained scalar special-function candidates; ordinary Rust core and std operations are not wrapped merely for name parity",
+        "scope":"retained scalar special-function candidates; each record has exactly one final action and ordinary Rust core/std operations are not wrapped merely for name parity",
         "disposition_counts":disposition_counts,
         "records":records,
-        "policy":"A public scalar path must supply a reviewed numerical or domain-safety value. Subsidiaries, mutable-global-state routines, and incomplete contracts remain non-public with an explicit reason."
+        "policy":"A public scalar path must supply a reviewed numerical or domain-safety value. Subsidiaries, mutable-global-state routines, and incomplete contracts remain non-public with an explicit reason. ACOSH/ASINH/ATANH and their double-precision aliases are deliberately covered by Rust standard-library methods rather than duplicated."
     });
     let accuracy = json!({
         "schema_id":"slatec-rs.scalar-accuracy-evidence","schema_version":"1.0.0",
@@ -474,8 +774,22 @@ fn missing_crates_io_package(stderr: &str) -> Option<String> {
     Some(suffix.split('`').next()?.to_owned())
 }
 
-fn validate_bundled_carrier(root: &Path) -> Result<Value> {
-    let crate_root = root.join("crates/slatec-bundled-x86_64-pc-windows-gnu");
+fn validate_bundled_carriers(root: &Path) -> Result<Value> {
+    let carriers = [
+        "slatec-bundled-x86_64-pc-windows-gnu",
+        "slatec-bundled-x86_64-unknown-linux-gnu",
+    ]
+    .into_iter()
+    .map(|carrier| validate_bundled_carrier(root, carrier))
+    .collect::<Result<Vec<_>>>()?;
+    Ok(json!({
+        "carriers":carriers,
+        "result":"pass",
+    }))
+}
+
+fn validate_bundled_carrier(root: &Path, crate_name: &str) -> Result<Value> {
+    let crate_root = root.join("crates").join(crate_name);
     let manifest_path = crate_root.join("metadata/bundle-manifest.json");
     let manifest: Value = serde_json::from_slice(&fs::read(&manifest_path)?)?;
     let status = manifest["status"]
@@ -565,7 +879,7 @@ fn validate_bundled_carrier(root: &Path) -> Result<Value> {
         other => return Err(policy(&format!("unknown bundled carrier status {other}"))),
     }
     Ok(json!({
-        "crate":"slatec-bundled-x86_64-pc-windows-gnu",
+        "crate":crate_name,
         "target":manifest["target"],
         "status":status,
         "archive_count":archives.len(),
@@ -661,7 +975,7 @@ fn version_and_path_present(
 
 fn forbidden_package_path(package: &str, path: &str) -> bool {
     let lower = path.to_ascii_lowercase();
-    let permitted_carrier_archive = package == "slatec-bundled-x86_64-pc-windows-gnu"
+    let permitted_carrier_archive = package.starts_with("slatec-bundled-")
         && lower.starts_with("native/libslatec_bundle_")
         && lower.ends_with(".a");
     lower.starts_with("target/")
@@ -758,8 +1072,12 @@ mod tests {
     #[test]
     fn ready_bundled_carrier_has_hash_verified_archives() {
         let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
-        let carrier = validate_bundled_carrier(&root).expect("carrier policy");
-        assert_eq!(carrier["status"], "ready");
-        assert!(carrier["archive_count"].as_u64().unwrap_or_default() >= 1);
+        let carriers = validate_bundled_carriers(&root).expect("carrier policy");
+        assert_eq!(carriers["result"], "pass");
+        assert_eq!(carriers["carriers"].as_array().map(Vec::len), Some(2));
+        for carrier in carriers["carriers"].as_array().expect("carrier records") {
+            assert_eq!(carrier["status"], "ready");
+            assert!(carrier["archive_count"].as_u64().unwrap_or_default() >= 1);
+        }
     }
 }

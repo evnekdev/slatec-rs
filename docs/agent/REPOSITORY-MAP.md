@@ -7,6 +7,7 @@
 | `crates/slatec-sys` | Raw declarations, ABI types, canonical raw modules, declaration features | Provider selection, source build, safe validation |
 | `crates/slatec-src` | Provider modes, exact native source closures, build/link directives | Public raw API design, safe wrappers |
 | `crates/slatec-bundled-x86_64-pc-windows-gnu` | Target-specific bundled-provider carrier metadata and, only after provenance clearance, its verified archive | Numerical Rust APIs, provider fallback, unreviewed native artifacts |
+| `crates/slatec-bundled-x86_64-unknown-linux-gnu` | Target-specific bundled-provider carrier metadata and, only after provenance clearance, its verified archive | Numerical Rust APIs, provider fallback, unreviewed native artifacts |
 | `crates/slatec-core` | Provider-neutral common types and infrastructure | Concrete provider selection, family-specific FFI |
 | `crates/slatec` | Checked safe facade, user-facing numerical types | Source acquisition, generated corpus processing |
 | `crates/slatec-tools` | Corpus processing, generation, audit, validation | Production numerical runtime APIs |
