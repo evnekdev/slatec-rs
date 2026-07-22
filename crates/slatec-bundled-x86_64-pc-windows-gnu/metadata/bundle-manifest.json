@@ -1,14 +1,45 @@
 {
-  "archive": "native/libslatec_bundle.a",
   "archive_audit": "generated/licensing/bundled-archive-audit.json",
-  "archive_sha256": null,
-  "reason": "No historical SLATEC archive is included until the source-level provenance audit admits every selected source for a supported family.",
+  "archives": [
+    {
+      "family": "special-elementary",
+      "path": "native/libslatec_bundle_special_elementary.a",
+      "sha256": "5a41286fdf793171164bf2c42c0fad3c05e8754419df94e17f79ba89972b7fcb",
+      "size_bytes": 56678
+    }
+  ],
+  "build_receipt": "metadata/bundle-build-receipt.json",
+  "build_recipe": "metadata/build-recipe.json",
+  "reason": "Each ready family archive has complete hash-guarded provenance, a deterministic build receipt, checksum verification, and its exact runtime closure.",
+  "runtime_archives": [
+    {
+      "component": "libgfortran",
+      "license": "GPL-3.0-with-GCC-exception",
+      "link_name": "slatec_bundle_gfortran",
+      "linking_mode": "static",
+      "obligations": "Preserve the GCC Runtime Library Exception notice; the final consumer remains relinkable because Cargo links ordinary static archives.",
+      "path": "native/libslatec_bundle_gfortran.a",
+      "sha256": "d778491340ecf4981e5aced750dd46d111b3e8df1e77f73e0b1144f65d4118fb",
+      "source": "C:/gcc64/bin/../lib/gcc/x86_64-w64-mingw32/14.2.0/../../../../lib/libgfortran.a"
+    },
+    {
+      "component": "libquadmath",
+      "license": "LGPL-2.1-or-later",
+      "link_name": "slatec_bundle_quadmath",
+      "linking_mode": "static",
+      "obligations": "Preserve the LGPL notice and provide the corresponding-source or relinking information required for the static runtime archive. It is included because the reviewed Rust GNU target final link requires quadmath_snprintf; the SLATEC family archive itself has no quadmath reference.",
+      "path": "native/libslatec_bundle_quadmath.a",
+      "sha256": "0283974ec9da0066a0d02d8ff4266f78923458f221f24c575e7dc72a0ce39c35",
+      "source": "C:/gcc64/bin/../lib/gcc/x86_64-w64-mingw32/14.2.0/../../../../lib/libquadmath.a"
+    }
+  ],
   "runtime_audit": "generated/licensing/bundled-runtime-audit.json",
   "schema_id": "slatec-rs/bundled-carrier-manifest",
-  "schema_version": "1.0.0",
+  "schema_version": "2.0.0",
   "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
   "source_eligibility": "generated/licensing/bundled-source-eligibility.json",
-  "source_unit_count": 0,
-  "status": "blocked_by_source_provenance",
+  "source_unit_count": 28,
+  "source_unit_manifest": "metadata/source-unit-manifest.json",
+  "status": "ready",
   "target": "x86_64-pc-windows-gnu"
 }

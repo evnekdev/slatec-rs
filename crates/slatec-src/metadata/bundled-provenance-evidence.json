@@ -1,0 +1,36 @@
+{
+  "schema_id": "slatec-rs/bundled-provenance-evidence",
+  "schema_version": "2.0.0",
+  "records": [
+    {
+      "id": "nist-acmd-slatec-public-domain",
+      "authority": "National Institute of Standards and Technology, Applied and Computational Mathematics Division",
+      "url": "https://math.nist.gov/mcsd/Reports/95/yearly/node59.html",
+      "retrieved_on": "2026-07-22",
+      "excerpt": "The SLATEC Library is a public-domain Fortran library.",
+      "statement": "NIST expressly describes the SLATEC Library, Version 4.1, as public domain and identifies Netlib as its whole-or-part distribution channel.",
+      "scope": "SLATEC Common Mathematical Library, Version 4.1 (July 1993); not an inference merely from NIST association.",
+      "source_ids": ["selected-source-1e3bed089a5c7353","selected-source-5ad0f482d1edfed6","selected-source-4a69af03648ecbfb","selected-source-ffb49667980bd47d","selected-source-794dcf0acfef9e77","selected-source-f5f1bf7a0160a2d7","selected-source-53d7a5b46de65f00","selected-source-f7c2f72773df582e","selected-source-9328d11396675be5","selected-source-e29e41489490bd88","selected-source-ea1981b04f846b72","selected-source-d28f0088410e971d","selected-source-33e062e6c5111389","selected-source-c9a62608746c2110","selected-source-c89507c7c4762651","selected-source-f3de2d6b6fc09924","selected-source-1030d7afc1353bb9","selected-source-e4538c4c265c8a3a","selected-source-b1d4e65885bb89bb","selected-source-d444fdc85ad2d8b3","selected-source-37c1dbf0f41a4725","selected-source-abab17e1d4c0a1a8","selected-source-34d2ab39a8d150a7","selected-source-10275ec90dd6e066","selected-source-273c06b35f95f85b","selected-source-84e03977dd3521a1","selected-source-60f744ba036ffdb7","selected-source-1fdae9155aa43140"]
+    },
+    {
+      "id": "ntis-sladoc-slatec-public-domain",
+      "authority": "National Technical Information Service, U.S. Department of Commerce",
+      "url": "https://ntrl.ntis.gov/NTRL/dashboard/searchResults/titleDetail/DE89003746.xhtml",
+      "retrieved_on": "2026-07-22",
+      "excerpt": "SLATEC is a public domain library of over 1000 mathematical routines.",
+      "statement": "The authenticated NTIS record independently describes the SLATEC routine library as public domain and names included packages including LINPACK, EISPACK, DEPAC, FISHPACK, and QUADPACK.",
+      "scope": "SLATEC routines described by the 1987 SLADOC technical report; corroborating institutional evidence, not a licence inferred from sponsorship.",
+      "source_ids": ["selected-source-1e3bed089a5c7353","selected-source-5ad0f482d1edfed6","selected-source-4a69af03648ecbfb","selected-source-ffb49667980bd47d","selected-source-794dcf0acfef9e77","selected-source-f5f1bf7a0160a2d7","selected-source-53d7a5b46de65f00","selected-source-f7c2f72773df582e","selected-source-9328d11396675be5","selected-source-e29e41489490bd88","selected-source-ea1981b04f846b72","selected-source-d28f0088410e971d","selected-source-33e062e6c5111389","selected-source-c9a62608746c2110","selected-source-c89507c7c4762651","selected-source-f3de2d6b6fc09924","selected-source-1030d7afc1353bb9","selected-source-e4538c4c265c8a3a","selected-source-b1d4e65885bb89bb","selected-source-d444fdc85ad2d8b3","selected-source-37c1dbf0f41a4725","selected-source-abab17e1d4c0a1a8","selected-source-34d2ab39a8d150a7","selected-source-10275ec90dd6e066","selected-source-273c06b35f95f85b","selected-source-84e03977dd3521a1","selected-source-60f744ba036ffdb7","selected-source-1fdae9155aa43140"]
+    },
+    {
+      "id": "netlib-slatec-v41-subset-scope",
+      "authority": "Netlib SLATEC distribution index",
+      "url": "https://netlib.org/slatec/",
+      "retrieved_on": "2026-07-22",
+      "excerpt": "FNLIB subset of SLATEC; main SLATEC Fortran source.",
+      "statement": "The Version 4.1 Netlib index identifies the selected fnlib and src units as subsets of the SLATEC Common Mathematical Library, rather than unrelated Netlib-hosted code.",
+      "scope": "Only the selected source URLs under https://www.netlib.org/slatec/fnlib/ and https://www.netlib.org/slatec/src/.",
+      "source_ids": ["selected-source-1e3bed089a5c7353","selected-source-5ad0f482d1edfed6","selected-source-4a69af03648ecbfb","selected-source-ffb49667980bd47d","selected-source-794dcf0acfef9e77","selected-source-f5f1bf7a0160a2d7","selected-source-53d7a5b46de65f00","selected-source-f7c2f72773df582e","selected-source-9328d11396675be5","selected-source-e29e41489490bd88","selected-source-ea1981b04f846b72","selected-source-d28f0088410e971d","selected-source-33e062e6c5111389","selected-source-c9a62608746c2110","selected-source-c89507c7c4762651","selected-source-f3de2d6b6fc09924","selected-source-1030d7afc1353bb9","selected-source-e4538c4c265c8a3a","selected-source-b1d4e65885bb89bb","selected-source-d444fdc85ad2d8b3","selected-source-37c1dbf0f41a4725","selected-source-abab17e1d4c0a1a8","selected-source-34d2ab39a8d150a7","selected-source-10275ec90dd6e066","selected-source-273c06b35f95f85b","selected-source-84e03977dd3521a1","selected-source-60f744ba036ffdb7","selected-source-1fdae9155aa43140"]
+    }
+  ]
+}

@@ -2,15 +2,29 @@ use serde::Deserialize;
 use sha2::{Digest, Sha256};
 use std::env;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 #[derive(Deserialize)]
 struct Manifest {
-    archive: String,
-    archive_sha256: Option<String>,
-    reason: String,
+    archives: Vec<Archive>,
+    runtime_archives: Vec<RuntimeArchive>,
     status: String,
     target: String,
+}
+
+#[derive(Deserialize)]
+struct Archive {
+    family: String,
+    path: String,
+    sha256: String,
+}
+
+#[derive(Deserialize)]
+struct RuntimeArchive {
+    component: String,
+    link_name: String,
+    path: String,
+    sha256: String,
 }
 
 fn main() {
@@ -21,22 +35,37 @@ fn main() {
             .expect("read generated bundled carrier manifest"),
     )
     .expect("parse generated bundled carrier manifest");
-    let archive = root.join(&manifest.archive);
     println!("cargo:target={}", manifest.target);
-    println!("cargo:archive={}", archive.display());
     println!("cargo:status={}", manifest.status);
-    println!("cargo:reason={}", manifest.reason.replace('\n', " "));
-    let ready = manifest.status == "ready_for_archive_production"
-        && archive.is_file()
-        && manifest.archive_sha256.as_deref().is_some();
-    if ready {
-        let actual = format!(
-            "{:x}",
-            Sha256::digest(fs::read(&archive).expect("read archive"))
-        );
-        if Some(actual.as_str()) != manifest.archive_sha256.as_deref() {
-            panic!("bundled carrier archive checksum does not match its generated manifest");
-        }
+
+    for archive in &manifest.archives {
+        let path = verified_archive(&root, &archive.path, &archive.sha256);
+        let key = cargo_key(&archive.family);
+        println!("cargo:archive-{key}={}", path.display());
+        println!("cargo:available-{key}=true");
     }
-    println!("cargo:available={ready}");
+    for runtime in &manifest.runtime_archives {
+        let path = verified_archive(&root, &runtime.path, &runtime.sha256);
+        let key = cargo_key(&runtime.component);
+        println!("cargo:runtime-{key}={}", path.display());
+        println!("cargo:runtime-link-name-{key}={}", runtime.link_name);
+        println!("cargo:runtime-available-{key}=true");
+    }
+}
+
+fn verified_archive(root: &Path, relative: &str, expected: &str) -> PathBuf {
+    let path = root.join(relative);
+    let actual = format!(
+        "{:x}",
+        Sha256::digest(fs::read(&path).expect("read verified bundled carrier archive"))
+    );
+    assert_eq!(
+        actual, expected,
+        "bundled carrier archive checksum does not match its generated manifest"
+    );
+    path
+}
+
+fn cargo_key(value: &str) -> String {
+    value.replace('-', "_")
 }

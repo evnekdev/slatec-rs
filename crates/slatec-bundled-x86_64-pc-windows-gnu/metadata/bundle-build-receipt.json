@@ -1,0 +1,503 @@
+{
+  "archive_audit": {
+    "archive_members": [
+      "profile-d1mach.o",
+      "profile-i1mach.o",
+      "profile-r1mach.o",
+      "selected-source-10275ec90dd6e066.o",
+      "selected-source-1030d7afc1353bb9.o",
+      "selected-source-1e3bed089a5c7353.o",
+      "selected-source-1fdae9155aa43140.o",
+      "selected-source-273c06b35f95f85b.o",
+      "selected-source-33e062e6c5111389.o",
+      "selected-source-34d2ab39a8d150a7.o",
+      "selected-source-37c1dbf0f41a4725.o",
+      "selected-source-4a69af03648ecbfb.o",
+      "selected-source-53d7a5b46de65f00.o",
+      "selected-source-5ad0f482d1edfed6.o",
+      "selected-source-60f744ba036ffdb7.o",
+      "selected-source-794dcf0acfef9e77.o",
+      "selected-source-84e03977dd3521a1.o",
+      "selected-source-9328d11396675be5.o",
+      "selected-source-abab17e1d4c0a1a8.o",
+      "selected-source-b1d4e65885bb89bb.o",
+      "selected-source-c89507c7c4762651.o",
+      "selected-source-c9a62608746c2110.o",
+      "selected-source-d28f0088410e971d.o",
+      "selected-source-d444fdc85ad2d8b3.o",
+      "selected-source-e29e41489490bd88.o",
+      "selected-source-e4538c4c265c8a3a.o",
+      "selected-source-ea1981b04f846b72.o",
+      "selected-source-f3de2d6b6fc09924.o",
+      "selected-source-f5f1bf7a0160a2d7.o",
+      "selected-source-f7c2f72773df582e.o",
+      "selected-source-ffb49667980bd47d.o"
+    ],
+    "defined_symbols": [
+      "alnrel_",
+      "cbrt_",
+      "cosdg_",
+      "csevl_",
+      "d1mach_",
+      "d9pak_",
+      "d9upak_",
+      "daws_",
+      "dcbrt_",
+      "dcosdg_",
+      "dcsevl_",
+      "ddaws_",
+      "dexprl_",
+      "dlnrel_",
+      "dsindg_",
+      "exprel_",
+      "fdump_",
+      "i1mach_",
+      "initds_",
+      "inits_",
+      "j4save_",
+      "r1mach_",
+      "r9pak_",
+      "r9upak_",
+      "sindg_",
+      "xercnt_",
+      "xerhlt_",
+      "xermsg_",
+      "xerprn_",
+      "xersve_",
+      "xgetua_"
+    ],
+    "imported_dlls": [],
+    "same_root_reproduction": "sha256_match",
+    "schema_id": "slatec-rs/bundled-archive-audit",
+    "schema_version": "2.0.0",
+    "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+    "status": "ready",
+    "target": "x86_64-pc-windows-gnu",
+    "undefined_symbols": [
+      "_gfortran_concat_string",
+      "_gfortran_st_write",
+      "_gfortran_st_write_done",
+      "_gfortran_stop_string",
+      "_gfortran_string_index",
+      "_gfortran_transfer_character_write",
+      "_gfortran_transfer_integer_write",
+      "cos",
+      "cosf",
+      "csevl_",
+      "d1mach_",
+      "d9pak_",
+      "d9upak_",
+      "dcsevl_",
+      "exp",
+      "expf",
+      "fdump_",
+      "free",
+      "i1mach_",
+      "initds_",
+      "inits_",
+      "j4save_",
+      "log",
+      "logf",
+      "malloc",
+      "memcmp",
+      "memmove",
+      "memset",
+      "r1mach_",
+      "r9pak_",
+      "r9upak_",
+      "sin",
+      "sinf",
+      "xercnt_",
+      "xerhlt_",
+      "xermsg_",
+      "xerprn_",
+      "xersve_",
+      "xgetua_"
+    ]
+  },
+  "archiver": "C:\\gcc64\\bin\\ar.exe",
+  "archiver_flags": "crsD",
+  "archives": [
+    {
+      "family": "special-elementary",
+      "path": "native/libslatec_bundle_special_elementary.a",
+      "sha256": "5a41286fdf793171164bf2c42c0fad3c05e8754419df94e17f79ba89972b7fcb",
+      "size_bytes": 56678
+    }
+  ],
+  "compile_flags": [
+    "-x",
+    "f77",
+    "-std=legacy",
+    "-ffixed-line-length-none",
+    "-fno-ident",
+    "-frandom-seed=slatec-bundled-special-elementary",
+    "-c"
+  ],
+  "compiler": {
+    "path": "C:\\gcc64\\bin\\gfortran.exe",
+    "target": "x86_64-w64-mingw32",
+    "version": "GNU Fortran (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 14.2.0"
+  },
+  "family": "special-elementary",
+  "runtime_archives": [
+    {
+      "component": "libgfortran",
+      "license": "GPL-3.0-with-GCC-exception",
+      "link_name": "slatec_bundle_gfortran",
+      "linking_mode": "static",
+      "obligations": "Preserve the GCC Runtime Library Exception notice; the final consumer remains relinkable because Cargo links ordinary static archives.",
+      "path": "native/libslatec_bundle_gfortran.a",
+      "sha256": "d778491340ecf4981e5aced750dd46d111b3e8df1e77f73e0b1144f65d4118fb",
+      "source": "C:/gcc64/bin/../lib/gcc/x86_64-w64-mingw32/14.2.0/../../../../lib/libgfortran.a"
+    },
+    {
+      "component": "libquadmath",
+      "license": "LGPL-2.1-or-later",
+      "link_name": "slatec_bundle_quadmath",
+      "linking_mode": "static",
+      "obligations": "Preserve the LGPL notice and provide the corresponding-source or relinking information required for the static runtime archive. It is included because the reviewed Rust GNU target final link requires quadmath_snprintf; the SLATEC family archive itself has no quadmath reference.",
+      "path": "native/libslatec_bundle_quadmath.a",
+      "sha256": "0283974ec9da0066a0d02d8ff4266f78923458f221f24c575e7dc72a0ce39c35",
+      "source": "C:/gcc64/bin/../lib/gcc/x86_64-w64-mingw32/14.2.0/../../../../lib/libquadmath.a"
+    }
+  ],
+  "runtime_audit": {
+    "clean_consumer": {
+      "bundled_imported_dlls": [
+        "KERNEL32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "ntdll.dll",
+        "USERENV.dll",
+        "WS2_32.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "bcryptprimitives.dll"
+      ],
+      "bundled_numeric": "0.40546510810816438",
+      "environment": {
+        "SLATEC_GFORTRAN": "intentionally invalid",
+        "SLATEC_SOURCE_CACHE": "absent",
+        "SLATEC_SYSTEM_LIB_DIR": "absent",
+        "SLATEC_SYSTEM_RUNTIME_LIB_DIR": "absent"
+      },
+      "numeric_parity": "exact_rendered_f64",
+      "source_build_numeric": "0.40546510810816438",
+      "status": "pass"
+    },
+    "compiler_invoked": true,
+    "compiler_profile": "GNU Fortran 14.2.0 / x86_64-w64-mingw32",
+    "imported_dlls": [
+      "KERNEL32.dll",
+      "api-ms-win-crt-convert-l1-1-0.dll",
+      "api-ms-win-crt-environment-l1-1-0.dll",
+      "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "api-ms-win-crt-heap-l1-1-0.dll",
+      "api-ms-win-crt-locale-l1-1-0.dll",
+      "api-ms-win-crt-math-l1-1-0.dll",
+      "api-ms-win-crt-private-l1-1-0.dll",
+      "api-ms-win-crt-runtime-l1-1-0.dll",
+      "api-ms-win-crt-stdio-l1-1-0.dll",
+      "api-ms-win-crt-string-l1-1-0.dll",
+      "api-ms-win-crt-time-l1-1-0.dll",
+      "api-ms-win-crt-utility-l1-1-0.dll",
+      "ntdll.dll",
+      "USERENV.dll",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcryptprimitives.dll"
+    ],
+    "network_access": false,
+    "reason": "Archive-level audit complete; final consumer import probe is recorded by the release validation command.",
+    "runtime_components": [
+      {
+        "actually_referenced": true,
+        "component": "libgfortran",
+        "distribution_action": "include libslatec_bundle_gfortran.a with GPLv3 and Runtime Library Exception notice",
+        "static_or_dynamic": "static bundled"
+      },
+      {
+        "actually_referenced": "required by the reviewed Rust GNU target final link (quadmath_snprintf), not by the SLATEC archive",
+        "component": "libquadmath",
+        "distribution_action": "include libslatec_bundle_quadmath.a with LGPL-2.1-or-later notice and source/relinking information",
+        "static_or_dynamic": "static bundled"
+      },
+      {
+        "actually_referenced": "not separately bundled",
+        "component": "libgcc",
+        "distribution_action": "no carrier copy; audit final consumer imports",
+        "static_or_dynamic": "toolchain-provided final-link support"
+      }
+    ],
+    "schema_id": "slatec-rs/bundled-runtime-audit",
+    "schema_version": "2.0.0",
+    "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+    "source_cache_read": true,
+    "status": "ready",
+    "target": "x86_64-pc-windows-gnu"
+  },
+  "schema_id": "slatec-rs/bundled-build-receipt",
+  "schema_version": "2.0.0",
+  "snapshot_id": "complete-slatec-05078ebcb649b50e4435",
+  "source_units": [
+    {
+      "cached_source_sha256": "6891b7bf5c0c26fa7460e8a1364d1f88760ba1ea6cb501dd251df28f2dac6689",
+      "id": "selected-source-10275ec90dd6e066",
+      "object": "selected-source-10275ec90dd6e066.o",
+      "path": "src/xerhlt.f",
+      "sha256": "6891b7bf5c0c26fa7460e8a1364d1f88760ba1ea6cb501dd251df28f2dac6689",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "aa713f62969180475f9dd1313f08ad75cfdc09d27c28df89ea5cc45ddff805e2",
+      "id": "selected-source-1030d7afc1353bb9",
+      "object": "selected-source-1030d7afc1353bb9.o",
+      "path": "inits.f",
+      "sha256": "aa713f62969180475f9dd1313f08ad75cfdc09d27c28df89ea5cc45ddff805e2",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "e0f20b9e29a4bc176260ae2223b65a837308cb62943f38bb8c19f9255dfec6c7",
+      "id": "selected-source-1e3bed089a5c7353",
+      "object": "selected-source-1e3bed089a5c7353.o",
+      "path": "alnrel.f",
+      "sha256": "e0f20b9e29a4bc176260ae2223b65a837308cb62943f38bb8c19f9255dfec6c7",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "86b15012160e810b70621ba91acd6ec025c48bb932ee59e95e8f2645416210a2",
+      "id": "selected-source-1fdae9155aa43140",
+      "object": "selected-source-1fdae9155aa43140.o",
+      "path": "src/xgetua.f",
+      "sha256": "86b15012160e810b70621ba91acd6ec025c48bb932ee59e95e8f2645416210a2",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "dd605784ff3ed3e491f2b4b2f2b8fd21c7f15b6831f8739bbf70c781925b705e",
+      "id": "selected-source-273c06b35f95f85b",
+      "object": "selected-source-273c06b35f95f85b.o",
+      "path": "src/xermsg.f",
+      "sha256": "dd605784ff3ed3e491f2b4b2f2b8fd21c7f15b6831f8739bbf70c781925b705e",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "3cddf7c89cfcf965c305a50058b93a1e1ffbebeb43a8cd936ab7abefa4652755",
+      "id": "selected-source-33e062e6c5111389",
+      "object": "selected-source-33e062e6c5111389.o",
+      "path": "dlnrel.f",
+      "sha256": "3cddf7c89cfcf965c305a50058b93a1e1ffbebeb43a8cd936ab7abefa4652755",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "d0f587024a55d04c6e8536d244858a781fc2148dba587b727a8fb2c0d7433a7b",
+      "id": "selected-source-34d2ab39a8d150a7",
+      "object": "selected-source-34d2ab39a8d150a7.o",
+      "path": "src/xercnt.f",
+      "sha256": "d0f587024a55d04c6e8536d244858a781fc2148dba587b727a8fb2c0d7433a7b",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "7805a508652c9fb087916dceb9184bf5e56a98b1c99afa4cbab8f4c4bf9f0369",
+      "id": "selected-source-37c1dbf0f41a4725",
+      "object": "selected-source-37c1dbf0f41a4725.o",
+      "path": "src/fdump.f",
+      "sha256": "7805a508652c9fb087916dceb9184bf5e56a98b1c99afa4cbab8f4c4bf9f0369",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "97a6fbc69f452047f244a26c5686803c7db93e2372a0cea8f9507bfcefe3743f",
+      "id": "selected-source-4a69af03648ecbfb",
+      "object": "selected-source-4a69af03648ecbfb.o",
+      "path": "cosdg.f",
+      "sha256": "97a6fbc69f452047f244a26c5686803c7db93e2372a0cea8f9507bfcefe3743f",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "3038e3fef858f53431e5b2eb67a0a9be9ac62b16da0a279fb6e56e708f4ae2ef",
+      "id": "selected-source-53d7a5b46de65f00",
+      "object": "selected-source-53d7a5b46de65f00.o",
+      "path": "daws.f",
+      "sha256": "3038e3fef858f53431e5b2eb67a0a9be9ac62b16da0a279fb6e56e708f4ae2ef",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "5df2908489a1a20a877672a90459cb4784edba25df5ec335cda49e5dfc75cfbc",
+      "id": "selected-source-5ad0f482d1edfed6",
+      "object": "selected-source-5ad0f482d1edfed6.o",
+      "path": "cbrt.f",
+      "sha256": "5df2908489a1a20a877672a90459cb4784edba25df5ec335cda49e5dfc75cfbc",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "2ecd7f1ca0dbef747a6a34e3aef1cd2637bad704ed48376a3a7544c38bf4fdf3",
+      "id": "selected-source-60f744ba036ffdb7",
+      "object": "selected-source-60f744ba036ffdb7.o",
+      "path": "src/xersve.f",
+      "sha256": "2ecd7f1ca0dbef747a6a34e3aef1cd2637bad704ed48376a3a7544c38bf4fdf3",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "e74aeceb132cf4665b26f19a5101cee70e2ded154ddd92183d78b49f5037f67d",
+      "id": "selected-source-794dcf0acfef9e77",
+      "object": "selected-source-794dcf0acfef9e77.o",
+      "path": "d9pak.f",
+      "sha256": "e74aeceb132cf4665b26f19a5101cee70e2ded154ddd92183d78b49f5037f67d",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "af09d2e9527ef24c8f6cfcf58a5210a8f244b6ec7d7948ab43391b1a9604194c",
+      "id": "selected-source-84e03977dd3521a1",
+      "object": "selected-source-84e03977dd3521a1.o",
+      "path": "src/xerprn.f",
+      "sha256": "af09d2e9527ef24c8f6cfcf58a5210a8f244b6ec7d7948ab43391b1a9604194c",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "ebaa8605ef7c4d931f8d97fbd2dd8c71e4dbe8f061e74e817a35d374a496e620",
+      "id": "selected-source-9328d11396675be5",
+      "object": "selected-source-9328d11396675be5.o",
+      "path": "dcosdg.f",
+      "sha256": "ebaa8605ef7c4d931f8d97fbd2dd8c71e4dbe8f061e74e817a35d374a496e620",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "1460f8cbf73dbe00d1ce6ba9aa9f3db86e813731d8a5809c9881691aae293015",
+      "id": "selected-source-abab17e1d4c0a1a8",
+      "object": "selected-source-abab17e1d4c0a1a8.o",
+      "path": "src/j4save.f",
+      "sha256": "1460f8cbf73dbe00d1ce6ba9aa9f3db86e813731d8a5809c9881691aae293015",
+      "subset": "main-src"
+    },
+    {
+      "cached_source_sha256": "8b29e9a7775860f40f48ce9f288618c558c1db9544db31561286b5598266007f",
+      "id": "selected-source-b1d4e65885bb89bb",
+      "object": "selected-source-b1d4e65885bb89bb.o",
+      "path": "r9upak.f",
+      "sha256": "8b29e9a7775860f40f48ce9f288618c558c1db9544db31561286b5598266007f",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "dab8ad000e80656329eb84319518331fff857e1f3ab772982529b7b6f6635dab",
+      "id": "selected-source-c89507c7c4762651",
+      "object": "selected-source-c89507c7c4762651.o",
+      "path": "exprel.f",
+      "sha256": "dab8ad000e80656329eb84319518331fff857e1f3ab772982529b7b6f6635dab",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "1f884dcaf5835d19f43dd03700d6ee85bce526236ced3207428b3adb2c3d74f0",
+      "id": "selected-source-c9a62608746c2110",
+      "object": "selected-source-c9a62608746c2110.o",
+      "path": "dsindg.f",
+      "sha256": "1f884dcaf5835d19f43dd03700d6ee85bce526236ced3207428b3adb2c3d74f0",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "1507ed7c1cf87db38995a6047db1feb332bf23817dc97d8a9449daf0fb8bb8e8",
+      "id": "selected-source-d28f0088410e971d",
+      "object": "selected-source-d28f0088410e971d.o",
+      "path": "dexprl.f",
+      "sha256": "1507ed7c1cf87db38995a6047db1feb332bf23817dc97d8a9449daf0fb8bb8e8",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "1011e5b1a680190ee4bc630a6fe5f383eab7151b3fb08b4a61b9e9141cd34785",
+      "id": "selected-source-d444fdc85ad2d8b3",
+      "object": "selected-source-d444fdc85ad2d8b3.o",
+      "path": "sindg.f",
+      "sha256": "1011e5b1a680190ee4bc630a6fe5f383eab7151b3fb08b4a61b9e9141cd34785",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "8f907d21bbad242cf415e7916a48f6db2d2793164ac6652ead83a6cbbbd3bd62",
+      "id": "selected-source-e29e41489490bd88",
+      "object": "selected-source-e29e41489490bd88.o",
+      "path": "dcsevl.f",
+      "sha256": "8f907d21bbad242cf415e7916a48f6db2d2793164ac6652ead83a6cbbbd3bd62",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "6ba19b16d2de8de8889a8d316b667e060f988e9fe798dbc4b892ffa05d716a4f",
+      "id": "selected-source-e4538c4c265c8a3a",
+      "object": "selected-source-e4538c4c265c8a3a.o",
+      "path": "r9pak.f",
+      "sha256": "6ba19b16d2de8de8889a8d316b667e060f988e9fe798dbc4b892ffa05d716a4f",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "44f21a8ef13fb9f8c17bc77f524dc4bc5e61d92d03841900e45836211bfcf8ac",
+      "id": "selected-source-ea1981b04f846b72",
+      "object": "selected-source-ea1981b04f846b72.o",
+      "path": "ddaws.f",
+      "sha256": "44f21a8ef13fb9f8c17bc77f524dc4bc5e61d92d03841900e45836211bfcf8ac",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "27175c6f8b8d93c740b62d02667bf9576ce03c114db61abd53755504d0c9f8a6",
+      "id": "selected-source-f3de2d6b6fc09924",
+      "object": "selected-source-f3de2d6b6fc09924.o",
+      "path": "initds.f",
+      "sha256": "27175c6f8b8d93c740b62d02667bf9576ce03c114db61abd53755504d0c9f8a6",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "f59e04f9037adc550502caa78012fed13599bc9f036e8c09cc3db1c412033c1f",
+      "id": "selected-source-f5f1bf7a0160a2d7",
+      "object": "selected-source-f5f1bf7a0160a2d7.o",
+      "path": "d9upak.f",
+      "sha256": "f59e04f9037adc550502caa78012fed13599bc9f036e8c09cc3db1c412033c1f",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "096df2dc6db3e608082259f12fa9d5f862289e78f5cb82489aa0cf129bef692e",
+      "id": "selected-source-f7c2f72773df582e",
+      "object": "selected-source-f7c2f72773df582e.o",
+      "path": "dcbrt.f",
+      "sha256": "096df2dc6db3e608082259f12fa9d5f862289e78f5cb82489aa0cf129bef692e",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "898d56d906caec38eb1c4e2813172eb59ded8fa895dda054bfc818e3a2f2711d",
+      "id": "selected-source-ffb49667980bd47d",
+      "object": "selected-source-ffb49667980bd47d.o",
+      "path": "csevl.f",
+      "sha256": "898d56d906caec38eb1c4e2813172eb59ded8fa895dda054bfc818e3a2f2711d",
+      "subset": "fnlib"
+    },
+    {
+      "cached_source_sha256": "d91aecf795865988c019b8641c7d64e2a41a86b9e7596ab555a82a32786227eb",
+      "id": "profile-i1mach",
+      "object": "profile-i1mach.o",
+      "path": "native/gnu-mingw-x86_64/i1mach.f",
+      "sha256": "d91aecf795865988c019b8641c7d64e2a41a86b9e7596ab555a82a32786227eb",
+      "subset": "slatec-rs-profile"
+    },
+    {
+      "cached_source_sha256": "71b18cff7bfb9694ec2a37228a104fbca0811d25bbb033d4c762fa7301fc9e0d",
+      "id": "profile-r1mach",
+      "object": "profile-r1mach.o",
+      "path": "native/gnu-mingw-x86_64/r1mach.f",
+      "sha256": "71b18cff7bfb9694ec2a37228a104fbca0811d25bbb033d4c762fa7301fc9e0d",
+      "subset": "slatec-rs-profile"
+    },
+    {
+      "cached_source_sha256": "85d1950cc05be44ad57ae423cd969d57e94e1a0d6b50fb12384d26808bb4a711",
+      "id": "profile-d1mach",
+      "object": "profile-d1mach.o",
+      "path": "native/gnu-mingw-x86_64/d1mach.f",
+      "sha256": "85d1950cc05be44ad57ae423cd969d57e94e1a0d6b50fb12384d26808bb4a711",
+      "subset": "slatec-rs-profile"
+    }
+  ],
+  "target": "x86_64-pc-windows-gnu"
+}

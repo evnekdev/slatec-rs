@@ -5,13 +5,13 @@
 declaration-only users can depend on `slatec-sys` directly.
 
 `bundled` is the canonical ordinary-provider feature. Its target-specific
-carrier does not currently contain a historical SLATEC archive: the generated
-source-level provenance audit blocks distribution until every selected source
-has accepted, hash-guarded evidence. A bundled native-family request therefore
-fails before touching a compiler, source cache, system directory, or network.
-`source-build` consumes a separately acquired, checksum-verified cache and
-never accesses the network. `system` links an explicitly located archive, while
-`external-backend` emits no link directives.
+carrier contains the hash-verified `special-elementary` archive for
+`x86_64-pc-windows-gnu`; it links without a compiler, source cache, system
+directory, or network access. Every other family is independently
+provenance-blocked and fails before touching those inputs. `source-build`
+consumes a separately acquired, checksum-verified cache and never accesses the
+network. `system` links an explicitly located archive, while `external-backend`
+emits no link directives.
 
 For the supported GNU MinGW source backend, every selected original Fortran
 source is compiled separately and retained as a separate member in a normal

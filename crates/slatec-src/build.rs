@@ -170,13 +170,7 @@ fn main() {
 
 #[derive(Deserialize)]
 struct BundledEligibility {
-    carrier: BundledCarrier,
     families: Vec<BundledFamily>,
-}
-
-#[derive(Deserialize)]
-struct BundledCarrier {
-    status: String,
 }
 
 #[derive(Deserialize)]
@@ -209,29 +203,73 @@ fn link_bundled(families: &BTreeSet<String>) {
         })
         .cloned()
         .collect::<Vec<_>>();
-    if eligibility.carrier.status != "ready_for_archive_production" || !unavailable.is_empty() {
+    if !unavailable.is_empty() {
         let details = unavailable.join(", ");
         panic!(
             "the bundled SLATEC provider has no redistributable archive for {details}. The generated source-level provenance audit blocks this provider before any compiler, source cache, system archive, or network path is considered. Select source-build, system, or external-backend explicitly."
         );
     }
-    let available = env::var("DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU_AVAILABLE")
-        .ok()
-        .as_deref()
-        == Some("true");
-    let archive =
-        env::var_os("DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU_ARCHIVE").map(PathBuf::from);
-    if !available || archive.as_ref().is_none_or(|path| !path.is_file()) {
-        panic!(
-            "the bundled SLATEC carrier metadata is present but its verified archive is unavailable. Select source-build, system, or external-backend explicitly."
-        );
+    let mut linked_archives = BTreeSet::new();
+    for family in families {
+        let key = family.replace('-', "_").to_ascii_uppercase();
+        let prefix = "DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU";
+        let available = env::var(format!("{prefix}_AVAILABLE_{key}"))
+            .ok()
+            .as_deref()
+            == Some("true");
+        let archive = env::var_os(format!("{prefix}_ARCHIVE_{key}")).map(PathBuf::from);
+        if !available || archive.as_ref().is_none_or(|path| !path.is_file()) {
+            panic!(
+                "the bundled SLATEC carrier has no verified archive for {family}. Select source-build, system, or external-backend explicitly."
+            );
+        }
+        let archive = archive.expect("checked archive");
+        if linked_archives.insert(archive.clone()) {
+            println!(
+                "cargo:rustc-link-search=native={}",
+                archive.parent().expect("bundled archive parent").display()
+            );
+            println!(
+                "cargo:rustc-link-lib=static={}",
+                archive_link_name(&archive)
+            );
+        }
     }
-    let archive = archive.expect("checked archive");
-    println!(
-        "cargo:rustc-link-search=native={}",
-        archive.parent().expect("bundled archive parent").display()
-    );
-    println!("cargo:rustc-link-lib=static=slatec_bundle");
+    let prefix = "DEP_SLATEC_BUNDLED_X86_64_PC_WINDOWS_GNU";
+    for component in ["LIBGFORTRAN", "LIBQUADMATH"] {
+        let runtime = env::var_os(format!("{prefix}_RUNTIME_{component}")).map(PathBuf::from);
+        let runtime_available = env::var(format!("{prefix}_RUNTIME_AVAILABLE_{component}"))
+            .ok()
+            .as_deref()
+            == Some("true");
+        if runtime_available {
+            let runtime = runtime.expect("bundled runtime path");
+            if !runtime.is_file() {
+                panic!("the bundled {component} runtime is missing from the verified carrier");
+            }
+            println!(
+                "cargo:rustc-link-search=native={}",
+                runtime.parent().expect("bundled runtime parent").display()
+            );
+            println!(
+                "cargo:rustc-link-lib=static={}",
+                archive_link_name(&runtime)
+            );
+        }
+    }
+}
+
+fn archive_link_name(path: &Path) -> String {
+    path.file_stem()
+        .and_then(|name| name.to_str())
+        .and_then(|name| name.strip_prefix("lib"))
+        .unwrap_or_else(|| {
+            panic!(
+                "bundled archive path has no Rust linker name: {}",
+                path.display()
+            )
+        })
+        .to_owned()
 }
 
 fn feature(name: &str) -> bool {
