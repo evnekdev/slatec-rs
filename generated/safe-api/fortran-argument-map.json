@@ -3023,6 +3023,108 @@
       ]
     },
     {
+      "rust_path": "slatec::differential_equations::pde::AxisymmetricSphericalHelmholtz2d::solve",
+      "fortran_routine": "HWSCSP",
+      "program_unit_id": "full-provider-fb7a916a8e6625ef",
+      "arguments": [
+        {
+          "rust": "intl",
+          "fortran": "INTL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.lower",
+          "fortran": "TS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.upper",
+          "fortran": "TF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.panels",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private colatitude derivative buffer",
+          "fortran": "BDTS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private colatitude derivative buffer",
+          "fortran": "BDTF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.lower",
+          "fortran": "RS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.upper",
+          "fortran": "RF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.panels",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private radial derivative buffer",
+          "fortran": "BDRS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private radial derivative buffer",
+          "fortran": "BDRF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::differential_equations::pde::CartesianHelmholtz2d::solve",
       "fortran_routine": "HWSCRT",
       "program_unit_id": "full-provider-27c1afe90989cbd6",
@@ -3120,6 +3222,103 @@
       ]
     },
     {
+      "rust_path": "slatec::differential_equations::pde::CylindricalHelmholtz2d::solve",
+      "fortran_routine": "HWSCYL",
+      "program_unit_id": "full-provider-99fcbc0ca2c187e3",
+      "arguments": [
+        {
+          "rust": "problem.radius.lower",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.upper",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.panels",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDB",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.lower",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.upper",
+          "fortran": "D",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.panels",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
       "rust_path": "slatec::differential_equations::pde::Pois3dProblem::solve",
       "fortran_routine": "POIS3D",
       "program_unit_id": "full-provider-212f20c3093bb177",
@@ -3193,6 +3392,593 @@
           "rust": "owned Grid3 RHS overwritten with solution",
           "fortran": "F",
           "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::differential_equations::pde::PolarHelmholtz2d::solve",
+      "fortran_routine": "HWSPLR",
+      "program_unit_id": "full-provider-3d63c178deee2380",
+      "arguments": [
+        {
+          "rust": "problem.radius.lower",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.upper",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.panels",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDB",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.lower",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.upper",
+          "fortran": "D",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.panels",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::differential_equations::pde::SphereSurfaceHelmholtz2d::solve",
+      "fortran_routine": "HWSSSP",
+      "program_unit_id": "full-provider-0e4ca5e2849d6197",
+      "arguments": [
+        {
+          "rust": "ts",
+          "fortran": "TS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "tf",
+          "fortran": "TF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.panels",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "bdts",
+          "fortran": "BDTS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "bdtf",
+          "fortran": "BDTF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "ps",
+          "fortran": "PS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "pf",
+          "fortran": "PF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.longitude.panels",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "bdps",
+          "fortran": "BDPS",
+          "transformation": "pass"
+        },
+        {
+          "rust": "bdpf",
+          "fortran": "BDPF",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::differential_equations::pde::StaggeredAxisymmetricSphericalHelmholtz2d::solve",
+      "fortran_routine": "HSTCSP",
+      "program_unit_id": "full-provider-19ab5d65b36fa3b7",
+      "arguments": [
+        {
+          "rust": "intl",
+          "fortran": "INTL",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.lower",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.upper",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.points",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private colatitude boundary-data buffer",
+          "fortran": "BDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private colatitude boundary-data buffer",
+          "fortran": "BDB",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.lower",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.upper",
+          "fortran": "D",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.points",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private radial boundary-data buffer",
+          "fortran": "BDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private radial boundary-data buffer",
+          "fortran": "BDD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::differential_equations::pde::StaggeredCylindricalHelmholtz2d::solve",
+      "fortran_routine": "HSTCYL",
+      "program_unit_id": "full-provider-8b2545fca4be4c76",
+      "arguments": [
+        {
+          "rust": "problem.radius.lower",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.upper",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.points",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDB",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.lower",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.upper",
+          "fortran": "D",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.points",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::differential_equations::pde::StaggeredPolarHelmholtz2d::solve",
+      "fortran_routine": "HSTPLR",
+      "program_unit_id": "full-provider-b652902e1ca96401",
+      "arguments": [
+        {
+          "rust": "problem.radius.lower",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.upper",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.radius.points",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private radial derivative buffer from RadialBoundary",
+          "fortran": "BDB",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.lower",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.upper",
+          "fortran": "D",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.second_axis.points",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private second-coordinate derivative buffer from CoordinateBoundary",
+          "fortran": "BDD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "IERROR",
+          "transformation": "internal"
+        },
+        {
+          "rust": null,
+          "fortran": "W",
+          "transformation": "internal"
+        }
+      ]
+    },
+    {
+      "rust_path": "slatec::differential_equations::pde::StaggeredSphereSurfaceHelmholtz2d::solve",
+      "fortran_routine": "HSTSSP",
+      "program_unit_id": "full-provider-9c13d3d0ef4394d2",
+      "arguments": [
+        {
+          "rust": "problem.colatitude.lower",
+          "fortran": "A",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.upper",
+          "fortran": "B",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.colatitude.points",
+          "fortran": "M",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "MBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private colatitude boundary-data buffer",
+          "fortran": "BDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private colatitude boundary-data buffer",
+          "fortran": "BDB",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.longitude.lower",
+          "fortran": "C",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.longitude.upper",
+          "fortran": "D",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.longitude.points",
+          "fortran": "N",
+          "transformation": "pass"
+        },
+        {
+          "rust": null,
+          "fortran": "NBDCND",
+          "transformation": "internal"
+        },
+        {
+          "rust": "private longitude boundary-data buffer",
+          "fortran": "BDC",
+          "transformation": "pass"
+        },
+        {
+          "rust": "private longitude boundary-data buffer",
+          "fortran": "BDD",
+          "transformation": "pass"
+        },
+        {
+          "rust": "problem.coefficient",
+          "fortran": "ELMBDA",
+          "transformation": "pass"
+        },
+        {
+          "rust": "owned FishpackGrid2 RHS overwritten with solution",
+          "fortran": "F",
+          "transformation": "callback"
+        },
+        {
+          "rust": null,
+          "fortran": "IDIMF",
+          "transformation": "internal"
+        },
+        {
+          "rust": "result.perturbation",
+          "fortran": "PERTRB",
+          "transformation": "pass"
         },
         {
           "rust": null,

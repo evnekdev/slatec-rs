@@ -665,6 +665,16 @@
     },
     {
       "doctest_present": false,
+      "example_case": "manufactured constant axisymmetric spherical solution",
+      "example_file": "examples/fishpack_spherical.rs",
+      "fortran_routine": "HWSCSP",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::AxisymmetricSphericalHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_axisymmetric_spherical.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "mixed Cartesian Poisson problem",
       "example_file": "examples/fishpack_cartesian_2d.rs",
       "fortran_routine": "HWSCRT",
@@ -675,6 +685,16 @@
     },
     {
       "doctest_present": false,
+      "example_case": "manufactured constant curvilinear solution",
+      "example_file": "examples/fishpack_cylindrical_polar.rs",
+      "fortran_routine": "HWSCYL",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::CylindricalHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_cylindrical_polar.rs"
+    },
+    {
+      "doctest_present": false,
       "example_case": "manufactured structured cyclic POIS3D system",
       "example_file": "examples/fishpack_pois3d.rs",
       "fortran_routine": "POIS3D",
@@ -682,6 +702,66 @@
       "rust_path": "slatec::differential_equations::pde::Pois3dProblem::solve",
       "validation_case": "solve",
       "validation_file": "crates/slatec/tests/fishpack_pois3d_native.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "manufactured constant curvilinear solution",
+      "example_file": "examples/fishpack_cylindrical_polar.rs",
+      "fortran_routine": "HWSPLR",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::PolarHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_cylindrical_polar.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "manufactured constant unit-sphere surface solution",
+      "example_file": "examples/fishpack_spherical.rs",
+      "fortran_routine": "HWSSSP",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::SphereSurfaceHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_spherical.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "manufactured constant staggered axisymmetric spherical solution",
+      "example_file": "examples/fishpack_spherical.rs",
+      "fortran_routine": "HSTCSP",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::StaggeredAxisymmetricSphericalHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_axisymmetric_spherical.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "manufactured constant staggered curvilinear solution",
+      "example_file": "examples/fishpack_cylindrical_polar.rs",
+      "fortran_routine": "HSTCYL",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::StaggeredCylindricalHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_cylindrical_polar.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "manufactured constant staggered curvilinear solution",
+      "example_file": "examples/fishpack_cylindrical_polar.rs",
+      "fortran_routine": "HSTPLR",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::StaggeredPolarHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_cylindrical_polar.rs"
+    },
+    {
+      "doctest_present": false,
+      "example_case": "manufactured constant staggered unit-sphere surface solution",
+      "example_file": "examples/fishpack_spherical.rs",
+      "fortran_routine": "HSTSSP",
+      "native_execution_status": "unknown",
+      "rust_path": "slatec::differential_equations::pde::StaggeredSphereSurfaceHelmholtz2d::solve",
+      "validation_case": "solve",
+      "validation_file": "crates/slatec/src/differential_equations/pde/fishpack_spherical.rs"
     },
     {
       "doctest_present": false,

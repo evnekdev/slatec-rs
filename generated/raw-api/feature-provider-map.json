@@ -958,14 +958,14 @@
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "CDRIV1",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "CDRIV2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3128,7 +3128,7 @@
       "native_provider_feature": "dassl",
       "raw_declaration_feature": "dassl",
       "routine": "DDASSL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "dassl"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -3247,21 +3247,21 @@
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "DDRIV1",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "DDRIV2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "DDRIV3",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6194,28 +6194,28 @@
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HSTCSP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-spherical"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HSTCYL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-cylindrical-polar"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HSTPLR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-cylindrical-polar"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HSTSSP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-spherical"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6278,21 +6278,21 @@
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HWSCSP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-spherical"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HWSCYL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-cylindrical-polar"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HWSPLR",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-cylindrical-polar"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -6306,7 +6306,7 @@
       "native_provider_feature": "fishpack-general",
       "raw_declaration_feature": "fishpack",
       "routine": "HWSSSP",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "fishpack-spherical"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8462,7 +8462,7 @@
       "native_provider_feature": "dassl",
       "raw_declaration_feature": "dassl",
       "routine": "SDASSL",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "dassl"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
@@ -8539,21 +8539,21 @@
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "SDRIV1",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "SDRIV2",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",
       "native_provider_feature": "ode-sdrive-expert",
       "raw_declaration_feature": "ode-sdrive-expert",
       "routine": "SDRIV3",
-      "safe_facade_feature": "not_assigned"
+      "safe_facade_feature": "ode-sdrive-expert"
     },
     {
       "aggregate_feature_membership": "recorded by the three feature names; no raw declaration enables provider compilation itself",

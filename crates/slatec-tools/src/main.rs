@@ -15,6 +15,7 @@ use slatec_tools::extract;
 use slatec_tools::ffi_declaration_ownership;
 use slatec_tools::ffi_inventory;
 use slatec_tools::ffi_validation;
+use slatec_tools::fishpack_ode_dae_bulk;
 use slatec_tools::full_corpus;
 use slatec_tools::linkage;
 use slatec_tools::manifest;
@@ -264,6 +265,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-fishpack-pois3d-metadata"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-fishpack-ode-dae-coverage"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -1152,6 +1158,14 @@ fn run() -> Result<()> {
                 result.candidate_count,
                 result.wrapper_count,
                 result.semantic_hash
+            );
+            Ok(())
+        }
+        "generate-fishpack-ode-dae-coverage" => {
+            let result = fishpack_ode_dae_bulk::generate(&PathBuf::from("."), &options.output_dir)?;
+            println!(
+                "FISHPACK/ODE/DAE coverage: drivers={}, hash={}",
+                result.fishpack_count, result.semantic_hash
             );
             Ok(())
         }

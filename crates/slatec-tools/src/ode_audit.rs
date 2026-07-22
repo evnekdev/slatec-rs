@@ -231,8 +231,8 @@ const CANDIDATES: &[Candidate] = &[
         "none",
         "NSTATE=2_success,3_work,4_tolerance,5_root,6..10_callback_abort,11_interpolated,12_failure",
         "documented_mode_dependent; SDRIV1 gives N*N+11*N+300 baseline; exact SDRIV3 formula selected by MINT/MITER/IMPL",
-        "recommended",
-        "only_f32_f64_RHS_only_first_scope_with_owned_session_and_panic_contained_trampolines"
+        "reviewed_safe_session",
+        "existing_f32_f64_RHS_only_owned_session_with_panic_contained_trampolines"
     ),
     candidate!(
         "DDRIV3",
@@ -247,8 +247,8 @@ const CANDIDATES: &[Candidate] = &[
         "none",
         "NSTATE=2_success,3_work,4_tolerance,5_root,6..10_callback_abort,11_interpolated,12_failure",
         "documented_mode_dependent; DDRIV1 gives N*N+11*N+300 baseline; exact DDRIV3 formula selected by MINT/MITER/IMPL",
-        "recommended",
-        "only_f32_f64_RHS_only_first_scope_with_owned_session_and_panic_contained_trampolines"
+        "reviewed_safe_session",
+        "existing_f32_f64_RHS_only_owned_session_with_panic_contained_trampolines"
     ),
     candidate!(
         "CDRIV1",
@@ -311,8 +311,8 @@ const CANDIDATES: &[Candidate] = &[
         "none",
         "IDID=1_target,2_step,3_tstop,-1..-12_failures",
         "dense:40+(MAXORD+4)*N+N*N; banded:40+(MAXORD+4)*N+(2*ML+MU+1)*N; LIW>=20+N",
-        "deferred",
-        "DAE_consistency_Jacobian_and_failure_recovery_need_separate_audit"
+        "reviewed_safe_session",
+        "existing_residual_only_owned_session_requires_caller_consistent_initial_pair_and_uses_dense_numeric_Jacobian"
     ),
     candidate!(
         "DDASSL",
@@ -327,8 +327,8 @@ const CANDIDATES: &[Candidate] = &[
         "none",
         "IDID=1_target,2_step,3_tstop,-1..-12_failures",
         "dense:40+(MAXORD+4)*N+N*N; banded:40+(MAXORD+4)*N+(2*ML+MU+1)*N; LIW>=20+N",
-        "deferred",
-        "DAE_consistency_Jacobian_and_failure_recovery_need_separate_audit"
+        "reviewed_safe_session",
+        "existing_residual_only_owned_session_requires_caller_consistent_initial_pair_and_uses_dense_numeric_Jacobian"
     ),
     candidate!(
         "DERKFS",
@@ -457,6 +457,54 @@ const CANDIDATES: &[Candidate] = &[
         "YH supplied but bounds from COMMON",
         "deferred",
         "global_history_makes_independent_or_concurrent_use_unsafe"
+    ),
+    candidate!(
+        "SINTRP",
+        "DINTP",
+        "f32",
+        "depac_step_interpolation",
+        "historically_user_callable_helper",
+        "evaluate_STEPS_polynomial_at_a_requested_point",
+        "none",
+        "requires_live_STEPS_history_and_its_private_PHI_IV_KGI_GI_ALPHA_OG_OW_OX_OY_storage",
+        "caller_step_history",
+        "none",
+        "writes YOUT and YPOUT; source routine has no standalone completion status",
+        "all interpolation-history arrays must come from the matching STEPS call",
+        "deferred",
+        "not_an_independent_solver; no reviewed_owning_STEPS_session_exposes_its_history"
+    ),
+    candidate!(
+        "DINTP",
+        "SINTRP",
+        "f64",
+        "depac_step_interpolation",
+        "historically_user_callable_helper",
+        "evaluate_DSTEPS_polynomial_at_a_requested_point",
+        "none",
+        "requires_live_DSTEPS_history_and_its_private_PHI_IV_KGI_GI_ALPHA_OG_OW_OX_OY_storage",
+        "caller_step_history",
+        "none",
+        "writes YOUT and YPOUT; source routine has no standalone completion status",
+        "all interpolation-history arrays must come from the matching DSTEPS call",
+        "deferred",
+        "not_an_independent_solver; no reviewed_owning_DSTEPS_session_exposes_its_history"
+    ),
+    candidate!(
+        "BVSUP",
+        "none",
+        "mixed_or_unresolved",
+        "boundary_value_problem",
+        "historically_user_callable_driver",
+        "boundary_value_superposition_workflow",
+        "FMAT/GVEC/UIVP/UVEC external dependencies are not retained as reviewed callback contracts",
+        "external_dependencies_not_selected",
+        "unresolved_external_dependencies",
+        "not_assessed_after_missing_closure",
+        "not_assessed_after_missing_closure",
+        "not_assessed_after_missing_closure",
+        "excluded",
+        "selected_object_has_unresolved_external_dependencies_fmat_gvec_uivp_uvec"
     ),
     candidate!(
         "SDNTP",
@@ -710,8 +758,8 @@ pub fn generate(
                 c.name,
                 c.callbacks,
                 callback_safety(c),
-                if c.disposition == "recommended" {
-                    "future_trampoline_catches_panics_sets_N_zero_and_rethrows_after_return"
+                if c.disposition == "reviewed_safe_session" {
+                    "reviewed_owned_session_contains_panics_and_uses_the_documented_native_stop_protocol"
                 } else {
                     "not_public_or_deferred"
                 }
@@ -740,8 +788,8 @@ pub fn generate(
             json!([
                 c.name,
                 c.status,
-                if c.disposition == "recommended" {
-                    "preserve_all_NSTATE_codes"
+                if c.disposition == "reviewed_safe_session" {
+                    "reviewed_safe_status_mapping"
                 } else {
                     "audit_only"
                 }
@@ -762,14 +810,66 @@ pub fn generate(
             ])
         })
         .collect::<Vec<_>>();
+    let complete_records = CANDIDATES
+        .iter()
+        .map(|c| {
+            json!({
+                "routine": c.name,
+                "precision_pair": c.pair,
+                "precision": c.precision,
+                "family": c.family,
+                "historical_role": c.role,
+                "mathematical_form": c.model,
+                "callback_protocol": c.callbacks,
+                "continuation_storage": c.continuation,
+                "native_state": c.state,
+                "native_status": c.status,
+                "workspace": c.workspace,
+                "safe_disposition": c.disposition,
+                "reason": c.reason,
+            })
+        })
+        .collect::<Vec<_>>();
+    let driver_capabilities = CANDIDATES
+        .iter()
+        .filter(|c| !matches!(c.role, "support_routine" | "interpolation_routine"))
+        .map(|c| {
+            json!([
+                c.name,
+                c.precision,
+                c.family,
+                c.model,
+                c.callbacks,
+                c.continuation,
+                c.disposition,
+                c.reason,
+            ])
+        })
+        .collect::<Vec<_>>();
     let outputs = vec![
+        (
+            "ode-complete-coverage.json",
+            json!({"schema_id":"slatec.safe-api.ode-complete-coverage","schema_version":"1.0.0","snapshot_id":snapshot_id,"raw_ffi_profile":PROFILE,"records":complete_records}),
+        ),
+        (
+            "ode-driver-capability-matrix.json",
+            json!({"schema_id":"slatec.safe-api.ode-driver-capability-matrix","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["routine","precision","family","mathematical_form","callback_protocol","continuation_storage","safe_disposition","reason"],"records":driver_capabilities}),
+        ),
+        (
+            "ode-callback-abi-audit.json",
+            json!({"schema_id":"slatec.safe-api.ode-callback-abi-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["routine","native_protocol","containment","public_action"],"records":callback_rows.clone()}),
+        ),
+        (
+            "ode-continuation-storage.json",
+            json!({"schema_id":"slatec.safe-api.ode-continuation-storage","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["routine","persistence","safe_storage","restriction"],"records":continuation_rows.clone()}),
+        ),
         (
             "ode-candidate-index.json",
             json!({"schema_id":"slatec.ode.candidate-index","schema_version":"1.0.0","snapshot_id":snapshot_id,"raw_ffi_profile":PROFILE,"discovery":"selected-corpus public/provider inventory plus source-prologue ODE, DAE, interpolation, root, and stepper audit","columns":["routine","precision_pair","precision","program_unit_id","source_subset","source_path","family","role","mathematical_form","callback_protocol","continuation","disposition","reason"],"records":records}),
         ),
         (
             "ode-family-index.json",
-            json!({"schema_id":"slatec.ode.family-index","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","routines","capability","selection"],"records":[["depac_runge_kutta_fehlberg","DERKF/DDERKF","nonstiff_RKF45; scalar_or_vector_tolerances; interval_or_step","deferred_no_callback_abort"],["depac_adams","DEABM/DDEABM","nonstiff_Adams_orders_1_to_12","deferred_no_callback_abort"],["depac_bdf","DEBDF/DDEBDF","stiff_BDF_orders_1_to_5; dense_or_banded_Jacobian","deferred_COMMON"],["sdrive","SDRIV1/2/3 and DDRIV1/2/3","nonstiff_or_stiff; roots; interpolation; optional_mass_matrix","SDRIV3_DDRIV3_recommended"],["dassl","SDASSL/DDASSL","implicit_DAE_BDF_orders_1_to_5; dense_or_banded_Jacobian","deferred_separate_DAE_scope"]]}),
+            json!({"schema_id":"slatec.ode.family-index","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","routines","capability","selection"],"records":[["depac_runge_kutta_fehlberg","DERKF/DDERKF","nonstiff_RKF45; scalar_or_vector_tolerances; interval_or_step","deferred_no_callback_abort"],["depac_adams","DEABM/DDEABM","nonstiff_Adams_orders_1_to_12","deferred_no_callback_abort"],["depac_bdf","DEBDF/DDEBDF","stiff_BDF_orders_1_to_5; dense_or_banded_Jacobian","deferred_COMMON"],["sdrive","SDRIV1/2/3 and DDRIV1/2/3","nonstiff_or_stiff; roots; interpolation; optional_mass_matrix","reviewed_safe_sessions_for_DRIV1_2_3; expert_modes_deferred"],["dassl","SDASSL/DDASSL","implicit_DAE_BDF_orders_1_to_5; dense_or_banded_Jacobian","reviewed_residual_only_safe_session; analytic_and_banded_Jacobians_deferred"]]}),
         ),
         (
             "ode-callback-audit.json",
@@ -793,7 +893,7 @@ pub fn generate(
         ),
         (
             "ode-jacobian-audit.json",
-            json!({"schema_id":"slatec.ode.jacobian-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","protocol","storage","scope"],"records":[["DEBDF/DDEBDF","optional JAC/DJAC; finite-difference fallback","dense N_by_N or banded (2*ML+MU+1)_by_N","deferred_COMMON"],["SDRIV3/DDRIV3","JACOBN optional; FA for mass matrix","dense_or_banded selected by MITER/IMPL/ML/MU","future_RHS_only_scope"],["SDASSL/DDASSL","JAC optional, receives CJ iteration coefficient","dense_or_banded Fortran column-major work matrix","deferred_DAE_scope"]]}),
+            json!({"schema_id":"slatec.ode.jacobian-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","protocol","storage","scope"],"records":[["DEBDF/DDEBDF","optional JAC/DJAC; finite-difference fallback","dense N_by_N or banded (2*ML+MU+1)_by_N","deferred_COMMON"],["SDRIV3/DDRIV3","JACOBN optional; FA for mass matrix","dense_or_banded selected by MITER/IMPL/ML/MU","reviewed_RHS_only_scope; analytic_and_mass_callbacks_deferred"],["SDASSL/DDASSL","JAC optional, receives CJ iteration coefficient","dense_or_banded Fortran column-major work matrix","reviewed_dense_numeric_Jacobian; analytic_and_banded_callbacks_deferred"]]}),
         ),
         (
             "ode-interpolation-audit.json",
@@ -809,15 +909,18 @@ pub fn generate(
         ),
         (
             "ode-source-closure-audit.json",
-            json!({"schema_id":"slatec.ode.source-closure-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","roots","genuine_subsidiaries","practicality"],"records":[["DERKF/DDERKF","DERKF,DDERKF","DERKFS/DRKFS,DEFEHL/DFEHL,HSTART/DHSTRT,HVNRM/DHVNRM,machine_constants,XERROR","narrow_but_callback_abort_unsuitable"],["SDRIV3/DDRIV3","SDRIV3,DDRIV3","SDSTP/DDSTP,SDNTP/DDNTP,SDZRO/DDZRO,LINPACK_dense_banded,machine_constants,XERROR","practical_after_restricted_RHS_only_contract"],["DASSL","SDASSL,DDASSL","initialization,step,interpolation,weights,norms,LINPACK,machine_constants,XERROR","narrow_but_separate_DAE_milestone"],["DEBDF","DEBDF,DDEBDF","LSOD/DLSOD,INTYD/DINTYD,LINPACK,XERROR","COMMON_blocks_prevent_safe_selection"]]}),
+            json!({"schema_id":"slatec.ode.source-closure-audit","schema_version":"1.0.0","snapshot_id":snapshot_id,"columns":["family","roots","genuine_subsidiaries","practicality"],"records":[["DERKF/DDERKF","DERKF,DDERKF","DERKFS/DRKFS,DEFEHL/DFEHL,HSTART/DHSTRT,HVNRM/DHVNRM,machine_constants,XERROR","narrow_but_callback_abort_unsuitable"],["SDRIV3/DDRIV3","SDRIV3,DDRIV3","SDSTP/DDSTP,SDNTP/DDNTP,SDZRO/DDZRO,LINPACK_dense_banded,machine_constants,XERROR","reviewed_for_restricted_RHS_only_owned_sessions"],["DASSL","SDASSL,DDASSL","initialization,step,interpolation,weights,norms,LINPACK,machine_constants,XERROR","reviewed_for_residual_only_dense_numeric_Jacobian_sessions"],["DEBDF","DEBDF,DDEBDF","LSOD/DLSOD,INTYD/DINTYD,LINPACK,XERROR","COMMON_blocks_prevent_safe_selection"]]}),
         ),
         (
             "ode-selection.json",
-            json!({"schema_id":"slatec.ode.selection","schema_version":"1.0.0","snapshot_id":snapshot_id,"recommendation":"sdrive_expert_rhs_only","recommended_routines":["SDRIV3","DDRIV3"],"first_scope":"real f32/f64 explicit y_prime_equals_f_t_y only, owned non-cloneable OdeSession, caller-controlled continuation, panic-contained F trampoline that sets native N=0, native runtime lock, scoped XERROR restoration","deferred":["DERKF/DDERKF and DEABM/DDEABM: no callback abort","DEBDF/DDEBDF and INTYD/DINTYD: COMMON history","SDASSL/DDASSL: DAE/Jacobian/consistent-initial-state scope","CDRIV*: complex API out of scope"],"interoperability":"slices and lightweight checked views; internal mutable workspace; optional nalgebra/ndarray/faer adapters behind separate features"}),
+            json!({"schema_id":"slatec.ode.selection","schema_version":"1.0.0","snapshot_id":snapshot_id,"recommendation":"reviewed_sdrive_and_residual_only_dassl_sessions","reviewed_routines":["SDRIV1","DDRIV1","SDRIV2","DDRIV2","SDRIV3","DDRIV3","CDRIV1","CDRIV2","SDASSL","DDASSL"],"current_scope":"real f32/f64 RHS-only owned OdeSession for SDRIV3/DDRIV3; owned real and complex DRIV1/2 sessions; residual-only dense-numeric-Jacobian DaeSession requiring caller-consistent initial data","deferred":["DERKF/DDERKF and DEABM/DDEABM: no callback abort","DEBDF/DDEBDF and INTYD/DINTYD: COMMON history","SDRIV3/DDRIV3 analytic Jacobian, mass-matrix, and event lifecycle modes: separate callback lifecycle review","SDASSL/DDASSL analytic or banded Jacobian callbacks: matrix layout, mutation, and callback lifecycle review","CDRIV3: exact complex expert ABI not reviewed"],"interoperability":"slices and lightweight checked views; internal mutable workspace; optional nalgebra/ndarray/faer adapters behind separate features"}),
         ),
     ];
     let summary = format!(
-        "# SLATEC ODE-family audit\n\n- Snapshot: `{snapshot_id}`.\n- Public drivers span DEPAC RKF/Adams/BDF, SDRIVE, and DASSL DAE families.\n- **Selection:** `SDRIV3`/`DDRIV3`, restricted initially to real RHS-only IVPs in an owned non-cloneable session. Their documented mutable-`N` callback abort supports panic and user-error containment; caller work arrays hold continuation state and the executable driver has no COMMON or external I/O.\n- DEPAC RKF/Adams drivers are deferred because their RHS callbacks have no documented native abort signal. DEBDF and `INTYD` use process-global COMMON history. DASSL is a distinct DAE/Jacobian/consistent-initial-state milestone.\n- SDRIVE supports sign-change roots but no direction/terminal filtering; events remain deferred from the first wrapper scope.\n- No public ODE feature, raw declaration, provider closure, native source, or translated algorithm is added.\n"
+        "# SLATEC ODE-family audit\n\n- Snapshot: `{snapshot_id}`.\n- Public drivers span DEPAC RKF/Adams/BDF, SDRIVE, and DASSL DAE families.\n- **Reviewed sessions:** `SDRIV1`/`DDRIV1`, `SDRIV2`/`DDRIV2`, `SDRIV3`/`DDRIV3`, and `CDRIV1`/`CDRIV2` have checked owned sessions for their reviewed modes.  The expert real sessions are RHS-only; their documented mutable-`N` callback abort supports panic and user-error containment.\n- `SDASSL`/`DDASSL` have checked residual-only owned sessions with a dense finite-difference iteration matrix.  Callers provide initially consistent `(y, y')`; analytic and banded Jacobian callbacks are deliberately outside this reviewed scope.\n- DEPAC RKF/Adams drivers are deferred because their RHS callbacks have no documented native abort signal. DEBDF and `INTYD` use process-global COMMON history. `CDRIV3` remains unreviewed on the complex expert ABI.\n- SDRIVE supports sign-change roots but no direction/terminal filtering; SDRIV3 event modes remain outside the RHS-only expert session.\n"
+    );
+    let complete_summary = format!(
+        "# Complete ODE and DAE coverage\n\n- Candidate public drivers and required subsidiaries are recorded from the selected corpus, rather than inferred from Rust path names.\n- Reviewed safe sessions: SDRIV1/DDRIV1, SDRIV2/DDRIV2, SDRIV3/DDRIV3, CDRIV1/CDRIV2, and residual-only SDASSL/DDASSL.\n- Explicit deferrals: DERKF/DDERKF and DEABM/DDEABM lack a documented callback abort; DEBDF/DDEBDF and INTYD/DINTYD retain COMMON history; CDRIV3 and analytic/mass-matrix/banded callback modes require their own ABI and lifecycle reviews.\n- Snapshot: `{snapshot_id}`.\n"
     );
     let mut bytes = Vec::new();
     for (name, value) in outputs {
@@ -828,6 +931,11 @@ pub fn generate(
     }
     write(&output_dir.join("ode-audit-summary.md"), &summary)?;
     bytes.extend_from_slice(summary.as_bytes());
+    write(
+        &output_dir.join("ode-complete-coverage.md"),
+        &complete_summary,
+    )?;
+    bytes.extend_from_slice(complete_summary.as_bytes());
     Ok(ResultSummary {
         snapshot_id,
         semantic_hash: hash::bytes(&bytes),
@@ -843,7 +951,7 @@ fn callback_safety(candidate: &Candidate) -> &'static str {
     }
 }
 fn session_recommendation(candidate: &Candidate) -> &'static str {
-    if candidate.disposition == "recommended" {
+    if candidate.disposition == "reviewed_safe_session" {
         "owned_non_cloneable_OdeSession"
     } else {
         "not_public"
@@ -955,7 +1063,7 @@ mod tests {
         for name in [
             "DERKF", "DDERKF", "DEABM", "DDEABM", "DEBDF", "DDEBDF", "SDRIV1", "DDRIV1", "SDRIV2",
             "DDRIV2", "SDRIV3", "DDRIV3", "CDRIV1", "CDRIV2", "CDRIV3", "SDASSL", "DDASSL",
-            "INTYD", "DINTYD",
+            "INTYD", "DINTYD", "SINTRP", "DINTP", "BVSUP",
         ] {
             assert!(names.contains(name));
         }
@@ -982,13 +1090,19 @@ mod tests {
         );
     }
     #[test]
-    fn selected_pair_exists() {
+    fn reviewed_safe_sessions_are_recorded() {
         let selected = CANDIDATES
             .iter()
-            .filter(|c| c.disposition == "recommended")
+            .filter(|c| c.disposition == "reviewed_safe_session")
             .map(|c| c.name)
             .collect::<BTreeSet<_>>();
-        assert_eq!(selected, BTreeSet::from(["SDRIV3", "DDRIV3"]));
+        assert_eq!(
+            selected,
+            BTreeSet::from([
+                "SDRIV1", "DDRIV1", "SDRIV2", "DDRIV2", "SDRIV3", "DDRIV3", "CDRIV1", "CDRIV2",
+                "SDASSL", "DDASSL",
+            ])
+        );
     }
     #[test]
     fn generation_is_deterministic() {
@@ -1011,6 +1125,11 @@ mod tests {
         .unwrap();
         assert_eq!(a.semantic_hash, b.semantic_hash);
         for name in [
+            "ode-complete-coverage.json",
+            "ode-complete-coverage.md",
+            "ode-driver-capability-matrix.json",
+            "ode-callback-abi-audit.json",
+            "ode-continuation-storage.json",
             "ode-candidate-index.json",
             "ode-family-index.json",
             "ode-callback-audit.json",

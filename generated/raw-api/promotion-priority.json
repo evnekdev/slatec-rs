@@ -91,6 +91,15 @@
       "unresolved_callbacks": 0
     },
     {
+      "documentation_complete": 2,
+      "generated_abi_validated": 96,
+      "historically_user_callable": 17,
+      "module": "pde::fishpack",
+      "promotion_score": 254,
+      "safe_wrapper_audits": 10,
+      "unresolved_callbacks": 9
+    },
+    {
       "documentation_complete": 0,
       "generated_abi_validated": 48,
       "historically_user_callable": 52,
@@ -100,21 +109,12 @@
       "unresolved_callbacks": 0
     },
     {
-      "documentation_complete": 2,
-      "generated_abi_validated": 96,
-      "historically_user_callable": 17,
-      "module": "pde::fishpack",
-      "promotion_score": 222,
-      "safe_wrapper_audits": 2,
-      "unresolved_callbacks": 9
-    },
-    {
       "documentation_complete": 8,
       "generated_abi_validated": 84,
       "historically_user_callable": 18,
       "module": "ode",
-      "promotion_score": 204,
-      "safe_wrapper_audits": 2,
+      "promotion_score": 228,
+      "safe_wrapper_audits": 8,
       "unresolved_callbacks": 18
     },
     {
