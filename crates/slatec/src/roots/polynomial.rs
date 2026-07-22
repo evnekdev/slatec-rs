@@ -496,6 +496,8 @@ fn native_complex_mut(values: &mut [Complex32]) -> *mut NativeComplex32 {
 
 #[cfg(test)]
 mod tests {
+    use alloc::vec;
+
     use super::*;
 
     #[test]
@@ -520,5 +522,28 @@ mod tests {
         assert_eq!(iterative_complex_workspace_len(2), Ok(12));
         assert_eq!(companion_real_workspace_len(2), Ok(8));
         assert_eq!(companion_complex_workspace_len(2), Ok(12));
+    }
+
+    #[test]
+    fn documented_nonconverged_statuses_preserve_only_supported_results() {
+        let roots = vec![Complex32::new(1.0, 0.0), Complex32::new(-2.0, 0.0)];
+        let iterative = iterative_result(
+            roots.clone(),
+            vec![0.0, 0.0],
+            2,
+            PolynomialRootMethod::Iterative,
+        )
+        .expect("the iterative driver documents its best current roots");
+        assert_eq!(
+            iterative.status(),
+            PolynomialRootStatus::IterationLimitReached
+        );
+        assert_eq!(iterative.roots(), roots);
+        assert_eq!(iterative.error_bounds(), None);
+
+        assert_eq!(
+            companion_result(roots, 1),
+            Err(PolynomialRootError::CompanionQrNoConvergence)
+        );
     }
 }

@@ -222,6 +222,21 @@ optimization-linear-programming-in-memory-native-tests = [
     "optimization-linear-programming-in-memory",
 ]
 
+# Weighted polynomial least-squares fitting over the reviewed POLFIT/DPOLFT
+# representation. This is intentionally separate from global interpolation:
+# fitted samples need not have distinct or ordered abscissas.
+approximation = ["approximation-polynomial-fitting"]
+approximation-polynomial-fitting = [
+    "std",
+    "blas-level1-validation",
+    "slatec-sys/approximation-core",
+    "slatec-src/approximation-core",
+]
+approximation-polynomial-fitting-native-tests = [
+    "approximation-polynomial-fitting",
+    "native-lock-test-support",
+]
+
 fftpack-real = [
     "std",
     "blas-level1-validation",
@@ -382,7 +397,7 @@ least-squares-native-tests = [
 integrate = ["quadrature"]
 interpolate = ["pchip", "bspline", "bspline-cubic-interpolation", "piecewise-polynomial", "tabulated-data"]
 optimize = ["optimization"]
-full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
+full = ["blas", "quadrature", "roots", "nonlinear", "least-squares", "ode", "dassl", "optimization", "approximation", "fftpack-real", "fftpack-complex", "fishpack-cartesian-2d", "fishpack-pois3d", "banded-linear-systems", "pchip", "interpolate", "optimize", "special"]
 special-functions = ["special"]
 special-functions-f32 = ["special"]
 special-functions-polynomials = ["special-polynomials"]
@@ -566,6 +581,11 @@ name = "link_linear_programming_in_memory"
 required-features = ["optimization-linear-programming-in-memory"]
 
 [[example]]
+name = "polynomial_fit"
+path = "../../examples/approximation/polynomial_fit.rs"
+required-features = ["approximation-polynomial-fitting"]
+
+[[example]]
 name = "link_fftpack_real"
 required-features = ["fftpack-real"]
 
@@ -679,6 +699,11 @@ required-features = ["bspline-cubic-interpolation-native-tests"]
 name = "polynomial_roots_native"
 path = "tests/polynomial_roots_native.rs"
 required-features = ["roots-polynomial-native-tests"]
+
+[[test]]
+name = "polynomial_fit_native"
+path = "tests/polynomial_fit_native.rs"
+required-features = ["approximation-polynomial-fitting-native-tests"]
 
 [[example]]
 name = "link_special_scalar"

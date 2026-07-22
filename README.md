@@ -7,8 +7,8 @@ Safe APIs are selected by coherent family features such as `blas-level1`,
 `least-squares-linear-nonnegative`, `least-squares-linear-bounded`, and
 `least-squares-linear-bounded-constrained`, `ode-sdrive-expert`, `dassl`, and
 `fishpack-cartesian-2d`, `fishpack-pois3d`, `optimization-linear-programming-in-memory`,
-`roots-polynomial`, `bspline`, `bspline-cubic-interpolation`, `piecewise-polynomial`, and
-`tabulated-data`.
+`roots-polynomial`, `bspline`, `bspline-cubic-interpolation`, `piecewise-polynomial`,
+`tabulated-data`, and `approximation-polynomial-fitting`.
 Numerical families
 require one explicit backend: `prebuilt`, `source-build`, `system`, or
 `external-backend`. Prebuilt publication is currently blocked because the
@@ -240,6 +240,14 @@ and derivatives with `POLYVL`/`DPOLVL`, produces Taylor coefficients with
 `AVINT`/`DAVINT`. Samples are never sorted or exposed as native workspaces;
 calls are process-serialized. See the
 [tabulated-data guide](docs/api/safe-tabulated-data.md).
+
+The opt-in hosted `approximation-polynomial-fitting` feature adds immutable
+`f32`/`f64` weighted polynomial least-squares models over `POLFIT`/`DPOLFT`.
+It keeps the orthogonal representation private, supports all-degree, RMS, and
+F-test degree selection, evaluates values or derivatives through
+`PVALUE`/`DP1VLU`, and converts to origin power coefficients with
+`PCOEF`/`DPCOEF`. It is deliberately distinct from interpolation; see the
+[polynomial-fitting guide](docs/api/safe-polynomial-fitting.md).
 
 The opt-in hosted `banded-linear-systems` feature provides compact general
 real `f32`/`f64` LINPACK LU factors and direct/transpose solves together with

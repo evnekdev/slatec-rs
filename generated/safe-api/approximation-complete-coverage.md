@@ -4,10 +4,12 @@ This generated inventory joins canonical raw status with raw-to-safe coverage. `
 
 ## Disposition counts
 
-- `candidate-implemented-in-this-milestone`: 2
+- `candidate-implemented-in-this-milestone`: 8
 - `covered-by-higher-level-safe-api`: 10
+- `deferred-incremental-bspline-preprocessing`: 2
+- `deferred-stateful-constrained-bspline`: 2
 - `direct-safe-wrapper`: 28
-- `expert-raw-only`: 49
+- `expert-raw-only`: 39
 
 ## Routine records
 
@@ -40,9 +42,9 @@ This generated inventory joins canonical raw status with raw-to-safe coverage. `
 | `DBSPVN` | historically_user_callable_driver | `slatec_sys::interpolation::dbspvn` | `none` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `covered-by-higher-level-safe-api` |
 | `DBVALU` | historically_user_callable_driver | `slatec_sys::interpolation::dbvalu` | `slatec::interpolation::bspline::BSpline::derivative; slatec::interpolation::bspline::BSpline::evaluate; slatec::interpolation::bspline::BSpline::evaluate_into` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `DCOV` | historically_user_callable_driver | `slatec_sys::least_squares::dcov` | `slatec::least_squares::covariance_from_expert_fit; slatec::least_squares::estimate_covariance; slatec::least_squares::estimate_covariance_finite_difference` | `least-squares-covariance` | `complete_authored` | `passed` | `passed` | `direct-safe-wrapper` |
-| `DEFC` | historically_user_callable_driver | `slatec_sys::approximation::defc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `DEFC` | historically_user_callable_driver | `slatec_sys::approximation::defc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `deferred-incremental-bspline-preprocessing` |
 | `DEFCMN` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
-| `DFC` | historically_user_callable_driver | `slatec_sys::approximation::dfc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `DFC` | historically_user_callable_driver | `slatec_sys::approximation::dfc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `deferred-stateful-constrained-bspline` |
 | `DFCMN` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `DFDJC3` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `DFSPVD` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
@@ -55,11 +57,11 @@ This generated inventory joins canonical raw status with raw-to-safe coverage. `
 | `DMPAR` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `DNLS1` | historically_user_callable_driver | `slatec_sys::least_squares::dnls1` | `slatec::least_squares::least_squares_expert; slatec::least_squares::least_squares_with_jacobian` | `least-squares-nonlinear-expert` | `complete_authored` | `passed` | `passed` | `direct-safe-wrapper` |
 | `DNLS1E` | historically_user_callable_driver | `slatec_sys::least_squares::dnls1e` | `slatec::least_squares::least_squares` | `least-squares-nonlinear-easy` | `complete_authored` | `passed` | `passed` | `direct-safe-wrapper` |
-| `DP1VLU` | historically_user_callable_driver | `slatec_sys::approximation::dp1vlu` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
-| `DPCOEF` | historically_user_callable_driver | `slatec_sys::approximation::dpcoef` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `DP1VLU` | historically_user_callable_driver | `slatec_sys::approximation::dp1vlu` | `slatec::interpolation::approximation::PolynomialFit::evaluate; slatec::interpolation::approximation::PolynomialFit::evaluate_into; slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `candidate-implemented-in-this-milestone` |
+| `DPCOEF` | historically_user_callable_driver | `slatec_sys::approximation::dpcoef` | `slatec::interpolation::approximation::PolynomialFit::power_coefficients; slatec::interpolation::approximation::PolynomialFit::power_coefficients_at` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `candidate-implemented-in-this-milestone` |
 | `DPLINT` | historically_user_callable_driver | `slatec_sys::interpolation::dplint` | `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `DPOLCF` | historically_user_callable_driver | `slatec_sys::interpolation::dpolcf` | `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
-| `DPOLFT` | historically_user_callable_driver | `slatec_sys::approximation::dpolft` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `DPOLFT` | historically_user_callable_driver | `slatec_sys::approximation::dpolft` | `slatec::interpolation::approximation::PolynomialFit::fit; slatec::interpolation::approximation::PolynomialFit::fit_weighted` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `candidate-implemented-in-this-milestone` |
 | `DPOLVL` | historically_user_callable_driver | `slatec_sys::interpolation::dpolvl` | `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate; slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `DPPVAL` | historically_user_callable_driver | `slatec_sys::interpolation::dppval` | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative; slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate; slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `DQRSLV` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
@@ -70,9 +72,9 @@ This generated inventory joins canonical raw status with raw-to-safe coverage. `
 | `DWNLT3` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `DWNNLS` | historically_user_callable_driver | `slatec_sys::approximation::dwnnls` | `slatec::linear_least_squares::solve_nonnegative_least_squares` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `DWUPDT` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
-| `EFC` | historically_user_callable_driver | `slatec_sys::approximation::efc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `EFC` | historically_user_callable_driver | `slatec_sys::approximation::efc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `deferred-incremental-bspline-preprocessing` |
 | `EFCMN` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
-| `FC` | historically_user_callable_driver | `slatec_sys::approximation::fc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `FC` | historically_user_callable_driver | `slatec_sys::approximation::fc` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `deferred-stateful-constrained-bspline` |
 | `FCMN` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `FDJAC3` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `INTRV` | historically_user_callable_driver | `slatec_sys::interpolation::intrv` | `none` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `covered-by-higher-level-safe-api` |
@@ -80,13 +82,13 @@ This generated inventory joins canonical raw status with raw-to-safe coverage. `
 | `LPDP` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `LSEI` | historically_user_callable_driver | `slatec_sys::approximation::lsei` | `slatec::constrained_least_squares::solve_constrained_least_squares_f32` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `LSI` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
-| `PCOEF` | historically_user_callable_driver | `slatec_sys::approximation::pcoef` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `PCOEF` | historically_user_callable_driver | `slatec_sys::approximation::pcoef` | `slatec::interpolation::approximation::PolynomialFit::power_coefficients; slatec::interpolation::approximation::PolynomialFit::power_coefficients_at` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `candidate-implemented-in-this-milestone` |
 | `POLCOF` | historically_user_callable_driver | `slatec_sys::interpolation::polcof` | `slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
-| `POLFIT` | historically_user_callable_driver | `slatec_sys::approximation::polfit` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `POLFIT` | historically_user_callable_driver | `slatec_sys::approximation::polfit` | `slatec::interpolation::approximation::PolynomialFit::fit; slatec::interpolation::approximation::PolynomialFit::fit_weighted` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `candidate-implemented-in-this-milestone` |
 | `POLINT` | historically_user_callable_driver | `slatec_sys::interpolation::polint` | `slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `POLYVL` | historically_user_callable_driver | `slatec_sys::interpolation::polyvl` | `slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate; slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
 | `PPVAL` | historically_user_callable_driver | `slatec_sys::interpolation::ppval` | `slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative; slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate; slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into` | `interpolation-general` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |
-| `PVALUE` | historically_user_callable_driver | `slatec_sys::approximation::pvalue` | `none` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `expert-raw-only` |
+| `PVALUE` | historically_user_callable_driver | `slatec_sys::approximation::pvalue` | `slatec::interpolation::approximation::PolynomialFit::evaluate; slatec::interpolation::approximation::PolynomialFit::evaluate_into; slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `candidate-implemented-in-this-milestone` |
 | `QRSOLV` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `RWUPDT` | internal_subsidiary | `not_promoted` | `none` | `not_assigned` | `not_documented` | `passed` | `passed` | `expert-raw-only` |
 | `SBOCLS` | historically_user_callable_driver | `slatec_sys::approximation::sbocls` | `slatec::bounded_constrained_least_squares::solve_bounded_constrained_least_squares_f32` | `approximation-core` | `complete_generated_abi_contract` | `passed` | `not_required_batch_a` | `direct-safe-wrapper` |

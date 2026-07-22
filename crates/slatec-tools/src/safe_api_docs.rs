@@ -576,6 +576,21 @@ fn collect_functions() -> Result<Vec<FunctionRecord>> {
             ))
         },
     )?;
+    collect_columnar(
+        "generated/safe-api/polynomial-fit-wrapper-index.json",
+        &mut output,
+        |row, columns| {
+            Ok(record(
+                column(row, columns, "safe_path")?,
+                column(row, columns, "raw_routine")?,
+                "polynomial fitting",
+                column(row, columns, "precision")?,
+                column(row, columns, "mathematical_model")?,
+                "std",
+                "approximation-polynomial-fitting",
+            ))
+        },
+    )?;
     for (path, routine, family) in [
         (
             "slatec::fftpack::RealFftPlan::new",
@@ -1020,6 +1035,7 @@ fn record(
             "examples/piecewise_polynomial/from_pieces.rs".to_owned()
         }
         "tabulated data" => "examples/interpolation/tabulated_data.rs".to_owned(),
+        "polynomial fitting" => "examples/approximation/polynomial_fit.rs".to_owned(),
         "special functions" if path.contains("scalar_expanded") && path.contains("carlson_") => {
             "examples/special/elliptic.rs".to_owned()
         }
@@ -1144,6 +1160,7 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
     let cubic_bspline_constructor = function.domain == "B-spline interpolation"
         && function.rust_path.contains("interpolate_cubic");
     let tabulated = function.domain == "tabulated data";
+    let polynomial_fit = function.domain == "polynomial fitting";
     let internal_argument = (internal.contains(&upper.as_str())
         || (fishpack
             && matches!(
@@ -1161,6 +1178,11 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
         || (function.domain == "complex FFTPACK"
             && matches!(upper.as_str(), "CH" | "WA" | "IFAC"))
         || (tabulated && matches!(upper.as_str(), "C" | "D" | "YFIT" | "YP" | "ANS" | "IERR"))
+        || (polynomial_fit
+            && matches!(
+                upper.as_str(),
+                "N" | "NDEG" | "R" | "IERR" | "A" | "YFIT" | "YP" | "TC" | "L" | "C"
+            ))
         || (jacobian_check && upper == "FVEC"))
         && !(matches!(function.domain.as_str(), "nonlinear" | "least squares") && upper == "INFO")
         && !(function.domain == "linear least squares" && upper == "MODE")
@@ -1182,6 +1204,16 @@ fn argument_map(function: &FunctionRecord, name: &str) -> ArgumentMap {
             "XX" if tabulated => "finite evaluation or Taylor-expansion point".to_owned(),
             "XLO" if tabulated => "interval start".to_owned(),
             "XUP" if tabulated => "interval end".to_owned(),
+            "X" if polynomial_fit => {
+                "checked finite sample abscissas or finite evaluation point".to_owned()
+            }
+            "Y" if polynomial_fit => "checked finite sample ordinates".to_owned(),
+            "W" if polynomial_fit => {
+                "checked positive weights or private unit-weight sentinel".to_owned()
+            }
+            "MAXDEG" if polynomial_fit => "options.max_degree".to_owned(),
+            "EPS" if polynomial_fit => "source-defined degree-selection policy".to_owned(),
+            "NDER" if polynomial_fit => "derivative_count".to_owned(),
             "L" if pois3d => "problem.rhs.nx".to_owned(),
             "M" if pois3d => "problem.rhs.ny".to_owned(),
             "N" if pois3d => "problem.rhs.nz".to_owned(),
@@ -1526,6 +1558,7 @@ fn render_markdown(functions: &[FunctionRecord]) -> String {
         "piecewise cubic Hermite interpolation",
         "piecewise-polynomial interpolation",
         "tabulated data",
+        "polynomial fitting",
         "Cartesian FISHPACK PDE",
     ] {
         text.push_str(&format!("\n### {domain}\n\n"));
@@ -1640,6 +1673,7 @@ fn validation_path_for(function: &FunctionRecord) -> &'static str {
             "crates/slatec/tests/piecewise_polynomial_native.rs"
         }
         "tabulated data" => "crates/slatec/tests/tabulated_data_native.rs",
+        "polynomial fitting" => "crates/slatec/tests/polynomial_fit_native.rs",
         "Cartesian FISHPACK PDE" => "crates/slatec/tests/fishpack_cartesian_2d_native.rs",
         "Structured FISHPACK PDE" => "crates/slatec/tests/fishpack_pois3d_native.rs",
         "special functions" | "polynomials" => "crates/slatec/tests/special_functions_native.rs",
@@ -1707,6 +1741,7 @@ fn native_status(record: &FunctionRecord) -> &'static str {
         | "piecewise cubic Hermite interpolation"
         | "piecewise-polynomial interpolation"
         | "tabulated data"
+        | "polynomial fitting"
         | "Cartesian FISHPACK PDE"
         | "special functions"
         | "polynomials" => "native_execution_passed",

@@ -1,22 +1,22 @@
 {
   "schema_id": "slatec.safe-api.public-module-roadmap",
   "schema_version": "1.0.0",
-  "safe_function_count": 264,
+  "safe_function_count": 271,
   "capability_counts": {
     "alloc": 2,
     "core": 58,
-    "std": 204
+    "std": 211
   },
   "status_totals": {
     "Deferred": 3,
-    "Implemented": 33,
+    "Implemented": 34,
     "Partial": 15,
-    "Planned": 17
+    "Planned": 16
   },
   "stability_totals": {
     "Frozen": 10,
-    "Provisional": 3,
-    "Reserved": 65
+    "Provisional": 2,
+    "Reserved": 66
   },
   "frozen_high_level_paths": [
     "roadmap",
@@ -1269,19 +1269,21 @@
     {
       "canonical_grouped_module_path": "interpolation::approximation",
       "module_file": "crates/slatec/src/interpolation/approximation.rs",
-      "stability": "Provisional",
-      "status": "Planned",
-      "cargo_feature": null,
-      "current_implementation_module": null,
-      "compatibility_path": null,
-      "safe_native_families": [],
-      "precision_coverage": "unreviewed",
-      "runtime_level": "unreviewed",
-      "concurrency_classification": "unreviewed",
-      "status_rationale": "A coherent future family is intended, but no safe API is public.",
-      "blocker": "The intended source-family boundary remains uncertain.",
-      "likely_next_milestone": "Complete approximation-family inventory.",
-      "evidence_source": "selected-snapshot inventories and domain roadmap"
+      "stability": "Reserved",
+      "status": "Implemented",
+      "cargo_feature": "approximation-polynomial-fitting",
+      "current_implementation_module": "crate::interpolation::approximation",
+      "compatibility_path": "slatec::interpolation::approximation",
+      "safe_native_families": [
+        "approximation-polynomial-fitting"
+      ],
+      "precision_coverage": "f32,f64",
+      "runtime_level": "std",
+      "concurrency_classification": "SerializedGlobal",
+      "status_rationale": "The reviewed initial safe scope is public.",
+      "blocker": "None for the documented initial scope.",
+      "likely_next_milestone": "Expand only after a focused source, ABI, workspace, and state audit.",
+      "evidence_source": "generated/safe-api/function-index.json"
     }
   ]
 }

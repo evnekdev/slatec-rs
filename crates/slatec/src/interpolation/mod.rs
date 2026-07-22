@@ -7,7 +7,7 @@
 //! `piecewise_polynomial`, and `tabulated`. Other interpolation families
 //! remain reserved until their storage and numerical contracts are audited.
 
-/// Approximation methods.
+/// Checked approximation and fitting methods.
 pub mod approximation;
 /// B-spline interpolation.
 pub mod bspline;

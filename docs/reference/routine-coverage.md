@@ -87,6 +87,21 @@ views record source hashes, raw and provider features, safe paths, test status,
 and an exact final disposition for each relevant identity. They do not infer a
 Fortran call graph where the committed authoritative inputs do not provide one.
 
+The [coverage taxonomy](../../generated/safe-api/coverage-taxonomy.md) keeps
+scalar and polynomial roots, nonlinear systems, nonlinear least squares,
+linear least squares, linear programming, interpolation, approximation and
+fitting, polynomial representation/evaluation, and spline
+representation/construction distinct. In particular, the nonlinear-objective
+view contains only genuine retained nonlinear objective-minimization or
+nonlinear-programming drivers; it does not count equation solvers,
+least-squares drivers, derivative checkers, or linear programs.
+
+The separate [roots-family audit](../../generated/safe-api/roots-family-audit.md)
+lists every retained Roots-family identity with provider, symbol, generated and
+reviewed declaration status, intended raw path, feature, documentation, test,
+and safe-coverage state. It explicitly records the absence of inferred f64 or
+Complex64 polynomial-root support.
+
 ## Callback-bearing raw interfaces
 
 The callback-specific public raw tier is source-reconstructed and

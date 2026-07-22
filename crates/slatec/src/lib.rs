@@ -129,6 +129,7 @@ pub mod polynomials;
     feature = "quadrature-piecewise-polynomial",
     feature = "roots-scalar",
     feature = "roots-polynomial",
+    feature = "approximation-polynomial-fitting",
     feature = "nonlinear-easy",
     feature = "nonlinear-expert",
     feature = "nonlinear-systems",

@@ -6,17 +6,17 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 
 | Status | Leaves |
 | --- | ---: |
-| Implemented | 33 |
+| Implemented | 34 |
 | Partial | 15 |
-| Planned | 17 |
+| Planned | 16 |
 | Deferred | 3 |
 | Unavailable | 0 |
 
 | Stability | Leaves |
 | --- | ---: |
 | Frozen | 10 |
-| Reserved | 65 |
-| Provisional | 3 |
+| Reserved | 66 |
+| Provisional | 2 |
 
 ## Leaf status
 
@@ -89,4 +89,4 @@ This generated roadmap distinguishes documentation placeholders from callable sa
 | interpolation | `interpolation::tabulated` | Reserved | Implemented | yes | `tabulated-data` | f32,f64 | std | SerializedGlobal | `none` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |
 | interpolation | `interpolation::divided_differences` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | No selected safe divided-difference family exists. | Audit a coherent family. |
 | interpolation | `interpolation::chebyshev` | Reserved | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | Interpolation uses need a distinct contract from scalar polynomial evaluation. | Audit Chebyshev interpolation. |
-| interpolation | `interpolation::approximation` | Provisional | Planned | no | `` | unreviewed | unreviewed | unreviewed | `` | The intended source-family boundary remains uncertain. | Complete approximation-family inventory. |
+| interpolation | `interpolation::approximation` | Reserved | Implemented | yes | `approximation-polynomial-fitting` | f32,f64 | std | SerializedGlobal | `slatec::interpolation::approximation` | None for the documented initial scope. | Expand only after a focused source, ABI, workspace, and state audit. |

@@ -61,6 +61,7 @@ use slatec_tools::safe_ode_sdrive;
 use slatec_tools::safe_pchip;
 use slatec_tools::safe_piecewise_polynomial;
 use slatec_tools::safe_pois3d;
+use slatec_tools::safe_polynomial_fit;
 use slatec_tools::safe_quadrature;
 use slatec_tools::safe_roots;
 use slatec_tools::safe_special;
@@ -278,6 +279,11 @@ fn run() -> Result<()> {
         options.output_dir = PathBuf::from("generated/safe-api");
     }
     if options.command == "generate-safe-tabulated-data-metadata"
+        && options.output_dir == std::path::Path::new("generated/corpus")
+    {
+        options.output_dir = PathBuf::from("generated/safe-api");
+    }
+    if options.command == "generate-safe-polynomial-fit-metadata"
         && options.output_dir == std::path::Path::new("generated/corpus")
     {
         options.output_dir = PathBuf::from("generated/safe-api");
@@ -1187,6 +1193,21 @@ fn run() -> Result<()> {
         }
         "generate-safe-tabulated-data-metadata" => {
             let result = safe_tabulated_data::generate(
+                &options.selected_corpus_dir,
+                &options.output_dir,
+                options.offline,
+            )?;
+            println!(
+                "success: snapshot {} ({}); reviewed roots {}; public operations {}",
+                result.snapshot_id,
+                result.semantic_hash,
+                result.routine_count,
+                result.operation_count,
+            );
+            Ok(())
+        }
+        "generate-safe-polynomial-fit-metadata" => {
+            let result = safe_polynomial_fit::generate(
                 &options.selected_corpus_dir,
                 &options.output_dir,
                 options.offline,

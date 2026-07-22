@@ -6,8 +6,8 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 
 - `blocked-by-safe-design`: 2
 - `covered-by-higher-level-safe-api`: 49
-- `direct-safe-wrapper`: 242
-- `expert-raw-only`: 214
+- `direct-safe-wrapper`: 248
+- `expert-raw-only`: 208
 - `intentionally-excluded-external-ecosystem`: 314
 
 ## Canonical raw routine records
@@ -362,7 +362,7 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `DNSQ` | `slatec_sys::nonlinear::dnsq` | Nonlinear equations | slatec::nonlinear::solve_system_expert; slatec::nonlinear::solve_system_with_jacobian | `direct-safe-wrapper` | nonlinear-expert | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DNSQE` | `slatec_sys::nonlinear::dnsqe` | Nonlinear equations | slatec::nonlinear::solve_system | `direct-safe-wrapper` | nonlinear-easy | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DOMN` | `slatec_sys::linear_algebra::sparse::callbacks::domn` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
-| `DP1VLU` | `slatec_sys::approximation::dp1vlu` | Approximation | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `DP1VLU` | `slatec_sys::approximation::dp1vlu` | Approximation | slatec::interpolation::approximation::PolynomialFit::evaluate; slatec::interpolation::approximation::PolynomialFit::evaluate_into; slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives | `direct-safe-wrapper` | approximation-polynomial-fitting | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPBCO` | `slatec_sys::linear_algebra::banded::dpbco` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `DPBDI` | `slatec_sys::linear_algebra::banded::dpbdi` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `DPBFA` | `slatec_sys::linear_algebra::banded::dpbfa` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
@@ -376,7 +376,7 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `DPCHID` | `slatec_sys::interpolation::dpchid` | PCHIP | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `DPCHIM` | `slatec_sys::interpolation::dpchim` | PCHIP | slatec::pchip::PiecewiseCubicHermite::monotone | `direct-safe-wrapper` | pchip | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPCHSP` | `slatec_sys::interpolation::dpchsp` | PCHIP | slatec::pchip::PiecewiseCubicHermite::spline | `direct-safe-wrapper` | pchip | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `DPCOEF` | `slatec_sys::approximation::dpcoef` | Approximation | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `DPCOEF` | `slatec_sys::approximation::dpcoef` | Approximation | slatec::interpolation::approximation::PolynomialFit::power_coefficients; slatec::interpolation::approximation::PolynomialFit::power_coefficients_at | `direct-safe-wrapper` | approximation-polynomial-fitting | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPFQAD` | `slatec_sys::quadrature::dpfqad` | Numerical quadrature | slatec::quadrature::integrate_piecewise_polynomial | `direct-safe-wrapper` | quadrature-piecewise-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPLINT` | `slatec_sys::interpolation::dplint` | Interpolation | slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial | `direct-safe-wrapper` | tabulated-data | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPOCH` | `slatec_sys::special::dpoch` | Special functions | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
@@ -386,7 +386,7 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `DPOFA` | `slatec_sys::linear_algebra::dense::dpofa` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `DPOFS` | `slatec_sys::linear_algebra::dense::dpofs` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `DPOLCF` | `slatec_sys::interpolation::dpolcf` | Interpolation | slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at | `direct-safe-wrapper` | tabulated-data | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `DPOLFT` | `slatec_sys::approximation::dpolft` | Approximation | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `DPOLFT` | `slatec_sys::approximation::dpolft` | Approximation | slatec::interpolation::approximation::PolynomialFit::fit; slatec::interpolation::approximation::PolynomialFit::fit_weighted | `direct-safe-wrapper` | approximation-polynomial-fitting | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPOLVL` | `slatec_sys::interpolation::dpolvl` | Interpolation | slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate; slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives | `direct-safe-wrapper` | tabulated-data | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `DPOSL` | `slatec_sys::linear_algebra::dense::dposl` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
 | `DPPCO` | `slatec_sys::linear_algebra::packed::dppco` | Dense linear algebra | — | `intentionally-excluded-external-ecosystem` | — | — | `retain_raw_only` | `none` |
@@ -585,20 +585,20 @@ Every canonical public raw routine has exactly one safe-coverage disposition. A 
 | `PCHID` | `slatec_sys::interpolation::pchid` | PCHIP | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `PCHIM` | `slatec_sys::interpolation::pchim` | PCHIP | slatec::pchip::PiecewiseCubicHermite::monotone | `direct-safe-wrapper` | pchip | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `PCHSP` | `slatec_sys::interpolation::pchsp` | PCHIP | slatec::pchip::PiecewiseCubicHermite::spline | `direct-safe-wrapper` | pchip | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `PCOEF` | `slatec_sys::approximation::pcoef` | Approximation | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `PCOEF` | `slatec_sys::approximation::pcoef` | Approximation | slatec::interpolation::approximation::PolynomialFit::power_coefficients; slatec::interpolation::approximation::PolynomialFit::power_coefficients_at | `direct-safe-wrapper` | approximation-polynomial-fitting | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `POCH` | `slatec_sys::special::poch` | Special functions | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `POCH1` | `slatec_sys::special::poch1` | Special functions | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `POIS3D` | `slatec_sys::pde::fishpack::pois3d` | FISHPACK elliptic PDE solvers | slatec::differential_equations::pde::Pois3dProblem::solve | `direct-safe-wrapper` | fishpack-pois3d | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `POISTG` | `slatec_sys::pde::fishpack::poistg` | FISHPACK elliptic PDE solvers | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
 | `POLCOF` | `slatec_sys::interpolation::polcof` | Interpolation | slatec::interpolation::tabulated::InterpolatingPolynomial::taylor_coefficients_at | `direct-safe-wrapper` | tabulated-data | — | `maintain_checked_safe_wrapper` | `maintain` |
-| `POLFIT` | `slatec_sys::approximation::polfit` | Approximation | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `POLFIT` | `slatec_sys::approximation::polfit` | Approximation | slatec::interpolation::approximation::PolynomialFit::fit; slatec::interpolation::approximation::PolynomialFit::fit_weighted | `direct-safe-wrapper` | approximation-polynomial-fitting | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `POLINT` | `slatec_sys::interpolation::polint` | Interpolation | slatec::interpolation::tabulated::TabulatedData::interpolating_polynomial | `direct-safe-wrapper` | tabulated-data | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `POLYVL` | `slatec_sys::interpolation::polyvl` | Interpolation | slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate; slatec::interpolation::tabulated::InterpolatingPolynomial::evaluate_with_derivatives | `direct-safe-wrapper` | tabulated-data | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `PPQAD` | `slatec_sys::quadrature::ppqad` | Numerical quadrature | slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::integrate | `direct-safe-wrapper` | piecewise-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `PPVAL` | `slatec_sys::interpolation::ppval` | Interpolation | slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::derivative; slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate; slatec::interpolation::piecewise_polynomial::PiecewisePolynomial::evaluate_into | `direct-safe-wrapper` | piecewise-polynomial | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `PSI` | `slatec_sys::special::gamma::psi` | Special functions | slatec::special::gamma::digamma_f32 | `direct-safe-wrapper` | special | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `PSIFN` | `slatec_sys::special::psifn` | Special functions | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
-| `PVALUE` | `slatec_sys::approximation::pvalue` | Approximation | — | `expert-raw-only` | — | — | `retain_raw_only_pending_family_review` | `none` |
+| `PVALUE` | `slatec_sys::approximation::pvalue` | Approximation | slatec::interpolation::approximation::PolynomialFit::evaluate; slatec::interpolation::approximation::PolynomialFit::evaluate_into; slatec::interpolation::approximation::PolynomialFit::evaluate_with_derivatives | `direct-safe-wrapper` | approximation-polynomial-fitting | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `QAG` | `slatec_sys::quadrature::qag` | Numerical quadrature | slatec::quadrature::integrate_f32 | `direct-safe-wrapper` | quadrature-basic | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `QAGI` | `slatec_sys::quadrature::qagi` | Numerical quadrature | slatec::quadrature::integrate_infinite_f32 | `direct-safe-wrapper` | quadrature-basic | — | `maintain_checked_safe_wrapper` | `maintain` |
 | `QAGIE` | `slatec_sys::quadrature::callbacks::qagie` | Numerical quadrature | — | `covered-by-higher-level-safe-api` | — | slatec::quadrature options-based adaptive integration | `maintain_higher_level_abstraction` | `maintain` |
