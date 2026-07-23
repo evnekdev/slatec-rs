@@ -9,13 +9,15 @@
 use crate::error::{CorpusError, Result};
 use crate::hash;
 use crate::release_readiness;
+use flate2::Compression;
 use flate2::read::GzDecoder;
+use flate2::write::GzEncoder;
 use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::Path;
 use std::process::Command;
-use tar::Archive;
+use tar::{Archive, Builder, Header};
 
 const RELEASE_VERSION: &str = "0.1.0";
 const CRATES_IO_COMPRESSED_LIMIT_BYTES: u64 = 10 * 1024 * 1024;
@@ -442,6 +444,7 @@ fn audit_package(root: &Path, package: &str, cargo_home: &Path, vendor: &Path) -
         .join(format!("{package}-{RELEASE_VERSION}.crate"));
     let bytes = fs::read(&archive_path)?;
     let archive_hash = hash::bytes(&bytes);
+    let (canonical_size, canonical_hash) = canonical_archive_metrics(&bytes)?;
     let unpacked = vendor.join(format!("{package}-{RELEASE_VERSION}"));
     Archive::new(GzDecoder::new(bytes.as_slice())).unpack(vendor)?;
     write_directory_checksum(&unpacked, &archive_hash)?;
@@ -501,9 +504,10 @@ fn audit_package(root: &Path, package: &str, cargo_home: &Path, vendor: &Path) -
     Ok(json!({
         "crate":package,
         "archive":format!("target/package/{package}-{RELEASE_VERSION}.crate"),
-        "compressed_size_bytes":compressed_size,
-        "compressed_size_within_limit":compressed_size <= CRATES_IO_COMPRESSED_LIMIT_BYTES,
-        "sha256":archive_hash,
+        "canonical_compressed_size_bytes":canonical_size,
+        "canonical_sha256":canonical_hash,
+        "cargo_vcs_receipt_excluded_from_canonical_metrics":true,
+        "actual_compressed_size_within_limit":compressed_size <= CRATES_IO_COMPRESSED_LIMIT_BYTES,
         "file_count":files.len(),
         "missing_required_files":missing_required,
         "missing_runtime_license_files":missing_runtime_licenses,
@@ -511,6 +515,93 @@ fn audit_package(root: &Path, package: &str, cargo_home: &Path, vendor: &Path) -
         "packaged_manifest_has_no_path_or_git_dependencies":no_workspace_or_git_dependency,
         "result":if result { "pass" } else { "fail" },
     }))
+}
+
+/// Produces stable package metrics while ignoring Cargo's volatile Git receipt.
+///
+/// Cargo embeds the current commit in `.cargo_vcs_info.json`. That receipt is
+/// valuable in the package itself, but its changing SHA makes raw compressed
+/// bytes and hashes impossible to commit as deterministic evidence. The actual
+/// archive is still checked against crates.io's size limit; the committed
+/// metrics are a fixed gzip/tar representation of every other packaged file.
+fn canonical_archive_metrics(bytes: &[u8]) -> Result<(u64, String)> {
+    let mut entries = BTreeMap::<String, Vec<u8>>::new();
+    let mut archive = Archive::new(GzDecoder::new(bytes));
+    for entry in archive.entries()? {
+        let mut entry = entry?;
+        if !entry.header().entry_type().is_file() {
+            continue;
+        }
+        let path = entry.path()?.to_string_lossy().replace('\\', "/");
+        let relative = path
+            .split_once('/')
+            .map(|(_, relative)| relative.to_owned())
+            .ok_or_else(|| policy(&format!("package member lacks root directory: {path}")))?;
+        if relative == ".cargo_vcs_info.json" {
+            continue;
+        }
+        let mut contents = Vec::new();
+        use std::io::Read;
+        entry.read_to_end(&mut contents)?;
+        entries.insert(relative, contents);
+    }
+
+    let encoder = GzEncoder::new(Vec::new(), Compression::best());
+    let mut archive = Builder::new(encoder);
+    for (path, contents) in entries {
+        let mut header = Header::new_gnu();
+        header.set_size(contents.len() as u64);
+        header.set_mode(0o644);
+        header.set_uid(0);
+        header.set_gid(0);
+        header.set_mtime(0);
+        header.set_cksum();
+        archive.append_data(&mut header, path, contents.as_slice())?;
+    }
+    let encoder = archive.into_inner()?;
+    let canonical = encoder.finish()?;
+    Ok((canonical.len() as u64, hash::bytes(&canonical)))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn package_with_vcs_receipt(revision: &str) -> Vec<u8> {
+        let encoder = GzEncoder::new(Vec::new(), Compression::best());
+        let mut archive = Builder::new(encoder);
+        for (path, contents) in [
+            ("example-0.1.0/src/lib.rs", "pub fn value() {}\n"),
+            ("example-0.1.0/.cargo_vcs_info.json", revision),
+        ] {
+            let mut header = Header::new_gnu();
+            header.set_size(contents.len() as u64);
+            header.set_mode(0o644);
+            header.set_uid(0);
+            header.set_gid(0);
+            header.set_mtime(0);
+            header.set_cksum();
+            archive
+                .append_data(&mut header, path, contents.as_bytes())
+                .expect("test archive entry should be valid");
+        }
+        archive
+            .into_inner()
+            .expect("test tar should finalize")
+            .finish()
+            .expect("test gzip should finalize")
+    }
+
+    #[test]
+    fn canonical_metrics_ignore_cargo_vcs_receipt() {
+        let first = package_with_vcs_receipt("{\"git\":{\"sha1\":\"a\"}}\n");
+        let second = package_with_vcs_receipt("{\"git\":{\"sha1\":\"b\"}}\n");
+        assert_ne!(hash::bytes(&first), hash::bytes(&second));
+        assert_eq!(
+            canonical_archive_metrics(&first).expect("first metrics"),
+            canonical_archive_metrics(&second).expect("second metrics")
+        );
+    }
 }
 
 fn write_directory_checksum(directory: &Path, package_hash: &str) -> Result<()> {
@@ -722,12 +813,12 @@ fn render_markdown(audit: &Value, packages: &[Value], carriers: &[Value]) -> Str
         "Independent local status: **{}**. This report is deliberately package-first and does not treat a generated release-readiness report as proof of itself.\n\n",
         audit["status"].as_str().unwrap_or("fail")
     ));
-    output.push_str("## Packaged crates\n\n| Crate | Compressed bytes | Files | Result |\n| --- | ---: | ---: | --- |\n");
+    output.push_str("## Packaged crates\n\n| Crate | Canonical compressed bytes | Files | Result |\n| --- | ---: | ---: | --- |\n");
     for package in packages {
         output.push_str(&format!(
             "| `{}` | {} | {} | {} |\n",
             package["crate"].as_str().unwrap_or("unknown"),
-            package["compressed_size_bytes"]
+            package["canonical_compressed_size_bytes"]
                 .as_u64()
                 .unwrap_or_default(),
             package["file_count"].as_u64().unwrap_or_default(),

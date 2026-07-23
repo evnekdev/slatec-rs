@@ -178,13 +178,13 @@ pub fn validate(root: &Path, output_dir: &Path) -> Result<PackageAuditResult> {
         }));
     }
     let layers = publication_layers(&publishable, &dependency_edges)?;
-    let release_version = workspace_package
+    let _release_version = workspace_package
         .get("version")
         .and_then(toml::Value::as_str)
         .ok_or_else(|| policy("workspace.package.version metadata is missing"))?;
     let package_dry_runs = publishable
         .iter()
-        .map(|name| package_dry_run(root, name, release_version))
+        .map(|name| package_dry_run(root, name))
         .collect::<Result<Vec<_>>>()?;
     let links_owners = package_records
         .iter()
@@ -733,7 +733,7 @@ fn docs_feature_visibility(root: &Path) -> Result<Value> {
     }))
 }
 
-fn package_dry_run(root: &Path, name: &str, version: &str) -> Result<Value> {
+fn package_dry_run(root: &Path, name: &str) -> Result<Value> {
     let output = Command::new("cargo")
         .args(["package", "-p", name, "--allow-dirty", "--offline"])
         .current_dir(root)
@@ -741,13 +741,9 @@ fn package_dry_run(root: &Path, name: &str, version: &str) -> Result<Value> {
     let stderr = String::from_utf8_lossy(&output.stderr);
     let stdout = String::from_utf8_lossy(&output.stdout);
     if output.status.success() {
-        let artifact = root
-            .join("target/package")
-            .join(format!("{name}-{version}.crate"));
         return Ok(json!({
             "crate":name,
             "status":"passed_offline_prepublication",
-            "package_size_bytes":fs::metadata(artifact).ok().map(|metadata| metadata.len()),
             "detail":"Cargo packaged and verified this independent publication-layer crate from its package contents."
         }));
     }
@@ -756,7 +752,6 @@ fn package_dry_run(root: &Path, name: &str, version: &str) -> Result<Value> {
         return Ok(json!({
             "crate":name,
             "status":"blocked_until_publication_prerequisite_exists",
-            "package_size_bytes":Value::Null,
             "prerequisite":prerequisite,
             "detail":"Cargo package verification resolves registry dependencies rather than workspace paths; this is expected before the preceding publication layer is uploaded. The registry-only downstream simulation is the complete pre-publication proof."
         }));
